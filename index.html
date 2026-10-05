@@ -89,6 +89,105 @@
         </div>
 
         <!-- Showcase Stage Container with Overlapping Floating Market Cards -->
+
+        <!-- Capabilities Bento Section (Quick Modules Overview) -->
+        <div class="bento-section" style="width: 100%; max-width: 1040px; margin: 0 auto 40px;">
+          <div class="editorial-divider"></div>
+          <div class="bento-head">
+            <span class="bento-num">KAPABILITAS SISTEM</span>
+            <h2>Fondasi Jurnal Trading Berstandar Institusional</h2>
+          </div>
+          <div class="bento-grid">
+            <div class="bento-card" onclick="switchTab('jurnal')">
+              <div>
+                <span class="bento-badge">Pencatatan & Impor</span>
+                <h3>Unggah Berkas Multi-Format</h3>
+                <p>Mendukung pencatatan cepat serta impor berkas PDF statement akun broker, berkas teks TXT, tabel Excel/CSV, dan screenshot chart PNG.</p>
+              </div>
+              <div class="bento-link">Buka Jurnal Trade ↗</div>
+            </div>
+            <div class="bento-card" onclick="switchTab('statistik')">
+              <div>
+                <span class="bento-badge">Analitik Probabilitas</span>
+                <h3>Statistik & Kurva Ekuitas</h3>
+                <p>Kalkulasi otomatis Win Rate, Profit Factor, Rasio R:R rata-rata, Max Drawdown, dan nilai harapan matematis (Expectancy) per trade.</p>
+              </div>
+              <div class="bento-link">Eksplorasi Statistik ↗</div>
+            </div>
+            <div class="bento-card" onclick="switchTab('kalkulator')">
+              <div>
+                <span class="bento-badge">Manajemen Risiko</span>
+                <h3>Kalkulator Lot & Pip Presisi</h3>
+                <p>Simulasi nilai pip, penentuan ukuran lot presisi dari persentase toleransi risiko saldo akun, dan evaluasi rasio Risk to Reward.</p>
+              </div>
+              <div class="bento-link">Gunakan Kalkulator ↗</div>
+            </div>
+            <div class="bento-card" onclick="switchTab('berita')">
+              <div>
+                <span class="bento-badge">Intelijen Pasar</span>
+                <h3>Berita Real-Time & Kalender Makro</h3>
+                <p>Pantau rilis data makro ekonomi berdampak tinggi (CPI, NFP, Suku Bunga Fed) dan analisis sentimen likuiditas likuiditas pasar.</p>
+              </div>
+              <div class="bento-link">Baca Berita Ekonomi ↗</div>
+            </div>
+          </div>
+        </div>
+
+
+        <div class="home-guide">
+          <section class="home-info" aria-labelledby="workflow-title">
+            <p class="home-eyebrow">CATAT · PAHAMI · EVALUASI</p>
+            <h2 id="workflow-title">Jadikan setiap trade bahan belajar.</h2>
+            <p class="home-lead">Catatan yang konsisten membantu Anda melihat hubungan antara rencana, eksekusi, dan hasil. Mulai dari satu posisi, lalu bangun kebiasaan evaluasi yang bisa diulang.</p>
+            <div class="home-columns">
+              <article><span class="home-step">01</span><h3>Sebelum masuk pasar</h3><p>Tulis market, arah posisi, harga entry, stop loss, dan target. Catat alasan setup serta kondisi yang membuat rencana Anda tidak lagi valid.</p></article>
+              <article><span class="home-step">02</span><h3>Setelah posisi ditutup</h3><p>Lengkapi hasil Win, Loss, atau BE. Tambahkan strategi dan catatan eksekusi: apakah Anda mengikuti rencana, memindahkan stop loss, atau keluar terlalu cepat?</p></article>
+              <article><span class="home-step">03</span><h3>Evaluasi secara berkala</h3><p>Buka Statistik untuk meninjau hasil kumpulan trade. Bandingkan strategi dan market, lalu tentukan satu perubahan yang ingin Anda terapkan pada sesi berikutnya.</p></article>
+            </div>
+            <button type="button" class="btn-pill-white" onclick="switchTab('jurnal'); openQuickTrade();">Catat trade pertama</button>
+          </section>
+          <section class="home-info" aria-labelledby="metrics-title">
+            <p class="home-eyebrow">MEMBACA KINERJA</p>
+            <h2 id="metrics-title">Lihat proses di balik angka.</h2>
+            <div class="home-columns home-columns-two">
+              <article><h3>Win rate</h3><p>Persentase trade yang berakhir menang. Gunakan bersama ukuran keuntungan dan kerugian; persentase menang saja belum menjelaskan hasil keseluruhan.</p></article>
+              <article><h3>Profit factor</h3><p>Perbandingan total profit dari posisi menang dengan total kerugian. Jika belum ada posisi rugi, rasio belum cukup untuk menilai kestabilan strategi.</p></article>
+              <article><h3>Kurva ekuitas</h3><p>Gambaran perubahan saldo berdasarkan catatan posisi. Perhatikan periode penurunan dan pemulihan, bukan hanya titik akhir kurva.</p></article>
+              <article><h3>Drawdown</h3><p>Penurunan saldo dari puncaknya. Tinjau bersama risiko per posisi untuk memahami seberapa besar rangkaian kerugian memengaruhi akun.</p></article>
+            </div>
+            <button type="button" class="btn-pill-dark" onclick="switchTab('statistik');">Buka statistik jurnal</button>
+          </section>
+          <section class="home-info" aria-labelledby="risk-title">
+            <p class="home-eyebrow">RENCANA RISIKO</p>
+            <h2 id="risk-title">Tentukan batas sebelum eksekusi.</h2>
+            <p class="home-lead">Gunakan Kalkulator untuk menghitung ukuran lot dari saldo, persentase risiko, dan jarak stop loss. Cocokkan spesifikasi kontrak dengan broker Anda sebelum memakai hasil perhitungan.</p>
+            <div class="home-columns">
+              <article><h3>Risiko per posisi</h3><p>Tentukan nominal maksimum yang bersedia Anda tanggung jika harga mencapai stop loss. Catat persentasenya agar ukuran posisi bisa dibandingkan antartrade.</p></article>
+              <article><h3>Rasio risk to reward</h3><p>Bandingkan jarak target profit dengan jarak stop loss. Target yang jauh tetap membutuhkan alasan setup dan kondisi pasar yang mendukung.</p></article>
+              <article><h3>Biaya eksekusi</h3><p>Spread, komisi, swap, dan slippage dapat mengubah hasil nyata. Perhitungan jurnal merupakan estimasi berdasarkan data yang Anda masukkan.</p></article>
+            </div>
+            <button type="button" class="btn-pill-dark" onclick="switchTab('kalkulator');">Hitung ukuran posisi</button>
+          </section>
+          <section class="home-info" aria-labelledby="review-title">
+            <p class="home-eyebrow">RUTINITAS MINGGUAN</p>
+            <h2 id="review-title">Tutup minggu dengan catatan yang jelas.</h2>
+            <ol class="home-review">
+              <li><h3>Periksa kelengkapan jurnal</h3><p>Pastikan entry, stop loss, target, hasil, dan alasan eksekusi tercatat. Catatan yang kosong membuat evaluasi sulit dibandingkan.</p></li>
+              <li><h3>Cari pola yang berulang</h3><p>Filter berdasarkan market, hasil, dan strategi. Perhatikan apakah kerugian muncul pada setup tertentu atau ketika aturan eksekusi dilanggar.</p></li>
+              <li><h3>Pilih satu perbaikan</h3><p>Tulis tindakan yang konkret untuk minggu berikutnya, seperti selalu menambahkan alasan entry atau mengecek risiko sebelum membuka posisi.</p></li>
+              <li><h3>Simpan cadangan</h3><p>Ekspor backup JSON lewat Profil. Simpan salinannya agar catatan dapat dipulihkan saat berganti perangkat atau data browser terhapus.</p></li>
+            </ol>
+          </section>
+          <section class="home-info home-faq" aria-labelledby="faq-title">
+            <p class="home-eyebrow">PERTANYAAN UMUM</p>
+            <h2 id="faq-title">Kenali cara kerja jurnal Anda.</h2>
+            <details><summary>Di mana catatan saya disimpan?</summary><p>Catatan tersimpan di localStorage browser pada perangkat ini. Data belum tersinkron otomatis ke perangkat lain. Gunakan backup JSON untuk memindahkan atau memulihkannya.</p></details>
+            <details><summary>Apakah angka profit sama dengan laporan broker?</summary><p>Angka profit dihitung dari data posisi dan spesifikasi instrumen aplikasi. Biaya broker serta kondisi eksekusi dapat membuat hasil berbeda. Gunakan laporan broker sebagai rujukan hasil aktual.</p></details>
+            <details><summary>Bagaimana memulai tanpa data trade?</summary><p>Anda dapat melihat data demo, lalu menambahkan catatan Anda sendiri dari menu Jurnal. Data contoh bukan rekam jejak hasil akun Anda.</p></details>
+            <details><summary>Apakah screenshot langsung menjadi jurnal lengkap?</summary><p>Fitur screenshot saat ini membuat entri contoh dan belum mengekstrak data chart. Periksa dan edit semua nilai sebelum memakai entri tersebut untuk evaluasi.</p></details>
+            <details><summary>Apakah login Google sudah tersedia?</summary><p>Autentikasi Google dan penyimpanan cloud belum dihubungkan. Profil yang tersedia saat ini adalah profil lokal browser.</p></details>
+          </section>
+        </div>
         <div class="showcase-stage-container">
           
           <!-- Mobile Strip for Floating Cards (Visible on screens < 992px) -->
@@ -372,50 +471,6 @@
           </div>
 
         </div>
-
-        <!-- Capabilities Bento Section (Quick Modules Overview) -->
-        <div class="bento-section" style="width: 100%; max-width: 1040px; margin: 0 auto 40px;">
-          <div class="editorial-divider"></div>
-          <div class="bento-head">
-            <span class="bento-num">KAPABILITAS SISTEM</span>
-            <h2>Fondasi Jurnal Trading Berstandar Institusional</h2>
-          </div>
-          <div class="bento-grid">
-            <div class="bento-card" onclick="switchTab('jurnal')">
-              <div>
-                <span class="bento-badge">Pencatatan & Impor</span>
-                <h3>Unggah Berkas Multi-Format</h3>
-                <p>Mendukung pencatatan cepat serta impor berkas PDF statement akun broker, berkas teks TXT, tabel Excel/CSV, dan screenshot chart PNG.</p>
-              </div>
-              <div class="bento-link">Buka Jurnal Trade ↗</div>
-            </div>
-            <div class="bento-card" onclick="switchTab('statistik')">
-              <div>
-                <span class="bento-badge">Analitik Probabilitas</span>
-                <h3>Statistik & Kurva Ekuitas</h3>
-                <p>Kalkulasi otomatis Win Rate, Profit Factor, Rasio R:R rata-rata, Max Drawdown, dan nilai harapan matematis (Expectancy) per trade.</p>
-              </div>
-              <div class="bento-link">Eksplorasi Statistik ↗</div>
-            </div>
-            <div class="bento-card" onclick="switchTab('kalkulator')">
-              <div>
-                <span class="bento-badge">Manajemen Risiko</span>
-                <h3>Kalkulator Lot & Pip Presisi</h3>
-                <p>Simulasi nilai pip, penentuan ukuran lot presisi dari persentase toleransi risiko saldo akun, dan evaluasi rasio Risk to Reward.</p>
-              </div>
-              <div class="bento-link">Gunakan Kalkulator ↗</div>
-            </div>
-            <div class="bento-card" onclick="switchTab('berita')">
-              <div>
-                <span class="bento-badge">Intelijen Pasar</span>
-                <h3>Berita Real-Time & Kalender Makro</h3>
-                <p>Pantau rilis data makro ekonomi berdampak tinggi (CPI, NFP, Suku Bunga Fed) dan analisis sentimen likuiditas likuiditas pasar.</p>
-              </div>
-              <div class="bento-link">Baca Berita Ekonomi ↗</div>
-            </div>
-          </div>
-        </div>
-
       </div>
     </section>
 

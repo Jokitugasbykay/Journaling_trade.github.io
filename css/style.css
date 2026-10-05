@@ -3613,3 +3613,22 @@
         font-size: 12.5px;
       }
     }
+    .home-guide { width: 100%; max-width: 1040px; margin: 0 auto; text-align: left; }
+    .home-info { padding: 72px 0; border-top: 1px solid var(--line, #292d35); }
+    .home-eyebrow { margin: 0 0 18px; color: var(--text-muted, #a0a8b7); font-size: 12px; letter-spacing: .12em; }
+    .home-info h2 { max-width: 760px; margin: 0 0 24px; font-size: clamp(28px, 3.2vw, 42px); line-height: 1.2; text-wrap: balance; }
+    .home-lead { max-width: 740px; margin-bottom: 32px; font-size: 17px; line-height: 1.8; color: #b7becb; }
+    .home-columns { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 32px; margin: 36px 0; }
+    .home-columns-two { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .home-info h3 { margin: 12px 0; font-size: 19px; line-height: 1.4; }
+    .home-info article p, .home-review p, .home-faq details p { margin: 0; color: #b7becb; font-size: 16px; line-height: 1.8; }
+    .home-step { color: #a0a8b7; font-size: 14px; font-family: var(--mono, monospace); }
+    .home-review { padding-left: 24px; display: grid; gap: 24px; max-width: 800px; }
+    .home-review li { padding-left: 12px; }
+    .home-faq details { border-bottom: 1px solid var(--line, #292d35); padding: 0 0 20px; margin-top: 20px; }
+    .home-faq summary { cursor: pointer; min-height: 44px; font-size: 18px; line-height: 1.5; padding: 8px 0; }
+    .home-guide :focus-visible { outline: 2px solid #fff; outline-offset: 5px; }
+    @media (max-width: 700px) {
+      .home-info { padding: 48px 0; }
+      .home-columns, .home-columns-two { grid-template-columns: 1fr; gap: 24px; }
+    }
