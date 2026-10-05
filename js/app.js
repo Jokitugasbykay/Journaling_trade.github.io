@@ -11,7 +11,7 @@
       let accounts = [];
       let trades = [];
       let settings = { kurs: 17000, billingAnnual: false };
-      let profile = { name: 'Radit', currentAccount: 'demo_acc' };
+      let profile = { name: 'Trader', currentAccount: 'demo_acc' };
       let currentEditingTradeId = null;
       let parsedTradesToImport = [];
 
@@ -57,6 +57,10 @@
           if (setRaw) { const value = JSON.parse(setRaw); if (value && typeof value === 'object' && !Array.isArray(value)) settings = { kurs: Number(value.kurs) || 17000, billingAnnual: !!value.billingAnnual }; }
           if (profRaw) { const value = JSON.parse(profRaw); if (value && typeof value === 'object' && !Array.isArray(value)) profile = { name: String(value.name || 'Trader').slice(0, 80), currentAccount: safeId(value.currentAccount) }; }
 
+          if (/^(radit|ratib)$/i.test(profile.name.trim())) {
+            profile.name = 'Trader';
+            saveData();
+          }
           if (!accounts.length || !trades || !trades.length) {
             const initial = getInitialDemoData();
             if (!accounts.length) accounts = [initial.acc];
@@ -1398,11 +1402,11 @@
          PROFIL & MULTI-ACCOUNT MANAGEMENT
          ==================================================================== */
       window.renderProfileView = function () {
-        $('p-trader-name').value = profile.name || 'Radit';
+        $('p-trader-name').value = profile.name || 'Trader';
         $('p-kurs-input').value = settings.kurs || 17000;
 
         // Trader Passport Card updates
-        const traderName = profile.name || 'Radit';
+        const traderName = profile.name || 'Trader';
         if ($('tpc-display-name')) $('tpc-display-name').textContent = traderName;
         if ($('tpc-avatar-initials')) {
           const initials = traderName.split(' ').map(s => s[0]).join('').slice(0, 2).toUpperCase() || 'TR';
