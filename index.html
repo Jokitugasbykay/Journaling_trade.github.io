@@ -1,0 +1,1791 @@
+<!DOCTYPE html>
+<html lang="id" data-theme="dark">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>journalingtrade · Professional Trading Journal & Analytics</title>
+  <meta name="description" content="Platform jurnal trading presisi, analitik statistik mendalam, kalkulator risiko, dan wawasan ekonomi pasar finansial.">
+  <link rel="icon" href="data:,">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+  <!-- Top Navigation Bar (OpenAI Minimalist Black Header Style) -->
+  <header class="navbar">
+    <div class="navbar-left">
+      <div class="brand-logo" onclick="switchTab('beranda')">
+        <span class="brand-name">journalingtrade</span>
+      </div>
+
+      <!-- Main Navigation Menu Links -->
+      <nav class="nav-tabs" aria-label="Main Navigation">
+        <button class="nav-tab active" data-tab="beranda" onclick="switchTab('beranda')">Beranda</button>
+        <button class="nav-tab" data-tab="jurnal" onclick="switchTab('jurnal')">Jurnal</button>
+        <button class="nav-tab" data-tab="statistik" onclick="switchTab('statistik')">Statistik</button>
+        <button class="nav-tab" data-tab="kalkulator" onclick="switchTab('kalkulator')">Kalkulator</button>
+        <button class="nav-tab" data-tab="berita" onclick="switchTab('berita')">Berita Ekonomi</button>
+      </nav>
+    </div>
+
+    <!-- Right Header CTA Group -->
+    <div class="navbar-right">
+      <div class="nav-dropdown-wrap">
+        <button class="nav-btn-masuk" id="btn-nav-masuk" onclick="toggleNavAccountDropdown(event)" type="button">
+          <span>Masuk</span>
+          <svg class="chevron-down" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="6 9 12 15 18 9"></polyline>
+          </svg>
+        </button>
+        <div class="nav-dropdown-menu" id="nav-account-dropdown" hidden>
+          <div class="nav-dd-header">
+            <span class="nav-dd-user" id="nav-dd-username">Radit (demo_acc)</span>
+            <span class="nav-dd-role">Trader Mandiri · Disiplin Grade A</span>
+          </div>
+          <div class="nav-dd-divider"></div>
+          <button type="button" class="nav-dd-item" onclick="switchTab('profil'); closeNavAccountDropdown();">
+            <span>⚙️ Pengaturan Profil</span>
+          </button>
+          <button type="button" class="nav-dd-item" onclick="switchTab('jurnal'); closeNavAccountDropdown();">
+            <span>📓 Buka Jurnal Trade</span>
+          </button>
+          <button type="button" class="nav-dd-item" onclick="switchTab('statistik'); closeNavAccountDropdown();">
+            <span>📈 Performa & Statistik</span>
+          </button>
+        </div>
+      </div>
+
+      <button class="nav-btn-coba" onclick="switchTab('jurnal'); if(window.openQuickTrade) openQuickTrade();" type="button">
+        <span>Mulai Jurnal</span>
+        <span class="nav-arrow">↗</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Main Content Wrap -->
+  <main class="main-wrap">
+
+    <!-- ====================================================================
+         VIEW 1: BERANDA (OPENAI ASTRA EDITORIAL STYLE HERO & PRICING SECTION)
+         ==================================================================== -->
+    <section class="view-content active" id="view-beranda">
+      <!-- Centered Minimalist Hero Header -->
+      <div class="hero-stage-wrap">
+        <h1 class="hero-title-main">
+          Discipline in Every Execution.<br>
+          Clarity in Every Trade.
+        </h1>
+        <p class="hero-subtitle-main">
+          Transform your trading journey with a disciplined journaling practice.
+        </p>
+        <div class="hero-cta-group">
+          <button class="btn-pill-white" onclick="switchTab('jurnal'); openQuickTrade();">Mulai Jurnal</button>
+          <button class="btn-pill-dark" onclick="switchTab('statistik');">Eksplorasi</button>
+        </div>
+
+        <!-- Showcase Stage Container with Overlapping Floating Market Cards -->
+        <div class="showcase-stage-container">
+          
+          <!-- Mobile Strip for Floating Cards (Visible on screens < 992px) -->
+          <div class="fc-mobile-strip">
+            <!-- Mobile Card 1: XAUUSD -->
+            <div class="floating-market-card" onclick="openTradingView('OANDA:XAUUSD')" title="Klik untuk lihat Chart TradingView">
+              <div class="fmc-top">
+                <div class="fmc-asset">
+                  <div class="fmc-icon gold">🪙</div>
+                  <div class="fmc-names">
+                    <span class="fmc-symbol">XAUUSD</span>
+                    <span class="fmc-sub">XAUUSD</span>
+                  </div>
+                </div>
+                <div class="fmc-top-stat">
+                  <div class="fmc-stat-val">$35.85</div>
+                  <div class="fmc-stat-sub">+2.26%</div>
+                </div>
+              </div>
+              <div class="fmc-bottom">
+                <span class="fmc-price">2,305.00</span>
+                <svg viewBox="0 0 60 22" class="fmc-sparkline">
+                  <path d="M2,16 Q15,6 28,12 T46,4 T58,2" fill="none" stroke="#10b981" stroke-width="2" stroke-linecap="round"/>
+                  <circle cx="58" cy="2" r="2.5" fill="#10b981"/>
+                </svg>
+                <span class="fmc-badge green">+0.33%</span>
+              </div>
+            </div>
+
+            <!-- Mobile Card 2: EURUSD -->
+            <div class="floating-market-card" onclick="openTradingView('FX:EURUSD')" title="Klik untuk lihat Chart TradingView">
+              <div class="fmc-top">
+                <div class="fmc-asset">
+                  <div class="fmc-icon eur">💶</div>
+                  <div class="fmc-names">
+                    <span class="fmc-symbol">EURUSD</span>
+                    <span class="fmc-sub">EURUSD</span>
+                  </div>
+                </div>
+                <div class="fmc-top-stat">
+                  <div class="fmc-stat-val">$0.883</div>
+                  <div class="fmc-stat-sub red">+2.07%</div>
+                </div>
+              </div>
+              <div class="fmc-bottom">
+                <span class="fmc-price">0.93337</span>
+                <svg viewBox="0 0 60 22" class="fmc-sparkline">
+                  <path d="M2,6 Q15,10 28,8 T45,17 T58,19" fill="none" stroke="#ef4444" stroke-width="2" stroke-linecap="round"/>
+                  <circle cx="58" cy="19" r="2.5" fill="#ef4444"/>
+                </svg>
+                <span class="fmc-badge red">-1.55%</span>
+              </div>
+            </div>
+
+            <!-- Mobile Card 3: GBPUSD -->
+            <div class="floating-market-card" onclick="openTradingView('FX:GBPUSD')" title="Klik untuk lihat Chart TradingView">
+              <div class="fmc-top">
+                <div class="fmc-asset">
+                  <div class="fmc-icon flag">💱</div>
+                  <div class="fmc-names">
+                    <span class="fmc-symbol">XAUUSD</span>
+                    <span class="fmc-sub">EURUSD</span>
+                  </div>
+                </div>
+                <div class="fmc-top-stat">
+                  <div class="fmc-stat-val">$0.885</div>
+                  <div class="fmc-stat-sub">+3.38%</div>
+                </div>
+              </div>
+              <div class="fmc-bottom">
+                <span class="fmc-price">1,911.00</span>
+                <svg viewBox="0 0 60 22" class="fmc-sparkline">
+                  <path d="M2,15 Q14,18 28,9 T46,11 T58,3" fill="none" stroke="#10b981" stroke-width="2" stroke-linecap="round"/>
+                  <circle cx="58" cy="3" r="2.5" fill="#10b981"/>
+                </svg>
+                <span class="fmc-badge green">+0.85%</span>
+              </div>
+            </div>
+
+            <!-- Mobile Card 4: BTCUSD -->
+            <div class="floating-market-card" onclick="openTradingView('BINANCE:BTCUSDT')" title="Klik untuk lihat Chart TradingView">
+              <div class="fmc-top">
+                <div class="fmc-asset">
+                  <div class="fmc-icon btc">₿</div>
+                  <div class="fmc-names">
+                    <span class="fmc-symbol">BTCUSD</span>
+                    <span class="fmc-sub">BTC</span>
+                  </div>
+                </div>
+                <div class="fmc-top-stat">
+                  <div class="fmc-stat-val">$2.963</div>
+                  <div class="fmc-stat-sub">+5.42%</div>
+                </div>
+              </div>
+              <div class="fmc-bottom">
+                <span class="fmc-price">3123.85</span>
+                <svg viewBox="0 0 60 22" class="fmc-sparkline">
+                  <path d="M2,18 Q16,5 30,11 T48,7 T58,2" fill="none" stroke="#10b981" stroke-width="2" stroke-linecap="round"/>
+                  <circle cx="58" cy="2" r="2.5" fill="#10b981"/>
+                </svg>
+                <span class="fmc-badge green">+0.98%</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Desktop Floating Cards (Overlapping Left and Right Edges) -->
+          <!-- Top Left: XAUUSD -->
+          <div class="floating-market-card fmc-pos-top-left" onclick="openTradingView('OANDA:XAUUSD')" title="Klik untuk lihat Chart TradingView">
+            <div class="fmc-top">
+              <div class="fmc-asset">
+                <div class="fmc-icon gold">🪙</div>
+                <div class="fmc-names">
+                  <span class="fmc-symbol">XAUUSD</span>
+                  <span class="fmc-sub">XAUUSD</span>
+                </div>
+              </div>
+              <div class="fmc-top-stat">
+                <div class="fmc-stat-val">$35.85</div>
+                <div class="fmc-stat-sub">+2.26%</div>
+              </div>
+            </div>
+            <div class="fmc-bottom">
+              <span class="fmc-price">2,305.00</span>
+              <svg viewBox="0 0 60 22" class="fmc-sparkline">
+                <path d="M2,16 Q15,6 28,12 T46,4 T58,2" fill="none" stroke="#10b981" stroke-width="2" stroke-linecap="round"/>
+                <circle cx="58" cy="2" r="2.5" fill="#10b981"/>
+              </svg>
+              <span class="fmc-badge green">+0.33%</span>
+            </div>
+          </div>
+
+          <!-- Bottom Left: EURUSD -->
+          <div class="floating-market-card fmc-pos-bottom-left" onclick="openTradingView('FX:EURUSD')" title="Klik untuk lihat Chart TradingView">
+            <div class="fmc-top">
+              <div class="fmc-asset">
+                <div class="fmc-icon eur">💶</div>
+                <div class="fmc-names">
+                  <span class="fmc-symbol">EURUSD</span>
+                  <span class="fmc-sub">EURUSD</span>
+                </div>
+              </div>
+              <div class="fmc-top-stat">
+                <div class="fmc-stat-val">$0.883</div>
+                <div class="fmc-stat-sub red">+2.07%</div>
+              </div>
+            </div>
+            <div class="fmc-bottom">
+              <span class="fmc-price">0.93337</span>
+              <svg viewBox="0 0 60 22" class="fmc-sparkline">
+                <path d="M2,6 Q15,10 28,8 T45,17 T58,19" fill="none" stroke="#ef4444" stroke-width="2" stroke-linecap="round"/>
+                <circle cx="58" cy="19" r="2.5" fill="#ef4444"/>
+              </svg>
+              <span class="fmc-badge red">-1.55%</span>
+            </div>
+          </div>
+
+          <!-- Top Right: GBPUSD -->
+          <div class="floating-market-card fmc-pos-top-right" onclick="openTradingView('FX:GBPUSD')" title="Klik untuk lihat Chart TradingView">
+            <div class="fmc-top">
+              <div class="fmc-asset">
+                <div class="fmc-icon flag">💱</div>
+                <div class="fmc-names">
+                  <span class="fmc-symbol">XAUUSD</span>
+                  <span class="fmc-sub">EURUSD</span>
+                </div>
+              </div>
+              <div class="fmc-top-stat">
+                <div class="fmc-stat-val">$0.885</div>
+                <div class="fmc-stat-sub">+3.38%</div>
+              </div>
+            </div>
+            <div class="fmc-bottom">
+              <span class="fmc-price">1,911.00</span>
+              <svg viewBox="0 0 60 22" class="fmc-sparkline">
+                <path d="M2,15 Q14,18 28,9 T46,11 T58,3" fill="none" stroke="#10b981" stroke-width="2" stroke-linecap="round"/>
+                <circle cx="58" cy="3" r="2.5" fill="#10b981"/>
+              </svg>
+              <span class="fmc-badge green">+0.85%</span>
+            </div>
+          </div>
+
+          <!-- Bottom Right: BTCUSD -->
+          <div class="floating-market-card fmc-pos-bottom-right" onclick="openTradingView('BINANCE:BTCUSDT')" title="Klik untuk lihat Chart TradingView">
+            <div class="fmc-top">
+              <div class="fmc-asset">
+                <div class="fmc-icon btc">₿</div>
+                <div class="fmc-names">
+                  <span class="fmc-symbol">BTCUSD</span>
+                  <span class="fmc-sub">BTC</span>
+                </div>
+              </div>
+              <div class="fmc-top-stat">
+                <div class="fmc-stat-val">$2.963</div>
+                <div class="fmc-stat-sub">+5.42%</div>
+              </div>
+            </div>
+            <div class="fmc-bottom">
+              <span class="fmc-price">3123.85</span>
+              <svg viewBox="0 0 60 22" class="fmc-sparkline">
+                <path d="M2,18 Q16,5 30,11 T48,7 T58,2" fill="none" stroke="#10b981" stroke-width="2" stroke-linecap="round"/>
+                <circle cx="58" cy="2" r="2.5" fill="#10b981"/>
+              </svg>
+              <span class="fmc-badge green">+0.98%</span>
+            </div>
+          </div>
+
+          <!-- Center Showcase Tablet Device -->
+          <div class="stage-tablet">
+            <!-- Monthly / Annual Toggle Capsule -->
+            <div class="tablet-toggle-box">
+              <div class="tablet-toggle-pill">
+                <button class="tablet-cycle-btn active" id="btn-monthly" onclick="setBillingCycle(false)">Monthly</button>
+                <button class="tablet-cycle-btn" id="btn-annual" onclick="setBillingCycle(true)">Annual</button>
+              </div>
+            </div>
+
+            <!-- 3-Column Plan Grid -->
+            <div class="tablet-pricing-grid">
+              <!-- Column 1: Starter (Dark) -->
+              <div class="t-plan-card">
+                <div>
+                  <div class="t-plan-sub">Essential plan</div>
+                  <div class="t-plan-price-wrap">
+                    <span class="t-plan-val" id="starter-price">$35.85</span>
+                    <span class="t-plan-per" id="starter-period">/ month</span>
+                  </div>
+                  <button class="t-plan-btn-dark" onclick="switchTab('jurnal'); openQuickTrade();">Mulai Jurnal</button>
+                  <ul class="t-plan-features">
+                    <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> Manual journal entry</li>
+                    <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> Annual preferences</li>
+                    <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> Promising markets track</li>
+                    <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> Market spotting</li>
+                    <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> Disciplined practice</li>
+                  </ul>
+                </div>
+              </div>
+
+              <!-- Column 2: Tiers (FEATURED WHITE CARD) -->
+              <div class="t-plan-card featured-white">
+                <div>
+                  <div class="t-badge-interactive">Interactive plan</div>
+                  <div class="t-plan-title">Tiers</div>
+                  <div class="t-plan-sub">Technical premium plan</div>
+                  <div class="t-plan-price-wrap">
+                    <span class="t-plan-val" id="tiers-price">$750</span>
+                    <span class="t-plan-per" id="tiers-period">/ month</span>
+                  </div>
+                  <button class="t-plan-btn-black" onclick="switchTab('jurnal'); openQuickTrade();">Mulai Jurnal</button>
+                  <ul class="t-plan-features">
+                    <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> Multi-accounts tracking</li>
+                    <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> Annual preferences</li>
+                    <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> Promising markets track</li>
+                    <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> Immaculate spacing</li>
+                    <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> Actionable analytics</li>
+                    <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> Real-time journal execution</li>
+                  </ul>
+                </div>
+              </div>
+
+              <!-- Column 3: Annual (Dark) -->
+              <div class="t-plan-card">
+                <div>
+                  <div class="t-plan-title">Annual</div>
+                  <div class="t-plan-sub">Technical-modern plan</div>
+                  <div class="t-plan-price-wrap">
+                    <span class="t-plan-val" id="annual-price">$3500</span>
+                    <span class="t-plan-per" id="annual-period">/ month</span>
+                  </div>
+                  <button class="t-plan-btn-white" onclick="switchTab('statistik');">Eksplorasi</button>
+                  <ul class="t-plan-features">
+                    <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> Unlimited AI queries</li>
+                    <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> Annual preferences</li>
+                    <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> Promising markets track</li>
+                    <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> Immaculate spacing</li>
+                    <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> Consent of time and testing</li>
+                    <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> Cloud integration</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Capabilities Bento Section (Quick Modules Overview) -->
+        <div class="bento-section" style="width: 100%; max-width: 1040px; margin: 0 auto 40px;">
+          <div class="editorial-divider"></div>
+          <div class="bento-head">
+            <span class="bento-num">KAPABILITAS SISTEM</span>
+            <h2>Fondasi Jurnal Trading Berstandar Institusional</h2>
+          </div>
+          <div class="bento-grid">
+            <div class="bento-card" onclick="switchTab('jurnal')">
+              <div>
+                <span class="bento-badge">Pencatatan & Impor</span>
+                <h3>Unggah Berkas Multi-Format</h3>
+                <p>Mendukung pencatatan cepat serta impor berkas PDF statement akun broker, berkas teks TXT, tabel Excel/CSV, dan screenshot chart PNG.</p>
+              </div>
+              <div class="bento-link">Buka Jurnal Trade ↗</div>
+            </div>
+            <div class="bento-card" onclick="switchTab('statistik')">
+              <div>
+                <span class="bento-badge">Analitik Probabilitas</span>
+                <h3>Statistik & Kurva Ekuitas</h3>
+                <p>Kalkulasi otomatis Win Rate, Profit Factor, Rasio R:R rata-rata, Max Drawdown, dan nilai harapan matematis (Expectancy) per trade.</p>
+              </div>
+              <div class="bento-link">Eksplorasi Statistik ↗</div>
+            </div>
+            <div class="bento-card" onclick="switchTab('kalkulator')">
+              <div>
+                <span class="bento-badge">Manajemen Risiko</span>
+                <h3>Kalkulator Lot & Pip Presisi</h3>
+                <p>Simulasi nilai pip, penentuan ukuran lot presisi dari persentase toleransi risiko saldo akun, dan evaluasi rasio Risk to Reward.</p>
+              </div>
+              <div class="bento-link">Gunakan Kalkulator ↗</div>
+            </div>
+            <div class="bento-card" onclick="switchTab('berita')">
+              <div>
+                <span class="bento-badge">Intelijen Pasar</span>
+                <h3>Berita Real-Time & Kalender Makro</h3>
+                <p>Pantau rilis data makro ekonomi berdampak tinggi (CPI, NFP, Suku Bunga Fed) dan analisis sentimen likuiditas likuiditas pasar.</p>
+              </div>
+              <div class="bento-link">Baca Berita Ekonomi ↗</div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ====================================================================
+         VIEW 2: JURNAL (REVAMPED TRADING JOURNAL & MULTI-FORMAT UPLOAD)
+         ==================================================================== -->
+    <section class="view-content" id="view-jurnal">
+      <!-- Quick Pulse Metrics Ribbon -->
+      <div class="journal-pulse-ribbon">
+        <div class="j-pulse-item">
+          <span class="j-pulse-label">Total Jurnal</span>
+          <span class="j-pulse-val" id="j-stat-total">0 Posisi</span>
+          <span class="j-pulse-sub" id="j-stat-sample-tag">Histori Akun</span>
+        </div>
+        <div class="j-pulse-item">
+          <span class="j-pulse-label">Win Rate</span>
+          <span class="j-pulse-val" id="j-stat-winrate" style="color:var(--green);">0.0%</span>
+          <span class="j-pulse-sub" id="j-stat-wincount">0 Win / 0 Loss</span>
+        </div>
+        <div class="j-pulse-item">
+          <span class="j-pulse-label">Net Profit / Loss</span>
+          <span class="j-pulse-val" id="j-stat-netpl">$0.00</span>
+          <span class="j-pulse-sub" id="j-stat-idr">Rp0</span>
+        </div>
+        <div class="j-pulse-item">
+          <span class="j-pulse-label">Profit Factor</span>
+          <span class="j-pulse-val" id="j-stat-pf">0.00</span>
+          <span class="j-pulse-sub">Gross Win vs Loss</span>
+        </div>
+        <div class="j-pulse-item">
+          <span class="j-pulse-label">Rata-rata R:R</span>
+          <span class="j-pulse-val" id="j-stat-rr">1 : 0.00</span>
+          <span class="j-pulse-sub">Risk to Reward</span>
+        </div>
+      </div>
+
+      <div class="journal-header">
+        <div class="journal-title-box">
+          <h2>Jurnal Trading Terstruktur</h2>
+          <p>Catat, filter, dan evaluasi setiap posisi trading secara objektif dan terukur.</p>
+        </div>
+        <div class="journal-actions">
+          <button class="btn btn-accent" onclick="toggleTradeForm()">+ Catat Trade</button>
+          <button class="btn btn-ghost" onclick="openUploadModal()">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+            Upload Jurnal (PDF/TXT/Excel/PNG)
+          </button>
+          <button class="btn btn-ghost btn-sm" onclick="exportBackupJSON()">Backup</button>
+          <button class="btn btn-ghost btn-sm" onclick="triggerRestore()">Restore</button>
+          <button class="btn btn-ghost btn-sm" onclick="exportCSV()">CSV</button>
+          <input type="file" id="file-restore-input" accept="application/json" style="display:none;" onchange="handleRestoreFile(this)">
+        </div>
+      </div>
+
+      <!-- Trade Form Panel -->
+      <div class="form-panel" id="trade-form-panel">
+        <div class="entry-mode-bar">
+          <button class="entry-mode-btn active" id="btn-mode-quick" onclick="setEntryMode('quick')">Entri Cepat</button>
+          <button class="entry-mode-btn" id="btn-mode-paste" onclick="setEntryMode('paste')">Tempel Teks (Batch)</button>
+          <button class="entry-mode-btn" id="btn-mode-full" onclick="setEntryMode('full')">Form Lengkap</button>
+        </div>
+
+        <!-- 1. Quick Form -->
+        <div id="subform-quick">
+          <div class="form-grid">
+            <div class="field-group">
+              <label for="q-market">Pair / Market</label>
+              <input type="text" id="q-market" placeholder="XAUUSD" autocomplete="off">
+            </div>
+            <div class="field-group">
+              <label for="q-posisi">Arah Posisi</label>
+              <select id="q-posisi">
+                <option value="Buy">BUY / LONG</option>
+                <option value="Sell">SELL / SHORT</option>
+              </select>
+            </div>
+            <div class="field-group">
+              <label for="q-entry">Harga Entry</label>
+              <input type="number" step="any" id="q-entry" placeholder="3340.50">
+            </div>
+            <div class="field-group">
+              <label for="q-sl">Stop Loss (SL)</label>
+              <input type="number" step="any" id="q-sl" placeholder="3332.00">
+            </div>
+            <div class="field-group">
+              <label for="q-tp">Take Profit (TP)</label>
+              <input type="number" step="any" id="q-tp" placeholder="3355.00">
+            </div>
+            <div class="field-group">
+              <label for="q-result">Hasil Trade</label>
+              <select id="q-result">
+                <option value="Win">Win</option>
+                <option value="Loss">Loss</option>
+                <option value="BE">BE (Break Even)</option>
+              </select>
+            </div>
+            <div class="field-group">
+              <label for="q-risk">Risk (%)</label>
+              <input type="number" step="any" id="q-risk" value="1.0">
+            </div>
+          </div>
+          <div style="display:flex; justify-content:flex-end; gap:10px; margin-top:16px;">
+            <button class="btn btn-ghost" type="button" onclick="closeTradeForm()">Batal</button>
+            <button class="btn btn-accent" type="button" onclick="saveQuickTrade()">Simpan Trade</button>
+          </div>
+        </div>
+
+        <!-- 2. Batch Paste Form -->
+        <div id="subform-paste" style="display:none;">
+          <p style="font-size:12.5px; color:var(--text-muted); margin-bottom:10px;">
+            Salin baris trade Anda dengan format: <code>MARKET | POSISI | ENTRY | SL | TP | HASIL</code><br>
+            Contoh: <code>XAUUSD | Buy | 3320.5 | 3314.0 | 3338.0 | Win</code>
+          </p>
+          <div class="field-group">
+            <textarea id="paste-input" rows="6" placeholder="XAUUSD | Buy | 3320.5 | 3314.0 | 3338.0 | Win&#10;EURUSD | Sell | 1.0920 | 1.0940 | 1.0880 | Loss"></textarea>
+          </div>
+          <div style="display:flex; justify-content:flex-end; gap:10px; margin-top:16px;">
+            <button class="btn btn-ghost" type="button" onclick="closeTradeForm()">Batal</button>
+            <button class="btn btn-accent" type="button" onclick="saveBatchPaste()">Simpan Semua Baris</button>
+          </div>
+        </div>
+
+        <!-- 3. Full Form -->
+        <div id="subform-full" style="display:none;">
+          <div class="form-grid">
+            <div class="field-group">
+              <label for="f-date">Tanggal</label>
+              <input type="date" id="f-date">
+            </div>
+            <div class="field-group">
+              <label for="f-time">Jam</label>
+              <input type="time" id="f-time">
+            </div>
+            <div class="field-group">
+              <label for="f-account">Akun</label>
+              <select id="f-account"></select>
+            </div>
+            <div class="field-group">
+              <label for="f-market">Market</label>
+              <input type="text" id="f-market" placeholder="XAUUSD">
+            </div>
+            <div class="field-group">
+              <label for="f-posisi">Posisi</label>
+              <select id="f-posisi">
+                <option value="Buy">Buy</option>
+                <option value="Sell">Sell</option>
+              </select>
+            </div>
+            <div class="field-group">
+              <label for="f-entry">Entry</label>
+              <input type="number" step="any" id="f-entry" oninput="updateFullFormCalculations()">
+            </div>
+            <div class="field-group">
+              <label for="f-sl">Stop Loss</label>
+              <input type="number" step="any" id="f-sl" oninput="updateFullFormCalculations()">
+            </div>
+            <div class="field-group">
+              <label for="f-tp">Take Profit</label>
+              <input type="number" step="any" id="f-tp" oninput="updateFullFormCalculations()">
+            </div>
+            <div class="field-group">
+              <label for="f-vol">Volume (Lot)</label>
+              <input type="number" step="any" id="f-vol" placeholder="0.05">
+            </div>
+            <div class="field-group">
+              <label for="f-risk">Risk %</label>
+              <input type="number" step="any" id="f-risk" value="1.0" oninput="updateFullFormCalculations()">
+            </div>
+            <div class="field-group">
+              <label for="f-result">Hasil</label>
+              <select id="f-result">
+                <option value="Win">Win</option>
+                <option value="Loss">Loss</option>
+                <option value="BE">BE</option>
+              </select>
+            </div>
+            <div class="field-group">
+              <label for="f-strat">Strategi</label>
+              <input type="text" id="f-strat" placeholder="Order Block / FVG">
+            </div>
+            <div class="field-group">
+              <label for="f-tf">Time Frame</label>
+              <select id="f-tf">
+                <option value="M5">M5</option>
+                <option value="M15" selected>M15</option>
+                <option value="M30">M30</option>
+                <option value="H1">H1</option>
+                <option value="H4">H4</option>
+                <option value="D1">D1</option>
+              </select>
+            </div>
+            <div class="calc-pill-strip">
+              <div class="calc-pill-item">
+                <span>Risk ($)</span>
+                <b id="preview-risk">$10.00</b>
+              </div>
+              <div class="calc-pill-item">
+                <span>R:R Ratio</span>
+                <b id="preview-rr">1 : 2.50</b>
+              </div>
+              <div class="calc-pill-item">
+                <span>Est. Net P/L</span>
+                <b id="preview-pl" style="color:var(--green);">+$25.00</b>
+              </div>
+              <div class="calc-pill-item">
+                <span>Setara Rupiah</span>
+                <b id="preview-idr">Rp425.000</b>
+              </div>
+            </div>
+            <div class="field-group full">
+              <label for="f-reason">Alasan Entry & Evaluasi</label>
+              <textarea id="f-reason" rows="2" placeholder="Catatan setup konfirmasi, likuiditas, emosi saat entry..."></textarea>
+            </div>
+          </div>
+          <div style="display:flex; justify-content:flex-end; gap:10px; margin-top:16px;">
+            <button class="btn btn-ghost" type="button" onclick="closeTradeForm()">Batal</button>
+            <button class="btn btn-accent" type="button" id="btn-save-full" onclick="saveFullTrade()">Simpan Trade</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Filters & Action Bar -->
+      <div class="filter-bar">
+        <div class="filter-chip-group">
+          <button class="filter-chip active" id="chip-filter-all" onclick="setResultFilter('', this)">Semua</button>
+          <button class="filter-chip chip-win" id="chip-filter-win" onclick="setResultFilter('Win', this)">Win</button>
+          <button class="filter-chip chip-loss" id="chip-filter-loss" onclick="setResultFilter('Loss', this)">Loss</button>
+          <button class="filter-chip chip-be" id="chip-filter-be" onclick="setResultFilter('BE', this)">BE</button>
+        </div>
+        <select id="filter-market" onchange="renderJournalTable()">
+          <option value="">Semua Market</option>
+        </select>
+        <select id="filter-result" onchange="renderJournalTable()" style="display:none;">
+          <option value="">Semua Hasil</option>
+          <option value="Win">Win</option>
+          <option value="Loss">Loss</option>
+          <option value="BE">BE</option>
+        </select>
+        <select id="filter-strategy" onchange="renderJournalTable()">
+          <option value="">Semua Strategi</option>
+        </select>
+        <input type="text" class="filter-search" id="filter-search" placeholder="Cari pair, strategi, atau catatan..." oninput="renderJournalTable()">
+        <button class="btn btn-ghost btn-sm" onclick="resetJournalFilters()" title="Reset semua filter pencarian & filter market" style="white-space:nowrap; padding:6px 12px;">
+          Reset Filter
+        </button>
+      </div>
+
+      <!-- Journal Table -->
+      <div class="table-container">
+        <table class="trade-table">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Tanggal</th>
+              <th>Jam</th>
+              <th>Market</th>
+              <th>Posisi</th>
+              <th>Entry</th>
+              <th>SL</th>
+              <th>TP</th>
+              <th>Vol</th>
+              <th>Risk %</th>
+              <th>Risk $</th>
+              <th>R:R</th>
+              <th>Hasil</th>
+              <th>Net P/L ($)</th>
+              <th>Net P/L (Rp)</th>
+              <th>Strategi</th>
+              <th>Alasan & Catatan</th>
+              <th>Aksi</th>
+            </tr>
+          </thead>
+          <tbody id="journal-tbody">
+            <!-- Populated via JavaScript -->
+          </tbody>
+        </table>
+
+        <!-- Rich Actionable Empty State -->
+        <div id="journal-empty-msg" class="table-empty" style="display:none;">
+          <div class="table-empty-card">
+            <div class="empty-icon-circle">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+            </div>
+            <h4>Belum Ada Catatan Trade</h4>
+            <p>Jurnal trading Anda masih kosong atau tidak ada trade yang cocok dengan filter saat ini. Mulai catat trade baru atau muat data simulasi demo.</p>
+            <div class="empty-actions-row">
+              <button class="btn btn-accent" onclick="toggleTradeForm()">+ Catat Trade Baru</button>
+              <button class="btn btn-ghost" onclick="resetJournalFilters()">Reset Filter</button>
+              <button class="btn btn-ghost" onclick="openUploadModal()">Upload File Jurnal</button>
+              <button class="btn btn-ghost" onclick="seedSampleTrades()">Muat 8 Trade Contoh</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====================================================================
+         VIEW 3: STATISTIK (CODEFRONTS TAILWIND DARK MODE UI CARDS & ANALYTICS)
+         ==================================================================== -->
+    <section class="view-content" id="view-statistik">
+      <div class="section-head" style="margin: 10px 0 20px; text-align:left;">
+        <h2>Statistik & Kinerja Portofolio</h2>
+        <p>Evaluasi metrik probabilitas, rasio untung-rugi, efisiensi eksekusi, dan kurva pertumbuhan modal Anda.</p>
+      </div>
+
+      <!-- 4 CodeFronts Dark Dashboard KPI Cards with SVG Sparklines -->
+      <div class="kpi-row">
+        <!-- 1. Win Rate -->
+        <article class="kpi-card">
+          <div class="kpi-top">
+            <span class="kpi-label">Win Rate</span>
+            <span class="kpi-delta pos" id="kpi-winrate-delta">Konsisten</span>
+          </div>
+          <div class="kpi-value" id="kpi-winrate">0.0%</div>
+          <svg class="kpi-sparkline" viewBox="0 0 120 36" preserveAspectRatio="none">
+            <path d="M0,30 L20,28 L40,20 L60,22 L80,14 L100,10 L120,4 L120,36 L0,36 Z" fill="rgba(16, 185, 129, 0.1)"/>
+            <path d="M0,30 L20,28 L40,20 L60,22 L80,14 L100,10 L120,4" fill="none" stroke="#10b981" stroke-width="2"/>
+          </svg>
+          <div class="kpi-footer">
+            <span>Rasio Hasil</span>
+            <span id="kpi-win-count">0 Win · 0 Loss · 0 BE</span>
+          </div>
+        </article>
+
+        <!-- 2. Net Profit / Loss -->
+        <article class="kpi-card">
+          <div class="kpi-top">
+            <span class="kpi-label">Net P/L Total</span>
+            <span class="kpi-delta pos" id="kpi-netpl-delta">+0.0%</span>
+          </div>
+          <div class="kpi-value" id="kpi-netpl">$0.00</div>
+          <svg class="kpi-sparkline" id="spark-netpl" viewBox="0 0 120 36" preserveAspectRatio="none">
+            <path d="M0,28 L25,25 L50,18 L75,20 L100,8 L120,4 L120,36 L0,36 Z" fill="rgba(255, 255, 255, 0.08)"/>
+            <path d="M0,28 L25,25 L50,18 L75,20 L100,8 L120,4" fill="none" stroke="#ffffff" stroke-width="2"/>
+          </svg>
+          <div class="kpi-footer">
+            <span>Setara Rupiah</span>
+            <span id="kpi-netpl-idr">Rp0</span>
+          </div>
+        </article>
+
+        <!-- 3. Profit Factor -->
+        <article class="kpi-card">
+          <div class="kpi-top">
+            <span class="kpi-label">Profit Factor</span>
+            <span class="kpi-delta pos">Target > 1.5</span>
+          </div>
+          <div class="kpi-value" id="kpi-pf">0.00</div>
+          <svg class="kpi-sparkline" viewBox="0 0 120 36" preserveAspectRatio="none">
+            <path d="M0,32 L20,30 L40,26 L60,20 L80,18 L100,10 L120,6 L120,36 L0,36 Z" fill="rgba(16, 185, 129, 0.1)"/>
+            <path d="M0,32 L20,30 L40,26 L60,20 L80,18 L100,10 L120,6" fill="none" stroke="#10b981" stroke-width="2"/>
+          </svg>
+          <div class="kpi-footer">
+            <span>Total Eksekusi</span>
+            <span id="kpi-total-trades">0 Trades</span>
+          </div>
+        </article>
+
+        <!-- 4. Avg R-Multiple & Drawdown -->
+        <article class="kpi-card">
+          <div class="kpi-top">
+            <span class="kpi-label">Rata-rata R:R</span>
+            <span class="kpi-delta pos">Target Positif</span>
+          </div>
+          <div class="kpi-value" id="kpi-avg-rr">0.00R</div>
+          <svg class="kpi-sparkline" viewBox="0 0 120 36" preserveAspectRatio="none">
+            <path d="M0,26 L30,20 L60,22 L90,14 L120,8 L120,36 L0,36 Z" fill="rgba(255, 255, 255, 0.08)"/>
+            <path d="M0,26 L30,20 L60,22 L90,14 L120,8" fill="none" stroke="#ffffff" stroke-width="2"/>
+          </svg>
+          <div class="kpi-footer">
+            <span id="kpi-expectancy">Exp: $0.00</span>
+            <span id="kpi-max-dd" style="color:var(--red);">DD: $0.00</span>
+          </div>
+        </article>
+      </div>
+
+      <!-- Main Analytics Row (Equity Curve + Distribution Donut) -->
+      <div class="analytics-main-grid">
+        <!-- Equity Curve Panel with Metric Matrix -->
+        <div class="chart-panel">
+          <div class="chart-panel-title">
+            <div>
+              <span>Equity Curve (Pertumbuhan Saldo Portofolio)</span>
+              <p style="font-size:12px; color:var(--text-muted); font-weight:normal; margin-top:2px;">Histori saldo akumulatif dari saldo awal modal akun trading.</p>
+            </div>
+            <span class="badge-pill" id="stat-account-pill">Akun Aktif</span>
+          </div>
+          <svg class="chart-svg" id="equity-chart-svg" viewBox="0 0 800 210" preserveAspectRatio="none"></svg>
+
+          <!-- Summary Performance Matrix -->
+          <div class="perf-metric-matrix">
+            <div class="pm-box">
+              <span class="pm-label">Trade Terbesar (Win)</span>
+              <b class="pm-val" id="stat-best-win" style="color:var(--green);">+$0.00</b>
+            </div>
+            <div class="pm-box">
+              <span class="pm-label">Loss Terbesar</span>
+              <b class="pm-val" id="stat-worst-loss" style="color:var(--red);">-$0.00</b>
+            </div>
+            <div class="pm-box">
+              <span class="pm-label">Win Streak Maks</span>
+              <b class="pm-val" id="stat-win-streak">0 Beruntun</b>
+            </div>
+            <div class="pm-box">
+              <span class="pm-label">Drawdown Terbesar</span>
+              <b class="pm-val" id="stat-max-dd-val" style="color:var(--red);">$0.00</b>
+            </div>
+          </div>
+        </div>
+
+        <!-- Outcome Donut Panel -->
+        <div class="chart-panel">
+          <div class="chart-panel-title">
+            <span>Rasio Hasil Eksekusi</span>
+            <span style="font-size:11px; color:var(--text-muted); font-family:var(--mono);">WIN / LOSS / BE</span>
+          </div>
+          <svg class="chart-svg" id="donut-chart-svg" viewBox="0 0 320 200" style="height:190px;"></svg>
+          <div class="donut-sub-insights" id="donut-insights-box">
+            <div class="ds-row">
+              <span class="ds-dot" style="background:#10b981;"></span>
+              <span class="ds-title">Win Trades</span>
+              <b class="ds-pct" id="ds-win-pct">0%</b>
+            </div>
+            <div class="ds-row">
+              <span class="ds-dot" style="background:#f43f5e;"></span>
+              <span class="ds-title">Loss Trades</span>
+              <b class="ds-pct" id="ds-loss-pct">0%</b>
+            </div>
+            <div class="ds-row">
+              <span class="ds-dot" style="background:#64748b;"></span>
+              <span class="ds-title">Break Even (BE)</span>
+              <b class="ds-pct" id="ds-be-pct">0%</b>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 3-Column Financial Breakdown Matrix -->
+      <div class="analytics-three-col">
+        <!-- 1. Kinerja per Pair / Market -->
+        <div class="chart-panel">
+          <div class="chart-panel-title">
+            <span>Kinerja per Pair / Market</span>
+            <span style="font-size:11px; color:var(--text-muted); font-family:var(--mono);">TOP ASSETS</span>
+          </div>
+          <div id="market-breakdown" style="padding-top:4px;"></div>
+        </div>
+
+        <!-- 2. Kinerja per Strategi -->
+        <div class="chart-panel">
+          <div class="chart-panel-title">
+            <span>Kinerja per Setup & Strategi</span>
+            <span style="font-size:11px; color:var(--text-muted); font-family:var(--mono);">SETUPS</span>
+          </div>
+          <div id="strategy-breakdown" style="padding-top:4px;"></div>
+        </div>
+
+        <!-- 3. Rapor Disiplin & Psikologi Trader -->
+        <div class="chart-panel">
+          <div class="chart-panel-title">
+            <span>Rapor Disiplin & Psikologi</span>
+            <span class="badge-pill" style="color:var(--green); border-color:var(--green-border);">Grade A</span>
+          </div>
+          <div class="discipline-checklist">
+            <div class="disc-item">
+              <div class="disc-top">
+                <span>Kepatuhan Stop Loss (SL)</span>
+                <b style="color:var(--green);">100% Terpasang</b>
+              </div>
+              <div class="bar-track"><div class="bar-fill" style="width:100%; background:var(--green);"></div></div>
+            </div>
+            <div class="disc-item">
+              <div class="disc-top">
+                <span>Konsistensi Ukuran Risiko</span>
+                <b style="color:var(--accent);">Terkontrol (1.0% avg)</b>
+              </div>
+              <div class="bar-track"><div class="bar-fill" style="width:92%; background:var(--accent);"></div></div>
+            </div>
+            <div class="disc-item">
+              <div class="disc-top">
+                <span>Pertahanan Drawdown</span>
+                <b style="color:var(--green);">Sangat Baik (&lt; 5%)</b>
+              </div>
+              <div class="bar-track"><div class="bar-fill" style="width:88%; background:var(--green);"></div></div>
+            </div>
+            <p class="disc-summary">
+              ✓ Anda menjaga disiplin rasio risiko konsisten dan tidak melakukan overleveraging. Pertahankan rencana trading untuk menjaga stabilitas equity curve.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====================================================================
+         VIEW 4: KALKULATOR (RISK, LOT SIZE, PIP & R:R WORKSTATION)
+         ==================================================================== -->
+    <section class="view-content" id="view-kalkulator">
+      <div class="section-head" style="margin: 10px 0 20px; text-align:left;">
+        <h2>Kalkulator Trading Institusional</h2>
+        <p>Hitung ukuran posisi dari risiko, estimasi nilai pip, simulasi profit/loss, dan rasio R:R sebelum menekan tombol eksekusi.</p>
+      </div>
+
+      <!-- Quick Asset Selector Ribbon -->
+      <div class="calc-asset-strip">
+        <span class="cas-label">Pilih Instrumen Cepat:</span>
+        <div class="cas-pills">
+          <button class="cas-pill active" onclick="selectCalcAsset('XAUUSD', this)">XAUUSD (Gold)</button>
+          <button class="cas-pill" onclick="selectCalcAsset('EURUSD', this)">EURUSD</button>
+          <button class="cas-pill" onclick="selectCalcAsset('GBPUSD', this)">GBPUSD</button>
+          <button class="cas-pill" onclick="selectCalcAsset('USDJPY', this)">USDJPY</button>
+          <button class="cas-pill" onclick="selectCalcAsset('BTCUSD', this)">BTCUSD</button>
+          <button class="cas-pill" onclick="selectCalcAsset('US30', this)">US30 (Dow)</button>
+          <button class="cas-pill" onclick="selectCalcAsset('NAS100', this)">NAS100 (Nasdaq)</button>
+        </div>
+      </div>
+
+      <div class="calc-workstation-grid">
+        <!-- Left Column: Order Parameters & Sizing Controls -->
+        <div class="calc-card">
+          <div class="calc-card-head">
+            <h3>Parameter Setup & Akun</h3>
+            <span class="badge-pill">Langkah 1</span>
+          </div>
+
+          <div class="form-grid">
+            <!-- Hidden fallback instrument select -->
+            <select id="c-instrument" onchange="handleInstrumentChange()" style="display:none;">
+              <option value="XAUUSD">XAUUSD</option>
+              <option value="EURUSD">EURUSD</option>
+              <option value="GBPUSD">GBPUSD</option>
+              <option value="USDJPY">USDJPY</option>
+              <option value="BTCUSD">BTCUSD</option>
+              <option value="US30">US30</option>
+              <option value="NAS100">NAS100</option>
+            </select>
+
+            <!-- Position Direction Switch -->
+            <div class="field-group full">
+              <label>Arah Posisi Order</label>
+              <div class="calc-dir-switch">
+                <button type="button" class="dir-btn active dir-buy" id="calc-dir-buy" onclick="setCalcDirection('Buy')">BUY / LONG</button>
+                <button type="button" class="dir-btn dir-sell" id="calc-dir-sell" onclick="setCalcDirection('Sell')">SELL / SHORT</button>
+              </div>
+            </div>
+
+            <!-- Balance Presets -->
+            <div class="field-group full">
+              <div style="display:flex; justify-content:space-between; align-items:center;">
+                <label for="c-balance">Saldo Akun ($)</label>
+                <div class="preset-chips">
+                  <span class="p-chip" onclick="setCalcBalance(1000)">$1k</span>
+                  <span class="p-chip" onclick="setCalcBalance(5000)">$5k</span>
+                  <span class="p-chip" onclick="setCalcBalance(10000)">$10k</span>
+                  <span class="p-chip" onclick="setCalcBalance(50000)">$50k</span>
+                  <span class="p-chip" onclick="setCalcBalance(100000)">$100k</span>
+                </div>
+              </div>
+              <input type="number" id="c-balance" value="1000" oninput="runAllCalculators()">
+            </div>
+
+            <!-- Risk Tolerance Presets -->
+            <div class="field-group full">
+              <div style="display:flex; justify-content:space-between; align-items:center;">
+                <label for="c-riskpct">Toleransi Risiko (%)</label>
+                <div class="preset-chips">
+                  <span class="p-chip" onclick="setCalcRisk(0.5)">0.5%</span>
+                  <span class="p-chip" onclick="setCalcRisk(1.0)">1.0%</span>
+                  <span class="p-chip" onclick="setCalcRisk(1.5)">1.5%</span>
+                  <span class="p-chip" onclick="setCalcRisk(2.0)">2.0%</span>
+                </div>
+              </div>
+              <input type="number" id="c-riskpct" value="1.0" step="any" oninput="runAllCalculators()">
+            </div>
+
+            <!-- Entry & SL Prices -->
+            <div class="field-group">
+              <label for="c-entry-price">Harga Entry</label>
+              <input type="number" id="c-entry-price" value="3340" step="any" oninput="syncCalcInputs('entry')">
+            </div>
+            <div class="field-group">
+              <label for="c-sl-price">Harga Stop Loss (SL)</label>
+              <input type="number" id="c-sl-price" value="3332" step="any" oninput="syncCalcInputs('sl')">
+            </div>
+
+            <!-- Take Profit Price -->
+            <div class="field-group">
+              <label for="c-rr-tp">Harga Take Profit (TP)</label>
+              <input type="number" id="c-rr-tp" value="3360" step="any" oninput="runAllCalculators()">
+            </div>
+            <div class="field-group">
+              <label>Jarak SL (Pips)</label>
+              <input type="text" id="c-sl-pips-input" value="80.0 pips" readonly style="color:var(--text-muted); background:var(--bg-main);">
+            </div>
+
+            <!-- Hidden inputs to preserve calc functions -->
+            <input type="hidden" id="c-contract" value="100">
+            <input type="hidden" id="c-pipsize" value="0.1">
+            <input type="hidden" id="c-rr-entry" value="3340">
+            <input type="hidden" id="c-rr-sl" value="3332">
+            <input type="hidden" id="c-rr-lot" value="0.12">
+          </div>
+        </div>
+
+        <!-- Right Column: Institutional Execution Telemetry -->
+        <div class="calc-card calc-card-telemetry">
+          <div class="calc-card-head">
+            <h3>Hasil Analisis Ukuran Posisi</h3>
+            <span class="badge-pill" style="color:var(--green); border-color:var(--green-border);">Rekomendasi Presisi</span>
+          </div>
+
+          <!-- Hero Lot Display -->
+          <div class="hero-lot-box">
+            <span class="hl-sub">Ukuran Posisi Direkomendasikan</span>
+            <div class="hl-value" id="c-suggested-lot">0.12 Lot</div>
+            <p class="hl-desc">Dihitung otomatis agar jika terkena SL, kerugian tepat sesuai batas toleransi risiko akun Anda.</p>
+            <button class="btn btn-accent" style="width:100%; margin-top:14px;" onclick="applyLotToJournal()">
+              Terapkan Setup Ini ke Form Jurnal ↗
+            </button>
+          </div>
+
+          <!-- Risk & Reward Metrics Matrix -->
+          <div class="calc-metrics-grid">
+            <div class="cm-item">
+              <span class="cm-title">Nominal Risiko (SL)</span>
+              <b class="cm-num" id="c-risk-amount" style="color:var(--red);">$10.00</b>
+              <span class="cm-sub" id="c-risk-idr">Rp170.000</span>
+            </div>
+            <div class="cm-item">
+              <span class="cm-title">Potensi Profit (TP)</span>
+              <b class="cm-num" id="c-rr-win" style="color:var(--green);">+$25.00</b>
+              <span class="cm-sub" id="c-win-idr">Rp425.000</span>
+            </div>
+            <div class="cm-item">
+              <span class="cm-title">Jarak SL / TP</span>
+              <b class="cm-num" id="c-rr-dist">80 / 200 pips</b>
+              <span class="cm-sub">Pip Distance</span>
+            </div>
+            <div class="cm-item">
+              <span class="cm-title">Rasio Risk : Reward</span>
+              <b class="cm-num" id="c-rr-ratio" style="color:var(--accent);">1 : 2.50</b>
+              <span class="cm-sub">Target Sehat</span>
+            </div>
+          </div>
+
+          <!-- Pip Value Table by Lot Tiers -->
+          <div class="calc-pip-tiers">
+            <div class="cpt-title">Spesifikasi Nilai Pip Instrumen Terpilih</div>
+            <div class="cpt-row">
+              <span>0.01 Lot (Micro)</span>
+              <b id="c-pipval-001">$0.10 / pip</b>
+            </div>
+            <div class="cpt-row">
+              <span>0.10 Lot (Mini)</span>
+              <b id="c-pipval-01">$1.00 / pip</b>
+            </div>
+            <div class="cpt-row">
+              <span>1.00 Lot (Standard)</span>
+              <b id="c-pipval-1">$10.00 / pip</b>
+            </div>
+          </div>
+
+          <!-- Hidden elements for script backwards compatibility -->
+          <span id="c-sl-pips" style="display:none;">80.0 pips</span>
+          <span id="c-rr-loss" style="display:none;">-$10.00</span>
+        </div>
+      </div>
+
+      <!-- Bottom Prop Firm & Risk Guardrails Card -->
+      <div class="calc-guardrails-card">
+        <div class="cgc-col">
+          <div class="cgc-icon">🛡️</div>
+          <div>
+            <b>Batas Rugi Harian (Daily Max Loss)</b>
+            <p>Maksimal 5% dari saldo awal per hari. Untuk akun $1,000, maksimal kerugian kumulatif harian adalah $50.00.</p>
+          </div>
+        </div>
+        <div class="cgc-col">
+          <div class="cgc-icon">📉</div>
+          <div>
+            <b>Maksimal Drawdown Akun (Max Trailing DD)</b>
+            <p>Maksimal 10% dari puncak saldo. Batasi risiko per trade di 0.5% - 1.0% untuk memastikan Anda memiliki minimal 10-20 kesempatan.</p>
+          </div>
+        </div>
+        <div class="cgc-col">
+          <div class="cgc-icon">⚖️</div>
+          <div>
+            <b>Kaidah Eksekusi Institusional</b>
+            <p>Jangan pernah memperbesar lot setelah mengalami kerugian (Revenge trading). Selalu pasang Stop Loss bersamaan saat membuka order.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====================================================================
+         VIEW 5: BERITA EKONOMI & KALENDER (FREE + PRO INTELLIGENCE)
+         ==================================================================== -->
+    <section class="view-content" id="view-berita">
+      <div class="section-head" style="margin: 10px 0 20px; text-align:left;">
+        <h2>Wawasan Berita & Kalender Ekonomi Makro</h2>
+        <p>Terminal makro ekonomi global, pantauan suku bunga bank sentral dunia, dan kalender rilis data berdampak tinggi.</p>
+      </div>
+
+      <!-- CodeFronts Live Stock / Crypto Price Ticker Infinite Marquee -->
+      <section class="mqs-05" aria-label="Stock price ticker marquee demo">
+        <div class="mqs-05__terminal">
+          <div class="mqs-05__bar">
+            <div class="mqs-05__bar-left">
+              <span class="mqs-05__live"></span>
+              <span>MARKETS · LIVE TICKER FEED (SIMULASI GLOBAL)</span>
+            </div>
+            <span style="font-family:var(--mono); font-size:10px; color:var(--text-muted); letter-spacing:0.06em;">KLIK MARKET UNTUK BUKA POP-UP CHART ⤢</span>
+          </div>
+          <div class="mqs-05__viewport">
+            <div class="mqs-05__group" data-mqs05-group>
+              <div class="mqs-05__quote" data-sym="XAUUSD" data-dir="up" onclick="openTradingView('XAUUSD')" role="button" tabindex="0" title="Buka Pop-up Chart XAUUSD">
+                <b class="mqs-05__sym">XAUUSD</b><span class="mqs-05__px" data-px>3342.80</span><span class="mqs-05__dl" data-dl>+0.65%</span><span class="mqs-05__link-icon" aria-hidden="true">⤢</span>
+              </div>
+              <div class="mqs-05__quote" data-sym="EURUSD" data-dir="down" onclick="openTradingView('EURUSD')" role="button" tabindex="0" title="Buka Pop-up Chart EURUSD">
+                <b class="mqs-05__sym">EURUSD</b><span class="mqs-05__px" data-px>1.0892</span><span class="mqs-05__dl" data-dl>−0.24%</span><span class="mqs-05__link-icon" aria-hidden="true">⤢</span>
+              </div>
+              <div class="mqs-05__quote" data-sym="GBPUSD" data-dir="up" onclick="openTradingView('GBPUSD')" role="button" tabindex="0" title="Buka Pop-up Chart GBPUSD">
+                <b class="mqs-05__sym">GBPUSD</b><span class="mqs-05__px" data-px>1.2750</span><span class="mqs-05__dl" data-dl>+0.18%</span><span class="mqs-05__link-icon" aria-hidden="true">⤢</span>
+              </div>
+              <div class="mqs-05__quote" data-sym="BTC" data-dir="up" onclick="openTradingView('BTC')" role="button" tabindex="0" title="Buka Pop-up Chart BTC">
+                <b class="mqs-05__sym">BTC</b><span class="mqs-05__px" data-px>94,450</span><span class="mqs-05__dl" data-dl>+2.35%</span><span class="mqs-05__link-icon" aria-hidden="true">⤢</span>
+              </div>
+              <div class="mqs-05__quote" data-sym="ETH" data-dir="up" onclick="openTradingView('ETH')" role="button" tabindex="0" title="Buka Pop-up Chart ETH">
+                <b class="mqs-05__sym">ETH</b><span class="mqs-05__px" data-px>3,540</span><span class="mqs-05__dl" data-dl>+1.15%</span><span class="mqs-05__link-icon" aria-hidden="true">⤢</span>
+              </div>
+              <div class="mqs-05__quote" data-sym="US30" data-dir="down" onclick="openTradingView('US30')" role="button" tabindex="0" title="Buka Pop-up Chart US30">
+                <b class="mqs-05__sym">US30</b><span class="mqs-05__px" data-px>43,890</span><span class="mqs-05__dl" data-dl>−0.42%</span><span class="mqs-05__link-icon" aria-hidden="true">⤢</span>
+              </div>
+              <div class="mqs-05__quote" data-sym="NVDA" data-dir="up" onclick="openTradingView('NVDA')" role="button" tabindex="0" title="Buka Pop-up Chart NVDA">
+                <b class="mqs-05__sym">NVDA</b><span class="mqs-05__px" data-px>138.25</span><span class="mqs-05__dl" data-dl>+1.80%</span><span class="mqs-05__link-icon" aria-hidden="true">⤢</span>
+              </div>
+              <div class="mqs-05__quote" data-sym="DXY" data-dir="down" onclick="openTradingView('DXY')" role="button" tabindex="0" title="Buka Pop-up Chart DXY">
+                <b class="mqs-05__sym">DXY</b><span class="mqs-05__px" data-px>104.15</span><span class="mqs-05__dl" data-dl>−0.12%</span><span class="mqs-05__link-icon" aria-hidden="true">⤢</span>
+              </div>
+              <div class="mqs-05__quote" data-sym="OIL" data-dir="up" onclick="openTradingView('OIL')" role="button" tabindex="0" title="Buka Pop-up Chart OIL/WTI">
+                <b class="mqs-05__sym">OIL/WTI</b><span class="mqs-05__px" data-px>78.40</span><span class="mqs-05__dl" data-dl>+0.82%</span><span class="mqs-05__link-icon" aria-hidden="true">⤢</span>
+              </div>
+            </div>
+            <div class="mqs-05__group" data-mqs05-group aria-hidden="true">
+              <div class="mqs-05__quote" data-sym="XAUUSD" data-dir="up" onclick="openTradingView('XAUUSD')" role="button" tabindex="-1">
+                <b class="mqs-05__sym">XAUUSD</b><span class="mqs-05__px" data-px>3342.80</span><span class="mqs-05__dl" data-dl>+0.65%</span><span class="mqs-05__link-icon" aria-hidden="true">⤢</span>
+              </div>
+              <div class="mqs-05__quote" data-sym="EURUSD" data-dir="down" onclick="openTradingView('EURUSD')" role="button" tabindex="-1">
+                <b class="mqs-05__sym">EURUSD</b><span class="mqs-05__px" data-px>1.0892</span><span class="mqs-05__dl" data-dl>−0.24%</span><span class="mqs-05__link-icon" aria-hidden="true">⤢</span>
+              </div>
+              <div class="mqs-05__quote" data-sym="GBPUSD" data-dir="up" onclick="openTradingView('GBPUSD')" role="button" tabindex="-1">
+                <b class="mqs-05__sym">GBPUSD</b><span class="mqs-05__px" data-px>1.2750</span><span class="mqs-05__dl" data-dl>+0.18%</span><span class="mqs-05__link-icon" aria-hidden="true">⤢</span>
+              </div>
+              <div class="mqs-05__quote" data-sym="BTC" data-dir="up" onclick="openTradingView('BTC')" role="button" tabindex="-1">
+                <b class="mqs-05__sym">BTC</b><span class="mqs-05__px" data-px>94,450</span><span class="mqs-05__dl" data-dl>+2.35%</span><span class="mqs-05__link-icon" aria-hidden="true">⤢</span>
+              </div>
+              <div class="mqs-05__quote" data-sym="ETH" data-dir="up" onclick="openTradingView('ETH')" role="button" tabindex="-1">
+                <b class="mqs-05__sym">ETH</b><span class="mqs-05__px" data-px>3,540</span><span class="mqs-05__dl" data-dl>+1.15%</span><span class="mqs-05__link-icon" aria-hidden="true">⤢</span>
+              </div>
+              <div class="mqs-05__quote" data-sym="US30" data-dir="down" onclick="openTradingView('US30')" role="button" tabindex="-1">
+                <b class="mqs-05__sym">US30</b><span class="mqs-05__px" data-px>43,890</span><span class="mqs-05__dl" data-dl>−0.42%</span><span class="mqs-05__link-icon" aria-hidden="true">⤢</span>
+              </div>
+              <div class="mqs-05__quote" data-sym="NVDA" data-dir="up" onclick="openTradingView('NVDA')" role="button" tabindex="-1">
+                <b class="mqs-05__sym">NVDA</b><span class="mqs-05__px" data-px>138.25</span><span class="mqs-05__dl" data-dl>+1.80%</span><span class="mqs-05__link-icon" aria-hidden="true">⤢</span>
+              </div>
+              <div class="mqs-05__quote" data-sym="DXY" data-dir="down" onclick="openTradingView('DXY')" role="button" tabindex="-1">
+                <b class="mqs-05__sym">DXY</b><span class="mqs-05__px" data-px>104.15</span><span class="mqs-05__dl" data-dl>−0.12%</span><span class="mqs-05__link-icon" aria-hidden="true">⤢</span>
+              </div>
+              <div class="mqs-05__quote" data-sym="OIL" data-dir="up" onclick="openTradingView('OIL')" role="button" tabindex="-1">
+                <b class="mqs-05__sym">OIL/WTI</b><span class="mqs-05__px" data-px>78.40</span><span class="mqs-05__dl" data-dl>+0.82%</span><span class="mqs-05__link-icon" aria-hidden="true">⤢</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Segmented Sub-View Switcher -->
+      <div class="seg" id="berita-seg" style="margin: 18px 0 22px;">
+        <button class="seg-btn active" type="button" data-sub="ringkasan" onclick="switchBeritaSub('ringkasan')">⚡ Semua Ringkasan</button>
+        <button class="seg-btn" type="button" data-sub="analisa" onclick="switchBeritaSub('analisa')">📊 Analisa Market</button>
+        <button class="seg-btn" type="button" data-sub="kalender" onclick="switchBeritaSub('kalender')">📅 Kalender Ekonomi</button>
+      </div>
+
+      <!-- 1. SUB-VIEW: RINGKASAN & OVERVIEW -->
+      <div id="sub-berita-ringkasan">
+        <!-- Central Bank Key Rates Matrix -->
+        <div class="cb-rates-grid">
+          <div class="cb-rate-card">
+            <div class="cbr-bank">
+              <span class="cbr-name">Federal Reserve (Fed)</span>
+              <span class="cbr-bias">Hawkish Hold</span>
+            </div>
+            <div class="cbr-val">5.25% - 5.50%</div>
+            <div class="cbr-outlook">
+              <span>FOMC Meeting</span>
+              <span style="font-family:var(--mono); color:#ffffff;">Proyeksi: Tetap</span>
+            </div>
+          </div>
+
+          <div class="cb-rate-card">
+            <div class="cbr-bank">
+              <span class="cbr-name">European Central Bank</span>
+              <span class="cbr-bias">Easing Bias</span>
+            </div>
+            <div class="cbr-val">3.75%</div>
+            <div class="cbr-outlook">
+              <span>ECB Policy</span>
+              <span style="font-family:var(--mono); color:#ffffff;">Cut Watch</span>
+            </div>
+          </div>
+
+          <div class="cb-rate-card">
+            <div class="cbr-bank">
+              <span class="cbr-name">Bank of Japan (BOJ)</span>
+              <span class="cbr-bias">Tightening</span>
+            </div>
+            <div class="cbr-val">0.25%</div>
+            <div class="cbr-outlook">
+              <span>Yield Curve</span>
+              <span style="font-family:var(--mono); color:#ffffff;">Normalisasi JPY</span>
+            </div>
+          </div>
+
+          <div class="cb-rate-card">
+            <div class="cbr-bank">
+              <span class="cbr-name">Bank Indonesia (BI)</span>
+              <span class="cbr-bias">Defensive</span>
+            </div>
+            <div class="cbr-val">6.25%</div>
+            <div class="cbr-outlook">
+              <span>BI-Rate</span>
+              <span style="font-family:var(--mono); color:#ffffff;">Stabilitas Kurs</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="news-grid">
+          <!-- Market Updates Column -->
+          <div>
+            <article class="news-card-item">
+              <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+                <span class="news-badge gold">KOMODITAS · GOLD SPOT</span>
+                <span class="sentiment-pill bullish">BULLISH SENTIMENT</span>
+              </div>
+              <h3 class="news-card-title">Emas Pertahankan Level Support Kunci Menjelang Rilis Data Inflasi PCE</h3>
+              <p class="news-card-body">
+                XAUUSD terus berkonsolidasi kuat di atas area demand institusional. Pola likuiditas menunjukkan akumulasi posisi buy dari pelaku pasar besar seiring pelemahan imbal hasil obligasi AS dan tensi geopolitik yang menopang permintaan safe-haven.
+              </p>
+              <div class="news-card-foot">
+                <span>15 menit lalu · Riset Pasar Global · 3 min baca</span>
+                <button type="button" class="btn btn-secondary btn-sm" onclick="switchBeritaSub('analisa')" style="font-size:11px; padding:2px 8px;">Baca Analisa Lengkap &rarr;</button>
+              </div>
+            </article>
+
+            <article class="news-card-item">
+              <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+                <span class="news-badge macro">FOREX · MAKRO USD</span>
+                <span class="sentiment-pill neutral">NETRAL / HIGH VOL</span>
+              </div>
+              <h3 class="news-card-title">Volatilitas Mata Uang Utama Menjelang Pidato Ketua Federal Reserve</h3>
+              <p class="news-card-body">
+                Pasangan EURUSD dan GBPUSD menguji level batas atas range mingguan. Trader disarankan berhati-hati terhadap potensi spike spread likuiditas pada pembukaan sesi New York overlap London pukul 19:30 WIB.
+              </p>
+              <div class="news-card-foot">
+                <span>Hari ini 08:30 · Makro Global · 2 min baca</span>
+                <button type="button" class="btn btn-secondary btn-sm" onclick="switchBeritaSub('analisa')" style="font-size:11px; padding:2px 8px;">Baca Analisa Lengkap &rarr;</button>
+              </div>
+            </article>
+
+            <!-- Pro News Card with Interactive Unlock / Lock Toggle -->
+            <article class="news-card-item pro-locked-card" id="cot-pro-card">
+              <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px; flex-wrap:wrap; gap:8px;">
+                <div style="display:flex; align-items:center; gap:8px;">
+                  <span class="news-badge crypto" id="cot-badge">EKSKLUSIF · PRO ANALYTICS</span>
+                  <span class="sentiment-pill" id="cot-status-pill" style="background:rgba(34,197,94,0.15); color:var(--green); border:1px solid rgba(34,197,94,0.3);">AKSES TERBUKA</span>
+                </div>
+                <button type="button" class="btn btn-secondary btn-sm" id="btn-toggle-cot" onclick="toggleCotAccess()" style="font-size:11px; padding:3px 10px; display:inline-flex; align-items:center; gap:5px;">
+                  <span id="cot-toggle-icon">🔒</span> <span id="cot-toggle-text">Kunci Kembali Konten</span>
+                </button>
+              </div>
+
+              <h3 class="news-card-title">Analisis Aliran Dana Institusional & Peta Likuiditas Smart Money (COT Report)</h3>
+
+              <!-- 1. UNLOCKED FULL CONTENT (Visible by default for the user) -->
+              <div id="cot-full-content" style="display:block;">
+                <p class="news-card-body" style="color:var(--text-main); margin-bottom:12px;">
+                  Laporan positioning dana lindung nilai (Hedge Funds & Large Speculators) berdasarkan data resmi <i>Commitment of Traders (COT)</i> CFTC. Menyoroti pergeseran likuiditas institusi pada safe haven, valuta utama, dan indeks Wall Street.
+                </p>
+
+                <!-- COT Metrics Matrix Grid -->
+                <div style="background:var(--bg-main); border:1px solid var(--line); border-radius:8px; padding:12px; margin-bottom:14px; font-family:var(--mono); font-size:11.5px;">
+                  <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap:10px; text-align:center;">
+                    <div style="background:rgba(255,255,255,0.02); padding:8px; border-radius:6px; border:1px solid rgba(255,255,255,0.06);">
+                      <span style="color:var(--text-muted); font-size:10px; display:block;">XAUUSD (GOLD)</span>
+                      <b style="color:var(--green); font-size:13px; display:block; margin:2px 0;">+238,410</b>
+                      <span style="color:var(--text-muted); font-size:9.5px;">Net Long (+4.2%)</span>
+                    </div>
+                    <div style="background:rgba(255,255,255,0.02); padding:8px; border-radius:6px; border:1px solid rgba(255,255,255,0.06);">
+                      <span style="color:var(--text-muted); font-size:10px; display:block;">EUR/USD</span>
+                      <b style="color:var(--red); font-size:13px; display:block; margin:2px 0;">−42,150</b>
+                      <span style="color:var(--text-muted); font-size:9.5px;">Net Short (-8.1%)</span>
+                    </div>
+                    <div style="background:rgba(255,255,255,0.02); padding:8px; border-radius:6px; border:1px solid rgba(255,255,255,0.06);">
+                      <span style="color:var(--text-muted); font-size:10px; display:block;">US30 (DOW)</span>
+                      <b style="color:var(--green); font-size:13px; display:block; margin:2px 0;">+68,320</b>
+                      <span style="color:var(--text-muted); font-size:9.5px;">Akumulasi (+2.5%)</span>
+                    </div>
+                    <div style="background:rgba(255,255,255,0.02); padding:8px; border-radius:6px; border:1px solid rgba(255,255,255,0.06);">
+                      <span style="color:var(--text-muted); font-size:10px; display:block;">CRUDE OIL (WTI)</span>
+                      <b style="color:var(--green); font-size:13px; display:block; margin:2px 0;">+194,800</b>
+                      <span style="color:var(--text-muted); font-size:9.5px;">Net Long (+1.1%)</span>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Institutional Key Insights -->
+                <div style="font-size:12.5px; line-height:1.6; color:var(--text-body); margin-bottom:14px;">
+                  <b style="color:#ffffff; display:block; margin-bottom:6px; font-size:12.5px;">Ringkasan Peta Likuiditas Smart Money:</b>
+                  <ul style="padding-left:18px; margin:0; display:flex; flex-direction:column; gap:6px;">
+                    <li><b>Gold (XAUUSD):</b> Inflow hedge fund mengindikasikan pertahanan ketat di area $3,310–$3,320 sebagai zona <i>Institutional Demand</i>. Target likuiditas beli (BSL) berikutnya berada di $3,380.</li>
+                    <li><b>EURUSD:</b> Penumpukan posisi short spekulatif membuka potensi penurunan korektif ke area 1.0800 sebelum adanya sinyal rebound dari zona fair value gap (FVG) harian.</li>
+                    <li><b>Indeks Saham AS (US30):</b> Algoritma institusional mempertahankan batas diskon likuiditas pada 43,600, mengonfirmasi tren akumulasi menyambut rilis data inflasi.</li>
+                  </ul>
+                </div>
+              </div>
+
+              <!-- 2. LOCKED PREVIEW (Hidden when unlocked, shown when locked) -->
+              <div id="cot-locked-preview" style="display:none;">
+                <p class="news-card-body blurred-text">
+                  Laporan mendalam positioning hedge fund terhadap aset safe haven, COT report breakdown mingguan, dan order book imbalances pada pair indeks global US30 dan NAS100 beserta titik pembatalan likuiditas.
+                </p>
+              </div>
+
+              <!-- Dynamic Status Banner -->
+              <div class="pro-locked-banner" id="cot-banner" style="background:rgba(255,255,255,0.03); border-color:rgba(255,255,255,0.1);">
+                <div>
+                  <b style="color:#ffffff; font-size:12.5px;">Status: Pratinjau Terbuka (Akses Khusus Anda)</b>
+                  <p style="color:var(--text-muted); font-size:11.5px;">Laporan COT dan peta likuiditas sedang ditampilkan penuh. Anda dapat mengunci kembali tampilan ini sewaktu-waktu.</p>
+                </div>
+                <button type="button" class="btn btn-secondary btn-sm" onclick="toggleCotAccess()" style="font-size:11.5px;">Kunci Kembali Konten 🔒</button>
+              </div>
+            </article>
+          </div>
+
+          <!-- High-Impact Economic Calendar Column -->
+          <div>
+            <!-- Countdown Card -->
+            <div class="cal-countdown-card" id="cal-countdown-wrapper">
+              <span class="ccc-label">Rilis Data Berdampak Tinggi Berikutnya</span>
+              <div class="ccc-event" id="cal-next-event-title">Memuat jadwal...</div>
+              <div class="ccc-timer" id="cal-next-event-timer">Sinkronisasi otomatis...</div>
+            </div>
+
+            <!-- Economic Calendar Quick List -->
+            <div class="econ-calendar-box">
+              <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:14px;">
+                <h3 style="font-size:15px; font-weight:700; margin-bottom:0;">Kalender Rilis Hari Ini</h3>
+                <button type="button" class="btn btn-secondary btn-sm" onclick="switchBeritaSub('kalender')" style="font-size:11px; padding:3px 9px;">Buka Kalender Penuh &rarr;</button>
+              </div>
+
+              <div id="cal-today-quick-list">
+                <div style="padding:15px; color:var(--text-muted); font-size:12.5px; text-align:center;">Memuat data rilis hari ini...</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Global Trading Sessions & Overlap Monitor -->
+        <div class="market-sessions-card">
+          <div class="msc-head">
+            <span>Jam Sesi Pasar Dunia & Overlap Likuiditas (WIB)</span>
+            <span class="badge-pill" style="color:var(--green); border-color:var(--green-border);">Sesi London & NY Overlap Aktif</span>
+          </div>
+          <div class="msc-grid">
+            <div class="msc-item">
+              <div class="msc-top">
+                <b>Sesi Tokyo (Asia)</b>
+                <span class="msc-tag closed">Selesai</span>
+              </div>
+              <div class="msc-time">07:00 - 15:00 WIB</div>
+              <p class="msc-desc">Volatilitas teratur pada JPY, AUD, NZD. Range pergerakan umumnya sempit sebelum London open.</p>
+            </div>
+            <div class="msc-item">
+              <div class="msc-top">
+                <b>Sesi London (Eropa)</b>
+                <span class="msc-tag active">Aktif</span>
+              </div>
+              <div class="msc-time">14:00 - 22:00 WIB</div>
+              <p class="msc-desc">Likuiditas tinggi untuk GBP, EUR, dan XAUUSD. Terjadi pembentukan high/low harian.</p>
+            </div>
+            <div class="msc-item">
+              <div class="msc-top">
+                <b>Sesi New York (Amerika)</b>
+                <span class="msc-tag active">Aktif</span>
+              </div>
+              <div class="msc-time">19:00 - 03:00 WIB</div>
+              <p class="msc-desc">Puncak likuiditas dunia. Waktu rilis berita ekonomi berdampak tinggi (NFP, CPI, Fed Rate).</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 2. SUB-VIEW: ANALISA MARKET WORKSTATION -->
+      <div id="sub-berita-analisa" hidden>
+        <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:14px; flex-wrap:wrap; gap:10px;">
+          <div>
+            <h3 style="font-size:18px; font-weight:700; margin-bottom:4px; letter-spacing:-0.02em;">Analisa Market Institusional</h3>
+            <p style="font-size:12.5px; color:var(--text-muted); margin:0;">Bedah teknikal Smart Money Concept (SMC), peta likuiditas order flow, dan mitigasi zona kunci.</p>
+          </div>
+          <div style="display:flex; align-items:center; gap:8px;">
+            <span class="feed-stamp" id="an-stamp" style="font-family:var(--mono); font-size:11.5px; color:var(--text-muted);"></span>
+            <button class="btn btn-secondary btn-sm" id="an-reload" onclick="reloadAnalisa()" style="font-size:12px; padding:5px 13px;">Muat Ulang</button>
+          </div>
+        </div>
+
+        <!-- Search Box -->
+        <div class="cari" id="cari-an-box">
+          <span class="ic">🔍</span>
+          <input type="search" id="cari-an" placeholder="Cari pair (XAUUSD, EURUSD...), judul analisa, atau kata kunci..." autocomplete="off">
+          <button class="hapus" type="button" aria-label="Hapus pencarian">&times;</button>
+        </div>
+        <div class="cari-info" id="cari-an-info" hidden></div>
+
+        <!-- Category / Tag Filter Chips -->
+        <div class="saring" id="saring-an"></div>
+
+        <!-- Featured Market Outlook -->
+        <div id="utama-analisa"></div>
+
+        <!-- Analysis Feed List (Accordions) -->
+        <div id="analisa-list"></div>
+      </div>
+
+      <!-- 3. SUB-VIEW: KALENDER EKONOMI WORKSTATION -->
+      <div id="sub-berita-kalender" hidden>
+        <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:14px; flex-wrap:wrap; gap:10px;">
+          <div>
+            <h3 style="font-size:18px; font-weight:700; margin-bottom:4px; letter-spacing:-0.02em;">Kalender Ekonomi Global (WIB)</h3>
+            <p style="font-size:12.5px; color:var(--text-muted); margin:0;">Jadwal rilis makro ekonomi, ketenagakerjaan, inflasi, suku bunga, dan dampak ke pergerakan harga.</p>
+          </div>
+          <div style="display:flex; align-items:center; gap:8px;">
+            <span class="feed-stamp" id="kal-stamp" style="font-family:var(--mono); font-size:11.5px; color:var(--text-muted);"></span>
+            <button class="btn btn-secondary btn-sm" id="kal-reload" onclick="reloadKalender()" style="font-size:12px; padding:5px 13px;">Muat Ulang</button>
+          </div>
+        </div>
+
+        <!-- Search Box -->
+        <div class="cari" id="cari-kal-box">
+          <span class="ic">🔍</span>
+          <input type="search" id="cari-kal" placeholder="Cari rilis data atau mata uang (Core CPI, NFP, USD, EUR, AUD...)" autocomplete="off">
+          <button class="hapus" type="button" aria-label="Hapus pencarian">&times;</button>
+        </div>
+        <div class="cari-info" id="cari-kal-info" hidden></div>
+
+        <!-- Date Selectors -->
+        <div class="kal-tgl" id="kal-tgl-pilih">
+          <span class="lbl">Tanggal</span>
+          <select id="kal-th" aria-label="Tahun"></select>
+          <select id="kal-bl" aria-label="Bulan"></select>
+          <select id="kal-tg" aria-label="Tanggal"></select>
+          <button class="btn btn-secondary btn-sm" type="button" id="kal-tgl-clr" style="padding:4px 10px; font-size:11.5px;">Semua</button>
+        </div>
+
+        <!-- Impact Filter Chips -->
+        <div class="kal-filter" id="kal-dmp-chips">
+          <span class="lbl">Dampak</span>
+          <button class="kdc all on" type="button" data-dmp="0">Semua</button>
+          <button class="kdc d3" type="button" data-dmp="3"><i></i><i></i><i></i>Tinggi</button>
+          <button class="kdc d2" type="button" data-dmp="2"><i></i><i></i><i></i>Sedang</button>
+          <button class="kdc d1" type="button" data-dmp="1"><i></i><i></i><i></i>Rendah</button>
+        </div>
+
+        <!-- Economic Calendar Feed Table -->
+        <div id="kal-list"></div>
+      </div>
+    </section>
+
+    <!-- ====================================================================
+         VIEW 6: PROFIL & AKUN (OPEN SOURCE TRADER PASSPORT & CONFIG)
+         ==================================================================== -->
+    <section class="view-content" id="view-profil">
+      <!-- Trader Identity Passport Card -->
+      <div class="trader-passport-card">
+        <div class="tpc-left">
+          <div class="tpc-avatar" id="tpc-avatar-initials">RD</div>
+          <div class="tpc-info">
+            <div class="tpc-title-row">
+              <h2 id="tpc-display-name">Radit</h2>
+              <span class="badge-pill" style="color:var(--green); border-color:var(--green-border);">Disiplin: Grade A</span>
+              <span class="badge-pill" style="color:var(--accent); border-color:var(--line-light);">Open Source Offline</span>
+            </div>
+            <p class="tpc-sub" id="tpc-sub-status">Trader Mandiri · Akun Utama: EXNESS Standard (demo_acc)</p>
+          </div>
+        </div>
+        <div class="tpc-stats">
+          <div class="tpc-stat-item">
+            <span>Saldo Terkelola</span>
+            <b id="tpc-total-equity">$1,000.00</b>
+          </div>
+          <div class="tpc-stat-item">
+            <span>Win Rate</span>
+            <b id="tpc-winrate" style="color:var(--green);">0.0%</b>
+          </div>
+          <div class="tpc-stat-item">
+            <span>Total Eksekusi</span>
+            <b id="tpc-total-trades">0 Trade</b>
+          </div>
+        </div>
+      </div>
+
+      <div class="profile-grid">
+        <!-- Trader Settings Card -->
+        <div class="profile-card">
+          <h3>Pengaturan Profil & Kurs</h3>
+          <p class="calc-desc" style="margin-bottom:14px;">Sesuaikan nama alias trader dan nilai kurs konversi Dolar ke Rupiah.</p>
+          <div class="form-grid">
+            <div class="field-group full">
+              <label for="p-trader-name">Nama Panggilan / Alias Trader</label>
+              <input type="text" id="p-trader-name" value="Radit">
+            </div>
+            <div class="field-group full">
+              <label for="p-kurs-input">Kurs Dolar ke Rupiah (USD to IDR)</label>
+              <input type="number" id="p-kurs-input" value="17000">
+            </div>
+          </div>
+          <div style="margin-top:16px;">
+            <button class="btn btn-accent btn-sm" onclick="saveProfileSettings()">Simpan Profil & Kurs</button>
+          </div>
+          <div style="margin-top:18px; padding-top:14px; border-top:1px solid var(--line); font-size:12px; color:var(--text-muted);">
+            Sistem journalingtrade berjalan 100% di browser Anda (Open Source). Data jurnal Anda tersimpan aman secara offline di penyimpanan lokal perangkat ini tanpa server pihak ketiga.
+          </div>
+        </div>
+
+        <!-- Accounts Management Card -->
+        <div class="profile-card">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:14px;">
+            <div>
+              <h3 style="margin-bottom:2px;">Akun Broker Terdaftar</h3>
+              <p class="calc-desc" style="margin-bottom:0;">Kelola akun real atau demo Anda.</p>
+            </div>
+            <button class="btn btn-ghost btn-sm" onclick="openNewAccountModal()">+ Akun Baru</button>
+          </div>
+          <div id="accounts-list-wrap">
+            <!-- Populated via JS -->
+          </div>
+        </div>
+      </div>
+
+      <!-- Golden Rules & Storage Health Row -->
+      <div class="profile-bottom-grid">
+        <!-- Golden Rules Card -->
+        <div class="profile-card">
+          <h3>Kaidah & Aturan Disiplin Trading</h3>
+          <p class="calc-desc" style="margin-bottom:14px;">Pengingat psikologis sebelum mengeksekusi order di pasar.</p>
+          <div class="rules-list">
+            <div class="rule-item">
+              <span class="rule-num">1</span>
+              <span>Batas risiko maksimal 1.0% per trade dari modal akun.</span>
+            </div>
+            <div class="rule-item">
+              <span class="rule-num">2</span>
+              <span>Selalu pasang Stop Loss (SL) bersamaan saat membuka posisi.</span>
+            </div>
+            <div class="rule-item">
+              <span class="rule-num">3</span>
+              <span>Berhenti trading hari ini jika mengalami 2 loss beruntun (Max Daily Loss).</span>
+            </div>
+            <div class="rule-item">
+              <span class="rule-num">4</span>
+              <span>Hanya masuki pasar saat terdapat konfirmasi setup yang jelas.</span>
+            </div>
+            <div class="rule-item">
+              <span class="rule-num">5</span>
+              <span>Catat dan evaluasi setiap trade di journalingtrade secara objektif.</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Local Storage Health & Vault Card -->
+        <div class="profile-card">
+          <h3>Penyimpanan Lokal & Backup Vault</h3>
+          <p class="calc-desc" style="margin-bottom:14px;">Status integritas data offline di perangkat Anda saat ini.</p>
+          <div class="vault-status-box">
+            <div class="vs-row">
+              <span>Status Penyimpanan Browser</span>
+              <b style="color:var(--green);">✓ Normal (Offline Ready)</b>
+            </div>
+            <div class="vs-row">
+              <span>Penggunaan Memori Lokal</span>
+              <b id="vault-storage-used">~35 KB / 5 MB</b>
+            </div>
+            <div class="bar-track" style="margin: 8px 0 14px;"><div class="bar-fill" style="width:2%; background:var(--accent);"></div></div>
+            <div class="vs-row">
+              <span>Total Catatan Tersimpan</span>
+              <b id="vault-total-records">8 Trade</b>
+            </div>
+          </div>
+          <div style="display:flex; gap:8px; flex-wrap:wrap; margin-top:16px;">
+            <button class="btn btn-ghost btn-sm" onclick="exportBackupJSON()">Backup JSON</button>
+            <button class="btn btn-ghost btn-sm" onclick="triggerRestore()">Restore Data</button>
+            <button class="btn btn-ghost btn-sm" onclick="exportCSV()">Ekspor CSV</button>
+            <button class="btn btn-danger btn-sm" onclick="resetAllData()">Hapus Semua Data</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ====================================================================
+       MODAL 1: UPLOAD JURNAL TRADE (CODEFRONTS DRAG & DROP ZONE - MAKS 10MB)
+       ==================================================================== -->
+  <div class="modal-overlay" id="upload-modal">
+    <div class="modal-card" style="max-width:560px;">
+      <div class="modal-head">
+        <div>
+          <h3 style="margin-bottom:2px;">Upload Jurnal Trade</h3>
+          <p style="font-size:12px; color:var(--text-muted); margin:0;">Impor catatan eksekusi posisi trade atau screenshot analisa chart</p>
+        </div>
+        <button class="modal-close" onclick="closeUploadModal()">&times;</button>
+      </div>
+
+      <!-- CodeFronts Drag & Drop Zone -->
+      <div class="fu-zone-wrap">
+        <div class="fu-zone" id="fu-06-zone" role="button" tabindex="0" aria-label="Seret & lepas berkas ke sini, atau tekan Enter untuk memilih" aria-describedby="fu-06-hint">
+          <svg class="fu-outline" aria-hidden="true" focusable="false" preserveAspectRatio="none">
+            <rect x="1" y="1" rx="14" ry="14" width="calc(100% - 2px)" height="calc(100% - 2px)"></rect>
+          </svg>
+          <span class="fu-art" aria-hidden="true">
+            <span class="fu-sheet fu-sheet--a"></span>
+            <span class="fu-sheet fu-sheet--b"></span>
+            <span class="fu-sheet fu-sheet--c">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 16V6m0 0-3.4 3.4M12 6l3.4 3.4"/>
+              </svg>
+            </span>
+          </span>
+          <p class="fu-title">Tarik & Lepas Berkas Jurnal ke Sini</p>
+          <p class="fu-hint" id="fu-06-hint">
+            atau <label class="fu-browse" for="fu-06-file">pilih dari perangkat</label>
+            <span class="fu-rule" aria-hidden="true"></span>
+            <span class="fu-types">PDF, TXT, Excel/CSV, PNG · <b>Maks. 10 MB</b></span>
+          </p>
+          <input class="fu-input" id="fu-06-file" type="file" accept=".pdf,.txt,.csv,.xlsx,.xls,.png,.jpg,.jpeg" onchange="handleSelectedFile(this)">
+        </div>
+        <ul class="fu-chips" id="fu-06-chips"></ul>
+      </div>
+
+      <!-- Upload Status / Parse Preview Area -->
+      <div class="upload-preview-area" id="upload-preview-area">
+        <table class="trade-table" style="font-size:11.5px;">
+          <thead>
+            <tr>
+              <th>Market</th>
+              <th>Posisi</th>
+              <th>Entry</th>
+              <th>SL</th>
+              <th>TP</th>
+              <th>Hasil</th>
+            </tr>
+          </thead>
+          <tbody id="upload-preview-tbody"></tbody>
+        </table>
+      </div>
+
+      <div id="upload-status-msg" style="font-size:12.5px; color:var(--text-muted); margin-bottom:14px; min-height:20px;"></div>
+
+      <div style="display:flex; justify-content:space-between; align-items:center;">
+        <span style="font-size:11.5px; color:var(--text-muted); font-family:var(--mono);">Format: PDF, TXT, CSV, XLS, PNG (≤10MB)</span>
+        <div style="display:flex; gap:10px;">
+          <button class="btn btn-ghost" onclick="closeUploadModal()">Tutup</button>
+          <button class="btn btn-accent" id="btn-confirm-import" style="display:none;" onclick="confirmParsedImport()">
+            Impor ke Jurnal
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ====================================================================
+       MODAL 2: TRADINGVIEW POP-UP CHART VIEWER (IN-DOMAIN)
+       ==================================================================== -->
+  <div class="modal-overlay" id="tv-modal" onclick="handleTvModalBackdrop(event)">
+    <div class="modal-card tv-modal-card">
+      <div class="tv-modal-head">
+        <div class="tv-head-left">
+          <div class="tv-badge-wrap">
+            <span class="tv-live-dot"></span>
+            <span class="tv-symbol-pill" id="tv-symbol-pill">XAUUSD</span>
+          </div>
+          <span class="tv-sub-title" id="tv-symbol-desc">Gold Spot / US Dollar · OANDA</span>
+          <div class="tv-tf-group">
+            <button class="tv-tf-btn" data-interval="15" onclick="changeTvInterval('15')">15m</button>
+            <button class="tv-tf-btn active" data-interval="60" onclick="changeTvInterval('60')">1h</button>
+            <button class="tv-tf-btn" data-interval="240" onclick="changeTvInterval('240')">4h</button>
+            <button class="tv-tf-btn" data-interval="D" onclick="changeTvInterval('D')">1D</button>
+          </div>
+        </div>
+
+        <div class="tv-quick-markets" id="tv-quick-markets">
+          <button class="tv-qm-btn active" data-sym="XAUUSD" onclick="openTradingView('XAUUSD')">XAUUSD</button>
+          <button class="tv-qm-btn" data-sym="EURUSD" onclick="openTradingView('EURUSD')">EURUSD</button>
+          <button class="tv-qm-btn" data-sym="GBPUSD" onclick="openTradingView('GBPUSD')">GBPUSD</button>
+          <button class="tv-qm-btn" data-sym="BTC" onclick="openTradingView('BTC')">BTC</button>
+          <button class="tv-qm-btn" data-sym="ETH" onclick="openTradingView('ETH')">ETH</button>
+          <button class="tv-qm-btn" data-sym="US30" onclick="openTradingView('US30')">US30</button>
+          <button class="tv-qm-btn" data-sym="NVDA" onclick="openTradingView('NVDA')">NVDA</button>
+          <button class="tv-qm-btn" data-sym="DXY" onclick="openTradingView('DXY')">DXY</button>
+          <button class="tv-qm-btn" data-sym="OIL" onclick="openTradingView('OIL')">OIL</button>
+        </div>
+
+        <div class="tv-head-right">
+          <a id="tv-external-link" href="https://www.tradingview.com" target="_blank" rel="noopener noreferrer" class="btn btn-secondary" style="font-size:11px; padding:4px 9px;" title="Buka di tab TradingView terpisah jika perlu">Tab Baru ↗</a>
+          <button class="modal-close" onclick="closeTradingView()" title="Tutup Pop-up">&times;</button>
+        </div>
+      </div>
+
+      <div id="tv-iframe-box" class="tv-iframe-stage"></div>
+    </div>
+  </div>
+
+  <!-- ====================================================================
+       MODAL 3: ACCOUNT ADD / EDIT MODAL
+       ==================================================================== -->
+  <div class="modal-overlay" id="account-modal">
+    <div class="modal-card" style="max-width:480px;">
+      <div class="modal-head">
+        <h3 id="acc-modal-title">Tambah Akun Broker</h3>
+        <button class="modal-close" onclick="closeAccountModal()">&times;</button>
+      </div>
+      <div class="form-grid">
+        <div class="field-group full">
+          <label for="acc-name">Nama Akun</label>
+          <input type="text" id="acc-name" placeholder="Akun Utama / Challenge">
+        </div>
+        <div class="field-group">
+          <label for="acc-broker">Broker</label>
+          <input type="text" id="acc-broker" placeholder="EXNESS / IC Markets">
+        </div>
+        <div class="field-group">
+          <label for="acc-currency">Mata Uang</label>
+          <select id="acc-currency">
+            <option value="USD">USD (Dolar)</option>
+            <option value="USC">USC (Akun Sen)</option>
+            <option value="IDR">IDR (Rupiah)</option>
+          </select>
+        </div>
+        <div class="field-group full">
+          <label for="acc-balance">Saldo Awal</label>
+          <input type="number" id="acc-balance" placeholder="1000" value="1000">
+        </div>
+      </div>
+      <div style="display:flex; justify-content:flex-end; gap:10px; margin-top:20px;">
+        <button class="btn btn-ghost" onclick="closeAccountModal()">Batal</button>
+        <button class="btn btn-accent" onclick="saveAccountRecord()">Simpan Akun</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <div style="max-width:1200px; margin:0 auto; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px;">
+      <span><b>journalingtrade</b> · Professional Trading Journal & Analytics · Open Source Engine</span>
+      <span>Disiplin · Data · Eksekusi</span>
+    </div>
+  </footer>
+
+  <!-- ====================================================================
+       APPLICATION LOGIC & DATA PERSISTENCE
+       ==================================================================== -->
+  <script src="js/app.js"></script>
+</body>
+
+</html>
