@@ -17,6 +17,8 @@
 
       /* Safe Element Selector */
       const $ = id => document.getElementById(id);
+      const esc = value => String(value ?? '').replace(/[&<>"']/g, ch => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[ch]));
+      const safeId = value => /^[\w-]{1,80}$/.test(String(value || '')) ? String(value) : '';
 
       /* Initialization Demo Data if clean */
       function getInitialDemoData() {
@@ -50,10 +52,10 @@
           const setRaw = localStorage.getItem(K_SETTINGS);
           const profRaw = localStorage.getItem(K_PROFILE);
 
-          if (accRaw) accounts = JSON.parse(accRaw);
-          if (trRaw) trades = JSON.parse(trRaw);
-          if (setRaw) settings = Object.assign(settings, JSON.parse(setRaw));
-          if (profRaw) profile = Object.assign(profile, JSON.parse(profRaw));
+          if (accRaw) { const value = JSON.parse(accRaw); if (Array.isArray(value) && value.every(a => a && typeof a === 'object')) accounts = value; }
+          if (trRaw) { const value = JSON.parse(trRaw); if (Array.isArray(value) && value.every(t => t && typeof t === 'object')) trades = value; }
+          if (setRaw) { const value = JSON.parse(setRaw); if (value && typeof value === 'object' && !Array.isArray(value)) settings = { kurs: Number(value.kurs) || 17000, billingAnnual: !!value.billingAnnual }; }
+          if (profRaw) { const value = JSON.parse(profRaw); if (value && typeof value === 'object' && !Array.isArray(value)) profile = { name: String(value.name || 'Trader').slice(0, 80), currentAccount: safeId(value.currentAccount) }; }
 
           if (!accounts.length || !trades || !trades.length) {
             const initial = getInitialDemoData();
@@ -317,7 +319,7 @@
       function populateAccountSelect() {
         const sel = $('f-account');
         if (!sel) return;
-        sel.innerHTML = accounts.map(a => `<option value="${a.id}">${a.name} (${a.broker})</option>`).join('');
+        sel.innerHTML = accounts.map(a => `<option value="${esc(a.id)}">${esc(a.name)} (${esc(a.broker)})</option>`).join('');
         if (profile.currentAccount) sel.value = profile.currentAccount;
       }
 
@@ -551,7 +553,7 @@
           const isSame = uniqueMarkets.length === currentOpts.length && uniqueMarkets.every((m, i) => m === currentOpts[i]);
           if (!isSame) {
             marketSel.innerHTML = '<option value="">Semua Market</option>' +
-              uniqueMarkets.map(m => `<option value="${m}">${m}</option>`).join('');
+              uniqueMarkets.map(m => `<option value="${esc(m)}">${esc(m)}</option>`).join('');
             marketSel.value = curVal;
           }
         }
@@ -564,7 +566,7 @@
           const isSame = uniqueStrats.length === currentOpts.length && uniqueStrats.every((s, i) => s === currentOpts[i]);
           if (!isSame) {
             stratSel.innerHTML = '<option value="">Semua Strategi</option>' +
-              uniqueStrats.map(s => `<option value="${s}">${s}</option>`).join('');
+              uniqueStrats.map(s => `<option value="${esc(s)}">${esc(s)}</option>`).join('');
             stratSel.value = curVal;
           }
         }
@@ -678,31 +680,32 @@
             const resLower = resVal.toLowerCase();
             const resClass = resLower === 'win' ? 'res-win' : (resLower === 'loss' ? 'res-loss' : 'res-be');
             const pnlClass = m.pnlUSD > 0 ? 'res-win' : (m.pnlUSD < 0 ? 'res-loss' : 'res-be');
-            const marketName = (t.market || 'XAUUSD').toString().trim().toUpperCase();
+            const marketName = (t.market || 'XAUUSD').toString().trim().toUpperCase().replace(/[^A-Z0-9:_-]/g, '').slice(0, 24) || 'XAUUSD';
+            const tradeId = safeId(t.id);
 
             return `<tr>
               <td style="color:var(--text-muted);">${filtered.length - idx}</td>
-              <td>${t.date || '-'}</td>
-              <td style="color:var(--text-muted);">${t.jam || '-'}</td>
+              <td>${esc(t.date || '-')}</td>
+              <td style="color:var(--text-muted);">${esc(t.jam || '-')}</td>
               <td><button type="button" class="btn-market-link" onclick="openTradingView('${marketName}')" title="Buka chart ${marketName} di TradingView"><b>${marketName}</b> <span style="font-size:10px; opacity:0.5;">↗</span></button></td>
-              <td><span class="pos-badge ${posClass}">${pos.toUpperCase()}</span></td>
-              <td>${t.entry ?? '-'}</td>
-              <td style="color:var(--red);">${t.sl ?? '-'}</td>
-              <td style="color:var(--green);">${t.tp ?? '-'}</td>
-              <td>${t.vol ?? '-'}</td>
-              <td>${t.riskPct ?? 1}%</td>
+              <td><span class="pos-badge ${posClass}">${esc(pos.toUpperCase())}</span></td>
+              <td>${esc(t.entry ?? '-')}</td>
+              <td style="color:var(--red);">${esc(t.sl ?? '-')}</td>
+              <td style="color:var(--green);">${esc(t.tp ?? '-')}</td>
+              <td>${esc(t.vol ?? '-')}</td>
+              <td>${esc(t.riskPct ?? 1)}%</td>
               <td>${fmtUSD(m.riskUSD)}</td>
               <td>${(m.rr || 0).toFixed(2)}</td>
-              <td><span class="${resClass}">${resVal}</span></td>
+              <td><span class="${resClass}">${esc(resVal)}</span></td>
               <td class="${pnlClass}">${fmtPLUSD(m.pnlUSD)}</td>
               <td class="${pnlClass}">${fmtPLIDR(m.pnlIDR)}</td>
-              <td style="font-family:var(--sans);">${t.strategy || '-'}</td>
-              <td style="font-family:var(--sans); max-width:180px; overflow:hidden; text-overflow:ellipsis;" title="${t.reason || ''}">
-                ${t.reason || '-'}
+              <td style="font-family:var(--sans);">${esc(t.strategy || '-')}</td>
+              <td style="font-family:var(--sans); max-width:180px; overflow:hidden; text-overflow:ellipsis;" title="${esc(t.reason || '')}">
+                ${esc(t.reason || '-')}
               </td>
               <td>
-                <button class="btn btn-ghost btn-sm" style="padding:3px 7px;" onclick="editTrade('${t.id}')" title="Edit">✎</button>
-                <button class="btn btn-danger btn-sm" style="padding:3px 7px;" onclick="deleteTrade('${t.id}')" title="Hapus">✕</button>
+                <button class="btn btn-ghost btn-sm" style="padding:3px 7px;" onclick="editTrade('${tradeId}')" title="Edit">✎</button>
+                <button class="btn btn-danger btn-sm" style="padding:3px 7px;" onclick="deleteTrade('${tradeId}')" title="Hapus">✕</button>
               </td>
             </tr>`;
           } catch (err) {
@@ -750,7 +753,7 @@
           return;
         }
         chips.innerHTML = list.map(f => {
-          return `<li><span>${f.name}</span><b>${formatFileSize(f.size)}</b></li>`;
+          return `<li><span>${esc(f.name)}</span><b>${formatFileSize(f.size)}</b></li>`;
         }).join('');
       }
 
@@ -859,7 +862,7 @@
         }
         // 3. Image Files (.png, .jpg, .jpeg)
         else if (['png', 'jpg', 'jpeg'].includes(ext)) {
-          status.innerHTML = `<span style="color:var(--green);">✓ Screenshot chart berhasil dimuat: ${file.name}</span><br>Foto setup trade siap diarsipkan ke jurnal trade.`;
+          status.innerHTML = `<span style="color:var(--green);">✓ Screenshot chart berhasil dimuat: ${esc(file.name)}</span><br>Foto setup trade siap diarsipkan ke jurnal trade.`;
           // Create dummy entry matching screenshot
           parsedTradesToImport = [{
             id: 't_' + Date.now(),
@@ -889,7 +892,7 @@
           };
           reader.readAsText(file);
         } else {
-          status.innerHTML = `<span style="color:var(--red);">Format file .${ext} belum didukung. Gunakan PDF, TXT, CSV, atau PNG.</span>`;
+          status.innerHTML = `<span style="color:var(--red);">Format file .${esc(ext)} belum didukung. Gunakan PDF, TXT, CSV, atau PNG.</span>`;
         }
       }
 
@@ -998,12 +1001,12 @@
 
         tbody.innerHTML = list.map(t => `
           <tr>
-            <td><b>${t.market}</b></td>
-            <td><span class="pos-badge ${t.posisi === 'Buy' ? 'pos-buy' : 'pos-sell'}">${t.posisi}</span></td>
-            <td>${t.entry}</td>
-            <td style="color:var(--red);">${t.sl}</td>
-            <td style="color:var(--green);">${t.tp}</td>
-            <td>${t.result}</td>
+            <td><b>${esc(t.market)}</b></td>
+            <td><span class="pos-badge ${t.posisi === 'Buy' ? 'pos-buy' : 'pos-sell'}">${esc(t.posisi)}</span></td>
+            <td>${esc(t.entry)}</td>
+            <td style="color:var(--red);">${esc(t.sl)}</td>
+            <td style="color:var(--green);">${esc(t.tp)}</td>
+            <td>${esc(t.result)}</td>
           </tr>
         `).join('');
 
@@ -1234,7 +1237,7 @@
           const maxVal = Math.max(...entries.map(x => Math.abs(x[1]))) || 1;
           c.innerHTML = entries.slice(0, 5).map(([k, v]) => `
             <div class="bar-row">
-              <div class="bar-label" title="${k}">${k}</div>
+              <div class="bar-label" title="${esc(k)}">${esc(k)}</div>
               <div class="bar-track">
                 <div class="bar-fill" style="width:${(Math.abs(v) / maxVal) * 100}%; background:${v >= 0 ? 'var(--green)' : 'var(--red)'};"></div>
               </div>
@@ -1437,12 +1440,12 @@
         wrap.innerHTML = accounts.map(a => `
           <div class="account-item">
             <div>
-              <div class="account-item-title">${a.name}</div>
-              <div class="account-item-sub">${a.broker} · ${a.currency} · Saldo Awal: ${a.currency === 'IDR' ? fmtIDR(a.startBalance) : fmtUSD(a.startBalance)}</div>
+              <div class="account-item-title">${esc(a.name)}</div>
+              <div class="account-item-sub">${esc(a.broker)} · ${esc(a.currency)} · Saldo Awal: ${a.currency === 'IDR' ? fmtIDR(a.startBalance) : fmtUSD(a.startBalance)}</div>
             </div>
             <div style="display:flex; align-items:center; gap:10px;">
               <span class="account-item-bal">${a.currency === 'IDR' ? fmtIDR(a.startBalance) : fmtUSD(a.startBalance)}</span>
-              ${accounts.length > 1 ? `<button class="btn btn-danger btn-sm" onclick="deleteAccount('${a.id}')">✕</button>` : ''}
+              ${accounts.length > 1 ? `<button class="btn btn-danger btn-sm" onclick="deleteAccount('${safeId(a.id)}')">✕</button>` : ''}
             </div>
           </div>
         `).join('');
@@ -1543,15 +1546,16 @@
         const reader = new FileReader();
         reader.onload = function (e) {
           try {
+            if (f.size > 10 * 1024 * 1024) throw new Error('Backup too large');
             const data = JSON.parse(e.target.result);
-            if (!Array.isArray(data.accounts) || !Array.isArray(data.trades)) {
+            if (!data || !Array.isArray(data.accounts) || !data.accounts.every(a => a && typeof a === 'object' && !Array.isArray(a)) || !Array.isArray(data.trades) || !data.trades.every(t => t && typeof t === 'object' && !Array.isArray(t))) {
               throw new Error("Invalid structure");
             }
             if (confirm(`Pulihkan ${data.accounts.length} akun & ${data.trades.length} trade? Data lokal akan diperbarui.`)) {
               accounts = data.accounts;
               trades = data.trades;
-              if (data.settings) settings = data.settings;
-              if (data.profile) profile = data.profile;
+              if (data.settings && typeof data.settings === 'object' && !Array.isArray(data.settings)) settings = { kurs: Number(data.settings.kurs) || 17000, billingAnnual: !!data.settings.billingAnnual };
+              if (data.profile && typeof data.profile === 'object' && !Array.isArray(data.profile)) profile = { name: String(data.profile.name || 'Trader').slice(0, 80), currentAccount: safeId(data.profile.currentAccount) };
               saveData();
               renderJournalTable();
               renderProfileView();
@@ -1574,9 +1578,9 @@
           const m = computeTradeMetrics(t);
           return [
             t.date, t.jam, t.market, t.posisi, t.entry, t.sl, t.tp, t.vol, t.riskPct, t.result, m.pnlUSD.toFixed(2),
-            `"${(t.strategy || '').replace(/"/g, '""')}"`,
-            `"${(t.reason || '').replace(/"/g, '""')}"`
-          ].join(',');
+            t.strategy || '',
+            t.reason || ''
+          ].map(csvCell).join(',');
         });
         downloadFile('jurnal_trading.csv', [headers.join(','), ...rows].join('\n'), 'text/csv');
       };
@@ -1591,9 +1595,14 @@
         setTimeout(() => URL.revokeObjectURL(url), 1000);
       }
 
+      function csvCell(value) {
+        const safe = String(value ?? '').replace(/[\r\n]+/g, ' ').replace(/"/g, '""');
+        return `"${/^[\s]*[=+@\-]/.test(safe) ? "'" : ''}${safe}"`;
+      }
+
       window.resetAllData = function () {
         if (confirm('PERINGATAN: Apakah Anda yakin ingin menghapus SEMUA akun dan catatan jurnal trade?')) {
-          localStorage.clear();
+          [K_ACCOUNTS, K_TRADES, K_SETTINGS, K_PROFILE, 'jt_kalender_cache'].forEach(key => localStorage.removeItem(key));
           loadData();
           renderJournalTable();
           renderProfileView();
@@ -2011,13 +2020,13 @@
         if (akt !== null && prk !== null) cls = akt > prk ? ' naik' : (akt < prk ? ' turun' : '');
         const adaAngka = !!(x.akt || x.prk || x.sbl);
         return '<div class="kal-baris' + ((+x.dmp || 1) >= 3 ? ' tinggi' : '') + '">' +
-          '<span class="kal-jam">' + (x.jam || '--:--') + '</span>' +
-          '<span class="kal-neg">' + (x.neg || '') + '</span>' +
+          '<span class="kal-jam">' + esc(x.jam || '--:--') + '</span>' +
+          '<span class="kal-neg">' + esc(x.neg || '') + '</span>' +
           kalDmpBar(x.dmp) +
-          '<div><div class="kal-nama">' + (x.nama || '') + '</div>' +
-          (adaAngka ? '<div class="kal-ang">Akt <b class="' + cls.trim() + '">' + (x.akt || '—') +
-            '</b> &middot; Perk ' + (x.prk || '—') + ' &middot; Sblm ' + (x.sbl || '—') + '</div>' : '') +
-          (x.cat ? '<div class="kal-cat">💡 ' + x.cat + '</div>' : '') +
+          '<div><div class="kal-nama">' + esc(x.nama || '') + '</div>' +
+          (adaAngka ? '<div class="kal-ang">Akt <b class="' + cls.trim() + '">' + esc(x.akt || '—') +
+            '</b> &middot; Perk ' + esc(x.prk || '—') + ' &middot; Sblm ' + esc(x.sbl || '—') + '</div>' : '') +
+          (x.cat ? '<div class="kal-cat">💡 ' + esc(x.cat) + '</div>' : '') +
           '</div></div>';
       }
 
@@ -2112,11 +2121,11 @@
 
           return `
             <div class="cal-row" onclick="switchBeritaSub('kalender')" style="cursor:pointer;" title="Klik untuk membuka kalender lengkap">
-              <span class="cal-time">${x.jam || '--:--'}</span>
-              <span class="cal-cur">${x.neg || ''}</span>
+              <span class="cal-time">${esc(x.jam || '--:--')}</span>
+              <span class="cal-cur">${esc(x.neg || '')}</span>
               <div class="cal-event-box">
-                <span class="cal-event-name">${x.nama || ''}</span>
-                <span class="cal-meta">${metaStr}</span>
+                <span class="cal-event-name">${esc(x.nama || '')}</span>
+                <span class="cal-meta">${esc(metaStr)}</span>
               </div>
               <span class="cal-impact ${dmpCls}">${dmpLbl}</span>
             </div>
@@ -2439,7 +2448,7 @@ Disarankan menunggu konfirmasi break salah satu batas range sebelum mengambil po
 
       function waFormat(s) {
         if (!s) return '';
-        let t = s
+        let t = esc(s)
           .replace(/\*([^*]+)\*/g, '<b>$1</b>')
           .replace(/_([^_]+)_/g, '<i>$1</i>')
           .replace(/\n\n/g, '</p><p>')
