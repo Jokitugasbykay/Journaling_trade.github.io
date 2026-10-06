@@ -37,14 +37,18 @@ Aplikasi ini dibangun menggunakan arsitektur **Client-Side Open Source**. Anda t
 
 ## 🛠️ Fitur & Modul Utama
 
-1. **Beranda (Showcase Stage)**:
-   - Header editorial modern dengan tipografi bold kontras tinggi.
-   - Panggung showcase tablet interaktif dengan kartu harga bertingkat (*Tier Card* putih yang diangkat).
-   - Sakelar harga bulanan (*Monthly*) & tahunan (*Annual*) dinamis.
-   - 4 kartu pasar mengambang (*Floating Market Cards*): **XAUUSD**, **EURUSD**, **GBPUSD**, **BTCUSD** dilengkapi grafik sparkline SVG real-time.
+1. **Beranda & Akses Awal**:
+   - Panduan berbahasa Indonesia dengan 28 bagian dan lebih dari 11.000 kata tentang dasar forex, penggunaan jurnal, evaluasi, psikologi, dan latihan. Seluruh materi terbuka di bawah hero dengan daftar isi.
+   - Tombol Minat menuju paket. Tombol Coba membuka akses Jurnal, Statistik, Kalkulator, Berita Ekonomi, dan Profil.
+   - Saat pertama masuk dengan profil lokal, hanya Beranda yang dapat dibuka. Pilihan bahasa Indonesia/English berada di menu Masuk.
+   - Paket Free ($0), Plus ($10/bulan atau $100/tahun), dan Pro ($20/bulan atau $200/tahun). Label penghematan tahunan 17% dibulatkan dari 16,67%.
+   - Login Google tampil sebagai tombol belum tersedia. Profil lokal bukan autentikasi cloud; semua profil di browser ini memakai penyimpanan yang sama. Pembayaran Plus/Pro belum dibuka.
 2. **Jurnal Trading**:
    - Formulir entri cepat (*Quick Entry*), mode tempel teks (*Paste Mode*), dan formulir penuh (*Full Form*).
-   - Dukungan unggah & impor berkas jurnal multi-format: **PDF**, **TXT**, **Excel/CSV**, dan tangkapan layar **PNG**.
+   - **PDF/PNG/JPG** mengenali riwayat posisi (market, arah, lot, tanggal/waktu, entry, exit, profit) dan setup TradingView (label entry, SL, TP, jarak stop/target, R:R, Qty/PnL alat). Hasil dan teks OCR dapat disimpan dan dibuka kembali secara lokal. Riwayat lengkap bisa dimasukkan ke jurnal lewat tombol impor setelah memilih mata uang profit (USD/IDR). Profit aktual digunakan pada jurnal dan statistik; SL/TP, risiko, serta R:R yang belum diketahui ditandai kosong. Scan yang sama tidak diimpor dua kali ke akun yang sama.
+   - Data yang tidak terlihat tetap kosong. Baris terpotong dilewati; posisi identik tidak digabung. Qty/PnL alat chart bukan lot/profit broker. Satu alat posisi per chart didukung; tema lain atau teks buram dapat hanya menghasilkan teks OCR. Gambar maksimal 12 megapiksel, berkas maksimal 10 MB.
+   - **CSV/TXT** dapat ditinjau sebelum impor. Excel perlu diekspor ke CSV terlebih dahulu.
+   - PDF.js 5.4.296 dan Tesseract.js 6.0.1 dimuat dari CDN saat scan diperlukan. Gunakan server HTTP/HTTPS dan koneksi internet untuk memuat library; pemindaian berlangsung di browser.
    - Tabel riwayat posisi trading dengan perhitungan otomatis rasio R:R, Net P/L USD, dan estimasi Rupiah (IDR).
 3. **Statistik & Analitik Kinerja**:
    - Kalkulasi otomatis Win Rate, Total Net Profit, Profit Factor, Max Drawdown, dan rata-rata R-Multiple.

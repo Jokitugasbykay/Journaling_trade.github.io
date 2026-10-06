@@ -14,11 +14,157 @@
       let profile = { name: 'Trader', currentAccount: 'demo_acc' };
       let currentEditingTradeId = null;
       let parsedTradesToImport = [];
+      let scanJob = 0;
+      let currentScan = null;
+      let ocrLibrary = null;
+      let uploadTrigger = null;
+      let onboarding = { name: '', started: false };
+      let language = 'id';
+      const originalCopy = new Map();
+      try {
+        const saved = JSON.parse(localStorage.getItem('fncjt_onboarding') || '{}');
+        onboarding = { name: typeof saved.name === 'string' ? saved.name.slice(0, 80) : '', started: saved.started === true };
+        language = localStorage.getItem('fncjt_language') === 'en' ? 'en' : 'id';
+      } catch {}
 
       /* Safe Element Selector */
       const $ = id => document.getElementById(id);
       const esc = value => String(value ?? '').replace(/[&<>"']/g, ch => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[ch]));
       const safeId = value => /^[\w-]{1,80}$/.test(String(value || '')) ? String(value) : '';
+
+      const stateCopy = {
+        accessReady: 'Jurnal siap digunakan. Pilih tab yang ingin Anda buka.',
+        localProfile: 'Profil lokal', localProfileStatus: 'Data tersimpan di perangkat ini.',
+        changeProfile: 'Ganti profil lokal'
+      };
+      const englishCopy = {
+        home: 'Home', journal: 'Journal', statistics: 'Statistics', calculator: 'Calculator', news: 'Economic news',
+        signIn: 'Sign in', welcome: 'Welcome', guestStatus: 'Get to know the journal on Home.',
+        loginMenu: 'Sign in / login', profileSettings: 'Profile settings', openJournal: 'Open trading journal',
+        language: 'Language', signOut: 'Leave local profile', try: 'Try',
+        heroTitle: 'Discipline in Every Execution.<br>Clarity in Every Trade.',
+        heroLead: 'Transform your trading journey with a disciplined journaling practice.',
+        tryJournal: 'Try the free journal', interested: "I’m interested",
+        accessHint: 'Journal tabs open after you click Try.', accessReady: 'Your journal is ready. Choose a tab to get started.',
+        localProfile: 'Local profile', localProfileStatus: 'Data stays on this device.', changeProfile: 'Change local profile',
+        exampleTitle: 'Example journal note', market: 'Market', exampleMarket: 'Write your market',
+        entryReason: 'Entry reason', exampleReason: 'Why this setup?', riskLimit: 'Risk limit', exampleRisk: 'Decide before entry',
+        evaluation: 'Review', exampleReview: 'Was the plan followed?', exampleHint: 'A note template, not your account data.',
+        foundationsTitle: 'Understand trading<br>before chasing results.',
+        foundationMarket: 'Markets & context',
+        foundationMarketText: 'Trading means buying and selling instruments in a market. Supply, demand, liquidity, and news influence prices. Record the context behind each decision.',
+        foundationRisk: 'Risk & position size',
+        foundationRiskText: 'Every position can lose money. Position size, stop distance, spread, and transaction costs determine its impact on your account.',
+        foundationPlan: 'Execution plan',
+        foundationPlanText: 'The entry reason, setup invalidation level, and target belong in your plan. Your notes help compare the plan with the actual execution.',
+        foundationProbability: 'Probability & review',
+        foundationProbabilityText: 'One trade does not establish strategy quality. Review a series of positions, the size of gains and losses, and how consistently you followed your process.',
+        purposeTitle: 'A journal turns experience into something you can review.',
+        purposeBefore: '<strong>Before a trade:</strong> write the reason, market context, and risk limit.',
+        purposeAfter: '<strong>After a trade:</strong> record the outcome, emotions, and whether you followed the plan.',
+        purposeReview: '<strong>During review:</strong> identify recurring patterns and choose one measurable change.',
+        purposeDetail: 'A journal helps identify habits to improve. Assess progress through your process and a collection of trades, without promises of trading returns.',
+        interestPlans: "I’m interested, show plans", pricingTitle: 'Plans that grow with you',
+        pricingLead: 'Start with Free. Paid plans are coming soon.', monthly: 'Monthly', annual: 'Annual', save17: 'Save 17%',
+        freeDescription: 'Get to know your trading habits.', freeBilling: 'Free, no subscription', freeNote: 'Start with data on your own device',
+        tryFree: 'Try Free', plusDescription: 'For a more regular journaling routine.', proDescription: 'For a more detailed trading review.',
+        plusSoon: 'Plus coming soon', proSoon: 'Pro coming soon', paidNote: 'Subscriptions are not open yet',
+        featureDetails: 'Show all features', freeFeature1: 'Manual trade journaling', freeFeature2: 'Statistics and risk calculators',
+        freeFeature3: 'PDF/PNG scanning and CSV/TXT imports', freeFeature4: 'Local backup and restore',
+        priceDetails: 'Show pricing details', perMonth: 'USD / month', perYear: 'USD / year',
+        plusSavings: 'Save $20 compared with 12 monthly payments. The discount rounds to 17%.',
+        proSavings: 'Save $40 compared with 12 monthly payments. The discount rounds to 17%.',
+        paidHint: 'Plan features and payments will be announced before subscriptions open.',
+        localDataHint: 'Notes are stored in this browser on this device. Export a backup to keep a copy.',
+        loginTitle: 'Sign in to your journal', loginDescription: 'Use a local profile for journaling on this device.',
+        googleLogin: 'Sign in with Google', googleSoon: 'Google sign-in is not available yet.', localName: 'Local profile name',
+        localLoginHint: 'Local profiles share the same browser data. They are not cloud accounts. On your first visit, click Try on Home to open the other tabs.',
+        localLogin: 'Use local profile', tryWithoutAccount: 'Try without an account',
+        uploadLabel: 'Scan PDF/PNG · Import CSV/TXT', uploadTitle: 'Scan documents & import trades',
+        uploadDescription: 'PDF/PNG/JPG scans recognize position history and chart setups. Review CSV/TXT records before importing them into the journal.',
+        dropFile: 'Drop your file here', scanReviewHint: 'History and chart layouts are recognized automatically. Check the detected values; missing information stays blank. No trades are added automatically.',
+        scanText: 'Detected information', saveScan: 'Save scan result', savedScans: 'Saved scan results',
+        scanCurrency: 'Profit currency · match your broker account', scanImportHint: 'Review the detected rows before importing. Missing SL/TP and risk stay blank. Chart setups are saved as analysis.',
+        scanEmpty: 'No scans have been saved on this device.', uploadLimit: 'Max. 10 MB · Excel: export as CSV'
+      };
+      document.querySelectorAll('[data-i18n]').forEach(element => {
+        originalCopy.set(element.dataset.i18n, element.innerHTML);
+      });
+      const translatedText = new WeakMap();
+      const legacyCopy = {
+        'Jurnal Trading Terstruktur': 'Structured trading journal',
+        'Catat, filter, dan evaluasi setiap posisi trading secara objektif dan terukur.': 'Record, filter, and review each trading position.',
+        '+ Catat Trade': '+ Record trade', 'Total Jurnal': 'Total trades', 'Histori Akun': 'Account history',
+        'Rata-rata R:R': 'Average R:R', 'Semua Market': 'All markets', 'Semua Hasil': 'All outcomes',
+        'Semua Strategi': 'All strategies', 'Tanggal': 'Date', 'Jam': 'Time', 'Posisi': 'Side', 'Hasil': 'Outcome',
+        'Strategi': 'Strategy', 'Alasan': 'Reason', 'Catatan': 'Notes', 'Aksi': 'Actions', 'Akun': 'Account',
+        'Alasan & Catatan': 'Reason & notes', 'Alasan Entry & Evaluasi': 'Entry reason & review',
+        'Semua': 'All', 'Tinggi': 'High', 'Sedang': 'Medium', 'Rendah': 'Low',
+        'Belum Ada Catatan Trade': 'No trades recorded yet',
+        'Jurnal trading Anda masih kosong atau tidak ada trade yang cocok dengan filter saat ini. Mulai catat trade baru atau muat data simulasi demo.': 'Your journal is empty or no trades match the current filters. Record a trade or load example data.',
+        '+ Catat Trade Baru': '+ Record a new trade', 'Reset Filter': 'Reset filters',
+        'Upload File Jurnal': 'Scan or import a file', 'Muat 8 Trade Contoh': 'Load 8 example trades',
+        'Statistik & Kinerja Portofolio': 'Statistics & portfolio performance',
+        'Evaluasi metrik probabilitas, rasio untung-rugi, efisiensi eksekusi, dan kurva pertumbuhan modal Anda.': 'Review probability metrics, profit and loss ratios, execution, and your equity curve.',
+        'Kalkulator Trading Institusional': 'Trading calculators',
+        'Hitung ukuran posisi dari risiko, estimasi nilai pip, simulasi profit/loss, dan rasio R:R sebelum menekan tombol eksekusi.': 'Calculate position size, pip value, estimated profit/loss, and risk to reward before executing.',
+        'Parameter Setup & Akun': 'Setup & account parameters', 'Arah Posisi Order': 'Order direction',
+        'Saldo Akun ($)': 'Account balance ($)', 'Toleransi Risiko (%)': 'Risk tolerance (%)',
+        'Harga Entry': 'Entry price', 'Harga Stop Loss (SL)': 'Stop loss price (SL)',
+        'Harga Take Profit (TP)': 'Take profit price (TP)', 'Jarak SL (Pips)': 'Stop distance (pips)',
+        'Hasil Analisis Ukuran Posisi': 'Position size calculation',
+        'Wawasan Berita & Kalender Ekonomi Makro': 'News & economic calendar',
+        'Kalender Ekonomi Global (WIB)': 'Global economic calendar (WIB)',
+        'Analisa Market Institusional': 'Market analysis', 'Muat Ulang': 'Reload',
+        '⚡ Semua Ringkasan': 'All summaries', '📊 Analisa Market': 'Market analysis', '📅 Kalender Ekonomi': 'Economic calendar',
+        'Tambah Akun': 'Add account', 'Tambah Akun Broker': 'Add broker account', 'Nama Akun': 'Account name',
+        'Saldo Awal': 'Starting balance', 'Mata Uang': 'Currency', 'Simpan Akun': 'Save account', 'Batal': 'Cancel',
+        'Tutup': 'Close', 'Simpan': 'Save', 'Simpan Trade': 'Save trade', 'Simpan Jurnal': 'Save trade',
+        'Entri Cepat': 'Quick entry', 'Form Lengkap': 'Full form', 'Tempel Teks': 'Paste text',
+        'Risiko (%)': 'Risk (%)', 'Risiko per Trade (%)': 'Risk per trade (%)', 'Alasan Entry': 'Entry reason',
+        'Nama Trader': 'Trader name', 'Pengaturan Profil': 'Profile settings', 'Simpan Pengaturan': 'Save settings',
+        'Profil & Pengaturan': 'Profile & settings', 'Pengaturan': 'Settings', 'Akun Broker': 'Broker accounts',
+        'Kurs USD ke IDR': 'USD to IDR exchange rate', 'Ekspor Backup JSON': 'Export JSON backup',
+        'Impor Backup JSON': 'Import JSON backup', 'Data & Penyimpanan': 'Data & storage',
+        'Statistik & Analitik': 'Statistics & analytics', 'Statistik Trading': 'Trading statistics',
+        'Kalkulator Trading': 'Trading calculators', 'Kalkulator Risiko': 'Risk calculator',
+        'Saldo Akun': 'Account balance', 'Ukuran Lot': 'Lot size', 'Nilai Pip': 'Pip value', 'Hitung': 'Calculate',
+        'Ringkasan': 'Summary', 'Analisa': 'Analysis', 'Kalender': 'Calendar', 'Berita Ekonomi': 'Economic news',
+        'Lihat Semua': 'Show all', 'Cari': 'Search', 'Filter': 'Filter', 'Reset': 'Reset',
+        'pilih dari perangkat': 'choose from your device', 'atau': 'or', 'Impor ke Jurnal': 'Import into journal',
+        'Pilih berkas dari perangkat Anda atau seret ke area dropzone di atas.': 'Choose a file on your device or drop it into the area above.',
+        'Hasil scan tersimpan di perangkat ini.': 'The scan is saved on this device.',
+        'Pemindaian selesai. Periksa teks sebelum menyimpan hasil scan. Tidak ada trade yang ditambahkan.': 'Scan complete. Review the text before saving the scan. No trades were added.',
+        'Hasil scan disimpan di perangkat ini. Jurnal Anda tidak berubah.': 'Scan saved on this device. Your journal has not changed.',
+        'Penyimpanan penuh. Salin teks hasil scan sebelum menutup jendela.': 'Storage is full. Copy the scanned text before closing this window.'
+      };
+      function applyLanguage() {
+        document.documentElement.lang = language;
+        document.querySelectorAll('[data-i18n]').forEach(element => {
+          const key = element.dataset.i18n;
+          const copy = language === 'en' ? englishCopy[key] : (stateCopy[key] || originalCopy.get(key));
+          if (copy !== undefined) element.innerHTML = copy;
+        });
+        const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
+        while (walker.nextNode()) {
+          const node = walker.currentNode;
+          if (node.parentElement.closest('[data-i18n], script, style, textarea')) continue;
+          const original = translatedText.get(node) || node.textContent;
+          const replacement = legacyCopy[original.trim()];
+          if (replacement) {
+            translatedText.set(node, original);
+            node.textContent = language === 'en' ? original.replace(original.trim(), replacement) : original;
+          }
+        }
+        $('language-select').value = language;
+        $('local-login-name').placeholder = language === 'en' ? 'Your name' : 'Nama Anda';
+        updatePricingDisplay();
+      }
+      window.setLanguage = function (value) {
+        language = value === 'en' ? 'en' : 'id';
+        try { localStorage.setItem('fncjt_language', language); } catch {}
+        updateAccess();
+      };
 
       /* Initialization Demo Data if clean */
       function getInitialDemoData() {
@@ -61,10 +207,10 @@
             profile.name = 'Trader';
             saveData();
           }
-          if (!accounts.length || !trades || !trades.length) {
+          if (!accounts.length) {
             const initial = getInitialDemoData();
-            if (!accounts.length) accounts = [initial.acc];
-            if (!trades || !trades.length) trades = initial.trades;
+            accounts = [{ ...initial.acc, id: 'local_acc', name: 'Akun Lokal', broker: 'Belum diatur', startBalance: 0 }];
+            profile.currentAccount = 'local_acc';
             saveData();
           }
         } catch (e) {
@@ -126,6 +272,15 @@
       /* Trade P/L & Metrics Calculation */
       function computeTradeMetrics(t, acc) {
         if (!t) return { riskUSD: 0, rr: 0, pnlUSD: 0, pnlIDR: 0 };
+        if (Number.isFinite(t.actualPnl) && ['USD','IDR'].includes(t.pnlCurrency)) {
+          const kurs = Number(settings.kurs) || 17000;
+          const pnlUSD = t.pnlCurrency === 'USD' ? t.actualPnl : t.actualPnl/kurs;
+          const hasLevels = [t.entry,t.sl,t.tp].every(value=>Number.isFinite(value)&&value>0) && t.entry!==t.sl;
+          const account = acc || currentAccount();
+          return { pnlUSD, pnlIDR:t.pnlCurrency==='IDR'?t.actualPnl:pnlUSD*kurs,
+            riskUSD:Number.isFinite(t.riskPct)?t.riskPct/100*(Number(account?.startBalance)||0):null,
+            rr:hasLevels?Math.abs(t.tp-t.entry)/Math.abs(t.entry-t.sl):null };
+        }
         const account = acc || currentAccount();
         const startBal = account ? (parseFloat(account.startBalance) || 1000) : 1000;
         const riskPct = parseFloat(t.riskPct) || 1;
@@ -159,6 +314,11 @@
 
       /* Tab Switching */
       window.switchTab = function (tabId) {
+        if (!$('view-' + tabId)) return;
+        if (tabId !== 'beranda' && !onboarding.started) {
+          $('home-access-hint').focus();
+          return;
+        }
         document.querySelectorAll('.nav-tab').forEach(b => {
           b.classList.toggle('active', b.dataset.tab === tabId);
         });
@@ -178,7 +338,71 @@
           renderEconomicCalendar();
           renderMarketAnalysis();
         }
+        applyLanguage();
         window.scrollTo({ top: 0, behavior: 'smooth' });
+      };
+
+      function persistOnboarding() {
+        try { localStorage.setItem('fncjt_onboarding', JSON.stringify(onboarding)); }
+        catch { $('home-access-hint').textContent = language === 'en' ? 'Your session is active. Browser storage is unavailable.' : 'Sesi aktif. Penyimpanan browser tidak tersedia.'; }
+      }
+
+      function updateAccess() {
+        document.querySelectorAll('.nav-tab, [data-workspace-action]').forEach(button => {
+          const locked = button.dataset.tab !== 'beranda' && !onboarding.started;
+          button.disabled = locked;
+          button.setAttribute('aria-disabled', String(locked));
+          button.title = locked ? (language === 'en' ? 'Click Try on Home to open this tab.' : 'Klik Coba di Beranda untuk membuka tab ini.') : '';
+        });
+        $('home-access-hint').dataset.i18n = onboarding.started ? 'accessReady' : 'accessHint';
+        $('nav-login-label').dataset.i18n = onboarding.name ? 'localProfile' : 'signIn';
+        $('nav-dd-username').textContent = onboarding.name || (language === 'en' ? 'Welcome' : 'Selamat datang');
+        $('nav-dd-username').removeAttribute('data-i18n');
+        $('nav-dd-status').dataset.i18n = onboarding.name ? 'localProfileStatus' : 'guestStatus';
+        $('menu-login').dataset.i18n = onboarding.name ? 'changeProfile' : 'loginMenu';
+        $('menu-logout').hidden = !onboarding.name;
+        applyLanguage();
+      }
+
+      window.startTrial = function () {
+        onboarding.started = true;
+        updateAccess();
+        persistOnboarding();
+        closeNavAccountDropdown();
+        switchTab('jurnal');
+      };
+
+      window.openLoginDialog = function () {
+        closeNavAccountDropdown();
+        $('local-login-name').value = onboarding.name;
+        $('local-login-name').setCustomValidity('');
+        $('login-feedback').textContent = '';
+        $('login-dialog').showModal();
+      };
+      window.closeLoginDialog = function () { $('login-dialog').close(); };
+      window.signInLocal = function (event) {
+        event.preventDefault();
+        const input = $('local-login-name');
+        const name = input.value.trim();
+        input.setCustomValidity(name ? '' : (language === 'en' ? 'Enter your profile name.' : 'Isi nama profil Anda.'));
+        if (!input.reportValidity()) return;
+        if (onboarding.name !== name) onboarding.started = false;
+        onboarding.name = name;
+        profile.name = name;
+        persistOnboarding();
+        saveData();
+        renderProfileView();
+        updateAccess();
+        closeLoginDialog();
+        switchTab('beranda');
+      };
+      $('local-login-name').addEventListener('input', event => event.target.setCustomValidity(''));
+      window.signOutLocal = function () {
+        onboarding = { name: '', started: false };
+        persistOnboarding();
+        updateAccess();
+        closeNavAccountDropdown();
+        switchTab('beranda');
       };
 
       /* Header Account Dropdown Menu */
@@ -189,19 +413,32 @@
         if (!dd) return;
         const isHidden = dd.hidden;
         dd.hidden = !isHidden;
-        if (btn) btn.classList.toggle('active', isHidden);
+        if (btn) { btn.classList.toggle('active', isHidden); btn.setAttribute('aria-expanded', String(isHidden)); }
       };
 
       window.closeNavAccountDropdown = function () {
         const dd = $('nav-account-dropdown');
         const btn = $('btn-nav-masuk');
         if (dd) dd.hidden = true;
-        if (btn) btn.classList.remove('active');
+        if (btn) { btn.classList.remove('active'); btn.setAttribute('aria-expanded', 'false'); }
       };
 
       document.addEventListener('click', (e) => {
         if (!e.target.closest('.nav-dropdown-wrap')) {
           closeNavAccountDropdown();
+        }
+      });
+      document.addEventListener('keydown', event => {
+        if (event.key === 'Escape') {
+          if (!$('nav-account-dropdown').hidden) { closeNavAccountDropdown(); $('btn-nav-masuk').focus(); }
+          if ($('upload-modal').classList.contains('open')) closeUploadModal();
+        }
+        const modal = $('upload-modal');
+        if (event.key === 'Tab' && modal.classList.contains('open')) {
+          const controls = [...modal.querySelectorAll('button:not(:disabled), input, textarea, summary, [tabindex="0"]')].filter(element => element.getClientRects().length);
+          const first = controls[0], last = controls[controls.length - 1];
+          if (event.shiftKey && (document.activeElement === first || document.activeElement === modal)) { event.preventDefault(); last.focus(); }
+          else if (!event.shiftKey && document.activeElement === last) { event.preventDefault(); first.focus(); }
         }
       });
 
@@ -217,59 +454,18 @@
       };
 
       function updatePricingDisplay() {
-        const btnM = $('btn-monthly');
-        const btnA = $('btn-annual');
-        const starterPrice = $('starter-price');
-        const starterPeriod = $('starter-period');
-        const tiersPrice = $('tiers-price');
-        const tiersPeriod = $('tiers-period');
-        const annualPrice = $('annual-price');
-        const annualPeriod = $('annual-period');
-
-        // Optional legacy fallback elements
-        const sw = $('billing-switch');
-        const lblM = $('lbl-monthly');
-        const lblA = $('lbl-annual');
-        const proPrice = $('pro-price');
-        const proPeriod = $('pro-period');
-        const maxPrice = $('max-price');
-        const maxPeriod = $('max-period');
-
-        if (settings.billingAnnual) {
-          if (btnA) btnA.classList.add('active');
-          if (btnM) btnM.classList.remove('active');
-          if (starterPrice) starterPrice.textContent = '$28.68';
-          if (starterPeriod) starterPeriod.textContent = '/ month (annual)';
-          if (tiersPrice) tiersPrice.textContent = '$599';
-          if (tiersPeriod) tiersPeriod.textContent = '/ month (annual)';
-          if (annualPrice) annualPrice.textContent = '$2800';
-          if (annualPeriod) annualPeriod.textContent = '/ month (annual)';
-
-          if (sw) sw.classList.add('annual');
-          if (lblA) lblA.classList.add('active');
-          if (lblM) lblM.classList.remove('active');
-          if (proPrice) proPrice.textContent = '$15';
-          if (proPeriod) proPeriod.textContent = '/ bln (ditagih tahunan)';
-          if (maxPrice) maxPrice.textContent = '$39';
-          if (maxPeriod) maxPeriod.textContent = '/ bln (ditagih tahunan)';
-        } else {
-          if (btnM) btnM.classList.add('active');
-          if (btnA) btnA.classList.remove('active');
-          if (starterPrice) starterPrice.textContent = '$35.85';
-          if (starterPeriod) starterPeriod.textContent = '/ month';
-          if (tiersPrice) tiersPrice.textContent = '$750';
-          if (tiersPeriod) tiersPeriod.textContent = '/ month';
-          if (annualPrice) annualPrice.textContent = '$3500';
-          if (annualPeriod) annualPeriod.textContent = '/ month';
-
-          if (sw) sw.classList.remove('annual');
-          if (lblM) lblM.classList.add('active');
-          if (lblA) lblA.classList.remove('active');
-          if (proPrice) proPrice.textContent = '$19';
-          if (proPeriod) proPeriod.textContent = '/ bulan';
-          if (maxPrice) maxPrice.textContent = '$49';
-          if (maxPeriod) maxPeriod.textContent = '/ bulan';
-        }
+        const annual = settings.billingAnnual;
+        document.querySelectorAll('[data-cycle]').forEach(button => {
+          const active = (button.dataset.cycle === 'annual') === annual;
+          button.classList.toggle('active', active);
+          button.setAttribute('aria-pressed', String(active));
+        });
+        $('plus-price').textContent = annual ? '$100' : '$10';
+        $('pro-price').textContent = annual ? '$200' : '$20';
+        ['plus', 'pro'].forEach(plan => {
+          $(plan + '-period').textContent = language === 'en' ? (annual ? 'USD / year' : 'USD / month') : (annual ? 'USD / tahun' : 'USD / bulan');
+          $(plan + '-billing').textContent = language === 'en' ? (annual ? 'Billed annually · Save 17%' : 'Billed monthly') : (annual ? 'Ditagih tahunan · Hemat 17%' : 'Ditagih bulanan');
+        });
       }
 
       window.scrollToPricing = function () {
@@ -605,11 +801,11 @@
         // Calculate pulse ribbon stats for all trades
         let jWins = 0, jLoss = 0, jBE = 0;
         let jNetUSD = 0, jWinUSD = 0, jLossUSD = 0;
-        let jTotalRR = 0;
+        let jTotalRR = 0, jRRCount = 0;
 
         trades.forEach(t => {
           const m = computeTradeMetrics(t);
-          jTotalRR += m.rr;
+          if (Number.isFinite(m.rr)) { jTotalRR += m.rr; jRRCount++; }
           const res = (t.result || '').toString().trim().toLowerCase();
           if (res === 'win') {
             jWins++;
@@ -626,7 +822,7 @@
         const jTotal = trades.length;
         const jWinRate = jTotal ? ((jWins / jTotal) * 100) : 0;
         const jPF = jLossUSD > 0 ? (jWinUSD / jLossUSD) : (jWinUSD > 0 ? 99 : 0);
-        const jAvgRR = jTotal ? (jTotalRR / jTotal) : 0;
+        const jAvgRR = jRRCount ? (jTotalRR / jRRCount) : null;
 
         if ($('j-stat-total')) $('j-stat-total').textContent = `${jTotal} Posisi`;
         if ($('j-stat-winrate')) {
@@ -643,7 +839,7 @@
           $('j-stat-idr').style.color = jNetUSD >= 0 ? 'var(--green)' : 'var(--red)';
         }
         if ($('j-stat-pf')) $('j-stat-pf').textContent = jPF > 50 ? '∞' : jPF.toFixed(2);
-        if ($('j-stat-rr')) $('j-stat-rr').textContent = `1 : ${jAvgRR.toFixed(2)}`;
+        if ($('j-stat-rr')) $('j-stat-rr').textContent = jAvgRR===null?'—':`1 : ${jAvgRR.toFixed(2)}`;
 
         const fMarket = (($('filter-market') && $('filter-market').value) || '').trim().toUpperCase();
         const fResult = (($('filter-result') && $('filter-result').value) || '').trim().toLowerCase();
@@ -697,9 +893,9 @@
               <td style="color:var(--red);">${esc(t.sl ?? '-')}</td>
               <td style="color:var(--green);">${esc(t.tp ?? '-')}</td>
               <td>${esc(t.vol ?? '-')}</td>
-              <td>${esc(t.riskPct ?? 1)}%</td>
-              <td>${fmtUSD(m.riskUSD)}</td>
-              <td>${(m.rr || 0).toFixed(2)}</td>
+              <td>${t.riskPct===null?'—':esc(t.riskPct ?? 1)+'%'}</td>
+              <td>${m.riskUSD===null?'—':fmtUSD(m.riskUSD)}</td>
+              <td>${m.rr===null?'—':(m.rr || 0).toFixed(2)}</td>
               <td><span class="${resClass}">${esc(resVal)}</span></td>
               <td class="${pnlClass}">${fmtPLUSD(m.pnlUSD)}</td>
               <td class="${pnlClass}">${fmtPLIDR(m.pnlIDR)}</td>
@@ -724,17 +920,28 @@
          Spec: https://codefronts.com/components/css-file-upload-button/drag-and-drop-file-upload-zone/
          ==================================================================== */
       window.openUploadModal = function () {
+        if (!onboarding.started) return;
+        uploadTrigger = document.activeElement;
+        scanJob++;
+        currentScan = null;
         $('upload-modal').classList.add('open');
         $('upload-preview-area').style.display = 'none';
         $('btn-confirm-import').style.display = 'none';
+        $('scan-result').hidden = true;
+        $('fu-06-file').value = '';
+        renderSavedScans();
         const chips = $('fu-06-chips');
         if (chips) chips.innerHTML = '';
         $('upload-status-msg').textContent = 'Pilih berkas dari perangkat Anda atau seret ke area dropzone di atas.';
         parsedTradesToImport = [];
+        applyLanguage();
+        $('upload-modal').focus();
       };
 
       window.closeUploadModal = function () {
+        scanJob++;
         $('upload-modal').classList.remove('open');
+        if (uploadTrigger) uploadTrigger.focus();
       };
 
       function formatFileSize(bytes) {
@@ -813,14 +1020,6 @@
           }
         });
 
-        if (input) {
-          input.addEventListener('change', () => {
-            if (input.files && input.files.length) {
-              updateFuChips(input.files);
-              processUploadFile(input.files[0]);
-            }
-          });
-        }
       }
 
       window.handleSelectedFile = function (input) {
@@ -830,9 +1029,14 @@
         }
       };
 
-      function processUploadFile(file) {
+      async function processUploadFile(file) {
         const status = $('upload-status-msg');
+        const job = ++scanJob;
         parsedTradesToImport = [];
+        currentScan = null;
+        $('upload-preview-area').style.display = 'none';
+        $('btn-confirm-import').style.display = 'none';
+        $('scan-result').hidden = true;
 
         // Strict 10 MB upload limit check
         const MAX_SIZE_BYTES = 10 * 1024 * 1024; // 10 MB
@@ -844,61 +1048,273 @@
           return;
         }
 
-        status.textContent = `Membaca ${file.name} (${formatFileSize(file.size)})...`;
+        status.textContent = `${language === 'en' ? 'Reading' : 'Membaca'} ${file.name} (${formatFileSize(file.size)})…`;
         const ext = file.name.split('.').pop().toLowerCase();
         parsedTradesToImport = [];
 
-        // 1. Text & CSV Files (.txt, .csv)
-        if (ext === 'txt' || ext === 'csv') {
-          const reader = new FileReader();
-          reader.onload = function (e) {
-            parseTextOrCSV(e.target.result);
-          };
-          reader.readAsText(file);
-        }
-        // 2. Excel Files (.xlsx, .xls)
-        else if (ext === 'xlsx' || ext === 'xls') {
-          const reader = new FileReader();
-          reader.onload = function (e) {
-            parseTextOrCSV(e.target.result); // parses binary text representation or structured text
-          };
-          reader.readAsText(file);
-        }
-        // 3. Image Files (.png, .jpg, .jpeg)
-        else if (['png', 'jpg', 'jpeg'].includes(ext)) {
-          status.innerHTML = `<span style="color:var(--green);">✓ Screenshot chart berhasil dimuat: ${esc(file.name)}</span><br>Foto setup trade siap diarsipkan ke jurnal trade.`;
-          // Create dummy entry matching screenshot
-          parsedTradesToImport = [{
-            id: 't_' + Date.now(),
-            accountId: profile.currentAccount || 'demo_acc',
-            date: new Date().toISOString().slice(0, 10),
-            jam: new Date().toTimeString().slice(0, 5),
-            market: 'XAUUSD',
-            posisi: 'Buy',
-            entry: 3340.0,
-            sl: 3330.0,
-            tp: 3360.0,
-            vol: 0.10,
-            riskPct: 1.0,
-            result: 'Win',
-            strategy: 'Chart Screenshot Analysis',
-            tf: 'H1',
-            reason: `Setup dari berkas: ${file.name}`
-          }];
-          showUploadPreview(parsedTradesToImport);
-        }
-        // 4. PDF Statement Files (.pdf)
-        else if (ext === 'pdf') {
-          const reader = new FileReader();
-          reader.onload = function (e) {
-            // Extract text tokens from PDF buffer
-            parsePDFText(e.target.result);
-          };
-          reader.readAsText(file);
-        } else {
-          status.innerHTML = `<span style="color:var(--red);">Format file .${esc(ext)} belum didukung. Gunakan PDF, TXT, CSV, atau PNG.</span>`;
+        try {
+          if (ext === 'txt' || ext === 'csv') {
+            const text = await file.text();
+            if (job === scanJob) parseTextOrCSV(text);
+            return;
+          }
+          if (!['pdf', 'png', 'jpg', 'jpeg'].includes(ext)) {
+            throw new Error('Gunakan PDF, PNG, JPG, TXT, atau CSV. Untuk Excel, ekspor ke CSV terlebih dahulu.');
+          }
+          const pages = ext === 'pdf' ? await scanPDF(file, job) : [await recognizeImage(file, job)];
+          const text = pages.map((page, index) => (ext === 'pdf' ? `[Halaman ${index + 1}]\n` : '') + page.text.trim()).join('\n\n');
+          if (job !== scanJob) return;
+          if (!text.trim()) throw new Error('Tidak ada teks terbaca. Coba berkas yang lebih jelas atau salin teks secara manual.');
+          currentScan = { name: file.name, text: text.trim(), recognition: analyzeTradeScan(pages), status: 'ready', scannedAt: new Date().toISOString() };
+          showScan(currentScan);
+          status.textContent = 'Pemindaian selesai. Periksa teks sebelum menyimpan hasil scan. Tidak ada trade yang ditambahkan.';
+          applyLanguage();
+        } catch (error) {
+          if (job === scanJob) status.textContent = (language === 'en' ? 'Scan failed: ' : 'Pemindaian gagal: ') + error.message;
         }
       }
+
+      async function recognizeImage(source, job) {
+        if (!ocrLibrary) {
+          ocrLibrary = new Promise((resolve, reject) => {
+            const script = document.createElement('script');
+            script.src = 'https://cdn.jsdelivr.net/npm/tesseract.js@6.0.1/dist/tesseract.min.js';
+            script.onload = resolve;
+            script.onerror = () => reject(new Error('OCR tidak dapat dimuat. Periksa koneksi lalu coba lagi.'));
+            document.head.appendChild(script);
+          }).catch(error => { ocrLibrary = null; throw error; });
+        }
+        await ocrLibrary;
+        if (job !== scanJob) return { text: '', lines: [] };
+        const worker = await Tesseract.createWorker('eng', 1, { logger: progress => {
+          if (job === scanJob && progress.status === 'recognizing text') {
+            $('upload-status-msg').textContent = `${language === 'en' ? 'Recognizing text' : 'Mengenali teks'} ${Math.round(progress.progress * 100)}%…`;
+          }
+        } });
+        let bitmap;
+        try {
+          bitmap = await createImageBitmap(source);
+          if (bitmap.width*bitmap.height>12000000 || Math.max(bitmap.width,bitmap.height)>10000) throw new Error('Gambar terlalu besar untuk OCR. Gunakan gambar maksimal 12 megapiksel.');
+          const original = document.createElement('canvas');
+          original.width = bitmap.width;
+          original.height = bitmap.height;
+          const context = original.getContext('2d');
+          context.drawImage(bitmap, 0, 0);
+          const raw = context.getImageData(0, 0, original.width, original.height).data;
+          let brightness = 0, samples = 0;
+          for (let i = 0; i < raw.length; i += 4000) { brightness += (raw[i]+raw[i+1]+raw[i+2])/3; samples++; }
+          const dark = brightness/samples < 110;
+          const scale = Math.min(2, 3600/Math.max(bitmap.width,bitmap.height));
+          const canvas = document.createElement('canvas');
+          canvas.width = Math.round(bitmap.width*scale);
+          canvas.height = Math.round(bitmap.height*scale);
+          const ctx = canvas.getContext('2d');
+          ctx.drawImage(bitmap,0,0,canvas.width,canvas.height);
+          const pixels = ctx.getImageData(0,0,canvas.width,canvas.height);
+          for (let i = 0; i < pixels.data.length; i += 4) {
+            let gray = .299*pixels.data[i]+.587*pixels.data[i+1]+.114*pixels.data[i+2];
+            if (dark) gray=255-gray;
+            pixels.data[i]=pixels.data[i+1]=pixels.data[i+2]=gray;
+          }
+          ctx.putImageData(pixels,0,0);
+          await worker.setParameters({tessedit_pageseg_mode:dark?'11':'3', preserve_interword_spaces:'1'});
+          const data = (await worker.recognize(canvas,{}, {text:true,blocks:true})).data;
+          const linesFrom = (data, factor, x=0, y=0) => (data.blocks||[]).flatMap(b=>(b.paragraphs||[]).flatMap(p=>(p.lines||[]).map(l=>({
+            text:l.text.trim(),confidence:l.confidence,bbox:{x0:l.bbox.x0/factor+x,y0:l.bbox.y0/factor+y,x1:l.bbox.x1/factor+x,y1:l.bbox.y1/factor+y}
+          }))));
+          const result = {text:data.text, lines:linesFrom(data,scale), width:bitmap.width, height:bitmap.height};
+          if (dark && /Alert[\s\S]*Replay|\bStop\s*:|\bTarget\s*:/i.test(data.text)) {
+            // ponytail: read solid TradingView labels; other chart themes fall back to the full OCR text.
+            const mask = new Uint8Array(bitmap.width*bitmap.height);
+            for (let n=0;n<mask.length;n++) {
+              const i=n*4,r=raw[i],g=raw[i+1],b=raw[i+2];
+              mask[n]=(r>170&&r>g*1.6&&r>b*1.3)||(g>100&&g>r*1.5&&b>60&&g>b*.85)?1:
+                (n%bitmap.width>bitmap.width*.6&&r>=100&&r<=190&&Math.abs(r-g)<8&&Math.abs(r-b)<8)?2:0;
+            }
+            const boxes=[];
+            for (let n=0;n<mask.length;n++) if (mask[n]) {
+              const color=mask[n];mask[n]=0;const queue=[n];let x0=bitmap.width,y0=bitmap.height,x1=0,y1=0;
+              for(let j=0;j<queue.length;j++) {
+                const k=queue[j],x=k%bitmap.width,y=Math.floor(k/bitmap.width);
+                x0=Math.min(x0,x);x1=Math.max(x1,x);y0=Math.min(y0,y);y1=Math.max(y1,y);
+                for(const m of [x>0?k-1:-1,x<bitmap.width-1?k+1:-1,k-bitmap.width,k+bitmap.width]) if(m>=0&&m<mask.length&&mask[m]===color) {mask[m]=0;queue.push(m);}
+              }
+              if(queue.length>150&&x1-x0>35&&x1-x0<bitmap.width*.5&&y1-y0>=10&&y1-y0<70) boxes.push({x0,y0,x1,y1});
+            }
+            await worker.setParameters({tessedit_pageseg_mode:'6'});
+            for (const box of boxes.slice(0,30)) {
+              if (job!==scanJob) break;
+              const crop=document.createElement('canvas');
+              crop.width=(box.x1-box.x0+1)*3;crop.height=(box.y1-box.y0+1)*3;
+              crop.getContext('2d').drawImage(bitmap,box.x0,box.y0,box.x1-box.x0+1,box.y1-box.y0+1,0,0,crop.width,crop.height);
+              const labels=(await worker.recognize(crop,{}, {text:true,blocks:true})).data;
+              result.lines.push(...linesFrom(labels,3,box.x0,box.y0).map(line=>({...line,label:true})));
+              result.text+='\n'+labels.text;
+              crop.width=crop.height=0;
+            }
+          }
+          return result;
+        }
+        finally { bitmap?.close(); await worker.terminate(); }
+      }
+
+      async function scanPDF(file, job) {
+        const pdfjs = await import('https://cdn.jsdelivr.net/npm/pdfjs-dist@5.4.296/build/pdf.mjs');
+        pdfjs.GlobalWorkerOptions.workerSrc = 'https://cdn.jsdelivr.net/npm/pdfjs-dist@5.4.296/build/pdf.worker.mjs';
+        const pdf = await pdfjs.getDocument({ data: new Uint8Array(await file.arrayBuffer()), isEvalSupported: false }).promise;
+        const pages = [];
+        let detectedText = false;
+        try {
+          // ponytail: scan pages sequentially to bound memory; use a worker queue for large documents.
+          for (let n = 1; n <= pdf.numPages && job === scanJob; n++) {
+            $('upload-status-msg').textContent = `${language === 'en' ? 'Reading page' : 'Membaca halaman'} ${n}/${pdf.numPages}…`;
+            const page = await pdf.getPage(n);
+            const content = await page.getTextContent();
+            let text = content.items.map(item => item.str + (item.hasEOL ? '\n' : ' ')).join('');
+            const size=page.getViewport({scale:1});
+            let result={text, width:size.width, height:size.height, lines:content.items.filter(item=>item.str?.trim()).map(item=>({text:item.str,bbox:{x0:item.transform[4],x1:item.transform[4]+item.width,y0:size.height-item.transform[5]-item.height,y1:size.height-item.transform[5]}}))};
+            if (!text.trim()) {
+              const viewport = page.getViewport({ scale: Math.min(2, 2200 / page.getViewport({ scale: 1 }).width) });
+              const canvas = document.createElement('canvas');
+              canvas.width = viewport.width;
+              canvas.height = viewport.height;
+              await page.render({ canvasContext: canvas.getContext('2d'), viewport }).promise;
+              result = await recognizeImage(canvas, job);
+              text = result.text;
+              canvas.width = canvas.height = 0;
+            }
+            if (text.trim()) detectedText = true;
+            pages.push(result);
+            page.cleanup();
+          }
+          return detectedText ? pages : [{text:'',lines:[]}];
+        } finally { await pdf.destroy(); }
+      }
+
+      function showScan(scan) {
+        $('scan-result').hidden = false;
+        $('scan-text').value = scan.text;
+        $('scan-file-name').textContent = scan.name;
+        renderScanRecognition(scan.recognition);
+        const candidates=scanHistoryRows(scan);
+        $('scan-import-controls').hidden=!candidates.length;
+        $('btn-import-scan').disabled=false;
+        $('btn-import-scan').textContent=language==='en'?`Add ${candidates.length} trades to journal`:`Masukkan ${candidates.length} transaksi ke jurnal`;
+        $('btn-save-scan').disabled = false;
+        applyLanguage();
+      }
+
+      function scanHistoryRows(scan) {
+        const records=Array.isArray(scan?.recognition?.records)?scan.recognition.records:[];
+        return records.filter(row=>row?.kind==='history' &&
+          /^[A-Z][A-Z0-9._#-]{2,19}$/.test(row.market) && ['Buy','Sell'].includes(row.direction) &&
+          [row.volume,row.entry,row.exit].every(value=>Number.isFinite(value)&&value>0) && Number.isFinite(row.profit) &&
+          /^\d{4}-\d{2}-\d{2}$/.test(row.date||'') && /^\d{2}:\d{2}(?::\d{2})?$/.test(row.time||''));
+      }
+
+      window.importScanToJournal = async function () {
+        const scan=currentScan, rows=scanHistoryRows(scan), account=currentAccount();
+        const currency=$('scan-profit-currency').value;
+        if(!rows.length || !account || !['USD','IDR'].includes(currency))return;
+        const button=$('btn-import-scan');button.disabled=true;
+        try {
+          const digest=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(account.id+'\n'+scan.text));
+          const scanSource=Array.from(new Uint8Array(digest),byte=>byte.toString(16).padStart(2,'0')).join('');
+          if (scan!==currentScan)return;
+          if(trades.some(trade=>trade.scanSource===scanSource)) {
+            $('upload-status-msg').textContent=language==='en'?'This scan is already in the journal.':'Hasil scan ini sudah ada di jurnal.';
+            return;
+          }
+          const imported=rows.map(row=>({id:'t_'+crypto.randomUUID(),accountId:account.id,date:row.date,jam:row.time,
+            market:row.market,posisi:row.direction,entry:row.entry,exit:row.exit,sl:null,tp:null,vol:row.volume,riskPct:null,
+            result:row.profit>0?'Win':row.profit<0?'Loss':'BE',actualPnl:row.profit,pnlCurrency:currency,
+            strategy:'Impor screenshot',tf:'',scanSource,
+            reason:`${scan.name} · Exit ${row.exit} · Profit ${row.profit} ${currency} · SL/TP dan risiko belum diketahui.`}));
+          const next=[...imported,...trades];
+          localStorage.setItem(K_TRADES,JSON.stringify(next));
+          trades=next;
+          closeUploadModal();
+          switchTab('jurnal');
+          resetJournalFilters();
+        } catch(error) {
+          $('upload-status-msg').textContent=language==='en'?'Import failed. Keep your scan and try again.':'Impor gagal. Hasil scan tetap tersedia; periksa penyimpanan dan coba lagi.';
+        } finally { button.disabled=false; }
+      };
+
+      function renderScanRecognition(recognition) {
+        const container=$('scan-recognition');
+        container.replaceChildren();
+        if (!recognition?.records?.length) {
+          container.textContent=language==='en'?'No supported trade layout detected. The readable text is available below.':'Format transaksi belum dikenali. Teks yang terbaca tetap tersedia di bawah.';
+          return;
+        }
+        const heading=document.createElement('h4');
+        heading.textContent=language==='en'?'Automatically detected information':'Informasi dikenali otomatis';
+        container.appendChild(heading);
+        const value=v=>v===null||v===undefined?'—':String(v);
+        for (const kind of ['history','chart']) {
+          const rows=recognition.records.filter(r=>r.kind===kind);
+          if(!rows.length)continue;
+          const title=document.createElement('p');
+          title.textContent=kind==='history'?`Riwayat posisi · ${rows.length} baris`:`Setup chart · ${rows.length} setup`;
+          container.appendChild(title);
+          const wrap=document.createElement('div');wrap.className='scan-table-wrap';wrap.tabIndex=0;
+          wrap.setAttribute('role','region');wrap.setAttribute('aria-label',title.textContent);
+          const table=document.createElement('table');table.className='trade-table';
+          const columns=kind==='history'?[['market','Market'],['direction','Posisi'],['volume','Lot'],['date','Tanggal'],['time','Waktu'],['entry','Entry'],['exit','Exit'],['profit','Profit*'],['result','Hasil']]:
+            [['market','Market'],['direction','Posisi'],['entry','Entry'],['sl','SL'],['tp','TP'],['stopDistance','Jarak stop'],['targetDistance','Jarak target'],['rr','R:R'],['quantity','Qty alat'],['toolPnl','PnL alat']];
+          table.innerHTML='<thead><tr>'+columns.map(c=>`<th>${esc(c[1])}</th>`).join('')+'</tr></thead><tbody>'+rows.map(row=>'<tr>'+columns.map(c=>`<td>${esc(value(row[c[0]]))}</td>`).join('')+'</tr>').join('')+'</tbody>';
+          wrap.appendChild(table);container.appendChild(wrap);
+          for(const row of rows)if(row.notes?.length){const note=document.createElement('p');note.textContent=`${row.market||'Chart'}: ${row.notes.join(' ')}`;container.appendChild(note);}
+        }
+        const warnings=document.createElement('p');
+        warnings.textContent=recognition.warnings.join(' ')+' — berarti belum terbaca. '+(recognition.records.some(r=>r.kind==='history')?'*Profit mengikuti screenshot, mata uang belum diketahui. ':'')+'Periksa hasil OCR sebelum menyimpan. Jurnal tidak diubah otomatis.';
+        container.appendChild(warnings);
+      }
+
+      function savedScans() {
+        try {
+          const value = JSON.parse(localStorage.getItem('fncjt_scans') || '[]');
+          return Array.isArray(value) ? value.filter(s => s && typeof s.name === 'string' && typeof s.text === 'string' && s.status === 'ready') : [];
+        } catch { return []; }
+      }
+
+      function renderSavedScans() {
+        const scans = savedScans();
+        $('saved-scans').replaceChildren();
+        scans.forEach((scan, index) => {
+          const button = document.createElement('button');
+          button.type = 'button';
+          button.className = 'saved-scan-item';
+          button.textContent = scan.name;
+          button.onclick = () => {
+            scanJob++;
+            parsedTradesToImport = [];
+            $('upload-preview-area').style.display = 'none';
+            $('btn-confirm-import').style.display = 'none';
+            currentScan = scans[index];
+            showScan(currentScan);
+            $('btn-save-scan').disabled = true;
+            $('upload-status-msg').textContent = 'Hasil scan tersimpan di perangkat ini.';
+            applyLanguage();
+          };
+          $('saved-scans').appendChild(button);
+        });
+        $('saved-scans-empty').hidden = scans.length > 0;
+      }
+
+      window.saveScanResult = function () {
+        if (!currentScan) return;
+        try {
+          localStorage.setItem('fncjt_scans', JSON.stringify([currentScan, ...savedScans()]));
+          renderSavedScans();
+          $('btn-save-scan').disabled = true;
+          $('upload-status-msg').textContent = 'Hasil scan disimpan di perangkat ini. Jurnal Anda tidak berubah.';
+        } catch {
+          $('upload-status-msg').textContent = 'Penyimpanan penuh. Salin teks hasil scan sebelum menutup jendela.';
+        }
+        applyLanguage();
+      };
 
       function parseTextOrCSV(content) {
         const lines = content.split(/\r?\n/).filter(l => l.trim().length > 0);
@@ -956,47 +1372,6 @@
         }
       }
 
-      function parsePDFText(rawContent) {
-        // Simple regex scan for pairs and prices in statement text
-        const matches = rawContent.match(/(XAUUSD|EURUSD|GBPUSD|BTCUSD|USDJPY)[^\d]*([\d\.]+)[^\d]*([\d\.]+)/gi);
-        const parsed = [];
-        const today = new Date().toISOString().slice(0, 10);
-
-        if (matches && matches.length) {
-          matches.slice(0, 10).forEach(m => {
-            const parts = m.split(/\s+/);
-            const market = parts[0].toUpperCase();
-            const nums = parts.filter(p => !isNaN(parseFloat(p))).map(Number);
-            if (nums.length >= 2) {
-              parsed.push({
-                id: 't_pdf_' + Date.now() + '_' + Math.random().toString(36).substr(2, 4),
-                accountId: profile.currentAccount || 'demo_acc',
-                date: today,
-                jam: '12:00',
-                market: market,
-                posisi: 'Buy',
-                entry: nums[0],
-                sl: nums[1] < nums[0] ? nums[1] : nums[0] - 10,
-                tp: nums[0] + Math.abs(nums[0] - nums[1]) * 2,
-                vol: 0.05,
-                riskPct: 1.0,
-                result: 'Win',
-                strategy: 'PDF Statement Parse',
-                tf: 'H1',
-                reason: 'Ekstrak laporan PDF'
-              });
-            }
-          });
-        }
-
-        if (parsed.length) {
-          parsedTradesToImport = parsed;
-          showUploadPreview(parsed);
-          $('upload-status-msg').innerHTML = `<span style="color:var(--green);">✓ Berhasil mengekstrak ${parsed.length} posisi trade dari laporan PDF!</span>`;
-        } else {
-          $('upload-status-msg').innerHTML = `<span style="color:var(--orange);">PDF terenkripsi atau berformat gambar. Silakan gunakan format CSV/Excel atau tempel teks langsung.</span>`;
-        }
-      }
 
       function showUploadPreview(list) {
         const area = $('upload-preview-area');
@@ -1036,7 +1411,7 @@
         const startBal = acc ? acc.startBalance : 1000;
         let wins = 0, losses = 0, bes = 0;
         let sumWinUSD = 0, sumLossUSD = 0;
-        let totalRR = 0;
+        let totalRR = 0, rrCount = 0;
         let currentBalance = startBal;
         let peakBalance = startBal;
         let maxDrawdownUSD = 0;
@@ -1052,7 +1427,7 @@
 
         chronological.forEach(t => {
           const m = computeTradeMetrics(t, acc);
-          totalRR += m.rr;
+          if (Number.isFinite(m.rr)) { totalRR += m.rr; rrCount++; }
 
           if (t.result === 'Win') {
             wins++;
@@ -1086,7 +1461,7 @@
         const winRate = totalTrades ? (wins / totalTrades) * 100 : 0;
         const netPL = sumWinUSD - sumLossUSD;
         const profitFactor = sumLossUSD > 0 ? (sumWinUSD / sumLossUSD) : (sumWinUSD > 0 ? 99 : 0);
-        const avgRR = totalTrades ? (totalRR / totalTrades) : 0;
+        const avgRR = rrCount ? (totalRR / rrCount) : null;
         const expectancy = totalTrades ? (netPL / totalTrades) : 0;
 
         // Populate KPI Cards
@@ -1105,7 +1480,7 @@
         $('kpi-total-trades').textContent = `${totalTrades} Trades`;
 
         $('kpi-max-dd').textContent = 'DD: -' + fmtUSD(maxDrawdownUSD);
-        $('kpi-avg-rr').textContent = avgRR.toFixed(2) + 'R';
+        $('kpi-avg-rr').textContent = avgRR===null?'—':avgRR.toFixed(2) + 'R';
         $('kpi-expectancy').textContent = `Exp: ${fmtPLUSD(expectancy)}`;
 
         // Performance Matrix
@@ -2642,6 +3017,7 @@ Disarankan menunggu konfirmasi break salah satu batas range sebelum mengambil po
 
       /* Initial Startup */
       loadData();
+      updateAccess();
       renderJournalTable();
       renderProfileView();
       runAllCalculators();
@@ -2652,5 +3028,6 @@ Disarankan menunggu konfirmasi break salah satu batas range sebelum mengambil po
       initAnalysisEventListeners();
       renderEconomicCalendar();
       renderMarketAnalysis();
+      applyLanguage();
 
     })();
