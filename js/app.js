@@ -453,6 +453,7 @@
             cloudClient.from('strategies').select('*').eq('user_id', user.id),
             cloudClient.from('trades').select('*').eq('user_id', user.id)
           ]);
+          if (cloudUser?.id !== user.id) return;
           for (const result of [profileResult, accountResult, strategyResult, tradeResult]) if (result.error) throw result.error;
           const remoteAccounts = accountResult.data || [], remoteTrades = tradeResult.data || [];
           if (remoteAccounts.length || remoteTrades.length) {
@@ -487,11 +488,12 @@
           if (!nicknameReady) { switchTab('login'); setAuthMode('nickname'); }
           else if ($('view-login').classList.contains('active')) switchTab('jurnal');
         } catch (error) {
+          if (cloudUser?.id !== user.id) return;
           console.error('Supabase load error:', error);
           if ($('cloud-status')) $('cloud-status').textContent = cloudMessage(error);
           cloudUser = null; cloudReady = false; nicknameReady = false; accountAccess = null;
         } finally {
-          hydratingUserId = '';
+          if (hydratingUserId === user.id) hydratingUserId = '';
         }
       }
 
@@ -518,8 +520,10 @@
       function canReadNews() { return !!cloudUser && nicknameReady && ['plus', 'pro'].includes(accountAccess?.plan); }
       async function refreshAccountAccess(consumeUpload = false) {
         if (!cloudUser) throw new Error(language === 'en' ? 'Sign in to use your Free upload allowance.' : 'Masuk untuk menggunakan jatah upload Free.');
+        const userId = cloudUser.id;
         if (!nicknameReady && consumeUpload) throw new Error(language === 'en' ? 'Complete your nickname first.' : 'Isi nama panggilan Anda terlebih dahulu.');
         const { data, error } = await cloudClient.rpc('journal_access', { consume_upload: consumeUpload });
+        if (cloudUser?.id !== userId) throw new Error(language === 'en' ? 'Account changed. Try again.' : 'Akun berubah. Coba lagi.');
         if (error) throw error;
         if (!data || !['free', 'plus', 'pro'].includes(data.plan) || typeof data.allowed !== 'boolean') throw new Error('Invalid account access response');
         accountAccess = data;
