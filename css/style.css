@@ -3101,7 +3101,7 @@
     .landing-hint { margin-top: 22px; font-size: 13px; color: #aaaab0; }
     .learning-guide { border-top: 1px solid #303135; padding: 64px 0; }
     .learning-guide > header, .learning-chapter, .learning-sources { max-width: 76ch; margin: 0 auto; }
-    .learning-guide h2 { font-family: Georgia, 'Times New Roman', serif; font-size: clamp(28px, 3.5vw, 42px); font-weight: 400; line-height: 1.25; letter-spacing: -.02em; color: #f5f5f5; }
+    .learning-guide h2 { font-family: inherit; font-size: clamp(28px, 3.5vw, 38px); font-weight: 650; line-height: 1.3; letter-spacing: -.03em; color: #f5f5f5; }
     .learning-guide p, .learning-guide li { font-size: 16px; line-height: 1.95; color: #c5c5cb; }
     .learning-guide p { margin-top: 22px; }
     .learning-guide a { color: #dddde3; text-decoration: underline; text-underline-offset: 4px; }
@@ -3234,3 +3234,8 @@
   .landing-hint { max-width: 320px; margin: 20px auto 0; font-size: 13px; line-height: 1.65; text-wrap: balance; }
   .learning-guide h2 { font-size: clamp(25px, 6.6vw, 32px); line-height: 1.3; text-wrap: balance; }
 }
+
+.learning-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 36px 48px; max-width: 76ch; margin: 40px auto 0; }
+.learning-topic h3 { margin: 0; font-size: 20px; }
+.learning-topic p { margin-top: 12px; font-size: 16px; line-height: 1.75; }
+@media (max-width: 768px) { .learning-grid { grid-template-columns: 1fr; gap: 28px; margin-top: 32px; } }

@@ -13,3 +13,11 @@ for (const file of ['index.html', 'js/app.js', 'js/scan.js', 'analisa.json', 'be
   assert.ok(!/[\p{Extended_Pictographic}\p{Regional_Indicator}]/u.test(content), file);
 }
 console.log('UI text and incoming emoji checks passed');
+
+const guideStart = source.indexOf('      Object.assign(englishCopy,');
+const guideEnd = source.indexOf("      document.querySelectorAll('[data-i18n]')", guideStart);
+const guideCopy = vm.runInNewContext('const englishCopy = {};\n' + source.slice(guideStart, guideEnd) + '\nenglishCopy');
+const html = fs.readFileSync(path.join(__dirname, '..', 'index.html'), 'utf8');
+for (const match of html.matchAll(/data-i18n="(guide[^"]+)"/g)) assert.ok(guideCopy[match[1]], match[1]);
+assert.ok(!html.includes('class="learning-sources"'));
+console.log('English guide coverage passed');

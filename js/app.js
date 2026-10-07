@@ -87,6 +87,18 @@
         scanCurrency: 'P/L currency · use your account currency', scanImportHint: 'Review the detected rows before importing. Missing SL/TP and risk stay blank. Chart setups are saved as analysis.',
         scanEmpty: 'No scans have been saved on this device.', uploadLimit: 'Max. 10 MB · Excel: export as CSV'
       };
+      Object.assign(englishCopy, {
+  "guideTitle": "Build better trading habits",
+  "guideLead": "Understand the market, set your risk, and use your journal to see what needs improving.",
+  "guideMarketTitle": "Know the market you trade",
+  "guideMarketText": "Forex involves currency pairs such as EUR/USD. Check the spread, position size, and economic calendar before opening a trade.",
+  "guideRiskTitle": "Set your risk before entering",
+  "guideRiskText": "Record your entry, stop loss, and target. Use the Calculator to size your position around your risk limit.",
+  "guideJournalTitle": "Record or import your trades",
+  "guideJournalText": "Click Try, then open Journal. Enter trades manually or upload PDFs, images, and CSV files. Review scan results before importing; unreadable values stay blank.",
+  "guideReviewTitle": "Find patterns in your results",
+  "guideReviewText": "Open Statistics to review profit and loss, win rate, and drawdown. Compare your setups and entry reasons, then choose one habit to improve in your next session."
+});
       document.querySelectorAll('[data-i18n]').forEach(element => {
         originalCopy.set(element.dataset.i18n, element.innerHTML);
       });

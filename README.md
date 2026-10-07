@@ -38,7 +38,7 @@ Aplikasi ini dibangun menggunakan arsitektur **Client-Side Open Source**. Anda t
 ##  Fitur & Modul Utama
 
 1. **Beranda & Akses Awal**:
-   - Panduan berbahasa Indonesia dengan 28 bagian dan lebih dari 11.000 kata tentang dasar forex, penggunaan jurnal, evaluasi, psikologi, dan latihan. Seluruh materi terbuka di bawah hero tanpa daftar isi.
+   - Panduan singkat dalam bahasa Indonesia dan Inggris: mengenali market, mengatur risiko, mencatat atau mengimpor trade, dan mengevaluasi hasil.
    - Tombol Minat menuju paket. Tombol Coba membuka akses Jurnal, Statistik, Kalkulator, Berita Ekonomi, dan Profil.
    - Saat pertama masuk dengan profil lokal, hanya Beranda yang dapat dibuka. Pilihan bahasa Indonesia/English berada di menu Masuk.
    - Paket Free ($0), Plus ($10/bulan atau $100/tahun), dan Pro ($20/bulan atau $200/tahun). Label penghematan tahunan 17% dibulatkan dari 16,67%.
