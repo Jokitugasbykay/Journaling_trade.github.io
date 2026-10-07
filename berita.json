@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "checkedAt": "2026-10-07T19:52:57.027977+00:00",
+  "checkedAt": "2026-10-07T20:06:52.582504+00:00",
   "intervalMinutes": 30,
   "sources": [
     {
@@ -9,7 +9,7 @@
       "url": "https://www.investing.com/",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-07T19:52:51.138442+00:00"
+      "checkedAt": "2026-10-07T20:06:48.107906+00:00"
     },
     {
       "id": "cnbc",
@@ -17,7 +17,7 @@
       "url": "https://www.cnbc.com/markets/",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-07T19:52:51.396169+00:00"
+      "checkedAt": "2026-10-07T20:06:48.306700+00:00"
     },
     {
       "id": "kontan",
@@ -25,7 +25,7 @@
       "url": "https://www.kontan.co.id/",
       "kind": "html",
       "status": "ok",
-      "checkedAt": "2026-10-07T19:52:52.276306+00:00"
+      "checkedAt": "2026-10-07T20:06:49.257954+00:00"
     },
     {
       "id": "reuters",
@@ -33,7 +33,7 @@
       "url": "https://www.reuters.com/",
       "kind": "sitemap",
       "status": "ok",
-      "checkedAt": "2026-10-07T19:52:51.192986+00:00"
+      "checkedAt": "2026-10-07T20:06:48.234352+00:00"
     },
     {
       "id": "aljazeera",
@@ -41,7 +41,7 @@
       "url": "https://www.aljazeera.com/",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-07T19:52:51.121438+00:00"
+      "checkedAt": "2026-10-07T20:06:48.111511+00:00"
     },
     {
       "id": "bloomberg",
@@ -49,7 +49,7 @@
       "url": "https://www.bloomberg.com/asia",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-07T19:52:51.471411+00:00"
+      "checkedAt": "2026-10-07T20:06:48.374773+00:00"
     },
     {
       "id": "fnc",
@@ -57,7 +57,7 @@
       "url": "https://tradewithfnc.com/",
       "kind": "json",
       "status": "ok",
-      "checkedAt": "2026-10-07T19:52:52.042735+00:00"
+      "checkedAt": "2026-10-07T20:06:49.386088+00:00"
     },
     {
       "id": "investing_id",
@@ -65,7 +65,7 @@
       "url": "https://id.investing.com/news",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-07T19:52:51.367030+00:00"
+      "checkedAt": "2026-10-07T20:06:48.368112+00:00"
     },
     {
       "id": "pluang",
@@ -73,7 +73,7 @@
       "url": "https://pluang.com/news-feed",
       "kind": "html",
       "status": "ok",
-      "checkedAt": "2026-10-07T19:52:51.503005+00:00"
+      "checkedAt": "2026-10-07T20:06:48.557874+00:00"
     },
     {
       "id": "kompas",
@@ -81,7 +81,7 @@
       "url": "https://money.kompas.com/",
       "kind": "html",
       "status": "ok",
-      "checkedAt": "2026-10-07T19:52:52.491257+00:00"
+      "checkedAt": "2026-10-07T20:06:49.133025+00:00"
     },
     {
       "id": "detik",
@@ -89,7 +89,7 @@
       "url": "https://finance.detik.com/",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-07T19:52:52.515126+00:00"
+      "checkedAt": "2026-10-07T20:06:49.699080+00:00"
     },
     {
       "id": "kemenkeu",
@@ -121,7 +121,7 @@
       "url": "https://ekbis.sindonews.com/",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-07T19:52:51.688155+00:00"
+      "checkedAt": "2026-10-07T20:06:48.911506+00:00"
     },
     {
       "id": "fedwatch",
@@ -140,12 +140,156 @@
   ],
   "items": [
     {
+      "id": "f08e045ac665dc72c751",
+      "source": "reuters",
+      "title": "LPGA's 2027 schedule increases purse by $10M, reduces travel by 12,000 miles",
+      "url": "https://www.reuters.com/sports/golf/lpgas-2027-schedule-increases-purse-by-10m-reduces-travel-by-12000-miles--flm-2026-10-07/",
+      "publishedAt": "2026-10-07T20:03:03.384000+00:00",
+      "image": null,
+      "category": "sport"
+    },
+    {
+      "id": "f232d2e992dbb1a98241",
+      "source": "reuters",
+      "title": "The status of Iran's uranium enrichment programme",
+      "url": "https://www.reuters.com/world/middle-east/status-irans-uranium-enrichment-programme-2026-10-07/",
+      "publishedAt": "2026-10-07T20:02:52.810000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/KYHNHOEN7VPH7MVUAV2VQCFLZM.jpg?auth=ca60950be22bc7c9f36c98185616b8ed2bf6d07d31a02555c60dd20cea1fd8a9&smart=true&width=1920",
+      "category": "world"
+    },
+    {
+      "id": "a78d919ff3f4d7368fdb",
+      "source": "reuters",
+      "title": "Rahm's lawyer tells court Spaniard is done with LIV Golf after three seasons",
+      "url": "https://www.reuters.com/sports/golf/rahm-leave-liv-golf-after-three-seasons-reports-say-2026-10-07/",
+      "publishedAt": "2026-10-07T20:02:32.307000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/D4RCGVNPARK5BINX5IL4EQLMA4.jpg?auth=c39fa55b46aa845c1d4806055281b1ef28e48314796b8ead4e45a0a36e155ce6&smart=true&width=1920",
+      "category": "legal"
+    },
+    {
+      "id": "cda518321250a9807e73",
+      "source": "reuters",
+      "title": "Zealand, Roche's obesity drug helps patients lose up to 9.2% weight in mid-stage trial",
+      "url": "https://www.reuters.com/business/healthcare-pharmaceuticals/zealand-roches-obesity-drug-helps-patients-lose-up-92-weight-mid-stage-trial-2026-10-07/",
+      "publishedAt": "2026-10-07T20:02:03.577000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/SKNV7TJIRBJKJMKX5N6V5T5KTI.jpg?auth=43eccb9de5e0ae80eb63703a78bfaf7639e2ee77c55c37a9988362d3d3865e59&smart=true&width=1920",
+      "category": "business"
+    },
+    {
+      "id": "10b73971c52e9bc5a4fe",
+      "source": "reuters",
+      "title": "Evicted Spanish octogenarian Maricarmen Abascal, heart of Spain's housing protests, has died",
+      "url": "https://www.reuters.com/world/evicted-spanish-octogenarian-maricarmen-abascal-heart-spains-housing-protests-2026-10-07/",
+      "publishedAt": "2026-10-07T20:01:43.718000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/ORWZUTGM3BPNHAT6UZZ5T2PDHE.jpg?auth=3c50039e27cf7260035fb6ee99b2de77a39b04c60857ea579e7122227abe36d4&smart=true&width=1920",
+      "category": "world"
+    },
+    {
+      "id": "2395aa94e5763056a58c",
+      "source": "reuters",
+      "title": "Dodgers shuffle Shohei Ohtani to cleanup spot in Game 4",
+      "url": "https://www.reuters.com/sports/dodgers-shuffle-shohei-ohtani-cleanup-spot-game-4--flm-2026-10-07/",
+      "publishedAt": "2026-10-07T20:01:12.053000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/ADPTPEG7VVPIRPXPVDZO5K76FI.jpg?auth=38859ee91c2dfcb5828848f5c224cb6fbd069721a6bb86800c6fc65f4c771b8d&smart=true&width=1920",
+      "category": "sport"
+    },
+    {
+      "id": "05939284f3afb033e967",
+      "source": "reuters",
+      "title": "Wall Street ends lower, off record highs, as Treasury yields climb",
+      "url": "https://www.reuters.com/business/wall-st-futures-slip-yields-oil-rebound-fed-minutes-focus-2026-10-07/",
+      "publishedAt": "2026-10-07T20:01:00.388000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/GCFMMABDZZM4LIXAZTC4IJJ7UQ.jpg?auth=f78af9c14d20adb476a11c4cd842169bc1d5276ddd76c728f7b6c54439bd3cd1&smart=true&width=1920",
+      "category": "markets"
+    },
+    {
+      "id": "00faab173dbd6427e701",
+      "source": "cnbc",
+      "title": "Trump’s diesel order exposes White House limits to counter surging fuel prices",
+      "url": "https://www.cnbc.com/2026/10/07/trump-red-dye-offroad-diesel-price-iran-ukraine-war-midterm.html",
+      "publishedAt": "2026-10-07T20:00:36+00:00",
+      "image": "https://image.cnbcfm.com/api/v1/image/108364429-1789658380560-gettyimages-2295761542-mms10061_tiwtupzm.jpeg?v=1789658521&w=1920&h=1080",
+      "category": "world"
+    },
+    {
+      "id": "dcb6d4cfd4e1e1d65dfe",
+      "source": "reuters",
+      "title": "Brazil's Bolsonaro pledges broad review of Lula-era taxes",
+      "url": "https://www.reuters.com/legal/transactional/brazils-bolsonaro-pledges-broad-review-lula-era-taxes-2026-10-07/",
+      "publishedAt": "2026-10-07T19:55:41.387000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/NM25LRCQFRK7LEMQCBP7JHIE5A.jpg?auth=e793f4d8a58fd8a40a03847fd8f1e957e89db1909c1e4c381ad60e4d22278fcd&smart=true&width=1920",
+      "category": "legal"
+    },
+    {
+      "id": "f78e176eafc6a25e4690",
+      "source": "reuters",
+      "title": "Operação da PF que mirou político do PL é de 2025 e não envolve Flávio",
+      "url": "https://www.reuters.com/fact-check/portugues/IAATMNV4FZLXHCZM22YTRUHYGA-2026-10-07/",
+      "publishedAt": "2026-10-07T19:55:08.547000+00:00",
+      "image": null,
+      "category": "other"
+    },
+    {
+      "id": "6d87525e63858c3c4344",
+      "source": "reuters",
+      "title": "Litigation funder Omni Bridgeway raises $1 billion",
+      "url": "https://www.reuters.com/legal/transactional/litigation-funder-omni-bridgeway-raises-1-billion-2026-10-07/",
+      "publishedAt": "2026-10-07T19:54:00.049000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/QVUJB77BFBLH3M435P73DVXCVE.jpg?auth=7d5875b793744d06a6176cb24b81b7ef038b954aa4e0409de26af901f7620a2b&smart=true&width=1920",
+      "category": "legal"
+    },
+    {
+      "id": "dd0fa9aa7476de6e5d73",
+      "source": "bloomberg",
+      "title": "Fed Minutes Show Hawkish Unity Behind September Rate Hike",
+      "url": "https://www.bloomberg.com/news/videos/2026-10-07/fed-minutes-show-hawkish-unity-behind-sept-rate-hike-video",
+      "publishedAt": "2026-10-07T19:53:48+00:00",
+      "image": null,
+      "category": "other"
+    },
+    {
+      "id": "27ff3e7f53958d3340bd",
+      "source": "reuters",
+      "title": "EPA says will rescind policy targeting oil and gas industry methane leaks",
+      "url": "https://www.reuters.com/legal/government/epa-says-will-soon-act-rescind-biden-policy-targeting-methane-leaks-2026-10-07/",
+      "publishedAt": "2026-10-07T19:52:28.119000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/JCMLDT5N25MIZGLEDFHQS4CJWM.jpg?auth=6b20311d14e34aa798800232d4510725b86fee1cb5eed190439820e500de3a52&smart=true&width=1920",
+      "category": "legal"
+    },
+    {
+      "id": "8bfde3ae7afd2d44f741",
+      "source": "reuters",
+      "title": "Pressure mounting on Cornell administration, president over handling of alleged gang rape",
+      "url": "https://www.reuters.com/legal/government/pressure-mounting-cornell-administration-president-over-handling-alleged-gang-2026-10-07/",
+      "publishedAt": "2026-10-07T19:48:09.604000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/ID4OUIJO7FIHTC5CS45A53WGWA.jpg?auth=f4258173feb97382a786d164b158dc0b894283c3dcc458b2c2323fe6a3a76e1a&smart=true&width=1920",
+      "category": "legal"
+    },
+    {
+      "id": "1b7404c297d544ea204a",
+      "source": "reuters",
+      "title": "Trump expected to award science medal to SpaceX's Elon Musk, Fox News reports",
+      "url": "https://www.reuters.com/business/media-telecom/trump-expected-award-science-medal-spacexs-elon-musk-fox-news-reports-2026-10-07/",
+      "publishedAt": "2026-10-07T19:47:42.775000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/DHOWK6DTXBLRFORI2CPHTY2ERY.jpg?auth=c85907bf9891a11db9e5f4b6b0e5277f0bf078d6e990671b26a6bcc5d4e9d37b&smart=true&width=1920",
+      "category": "science"
+    },
+    {
       "id": "8a4646ffa7ea2042fedb",
       "source": "reuters",
       "title": "Most Republicans in tight midterm races distance themselves from Trump, Reuters review finds",
       "url": "https://www.reuters.com/world/us/most-republicans-tight-midterm-distance-themselves-trump-reuters-review-finds-2026-10-07/",
       "publishedAt": "2026-10-07T19:47:02.602000+00:00",
       "image": "https://www.reuters.com/resizer/v2/4CKEKGDJJ5LGNJQZ6PEOQDOVRI.jpg?auth=d0e0b36d5aa5c285647e50b997e4c3ebe64928186b10791db1cd945ccb9f5b59&smart=true&width=1920",
+      "category": "world"
+    },
+    {
+      "id": "14bb1297b135c7a8f835",
+      "source": "bloomberg",
+      "title": "Midterm Elections Are Potential Test for US Defense Investors",
+      "url": "https://www.bloomberg.com/news/articles/2026-10-07/midterm-elections-are-potential-test-for-us-defense-investors",
+      "publishedAt": "2026-10-07T19:46:42+00:00",
+      "image": null,
       "category": "world"
     },
     {
@@ -182,15 +326,6 @@
       "url": "https://www.reuters.com/world/britains-bbc-channel-4-discuss-broader-tie-up-cut-costs-sources-say-2026-10-07/",
       "publishedAt": "2026-10-07T19:42:20.325000+00:00",
       "image": "https://www.reuters.com/resizer/v2/7YOJALLZZFOLJMUKZ6BRMR2RJ4.jpg?auth=5dc2e4b87c89add0f5f5376d7200a354bbc1ca1fa8131ac2a4ff314f27ebb675&smart=true&width=1920",
-      "category": "world"
-    },
-    {
-      "id": "10b73971c52e9bc5a4fe",
-      "source": "reuters",
-      "title": "Evicted Spanish octogenarian Maricarmen Abascal, heart of Spain's housing protests, has died",
-      "url": "https://www.reuters.com/world/evicted-spanish-octogenarian-maricarmen-abascal-heart-spains-housing-protests-2026-10-07/",
-      "publishedAt": "2026-10-07T19:42:02.383000+00:00",
-      "image": "https://www.reuters.com/resizer/v2/ORWZUTGM3BPNHAT6UZZ5T2PDHE.jpg?auth=3c50039e27cf7260035fb6ee99b2de77a39b04c60857ea579e7122227abe36d4&smart=true&width=1920",
       "category": "world"
     },
     {
@@ -239,24 +374,6 @@
       "category": "other"
     },
     {
-      "id": "27ff3e7f53958d3340bd",
-      "source": "reuters",
-      "title": "EPA says will soon act to rescind Biden policy targeting methane leaks",
-      "url": "https://www.reuters.com/legal/government/epa-says-will-soon-act-rescind-biden-policy-targeting-methane-leaks-2026-10-07/",
-      "publishedAt": "2026-10-07T19:37:43.802000+00:00",
-      "image": "https://www.reuters.com/resizer/v2/JCMLDT5N25MIZGLEDFHQS4CJWM.jpg?auth=6b20311d14e34aa798800232d4510725b86fee1cb5eed190439820e500de3a52&smart=true&width=1920",
-      "category": "legal"
-    },
-    {
-      "id": "dcb6d4cfd4e1e1d65dfe",
-      "source": "reuters",
-      "title": "Brazil's Bolsonaro pledges broad review of Lula-era taxes",
-      "url": "https://www.reuters.com/legal/transactional/brazils-bolsonaro-pledges-broad-review-lula-era-taxes-2026-10-07/",
-      "publishedAt": "2026-10-07T19:36:52.634000+00:00",
-      "image": "https://www.reuters.com/resizer/v2/NM25LRCQFRK7LEMQCBP7JHIE5A.jpg?auth=e793f4d8a58fd8a40a03847fd8f1e957e89db1909c1e4c381ad60e4d22278fcd&smart=true&width=1920",
-      "category": "legal"
-    },
-    {
       "id": "d1152dca41b8746ffb2f",
       "source": "reuters",
       "title": "Pharma lobby sues Trump administration over Medicare drug price cuts",
@@ -264,96 +381,6 @@
       "publishedAt": "2026-10-07T19:31:53.026000+00:00",
       "image": "https://www.reuters.com/resizer/v2/7QPYM5B2ORMA7APDKJWQOLCSZU.jpg?auth=93b7d945c1518db07a3d0f4e9fca8ff4c956b52aa90b13c2d91d7b5066011a32&smart=true&width=1920",
       "category": "legal"
-    },
-    {
-      "id": "5b5f7db9d1ede70402e3",
-      "source": "reuters",
-      "title": "Christian Dior board replaces two members ahead of new shareholding structure",
-      "url": "https://www.reuters.com/business/retail-consumer/christian-dior-board-replaces-two-members-ahead-new-shareholding-structure-2026-10-07/",
-      "publishedAt": "2026-10-07T19:29:44.136000+00:00",
-      "image": "https://www.reuters.com/resizer/v2/7CEYPTUTVRM4RGJLR64KUMGV6A.jpg?auth=ce9aaffb79731bf038ac2dbc038b421b2f2839fc926d7d89b6364140fd0bc87c&smart=true&width=1920",
-      "category": "markets"
-    },
-    {
-      "id": "eb9d72a1861927ab421f",
-      "source": "reuters",
-      "title": "Five more UK rate-rigging convictions quashed as SFO prosecutions unravel",
-      "url": "https://www.reuters.com/legal/government/london-court-quashes-five-more-uk-rate-rigging-convictions-2026-10-07/",
-      "publishedAt": "2026-10-07T19:28:36.419000+00:00",
-      "image": "https://www.reuters.com/resizer/v2/ALQBBOOYZZMZNLSN5X7RHCKZRE.jpg?auth=44ae9b2702b316e5adb5782e32925fb8b14e423dffcccdb0fe7657568167ba8f&smart=true&width=1920",
-      "category": "legal"
-    },
-    {
-      "id": "01cd1ed24bd94eb5636c",
-      "source": "reuters",
-      "title": "US FCC to vote to ban all Chinese labs from testing US electronics",
-      "url": "https://www.reuters.com/world/asia-pacific/us-fcc-vote-ban-chinese-labs-testing-us-electronics-2026-10-07/",
-      "publishedAt": "2026-10-07T19:28:24.437000+00:00",
-      "image": "https://www.reuters.com/resizer/v2/56N55JT6MZIPNAHV2VRC6R7D5A.jpg?auth=6be178785cfbe091f5a638f12e8f6c850f2cfab5d66db0d3d00e4292b01fbef3&smart=true&width=1920",
-      "category": "world"
-    },
-    {
-      "id": "a39afc0f1bd1264ebe08",
-      "source": "reuters",
-      "title": "IEA to accelerate oil reserve release, says 100 million barrels still to come",
-      "url": "https://www.reuters.com/business/energy/iea-meet-wednesday-over-proposed-release-reserves-say-two-eu-diplomats-2026-10-07/",
-      "publishedAt": "2026-10-07T19:28:09.399000+00:00",
-      "image": "https://www.reuters.com/resizer/v2/7KITUJOPDVJH5GFPS4ZPUJDV7Q.jpg?auth=731e2242ce77743fb374fdd7acb6d6d8b0ebbe2063c73eae4f3b038eba0f7a27&smart=true&width=1920",
-      "category": "markets"
-    },
-    {
-      "id": "b59a36afc1a4ed2da1b7",
-      "source": "reuters",
-      "title": "Trump threatens to fire political advisers if their interests conflict",
-      "url": "https://www.reuters.com/world/us/trump-says-hell-fire-advisers-lacivita-blair-if-theres-conflict-2026-10-07/",
-      "publishedAt": "2026-10-07T19:28:06.862000+00:00",
-      "image": "https://www.reuters.com/resizer/v2/N2XFKLQS2JL3VB4G4ORN43QNRM.jpg?auth=a948b8d2ac5a54de4c7334e5b5e5a8b3c52a391379c096d6ace898bfc5d04025&smart=true&width=1920",
-      "category": "world"
-    },
-    {
-      "id": "4aadcc1c6720b355ae27",
-      "source": "reuters",
-      "title": "Tropical Storm Isaias forecast to hit US Gulf coast as hurricane early Saturday",
-      "url": "https://www.reuters.com/business/environment/tropical-storm-isaias-forecast-hit-us-gulf-coast-hurricane-early-saturday-2026-10-07/",
-      "publishedAt": "2026-10-07T19:28:01.830000+00:00",
-      "image": "https://www.reuters.com/resizer/v2/5XB5MXAIAFPY3MBT4HGXQXAJ3E.jpg?auth=28ce392e9cbb1d4fa3581ea41bb32b2c28ca104f9aec2e911b81a921193abb68&smart=true&width=1920",
-      "category": "sustainability"
-    },
-    {
-      "id": "d830e30f3fba12760a20",
-      "source": "reuters",
-      "title": "Houthis attack Aden airport as fighting intensifies in Yemen",
-      "url": "https://www.reuters.com/world/middle-east/houthis-launch-missiles-yemens-aden-airport-fighting-intensifies-2026-10-07/",
-      "publishedAt": "2026-10-07T19:25:53.905000+00:00",
-      "image": "https://www.reuters.com/resizer/v2/EDCEF3KM6ZMYHOT2QFBCW32XA4.jpg?auth=4616ae75f15a048b2d7b0b747bf764f06ae0b164d18586df51f55575819ab59b&smart=true&width=1920",
-      "category": "world"
-    },
-    {
-      "id": "1b7404c297d544ea204a",
-      "source": "reuters",
-      "title": "Trump expected to award science medal to SpaceX's Elon Musk, Fox News reports",
-      "url": "https://www.reuters.com/business/media-telecom/trump-expected-award-science-medal-spacexs-elon-musk-fox-news-reports-2026-10-07/",
-      "publishedAt": "2026-10-07T19:24:09.542000+00:00",
-      "image": "https://www.reuters.com/resizer/v2/DHOWK6DTXBLRFORI2CPHTY2ERY.jpg?auth=c85907bf9891a11db9e5f4b6b0e5277f0bf078d6e990671b26a6bcc5d4e9d37b&smart=true&width=1920",
-      "category": "science"
-    },
-    {
-      "id": "d0cac94d0a823106da51",
-      "source": "reuters",
-      "title": "Microsoft brings more AI to PCs as it challenges Apple",
-      "url": "https://www.reuters.com/business/microsoft-nvidia-ceos-unveil-new-ai-laptop-san-francisco-event-2026-10-07/",
-      "publishedAt": "2026-10-07T19:21:44.164000+00:00",
-      "image": "https://www.reuters.com/resizer/v2/YZ62G4OIAZIGVKF3ZLWLSJZBRE.jpg?auth=75fd270daa9cd3c439e50f689dfcf9673db1fec727f6afbb1c3317c4c3f301a4&smart=true&width=1920",
-      "category": "technology"
-    },
-    {
-      "id": "8f07412ecd5772c2cb64",
-      "source": "reuters",
-      "title": "US 30-year mortgage rate hits highest in nearly three years",
-      "url": "https://www.reuters.com/world/us/us-30-year-mortgage-rate-hits-highest-nearly-three-years-2026-10-07/",
-      "publishedAt": "2026-10-07T19:19:50.212000+00:00",
-      "image": "https://www.reuters.com/resizer/v2/2GBD7I4DDRMB7PXUEZQLEBZ3EI.jpg?auth=a73f39f03e018bd5123986191531bad96f6203e4b170ce458612ba223b3f9b22&smart=true&width=1920",
-      "category": "world"
     },
     {
       "id": "b14e54ba312c21dd65d6",
@@ -381,15 +408,6 @@
       "publishedAt": "2026-10-07T19:14:03+00:00",
       "image": "https://image.cnbcfm.com/api/v1/image/108104289-17399715182025-02-18t160441z_1704028396_rc2uwcacnx1r_rtrmadp_0_usa-trump-tariffs-mexico.jpeg?v=1739971599&w=1920&h=1080",
       "category": "business"
-    },
-    {
-      "id": "00faab173dbd6427e701",
-      "source": "cnbc",
-      "title": "Trump’s diesel order exposes White House limits to counter surging fuel prices",
-      "url": "https://www.cnbc.com/2026/10/07/trump-red-dye-offroad-diesel-price-iran-ukraine-war-midterm.html",
-      "publishedAt": "2026-10-07T19:11:42+00:00",
-      "image": "https://image.cnbcfm.com/api/v1/image/108364429-1789658380560-gettyimages-2295761542-mms10061_tiwtupzm.jpeg?v=1789658521&w=1920&h=1080",
-      "category": "world"
     },
     {
       "id": "4b9bd5dcab4b5ff8f496",
@@ -617,15 +635,6 @@
       "category": "legal"
     },
     {
-      "id": "5957bd3ae259127b220a",
-      "source": "bloomberg",
-      "title": "Former Barclays Traders Have Rate-Rigging Convictions Overturned",
-      "url": "https://www.bloomberg.com/news/videos/2026-10-07/former-barclays-traders-have-convictions-overturned-video",
-      "publishedAt": "2026-10-07T18:05:15+00:00",
-      "image": null,
-      "category": "business"
-    },
-    {
       "id": "721a3ef83988cc7b1996",
       "source": "aljazeera",
       "title": "Jerusalem Daily: Gaza’s devastation, three years after October 7",
@@ -651,6 +660,15 @@
       "publishedAt": "2026-10-07T17:32:18+00:00",
       "image": null,
       "category": "markets"
+    },
+    {
+      "id": "8176167560de783476bc",
+      "source": "bloomberg",
+      "title": "Canada Reviews Foreign Homebuyers Ban as 2027 Expiry Approaches",
+      "url": "https://www.bloomberg.com/news/articles/2026-10-07/canada-reviews-foreign-homebuyers-ban-as-2027-expiry-approaches",
+      "publishedAt": "2026-10-07T17:31:56+00:00",
+      "image": null,
+      "category": "other"
     },
     {
       "id": "48d4da5bc16fe28f8df2",
@@ -714,15 +732,6 @@
       "publishedAt": "2026-10-07T16:36:26+00:00",
       "image": "https://image.cnbcfm.com/api/v1/image/108263085-1770609011989-gettyimages-2260616438-rm2_2224_mu427qwl.jpeg?v=1791390942&w=1920&h=1080",
       "category": "other"
-    },
-    {
-      "id": "90915335634e6332546b",
-      "source": "bloomberg",
-      "title": "Novogratz Joins Crowd Warning of AI Bubble, Says Pile In Anyway",
-      "url": "https://www.bloomberg.com/news/articles/2026-10-07/novogratz-says-ai-is-in-a-bubble-and-investors-should-pile-in",
-      "publishedAt": "2026-10-07T16:33:13+00:00",
-      "image": null,
-      "category": "technology"
     },
     {
       "id": "14efe1bbb3cf196c197f",
@@ -1055,15 +1064,6 @@
       "url": "https://www.cnbc.com/2026/10/07/french-student-protests-budget-deadlock.html",
       "publishedAt": "2026-10-07T13:23:31+00:00",
       "image": "https://image.cnbcfm.com/api/v1/image/108210403-1760076268432-gettyimages-2239147271-AFP_77U3372.jpeg?v=1760076286&w=1920&h=1080",
-      "category": "markets"
-    },
-    {
-      "id": "bca09da0b34de09d2c6f",
-      "source": "bloomberg",
-      "title": "Kalshi Submits Bid for Perpetual-Style Oil Contract to CFTC",
-      "url": "https://www.bloomberg.com/news/articles/2026-10-07/kalshi-files-proposal-for-never-expiring-oil-contract-with-cftc",
-      "publishedAt": "2026-10-07T13:10:46+00:00",
-      "image": null,
       "category": "markets"
     },
     {
@@ -1760,15 +1760,6 @@
       "category": "local"
     },
     {
-      "id": "a7a239c1f9e9b2609172",
-      "source": "investing",
-      "title": "Oil up in choppy trade amid supply concerns, IEA pledge to speed up stocks release",
-      "url": "https://www.investing.com/news/commodities-news/oil-prices-rise-as-meast-supply-jitters-persist-4935465",
-      "publishedAt": null,
-      "image": "https://content-media.investing.com/news/moved_LYNXMPEM4D1DG_L.jpg",
-      "category": "markets"
-    },
-    {
       "id": "c158d6e788c167d06c74",
       "source": "investing",
       "title": "Brazil’s Bolsonaro pledges broad review of Lula-era taxes",
@@ -1778,13 +1769,49 @@
       "category": "business"
     },
     {
+      "id": "e3c698269325f0f0045e",
+      "source": "investing",
+      "title": "Anthropic expands AI model suite with low-cost, high-speed Haiku 5.5 launch",
+      "url": "https://www.investing.com/news/stock-market-news/anthropic-expands-ai-model-suite-with-lowcost-highspeed-haiku-55-launch-4937385",
+      "publishedAt": null,
+      "image": "https://content-media.investing.com/news/moved_LYNXMPEM3F1D5_L.jpg",
+      "category": "technology"
+    },
+    {
       "id": "3c5ada96495a2f09dfb5",
       "source": "investing",
-      "title": "EPA says will soon act to rescind Biden policy targeting methane leaks",
+      "title": "EPA says will rescind policy targeting oil and gas industry methane leaks",
       "url": "https://www.investing.com/news/commodities-news/epa-says-will-soon-act-to-rescind-biden-policy-targeting-methane-leaks-4937368",
       "publishedAt": null,
       "image": "https://content-media.investing.com/news/LYNXMPEM4P1PU_1200_L.jpg",
-      "category": "other"
+      "category": "markets"
+    },
+    {
+      "id": "50e1db758e753a79ca70",
+      "source": "investing",
+      "title": "Jefferies reiterates Buy on SailPoint stock, $23 target on product gains",
+      "url": "https://www.investing.com/news/analyst-ratings/jefferies-reiterates-buy-on-sailpoint-stock-23-target-on-product-gains-93CH-4937384",
+      "publishedAt": null,
+      "image": "https://content-media.investing.com/news/moved_LYNXMPEM431A2_1200_L.jpg",
+      "category": "markets"
+    },
+    {
+      "id": "a74ce74bb94160fdb212",
+      "source": "investing",
+      "title": "Trump expected to award science medal to SpaceX’s Elon Musk, Fox News reports",
+      "url": "https://www.investing.com/news/stock-market-news/trump-expected-to-award-science-medal-to-spacexs-elon-musk-fox-news-reports-4937371",
+      "publishedAt": null,
+      "image": "https://content-media.investing.com/trkd-images/LYNXMPEM961WY_L.jpg",
+      "category": "science"
+    },
+    {
+      "id": "a7a239c1f9e9b2609172",
+      "source": "investing",
+      "title": "Oil up in choppy trade amid supply concerns, IEA pledge to speed up stocks release",
+      "url": "https://www.investing.com/news/commodities-news/oil-prices-rise-as-meast-supply-jitters-persist-4935465",
+      "publishedAt": null,
+      "image": "https://content-media.investing.com/news/moved_LYNXMPEM4D1DG_L.jpg",
+      "category": "markets"
     },
     {
       "id": "10926fbddb9ebfc12f2e",
@@ -1821,33 +1848,6 @@
       "publishedAt": null,
       "image": "https://content-media.investing.com/trkd-images/LYNXMPEM961VL_L.jpg",
       "category": "business"
-    },
-    {
-      "id": "916b1687e056b1a7b7fb",
-      "source": "investing",
-      "title": "EOS Falls 10% In Bearish Trade",
-      "url": "https://www.investing.com/news/cryptocurrency-news/eos-falls-10-in-bearish-trade-4937373",
-      "publishedAt": null,
-      "image": "https://content-media.investing.com/news/Eos_800x533_L_1556444989.jpg",
-      "category": "markets"
-    },
-    {
-      "id": "d2dddc514fcd94fd5426",
-      "source": "investing",
-      "title": "Microsoft brings more AI to PCs as it challenges Apple",
-      "url": "https://www.investing.com/news/stock-market-news/microsoft-nvidia-ceos-to-unveil-new-ai-laptop-at-san-francisco-event-4936051",
-      "publishedAt": null,
-      "image": "https://content-media.investing.com/trkd-images/LYNXMPEM960SO_L.jpg",
-      "category": "technology"
-    },
-    {
-      "id": "a74ce74bb94160fdb212",
-      "source": "investing",
-      "title": "Trump expected to award science medal to SpaceX’s Elon Musk, Fox News reports",
-      "url": "https://www.investing.com/news/stock-market-news/trump-expected-to-award-science-medal-to-spacexs-elon-musk-fox-news-reports-4937371",
-      "publishedAt": null,
-      "image": "https://content-media.investing.com/trkd-images/LYNXMPEM961WY_L.jpg",
-      "category": "science"
     },
     {
       "id": "e9cc1e2d7f76d2b3195b",
@@ -2030,6 +2030,24 @@
       "category": "local"
     },
     {
+      "id": "a2e39560ceb54b135383",
+      "source": "investing_id",
+      "title": "Jefferies pertahankan Buy untuk saham SailPoint, target $23",
+      "url": "https://id.investing.com/news/analyst-ratings/jefferies-pertahankan-buy-untuk-saham-sailpoint-target-23-93CH-3089749",
+      "publishedAt": null,
+      "image": "https://content-media.investing.com/news/moved_LYNXMPEM431A2_1200_L.jpg",
+      "category": "local"
+    },
+    {
+      "id": "7a220f4154e35dd37367",
+      "source": "investing_id",
+      "title": "Futures emas lebih rendah selama sesi AS",
+      "url": "https://id.investing.com/news/commodities-news/futures-emas-lebih-rendah-selama-sesi-as-3089747",
+      "publishedAt": null,
+      "image": "https://content-media.investing.com/news/gold_3_M_1440048042.jpg",
+      "category": "local"
+    },
+    {
       "id": "7d879716beebcc4ee33f",
       "source": "investing_id",
       "title": "Distribution Solutions Group hargai obligasi $800 juta untuk akuisisi",
@@ -2062,7 +2080,7 @@
       "title": "Saham Universal Insurance Holdings capai tertinggi 52 minggu di $45,25",
       "url": "https://id.investing.com/news/company-news/saham-universal-insurance-holdings-capai-tertinggi-52-minggu-di-4525-93CH-3089739",
       "publishedAt": null,
-      "image": null,
+      "image": "https://content-media.investing.com/news/LYNXMPEM5F12L_1200_L.jpg",
       "category": "local"
     },
     {
@@ -2071,7 +2089,7 @@
       "title": "Futures minyak mentah lebih rendah pada jam dagang AS",
       "url": "https://id.investing.com/news/commodities-news/futures-minyak-mentah-lebih-rendah-pada-jam-dagang-as-3089740",
       "publishedAt": null,
-      "image": null,
+      "image": "https://content-media.investing.com/news/Crudeoil_800x533_L_1629202550.jpg",
       "category": "local"
     },
     {
@@ -2099,33 +2117,6 @@
       "url": "https://id.investing.com/news/company-news/fifth-third-tunjuk-darren-king-pimpin-commercial-bank-yang-diperluas-93CH-3089731",
       "publishedAt": null,
       "image": "https://content-media.investing.com/news/LYNXMPEM1J0WY_1200_L.jpg",
-      "category": "local"
-    },
-    {
-      "id": "68fc826322c943cc2dee",
-      "source": "investing_id",
-      "title": "Alamos Gold paparkan rencana pertumbuhan menuju 1 juta ons",
-      "url": "https://id.investing.com/news/transcripts/alamos-gold-paparkan-rencana-pertumbuhan-menuju-1-juta-ons-93CH-3089730",
-      "publishedAt": null,
-      "image": "https://content-media.investing.com/news/LYNXNPEC0E0NG_M.jpg",
-      "category": "local"
-    },
-    {
-      "id": "ccaf728bb05f13b4fcc5",
-      "source": "investing_id",
-      "title": "Saba Capital jual $239.193 saham dana PIMCO Dynamic Income Strategy",
-      "url": "https://id.investing.com/news/insider-trading-news/saba-capital-jual-239193-saham-dana-pimco-dynamic-income-strategy-93CH-3089729",
-      "publishedAt": null,
-      "image": "https://content-media.investing.com/news/moved_LYNXMPEM3Q0WG_1200_L.jpg",
-      "category": "local"
-    },
-    {
-      "id": "fd3b0ac4455b2b014142",
-      "source": "pluang",
-      "title": "Moody’s beri peringkat B3 pada Sky Protocol, stablecoin pertama dengan risiko kredit karena modal rendah.",
-      "url": "https://pluang.com/news-feed/moody-beri-penilaian-kredit-stablecoin-pertama-untuk-sky-protocol",
-      "publishedAt": null,
-      "image": "https://image-cdn.pluang.com/web/news-cards/v2/CRYPTO/6e837e3ac00331f9fb4e1a74d0114b54bcfa2b7a34333af70c3422ea403540a2-id.webp",
       "category": "local"
     },
     {
