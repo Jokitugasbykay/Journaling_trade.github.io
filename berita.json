@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "checkedAt": "2026-10-07T16:40:09.219228+00:00",
+  "checkedAt": "2026-10-07T16:44:35.532195+00:00",
   "intervalMinutes": 30,
   "sources": [
     {
@@ -9,7 +9,7 @@
       "url": "https://www.investing.com/",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-07T16:40:08.082445+00:00"
+      "checkedAt": "2026-10-07T16:44:34.510342+00:00"
     },
     {
       "id": "cnbc",
@@ -17,7 +17,7 @@
       "url": "https://www.cnbc.com/markets/",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-07T16:40:08.255855+00:00"
+      "checkedAt": "2026-10-07T16:44:34.591438+00:00"
     },
     {
       "id": "kontan",
@@ -25,7 +25,7 @@
       "url": "https://www.kontan.co.id/",
       "kind": "html",
       "status": "ok",
-      "checkedAt": "2026-10-07T16:40:08.076251+00:00"
+      "checkedAt": "2026-10-07T16:44:35.531490+00:00"
     },
     {
       "id": "reuters",
@@ -33,7 +33,7 @@
       "url": "https://www.reuters.com/",
       "kind": "sitemap",
       "status": "ok",
-      "checkedAt": "2026-10-07T16:40:08.261178+00:00"
+      "checkedAt": "2026-10-07T16:44:34.834107+00:00"
     },
     {
       "id": "aljazeera",
@@ -41,7 +41,7 @@
       "url": "https://www.aljazeera.com/",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-07T16:40:07.948916+00:00"
+      "checkedAt": "2026-10-07T16:44:34.677314+00:00"
     },
     {
       "id": "bloomberg",
@@ -49,7 +49,7 @@
       "url": "https://www.bloomberg.com/asia",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-07T16:40:09.218216+00:00"
+      "checkedAt": "2026-10-07T16:44:34.751486+00:00"
     },
     {
       "id": "fedwatch",
@@ -68,11 +68,81 @@
   ],
   "items": [
     {
+      "id": "0e20915a3595d2ae6723",
+      "source": "cnbc",
+      "title": "Modelo owner Constellation is getting creative to bring back beer drinkers as overall demand weakens",
+      "url": "https://www.cnbc.com/2026/10/07/constellation-brands-earnings-beer-demand.html",
+      "publishedAt": "2026-10-07T16:40:50+00:00"
+    },
+    {
+      "id": "0c97f00625726bc2736f",
+      "source": "reuters",
+      "title": "US FDA expands use of Novartis drug for chronic skin condition",
+      "url": "https://www.reuters.com/business/healthcare-pharmaceuticals/us-fda-expands-use-novartis-drug-chronic-skin-condition-2026-10-07/",
+      "publishedAt": "2026-10-07T16:39:59.695000+00:00"
+    },
+    {
+      "id": "0ef12cd56f6eef39ff89",
+      "source": "reuters",
+      "title": "Denmark says Russia has conducted sabotage attacks against its defense firms",
+      "url": "https://www.reuters.com/business/aerospace-defense/denmark-says-russia-has-conducted-sabotage-attacks-against-its-defense-firms-2026-10-07/",
+      "publishedAt": "2026-10-07T16:39:53.734000+00:00"
+    },
+    {
+      "id": "cfdb376c664f7f498821",
+      "source": "reuters",
+      "title": "Mattel CEO may put deal-making as priority Uno",
+      "url": "https://www.reuters.com/commentary/breakingviews/mattel-ceo-may-put-deal-making-priority-uno-2026-10-07/",
+      "publishedAt": "2026-10-07T16:39:28.793000+00:00"
+    },
+    {
+      "id": "768349e568b68a99eae4",
+      "source": "reuters",
+      "title": "Christa Pike's lawyers demand to see syringes, drug residue from botched execution",
+      "url": "https://www.reuters.com/legal/government/christa-pikes-lawyers-demand-see-syringes-drug-residue-botched-execution-2026-10-07/",
+      "publishedAt": "2026-10-07T16:37:49.031000+00:00"
+    },
+    {
+      "id": "b74d96a28b54962877f3",
+      "source": "reuters",
+      "title": "Al menos 24 muertos en Ucrania tras ataques rusos con drones y misiles",
+      "url": "https://www.reuters.com/es/mundo/YLXTHROQGBJJPE4LXJNWRYGKDY-2026-10-07/",
+      "publishedAt": "2026-10-07T16:37:08.072000+00:00"
+    },
+    {
       "id": "ac619a64524dbf4fa4c5",
       "source": "cnbc",
       "title": "Disney+ to stream upcoming Super Bowl",
       "url": "https://www.cnbc.com/2026/10/07/disney-stream-super-bowl-2027.html",
       "publishedAt": "2026-10-07T16:36:26+00:00"
+    },
+    {
+      "id": "9e62a35bec4b58becfbd",
+      "source": "bloomberg",
+      "title": "SpaceX in Talks to Borrow $40 Billion to Buy Nvidia Chips",
+      "url": "https://www.bloomberg.com/news/videos/2026-10-07/spacex-in-talks-to-borrow-40b-to-buy-nvidia-chips-video",
+      "publishedAt": "2026-10-07T16:36:05+00:00"
+    },
+    {
+      "id": "b6cfca342cac545745e5",
+      "source": "reuters",
+      "title": "Priceline to face FTC action over deceptive hotel ads, sources say",
+      "url": "https://www.reuters.com/world/priceline-owner-face-ftc-action-over-affiliates-hotel-ads-sources-say-2026-10-07/",
+      "publishedAt": "2026-10-07T16:35:43.611000+00:00"
+    },
+    {
+      "id": "c09cd525190845878f73",
+      "source": "reuters",
+      "title": "Mali troops re-enter strategic northern town after separatists withdraw",
+      "url": "https://www.reuters.com/world/mali-separatists-announce-withdrawal-strategic-northern-mali-town-2026-10-06/",
+      "publishedAt": "2026-10-07T16:35:32.346000+00:00"
+    },
+    {
+      "id": "ce7baffc7ca6eaef37b2",
+      "source": "reuters",
+      "title": "Apollo submits non-binding bid for German energy firm Uniper, sources say",
+      "url": "https://www.reuters.com/legal/transactional/apollo-submits-non-binding-bid-german-energy-firm-uniper-sources-say-2026-10-07/",
+      "publishedAt": "2026-10-07T16:35:18.425000+00:00"
     },
     {
       "id": "df02f79f55cf536eacc2",
@@ -117,25 +187,18 @@
       "publishedAt": "2026-10-07T16:31:44.256000+00:00"
     },
     {
+      "id": "b3f9659e02b413329bcf",
+      "source": "bloomberg",
+      "title": "Paramount’s Monster Debt Deal Offers Few Safeguards to Investors",
+      "url": "https://www.bloomberg.com/news/articles/2026-10-07/paramount-s-monster-debt-deal-offers-few-safeguards-to-investors",
+      "publishedAt": "2026-10-07T16:30:52+00:00"
+    },
+    {
       "id": "a8ee59e33530595fd0f5",
       "source": "reuters",
       "title": "Michigan Republican Rogers calls for end to Canada tariff fight, breaking with Trump again",
       "url": "https://www.reuters.com/world/us/michigan-republican-rogers-calls-end-canada-tariff-fight-breaking-with-trump-2026-10-07/",
       "publishedAt": "2026-10-07T16:30:50.144000+00:00"
-    },
-    {
-      "id": "b6cfca342cac545745e5",
-      "source": "reuters",
-      "title": "Priceline owner to face FTC action over affiliate's hotel ads, sources say",
-      "url": "https://www.reuters.com/world/priceline-owner-face-ftc-action-over-affiliates-hotel-ads-sources-say-2026-10-07/",
-      "publishedAt": "2026-10-07T16:30:32.471000+00:00"
-    },
-    {
-      "id": "0ef12cd56f6eef39ff89",
-      "source": "reuters",
-      "title": "Denmark says Russia has conducted sabotage attacks against its defense firms",
-      "url": "https://www.reuters.com/business/aerospace-defense/denmark-says-russia-has-conducted-sabotage-attacks-against-its-defense-firms-2026-10-07/",
-      "publishedAt": "2026-10-07T16:30:20.423000+00:00"
     },
     {
       "id": "ca693512dc82748b9432",
@@ -173,13 +236,6 @@
       "publishedAt": "2026-10-07T16:26:24.721000+00:00"
     },
     {
-      "id": "832db98c02b1a2db7ac5",
-      "source": "reuters",
-      "title": "Ataques a navios-tanque no Estreito de Ormuz têm maior número em uma semana desde início da guerra, dizem fontes",
-      "url": "https://www.reuters.com/pt/mundo/5Z7G35IFZNO7PBIWDS6MSXUP4M-2026-10-07/",
-      "publishedAt": "2026-10-07T16:26:09.982000+00:00"
-    },
-    {
       "id": "4b1201f580a4d73c6498",
       "source": "cnbc",
       "title": "Used car prices fall in Q3, while demand for fuel-efficient vehicles grows",
@@ -187,53 +243,11 @@
       "publishedAt": "2026-10-07T16:25:52+00:00"
     },
     {
-      "id": "a1b848bc31be466bce4a",
-      "source": "reuters",
-      "title": "El papa León inaugura reunión en que se debatiría sobre nuevos divorciados y católicos homosexuales",
-      "url": "https://www.reuters.com/es/mundo/LIXVRPXHZVLZ3NISE4RRNR3THM-2026-10-07/",
-      "publishedAt": "2026-10-07T16:25:45.272000+00:00"
-    },
-    {
-      "id": "e457b1c4e0aa4d8868ba",
-      "source": "reuters",
-      "title": "ESPN to stream Super Bowl LXI on Disney+",
-      "url": "https://www.reuters.com/sports/espn-stream-super-bowl-lxi-disney--flm-2026-10-07/",
-      "publishedAt": "2026-10-07T16:22:47.586000+00:00"
-    },
-    {
-      "id": "768349e568b68a99eae4",
-      "source": "reuters",
-      "title": "Christa Pike's lawyers demand to see syringes, drug residue from botched execution",
-      "url": "https://www.reuters.com/legal/government/christa-pikes-lawyers-demand-see-syringes-drug-residue-botched-execution-2026-10-07/",
-      "publishedAt": "2026-10-07T16:21:23.595000+00:00"
-    },
-    {
-      "id": "76dfd3a112393e9c2da5",
-      "source": "reuters",
-      "title": "Ex-Kanzler Schröder besucht Moskauer Supermarkt von Hyperglobus",
-      "url": "https://www.reuters.com/de/firma/ex-kanzler-schrder-besucht-moskauer-supermarkt-von-hyperglobus-2026-10-07/",
-      "publishedAt": "2026-10-07T16:20:43.303000+00:00"
-    },
-    {
-      "id": "2913b2b884e85696ee65",
-      "source": "reuters",
-      "title": "Governo dos EUA e Google se unem à Biohub, apoiada por Zuckerberg, em investimento de US$1,8 bi em dados de biologia para IA",
-      "url": "https://www.reuters.com/pt/tecnologia/TOHBGK36DNNVHKMPPE5JFWBX4U-2026-10-07/",
-      "publishedAt": "2026-10-07T16:20:29.878000+00:00"
-    },
-    {
       "id": "8700e69f4853507fe1e5",
       "source": "cnbc",
       "title": "Inflation fears on the rise as one-year outlook in Fed survey hits highest level since May 2023",
       "url": "https://www.cnbc.com/2026/10/07/inflation-fears-on-the-rise-as-one-year-outlook-in-fed-survey-hits-highest-since-may-2023.html",
       "publishedAt": "2026-10-07T16:18:22+00:00"
-    },
-    {
-      "id": "423195fffb4d89af1d94",
-      "source": "aljazeera",
-      "title": "Germany’s Merz vows to fight ‘extremism’ after AfD, far-left election gains",
-      "url": "https://www.aljazeera.com/news/2026/10/7/germanys-merz-vows-to-fight-extremism-after-afd-far-left-election-gains?traffic_source=rss",
-      "publishedAt": "2026-10-07T16:12:29+00:00"
     },
     {
       "id": "d440d80f6893b340d5e7",
@@ -339,20 +353,6 @@
       "title": "US 30-Year Yields Return to 2002 High",
       "url": "https://www.bloomberg.com/news/videos/2026-10-07/us-30-year-yields-return-to-2002-high-video",
       "publishedAt": "2026-10-07T15:00:25+00:00"
-    },
-    {
-      "id": "518f02df2fec123b15ca",
-      "source": "bloomberg",
-      "title": "Apollo's Cortese Says Liquidity Is a Virtue, Not a Vice",
-      "url": "https://www.bloomberg.com/news/videos/2026-10-07/apollo-s-cortese-says-liquidity-is-a-virtue-not-a-vice-video",
-      "publishedAt": "2026-10-07T14:59:26+00:00"
-    },
-    {
-      "id": "13fc03f86088a9afc214",
-      "source": "bloomberg",
-      "title": "Stocks, Bonds Fall on Inflation Worry as Oil Rises",
-      "url": "https://www.bloomberg.com/news/videos/2026-10-07/stocks-bonds-fall-on-inflation-worry-as-oil-rises-video",
-      "publishedAt": "2026-10-07T14:58:25+00:00"
     },
     {
       "id": "5748f18435642d15b6f1",
@@ -572,6 +572,13 @@
       "publishedAt": "2026-10-07T11:48:49+00:00"
     },
     {
+      "id": "b6990aa980b9fcd0e442",
+      "source": "aljazeera",
+      "title": "Justina Shiroka Pula: Kosovo’s new president, elected during a crisis",
+      "url": "https://www.aljazeera.com/news/2026/10/7/justina-shiroka-pula-kosovos-new-president-elected-during-a-crisis?traffic_source=rss",
+      "publishedAt": "2026-10-07T11:40:21+00:00"
+    },
+    {
       "id": "9fa90f45eba24346f17e",
       "source": "bloomberg",
       "title": "EM Assets Halt Advance as Hormuz Concerns Weigh on Risk Appetite",
@@ -607,13 +614,6 @@
       "publishedAt": "2026-10-07T06:59:59+00:00"
     },
     {
-      "id": "8024f71c6d7916ecc009",
-      "source": "cnbc",
-      "title": "Why AI is both the hope and the hazard for world leaders, according to IMF chief Georgieva",
-      "url": "https://www.cnbc.com/2026/10/07/economy-inflation-ai-trade-imf-iran-hormuz-trump-.html",
-      "publishedAt": "2026-10-07T06:16:39+00:00"
-    },
-    {
       "id": "7ea3c094d5c2a7c78527",
       "source": "bloomberg",
       "title": "Stocks Fall as Inflation Worries Boost Bond Yields: Markets Wrap",
@@ -626,6 +626,27 @@
       "title": "Latest Oil Market News and Analysis for Oct. 7",
       "url": "https://www.bloomberg.com/news/articles/2026-10-06/latest-oil-market-news-and-analysis-for-oct-7",
       "publishedAt": "2026-10-06T22:02:47+00:00"
+    },
+    {
+      "id": "e6df41b5fe64bbb86fd7",
+      "source": "investing",
+      "title": "Royal Gold at John Tumazos conference: growth, cash and valuation gap",
+      "url": "https://www.investing.com/news/transcripts/royal-gold-at-john-tumazos-conference-growth-cash-and-valuation-gap-93CH-4937222",
+      "publishedAt": null
+    },
+    {
+      "id": "8f942eb7027af383396c",
+      "source": "investing",
+      "title": "Exclusive-Apollo submits non-binding bid for German energy firm Uniper, sources say",
+      "url": "https://www.investing.com/news/stock-market-news/exclusiveapollo-submits-nonbinding-bid-for-german-energy-firm-uniper-sources-say-4936283",
+      "publishedAt": null
+    },
+    {
+      "id": "d2341c1c8745cf8dfe29",
+      "source": "investing",
+      "title": "Atlas Salt at 20th International Investment Forum: logistics drive salt thesis",
+      "url": "https://www.investing.com/news/transcripts/atlas-salt-at-20th-international-investment-forum-logistics-drive-salt-thesis-93CH-4937220",
+      "publishedAt": null
     },
     {
       "id": "0d7ca6b5f39fe227bc32",
@@ -674,27 +695,6 @@
       "source": "investing",
       "title": "Brighthouse Financial stock hits 52-week low at 13.69 USD",
       "url": "https://www.investing.com/news/company-news/brighthouse-financial-stock-hits-52week-low-at-1369-usd-93CH-4937200",
-      "publishedAt": null
-    },
-    {
-      "id": "c3a5a57af732a78008dc",
-      "source": "investing",
-      "title": "Google expands SynthID Detector tool globally to identify AI content",
-      "url": "https://www.investing.com/news/stock-market-news/google-expands-synthid-detector-tool-globally-to-identify-ai-content-93CH-4937199",
-      "publishedAt": null
-    },
-    {
-      "id": "a78cd9e820b21dd600c6",
-      "source": "investing",
-      "title": "U.K. stocks lower at close of trade; Investing.com United Kingdom 100 down 0.76%",
-      "url": "https://www.investing.com/news/stock-market-news/uk-stocks-lower-at-close-of-trade-investingcom-united-kingdom-100-down-076-4937198",
-      "publishedAt": null
-    },
-    {
-      "id": "4c10cbc021ce4f9a4923",
-      "source": "investing",
-      "title": "Sweden stocks lower at close of trade; OMX Stockholm 30 down 1.71%",
-      "url": "https://www.investing.com/news/stock-market-news/sweden-stocks-lower-at-close-of-trade-omx-stockholm-30-down-171-4937197",
       "publishedAt": null
     },
     {
