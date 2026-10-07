@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "checkedAt": "2026-10-07T20:06:52.582504+00:00",
+  "checkedAt": "2026-10-07T20:08:17.020778+00:00",
   "intervalMinutes": 30,
   "sources": [
     {
@@ -9,7 +9,7 @@
       "url": "https://www.investing.com/",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-07T20:06:48.107906+00:00"
+      "checkedAt": "2026-10-07T20:08:12.171929+00:00"
     },
     {
       "id": "cnbc",
@@ -17,7 +17,7 @@
       "url": "https://www.cnbc.com/markets/",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-07T20:06:48.306700+00:00"
+      "checkedAt": "2026-10-07T20:08:11.905270+00:00"
     },
     {
       "id": "kontan",
@@ -25,7 +25,7 @@
       "url": "https://www.kontan.co.id/",
       "kind": "html",
       "status": "ok",
-      "checkedAt": "2026-10-07T20:06:49.257954+00:00"
+      "checkedAt": "2026-10-07T20:08:13.284470+00:00"
     },
     {
       "id": "reuters",
@@ -33,7 +33,7 @@
       "url": "https://www.reuters.com/",
       "kind": "sitemap",
       "status": "ok",
-      "checkedAt": "2026-10-07T20:06:48.234352+00:00"
+      "checkedAt": "2026-10-07T20:08:12.020877+00:00"
     },
     {
       "id": "aljazeera",
@@ -41,7 +41,7 @@
       "url": "https://www.aljazeera.com/",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-07T20:06:48.111511+00:00"
+      "checkedAt": "2026-10-07T20:08:11.849429+00:00"
     },
     {
       "id": "bloomberg",
@@ -49,7 +49,7 @@
       "url": "https://www.bloomberg.com/asia",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-07T20:06:48.374773+00:00"
+      "checkedAt": "2026-10-07T20:08:12.181244+00:00"
     },
     {
       "id": "fnc",
@@ -57,7 +57,7 @@
       "url": "https://tradewithfnc.com/",
       "kind": "json",
       "status": "ok",
-      "checkedAt": "2026-10-07T20:06:49.386088+00:00"
+      "checkedAt": "2026-10-07T20:08:12.849227+00:00"
     },
     {
       "id": "investing_id",
@@ -65,7 +65,7 @@
       "url": "https://id.investing.com/news",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-07T20:06:48.368112+00:00"
+      "checkedAt": "2026-10-07T20:08:12.745590+00:00"
     },
     {
       "id": "pluang",
@@ -73,7 +73,7 @@
       "url": "https://pluang.com/news-feed",
       "kind": "html",
       "status": "ok",
-      "checkedAt": "2026-10-07T20:06:48.557874+00:00"
+      "checkedAt": "2026-10-07T20:08:13.262837+00:00"
     },
     {
       "id": "kompas",
@@ -81,7 +81,7 @@
       "url": "https://money.kompas.com/",
       "kind": "html",
       "status": "ok",
-      "checkedAt": "2026-10-07T20:06:49.133025+00:00"
+      "checkedAt": "2026-10-07T20:08:13.165390+00:00"
     },
     {
       "id": "detik",
@@ -89,7 +89,7 @@
       "url": "https://finance.detik.com/",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-07T20:06:49.699080+00:00"
+      "checkedAt": "2026-10-07T20:08:13.640829+00:00"
     },
     {
       "id": "kemenkeu",
@@ -121,7 +121,7 @@
       "url": "https://ekbis.sindonews.com/",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-07T20:06:48.911506+00:00"
+      "checkedAt": "2026-10-07T20:08:13.742244+00:00"
     },
     {
       "id": "fedwatch",
@@ -2117,6 +2117,15 @@
       "url": "https://id.investing.com/news/company-news/fifth-third-tunjuk-darren-king-pimpin-commercial-bank-yang-diperluas-93CH-3089731",
       "publishedAt": null,
       "image": "https://content-media.investing.com/news/LYNXMPEM1J0WY_1200_L.jpg",
+      "category": "local"
+    },
+    {
+      "id": "fd3b0ac4455b2b014142",
+      "source": "pluang",
+      "title": "Moody’s beri peringkat B3 pada Sky Protocol, stablecoin pertama dengan risiko kredit karena modal rendah.",
+      "url": "https://pluang.com/news-feed/moody-beri-penilaian-kredit-stablecoin-pertama-untuk-sky-protocol",
+      "publishedAt": null,
+      "image": "https://image-cdn.pluang.com/web/news-cards/v2/CRYPTO/6e837e3ac00331f9fb4e1a74d0114b54bcfa2b7a34333af70c3422ea403540a2-id.webp",
       "category": "local"
     },
     {
