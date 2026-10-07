@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "checkedAt": "2026-10-07T23:23:58.316842+00:00",
+  "checkedAt": "2026-10-07T23:52:33.372401+00:00",
   "intervalMinutes": 30,
   "sources": [
     {
@@ -9,7 +9,7 @@
       "url": "https://www.investing.com/",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-07T23:23:49.798373+00:00"
+      "checkedAt": "2026-10-07T23:52:29.648718+00:00"
     },
     {
       "id": "cnbc",
@@ -17,7 +17,7 @@
       "url": "https://www.cnbc.com/markets/",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-07T23:23:49.763245+00:00"
+      "checkedAt": "2026-10-07T23:52:29.679786+00:00"
     },
     {
       "id": "kontan",
@@ -25,7 +25,7 @@
       "url": "https://www.kontan.co.id/",
       "kind": "html",
       "status": "ok",
-      "checkedAt": "2026-10-07T23:23:50.867242+00:00"
+      "checkedAt": "2026-10-07T23:52:30.651736+00:00"
     },
     {
       "id": "reuters",
@@ -33,7 +33,7 @@
       "url": "https://www.reuters.com/",
       "kind": "sitemap",
       "status": "ok",
-      "checkedAt": "2026-10-07T23:23:49.794388+00:00"
+      "checkedAt": "2026-10-07T23:52:29.985351+00:00"
     },
     {
       "id": "aljazeera",
@@ -41,7 +41,7 @@
       "url": "https://www.aljazeera.com/",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-07T23:23:49.786543+00:00"
+      "checkedAt": "2026-10-07T23:52:29.676201+00:00"
     },
     {
       "id": "bloomberg",
@@ -49,7 +49,7 @@
       "url": "https://www.bloomberg.com/asia",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-07T23:23:50.321417+00:00"
+      "checkedAt": "2026-10-07T23:52:30.053534+00:00"
     },
     {
       "id": "fnc",
@@ -57,7 +57,7 @@
       "url": "https://tradewithfnc.com/",
       "kind": "json",
       "status": "ok",
-      "checkedAt": "2026-10-07T23:23:50.509598+00:00"
+      "checkedAt": "2026-10-07T23:52:30.358664+00:00"
     },
     {
       "id": "investing_id",
@@ -65,7 +65,7 @@
       "url": "https://id.investing.com/news",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-07T23:23:50.068559+00:00"
+      "checkedAt": "2026-10-07T23:52:29.950834+00:00"
     },
     {
       "id": "pluang",
@@ -73,7 +73,7 @@
       "url": "https://pluang.com/news-feed",
       "kind": "html",
       "status": "ok",
-      "checkedAt": "2026-10-07T23:23:50.091951+00:00"
+      "checkedAt": "2026-10-07T23:52:29.979640+00:00"
     },
     {
       "id": "kompas",
@@ -81,7 +81,7 @@
       "url": "https://money.kompas.com/",
       "kind": "html",
       "status": "ok",
-      "checkedAt": "2026-10-07T23:23:50.317728+00:00"
+      "checkedAt": "2026-10-07T23:52:31.200243+00:00"
     },
     {
       "id": "detik",
@@ -89,7 +89,7 @@
       "url": "https://finance.detik.com/",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-07T23:23:51.618251+00:00"
+      "checkedAt": "2026-10-07T23:52:31.292237+00:00"
     },
     {
       "id": "kemenkeu",
@@ -121,7 +121,7 @@
       "url": "https://ekbis.sindonews.com/",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-07T23:23:50.429293+00:00"
+      "checkedAt": "2026-10-07T23:52:30.362493+00:00"
     },
     {
       "id": "fedwatch",
@@ -140,6 +140,123 @@
   ],
   "items": [
     {
+      "id": "8d3944b156121c9426a0",
+      "source": "reuters",
+      "title": "LG Energy Solution flags 26% rise in Q3 operating profit",
+      "url": "https://www.reuters.com/world/asia-pacific/lg-energy-solution-flags-26-rise-q3-operating-profit-2026-10-07/",
+      "publishedAt": "2026-10-07T23:46:20.418000+00:00",
+      "image": null,
+      "category": "world"
+    },
+    {
+      "id": "8e5b0d5fcfa9d7d360c3",
+      "source": "reuters",
+      "title": "Denmark says Russia has conducted sabotage attacks against its defense firms",
+      "url": "https://www.reuters.com/business/aerospace-defense/denmark-says-russia-has-conducted-sabotage-attacks-against-its-defense-firms-2026-10-07/",
+      "publishedAt": "2026-10-07T23:42:13.926000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/UFOR4WDKE5IBVHK42EMDSL73YA.jpg?auth=8e1c85ea2df2674e241b383acd60cf99157e8a49c2519781a27cadd57dd5ef89&smart=true&width=1920",
+      "category": "business"
+    },
+    {
+      "id": "9fcb9e4f56b0cec04b41",
+      "source": "reuters",
+      "title": "McKenzie starts at flyhalf for first Bledisloe test after Mo'unga injury",
+      "url": "https://www.reuters.com/sports/mckenzie-starts-flyhalf-first-bledisloe-test-after-mounga-injury-2026-10-07/",
+      "publishedAt": "2026-10-07T23:38:26.853000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/PMAJZPOBEJLTZKRA3T7KMF4DUM.jpg?auth=641975ee5b1feb26caddf5ea8188c66e235fc46bc463f7685d5114f23905abb4&smart=true&width=1920",
+      "category": "sport"
+    },
+    {
+      "id": "d4f8e3b124ce80f103c5",
+      "source": "bloomberg",
+      "title": "Gold Near Nine-Week Low on Prospects for Rate Hike by Year-End",
+      "url": "https://www.bloomberg.com/news/articles/2026-10-07/gold-near-nine-week-low-on-prospects-for-rate-hike-by-year-end",
+      "publishedAt": "2026-10-07T23:37:27+00:00",
+      "image": null,
+      "category": "markets"
+    },
+    {
+      "id": "40cc5aaccb855abce1e1",
+      "source": "reuters",
+      "title": "Gavin McKenna, Leafs get first road test vs. Pacific-leading Knights",
+      "url": "https://www.reuters.com/sports/nhl/gavin-mckenna-leafs-get-first-road-test-vs-pacific-leading-knights--flm-2026-10-07/",
+      "publishedAt": "2026-10-07T23:34:47.688000+00:00",
+      "image": null,
+      "category": "sport"
+    },
+    {
+      "id": "cd4b512ebc7f248d7ab3",
+      "source": "reuters",
+      "title": "US lobbies allies to cut ties to anti-disinformation conference over panel critical of Washington, sources say",
+      "url": "https://www.reuters.com/world/americas/us-lobbies-allies-cut-ties-anti-disinformation-conference-over-panel-critical-2026-10-07/",
+      "publishedAt": "2026-10-07T23:33:43.994000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/DX33MD4YINPMFCFN4EZTWYBEOI.jpg?auth=417090fee8fccfcef030d5267c4527cd85d6fee6cfaf68ee3c7c6a465a98a424&smart=true&width=1920",
+      "category": "world"
+    },
+    {
+      "id": "3a3ab47727be1a6c6040",
+      "source": "kompas",
+      "title": "Trump Beri Penghargaan ke Para Bos Perusahaan Teknologi, Ada Elon Musk hingga Jensen Huang",
+      "url": "https://money.kompas.com/read/2026/10/08/063340926/trump-beri-penghargaan-ke-para-bos-perusahaan-teknologi-ada-elon-musk-hingga",
+      "publishedAt": "2026-10-07T23:33:40+00:00",
+      "image": "https://asset.kompas.com/crops/4rtvRLiz6L4ejTtxMV5jvzvlT9U=/134x0:1573x959/750x500/data/photo/2026/09/16/6aaa06bfbadad.png",
+      "category": "local"
+    },
+    {
+      "id": "518e7505ef99cbfbeb46",
+      "source": "reuters",
+      "title": "Giants WR Malik Nabers sits out practice with 'sore' right knee",
+      "url": "https://www.reuters.com/sports/giants-wr-malik-nabers-sits-out-practice-with-sore-right-knee--flm-2026-10-07/",
+      "publishedAt": "2026-10-07T23:32:09.888000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/U5WQW2RTAZIYBF4TMM5W2RA6PI.jpg?auth=38c6745f0c1561036717156e017eedcf7ac78e3cf5ef40fa3b23e6a0b3a23f91&smart=true&width=1920",
+      "category": "sport"
+    },
+    {
+      "id": "5adfe69b89723778c00a",
+      "source": "detik",
+      "title": "OJK & LPS Angkat Bicara soal Rencana Gaji PNS Lewat Koperasi",
+      "url": "https://finance.detik.com/berita-ekonomi-bisnis/d-8697140/ojk-lps-angkat-bicara-soal-rencana-gaji-pns-lewat-koperasi",
+      "publishedAt": "2026-10-07T23:30:41+00:00",
+      "image": "https://akcdn.detik.net.id/community/media/visual/2023/02/23/ilustrasi-pns_169.jpeg?w=360&q=90",
+      "category": "local"
+    },
+    {
+      "id": "7fdbff7741f869806c7b",
+      "source": "reuters",
+      "title": "Can Wall Street keep partying while bond markets burn?",
+      "url": "https://www.reuters.com/commentary/reuters-open-interest/can-wall-street-keep-partying-while-bond-markets-burn-2026-10-07/",
+      "publishedAt": "2026-10-07T23:30:20.386000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/QIJ6RJY2OJDXPL6ZPQOA5TBN3Y.JPG?auth=5df64627901bc47d33ed00e590d6c2824bd01ed659ddf2559909f4399e0e06ed&smart=true&width=1920",
+      "category": "commentary"
+    },
+    {
+      "id": "c893a215e38b5969161a",
+      "source": "reuters",
+      "title": "Australia's ASIC halts fundraising by three ASCF private credit funds",
+      "url": "https://www.reuters.com/legal/government/australias-asic-halts-fundraising-by-three-ascf-private-credit-funds-2026-10-07/",
+      "publishedAt": "2026-10-07T23:26:02.553000+00:00",
+      "image": null,
+      "category": "legal"
+    },
+    {
+      "id": "50fbec722c5afbc54695",
+      "source": "reuters",
+      "title": "Award-winning Kashmiri filmmaker Arfat Sheikh detained by US immigration authorities",
+      "url": "https://www.reuters.com/legal/government/award-winning-kashmiri-filmmaker-arfat-sheikh-detained-by-us-immigration-2026-10-07/",
+      "publishedAt": "2026-10-07T23:23:59.668000+00:00",
+      "image": null,
+      "category": "legal"
+    },
+    {
+      "id": "8a9725bedca8aa524d78",
+      "source": "reuters",
+      "title": "Gold slides to two-month low as robust dollar, yields add pressure",
+      "url": "https://www.reuters.com/world/india/gold-edges-lower-with-focus-fed-minutes-rate-path-clues-2026-10-07/",
+      "publishedAt": "2026-10-07T23:22:42.452000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/LYLIQMUNFNMWDGEKY6JPCZ6ATA.jpg?auth=8f2144d6aa8c0be4c1bf5a75192a07196bb7e504035010a2b91a4e2400cba4f6&smart=true&width=1920",
+      "category": "markets"
+    },
+    {
       "id": "6bf194b35467afb91754",
       "source": "reuters",
       "title": "Oil price volatility tops list of earnings risks for Japan firms: Reuters poll",
@@ -147,6 +264,15 @@
       "publishedAt": "2026-10-07T23:20:31.569000+00:00",
       "image": "https://www.reuters.com/resizer/v2/EIXHLSVFEFPTPPD343EX65N3G4.jpg?auth=81977e6a9383dec1804e2d30d549c6b62b1424c7d6c78feaddc2067a5db9530b&smart=true&width=1920",
       "category": "markets"
+    },
+    {
+      "id": "0c95af7fee6d1e22c5fd",
+      "source": "aljazeera",
+      "title": "Christa Pike was nearly taken off life support before waking, lawyers say",
+      "url": "https://www.aljazeera.com/news/2026/10/7/christa-pike-was-nearly-taken-off-life-support-before-waking-lawyers-say?traffic_source=rss",
+      "publishedAt": "2026-10-07T23:20:01+00:00",
+      "image": "https://www.aljazeera.com/wp-content/uploads/2026/10/reuters_6ac6ba1d-1791408669.jpg?resize=1920%2C1440",
+      "category": "other"
     },
     {
       "id": "9dac693e7deb98244142",
@@ -268,29 +394,11 @@
     {
       "id": "096b75248108665ce0c0",
       "source": "bloomberg",
-      "title": "Peru Unexpectedly Holds Rate as Inflation Jump Seen as Temporary",
+      "title": "Peru Unexpectedly Holds Rate as Price Jump Seen as Temporary",
       "url": "https://www.bloomberg.com/news/articles/2026-10-07/peru-unexpectedly-holds-rate-as-inflation-jump-seen-as-temporary",
       "publishedAt": "2026-10-07T23:04:10+00:00",
       "image": null,
       "category": "markets"
-    },
-    {
-      "id": "f1bcb95bebf08bd19d62",
-      "source": "reuters",
-      "title": "Blues, Sharks meet after enduring rough performances",
-      "url": "https://www.reuters.com/sports/nhl/blues-sharks-meet-after-enduring-rough-performances--flm-2026-10-07/",
-      "publishedAt": "2026-10-07T23:03:29.923000+00:00",
-      "image": null,
-      "category": "sport"
-    },
-    {
-      "id": "15dbcdf2c7d335ecc894",
-      "source": "reuters",
-      "title": "Blackhawks playing inspired hockey, next take on Islanders",
-      "url": "https://www.reuters.com/sports/nhl/blackhawks-playing-inspired-hockey-next-take-islanders--flm-2026-10-07/",
-      "publishedAt": "2026-10-07T22:59:02.161000+00:00",
-      "image": null,
-      "category": "sport"
     },
     {
       "id": "5d9001c9a6339684cec2",
@@ -311,22 +419,13 @@
       "category": "local"
     },
     {
-      "id": "587bc53f6b83d7e5d938",
-      "source": "reuters",
-      "title": "Medical device maker Centinel Spine discloses revenue rise in US IPO filing",
-      "url": "https://www.reuters.com/business/healthcare-pharmaceuticals/medical-device-maker-centinel-spine-discloses-revenue-rise-us-ipo-filing-2026-10-07/",
-      "publishedAt": "2026-10-07T22:50:53.940000+00:00",
-      "image": "https://www.reuters.com/resizer/v2/ZVUR2TBKHFNXXHH7UO7NU7ADUE.jpg?auth=c46ddea9c6fab1c617780d46e82a9ce08433a08e8dce5d614c80c3ada9001f42&smart=true&width=1920",
-      "category": "business"
-    },
-    {
-      "id": "57148f251c9c06a26f9e",
-      "source": "reuters",
-      "title": "Christa Pike 'angry and confused' about Tennessee's failed execution effort, lawyers say",
-      "url": "https://www.reuters.com/legal/government/christa-pikes-lawyers-demand-see-syringes-drug-residue-botched-execution-2026-10-07/",
-      "publishedAt": "2026-10-07T22:46:31.569000+00:00",
-      "image": "https://www.reuters.com/resizer/v2/NE3X7JDHVFM7JJTOACSCDMKNHA.jpg?auth=83a0971ef9951038f5b3586e242f871ddd81d741524e54c90b3253573ac8b426&smart=true&width=1920",
-      "category": "legal"
+      "id": "9eaa7997a958980631b1",
+      "source": "bloomberg",
+      "title": "Fortescue Says Dispute With China’s CMRG Hits Iron Ore Sales",
+      "url": "https://www.bloomberg.com/news/articles/2026-10-07/fortescue-flags-lower-iron-ore-sales-as-china-dispute-drags-on",
+      "publishedAt": "2026-10-07T22:46:37+00:00",
+      "image": null,
+      "category": "other"
     },
     {
       "id": "2da8115222272e8ff888",
@@ -336,15 +435,6 @@
       "publishedAt": "2026-10-07T22:41:00+00:00",
       "image": "https://asset.kompas.com/crops/79Y6Nw8E87VnYBA_PSCLzrhXoDg=/0x0:1080x720/750x500/data/photo/2026/10/04/6ac1d6af3002d.jpeg",
       "category": "local"
-    },
-    {
-      "id": "3271888188e1745fa88e",
-      "source": "reuters",
-      "title": "Most US voters say Trump, Congress don't take AI risks seriously, Reuters/Ipsos poll finds",
-      "url": "https://www.reuters.com/world/most-us-voters-say-trump-congress-dont-take-ai-risks-seriously-reutersipsos-poll-2026-10-07/",
-      "publishedAt": "2026-10-07T22:40:52.518000+00:00",
-      "image": "https://www.reuters.com/resizer/v2/XU4I626NEZNXTBEPFQ2HOYM5SI.jpg?auth=def4ed70289100750525500924f42723213474e823db653169088ef7ad48f2f9&smart=true&width=1920",
-      "category": "technology"
     },
     {
       "id": "1036eb6d5b7316e45620",
@@ -365,15 +455,6 @@
       "category": "science"
     },
     {
-      "id": "535f11ad75da2d188390",
-      "source": "reuters",
-      "title": "Hegseth praises sailors' resilience after record-breaking carrier deployment",
-      "url": "https://www.reuters.com/world/hegseth-praises-sailors-resilience-after-record-breaking-carrier-deployment-2026-10-07/",
-      "publishedAt": "2026-10-07T22:30:45.470000+00:00",
-      "image": "https://www.reuters.com/resizer/v2/4MGXKUU7VVPTTAOHIK4VI2A7OI.jpg?auth=f9f3a6b16177dc054eeca52803fc01e99898bc98fb857b43cade2ae26a92a985&smart=true&width=1920",
-      "category": "world"
-    },
-    {
       "id": "8ab921c513d77585f7e8",
       "source": "cnbc",
       "title": "Anthropic will be 'most ridiculous IPO' of year, analyst says",
@@ -381,42 +462,6 @@
       "publishedAt": "2026-10-07T22:29:41+00:00",
       "image": "https://image.cnbcfm.com/api/v1/image/108363256-1789499134411-gettyimages-2294938529-2026_sep_14_dreamforce_1602.jpeg?v=1789499168&w=1920&h=1080",
       "category": "other"
-    },
-    {
-      "id": "3e8b9ca58d6a4aa556d4",
-      "source": "reuters",
-      "title": "Saints QB Tyler Shough dealing with sore left hand, expects to play Sunday",
-      "url": "https://www.reuters.com/sports/saints-qb-tyler-shough-dealing-with-sore-left-hand-expects-play-sunday--flm-2026-10-07/",
-      "publishedAt": "2026-10-07T22:22:23.466000+00:00",
-      "image": "https://www.reuters.com/resizer/v2/XQ2PE7WTWBMXVPK6552OLTTRIA.jpg?auth=f0479ae8e06f8c04ab933d22c05c08a4acc46a3ac83167fc41bcb0cb4c4ab5ef&smart=true&width=1920",
-      "category": "sport"
-    },
-    {
-      "id": "74d685451ed3e47e66a0",
-      "source": "reuters",
-      "title": "Canada's Weston family to buy UK's Boots in $8.9 billion deal",
-      "url": "https://www.reuters.com/legal/transactional/canadas-weston-family-buys-pharmacy-chain-boots-89-billion-2026-10-07/",
-      "publishedAt": "2026-10-07T22:20:07.885000+00:00",
-      "image": "https://www.reuters.com/resizer/v2/QYXRKPGOV5LV7BPUQX7QVUJSTQ.jpg?auth=7fd3a9805a3585c0f2ad0111cb1e8a805478a73bc9ce48cb6e0254fa1e8a867b&smart=true&width=1920",
-      "category": "legal"
-    },
-    {
-      "id": "59a17eab76dfc73c288b",
-      "source": "reuters",
-      "title": "Workers at Chile's Centinela copper mine strike after talks fail",
-      "url": "https://www.reuters.com/business/world-at-work/workers-chiles-centinela-copper-mine-strike-after-talks-fail-2026-10-07/",
-      "publishedAt": "2026-10-07T22:19:43.955000+00:00",
-      "image": "https://www.reuters.com/resizer/v2/AN6M2RX5RRIKPHHCGWDNO2RNYQ.jpg?auth=aa198c6079abe1f373b4f971764c212d06916e918d8fe7c51ee26dbfbd9bae79&smart=true&width=1920",
-      "category": "business"
-    },
-    {
-      "id": "4aadcc1c6720b355ae27",
-      "source": "reuters",
-      "title": "Tropical Storm Isaias forecast to hit US Gulf coast as hurricane early Saturday",
-      "url": "https://www.reuters.com/business/environment/tropical-storm-isaias-forecast-hit-us-gulf-coast-hurricane-early-saturday-2026-10-07/",
-      "publishedAt": "2026-10-07T22:18:14.592000+00:00",
-      "image": "https://www.reuters.com/resizer/v2/5XB5MXAIAFPY3MBT4HGXQXAJ3E.jpg?auth=28ce392e9cbb1d4fa3581ea41bb32b2c28ca104f9aec2e911b81a921193abb68&smart=true&width=1920",
-      "category": "sustainability"
     },
     {
       "id": "b552283309a6b739207b",
@@ -698,15 +743,6 @@
       "category": "other"
     },
     {
-      "id": "14bb1297b135c7a8f835",
-      "source": "bloomberg",
-      "title": "Midterm Elections Are Potential Test for US Defense Investors",
-      "url": "https://www.bloomberg.com/news/articles/2026-10-07/midterm-elections-are-potential-test-for-us-defense-investors",
-      "publishedAt": "2026-10-07T19:46:42+00:00",
-      "image": null,
-      "category": "world"
-    },
-    {
       "id": "e298b2733cbfda8d0f35",
       "source": "cnbc",
       "title": "Americans grow more pessimistic about their finances, New York Fed finds - expert warns of ‘tough choices’ ahead",
@@ -723,15 +759,6 @@
       "publishedAt": "2026-10-07T19:40:07+00:00",
       "image": "https://www.aljazeera.com/wp-content/uploads/2026/10/afp_6ac68ae8f112-1791396585.jpg?resize=1920%2C1440",
       "category": "world"
-    },
-    {
-      "id": "2b49dd45ee9011fa4af9",
-      "source": "bloomberg",
-      "title": "Why China Shock 2.0 Is Different",
-      "url": "https://www.bloomberg.com/news/newsletters/2026-10-07/why-china-shock-2-0-is-different",
-      "publishedAt": "2026-10-07T19:37:59+00:00",
-      "image": null,
-      "category": "other"
     },
     {
       "id": "ca43f0c0e0e8b7ec1ad0",
@@ -822,15 +849,6 @@
       "publishedAt": "2026-10-07T18:27:12+00:00",
       "image": "https://www.aljazeera.com/wp-content/uploads/2026/10/FULL-THUMBNAIL-Templates3_2-clean-1791397498.jpg?resize=1920%2C1080&quality=80",
       "category": "other"
-    },
-    {
-      "id": "c1c1aec8406154c38def",
-      "source": "aljazeera",
-      "title": "Most Americans oppose Trump’s taxpayer-funded ‘golden age’ ads: Poll",
-      "url": "https://www.aljazeera.com/news/2026/10/7/most-americans-oppose-trumps-taxpayer-funded-golden-age-ads-poll?traffic_source=rss",
-      "publishedAt": "2026-10-07T18:27:09+00:00",
-      "image": "https://www.aljazeera.com/wp-content/uploads/2026/10/afp_6ac6854a81df-1791395146.jpg?resize=1920%2C1440",
-      "category": "markets"
     },
     {
       "id": "b393e0b7258c765832fb",
@@ -1391,15 +1409,6 @@
       "category": "local"
     },
     {
-      "id": "19eda45f46ba62ce64e7",
-      "source": "kompas",
-      "title": "Pertumbuhan Uang Primer Melambat Jadi 9,3 Persen pada September 2026",
-      "url": "https://money.kompas.com/read/2026/10/07/180926726/pertumbuhan-uang-primer-melambat-jadi-93-persen-pada-september-2026",
-      "publishedAt": "2026-10-07T11:09:26+00:00",
-      "image": "https://asset.kompas.com/crops/-YbW_7uhQKhfdRjGRZZsq8seOeA=/0x0:5092x3395/750x500/data/photo/2025/03/26/67e364e1f3ecc.jpg",
-      "category": "local"
-    },
-    {
       "id": "8676a9383a2af5f6331e",
       "source": "detik",
       "title": "KAI Mau Impor Kereta Bekas Jepang, Begini Respons AHY",
@@ -1541,15 +1550,6 @@
       "url": "https://www.cnnindonesia.com/ekonomi/20261007163220-92-1412753/ihsg-lunglai-ke-6146-rabu-sore-378-saham-merah",
       "publishedAt": "2026-10-07T09:36:43+00:00",
       "image": "https://akcdn.detik.net.id/visual/2016/03/29/a105b599-ab94-4b73-9e75-b4f2d33d5316_169.jpg?w=360&q=90",
-      "category": "local"
-    },
-    {
-      "id": "ee9e5c94f6cf748aed01",
-      "source": "detik",
-      "title": "Pertamina Perkuat Ketahanan BBM di Grand Prix 2026 Lewat Elnusa Petrofin",
-      "url": "https://finance.detik.com/energi/d-8696671/pertamina-perkuat-ketahanan-bbm-di-grand-prix-2026-lewat-elnusa-petrofin",
-      "publishedAt": "2026-10-07T09:32:16+00:00",
-      "image": "https://akcdn.detik.net.id/community/media/visual/2026/10/07/elnusa-perkuat-ketahanan-bbm-jelang-pertamina-grand-prix-of-indonesia-1791365525929.jpeg?w=360&q=90",
       "category": "local"
     },
     {
@@ -1751,21 +1751,48 @@
       "category": "local"
     },
     {
-      "id": "aa2e937928a61ad8a45b",
+      "id": "394ef5f361dbf5d565ff",
       "source": "investing",
-      "title": "Wex COO Robert Deshaies sells $347,111 of company stock",
-      "url": "https://www.investing.com/news/insider-trading-news/wex-coo-robert-deshaies-sells-347111-of-company-stock-93CH-4937689",
+      "title": "China markets reopen after Golden Week: Here’s what to watch",
+      "url": "https://www.investing.com/news/stock-market-news/china-markets-reopen-after-golden-week-heres-what-to-watch-93CH-4937718",
       "publishedAt": null,
-      "image": "https://content-media.investing.com/news/moved_LYNXMPEM3Q0V4_1200_L.jpg",
+      "image": "https://content-media.investing.com/news/OilwellinColorado_800x533_L_1645345712.jpg",
       "category": "markets"
     },
     {
-      "id": "878fc78c7f4e2a9aefd0",
+      "id": "88cfde9b901f35677c53",
       "source": "investing",
-      "title": "Medical device maker Centinel Spine discloses revenue rise in US IPO filing",
-      "url": "https://www.investing.com/news/economy-news/medical-device-maker-centinel-spine-discloses-revenue-rise-in-us-ipo-filing-4937575",
+      "title": "World shares, euro slide as high oil prices, fiscal worries linger",
+      "url": "https://www.investing.com/news/economy-news/asia-shares-weaker-oil-up-investors-weigh-saudihouthi-escalation-4935555",
       "publishedAt": null,
-      "image": "https://content-media.investing.com/trkd-images/LYNXMPEM9622H_L.jpg",
+      "image": "https://content-media.investing.com/trkd-images/LYNXMPEM9605M_L.jpg",
+      "category": "markets"
+    },
+    {
+      "id": "301db8b6e8b6117e0b09",
+      "source": "investing",
+      "title": "UK labour market shows more signs recovery in September, KPMG/REC survey shows",
+      "url": "https://www.investing.com/news/economic-indicators/uk-labour-market-shows-more-signs-recovery-in-september-kpmgrec-survey-shows-4937701",
+      "publishedAt": null,
+      "image": "https://content-media.investing.com/trkd-images/LYNXMPEM96260_L.jpg",
+      "category": "markets"
+    },
+    {
+      "id": "91638d8ddc8dd51d4b3f",
+      "source": "investing",
+      "title": "Samsung Q3 profit surges to record high, but misses lofty expectations",
+      "url": "https://www.investing.com/news/earnings/samsung-q3-profit-surges-to-record-high-but-misses-lofty-expectations-4937706",
+      "publishedAt": null,
+      "image": "https://content-media.investing.com/news/LYNXNPEC9D0FS_M.jpg",
+      "category": "business"
+    },
+    {
+      "id": "1007420844c21535bc1a",
+      "source": "investing",
+      "title": "Pacific Booker upsizes private placement to $12 million",
+      "url": "https://www.investing.com/news/company-news/pacific-booker-upsizes-private-placement-to-12-million-93CH-4937705",
+      "publishedAt": null,
+      "image": "https://content-media.investing.com/news/LYNXMPEM3J15O_1200_L.jpg",
       "category": "business"
     },
     {
@@ -1778,66 +1805,39 @@
       "category": "technology"
     },
     {
-      "id": "58ba66c269bca84c9856",
+      "id": "36f964afa3fcd7e157ca",
       "source": "investing",
-      "title": "Figma chief accounting officer Herb Tyler sells $30,664 in stock",
-      "url": "https://www.investing.com/news/insider-trading-news/figma-chief-accounting-officer-herb-tyler-sells-30664-in-stock-93CH-4937680",
+      "title": "Wall Street ends lower, off record highs, as Treasury yields climb",
+      "url": "https://www.investing.com/news/economy-news/wall-st-futures-slip-as-yields-and-oil-rebound-fed-minutes-in-focus-4936151",
       "publishedAt": null,
-      "image": "https://content-media.investing.com/news/moved_LYNXMPEM4519D_1200_L.jpg",
+      "image": "https://content-media.investing.com/trkd-images/LYNXMPEM960WU_L.jpg",
       "category": "markets"
     },
     {
-      "id": "edb5d9b5cd697ef53faf",
+      "id": "473afad25ec0d0b9d2cd",
       "source": "investing",
-      "title": "Clover Health Medicare Advantage CEO Jamie Reynoso sells $9,287 in stock",
-      "url": "https://www.investing.com/news/insider-trading-news/clover-health-medicare-advantage-ceo-jamie-reynoso-sells-9287-in-stock-93CH-4937679",
+      "title": "Rate hike fears weigh on UK housing market, RICS says",
+      "url": "https://www.investing.com/news/economy-news/rate-hike-fears-weigh-on-uk-housing-market-rics-says-4937700",
       "publishedAt": null,
-      "image": "https://content-media.investing.com/news/moved_LYNXMPEM3T1AG_1200_L.jpg",
+      "image": "https://content-media.investing.com/trkd-images/LYNXMPEM96265_L.jpg",
       "category": "markets"
     },
     {
-      "id": "a26d0631a49942e11f3e",
+      "id": "fd7a0ea82f6362e46e9a",
       "source": "investing",
-      "title": "Figma general counsel Brendan Mulligan sells $449,990 stock",
-      "url": "https://www.investing.com/news/insider-trading-news/figma-general-counsel-brendan-mulligan-sells-449990-stock-93CH-4937678",
+      "title": "Starbucks international CEO sells $155,501 in company stock",
+      "url": "https://www.investing.com/news/insider-trading-news/starbucks-international-ceo-sells-155501-in-company-stock-93CH-4937699",
       "publishedAt": null,
-      "image": "https://content-media.investing.com/news/moved_LYNXMPEM3T1AG_1200_L.jpg",
+      "image": "https://content-media.investing.com/news/starbucks_2_M_1440048864.jpg",
       "category": "markets"
     },
     {
-      "id": "16a0a116cefafbe7cc6e",
+      "id": "f363ba71b29e1d7433ee",
       "source": "investing",
-      "title": "Workday president CCO Robert Enslin sells $1m in shares",
-      "url": "https://www.investing.com/news/insider-trading-news/workday-president-cco-robert-enslin-sells-1m-in-shares-93CH-4937665",
+      "title": "Rubrik CTO Nithrakashyap sells $4.78m in RBRK stock",
+      "url": "https://www.investing.com/news/insider-trading-news/rubrik-cto-nithrakashyap-sells-478m-in-rbrk-stock-93CH-4937698",
       "publishedAt": null,
-      "image": "https://content-media.investing.com/news/moved_LYNXMPEM3Q0WG_1200_L.jpg",
-      "category": "markets"
-    },
-    {
-      "id": "7f5de993bc762a2fff5e",
-      "source": "investing",
-      "title": "Workday CFO Zane Rowe sells $1.12 million in company stock",
-      "url": "https://www.investing.com/news/insider-trading-news/workday-cfo-zane-rowe-sells-112-million-in-company-stock-93CH-4937664",
-      "publishedAt": null,
-      "image": "https://content-media.investing.com/news/moved_LYNXMPEM3S10Z_1200_L.jpg",
-      "category": "markets"
-    },
-    {
-      "id": "1f4a0149b631ea9baf1e",
-      "source": "investing",
-      "title": "Porch group director Amanda Reierson sells $152,617 in stock",
-      "url": "https://www.investing.com/news/insider-trading-news/porch-group-director-amanda-reierson-sells-152617-in-stock-93CH-4937662",
-      "publishedAt": null,
-      "image": "https://content-media.investing.com/news/moved_LYNXMPEM3Q0WG_1200_L.jpg",
-      "category": "markets"
-    },
-    {
-      "id": "24faae3a11fda6fb10ce",
-      "source": "investing",
-      "title": "Porch group CFO Shawn Tabak sells $162k in common stock",
-      "url": "https://www.investing.com/news/insider-trading-news/porch-group-cfo-shawn-tabak-sells-162k-in-common-stock-93CH-4937663",
-      "publishedAt": null,
-      "image": "https://content-media.investing.com/news/moved_LYNXMPEM450ND_1200_L.jpg",
+      "image": "https://content-media.investing.com/news/moved_LYNXMPEM3T1K3_1200_L.jpg",
       "category": "markets"
     },
     {
@@ -1865,6 +1865,69 @@
       "url": "https://keuangan.kontan.co.id/news/pembayaran-kredit-kdmp-tersendat-dana-rp37-triliun-masih-tertahan?source=home_headline",
       "publishedAt": null,
       "image": "https://foto.kontan.co.id/1dlfR_s5OaLRT8SbbRzgkpLbFjg=/smart/2024/08/15/623511172p.jpg",
+      "category": "local"
+    },
+    {
+      "id": "31ab43b2c8287b1241dc",
+      "source": "kontan",
+      "title": "Harga Saham Melorot 9%, Direktur AVIA Rogoh Kantong Beli Jutaan Saham Perusahaan",
+      "url": "https://investasi.kontan.co.id/news/harga-saham-melorot-9-direktur-avia-rogoh-kantong-beli-jutaan-saham-perusahaan?source=home_terbaru",
+      "publishedAt": null,
+      "image": "https://foto.kontan.co.id/oYTbDVi66i-c--c1y4pLLST1ftg=/smart/2024/07/22/764194828t.jpg",
+      "category": "local"
+    },
+    {
+      "id": "acadbf6dbbe9e71a550b",
+      "source": "kontan",
+      "title": "Pertamina Patra Niaga Tambah Pasokan BBM & Siagakan SPBU Jelang MotoGP Mandalika 2026",
+      "url": "https://industri.kontan.co.id/news/pertamina-patra-niaga-tambah-pasokan-bbm-siagakan-spbu-jelang-motogp-mandalika-2026?source=home_terbaru",
+      "publishedAt": null,
+      "image": "https://foto.kontan.co.id/K-6hDLqpRhATqzTCecNKCQCwd8U=/smart/2026/10/07/901420958t.jpg",
+      "category": "local"
+    },
+    {
+      "id": "090096e3bb7aaea9cc75",
+      "source": "kontan",
+      "title": "Cadangan Devisa September 2026 Turun, BI Kurangi Intervensi Spot untuk Jaga Rupiah",
+      "url": "https://nasional.kontan.co.id/news/cadangan-devisa-september-2026-turun-bi-kurangi-intervensi-spot-untuk-jaga-rupiah?source=home_terbaru",
+      "publishedAt": null,
+      "image": "https://foto.kontan.co.id/bwPnqNUiDgidugbCdJ_ML6LnTjk=/smart/2024/07/08/356289230t.jpg",
+      "category": "local"
+    },
+    {
+      "id": "3d933728169d6b5da8d5",
+      "source": "kontan",
+      "title": "Penjualan Ekspor Jadi Harapan",
+      "url": "https://insight.kontan.co.id/news/penjualan-ekspor-jadi-harapan?source=home_terbaru",
+      "publishedAt": null,
+      "image": "https://foto.kontan.co.id/qt5Gu21Rr_GfPz2CSf-Gv1gN484=/smart/2026/04/27/657754087t.jpg",
+      "category": "local"
+    },
+    {
+      "id": "0fb03e7652b3a9cd1979",
+      "source": "kontan",
+      "title": "ENRG Siap Investasi US$ 200 Juta di Perusahaan Migas AS",
+      "url": "https://insight.kontan.co.id/news/enrg-siap-investasi-us-200-juta-di-perusahaan-migas-as?source=home_terbaru",
+      "publishedAt": null,
+      "image": "https://foto.kontan.co.id/6ZIT12aGQsmwdN5PLjShf5gGso0=/smart/2025/12/05/1168709251t.jpg",
+      "category": "local"
+    },
+    {
+      "id": "d1832c13e42d7328aaa2",
+      "source": "kontan",
+      "title": "Rupiah pada Kamis (8/10) Mencermati Risalah FOMC",
+      "url": "https://insight.kontan.co.id/news/rupiah-pada-kamis-810-mencermati-risalah-fomc?source=home_terbaru",
+      "publishedAt": null,
+      "image": "https://foto.kontan.co.id/r0th86OtQWKdd3kvTvZlpnf5p7M=/smart/2026/09/15/440266395t.jpg",
+      "category": "local"
+    },
+    {
+      "id": "244d1b50abdc86ca4bdf",
+      "source": "kontan",
+      "title": "Intip Saham Net Buy Terbesar Asing Saat IHSG Terkoreksi ke 6.146, Rabu (7/10)",
+      "url": "https://investasi.kontan.co.id/news/intip-saham-net-buy-terbesar-asing-saat-ihsg-terkoreksi-ke-6146-rabu-710?source=home_terbaru",
+      "publishedAt": null,
+      "image": "https://foto.kontan.co.id/4ZnWvZF-StjsYsSfy-G58j10gbo=/smart/2026/09/15/888696368t.jpg",
       "category": "local"
     },
     {
@@ -1931,69 +1994,6 @@
       "category": "local"
     },
     {
-      "id": "137e4c36b601ae5785d6",
-      "source": "kontan",
-      "title": "Harga Saham Melambung 83%, Direktur & Pengendali Jual Saham MPIX Harga Di Bawah Pasar",
-      "url": "https://investasi.kontan.co.id/news/harga-saham-melambung-83-direktur-pengendali-jual-saham-mpix-harga-di-bawah-pasar?source=home_terbaru",
-      "publishedAt": null,
-      "image": "https://foto.kontan.co.id/wCGPQAe9dqMpT6fVMkS79h6Jz6I=/smart/2026/03/03/991456472t.jpg",
-      "category": "local"
-    },
-    {
-      "id": "8137d986bc344dd95077",
-      "source": "kontan",
-      "title": "Ekspor Nikel Diproyeksi Capai US$ 40 Miliar, Prospeknya Dihadang Tekanan Harga",
-      "url": "https://insight.kontan.co.id/news/ekspor-nikel-diproyeksi-capai-us-40-miliar-prospeknya-dihadang-tekanan-harga?source=home_terbaru",
-      "publishedAt": null,
-      "image": "https://foto.kontan.co.id/H2C1rBBzDUwtHcjCVAUeMiu-h8E=/smart/2026/02/18/1004357907t.jpg",
-      "category": "local"
-    },
-    {
-      "id": "8803807b884b92007eba",
-      "source": "kontan",
-      "title": "Prospek Terang dari Unitlink Pasar Uang",
-      "url": "https://insight.kontan.co.id/news/prospek-terang-dari-unitlink-pasar-uang?source=home_terbaru",
-      "publishedAt": null,
-      "image": "https://foto.kontan.co.id/XV-Pd6pyhHSGSsgJWmXMKrFz24c=/smart/2024/12/26/1756833616t.jpg",
-      "category": "local"
-    },
-    {
-      "id": "fdd638eeab9c203f7561",
-      "source": "kontan",
-      "title": "Relaksasi Denda PBB-P5L Belum Cukup Jadi Stimulus Ekonomi",
-      "url": "https://nasional.kontan.co.id/news/relaksasi-denda-pbb-p5l-dinilai-belum-cukup-jadi-stimulus-ekonomi?source=home_terbaru",
-      "publishedAt": null,
-      "image": "https://foto.kontan.co.id/WHMDJC3JqAdyNBhYm4kUjJ429Js=/smart/2026/01/04/493203826t.jpg",
-      "category": "local"
-    },
-    {
-      "id": "54b07dbacea0da86c9a5",
-      "source": "kontan",
-      "title": "Harga Melonjak 142%, Saham Bank Ini Termasuk Saham Konsentrasi Kepemilikan Tinggi",
-      "url": "https://investasi.kontan.co.id/news/harga-melonjak-142-saham-bank-ini-termasuk-saham-konsentrasi-kepemilikan-tinggi?source=home_terbaru",
-      "publishedAt": null,
-      "image": "https://foto.kontan.co.id/YplggH1ccJNCWFg-5XuU4BG0AKo=/smart/2024/03/27/1562572879t.jpg",
-      "category": "local"
-    },
-    {
-      "id": "df7e584db8cea5f3c033",
-      "source": "kontan",
-      "title": "XLSMART Naikkan Capex Jadi Rp 20 Triliun, Bidik Ekspansi 5G di 101 Kota",
-      "url": "https://industri.kontan.co.id/news/xlsmart-naikkan-capex-jadi-rp-20-triliun-bidik-ekspansi-5g-di-101-kota?source=home_terbaru",
-      "publishedAt": null,
-      "image": "https://foto.kontan.co.id/IH-_VY8A9qpDyZQoF1bbURXTSHA=/smart/2025/11/13/1754521226t.jpg",
-      "category": "local"
-    },
-    {
-      "id": "babe54ebcfce3e4f1005",
-      "source": "kontan",
-      "title": "Simak Rekomendasi Saham BYAN, TLKM, dan INKP untuk Perdagangan Kamis (8/10)",
-      "url": "https://investasi.kontan.co.id/news/simak-rekomendasi-saham-byan-tlkm-dan-inkp-untuk-perdagangan-kamis-810?source=home_terbaru",
-      "publishedAt": null,
-      "image": "https://foto.kontan.co.id/nOl5Wzgua785VM63f2yNIdKU4IY=/smart/2023/04/27/1862729317t.jpg",
-      "category": "local"
-    },
-    {
       "id": "5b5948a5068cec3ae0ff",
       "source": "kontan",
       "title": "Penjualan Ekspor Jadi Harapan",
@@ -2018,6 +2018,60 @@
       "url": "https://insight.kontan.co.id/news/rupiah-pada-kamis-810-mencermati-risalah-fomc?source=home_insight",
       "publishedAt": null,
       "image": "https://foto.kontan.co.id/qaQyjuCvBgksmCKmA7PAanzKSjc=/smart/2026/09/15/440266395p.jpg",
+      "category": "local"
+    },
+    {
+      "id": "523f49976dd69676d841",
+      "source": "investing_id",
+      "title": "Laba Q3 Samsung melonjak ke rekor tertinggi, namun di bawah ekspektasi",
+      "url": "https://id.investing.com/news/earnings/laba-q3-samsung-melonjak-ke-rekor-tertinggi-namun-di-bawah-ekspektasi-3089892",
+      "publishedAt": null,
+      "image": null,
+      "category": "local"
+    },
+    {
+      "id": "b4460adf4ee50d6c03c4",
+      "source": "investing_id",
+      "title": "Pacific Booker perbesar penempatan swasta menjadi $12 juta",
+      "url": "https://id.investing.com/news/company-news/pacific-booker-perbesar-penempatan-swasta-menjadi-12-juta-93CH-3089890",
+      "publishedAt": null,
+      "image": null,
+      "category": "local"
+    },
+    {
+      "id": "f6852a95ab5b74b2892c",
+      "source": "investing_id",
+      "title": "CTO Rubrik Nithrakashyap Jual Saham RBRK Senilai $4,78 Juta",
+      "url": "https://id.investing.com/news/insider-trading-news/cto-rubrik-nithrakashyap-jual-saham-rbrk-senilai-478-juta-93CH-3089889",
+      "publishedAt": null,
+      "image": "https://content-media.investing.com/news/moved_LYNXMPEM3T1K3_1200_L.jpg",
+      "category": "local"
+    },
+    {
+      "id": "90d3e479bc705e0ed367",
+      "source": "investing_id",
+      "title": "CEO Internasional Starbucks jual saham senilai $155.501",
+      "url": "https://id.investing.com/news/insider-trading-news/ceo-internasional-starbucks-jual-saham-senilai-155501-93CH-3089888",
+      "publishedAt": null,
+      "image": "https://content-media.investing.com/news/starbucks_2_M_1440048864.jpg",
+      "category": "local"
+    },
+    {
+      "id": "9e4c510c76fff421b776",
+      "source": "investing_id",
+      "title": "Ketua & CAO PC Connection Patricia Gallup jual saham senilai $1,23 juta",
+      "url": "https://id.investing.com/news/insider-trading-news/ketua--cao-pc-connection-patricia-gallup-jual-saham-senilai-123-juta-93CH-3089887",
+      "publishedAt": null,
+      "image": "https://content-media.investing.com/news/moved_LYNXMPEM3Q0WG_1200_L.jpg",
+      "category": "local"
+    },
+    {
+      "id": "e347091bc50221e1b0d5",
+      "source": "investing_id",
+      "title": "COO WEX Robert Deshaies menjual saham perusahaan senilai $347.111",
+      "url": "https://id.investing.com/news/insider-trading-news/coo-wex-robert-deshaies-menjual-saham-perusahaan-senilai-347111-93CH-3089886",
+      "publishedAt": null,
+      "image": "https://content-media.investing.com/news/moved_LYNXMPEM3Q0V4_1200_L.jpg",
       "category": "local"
     },
     {
@@ -2057,57 +2111,12 @@
       "category": "local"
     },
     {
-      "id": "e07ee608896af4f14a7e",
-      "source": "investing_id",
-      "title": "CFO Workday Zane Rowe jual saham senilai $1,12 juta",
-      "url": "https://id.investing.com/news/insider-trading-news/cfo-workday-zane-rowe-jual-saham-senilai-112-juta-93CH-3089881",
+      "id": "29ebc9382c60d0c9dabd",
+      "source": "pluang",
+      "title": "Monarch Casino akan umumkan hasil kuartal 3 2026 setelah pasar tutup 27 Oktober",
+      "url": "https://pluang.com/news-feed/monarch-casino-resort-laporkan-hasil-kuartal-iii-2026",
       "publishedAt": null,
-      "image": "https://content-media.investing.com/news/moved_LYNXMPEM3S10Z_1200_L.jpg",
-      "category": "local"
-    },
-    {
-      "id": "98d955b35b976d6537ad",
-      "source": "investing_id",
-      "title": "CFO Porch Group Shawn Tabak jual saham senilai $162 ribu",
-      "url": "https://id.investing.com/news/insider-trading-news/cfo-porch-group-shawn-tabak-jual-saham-senilai-162-ribu-93CH-3089880",
-      "publishedAt": null,
-      "image": "https://content-media.investing.com/news/moved_LYNXMPEM450ND_1200_L.jpg",
-      "category": "local"
-    },
-    {
-      "id": "8037e81a7b9af3d1667f",
-      "source": "investing_id",
-      "title": "Direktur Porch Group Amanda Reierson jual saham senilai $152.617",
-      "url": "https://id.investing.com/news/insider-trading-news/direktur-porch-group-amanda-reierson-jual-saham-senilai-152617-93CH-3089879",
-      "publishedAt": null,
-      "image": "https://content-media.investing.com/news/moved_small-LYNXMPEM3Q0WG_1200_L.jpg",
-      "category": "local"
-    },
-    {
-      "id": "47b92d4ceb590c9e4be1",
-      "source": "investing_id",
-      "title": "Almonty Industries di Forum Investasi Internasional ke-20: Sangdong Mulai Berproduksi",
-      "url": "https://id.investing.com/news/transcripts/almonty-industries-di-forum-investasi-internasional-ke20-sangdong-mulai-berproduksi-93CH-3089878",
-      "publishedAt": null,
-      "image": "https://content-media.investing.com/news/LYNXNPEB6J0AJ_L.jpg",
-      "category": "local"
-    },
-    {
-      "id": "2cb52aa4f2e83ca6ffbf",
-      "source": "investing_id",
-      "title": "Pemilik 10% Kinetik Holdings (KNTK), ISQ Global Fund II GP, jual saham senilai $9,06 juta",
-      "url": "https://id.investing.com/news/insider-trading-news/pemilik-10-kinetik-holdings-kntk-isq-global-fund-ii-gp-jual-saham-senilai-906-juta-93CH-3089877",
-      "publishedAt": null,
-      "image": "https://content-media.investing.com/news/moved_small-LYNXMPEM4519D_1200_L.jpg",
-      "category": "local"
-    },
-    {
-      "id": "76048cb697bfe75e27fb",
-      "source": "investing_id",
-      "title": "COO Porch Group Matthew Neagle jual saham senilai $606.925",
-      "url": "https://id.investing.com/news/insider-trading-news/coo-porch-group-matthew-neagle-jual-saham-senilai-606925-93CH-3089876",
-      "publishedAt": null,
-      "image": "https://content-media.investing.com/news/moved_LYNXMPEM3Q0WG_1200_L.jpg",
+      "image": "https://image-cdn.pluang.com/web/news-cards/v2/GSS/aec136ae7350c33bbfb16af1acc7b235570c924ca9d8ae22ea5319acc0985428-id.webp",
       "category": "local"
     },
     {
