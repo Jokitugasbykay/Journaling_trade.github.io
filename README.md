@@ -5,7 +5,7 @@
 
 ---
 
-## 📁 Struktur Repositori
+##  Struktur Repositori
 
 ```text
 Journaling trade/
@@ -22,7 +22,7 @@ Journaling trade/
 
 ---
 
-## 🚀 Cara Menjalankan
+##  Cara Menjalankan
 
 Aplikasi ini dibangun menggunakan arsitektur **Client-Side Open Source**. Anda tidak memerlukan database server ataupun konfigurasi backend yang rumit.
 
@@ -35,7 +35,7 @@ Aplikasi ini dibangun menggunakan arsitektur **Client-Side Open Source**. Anda t
 
 ---
 
-## 🛠️ Fitur & Modul Utama
+##  Fitur & Modul Utama
 
 1. **Beranda & Akses Awal**:
    - Panduan berbahasa Indonesia dengan 28 bagian dan lebih dari 11.000 kata tentang dasar forex, penggunaan jurnal, evaluasi, psikologi, dan latihan. Seluruh materi terbuka di bawah hero tanpa daftar isi.

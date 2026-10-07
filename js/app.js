@@ -29,7 +29,7 @@
 
       /* Safe Element Selector */
       const $ = id => document.getElementById(id);
-      const esc = value => String(value ?? '').replace(/[&<>"']/g, ch => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[ch]));
+      const esc = value => String(value ?? '').replace(/(?:[#*0-9]\uFE0F?\u20E3)|[\p{Extended_Pictographic}\p{Regional_Indicator}\p{Emoji_Modifier}\uFE0F\u200D]/gu, '').replace(/[&<>"']/g, ch => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[ch]));
       const safeId = value => /^[\w-]{1,80}$/.test(String(value || '')) ? String(value) : '';
 
       const stateCopy = {
@@ -39,16 +39,16 @@
       };
       const englishCopy = {
         home: 'Home', journal: 'Journal', statistics: 'Statistics', calculator: 'Calculator', news: 'Economic news',
-        signIn: 'Sign in', welcome: 'Welcome', guestStatus: 'Get to know the journal on Home.',
-        loginMenu: 'Sign in / login', profileSettings: 'Profile settings', openJournal: 'Open trading journal',
-        language: 'Language', signOut: 'Leave local profile', try: 'Try',
+        signIn: 'Sign in', welcome: 'Welcome', guestStatus: 'Explore the journal on the Home tab.',
+        loginMenu: 'Sign in', profileSettings: 'Profile settings', openJournal: 'Open trading journal',
+        language: 'Language', signOut: 'Sign out of this profile', try: 'Try',
         heroTitle: 'Discipline in Every Execution.<br>Clarity in Every Trade.',
         heroLead: 'Transform your trading journey with a disciplined journaling practice.',
-        tryJournal: 'Try the free journal', interested: "I’m interested",
-        accessHint: 'Journal tabs open after you click Try.', accessReady: 'Your journal is ready. Choose a tab to get started.',
+        tryJournal: 'Start your free journal', interested: "I’m interested",
+        accessHint: 'Click Try to unlock your journal.', accessReady: 'Your journal is ready. Choose a tab to get started.',
         localProfile: 'Local profile', localProfileStatus: 'Data stays on this device.', changeProfile: 'Change local profile',
-        exampleTitle: 'Example journal note', market: 'Market', exampleMarket: 'Write your market',
-        entryReason: 'Entry reason', exampleReason: 'Why this setup?', riskLimit: 'Risk limit', exampleRisk: 'Decide before entry',
+        exampleTitle: 'Example journal note', market: 'Market', exampleMarket: 'Enter the instrument',
+        entryReason: 'Entry reason', exampleReason: 'Why are you taking this trade?', riskLimit: 'Risk limit', exampleRisk: 'Set your risk before entering',
         evaluation: 'Review', exampleReview: 'Was the plan followed?', exampleHint: 'A note template, not your account data.',
         foundationsTitle: 'Understand trading<br>before chasing results.',
         foundationMarket: 'Markets & context',
@@ -67,14 +67,14 @@
         interestPlans: "I’m interested, show plans", pricingTitle: 'Plans that grow with you',
         pricingLead: 'Start with Free. Paid plans are coming soon.', monthly: 'Monthly', annual: 'Annual', save17: 'Save 17%',
         freeDescription: 'Get to know your trading habits.', freeBilling: 'Free, no subscription', freeNote: 'Start with data on your own device',
-        tryFree: 'Try Free', plusDescription: 'For a more regular journaling routine.', proDescription: 'For a more detailed trading review.',
-        plusSoon: 'Plus coming soon', proSoon: 'Pro coming soon', paidNote: 'Subscriptions are not open yet',
+        tryFree: 'Try Free', plusDescription: 'Build a consistent journaling routine.', proDescription: 'Review your performance in greater detail.',
+        plusSoon: 'Plus coming soon', proSoon: 'Pro coming soon', paidNote: 'Subscriptions are coming soon',
         featureDetails: 'Show all features', freeFeature1: 'Manual trade journaling', freeFeature2: 'Statistics and risk calculators',
         freeFeature3: 'PDF/PNG scanning and CSV/TXT imports', freeFeature4: 'Local backup and restore',
         priceDetails: 'Show pricing details', perMonth: 'USD / month', perYear: 'USD / year',
         plusSavings: 'Save $20 compared with 12 monthly payments. The discount rounds to 17%.',
         proSavings: 'Save $40 compared with 12 monthly payments. The discount rounds to 17%.',
-        paidHint: 'Plan features and payments will be announced before subscriptions open.',
+        paidHint: 'Features and pricing details will be confirmed before subscriptions launch.',
         localDataHint: 'Notes are stored in this browser on this device. Export a backup to keep a copy.',
         loginTitle: 'Sign in to your journal', loginDescription: 'Use a local profile for journaling on this device.',
         googleLogin: 'Sign in with Google', googleSoon: 'Google sign-in is not available yet.', localName: 'Local profile name',
@@ -82,9 +82,9 @@
         localLogin: 'Use local profile', tryWithoutAccount: 'Try without an account',
         uploadLabel: 'Scan PDF/PNG · Import CSV/TXT', uploadTitle: 'Scan documents & import trades',
         uploadDescription: 'PDF/PNG/JPG scans recognize position history and chart setups. Review CSV/TXT records before importing them into the journal.',
-        dropFile: 'Drop your file here', scanReviewHint: 'History and chart layouts are recognized automatically. Check the detected values; missing information stays blank. No trades are added automatically.',
+        dropFile: 'Drop your file here', scanReviewHint: 'Trade history and chart setups are detected automatically. Check the detected values; missing information stays blank. No trades are added automatically.',
         scanText: 'Detected information', saveScan: 'Save scan result', savedScans: 'Saved scan results',
-        scanCurrency: 'Profit currency · match your broker account', scanImportHint: 'Review the detected rows before importing. Missing SL/TP and risk stay blank. Chart setups are saved as analysis.',
+        scanCurrency: 'P/L currency · use your account currency', scanImportHint: 'Review the detected rows before importing. Missing SL/TP and risk stay blank. Chart setups are saved as analysis.',
         scanEmpty: 'No scans have been saved on this device.', uploadLimit: 'Max. 10 MB · Excel: export as CSV'
       };
       document.querySelectorAll('[data-i18n]').forEach(element => {
@@ -116,7 +116,7 @@
         'Wawasan Berita & Kalender Ekonomi Makro': 'News & economic calendar',
         'Kalender Ekonomi Global (WIB)': 'Global economic calendar (WIB)',
         'Analisa Market Institusional': 'Market analysis', 'Muat Ulang': 'Reload',
-        '⚡ Semua Ringkasan': 'All summaries', '📊 Analisa Market': 'Market analysis', '📅 Kalender Ekonomi': 'Economic calendar',
+        'Semua Ringkasan': 'All summaries', 'Analisa Market': 'Market analysis', 'Kalender Ekonomi': 'Economic calendar',
         'Tambah Akun': 'Add account', 'Tambah Akun Broker': 'Add broker account', 'Nama Akun': 'Account name',
         'Saldo Awal': 'Starting balance', 'Mata Uang': 'Currency', 'Simpan Akun': 'Save account', 'Batal': 'Cancel',
         'Tutup': 'Close', 'Simpan': 'Save', 'Simpan Trade': 'Save trade', 'Simpan Jurnal': 'Save trade',
@@ -138,6 +138,46 @@
         'Hasil scan disimpan di perangkat ini. Jurnal Anda tidak berubah.': 'Scan saved on this device. Your journal has not changed.',
         'Penyimpanan penuh. Salin teks hasil scan sebelum menutup jendela.': 'Storage is full. Copy the scanned text before closing this window.'
       };
+      Object.assign(legacyCopy, {
+  "Rapor Disiplin & Psikologi": "Discipline & psychology report",
+  "Kelengkapan Stop Loss (SL)": "Recorded stop losses (SL)",
+  "Rata-rata Risiko Tercatat": "Average recorded risk",
+  "Drawdown Maksimum": "Maximum drawdown",
+  "Belum ada trade": "No trades yet",
+  "Belum ada data": "No data yet",
+  "Belum ada data risiko": "No risk data yet",
+  "Saldo awal dan transaksi diperlukan": "Add a starting balance and trades",
+  "Tambahkan transaksi untuk melihat rapor akun ini.": "Add trades to view this account’s report.",
+  "Dihitung dari jurnal akun aktif. SL tercatat tidak memastikan pemasangan di broker; kondisi psikologi belum dicatat.": "Based on the active account’s journal. A recorded stop loss does not confirm a broker order. Psychological data has not been recorded.",
+  "Nama Panggilan / Alias Trader": "Trader name",
+  "Kurs Dolar ke Rupiah (USD to IDR)": "Exchange rate (USD to IDR)",
+  "Simpan Profil & Kurs": "Save profile & exchange rate",
+  "Perbarui kurs otomatis": "Refresh exchange rate",
+  "Kurs referensi diperbarui harian.": "Reference rates are updated daily.",
+  "Mengambil kurs terbaru...": "Fetching the latest exchange rate...",
+  "Kunci Kembali Konten": "Lock content",
+  "Buka Akses": "Unlock access",
+  "Normal (Offline Ready)": "Available offline",
+  "Tab Baru": "Open in new tab",
+  "Edit": "Edit",
+  "Hapus": "Delete",
+  "Catatan Trade": "Trade notes",
+  "Pilih Akun": "Select account",
+  "Kinerja per Setup & Strategi": "Performance by setup & strategy",
+  "Belum ada data eksekusi": "No execution data yet",
+  "Profit Terbaik": "Best profit",
+  "Kerugian Terburuk": "Largest loss",
+  "KLIK MARKET UNTUK BUKA POP-UP CHART": "SELECT AN INSTRUMENT TO OPEN ITS CHART",
+  "Semua Ringkasan": "All summaries",
+  "Analisa Market": "Market analysis",
+  "Kalender Ekonomi": "Economic calendar",
+  "Dasar forex dan jurnal trading yang membantu Anda berkembang": "Forex fundamentals and journaling for better trading habits",
+  "Cari pair (XAUUSD, EURUSD...), judul analisa, atau kata kunci...": "Search instruments, analysis titles, or keywords...",
+  "Cari rilis data atau mata uang (Core CPI, NFP, USD, EUR, AUD...)": "Search releases or currencies (CPI, NFP, USD, EUR...)",
+  "Nama Anda": "Your name",
+  "Terapkan Setup Ini ke Form Jurnal": "Use this setup in the journal"
+});
+      const translatedAttributes = new WeakMap();
       function applyLanguage() {
         document.documentElement.lang = language;
         document.querySelectorAll('[data-i18n]').forEach(element => {
@@ -149,13 +189,24 @@
         while (walker.nextNode()) {
           const node = walker.currentNode;
           if (node.parentElement.closest('[data-i18n], script, style, textarea')) continue;
-          const original = translatedText.get(node) || node.textContent;
+          let original = translatedText.get(node) || node.textContent;
+          const previousEnglish = legacyCopy[original.trim()];
+          if (node.textContent !== original && (!previousEnglish || node.textContent !== original.replace(original.trim(), previousEnglish))) original = node.textContent;
           const replacement = legacyCopy[original.trim()];
           if (replacement) {
             translatedText.set(node, original);
             node.textContent = language === 'en' ? original.replace(original.trim(), replacement) : original;
           }
         }
+        document.querySelectorAll('[placeholder], [title], [aria-label]').forEach(element => {
+          const originals = translatedAttributes.get(element) || {};
+          for (const attr of ['placeholder', 'title', 'aria-label']) {
+            if (!element.hasAttribute(attr)) continue;
+            const original = originals[attr] ?? element.getAttribute(attr);
+            if (legacyCopy[original]) { originals[attr] = original; element.setAttribute(attr, language === 'en' ? legacyCopy[original] : original); }
+          }
+          translatedAttributes.set(element, originals);
+        });
         $('language-select').value = language;
         $('local-login-name').placeholder = language === 'en' ? 'Your name' : 'Nama Anda';
         updatePricingDisplay();
@@ -163,6 +214,9 @@
       window.setLanguage = function (value) {
         language = value === 'en' ? 'en' : 'id';
         try { localStorage.setItem('fncjt_language', language); } catch {}
+        renderJournalTable();
+        renderStatistics();
+        renderProfileView();
         updateAccess();
       };
 
@@ -253,7 +307,7 @@
         if (exchangeBusy) return;
         exchangeBusy = true;
         const status = $('exchange-status');
-        status.textContent = 'Mengambil kurs terbaru...';
+        status.textContent = language === 'en' ? 'Fetching the latest exchange rate...' : 'Mengambil kurs terbaru...';
         try {
           const response = await fetch('https://open.er-api.com/v6/latest/USD', { signal: AbortSignal.timeout(10000) });
           if (!response.ok) throw new Error('HTTP ' + response.status);
@@ -269,9 +323,9 @@
           renderStatistics();
           runAllCalculators();
           const updated = new Date(data.time_last_update_unix * 1000).toLocaleString('id-ID', { timeZone: 'Asia/Jakarta' });
-          status.textContent = '1 USD = Rp ' + rate.toLocaleString('id-ID') + ' | 1 IDR = USD ' + (1 / rate).toFixed(8) + '. Data: ' + updated + ' WIB (pembaruan harian).';
+          status.textContent = '1 USD = Rp ' + rate.toLocaleString('id-ID') + ' | 1 IDR = USD ' + (1 / rate).toFixed(8) + '. Data: ' + updated + (language === 'en' ? ' WIB (updated daily).' : ' WIB (pembaruan harian).');
         } catch (error) {
-          status.textContent = 'Kurs otomatis belum tersedia. Menggunakan kurs tersimpan Rp ' + Number(settings.kurs).toLocaleString('id-ID') + ' per USD.';
+          status.textContent = (language === 'en' ? 'Live exchange rates are unavailable. Using the saved rate of Rp ' : 'Kurs otomatis belum tersedia. Menggunakan kurs tersimpan Rp ') + Number(settings.kurs).toLocaleString('id-ID') + (language === 'en' ? ' per USD.' : ' per USD.');
         } finally { exchangeBusy = false; }
       };
 
@@ -922,7 +976,7 @@
               <td style="color:var(--text-muted);">${filtered.length - idx}</td>
               <td>${esc(t.date || '-')}</td>
               <td style="color:var(--text-muted);">${esc(t.jam || '-')}</td>
-              <td><button type="button" class="btn-market-link" onclick="openTradingView('${marketName}')" title="Buka chart ${marketName} di TradingView"><b>${marketName}</b> <span style="font-size:10px; opacity:0.5;">↗</span></button></td>
+              <td><button type="button" class="btn-market-link" onclick="openTradingView('${marketName}')" title="Buka chart ${marketName} di TradingView"><b>${marketName}</b> <span style="font-size:10px; opacity:0.5;"></span></button></td>
               <td><span class="pos-badge ${posClass}">${esc(pos.toUpperCase())}</span></td>
               <td>${esc(t.entry ?? '-')}</td>
               <td style="color:var(--red);">${esc(t.sl ?? '-')}</td>
@@ -939,8 +993,8 @@
                 ${esc(t.reason || '-')}
               </td>
               <td>
-                <button class="btn btn-ghost btn-sm" style="padding:3px 7px;" onclick="editTrade('${tradeId}')" title="Edit">✎</button>
-                <button class="btn btn-danger btn-sm" style="padding:3px 7px;" onclick="deleteTrade('${tradeId}')" title="Hapus">✕</button>
+                <button class="btn btn-ghost btn-sm" style="padding:3px 7px;" onclick="editTrade('${tradeId}')" title="Edit">${language === 'en' ? 'Edit' : 'Edit'}</button>
+                <button class="btn btn-danger btn-sm" style="padding:3px 7px;" onclick="deleteTrade('${tradeId}')" title="Hapus">${language === 'en' ? 'Delete' : 'Hapus'}</button>
               </td>
             </tr>`;
           } catch (err) {
@@ -1401,7 +1455,7 @@
         if (parsed.length > 0) {
           parsedTradesToImport = parsed;
           showUploadPreview(parsed);
-          $('upload-status-msg').innerHTML = `<span style="color:var(--green);">✓ Berhasil membaca ${parsed.length} entri trade dari berkas!</span>`;
+          $('upload-status-msg').innerHTML = `<span style="color:var(--green);"> Berhasil membaca ${parsed.length} entri trade dari berkas!</span>`;
         } else {
           $('upload-status-msg').innerHTML = `<span style="color:var(--orange);">Tidak ditemukan baris data trade yang valid. Pastikan ada kolom Market, Entry, dan Stop Loss.</span>`;
         }
@@ -1531,11 +1585,11 @@
         if ($('ds-be-pct')) $('ds-be-pct').textContent = totalTrades ? `${((bes / totalTrades) * 100).toFixed(0)}% (${bes})` : '0%';
 
         const report = disciplineMetrics(chronological);
-        $('discipline-status').textContent = report.total ? report.total + ' trade' : 'Belum ada trade';
-        $('discipline-sl').textContent = report.total ? report.slPct.toFixed(0) + '% tercatat' : 'Belum ada data';
+        $('discipline-status').textContent = report.total ? report.total + (language === 'en' && report.total !== 1 ? ' trades' : ' trade') : 'Belum ada trade';
+        $('discipline-sl').textContent = report.total ? report.slPct.toFixed(0) + (language === 'en' ? '% recorded' : '% tercatat') : 'Belum ada data';
         $('discipline-sl-bar').style.width = report.slPct + '%';
         $('discipline-risk').textContent = report.riskCount ? report.avgRisk.toFixed(2) + '% (' + report.riskCount + '/' + report.total + ' trade)' : 'Belum ada data risiko';
-        $('discipline-dd').textContent = report.total && startBal > 0 ? (maxDrawdownUSD / startBal * 100).toFixed(2) + '% dari saldo awal' : 'Saldo awal dan transaksi diperlukan';
+        $('discipline-dd').textContent = report.total && startBal > 0 ? (maxDrawdownUSD / startBal * 100).toFixed(2) + (language === 'en' ? '% of starting balance' : '% dari saldo awal') : 'Saldo awal dan transaksi diperlukan';
         $('discipline-summary').textContent = report.total ? 'Dihitung dari jurnal akun aktif. SL tercatat tidak memastikan pemasangan di broker; kondisi psikologi belum dicatat.' : 'Tambahkan transaksi untuk melihat rapor akun ini.';
 
         // Draw SVG Charts
@@ -1867,7 +1921,7 @@
             </div>
             <div style="display:flex; align-items:center; gap:10px;">
               <span class="account-item-bal">${a.currency === 'IDR' ? fmtIDR(a.startBalance) : fmtUSD(a.startBalance)}</span>
-              ${accounts.length > 1 ? `<button class="btn btn-danger btn-sm" onclick="deleteAccount('${safeId(a.id)}')">✕</button>` : ''}
+              ${accounts.length > 1 ? `<button class="btn btn-danger btn-sm" onclick="deleteAccount('${safeId(a.id)}')">Hapus</button>` : ''}
             </div>
           </div>
         `).join('');
@@ -2164,7 +2218,7 @@
             pill.style.color = 'var(--green)';
             pill.style.borderColor = 'rgba(34, 197, 94, 0.3)';
           }
-          if (toggleIcon) toggleIcon.textContent = '🔒';
+          if (toggleIcon) toggleIcon.textContent = '';
           if (toggleText) toggleText.textContent = 'Kunci Kembali Konten';
           if (banner) {
             banner.innerHTML = `
@@ -2172,7 +2226,7 @@
                 <b style="color:#ffffff; font-size:12.5px;">Status: Pratinjau Terbuka (Akses Khusus Anda)</b>
                 <p style="color:var(--text-muted); font-size:11.5px;">Laporan COT dan peta likuiditas sedang ditampilkan penuh. Anda dapat mengunci kembali tampilan ini sewaktu-waktu.</p>
               </div>
-              <button type="button" class="btn btn-secondary btn-sm" onclick="toggleCotAccess()" style="font-size:11.5px;">Kunci Kembali Konten 🔒</button>
+              <button type="button" class="btn btn-secondary btn-sm" onclick="toggleCotAccess()" style="font-size:11.5px;">Kunci Kembali Konten </button>
             `;
           }
         } else {
@@ -2184,7 +2238,7 @@
             pill.style.color = '#c084fc';
             pill.style.borderColor = 'rgba(168, 85, 247, 0.3)';
           }
-          if (toggleIcon) toggleIcon.textContent = '🔓';
+          if (toggleIcon) toggleIcon.textContent = '';
           if (toggleText) toggleText.textContent = 'Buka Akses (Preview)';
           if (banner) {
             banner.innerHTML = `
@@ -2193,7 +2247,7 @@
                 <p>Dapatkan wawasan posisi bandar institusi, sinyal data COT, dan kalender high-impact terkurasi.</p>
               </div>
               <div style="display:flex; gap:8px;">
-                <button type="button" class="btn btn-secondary btn-sm" onclick="toggleCotAccess()" style="font-size:11px;">Buka Akses 🔓</button>
+                <button type="button" class="btn btn-secondary btn-sm" onclick="toggleCotAccess()" style="font-size:11px;">Buka Akses </button>
                 <button type="button" class="btn btn-accent btn-sm" onclick="switchTab('beranda'); scrollToPricing();">Upgrade ke Pro</button>
               </div>
             `;
@@ -2453,7 +2507,7 @@
           '<div><div class="kal-nama">' + esc(x.nama || '') + '</div>' +
           (adaAngka ? '<div class="kal-ang">Akt <b class="' + cls.trim() + '">' + esc(x.akt || '-') +
             '</b> &middot; Perk ' + esc(x.prk || '-') + ' &middot; Sblm ' + esc(x.sbl || '-') + '</div>' : '') +
-          (x.cat ? '<div class="kal-cat">💡 ' + esc(x.cat) + '</div>' : '') +
+          (x.cat ? '<div class="kal-cat"> ' + esc(x.cat) + '</div>' : '') +
           '</div></div>';
       }
 
@@ -2989,7 +3043,7 @@ Disarankan menunggu konfirmasi break salah satu batas range sebelum mengambil po
               <div class="feed-item ${isBuka ? 'buka' : ''}" id="fi-${it.id}">
                 <div class="fi-head" onclick="toggleFeedItem('${it.id}')">
                   <div class="fi-thumb">
-                    ${it.thumb ? `<img src="${it.thumb}" alt="${it.title}" loading="lazy">` : `<div class="ph">📊</div>`}
+                    ${it.thumb ? `<img src="${it.thumb}" alt="${it.title}" loading="lazy">` : `<div class="ph"></div>`}
                   </div>
                   <div class="fi-info">
                     <h4>${it.title}</h4>

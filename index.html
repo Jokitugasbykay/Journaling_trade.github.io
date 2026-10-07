@@ -986,7 +986,7 @@
             <div class="hl-value" id="c-suggested-lot">0.12 Lot</div>
             <p class="hl-desc">Dihitung otomatis agar jika terkena SL, kerugian tepat sesuai batas toleransi risiko akun Anda.</p>
             <button class="btn btn-accent" style="width:100%; margin-top:14px;" onclick="applyLotToJournal()">
-              Terapkan Setup Ini ke Form Jurnal ↗
+              Terapkan Setup Ini ke Form Jurnal
             </button>
           </div>
 
@@ -1040,21 +1040,21 @@
       <!-- Bottom Prop Firm & Risk Guardrails Card -->
       <div class="calc-guardrails-card">
         <div class="cgc-col">
-          <div class="cgc-icon">🛡️</div>
+
           <div>
             <b>Batas Rugi Harian (Daily Max Loss)</b>
             <p>Maksimal 5% dari saldo awal per hari. Untuk akun $1,000, maksimal kerugian kumulatif harian adalah $50.00.</p>
           </div>
         </div>
         <div class="cgc-col">
-          <div class="cgc-icon">📉</div>
+
           <div>
             <b>Maksimal Drawdown Akun (Max Trailing DD)</b>
             <p>Maksimal 10% dari puncak saldo. Batasi risiko per trade di 0.5% - 1.0% untuk memastikan Anda memiliki minimal 10-20 kesempatan.</p>
           </div>
         </div>
         <div class="cgc-col">
-          <div class="cgc-icon">⚖️</div>
+
           <div>
             <b>Kaidah Eksekusi Institusional</b>
             <p>Jangan pernah memperbesar lot setelah mengalami kerugian (Revenge trading). Selalu pasang Stop Loss bersamaan saat membuka order.</p>
@@ -1147,9 +1147,9 @@
 
       <!-- Segmented Sub-View Switcher -->
       <div class="seg" id="berita-seg" style="margin: 18px 0 22px;">
-        <button class="seg-btn active" type="button" data-sub="ringkasan" onclick="switchBeritaSub('ringkasan')">⚡ Semua Ringkasan</button>
-        <button class="seg-btn" type="button" data-sub="analisa" onclick="switchBeritaSub('analisa')">📊 Analisa Market</button>
-        <button class="seg-btn" type="button" data-sub="kalender" onclick="switchBeritaSub('kalender')">📅 Kalender Ekonomi</button>
+        <button class="seg-btn active" type="button" data-sub="ringkasan" onclick="switchBeritaSub('ringkasan')"> Semua Ringkasan</button>
+        <button class="seg-btn" type="button" data-sub="analisa" onclick="switchBeritaSub('analisa')"> Analisa Market</button>
+        <button class="seg-btn" type="button" data-sub="kalender" onclick="switchBeritaSub('kalender')"> Kalender Ekonomi</button>
       </div>
 
       <!-- 1. SUB-VIEW: RINGKASAN & OVERVIEW -->
@@ -1246,7 +1246,7 @@
                   <span class="sentiment-pill" id="cot-status-pill" style="background:rgba(34,197,94,0.15); color:var(--green); border:1px solid rgba(34,197,94,0.3);">AKSES TERBUKA</span>
                 </div>
                 <button type="button" class="btn btn-secondary btn-sm" id="btn-toggle-cot" onclick="toggleCotAccess()" style="font-size:11px; padding:3px 10px; display:inline-flex; align-items:center; gap:5px;">
-                  <span id="cot-toggle-icon">🔒</span> <span id="cot-toggle-text">Kunci Kembali Konten</span>
+                  <span id="cot-toggle-icon"></span> <span id="cot-toggle-text">Kunci Kembali Konten</span>
                 </button>
               </div>
 
@@ -1308,7 +1308,7 @@
                   <b style="color:#ffffff; font-size:12.5px;">Status: Pratinjau Terbuka (Akses Khusus Anda)</b>
                   <p style="color:var(--text-muted); font-size:11.5px;">Laporan COT dan peta likuiditas sedang ditampilkan penuh. Anda dapat mengunci kembali tampilan ini sewaktu-waktu.</p>
                 </div>
-                <button type="button" class="btn btn-secondary btn-sm" onclick="toggleCotAccess()" style="font-size:11.5px;">Kunci Kembali Konten 🔒</button>
+                <button type="button" class="btn btn-secondary btn-sm" onclick="toggleCotAccess()" style="font-size:11.5px;">Kunci Kembali Konten </button>
               </div>
             </article>
           </div>
@@ -1386,7 +1386,7 @@
 
         <!-- Search Box -->
         <div class="cari" id="cari-an-box">
-          <span class="ic">🔍</span>
+          <span class="ic"></span>
           <input type="search" id="cari-an" placeholder="Cari pair (XAUUSD, EURUSD...), judul analisa, atau kata kunci..." autocomplete="off">
           <button class="hapus" type="button" aria-label="Hapus pencarian">&times;</button>
         </div>
@@ -1417,7 +1417,7 @@
 
         <!-- Search Box -->
         <div class="cari" id="cari-kal-box">
-          <span class="ic">🔍</span>
+          <span class="ic"></span>
           <input type="search" id="cari-kal" placeholder="Cari rilis data atau mata uang (Core CPI, NFP, USD, EUR, AUD...)" autocomplete="off">
           <button class="hapus" type="button" aria-label="Hapus pencarian">&times;</button>
         </div>
@@ -1557,7 +1557,7 @@
           <div class="vault-status-box">
             <div class="vs-row">
               <span>Status Penyimpanan Browser</span>
-              <b style="color:var(--green);">✓ Normal (Offline Ready)</b>
+              <b style="color:var(--green);"> Normal (Offline Ready)</b>
             </div>
             <div class="vs-row">
               <span>Penggunaan Memori Lokal</span>
@@ -1714,7 +1714,7 @@
         </div>
 
         <div class="tv-head-right">
-          <a id="tv-external-link" href="https://www.tradingview.com" target="_blank" rel="noopener noreferrer" class="btn btn-secondary" style="font-size:11px; padding:4px 9px;" title="Buka di tab TradingView terpisah jika perlu">Tab Baru ↗</a>
+          <a id="tv-external-link" href="https://www.tradingview.com" target="_blank" rel="noopener noreferrer" class="btn btn-secondary" style="font-size:11px; padding:4px 9px;" title="Buka di tab TradingView terpisah jika perlu">Tab Baru </a>
           <button class="modal-close" onclick="closeTradingView()" title="Tutup Pop-up">&times;</button>
         </div>
       </div>
@@ -1773,7 +1773,7 @@
        APPLICATION LOGIC & DATA PERSISTENCE
        ==================================================================== -->
   <script src="js/scan.js?v=20261007"></script>
-  <script src="js/app.js?v=20261007"></script>
+  <script src="js/app.js?v=20261007-copy3"></script>
 
  </body>
 
