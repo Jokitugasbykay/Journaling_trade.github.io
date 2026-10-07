@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "checkedAt": "2026-10-07T17:28:50.265481+00:00",
+  "checkedAt": "2026-10-07T17:29:11.885873+00:00",
   "intervalMinutes": 30,
   "sources": [
     {
@@ -9,7 +9,7 @@
       "url": "https://www.investing.com/",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-07T17:28:48.504629+00:00"
+      "checkedAt": "2026-10-07T17:29:10.935113+00:00"
     },
     {
       "id": "cnbc",
@@ -17,7 +17,7 @@
       "url": "https://www.cnbc.com/markets/",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-07T17:28:50.199512+00:00"
+      "checkedAt": "2026-10-07T17:29:10.867646+00:00"
     },
     {
       "id": "kontan",
@@ -25,7 +25,7 @@
       "url": "https://www.kontan.co.id/",
       "kind": "html",
       "status": "ok",
-      "checkedAt": "2026-10-07T17:28:49.523269+00:00"
+      "checkedAt": "2026-10-07T17:29:11.816387+00:00"
     },
     {
       "id": "reuters",
@@ -33,7 +33,7 @@
       "url": "https://www.reuters.com/",
       "kind": "sitemap",
       "status": "ok",
-      "checkedAt": "2026-10-07T17:28:48.551909+00:00"
+      "checkedAt": "2026-10-07T17:29:10.989802+00:00"
     },
     {
       "id": "aljazeera",
@@ -41,7 +41,7 @@
       "url": "https://www.aljazeera.com/",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-07T17:28:48.454955+00:00"
+      "checkedAt": "2026-10-07T17:29:11.000873+00:00"
     },
     {
       "id": "bloomberg",
@@ -49,7 +49,7 @@
       "url": "https://www.bloomberg.com/asia",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-07T17:28:49.051607+00:00"
+      "checkedAt": "2026-10-07T17:29:11.133710+00:00"
     },
     {
       "id": "fedwatch",
@@ -234,6 +234,14 @@
       "url": "https://www.reuters.com/business/environment/tropical-storm-isaias-forecast-hit-us-gulf-coast-hurricane-early-saturday-2026-10-07/",
       "publishedAt": "2026-10-07T17:06:29.296000+00:00",
       "image": null
+    },
+    {
+      "id": "882eb7f47422e7f0a50f",
+      "source": "aljazeera",
+      "title": "US mortgage rates hit their highest level in three years",
+      "url": "https://www.aljazeera.com/economy/2026/10/7/us-mortgage-rates-hit-their-highest-level-in-three-years?traffic_source=rss",
+      "publishedAt": "2026-10-07T17:05:10+00:00",
+      "image": "https://www.aljazeera.com/wp-content/uploads/2026/10/2026-10-07T110012Z_2103323680_RC21ZDAJ0G5H_RTRMADP_3_USA-ECONOMY-MORTGAGES-1791389874.jpg?resize=1920%2C1440"
     },
     {
       "id": "8d94a33348d182952175",
@@ -666,14 +674,6 @@
       "url": "https://www.cnbc.com/2026/10/07/india-rbi-interest-rates-inflation.html",
       "publishedAt": "2026-10-07T11:55:36+00:00",
       "image": "https://image.cnbcfm.com/api/v1/image/108373925-1791374076652-gettyimages-2298413594-AFP_D2FY7DW.jpeg?v=1791374109&w=1920&h=1080"
-    },
-    {
-      "id": "e7b445e74c962dbb5ada",
-      "source": "aljazeera",
-      "title": "Arsenal boss Mikel Arteta signs new contract with Premier League champions",
-      "url": "https://www.aljazeera.com/sports/2026/10/7/arsenal-boss-mikel-arteta-signs-new-contract-with-premier-league-champions?traffic_source=rss",
-      "publishedAt": "2026-10-07T11:49:26+00:00",
-      "image": "https://www.aljazeera.com/wp-content/uploads/2026/10/2026-09-22T123329Z_873899200_RC2UFLAUUWH8_RTRMADP_3_SOCCER-ENGLAND-ARS-ARTETA-1791371925.jpg?resize=1869%2C1080"
     },
     {
       "id": "9fa90f45eba24346f17e",
