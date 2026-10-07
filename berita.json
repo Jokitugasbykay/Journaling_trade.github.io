@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "checkedAt": "2026-10-07T18:44:11.264641+00:00",
+  "checkedAt": "2026-10-07T18:59:00.127540+00:00",
   "intervalMinutes": 30,
   "sources": [
     {
@@ -9,7 +9,7 @@
       "url": "https://www.investing.com/",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-07T18:44:06.228423+00:00"
+      "checkedAt": "2026-10-07T18:58:55.887276+00:00"
     },
     {
       "id": "cnbc",
@@ -17,7 +17,7 @@
       "url": "https://www.cnbc.com/markets/",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-07T18:44:06.300373+00:00"
+      "checkedAt": "2026-10-07T18:58:55.922786+00:00"
     },
     {
       "id": "kontan",
@@ -25,7 +25,7 @@
       "url": "https://www.kontan.co.id/",
       "kind": "html",
       "status": "ok",
-      "checkedAt": "2026-10-07T18:44:07.027528+00:00"
+      "checkedAt": "2026-10-07T18:58:56.936447+00:00"
     },
     {
       "id": "reuters",
@@ -33,7 +33,7 @@
       "url": "https://www.reuters.com/",
       "kind": "sitemap",
       "status": "ok",
-      "checkedAt": "2026-10-07T18:44:06.719387+00:00"
+      "checkedAt": "2026-10-07T18:58:55.913998+00:00"
     },
     {
       "id": "aljazeera",
@@ -41,7 +41,7 @@
       "url": "https://www.aljazeera.com/",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-07T18:44:06.252203+00:00"
+      "checkedAt": "2026-10-07T18:58:55.900197+00:00"
     },
     {
       "id": "bloomberg",
@@ -49,7 +49,7 @@
       "url": "https://www.bloomberg.com/asia",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-07T18:44:06.456369+00:00"
+      "checkedAt": "2026-10-07T18:58:56.104713+00:00"
     },
     {
       "id": "fnc",
@@ -57,7 +57,7 @@
       "url": "https://tradewithfnc.com/",
       "kind": "json",
       "status": "ok",
-      "checkedAt": "2026-10-07T18:44:06.930956+00:00"
+      "checkedAt": "2026-10-07T18:58:56.716370+00:00"
     },
     {
       "id": "investing_id",
@@ -65,7 +65,7 @@
       "url": "https://id.investing.com/news",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-07T18:44:06.357915+00:00"
+      "checkedAt": "2026-10-07T18:58:56.188052+00:00"
     },
     {
       "id": "pluang",
@@ -73,7 +73,7 @@
       "url": "https://pluang.com/news-feed",
       "kind": "html",
       "status": "ok",
-      "checkedAt": "2026-10-07T18:44:06.737278+00:00"
+      "checkedAt": "2026-10-07T18:58:56.239953+00:00"
     },
     {
       "id": "kompas",
@@ -81,7 +81,7 @@
       "url": "https://money.kompas.com/",
       "kind": "html",
       "status": "ok",
-      "checkedAt": "2026-10-07T18:44:07.825654+00:00"
+      "checkedAt": "2026-10-07T18:58:56.519068+00:00"
     },
     {
       "id": "detik",
@@ -89,7 +89,7 @@
       "url": "https://finance.detik.com/",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-07T18:44:08.366951+00:00"
+      "checkedAt": "2026-10-07T18:58:57.426728+00:00"
     },
     {
       "id": "kemenkeu",
@@ -121,7 +121,7 @@
       "url": "https://ekbis.sindonews.com/",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-07T18:44:07.294041+00:00"
+      "checkedAt": "2026-10-07T18:58:56.538047+00:00"
     },
     {
       "id": "fedwatch",
@@ -140,12 +140,39 @@
   ],
   "items": [
     {
-      "id": "0da38b6a0e55c811fdfc",
+      "id": "8d539aaf9492daaac139",
+      "source": "cnbc",
+      "title": "Microsoft to sell $2,599 Surface Laptop Ultra containing Nvidia AI chip",
+      "url": "https://www.cnbc.com/2026/10/07/microsoft-starts-taking-preorders-for-2599-surface-laptop-ultra.html",
+      "publishedAt": "2026-10-07T18:55:10+00:00",
+      "image": "https://image.cnbcfm.com/api/v1/image/108374272-1791394791672-Screenshot-2026-10-07-at-13735_PM.jpg?v=1791394804&w=1920&h=1080",
+      "category": "technology"
+    },
+    {
+      "id": "9e1150d0fbe4aa7577b9",
       "source": "reuters",
-      "title": "Oregon head coach Dana Altman retires in surprise move",
-      "url": "https://www.reuters.com/sports/oregon-head-coach-dana-altman-retires-surprise-move--flm-2026-10-07/",
-      "publishedAt": "2026-10-07T18:43:01.623000+00:00",
-      "image": null,
+      "title": "Anglo-Teck merger, nickel sale are test cases for navigating geopolitical complexities, CEO says",
+      "url": "https://www.reuters.com/world/asia-pacific/anglo-teck-merger-nickel-sale-are-test-cases-navigating-geopolitical-2026-10-07/",
+      "publishedAt": "2026-10-07T18:53:19.276000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/ITOXPPG5KJPNPLESTZ5BCFRAHI.jpg?auth=241e8938a4644edc4517452f459b130f3945632ab2a17f1740517b78f8a8b6ce&smart=true&width=1920",
+      "category": "world"
+    },
+    {
+      "id": "d830e30f3fba12760a20",
+      "source": "reuters",
+      "title": "Houthis attack Aden airport as fighting intensifies in Yemen",
+      "url": "https://www.reuters.com/world/middle-east/houthis-launch-missiles-yemens-aden-airport-fighting-intensifies-2026-10-07/",
+      "publishedAt": "2026-10-07T18:52:36.699000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/6CTWWWAJVBP5XHQ6P2FW3TGYKA.jpg?auth=0e0cf2ee2c333834c9fe66a49c7d43c9244200dceb6fae56fba1ce7e402298f1&smart=true&width=1920",
+      "category": "world"
+    },
+    {
+      "id": "2d144a13f6df9c7d1b0f",
+      "source": "reuters",
+      "title": "Islanders D Alexander Romanov (ACL) out 6-8 months",
+      "url": "https://www.reuters.com/sports/islanders-d-alexander-romanov-acl-out-6-8-months--flm-2026-10-07/",
+      "publishedAt": "2026-10-07T18:51:41.091000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/WVXCIBVAOJKTBLLZSKG3WO2TEU.jpg?auth=9565cbeb912436aef4498f490876fb047453ece05275f1ed7c3837e5cc931500&smart=true&width=1920",
       "category": "sport"
     },
     {
@@ -153,8 +180,107 @@
       "source": "reuters",
       "title": "Tanzania gold mine deaths at centre of case against London accreditor of refiners",
       "url": "https://www.reuters.com/world/africa/tanzania-gold-mine-deaths-centre-case-against-london-accreditor-refiners-2026-10-07/",
-      "publishedAt": "2026-10-07T18:42:53.897000+00:00",
+      "publishedAt": "2026-10-07T18:51:03.580000+00:00",
       "image": "https://www.reuters.com/resizer/v2/W4S6XVC47BPTZBBY5AFTGYPZNA.jpg?auth=3a033e424e7cd3a7b5ab700f5c7a211aad7a7ab1aa2d240522849314274c1f22&smart=true&width=1920",
+      "category": "markets"
+    },
+    {
+      "id": "85ee24223235e5d030d1",
+      "source": "bloomberg",
+      "title": "Boots Sold for $8.9B As Canada’s Westons Re-Enter UK",
+      "url": "https://www.bloomberg.com/news/videos/2026-10-07/boots-sold-for-8-9b-as-canada-s-westons-re-enter-uk-video",
+      "publishedAt": "2026-10-07T18:50:55+00:00",
+      "image": null,
+      "category": "other"
+    },
+    {
+      "id": "c74476bd4d4f8fac2896",
+      "source": "cnbc",
+      "title": "Supertanker chartered from Gulf Coast to China for $76 million, 10 times higher than pre-war level",
+      "url": "https://www.cnbc.com/2026/10/07/supertanker-from-us-to-china-chartered-for-76-million-source.html",
+      "publishedAt": "2026-10-07T18:50:21+00:00",
+      "image": "https://image.cnbcfm.com/api/v1/image/108374101-1791385507503-gettyimages-503850269-bld134034.jpeg?v=1791385521&w=1920&h=1080",
+      "category": "world"
+    },
+    {
+      "id": "4014e418a07975400afe",
+      "source": "reuters",
+      "title": "At least 24 killed in Ukraine, Zelenskiy condemns one of Russia's most 'vile strikes'",
+      "url": "https://www.reuters.com/world/europe/russia-strikes-ukraines-kyiv-fresh-wave-attacks-2026-10-07/",
+      "publishedAt": "2026-10-07T18:48:50.213000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/IOWYDM7O2JJ23KEGLKILJRJOWI.jpg?auth=6bed7f6c87c97582fc0f062d3cd5b60d5c2d303d3f191d260bfa3eb6d835a52a&smart=true&width=1920",
+      "category": "world"
+    },
+    {
+      "id": "cda518321250a9807e73",
+      "source": "reuters",
+      "title": "Zealand, Roche's obesity drug helps patients lose up to 9.2% weight in mid-stage trial",
+      "url": "https://www.reuters.com/business/healthcare-pharmaceuticals/zealand-roches-obesity-drug-helps-patients-lose-up-92-weight-mid-stage-trial-2026-10-07/",
+      "publishedAt": "2026-10-07T18:47:43.973000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/SKNV7TJIRBJKJMKX5N6V5T5KTI.jpg?auth=43eccb9de5e0ae80eb63703a78bfaf7639e2ee77c55c37a9988362d3d3865e59&smart=true&width=1920",
+      "category": "business"
+    },
+    {
+      "id": "0556865b0ce6f1a31de0",
+      "source": "reuters",
+      "title": "Ravens acquire Pro Bowl C Cam Jurgens from Eagles",
+      "url": "https://www.reuters.com/sports/ravens-acquire-pro-bowl-c-cam-jurgens-eagles--flm-2026-10-07/",
+      "publishedAt": "2026-10-07T18:47:32.620000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/6XU7CNNH7RN5XIO4XENTWUJYMQ.jpg?auth=23f0ba8a95eb17c2fc2df3f31451354a8a54b42a87d46b1373b7c296ab6e92b2&smart=true&width=1920",
+      "category": "sport"
+    },
+    {
+      "id": "afa517c11dbfabf54839",
+      "source": "cnbc",
+      "title": "10-year Treasury yield backs off from 24-year high after solid bond auction eases demand fears",
+      "url": "https://www.cnbc.com/2026/10/07/treasury-yields-auction-fomc-minutes.html",
+      "publishedAt": "2026-10-07T18:47:30+00:00",
+      "image": "https://image.cnbcfm.com/api/v1/image/108363665-1789568651170-gettyimages-2295586459-mms19512_dnx4op25.jpeg?v=1789568741&w=1920&h=1080",
+      "category": "markets"
+    },
+    {
+      "id": "580d9e158e94a28c2560",
+      "source": "reuters",
+      "title": "Russia says plague institute worker's death does not risk an epidemic",
+      "url": "https://www.reuters.com/business/healthcare-pharmaceuticals/who-seeks-details-russia-media-reports-a-second-lab-worker-with-pneumonia-2026-10-07/",
+      "publishedAt": "2026-10-07T18:46:05.345000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/GQHC2I3VIZKPBNH4CODCXOAPV4.jpg?auth=2b216d4188ed941b318cbf6d0f634deaaa77545557ff4f3127e77cd704436773&smart=true&width=1920",
+      "category": "business"
+    },
+    {
+      "id": "5b6f5970df69305c4c9c",
+      "source": "cnbc",
+      "title": "Strange market anomaly is creating a buying opportunity in the Nasdaq 100",
+      "url": "https://www.cnbc.com/2026/10/07/strange-market-anomaly-is-creating-a-buying-opportunity-in-the-nasdaq-100.html",
+      "publishedAt": "2026-10-07T18:44:33+00:00",
+      "image": "https://image.cnbcfm.com/api/v1/image/108374123-1791386192183-Traders-Photo-20261006-KK-PRESS-009.jpg?v=1791395662&w=1920&h=1080",
+      "category": "markets"
+    },
+    {
+      "id": "0da38b6a0e55c811fdfc",
+      "source": "reuters",
+      "title": "Oregon head coach Dana Altman retires in surprise move",
+      "url": "https://www.reuters.com/sports/oregon-head-coach-dana-altman-retires-surprise-move--flm-2026-10-07/",
+      "publishedAt": "2026-10-07T18:43:43.637000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/JXV56UX7KVPJHDTAUVJAHETMIA.jpg?auth=3b5860118062caaba7f1e4f3814f41621e282b9b5c381265321116f664fb7510&smart=true&width=1920",
+      "category": "sport"
+    },
+    {
+      "id": "0a8bdcaa508a602847ca",
+      "source": "bloomberg",
+      "title": "LIV Golf Gets Potential Lifeline From BC Partners Credit",
+      "url": "https://www.bloomberg.com/news/videos/2026-10-07/liv-golf-gets-potential-lifeline-from-bc-partners-credit-video",
+      "publishedAt": "2026-10-07T18:43:20+00:00",
+      "image": null,
+      "category": "other"
+    },
+    {
+      "id": "52e6a41995c920b42bdd",
+      "source": "bloomberg",
+      "title": "Announced Activity In Market Is Slower: Friedland",
+      "url": "https://www.bloomberg.com/news/videos/2026-10-07/announced-activity-in-market-is-slower-friedland-video",
+      "publishedAt": "2026-10-07T18:43:08+00:00",
+      "image": null,
       "category": "markets"
     },
     {
@@ -185,15 +311,6 @@
       "category": "business"
     },
     {
-      "id": "72741db9e0b38670c510",
-      "source": "cnbc",
-      "title": "Trump doesn't think Russia plague incident is bioweapon, plans Putin call Wednesday",
-      "url": "https://www.cnbc.com/2026/10/07/trump-russia-plague-bioweapon-putin.html",
-      "publishedAt": "2026-10-07T18:38:51+00:00",
-      "image": "https://image.cnbcfm.com/api/v1/image/108374253-1791394167686-gettyimages-2298462558-AFP_D2JK6CJ.jpeg?v=1791394189&w=1920&h=1080",
-      "category": "other"
-    },
-    {
       "id": "70e08054e9c17799b105",
       "source": "bloomberg",
       "title": "Drone Companies Will Eventually Consolidate: Kahyaoglu",
@@ -221,31 +338,22 @@
       "category": "other"
     },
     {
-      "id": "8d539aaf9492daaac139",
-      "source": "cnbc",
-      "title": "Microsoft to sell $2,599 Surface Laptop Ultra containing Nvidia AI chip",
-      "url": "https://www.cnbc.com/2026/10/07/microsoft-starts-taking-preorders-for-2599-surface-laptop-ultra.html",
-      "publishedAt": "2026-10-07T18:34:31+00:00",
-      "image": "https://image.cnbcfm.com/api/v1/image/108374272-1791394791672-Screenshot-2026-10-07-at-13735_PM.jpg?v=1791394804&w=1920&h=1080",
-      "category": "technology"
+      "id": "7b1dc598bc16170ea885",
+      "source": "aljazeera",
+      "title": "At least 24 killed as Russia launches massive attack on Ukraine",
+      "url": "https://www.aljazeera.com/video/newsfeed/2026/10/7/at-least-24-killed-as-russia-launches-massive-attack-on-ukraine?traffic_source=rss",
+      "publishedAt": "2026-10-07T18:32:08+00:00",
+      "image": "https://www.aljazeera.com/wp-content/uploads/2026/10/image-1791397914.jpg?resize=1920%2C1080&quality=80",
+      "category": "other"
     },
     {
-      "id": "c74476bd4d4f8fac2896",
-      "source": "cnbc",
-      "title": "Supertanker chartered from Gulf Coast to China for $76 million, 10 times higher than pre-war level",
-      "url": "https://www.cnbc.com/2026/10/07/supertanker-from-us-to-china-chartered-for-76-million-source.html",
-      "publishedAt": "2026-10-07T18:32:55+00:00",
-      "image": "https://image.cnbcfm.com/api/v1/image/108374101-1791385507503-gettyimages-503850269-bld134034.jpeg?v=1791385521&w=1920&h=1080",
-      "category": "world"
-    },
-    {
-      "id": "cda518321250a9807e73",
-      "source": "reuters",
-      "title": "Zealand, Roche's obesity drug helps patients lose up to 9.2% weight in mid-stage trial",
-      "url": "https://www.reuters.com/business/healthcare-pharmaceuticals/zealand-roches-obesity-drug-helps-patients-lose-up-92-weight-mid-stage-trial-2026-10-07/",
-      "publishedAt": "2026-10-07T18:31:42.358000+00:00",
-      "image": null,
-      "category": "business"
+      "id": "6bea1861608c494c7da8",
+      "source": "aljazeera",
+      "title": "Kenya on high alert amid concern over screening after first Ebola death",
+      "url": "https://www.aljazeera.com/video/newsfeed/2026/10/7/kenya-on-high-alert-amid-concern-over-screening-after-first-ebola-death?traffic_source=rss",
+      "publishedAt": "2026-10-07T18:31:57+00:00",
+      "image": "https://www.aljazeera.com/wp-content/uploads/2026/10/image-1791397882.jpg?resize=1298%2C1080&quality=80",
+      "category": "other"
     },
     {
       "id": "c1d9bf06a15357677d69",
@@ -264,6 +372,15 @@
       "publishedAt": "2026-10-07T18:30:26.702000+00:00",
       "image": "https://www.reuters.com/resizer/v2/5XB5MXAIAFPY3MBT4HGXQXAJ3E.jpg?auth=28ce392e9cbb1d4fa3581ea41bb32b2c28ca104f9aec2e911b81a921193abb68&smart=true&width=1920",
       "category": "sustainability"
+    },
+    {
+      "id": "36a2e5ce05348d27490f",
+      "source": "aljazeera",
+      "title": "Saudi Arabia says three foreign nationals killed in attacks on airports",
+      "url": "https://www.aljazeera.com/news/2026/10/7/saudi-arabia-says-three-foreign-nationals-killed-in-attacks-on-airports?traffic_source=rss",
+      "publishedAt": "2026-10-07T18:29:34+00:00",
+      "image": "https://www.aljazeera.com/wp-content/uploads/2026/10/reuters_6ac68de0-1791397344.jpg?resize=1920%2C1440",
+      "category": "other"
     },
     {
       "id": "95cddbb2d1a1824ed026",
@@ -320,6 +437,33 @@
       "category": "markets"
     },
     {
+      "id": "4ab9d5bc3f6aac1dc3f9",
+      "source": "aljazeera",
+      "title": "LSD - from counterculture to clinical trials",
+      "url": "https://www.aljazeera.com/video/newsfeed/2026/10/7/lsd-from-counterculture-to-clinical-trials?traffic_source=rss",
+      "publishedAt": "2026-10-07T18:27:12+00:00",
+      "image": "https://www.aljazeera.com/wp-content/uploads/2026/10/FULL-THUMBNAIL-Templates3_2-clean-1791397498.jpg?resize=1920%2C1080&quality=80",
+      "category": "other"
+    },
+    {
+      "id": "c1c1aec8406154c38def",
+      "source": "aljazeera",
+      "title": "Most Americans oppose Trump’s taxpayer-funded ‘golden age’ ads: Poll",
+      "url": "https://www.aljazeera.com/news/2026/10/7/most-americans-oppose-trumps-taxpayer-funded-golden-age-ads-poll?traffic_source=rss",
+      "publishedAt": "2026-10-07T18:27:09+00:00",
+      "image": "https://www.aljazeera.com/wp-content/uploads/2026/10/afp_6ac6854a81df-1791395146.jpg?resize=1920%2C1440",
+      "category": "markets"
+    },
+    {
+      "id": "b482a8344c931b76543a",
+      "source": "aljazeera",
+      "title": "In El Salvador’s mass trials, lawyers struggle to defend hundreds",
+      "url": "https://www.aljazeera.com/news/2026/10/7/in-el-salvadors-mass-trials-lawyers-struggle-to-defend-hundreds?traffic_source=rss",
+      "publishedAt": "2026-10-07T18:26:07+00:00",
+      "image": "https://www.aljazeera.com/wp-content/uploads/2026/10/getty_6ac67492ba-1791390866.jpg?resize=1920%2C1440",
+      "category": "other"
+    },
+    {
       "id": "e298b2733cbfda8d0f35",
       "source": "cnbc",
       "title": "Americans grow more pessimistic about their finances, New York Fed finds - expert warns of ‘tough choices’ ahead",
@@ -347,15 +491,6 @@
       "category": "business"
     },
     {
-      "id": "ea59ab01f5fbe4498bcb",
-      "source": "reuters",
-      "title": "Florida asks court to force Meta to change Facebook, Instagram for teens",
-      "url": "https://www.reuters.com/world/us/florida-asks-court-force-meta-change-facebook-instagram-teens-2026-10-07/",
-      "publishedAt": "2026-10-07T18:19:01.464000+00:00",
-      "image": "https://www.reuters.com/resizer/v2/ZW36RUINW5PODPMPYDWCN75D6A.jpg?auth=90693353fb00e8b1a5ca079a7df4ec05436f00e00e598b2837d5dfe1a44977cc&smart=true&width=1920",
-      "category": "legal"
-    },
-    {
       "id": "ca43f0c0e0e8b7ec1ad0",
       "source": "cnbc",
       "title": "Oil prices fall as IEA members agree to prioritize release of diesel stocks",
@@ -363,15 +498,6 @@
       "publishedAt": "2026-10-07T18:18:47+00:00",
       "image": "https://image.cnbcfm.com/api/v1/image/108359880-1788886357349-gettyimages-2293680927-AA_08092026_2943632.jpeg?v=1788886580&w=1920&h=1080",
       "category": "markets"
-    },
-    {
-      "id": "b3fbf0dcd9c7a617d98b",
-      "source": "reuters",
-      "title": "France suspends use of stun grenades to police student protests",
-      "url": "https://www.reuters.com/world/europe/france-suspends-use-stun-grenades-police-student-protests-2026-10-07/",
-      "publishedAt": "2026-10-07T18:17:03.955000+00:00",
-      "image": "https://www.reuters.com/resizer/v2/6YWGXLZPHVMWZMHWOCYEOGTGO4.jpg?auth=3160a54e8dc9b986150b5f17ccd404d9ac0672e029f7e10fc2b3369532f50784&smart=true&width=1920",
-      "category": "world"
     },
     {
       "id": "db5b1b79150662907e78",
@@ -392,42 +518,6 @@
       "category": "legal"
     },
     {
-      "id": "42215bc75e8f9be44c8b",
-      "source": "reuters",
-      "title": "Belgian student protests against education costs echo France",
-      "url": "https://www.reuters.com/world/belgian-students-rally-over-education-costs-protests-echoing-france-2026-10-07/",
-      "publishedAt": "2026-10-07T18:14:31.353000+00:00",
-      "image": "https://www.reuters.com/resizer/v2/VLIS6HCNFZKMLL5LROMYJHTWB4.jpg?auth=a7db85d705cf7ea487497676561153d56f0c5eccb8f7b22b949d923bb63bbfe1&smart=true&width=1920",
-      "category": "world"
-    },
-    {
-      "id": "fcce6628be1b2487cf4a",
-      "source": "reuters",
-      "title": "Anglo American threatens to close Brazilian nickel operation if EU blocks sale to MMG",
-      "url": "https://www.reuters.com/business/finance/anglo-american-threatens-close-brazilian-nickel-operation-if-eu-blocks-sale-mmg-2026-10-07/",
-      "publishedAt": "2026-10-07T18:13:43.880000+00:00",
-      "image": "https://www.reuters.com/resizer/v2/PUMUJ4NJ7BOKHA5SMV7MYXUL3M.jpg?auth=35372f250edd84c4d2fcc8d73ee9c8d4e376587e4b6766ea42a48beb5b0973e4&smart=true&width=1920",
-      "category": "business"
-    },
-    {
-      "id": "1ceb0215b956a0dc1ee0",
-      "source": "reuters",
-      "title": "Trump administration plans to charge international students $70,000 for work authorization",
-      "url": "https://www.reuters.com/legal/government/trump-administration-plans-charge-international-students-70000-work-2026-10-07/",
-      "publishedAt": "2026-10-07T18:13:16.648000+00:00",
-      "image": "https://www.reuters.com/resizer/v2/QUURC4JVW5IAPMQVAFVLBUYX5Y.jpg?auth=9811182b669ca1d3a7c9ff3117812e56df8af631f9a6e82b0ebb423432e28a0d&smart=true&width=1920",
-      "category": "legal"
-    },
-    {
-      "id": "63b6c9d7bf062f00726e",
-      "source": "reuters",
-      "title": "T20 ties have softened on-field rivalries, says Harmer",
-      "url": "https://www.reuters.com/sports/cricket/t20-ties-have-softened-on-field-rivalries-says-harmer-2026-10-07/",
-      "publishedAt": "2026-10-07T18:13:00.690000+00:00",
-      "image": "https://www.reuters.com/resizer/v2/4HW6Q2SENNMTVJGNJQJJZE3PZY.jpg?auth=8540304fb54f2e4009fcd41b99851843b19406a28ed44a1ae85d94dc6ad23a37&smart=true&width=1920",
-      "category": "sport"
-    },
-    {
       "id": "00faab173dbd6427e701",
       "source": "cnbc",
       "title": "Trump’s diesel order exposes White House limits to counter surging fuel prices",
@@ -444,15 +534,6 @@
       "publishedAt": "2026-10-07T18:05:15+00:00",
       "image": null,
       "category": "business"
-    },
-    {
-      "id": "afa517c11dbfabf54839",
-      "source": "cnbc",
-      "title": "10-year Treasury yield ease from 24-year high after solid bond auction eases demand fears",
-      "url": "https://www.cnbc.com/2026/10/07/treasury-yields-auction-fomc-minutes.html",
-      "publishedAt": "2026-10-07T18:04:27+00:00",
-      "image": "https://image.cnbcfm.com/api/v1/image/108363665-1789568651170-gettyimages-2295586459-mms19512_dnx4op25.jpeg?v=1789568741&w=1920&h=1080",
-      "category": "markets"
     },
     {
       "id": "721a3ef83988cc7b1996",
@@ -626,15 +707,6 @@
       "category": "other"
     },
     {
-      "id": "d29b8d34ccb32e549f93",
-      "source": "bloomberg",
-      "title": "SpaceX in Talks to Borrow $40 Billion to Buy Nvidia Chips",
-      "url": "https://www.bloomberg.com/news/videos/2026-10-07/spacex-in-talks-to-borrow-40b-to-buy-nvidia-chips-video",
-      "publishedAt": "2026-10-07T16:36:05+00:00",
-      "image": null,
-      "category": "other"
-    },
-    {
       "id": "90915335634e6332546b",
       "source": "bloomberg",
       "title": "Novogratz Joins Crowd Warning of AI Bubble, Says Pile In Anyway",
@@ -725,24 +797,6 @@
       "category": "other"
     },
     {
-      "id": "4c839ec30c6396ecd98f",
-      "source": "bloomberg",
-      "title": "Commodity Volatility Spurs Regional US Banks to Offer Hedging",
-      "url": "https://www.bloomberg.com/news/articles/2026-10-07/commodity-volatility-spurs-regional-us-banks-to-offer-hedging",
-      "publishedAt": "2026-10-07T16:00:14+00:00",
-      "image": null,
-      "category": "business"
-    },
-    {
-      "id": "7caa54dda299c041c408",
-      "source": "bloomberg",
-      "title": "Anthropic, OpenAI Clouding Other IPO Prospects: Ruder",
-      "url": "https://www.bloomberg.com/news/videos/2026-10-07/anthropic-openai-clouding-other-ipo-prospects-ruder-video",
-      "publishedAt": "2026-10-07T16:00:09+00:00",
-      "image": null,
-      "category": "other"
-    },
-    {
       "id": "72fddd91edf00d7b5103",
       "source": "sindo",
       "title": "Langkah Membumi Market 2026: Dari Fashion hingga Eco Workshop untuk Better Living",
@@ -813,6 +867,15 @@
       "publishedAt": "2026-10-07T14:59:15+00:00",
       "image": "https://pict.sindonews.com/dyn/850/pena/news/2026/10/07/34/1758047/perkuat-transisi-energi-terbarukan-app-group-bergabung-dengan-re100-jqw.jpeg",
       "category": "local"
+    },
+    {
+      "id": "d74697a7ab9354ba8ce4",
+      "source": "bloomberg",
+      "title": "Farm Machinery Firms Plunge as US Examines Market Practices",
+      "url": "https://www.bloomberg.com/news/articles/2026-10-07/ftc-usda-seek-comment-on-farm-equipment-market-practices",
+      "publishedAt": "2026-10-07T14:56:22+00:00",
+      "image": null,
+      "category": "markets"
     },
     {
       "id": "781b4825780170af50eb",
@@ -959,15 +1022,6 @@
       "category": "markets"
     },
     {
-      "id": "351314f9510726b01c60",
-      "source": "aljazeera",
-      "title": "South Korea signals military exemption cuts for athletes after Asian Games",
-      "url": "https://www.aljazeera.com/sports/2026/10/7/south-korea-signals-military-exemption-cuts-for-gold-medallists-after-backlash-at-athletes-asian-games-comments?traffic_source=rss",
-      "publishedAt": "2026-10-07T13:38:14+00:00",
-      "image": "https://www.aljazeera.com/wp-content/uploads/2026/10/2026-10-03T142237Z_296345539_UP1EMA30YPL65_RTRMADP_3_GAMES-ASIA-1791376596.jpg?resize=1920%2C1440",
-      "category": "sport"
-    },
-    {
       "id": "baa151ac8fe1a80ef32b",
       "source": "detik",
       "title": "Pemerintah Kejar Pertumbuhan Ekonomi 6%, Pakai Jurus Ini",
@@ -993,24 +1047,6 @@
       "publishedAt": "2026-10-07T13:32:28+00:00",
       "image": "https://akcdn.detik.net.id/visual/2026/10/07/mrt-jadi-penggerak-mobilitas-warga-25-ribu-orang-padati-blok-m-setiap-hari-1791367427407_169.jpeg?w=360&q=90",
       "category": "local"
-    },
-    {
-      "id": "3178e0dcec2a9625be22",
-      "source": "aljazeera",
-      "title": "Okinawa governor urges Japan action after US Marine arrested over killing",
-      "url": "https://www.aljazeera.com/news/2026/10/7/okinawa-governor-urges-japan-action-after-us-marine-arrested-over-killing?traffic_source=rss",
-      "publishedAt": "2026-10-07T13:31:18+00:00",
-      "image": "https://www.aljazeera.com/wp-content/uploads/2026/10/afp_6ac63b7fd4d5-1791376255.jpg?resize=1920%2C1440",
-      "category": "other"
-    },
-    {
-      "id": "846f7bdc11f7cfbe9957",
-      "source": "aljazeera",
-      "title": "Saudi Arabia beat UAE 2-0 to end 22-year wait for Arabian Gulf Cup crown",
-      "url": "https://www.aljazeera.com/sports/2026/10/7/saudi-arabia-beat-uae-2-0-to-end-22-year-wait-for-arabian-gulf-cup-crown?traffic_source=rss",
-      "publishedAt": "2026-10-07T13:30:40+00:00",
-      "image": "https://www.aljazeera.com/wp-content/uploads/2026/10/2026-10-06T210352Z_1330511782_UP1EMA61MIFNG_RTRMADP_3_SOCCER-GULFCUP-SAU-ARE-1791373568.jpg?resize=1920%2C1440",
-      "category": "sport"
     },
     {
       "id": "e200bf53f2b78ce3454c",
@@ -1067,15 +1103,6 @@
       "category": "other"
     },
     {
-      "id": "b1473d8dd976e38a07df",
-      "source": "aljazeera",
-      "title": "Henri Kagan, Kenso Soai win Nobel chemistry prize for ‘mirror image’ work",
-      "url": "https://www.aljazeera.com/news/2026/10/7/henri-kagan-kenso-soai-win-chemistry-nobel-for-mirror-image-breakthrough?traffic_source=rss",
-      "publishedAt": "2026-10-07T13:00:32+00:00",
-      "image": "https://www.aljazeera.com/wp-content/uploads/2026/10/2026-10-07T095918Z_1190866280_RC29YNAW98IB_RTRMADP_3_NOBEL-PRIZE-CHEMISTRY-1791373038.jpg?resize=1920%2C1440",
-      "category": "science"
-    },
-    {
       "id": "7df2fd9ec90e03e233b7",
       "source": "detik",
       "title": "Penjelasan Pengusaha soal Usulan Waktu Kerja 45 Jam/ Minggu",
@@ -1083,15 +1110,6 @@
       "publishedAt": "2026-10-07T13:00:23+00:00",
       "image": "https://akcdn.detik.net.id/community/media/visual/2026/08/21/ketua-umum-asosiasi-pengusaha-indonesia-apindo-shinta-kamdani-1787293865409_169.jpeg?w=360&q=90",
       "category": "local"
-    },
-    {
-      "id": "c0a7b178a79f5ca7f372",
-      "source": "aljazeera",
-      "title": "Coco Gauff says online racist abuse was ‘draining’ after China Open exit",
-      "url": "https://www.aljazeera.com/sports/2026/10/7/coco-gauff-says-online-racist-abuse-was-draining-after-china-open-exit?traffic_source=rss",
-      "publishedAt": "2026-10-07T12:53:11+00:00",
-      "image": "https://www.aljazeera.com/wp-content/uploads/2026/10/AFP__20261007__D2GL3ZQ__v1__MidRes__TennisChnOpen-1791375646.jpg?resize=1200%2C630",
-      "category": "sport"
     },
     {
       "id": "1c37ed99bc71e12cde5f",
@@ -1119,15 +1137,6 @@
       "publishedAt": "2026-10-07T12:41:44+00:00",
       "image": "https://asset.kompas.com/crops/iKxz6Y7AmSJKQBtpQe15k8GawO8=/0x0:1593x1062/750x500/data/photo/2026/07/25/6a63fef21e624.jpeg",
       "category": "local"
-    },
-    {
-      "id": "b7dd2495245258e6dbd4",
-      "source": "aljazeera",
-      "title": "Israeli soldier assaults Palestinian woman in occupied West Bank",
-      "url": "https://www.aljazeera.com/video/newsfeed/2026/10/7/israeli-soldier-assaults-palestinian-woman-in-occupied-west-bank?traffic_source=rss",
-      "publishedAt": "2026-10-07T12:39:07+00:00",
-      "image": "https://www.aljazeera.com/wp-content/uploads/2026/10/image-1791376577.jpg?resize=1920%2C1080&quality=80",
-      "category": "business"
     },
     {
       "id": "1e53ff30fe2029ddbfbd",
@@ -1308,15 +1317,6 @@
       "publishedAt": "2026-10-07T11:30:25+00:00",
       "image": "https://asset.kompas.com/crops/wK-ZzN6nMaxCudAxAbPm9U_ZtEQ=/0x0:0x0/750x500/data/photo/2026/10/07/6ac5e48f7336e.jpg",
       "category": "local"
-    },
-    {
-      "id": "0a8baf52ea5f9de21903",
-      "source": "bloomberg",
-      "title": "EM Assets Halt Advance as Hormuz Concerns Weigh on Risk Appetite",
-      "url": "https://www.bloomberg.com/news/articles/2026-10-07/emerging-stocks-halt-advance-as-hormuz-tensions-come-into-focus",
-      "publishedAt": "2026-10-07T11:22:47+00:00",
-      "image": null,
-      "category": "markets"
     },
     {
       "id": "8281575296a63e336214",
@@ -1760,94 +1760,94 @@
       "category": "local"
     },
     {
-      "id": "fcbb4ed0ad829063b291",
+      "id": "a342153cc8332a17cc43",
       "source": "investing",
-      "title": "Why is Black Hills stock surging today?",
-      "url": "https://www.investing.com/news/stock-market-news/why-is-black-hills-stock-surging-today-93CH-4937337",
+      "title": "Dollar rises as Fed minutes reinforce higher-for-longer rate outlook",
+      "url": "https://www.investing.com/news/forex-news/asian-currencies-mixed-as-dollar-holds-gains-yen-weakens-near-158-4935567",
       "publishedAt": null,
-      "image": "https://content-media.investing.com/news/LYNXNPEB6J0AJ_M.jpg",
+      "image": "https://content-media.investing.com/news/moved_LYNXMPEJ110QM_L.jpg",
       "category": "markets"
     },
     {
-      "id": "91e5ea6625b285512e9c",
+      "id": "68d2850ab17363bf85df",
       "source": "investing",
-      "title": "Why is Spotify stock rallying today?",
-      "url": "https://www.investing.com/news/stock-market-news/why-is-spotify-stock-rallying-today-93CH-4937336",
+      "title": "Gold down as Fed minutes showed policymakers see another rate hike by year end",
+      "url": "https://www.investing.com/news/commodities-news/gold-holds-gains-as-oil-flows-recover-treasury-yields-ease-4935492",
       "publishedAt": null,
-      "image": "https://content-media.investing.com/news/LYNXNPEAAA112_M.jpg",
+      "image": "https://content-media.investing.com/news/Gold_800x533_L_1609947477.jpg",
       "category": "markets"
     },
     {
-      "id": "c2b698f74ed28d2e4679",
+      "id": "ad5f0daffa2f55445342",
       "source": "investing",
-      "title": "Lucid Group bull and bear case: upside potential against deep execution risk",
-      "url": "https://www.investing.com/news/stock-market-news/lucid-group-bull-and-bear-case-upside-potential-against-deep-execution-risk-93CH-4937335",
-      "publishedAt": null,
-      "image": "https://content-media.investing.com/news/moved_LYNXMPEHB50EU_L.jpg",
-      "category": "markets"
-    },
-    {
-      "id": "d54091afe153d7a5b59a",
-      "source": "investing",
-      "title": "Trump administration plans to charge international students $70,000 for work authorization",
-      "url": "https://www.investing.com/news/economy-news/trump-administration-plans-to-charge-international-students-70000-for-work-authorization-4937334",
-      "publishedAt": null,
-      "image": "https://content-media.investing.com/trkd-images/LYNXMPEM961SF_L.jpg",
-      "category": "business"
-    },
-    {
-      "id": "90e261a7f7f195699822",
-      "source": "investing",
-      "title": "Stag Industrial stock hits 52-week low at $35.37",
-      "url": "https://www.investing.com/news/company-news/stag-industrial-stock-hits-52week-low-at-3537-93CH-4937332",
-      "publishedAt": null,
-      "image": "https://content-media.investing.com/news/LYNXMPEM0J0ZC_1200_L.jpg",
-      "category": "markets"
-    },
-    {
-      "id": "6effd652024da83b2b21",
-      "source": "investing",
-      "title": "Anthropic launches third Claude 5.5 model, expanding AI lineup before planned IPO",
-      "url": "https://www.investing.com/news/stock-market-news/anthropic-launches-third-claude-55-model-expanding-ai-lineup-before-planned-ipo-4937326",
-      "publishedAt": null,
-      "image": "https://content-media.investing.com/trkd-images/LYNXMPEM961RH_L.jpg",
-      "category": "technology"
-    },
-    {
-      "id": "386ecf4395973eeeba45",
-      "source": "investing",
-      "title": "US SEC will not charge top funds over climate concerns but warns of disclosure obligations",
-      "url": "https://www.investing.com/news/stock-market-news/us-sec-will-not-pursue-charges-against-climate-group-warns-of-disclosure-obligations-4937029",
-      "publishedAt": null,
-      "image": "https://content-media.investing.com/trkd-images/LYNXMPEM961AN_L.jpg",
-      "category": "sustainability"
-    },
-    {
-      "id": "a71b220516c81cf6d74d",
-      "source": "investing",
-      "title": "JBT Marel Corporation stock hits 52-week low at 104.32 USD",
-      "url": "https://www.investing.com/news/company-news/jbt-marel-corporation-stock-hits-52week-low-at-10432-usd-93CH-4937325",
+      "title": "Fifth Third names Darren King head of expanded Commercial Bank",
+      "url": "https://www.investing.com/news/company-news/fifth-third-names-darren-king-head-of-expanded-commercial-bank-93CH-4937347",
       "publishedAt": null,
       "image": "https://content-media.investing.com/news/LYNXMPEM1J0WY_1200_L.jpg",
-      "category": "markets"
-    },
-    {
-      "id": "9046a9d83585eed309c8",
-      "source": "investing",
-      "title": "U.S. stocks cut losses as oil turns lower, yields pare gains on strong auction",
-      "url": "https://www.investing.com/news/stock-market-news/us-stock-futures-steady-after-tech-rally-lifts-sp-500-nasdaq-to-records-4935463",
-      "publishedAt": null,
-      "image": "https://content-media.investing.com/news/LYNXMPEM4J1W2_1200_L.jpg",
-      "category": "markets"
-    },
-    {
-      "id": "972bb58c8a4e2d59238a",
-      "source": "investing",
-      "title": "Andersen announces three acquisitions across Europe and Africa",
-      "url": "https://www.investing.com/news/company-news/andersen-announces-three-acquisitions-across-europe-and-africa-93CH-4937323",
-      "publishedAt": null,
-      "image": "https://content-media.investing.com/news/LYNXMPEM1P0ZM_1200_L.jpg",
       "category": "business"
+    },
+    {
+      "id": "32e2a612b6ced0a706f5",
+      "source": "investing",
+      "title": "Tropical Storm Isaias forecast to hit US Gulf coast as hurricane early Saturday",
+      "url": "https://www.investing.com/news/commodities-news/tropical-stormisaias-forecast-to-hit-us-gulf-coast-as-hurricane-early-saturday-4937254",
+      "publishedAt": null,
+      "image": "https://content-media.investing.com/news/oil_2_M_1440047844.jpg",
+      "category": "other"
+    },
+    {
+      "id": "202e3bd22c1045be2e58",
+      "source": "investing",
+      "title": "Alamos Gold at John Tumazos conference: growth plan targets 1 million ounces",
+      "url": "https://www.investing.com/news/transcripts/alamos-gold-at-john-tumazos-conference-growth-plan-targets-1-million-ounces-93CH-4937344",
+      "publishedAt": null,
+      "image": "https://content-media.investing.com/news/LYNXNPEC0E0NG_M.jpg",
+      "category": "markets"
+    },
+    {
+      "id": "8a7d82e5627c46dca4bf",
+      "source": "investing",
+      "title": "Saba Capital sells $239,193 of PIMCO Dynamic Income Strategy fund",
+      "url": "https://www.investing.com/news/insider-trading-news/saba-capital-sells-239193-of-pimco-dynamic-income-strategy-fund-93CH-4937341",
+      "publishedAt": null,
+      "image": "https://content-media.investing.com/news/moved_LYNXMPEM3Q0WG_1200_L.jpg",
+      "category": "other"
+    },
+    {
+      "id": "6b112045650427cb007e",
+      "source": "investing",
+      "title": "Saba Capital buys $16,649 of Gabelli Healthcare & WellnessRx trust",
+      "url": "https://www.investing.com/news/insider-trading-news/saba-capital-buys-16649-of-gabelli-healthcare--wellnessrx-trust-93CH-4937342",
+      "publishedAt": null,
+      "image": "https://content-media.investing.com/news/moved_LYNXMPEM4416N_1200_L.jpg",
+      "category": "other"
+    },
+    {
+      "id": "36f964afa3fcd7e157ca",
+      "source": "investing",
+      "title": "S&P 500, Nasdaq ease from record highs as Treasury yields climb",
+      "url": "https://www.investing.com/news/economy-news/wall-st-futures-slip-as-yields-and-oil-rebound-fed-minutes-in-focus-4936151",
+      "publishedAt": null,
+      "image": "https://content-media.investing.com/trkd-images/LYNXMPEM960WU_L.jpg",
+      "category": "markets"
+    },
+    {
+      "id": "24a2a9883e8f0cb23191",
+      "source": "investing",
+      "title": "Fed minutes show most policymakers see another rate hike by year end",
+      "url": "https://www.investing.com/news/economy-news/fed-minutes-show-most-policymakers-see-another-rate-hike-by-year-end-4937310",
+      "publishedAt": null,
+      "image": "https://content-media.investing.com/news/moved_LYNXMPEI710GU_L.jpg",
+      "category": "business"
+    },
+    {
+      "id": "702e2bdd5c0f9f8c85ff",
+      "source": "investing",
+      "title": "Why is QXO stock sliding today?",
+      "url": "https://www.investing.com/news/stock-market-news/why-is-qxo-stock-sliding-today-93CH-4937338",
+      "publishedAt": null,
+      "image": "https://content-media.investing.com/news/LYNXNPEC0D0AP_M.jpg",
+      "category": "markets"
     },
     {
       "id": "e9cc1e2d7f76d2b3195b",
@@ -2030,6 +2030,60 @@
       "category": "local"
     },
     {
+      "id": "c2b64a66100bc5673777",
+      "source": "investing_id",
+      "title": "Fifth Third tunjuk Darren King pimpin Commercial Bank yang diperluas",
+      "url": "https://id.investing.com/news/company-news/fifth-third-tunjuk-darren-king-pimpin-commercial-bank-yang-diperluas-93CH-3089731",
+      "publishedAt": null,
+      "image": "https://content-media.investing.com/news/LYNXMPEM1J0WY_1200_L.jpg",
+      "category": "local"
+    },
+    {
+      "id": "68fc826322c943cc2dee",
+      "source": "investing_id",
+      "title": "Alamos Gold paparkan rencana pertumbuhan menuju 1 juta ons",
+      "url": "https://id.investing.com/news/transcripts/alamos-gold-paparkan-rencana-pertumbuhan-menuju-1-juta-ons-93CH-3089730",
+      "publishedAt": null,
+      "image": "https://content-media.investing.com/news/LYNXNPEC0E0NG_M.jpg",
+      "category": "local"
+    },
+    {
+      "id": "ccaf728bb05f13b4fcc5",
+      "source": "investing_id",
+      "title": "Saba Capital jual $239.193 saham dana PIMCO Dynamic Income Strategy",
+      "url": "https://id.investing.com/news/insider-trading-news/saba-capital-jual-239193-saham-dana-pimco-dynamic-income-strategy-93CH-3089729",
+      "publishedAt": null,
+      "image": "https://content-media.investing.com/news/moved_LYNXMPEM3Q0WG_1200_L.jpg",
+      "category": "local"
+    },
+    {
+      "id": "f501774a19dd66a00dee",
+      "source": "investing_id",
+      "title": "Saba Capital membeli saham GRX senilai $16.649",
+      "url": "https://id.investing.com/news/insider-trading-news/saba-capital-membeli-saham-grx-senilai-16649-93CH-3089728",
+      "publishedAt": null,
+      "image": "https://content-media.investing.com/news/moved_LYNXMPEM4416N_1200_L.jpg",
+      "category": "local"
+    },
+    {
+      "id": "a370c73b2538e6470b41",
+      "source": "investing_id",
+      "title": "Mengapa saham QXO merosot hari ini?",
+      "url": "https://id.investing.com/news/stock-market-news/mengapa-saham-qxo-merosot-hari-ini-93CH-3089727",
+      "publishedAt": null,
+      "image": "https://content-media.investing.com/news/LYNXNPEC0D0AP_M.jpg",
+      "category": "local"
+    },
+    {
+      "id": "aeb5b7ff9926cd6f7dba",
+      "source": "investing_id",
+      "title": "Mengapa saham Black Hills melonjak hari ini?",
+      "url": "https://id.investing.com/news/stock-market-news/mengapa-saham-black-hills-melonjak-hari-ini-93CH-3089726",
+      "publishedAt": null,
+      "image": "https://content-media.investing.com/news/LYNXNPEB6J0AJ_M.jpg",
+      "category": "local"
+    },
+    {
       "id": "0ddb857e226ecbe965e0",
       "source": "investing_id",
       "title": "Mengapa saham Spotify melonjak hari ini?",
@@ -2066,66 +2120,21 @@
       "category": "local"
     },
     {
-      "id": "2435720c1426facdd9e3",
-      "source": "investing_id",
-      "title": "Saham JBT Marel Corporation sentuh level terendah 52 minggu di $104,32",
-      "url": "https://id.investing.com/news/company-news/saham-jbt-marel-corporation-sentuh-level-terendah-52-minggu-di-10432-93CH-3089721",
-      "publishedAt": null,
-      "image": "https://content-media.investing.com/news/LYNXMPEM1J0WY_1200_L.jpg",
-      "category": "local"
-    },
-    {
-      "id": "1abf0e5238dad5da01c8",
-      "source": "investing_id",
-      "title": "Andersen umumkan tiga akuisisi di Eropa dan Afrika",
-      "url": "https://id.investing.com/news/company-news/andersen-umumkan-tiga-akuisisi-di-eropa-dan-afrika-93CH-3089720",
-      "publishedAt": null,
-      "image": "https://content-media.investing.com/news/LYNXMPEM1P0ZM_1200_L.jpg",
-      "category": "local"
-    },
-    {
-      "id": "884225a6419d39bab401",
-      "source": "investing_id",
-      "title": "Mengapa Saham Waste Connections Naik Hari Ini?",
-      "url": "https://id.investing.com/news/stock-market-news/mengapa-saham-waste-connections-naik-hari-ini-93CH-3089719",
-      "publishedAt": null,
-      "image": "https://content-media.investing.com/news/SP500StandardandPoors500Index_800x533_L_1657544297.jpg",
-      "category": "local"
-    },
-    {
-      "id": "5126a69a19d3b618a2db",
-      "source": "investing_id",
-      "title": "Mengapa saham Americas Gold and Silver turun hari ini?",
-      "url": "https://id.investing.com/news/stock-market-news/mengapa-saham-americas-gold-and-silver-turun-hari-ini-93CH-3089716",
-      "publishedAt": null,
-      "image": "https://content-media.investing.com/news/gold_2_M_1440047838.jpg",
-      "category": "local"
-    },
-    {
-      "id": "aaa8beb1bd29a1f5a3fb",
-      "source": "investing_id",
-      "title": "HP umumkan harga PC bertenaga AI, demo Windows di GB300",
-      "url": "https://id.investing.com/news/company-news/hp-umumkan-harga-pc-bertenaga-ai-demo-windows-di-gb300-93CH-3089713",
-      "publishedAt": null,
-      "image": "https://content-media.investing.com/news/LYNXMPEM4D1J3_1200_L.jpg",
-      "category": "local"
-    },
-    {
-      "id": "b48c6a23881c750980a9",
-      "source": "investing_id",
-      "title": "Menit Fed tunjukkan sebagian besar pejabat perkirakan kenaikan suku bunga lagi sebelum akhir tahun",
-      "url": "https://id.investing.com/news/economy-news/menit-fed-tunjukkan-sebagian-besar-pejabat-perkirakan-kenaikan-suku-bunga-lagi-sebelum-akhir-tahun-3089712",
-      "publishedAt": null,
-      "image": "https://content-media.investing.com/news/moved_LYNXMPEI710GU_L.jpg",
-      "category": "local"
-    },
-    {
-      "id": "821437860694ef39dec8",
+      "id": "84891dc9903bf53d2705",
       "source": "pluang",
-      "title": "ETF Invesco Leisure and Entertainment dinilai HOLD di tengah risiko ekonomi dan laporan laba mendatang.",
-      "url": "https://pluang.com/news-feed/peluang-pertumbuhan-sektor-leisure-terkendala-dengan-angin-melawan-siklik",
+      "title": "Litecoin rayakan 15 tahun dengan aktivitas jaringan tinggi, harga turun 6% karena tekanan pasar luas",
+      "url": "https://pluang.com/news-feed/litecoin-ulang-tahun-15-mweb-rekor-563000-ltc",
       "publishedAt": null,
-      "image": "https://image-cdn.pluang.com/web/news-cards/v2/GSS/7213a6772ba737db732964d56118e0c3052c9d823f73e2dbec84e1828e4da5db-id.webp",
+      "image": "https://image-cdn.pluang.com/web/news-cards/v2/CRYPTO/8fc547774cefcddaba46f30a6d0a5fdd8e13d43b503914873373cb6e65cb7e67-id.webp",
+      "category": "local"
+    },
+    {
+      "id": "641dc4ff9bd82b9527d3",
+      "source": "pluang",
+      "title": "Bitcoin turun di bawah $84K setelah tiga kali gagal tembus resistensi $87.722",
+      "url": "https://pluang.com/news-feed/387juta-dalam-pergerakan-bagaimana-ai-melacak-dana-dari-peretasan-bitget",
+      "publishedAt": null,
+      "image": "https://image-cdn.pluang.com/web/news-cards/v2/CRYPTO/d8bae12e2af625d628ff1b81267580b88bfc5786279c6d0a3908f0ca09b153fe-id.webp",
       "category": "local"
     }
   ]
