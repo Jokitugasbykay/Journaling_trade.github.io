@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "checkedAt": "2026-10-07T20:11:35.024789+00:00",
+  "checkedAt": "2026-10-07T20:28:23.328917+00:00",
   "intervalMinutes": 30,
   "sources": [
     {
@@ -9,7 +9,7 @@
       "url": "https://www.investing.com/",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-07T20:11:25.369378+00:00"
+      "checkedAt": "2026-10-07T20:28:19.010678+00:00"
     },
     {
       "id": "cnbc",
@@ -17,7 +17,7 @@
       "url": "https://www.cnbc.com/markets/",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-07T20:11:25.435331+00:00"
+      "checkedAt": "2026-10-07T20:28:18.947911+00:00"
     },
     {
       "id": "kontan",
@@ -25,7 +25,7 @@
       "url": "https://www.kontan.co.id/",
       "kind": "html",
       "status": "ok",
-      "checkedAt": "2026-10-07T20:11:26.244066+00:00"
+      "checkedAt": "2026-10-07T20:28:20.057507+00:00"
     },
     {
       "id": "reuters",
@@ -33,7 +33,7 @@
       "url": "https://www.reuters.com/",
       "kind": "sitemap",
       "status": "ok",
-      "checkedAt": "2026-10-07T20:11:25.582890+00:00"
+      "checkedAt": "2026-10-07T20:28:19.106406+00:00"
     },
     {
       "id": "aljazeera",
@@ -41,7 +41,7 @@
       "url": "https://www.aljazeera.com/",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-07T20:11:25.388058+00:00"
+      "checkedAt": "2026-10-07T20:28:19.070023+00:00"
     },
     {
       "id": "bloomberg",
@@ -49,7 +49,7 @@
       "url": "https://www.bloomberg.com/asia",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-07T20:11:25.802356+00:00"
+      "checkedAt": "2026-10-07T20:28:19.524631+00:00"
     },
     {
       "id": "fnc",
@@ -57,7 +57,7 @@
       "url": "https://tradewithfnc.com/",
       "kind": "json",
       "status": "ok",
-      "checkedAt": "2026-10-07T20:11:26.032312+00:00"
+      "checkedAt": "2026-10-07T20:28:20.035149+00:00"
     },
     {
       "id": "investing_id",
@@ -65,7 +65,7 @@
       "url": "https://id.investing.com/news",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-07T20:11:25.685074+00:00"
+      "checkedAt": "2026-10-07T20:28:19.145614+00:00"
     },
     {
       "id": "pluang",
@@ -73,7 +73,7 @@
       "url": "https://pluang.com/news-feed",
       "kind": "html",
       "status": "ok",
-      "checkedAt": "2026-10-07T20:11:25.928049+00:00"
+      "checkedAt": "2026-10-07T20:28:19.459202+00:00"
     },
     {
       "id": "kompas",
@@ -81,7 +81,7 @@
       "url": "https://money.kompas.com/",
       "kind": "html",
       "status": "ok",
-      "checkedAt": "2026-10-07T20:11:27.077268+00:00"
+      "checkedAt": "2026-10-07T20:28:20.233759+00:00"
     },
     {
       "id": "detik",
@@ -89,7 +89,7 @@
       "url": "https://finance.detik.com/",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-07T20:11:27.301668+00:00"
+      "checkedAt": "2026-10-07T20:28:20.577560+00:00"
     },
     {
       "id": "kemenkeu",
@@ -121,7 +121,7 @@
       "url": "https://ekbis.sindonews.com/",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-07T20:11:27.944440+00:00"
+      "checkedAt": "2026-10-07T20:28:19.789155+00:00"
     },
     {
       "id": "fedwatch",
@@ -139,6 +139,186 @@
     }
   ],
   "items": [
+    {
+      "id": "00faab173dbd6427e701",
+      "source": "cnbc",
+      "title": "Trump’s diesel order exposes White House limits to counter surging fuel prices",
+      "url": "https://www.cnbc.com/2026/10/07/trump-red-dye-offroad-diesel-price-iran-ukraine-war-midterm.html",
+      "publishedAt": "2026-10-07T20:26:51+00:00",
+      "image": "https://image.cnbcfm.com/api/v1/image/108364429-1789658380560-gettyimages-2295761542-mms10061_tiwtupzm.jpeg?v=1789658521&w=1920&h=1080",
+      "category": "world"
+    },
+    {
+      "id": "8d539aaf9492daaac139",
+      "source": "cnbc",
+      "title": "Microsoft to sell $2,599 Surface Laptop Ultra containing Nvidia AI chip",
+      "url": "https://www.cnbc.com/2026/10/07/microsoft-starts-taking-preorders-for-2599-surface-laptop-ultra.html",
+      "publishedAt": "2026-10-07T20:26:13+00:00",
+      "image": "https://image.cnbcfm.com/api/v1/image/108374272-1791394791672-Screenshot-2026-10-07-at-13735_PM.jpg?v=1791394804&w=1920&h=1080",
+      "category": "technology"
+    },
+    {
+      "id": "a65e46b6fa01deea6ba4",
+      "source": "cnbc",
+      "title": "Levi Strauss hikes profit guidance after tariff refunds, but its sales outlook is less optimistic",
+      "url": "https://www.cnbc.com/2026/10/07/levi-strauss-levi-q3-2026-earnings.html",
+      "publishedAt": "2026-10-07T20:25:25+00:00",
+      "image": "https://image.cnbcfm.com/api/v1/image/108370148-1790771590456-gettyimages-2290036369-golba-dailylif260807_npnf2.jpeg?v=1791404003&w=1920&h=1080",
+      "category": "business"
+    },
+    {
+      "id": "27ff3e7f53958d3340bd",
+      "source": "reuters",
+      "title": "EPA says it will rescind US policy targeting oil and gas industry methane leaks",
+      "url": "https://www.reuters.com/legal/government/epa-says-will-soon-act-rescind-biden-policy-targeting-methane-leaks-2026-10-07/",
+      "publishedAt": "2026-10-07T20:23:39.445000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/VPLMLRWSRBN37HRNXMEK5GCRC4.jpg?auth=04137f69d4ba86d8689adc50ebf5b2d353ed3c0510f9421ecc9859780b6b09b4&smart=true&width=1920",
+      "category": "legal"
+    },
+    {
+      "id": "d830e30f3fba12760a20",
+      "source": "reuters",
+      "title": "Attacks on Saudi airports kill three people, as fighting escalates in Yemen",
+      "url": "https://www.reuters.com/world/middle-east/houthis-launch-missiles-yemens-aden-airport-fighting-intensifies-2026-10-07/",
+      "publishedAt": "2026-10-07T20:21:28.631000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/EDCEF3KM6ZMYHOT2QFBCW32XA4.jpg?auth=4616ae75f15a048b2d7b0b747bf764f06ae0b164d18586df51f55575819ab59b&smart=true&width=1920",
+      "category": "world"
+    },
+    {
+      "id": "9c8071e0fc0b040cc31d",
+      "source": "reuters",
+      "title": "Levi Strauss lifts annual profit outlook on tariff refunds, holiday demand",
+      "url": "https://www.reuters.com/business/retail-consumer/levi-strauss-lifts-annual-profit-outlook-tariff-refunds-holiday-demand-2026-10-07/",
+      "publishedAt": "2026-10-07T20:20:38.639000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/HGUCXMESPRNGHMRPQCU4TX74IM.jpg?auth=7556eb46bfa234e149406b5258812d03fb046eaaa7c9041687f560a0ddf2aa41&smart=true&width=1920",
+      "category": "business"
+    },
+    {
+      "id": "10b73971c52e9bc5a4fe",
+      "source": "reuters",
+      "title": "Evicted Spanish octogenarian Maricarmen Abascal, heart of Spain's housing protests, has died",
+      "url": "https://www.reuters.com/world/evicted-spanish-octogenarian-maricarmen-abascal-heart-spains-housing-protests-2026-10-07/",
+      "publishedAt": "2026-10-07T20:20:30.104000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/ORWZUTGM3BPNHAT6UZZ5T2PDHE.jpg?auth=3c50039e27cf7260035fb6ee99b2de77a39b04c60857ea579e7122227abe36d4&smart=true&width=1920",
+      "category": "world"
+    },
+    {
+      "id": "6f5b6b4dac3b2dbea5c5",
+      "source": "reuters",
+      "title": "Fed policymakers divided over rate-hike logic in September, minutes show",
+      "url": "https://www.reuters.com/business/fed-policymakers-divided-over-rate-hike-logic-september-minutes-show-2026-10-07/",
+      "publishedAt": "2026-10-07T20:19:52.747000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/5NF4SM4BTRLKPJT6LY3AHR4HZA.jpg?auth=b8f806f3629b1ac1b9320a0695d15163bf1102fafbb4319b2f3d90921f466b81&smart=true&width=1920",
+      "category": "business"
+    },
+    {
+      "id": "05939284f3afb033e967",
+      "source": "reuters",
+      "title": "Wall Street ends lower, off record highs, as Treasury yields climb",
+      "url": "https://www.reuters.com/business/wall-st-futures-slip-yields-oil-rebound-fed-minutes-focus-2026-10-07/",
+      "publishedAt": "2026-10-07T20:19:47.176000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/GCFMMABDZZM4LIXAZTC4IJJ7UQ.jpg?auth=f78af9c14d20adb476a11c4cd842169bc1d5276ddd76c728f7b6c54439bd3cd1&smart=true&width=1920",
+      "category": "markets"
+    },
+    {
+      "id": "207b62f0417703dbc507",
+      "source": "reuters",
+      "title": "Kennedy offers federal support to New York over measles outbreak",
+      "url": "https://www.reuters.com/legal/litigation/kennedy-offers-federal-support-new-york-over-measles-outbreak-2026-10-07/",
+      "publishedAt": "2026-10-07T20:19:44.744000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/3PFO2JEKXJL3XIXVPIJOKLMFVE.jpg?auth=eb80834d8650563a59c51cb1a0cf77522dd72fcc7a75ab456541bea1ef128210&smart=true&width=1920",
+      "category": "legal"
+    },
+    {
+      "id": "95cddbb2d1a1824ed026",
+      "source": "reuters",
+      "title": "CDC sees low plague risk, monitors Siberia arrivals after worker death, director says",
+      "url": "https://www.reuters.com/business/healthcare-pharmaceuticals/cdc-sees-low-plague-risk-monitors-siberia-arrivals-after-worker-death-director-2026-10-07/",
+      "publishedAt": "2026-10-07T20:17:59.854000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/E73RUJPT6VMYLMJDCZFEUJAXVU.jpg?auth=bb42700be445dc25b9b7c8dfc56ef12c8cb34ae78d162389c29a4af574f22727&smart=true&width=1920",
+      "category": "business"
+    },
+    {
+      "id": "a8d4272dc0bde85d0cc7",
+      "source": "reuters",
+      "title": "Maduro, wife expected to face new charges over alleged torture of Americans, CNN says",
+      "url": "https://www.reuters.com/world/americas/maduro-wife-expected-face-new-charges-over-alleged-torture-americans-cnn-says-2026-10-07/",
+      "publishedAt": "2026-10-07T20:17:44.744000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/2Q6ZHAVKJFOA3JWIGGEG7KJLDE.jpg?auth=dcd20ac3e0372149ed0988fb227686b0ae2b4a130c0fa501428190046c439e3c&smart=true&width=1920",
+      "category": "world"
+    },
+    {
+      "id": "29ef999cc5ad9e4b3f37",
+      "source": "reuters",
+      "title": "Ronaldo hails Messi after Argentina great says he already misses national team",
+      "url": "https://www.reuters.com/sports/soccer/ronaldo-hails-messi-after-argentina-great-says-he-already-misses-national-team-2026-10-07/",
+      "publishedAt": "2026-10-07T20:17:27.237000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/MDOD57MTV5NTHNM5H5HAVLP4GU.jpg?auth=c308d581a8abd698f1c028477d52f283ed6df7adbba47d1ae469f31cd172c7a7&smart=true&width=1920",
+      "category": "sport"
+    },
+    {
+      "id": "ecd0db470d96401ede99",
+      "source": "reuters",
+      "title": "UPS to hire 100,000 temporary workers for holiday season",
+      "url": "https://www.reuters.com/business/world-at-work/ups-hire-100000-temporary-workers-ahead-peak-holiday-season-2026-10-07/",
+      "publishedAt": "2026-10-07T20:17:10.115000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/Z2WWH7XTEZPYHNTGDEHBOFCFWQ.jpg?auth=85f674e81408c6903c8392cc198841dadddc13e6fbe54cda9bb3c13b4d1b87d2&smart=true&width=1920",
+      "category": "business"
+    },
+    {
+      "id": "62597dabccd652d9f556",
+      "source": "reuters",
+      "title": "Pfizer to cut around 330 jobs in Italy",
+      "url": "https://www.reuters.com/business/world-at-work/pfizer-cut-around-330-jobs-italy-2026-10-07/",
+      "publishedAt": "2026-10-07T20:16:45.688000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/MVPZ2Q4OI5IDFA5CH2RZWG5C4Y.jpg?auth=0b9cfb969501f94aa89154f9ab5e51a215d007d938aca786a93780fb51d3259e&smart=true&width=1920",
+      "category": "business"
+    },
+    {
+      "id": "dcb6d4cfd4e1e1d65dfe",
+      "source": "reuters",
+      "title": "Brazil's Bolsonaro pledges broad review of Lula-era taxes",
+      "url": "https://www.reuters.com/legal/transactional/brazils-bolsonaro-pledges-broad-review-lula-era-taxes-2026-10-07/",
+      "publishedAt": "2026-10-07T20:16:28.253000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/NM25LRCQFRK7LEMQCBP7JHIE5A.jpg?auth=e793f4d8a58fd8a40a03847fd8f1e957e89db1909c1e4c381ad60e4d22278fcd&smart=true&width=1920",
+      "category": "legal"
+    },
+    {
+      "id": "e41600019a60e40fa1d2",
+      "source": "reuters",
+      "title": "Fed minutes show some officials want to prepare for market stress",
+      "url": "https://www.reuters.com/business/fed-minutes-show-some-officials-want-prepare-market-stress-2026-10-07/",
+      "publishedAt": "2026-10-07T20:15:16.413000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/Z7YWMRX5SFI4RMLAVKAUBCHAGI.jpg?auth=0c75f488db6615c8b015fc31b3afa73d082a5d11edb1668d88f86926abf7b438&smart=true&width=1920",
+      "category": "markets"
+    },
+    {
+      "id": "fd24b6fe5a9f97e4bc6f",
+      "source": "aljazeera",
+      "title": "Democratic FCC member warns of AI robocall misinformation risks in US",
+      "url": "https://www.aljazeera.com/economy/2026/10/7/democratic-fcc-member-warns-of-ai-robocall-misinformation-risks-in-us?traffic_source=rss",
+      "publishedAt": "2026-10-07T20:14:35+00:00",
+      "image": "https://www.aljazeera.com/wp-content/uploads/2026/10/2026-07-22T175316Z_463460093_RC24JMAZZAL1_RTRMADP_3_USA-FCC-1791400052.jpg?resize=1920%2C1440",
+      "category": "technology"
+    },
+    {
+      "id": "15f217eae8e92847426f",
+      "source": "reuters",
+      "title": "AI companies run virtual drug trials, aim to improve success of human studies",
+      "url": "https://www.reuters.com/legal/litigation/ai-companies-run-virtual-drug-trials-aim-improve-success-human-studies-2026-10-07/",
+      "publishedAt": "2026-10-07T20:13:51.570000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/3TTXSDI3WZMKRDJI6UPSI6XRR4.jpg?auth=02d92713bfb202e79b950984a7661608434062628e1e3923eedf45b90122ab77&smart=true&width=1920",
+      "category": "legal"
+    },
+    {
+      "id": "1b7404c297d544ea204a",
+      "source": "reuters",
+      "title": "Trump expected to award science medal to SpaceX's Elon Musk, Fox News reports",
+      "url": "https://www.reuters.com/business/media-telecom/trump-expected-award-science-medal-spacexs-elon-musk-fox-news-reports-2026-10-07/",
+      "publishedAt": "2026-10-07T20:12:20.674000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/DHOWK6DTXBLRFORI2CPHTY2ERY.jpg?auth=c85907bf9891a11db9e5f4b6b0e5277f0bf078d6e990671b26a6bcc5d4e9d37b&smart=true&width=1920",
+      "category": "science"
+    },
     {
       "id": "afa517c11dbfabf54839",
       "source": "cnbc",
@@ -167,13 +347,13 @@
       "category": "technology"
     },
     {
-      "id": "15f217eae8e92847426f",
-      "source": "reuters",
-      "title": "AI companies run virtual drug trials, aim to improve success of human studies",
-      "url": "https://www.reuters.com/legal/litigation/ai-companies-run-virtual-drug-trials-aim-improve-success-human-studies-2026-10-07/",
-      "publishedAt": "2026-10-07T20:06:03.301000+00:00",
-      "image": "https://www.reuters.com/resizer/v2/3TTXSDI3WZMKRDJI6UPSI6XRR4.jpg?auth=02d92713bfb202e79b950984a7661608434062628e1e3923eedf45b90122ab77&smart=true&width=1920",
-      "category": "legal"
+      "id": "ed6dc05a36c13aaee952",
+      "source": "bloomberg",
+      "title": "First Brands’ Brothers Say They’ll Blame Each Other at Trial",
+      "url": "https://www.bloomberg.com/news/articles/2026-10-07/first-brands-brothers-say-they-ll-blame-each-other-at-trial",
+      "publishedAt": "2026-10-07T20:05:38+00:00",
+      "image": null,
+      "category": "other"
     },
     {
       "id": "53a1b1b40b9969f386ef",
@@ -183,15 +363,6 @@
       "publishedAt": "2026-10-07T20:05:34.963000+00:00",
       "image": "https://www.reuters.com/resizer/v2/G5JAJ7O7XRM7VNJT7OIT4DV4OM.jpg?auth=a72174bfd7a6814953dd2c484d6e7ad42140a35e36e99514060b738c18608aa6&smart=true&width=1920",
       "category": "markets"
-    },
-    {
-      "id": "27ff3e7f53958d3340bd",
-      "source": "reuters",
-      "title": "EPA says will rescind policy targeting oil and gas industry methane leaks",
-      "url": "https://www.reuters.com/legal/government/epa-says-will-soon-act-rescind-biden-policy-targeting-methane-leaks-2026-10-07/",
-      "publishedAt": "2026-10-07T20:04:41.574000+00:00",
-      "image": "https://www.reuters.com/resizer/v2/JCMLDT5N25MIZGLEDFHQS4CJWM.jpg?auth=6b20311d14e34aa798800232d4510725b86fee1cb5eed190439820e500de3a52&smart=true&width=1920",
-      "category": "legal"
     },
     {
       "id": "d3ba69b67918a403b92e",
@@ -212,94 +383,13 @@
       "category": "sport"
     },
     {
-      "id": "f232d2e992dbb1a98241",
-      "source": "reuters",
-      "title": "The status of Iran's uranium enrichment programme",
-      "url": "https://www.reuters.com/world/middle-east/status-irans-uranium-enrichment-programme-2026-10-07/",
-      "publishedAt": "2026-10-07T20:02:52.810000+00:00",
-      "image": "https://www.reuters.com/resizer/v2/KYHNHOEN7VPH7MVUAV2VQCFLZM.jpg?auth=ca60950be22bc7c9f36c98185616b8ed2bf6d07d31a02555c60dd20cea1fd8a9&smart=true&width=1920",
-      "category": "world"
-    },
-    {
-      "id": "a78d919ff3f4d7368fdb",
-      "source": "reuters",
-      "title": "Rahm's lawyer tells court Spaniard is done with LIV Golf after three seasons",
-      "url": "https://www.reuters.com/sports/golf/rahm-leave-liv-golf-after-three-seasons-reports-say-2026-10-07/",
-      "publishedAt": "2026-10-07T20:02:32.307000+00:00",
-      "image": "https://www.reuters.com/resizer/v2/D4RCGVNPARK5BINX5IL4EQLMA4.jpg?auth=c39fa55b46aa845c1d4806055281b1ef28e48314796b8ead4e45a0a36e155ce6&smart=true&width=1920",
-      "category": "legal"
-    },
-    {
-      "id": "cda518321250a9807e73",
-      "source": "reuters",
-      "title": "Zealand, Roche's obesity drug helps patients lose up to 9.2% weight in mid-stage trial",
-      "url": "https://www.reuters.com/business/healthcare-pharmaceuticals/zealand-roches-obesity-drug-helps-patients-lose-up-92-weight-mid-stage-trial-2026-10-07/",
-      "publishedAt": "2026-10-07T20:02:03.577000+00:00",
-      "image": "https://www.reuters.com/resizer/v2/SKNV7TJIRBJKJMKX5N6V5T5KTI.jpg?auth=43eccb9de5e0ae80eb63703a78bfaf7639e2ee77c55c37a9988362d3d3865e59&smart=true&width=1920",
-      "category": "business"
-    },
-    {
-      "id": "10b73971c52e9bc5a4fe",
-      "source": "reuters",
-      "title": "Evicted Spanish octogenarian Maricarmen Abascal, heart of Spain's housing protests, has died",
-      "url": "https://www.reuters.com/world/evicted-spanish-octogenarian-maricarmen-abascal-heart-spains-housing-protests-2026-10-07/",
-      "publishedAt": "2026-10-07T20:01:43.718000+00:00",
-      "image": "https://www.reuters.com/resizer/v2/ORWZUTGM3BPNHAT6UZZ5T2PDHE.jpg?auth=3c50039e27cf7260035fb6ee99b2de77a39b04c60857ea579e7122227abe36d4&smart=true&width=1920",
-      "category": "world"
-    },
-    {
-      "id": "2395aa94e5763056a58c",
-      "source": "reuters",
-      "title": "Dodgers shuffle Shohei Ohtani to cleanup spot in Game 4",
-      "url": "https://www.reuters.com/sports/dodgers-shuffle-shohei-ohtani-cleanup-spot-game-4--flm-2026-10-07/",
-      "publishedAt": "2026-10-07T20:01:12.053000+00:00",
-      "image": "https://www.reuters.com/resizer/v2/ADPTPEG7VVPIRPXPVDZO5K76FI.jpg?auth=38859ee91c2dfcb5828848f5c224cb6fbd069721a6bb86800c6fc65f4c771b8d&smart=true&width=1920",
-      "category": "sport"
-    },
-    {
-      "id": "05939284f3afb033e967",
-      "source": "reuters",
-      "title": "Wall Street ends lower, off record highs, as Treasury yields climb",
-      "url": "https://www.reuters.com/business/wall-st-futures-slip-yields-oil-rebound-fed-minutes-focus-2026-10-07/",
-      "publishedAt": "2026-10-07T20:01:00.388000+00:00",
-      "image": "https://www.reuters.com/resizer/v2/GCFMMABDZZM4LIXAZTC4IJJ7UQ.jpg?auth=f78af9c14d20adb476a11c4cd842169bc1d5276ddd76c728f7b6c54439bd3cd1&smart=true&width=1920",
-      "category": "markets"
-    },
-    {
-      "id": "00faab173dbd6427e701",
-      "source": "cnbc",
-      "title": "Trump’s diesel order exposes White House limits to counter surging fuel prices",
-      "url": "https://www.cnbc.com/2026/10/07/trump-red-dye-offroad-diesel-price-iran-ukraine-war-midterm.html",
-      "publishedAt": "2026-10-07T20:00:36+00:00",
-      "image": "https://image.cnbcfm.com/api/v1/image/108364429-1789658380560-gettyimages-2295761542-mms10061_tiwtupzm.jpeg?v=1789658521&w=1920&h=1080",
-      "category": "world"
-    },
-    {
-      "id": "dcb6d4cfd4e1e1d65dfe",
-      "source": "reuters",
-      "title": "Brazil's Bolsonaro pledges broad review of Lula-era taxes",
-      "url": "https://www.reuters.com/legal/transactional/brazils-bolsonaro-pledges-broad-review-lula-era-taxes-2026-10-07/",
-      "publishedAt": "2026-10-07T19:55:41.387000+00:00",
-      "image": "https://www.reuters.com/resizer/v2/NM25LRCQFRK7LEMQCBP7JHIE5A.jpg?auth=e793f4d8a58fd8a40a03847fd8f1e957e89db1909c1e4c381ad60e4d22278fcd&smart=true&width=1920",
-      "category": "legal"
-    },
-    {
-      "id": "f78e176eafc6a25e4690",
-      "source": "reuters",
-      "title": "Operação da PF que mirou político do PL é de 2025 e não envolve Flávio",
-      "url": "https://www.reuters.com/fact-check/portugues/IAATMNV4FZLXHCZM22YTRUHYGA-2026-10-07/",
-      "publishedAt": "2026-10-07T19:55:08.547000+00:00",
-      "image": null,
+      "id": "8ef00dc4d51f7e410337",
+      "source": "aljazeera",
+      "title": "Former Catholic bishop sentenced for abusing indigenous men in Australia",
+      "url": "https://www.aljazeera.com/news/2026/10/7/former-catholic-bishop-sentenced-for-abusing-indigenous-men-in-australia?traffic_source=rss",
+      "publishedAt": "2026-10-07T19:57:14+00:00",
+      "image": "https://www.aljazeera.com/wp-content/uploads/2026/10/getty_6ac68b6ea3-1791396718.jpg?resize=1920%2C1440",
       "category": "other"
-    },
-    {
-      "id": "6d87525e63858c3c4344",
-      "source": "reuters",
-      "title": "Litigation funder Omni Bridgeway raises $1 billion",
-      "url": "https://www.reuters.com/legal/transactional/litigation-funder-omni-bridgeway-raises-1-billion-2026-10-07/",
-      "publishedAt": "2026-10-07T19:54:00.049000+00:00",
-      "image": "https://www.reuters.com/resizer/v2/QVUJB77BFBLH3M435P73DVXCVE.jpg?auth=7d5875b793744d06a6176cb24b81b7ef038b954aa4e0409de26af901f7620a2b&smart=true&width=1920",
-      "category": "legal"
     },
     {
       "id": "dd0fa9aa7476de6e5d73",
@@ -311,33 +401,6 @@
       "category": "other"
     },
     {
-      "id": "8bfde3ae7afd2d44f741",
-      "source": "reuters",
-      "title": "Pressure mounting on Cornell administration, president over handling of alleged gang rape",
-      "url": "https://www.reuters.com/legal/government/pressure-mounting-cornell-administration-president-over-handling-alleged-gang-2026-10-07/",
-      "publishedAt": "2026-10-07T19:48:09.604000+00:00",
-      "image": "https://www.reuters.com/resizer/v2/ID4OUIJO7FIHTC5CS45A53WGWA.jpg?auth=f4258173feb97382a786d164b158dc0b894283c3dcc458b2c2323fe6a3a76e1a&smart=true&width=1920",
-      "category": "legal"
-    },
-    {
-      "id": "1b7404c297d544ea204a",
-      "source": "reuters",
-      "title": "Trump expected to award science medal to SpaceX's Elon Musk, Fox News reports",
-      "url": "https://www.reuters.com/business/media-telecom/trump-expected-award-science-medal-spacexs-elon-musk-fox-news-reports-2026-10-07/",
-      "publishedAt": "2026-10-07T19:47:42.775000+00:00",
-      "image": "https://www.reuters.com/resizer/v2/DHOWK6DTXBLRFORI2CPHTY2ERY.jpg?auth=c85907bf9891a11db9e5f4b6b0e5277f0bf078d6e990671b26a6bcc5d4e9d37b&smart=true&width=1920",
-      "category": "science"
-    },
-    {
-      "id": "8a4646ffa7ea2042fedb",
-      "source": "reuters",
-      "title": "Most Republicans in tight midterm races distance themselves from Trump, Reuters review finds",
-      "url": "https://www.reuters.com/world/us/most-republicans-tight-midterm-distance-themselves-trump-reuters-review-finds-2026-10-07/",
-      "publishedAt": "2026-10-07T19:47:02.602000+00:00",
-      "image": "https://www.reuters.com/resizer/v2/4CKEKGDJJ5LGNJQZ6PEOQDOVRI.jpg?auth=d0e0b36d5aa5c285647e50b997e4c3ebe64928186b10791db1cd945ccb9f5b59&smart=true&width=1920",
-      "category": "world"
-    },
-    {
       "id": "14bb1297b135c7a8f835",
       "source": "bloomberg",
       "title": "Midterm Elections Are Potential Test for US Defense Investors",
@@ -345,24 +408,6 @@
       "publishedAt": "2026-10-07T19:46:42+00:00",
       "image": null,
       "category": "world"
-    },
-    {
-      "id": "e885e104be85634c96d4",
-      "source": "reuters",
-      "title": "Whoa, Tide? Alabama, Georgia brace for tropical storm",
-      "url": "https://www.reuters.com/sports/whoa-tide-alabama-georgia-brace-tropical-storm--flm-2026-10-07/",
-      "publishedAt": "2026-10-07T19:45:08.361000+00:00",
-      "image": null,
-      "category": "sport"
-    },
-    {
-      "id": "0f3c7d9115cd8b4f518d",
-      "source": "reuters",
-      "title": "US FDA expands use of Novartis drug for chronic skin condition",
-      "url": "https://www.reuters.com/business/healthcare-pharmaceuticals/us-fda-expands-use-novartis-drug-chronic-skin-condition-2026-10-07/",
-      "publishedAt": "2026-10-07T19:44:53.949000+00:00",
-      "image": "https://www.reuters.com/resizer/v2/MDYEBUMBBNOCVKFSFJUULZWGZQ.jpg?auth=65cfa665a89de0a101247a5d9a03db084483aba53027f12b488c9597dec9481d&smart=true&width=1920",
-      "category": "business"
     },
     {
       "id": "aa7d45b1b7258855b990",
@@ -464,15 +509,6 @@
       "category": "world"
     },
     {
-      "id": "8d539aaf9492daaac139",
-      "source": "cnbc",
-      "title": "Microsoft to sell $2,599 Surface Laptop Ultra containing Nvidia AI chip",
-      "url": "https://www.cnbc.com/2026/10/07/microsoft-starts-taking-preorders-for-2599-surface-laptop-ultra.html",
-      "publishedAt": "2026-10-07T18:55:10+00:00",
-      "image": "https://image.cnbcfm.com/api/v1/image/108374272-1791394791672-Screenshot-2026-10-07-at-13735_PM.jpg?v=1791394804&w=1920&h=1080",
-      "category": "technology"
-    },
-    {
       "id": "5a9529edb5beb6811196",
       "source": "bloomberg",
       "title": "LIV Golf Loses Jon Rahm in Blow to League’s Bankruptcy-Exit Plan",
@@ -552,15 +588,6 @@
       "publishedAt": "2026-10-07T18:37:25+00:00",
       "image": null,
       "category": "business"
-    },
-    {
-      "id": "8635cfb6d14f2218fc47",
-      "source": "bloomberg",
-      "title": "Hertz Lenders Team Up With Advisers as Possible Debt Fight Looms",
-      "url": "https://www.bloomberg.com/news/articles/2026-10-07/hertz-lenders-team-up-with-advisers-as-possible-debt-fight-looms",
-      "publishedAt": "2026-10-07T18:35:19+00:00",
-      "image": null,
-      "category": "other"
     },
     {
       "id": "7b1dc598bc16170ea885",
@@ -860,15 +887,6 @@
       "category": "local"
     },
     {
-      "id": "a4cb9421dde13891264f",
-      "source": "aljazeera",
-      "title": "The mass killing does not mean Israel’s winning",
-      "url": "https://www.aljazeera.com/opinions/2026/10/7/the-mass-killing-does-not-mean-israels-winning?traffic_source=rss",
-      "publishedAt": "2026-10-07T15:25:06+00:00",
-      "image": "https://www.aljazeera.com/wp-content/uploads/2026/06/getty_6a1ffd2d48-1780481325.jpg?resize=1920%2C1440",
-      "category": "commentary"
-    },
-    {
       "id": "529cba2af29a85ca1c5c",
       "source": "bloomberg",
       "title": "Dollar Nears New High of the Year as Investors Seek Safety",
@@ -885,15 +903,6 @@
       "publishedAt": "2026-10-07T15:20:21+00:00",
       "image": "https://asset.kompas.com/crops/9JBtsX4TO4G6eSWUqFsqa4irjus=/86x3:617x357/750x500/data/photo/2021/12/10/61b371940d4b4.jpg",
       "category": "local"
-    },
-    {
-      "id": "d57c078bb5a3e432c156",
-      "source": "aljazeera",
-      "title": "How Israel’s genocide in Gaza pulled Britons into the Palestine movement",
-      "url": "https://www.aljazeera.com/news/2026/10/7/how-israels-genocide-in-gaza-pulled-britons-into-the-palestine-movement?traffic_source=rss",
-      "publishedAt": "2026-10-07T15:13:21+00:00",
-      "image": "https://www.aljazeera.com/wp-content/uploads/2026/10/2025-07-12T160204Z_582396475_RC21LFAVWRDR_RTRMADP_3_ISRAEL-PALESTINIANS-BRITAIN-PALESTINE-ACTION-1791383408.jpg?resize=1920%2C1440",
-      "category": "world"
     },
     {
       "id": "8fe4628a3b3f117b7fad",
@@ -1020,15 +1029,6 @@
       "publishedAt": "2026-10-07T13:56:45+00:00",
       "image": "https://pict.sindonews.com/dyn/850/pena/news/2026/10/07/34/1758021/kinerja-wamen-sektor-ekonomi-dorong-citra-positif-pemerintah-teo.jpeg",
       "category": "local"
-    },
-    {
-      "id": "39d9312182b58b492309",
-      "source": "cnbc",
-      "title": "Trading platform Webull's China ties create national security risk, congressional panel finds; stock drops 18%",
-      "url": "https://www.cnbc.com/2026/10/07/webull-china-national-security-risk-congress.html",
-      "publishedAt": "2026-10-07T13:46:28+00:00",
-      "image": "https://image.cnbcfm.com/api/v1/image/108373977-1791377484586-gettyimages-1231989873-BC_ChineseFlag2021_4322.jpeg?v=1791377538&w=1920&h=1080",
-      "category": "markets"
     },
     {
       "id": "baa151ac8fe1a80ef32b",
