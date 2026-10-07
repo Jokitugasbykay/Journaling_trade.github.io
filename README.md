@@ -59,7 +59,10 @@ Aplikasi ini dibangun menggunakan arsitektur **Client-Side Open Source**. Anda t
    - Evaluasi kelayakan rasio Risk to Reward (R:R) sebelum membuka posisi.
 5. **Berita & Kalender Ekonomi**:
    - Kalender rilis data makro ekonomi (CPI, NFP, Suku Bunga) dengan filter dampak pasar.
-   - Pembatasan analitik institusional Pro.
+   - Judul berita dari Investing.com, CNBC, Kontan, Reuters, Al Jazeera, dan Bloomberg beserta tautan artikel asli.
+   - GitHub Actions mengambil dan menerbitkan berita setiap 30 menit setiap hari; jadwal GitHub dapat tertunda. Browser memeriksa pembaruan setiap 5 menit. Waktu pemeriksaan dan status sumber ditampilkan.
+   - CME FedWatch dan CME Markets tersedia melalui halaman resmi yang diperbarui oleh CME. Judul artikel mengikuti bahasa penerbit.
+   - Modul Market Analysis dan dataset sinyal trading telah dihapus.
 6. **Profil & Multi-Akun Broker**:
    - Pengaturan identitas trader dan kurs konversi USD ke IDR.
    - Pengelolaan multi-akun broker simultan.

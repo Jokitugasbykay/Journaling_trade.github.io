@@ -8,7 +8,7 @@ const escape = vm.runInNewContext(line + '\nesc');
 assert.equal(escape('Hello \u{1F600} <script>'), 'Hello  &lt;script&gt;');
 assert.equal(escape('USD/IDR +1.5%'), 'USD/IDR +1.5%');
 assert.equal(escape('\u{1F1EE}\u{1F1E9}'), '');
-for (const file of ['index.html', 'js/app.js', 'js/scan.js', 'analisa.json', 'berita.json', 'kalender.json']) {
+for (const file of ['index.html', 'js/app.js', 'js/scan.js', 'berita.json', 'kalender.json']) {
   const content = fs.readFileSync(path.join(__dirname, '..', file), 'utf8');
   assert.ok(!/[\p{Extended_Pictographic}\p{Regional_Indicator}]/u.test(content), file);
 }

@@ -99,6 +99,7 @@
   "guideReviewTitle": "Find patterns in your results",
   "guideReviewText": "Open Statistics to review profit and loss, win rate, and drawdown. Compare your setups and entry reasons, then choose one habit to improve in your next session."
 });
+      Object.assign(englishCopy, {"newsPageTitle":"News & economic calendar","newsPageLead":"Headlines from your selected publishers, publication times, and the economic calendar.","newsHeadlines":"Latest news","newsCalendar":"Economic calendar","newsSourceLabel":"News source","newsAllSources":"All sources","newsRefresh":"Refresh news","newsOriginalLanguage":"Headlines remain in the publisher’s original language. Read the full story on the source website.","newsCmeHint":"View current interest-rate probabilities and market data directly on CME Group."});
       document.querySelectorAll('[data-i18n]').forEach(element => {
         originalCopy.set(element.dataset.i18n, element.innerHTML);
       });
@@ -221,6 +222,7 @@
         });
         $('language-select').value = language;
         $('local-login-name').placeholder = language === 'en' ? 'Your name' : 'Nama Anda';
+        if (window.renderPublisherNews) renderPublisherNews();
         updatePricingDisplay();
       }
       window.setLanguage = function (value) {
@@ -437,7 +439,7 @@
           runAllCalculators();
         } else if (tabId === 'berita') {
           renderEconomicCalendar();
-          renderMarketAnalysis();
+          reloadPublisherNews();
         }
         applyLanguage();
         window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -2204,142 +2206,6 @@
       });
 
       /* ====================================================================
-         PRO CONTENT ACCESS TOGGLE (COT REPORT)
-         ==================================================================== */
-      let isCotUnlocked = true; // Unlocked by default as requested: "buka bentar untuk saya"
-
-      window.toggleCotAccess = function () {
-        isCotUnlocked = !isCotUnlocked;
-        renderCotState();
-      };
-
-      function renderCotState() {
-        const fullContent = $('cot-full-content');
-        const lockedPreview = $('cot-locked-preview');
-        const pill = $('cot-status-pill');
-        const toggleIcon = $('cot-toggle-icon');
-        const toggleText = $('cot-toggle-text');
-        const banner = $('cot-banner');
-
-        if (isCotUnlocked) {
-          if (fullContent) fullContent.style.display = 'block';
-          if (lockedPreview) lockedPreview.style.display = 'none';
-          if (pill) {
-            pill.textContent = 'AKSES TERBUKA';
-            pill.style.background = 'rgba(34, 197, 94, 0.15)';
-            pill.style.color = 'var(--green)';
-            pill.style.borderColor = 'rgba(34, 197, 94, 0.3)';
-          }
-          if (toggleIcon) toggleIcon.textContent = '';
-          if (toggleText) toggleText.textContent = 'Kunci Kembali Konten';
-          if (banner) {
-            banner.innerHTML = `
-              <div>
-                <b style="color:#ffffff; font-size:12.5px;">Status: Pratinjau Terbuka (Akses Khusus Anda)</b>
-                <p style="color:var(--text-muted); font-size:11.5px;">Laporan COT dan peta likuiditas sedang ditampilkan penuh. Anda dapat mengunci kembali tampilan ini sewaktu-waktu.</p>
-              </div>
-              <button type="button" class="btn btn-secondary btn-sm" onclick="toggleCotAccess()" style="font-size:11.5px;">Kunci Kembali Konten </button>
-            `;
-          }
-        } else {
-          if (fullContent) fullContent.style.display = 'none';
-          if (lockedPreview) lockedPreview.style.display = 'block';
-          if (pill) {
-            pill.textContent = 'KONTEN PREMIUM';
-            pill.style.background = 'rgba(168, 85, 247, 0.15)';
-            pill.style.color = '#c084fc';
-            pill.style.borderColor = 'rgba(168, 85, 247, 0.3)';
-          }
-          if (toggleIcon) toggleIcon.textContent = '';
-          if (toggleText) toggleText.textContent = 'Buka Akses (Preview)';
-          if (banner) {
-            banner.innerHTML = `
-              <div>
-                <b>Buka Akses Analisa Smart Money & Peta Likuiditas</b>
-                <p>Dapatkan wawasan posisi bandar institusi, sinyal data COT, dan kalender high-impact terkurasi.</p>
-              </div>
-              <div style="display:flex; gap:8px;">
-                <button type="button" class="btn btn-secondary btn-sm" onclick="toggleCotAccess()" style="font-size:11px;">Buka Akses </button>
-                <button type="button" class="btn btn-accent btn-sm" onclick="switchTab('beranda'); scrollToPricing();">Upgrade ke Pro</button>
-              </div>
-            `;
-          }
-        }
-      }
-
-      /* ====================================================================
-         CODEFRONTS LIVE STOCK / CRYPTO PRICE TICKER ENGINE
-         Spec: https://codefronts.com/motion/css-infinite-marquee/live-stock-crypto-price-ticker/
-         ==================================================================== */
-      const marqueeState = {
-        'XAUUSD': 3342.80,
-        'EURUSD': 1.0892,
-        'GBPUSD': 1.2750,
-        'BTC': 94450,
-        'ETH': 3540,
-        'US30': 43890,
-        'NVDA': 138.25,
-        'DXY': 104.15,
-        'OIL': 78.40
-      };
-
-      function renderMarqueeQuote(sym, price, deltaPct) {
-        // CRITICAL: update the quote in BOTH groups so the loop seam never shows stale numbers
-        document.querySelectorAll('.mqs-05__quote[data-sym="' + sym + '"]').forEach(q => {
-          const pxEl = q.querySelector('[data-px]');
-          const dlEl = q.querySelector('[data-dl]');
-          if (pxEl) {
-            pxEl.textContent = price >= 1000
-              ? Math.round(price).toLocaleString('en-US')
-              : (price < 10 ? price.toFixed(4) : price.toFixed(2));
-          }
-          if (dlEl) {
-            dlEl.textContent = (deltaPct >= 0 ? '+' : '\u2212') + Math.abs(deltaPct).toFixed(2) + '%';
-          }
-          q.dataset.dir = deltaPct >= 0 ? 'up' : 'down';
-        });
-      }
-
-      function randomWalkMarquee() {
-        for (const sym in marqueeState) {
-          // Gentle drift ±0.4%
-          const deltaPct = (Math.random() - 0.49) * 0.8;
-          marqueeState[sym] = Math.max(0.001, marqueeState[sym] * (1 + deltaPct / 100));
-          renderMarqueeQuote(sym, marqueeState[sym], deltaPct);
-        }
-      }
-
-      function initMarqueeTicker() {
-        document.querySelectorAll('.mqs-05__group:not([aria-hidden]) .mqs-05__quote').forEach(q => {
-          const sym = q.dataset.sym;
-          const pxEl = q.querySelector('[data-px]');
-          if (sym && pxEl) {
-            const val = parseFloat(pxEl.textContent.replace(/,/g, ''));
-            if (!isNaN(val) && val > 0) marqueeState[sym] = val;
-          }
-        });
-
-        // Event delegation: clicking any quote directly navigates to TradingView
-        const viewport = document.querySelector('.mqs-05__viewport');
-        if (viewport && !viewport._tvBound) {
-          viewport._tvBound = true;
-          viewport.addEventListener('click', (e) => {
-            const quote = e.target.closest('.mqs-05__quote');
-            if (quote) {
-              const sym = quote.dataset.sym;
-              if (sym) {
-                e.preventDefault();
-                window.openTradingView(sym);
-              }
-            }
-          });
-        }
-
-        randomWalkMarquee();
-        setInterval(randomWalkMarquee, 2000);
-      }
-
-      /* ====================================================================
          ECONOMIC CALENDAR ENGINE & DATASET (WIB GMT+7)
          Matches Reference System Schema, Filters & Impact Calculations
          ==================================================================== */
@@ -2851,263 +2717,69 @@
         }
       }
 
-      /* ====================================================================
-         MARKET ANALYSIS WORKSTATION (SMC, ORDER FLOW, PETA LIKUIDITAS)
-         ==================================================================== */
-      const DEFAULT_ANALYSIS_DATA = [
-        {
-          id: 'an-xauusd-1',
-          title: 'XAUUSD Weekly Outlook: Mitigasi Institutional Demand $3,310 dan Target BSL $3,380',
-          pair: 'XAUUSD',
-          bias: 'Bullish',
-          tag: 'SMC',
-          date: 'Hari ini',
-          thumb: 'https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?w=700&auto=format&fit=crop&q=80',
-          body: `*Peta Likuiditas & Analisa Struktur Pasar (SMC)*
-
-1. *Struktur Tren*: XAUUSD mempertahankan formasi _Higher High_ dan _Higher Low_ pada timeframe H4 & Daily. Terjadi _Change of Character (CHoCH)_ bullish minor setelah area likuiditas jual ($3,315) berhasil disapu (_liquidity sweep_) pada sesi London kemarin.
-
-2. *Zona Demand & Order Block*: Area mitigasi $3,310-$3,322 merupakan _Bullish Order Block (OB)_ institusional yang berhimpitan dengan _Fair Value Gap (FVG)_ H4 yang belum terisi penuh.
-
-3. *Target Likuiditas*: Target utama pergerakan naik tertuju pada _Buyside Liquidity (BSL)_ di level $3,365 dan retest resistensi psikologis $3,380.
-
-4. *Batasan Risiko (Invalidation)*: Skenario bullish batal jika candle H4 ditutup solid di bawah level swing low $3,294.`
-        },
-        {
-          id: 'an-eurusd-2',
-          title: 'EURUSD: Potensi Reversal Bearish Menjelang Pernyataan Pejabat ECB',
-          pair: 'EURUSD',
-          bias: 'Bearish',
-          tag: 'Liquidity Sweep',
-          date: 'Hari ini 14:15 WIB',
-          thumb: 'https://images.unsplash.com/photo-1526304640581-d334cdbbf45e?w=700&auto=format&fit=crop&q=80',
-          body: `*Tinjauan Order Flow EURUSD*
-
-Pasangan EURUSD mengalami kegagalan menembus batas atas konsolidasi mingguan di 1.0930. Terlihat pola _Turtle Soup_ / _Stop Hunt_ di atas level high sesi Asia.
-
-* *Titik Masuk Ideal*: Retest area FVG M15 di kisaran 1.0895-1.0905.
-* *Target Take Profit*: _Sellside Liquidity (SSL)_ pada level 1.0840.
-* *Batas Stop Loss*: Di atas rejection wick tertinggi di 1.0935.`
-        },
-        {
-          id: 'an-gbpusd-3',
-          title: 'GBPUSD: Akumulasi Posisi Menjelang Rilis Data Inflasi Inggris',
-          pair: 'GBPUSD',
-          bias: 'Bullish',
-          tag: 'Order Flow',
-          date: 'Hari ini 11:30 WIB',
-          thumb: 'https://images.unsplash.com/photo-1642543492481-44e81e3914a7?w=700&auto=format&fit=crop&q=80',
-          body: `*Peta Pasar Cable (GBPUSD)*
-
-GBPUSD bertahan kuat di atas zona equilibrium mingguan 1.2720. Indikator volume institusional mencatat penyerapan volume jual yang agresif pada pembukaan sesi Frankfurt.
-
-* *Katalis*: Ekspektasi data inflasi jasa yang tetap tinggi mendorong suku bunga Bank of England bertahan lebih lama.
-* *Setup*: Buy on pullback di zona 1.2730 dengan invalidation di bawah 1.2690. Target ekspansi ke 1.2820.`
-        },
-        {
-          id: 'an-btc-4',
-          title: 'Bitcoin (BTCUSD): Konsolidasi Rentang Tinggi Menuju Level Psikologis $98,000',
-          pair: 'BTCUSD',
-          bias: 'Bullish',
-          tag: 'Makro',
-          date: 'Kemarin',
-          thumb: 'https://images.unsplash.com/photo-1518770660439-4636190af475?w=700&auto=format&fit=crop&q=80',
-          body: `*Analisa On-Chain & Order Book Imbalance*
-
-Arus dana masuk ETF spot terus mencatatkan net positive. Kluster likuidasi short terkonsentrasi di area $96,500-$97,200 yang menjadi magnet harga berikutnya.
-
-* *Area Demand Kunci*: $92,800-$93,500 (Zona akumulasi CME).
-* *Invalidation Level*: Penutupan harian di bawah $89,500.`
-        },
-        {
-          id: 'an-us30-5',
-          title: 'Wall Street (US30): Distribusi Premium di Dekat Level Rekor Tertinggi',
-          pair: 'US30',
-          bias: 'Neutral',
-          tag: 'SMC',
-          date: 'Kemarin',
-          thumb: 'https://images.unsplash.com/photo-1590283603385-17ffb3a7f29f?w=700&auto=format&fit=crop&q=80',
-          body: `*Peta Volatilitas Indeks Saham Dow Jones*
-
-Indeks US30 bergerak sideways di range 43,700-44,050. Pelaku pasar bersikap wait-and-see menjelang pembacaan angka Core PCE dan rilis laba sektor perbankan AS.
-
-Disarankan menunggu konfirmasi break salah satu batas range sebelum mengambil posisi swing.`
-        }
-      ];
-
-      let anCari = '';
-      let anTag = '';
-      let anOpenedId = null;
-
-      function waFormat(s) {
-        if (!s) return '';
-        let t = esc(s)
-          .replace(/\*([^*]+)\*/g, '<b>$1</b>')
-          .replace(/_([^_]+)_/g, '<i>$1</i>')
-          .replace(/\n\n/g, '</p><p>')
-          .replace(/\n/g, '<br>');
-        return '<p>' + t + '</p>';
+      let publisherNews = null;
+      let publisherNewsBusy = false;
+      let publisherNewsFailed = false;
+      const publisherDomains = { investing: 'investing.com', cnbc: 'cnbc.com', kontan: 'kontan.co.id', reuters: 'reuters.com', aljazeera: 'aljazeera.com', bloomberg: 'bloomberg.com', fedwatch: 'cmegroup.com', cme: 'cmegroup.com' };
+      const newsText = (id, en) => language === 'en' ? en : id;
+      function publisherUrl(value, sourceId) {
+        try {
+          const url = new URL(value);
+          const domain = publisherDomains[sourceId];
+          return domain && url.protocol === 'https:' && !url.username && !url.password && (url.hostname === domain || url.hostname.endsWith('.' + domain)) ? url.href : null;
+        } catch { return null; }
       }
-
-      const AN_CHIPS = ['Semua', 'XAUUSD', 'EURUSD', 'GBPUSD', 'BTCUSD', 'US30', 'Bullish', 'Bearish', 'SMC', 'Makro'];
-
-      function renderSaringChips() {
-        const c = $('saring-an');
-        if (!c) return;
-        c.innerHTML = AN_CHIPS.map(val => {
-          const isAll = val === 'Semua';
-          const active = isAll ? !anTag : anTag === val;
-          return `<button class="chip ${active ? 'on' : ''}" type="button" onclick="filterAnalysisTag('${isAll ? '' : val}')">${val}</button>`;
-        }).join('');
+      function publisherTime(value) {
+        const date = new Date(value);
+        return value && Number.isFinite(date.getTime()) ? date.toLocaleString(language === 'en' ? 'en-GB' : 'id-ID', { timeZone: 'Asia/Jakarta', day: 'numeric', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit' }) + ' WIB' : null;
       }
-
-      window.filterAnalysisTag = function (tag) {
-        anTag = tag;
-        renderSaringChips();
-        renderMarketAnalysisView();
-      };
-
-      window.toggleUtamaAnalisa = function (id) {
-        anOpenedId = anOpenedId === id ? null : id;
-        renderMarketAnalysisView();
-      };
-
-      window.toggleFeedItem = function (id) {
-        const itemEl = $('fi-' + id);
-        if (itemEl) {
-          itemEl.classList.toggle('buka');
-        }
-      };
-
-      window.reloadAnalisa = function () {
-        renderMarketAnalysis(true);
-      };
-
-      function renderMarketAnalysisView() {
-        const q = anCari.toLowerCase().trim();
-        const tag = anTag.toLowerCase();
-
-        const filtered = DEFAULT_ANALYSIS_DATA.filter(it => {
-          const matchQ = !q || (it.title + ' ' + it.pair + ' ' + it.body + ' ' + it.tag).toLowerCase().includes(q);
-          const matchTag = !tag || it.pair.toLowerCase() === tag || (it.bias && it.bias.toLowerCase() === tag) || (it.tag && it.tag.toLowerCase().includes(tag));
-          return matchQ && matchTag;
-        });
-
-        const info = $('cari-an-info');
-        if (info) {
-          if (q || tag) {
-            info.hidden = false;
-            info.textContent = `${filtered.length} analisa ditemukan${q ? ` untuk "${q}"` : ''}${tag ? ` [Kategori: ${anTag}]` : ''}`;
-          } else {
-            info.hidden = true;
-            info.textContent = '';
-          }
-        }
-
-        const utamaEl = $('utama-analisa');
-        const listEl = $('analisa-list');
-
-        if (!filtered.length) {
-          if (utamaEl) utamaEl.innerHTML = '';
-          if (listEl) listEl.innerHTML = '<div class="feed-empty">Tidak ada analisa yang cocok dengan pencarian Anda.</div>';
+      window.renderPublisherNews = function () {
+        const status = $('publisher-news-status');
+        if (!status) return;
+        if (!publisherNews) {
+          status.textContent = publisherNewsFailed ? newsText('Berita belum dapat dimuat. Buka situs penerbit atau coba lagi.', 'News could not be loaded. Visit a publisher or try again.') : newsText('Memuat berita terbaru...', 'Loading the latest headlines...');
           return;
         }
-
-        // Top item as featured when not searching
-        const featuredItem = (!q && !tag) ? filtered[0] : null;
-        const listItems = featuredItem ? filtered.slice(1) : filtered;
-
-        if (utamaEl) {
-          if (featuredItem) {
-            const isOpened = anOpenedId === featuredItem.id;
-            utamaEl.innerHTML = `
-              <div class="utama ${isOpened ? 'buka' : ''}" onclick="toggleUtamaAnalisa('${featuredItem.id}')">
-                <div class="utama-gbr">
-                  <img src="${featuredItem.thumb}" alt="${featuredItem.title}" loading="lazy">
-                  <span class="utama-pita">SOROTAN UTAMA · ${featuredItem.pair}</span>
-                </div>
-                <div class="utama-isi">
-                  <h3>${featuredItem.title}</h3>
-                  <p>XAUUSD terus mempertahankan struktur bullish di atas level demand institusional $3,310. Simak rincian order block, target buyside liquidity (BSL), dan skenario invalidation...</p>
-                  <div class="utama-kaki">
-                    <span class="utama-baca">${isOpened ? 'Tutup Analisa' : 'Baca Analisa Lengkap'}</span>
-                    <span class="feed-date">${featuredItem.date} · Sesi New York</span>
-                  </div>
-                  <div class="utama-full">
-                    <div class="feed-body">${waFormat(featuredItem.body)}</div>
-                    <button type="button" class="ext-btn" onclick="event.stopPropagation(); openTradingView('${featuredItem.pair}')">
-                      ⤢ Buka Chart TradingView ${featuredItem.pair}
-                    </button>
-                  </div>
-                </div>
-              </div>
-            `;
-          } else {
-            utamaEl.innerHTML = '';
-          }
-        }
-
-        if (listEl) {
-          listEl.innerHTML = listItems.map((it, idx) => {
-            const isBuka = anOpenedId === it.id || (idx === 0 && !featuredItem);
-            const biasCls = (it.bias || '').toLowerCase().includes('bull') ? 'bull' : ((it.bias || '').toLowerCase().includes('bear') ? 'bear' : 'neu');
-            return `
-              <div class="feed-item ${isBuka ? 'buka' : ''}" id="fi-${it.id}">
-                <div class="fi-head" onclick="toggleFeedItem('${it.id}')">
-                  <div class="fi-thumb">
-                    ${it.thumb ? `<img src="${it.thumb}" alt="${it.title}" loading="lazy">` : `<div class="ph"></div>`}
-                  </div>
-                  <div class="fi-info">
-                    <h4>${it.title}</h4>
-                    <div class="fi-meta">
-                      <span class="feed-tag">${it.pair}</span>
-                      ${it.bias ? `<span class="feed-tag ${biasCls}">${it.bias}</span>` : ''}
-                      ${it.tag ? `<span class="feed-tag neu">${it.tag}</span>` : ''}
-                      <span class="feed-date">${it.date}</span>
-                    </div>
-                  </div>
-                  <span class="fi-chev">▼</span>
-                </div>
-                <div class="fi-isi">
-                  <div class="feed-pad">
-                    <div class="feed-body">${waFormat(it.body)}</div>
-                    <button type="button" class="ext-btn" onclick="event.stopPropagation(); openTradingView('${it.pair}')">
-                      ⤢ Buka Chart TradingView ${it.pair}
-                    </button>
-                  </div>
-                </div>
-              </div>
-            `;
-          }).join('');
-        }
-      }
-
-      function renderMarketAnalysis(force) {
-        renderSaringChips();
-        renderMarketAnalysisView();
-        if ($('an-stamp')) {
-          const nowStr = new Date().toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' }) + ' WIB';
-          $('an-stamp').textContent = 'Diperbarui hari ini ' + nowStr;
-        }
-      }
-
-      function initAnalysisEventListeners() {
-        if ($('cari-an')) {
-          const kotak = $('cari-an-box');
-          let jeda = null;
-          const jalan = () => {
-            anCari = ($('cari-an').value || '').trim();
-            if (kotak) kotak.classList.toggle('isi', !!anCari);
-            renderMarketAnalysisView();
-          };
-          $('cari-an').addEventListener('input', () => { clearTimeout(jeda); jeda = setTimeout(jalan, 180); });
-          $('cari-an').addEventListener('keydown', e => {
-            if (e.key === 'Escape') { $('cari-an').value = ''; jalan(); }
-          });
-          const hapus = kotak ? kotak.querySelector('.hapus') : null;
-          if (hapus) hapus.onclick = () => { $('cari-an').value = ''; jalan(); $('cari-an').focus(); };
-        }
-      }
+        const checked = publisherTime(publisherNews.checkedAt);
+        const aged = Date.now() - new Date(publisherNews.checkedAt).getTime() > 90 * 60000;
+        status.textContent = (publisherNewsFailed ? newsText('Pembaruan gagal; menampilkan data tersimpan. ', 'Refresh failed; showing the saved feed. ') : '') + (aged ? newsText('Data belum diperbarui. ', 'The feed has not been updated recently. ') : '') + newsText('Terakhir diperiksa: ', 'Last checked: ') + (checked || newsText('Tidak tersedia', 'Unavailable')) + newsText('. Jadwal pengambilan setiap 30 menit setiap hari; halaman mengecek pembaruan setiap 5 menit.', '. Collection runs every 30 minutes daily; this page checks for updates every 5 minutes.');
+        const select = $('news-source');
+        const selected = select.value;
+        select.innerHTML = '<option value="">' + newsText('Semua sumber', 'All sources') + '</option>' + publisherNews.sources.filter(source => source.kind !== 'tool').map(source => '<option value="' + esc(source.id) + '">' + esc(source.name) + '</option>').join('');
+        select.value = selected;
+        $('publisher-source-status').innerHTML = publisherNews.sources.filter(source => source.kind !== 'tool').map(source => {
+          const url = publisherUrl(source.url, source.id);
+          if (!url) return '';
+          const state = source.status === 'ok' ? newsText('Tersedia', 'Available') : source.status === 'stale' ? newsText('Data tersimpan; sumber gagal diperbarui', 'Saved headlines; source refresh failed') : newsText('Feed tidak tersedia; buka sumber', 'Feed unavailable; visit source');
+          return '<a href="' + esc(url) + '" target="_blank" rel="noopener noreferrer">' + esc(source.name) + '<small>' + esc(state) + '</small></a>';
+        }).join('');
+        const sources = new Map(publisherNews.sources.map(source => [source.id, source]));
+        const rows = publisherNews.items.filter(item => !selected || item.source === selected);
+        $('publisher-news-list').innerHTML = rows.length ? rows.map(item => {
+          const url = publisherUrl(item.url, item.source);
+          const source = sources.get(item.source);
+          if (!url || !source) return '';
+          const time = publisherTime(item.publishedAt) || newsText('Waktu terbit tidak disediakan penerbit', 'Publication time not provided by the publisher');
+          return '<article class="publisher-news-item"><p class="publisher-news-meta">' + esc(source.name) + ' · ' + esc(time) + '</p><h3><a href="' + esc(url) + '" target="_blank" rel="noopener noreferrer">' + esc(item.title) + '</a></h3><a class="publisher-read" href="' + esc(url) + '" target="_blank" rel="noopener noreferrer">' + newsText('Baca di sumber', 'Read on the source website') + '</a></article>';
+        }).join('') : '<p>' + newsText('Belum ada berita dari sumber ini. Buka situs penerbit melalui tautan di atas.', 'No headlines are available from this source. Open its website using the link above.') + '</p>';
+      };
+      window.reloadPublisherNews = async function () {
+        if (publisherNewsBusy) return;
+        publisherNewsBusy = true;
+        try {
+          const response = await fetch('berita.json?t=' + Date.now(), { cache: 'no-store', signal: AbortSignal.timeout(15000) });
+          if (!response.ok) throw new Error('News request failed');
+          const data = await response.json();
+          if (data.version !== 1 || !Array.isArray(data.sources) || !Array.isArray(data.items) || !publisherTime(data.checkedAt)) throw new Error('Invalid news feed');
+          data.sources = data.sources.filter(source => source && publisherDomains[source.id] && typeof source.name === 'string' && publisherUrl(source.url, source.id));
+          data.items = data.items.filter(item => item && typeof item.title === 'string' && publisherUrl(item.url, item.source)).slice(0, 120);
+          publisherNews = data;
+          publisherNewsFailed = false;
+        } catch (error) { publisherNewsFailed = true; }
+        finally { publisherNewsBusy = false; renderPublisherNews(); }
+      };
+      setInterval(() => { if (!document.hidden) reloadPublisherNews(); }, 300000);
+      document.addEventListener('visibilitychange', () => { if (!document.hidden) reloadPublisherNews(); });
 
       /* Sub-view Switcher */
       window.switchBeritaSub = function (sub) {
@@ -3115,15 +2787,13 @@ Disarankan menunggu konfirmasi break salah satu batas range sebelum mengambil po
           b.classList.toggle('active', b.dataset.sub === sub);
         });
         const rEl = $('sub-berita-ringkasan');
-        const aEl = $('sub-berita-analisa');
         const kEl = $('sub-berita-kalender');
 
         if (rEl) rEl.hidden = sub !== 'ringkasan';
-        if (aEl) aEl.hidden = sub !== 'analisa';
         if (kEl) kEl.hidden = sub !== 'kalender';
 
-        if (sub === 'analisa') {
-          renderMarketAnalysis();
+        if (sub === 'ringkasan') {
+          renderPublisherNews();
         } else if (sub === 'kalender') {
           renderEconomicCalendar();
         }
@@ -3137,11 +2807,9 @@ Disarankan menunggu konfirmasi break salah satu batas range sebelum mengambil po
       runAllCalculators();
       updatePricingDisplay();
       initUploadDropZone();
-      initMarqueeTicker();
       initCalendarEventListeners();
-      initAnalysisEventListeners();
       renderEconomicCalendar();
-      renderMarketAnalysis();
+      reloadPublisherNews();
       applyLanguage();
       renderStatistics();
       refreshExchangeRate();
