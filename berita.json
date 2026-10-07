@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "checkedAt": "2026-10-07T17:21:21.288855+00:00",
+  "checkedAt": "2026-10-07T17:28:50.265481+00:00",
   "intervalMinutes": 30,
   "sources": [
     {
@@ -9,7 +9,7 @@
       "url": "https://www.investing.com/",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-07T17:21:19.721798+00:00"
+      "checkedAt": "2026-10-07T17:28:48.504629+00:00"
     },
     {
       "id": "cnbc",
@@ -17,7 +17,7 @@
       "url": "https://www.cnbc.com/markets/",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-07T17:21:19.803466+00:00"
+      "checkedAt": "2026-10-07T17:28:50.199512+00:00"
     },
     {
       "id": "kontan",
@@ -25,7 +25,7 @@
       "url": "https://www.kontan.co.id/",
       "kind": "html",
       "status": "ok",
-      "checkedAt": "2026-10-07T17:21:21.042479+00:00"
+      "checkedAt": "2026-10-07T17:28:49.523269+00:00"
     },
     {
       "id": "reuters",
@@ -33,7 +33,7 @@
       "url": "https://www.reuters.com/",
       "kind": "sitemap",
       "status": "ok",
-      "checkedAt": "2026-10-07T17:21:19.949191+00:00"
+      "checkedAt": "2026-10-07T17:28:48.551909+00:00"
     },
     {
       "id": "aljazeera",
@@ -41,7 +41,7 @@
       "url": "https://www.aljazeera.com/",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-07T17:21:19.857205+00:00"
+      "checkedAt": "2026-10-07T17:28:48.454955+00:00"
     },
     {
       "id": "bloomberg",
@@ -49,7 +49,7 @@
       "url": "https://www.bloomberg.com/asia",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-07T17:21:19.976934+00:00"
+      "checkedAt": "2026-10-07T17:28:49.051607+00:00"
     },
     {
       "id": "fedwatch",
@@ -68,6 +68,46 @@
   ],
   "items": [
     {
+      "id": "34d4822fb1cba5abd9cb",
+      "source": "cnbc",
+      "title": "10-year Treasury yield falls from 24-year high after solid bond auction eases demand fears",
+      "url": "https://www.cnbc.com/2026/10/07/treasury-yields-auction-fomc-minutes.html",
+      "publishedAt": "2026-10-07T17:27:34+00:00",
+      "image": "https://image.cnbcfm.com/api/v1/image/108363665-1789568651170-gettyimages-2295586459-mms19512_dnx4op25.jpeg?v=1789568741&w=1920&h=1080"
+    },
+    {
+      "id": "29b79575fc9d0a3f125d",
+      "source": "reuters",
+      "title": "Eritrean troops drive through northern Ethiopian town, witnesses say",
+      "url": "https://www.reuters.com/world/africa/eritrean-troops-drive-through-northern-ethiopian-town-witnesses-say-2026-10-07/",
+      "publishedAt": "2026-10-07T17:21:59.297000+00:00",
+      "image": null
+    },
+    {
+      "id": "ce5e4aae795ae95c358b",
+      "source": "reuters",
+      "title": "African Union launches continent's first credit rating agency",
+      "url": "https://www.reuters.com/world/africa/african-union-launch-continents-first-credit-rating-agency-2026-10-07/",
+      "publishedAt": "2026-10-07T17:21:51.846000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/DXR5GBVEABOZVNGWDDYAV6XW6I.jpg?auth=0a23f29b2738280320efba9477e8fecd3dad117bc721b1f8da07832bd36bd6fa&smart=true&width=1920"
+    },
+    {
+      "id": "24a2d6d01cd13cb50427",
+      "source": "reuters",
+      "title": "FireFly Robotics files for Nasdaq direct listing",
+      "url": "https://www.reuters.com/business/firefly-robotics-files-nasdaq-direct-listing-2026-10-07/",
+      "publishedAt": "2026-10-07T17:21:43.714000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/5I4QERQ4HFJE7ESTEB4PX3LCDY.jpg?auth=4839aa9e54a1ba84009b3b9300a217f228520cc33e065cde0fc32e435a3c95c5&smart=true&width=1920"
+    },
+    {
+      "id": "b6cfca342cac545745e5",
+      "source": "reuters",
+      "title": "Priceline to face FTC action over deceptive hotel ads, sources say",
+      "url": "https://www.reuters.com/world/priceline-owner-face-ftc-action-over-affiliates-hotel-ads-sources-say-2026-10-07/",
+      "publishedAt": "2026-10-07T17:20:58.025000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/BGI6ZTJRONL2NCWCD7WGXW2GAE.jpg?auth=cbf290238f6cb6a7cae56fabbbeed2f48c98ef91a2e35817b9ea20c031dd2e73&smart=true&width=1920"
+    },
+    {
       "id": "04b86374f6f2709893dc",
       "source": "cnbc",
       "title": "Meta's Muse assistant tops app charts. Now it needs to become a habit",
@@ -76,12 +116,20 @@
       "image": "https://image.cnbcfm.com/api/v1/image/108367520-1790264014969-gettyimages-2296209074-META_CONNECT.jpeg?v=1790264039&w=1920&h=1080"
     },
     {
-      "id": "34d4822fb1cba5abd9cb",
-      "source": "cnbc",
-      "title": "10-year Treasury yield falls from 24-year high after solid bond auction eases demand fears",
-      "url": "https://www.cnbc.com/2026/10/07/treasury-yields-auction-fomc-minutes.html",
-      "publishedAt": "2026-10-07T17:17:24+00:00",
-      "image": "https://image.cnbcfm.com/api/v1/image/108363665-1789568651170-gettyimages-2295586459-mms19512_dnx4op25.jpeg?v=1789568741&w=1920&h=1080"
+      "id": "155c716c48ec4e0efdaa",
+      "source": "reuters",
+      "title": "Florida asks court to force Meta to change Facebook, Instagram for teens",
+      "url": "https://www.reuters.com/world/us/florida-asks-court-force-meta-change-facebook-instagram-teens-2026-10-07/",
+      "publishedAt": "2026-10-07T17:19:41.290000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/ZW36RUINW5PODPMPYDWCN75D6A.jpg?auth=90693353fb00e8b1a5ca079a7df4ec05436f00e00e598b2837d5dfe1a44977cc&smart=true&width=1920"
+    },
+    {
+      "id": "bfe6b8ada26721e46378",
+      "source": "reuters",
+      "title": "Costa Rica's Grynspan ahead in race to be next UN chief, sources say",
+      "url": "https://www.reuters.com/world/americas/costa-ricas-grynspan-ahead-race-be-next-un-chief-sources-say-2026-10-07/",
+      "publishedAt": "2026-10-07T17:17:23.189000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/OZSW5HCNP5PZ5IOXVQPDSG4CVQ.jpg?auth=d0aa93f5f6281518f842a45cd755380a046b4471e96e9816b1df2a6ea4a2afee&smart=true&width=1920"
     },
     {
       "id": "c6cf0341ce3ed1c3d2e2",
@@ -96,16 +144,8 @@
       "source": "reuters",
       "title": "Mexico enacts reform barring dual citizens from presidency",
       "url": "https://www.reuters.com/world/americas/mexico-enacts-reform-barring-dual-citizens-presidency-2026-10-07/",
-      "publishedAt": "2026-10-07T17:14:55.844000+00:00",
+      "publishedAt": "2026-10-07T17:15:43.614000+00:00",
       "image": "https://www.reuters.com/resizer/v2/URIUJK5BLBIYFNWDX25X5WIDUY.jpg?auth=5b1ed7fd9f5e3c6076b7e693651f31503590dfedb511c10d3a1365bd49a8f778&smart=true&width=1920"
-    },
-    {
-      "id": "155c716c48ec4e0efdaa",
-      "source": "reuters",
-      "title": "Florida asks court to force Meta to change Facebook, Instagram for teens",
-      "url": "https://www.reuters.com/world/us/florida-asks-court-force-meta-change-facebook-instagram-teens-2026-10-07/",
-      "publishedAt": "2026-10-07T17:14:21.730000+00:00",
-      "image": "https://www.reuters.com/resizer/v2/ZW36RUINW5PODPMPYDWCN75D6A.jpg?auth=90693353fb00e8b1a5ca079a7df4ec05436f00e00e598b2837d5dfe1a44977cc&smart=true&width=1920"
     },
     {
       "id": "18f2236ff40757b26840",
@@ -162,14 +202,6 @@
       "url": "https://www.reuters.com/legal/litigation/canada-exclude-mental-illness-sole-reason-euthanasia-2026-10-07/",
       "publishedAt": "2026-10-07T17:09:47.215000+00:00",
       "image": "https://www.reuters.com/resizer/v2/C2RX3GKZIJPTBO6ZEHZ6ZU3M3E.jpg?auth=7af3d53d0661c7fcb3d261d7bc03de0b6ca5673971a51ef069350a2840616841&smart=true&width=1920"
-    },
-    {
-      "id": "b6cfca342cac545745e5",
-      "source": "reuters",
-      "title": "Priceline to face FTC action over deceptive hotel ads, sources say",
-      "url": "https://www.reuters.com/world/priceline-owner-face-ftc-action-over-affiliates-hotel-ads-sources-say-2026-10-07/",
-      "publishedAt": "2026-10-07T17:09:10.011000+00:00",
-      "image": "https://www.reuters.com/resizer/v2/BGI6ZTJRONL2NCWCD7WGXW2GAE.jpg?auth=cbf290238f6cb6a7cae56fabbbeed2f48c98ef91a2e35817b9ea20c031dd2e73&smart=true&width=1920"
     },
     {
       "id": "eeb83e716808fa815d27",
@@ -234,38 +266,6 @@
       "url": "https://www.reuters.com/business/aerospace-defense/airbus-says-biman-bangladesh-confirms-order-10-jets-2026-10-07/",
       "publishedAt": "2026-10-07T16:55:44.257000+00:00",
       "image": "https://www.reuters.com/resizer/v2/ASJGQ56PXJMYHOWY4NGDR625HA.jpg?auth=cb2dbf59a91d7964feff0b86b7b8645b2e1e37cdda85f7f14d3dbc21d4b128a8&smart=true&width=1920"
-    },
-    {
-      "id": "cfdb376c664f7f498821",
-      "source": "reuters",
-      "title": "Mattel CEO may put deal-making as priority Uno",
-      "url": "https://www.reuters.com/commentary/breakingviews/mattel-ceo-may-put-deal-making-priority-uno-2026-10-07/",
-      "publishedAt": "2026-10-07T16:55:06.577000+00:00",
-      "image": "https://www.reuters.com/resizer/v2/XGULI4CRHFLOXHJEJNIBMVAMIE.jpg?auth=abba630be4618ef30d83612e4a2657c53ec1a02e1a246858f9d6835f5bc1f07f&smart=true&width=1920"
-    },
-    {
-      "id": "f6b4e7965cb119fecef8",
-      "source": "reuters",
-      "title": "Restoring the Amazon, one carbon credit at a time",
-      "url": "https://www.reuters.com/sustainability/sustainable-finance-reporting/restoring-amazon-one-carbon-credit-time--ecmii-2026-10-07/",
-      "publishedAt": "2026-10-07T16:54:53.179000+00:00",
-      "image": "https://www.reuters.com/resizer/v2/TY63UV6VRBIKLD6KSHQ6BBOJMU.jpg?auth=7a5803bf9a5d4c722bf7251e8a1f9d80580ac988d28ae57ccc71589c26db0317&smart=true&width=1920"
-    },
-    {
-      "id": "5d2f9194b59431d87421",
-      "source": "reuters",
-      "title": "Conservative anti-tax group seeks FCC approval for AI robocalls ahead of US midterms",
-      "url": "https://www.reuters.com/world/us-agency-considers-allowing-new-ai-political-robocalls-before-election-2026-10-07/",
-      "publishedAt": "2026-10-07T16:54:29.838000+00:00",
-      "image": "https://www.reuters.com/resizer/v2/56N55JT6MZIPNAHV2VRC6R7D5A.jpg?auth=6be178785cfbe091f5a638f12e8f6c850f2cfab5d66db0d3d00e4292b01fbef3&smart=true&width=1920"
-    },
-    {
-      "id": "b8ae425cc4b46f04aa97",
-      "source": "reuters",
-      "title": "Bulgaria halts rescue operation for crew of sunken ship",
-      "url": "https://www.reuters.com/world/europe/bulgaria-halts-rescue-operation-crew-sunken-ship-2026-10-07/",
-      "publishedAt": "2026-10-07T16:54:11.548000+00:00",
-      "image": "https://www.reuters.com/resizer/v2/TT5XOUR4EBNIFODEPRNUYC6CQQ.jpg?auth=39316252bec299a4afaa08cabca257646855e09e12e136b44fc82e30e3125e07&smart=true&width=1920"
     },
     {
       "id": "f26b01ea80be5dc6ff64",
