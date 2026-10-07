@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>FNC Academy — Member Area</title>
+  <title>FNC Academy - Member Area</title>
   <link rel="icon" type="image/png"
     href="data:image/png;base64,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">
   <link rel="apple-touch-icon"
@@ -39,7 +39,7 @@
       /* sorotan mengikuti kursor */
       /* ===== lapisan kaca =====
        Dipakai untuk panel yang mengambang di atas latar. Nilai blur sengaja
-       sedang (14px) — cukup terasa, tapi tidak membebani HP kelas menengah. */
+       sedang (14px) - cukup terasa, tapi tidak membebani HP kelas menengah. */
       --kaca: rgba(255, 255, 255, .72);
       --pop-kepala: #1F2937;
       --kaca-tepi: rgba(255, 255, 255, .85);
@@ -97,7 +97,7 @@
       -webkit-font-smoothing: antialiased;
     }
 
-    /* Cahaya lembut di latar — memberi kedalaman tanpa mengganggu keterbacaan. */
+    /* Cahaya lembut di latar - memberi kedalaman tanpa mengganggu keterbacaan. */
     body::before {
       content: '';
       position: fixed;
@@ -1369,7 +1369,7 @@
       animation-delay: .2s
     }
 
-    /* Gambar sampul tampil UTUH — tidak dipotong.
+    /* Gambar sampul tampil UTUH - tidak dipotong.
      Gambar yang sangat tinggi otomatis dikecilkan agar muat, bukan dipangkas. */
     .feed-cover {
       width: 100%;
@@ -2082,7 +2082,7 @@
       overflow: hidden;
     }
 
-    /* Isinya diratakan ke ATAS, bukan ditengahkan secara tegak — kalau
+    /* Isinya diratakan ke ATAS, bukan ditengahkan secara tegak - kalau
      ditengahkan, judulnya melayang jauh dari tepi kartu. */
     .soon-depan {
       grid-area: 1/1;
@@ -2188,7 +2188,7 @@
     }
 
     /* Judul di kartu ini tidak boleh memakai gaya judul panel yang punya
-     garis oranye di kiri — garis itu ikut terhitung lebar, jadi teksnya
+     garis oranye di kiri - garis itu ikut terhitung lebar, jadi teksnya
      tampak meleset dari tengah. */
     .soon h3,
     .soon-dalam h3 {
@@ -2208,7 +2208,7 @@
     }
 
     /* Judul di sini memakai gaya sendiri, bukan gaya judul panel yang
-     punya garis oranye di kiri — garis itu bikin teksnya tidak center. */
+     punya garis oranye di kiri - garis itu bikin teksnya tidak center. */
     .soon-dalam h3::before,
     .soon h3::before,
     .soon-dalam h3::after,
@@ -2239,7 +2239,7 @@
       color: var(--slate-2);
     }
 
-    /* Empat kolom sama lebar, TIDAK boleh turun baris — di layar sempit
+    /* Empat kolom sama lebar, TIDAK boleh turun baris - di layar sempit
      ukurannya yang mengecil, bukan "Detik" yang menggantung sendirian. */
     .soon-jam {
       position: relative;
@@ -2510,7 +2510,7 @@
       color: var(--slate-2);
     }
 
-    /* Kartu "Ajukan Konsultasi Bebas" — dibuat lebih tenang dan berkelas:
+    /* Kartu "Ajukan Konsultasi Bebas" - dibuat lebih tenang dan berkelas:
      garis tepi tipis, sorot oranye halus di sisi kiri, tanpa kotak ikon
      yang berat. Emoji diganti bentuk gambar supaya tidak terlihat murahan. */
     .ks-bebas {
@@ -3378,7 +3378,7 @@
     }
 
     /* ===== KALENDER EKONOMI ===== */
-    /* saringan dampak — tiap level memakai warnanya sendiri supaya
+    /* saringan dampak - tiap level memakai warnanya sendiri supaya
      tombolnya sekaligus jadi keterangan warna, bukan sederet oranye */
     .kal-filter {
       display: flex;
@@ -4651,7 +4651,7 @@
       text-shadow: var(--glow-kuat);
     }
 
-    /* Glow sengaja TIDAK dipakai pada paragraf panjang — efeknya membuat
+    /* Glow sengaja TIDAK dipakai pada paragraf panjang - efeknya membuat
      teks berkabut dan susah dibaca. Hanya judul yang diberi cahaya. */
     html[data-tema="gelap"] .fi-info h4 {
       text-shadow: var(--glow);
@@ -5180,7 +5180,7 @@
       min-width: 0;
     }
 
-    /* Judul dibatasi 3 baris — kalau tidak, judul panjang membuat kotak teks
+    /* Judul dibatasi 3 baris - kalau tidak, judul panjang membuat kotak teks
      jauh lebih tinggi daripada gambarnya dan tampilannya jadi timpang. */
     .fi-info h4 {
       margin: 0 0 6px;
@@ -5760,7 +5760,7 @@
       object-fit: contain;
     }
 
-    /* Teks diletakkan DI BAWAH gambar, bukan menimpanya — poster yang sudah
+    /* Teks diletakkan DI BAWAH gambar, bukan menimpanya - poster yang sudah
      berisi tulisan sendiri jadi tetap terbaca utuh. */
     .ann-hl-body {
       padding: 14px 16px 16px;
@@ -5961,7 +5961,7 @@
       cursor: pointer;
     }
 
-    /* Ukuran mengikuti gambar aslinya — sama seperti .feed-cover, tidak dipotong. */
+    /* Ukuran mengikuti gambar aslinya - sama seperti .feed-cover, tidak dipotong. */
     .vid-wrap img {
       width: 100%;
       display: block;
@@ -7337,7 +7337,7 @@
       pointer-events: none;
     }
 
-    /* Di HP tombolnya disembunyikan — geser jari sudah lebih enak dan
+    /* Di HP tombolnya disembunyikan - geser jari sudah lebih enak dan
      tombolnya makan tempat. Bayangan tepi tetap ada sebagai penanda.
      Di layar besar tombol dipertahankan karena tidak ada geser jari. */
     @media(max-width:900px) {
@@ -7515,16 +7515,16 @@
       </div>
       <div class="welcome-body">
         <p style="margin:0 0 13px;font-size:13px;line-height:1.75;color:var(--teks-isi);">
-          Ini <b>ruang belajar trading</b> milik komunitas FNC Academy &mdash;
+          Ini <b>ruang belajar trading</b> milik komunitas FNC Academy -
           tempat kamu memantau market, membaca update, dan mencatat perkembangan
           trading kamu sendiri.
         </p>
         <ul>
-          <li><b>Beranda</b> &mdash; harga real-time &amp; chart semua pair</li>
-          <li><b>Berita</b> &mdash; update market &amp; jadwal news penting</li>
-          <li><b>Jurnal &amp; Statistik</b> &mdash; catat trade, win rate dan P/L dihitung otomatis</li>
-          <li><b>Kalkulator</b> &mdash; ukuran lot dari risiko, nilai pip, cek R:R</li>
-          <li><b>Kelas</b> &mdash; pilihan kelas &amp; keanggotaan FNC</li>
+          <li><b>Beranda</b> - harga real-time &amp; chart semua pair</li>
+          <li><b>Berita</b> - update market &amp; jadwal news penting</li>
+          <li><b>Jurnal &amp; Statistik</b> - catat trade, win rate dan P/L dihitung otomatis</li>
+          <li><b>Kalkulator</b> - ukuran lot dari risiko, nilai pip, cek R:R</li>
+          <li><b>Kelas</b> - pilihan kelas &amp; keanggotaan FNC</li>
         </ul>
         <div class="note">
           <b>Semua di atas gratis dibuka</b>, tanpa kode apa pun. Isi khusus member
@@ -7532,7 +7532,7 @@
           di tab <b>Profil</b>.
         </div>
         <div class="note" style="margin-top:9px;">
-          <b>Gabung grup WhatsApp publik FNC</b> &mdash; info sesi live, bahasan market,
+          <b>Gabung grup WhatsApp publik FNC</b> - info sesi live, bahasan market,
           dan tanya-jawab bareng member lain. Gratis.
         </div>
         <div class="welcome-actions">
@@ -7838,10 +7838,10 @@ EURUSD | buy | 1.0850 | 1.0820 | 1.0910 | be</pre>
               <textarea id="in-reason" rows="2" placeholder="Setup, konfirmasi, evaluasi..."></textarea>
             </div>
             <div class="calc-preview">
-              <div><span id="lbl-cp-risk">Risk $</span><b id="cp-risk">—</b></div>
-              <div><span>R:R</span><b id="cp-rr">—</b></div>
-              <div><span id="lbl-cp-usd">Net P/L $</span><b id="cp-usd">—</b></div>
-              <div><span id="lbl-cp-rp">Setara Rupiah</span><b id="cp-rp">—</b></div>
+              <div><span id="lbl-cp-risk">Risk $</span><b id="cp-risk">-</b></div>
+              <div><span>R:R</span><b id="cp-rr">-</b></div>
+              <div><span id="lbl-cp-usd">Net P/L $</span><b id="cp-usd">-</b></div>
+              <div><span id="lbl-cp-rp">Setara Rupiah</span><b id="cp-rp">-</b></div>
             </div>
           </div>
           <div class="form-actions">
@@ -7913,7 +7913,7 @@ EURUSD | buy | 1.0850 | 1.0820 | 1.0910 | be</pre>
               <h3 style="margin:0 0 6px;">Berita Eksklusif</h3>
               <p style="font-size:12.5px;color:var(--gray);line-height:1.65;margin:0 0 16px;max-width:430px;">
                 Bagian ini butuh kode khusus. Kodenya sama dengan kode untuk membuka
-                tab Analisa — sekali dibuka, dua-duanya ikut terbuka.</p>
+                tab Analisa - sekali dibuka, dua-duanya ikut terbuka.</p>
               <div class="lock-row">
                 <input type="password" id="nx-code" placeholder="Kode eksklusif" autocomplete="off" spellcheck="false">
                 <button class="btn" id="nx-submit">Buka</button>
@@ -7929,7 +7929,7 @@ EURUSD | buy | 1.0850 | 1.0820 | 1.0910 | be</pre>
         <div class="panel" id="analisa-lock">
           <div class="lock-box">
             <div class="lock-ico">&#128274;</div>
-            <h3 style="margin:0 0 6px;">Analisa Market — Akses Khusus</h3>
+            <h3 style="margin:0 0 6px;">Analisa Market - Akses Khusus</h3>
             <p style="font-size:12.5px;color:var(--gray);line-height:1.65;margin:0 0 16px;max-width:430px;">
               Bagian ini terpisah dari jurnal. Masukkan kode analisa yang dibagikan
               khusus untuk kamu. Kode jurnal biasa tidak berlaku di sini.</p>
@@ -8065,8 +8065,8 @@ EURUSD | buy | 1.0850 | 1.0820 | 1.0910 | be</pre>
             </div>
             <div class="field s2"><label for="c-cur">Satuan Hasil</label>
               <select id="c-cur">
-                <option value="USD">USD — akun dolar</option>
-                <option value="USC">USC — akun cent</option>
+                <option value="USD">USD - akun dolar</option>
+                <option value="USC">USC - akun cent</option>
               </select>
             </div>
           </div>
@@ -8141,11 +8141,11 @@ EURUSD | buy | 1.0850 | 1.0820 | 1.0910 | be</pre>
           <div class="help-block">
             <ul>
               <li><b>Pip vs point.</b> Untuk XAUUSD, 1 pip = 0.1 (setara 10 point di MT5). Sebagian trader menyebut 0.01
-                sebagai "pip" — kalau kamu terbiasa begitu, ubah saja kolom Ukuran 1 Pip jadi 0.01.</li>
+                sebagai "pip" - kalau kamu terbiasa begitu, ubah saja kolom Ukuran 1 Pip jadi 0.01.</li>
               <li><b>Akun cent (USC).</b> Angka pip value-nya sama, cuma satuannya USC, bukan dolar. Contoh: 1 lot
-                XAUUSD = 10 per pip — di akun standar artinya $10, di akun cent artinya 10 USC (setara $0,10).</li>
+                XAUUSD = 10 per pip - di akun standar artinya $10, di akun cent artinya 10 USC (setara $0,10).</li>
               <li><b>Hasil ini perkiraan.</b> Belum termasuk spread, komisi, swap, dan slippage. Angka riil di broker
-                akan sedikit berbeda — selalu cross-check contract size di spesifikasi kontrak broker kamu.</li>
+                akan sedikit berbeda - selalu cross-check contract size di spesifikasi kontrak broker kamu.</li>
             </ul>
           </div>
         </div>
@@ -8174,9 +8174,9 @@ EURUSD | buy | 1.0850 | 1.0820 | 1.0910 | be</pre>
             <div class="field"><label for="a-type">Tipe Akun</label><input type="text" id="a-type"
                 placeholder="Standard / Raw Spread"></div>
             <div class="field"><label for="a-currency">Currency</label><select id="a-currency">
-                <option value="USD">USD — Dolar</option>
-                <option value="USC">USC — Cent (akun sen)</option>
-                <option value="IDR">IDR — Rupiah</option>
+                <option value="USD">USD - Dolar</option>
+                <option value="USC">USC - Cent (akun sen)</option>
+                <option value="IDR">IDR - Rupiah</option>
               </select></div>
             <div class="field"><label for="a-balance">Saldo Awal</label><input type="number" step="any" id="a-balance"
                 placeholder="1000"></div>
@@ -8218,7 +8218,7 @@ EURUSD | buy | 1.0850 | 1.0820 | 1.0910 | be</pre>
     </div>
 
     <div class="foot">
-      FNC Academy — Edukasi Trading. Semua isi di sini adalah bahan belajar dan alat bantu evaluasi pribadi, bukan
+      FNC Academy - Edukasi Trading. Semua isi di sini adalah bahan belajar dan alat bantu evaluasi pribadi, bukan
       sinyal atau rekomendasi investasi.
     </div>
   </div>
@@ -8228,7 +8228,7 @@ EURUSD | buy | 1.0850 | 1.0820 | 1.0910 | be</pre>
       "use strict";
       /* ============================================================
          KODE AKSES MEMBER PRIVATE (gerbang aplikasi jurnal)
-         Kodenya SENGAJA tidak ditulis di sini. Berkas ini publik di GitHub —
+         Kodenya SENGAJA tidak ditulis di sini. Berkas ini publik di GitHub -
          siapa pun bisa membacanya. Yang disimpan hanya sidik SHA-256 di bawah,
          dan sidik tidak bisa dibalik menjadi kode.
          (tanda strip & spasi diabaikan saat member mengetik)
@@ -8247,14 +8247,14 @@ EURUSD | buy | 1.0850 | 1.0820 | 1.0910 | be</pre>
          Catatan jujur: gerbang ini menyaring, bukan mengunci. Kode aslinya memang
          sudah tidak bisa dibaca dari source, tapi orang yang paham DevTools tetap
          bisa melewatinya. Yang benar-benar terkunci adalah ISI berita eksklusif &
-         analisa — itu dienkripsi AES-256-GCM, bukan sekadar dijaga gerbang.
+         analisa - itu dienkripsi AES-256-GCM, bukan sekadar dijaga gerbang.
          ============================================================ */
-      /* Hash SHA-256 dari kode jurnal — kode aslinya TIDAK tersimpan di berkas ini.
+      /* Hash SHA-256 dari kode jurnal - kode aslinya TIDAK tersimpan di berkas ini.
          Ganti kode: hitung SHA-256 dari kode baru (huruf besar, tanpa tanda hubung),
          tempel hex-nya di sini. */
       const ACCESS_CODE_HASH = 'c1dd83f96b78adc013a54064353e5023a566748f37585a4eb05172ffedf14915';
       /* Sidik kode eksklusif. Dulu kode ini HANYA diuji dengan mencoba membuka
-         berkas di server — jadi begitu salah satu berkas eksklusif basi, gagal
+         berkas di server - jadi begitu salah satu berkas eksklusif basi, gagal
          diunduh, atau terlalu besar untuk dibuka di HP, kode yang BENAR pun
          ditolak dengan pesan "kode salah". Sidik ini dipakai sebagai cadangan.
          Aman: sidik tidak bisa dibalik jadi kode, dan isinya tetap butuh
@@ -8266,7 +8266,7 @@ EURUSD | buy | 1.0850 | 1.0820 | 1.0910 | be</pre>
 
       /* ------------------------------------------------------------
          KODE EKSKLUSIF (berita eksklusif + analisa).
-         TIDAK ADA di berkas ini — sengaja. Isi berita-eksklusif.json dan
+         TIDAK ADA di berkas ini - sengaja. Isi berita-eksklusif.json dan
          analisa.json dienkripsi AES-256-GCM memakai kode itu sebagai kunci.
          Kode dinyatakan benar kalau berhasil membuka berkasnya; salah sedikit
          saja, isinya tetap tidak terbaca. Ganti kode = cukup unduh ulang
@@ -8274,14 +8274,14 @@ EURUSD | buy | 1.0850 | 1.0820 | 1.0910 | be</pre>
          ------------------------------------------------------------ */
 
       /* ============================================================
-         KRIPTO FNC — AES-256-GCM + PBKDF2-SHA256
+         KRIPTO FNC - AES-256-GCM + PBKDF2-SHA256
          Isi berkas benar-benar dienkripsi. Tanpa kode yang benar,
          isinya tidak bisa dibuka dengan cara apapun (termasuk DevTools).
          ============================================================ */
       /* Normalisasi kode: huruf besar, buang strip/spasi/simbol.
-         WAJIB identik di admin & member — kalau beda, kunci tidak akan cocok. */
+         WAJIB identik di admin & member - kalau beda, kunci tidak akan cocok. */
       /* ============================================================
-         KRIPTO FNC v3 — AES-256-GCM + PBKDF2-SHA256
+         KRIPTO FNC v3 - AES-256-GCM + PBKDF2-SHA256
          Format v3: { v:3, teaser:[...], salt, iv, ct }
            teaser = TIDAK dikunci (judul, tanggal, label) -> untuk pratinjau buram
            ct     = TERKUNCI penuh (isi, link, gambar)    -> hanya dengan kode benar
@@ -8312,7 +8312,7 @@ EURUSD | buy | 1.0850 | 1.0820 | 1.0910 | be</pre>
         _keyCache.set(tag, k);
         return k;
       }
-      /* Ringkasan aman untuk pratinjau — SENGAJA TIDAK memuat judul.
+      /* Ringkasan aman untuk pratinjau - SENGAJA TIDAK memuat judul.
          Judul saja sudah cukup membocorkan isi. */
       function fncTeaser(arr) {
         return (arr || []).map(function (x) {
@@ -8401,7 +8401,7 @@ EURUSD | buy | 1.0850 | 1.0820 | 1.0910 | be</pre>
         K_DEMO = 'fncjt_demo_ditawarkan',
         K_PROFIL = 'fncjt_profil', K_TIER = 'fncjt_tier';
       let tier = 'private';          /* 'private' | 'eks' */
-      let profil = null;             /* {id,nama,dibuat} — tersimpan LOKAL, bukan server */
+      let profil = null;             /* {id,nama,dibuat} - tersimpan LOKAL, bukan server */
       let accounts = [], trades = [], settings = { kurs: 17000 };
       let editTradeId = null, editAcctId = null;
       const $ = id => document.getElementById(id);
@@ -8470,7 +8470,7 @@ EURUSD | buy | 1.0850 | 1.0820 | 1.0910 | be</pre>
       function demoData() {
         const acc = {
           id: 'demo_acc', name: 'Akun Demo', broker: 'EXNESS', type: 'Standard', currency: 'USD',
-          startBalance: 1000, startDate: '2026-01-01', status: 'Active', notes: 'Contoh — hapus kalau sudah paham'
+          startBalance: 1000, startDate: '2026-01-01', status: 'Active', notes: 'Contoh - hapus kalau sudah paham'
         };
         const rows = [
           ['2026-05-04', 'XAUUSD', 3210.5, 3204.2, 3229.4, 0.05, 1, 'Win', 'Order Block', 'H1', 'Retest OB demand, konfirmasi bullish'],
@@ -8505,7 +8505,7 @@ EURUSD | buy | 1.0850 | 1.0820 | 1.0910 | be</pre>
       /* ---------------------------------------------------------------
          SATU-SATUNYA formatter uang. Semua nilai disimpan internal dalam
          USD; fungsi ini yang mengubahnya ke mata uang akun bersangkutan.
-         Jangan panggil money()/rupiah() langsung di tampilan — pakai ini,
+         Jangan panggil money()/rupiah() langsung di tampilan - pakai ini,
          supaya akun cent & rupiah tidak pernah salah satuan lagi.
          --------------------------------------------------------------- */
       function fmtByCur(usdVal, cur) {
@@ -8540,7 +8540,7 @@ EURUSD | buy | 1.0850 | 1.0820 | 1.0910 | be</pre>
       }
       function lencanaPosisi(t) {
         const a = arahPosisi(t);
-        if (!a) return '<span style="color:var(--gray)">&mdash;</span>';
+        if (!a) return '<span style="color:var(--gray)">-</span>';
         return '<span class="posisi ' + a.toLowerCase() + '">' + a.toUpperCase() + '</span>';
       }
 
@@ -8595,12 +8595,12 @@ EURUSD | buy | 1.0850 | 1.0820 | 1.0910 | be</pre>
         const cls = v => v > 0 ? 'pos' : v < 0 ? 'neg' : 'neu';
         $('kpi-grid').innerHTML =
           kpi('Total Trades', s.total, '', 'neu') +
-          kpi('Win Rate', s.total ? s.winRate.toFixed(1) + '%' : '—', '', s.winRate >= 50 ? 'pos' : 'neu') +
+          kpi('Win Rate', s.total ? s.winRate.toFixed(1) + '%' : '-', '', s.winRate >= 50 ? 'pos' : 'neu') +
           kpi('Net P/L (' + mainUnit() + ')', fmtMain(s.netUsd), fmtSub(s.netUsd), cls(s.netUsd)) +
-          kpi('Profit Factor', s.total ? (s.pf === Infinity ? '∞' : s.pf.toFixed(2)) : '—', '', s.pf >= 1 ? 'pos' : 'neu') +
+          kpi('Profit Factor', s.total ? (s.pf === Infinity ? '∞' : s.pf.toFixed(2)) : '-', '', s.pf >= 1 ? 'pos' : 'neu') +
           kpi('Saldo Saat Ini', fmtMain(base + s.netUsd), fmtSub(base + s.netUsd), 'neu') +
           kpi('Max Drawdown', fmtMain(-s.maxDD), '', s.maxDD > 0 ? 'neg' : 'neu') +
-          kpi('Avg R-Multiple', s.total ? s.avgRR.toFixed(2) + 'R' : '—', '', s.avgRR >= 1 ? 'pos' : 'neu') +
+          kpi('Avg R-Multiple', s.total ? s.avgRR.toFixed(2) + 'R' : '-', '', s.avgRR >= 1 ? 'pos' : 'neu') +
           kpi('Expectancy / Trade', fmtMain(s.expectancy), '', cls(s.expectancy));
 
         $('stat-panel').innerHTML = [
@@ -8655,7 +8655,7 @@ EURUSD | buy | 1.0850 | 1.0820 | 1.0910 | be</pre>
 
       function renderBreak(list, key, elId) {
         const map = {};
-        list.forEach(t => { const k = t[key] || '—'; map[k] = (map[k] || 0) + compute(t).usd; });
+        list.forEach(t => { const k = t[key] || '-'; map[k] = (map[k] || 0) + compute(t).usd; });
         const e = Object.entries(map).sort((a, b) => b[1] - a[1]);
         if (!e.length) { $(elId).innerHTML = '<div style="color:#9CA3AF;font-size:12px;">Belum ada data.</div>'; return; }
         const mx = Math.max(...e.map(x => Math.abs(x[1]))) || 1;
@@ -8754,7 +8754,7 @@ EURUSD | buy | 1.0850 | 1.0820 | 1.0910 | be</pre>
           const rc = t.result === 'Win' ? 'win' : t.result === 'Loss' ? 'loss' : 'be';
           const uc = c.usd > 0 ? 'pos' : c.usd < 0 ? 'neg' : 'neu';
           return `<tr><td>${list.length - i}</td><td>${esc(t.date)}</td>
-        <td>${t.jam ? esc(t.jam) : '<span style="color:var(--gray)">&mdash;</span>'}</td>
+        <td>${t.jam ? esc(t.jam) : '<span style="color:var(--gray)">-</span>'}</td>
         <td>${esc(t.market)}</td>
         <td>${lencanaPosisi(t)}</td>
         <td>${t.entry}</td><td>${t.sl}</td><td>${t.tp}</td><td>${t.vol == null ? '-' : t.vol}</td>
@@ -8775,7 +8775,7 @@ EURUSD | buy | 1.0850 | 1.0820 | 1.0910 | be</pre>
 
       function fillAccountSelects() {
         const opts = accounts.map(a =>
-          `<option value="${a.id}">${esc(a.name)}${a.broker ? ' — ' + esc(a.broker) : ''}${a.status !== 'Active' ? ' (nonaktif)' : ''}</option>`
+          `<option value="${a.id}">${esc(a.name)}${a.broker ? ' - ' + esc(a.broker) : ''}${a.status !== 'Active' ? ' (nonaktif)' : ''}</option>`
         ).join('');
         $('in-account').innerHTML = accounts.map(a => `<option value="${a.id}">${esc(a.name)}</option>`).join('');
         const af = $('acct-filter'), cur = af.value;
@@ -8805,7 +8805,7 @@ EURUSD | buy | 1.0850 | 1.0820 | 1.0910 | be</pre>
           tf: $('in-tf').value, reason: $('in-reason').value.trim()
         };
       }
-      /* Saat Entry & SL diisi, arah posisi menyesuaikan sendiri — tapi tetap
+      /* Saat Entry & SL diisi, arah posisi menyesuaikan sendiri - tapi tetap
          bisa diubah manual kalau member memang menginginkannya. */
       let posisiDiubahManual = false;
       function selaraskanPosisi() {
@@ -8819,7 +8819,7 @@ EURUSD | buy | 1.0850 | 1.0820 | 1.0910 | be</pre>
         selaraskanPosisi();
         const d = readForm();
         if (!d.accountId || isNaN(d.entry) || isNaN(d.sl) || isNaN(d.tp) || isNaN(d.riskPct)) {
-          ['cp-risk', 'cp-rr', 'cp-usd', 'cp-rp'].forEach(i => { $(i).textContent = '—'; $(i).className = ''; }); return;
+          ['cp-risk', 'cp-rr', 'cp-usd', 'cp-rp'].forEach(i => { $(i).textContent = '-'; $(i).className = ''; }); return;
         }
         const c = compute(d);
         /* Pakai mata uang akun yang dipilih DI FORM, bukan filter di atas.
@@ -8838,7 +8838,7 @@ EURUSD | buy | 1.0850 | 1.0820 | 1.0910 | be</pre>
       function resetForm() {
         editTradeId = null;
         $('in-date').value = new Date().toISOString().slice(0, 10);
-        /* jam diisi otomatis dengan waktu sekarang — tinggal diubah kalau perlu */
+        /* jam diisi otomatis dengan waktu sekarang - tinggal diubah kalau perlu */
         (function () {
           const d = new Date();
           $('in-jam').value = String(d.getHours()).padStart(2, '0') + ':' +
@@ -8875,7 +8875,7 @@ EURUSD | buy | 1.0850 | 1.0820 | 1.0910 | be</pre>
           const sub = fmtSubByCur(cur, a.currency);
           return `<div class="acct-card">
         <div class="acct-info"><h4>${esc(a.name)}</h4>
-          <div class="meta"><span class="dot ${a.status !== 'Active' ? 'off' : ''}"></span>${esc(a.broker) || '—'} · ${esc(a.type) || '—'} · ${esc(a.currency)} · ${list.length} trade</div>
+          <div class="meta"><span class="dot ${a.status !== 'Active' ? 'off' : ''}"></span>${esc(a.broker) || '-'} · ${esc(a.type) || '-'} · ${esc(a.currency)} · ${list.length} trade</div>
           ${a.notes ? `<div class="meta" style="margin-top:3px;color:#9CA3AF;">${esc(a.notes)}</div>` : ''}</div>
         <div style="display:flex;align-items:center;gap:15px;">
           <div class="acct-bal"><div class="st">Saldo Saat Ini</div>
@@ -9044,9 +9044,9 @@ EURUSD | buy | 1.0850 | 1.0820 | 1.0910 | be</pre>
          hanyalah bar kosong. Judul & tanggal berasal dari bagian teaser yang
          memang sengaja dibuat publik oleh admin. */
       /* Kartu terkunci: HANYA gambar mini yang diburamkan.
-         Judul sengaja tidak ditampilkan — judul saja sudah membocorkan isi. */
+         Judul sengaja tidak ditampilkan - judul saja sudah membocorkan isi. */
       /* Satu panel untuk semua tab terkunci. Dulu tiap kiriman punya kartu
-         gembok sendiri — layarnya jadi penuh pengulangan, dan arahannya
+         gembok sendiri - layarnya jadi penuh pengulangan, dan arahannya
          ("Buka Akses") membuka kotak isian kode, padahal kode sekarang
          diurus di tab Profil. */
       const LK_LABEL = { eks: 'Eksklusif', priv: 'Private' };
@@ -9161,7 +9161,7 @@ EURUSD | buy | 1.0850 | 1.0820 | 1.0910 | be</pre>
       /* Urut terbaru dulu, DAN sembunyikan yang jadwal tayangnya belum tiba. */
       /* Urutan tampil.
          Kalau admin sudah menyusun urutannya sendiri (semua kiriman punya
-         nomor "urut"), urutan itulah yang dipakai — penting untuk Materi,
+         nomor "urut"), urutan itulah yang dipakai - penting untuk Materi,
          karena modul harus berurutan 1,2,3, bukan yang terbaru di atas.
          Kalau tidak ada nomor urut, kembali ke urutan terbaru seperti biasa. */
       function adaUrutManual(a) {
@@ -9185,7 +9185,7 @@ EURUSD | buy | 1.0850 | 1.0820 | 1.0910 | be</pre>
       const daftarPenuh = {};                 /* seluruh kiriman per daftar, sebelum disaring */
       /* Nomor urut permintaan per daftar. Setiap kali daftar diminta digambar
          ulang, nomornya naik. Hasil pengambilan berkas yang datang terlambat
-         akan dibuang kalau nomornya sudah tidak cocok — inilah yang mencegah
+         akan dibuang kalau nomornya sudah tidak cocok - inilah yang mencegah
          tampilan satu segmen menimpa segmen lain. */
       const proses = {};
       /* Menandai daftar yang sedang menampilkan kartu terkunci, supaya
@@ -9197,7 +9197,7 @@ EURUSD | buy | 1.0850 | 1.0820 | 1.0910 | be</pre>
       };
       /* Selama daftar dimuat, tombol penyaring dinonaktifkan. Tanpa ini,
          pengguna bisa menekan tombol milik daftar LAMA yang belum sempat
-         diperbarui — dan hasilnya jadi kosong atau tertukar. */
+         diperbarui - dan hasilnya jadi kosong atau tertukar. */
       function kunciSaring(id, aktif) {
         const el = $(WADAH_SARING[id]); if (!el) return;
         el.classList.toggle('memuat', !!aktif);
@@ -9237,7 +9237,7 @@ EURUSD | buy | 1.0850 | 1.0820 | 1.0910 | be</pre>
           .some(x => String(x || '').toLowerCase().indexOf(k) >= 0);
       }
 
-      /* Menyusun tombol penyaring dari data yang ada — bukan daftar tetap,
+      /* Menyusun tombol penyaring dari data yang ada - bukan daftar tetap,
          jadi label baru yang kamu buat di admin otomatis muncul di sini. */
       function gambarSaring(elId, wadahId, ambil, labelSemua) {
         const w = $(wadahId); if (!w) return;
@@ -9314,7 +9314,7 @@ EURUSD | buy | 1.0850 | 1.0820 | 1.0910 | be</pre>
           (adaVideo ? '<div class="vmark"></div>' : '') + '</div>';
         return '<div class="fi-head">' + thumb +
           '<div class="fi-info">' +
-          (it.title ? '<h4>' + esc(it.title) + '</h4>' : '<h4>&mdash;</h4>') +
+          (it.title ? '<h4>' + esc(it.title) + '</h4>' : '<h4>-</h4>') +
           '<div class="fi-meta">' + (label || '') +
           '<span class="feed-date">' + stempelWaktu(it, tanpaJam) + '</span></div>' +
           '</div>' +
@@ -9329,9 +9329,9 @@ EURUSD | buy | 1.0850 | 1.0820 | 1.0910 | be</pre>
         const el = $(elId); if (!el) return;
         const q = kataCari[elId] || '';
         /* Sorotan hanya dipakai di tab Berita, dan hanya saat tidak sedang
-           mencari atau menyaring — supaya hasil pencarian tetap setara. */
+           mencari atau menyaring - supaya hasil pencarian tetap setara. */
         /* Sorotan hanya untuk kiriman yang benar-benar terbuka. Kiriman
-           terkunci tidak boleh dibesarkan — judulnya memang tidak ada,
+           terkunci tidak boleh dibesarkan - judulnya memang tidak ada,
            dan tampilannya jadi kosong. */
         const pakaiSorotan = (elId === 'news-list') && !q && !modeTerkunci[elId] &&
           !saringAktif[elId] && !saringTgl[elId];
@@ -9393,7 +9393,7 @@ EURUSD | buy | 1.0850 | 1.0820 | 1.0910 | be</pre>
         const chip = e.target.closest('[data-saring]');
         if (chip) {
           const id = chip.dataset.saring;
-          /* Abaikan kalau daftarnya sedang dimuat — tombol ini milik daftar
+          /* Abaikan kalau daftarnya sedang dimuat - tombol ini milik daftar
              lama yang belum sempat diperbarui, jadi hasilnya akan salah. */
           const wadah = $(WADAH_SARING[id]);
           if (wadah && wadah.classList.contains('memuat')) return;
@@ -9482,7 +9482,7 @@ EURUSD | buy | 1.0850 | 1.0820 | 1.0910 | be</pre>
         return kodeEks;
       }
       /* Kode yang dipakai untuk membuka berkas private (Rekap & Materi).
-         Member eksklusif memakai kode eksklusifnya — berkas private punya
+         Member eksklusif memakai kode eksklusifnya - berkas private punya
          bungkus kunci untuk kedua kode. */
       async function ambilKodeAkses() {
         if (kodeAkses) return kodeAkses;
@@ -9496,7 +9496,7 @@ EURUSD | buy | 1.0850 | 1.0820 | 1.0910 | be</pre>
         /* Tingkatan sudah eksklusif berarti kodenya PERNAH terbukti benar di
            perangkat ini. Jadi tab Analisa dibuka langsung tanpa mengetik lagi,
            dengan kode yang sama yang dipakai masuk lewat gerbang depan. */
-        /* Tingkatan sudah eksklusif tapi kode gerbangnya kosong — biasanya sisa
+        /* Tingkatan sudah eksklusif tapi kode gerbangnya kosong - biasanya sisa
            dari bug lama yang mencabutnya diam-diam. Kode aksesnya masih tersimpan
            sejak masuk lewat gerbang depan, jadi dipulihkan saja: member tidak
            perlu mengetik kode yang sama dua kali. */
@@ -9514,7 +9514,7 @@ EURUSD | buy | 1.0850 | 1.0820 | 1.0910 | be</pre>
       async function ujiKode(kode) {
         if (await kodeEksCocok(kode)) return true;
         /* Semua format terenkripsi diuji, bukan cuma v2. Dulu hanya v2 yang
-           diakui, sementara berkas asli sudah v4 — akibatnya kode yang BENAR
+           diakui, sementara berkas asli sudah v4 - akibatnya kode yang BENAR
            pun ditolak dengan pesan "kode salah". */
         for (const url of [ANALISA_URL, NEWS_EX_URL, REKAP_EX_URL, MATERI_EX_URL]) {
           try {
@@ -9536,7 +9536,7 @@ EURUSD | buy | 1.0850 | 1.0820 | 1.0910 | be</pre>
         kodeEks = null;
         await store.set(K_ANGATE, '');
         newsExCache = null; analisaCache = null; rekapExCache = null; materiExCache = null;
-        /* Bersihkan isi terdekripsi dari DOM, bukan sekadar disembunyikan —
+        /* Bersihkan isi terdekripsi dari DOM, bukan sekadar disembunyikan -
            kalau hanya di-hide, teksnya masih bisa dibaca lewat DevTools. */
         if ($('analisa-list')) $('analisa-list').innerHTML = '';
         if ($('an-stamp')) $('an-stamp').textContent = '';
@@ -9584,7 +9584,7 @@ EURUSD | buy | 1.0850 | 1.0820 | 1.0910 | be</pre>
           $('news-stamp').textContent = c.updated ? 'Diperbarui ' + tanggalID(c.updated) : '';
         } catch (e) {
           if (prosesUsang('news-list', n)) return;
-          /* Berkas ini gagal dibuka — biasanya karena admin belum meng-upload
+          /* Berkas ini gagal dibuka - biasanya karena admin belum meng-upload
              ulang versi terbarunya. Yang bermasalah HANYA berkas ini, jadi kode
              gerbang sengaja TIDAK dicabut: dulu pencabutan otomatis inilah yang
              bikin member eksklusif disuruh memasukkan kode berulang kali. */
@@ -9608,7 +9608,7 @@ EURUSD | buy | 1.0850 | 1.0820 | 1.0910 | be</pre>
           renderFeed('analisa-list', analisaCache.items, 'an');
           $('an-stamp').textContent = analisaCache.updated ? 'Diperbarui ' + tanggalID(analisaCache.updated) : '';
         } catch (e) {
-          /* Berkas ini gagal dibuka — biasanya karena admin belum meng-upload
+          /* Berkas ini gagal dibuka - biasanya karena admin belum meng-upload
              ulang versi terbarunya. Yang bermasalah HANYA berkas ini, jadi kode
              gerbang sengaja TIDAK dicabut: dulu pencabutan otomatis inilah yang
              bikin member eksklusif disuruh memasukkan kode berulang kali. */
@@ -9655,7 +9655,7 @@ EURUSD | buy | 1.0850 | 1.0820 | 1.0910 | be</pre>
           if (cekAnalisa && analisaCache && analisaCache.next && analisaCache.next <= now) {
             analisaCache = null; await loadAnalisa(true);
           }
-          /* Beranda hanya disegarkan kalau memang ADA yang jatuh tempo —
+          /* Beranda hanya disegarkan kalau memang ADA yang jatuh tempo -
              entah kiriman terjadwal atau pengumuman yang habis masa tayangnya.
              Tanpa syarat ini, halaman ter-render ulang tiap 30 detik dan
              terlihat seperti me-refresh sendiri. */
@@ -9729,11 +9729,11 @@ EURUSD | buy | 1.0850 | 1.0820 | 1.0910 | be</pre>
 
 
       /* ============================================================
-         BANTUAN — FAQ & tutorial yang bisa dicari.
+         BANTUAN - FAQ & tutorial yang bisa dicari.
          Isinya ditulis di sini (bukan dari berkas luar) supaya tetap
          terbaca walau koneksi member sedang buruk.
          ============================================================ */
-      const HP_DATA = [["Mulai di Sini", "&#128075;", [["Saya baru pertama masuk, harus mulai dari mana?", "Tiga langkah saja:<ol><li>Buka tab <b>Profil</b>, isi namamu. Ini dipakai menandai catatan jurnalmu.</li><li>Masih di Profil, buat <b>akun trading</b> — isi nama akun, broker, mata uang, dan saldo awal. Saldo awal dipakai menghitung risiko.</li><li>Buka tab <b>Jurnal</b>, tekan <b>+ Trade Baru</b>, pilih mode <b>Cepat</b>.</li></ol>Selesai. Statistik langsung terisi sendiri."], ["Apa bedanya Umum, Private, dan Eksklusif?", "<b>Umum</b> bisa melihat Beranda, Berita, Kelas, Kalender, Jurnal, Statistik, dan Kalkulator — gratis tanpa kode.<br><b>Private</b> menambah Rekap Live dan Materi.<br><b>Eksklusif</b> menambah Analisa, Berita Eksklusif, Rekap dan Materi Eksklusif, plus prioritas konsultasi."], ["Data saya disimpan di mana? Aman?", "Jurnal, akun, dan profilmu disimpan <b>di dalam browser HP atau laptopmu sendiri</b> — tidak dikirim ke server mana pun. Artinya tidak ada yang bisa melihatnya selain kamu.<br><br>Konsekuensinya: kalau kamu menghapus data browser atau ganti HP, catatanmu ikut hilang. Makanya <b>rutin tekan tombol Backup</b> di tab Jurnal."]]], ["Jurnal Trading", "&#128221;", [["Cara mencatat trade paling cepat", "Tab <b>Jurnal</b> &rarr; <b>+ Trade Baru</b> &rarr; pilih <b>Cepat</b>. Isi market, arah, entry, stop loss, take profit, dan hasil. Tanggal, jam, dan akun diisi sistem otomatis."], ["Cara menempel banyak trade sekaligus", "Tab <b>Jurnal</b> &rarr; <b>+ Trade Baru</b> &rarr; <b>Tempel</b>. Tulis <b>satu trade satu baris</b> dengan format:<br><code>MARKET | ARAH | ENTRY | SL | TP | HASIL</code><br>Contoh:<br><code>XAUUSD | buy | 4450 | 4440 | 4470 | win</code><br><br>Arah boleh <code>buy</code>/<code>sell</code> atau <code>beli</code>/<code>jual</code>. Hasil boleh <code>win</code>/<code>loss</code>/<code>be</code>. Koma dianggap titik desimal, jadi <code>1,0850</code> juga diterima.<br><br>Tekan <b>Periksa Dulu</b> untuk melihat mana yang sudah benar sebelum disimpan."], ["Apa itu Risk % dan kenapa wajib diisi?", "Risk % adalah berapa persen saldo yang kamu pertaruhkan di satu trade. Contoh: saldo $1.000 dengan risk 1% berarti kamu siap rugi $10 kalau kena stop loss.<br><br>Ini <b>wajib</b> karena seluruh perhitungan untung-rugi di tab Statistik memakai angka ini. Kalau kosong, statistikmu jadi nol."], ["Kenapa Net P/L saya beda dengan saldo di broker?", "Angka di sini adalah <b>hasil teoretis</b> berdasarkan jarak stop loss dan take profit — bukan harga eksekusi asli dari broker.<br><br>Perbedaan wajar muncul karena spread, komisi, swap, dan slippage. Untuk mencocokkan saldo asli, tetap pakai laporan dari brokermu."], ["Cara mengamankan catatan jurnal", "Tab <b>Jurnal</b> &rarr; tombol <b>Backup</b>. Sebuah berkas akan terunduh — simpan di Google Drive atau kirim ke chat WhatsApp dirimu sendiri.<br><br>Untuk mengembalikannya di HP baru: tekan <b>Restore</b>, pilih berkas itu.<br><br>Biasakan backup <b>seminggu sekali</b>."]]], ["Kode Akses & Keanggotaan", "&#128273;", [["Di mana memasukkan kode akses?", "Tab <b>Profil</b> &rarr; tombol <b>Masukkan Kode</b>. Setelah kodenya benar, tab yang terkunci langsung terbuka."], ["Kode saya ditolak, padahal sudah benar", "Coba periksa:<ul><li>Huruf besar-kecil dan tanda hubung sudah persis sama</li><li>Tidak ada spasi ikut tersalin di depan atau belakang</li><li>Masa aktif keanggotaanmu belum habis</li></ul>Kalau tetap ditolak, hubungi admin lewat tab Konsultasi di Beranda."], ["Saya sudah bayar tapi tab masih terkunci", "Kode dikirim admin secara manual setelah pembayaran dicek. Kalau sudah lewat beberapa jam dan belum ada kabar, chat admin dan sertakan bukti transfernya."], ["Kenapa saya diminta memasukkan kode lagi?", "Biasanya karena data browser terhapus, memakai mode penyamaran, atau berpindah perangkat. Kodenya masih berlaku — tinggal masukkan lagi di tab Profil."]]], ["Market & Chart", "&#128200;", [["Cara membuka chart sebuah pair", "Di <b>Beranda</b>, ketik nama pair di kotak <b>Cari Pair</b> — bisa pakai kode (<code>gbpjpy</code>) atau nama Indonesia (<code>emas</code>, <code>minyak</code>). Pencet hasilnya, harganya langsung muncul, lalu tekan <b>Buka Chart</b> untuk melihat chart layar penuh beserta alat analisanya.<br><br>Harga beberapa pair utama juga berjalan otomatis di pita <b>Harga Berjalan</b> paling atas."], ["Pair yang saya cari tidak ada di daftar", "Ketik saja simbolnya, nanti muncul tombol <b>Coba buka</b>. Sebagian besar simbol TradingView bisa dibuka lewat jalur itu."], ["Bisakah analisa di chart saya simpan?", "Coretan di chart ini <b>tidak bisa disimpan</b>, karena chart-nya tidak terhubung ke akun TradingView-mu. Begitu ditutup, coretannya hilang.<br><br>Tapi ada <b>ikon kamera</b> di pojok chart — pakai itu untuk menyimpan analisamu sebagai gambar. Untuk analisa yang tersimpan permanen, pakai TradingView atau MT5 milikmu sendiri."], ["Harganya tidak muncul / kosong", "Hampir selalu masalah koneksi. Coba muat ulang halaman. Kalau memakai penghemat data atau pemblokir iklan, coba matikan dulu untuk situs ini."]]], ["Konsultasi 1-on-1", "&#128172;", [["Siapa yang bisa ikut konsultasi?", "Konsultasi 1-on-1 adalah benefit paket <b>Lifetime</b> dan <b>Eksklusif</b>.<br><br><b>Lifetime</b> mengajukan slot dari jadwal yang tersedia. <b>Eksklusif</b> mendapat prioritas, plus bisa mengajukan waktu sendiri di luar jadwal."], ["Cara mengajukan sesi", "Tab <b>Konsultasi</b> &rarr; pilih slot berstatus <b>Kosong</b> &rarr; tekan <b>Ajukan Slot Ini</b>. WhatsApp terbuka dengan pesan yang sudah terisi — tinggal kirim, lalu tunggu konfirmasi admin."], ["Kenapa ajuan saya ditolak karena waktu?", "Pengajuan ditutup <b>1 jam sebelum sesi dimulai</b>, supaya mentor sempat menyiapkan bahan dan meninjau jurnalmu. Silakan pilih jadwal lain."], ["Status slot belum berubah padahal admin sudah membalas", "Jadwal diperbarui admin secara manual, biasanya 15&ndash;30 menit. <b>Konfirmasi dari admin lebih berlaku</b> daripada tampilan di halaman ini."], ["Slot saya keduluan orang lain", "Bisa terjadi kalau dua orang mengajukan berbarengan. Admin akan menawarkan jadwal terdekat yang masih kosong."]]], ["Statistik & Kalkulator", "&#128202;", [["Cara membaca tab Statistik", "<b>Win Rate</b> — persentase trade yang untung.<br><b>Profit Factor</b> — total untung dibagi total rugi; di atas 1 berarti secara keseluruhan kamu untung.<br><b>Drawdown</b> — penurunan terdalam dari puncak saldo.<br><b>Equity Curve</b> — grafik naik-turun saldomu dari waktu ke waktu."], ["Statistik saya kosong padahal sudah ada trade", "Paling sering karena <b>Risk %</b> belum terisi di trade-trade itu. Buka trade-nya, isi Risk %, lalu statistik langsung terhitung."], ["Cara pakai Kalkulator", "Tab <b>Kalkulator</b> punya empat alat: nilai pip, ukuran lot dari risiko, hitung untung-rugi, dan rasio risk-reward. Pilih instrumennya dulu di bagian atas, karena tiap instrumen beda ukuran kontraknya."], ["Ukuran lot dari kalkulator beda dengan broker saya", "Ukuran kontrak tiap broker bisa berbeda. Cek spesifikasi kontrak di brokermu, lalu sesuaikan kolom <b>Contract Size</b> di kalkulator."]]], ["Tampilan & Lainnya", "&#9881;&#65039;", [["Cara mengubah mode gelap atau terang", "Tekan ikon matahari/bulan di pojok kanan atas halaman. Pilihanmu tersimpan di perangkat ini."], ["Kartu sapaan di Beranda bisa disembunyikan?", "Bisa. Tekan tanda <b>&#10005;</b> di pojok kanan atas kartu sapaan. Dia akan muncul lagi saat kamu membuka website berikutnya."], ["Tombol Tanya AI tidak berfungsi", "AI Agent sedang dalam perbaikan. Sementara ini pertanyaanmu dijawab langsung oleh Admin Yudhis lewat WhatsApp — tombolnya sudah otomatis mengarah ke sana."], ["Halaman terasa lambat dibuka", "Coba muat ulang halaman. Kalau tab Berita yang terasa berat, itu karena berkas gambarnya besar — tim sedang mengerjakan perbaikannya."], ["Saya menemukan masalah lain", "Chat admin lewat tab <b>Konsultasi</b> di Beranda. Sertakan tangkapan layar dan sebutkan tab mana yang bermasalah — itu sangat membantu mempercepat perbaikan."]]]];
+      const HP_DATA = [["Mulai di Sini", "&#128075;", [["Saya baru pertama masuk, harus mulai dari mana?", "Tiga langkah saja:<ol><li>Buka tab <b>Profil</b>, isi namamu. Ini dipakai menandai catatan jurnalmu.</li><li>Masih di Profil, buat <b>akun trading</b> - isi nama akun, broker, mata uang, dan saldo awal. Saldo awal dipakai menghitung risiko.</li><li>Buka tab <b>Jurnal</b>, tekan <b>+ Trade Baru</b>, pilih mode <b>Cepat</b>.</li></ol>Selesai. Statistik langsung terisi sendiri."], ["Apa bedanya Umum, Private, dan Eksklusif?", "<b>Umum</b> bisa melihat Beranda, Berita, Kelas, Kalender, Jurnal, Statistik, dan Kalkulator - gratis tanpa kode.<br><b>Private</b> menambah Rekap Live dan Materi.<br><b>Eksklusif</b> menambah Analisa, Berita Eksklusif, Rekap dan Materi Eksklusif, plus prioritas konsultasi."], ["Data saya disimpan di mana? Aman?", "Jurnal, akun, dan profilmu disimpan <b>di dalam browser HP atau laptopmu sendiri</b> - tidak dikirim ke server mana pun. Artinya tidak ada yang bisa melihatnya selain kamu.<br><br>Konsekuensinya: kalau kamu menghapus data browser atau ganti HP, catatanmu ikut hilang. Makanya <b>rutin tekan tombol Backup</b> di tab Jurnal."]]], ["Jurnal Trading", "&#128221;", [["Cara mencatat trade paling cepat", "Tab <b>Jurnal</b> &rarr; <b>+ Trade Baru</b> &rarr; pilih <b>Cepat</b>. Isi market, arah, entry, stop loss, take profit, dan hasil. Tanggal, jam, dan akun diisi sistem otomatis."], ["Cara menempel banyak trade sekaligus", "Tab <b>Jurnal</b> &rarr; <b>+ Trade Baru</b> &rarr; <b>Tempel</b>. Tulis <b>satu trade satu baris</b> dengan format:<br><code>MARKET | ARAH | ENTRY | SL | TP | HASIL</code><br>Contoh:<br><code>XAUUSD | buy | 4450 | 4440 | 4470 | win</code><br><br>Arah boleh <code>buy</code>/<code>sell</code> atau <code>beli</code>/<code>jual</code>. Hasil boleh <code>win</code>/<code>loss</code>/<code>be</code>. Koma dianggap titik desimal, jadi <code>1,0850</code> juga diterima.<br><br>Tekan <b>Periksa Dulu</b> untuk melihat mana yang sudah benar sebelum disimpan."], ["Apa itu Risk % dan kenapa wajib diisi?", "Risk % adalah berapa persen saldo yang kamu pertaruhkan di satu trade. Contoh: saldo $1.000 dengan risk 1% berarti kamu siap rugi $10 kalau kena stop loss.<br><br>Ini <b>wajib</b> karena seluruh perhitungan untung-rugi di tab Statistik memakai angka ini. Kalau kosong, statistikmu jadi nol."], ["Kenapa Net P/L saya beda dengan saldo di broker?", "Angka di sini adalah <b>hasil teoretis</b> berdasarkan jarak stop loss dan take profit - bukan harga eksekusi asli dari broker.<br><br>Perbedaan wajar muncul karena spread, komisi, swap, dan slippage. Untuk mencocokkan saldo asli, tetap pakai laporan dari brokermu."], ["Cara mengamankan catatan jurnal", "Tab <b>Jurnal</b> &rarr; tombol <b>Backup</b>. Sebuah berkas akan terunduh - simpan di Google Drive atau kirim ke chat WhatsApp dirimu sendiri.<br><br>Untuk mengembalikannya di HP baru: tekan <b>Restore</b>, pilih berkas itu.<br><br>Biasakan backup <b>seminggu sekali</b>."]]], ["Kode Akses & Keanggotaan", "&#128273;", [["Di mana memasukkan kode akses?", "Tab <b>Profil</b> &rarr; tombol <b>Masukkan Kode</b>. Setelah kodenya benar, tab yang terkunci langsung terbuka."], ["Kode saya ditolak, padahal sudah benar", "Coba periksa:<ul><li>Huruf besar-kecil dan tanda hubung sudah persis sama</li><li>Tidak ada spasi ikut tersalin di depan atau belakang</li><li>Masa aktif keanggotaanmu belum habis</li></ul>Kalau tetap ditolak, hubungi admin lewat tab Konsultasi di Beranda."], ["Saya sudah bayar tapi tab masih terkunci", "Kode dikirim admin secara manual setelah pembayaran dicek. Kalau sudah lewat beberapa jam dan belum ada kabar, chat admin dan sertakan bukti transfernya."], ["Kenapa saya diminta memasukkan kode lagi?", "Biasanya karena data browser terhapus, memakai mode penyamaran, atau berpindah perangkat. Kodenya masih berlaku - tinggal masukkan lagi di tab Profil."]]], ["Market & Chart", "&#128200;", [["Cara membuka chart sebuah pair", "Di <b>Beranda</b>, ketik nama pair di kotak <b>Cari Pair</b> - bisa pakai kode (<code>gbpjpy</code>) atau nama Indonesia (<code>emas</code>, <code>minyak</code>). Pencet hasilnya, harganya langsung muncul, lalu tekan <b>Buka Chart</b> untuk melihat chart layar penuh beserta alat analisanya.<br><br>Harga beberapa pair utama juga berjalan otomatis di pita <b>Harga Berjalan</b> paling atas."], ["Pair yang saya cari tidak ada di daftar", "Ketik saja simbolnya, nanti muncul tombol <b>Coba buka</b>. Sebagian besar simbol TradingView bisa dibuka lewat jalur itu."], ["Bisakah analisa di chart saya simpan?", "Coretan di chart ini <b>tidak bisa disimpan</b>, karena chart-nya tidak terhubung ke akun TradingView-mu. Begitu ditutup, coretannya hilang.<br><br>Tapi ada <b>ikon kamera</b> di pojok chart - pakai itu untuk menyimpan analisamu sebagai gambar. Untuk analisa yang tersimpan permanen, pakai TradingView atau MT5 milikmu sendiri."], ["Harganya tidak muncul / kosong", "Hampir selalu masalah koneksi. Coba muat ulang halaman. Kalau memakai penghemat data atau pemblokir iklan, coba matikan dulu untuk situs ini."]]], ["Konsultasi 1-on-1", "&#128172;", [["Siapa yang bisa ikut konsultasi?", "Konsultasi 1-on-1 adalah benefit paket <b>Lifetime</b> dan <b>Eksklusif</b>.<br><br><b>Lifetime</b> mengajukan slot dari jadwal yang tersedia. <b>Eksklusif</b> mendapat prioritas, plus bisa mengajukan waktu sendiri di luar jadwal."], ["Cara mengajukan sesi", "Tab <b>Konsultasi</b> &rarr; pilih slot berstatus <b>Kosong</b> &rarr; tekan <b>Ajukan Slot Ini</b>. WhatsApp terbuka dengan pesan yang sudah terisi - tinggal kirim, lalu tunggu konfirmasi admin."], ["Kenapa ajuan saya ditolak karena waktu?", "Pengajuan ditutup <b>1 jam sebelum sesi dimulai</b>, supaya mentor sempat menyiapkan bahan dan meninjau jurnalmu. Silakan pilih jadwal lain."], ["Status slot belum berubah padahal admin sudah membalas", "Jadwal diperbarui admin secara manual, biasanya 15-30 menit. <b>Konfirmasi dari admin lebih berlaku</b> daripada tampilan di halaman ini."], ["Slot saya keduluan orang lain", "Bisa terjadi kalau dua orang mengajukan berbarengan. Admin akan menawarkan jadwal terdekat yang masih kosong."]]], ["Statistik & Kalkulator", "&#128202;", [["Cara membaca tab Statistik", "<b>Win Rate</b> - persentase trade yang untung.<br><b>Profit Factor</b> - total untung dibagi total rugi; di atas 1 berarti secara keseluruhan kamu untung.<br><b>Drawdown</b> - penurunan terdalam dari puncak saldo.<br><b>Equity Curve</b> - grafik naik-turun saldomu dari waktu ke waktu."], ["Statistik saya kosong padahal sudah ada trade", "Paling sering karena <b>Risk %</b> belum terisi di trade-trade itu. Buka trade-nya, isi Risk %, lalu statistik langsung terhitung."], ["Cara pakai Kalkulator", "Tab <b>Kalkulator</b> punya empat alat: nilai pip, ukuran lot dari risiko, hitung untung-rugi, dan rasio risk-reward. Pilih instrumennya dulu di bagian atas, karena tiap instrumen beda ukuran kontraknya."], ["Ukuran lot dari kalkulator beda dengan broker saya", "Ukuran kontrak tiap broker bisa berbeda. Cek spesifikasi kontrak di brokermu, lalu sesuaikan kolom <b>Contract Size</b> di kalkulator."]]], ["Tampilan & Lainnya", "&#9881;&#65039;", [["Cara mengubah mode gelap atau terang", "Tekan ikon matahari/bulan di pojok kanan atas halaman. Pilihanmu tersimpan di perangkat ini."], ["Kartu sapaan di Beranda bisa disembunyikan?", "Bisa. Tekan tanda <b>&#10005;</b> di pojok kanan atas kartu sapaan. Dia akan muncul lagi saat kamu membuka website berikutnya."], ["Tombol Tanya AI tidak berfungsi", "AI Agent sedang dalam perbaikan. Sementara ini pertanyaanmu dijawab langsung oleh Admin Yudhis lewat WhatsApp - tombolnya sudah otomatis mengarah ke sana."], ["Halaman terasa lambat dibuka", "Coba muat ulang halaman. Kalau tab Berita yang terasa berat, itu karena berkas gambarnya besar - tim sedang mengerjakan perbaikannya."], ["Saya menemukan masalah lain", "Chat admin lewat tab <b>Konsultasi</b> di Beranda. Sertakan tangkapan layar dan sebutkan tab mana yang bermasalah - itu sangat membantu mempercepat perbaikan."]]]];
       let hpKategori = '';
 
       function hpTandai(teks, q) {
@@ -9892,7 +9892,7 @@ EURUSD | buy | 1.0850 | 1.0820 | 1.0910 | be</pre>
          booking langsung: slot yang dipilih dikirim sebagai ajuan lewat
          WhatsApp, lalu admin yang menandainya penuh di panel admin.
          Konsekuensinya, dua orang bisa mengajukan slot yang sama sebelum
-         admin sempat memperbaruinya — makanya statusnya ditulis "ajuan",
+         admin sempat memperbaruinya - makanya statusnya ditulis "ajuan",
          bukan "terpesan". */
       const KS_URL = 'jadwal.json';
       const K_KSAYA = 'fncjt_konsul_ajuan';
@@ -9938,7 +9938,7 @@ EURUSD | buy | 1.0850 | 1.0820 | 1.0910 | be</pre>
       function ksPita(x) {
         /* Slot terisi diberi warna merah dan menyebut siapa yang mengambil,
            supaya member lain langsung paham slotnya bukan sekadar "tidak bisa
-           diklik" — dan tidak perlu bertanya ke admin. */
+           diklik" - dan tidak perlu bertanya ke admin. */
         if (ksLewat(x) && !x.penuh) return '<span class="ks-pita gelap">Sudah Lewat</span>';
         if (x.penuh) {
           return '<span class="ks-pita penuh">Terisi' +
@@ -9974,7 +9974,7 @@ EURUSD | buy | 1.0850 | 1.0820 | 1.0910 | be</pre>
            cukup pengingat singkat plus jalur khusus member eksklusif. */
         const beta = '<div class="ks-beta"><span class="ic">&#8505;&#65039;</span>' +
           '<p>Memilih slot berarti mengirim <b>ajuan</b>, bukan langsung terpesan. ' +
-          'Status jadwal diperbarui admin sekitar <b>15&ndash;30 menit</b> setelah ' +
+          'Status jadwal diperbarui admin sekitar <b>15-30 menit</b> setelah ' +
           'ajuanmu disetujui. ' +
           '<a onclick="window.__ksInfo()" style="color:var(--orange-deep);cursor:pointer;' +
           'font-weight:700;">Baca tata cara</a></p></div>' +
@@ -10007,7 +10007,7 @@ EURUSD | buy | 1.0850 | 1.0820 | 1.0910 | be</pre>
         const n = mulaiProses('ks-list');
         $('ks-list').innerHTML = skeletonFeed(1);
         /* Sekali per sesi. Kalau muncul tiap kali tab dibuka, member yang
-           bolak-balik mengecek jadwal akan cepat terganggu — sementara isinya
+           bolak-balik mengecek jadwal akan cepat terganggu - sementara isinya
            sama saja. Tombol "Baca tata cara" tetap tersedia kapan pun. */
         if (!ksInfoTampil) { ksInfoTampil = true; window.__ksInfo(); }
         await ksMuatAjuan();
@@ -10028,17 +10028,17 @@ EURUSD | buy | 1.0850 | 1.0820 | 1.0910 | be</pre>
           '<div class="ks-step"><div class="n">1</div><p>Pilih slot yang berstatus ' +
           '<b>Kosong</b> di daftar jadwal.</p></div>' +
           '<div class="ks-step"><div class="n">2</div><p>Tekan <b>Ajukan Slot Ini</b>. ' +
-          'Aplikasi menyiapkan pesan berisi tanggal, jam, dan mentornya &mdash; ' +
+          'Aplikasi menyiapkan pesan berisi tanggal, jam, dan mentornya - ' +
           'kamu tinggal kirim.</p></div>' +
           '<div class="ks-step"><div class="n">3</div><p>Tunggu balasan admin. ' +
           'Slot baru benar-benar milikmu setelah admin mengonfirmasi.</p></div>' +
           '<div class="ks-step"><div class="n">4</div><p>Status di halaman ini ' +
-          'diperbarui <b>15&ndash;30 menit</b> setelah ajuanmu disetujui. ' +
-          'Jadi jangan panik kalau belum berubah &mdash; yang menentukan ' +
+          'diperbarui <b>15-30 menit</b> setelah ajuanmu disetujui. ' +
+          'Jadi jangan panik kalau belum berubah - yang menentukan ' +
           'balasan admin, bukan tampilan di sini.</p></div>' +
           '<div class="ks-faq"><h5>Pertanyaan Umum</h5><dl>' +
           '<dt>Kenapa statusnya belum berubah padahal sudah diterima?</dt>' +
-          '<dd>Jadwal diperbarui manual oleh admin, sekitar 15&ndash;30 menit. ' +
+          '<dd>Jadwal diperbarui manual oleh admin, sekitar 15-30 menit. ' +
           'Konfirmasi dari admin lebih dulu berlaku daripada tampilan di halaman ini.</dd>' +
           '<dt>Slotnya sudah keduluan orang lain?</dt>' +
           '<dd>Bisa terjadi kalau dua orang mengajukan berbarengan. ' +
@@ -10058,7 +10058,7 @@ EURUSD | buy | 1.0850 | 1.0820 | 1.0910 | be</pre>
       if ($('ks-info-ok')) $('ks-info-ok').onclick = () => { $('ks-info-overlay').hidden = true; };
 
       /* Pop-up penjelasan untuk member Private yang menekan Ajukan Slot. */
-      /* Pop-up serbaguna bergaya website — menggantikan kotak bawaan browser
+      /* Pop-up serbaguna bergaya website - menggantikan kotak bawaan browser
          yang tampilannya tidak menyatu dengan tampilan FNC. */
       function popupInfo(o) {
         const ov = $('ks-info-overlay');
@@ -10091,11 +10091,11 @@ EURUSD | buy | 1.0850 | 1.0820 | 1.0910 | be</pre>
           aksi: () => { go('kelas'); },
           isi:
             '<p><b>Konsultasi 1-on-1 adalah benefit paket Lifetime &amp; Eksklusif.</b></p>' +
-            '<p>Sesi ini bukan kelas grup &mdash; kamu ngobrol empat mata dengan mentor ' +
+            '<p>Sesi ini bukan kelas grup - kamu ngobrol empat mata dengan mentor ' +
             'untuk membahas analisa, strategi, dan evaluasi jurnal trading kamu sendiri.</p>' +
             '<ul style="margin:8px 0 0;padding-left:18px;line-height:1.8;">' +
-            '<li><b>Lifetime</b> &mdash; ajukan slot dari jadwal yang tersedia</li>' +
-            '<li><b>Eksklusif</b> &mdash; prioritas, plus bisa ajukan waktu di luar jadwal</li>' +
+            '<li><b>Lifetime</b> - ajukan slot dari jadwal yang tersedia</li>' +
+            '<li><b>Eksklusif</b> - prioritas, plus bisa ajukan waktu di luar jadwal</li>' +
             '</ul>' +
             '<p style="margin-top:12px;">Kamu belum punya akses ke fitur ini. ' +
             'Lihat pilihan paketnya dulu, yuk.</p>'
@@ -10116,7 +10116,7 @@ EURUSD | buy | 1.0850 | 1.0820 | 1.0910 | be</pre>
             '<p>' + kabar + '</p>' +
             '<p><b>Pengajuan ditutup 1 jam sebelum sesi dimulai.</b></p>' +
             '<p>Ini supaya mentor punya waktu menyiapkan bahan dan meninjau jurnal kamu, ' +
-            'jadi sesinya benar-benar terpakai &mdash; bukan habis untuk persiapan.</p>' +
+            'jadi sesinya benar-benar terpakai - bukan habis untuk persiapan.</p>' +
             '<p style="margin-top:12px;">Silakan pilih jadwal lain, atau ajukan waktu sendiri ' +
             'kalau semua slot sudah penuh.</p>'
         });
@@ -10171,7 +10171,7 @@ EURUSD | buy | 1.0850 | 1.0820 | 1.0910 | be</pre>
         $('ks-detail').innerHTML =
           '<div class="ks-detail">' +
           '<h4>' + esc(x.topik || 'Sesi Konsultasi') + '</h4>' +
-          '<div class="wkt">' + kalTglID(x.tgl) + ' &middot; ' + esc(x.jam) + '&ndash;' + ksAkhir(x) + ' WIB</div>' +
+          '<div class="wkt">' + kalTglID(x.tgl) + ' &middot; ' + esc(x.jam) + '-' + ksAkhir(x) + ' WIB</div>' +
           '<div class="ks-baris"><span>Mentor</span><b>' + esc(x.mentor || 'Mentor FNC') + '</b></div>' +
           '<div class="ks-baris"><span>Ajukan ke</span><b>' +
           ({ a1: 'Admin Yudhis', a2: 'Admin Radit', a3: 'Admin Alief' }[x.tujuan] || 'Admin Yudhis') +
@@ -10237,7 +10237,7 @@ EURUSD | buy | 1.0850 | 1.0820 | 1.0910 | be</pre>
            ajuannya masuk ke Yudhis. */
         const tujuan = { a1: 1, a2: 1, a3: 1 }[ksPilih.tujuan] ? ksPilih.tujuan : 'a1';
         /* Konsultasi hanya untuk member berbayar, jadi Radit memakai nomor
-           khususnya — bukan nomor yang dipajang untuk pengunjung umum. */
+           khususnya - bukan nomor yang dipajang untuk pengunjung umum. */
         const no = await nomorAdmin(tujuan === 'a2' ? 'a2priv' : tujuan);
         if (!no) { alert('Nomor admin belum diatur. Coba lagi nanti ya.'); return; }
         const nama = (profil && profil.nama) ? (' Saya ' + profil.nama + '.') : '';
@@ -10279,7 +10279,7 @@ EURUSD | buy | 1.0850 | 1.0820 | 1.0910 | be</pre>
         teks: 'Program tantangan trading dari FNC Academy. Uji konsistensi ' +
           'strategimu dengan aturan yang jelas dan pendampingan dari mentor.',
         manfaat: [
-          ['&#127942;', 'Uji Konsistensi Nyata', 'Bukan sekadar profit sekali dua kali — ' +
+          ['&#127942;', 'Uji Konsistensi Nyata', 'Bukan sekadar profit sekali dua kali - ' +
             'yang dinilai kedisiplinanmu mengikuti rencana.'],
           ['&#128200;', 'Evaluasi Jurnal', 'Setiap peserta dapat pembacaan jurnal: ' +
             'mana yang sudah benar, mana yang perlu diperbaiki.'],
@@ -10398,7 +10398,7 @@ EURUSD | buy | 1.0850 | 1.0820 | 1.0910 | be</pre>
           soonSel(men, 'Menit') + soonSel(det, 'Detik');
       }
       /* Kartu latar sengaja TANPA teks nama & harga. Buram itu efek tampilan
-         saja — teksnya tetap terbaca lewat inspect element kalau ditulis.
+         saja - teksnya tetap terbaca lewat inspect element kalau ditulis.
          Jadi yang ditampilkan cuma gambar + bilah abu. */
       function soonLatar(items) {
         const isi = prdUrut((items || []).filter(x => x && x.aktif !== false)).slice(0, 3);
@@ -10525,7 +10525,7 @@ EURUSD | buy | 1.0850 | 1.0820 | 1.0910 | be</pre>
         window.scrollTo(0, 0);
       };
       /* Tautan langsung ke satu kelas: dibuka lagi, halaman langsung
-         menampilkan kelas itu — berguna untuk dikirim ke calon member. */
+         menampilkan kelas itu - berguna untuk dikirim ke calon member. */
       window.__kelasBagi = async (tombol) => {
         if (!prdPilih) return;
         const url = location.origin + location.pathname + '#kelas=' + encodeURIComponent(prdPilih.id);
@@ -10572,7 +10572,7 @@ EURUSD | buy | 1.0850 | 1.0820 | 1.0910 | be</pre>
       }
       /* ---------- bagikan kiriman ----------
          Tautannya memakai id kiriman. Untuk isi eksklusif, penerima tetap
-         harus punya kodenya — tautan cuma mengantar ke kirimannya. */
+         harus punya kodenya - tautan cuma mengantar ke kirimannya. */
       async function bagikanTautan(url, judul, tombol) {
         if (navigator.share) {
           try { await navigator.share({ title: judul, text: judul, url: url }); return; } catch (e) { }
@@ -10617,9 +10617,9 @@ EURUSD | buy | 1.0850 | 1.0820 | 1.0910 | be</pre>
       }
       /* Kirimannya belum tentu langsung ada di layar. Tiga sebab, dan
          ketiganya ditangani di sini:
-           1. berkasnya masih diunduh — jadi ditunggu berulang
-           2. kirimannya eksklusif — segmen Eksklusif dibuka sendiri
-           3. kirimannya sudah terdorong ke bawah — daftar dimuat lebih banyak
+           1. berkasnya masih diunduh - jadi ditunggu berulang
+           2. kirimannya eksklusif - segmen Eksklusif dibuka sendiri
+           3. kirimannya sudah terdorong ke bawah - daftar dimuat lebih banyak
          Untuk isi eksklusif tanpa kode yang benar, kartunya memang tidak akan
          pernah ada, jadi pencarian berhenti sendiri tanpa membocorkan apa pun. */
       function buruKiriman(jenis, id) {
@@ -10657,7 +10657,7 @@ EURUSD | buy | 1.0850 | 1.0820 | 1.0910 | be</pre>
       /* ---------- pop-up pembayaran ---------- */
       const BYR_LABEL = { bca: 'BCA', gopay: 'GoPay', dana: 'DANA', qris: 'QRIS' };
       /* Logo diambil dari yang di-upload admin. Kalau belum ada, dipakai
-         tulisan berwarna merek — tetap rapi, tidak pernah kosong. */
+         tulisan berwarna merek - tetap rapi, tidak pernah kosong. */
       function byrIkon(kunci) {
         const b = (prdCache && prdCache.bayar) || {};
         const d = b[kunci] || {};
@@ -10667,7 +10667,7 @@ EURUSD | buy | 1.0850 | 1.0820 | 1.0910 | be</pre>
           : '<span class="byr-wm ' + kunci + '">' + esc(BYR_LABEL[kunci] || '') + '</span>';
         return '<span class="byr-ic">' + isi + '</span>';
       }
-      /* Logo bawaan — dipakai kalau admin belum meng-upload gantinya.
+      /* Logo bawaan - dipakai kalau admin belum meng-upload gantinya.
          Ukurannya sudah dikecilkan (WebP tinggi 96px, GoPay memakai SVG). */
       const LOGO_BAWAAN = {
         bca: 'data:image/webp;base64,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',
@@ -10719,7 +10719,7 @@ EURUSD | buy | 1.0850 | 1.0820 | 1.0910 | be</pre>
             'onclick="window.__byrSalin(\'' + esc(String(d.no || '')) + '\',this)">Salin</button></div>' +
             '<div class="byr-ingat"><b>Transfer tepat ' + rupiah(prdPilih.harga) + '</b>, ' +
             'lalu <b>screenshot bukti transfernya</b>.<br>' +
-            'Setelah itu tekan tombol di bawah &mdash; jangan lupa <b>lampirkan foto buktinya</b> ' +
+            'Setelah itu tekan tombol di bawah - jangan lupa <b>lampirkan foto buktinya</b> ' +
             'di chat, supaya admin bisa langsung memproses.</div>';
         }
         $('byr-isi').innerHTML =
@@ -10830,7 +10830,7 @@ EURUSD | buy | 1.0850 | 1.0820 | 1.0910 | be</pre>
         const hari = kalHariIni();
         let isi = (a || []).filter(x => x && x.tgl);
         /* Hari yang sudah lewat disembunyikan supaya jadwal terdekat ada di
-           paling atas — kalau ikut ditampilkan, member harus menggulir jauh
+           paling atas - kalau ikut ditampilkan, member harus menggulir jauh
            melewati puluhan rilis lama sebelum sampai ke hari ini. */
         if (!kalLihatLalu && !kalTh && !kalBl && !kalTg) isi = isi.filter(x => x.tgl >= hari);
         if (kalTh) isi = isi.filter(x => String(x.tgl).slice(0, 4) === kalTh);
@@ -10898,8 +10898,8 @@ EURUSD | buy | 1.0850 | 1.0820 | 1.0910 | be</pre>
           '<span class="kal-neg">' + esc(x.neg || '') + '</span>' +
           kalDmpBar(x.dmp) +
           '<div><div class="kal-nama">' + esc(x.nama || '') + '</div>' +
-          (adaAngka ? '<div class="kal-ang">Akt <b class="' + cls.trim() + '">' + esc(x.akt || '—') +
-            '</b> &middot; Perk ' + esc(x.prk || '—') + ' &middot; Sblm ' + esc(x.sbl || '—') + '</div>' : '') +
+          (adaAngka ? '<div class="kal-ang">Akt <b class="' + cls.trim() + '">' + esc(x.akt || '-') +
+            '</b> &middot; Perk ' + esc(x.prk || '-') + ' &middot; Sblm ' + esc(x.sbl || '-') + '</div>' : '') +
           (x.cat ? '<div class="kal-cat">&#128161; ' + esc(x.cat) + '</div>' : '') +
           '</div></div>';
       }
@@ -10926,7 +10926,7 @@ EURUSD | buy | 1.0850 | 1.0820 | 1.0910 | be</pre>
           } else { info.hidden = true; info.textContent = ''; }
         }
         const hari = kalHariIni();
-        /* Kalau ada jadwal lama yang sedang disembunyikan, beri tahu — jangan
+        /* Kalau ada jadwal lama yang sedang disembunyikan, beri tahu - jangan
            biarkan member mengira datanya hilang. */
         let bilah = '';
         if (!kalLihatLalu && !kalTh && !kalBl && !kalTg) {
@@ -10941,7 +10941,7 @@ EURUSD | buy | 1.0850 | 1.0820 | 1.0910 | be</pre>
             '<button class="btn ghost sm" type="button" onclick="window.__kalLalu(false)">' +
             'Sembunyikan</button></div>';
         }
-        /* Bilah jadwal lama ditaruh di BAWAH daftar, bukan di atas — di atas
+        /* Bilah jadwal lama ditaruh di BAWAH daftar, bukan di atas - di atas
            dia menutupi jadwal terdekat yang justru paling ingin dilihat. */
         if (!isi.length) { $('kal-list').innerHTML = kalKosong() + bilah; return; }
         /* Satu tabel utuh; tanggal disisipkan sebagai baris pemisah di antaranya. */
@@ -10950,7 +10950,7 @@ EURUSD | buy | 1.0850 | 1.0820 | 1.0910 | be</pre>
             kalBand(g.tgl, hari) + g.isi.map(kalBaris).join('')).join('') +
           '</div>' + bilah;
       }
-      /* Menggambar ulang dari data yang sudah ada — saringan tidak perlu
+      /* Menggambar ulang dari data yang sudah ada - saringan tidak perlu
          mengunduh berkasnya lagi. */
       function gambarKalUlang() {
         if (!$('kal-list')) return;
@@ -10980,7 +10980,7 @@ EURUSD | buy | 1.0850 | 1.0820 | 1.0910 | be</pre>
         }
       }
       if ($('kal-reload')) $('kal-reload').onclick = () => { kalCache = null; showKalender(true); };
-      /* chip dampak — bisa pilih lebih dari satu; "Semua" mengosongkan pilihan */
+      /* chip dampak - bisa pilih lebih dari satu; "Semua" mengosongkan pilihan */
       if ($('kal-dmp-chips')) $('kal-dmp-chips').onclick = e => {
         const b = e.target.closest('[data-dmp]'); if (!b) return;
         const v = +b.dataset.dmp;
@@ -11101,7 +11101,7 @@ EURUSD | buy | 1.0850 | 1.0820 | 1.0910 | be</pre>
           pasangSaring('rk-list');
           $('rk-stamp').textContent = c.updated ? 'Diperbarui ' + tanggalID(c.updated) : '';
         } catch (e) {
-          /* Berkas ini gagal dibuka — biasanya karena admin belum meng-upload
+          /* Berkas ini gagal dibuka - biasanya karena admin belum meng-upload
              ulang versi terbarunya. Yang bermasalah HANYA berkas ini, jadi kode
              gerbang sengaja TIDAK dicabut: dulu pencabutan otomatis inilah yang
              bikin member eksklusif disuruh memasukkan kode berulang kali. */
@@ -11126,7 +11126,7 @@ EURUSD | buy | 1.0850 | 1.0820 | 1.0910 | be</pre>
           (it.__eks ? '<span class="feed-tag">Eksklusif</span>' : '') +
           (isVid && it.dur ? '<span class="feed-tag">' + esc(it.dur) + '</span>' : '');
         const buka = (i === 0 && !(kataCari['mt-list'] || '')) ? ' buka' : '';
-        /* Materi tidak menampilkan jam — modul belajar tidak terikat waktu. */
+        /* Materi tidak menampilkan jam - modul belajar tidak terikat waktu. */
         return '<div class="feed-item' + buka + '" data-kid="' + esc(it.id || '') + '">' + wm +
           kepalaKartu(it, label, isVid && !!it.url, true) +
           '<div class="fi-isi"><div class="feed-pad">' +
@@ -11193,7 +11193,7 @@ EURUSD | buy | 1.0850 | 1.0820 | 1.0910 | be</pre>
           pasangSaring('mt-list');
           $('mt-stamp').textContent = c.updated ? 'Diperbarui ' + tanggalID(c.updated) : '';
         } catch (e) {
-          /* Berkas ini gagal dibuka — biasanya karena admin belum meng-upload
+          /* Berkas ini gagal dibuka - biasanya karena admin belum meng-upload
              ulang versi terbarunya. Yang bermasalah HANYA berkas ini, jadi kode
              gerbang sengaja TIDAK dicabut: dulu pencabutan otomatis inilah yang
              bikin member eksklusif disuruh memasukkan kode berulang kali. */
@@ -11229,7 +11229,7 @@ EURUSD | buy | 1.0850 | 1.0820 | 1.0910 | be</pre>
         pasangPencarian();
         $('rk-reload').onclick = () => showRekap(true);
         $('mt-reload').onclick = () => showMateri(true);
-        /* Penyaring & pencarian dikosongkan saat berpindah segmen —
+        /* Penyaring & pencarian dikosongkan saat berpindah segmen -
            daftarnya berbeda, jadi penyaring lama tidak lagi relevan. */
         function resetSaring(id) {
           kataCari[id] = ''; saringAktif[id] = ''; saringTgl[id] = ''; tampil[id] = PER_HAL;
@@ -11285,11 +11285,11 @@ EURUSD | buy | 1.0850 | 1.0820 | 1.0910 | be</pre>
          quote:'BASE' -> USD ada di depan (USDJPY, USDCAD), pip value dibagi harga */
       const INSTRUMENTS = {
         'XAUUSD': {
-          label: 'XAUUSD — Emas', contract: 100, pip: 0.1, quote: 'USD', price: 3300,
+          label: 'XAUUSD - Emas', contract: 100, pip: 0.1, quote: 'USD', price: 3300,
           note: '1 lot = 100 troy ounce. 1 pip = 0.1 (setara 10 point di MT5).'
         },
         'XAGUSD': {
-          label: 'XAGUSD — Perak', contract: 5000, pip: 0.01, quote: 'USD', price: 38,
+          label: 'XAGUSD - Perak', contract: 5000, pip: 0.01, quote: 'USD', price: 38,
           note: '1 lot = 5.000 troy ounce.'
         },
         'EURUSD': { label: 'EURUSD', contract: 100000, pip: 0.0001, quote: 'USD', price: 1.08 },
@@ -11313,10 +11313,10 @@ EURUSD | buy | 1.0850 | 1.0820 | 1.0910 | be</pre>
           note: '1 lot = 1 BTC. Cek lagi contract size di broker kamu, tiap broker beda.'
         },
         'ETHUSD': { label: 'ETHUSD', contract: 1, pip: 0.1, quote: 'USD', price: 3200 },
-        'US30': { label: 'US30 — Dow Jones', contract: 1, pip: 1, quote: 'USD', price: 44000 },
-        'NAS100': { label: 'NAS100 — Nasdaq', contract: 1, pip: 1, quote: 'USD', price: 20500 },
+        'US30': { label: 'US30 - Dow Jones', contract: 1, pip: 1, quote: 'USD', price: 44000 },
+        'NAS100': { label: 'NAS100 - Nasdaq', contract: 1, pip: 1, quote: 'USD', price: 20500 },
         'CUSTOM': {
-          label: 'Lainnya — isi manual', contract: 100000, pip: 0.0001, quote: 'USD', price: 1,
+          label: 'Lainnya - isi manual', contract: 100000, pip: 0.0001, quote: 'USD', price: 1,
           note: 'Isi contract size & ukuran pip sesuai spesifikasi kontrak di broker kamu.'
         }
       };
@@ -11403,7 +11403,7 @@ EURUSD | buy | 1.0850 | 1.0820 | 1.0910 | be</pre>
         ]);
         $('c-lotout').insertAdjacentHTML('beforeend',
           `<div style="flex-basis:100%;font-size:11.5px;color:var(--gray);margin-top:2px;">
-        Lot presisi: <b style="font-family:var(--mono)">${lots.toFixed(4)}</b> — broker biasanya
+        Lot presisi: <b style="font-family:var(--mono)">${lots.toFixed(4)}</b> - broker biasanya
         membulatkan ke 0,01. Kalau dibulatkan ke bawah jadi
         <b style="font-family:var(--mono)">${(Math.floor(lots * 100) / 100).toFixed(2)}</b>,
         risikonya ${fmtCalc(Math.floor(lots * 100) / 100 * pips * pv)}.
@@ -11527,13 +11527,13 @@ EURUSD | buy | 1.0850 | 1.0820 | 1.0910 | be</pre>
 
 
       /* ============================================================
-         JURNAL — TIGA MODE PENGISIAN
+         JURNAL - TIGA MODE PENGISIAN
          Cepat  : kolom penting saja
          Tempel : banyak trade sekaligus dari catatan member
          Lengkap: form 15 kolom yang lama
          Ketiganya menyimpan ke tempat yang SAMA, jadi Statistik tetap
          terhitung normal. Risk % wajib ada karena untung-rugi dihitung
-         dari situ — kalau kosong, Statistik jadi nol.
+         dari situ - kalau kosong, Statistik jadi nol.
          ============================================================ */
       const K_RISK = 'fncjt_risk_terakhir';
       let jmMode = 'cepat';
@@ -11627,7 +11627,7 @@ EURUSD | buy | 1.0850 | 1.0820 | 1.0910 | be</pre>
         loss: 'Loss', l: 'Loss', rugi: 'Loss', sl: 'Loss',
         be: 'BE', breakeven: 'BE', impas: 'BE'
       };
-      /* Angka boleh ditulis 1.0850 atau 1,0850 — koma dianggap titik desimal. */
+      /* Angka boleh ditulis 1.0850 atau 1,0850 - koma dianggap titik desimal. */
       function jmAngka(s) {
         const t = String(s || '').trim().replace(/\s/g, '').replace(',', '.');
         const n = parseFloat(t);
@@ -11683,7 +11683,7 @@ EURUSD | buy | 1.0850 | 1.0820 | 1.0910 | be</pre>
         if (hasil.gagal.length) {
           if (h) h += '<br>';
           h += '<span class="bad">&#10005; ' + hasil.gagal.length + ' baris belum bisa dibaca:</span><ul>' +
-            hasil.gagal.slice(0, 8).map(g => '<li>Baris ' + g.no + ' &mdash; ' + esc(g.salah) + '</li>').join('') +
+            hasil.gagal.slice(0, 8).map(g => '<li>Baris ' + g.no + ' - ' + esc(g.salah) + '</li>').join('') +
             '</ul>';
           if (hasil.gagal.length > 8) h += '<p style="margin:5px 0 0;">...dan ' + (hasil.gagal.length - 8) + ' lagi.</p>';
         }
@@ -11793,7 +11793,7 @@ EURUSD | buy | 1.0850 | 1.0820 | 1.0910 | be</pre>
         if ((view === 'journal' || view === 'dashboard') && !profil) {
           bukaProfil(view === 'journal'
             ? 'Jurnal butuh profil supaya catatan trade-mu punya identitas.'
-            : 'Statistik dihitung dari jurnal — buat profil dulu ya.');
+            : 'Statistik dihitung dari jurnal - buat profil dulu ya.');
           return;
         }
         document.querySelectorAll('.tab').forEach(t => t.classList.toggle('active', t.dataset.view === view));
@@ -11852,7 +11852,7 @@ EURUSD | buy | 1.0850 | 1.0820 | 1.0910 | be</pre>
       };
       $('profil-cancel').onclick = () => { $('profil-overlay').hidden = true; profilTujuan = null; go('beranda'); };
 
-      /* Segarkan view yang sedang terbuka. Dipakai setelah tier berubah —
+      /* Segarkan view yang sedang terbuka. Dipakai setelah tier berubah -
          kalau ada view yang terlewat di sini, isinya akan tetap buram walau
          kode sudah benar (ini penyebab bug yang dilaporkan). */
       async function segarkanAktif() {
@@ -11882,7 +11882,7 @@ EURUSD | buy | 1.0850 | 1.0820 | 1.0910 | be</pre>
         let hasil = null;
         try { hasil = v ? await periksaKode(v) : null; } catch (e) { hasil = null; }
         b.disabled = false; b.textContent = lama;
-        /* Kode percobaan tidak dianggap peningkatan — tingkatannya tidak naik. */
+        /* Kode percobaan tidak dianggap peningkatan - tingkatannya tidak naik. */
         if (hasil === 'eks') {
           setTier('eks'); await store.set(K_TIER, 'eks');
           kodeEks = v; await store.set(K_ANGATE, v);
@@ -11903,7 +11903,7 @@ EURUSD | buy | 1.0850 | 1.0820 | 1.0910 | be</pre>
       };
       $('upg-cancel').onclick = () => { $('upgrade-overlay').hidden = true; };
       /* Tombol melayang diarahkan ke pemberitahuan perbaikan, BUKAN ke nomor AI.
-         Dibungkus fungsi supaya dicari saat tombol ditekan — sambungan ini dipasang
+         Dibungkus fungsi supaya dicari saat tombol ditekan - sambungan ini dipasang
          lebih dulu daripada pemberitahuannya dibuat.
          Kalau AI Agent sudah pulih, ganti isinya kembali ke bukaAI(). */
       if ($('ai-fab')) $('ai-fab').onclick = () => {
@@ -11983,7 +11983,7 @@ EURUSD | buy | 1.0850 | 1.0820 | 1.0910 | be</pre>
         return '<div class="home-card" onclick="' + aksi + '">' + thumb +
           '<div class="hc-body">' +
           (terkunci ? '<h4 style="color:var(--gray);">Konten Eksklusif</h4>'
-            : (it.title ? '<h4>' + esc(it.title) + '</h4>' : '<h4>&mdash;</h4>')) +
+            : (it.title ? '<h4>' + esc(it.title) + '</h4>' : '<h4>-</h4>')) +
           '<div class="hc-top"><span class="hc-src ' + cls + '">' + esc(tampil) + '</span>' +
           (!terkunci && it.pair ? '<span class="hc-src">' + esc(it.pair) + '</span>' : '') +
           '<span class="hc-date">' + stempelWaktu(it) + '</span></div>' +
@@ -12053,7 +12053,7 @@ EURUSD | buy | 1.0850 | 1.0820 | 1.0910 | be</pre>
         const kumpul = []; const jadwal = [];
         const catat = arr => { const t = tayangBerikut(arr); if (t) jadwal.push(t); };
         /* Semua berkas diambil BERBARENGAN, bukan satu per satu. Tiap berkas
-           terenkripsi butuh PBKDF2 200.000 iterasi — kalau berurutan, waktunya
+           terenkripsi butuh PBKDF2 200.000 iterasi - kalau berurutan, waktunya
            dijumlahkan. Dijalankan paralel, waktunya tinggal sepanjang berkas
            yang paling lambat. */
         const tugas = [];
@@ -12091,7 +12091,7 @@ EURUSD | buy | 1.0850 | 1.0820 | 1.0910 | be</pre>
             catat(r); urutBaru(r).slice(0, 2).forEach(x => kumpul.push([x, 'MateriEks', 'materi']));
           });
         } else if (tier === 'umum') {
-          /* Pengguna percobaan melihat pratinjau buram dari SEMUA yang terkunci —
+          /* Pengguna percobaan melihat pratinjau buram dari SEMUA yang terkunci -
              hanya bagian teaser yang diambil, isinya tetap terenkripsi. */
           const pratinjau = [[NEWS_EX_URL, 'Eksklusif', 'news'], [ANALISA_URL, 'Analisa', 'analisa'],
           [REKAP_URL, 'Rekap', 'rekap'], [MATERI_URL, 'Materi', 'materi'],
@@ -12104,7 +12104,7 @@ EURUSD | buy | 1.0850 | 1.0820 | 1.0910 | be</pre>
               .slice(0, 2).forEach(x => kumpul.push([x, label, view, true]));
           }));
         } else {
-          /* Member Private tetap melihat kartunya — tapi hanya dari bagian teaser.
+          /* Member Private tetap melihat kartunya - tapi hanya dari bagian teaser.
              Isi, link, dan gambar asli tidak pernah diambil. */
           const pratinjau = [[NEWS_EX_URL, 'Eksklusif', 'news'], [ANALISA_URL, 'Analisa', 'analisa'],
           [REKAP_EX_URL, 'Rekap', 'rekap'], [MATERI_EX_URL, 'Materi', 'materi']];
@@ -12124,7 +12124,7 @@ EURUSD | buy | 1.0850 | 1.0820 | 1.0910 | be</pre>
 
         let out = '';
         /* Isi lengkapnya sudah tampil di pop-up saat masuk. Kalau kartunya
-           ditampilkan penuh di sini juga, beritanya terdorong jauh ke bawah —
+           ditampilkan penuh di sini juga, beritanya terdorong jauh ke bawah -
            jadi cukup satu bilah ringkas untuk membukanya kembali. */
         if (ann.length) {
           const j = ann[0];
@@ -12138,7 +12138,7 @@ EURUSD | buy | 1.0850 | 1.0820 | 1.0910 | be</pre>
             '</div>';
         }
         /* Sorotan diambil dari kiriman TERBARU yang tidak terkunci.
-           Kalau yang teratas kebetulan eksklusif, cari yang berikutnya —
+           Kalau yang teratas kebetulan eksklusif, cari yang berikutnya -
            supaya member Private tetap mendapat sorotan, bukan kosong. */
         let sorotan = null;
         const iSorot = kumpul.findIndex(a => !a[3]);
@@ -12242,7 +12242,7 @@ EURUSD | buy | 1.0850 | 1.0820 | 1.0910 | be</pre>
 
         /* ---------- penutup ---------- */
         out += '<div class="tutup"><div class="garis"></div>' +
-          'FNC Academy &mdash; Edukasi Trading<br>' +
+          'FNC Academy - Edukasi Trading<br>' +
           'Semua isi di sini adalah bahan belajar dan alat bantu evaluasi pribadi, ' +
           'bukan sinyal atau rekomendasi investasi.</div>';
 
@@ -12276,7 +12276,7 @@ EURUSD | buy | 1.0850 | 1.0820 | 1.0910 | be</pre>
       const K_TEMA = 'fncjt_tema';
 
       /* ============================================================
-         MARKET BERANDA — pita harga, kartu market, chart layar penuh.
+         MARKET BERANDA - pita harga, kartu market, chart layar penuh.
          Data & chart dari TradingView (gratis, tanpa kunci rahasia).
          Semua tampil untuk SEMUA tingkatan; hanya tombol "Cek Analisa"
          yang membedakan umum vs berbayar.
@@ -12326,7 +12326,7 @@ EURUSD | buy | 1.0850 | 1.0820 | 1.0910 | be</pre>
           '<div class="mk-hasil" id="mk-hasil"></div>' +
           '<div class="mk-ringkas" id="mk-ringkas">' +
           '<div class="mk-rk-atas">' +
-          '<div class="mk-rk-judul"><b id="mk-rk-nama">&mdash;</b>' +
+          '<div class="mk-rk-judul"><b id="mk-rk-nama">-</b>' +
           '<span id="mk-rk-desc"></span></div>' +
           '<span class="mk-tag" id="mk-rk-tag"></span>' +
           '</div>' +
@@ -12354,7 +12354,7 @@ EURUSD | buy | 1.0850 | 1.0820 | 1.0910 | be</pre>
       /* Warna kartu diambil langsung dari tema yang sedang aktif, lalu
          DIKIRIM ke widget supaya dia mengecat latarnya sendiri. Dulu kita
          menyuruhnya tembus pandang; kalau itu gagal, yang muncul putih
-         bawaan browser — kelihatan jelek di mode gelap. */
+         bawaan browser - kelihatan jelek di mode gelap. */
       function mkWarnaVar(nama, cadangan) {
         try {
           const w = getComputedStyle(document.documentElement)
@@ -12380,7 +12380,7 @@ EURUSD | buy | 1.0850 | 1.0820 | 1.0910 | be</pre>
         const pita = $('mk-pita');
         if (pita) {
           pita.innerHTML = '';
-          /* Tembus pandang DIMATIKAN — kalau dinyalakan, latar widget jadi putih.
+          /* Tembus pandang DIMATIKAN - kalau dinyalakan, latar widget jadi putih.
              Warna gelap bawaan widget ini #1F1F1F, sama persis dengan warna
              kartu kita, jadi menyatu tanpa perlu akal-akalan. */
           const cfg = {
@@ -12393,7 +12393,7 @@ EURUSD | buy | 1.0850 | 1.0820 | 1.0910 | be</pre>
             'https://s.tradingview.com/embed-widget/ticker-tape/?locale=id#' +
             encodeURIComponent(JSON.stringify(cfg)), '90px'));
         }
-        /* Kartu 'Pasar Hari Ini' sudah dihapus dari Beranda — digantikan
+        /* Kartu 'Pasar Hari Ini' sudah dihapus dari Beranda - digantikan
            Cari Pair. Perulangan ini otomatis tidak melakukan apa-apa karena
            kotaknya tidak ada, jadi aman dibiarkan. */
         MK_PASAR.forEach((p, i) => {
@@ -12475,7 +12475,7 @@ EURUSD | buy | 1.0850 | 1.0820 | 1.0910 | be</pre>
           tombol: 'Lihat Pilihan Kelas',
           batal: 'Nanti Saja',
           aksi: () => { go('kelas'); },
-          isi: '<p>Analisa harian <b>' + esc(p.nama) + '</b> dibahas tuntas oleh mentor FNC &mdash; ' +
+          isi: '<p>Analisa harian <b>' + esc(p.nama) + '</b> dibahas tuntas oleh mentor FNC - ' +
             'lengkap dengan alasan di balik setiap level yang ditandai.</p>' +
             '<p style="margin-top:10px;">Tersedia untuk member <b>Private</b> dan ' +
             '<b>Eksklusif</b>. Kamu tetap bisa pakai chart dan harga di Beranda ' +
@@ -12511,7 +12511,7 @@ EURUSD | buy | 1.0850 | 1.0820 | 1.0910 | be</pre>
         if (!q.trim()) { box.classList.remove('on'); box.innerHTML = ''; return; }
         const r = mkCari(q);
         if (!r.length) {
-          /* Kategori simbol tak dikenal TIDAK ditebak — diberi label netral. */
+          /* Kategori simbol tak dikenal TIDAK ditebak - diberi label netral. */
           box.innerHTML = '<div class="mk-kosong">Tidak ada di daftar pilihan kami.<br>' +
             'Kamu tetap bisa mencoba membukanya langsung di TradingView.' +
             '<br><button type="button" class="mk-coba" id="mk-coba">Coba buka <b>' +
@@ -12572,7 +12572,7 @@ EURUSD | buy | 1.0850 | 1.0820 | 1.0910 | be</pre>
           tombol: 'Lihat Pilihan Kelas', batal: 'Nanti Saja',
           aksi: () => { go('kelas'); },
           isi: '<p>Analisa harian <b>' + esc(nama) + '</b> dibahas tuntas oleh mentor FNC ' +
-            '&mdash; lengkap dengan alasan di balik setiap level yang ditandai.</p>' +
+            '- lengkap dengan alasan di balik setiap level yang ditandai.</p>' +
             '<p style="margin-top:10px;">Tersedia untuk member <b>Private</b> dan ' +
             '<b>Eksklusif</b>. Chart dan harga di Beranda tetap bisa kamu pakai ' +
             'kapan saja, gratis.</p>'
@@ -12644,7 +12644,7 @@ EURUSD | buy | 1.0850 | 1.0820 | 1.0910 | be</pre>
       });
 
       /* Kartu sapaan bisa disembunyikan supaya tidak makan ruang di atas.
-         Sembunyinya hanya untuk kunjungan ini — kalau website dibuka lagi,
+         Sembunyinya hanya untuk kunjungan ini - kalau website dibuka lagi,
          sapaannya muncul kembali seperti biasa. */
       function pasangTutupHero() {
         const b = $('hero-tutup'), k = $('hero-kartu');
@@ -12686,7 +12686,7 @@ EURUSD | buy | 1.0850 | 1.0820 | 1.0910 | be</pre>
 
 
       /* Tawaran contoh data muncul saat member pertama kali membuka Jurnal atau
-         Statistik dan belum punya data apa pun — bukan lagi ditumpuk di pop-up
+         Statistik dan belum punya data apa pun - bukan lagi ditumpuk di pop-up
          sambutan. Hanya ditawarkan sekali seumur perangkat. */
       async function tawarkanContohData(namaTab) {
         try {
@@ -12790,7 +12790,7 @@ EURUSD | buy | 1.0850 | 1.0820 | 1.0910 | be</pre>
       }
       window.__bukaAI = bukaAI;
 
-      /* Buka tab lalu gulirkan ke kiriman yang diklik — bukan sekadar pindah tab.
+      /* Buka tab lalu gulirkan ke kiriman yang diklik - bukan sekadar pindah tab.
          Segmen (Umum/Eksklusif) ikut disesuaikan supaya kirimannya benar-benar ada. */
       async function bukaKiriman(view, id, sumber) {
         if (view === 'news') {
@@ -12822,7 +12822,7 @@ EURUSD | buy | 1.0850 | 1.0820 | 1.0910 | be</pre>
         /* Tunggu daftarnya selesai dimuat, baru gulirkan. */
         for (let i = 0; i < 24; i++) {
           await new Promise(r => setTimeout(r, 130));
-          /* Kiriman bisa berupa kartu biasa ATAU kartu sorotan — dicari
+          /* Kiriman bisa berupa kartu biasa ATAU kartu sorotan - dicari
              berdasarkan penanda id yang sama, supaya tidak salah lompat. */
           const kid = String(id).replace(/"/g, '');
           const el = document.querySelector('#v-' + view + ' .feed-item[data-kid="' + kid + '"], ' +
@@ -12868,7 +12868,7 @@ EURUSD | buy | 1.0850 | 1.0820 | 1.0910 | be</pre>
           '<span class="utama-pita">' + esc(tampilLbl) + '</span>' +
           '</div>' +
           '<div class="utama-isi">' +
-          (it.title ? '<h3>' + esc(it.title) + '</h3>' : '<h3>&mdash;</h3>') +
+          (it.title ? '<h3>' + esc(it.title) + '</h3>' : '<h3>-</h3>') +
           (ringkas ? '<p>' + esc(ringkas) + '</p>' : '') +
           '<div class="utama-kaki">' +
           '<span class="utama-baca">Baca selengkapnya</span>' +
@@ -12952,7 +12952,7 @@ EURUSD | buy | 1.0850 | 1.0820 | 1.0910 | be</pre>
 
       /* Menyembunyikan tab yang tidak termasuk masa percobaan.
          Ini lapisan tampilan; pengaman sebenarnya ada di go() dan di enkripsi berkas. */
-      /* Pengguna percobaan tetap BISA membuka tabnya — isinya yang terkunci,
+      /* Pengguna percobaan tetap BISA membuka tabnya - isinya yang terkunci,
          sama seperti member private melihat konten eksklusif. Yang tampil
          hanya bagian teaser: gambar mini buram + tanggal, tanpa judul. */
       function terapkanAkses() {
@@ -12990,13 +12990,13 @@ EURUSD | buy | 1.0850 | 1.0820 | 1.0910 | be</pre>
       /* Satu kode, dua tingkat. Kode eksklusif otomatis mencakup akses private. */
       /* ============================================================
          MASA PERCOBAAN (TRIAL)
-         Kode percobaan disimpan sebagai sidik SHA-256 di trial.json —
+         Kode percobaan disimpan sebagai sidik SHA-256 di trial.json -
          kode aslinya tidak pernah ada di berkas manapun yang bisa diunduh.
          Setiap kode punya dua batas, dan yang lebih dulu tiba yang berlaku:
            1. tanggal kedaluwarsa mutlak  (tidak bisa direset)
            2. jumlah hari sejak pertama dipakai di perangkat itu
          ============================================================ */
-      const K_KODE = 'fncjt_kode';    /* kode akses yang dipakai — untuk membuka berkas private */
+      const K_KODE = 'fncjt_kode';    /* kode akses yang dipakai - untuk membuka berkas private */
       let kodeAkses = null;
 
       async function periksaKode(v) {
@@ -13013,17 +13013,17 @@ EURUSD | buy | 1.0850 | 1.0820 | 1.0910 | be</pre>
         try { return (await fncHash(v)) === ACCESS_CODE_HASH; } catch (e) { return false; }
       }
       /* ============================================================
-         PENGATURAN SITUS  (pengaturan.json — berkas polos, tanpa enkripsi)
+         PENGATURAN SITUS  (pengaturan.json - berkas polos, tanpa enkripsi)
          Isinya hal-hal yang sering berubah dan harus bisa diganti admin
          tanpa menyentuh kode: tautan grup publik, dan nanti nomor admin
          serta info pembayaran.
          ============================================================ */
       const SET_URL = 'pengaturan.json';
-      /* Cadangan kalau pengaturan.json belum di-upload — supaya fiturnya
+      /* Cadangan kalau pengaturan.json belum di-upload - supaya fiturnya
          tetap hidup di hari pertama. Yang di berkas selalu menang. */
       const GRUP_BAWAAN = 'https://chat.whatsapp.com/IoaK3O31T61ABskrHptt6V';
       const K_GRUP = 'fncjt_grup_seen';
-      /* Nomor cadangan — dipakai kalau pengaturan.json belum di-upload.
+      /* Nomor cadangan - dipakai kalau pengaturan.json belum di-upload.
          Yang ada di berkas selalu menang, jadi kalau ada nomor kena ban
          tinggal ganti dari admin tanpa menyentuh kode. */
       const WA_BAWAAN = {
@@ -13034,7 +13034,7 @@ EURUSD | buy | 1.0850 | 1.0820 | 1.0910 | be</pre>
         a2priv: '087747550081'
       };
       /* Urutan yang tampil di layar: Admin 1, Admin 2, Admin 3.
-         Namanya sengaja tidak ditampilkan — hanya dipakai di template pesan. */
+         Namanya sengaja tidak ditampilkan - hanya dipakai di template pesan. */
       const ADMIN_LIST = [
         { kunci: 'a1', label: 'Admin 1', peran: 'Materi &amp; cara belajar', sapa: 'Yudhis' },
         { kunci: 'a2', label: 'Admin 2', peran: 'Tanya-tanya umum', sapa: 'Radit' },
@@ -13067,7 +13067,7 @@ EURUSD | buy | 1.0850 | 1.0820 | 1.0910 | be</pre>
       }
       /* Membuka tab baru hanya diizinkan browser selama "izin sentuh" dari
          klik masih hidup. Menunggu unduhan berkas lebih dulu akan menghanguskan
-         izin itu, dan tab barunya diblokir — itu sebabnya dulu harus diklik dua
+         izin itu, dan tab barunya diblokir - itu sebabnya dulu harus diklik dua
          kali. Sekarang: kalau datanya belum siap, halaman ini yang dialihkan
          (tidak pernah diblokir); kalau sudah siap, tab baru seperti biasa. */
       function bukaWA(url, siap) {
@@ -13082,7 +13082,7 @@ EURUSD | buy | 1.0850 | 1.0820 | 1.0910 | be</pre>
         bukaWA('https://wa.me/' + no + '?text=' + encodeURIComponent(pesanKonsul(kunci)), siap);
       };
       /* AI Agent sedang bermasalah. Daripada mengarahkan ke nomor yang tidak
-         membalas — yang bikin orang merasa diabaikan — kendalanya dijelaskan
+         membalas - yang bikin orang merasa diabaikan - kendalanya dijelaskan
          dan langsung dialihkan ke admin. */
       window.__aiKendala = () => {
         popupInfo({
@@ -13092,7 +13092,7 @@ EURUSD | buy | 1.0850 | 1.0820 | 1.0910 | be</pre>
           isi: '<p>AI Agent FNC lagi dalam perbaikan, jadi belum bisa membalas ' +
             'pertanyaanmu untuk sementara.</p>' +
             '<p style="margin-top:10px;">Kabar baiknya: pertanyaanmu bisa langsung ' +
-            'dijawab <b>Admin Yudhis</b> lewat WhatsApp &mdash; malah lebih enak, ' +
+            'dijawab <b>Admin Yudhis</b> lewat WhatsApp - malah lebih enak, ' +
             'karena dijawab orang yang paham betul materinya.</p>' +
             '<p style="margin-top:10px;font-size:11.5px;color:var(--gray);line-height:1.6;">' +
             'Kami kabari lagi kalau AI Agent-nya sudah bisa dipakai.</p>',
@@ -13134,7 +13134,7 @@ EURUSD | buy | 1.0850 | 1.0820 | 1.0910 | be</pre>
       }
 
       /* Ditampilkan SEKALI, saat orang pertama kali masuk. Kalau ditutup,
-         tidak muncul lagi — tautannya tetap tersedia di tab Bantuan. */
+         tidak muncul lagi - tautannya tetap tersedia di tab Bantuan. */
       async function tampilGrupPublik() {
         let sudah = false;
         try { sudah = await store.get(K_GRUP); } catch (e) { }
@@ -13150,7 +13150,7 @@ EURUSD | buy | 1.0850 | 1.0820 | 1.0910 | be</pre>
         return true;
       }
       /* Dipakai di setiap ujung alur masuk. Tautan berbagi bisa dibuka orang
-         yang belum pernah membuka situs ini sama sekali — dia harus melewati
+         yang belum pernah membuka situs ini sama sekali - dia harus melewati
          gerbang, ajakan grup, dan layar sambutan dulu. Tanpa ini, tautannya
          hangus di tengah jalan dan dia mendarat di Beranda tanpa tahu kenapa. */
       async function lanjutMasuk() {
@@ -13173,7 +13173,7 @@ EURUSD | buy | 1.0850 | 1.0820 | 1.0910 | be</pre>
         $('shell').classList.remove('locked');
         if ($('ai-fab')) $('ai-fab').hidden = false;
         await store.set(K_GATE, true);
-        /* Ajakan gabung grup publik lebih dulu — komitmennya paling ringan.
+        /* Ajakan gabung grup publik lebih dulu - komitmennya paling ringan.
            Kalau sudah pernah tampil, langsung lanjut ke alur biasa. */
         /* Ajakan grup sekarang menyatu di pop-up sambutan, jadi pop-up terpisah
            ini dimatikan supaya orang baru tidak diberondong berkali-kali. */
@@ -13205,7 +13205,7 @@ EURUSD | buy | 1.0850 | 1.0820 | 1.0910 | be</pre>
         }
       }
       $('gate-submit').onclick = trySubmitCode;
-      /* Masuk sebagai pengunjung UMUM — tanpa kode, tanpa batas waktu. */
+      /* Masuk sebagai pengunjung UMUM - tanpa kode, tanpa batas waktu. */
       if ($('gate-umum')) $('gate-umum').onclick = async () => {
         setTier('umum');
         await store.set(K_TIER, 'umum');
@@ -13232,12 +13232,12 @@ EURUSD | buy | 1.0850 | 1.0820 | 1.0910 | be</pre>
         settings = (await store.get(K_SET)) || { kurs: 17000 };
         profil = (await store.get(K_PROFIL)) || null;
         let tSimpan = await store.get(K_TIER);
-        /* 'trial' adalah sisa sistem lama — pemakainya dinaikkan jadi UMUM,
+        /* 'trial' adalah sisa sistem lama - pemakainya dinaikkan jadi UMUM,
            yang aksesnya justru lebih luas (dapat Kalender juga). */
 
         /* Kode yang tersimpan diperiksa ulang di sini. Tanpa ini, member yang
            kodenya sudah diganti admin tetap terlihat "Eksklusif" di Profil,
-           padahal isinya tidak bisa dibuka lagi — bingung, dan tidak ada
+           padahal isinya tidak bisa dibuka lagi - bingung, dan tidak ada
            petunjuk apa pun bahwa dia harus memasukkan kode baru. */
         let kodeKadaluarsa = false;
         if (tSimpan === 'eks' || tSimpan === 'private') {
@@ -13286,7 +13286,7 @@ EURUSD | buy | 1.0850 | 1.0820 | 1.0910 | be</pre>
         const unlocked = await store.get(K_GATE);
         if (kodeKadaluarsa) {
           /* Sesinya diakhiri, tapi jangan sampai member merasa dikeluarkan
-             tanpa sebab — alasannya dijelaskan langsung di gerbang. */
+             tanpa sebab - alasannya dijelaskan langsung di gerbang. */
           /* Kode kedaluwarsa tidak lagi mengunci seluruh website. Member turun
              ke UMUM dan tetap bisa memakai Beranda, Jurnal, dan lainnya, lalu
              memasukkan kode baru lewat tab Profil kapan saja. */
@@ -13321,7 +13321,7 @@ EURUSD | buy | 1.0850 | 1.0820 | 1.0910 | be</pre>
              sebagai UMUM dan bisa menjelajah. Kode akses dimasukkan lewat tab
              Profil kalau memang punya. Ini menghapus pop-up pertama yang paling
              sering dikeluhkan. Member yang sudah membuka kode sebelumnya tetap
-             terbuka aksesnya — tidak perlu memasukkan kode lagi tiap kunjungan. */
+             terbuka aksesnya - tidak perlu memasukkan kode lagi tiap kunjungan. */
           setTier('umum');
           try { await store.set(K_TIER, 'umum'); } catch (e) { }
           await unlock();
@@ -13336,7 +13336,7 @@ EURUSD | buy | 1.0850 | 1.0820 | 1.0910 | be</pre>
     </div>
     <div class="mk-layar-isi" id="mk-layar-isi"></div>
     <div class="mk-layar-kaki">
-      Chart oleh TradingView &middot; coretan analisamu <b>bersifat sementara</b> &mdash;
+      Chart oleh TradingView &middot; coretan analisamu <b>bersifat sementara</b> -
       hilang begitu chart ditutup. Pakai ikon kamera di chart untuk menyimpannya jadi gambar.
     </div>
   </div>
