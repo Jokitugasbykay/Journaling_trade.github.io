@@ -6,6 +6,8 @@
       const K_TRADES = 'fncjt_trades';
       const K_SETTINGS = 'fncjt_settings';
       const K_PROFILE = 'fncjt_profil';
+      const SUPABASE_URL = 'https://nmddjuqkdyhcobddinkc.supabase.co';
+      const SUPABASE_KEY = 'sb_publishable_8MdtL4bDt-4dn2gh5-M8hg_TjDEGATj';
 
       /* Global State */
       let accounts = [];
@@ -20,6 +22,10 @@
       let uploadTrigger = null;
       let onboarding = { name: '', started: false };
       let language = 'id';
+      const cloudClient = window.supabase?.createClient(SUPABASE_URL, SUPABASE_KEY);
+      let cloudUser = null, cloudReady = false, cloudBusy = false, cloudTimer = null, localRevision = 0;
+      const cloudAccountIds = new Map(), cloudStrategyIds = new Map(), localAccountIds = new Map();
+      let cloudSnapshot = '';
       const originalCopy = new Map();
       try {
         const saved = JSON.parse(localStorage.getItem('fncjt_onboarding') || '{}');
@@ -35,13 +41,14 @@
       const stateCopy = {
         accessReady: 'Jurnal siap digunakan. Pilih tab yang ingin Anda buka.',
         localProfile: 'Profil lokal', localProfileStatus: 'Data tersimpan di perangkat ini.',
-        changeProfile: 'Ganti profil lokal'
+        changeProfile: 'Ganti profil lokal', cloudConnected: 'Akun cloud', cloudStatus: 'Jurnal tersinkron ke akun Anda.',
+        cloudManage: 'Kelola akun cloud', cloudSignOut: 'Keluar dari akun cloud'
       };
       const englishCopy = {
         home: 'Home', journal: 'Journal', statistics: 'Statistics', calculator: 'Calculator', news: 'Economic news',
         signIn: 'Sign in', welcome: 'Welcome', guestStatus: 'Explore the journal on the Home tab.',
         loginMenu: 'Sign in', profileSettings: 'Profile settings', openJournal: 'Open trading journal',
-        language: 'Language', signOut: 'Sign out of this profile', try: 'Try',
+        language: 'Language', signOut: 'Sign out of this profile', try: 'Try', cloudManage: 'Manage cloud account', cloudSignOut: 'Sign out of cloud account',
         heroTitle: 'Discipline in Every Execution.<br>Clarity in Every Trade.',
         heroLead: 'Transform your trading journey with a disciplined journaling practice.',
         tryJournal: 'Start your free journal', interested: "I’m interested",
@@ -76,10 +83,10 @@
         proSavings: 'Save $40 compared with 12 monthly payments. The discount rounds to 17%.',
         paidHint: 'Features and pricing details will be confirmed before subscriptions launch.',
         localDataHint: 'Notes are stored in this browser on this device. Export a backup to keep a copy.',
-        loginTitle: 'Sign in to your journal', loginDescription: 'Use a local profile for journaling on this device.',
+        loginTitle: 'Sign in to your journal', loginDescription: 'Sign in with email to save your journal in the cloud and access it on other devices.',
         googleLogin: 'Sign in with Google', googleSoon: 'Google sign-in is not available yet.', localName: 'Local profile name',
         localLoginHint: 'Local profiles share the same browser data. They are not cloud accounts. On your first visit, click Try on Home to open the other tabs.',
-        localLogin: 'Use local profile', tryWithoutAccount: 'Try without an account',
+        localLogin: 'Use local profile', tryWithoutAccount: 'Try without an account', cloudEmail: 'Email', cloudPassword: 'Password', cloudHint: 'New accounts may require email verification. Local journal data will be uploaded after your first successful sign-in.', cloudSignIn: 'Sign in and sync', cloudSignUp: 'Create account', cloudConnected: 'Cloud account', cloudStatus: 'Journal synced to your account.',
         uploadLabel: 'Scan PDF/PNG · Import CSV/TXT', uploadTitle: 'Scan documents & import trades',
         uploadDescription: 'PDF/PNG/JPG scans recognize position history and chart setups. Review CSV/TXT records before importing them into the journal.',
         dropFile: 'Drop your file here', scanReviewHint: 'Trade history and chart setups are detected automatically. Check the detected values; missing information stays blank. No trades are added automatically.',
@@ -301,6 +308,7 @@
       };
 
       function saveData() {
+        localRevision++;
         try {
           localStorage.setItem(K_ACCOUNTS, JSON.stringify(accounts));
           localStorage.setItem(K_TRADES, JSON.stringify(trades));
@@ -309,7 +317,185 @@
         } catch (e) {
           console.error("Storage save error:", e);
         }
+        scheduleCloudSave();
         if (window.renderStatistics) renderStatistics();
+      }
+
+      function cloudMessage(error) {
+        const messages = {
+          'Invalid login credentials': 'Email atau kata sandi salah.',
+          'Email not confirmed': 'Konfirmasi email Anda sebelum masuk.',
+          'User already registered': 'Email ini sudah terdaftar. Silakan masuk.',
+          'Password should be at least 6 characters': 'Kata sandi terlalu pendek.'
+        };
+        return messages[error?.message] || error?.message || 'Koneksi cloud gagal. Data lokal tetap tersimpan.';
+      }
+
+      function uuidFor(map, value) {
+        if (!map.has(value)) map.set(value, crypto.randomUUID());
+        persistCloudMaps();
+        return map.get(value);
+      }
+
+      function persistCloudMaps() {
+        if (!cloudUser) return;
+        try { localStorage.setItem('fncjt_cloud_map_' + cloudUser.id, JSON.stringify({ accounts: [...cloudAccountIds], trades: [...cloudTradeIds], strategies: [...cloudStrategyIds], snapshot: cloudSnapshot })); } catch {}
+      }
+
+      function journalFingerprint() {
+        const value = JSON.stringify({ accounts, trades, name: profile.name });
+        let hash = 2166136261;
+        for (let i = 0; i < value.length; i++) hash = Math.imul(hash ^ value.charCodeAt(i), 16777619);
+        return (hash >>> 0).toString(16);
+      }
+
+      async function syncCloud() {
+        if (!cloudUser || !cloudReady || cloudBusy || !cloudClient) return;
+        cloudBusy = true;
+        const startRevision = localRevision;
+        try {
+          const userId = cloudUser.id;
+          const snapshot = journalFingerprint();
+          const accountsForCloud = accounts.map(a => {
+            const id = uuidFor(cloudAccountIds, a.id);
+            localAccountIds.set(id, a.id);
+            return { id, user_id: userId, name: a.name || 'Trading account', broker: a.broker || null, account_type: a.type || null, initial_balance: Number(a.startBalance) || 0, currency: a.currency || 'USD', is_active: a.status !== 'Inactive' };
+          });
+          const strategies = [...new Set(trades.map(t => String(t.strategy || '').trim()).filter(Boolean))];
+          const strategyRows = strategies.map(name => ({ id: uuidFor(cloudStrategyIds, name), user_id: userId, name }));
+          let result = await cloudClient.from('trading_accounts').upsert(accountsForCloud, { onConflict: 'id' });
+          if (result.error) throw result.error;
+          if (strategyRows.length) {
+            result = await cloudClient.from('strategies').upsert(strategyRows, { onConflict: 'id' });
+            if (result.error) throw result.error;
+          }
+          const tradeRows = trades.map(t => ({
+            id: uuidFor(cloudTradeIds, t.id), user_id: userId, account_id: cloudAccountIds.get(t.accountId),
+            strategy_id: t.strategy ? cloudStrategyIds.get(String(t.strategy).trim()) : null,
+            symbol: t.market || 'UNKNOWN', market: t.market || null,
+            side: /^(sell|short)$/i.test(t.posisi || '') ? 'short' : 'long', status: 'closed',
+            opened_at: tradeTimestamp(t.date, t.jam), entry_price: finiteOrNull(t.entry), exit_price: finiteOrNull(t.exit),
+            stop_loss: finiteOrNull(t.sl), take_profit: finiteOrNull(t.tp), quantity: finiteOrNull(t.vol),
+            pnl: finiteOrNull(t.actualPnl), risk_percent: finiteOrNull(t.riskPct), notes: [t.reason, t.tf ? `TF: ${t.tf}` : '', t.result ? `Result: ${t.result}` : ''].filter(Boolean).join(' · ') || null
+          }));
+          if (tradeRows.length) {
+            result = await cloudClient.from('trades').upsert(tradeRows, { onConflict: 'id' });
+            if (result.error) throw result.error;
+          }
+          const liveAccounts = new Set(accounts.map(a => a.id));
+          const removedTrades = [...cloudTradeIds].filter(([id]) => !trades.some(t => t.id === id)).map(([, id]) => id);
+          if (removedTrades.length) {
+            result = await cloudClient.from('trades').delete().eq('user_id', userId).in('id', removedTrades);
+            if (result.error) throw result.error;
+          }
+          const removedAccounts = [...cloudAccountIds].filter(([id]) => !liveAccounts.has(id)).map(([, id]) => id);
+          if (removedAccounts.length) {
+            result = await cloudClient.from('trading_accounts').update({ is_active: false }).eq('user_id', userId).in('id', removedAccounts);
+            if (result.error) throw result.error;
+          }
+          const profileResult = await cloudClient.from('profiles').upsert({ id: userId, display_name: profile.name || cloudUser.email, timezone: 'Asia/Jakarta' }, { onConflict: 'id' });
+          if (profileResult.error) throw profileResult.error;
+          cloudSnapshot = snapshot;
+          persistCloudMaps();
+          if ($('cloud-status')) $('cloud-status').textContent = language === 'en' ? 'Cloud sync is up to date.' : 'Sinkronisasi cloud sudah terbaru.';
+        } catch (error) {
+          console.error('Supabase sync error:', error);
+          if ($('cloud-status')) $('cloud-status').textContent = cloudMessage(error);
+          return false;
+        } finally { cloudBusy = false; if (localRevision !== startRevision) scheduleCloudSave(); }
+        return true;
+      }
+
+      const cloudTradeIds = new Map();
+      function finiteOrNull(value) { if (value === null || value === undefined || value === '') return null; const number = Number(value); return Number.isFinite(number) ? number : null; }
+      function tradeTimestamp(date, time) {
+        return /^\d{4}-\d{2}-\d{2}$/.test(date || '') ? `${date}T${/^\d{2}:\d{2}$/.test(time || '') ? time : '00:00'}:00+07:00` : null;
+      }
+      function tradeDateJakarta(value) {
+        if (!value) return '';
+        const parts = Object.fromEntries(new Intl.DateTimeFormat('en', { timeZone: 'Asia/Jakarta', year: 'numeric', month: '2-digit', day: '2-digit' }).formatToParts(new Date(value)).map(part => [part.type, part.value]));
+        return `${parts.year}-${parts.month}-${parts.day}`;
+      }
+      function scheduleCloudSave() {
+        if (!cloudUser || !cloudReady) return;
+        clearTimeout(cloudTimer);
+        cloudTimer = setTimeout(syncCloud, 700);
+      }
+
+      async function hydrateCloud(user) {
+        cloudUser = user;
+        cloudReady = false;
+        try {
+          try {
+            const saved = JSON.parse(localStorage.getItem('fncjt_cloud_map_' + user.id) || '{}');
+            cloudAccountIds.clear(); cloudTradeIds.clear(); cloudStrategyIds.clear();
+            for (const [a, b] of saved.accounts || []) cloudAccountIds.set(a, b);
+            for (const [a, b] of saved.trades || []) cloudTradeIds.set(a, b);
+            for (const [a, b] of saved.strategies || []) cloudStrategyIds.set(a, b);
+            cloudSnapshot = saved.snapshot || '';
+          } catch {}
+          const [profileResult, accountResult, strategyResult, tradeResult] = await Promise.all([
+            cloudClient.from('profiles').select('display_name').eq('id', user.id).maybeSingle(),
+            cloudClient.from('trading_accounts').select('*').eq('user_id', user.id),
+            cloudClient.from('strategies').select('*').eq('user_id', user.id),
+            cloudClient.from('trades').select('*').eq('user_id', user.id)
+          ]);
+          for (const result of [profileResult, accountResult, strategyResult, tradeResult]) if (result.error) throw result.error;
+          const remoteAccounts = accountResult.data || [], remoteTrades = tradeResult.data || [];
+          if (remoteAccounts.length || remoteTrades.length) {
+            const hasLocalJournal = trades.length > 0 || accounts.some(a => a.id !== 'local_acc');
+            const localChangedSinceSync = cloudSnapshot ? cloudSnapshot !== journalFingerprint() : hasLocalJournal;
+            if (localChangedSinceSync && hasLocalJournal) {
+              if (!confirm(language === 'en' ? 'This account already has cloud data. Replace local data on this device with cloud data?' : 'Akun ini sudah memiliki data cloud. Ganti data lokal di perangkat ini dengan data cloud?')) {
+                cloudUser = null; cloudReady = false;
+                await cloudClient.auth.signOut();
+                return;
+              }
+            }
+            cloudAccountIds.clear(); cloudStrategyIds.clear(); cloudTradeIds.clear(); localAccountIds.clear();
+            accounts = remoteAccounts.map(a => { const id = 'cloud_' + a.id; cloudAccountIds.set(id, a.id); localAccountIds.set(a.id, id); return { id, name: a.name, broker: a.broker || '', type: a.account_type || 'Standard', currency: a.currency, startBalance: Number(a.initial_balance), status: a.is_active ? 'Active' : 'Inactive' }; });
+            const strategies = new Map((strategyResult.data || []).map(s => { cloudStrategyIds.set(s.name, s.id); return [s.id, s.name]; }));
+            trades = remoteTrades.map(t => { const id = 'cloud_' + t.id; cloudTradeIds.set(id, t.id); return { id, accountId: localAccountIds.get(t.account_id) || '', date: tradeDateJakarta(t.opened_at), jam: t.opened_at ? new Date(t.opened_at).toLocaleTimeString('id-ID', { timeZone: 'Asia/Jakarta', hour: '2-digit', minute: '2-digit', hour12: false }) : '', market: t.market || t.symbol, posisi: t.side === 'short' ? 'Sell' : 'Buy', entry: Number(t.entry_price) || 0, exit: t.exit_price === null ? null : Number(t.exit_price), sl: t.stop_loss === null ? null : Number(t.stop_loss), tp: t.take_profit === null ? null : Number(t.take_profit), vol: t.quantity === null ? null : Number(t.quantity), riskPct: t.risk_percent === null ? null : Number(t.risk_percent), actualPnl: t.pnl === null ? null : Number(t.pnl), result: t.notes?.match(/Result: (Win|Loss|BE)/)?.[1] || 'Win', strategy: strategies.get(t.strategy_id) || '', tf: t.notes?.match(/TF: ([^·]+)/)?.[1]?.trim() || '', reason: t.notes?.split(' · ')[0] || '' }; });
+            profile.name = profileResult.data?.display_name || user.email || 'Trader';
+            profile.currentAccount = accounts[0]?.id || '';
+            onboarding.name = profile.name; onboarding.started = true;
+            persistOnboarding(); persistCloudMaps();
+            saveLocalData();
+          } else {
+            const { error } = await cloudClient.from('profiles').upsert({ id: user.id, display_name: profile.name || user.email, timezone: 'Asia/Jakarta' }, { onConflict: 'id' });
+            if (error) throw error;
+          }
+          if (!onboarding.name) onboarding.name = profile.name || user.email || 'Trader';
+          onboarding.started = true;
+          persistOnboarding();
+          cloudReady = true;
+          updateAccess(); renderJournalTable(); renderStatistics(); renderProfileView(); runAllCalculators();
+          scheduleCloudSave();
+        } catch (error) {
+          console.error('Supabase load error:', error);
+          if ($('cloud-status')) $('cloud-status').textContent = cloudMessage(error);
+          cloudUser = null; cloudReady = false;
+        }
+      }
+
+      function saveLocalData() {
+        try {
+          localStorage.setItem(K_ACCOUNTS, JSON.stringify(accounts));
+          localStorage.setItem(K_TRADES, JSON.stringify(trades));
+          localStorage.setItem(K_SETTINGS, JSON.stringify(settings));
+          localStorage.setItem(K_PROFILE, JSON.stringify(profile));
+        } catch (error) { console.error('Local save error:', error); }
+      }
+
+      async function initCloudAuth() {
+        if (!cloudClient) { if ($('cloud-status')) $('cloud-status').textContent = 'Koneksi Supabase tidak tersedia. Data lokal tetap tersimpan.'; return; }
+        cloudClient.auth.onAuthStateChange((event, session) => {
+          if (event === 'SIGNED_IN' && session?.user) setTimeout(() => hydrateCloud(session.user), 0);
+          if (event === 'SIGNED_OUT') { cloudUser = null; cloudReady = false; }
+        });
+        const { data, error } = await cloudClient.auth.getSession();
+        if (error) { console.error('Supabase session error:', error); return; }
+        if (data.session?.user) await hydrateCloud(data.session.user);
       }
 
       function disciplineMetrics(rows) {
@@ -481,12 +667,13 @@
           button.title = locked ? (language === 'en' ? 'Click Try on Home to open this tab.' : 'Klik Coba di Beranda untuk membuka tab ini.') : '';
         });
         $('home-access-hint').dataset.i18n = onboarding.started ? 'accessReady' : 'accessHint';
-        $('nav-login-label').dataset.i18n = onboarding.name ? 'localProfile' : 'signIn';
+        $('nav-login-label').dataset.i18n = cloudUser ? 'cloudConnected' : (onboarding.name ? 'localProfile' : 'signIn');
         $('nav-dd-username').textContent = onboarding.name || (language === 'en' ? 'Welcome' : 'Selamat datang');
         $('nav-dd-username').removeAttribute('data-i18n');
-        $('nav-dd-status').dataset.i18n = onboarding.name ? 'localProfileStatus' : 'guestStatus';
-        $('menu-login').dataset.i18n = onboarding.name ? 'changeProfile' : 'loginMenu';
+        $('nav-dd-status').dataset.i18n = cloudUser ? 'cloudStatus' : (onboarding.name ? 'localProfileStatus' : 'guestStatus');
+        $('menu-login').dataset.i18n = cloudUser ? 'cloudManage' : (onboarding.name ? 'changeProfile' : 'loginMenu');
         $('menu-logout').hidden = !onboarding.name;
+        $('menu-logout').dataset.i18n = cloudUser ? 'cloudSignOut' : 'signOut';
         applyLanguage();
       }
 
@@ -522,8 +709,52 @@
         closeLoginDialog();
         switchTab('beranda');
       };
+      window.signInCloud = async function (event) {
+        event.preventDefault();
+        if (!cloudClient) { $('cloud-status').textContent = 'Koneksi Supabase belum tersedia.'; return; }
+        const button = $('cloud-login-form').querySelector('[type="submit"]');
+        button.disabled = true;
+        $('cloud-status').textContent = language === 'en' ? 'Signing in...' : 'Sedang masuk...';
+        try {
+          const { error } = await cloudClient.auth.signInWithPassword({ email: $('cloud-email').value.trim(), password: $('cloud-password').value });
+          if (error) throw error;
+          $('cloud-password').value = '';
+          $('login-feedback').textContent = '';
+          closeLoginDialog();
+        } catch (error) { $('cloud-status').textContent = cloudMessage(error); }
+        finally { button.disabled = false; }
+      };
+      window.signUpCloud = async function () {
+        if (!cloudClient) { $('cloud-status').textContent = 'Koneksi Supabase belum tersedia.'; return; }
+        const email = $('cloud-email').value.trim(), password = $('cloud-password').value;
+        if (!$('cloud-email').reportValidity() || !$('cloud-password').reportValidity()) return;
+        const button = $('cloud-login-form').querySelector('[type="button"]');
+        button.disabled = true;
+        $('cloud-status').textContent = language === 'en' ? 'Creating your account...' : 'Membuat akun...';
+        try {
+          const { data, error } = await cloudClient.auth.signUp({ email, password });
+          if (error) throw error;
+          if (!data.session) $('cloud-status').textContent = language === 'en' ? 'Check your email to confirm your account, then sign in here.' : 'Buka email untuk konfirmasi akun, lalu masuk dari sini.';
+          else { $('cloud-status').textContent = language === 'en' ? 'Account created. Syncing your journal...' : 'Akun dibuat. Jurnal sedang disinkronkan...'; closeLoginDialog(); }
+        } catch (error) { $('cloud-status').textContent = cloudMessage(error); }
+        finally { button.disabled = false; }
+      };
       $('local-login-name').addEventListener('input', event => event.target.setCustomValidity(''));
       window.signOutLocal = function () {
+        if (cloudClient && cloudUser) {
+          clearTimeout(cloudTimer);
+          (async () => {
+            while (cloudBusy) await new Promise(resolve => setTimeout(resolve, 50));
+            if (!await syncCloud()) return;
+            const { error } = await cloudClient.auth.signOut();
+            if (error) console.error('Supabase sign out error:', error);
+            localStorage.removeItem(K_ACCOUNTS); localStorage.removeItem(K_TRADES); localStorage.removeItem(K_SETTINGS); localStorage.removeItem(K_PROFILE);
+            accounts = []; trades = []; settings = { kurs: 17000, billingAnnual: false }; profile = { name: 'Trader', currentAccount: 'demo_acc' };
+            onboarding = { name: '', started: false }; loadData(); persistOnboarding();
+            updateAccess(); renderJournalTable(); renderProfileView(); renderStatistics(); runAllCalculators();
+          })();
+          return;
+        }
         onboarding = { name: '', started: false };
         persistOnboarding();
         updateAccess();
@@ -1357,8 +1588,8 @@
             strategy:'Impor screenshot',tf:'',scanSource,
             reason:`${scan.name} · Exit ${row.exit} · Profit ${row.profit} ${currency} · SL/TP dan risiko belum diketahui.`}));
           const next=[...imported,...trades];
-          localStorage.setItem(K_TRADES,JSON.stringify(next));
           trades=next;
+          saveData();
           closeUploadModal();
           switchTab('jurnal');
           resetJournalFilters();
@@ -2848,6 +3079,7 @@
 
       /* Initial Startup */
       loadData();
+      initCloudAuth();
       updateAccess();
       renderJournalTable();
       renderProfileView();

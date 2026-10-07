@@ -1051,10 +1051,22 @@
        ==================================================================== -->
   <dialog class="login-dialog" id="login-dialog" aria-labelledby="login-title">
     <div class="modal-head"><h2 id="login-title" data-i18n="loginTitle">Masuk ke jurnal Anda</h2><button class="modal-close" type="button" onclick="closeLoginDialog()" aria-label="Tutup">&times;</button></div>
-    <p class="login-description" data-i18n="loginDescription">Gunakan profil lokal untuk jurnal di perangkat ini.</p>
+    <p class="login-description" data-i18n="loginDescription">Masuk dengan akun email untuk menyimpan jurnal Anda di cloud dan membukanya di perangkat lain.</p>
     <!-- TODO: connect Google Identity Services after a public OAuth Client ID is supplied. -->
     <button class="google-login-btn" type="button" disabled aria-describedby="google-login-status"><span class="google-letter" aria-hidden="true">G</span><span data-i18n="googleLogin">Masuk dengan Google</span></button>
-    <p id="google-login-status" class="login-note" data-i18n="googleSoon">Login Google belum tersedia.</p>
+    <p id="google-login-status" class="login-note" data-i18n="googleSoon">Gunakan email dan kata sandi untuk sinkronisasi cloud.</p>
+    <form id="cloud-login-form" onsubmit="signInCloud(event)">
+      <label for="cloud-email" data-i18n="cloudEmail">Email</label>
+      <input id="cloud-email" name="email" type="email" autocomplete="username" required maxlength="254" placeholder="nama@email.com">
+      <label for="cloud-password" data-i18n="cloudPassword">Kata sandi</label>
+      <input id="cloud-password" name="password" type="password" autocomplete="current-password" required minlength="8" maxlength="128">
+      <p class="login-note" data-i18n="cloudHint">Akun baru mungkin perlu verifikasi email. Jurnal lokal akan diunggah saat pertama kali akun berhasil masuk.</p>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;">
+        <button class="btn btn-primary" type="submit" data-i18n="cloudSignIn">Masuk dan sinkronkan</button>
+        <button class="btn btn-ghost" type="button" onclick="signUpCloud()" data-i18n="cloudSignUp">Buat akun</button>
+      </div>
+    </form>
+    <p id="cloud-status" class="login-note" role="status"></p>
     <form id="local-login-form" onsubmit="signInLocal(event)">
       <label for="local-login-name" data-i18n="localName">Nama profil lokal</label>
       <input id="local-login-name" name="name" type="text" autocomplete="nickname" required minlength="1" maxlength="80" placeholder="Nama Anda">
@@ -1237,8 +1249,9 @@
   <!-- ====================================================================
        APPLICATION LOGIC & DATA PERSISTENCE
        ==================================================================== -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.86.0"></script>
   <script src="js/scan.js?v=20261007"></script>
-  <script src="js/app.js?v=20261008-categories-bi"></script>
+  <script src="js/app.js?v=20261008-supabase"></script>
 
  </body>
 
