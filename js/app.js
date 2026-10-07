@@ -3063,10 +3063,6 @@ Disarankan menunggu konfirmasi break salah satu batas range sebelum mengambil po
         }
       };
 
-      document.addEventListener('visibilitychange', () => {
-        if (!document.hidden && Date.now() - exchangeCheckedAt > 3600000) refreshExchangeRate();
-      });
-      setInterval(() => { if (!document.hidden) refreshExchangeRate(); }, 3600000);
       /* Initial Startup */
       loadData();
       updateAccess();
@@ -3074,7 +3070,6 @@ Disarankan menunggu konfirmasi break salah satu batas range sebelum mengambil po
       renderProfileView();
       runAllCalculators();
       updatePricingDisplay();
-      refreshExchangeRate();
       initUploadDropZone();
       initMarqueeTicker();
       initCalendarEventListeners();
