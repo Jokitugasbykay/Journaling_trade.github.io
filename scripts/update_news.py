@@ -25,6 +25,29 @@ SOURCES = [
     {"id": "cme", "name": "CME Markets", "url": "https://www.cmegroup.com/markets.html?redirect=/markets/", "kind": "tool", "domain": "cmegroup.com"},
 ]
 SIGNALS = re.compile(r"\b(?:buy on (?:dip|pullback)|sell on (?:rally|bounce)|stocks? to buy|stock picks?|trading signals?|price targets?|target harga|sinyal trading|rekomendasi (?:beli|jual)|buy now|sell now)\b", re.I)
+IMAGE_DOMAINS = ('investing.com', 'cnbcfm.com', 'kontan.co.id', 'reuters.com', 'aljazeera.com', 'bloomberg.com', 'bwbx.io')
+
+
+def image_url(value):
+    try:
+        url = urllib.parse.urlsplit(value or '')
+        host = (url.hostname or '').lower()
+        if url.scheme == 'https' and not url.username and not url.password and any(host == domain or host.endswith('.' + domain) for domain in IMAGE_DOMAINS):
+            return urllib.parse.urlunsplit((url.scheme, url.netloc, url.path, url.query, ''))
+    except ValueError:
+        pass
+    return None
+
+
+class ArticleImage(HTMLParser):
+    def __init__(self):
+        super().__init__()
+        self.image = None
+
+    def handle_starttag(self, tag, attrs):
+        attrs = dict(attrs)
+        if tag == 'meta' and attrs.get('property', attrs.get('name')) in ('og:image', 'twitter:image', 'twitter:image:src') and not self.image:
+            self.image = image_url(attrs.get('content'))
 
 
 def clean(value):
@@ -67,6 +90,10 @@ class KontanHeadlines(HTMLParser):
             attrs = dict(attrs)
             link = urllib.parse.urljoin("https://www.kontan.co.id/", attrs.get("href", ""))
             self.current = {"url": link, "title": attrs.get("title", ""), "parts": []} if "/news/" in link else None
+        elif tag == 'img' and self.current is not None:
+            attrs = dict(attrs)
+            self.current['image'] = image_url(attrs.get('data-src') or attrs.get('src'))
+            self.current['title'] = self.current['title'] or attrs.get('alt', '')
 
     def handle_data(self, data):
         if self.current is not None:
@@ -90,15 +117,20 @@ def parse(data, source):
             raise ValueError("XML declarations not supported")
         root = ET.fromstring(data)
         if source["kind"] == "rss":
-            rows = [{"title": row.findtext("title"), "url": row.findtext("link"), "publishedAt": row.findtext("pubDate")} for row in root.findall(".//item")]
+            rows = []
+            for row in root.findall('.//item'):
+                photo = next((image_url(el.get('url')) for el in row.iter() if el.tag.split('}')[-1] in ('enclosure', 'thumbnail', 'content') and image_url(el.get('url'))), None)
+                rows.append({'title': row.findtext('title'), 'url': row.findtext('link'), 'publishedAt': row.findtext('pubDate'), 'image': photo})
         else:
-            ns = {"s": "http://www.sitemaps.org/schemas/sitemap/0.9", "n": "http://www.google.com/schemas/sitemap-news/0.9"}
-            rows = [{"title": row.findtext("n:news/n:title", namespaces=ns), "url": row.findtext("s:loc", namespaces=ns), "publishedAt": row.findtext("n:news/n:publication_date", namespaces=ns)} for row in root.findall("s:url", ns)]
+            ns = {"s": "http://www.sitemaps.org/schemas/sitemap/0.9", "n": "http://www.google.com/schemas/sitemap-news/0.9", 'i': 'http://www.google.com/schemas/sitemap-image/1.1'}
+            rows = [{"title": row.findtext("n:news/n:title", namespaces=ns), "url": row.findtext("s:loc", namespaces=ns), "publishedAt": row.findtext("n:news/n:publication_date", namespaces=ns), 'image': row.findtext('i:image/i:loc', namespaces=ns)} for row in root.findall("s:url", ns) if row.findtext('n:news/n:publication/n:language', default='en', namespaces=ns) == 'en']
     items, seen = [], set()
     now = dt.datetime.now(dt.timezone.utc)
     for row in rows:
         title = clean(row.get("title"))
         link = safe_url(row.get("url") or "", source["domain"])
+        if source['id'] == 'reuters' and link and re.match(r'^/(?!en/)[a-z]{2}/', urllib.parse.urlsplit(link).path):
+            continue
         published = date_iso(row.get("publishedAt"))
         if published:
             age = now - dt.datetime.fromisoformat(published)
@@ -107,9 +139,26 @@ def parse(data, source):
         if not link or link in seen or len(title) < 20 or len(title) > 250 or SIGNALS.search(title):
             continue
         seen.add(link)
-        items.append({"id": hashlib.sha256(link.encode()).hexdigest()[:20], "source": source["id"], "title": title, "url": link, "publishedAt": published})
+        items.append({"id": hashlib.sha256(link.encode()).hexdigest()[:20], "source": source["id"], "title": title, "url": link, "publishedAt": published, 'image': image_url(row.get('image'))})
     items.sort(key=lambda item: item["publishedAt"] or "", reverse=True)
     return items[:20]
+
+
+def add_article_image(item):
+    if item.get('image'):
+        return item
+    try:
+        request = urllib.request.Request(item['url'], headers={'User-Agent': 'JournalingTrade/1.0 (public headline reader)'})
+        with urllib.request.urlopen(request, timeout=8) as response:
+            if 'text/html' not in response.headers.get('Content-Type', ''):
+                return item
+            data = response.read(1_000_000)
+        parser = ArticleImage()
+        parser.feed(data.decode('utf-8', errors='replace'))
+        item['image'] = parser.image
+    except Exception:
+        pass
+    return item
 
 
 def collect(source):
@@ -152,6 +201,16 @@ def main():
                     source["status"] = "stale"
             sources.append(source)
             items.extend(found)
+    previous_items = {row.get('url'): row for row in previous.get('items', [])}
+    missing = []
+    for item in items:
+        old = previous_items.get(item['url'], {})
+        if not item.get('image') and 'image' in old:
+            item['image'] = image_url(old['image'])
+        elif not item.get('image'):
+            missing.append(item)
+    with concurrent.futures.ThreadPoolExecutor(max_workers=8) as pool:
+        list(pool.map(add_article_image, missing))
     items.sort(key=lambda item: item.get("publishedAt") or "", reverse=True)
     output = {"version": 1, "checkedAt": dt.datetime.now(dt.timezone.utc).isoformat(), "intervalMinutes": 30, "sources": sources, "items": items[:120]}
     temporary = path.with_suffix(".json.tmp")

@@ -100,6 +100,7 @@
   "guideReviewText": "Open Statistics to review profit and loss, win rate, and drawdown. Compare your setups and entry reasons, then choose one habit to improve in your next session."
 });
       Object.assign(englishCopy, {"newsPageTitle":"News & economic calendar","newsPageLead":"Headlines from your selected publishers, publication times, and the economic calendar.","newsHeadlines":"Latest news","newsCalendar":"Economic calendar","newsSourceLabel":"News source","newsAllSources":"All sources","newsRefresh":"Refresh news","newsOriginalLanguage":"Headlines remain in the publisher’s original language. Read the full story on the source website.","newsCmeHint":"View current interest-rate probabilities and market data directly on CME Group."});
+      Object.assign(englishCopy, {"newsLatestStories": "Latest stories", "newsShowMore": "Show more stories", "newsFeedDetails": "Sources & update schedule", "newsSchedule": "News is collected every 30 minutes daily. This page checks for updates every 5 minutes."});
       document.querySelectorAll('[data-i18n]').forEach(element => {
         originalCopy.set(element.dataset.i18n, element.innerHTML);
       });
@@ -2718,6 +2719,8 @@
       }
 
       let publisherNews = null;
+      let newsVisibleCount = 12;
+      let newsSelectedSource = '';
       let publisherNewsBusy = false;
       let publisherNewsFailed = false;
       const publisherDomains = { investing: 'investing.com', cnbc: 'cnbc.com', kontan: 'kontan.co.id', reuters: 'reuters.com', aljazeera: 'aljazeera.com', bloomberg: 'bloomberg.com', fedwatch: 'cmegroup.com', cme: 'cmegroup.com' };
@@ -2733,6 +2736,13 @@
         const date = new Date(value);
         return value && Number.isFinite(date.getTime()) ? date.toLocaleString(language === 'en' ? 'en-GB' : 'id-ID', { timeZone: 'Asia/Jakarta', day: 'numeric', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit' }) + ' WIB' : null;
       }
+      function publisherImageUrl(value) {
+        try {
+          const url = new URL(value);
+          const domains = ['investing.com', 'cnbcfm.com', 'kontan.co.id', 'reuters.com', 'aljazeera.com', 'bloomberg.com', 'bwbx.io'];
+          return url.protocol === 'https:' && !url.username && !url.password && domains.some(domain => url.hostname === domain || url.hostname.endsWith('.' + domain)) ? url.href : null;
+        } catch { return null; }
+      }
       window.renderPublisherNews = function () {
         const status = $('publisher-news-status');
         if (!status) return;
@@ -2742,9 +2752,10 @@
         }
         const checked = publisherTime(publisherNews.checkedAt);
         const aged = Date.now() - new Date(publisherNews.checkedAt).getTime() > 90 * 60000;
-        status.textContent = (publisherNewsFailed ? newsText('Pembaruan gagal; menampilkan data tersimpan. ', 'Refresh failed; showing the saved feed. ') : '') + (aged ? newsText('Data belum diperbarui. ', 'The feed has not been updated recently. ') : '') + newsText('Terakhir diperiksa: ', 'Last checked: ') + (checked || newsText('Tidak tersedia', 'Unavailable')) + newsText('. Jadwal pengambilan setiap 30 menit setiap hari; halaman mengecek pembaruan setiap 5 menit.', '. Collection runs every 30 minutes daily; this page checks for updates every 5 minutes.');
+        status.textContent = (publisherNewsFailed ? newsText('Pembaruan gagal; menampilkan data tersimpan. ', 'Refresh failed; showing the saved feed. ') : '') + (aged ? newsText('Data belum diperbarui. ', 'The feed has not been updated recently. ') : '') + newsText('Terakhir diperiksa: ', 'Last checked: ') + (checked || newsText('Tidak tersedia', 'Unavailable'));
         const select = $('news-source');
         const selected = select.value;
+        if (selected !== newsSelectedSource) { newsVisibleCount = 12; newsSelectedSource = selected; }
         select.innerHTML = '<option value="">' + newsText('Semua sumber', 'All sources') + '</option>' + publisherNews.sources.filter(source => source.kind !== 'tool').map(source => '<option value="' + esc(source.id) + '">' + esc(source.name) + '</option>').join('');
         select.value = selected;
         $('publisher-source-status').innerHTML = publisherNews.sources.filter(source => source.kind !== 'tool').map(source => {
@@ -2755,17 +2766,24 @@
         }).join('');
         const sources = new Map(publisherNews.sources.map(source => [source.id, source]));
         const rows = publisherNews.items.filter(item => !selected || item.source === selected);
-        $('publisher-news-list').innerHTML = rows.length ? rows.map(item => {
+        $('news-more').hidden = rows.length <= newsVisibleCount;
+        $('publisher-news-list').innerHTML = rows.length ? rows.slice(0, newsVisibleCount).map(item => {
           const url = publisherUrl(item.url, item.source);
           const source = sources.get(item.source);
           if (!url || !source) return '';
           const time = publisherTime(item.publishedAt) || newsText('Waktu terbit tidak disediakan penerbit', 'Publication time not provided by the publisher');
-          return '<article class="publisher-news-item"><p class="publisher-news-meta">' + esc(source.name) + ' · ' + esc(time) + '</p><h3><a href="' + esc(url) + '" target="_blank" rel="noopener noreferrer">' + esc(item.title) + '</a></h3><a class="publisher-read" href="' + esc(url) + '" target="_blank" rel="noopener noreferrer">' + newsText('Baca di sumber', 'Read on the source website') + '</a></article>';
+          const image = publisherImageUrl(item.image);
+          const media = '<span class="publisher-photo"><span class="publisher-photo-fallback" aria-hidden="true"><span>' + esc(source.name) + '</span><small>' + newsText('Foto tidak tersedia', 'Photo unavailable') + '</small></span>' + (image ? '<img src="' + esc(image) + '" alt="" width="640" height="360" loading="lazy" decoding="async" referrerpolicy="no-referrer">' : '') + '</span>';
+          return '<article class="publisher-news-item"><a class="publisher-story-link" href="' + esc(url) + '" target="_blank" rel="noopener noreferrer">' + media + '<h3>' + esc(item.title) + '</h3></a><p class="publisher-news-meta"><span>' + esc(source.name) + '</span><time' + (publisherTime(item.publishedAt) ? ' datetime="' + esc(item.publishedAt) + '"' : '') + '>' + esc(time) + '</time></p></article>';
         }).join('') : '<p>' + newsText('Belum ada berita dari sumber ini. Buka situs penerbit melalui tautan di atas.', 'No headlines are available from this source. Open its website using the link above.') + '</p>';
+        $('publisher-news-list').querySelectorAll('img').forEach(img => { img.addEventListener('error', () => img.remove(), { once: true }); });
       };
+      window.showMoreNews = function () { newsVisibleCount += 12; renderPublisherNews(); };
       window.reloadPublisherNews = async function () {
         if (publisherNewsBusy) return;
         publisherNewsBusy = true;
+        $('news-refresh').disabled = true;
+        $('publisher-news-list').setAttribute('aria-busy', 'true');
         try {
           const response = await fetch('berita.json?t=' + Date.now(), { cache: 'no-store', signal: AbortSignal.timeout(15000) });
           if (!response.ok) throw new Error('News request failed');
@@ -2776,7 +2794,7 @@
           publisherNews = data;
           publisherNewsFailed = false;
         } catch (error) { publisherNewsFailed = true; }
-        finally { publisherNewsBusy = false; renderPublisherNews(); }
+        finally { publisherNewsBusy = false; $('news-refresh').disabled = false; $('publisher-news-list').setAttribute('aria-busy', 'false'); renderPublisherNews(); }
       };
       setInterval(() => { if (!document.hidden) reloadPublisherNews(); }, 300000);
       document.addEventListener('visibilitychange', () => { if (!document.hidden) reloadPublisherNews(); });
