@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "checkedAt": "2026-10-07T16:44:35.532195+00:00",
+  "checkedAt": "2026-10-07T16:50:09.039062+00:00",
   "intervalMinutes": 30,
   "sources": [
     {
@@ -9,7 +9,7 @@
       "url": "https://www.investing.com/",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-07T16:44:34.510342+00:00"
+      "checkedAt": "2026-10-07T16:50:08.554795+00:00"
     },
     {
       "id": "cnbc",
@@ -17,7 +17,7 @@
       "url": "https://www.cnbc.com/markets/",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-07T16:44:34.591438+00:00"
+      "checkedAt": "2026-10-07T16:50:08.521422+00:00"
     },
     {
       "id": "kontan",
@@ -25,7 +25,7 @@
       "url": "https://www.kontan.co.id/",
       "kind": "html",
       "status": "ok",
-      "checkedAt": "2026-10-07T16:44:35.531490+00:00"
+      "checkedAt": "2026-10-07T16:50:09.038593+00:00"
     },
     {
       "id": "reuters",
@@ -33,7 +33,7 @@
       "url": "https://www.reuters.com/",
       "kind": "sitemap",
       "status": "ok",
-      "checkedAt": "2026-10-07T16:44:34.834107+00:00"
+      "checkedAt": "2026-10-07T16:50:08.843504+00:00"
     },
     {
       "id": "aljazeera",
@@ -41,7 +41,7 @@
       "url": "https://www.aljazeera.com/",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-07T16:44:34.677314+00:00"
+      "checkedAt": "2026-10-07T16:50:08.584966+00:00"
     },
     {
       "id": "bloomberg",
@@ -49,7 +49,7 @@
       "url": "https://www.bloomberg.com/asia",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-07T16:44:34.751486+00:00"
+      "checkedAt": "2026-10-07T16:50:08.852555+00:00"
     },
     {
       "id": "fedwatch",
@@ -68,18 +68,46 @@
   ],
   "items": [
     {
-      "id": "0e20915a3595d2ae6723",
-      "source": "cnbc",
-      "title": "Modelo owner Constellation is getting creative to bring back beer drinkers as overall demand weakens",
-      "url": "https://www.cnbc.com/2026/10/07/constellation-brands-earnings-beer-demand.html",
-      "publishedAt": "2026-10-07T16:40:50+00:00"
+      "id": "51108ea3f0b095e4ff07",
+      "source": "reuters",
+      "title": "El cobre cae por fortaleza del dólar, preocupaciones sobre la oferta limitan pérdidas",
+      "url": "https://www.reuters.com/es/negocio/2MEUXX3XWROM5CANX4RY5X33YY-2026-10-07/",
+      "publishedAt": "2026-10-07T16:45:09.674000+00:00"
+    },
+    {
+      "id": "0c933e405e26fe9838a4",
+      "source": "reuters",
+      "title": "Alguns ministros do Comércio do G20 assinam declaração liderada pelos EUA que denuncia excesso de capacidade industrial",
+      "url": "https://www.reuters.com/pt/negocio/VMKQCAITE5JXJMZSGSSFXHLUEY-2026-10-07/",
+      "publishedAt": "2026-10-07T16:44:52.784000+00:00"
+    },
+    {
+      "id": "d1449b3c22b01e3b6058",
+      "source": "reuters",
+      "title": "Europe stocks retreat after three-day rise as rising yields, oil dent sentiment",
+      "url": "https://www.reuters.com/markets/europe/european-shares-slip-after-three-day-gain-rise-oil-yields-weigh-2026-10-07/",
+      "publishedAt": "2026-10-07T16:43:52.723000+00:00"
     },
     {
       "id": "0c97f00625726bc2736f",
       "source": "reuters",
       "title": "US FDA expands use of Novartis drug for chronic skin condition",
       "url": "https://www.reuters.com/business/healthcare-pharmaceuticals/us-fda-expands-use-novartis-drug-chronic-skin-condition-2026-10-07/",
-      "publishedAt": "2026-10-07T16:39:59.695000+00:00"
+      "publishedAt": "2026-10-07T16:42:18.353000+00:00"
+    },
+    {
+      "id": "985a2fdbd4c8f4093b51",
+      "source": "reuters",
+      "title": "Oro toca piso de dos meses lastrado por fortaleza del dólar y aumento de rendimientos",
+      "url": "https://www.reuters.com/es/negocio/ZCI7GGP2FVPYLBJWV3FMELU3EI-2026-10-07/",
+      "publishedAt": "2026-10-07T16:41:16.442000+00:00"
+    },
+    {
+      "id": "0e20915a3595d2ae6723",
+      "source": "cnbc",
+      "title": "Modelo owner Constellation is getting creative to bring back beer drinkers as overall demand weakens",
+      "url": "https://www.cnbc.com/2026/10/07/constellation-brands-earnings-beer-demand.html",
+      "publishedAt": "2026-10-07T16:40:50+00:00"
     },
     {
       "id": "0ef12cd56f6eef39ff89",
@@ -206,34 +234,6 @@
       "title": "El embajador de Taiwán en EEUU dice que las relaciones son sólidas tras cumbre entre Trump y Xi",
       "url": "https://www.reuters.com/es/mundo/SK7IOCOUQ5IVFBOXRG3P2NYXEI-2026-10-07/",
       "publishedAt": "2026-10-07T16:29:44.218000+00:00"
-    },
-    {
-      "id": "2bcf7dbfa76d8ead45a9",
-      "source": "reuters",
-      "title": "Ten injured in knife attack at Polish school",
-      "url": "https://www.reuters.com/world/europe/least-seven-injured-polish-school-knife-attack-rmf-fm-reports-2026-10-07/",
-      "publishedAt": "2026-10-07T16:28:16.468000+00:00"
-    },
-    {
-      "id": "881c6031aaf306d65063",
-      "source": "reuters",
-      "title": "UK's Royal Mail plans to cut up to 2,500 jobs by end-2027",
-      "url": "https://www.reuters.com/business/world-at-work/uks-royal-mail-plans-cut-up-2500-jobs-by-end-2027-2026-10-07/",
-      "publishedAt": "2026-10-07T16:28:09.871000+00:00"
-    },
-    {
-      "id": "da5bfcc8e4a65524c784",
-      "source": "reuters",
-      "title": "Australia's top court backs grassroots group in landmark climate case on coal mine",
-      "url": "https://www.reuters.com/sustainability/cop/australias-top-court-backs-grassroots-group-landmark-climate-case-coal-mine-2026-10-07/",
-      "publishedAt": "2026-10-07T16:27:59.923000+00:00"
-    },
-    {
-      "id": "30fb3bdddfad835bd093",
-      "source": "reuters",
-      "title": "US bonds selloff resumes as 10-year, 30-yields hit new 24-year high",
-      "url": "https://www.reuters.com/business/us-30-year-bond-yield-hits-fresh-24-year-high-2026-10-07/",
-      "publishedAt": "2026-10-07T16:26:24.721000+00:00"
     },
     {
       "id": "4b1201f580a4d73c6498",
