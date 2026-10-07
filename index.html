@@ -11,7 +11,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
 
-  <link rel="stylesheet" href="css/style.css?v=20261008-mobile-news-rows">
+  <link rel="stylesheet" href="css/style.css?v=20261008-categories-bi">
 </head>
 
 <body>
@@ -814,8 +814,27 @@
       <div class="seg" id="berita-seg" style="margin:18px 0 22px;">
         <button class="seg-btn active" type="button" data-sub="ringkasan" onclick="switchBeritaSub('ringkasan')" data-i18n="newsHeadlines">Berita terbaru</button>
         <button class="seg-btn" type="button" data-sub="kalender" onclick="switchBeritaSub('kalender')" data-i18n="newsCalendar">Kalender ekonomi</button>
+        <button class="seg-btn" type="button" data-sub="sosial" onclick="switchBeritaSub('sosial')" data-i18n="newsSocial">Sosial media</button>
       </div>
+      <div id="bi-indicators" class="bi-indicators" role="status"></div>
       <div id="sub-berita-ringkasan">
+        <nav class="news-categories" id="news-categories" aria-label="News categories">
+          <button type="button" data-category="" aria-pressed="true" onclick="selectNewsCategory('')" data-i18n="categoryAll">Semua</button>
+          <button type="button" data-category="world" aria-pressed="false" onclick="selectNewsCategory('world')" data-i18n="categoryWorld">Dunia</button>
+          <button type="button" data-category="business" aria-pressed="false" onclick="selectNewsCategory('business')" data-i18n="categoryBusiness">Bisnis</button>
+          <button type="button" data-category="markets" aria-pressed="false" onclick="selectNewsCategory('markets')" data-i18n="categoryMarkets">Pasar</button>
+          <button type="button" data-category="sustainability" aria-pressed="false" onclick="selectNewsCategory('sustainability')" data-i18n="categorySustainability">Keberlanjutan</button>
+          <button type="button" data-category="legal" aria-pressed="false" onclick="selectNewsCategory('legal')" data-i18n="categoryLegal">Hukum</button>
+          <button type="button" data-category="commentary" aria-pressed="false" onclick="selectNewsCategory('commentary')" data-i18n="categoryCommentary">Komentar</button>
+          <button type="button" data-category="technology" aria-pressed="false" onclick="selectNewsCategory('technology')" data-i18n="categoryTechnology">Teknologi</button>
+          <button type="button" data-category="investigations" aria-pressed="false" onclick="selectNewsCategory('investigations')" data-i18n="categoryInvestigations">Investigasi</button>
+          <select id="news-more-category" aria-label="More categories" onchange="selectNewsCategory(this.value)">
+            <option value="" data-i18n="categoryMore">Lainnya</option>
+            <option value="science" data-i18n="categoryScience">Sains</option>
+            <option value="sport" data-i18n="categorySport">Olahraga</option>
+            <option value="other" data-i18n="categoryOther">Berita lainnya</option>
+          </select>
+        </nav>
         <div class="publisher-news-toolbar">
           <label for="news-source" data-i18n="newsSourceLabel">Sumber berita</label>
           <select id="news-source" onchange="renderPublisherNews()"><option value="" data-i18n="newsAllSources">Semua sumber</option></select>
@@ -835,6 +854,16 @@
           <a href="https://www.cmegroup.com/markets/interest-rates/cme-fedwatch-tool.html" target="_blank" rel="noopener noreferrer">CME FedWatch</a>
           <a href="https://www.cmegroup.com/markets.html?redirect=/markets/" target="_blank" rel="noopener noreferrer">CME Markets</a>
           <p data-i18n="newsCmeHint">Lihat probabilitas suku bunga dan data pasar terbaru langsung di CME Group.</p>
+        </div>
+      </div>
+
+      <div id="sub-berita-sosial" hidden>
+        <h3 class="publisher-grid-heading" data-i18n="newsSocial">Sosial media</h3>
+        <p class="publisher-news-note" data-i18n="socialLead">Buka unggahan terbaru langsung di Instagram. Instagram dapat meminta Anda untuk masuk.</p>
+        <div class="social-sources">
+          <a href="https://www.instagram.com/tradewithfnc/" target="_blank" rel="noopener noreferrer"><span>Instagram</span><h3>@tradewithfnc</h3><p data-i18n="socialOpen">Lihat unggahan di Instagram</p></a>
+          <a href="https://www.instagram.com/akademicryptocom/" target="_blank" rel="noopener noreferrer"><span>Instagram</span><h3>@akademicryptocom</h3><p data-i18n="socialOpen">Lihat unggahan di Instagram</p></a>
+          <a href="https://www.instagram.com/tradewithsuli/" target="_blank" rel="noopener noreferrer"><span>Instagram</span><h3>@tradewithsuli</h3><p data-i18n="socialOpen">Lihat unggahan di Instagram</p></a>
         </div>
       </div>
 
@@ -930,7 +959,7 @@
               <input type="number" id="p-kurs-input" value="17000" min="1" step="any">
               <p id="exchange-status" role="status">Kurs tersimpan. Mengambil kurs terbaru...</p>
               <button type="button" class="btn btn-outline btn-sm" onclick="refreshExchangeRate()">Perbarui kurs otomatis</button>
-              <small><a href="https://www.exchangerate-api.com" target="_blank" rel="noopener noreferrer">Rates By Exchange Rate API</a>. Kurs referensi diperbarui harian.</small>
+              <small><a href="https://www.bi.go.id/id/statistik/informasi-kurs/transaksi-bi/default.aspx" target="_blank" rel="noopener noreferrer" data-i18n="biSource">Kurs Transaksi Bank Indonesia</a>. <span data-i18n="biBasis">Konversi jurnal memakai titik tengah kurs jual dan beli USD BI. BI menerbitkan kurs sekali setiap hari kerja.</span></small>
             </div>
           </div>
           <div style="margin-top:16px;">
@@ -1209,7 +1238,7 @@
        APPLICATION LOGIC & DATA PERSISTENCE
        ==================================================================== -->
   <script src="js/scan.js?v=20261007"></script>
-  <script src="js/app.js?v=20261008-news-grid"></script>
+  <script src="js/app.js?v=20261008-categories-bi"></script>
 
  </body>
 

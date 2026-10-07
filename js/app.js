@@ -101,6 +101,7 @@
 });
       Object.assign(englishCopy, {"newsPageTitle":"News & economic calendar","newsPageLead":"Headlines from your selected publishers, publication times, and the economic calendar.","newsHeadlines":"Latest news","newsCalendar":"Economic calendar","newsSourceLabel":"News source","newsAllSources":"All sources","newsRefresh":"Refresh news","newsOriginalLanguage":"Headlines remain in the publisher’s original language. Read the full story on the source website.","newsCmeHint":"View current interest-rate probabilities and market data directly on CME Group."});
       Object.assign(englishCopy, {"newsLatestStories": "Latest stories", "newsShowMore": "Show more stories", "newsFeedDetails": "Sources & update schedule", "newsSchedule": "News is collected every 30 minutes daily. This page checks for updates every 5 minutes."});
+      Object.assign(englishCopy, {"newsSocial": "Social media", "socialLead": "Open the latest posts directly on Instagram. Instagram may ask you to sign in.", "socialOpen": "View posts on Instagram", "categoryAll": "All", "categoryWorld": "World", "categoryBusiness": "Business", "categoryMarkets": "Markets", "categorySustainability": "Sustainability", "categoryLegal": "Legal", "categoryCommentary": "Commentary", "categoryTechnology": "Technology", "categoryInvestigations": "Investigations", "categoryMore": "More", "categoryScience": "Science", "categorySport": "Sport", "categoryOther": "Other news", "biSource": "Bank Indonesia transaction rates", "biBasis": "Journal conversion uses the midpoint of BI USD sell and buy rates. BI publishes rates once per business day."});
       document.querySelectorAll('[data-i18n]').forEach(element => {
         originalCopy.set(element.dataset.i18n, element.innerHTML);
       });
@@ -224,6 +225,7 @@
         $('language-select').value = language;
         $('local-login-name').placeholder = language === 'en' ? 'Your name' : 'Nama Anda';
         if (window.renderPublisherNews) renderPublisherNews();
+        if (window.renderBiIndicators) renderBiIndicators();
         updatePricingDisplay();
       }
       window.setLanguage = function (value) {
@@ -318,29 +320,49 @@
 
       let exchangeBusy = false;
       let exchangeCheckedAt = 0;
+      let biData = null;
+      const biFxSource = 'https://www.bi.go.id/id/statistik/informasi-kurs/transaksi-bi/default.aspx';
+      const biRateSource = 'https://www.bi.go.id/id/statistik/indikator/bi-rate.aspx';
+      function biDate(value) {
+        const date = new Date(value + 'T12:00:00+07:00');
+        return /^\d{4}-\d{2}-\d{2}$/.test(value || '') && Number.isFinite(date.getTime()) ? date.toLocaleDateString(language === 'en' ? 'en-GB' : 'id-ID', {timeZone:'Asia/Jakarta', day:'numeric', month:'short', year:'numeric'}) : null;
+      }
+      window.renderBiIndicators = function () {
+        const host = $('bi-indicators');
+        if (!host) return;
+        if (!biData) { host.textContent = language === 'en' ? 'Loading Bank Indonesia data...' : 'Memuat data Bank Indonesia...'; return; }
+        const fx = biData.fx, rate = biData.rate;
+        const rupiah = value => 'Rp ' + value.toLocaleString('id-ID', {minimumFractionDigits:2, maximumFractionDigits:2});
+        const tile = (label, value, date, url, status) => '<a class="bi-indicator" href="' + url + '" target="_blank" rel="noopener noreferrer"><span>' + esc(label) + '</span><strong>' + esc(value) + '</strong><small>' + esc(date || (language === 'en' ? 'Unavailable' : 'Tidak tersedia')) + (status === 'stale' ? (language === 'en' ? ' · Saved data' : ' · Data tersimpan') : '') + '</small></a>';
+        const validFx = fx && fx.source === biFxSource && fx.currency === 'USD' && fx.unit === 1 && Number.isFinite(fx.buy) && Number.isFinite(fx.sell) && fx.buy > 0 && fx.sell >= fx.buy && biDate(fx.date);
+        const validRate = rate && rate.source === biRateSource && Number.isFinite(rate.percent) && rate.percent >= 0 && rate.percent <= 100 && biDate(rate.date);
+        host.innerHTML = tile(language === 'en' ? 'BI USD sell rate' : 'Kurs jual USD BI', validFx ? rupiah(fx.sell) : (language === 'en' ? 'Unavailable' : 'Tidak tersedia'), validFx ? biDate(fx.date) : null, biFxSource, fx?.status) + tile(language === 'en' ? 'BI USD buy rate' : 'Kurs beli USD BI', validFx ? rupiah(fx.buy) : (language === 'en' ? 'Unavailable' : 'Tidak tersedia'), validFx ? biDate(fx.date) : null, biFxSource, fx?.status) + tile(language === 'en' ? 'BI midpoint · Journal' : 'Titik tengah BI · Jurnal', validFx ? rupiah((fx.sell + fx.buy) / 2) : (language === 'en' ? 'Unavailable' : 'Tidak tersedia'), validFx ? biDate(fx.date) : null, biFxSource, fx?.status) + tile('BI-Rate', validRate ? rate.percent.toLocaleString(language === 'en' ? 'en-GB' : 'id-ID', {maximumFractionDigits:2}) + '%' : (language === 'en' ? 'Unavailable' : 'Tidak tersedia'), validRate ? biDate(rate.date) : null, biRateSource, rate?.status);
+      };
       window.refreshExchangeRate = async function () {
         if (exchangeBusy) return;
         exchangeBusy = true;
         const status = $('exchange-status');
-        status.textContent = language === 'en' ? 'Fetching the latest exchange rate...' : 'Mengambil kurs terbaru...';
+        status.textContent = language === 'en' ? 'Fetching Bank Indonesia rates...' : 'Mengambil kurs Bank Indonesia...';
         try {
-          const response = await fetch('https://open.er-api.com/v6/latest/USD', { signal: AbortSignal.timeout(10000) });
-          if (!response.ok) throw new Error('HTTP ' + response.status);
+          const response = await fetch('bi.json?t=' + Date.now(), {cache:'no-store', signal:AbortSignal.timeout(15000)});
+          if (!response.ok) throw new Error('BI request failed');
           const data = await response.json();
-          const rate = data.rates?.IDR;
-          if (data.result !== 'success' || data.base_code !== 'USD' || !Number.isFinite(rate) || rate <= 0 || !Number.isFinite(data.time_last_update_unix)) throw new Error('Kurs tidak valid');
-          settings.kurs = rate;
+          if (data.version !== 1) throw new Error('Invalid BI snapshot');
+          biData = data;
+          renderBiIndicators();
+          const fx = data.fx;
+          if (!fx || fx.source !== biFxSource || fx.currency !== 'USD' || fx.unit !== 1 || !Number.isFinite(fx.buy) || !Number.isFinite(fx.sell) || fx.buy <= 0 || fx.sell < fx.buy || fx.sell > 10000000 || !biDate(fx.date)) throw new Error('Invalid BI USD rate');
+          const mid = Math.round((fx.sell + fx.buy) * 50) / 100;
+          settings.kurs = mid;
+          settings.exchangeUpdatedAt = new Date(fx.date + 'T00:00:00+07:00').getTime() / 1000;
           exchangeCheckedAt = Date.now();
-          settings.exchangeUpdatedAt = data.time_last_update_unix;
           saveData();
-          $('p-kurs-input').value = rate;
-          renderJournalTable();
-          renderStatistics();
-          runAllCalculators();
-          const updated = new Date(data.time_last_update_unix * 1000).toLocaleString('id-ID', { timeZone: 'Asia/Jakarta' });
-          status.textContent = '1 USD = Rp ' + rate.toLocaleString('id-ID') + ' | 1 IDR = USD ' + (1 / rate).toFixed(8) + '. Data: ' + updated + (language === 'en' ? ' WIB (updated daily).' : ' WIB (pembaruan harian).');
+          $('p-kurs-input').value = mid;
+          renderJournalTable(); renderStatistics(); runAllCalculators();
+          status.textContent = (language === 'en' ? 'BI transaction midpoint: Rp ' : 'Titik tengah kurs transaksi BI: Rp ') + mid.toLocaleString('id-ID') + ' / USD. ' + biDate(fx.date) + (fx.status === 'stale' ? (language === 'en' ? ' · Saved BI data; source refresh failed.' : ' · Data BI tersimpan; sumber gagal diperbarui.') : '');
         } catch (error) {
-          status.textContent = (language === 'en' ? 'Live exchange rates are unavailable. Using the saved rate of Rp ' : 'Kurs otomatis belum tersedia. Menggunakan kurs tersimpan Rp ') + Number(settings.kurs).toLocaleString('id-ID') + (language === 'en' ? ' per USD.' : ' per USD.');
+          status.textContent = (language === 'en' ? 'BI rates are unavailable. Saved journal rate: Rp ' : 'Kurs BI belum tersedia. Kurs jurnal tersimpan: Rp ') + Number(settings.kurs).toLocaleString('id-ID') + ' / USD.';
+          if (!biData) $('bi-indicators').innerHTML = '<a href="' + biFxSource + '" target="_blank" rel="noopener noreferrer">' + (language === 'en' ? 'BI data unavailable. Open the official source.' : 'Data BI belum tersedia. Buka sumber resmi.') + '</a>';
         } finally { exchangeBusy = false; }
       };
 
@@ -2721,9 +2743,11 @@
       let publisherNews = null;
       let newsVisibleCount = 12;
       let newsSelectedSource = '';
+      let newsCategory = '';
+      const newsCategoryNames = {world:['Dunia','World'], business:['Bisnis','Business'], markets:['Pasar','Markets'], sustainability:['Keberlanjutan','Sustainability'], legal:['Hukum','Legal'], commentary:['Komentar','Commentary'], technology:['Teknologi','Technology'], investigations:['Investigasi','Investigations'], science:['Sains','Science'], sport:['Olahraga','Sport'], other:['Berita lainnya','Other news']};
       let publisherNewsBusy = false;
       let publisherNewsFailed = false;
-      const publisherDomains = { investing: 'investing.com', cnbc: 'cnbc.com', kontan: 'kontan.co.id', reuters: 'reuters.com', aljazeera: 'aljazeera.com', bloomberg: 'bloomberg.com', fedwatch: 'cmegroup.com', cme: 'cmegroup.com' };
+      const publisherDomains = { investing: 'investing.com', cnbc: 'cnbc.com', kontan: 'kontan.co.id', reuters: 'reuters.com', aljazeera: 'aljazeera.com', bloomberg: 'bloomberg.com', fnc: 'tradewithfnc.com', fedwatch: 'cmegroup.com', cme: 'cmegroup.com' };
       const newsText = (id, en) => language === 'en' ? en : id;
       function publisherUrl(value, sourceId) {
         try {
@@ -2765,7 +2789,10 @@
           return '<a href="' + esc(url) + '" target="_blank" rel="noopener noreferrer">' + esc(source.name) + '<small>' + esc(state) + '</small></a>';
         }).join('');
         const sources = new Map(publisherNews.sources.map(source => [source.id, source]));
-        const rows = publisherNews.items.filter(item => !selected || item.source === selected);
+        const rows = publisherNews.items.filter(item => (!selected || item.source === selected) && (!newsCategory || (item.category || 'other') === newsCategory));
+        document.querySelectorAll('#news-categories [data-category]').forEach(button => button.setAttribute('aria-pressed', String(button.dataset.category === newsCategory)));
+        $('news-more-category').value = ['science','sport','other'].includes(newsCategory) ? newsCategory : '';
+        document.querySelector('.publisher-grid-heading').textContent = newsCategory ? newsCategoryNames[newsCategory][language === 'en' ? 1 : 0] : newsText('Berita terbaru', 'Latest stories');
         $('news-more').hidden = rows.length <= newsVisibleCount;
         $('publisher-news-list').innerHTML = rows.length ? rows.slice(0, newsVisibleCount).map(item => {
           const url = publisherUrl(item.url, item.source);
@@ -2775,9 +2802,10 @@
           const image = publisherImageUrl(item.image);
           const media = '<span class="publisher-photo"><span class="publisher-photo-fallback" aria-hidden="true"><span>' + esc(source.name) + '</span><small>' + newsText('Foto tidak tersedia', 'Photo unavailable') + '</small></span>' + (image ? '<img src="' + esc(image) + '" alt="" width="640" height="360" loading="lazy" decoding="async" referrerpolicy="no-referrer">' : '') + '</span>';
           return '<article class="publisher-news-item"><a class="publisher-story-link" href="' + esc(url) + '" target="_blank" rel="noopener noreferrer">' + media + '<h3>' + esc(item.title) + '</h3></a><p class="publisher-news-meta"><span>' + esc(source.name) + '</span><time' + (publisherTime(item.publishedAt) ? ' datetime="' + esc(item.publishedAt) + '"' : '') + '>' + esc(time) + '</time></p></article>';
-        }).join('') : '<p>' + newsText('Belum ada berita dari sumber ini. Buka situs penerbit melalui tautan di atas.', 'No headlines are available from this source. Open its website using the link above.') + '</p>';
+        }).join('') : '<p>' + newsText('Belum ada berita yang sesuai filter ini. Pilih kategori atau sumber lain.', 'No stories match these filters. Choose another category or source.') + '</p>';
         $('publisher-news-list').querySelectorAll('img').forEach(img => { img.addEventListener('error', () => img.remove(), { once: true }); });
       };
+      window.selectNewsCategory = function (value) { newsCategory = newsCategoryNames[value] ? value : ''; newsVisibleCount = 12; renderPublisherNews(); };
       window.showMoreNews = function () { newsVisibleCount += 12; renderPublisherNews(); };
       window.reloadPublisherNews = async function () {
         if (publisherNewsBusy) return;
@@ -2790,7 +2818,7 @@
           const data = await response.json();
           if (data.version !== 1 || !Array.isArray(data.sources) || !Array.isArray(data.items) || !publisherTime(data.checkedAt)) throw new Error('Invalid news feed');
           data.sources = data.sources.filter(source => source && publisherDomains[source.id] && typeof source.name === 'string' && publisherUrl(source.url, source.id));
-          data.items = data.items.filter(item => item && typeof item.title === 'string' && publisherUrl(item.url, item.source)).slice(0, 120);
+          data.items = data.items.filter(item => item && typeof item.title === 'string' && publisherUrl(item.url, item.source)).slice(0, 140);
           publisherNews = data;
           publisherNewsFailed = false;
         } catch (error) { publisherNewsFailed = true; }
@@ -2809,6 +2837,7 @@
 
         if (rEl) rEl.hidden = sub !== 'ringkasan';
         if (kEl) kEl.hidden = sub !== 'kalender';
+        $('sub-berita-sosial').hidden = sub !== 'sosial';
 
         if (sub === 'ringkasan') {
           renderPublisherNews();

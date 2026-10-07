@@ -34,3 +34,25 @@ assert not news.parse(sitemap.replace('/world/news', '/es/mundo/news').encode(),
 sitemap = sitemap.replace('<n:title>', '<n:publication><n:language>es</n:language></n:publication><n:title>')
 assert not news.parse(sitemap.encode(), news.SOURCES[3])
 print('News parsing, deduplication, dates, signal filters and safe URLs passed')
+
+assert news.category_for('https://www.reuters.com/legal/news', 'Court blocks new rules') == 'legal'
+assert news.category_for('https://www.cnbc.com/news', 'Bitcoin and gold rise as bond yields fall') == 'markets'
+assert news.category_for('https://www.reuters.com/technology/news', 'Chipmakers launch new products') == 'technology'
+assert news.category_for('https://www.reuters.com/investigations/news', 'Special report on corporate data') == 'investigations'
+fnc = next(source for source in news.SOURCES if source['id'] == 'fnc')
+import json
+items = news.parse(json.dumps({'items':[{'id':'1','title':'Government publishes new inflation data','pub':now.isoformat()}, {'id':'2','title':'Central bank publishes its interest rate decision','pub':now.isoformat()}]}).encode(), fnc)
+assert len(items) == 2 and items[0]['id'] != items[1]['id']
+
+import update_bi as bi
+data = '<p>Update Terakhir 7 Oktober 2026</p><table><tr><td>USD</td><td>1</td><td>17.999,55</td><td>17.820,45</td></tr></table>'
+fx = bi.parse(data.encode(), 'fx')
+assert fx['sell'] == 17999.55 and fx['buy'] == 17820.45 and fx['mid'] == 17910
+data = '<table><tr><td>1</td><td>23 September 2026</td><td>5.75 %</td></tr><tr><td>2</td><td>19 Agustus 2026</td><td>5.50 %</td></tr></table>'
+assert bi.parse(data.encode(), 'rate') == {'date':'2026-09-23', 'percent':5.75}
+try:
+    bi.parse(b'<table><tr><td>USD</td><td>1</td><td>10,00</td><td>20,00</td></tr></table>', 'fx')
+    raise AssertionError('Inverted buy/sell rates accepted')
+except ValueError:
+    pass
+print('News categories, FNC and BI number/date parsing passed')

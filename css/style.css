@@ -3297,3 +3297,28 @@
   .publisher-photo-fallback small { font-size:10px; }
 }
 @media(max-width:540px) { .publisher-news-toolbar label { width:100%; } .publisher-news-toolbar select { flex:1; min-width:0; } }
+
+.bi-indicators { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:16px; margin:0 0 24px; }
+.bi-indicator { display:flex; flex-direction:column; gap:8px; padding:14px 0; color:var(--text-main); text-decoration:none; border-bottom:1px solid var(--line); min-width:0; }
+.bi-indicator span, .bi-indicator small { font-size:12px; line-height:1.5; color:var(--text-muted); }
+.bi-indicator strong { font-size:21px; line-height:1.4; font-variant-numeric:tabular-nums; }
+.news-categories { display:flex; align-items:center; gap:20px; overflow-x:auto; max-width:100%; margin:0 0 22px; scrollbar-width:thin; }
+.news-categories button, .news-categories select { flex:0 0 auto; background:none; border:0; border-bottom:2px solid transparent; color:var(--text-muted); font:inherit; font-size:13px; font-weight:600; min-height:44px; padding:10px 0; cursor:pointer; }
+.news-categories button[aria-pressed="true"] { color:var(--text-main); border-bottom-color:currentColor; }
+.news-categories button:hover { color:var(--text-main); }
+.news-categories select { max-width:130px; }
+.news-categories option { background:var(--bg-card); color:var(--text-main); }
+.social-sources { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:24px; }
+.social-sources a { display:block; padding:24px 0; border-top:1px solid var(--line); color:var(--text-main); text-decoration:none; overflow-wrap:anywhere; }
+.social-sources a:hover h3 { text-decoration:underline; text-underline-offset:4px; }
+.social-sources span, .social-sources p { color:var(--text-muted); font-size:13px; line-height:1.6; }
+.social-sources h3 { font-size:20px; margin:12px 0; }
+#view-berita #berita-seg { overflow-x:auto; white-space:nowrap; }
+#view-berita #berita-seg .seg-btn { flex-shrink:0; }
+@media(max-width:768px) {
+  .bi-indicators { grid-template-columns:repeat(2,minmax(0,1fr)); gap:8px 16px; }
+  .bi-indicator strong { font-size:19px; }
+  .social-sources { grid-template-columns:1fr; gap:0; }
+  #view-berita #berita-seg { gap:16px; }
+  #view-berita #berita-seg .seg-btn { font-size:13px; }
+}

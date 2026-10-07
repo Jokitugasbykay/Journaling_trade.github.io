@@ -59,7 +59,9 @@ Aplikasi ini dibangun menggunakan arsitektur **Client-Side Open Source**. Anda t
    - Evaluasi kelayakan rasio Risk to Reward (R:R) sebelum membuka posisi.
 5. **Berita & Kalender Ekonomi**:
    - Kalender rilis data makro ekonomi (CPI, NFP, Suku Bunga) dengan filter dampak pasar.
-   - Judul berita dari Investing.com, CNBC, Kontan, Reuters, Al Jazeera, dan Bloomberg beserta tautan artikel asli.
+   - Berita dari Investing.com, CNBC, Kontan, Reuters, Al Jazeera, Bloomberg, dan berita publik Trade With FNC. Filter kategori berdasarkan bagian artikel, judul, dan tag penerbit; filter sumber dapat digabung dengan kategori.
+   - Tab Sosial Media membuka akun Instagram @tradewithfnc, @akademicryptocom, dan @tradewithsuli. Unggahan dibaca di Instagram, yang dapat meminta login.
+   - Kurs jual/beli USD dan BI-Rate berasal dari halaman resmi Bank Indonesia. Konversi jurnal memakai titik tengah kurs transaksi USD BI, dihitung sebagai (jual + beli) / 2. Tanggal publikasi BI ditampilkan; data tersimpan diberi status saat pengambilan gagal.
    - GitHub Actions mengambil dan menerbitkan berita setiap 30 menit setiap hari; jadwal GitHub dapat tertunda. Browser memeriksa pembaruan setiap 5 menit. Waktu pemeriksaan dan status sumber ditampilkan.
    - CME FedWatch dan CME Markets tersedia melalui halaman resmi yang diperbarui oleh CME. Judul artikel mengikuti bahasa penerbit.
    - Modul Market Analysis dan dataset sinyal trading telah dihapus.
@@ -69,10 +71,10 @@ Aplikasi ini dibangun menggunakan arsitektur **Client-Side Open Source**. Anda t
    - Ekspor & impor data cadangan (*Backup & Restore*) berbasis JSON/CSV yang aman di penyimpanan lokal perangkat.
 
 ## Pembaruan rapor dan kurs
-Rapor dihitung dari jurnal akun aktif, termasuk kelengkapan SL, rata-rata risiko yang tercatat, dan drawdown. Data psikologi tidak disimpulkan dari profit. Kurs USD/IDR diperbarui otomatis saat aplikasi dibuka dan setiap jam saat terlihat. Sumber ExchangeRate-API memperbarui data sekali sehari; waktu data ditampilkan di Profil. Kurs tersimpan digunakan jika jaringan gagal, dan kurs manual dapat diatur.
+Rapor dihitung dari jurnal akun aktif, termasuk kelengkapan SL, rata-rata risiko yang tercatat, dan drawdown. Data psikologi tidak disimpulkan dari profit. Kurs USD/IDR diperbarui otomatis saat aplikasi dibuka dan setiap jam saat terlihat. Sumber Kurs Transaksi BI menerbitkan kurs setiap hari kerja; tanggal data ditampilkan di Profil. Kurs tersimpan digunakan jika jaringan gagal, dan kurs manual dapat diatur.
 
 ## Pembaruan tampilan dan data
 
-Hero desktop memenuhi layar awal; panduan forex muncul setelah menggulir. Rapor dihitung dari transaksi akun aktif dan diperbarui saat data disimpan. Kurs referensi USD/IDR diambil otomatis dari ExchangeRate-API pada awal penggunaan dan diperiksa setiap jam; sumber memperbarui kurs harian, bukan per detik. Waktu sumber ditampilkan pada Profil. Jika jaringan gagal, kurs tersimpan tetap digunakan.
+Hero desktop memenuhi layar awal; panduan forex muncul setelah menggulir. Rapor dihitung dari transaksi akun aktif dan diperbarui saat data disimpan. Kurs referensi USD/IDR menggunakan titik tengah kurs transaksi USD Bank Indonesia pada awal penggunaan dan diperiksa setiap jam; sumber menerbitkan kurs setiap hari kerja. Waktu sumber ditampilkan pada Profil. Jika jaringan gagal, kurs tersimpan tetap digunakan.
 
 Pemeriksaan rapor: `node js/discipline.test.cjs`.

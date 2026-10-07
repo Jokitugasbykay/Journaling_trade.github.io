@@ -21,11 +21,32 @@ SOURCES = [
     {"id": "reuters", "name": "Reuters", "url": "https://www.reuters.com/", "feed": "https://www.reuters.com/arc/outboundfeeds/news-sitemap/?outputType=xml", "kind": "sitemap", "domain": "reuters.com"},
     {"id": "aljazeera", "name": "Al Jazeera", "url": "https://www.aljazeera.com/", "feed": "https://www.aljazeera.com/xml/rss/all.xml", "kind": "rss", "domain": "aljazeera.com"},
     {"id": "bloomberg", "name": "Bloomberg", "url": "https://www.bloomberg.com/asia", "feed": "https://feeds.bloomberg.com/markets/news.rss", "kind": "rss", "domain": "bloomberg.com"},
+    {'id': 'fnc', 'name': 'Trade With FNC', 'url': 'https://tradewithfnc.com/', 'feed': 'https://tradewithfnc.com/berita.json', 'kind': 'json', 'domain': 'tradewithfnc.com'},
     {"id": "fedwatch", "name": "CME FedWatch", "url": "https://www.cmegroup.com/markets/interest-rates/cme-fedwatch-tool.html", "kind": "tool", "domain": "cmegroup.com"},
     {"id": "cme", "name": "CME Markets", "url": "https://www.cmegroup.com/markets.html?redirect=/markets/", "kind": "tool", "domain": "cmegroup.com"},
 ]
 SIGNALS = re.compile(r"\b(?:buy on (?:dip|pullback)|sell on (?:rally|bounce)|stocks? to buy|stock picks?|trading signals?|price targets?|target harga|sinyal trading|rekomendasi (?:beli|jual)|buy now|sell now)\b", re.I)
 IMAGE_DOMAINS = ('investing.com', 'cnbcfm.com', 'kontan.co.id', 'reuters.com', 'aljazeera.com', 'bloomberg.com', 'bwbx.io')
+
+
+def category_for(url, title, tag=''):
+    # ponytail: URL/title rules; use publisher taxonomy if editorial tagging needs refinement.
+    text = (urllib.parse.urlsplit(url).path + ' ' + title + ' ' + tag).lower()
+    for category, pattern in [
+        ('investigations', r'investigat|investigasi|special-report'),
+        ('commentary', r'commentary|breakingviews|opini'),
+        ('legal', r'/legal/|lawsuit|court|sues|pengadilan|gugatan'),
+        ('technology', r'technolog|teknologi|artificial intelligence|\bai\b|data center|chipmaker|software'),
+        ('sustainability', r'sustainab|climate|iklim|environment|lingkungan|carbon|renewable'),
+        ('science', r'science|scientist|nobel|sains'),
+        ('sport', r'/sport|football|soccer|olahraga|fifa|uefa'),
+        ('markets', r'/markets/|market|forex|currency|currencies|yield|bonds?|stocks?|shares?|oil|gold|crypto|bitcoin|inflation|interest rate|central bank|suku bunga|rupiah|emas|minyak|batu bara|saham|inflasi'),
+        ('business', r'/business/|econom|bisnis|ekonomi|company|companies|earnings|corporat|bank|industr|trade|perdagangan'),
+        ('world', r'/world/|politic|politik|war\b|election|pemilu|president|military|conflict|gaza|lebanon'),
+    ]:
+        if re.search(pattern, text):
+            return category
+    return 'other'
 
 
 def image_url(value):
@@ -108,7 +129,10 @@ class KontanHeadlines(HTMLParser):
 
 
 def parse(data, source):
-    if source["kind"] == "html":
+    if source['kind'] == 'json':
+        raw = json.loads(data)
+        rows = [{'title': row.get('title'), 'url': source['url'], 'publishedAt': row.get('pub'), 'tag': row.get('tag', ''), 'id': row.get('id')} for row in raw.get('items', []) if isinstance(row, dict)]
+    elif source["kind"] == "html":
         parser = KontanHeadlines()
         parser.feed(data.decode("utf-8", errors="replace"))
         rows = parser.rows
@@ -136,10 +160,11 @@ def parse(data, source):
             age = now - dt.datetime.fromisoformat(published)
             if age > dt.timedelta(days=7) or age < -dt.timedelta(minutes=10):
                 continue
-        if not link or link in seen or len(title) < 20 or len(title) > 250 or SIGNALS.search(title):
+        identity = str(row.get('id') or title) if source['kind'] == 'json' else link
+        if not link or identity in seen or len(title) < 20 or len(title) > 250 or SIGNALS.search(title):
             continue
-        seen.add(link)
-        items.append({"id": hashlib.sha256(link.encode()).hexdigest()[:20], "source": source["id"], "title": title, "url": link, "publishedAt": published, 'image': image_url(row.get('image'))})
+        seen.add(identity)
+        items.append({"id": hashlib.sha256((source['id'] + str(identity)).encode()).hexdigest()[:20], "source": source["id"], "title": title, "url": link, "publishedAt": published, 'image': image_url(row.get('image')), 'category': category_for(link, title, row.get('tag', ''))})
     items.sort(key=lambda item: item["publishedAt"] or "", reverse=True)
     return items[:20]
 
@@ -168,8 +193,9 @@ def collect(source):
     try:
         request = urllib.request.Request(source["feed"], headers={"User-Agent": "JournalingTrade/1.0 (public headline reader)", "Accept": "application/rss+xml, application/xml, text/html"})
         with urllib.request.urlopen(request, timeout=20) as response:
-            data = response.read(5_000_001)
-        if len(data) > 5_000_000:
+            limit = 32_000_000 if source['kind'] == 'json' else 5_000_000
+            data = response.read(limit + 1)
+        if len(data) > limit:
             raise ValueError("Response too large")
         items = parse(data, source)
         if not items:
@@ -204,6 +230,9 @@ def main():
     previous_items = {row.get('url'): row for row in previous.get('items', [])}
     missing = []
     for item in items:
+        item['category'] = item.get('category') or category_for(item['url'], item['title'])
+        if item['source'] == 'fnc':
+            continue
         old = previous_items.get(item['url'], {})
         if not item.get('image') and 'image' in old:
             item['image'] = image_url(old['image'])
@@ -212,7 +241,7 @@ def main():
     with concurrent.futures.ThreadPoolExecutor(max_workers=8) as pool:
         list(pool.map(add_article_image, missing))
     items.sort(key=lambda item: item.get("publishedAt") or "", reverse=True)
-    output = {"version": 1, "checkedAt": dt.datetime.now(dt.timezone.utc).isoformat(), "intervalMinutes": 30, "sources": sources, "items": items[:120]}
+    output = {"version": 1, "checkedAt": dt.datetime.now(dt.timezone.utc).isoformat(), "intervalMinutes": 30, "sources": sources, "items": items[:140]}
     temporary = path.with_suffix(".json.tmp")
     temporary.write_text(json.dumps(output, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     temporary.replace(path)

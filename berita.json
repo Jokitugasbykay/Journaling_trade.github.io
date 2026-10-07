@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "checkedAt": "2026-10-07T17:55:30.723658+00:00",
+  "checkedAt": "2026-10-07T18:04:37.153071+00:00",
   "intervalMinutes": 30,
   "sources": [
     {
@@ -9,7 +9,7 @@
       "url": "https://www.investing.com/",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-07T17:55:29.736478+00:00"
+      "checkedAt": "2026-10-07T18:04:29.830644+00:00"
     },
     {
       "id": "cnbc",
@@ -17,7 +17,7 @@
       "url": "https://www.cnbc.com/markets/",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-07T17:55:30.590670+00:00"
+      "checkedAt": "2026-10-07T18:04:30.017977+00:00"
     },
     {
       "id": "kontan",
@@ -25,7 +25,7 @@
       "url": "https://www.kontan.co.id/",
       "kind": "html",
       "status": "ok",
-      "checkedAt": "2026-10-07T17:55:30.463142+00:00"
+      "checkedAt": "2026-10-07T18:04:29.862538+00:00"
     },
     {
       "id": "reuters",
@@ -33,7 +33,7 @@
       "url": "https://www.reuters.com/",
       "kind": "sitemap",
       "status": "ok",
-      "checkedAt": "2026-10-07T17:55:29.697728+00:00"
+      "checkedAt": "2026-10-07T18:04:30.647989+00:00"
     },
     {
       "id": "aljazeera",
@@ -41,7 +41,7 @@
       "url": "https://www.aljazeera.com/",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-07T17:55:29.721967+00:00"
+      "checkedAt": "2026-10-07T18:04:29.726456+00:00"
     },
     {
       "id": "bloomberg",
@@ -49,7 +49,15 @@
       "url": "https://www.bloomberg.com/asia",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-07T17:55:29.816836+00:00"
+      "checkedAt": "2026-10-07T18:04:30.872798+00:00"
+    },
+    {
+      "id": "fnc",
+      "name": "Trade With FNC",
+      "url": "https://tradewithfnc.com/",
+      "kind": "json",
+      "status": "ok",
+      "checkedAt": "2026-10-07T18:04:36.456154+00:00"
     },
     {
       "id": "fedwatch",
@@ -68,876 +76,1165 @@
   ],
   "items": [
     {
-      "id": "ce194b3aeb576181eae9",
+      "id": "afa517c11dbfabf54839",
+      "source": "cnbc",
+      "title": "10-year Treasury yield ease from 24-year high after solid bond auction eases demand fears",
+      "url": "https://www.cnbc.com/2026/10/07/treasury-yields-auction-fomc-minutes.html",
+      "publishedAt": "2026-10-07T18:04:03+00:00",
+      "image": "https://image.cnbcfm.com/api/v1/image/108363665-1789568651170-gettyimages-2295586459-mms19512_dnx4op25.jpeg?v=1789568741&w=1920&h=1080",
+      "category": "markets"
+    },
+    {
+      "id": "08e91b4dc0b41b2f59fc",
+      "source": "cnbc",
+      "title": "Fed officials see another hike coming, but no sign as to when, minutes show",
+      "url": "https://www.cnbc.com/2026/10/07/fed-officials-see-another-hike-coming-but-no-sign-as-to-when-minutes-show.html",
+      "publishedAt": "2026-10-07T18:00:56+00:00",
+      "image": "https://image.cnbcfm.com/api/v1/image/108363920-1789584172531-gettyimages-2295044570-WARSH_FOMC.jpeg?v=1789584195&w=1920&h=1080",
+      "category": "other"
+    },
+    {
+      "id": "6b3f581a4bc699f85aad",
+      "source": "reuters",
+      "title": "Congo miners could save $1 bln a year with new power project, Trafigura executive says",
+      "url": "https://www.reuters.com/business/energy/congo-miners-could-save-1-bln-year-with-new-power-project-trafigura-executive-2026-10-07/",
+      "publishedAt": "2026-10-07T17:59:47.422000+00:00",
+      "image": null,
+      "category": "business"
+    },
+    {
+      "id": "1a020dc2e9b3b4742a3b",
+      "source": "reuters",
+      "title": "Brazil regulator approves American Airlines' investment in Azul",
+      "url": "https://www.reuters.com/legal/litigation/brazil-regulator-approves-american-airlines-investment-azul-2026-10-07/",
+      "publishedAt": "2026-10-07T17:59:43.717000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/RPHDSVKZ45PUPIX7OFOBA5XJ6Q.jpg?auth=7dc83991f924275bf7526205fac09513ff9f4e430c555b92a7b88bca3acf7546&smart=true&width=1920",
+      "category": "legal"
+    },
+    {
+      "id": "d7c219493d76d1967bd5",
+      "source": "reuters",
+      "title": "Lebanon's Hezbollah gets $200 million from Iran to help displaced, sources say",
+      "url": "https://www.reuters.com/world/middle-east/lebanons-hezbollah-gets-200-million-iran-help-displaced-sources-say-2026-10-07/",
+      "publishedAt": "2026-10-07T17:58:31.005000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/EXVCVSYZTZOMPDIW5WNM2IK2UE.jpg?auth=160213a33a6922da117e9c78cadd3982fc09b87ee292b2b4b9398e4a1c9ebf0f&smart=true&width=1920",
+      "category": "world"
+    },
+    {
+      "id": "4aadcc1c6720b355ae27",
+      "source": "reuters",
+      "title": "Tropical Storm Isaias forecast to hit US Gulf coast as hurricane early Saturday",
+      "url": "https://www.reuters.com/business/environment/tropical-storm-isaias-forecast-hit-us-gulf-coast-hurricane-early-saturday-2026-10-07/",
+      "publishedAt": "2026-10-07T17:58:09.691000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/4L6RT2JHOFLCTN4BUVYRJCYH4Y.jpg?auth=056b8c22369445933f417bfe033138f9e84328d2d9a4ca11f0c593345f9b64bc&smart=true&width=1920",
+      "category": "sustainability"
+    },
+    {
+      "id": "eee7660dc5b51e7c6655",
+      "source": "reuters",
+      "title": "Pennsylvania measles cases rise to 1,078 as outbreak spreads",
+      "url": "https://www.reuters.com/business/healthcare-pharmaceuticals/pennsylvania-measles-cases-rise-1078-outbreak-spreads-2026-10-07/",
+      "publishedAt": "2026-10-07T17:57:56.596000+00:00",
+      "image": null,
+      "category": "business"
+    },
+    {
+      "id": "57148f251c9c06a26f9e",
+      "source": "reuters",
+      "title": "Judge tells Tennessee to preserve syringes, other evidence in failed Christa Pike execution",
+      "url": "https://www.reuters.com/legal/government/christa-pikes-lawyers-demand-see-syringes-drug-residue-botched-execution-2026-10-07/",
+      "publishedAt": "2026-10-07T17:57:53.236000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/NSXAWEGU2NNSVKHNDTN5L5EOPY.jpg?auth=9a03f8a6d4165a5ff0519a99d28fc546b163c1ddd9217cd53128841277f3ca51&smart=true&width=1920",
+      "category": "legal"
+    },
+    {
+      "id": "89718970a11e47fd628d",
+      "source": "reuters",
+      "title": "Elon Musk readies his signature gambit at SpaceX",
+      "url": "https://www.reuters.com/commentary/breakingviews/elon-musk-readies-his-signature-gambit-spacex-2026-10-07/",
+      "publishedAt": "2026-10-07T17:57:12.482000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/J7QLSSQKZVPZPKHJQAYE6XXHNU.jpg?auth=328fc2f8863469b92584c816457680367bb591fb6232d4cedbc502bcdfa55966&smart=true&width=1920",
+      "category": "commentary"
+    },
+    {
+      "id": "a03347d87c5359f8869c",
+      "source": "reuters",
+      "title": "Rubio says US, Greece to jointly combat security threats",
+      "url": "https://www.reuters.com/world/europe/rubio-says-us-greece-jointly-combat-security-threats-2026-10-07/",
+      "publishedAt": "2026-10-07T17:56:20.661000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/QMUHORHX2JP3VACB52QNIX2SUQ.jpg?auth=cb990338682cfbc6a90e50bc29a4a92c80c260eeb850d012853ff1a14cc494fa&smart=true&width=1920",
+      "category": "world"
+    },
+    {
+      "id": "4e88353731521a67eab0",
+      "source": "reuters",
+      "title": "Rubio, in Athens, ties ancient values to 'America First'",
+      "url": "https://www.reuters.com/world/us/rubio-link-ancient-greek-values-america-first-speech-athens-2026-10-07/",
+      "publishedAt": "2026-10-07T17:56:10.346000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/6LWRJQOVVFI2ZHI5ZWHHZ5UQ5U.jpg?auth=59ecf849af2fb8e2812ae622aebed5a77d14812e02c5a53a77313ec2a7fc20c2&smart=true&width=1920",
+      "category": "world"
+    },
+    {
+      "id": "902b264d61a48de9dffc",
+      "source": "reuters",
+      "title": "France to be 'strategic' on new debt issues, finance minister tells WSJ",
+      "url": "https://www.reuters.com/business/france-is-considering-more-shorter-term-debt-issuance-finance-minister-tells-wsj-2026-10-07/",
+      "publishedAt": "2026-10-07T17:56:05.013000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/6OZXNSN3ENPDZI2PI4AINV575I.jpg?auth=b42218c735736d61b0378160495d4b6bcc881808ab0b94883e9da38a9f1f8c11&smart=true&width=1920",
+      "category": "legal"
+    },
+    {
+      "id": "ea59ab01f5fbe4498bcb",
+      "source": "reuters",
+      "title": "Florida asks court to force Meta to change Facebook, Instagram for teens",
+      "url": "https://www.reuters.com/world/us/florida-asks-court-force-meta-change-facebook-instagram-teens-2026-10-07/",
+      "publishedAt": "2026-10-07T17:54:49.659000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/ZW36RUINW5PODPMPYDWCN75D6A.jpg?auth=90693353fb00e8b1a5ca079a7df4ec05436f00e00e598b2837d5dfe1a44977cc&smart=true&width=1920",
+      "category": "legal"
+    },
+    {
+      "id": "f43586f6c497df322d8e",
+      "source": "reuters",
+      "title": "UK's Headlam to delist after it collapses into administration",
+      "url": "https://www.reuters.com/legal/transactional/uks-headlam-delist-after-it-collapses-into-administration-2026-10-07/",
+      "publishedAt": "2026-10-07T17:52:21.444000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/WFCNLWZSHNJTJCXN4HYQJR5RLU.jpg?auth=e5262f23390999b66ca3d0def734ce4905a7398129ffd0e24ae1aa37d1d71fea&smart=true&width=1920",
+      "category": "legal"
+    },
+    {
+      "id": "e78358609a47afdb8973",
+      "source": "reuters",
+      "title": "Air Products to build LNG-based air separation unit for Petronas-led venture in Malaysia",
+      "url": "https://www.reuters.com/world/asia-pacific/air-products-build-lng-based-air-separation-unit-petronas-led-venture-malaysia-2026-10-07/",
+      "publishedAt": "2026-10-07T17:51:51.020000+00:00",
+      "image": null,
+      "category": "world"
+    },
+    {
+      "id": "a2270647ce28e1d934f4",
       "source": "bloomberg",
       "title": "Citi Says Private Equity Hasn’t Slowed Poaching of Bankers",
       "url": "https://www.bloomberg.com/news/videos/2026-10-07/citi-private-equity-hasn-t-slowed-poaching-of-bankers-video",
       "publishedAt": "2026-10-07T17:51:13+00:00",
-      "image": null
+      "image": null,
+      "category": "business"
     },
     {
-      "id": "b9b5e2ea5a267cdbb50c",
+      "id": "5f5a42f112f76d5ee84f",
       "source": "reuters",
       "title": "Is ChatGPT a 'product' or a 'service'? A wave of lawsuits tests a theory of AI liability",
       "url": "https://www.reuters.com/legal/litigation/is-chatgpt-product-or-service-wave-lawsuits-tests-theory-ai-liability-2026-10-07/",
       "publishedAt": "2026-10-07T17:50:45.644000+00:00",
-      "image": "https://www.reuters.com/resizer/v2/JXEPMUA5RVPY7BGDIUL5FVGFCI.jpg?auth=ad725e19951cc73aa7684e3088102cc6e233a45463c7aefadd8b1b37f82beaba&smart=true&width=1920"
+      "image": "https://www.reuters.com/resizer/v2/JXEPMUA5RVPY7BGDIUL5FVGFCI.jpg?auth=ad725e19951cc73aa7684e3088102cc6e233a45463c7aefadd8b1b37f82beaba&smart=true&width=1920",
+      "category": "legal"
     },
     {
-      "id": "f6b086864a9913646315",
+      "id": "b3fbf0dcd9c7a617d98b",
       "source": "reuters",
       "title": "France suspends use of stun grenades to police student protests",
       "url": "https://www.reuters.com/world/europe/france-suspends-use-stun-grenades-police-student-protests-2026-10-07/",
       "publishedAt": "2026-10-07T17:49:43.871000+00:00",
-      "image": "https://www.reuters.com/resizer/v2/TFWHBXKTNJLKBNXOLKWEE4JGQA.jpg?auth=3940821d2b7e755d903baca15a98b9e3e955eccf6440d5584cea120a01ff341c&smart=true&width=1920"
+      "image": "https://www.reuters.com/resizer/v2/TFWHBXKTNJLKBNXOLKWEE4JGQA.jpg?auth=3940821d2b7e755d903baca15a98b9e3e955eccf6440d5584cea120a01ff341c&smart=true&width=1920",
+      "category": "world"
     },
     {
-      "id": "4bb3c30078eac0788ed9",
+      "id": "59d5d66c1f0d5b725a53",
       "source": "reuters",
       "title": "France to release 10 mln barrels of diesel from stocks, French PM says",
       "url": "https://www.reuters.com/business/energy/france-release-10-mln-barrels-diesel-stocks-french-pm-says-2026-10-07/",
       "publishedAt": "2026-10-07T17:49:18.074000+00:00",
-      "image": "https://www.reuters.com/resizer/v2/IKEANTVFGFNYBJS3GSLZBW4VDA.jpg?auth=e85a8d779062f557df64397292838917bcf2e4394a1cbe7c4c36b41d4b18eda6&smart=true&width=1920"
+      "image": "https://www.reuters.com/resizer/v2/IKEANTVFGFNYBJS3GSLZBW4VDA.jpg?auth=e85a8d779062f557df64397292838917bcf2e4394a1cbe7c4c36b41d4b18eda6&smart=true&width=1920",
+      "category": "markets"
     },
     {
-      "id": "89d35416ce8204a62a68",
+      "id": "d1261f5ae9cd3b3199d9",
       "source": "reuters",
       "title": "Dozens of soldiers, militants and miners killed in Nigeria attacks",
       "url": "https://www.reuters.com/world/africa/dozens-soldiers-militants-miners-killed-nigeria-attacks-2026-10-07/",
       "publishedAt": "2026-10-07T17:48:32.938000+00:00",
-      "image": null
+      "image": null,
+      "category": "world"
     },
     {
-      "id": "c516e9f3c41d73fb9755",
+      "id": "ecd0db470d96401ede99",
       "source": "reuters",
       "title": "UPS to hire 100,000 temporary workers for holiday season",
       "url": "https://www.reuters.com/business/world-at-work/ups-hire-100000-temporary-workers-ahead-peak-holiday-season-2026-10-07/",
       "publishedAt": "2026-10-07T17:48:19.402000+00:00",
-      "image": "https://www.reuters.com/resizer/v2/Z2WWH7XTEZPYHNTGDEHBOFCFWQ.jpg?auth=85f674e81408c6903c8392cc198841dadddc13e6fbe54cda9bb3c13b4d1b87d2&smart=true&width=1920"
+      "image": "https://www.reuters.com/resizer/v2/Z2WWH7XTEZPYHNTGDEHBOFCFWQ.jpg?auth=85f674e81408c6903c8392cc198841dadddc13e6fbe54cda9bb3c13b4d1b87d2&smart=true&width=1920",
+      "category": "business"
     },
     {
-      "id": "2be7530a308c93057f82",
+      "id": "82fc1216d7cacd503f7b",
       "source": "bloomberg",
       "title": "Unpacking the M&A Slowdown",
       "url": "https://www.bloomberg.com/news/videos/2026-10-07/unpacking-the-m-a-slowdown-video",
       "publishedAt": "2026-10-07T17:46:53+00:00",
-      "image": null
+      "image": null,
+      "category": "other"
     },
     {
-      "id": "3be76df7976ded4333b3",
-      "source": "reuters",
-      "title": "Rubio, in Athens, ties ancient values to 'America First'",
-      "url": "https://www.reuters.com/world/us/rubio-link-ancient-greek-values-america-first-speech-athens-2026-10-07/",
-      "publishedAt": "2026-10-07T17:46:09.622000+00:00",
-      "image": "https://www.reuters.com/resizer/v2/4GMVS3NARVMWNAC6JHENUGGCVI.jpg?auth=fba6f3b011602c787f165e7a335e5814b7608da8ce4dce7e0313a5d19a055c19&smart=true&width=1920"
-    },
-    {
-      "id": "4bf9e58cc89f684fe895",
+      "id": "e90d905d0c0b7dabd71b",
       "source": "reuters",
       "title": "OPmobility lowers 2026 targets, to cut 770 jobs in Europe",
       "url": "https://www.reuters.com/business/opmobility-lowers-2026-targets-cut-770-jobs-europe-2026-10-07/",
       "publishedAt": "2026-10-07T17:44:27.388000+00:00",
-      "image": null
+      "image": null,
+      "category": "business"
     },
     {
-      "id": "478b462f4b9fdcdd71de",
+      "id": "a78d919ff3f4d7368fdb",
       "source": "reuters",
       "title": "Rahm to leave LIV Golf after three seasons, reports say",
       "url": "https://www.reuters.com/sports/golf/rahm-leave-liv-golf-after-three-seasons-reports-say-2026-10-07/",
       "publishedAt": "2026-10-07T17:44:09.842000+00:00",
-      "image": "https://www.reuters.com/resizer/v2/D4RCGVNPARK5BINX5IL4EQLMA4.jpg?auth=c39fa55b46aa845c1d4806055281b1ef28e48314796b8ead4e45a0a36e155ce6&smart=true&width=1920"
+      "image": "https://www.reuters.com/resizer/v2/D4RCGVNPARK5BINX5IL4EQLMA4.jpg?auth=c39fa55b46aa845c1d4806055281b1ef28e48314796b8ead4e45a0a36e155ce6&smart=true&width=1920",
+      "category": "sport"
     },
     {
-      "id": "c49290bddc23c7e403ba",
-      "source": "reuters",
-      "title": "Portugal jumps into top 5 of FIFA world rankings",
-      "url": "https://www.reuters.com/sports/soccer/portugal-jumps-into-top-5-fifa-world-rankings--flm-2026-10-07/",
-      "publishedAt": "2026-10-07T17:43:44.141000+00:00",
-      "image": "https://www.reuters.com/resizer/v2/2NSRCMKL2BN27M5OGPAWKUDDNY.jpg?auth=6f2362529aef481bf0fe59866d8b4c3504a2663e1bfdd89c4ece7fd879de1314&smart=true&width=1920"
-    },
-    {
-      "id": "f9277348048f1036312e",
-      "source": "reuters",
-      "title": "Some G20 trade ministers sign US-led statement denouncing excess factory capacity",
-      "url": "https://www.reuters.com/business/some-g20-trade-ministers-sign-us-led-statement-denouncing-excess-factory-2026-10-07/",
-      "publishedAt": "2026-10-07T17:39:43.852000+00:00",
-      "image": "https://www.reuters.com/resizer/v2/N2HGMZVIXJKXFAVDZ35MY237WI.jpg?auth=f806dd086cbf1b4549be9f17f0b80d39d455e7c922d1a5cef3b5688ae3ac34ad&smart=true&width=1920"
-    },
-    {
-      "id": "f7a27e7cbe987f289b67",
-      "source": "reuters",
-      "title": "Wells Fargo faces potential probe over Black homeownership commitments, WSJ reports",
-      "url": "https://www.reuters.com/business/finance/wells-fargo-faces-regulator-probe-over-efforts-boost-black-homeownership-wsj-2026-10-07/",
-      "publishedAt": "2026-10-07T17:39:28.986000+00:00",
-      "image": "https://www.reuters.com/resizer/v2/S2CHGQQGBVN3DK2DIYAUXJY5CI.jpg?auth=e40b015bdda1339ef3594fa9fd8dae124dfeb90378953beb44c757bea7de20c4&smart=true&width=1920"
-    },
-    {
-      "id": "185acac64465cb9ff4d8",
+      "id": "42510e2949de284927d3",
       "source": "bloomberg",
       "title": "SEC Warns Activist Investors After Climate Push at Exxon Mobil",
       "url": "https://www.bloomberg.com/news/articles/2026-10-07/sec-warns-activist-investors-after-climate-push-at-exxon-mobil",
       "publishedAt": "2026-10-07T17:39:04+00:00",
-      "image": null
+      "image": null,
+      "category": "sustainability"
     },
     {
-      "id": "c2201db5deb368037cc3",
-      "source": "reuters",
-      "title": "CDC sees low plague risk, monitors Siberia arrivals after worker death, director says",
-      "url": "https://www.reuters.com/business/healthcare-pharmaceuticals/cdc-sees-low-plague-risk-monitors-siberia-arrivals-after-worker-death-director-2026-10-07/",
-      "publishedAt": "2026-10-07T17:38:37.447000+00:00",
-      "image": "https://www.reuters.com/resizer/v2/E73RUJPT6VMYLMJDCZFEUJAXVU.jpg?auth=bb42700be445dc25b9b7c8dfc56ef12c8cb34ae78d162389c29a4af574f22727&smart=true&width=1920"
-    },
-    {
-      "id": "3251f15b7ea42118bdfe",
-      "source": "reuters",
-      "title": "South Korea denies Ukrainian report that it eased Russia's fuel crisis",
-      "url": "https://www.reuters.com/business/energy/south-korea-denies-ukrainian-report-that-it-eased-russias-fuel-crisis-2026-10-07/",
-      "publishedAt": "2026-10-07T17:37:45.852000+00:00",
-      "image": "https://www.reuters.com/resizer/v2/O6OJQ7VG7JMSJDOV5A4ZJ7FW6A.jpg?auth=feeb146b0b121ed2cec1155f076a059056f1c12e4649e5a7dc28d4e84a07fe6d&smart=true&width=1920"
-    },
-    {
-      "id": "44391158cfb7533d5e59",
-      "source": "reuters",
-      "title": "Taiwan's US envoy says ties robust after Trump-Xi summit",
-      "url": "https://www.reuters.com/world/china/taiwans-us-envoy-says-ties-robust-after-trump-xi-summit-2026-10-07/",
-      "publishedAt": "2026-10-07T17:36:30.866000+00:00",
-      "image": "https://www.reuters.com/resizer/v2/H43QF3TUVNNHNE5J2DI4AZLMY4.jpg?auth=15ff8f2afe50780bd303c49f038e08854560365f0800215511b2afb04b214aeb&smart=true&width=1920"
-    },
-    {
-      "id": "e9fdeb85634d8ea40c31",
-      "source": "reuters",
-      "title": "UK's Aberdeen to halve Standard Life stake to about 5.2%",
-      "url": "https://www.reuters.com/legal/transactional/uks-aberdeen-halve-standard-life-stake-about-52-2026-10-07/",
-      "publishedAt": "2026-10-07T17:35:51.183000+00:00",
-      "image": null
-    },
-    {
-      "id": "dfae2f57ac3ed85f1e7c",
-      "source": "reuters",
-      "title": "World shares, euro slide as high oil prices, fiscal worries linger",
-      "url": "https://www.reuters.com/world/china/global-markets-global-markets-2026-10-07/",
-      "publishedAt": "2026-10-07T17:34:37.565000+00:00",
-      "image": "https://www.reuters.com/resizer/v2/3GFJ422VYFM57ITJ3ITNOMKR5M.jpg?auth=0848b32097ef35a1df49aa1d8f5a8173cafc6080b02e74a83ecc66b47b3fb36a&smart=true&width=1920"
-    },
-    {
-      "id": "05d695ef1bf95e64c0aa",
+      "id": "cc889858741060fa9f3e",
       "source": "bloomberg",
       "title": "US Bonds Rise as Yields at 2002 High Lures Buyers at Auction",
       "url": "https://www.bloomberg.com/news/articles/2026-10-07/us-bonds-rise-as-yields-at-2002-high-lures-buyers-at-auction",
       "publishedAt": "2026-10-07T17:32:18+00:00",
-      "image": null
+      "image": null,
+      "category": "markets"
     },
     {
-      "id": "1b81404750699f06d977",
-      "source": "reuters",
-      "title": "Tropical Storm Isaias forecast to hit US Gulf coast as hurricane early Saturday",
-      "url": "https://www.reuters.com/business/environment/tropical-storm-isaias-forecast-hit-us-gulf-coast-hurricane-early-saturday-2026-10-07/",
-      "publishedAt": "2026-10-07T17:32:09.728000+00:00",
-      "image": "https://www.reuters.com/resizer/v2/4L6RT2JHOFLCTN4BUVYRJCYH4Y.jpg?auth=056b8c22369445933f417bfe033138f9e84328d2d9a4ca11f0c593345f9b64bc&smart=true&width=1920"
-    },
-    {
-      "id": "ec9404ea0f9d14c9965a",
+      "id": "8176167560de783476bc",
       "source": "bloomberg",
       "title": "Canada Reviews Foreign Homebuyers Ban as 2027 Expiry Approaches",
       "url": "https://www.bloomberg.com/news/articles/2026-10-07/canada-reviews-foreign-homebuyers-ban-as-2027-expiry-approaches",
       "publishedAt": "2026-10-07T17:31:56+00:00",
-      "image": null
+      "image": null,
+      "category": "other"
     },
     {
-      "id": "4e5b034f89fa299676f4",
-      "source": "reuters",
-      "title": "Webull sinks after CNBC reports US House panel flagged China ties",
-      "url": "https://www.reuters.com/world/asia-pacific/webull-sinks-after-cnbc-reports-us-house-panel-flagged-china-ties-2026-10-07/",
-      "publishedAt": "2026-10-07T17:31:11.626000+00:00",
-      "image": null
+      "id": "48d4da5bc16fe28f8df2",
+      "source": "aljazeera",
+      "title": "Over 100 arrested in Belgium student protests over education costs",
+      "url": "https://www.aljazeera.com/news/2026/10/7/over-100-arrested-in-belgium-student-protests-over-education-costs?traffic_source=rss",
+      "publishedAt": "2026-10-07T17:28:56+00:00",
+      "image": "https://www.aljazeera.com/wp-content/uploads/2026/10/epa_6ac66b286167-1791388456.jpg?resize=1920%2C1440",
+      "category": "other"
     },
     {
-      "id": "34d4822fb1cba5abd9cb",
-      "source": "cnbc",
-      "title": "10-year Treasury yield falls from 24-year high after solid bond auction eases demand fears",
-      "url": "https://www.cnbc.com/2026/10/07/treasury-yields-auction-fomc-minutes.html",
-      "publishedAt": "2026-10-07T17:27:34+00:00",
-      "image": "https://image.cnbcfm.com/api/v1/image/108363665-1789568651170-gettyimages-2295586459-mms19512_dnx4op25.jpeg?v=1789568741&w=1920&h=1080"
-    },
-    {
-      "id": "f8967fdeeb91758f58ed",
-      "source": "reuters",
-      "title": "Former Spurs defender Vega declares intention to run against Infantino",
-      "url": "https://www.reuters.com/sports/soccer/former-spurs-defender-vega-declares-intention-run-against-infantino-2026-10-07/",
-      "publishedAt": "2026-10-07T17:27:16.440000+00:00",
-      "image": null
-    },
-    {
-      "id": "29b79575fc9d0a3f125d",
-      "source": "reuters",
-      "title": "Eritrean troops drive through northern Ethiopian town, witnesses say",
-      "url": "https://www.reuters.com/world/africa/eritrean-troops-drive-through-northern-ethiopian-town-witnesses-say-2026-10-07/",
-      "publishedAt": "2026-10-07T17:21:59.297000+00:00",
-      "image": null
-    },
-    {
-      "id": "04b86374f6f2709893dc",
+      "id": "04b23d11949f8bff07e5",
       "source": "cnbc",
       "title": "Meta's Muse assistant tops app charts. Now it needs to become a habit",
       "url": "https://www.cnbc.com/2026/10/07/meta-muse-personal-ai-agents-dazzle.html",
       "publishedAt": "2026-10-07T17:20:12+00:00",
-      "image": "https://image.cnbcfm.com/api/v1/image/108367520-1790264014969-gettyimages-2296209074-META_CONNECT.jpeg?v=1790264039&w=1920&h=1080"
+      "image": "https://image.cnbcfm.com/api/v1/image/108367520-1790264014969-gettyimages-2296209074-META_CONNECT.jpeg?v=1790264039&w=1920&h=1080",
+      "category": "technology"
     },
     {
-      "id": "c6cf0341ce3ed1c3d2e2",
+      "id": "a2f13679ffd6956cf2ce",
       "source": "cnbc",
       "title": "Google ordered to halt work on two data centers in ‘Texas of Europe’",
       "url": "https://www.cnbc.com/2026/10/07/google-finland-data-center-halt.html",
       "publishedAt": "2026-10-07T17:16:28+00:00",
-      "image": "https://image.cnbcfm.com/api/v1/image/108373796-1791360823662-gettyimages-2297901439-AFP_C9W887L.jpeg?v=1791360836&w=1920&h=1080"
+      "image": "https://image.cnbcfm.com/api/v1/image/108373796-1791360823662-gettyimages-2297901439-AFP_C9W887L.jpeg?v=1791360836&w=1920&h=1080",
+      "category": "technology"
     },
     {
-      "id": "18f2236ff40757b26840",
+      "id": "396db9fd0173c5bf36d6",
       "source": "bloomberg",
       "title": "Tropical Storm Isaias Could Turn Into Cat 2 Hurricane",
       "url": "https://www.bloomberg.com/news/videos/2026-10-07/tropical-storm-isaias-could-turn-into-cat-2-hurricane-video",
       "publishedAt": "2026-10-07T17:12:18+00:00",
-      "image": null
+      "image": null,
+      "category": "other"
     },
     {
-      "id": "e65b574d274854e96b05",
+      "id": "37a9390cc721d33db9e5",
       "source": "bloomberg",
       "title": "Disney Confirms That Disney+ Will Stream The 2027 Super Bowl",
       "url": "https://www.bloomberg.com/news/videos/2026-10-07/disney-confirms-that-disney-will-stream-2027-super-bowl-video",
       "publishedAt": "2026-10-07T17:10:39+00:00",
-      "image": null
+      "image": null,
+      "category": "other"
     },
     {
-      "id": "882eb7f47422e7f0a50f",
+      "id": "a9c21e46fa81e44a2666",
       "source": "aljazeera",
       "title": "US mortgage rates hit their highest level in three years",
       "url": "https://www.aljazeera.com/economy/2026/10/7/us-mortgage-rates-hit-their-highest-level-in-three-years?traffic_source=rss",
       "publishedAt": "2026-10-07T17:05:10+00:00",
-      "image": "https://www.aljazeera.com/wp-content/uploads/2026/10/2026-10-07T110012Z_2103323680_RC21ZDAJ0G5H_RTRMADP_3_USA-ECONOMY-MORTGAGES-1791389874.jpg?resize=1920%2C1440"
+      "image": "https://www.aljazeera.com/wp-content/uploads/2026/10/2026-10-07T110012Z_2103323680_RC21ZDAJ0G5H_RTRMADP_3_USA-ECONOMY-MORTGAGES-1791389874.jpg?resize=1920%2C1440",
+      "category": "business"
     },
     {
-      "id": "f26b01ea80be5dc6ff64",
+      "id": "dd56e4c6c71a12a2eb06",
       "source": "bloomberg",
       "title": "McDonald’s Franchisees Balk at Costly Bill to Upgrade Stores",
       "url": "https://www.bloomberg.com/news/videos/2026-10-07/mcdonald-s-franchisees-balk-at-bill-to-upgrade-stores-video",
       "publishedAt": "2026-10-07T16:53:23+00:00",
-      "image": null
+      "image": null,
+      "category": "other"
     },
     {
-      "id": "01ec186969d6c5efe9ab",
+      "id": "663d6119b62dbb935577",
       "source": "aljazeera",
       "title": "UEFA football leaders meet to shape strategy to oust FIFA’s Infantino",
       "url": "https://www.aljazeera.com/sports/2026/10/7/uefa-football-leaders-meet-to-shape-strategy-to-oust-fifas-infantino?traffic_source=rss",
       "publishedAt": "2026-10-07T16:47:24+00:00",
-      "image": "https://www.aljazeera.com/wp-content/uploads/2026/10/AP26280543584270-1791389805.jpg?resize=1920%2C1440"
+      "image": "https://www.aljazeera.com/wp-content/uploads/2026/10/AP26280543584270-1791389805.jpg?resize=1920%2C1440",
+      "category": "sport"
     },
     {
-      "id": "5325f543aaecf487b3b8",
+      "id": "324569794c4d1e87f1e3",
       "source": "bloomberg",
       "title": "Morgan Stanley Selling Pieces of $3 Billion Royal Caribbean Loan",
       "url": "https://www.bloomberg.com/news/articles/2026-10-07/morgan-stanley-selling-pieces-of-3-billion-royal-caribbean-loan",
       "publishedAt": "2026-10-07T16:41:23+00:00",
-      "image": null
+      "image": null,
+      "category": "other"
     },
     {
-      "id": "0e20915a3595d2ae6723",
+      "id": "4de5de2ff3d642a0a2e8",
       "source": "cnbc",
       "title": "Modelo owner Constellation is getting creative to bring back beer drinkers as overall demand weakens",
       "url": "https://www.cnbc.com/2026/10/07/constellation-brands-earnings-beer-demand.html",
       "publishedAt": "2026-10-07T16:40:50+00:00",
-      "image": "https://image.cnbcfm.com/api/v1/image/108104289-17399715182025-02-18t160441z_1704028396_rc2uwcacnx1r_rtrmadp_0_usa-trump-tariffs-mexico.jpeg?v=1739971599&w=1920&h=1080"
+      "image": "https://image.cnbcfm.com/api/v1/image/108104289-17399715182025-02-18t160441z_1704028396_rc2uwcacnx1r_rtrmadp_0_usa-trump-tariffs-mexico.jpeg?v=1739971599&w=1920&h=1080",
+      "category": "business"
     },
     {
-      "id": "ac619a64524dbf4fa4c5",
+      "id": "0cb09731de10f8792289",
       "source": "cnbc",
       "title": "Disney+ to stream upcoming Super Bowl",
       "url": "https://www.cnbc.com/2026/10/07/disney-stream-super-bowl-2027.html",
       "publishedAt": "2026-10-07T16:36:26+00:00",
-      "image": "https://image.cnbcfm.com/api/v1/image/108263085-1770609011989-gettyimages-2260616438-rm2_2224_mu427qwl.jpeg?v=1791390942&w=1920&h=1080"
+      "image": "https://image.cnbcfm.com/api/v1/image/108263085-1770609011989-gettyimages-2260616438-rm2_2224_mu427qwl.jpeg?v=1791390942&w=1920&h=1080",
+      "category": "other"
     },
     {
-      "id": "9e62a35bec4b58becfbd",
+      "id": "d29b8d34ccb32e549f93",
       "source": "bloomberg",
       "title": "SpaceX in Talks to Borrow $40 Billion to Buy Nvidia Chips",
       "url": "https://www.bloomberg.com/news/videos/2026-10-07/spacex-in-talks-to-borrow-40b-to-buy-nvidia-chips-video",
       "publishedAt": "2026-10-07T16:36:05+00:00",
-      "image": null
+      "image": null,
+      "category": "other"
     },
     {
-      "id": "119be6dd885c9905287b",
+      "id": "90915335634e6332546b",
       "source": "bloomberg",
       "title": "Novogratz Says AI Is in a Bubble, and Investors Should Pile in",
       "url": "https://www.bloomberg.com/news/articles/2026-10-07/novogratz-says-ai-is-in-a-bubble-and-investors-should-pile-in",
       "publishedAt": "2026-10-07T16:33:13+00:00",
-      "image": null
+      "image": null,
+      "category": "technology"
     },
     {
-      "id": "70c9b5733c881acd11a7",
+      "id": "aa7d45b1b7258855b990",
       "source": "cnbc",
       "title": "Apollo, banks in talks to finance SpaceX's $40 billion Nvidia GPU purchase",
       "url": "https://www.cnbc.com/2026/10/07/spacex-nvidia-chips-apollo-financing.html",
       "publishedAt": "2026-10-07T16:32:30+00:00",
-      "image": "https://image.cnbcfm.com/api/v1/image/108321428-17812944792026-06-12t161555z_305406967_rc2gsla0exkf_rtrmadp_0_spacex-ipo-california.jpeg?v=1784319677&w=1920&h=1080"
+      "image": "https://image.cnbcfm.com/api/v1/image/108321428-17812944792026-06-12t161555z_305406967_rc2gsla0exkf_rtrmadp_0_spacex-ipo-california.jpeg?v=1784319677&w=1920&h=1080",
+      "category": "business"
     },
     {
-      "id": "b3f9659e02b413329bcf",
-      "source": "bloomberg",
-      "title": "Paramount’s Monster Debt Deal Offers Few Safeguards to Investors",
-      "url": "https://www.bloomberg.com/news/articles/2026-10-07/paramount-s-monster-debt-deal-offers-few-safeguards-to-investors",
-      "publishedAt": "2026-10-07T16:30:52+00:00",
-      "image": null
-    },
-    {
-      "id": "4b1201f580a4d73c6498",
+      "id": "9fc5cfb52bdd70644848",
       "source": "cnbc",
       "title": "Used car prices fall in Q3, while demand for fuel-efficient vehicles grows",
       "url": "https://www.cnbc.com/2026/10/07/used-cars-manheim-index.html",
       "publishedAt": "2026-10-07T16:25:52+00:00",
-      "image": "https://image.cnbcfm.com/api/v1/image/107306192-1695673773493-gettyimages-1466470824-mt_17958_0e9e89f3-d542-43cd-8d41-28c2e3700156.jpeg?v=1778167391&w=1920&h=1080"
+      "image": "https://image.cnbcfm.com/api/v1/image/107306192-1695673773493-gettyimages-1466470824-mt_17958_0e9e89f3-d542-43cd-8d41-28c2e3700156.jpeg?v=1778167391&w=1920&h=1080",
+      "category": "other"
     },
     {
-      "id": "423195fffb4d89af1d94",
+      "id": "406ebcc2ced3955e0860",
+      "source": "fnc",
+      "title": "BOJ Sinyalkan Inflasi Dekati Target 2%, Peluang Kenaikan Suku Bunga Desember Menguat",
+      "url": "https://tradewithfnc.com/",
+      "publishedAt": "2026-10-07T16:14:00+00:00",
+      "image": null,
+      "category": "markets"
+    },
+    {
+      "id": "e51e2f3796afba7ea499",
       "source": "aljazeera",
       "title": "Germany’s Merz vows to fight ‘extremism’ after AfD, far-left election gains",
       "url": "https://www.aljazeera.com/news/2026/10/7/germanys-merz-vows-to-fight-extremism-after-afd-far-left-election-gains?traffic_source=rss",
       "publishedAt": "2026-10-07T16:12:29+00:00",
-      "image": "https://www.aljazeera.com/wp-content/uploads/2026/10/ap_6ac65d8980105-1791384969.jpg?resize=1920%2C1440"
+      "image": "https://www.aljazeera.com/wp-content/uploads/2026/10/ap_6ac65d8980105-1791384969.jpg?resize=1920%2C1440",
+      "category": "world"
     },
     {
-      "id": "d440d80f6893b340d5e7",
+      "id": "eee5a63870e25b38fc33",
       "source": "aljazeera",
       "title": "More than 200,000 displaced as fighting escalates in Yemen, UN says",
       "url": "https://www.aljazeera.com/gallery/2026/10/7/more-than-200000-displaced-as-fighting-escalates-in-yemen-un-says-2?traffic_source=rss",
       "publishedAt": "2026-10-07T16:02:17+00:00",
-      "image": "https://www.aljazeera.com/wp-content/uploads/2026/10/AFP__20261007__D2HB39E__v1__HighRes__YemenSaudiIranUsIsraelWar-1791380979.jpg?resize=1920%2C1440"
+      "image": "https://www.aljazeera.com/wp-content/uploads/2026/10/AFP__20261007__D2HB39E__v1__HighRes__YemenSaudiIranUsIsraelWar-1791380979.jpg?resize=1920%2C1440",
+      "category": "other"
     },
     {
-      "id": "531cca994c9d43a65c1a",
+      "id": "4c839ec30c6396ecd98f",
       "source": "bloomberg",
       "title": "Commodity Volatility Spurs Regional US Banks to Offer Hedging",
       "url": "https://www.bloomberg.com/news/articles/2026-10-07/commodity-volatility-spurs-regional-us-banks-to-offer-hedging",
       "publishedAt": "2026-10-07T16:00:14+00:00",
-      "image": null
+      "image": null,
+      "category": "business"
     },
     {
-      "id": "bee99c8e53568acbd549",
+      "id": "7caa54dda299c041c408",
       "source": "bloomberg",
       "title": "Anthropic, OpenAI Clouding Other IPO Prospects: Ruder",
       "url": "https://www.bloomberg.com/news/videos/2026-10-07/anthropic-openai-clouding-other-ipo-prospects-ruder-video",
       "publishedAt": "2026-10-07T16:00:09+00:00",
-      "image": null
+      "image": null,
+      "category": "other"
     },
     {
-      "id": "0c2beb070833a15a0090",
+      "id": "de662bb9df0a5e828b32",
       "source": "bloomberg",
       "title": "Wall Street Profits Could Top $90 Billion, Says State Comptroller",
       "url": "https://www.bloomberg.com/news/videos/2026-10-07/new-york-s-record-profits-hidden-risks-video",
       "publishedAt": "2026-10-07T15:44:09+00:00",
-      "image": null
+      "image": null,
+      "category": "other"
     },
     {
-      "id": "3adad9dd589f9a3444df",
+      "id": "3632d3f01eb124774768",
       "source": "cnbc",
       "title": "Jim Cramer's key to Wednesday's market - plus, relief for Intel after a concerning report",
       "url": "https://www.cnbc.com/investingclub/2026/10/07/jim-cramers-key-to-wednesday-market-plus-relief-for-intel-after-a-concerning-report.html",
       "publishedAt": "2026-10-07T15:38:22+00:00",
-      "image": "https://image.cnbcfm.com/api/v1/image/108315139-17804039612026-06-02t070118z_611004174_rc2jlla6px5v_rtrmadp_0_computex-intel.jpeg?v=1780403995&w=1920&h=1080"
+      "image": "https://image.cnbcfm.com/api/v1/image/108315139-17804039612026-06-02t070118z_611004174_rc2jlla6px5v_rtrmadp_0_computex-intel.jpeg?v=1780403995&w=1920&h=1080",
+      "category": "markets"
     },
     {
-      "id": "3ad7df659869e3b36386",
+      "id": "a4cb9421dde13891264f",
       "source": "aljazeera",
       "title": "The mass killing does not mean Israel’s winning",
       "url": "https://www.aljazeera.com/opinions/2026/10/7/the-mass-killing-does-not-mean-israels-winning?traffic_source=rss",
       "publishedAt": "2026-10-07T15:25:06+00:00",
-      "image": "https://www.aljazeera.com/wp-content/uploads/2026/06/getty_6a1ffd2d48-1780481325.jpg?resize=1920%2C1440"
+      "image": "https://www.aljazeera.com/wp-content/uploads/2026/06/getty_6a1ffd2d48-1780481325.jpg?resize=1920%2C1440",
+      "category": "commentary"
     },
     {
-      "id": "12e57017508cf061c372",
+      "id": "d57c078bb5a3e432c156",
       "source": "aljazeera",
       "title": "How Israel’s genocide in Gaza pulled Britons into the Palestine movement",
       "url": "https://www.aljazeera.com/news/2026/10/7/how-israels-genocide-in-gaza-pulled-britons-into-the-palestine-movement?traffic_source=rss",
       "publishedAt": "2026-10-07T15:13:21+00:00",
-      "image": "https://www.aljazeera.com/wp-content/uploads/2026/10/2025-07-12T160204Z_582396475_RC21LFAVWRDR_RTRMADP_3_ISRAEL-PALESTINIANS-BRITAIN-PALESTINE-ACTION-1791383408.jpg?resize=1920%2C1440"
+      "image": "https://www.aljazeera.com/wp-content/uploads/2026/10/2025-07-12T160204Z_582396475_RC21LFAVWRDR_RTRMADP_3_ISRAEL-PALESTINIANS-BRITAIN-PALESTINE-ACTION-1791383408.jpg?resize=1920%2C1440",
+      "category": "world"
     },
     {
-      "id": "5748f18435642d15b6f1",
+      "id": "d74697a7ab9354ba8ce4",
       "source": "bloomberg",
       "title": "Farm Machinery Shares Drop on US Probe Into Market Practices",
       "url": "https://www.bloomberg.com/news/articles/2026-10-07/ftc-usda-seek-comment-on-farm-equipment-market-practices",
       "publishedAt": "2026-10-07T14:56:22+00:00",
-      "image": null
+      "image": null,
+      "category": "markets"
     },
     {
-      "id": "554cb0d08cc5562cf748",
+      "id": "781b4825780170af50eb",
       "source": "aljazeera",
       "title": "Ex-German spy chief arrested: A history of spooks working for enemy powers",
       "url": "https://www.aljazeera.com/news/2026/10/7/ex-german-spy-chief-arrested-a-history-of-spooks-working-for-enemy-powers?traffic_source=rss",
       "publishedAt": "2026-10-07T14:52:26+00:00",
-      "image": "https://www.aljazeera.com/wp-content/uploads/2026/10/GettyImages-667271841-1791376785_40992e-1791379853.jpg?resize=1200%2C630&quality=80"
+      "image": "https://www.aljazeera.com/wp-content/uploads/2026/10/GettyImages-667271841-1791376785_40992e-1791379853.jpg?resize=1200%2C630&quality=80",
+      "category": "other"
     },
     {
-      "id": "ca0c86411c0489cd957e",
+      "id": "850a7014d089170bd960",
+      "source": "fnc",
+      "title": "PGN Siap Integrasikan Biomethane ke Infrastruktur Gas Bumi",
+      "url": "https://tradewithfnc.com/",
+      "publishedAt": "2026-10-07T14:52:00+00:00",
+      "image": null,
+      "category": "other"
+    },
+    {
+      "id": "add8431557a6635641cb",
       "source": "cnbc",
       "title": "Rubio says Tehran missed 'multiple' chances for nuclear deal amid Iran stalemate",
       "url": "https://www.cnbc.com/2026/10/07/us-iran-war-trump-hormuz.html",
       "publishedAt": "2026-10-07T14:17:49+00:00",
-      "image": "https://image.cnbcfm.com/api/v1/image/108362459-1789396925349-gettyimages-2294767093-AA_14092026_2951224.jpeg?v=1791372678&w=1920&h=1080"
+      "image": "https://image.cnbcfm.com/api/v1/image/108362459-1789396925349-gettyimages-2294767093-AA_14092026_2951224.jpeg?v=1791372678&w=1920&h=1080",
+      "category": "world"
     },
     {
-      "id": "0b12c780133c7e8653c3",
+      "id": "8d83438436a92dd29795",
       "source": "aljazeera",
       "title": "Millions of Pakistanis get government fuel relief but some miss out",
       "url": "https://www.aljazeera.com/news/2026/10/7/millions-of-pakistanis-get-government-fuel-relief-but-some-miss-out?traffic_source=rss",
       "publishedAt": "2026-10-07T14:02:40+00:00",
-      "image": "https://www.aljazeera.com/wp-content/uploads/2026/10/2026-09-16T215240Z_1506421248_RC2IKNAE0RRX_RTRMADP_3_IRAN-CRISIS-SOUTHASIA-ENERGY-1791364869.jpg?resize=1920%2C1440"
+      "image": "https://www.aljazeera.com/wp-content/uploads/2026/10/2026-09-16T215240Z_1506421248_RC2IKNAE0RRX_RTRMADP_3_IRAN-CRISIS-SOUTHASIA-ENERGY-1791364869.jpg?resize=1920%2C1440",
+      "category": "other"
     },
     {
-      "id": "848e8ccd118e9e0d613e",
+      "id": "552371d910cf6ff6536e",
+      "source": "bloomberg",
+      "title": "Syria Eyes Doubling Oil Output in a Year as Investors Return",
+      "url": "https://www.bloomberg.com/news/articles/2026-10-07/syria-plans-to-double-oil-output-in-a-year-as-investors-return",
+      "publishedAt": "2026-10-07T14:02:18+00:00",
+      "image": null,
+      "category": "markets"
+    },
+    {
+      "id": "1e393b91bf42c88c45c4",
       "source": "cnbc",
       "title": "Stocks made a record high. Two big bearish trades point to skepticism",
       "url": "https://www.cnbc.com/2026/10/07/stocks-made-a-record-high-two-big-bearish-trades-point-to-skepticism.html",
       "publishedAt": "2026-10-07T13:59:16+00:00",
-      "image": "https://image.cnbcfm.com/api/v1/image/108285956-1775048846885-gettyimages-2269291703-6e6a0089_copy_zhv0gn6f.jpeg?v=1775048926&w=1920&h=1080"
+      "image": "https://image.cnbcfm.com/api/v1/image/108285956-1775048846885-gettyimages-2269291703-6e6a0089_copy_zhv0gn6f.jpeg?v=1775048926&w=1920&h=1080",
+      "category": "markets"
     },
     {
-      "id": "f058240332c3ed3ed276",
+      "id": "6a5db551764f89b19b4e",
       "source": "aljazeera",
       "title": "Why Paramount-Warner merger has sparked fears about press freedom",
       "url": "https://www.aljazeera.com/news/2026/10/7/why-paramount-warner-merger-has-sparked-fears-about-press-freedom?traffic_source=rss",
       "publishedAt": "2026-10-07T13:56:27+00:00",
-      "image": "https://www.aljazeera.com/wp-content/uploads/2026/10/ap_6ac63ff75d331-1791377399.jpg?resize=1920%2C1440"
+      "image": "https://www.aljazeera.com/wp-content/uploads/2026/10/ap_6ac63ff75d331-1791377399.jpg?resize=1920%2C1440",
+      "category": "other"
     },
     {
-      "id": "0003a23345c6bdfe71ba",
+      "id": "39d9312182b58b492309",
       "source": "cnbc",
       "title": "Trading platform Webull's China ties create national security risk, congressional panel finds; stock drops 18%",
       "url": "https://www.cnbc.com/2026/10/07/webull-china-national-security-risk-congress.html",
       "publishedAt": "2026-10-07T13:46:28+00:00",
-      "image": "https://image.cnbcfm.com/api/v1/image/108373977-1791377484586-gettyimages-1231989873-BC_ChineseFlag2021_4322.jpeg?v=1791377538&w=1920&h=1080"
+      "image": "https://image.cnbcfm.com/api/v1/image/108373977-1791377484586-gettyimages-1231989873-BC_ChineseFlag2021_4322.jpeg?v=1791377538&w=1920&h=1080",
+      "category": "markets"
     },
     {
-      "id": "4f9172876bd5f282cff1",
+      "id": "351314f9510726b01c60",
       "source": "aljazeera",
       "title": "South Korea signals military exemption cuts for athletes after Asian Games",
       "url": "https://www.aljazeera.com/sports/2026/10/7/south-korea-signals-military-exemption-cuts-for-gold-medallists-after-backlash-at-athletes-asian-games-comments?traffic_source=rss",
       "publishedAt": "2026-10-07T13:38:14+00:00",
-      "image": "https://www.aljazeera.com/wp-content/uploads/2026/10/2026-10-03T142237Z_296345539_UP1EMA30YPL65_RTRMADP_3_GAMES-ASIA-1791376596.jpg?resize=1920%2C1440"
+      "image": "https://www.aljazeera.com/wp-content/uploads/2026/10/2026-10-03T142237Z_296345539_UP1EMA30YPL65_RTRMADP_3_GAMES-ASIA-1791376596.jpg?resize=1920%2C1440",
+      "category": "sport"
     },
     {
-      "id": "ed3ffdcd459ab1be77e6",
+      "id": "3178e0dcec2a9625be22",
       "source": "aljazeera",
       "title": "Okinawa governor urges Japan action after US Marine arrested over killing",
       "url": "https://www.aljazeera.com/news/2026/10/7/okinawa-governor-urges-japan-action-after-us-marine-arrested-over-killing?traffic_source=rss",
       "publishedAt": "2026-10-07T13:31:18+00:00",
-      "image": "https://www.aljazeera.com/wp-content/uploads/2026/10/afp_6ac63b7fd4d5-1791376255.jpg?resize=1920%2C1440"
+      "image": "https://www.aljazeera.com/wp-content/uploads/2026/10/afp_6ac63b7fd4d5-1791376255.jpg?resize=1920%2C1440",
+      "category": "other"
     },
     {
-      "id": "3c4433dc0bfd38b2687c",
+      "id": "846f7bdc11f7cfbe9957",
       "source": "aljazeera",
       "title": "Saudi Arabia beat UAE 2-0 to end 22-year wait for Arabian Gulf Cup crown",
       "url": "https://www.aljazeera.com/sports/2026/10/7/saudi-arabia-beat-uae-2-0-to-end-22-year-wait-for-arabian-gulf-cup-crown?traffic_source=rss",
       "publishedAt": "2026-10-07T13:30:40+00:00",
-      "image": "https://www.aljazeera.com/wp-content/uploads/2026/10/2026-10-06T210352Z_1330511782_UP1EMA61MIFNG_RTRMADP_3_SOCCER-GULFCUP-SAU-ARE-1791373568.jpg?resize=1920%2C1440"
+      "image": "https://www.aljazeera.com/wp-content/uploads/2026/10/2026-10-06T210352Z_1330511782_UP1EMA61MIFNG_RTRMADP_3_SOCCER-GULFCUP-SAU-ARE-1791373568.jpg?resize=1920%2C1440",
+      "category": "sport"
     },
     {
-      "id": "bca136ff6fe21d9a0753",
+      "id": "6e5688b53539ba429a45",
       "source": "bloomberg",
       "title": "Boots Sold for $8.9 Billion as Canada’s Westons Re-Enter UK",
       "url": "https://www.bloomberg.com/news/articles/2026-10-07/canada-s-westons-to-buy-uk-pharmacy-chain-boots-for-8-9-billion",
       "publishedAt": "2026-10-07T13:26:54+00:00",
-      "image": null
+      "image": null,
+      "category": "other"
     },
     {
-      "id": "b20160d0e6b9ddad5150",
+      "id": "ba1300b2f6a3fe467607",
       "source": "cnbc",
       "title": "France is caught between angry students and unforgiving bond markets",
       "url": "https://www.cnbc.com/2026/10/07/french-student-protests-budget-deadlock.html",
       "publishedAt": "2026-10-07T13:23:31+00:00",
-      "image": "https://image.cnbcfm.com/api/v1/image/108210403-1760076268432-gettyimages-2239147271-AFP_77U3372.jpeg?v=1760076286&w=1920&h=1080"
+      "image": "https://image.cnbcfm.com/api/v1/image/108210403-1760076268432-gettyimages-2239147271-AFP_77U3372.jpeg?v=1760076286&w=1920&h=1080",
+      "category": "markets"
     },
     {
-      "id": "0dd056c941f051b805d2",
+      "id": "bca09da0b34de09d2c6f",
       "source": "bloomberg",
       "title": "Kalshi Proposes Oil Contract With 10-Year Expiry",
       "url": "https://www.bloomberg.com/news/articles/2026-10-07/kalshi-files-proposal-for-never-expiring-oil-contract-with-cftc",
       "publishedAt": "2026-10-07T13:10:46+00:00",
-      "image": null
+      "image": null,
+      "category": "markets"
     },
     {
-      "id": "0e1c390c371c2958a51c",
+      "id": "b880a41c20edb3b69564",
       "source": "cnbc",
       "title": "Refinance demand is now half what it was a year ago, as mortgage rates rise again",
       "url": "https://www.cnbc.com/2026/10/07/mortgage-rates-sit-at-nearly-3-year-high-and-demand-continues-to-shrink.html",
       "publishedAt": "2026-10-07T13:02:18+00:00",
-      "image": "https://image.cnbcfm.com/api/v1/image/108368370-1790370689933-gettyimages-2296548222-AFP_C9EH2CQ.jpeg?v=1790370788&w=1920&h=1080"
+      "image": "https://image.cnbcfm.com/api/v1/image/108368370-1790370689933-gettyimages-2296548222-AFP_C9EH2CQ.jpeg?v=1790370788&w=1920&h=1080",
+      "category": "other"
     },
     {
-      "id": "b5976b0afeb0dc613a47",
+      "id": "b1473d8dd976e38a07df",
       "source": "aljazeera",
       "title": "Henri Kagan, Kenso Soai win Nobel chemistry prize for ‘mirror image’ work",
       "url": "https://www.aljazeera.com/news/2026/10/7/henri-kagan-kenso-soai-win-chemistry-nobel-for-mirror-image-breakthrough?traffic_source=rss",
       "publishedAt": "2026-10-07T13:00:32+00:00",
-      "image": "https://www.aljazeera.com/wp-content/uploads/2026/10/2026-10-07T095918Z_1190866280_RC29YNAW98IB_RTRMADP_3_NOBEL-PRIZE-CHEMISTRY-1791373038.jpg?resize=1920%2C1440"
+      "image": "https://www.aljazeera.com/wp-content/uploads/2026/10/2026-10-07T095918Z_1190866280_RC29YNAW98IB_RTRMADP_3_NOBEL-PRIZE-CHEMISTRY-1791373038.jpg?resize=1920%2C1440",
+      "category": "science"
     },
     {
-      "id": "21be708b4d11e1532b37",
+      "id": "c0a7b178a79f5ca7f372",
       "source": "aljazeera",
       "title": "Coco Gauff says online racist abuse was ‘draining’ after China Open exit",
       "url": "https://www.aljazeera.com/sports/2026/10/7/coco-gauff-says-online-racist-abuse-was-draining-after-china-open-exit?traffic_source=rss",
       "publishedAt": "2026-10-07T12:53:11+00:00",
-      "image": "https://www.aljazeera.com/wp-content/uploads/2026/10/AFP__20261007__D2GL3ZQ__v1__MidRes__TennisChnOpen-1791375646.jpg?resize=1200%2C630"
+      "image": "https://www.aljazeera.com/wp-content/uploads/2026/10/AFP__20261007__D2GL3ZQ__v1__MidRes__TennisChnOpen-1791375646.jpg?resize=1200%2C630",
+      "category": "sport"
     },
     {
-      "id": "a48b8deb7a4b0cc0e1a2",
+      "id": "b7dd2495245258e6dbd4",
       "source": "aljazeera",
       "title": "Israeli soldier assaults Palestinian woman in occupied West Bank",
       "url": "https://www.aljazeera.com/video/newsfeed/2026/10/7/israeli-soldier-assaults-palestinian-woman-in-occupied-west-bank?traffic_source=rss",
       "publishedAt": "2026-10-07T12:39:07+00:00",
-      "image": "https://www.aljazeera.com/wp-content/uploads/2026/10/image-1791376577.jpg?resize=1920%2C1080&quality=80"
+      "image": "https://www.aljazeera.com/wp-content/uploads/2026/10/image-1791376577.jpg?resize=1920%2C1080&quality=80",
+      "category": "business"
     },
     {
-      "id": "08d95642a304035ba074",
+      "id": "45156e3e391285aa7671",
       "source": "aljazeera",
       "title": "Palestinian killed, 16 wounded in Israeli pogrom in occupied West Bank",
       "url": "https://www.aljazeera.com/news/2026/10/7/palestinian-killed-several-injured-in-israeli-pogrom-in-occupied-west-bank?traffic_source=rss",
       "publishedAt": "2026-10-07T12:38:31+00:00",
-      "image": "https://www.aljazeera.com/wp-content/uploads/2026/10/afp_6ac618613480-1791367265.jpg?resize=1920%2C1440"
+      "image": "https://www.aljazeera.com/wp-content/uploads/2026/10/afp_6ac618613480-1791367265.jpg?resize=1920%2C1440",
+      "category": "business"
     },
     {
-      "id": "743a67fa6b96a6eb1e29",
+      "id": "6242533f80bebb7baf53",
       "source": "aljazeera",
       "title": "UK Greens are wrong - Zionism is not racism",
       "url": "https://www.aljazeera.com/opinions/2026/10/7/the-uk-greens-are-wrong-zionism-is-not-racism?traffic_source=rss",
       "publishedAt": "2026-10-07T12:37:22+00:00",
-      "image": "https://www.aljazeera.com/wp-content/uploads/2026/10/epa_6ac6333d667d-1791374141.jpg?resize=1920%2C1440"
+      "image": "https://www.aljazeera.com/wp-content/uploads/2026/10/epa_6ac6333d667d-1791374141.jpg?resize=1920%2C1440",
+      "category": "commentary"
     },
     {
-      "id": "bc64107670a738625ca4",
+      "id": "143585877c7c25024a17",
       "source": "cnbc",
       "title": "Home heating oil prices are soaring - and users' winter bills could rise 21%, federal outlook shows",
       "url": "https://www.cnbc.com/2026/10/07/home-heating-oil-costs-winter.html",
       "publishedAt": "2026-10-07T12:35:01+00:00",
-      "image": "https://image.cnbcfm.com/api/v1/image/108372755-1791224604889-gettyimages-664647173-ti01093750.jpeg?v=1791224713&w=1920&h=1080"
+      "image": "https://image.cnbcfm.com/api/v1/image/108372755-1791224604889-gettyimages-664647173-ti01093750.jpeg?v=1791224713&w=1920&h=1080",
+      "category": "markets"
     },
     {
-      "id": "c2c322607e2a8c9910b7",
+      "id": "1e53ff30fe2029ddbfbd",
+      "source": "fnc",
+      "title": "Stimulus Akhir Tahun Rp31 Triliun Bersumber dari APBN",
+      "url": "https://tradewithfnc.com/",
+      "publishedAt": "2026-10-07T12:35:00+00:00",
+      "image": null,
+      "category": "business"
+    },
+    {
+      "id": "d02056e9c7f11ea765c4",
       "source": "aljazeera",
       "title": "Yes, Zionism is racism",
       "url": "https://www.aljazeera.com/opinions/2026/10/7/yes-zionism-is-racism?traffic_source=rss",
       "publishedAt": "2026-10-07T12:33:55+00:00",
-      "image": "https://www.aljazeera.com/wp-content/uploads/2026/10/2022-10-25T000000Z_743940304_RC278X9HVV5Z_RTRMADP_3_ISRAEL-PALESTINIANS-VIOLENCE-1791369743.jpg?resize=1920%2C1440"
+      "image": "https://www.aljazeera.com/wp-content/uploads/2026/10/2022-10-25T000000Z_743940304_RC278X9HVV5Z_RTRMADP_3_ISRAEL-PALESTINIANS-VIOLENCE-1791369743.jpg?resize=1920%2C1440",
+      "category": "commentary"
     },
     {
-      "id": "1a1a9615557078e944ee",
+      "id": "b85fb6ea63f5e8a1dfa5",
       "source": "cnbc",
       "title": "Chevron CEO warns against 'unwise' diesel export ban, saying it could make things worse",
       "url": "https://www.cnbc.com/2026/10/07/chevron-ceo-diesel-export-ban-trump-supply.html",
       "publishedAt": "2026-10-07T12:25:52+00:00",
-      "image": "https://image.cnbcfm.com/api/v1/image/108373938-1791375909497-gettyimages-2291635421-AFP_C6KY7DL.jpeg?v=1791375927&w=1920&h=1080"
+      "image": "https://image.cnbcfm.com/api/v1/image/108373938-1791375909497-gettyimages-2291635421-AFP_C6KY7DL.jpeg?v=1791375927&w=1920&h=1080",
+      "category": "other"
     },
     {
-      "id": "e9eccc997a142713a95f",
+      "id": "0ca64493649a3350b38d",
       "source": "cnbc",
       "title": "ICE came to town and left behind weakened economies",
       "url": "https://www.cnbc.com/2026/10/07/ice-raids-local-economies.html",
       "publishedAt": "2026-10-07T12:24:32+00:00",
-      "image": "https://image.cnbcfm.com/api/v1/image/108259877-1769815783573-gettyimages-2258528609-_sm14983.jpeg?v=1769815824&w=1920&h=1080"
+      "image": "https://image.cnbcfm.com/api/v1/image/108259877-1769815783573-gettyimages-2258528609-_sm14983.jpeg?v=1769815824&w=1920&h=1080",
+      "category": "business"
     },
     {
-      "id": "a57af2654cfd0ce8ec3f",
+      "id": "ca43f0c0e0e8b7ec1ad0",
       "source": "cnbc",
       "title": "Oil edges higher as concerns over Houthi attacks on Saudi Arabia eclipse supply recovery",
       "url": "https://www.cnbc.com/2026/10/07/oil-prices-today-brent-wti-hormuz.html",
       "publishedAt": "2026-10-07T12:23:28+00:00",
-      "image": "https://image.cnbcfm.com/api/v1/image/108359880-1788886357349-gettyimages-2293680927-AA_08092026_2943632.jpeg?v=1788886580&w=1920&h=1080"
+      "image": "https://image.cnbcfm.com/api/v1/image/108359880-1788886357349-gettyimages-2293680927-AA_08092026_2943632.jpeg?v=1788886580&w=1920&h=1080",
+      "category": "markets"
     },
     {
-      "id": "1cce1e57de7b45e80f9c",
+      "id": "b1cba31b63e9748ccc68",
       "source": "cnbc",
       "title": "The SALT deduction limit is $40,400 for 2026. Here's how to maximize it",
       "url": "https://www.cnbc.com/2026/10/07/salt-deduction-limit-2026.html",
       "publishedAt": "2026-10-07T12:15:01+00:00",
-      "image": "https://image.cnbcfm.com/api/v1/image/108372762-1791224953943-gettyimages-2179151643-dual_00081.jpeg?v=1791224969&w=1920&h=1080"
+      "image": "https://image.cnbcfm.com/api/v1/image/108372762-1791224953943-gettyimages-2179151643-dual_00081.jpeg?v=1791224969&w=1920&h=1080",
+      "category": "other"
     },
     {
-      "id": "6ffa849f78707f02d84a",
+      "id": "8c6b49cfc52a97baede9",
       "source": "aljazeera",
       "title": "South Korea’s military service exemption could be cut for athletes",
       "url": "https://www.aljazeera.com/video/newsfeed/2026/10/7/south-koreas-military-service-exemption-could-be-cut-for-athletes?traffic_source=rss",
       "publishedAt": "2026-10-07T12:09:18+00:00",
-      "image": "https://www.aljazeera.com/wp-content/uploads/2026/10/Screenshot-2026-10-07-at-15.08.41-1791374948.png?resize=1200%2C675"
+      "image": "https://www.aljazeera.com/wp-content/uploads/2026/10/Screenshot-2026-10-07-at-15.08.41-1791374948.png?resize=1200%2C675",
+      "category": "world"
     },
     {
-      "id": "742b54681fcc486638eb",
-      "source": "aljazeera",
-      "title": "German ex-spy chief arrested for treason: What we know",
-      "url": "https://www.aljazeera.com/news/2026/10/7/german-ex-spy-chief-arrested-for-treason-what-we-know?traffic_source=rss",
-      "publishedAt": "2026-10-07T12:04:51+00:00",
-      "image": "https://www.aljazeera.com/wp-content/uploads/2026/10/getty_6ac6145f85-1791366239_efcb8f-1791367416.jpg?resize=1200%2C630&quality=80"
-    },
-    {
-      "id": "41b27d7266098295bd10",
+      "id": "c8f0e9046582d1a3cb76",
       "source": "cnbc",
       "title": "India’s central bank hikes rates for the first time since 2023 as inflation risks build",
       "url": "https://www.cnbc.com/2026/10/07/india-rbi-interest-rates-inflation.html",
       "publishedAt": "2026-10-07T11:55:36+00:00",
-      "image": "https://image.cnbcfm.com/api/v1/image/108373925-1791374076652-gettyimages-2298413594-AFP_D2FY7DW.jpeg?v=1791374109&w=1920&h=1080"
+      "image": "https://image.cnbcfm.com/api/v1/image/108373925-1791374076652-gettyimages-2298413594-AFP_D2FY7DW.jpeg?v=1791374109&w=1920&h=1080",
+      "category": "markets"
     },
     {
-      "id": "9fa90f45eba24346f17e",
+      "id": "0a8baf52ea5f9de21903",
       "source": "bloomberg",
       "title": "EM Assets Halt Advance as Hormuz Concerns Weigh on Risk Appetite",
       "url": "https://www.bloomberg.com/news/articles/2026-10-07/emerging-stocks-halt-advance-as-hormuz-tensions-come-into-focus",
       "publishedAt": "2026-10-07T11:22:47+00:00",
-      "image": null
+      "image": null,
+      "category": "markets"
     },
     {
-      "id": "5fe1a02860fc11d8f913",
-      "source": "cnbc",
-      "title": "'Get your house in order': IMF chief's stark warning for France over surging bond yields",
-      "url": "https://www.cnbc.com/2026/10/07/imf-france-debt-student-protests-yields.html",
-      "publishedAt": "2026-10-07T11:09:30+00:00",
-      "image": "https://image.cnbcfm.com/api/v1/image/108289388-1775758322358-gettyimages-2269957315-AFP_A7B73A9.jpeg?v=1775758361&w=1920&h=1080"
+      "id": "040e99355ec5671cc1c1",
+      "source": "fnc",
+      "title": "Harga Emas Antam Naik Rp10.000, Buyback Menguat Lebih Tajam",
+      "url": "https://tradewithfnc.com/",
+      "publishedAt": "2026-10-07T10:18:00+00:00",
+      "image": null,
+      "category": "markets"
     },
     {
-      "id": "7ea3c094d5c2a7c78527",
+      "id": "7b7f317d6ae5e155da80",
+      "source": "fnc",
+      "title": "Prabowo Sinyalkan Bonus untuk Timnas Indonesia, Pengaturan Diserahkan ke PSSI",
+      "url": "https://tradewithfnc.com/",
+      "publishedAt": "2026-10-07T08:46:00+00:00",
+      "image": null,
+      "category": "other"
+    },
+    {
+      "id": "87f8f619d1056a83edd5",
+      "source": "fnc",
+      "title": "DPR Sahkan UU Pelindungan Ketenagakerjaan, Hak Pekerja Diperkuat",
+      "url": "https://tradewithfnc.com/",
+      "publishedAt": "2026-10-07T06:29:00+00:00",
+      "image": null,
+      "category": "other"
+    },
+    {
+      "id": "8e49f8b5a2ee3592f6f5",
+      "source": "fnc",
+      "title": "IHSG Menguat 1,21% ke 6.192, Investor Mulai Kembali Masuk",
+      "url": "https://tradewithfnc.com/",
+      "publishedAt": "2026-10-07T04:56:00+00:00",
+      "image": null,
+      "category": "markets"
+    },
+    {
+      "id": "1b96cb37f68fdc038871",
+      "source": "fnc",
+      "title": "Jelang MotoGP Mandalika 2026, BRI Latih 500 Relawan Kelola Sampah",
+      "url": "https://tradewithfnc.com/",
+      "publishedAt": "2026-10-07T02:32:00+00:00",
+      "image": null,
+      "category": "other"
+    },
+    {
+      "id": "74b7e4cb6bd3e6920075",
+      "source": "fnc",
+      "title": "Vietnam Tumbuh 9,95% di Q3 2026, Kinerja Ekonomi Melaju Jauh di Atas Indonesia",
+      "url": "https://tradewithfnc.com/",
+      "publishedAt": "2026-10-07T00:18:00+00:00",
+      "image": null,
+      "category": "business"
+    },
+    {
+      "id": "f3b85fee4545f88dcefd",
+      "source": "fnc",
+      "title": "Suahasil Tegaskan Dividen Danantara Belum Masuk APBN 2026-2027",
+      "url": "https://tradewithfnc.com/",
+      "publishedAt": "2026-10-06T22:37:00+00:00",
+      "image": null,
+      "category": "business"
+    },
+    {
+      "id": "97d9dec15fd877f5cc32",
       "source": "bloomberg",
       "title": "Stocks Fall From All-Time Highs on Inflation Worry: Markets Wrap",
       "url": "https://www.bloomberg.com/news/articles/2026-10-06/stock-market-today-dow-s-p-live-updates",
       "publishedAt": "2026-10-06T22:12:38+00:00",
-      "image": null
+      "image": null,
+      "category": "markets"
     },
     {
-      "id": "2610cc0d103ae25382b8",
+      "id": "9a2beb9735a449fdabc1",
+      "source": "fnc",
+      "title": "Pertamina Tahan Harga BBM Nonsubsidi Oktober, ESDM Dorong Penyesuaian Ikuti Pasar",
+      "url": "https://tradewithfnc.com/",
+      "publishedAt": "2026-10-06T16:20:00+00:00",
+      "image": null,
+      "category": "other"
+    },
+    {
+      "id": "21555fbd84b088ff0397",
+      "source": "fnc",
+      "title": "OJK Catat Transaksi Kripto Rp23,16 Triliun pada Agustus 2026",
+      "url": "https://tradewithfnc.com/",
+      "publishedAt": "2026-10-06T14:44:00+00:00",
+      "image": null,
+      "category": "markets"
+    },
+    {
+      "id": "21dcf68b56f3a58b9890",
+      "source": "fnc",
+      "title": "Kemenko Bahlil Diusulkan Naungi Kemendag dan Kemenperin untuk Percepat Hilirisasi",
+      "url": "https://tradewithfnc.com/",
+      "publishedAt": "2026-10-06T12:25:00+00:00",
+      "image": null,
+      "category": "other"
+    },
+    {
+      "id": "194d6c662c204569ab4c",
+      "source": "fnc",
+      "title": "Penjualan Rumah Subsidi 2026 Merosot, HIMPERRA Sebut Lebih Buruk dari Pandemi",
+      "url": "https://tradewithfnc.com/",
+      "publishedAt": "2026-10-06T10:48:00+00:00",
+      "image": null,
+      "category": "other"
+    },
+    {
+      "id": "25055c35bbe7e1120597",
+      "source": "fnc",
+      "title": "BGN Perintahkan Sidak Harian Dapur MBG, Pengawasan Diperketat",
+      "url": "https://tradewithfnc.com/",
+      "publishedAt": "2026-10-06T08:24:00+00:00",
+      "image": null,
+      "category": "other"
+    },
+    {
+      "id": "ab8ee57911a5a19e4ad7",
+      "source": "fnc",
+      "title": "Astra Otoparts Bagikan Dividen Interim Rp72,52 per Saham, Cair 26 Oktober 2026",
+      "url": "https://tradewithfnc.com/",
+      "publishedAt": "2026-10-06T06:43:00+00:00",
+      "image": null,
+      "category": "markets"
+    },
+    {
+      "id": "87f18a73e55005bbd0ad",
+      "source": "fnc",
+      "title": "Harga Emas Antam Turun ke Rp2,57 Juta per Gram, Tertekan Penguatan Dolar dan Yield AS",
+      "url": "https://tradewithfnc.com/",
+      "publishedAt": "2026-10-06T04:08:00+00:00",
+      "image": null,
+      "category": "markets"
+    },
+    {
+      "id": "5c8e8ba22198744a9f4f",
+      "source": "fnc",
+      "title": "Rupiah Tertekan, Aksi Jual Obligasi dan Kenaikan Yield AS Jadi Sorotan",
+      "url": "https://tradewithfnc.com/",
+      "publishedAt": "2026-10-06T02:42:00+00:00",
+      "image": null,
+      "category": "markets"
+    },
+    {
+      "id": "c42ecd3386ef6fc87c4b",
+      "source": "fnc",
+      "title": "Kredibilitas Scott Bessent Dipertanyakan Setelah Sejumlah Proyeksi Ekonomi Meleset",
+      "url": "https://tradewithfnc.com/",
+      "publishedAt": "2026-10-06T00:16:00+00:00",
+      "image": null,
+      "category": "markets"
+    },
+    {
+      "id": "19274a2541683689d7d1",
+      "source": "fnc",
+      "title": "OJK Catat 29 Perusahaan Antre Penawaran Umum, Incar Dana Rp26,47 Triliun",
+      "url": "https://tradewithfnc.com/",
+      "publishedAt": "2026-10-05T22:53:00+00:00",
+      "image": null,
+      "category": "markets"
+    },
+    {
+      "id": "badd67aee5ca263066c1",
+      "source": "investing",
+      "title": "Truist comments on homebuilder stocks amid rising mortgage rates",
+      "url": "https://www.investing.com/news/stock-market-news/truist-comments-on-homebuilder-stocks-amid-rising-mortgage-rates-93CH-4937304",
+      "publishedAt": null,
+      "image": "https://content-media.investing.com/news/LYNXNPEBAG0BO_M.jpg",
+      "category": "markets"
+    },
+    {
+      "id": "efb08377d284bd81cd2b",
+      "source": "investing",
+      "title": "FireFly Robotics files for Nasdaq direct listing",
+      "url": "https://www.investing.com/news/company-news/firefly-robotics-files-for-nasdaq-direct-listing-93CH-4937302",
+      "publishedAt": null,
+      "image": "https://content-media.investing.com/news/LYNXMPEM5H10K_1200_L.jpg",
+      "category": "business"
+    },
+    {
+      "id": "12a044bc34d3eea25945",
+      "source": "investing",
+      "title": "Air Products signs deal for LNG-based air separation unit in Malaysia",
+      "url": "https://www.investing.com/news/stock-market-news/air-products-signs-deal-for-lngbased-air-separation-unit-in-malaysia-93CH-4937301",
+      "publishedAt": null,
+      "image": "https://content-media.investing.com/news/LYNXNPEB6U08A_M.jpg",
+      "category": "markets"
+    },
+    {
+      "id": "713a70fb2b33879259a7",
+      "source": "investing",
+      "title": "Jefferies highlights 1.6T transition ahead of OCP Summit",
+      "url": "https://www.investing.com/news/stock-market-news/jefferies-highlights-16t-transition-ahead-of-ocp-summit-93CH-4937300",
+      "publishedAt": null,
+      "image": "https://content-media.investing.com/news/LYNXMPEB1A16P_M.jpg",
+      "category": "markets"
+    },
+    {
+      "id": "520f176158fe958c37c4",
+      "source": "investing",
+      "title": "Earnings call transcript: Netcall posts record FY 2026 growth in H2 2026",
+      "url": "https://www.investing.com/news/transcripts/earnings-call-transcript-netcall-posts-record-fy-2026-growth-in-h2-2026-93CH-4937298",
+      "publishedAt": null,
+      "image": "https://content-media.investing.com/news/moved_LYNXMPEM4416N_1200_L.jpg",
+      "category": "business"
+    },
+    {
+      "id": "52efb841e01166c1a348",
+      "source": "investing",
+      "title": "OPmobility cuts jobs and lowers 2026 targets amid market slump",
+      "url": "https://www.investing.com/news/stock-market-news/opmobility-cuts-jobs-and-lowers-2026-targets-amid-market-slump-93CH-4937295",
+      "publishedAt": null,
+      "image": "https://content-media.investing.com/news/LYNXNPEB7Q0U9_M.jpg",
+      "category": "markets"
+    },
+    {
+      "id": "88cfde9b901f35677c53",
       "source": "investing",
       "title": "World shares, euro slide as high oil prices, fiscal worries linger",
       "url": "https://www.investing.com/news/economy-news/asia-shares-weaker-oil-up-investors-weigh-saudihouthi-escalation-4935555",
       "publishedAt": null,
-      "image": "https://content-media.investing.com/trkd-images/LYNXMPEM9605M_L.jpg"
+      "image": "https://content-media.investing.com/trkd-images/LYNXMPEM9605M_L.jpg",
+      "category": "markets"
     },
     {
-      "id": "e5fa8b99b168606c3d21",
+      "id": "df79033b3f38b32e921f",
       "source": "investing",
       "title": "Deere bull and bear case: recovery priced in at $660",
       "url": "https://www.investing.com/news/stock-market-news/deere-bull-and-bear-case-recovery-priced-in-at-660-93CH-4937288",
       "publishedAt": null,
-      "image": "https://content-media.investing.com/news/LYNXNPEB7J0TJ_M.jpg"
+      "image": "https://content-media.investing.com/news/LYNXNPEB7J0TJ_M.jpg",
+      "category": "markets"
     },
     {
-      "id": "98631ad2c1bddbb89439",
+      "id": "32e2a612b6ced0a706f5",
       "source": "investing",
       "title": "Tropical Storm Isaias forecast to hit US Gulf coast as hurricane early Saturday",
       "url": "https://www.investing.com/news/commodities-news/tropical-stormisaias-forecast-to-hit-us-gulf-coast-as-hurricane-early-saturday-4937254",
       "publishedAt": null,
-      "image": "https://content-media.investing.com/news/oil_2_M_1440047844.jpg"
+      "image": "https://content-media.investing.com/news/oil_2_M_1440047844.jpg",
+      "category": "other"
     },
     {
-      "id": "0b7e0145c321a2db530a",
-      "source": "investing",
-      "title": "Caterpillar bull and bear case: valuation vs. growth story",
-      "url": "https://www.investing.com/news/stock-market-news/caterpillar-bull-and-bear-case-valuation-vs-growth-story-93CH-4937285",
-      "publishedAt": null,
-      "image": "https://content-media.investing.com/news/LYNXMPED301WM_L.jpg"
-    },
-    {
-      "id": "89b3c21514e7c7a8b3cc",
-      "source": "investing",
-      "title": "France to release 10m barrels of diesel from reserves to lower fuel prices",
-      "url": "https://www.investing.com/news/economy-news/france-to-release-10m-barrels-of-diesel-from-reserves-to-lower-fuel-prices-4937284",
-      "publishedAt": null,
-      "image": "https://content-media.investing.com/news/LYNXNPEE9I0TQ_M.jpg"
-    },
-    {
-      "id": "d9fa05c98df87f73500e",
-      "source": "investing",
-      "title": "San Francisco imposes temporary ban on new data centers",
-      "url": "https://www.investing.com/news/stock-market-news/san-francisco-imposes-temporary-ban-on-new-data-centers-4937278",
-      "publishedAt": null,
-      "image": "https://content-media.investing.com/news/LYNXMPEABC01J_M.jpg"
-    },
-    {
-      "id": "5fae238667bc18450c06",
-      "source": "investing",
-      "title": "W P Carey stock hits 52-week low at 63.08 USD",
-      "url": "https://www.investing.com/news/company-news/w-p-carey-stock-hits-52week-low-at-6308-usd-93CH-4937279",
-      "publishedAt": null,
-      "image": "https://content-media.investing.com/news/LYNXMPEM3Q0HO_1200_L.jpg"
-    },
-    {
-      "id": "f11ecb741cfe1474da82",
-      "source": "investing",
-      "title": "Farm equipment stocks after the FTC and USDA joint inquiry: AGCO, Deere and CNH compared",
-      "url": "https://www.investing.com/news/stock-market-news/farm-equipment-stocks-after-the-ftc-and-usda-joint-inquiry-agco-deere-and-cnh-compared-93CH-4937277",
-      "publishedAt": null,
-      "image": "https://content-media.investing.com/news/LYNXMPEDAF0IH_M.jpg"
-    },
-    {
-      "id": "8a07bf80f579d13ce89a",
-      "source": "investing",
-      "title": "Webull stock drops after congressional report flags China ties as security risk",
-      "url": "https://www.investing.com/news/stock-market-news/webull-stock-drops-after-congressional-report-flags-china-ties-as-security-risk-93CH-4937276",
-      "publishedAt": null,
-      "image": "https://content-media.investing.com/news/LYNXMPEM5L113_1200_L.jpg"
-    },
-    {
-      "id": "bf0685fc7626a03dc0c6",
+      "id": "e9cc1e2d7f76d2b3195b",
       "source": "kontan",
       "title": "Produksi & Ekspansi Jadi Penopang Pertamina Geothermal (PGEO), Ini Rekomendasi Analis",
       "url": "https://investasi.kontan.co.id/news/produksi-ekspansi-jadi-penopang-pertamina-geothermal-pgeo-ini-rekomendasi-analis?source=home_headline",
       "publishedAt": null,
-      "image": "https://foto.kontan.co.id/UBHCoSW6uwpZ6XL8VRUa8JpKc2k=/smart/2026/09/21/633726160p.jpg"
+      "image": "https://foto.kontan.co.id/UBHCoSW6uwpZ6XL8VRUa8JpKc2k=/smart/2026/09/21/633726160p.jpg",
+      "category": "other"
     },
     {
-      "id": "9a4f9ccdf0d246d651a7",
+      "id": "3cdd20cfe984ffcafefd",
       "source": "kontan",
       "title": "Apindo: Usulan 45 Jam Kerja Sepekan Hanya untuk Studi Banding",
       "url": "https://industri.kontan.co.id/news/apindo-usulan-45-jam-kerja-sepekan-hanya-untuk-studi-banding?source=home_headline",
       "publishedAt": null,
-      "image": "https://foto.kontan.co.id/5Hdcmp72sLgvxk7OInnjyiMRf5I=/smart/2026/01/29/562880590p.jpg"
+      "image": "https://foto.kontan.co.id/5Hdcmp72sLgvxk7OInnjyiMRf5I=/smart/2026/01/29/562880590p.jpg",
+      "category": "other"
     },
     {
-      "id": "d802bd4d8f0496caa3d9",
+      "id": "87435ba1df45ccfba6e5",
       "source": "kontan",
       "title": "Iran Ancam Tutup Jalur Transit Ilegal di Selat Hormuz",
       "url": "https://internasional.kontan.co.id/news/iran-ancam-tutup-jalur-transit-ilegal-di-selat-hormuz?source=home_headline",
       "publishedAt": null,
-      "image": "https://foto.kontan.co.id/0n8ZLesu6mmPo0PYf5blQq6Hejw=/smart/2026/09/13/1591762545p.jpg"
+      "image": "https://foto.kontan.co.id/0n8ZLesu6mmPo0PYf5blQq6Hejw=/smart/2026/09/13/1591762545p.jpg",
+      "category": "other"
     },
     {
-      "id": "1de4f84b370f141b4a2d",
+      "id": "f6e6b917a79798fd11a6",
       "source": "kontan",
       "title": "BEI Soroti Lonjakan Saham BEKS 31,82%, Bank Banten Buka Suara",
       "url": "https://keuangan.kontan.co.id/news/bei-soroti-lonjakan-saham-beks-3182-bank-banten-buka-suara?source=home_terbaru",
       "publishedAt": null,
-      "image": "https://foto.kontan.co.id/-QaURSqgtn0p-C-jMOWbxUKwML0=/smart/2021/10/06/780394635t.jpg"
+      "image": "https://foto.kontan.co.id/-QaURSqgtn0p-C-jMOWbxUKwML0=/smart/2021/10/06/780394635t.jpg",
+      "category": "markets"
     },
     {
-      "id": "96c72c35ec793540dc5e",
+      "id": "dc0f232b903d6ee04aff",
       "source": "kontan",
       "title": "Prudential Indonesia Catatkan Premi Asuransi Penyakit Kritis Naik 5%",
       "url": "https://keuangan.kontan.co.id/news/prudential-indonesia-catatkan-premi-asuransi-penyakit-kritis-naik-5?source=home_terbaru",
       "publishedAt": null,
-      "image": "https://foto.kontan.co.id/7JoVShjLptH3TUxfek0BFpiz2Y4=/smart/2024/05/27/616886676t.jpg"
+      "image": "https://foto.kontan.co.id/7JoVShjLptH3TUxfek0BFpiz2Y4=/smart/2024/05/27/616886676t.jpg",
+      "category": "other"
     },
     {
-      "id": "291eab2709adc8c1e761",
+      "id": "04a1c5e79590eab52900",
       "source": "kontan",
       "title": "Diastika Biotekindo (CHEK) Gandeng KALGen Innolab, Genomik Jadi Fokus",
       "url": "https://industri.kontan.co.id/news/diastika-biotekindo-chek-gandeng-kalgen-innolab-genomik-jadi-fokus?source=home_terbaru",
       "publishedAt": null,
-      "image": "https://foto.kontan.co.id/-yzuyOFx5260eSJKcoui0n61M_w=/smart/2025/06/23/822836358t.jpg"
+      "image": "https://foto.kontan.co.id/-yzuyOFx5260eSJKcoui0n61M_w=/smart/2025/06/23/822836358t.jpg",
+      "category": "other"
     },
     {
-      "id": "d568727f7b7d5118844f",
+      "id": "7051812352371208a881",
       "source": "kontan",
       "title": "Pertamina Siagakan SPBU di Jalur Menuju Mandalika Jelang Pertamina Grand Prix 2026",
       "url": "https://nasional.kontan.co.id/news/pertamina-siagakan-spbu-di-jalur-menuju-mandalika-jelang-pertamina-grand-prix-2026?source=home_terbaru",
       "publishedAt": null,
-      "image": "https://foto.kontan.co.id/xZ0VJkk3fXolkzSvHlYzZ3NNRvo=/smart/2026/10/07/1357683567t.jpg"
+      "image": "https://foto.kontan.co.id/xZ0VJkk3fXolkzSvHlYzZ3NNRvo=/smart/2026/10/07/1357683567t.jpg",
+      "category": "other"
     },
     {
-      "id": "71700b8a69202fc5e93a",
+      "id": "7e8d1ba41dba9f301e8f",
       "source": "kontan",
       "title": "Wall Street Tertekan, Yield Treasury dan Harga Minyak Kembali Melonjak",
       "url": "https://investasi.kontan.co.id/news/wall-street-tertekan-yield-treasury-dan-harga-minyak-kembali-melonjak?source=home_terbaru",
       "publishedAt": null,
-      "image": "https://foto.kontan.co.id/D27bBxHKNfuLlthx4p0VXNUJxY8=/smart/2026/09/18/1323732390t.jpg"
+      "image": "https://foto.kontan.co.id/D27bBxHKNfuLlthx4p0VXNUJxY8=/smart/2026/09/18/1323732390t.jpg",
+      "category": "markets"
     },
     {
-      "id": "02c3846f9174c2de66a9",
+      "id": "f7584eeb67dee213eb7d",
       "source": "kontan",
       "title": "Kementerian PU Lanjutkan Pemulihan Infrastruktur Pascabencana di Sumatra",
       "url": "https://nasional.kontan.co.id/news/kementerian-pu-lanjutkan-pemulihan-infrastruktur-pascabencana-di-sumatra?source=home_terbaru",
       "publishedAt": null,
-      "image": "https://foto.kontan.co.id/89xVuE1LKvFJYl7OeCcy1BoBzJY=/smart/2025/04/11/224758978t.jpg"
+      "image": "https://foto.kontan.co.id/89xVuE1LKvFJYl7OeCcy1BoBzJY=/smart/2025/04/11/224758978t.jpg",
+      "category": "other"
     },
     {
-      "id": "f217fc6afe23d7be7e29",
+      "id": "b6ee3b9d36d16e055a73",
       "source": "kontan",
       "title": "Produksi & Ekspansi Jadi Penopang Pertamina Geothermal (PGEO), Ini Rekomendasi Analis",
       "url": "https://investasi.kontan.co.id/news/produksi-ekspansi-jadi-penopang-pertamina-geothermal-pgeo-ini-rekomendasi-analis?source=home_terbaru",
       "publishedAt": null,
-      "image": "https://foto.kontan.co.id/qOynzx862gQ4rRLzxq9hTlOwc-A=/smart/2026/09/21/633726160t.jpg"
+      "image": "https://foto.kontan.co.id/qOynzx862gQ4rRLzxq9hTlOwc-A=/smart/2026/09/21/633726160t.jpg",
+      "category": "other"
     },
     {
-      "id": "2f585fe98e5cdf085193",
+      "id": "31537daee70483497bed",
       "source": "kontan",
       "title": "UU Pelindungan Ketenagakerjaan Disahkan, Bagaimana Dampaknya ke Pengusaha dan Buruh?",
       "url": "https://insight.kontan.co.id/news/uu-pelindungan-ketenagakerjaan-disahkan-bagaimana-dampaknya-ke-pengusaha-dan-buruh?source=home_insight",
       "publishedAt": null,
-      "image": "https://foto.kontan.co.id/kPp0Eof25dcDO7iRmwFdknoUR80=/smart/2026/10/06/1668900014p.jpg"
+      "image": "https://foto.kontan.co.id/kPp0Eof25dcDO7iRmwFdknoUR80=/smart/2026/10/06/1668900014p.jpg",
+      "category": "other"
     },
     {
-      "id": "133265fc0f62162ac87d",
+      "id": "830091e21a8b502889c5",
       "source": "kontan",
       "title": "AALI Buyback Rp 400 miliar, Murni Undervalued atau Cuma Pemanis?",
       "url": "https://insight.kontan.co.id/news/aali-buyback-rp-400-miliar-murni-undervalued-atau-cuma-pemanis?source=home_insight",
       "publishedAt": null,
-      "image": "https://foto.kontan.co.id/eFx21ZoHREZyjkGz3svEl7UEfts=/smart/2022/10/19/2069580884p.jpg"
+      "image": "https://foto.kontan.co.id/eFx21ZoHREZyjkGz3svEl7UEfts=/smart/2022/10/19/2069580884p.jpg",
+      "category": "other"
     },
     {
-      "id": "513d3322afddb7efcdea",
+      "id": "9fe22676cf9bb3ff6ab0",
       "source": "kontan",
       "title": "Biar Anak Tidak Kaget saat Mengelola Uang Sendiri",
       "url": "https://insight.kontan.co.id/news/biar-anak-tidak-kaget-saat-mengelola-uang-sendiri?source=home_insight",
       "publishedAt": null,
-      "image": "https://foto.kontan.co.id/2qeQUELa-0KvMX7qMFrJ_pHFwHU=/smart/2023/06/23/286931065p.jpg"
+      "image": "https://foto.kontan.co.id/2qeQUELa-0KvMX7qMFrJ_pHFwHU=/smart/2023/06/23/286931065p.jpg",
+      "category": "other"
     },
     {
-      "id": "69b668f1934a148325b2",
+      "id": "84d0c41a7dfad0e19b22",
       "source": "kontan",
       "title": "Dukung Program 3 Juta Rumah, Lahan Komdigi di Depok Jadi Aset Kementerian PKP",
       "url": "https://nasional.kontan.co.id/news/dukung-program-3-juta-rumah-lahan-komdigi-di-depok-jadi-aset-kementerian-pkp?source=home_terbaru",
       "publishedAt": null,
-      "image": "https://foto.kontan.co.id/ucP8715lX76KQXdtr6XqqqnsP-o=/smart/2026/04/14/781453392t.jpg"
+      "image": "https://foto.kontan.co.id/ucP8715lX76KQXdtr6XqqqnsP-o=/smart/2026/04/14/781453392t.jpg",
+      "category": "other"
     },
     {
-      "id": "62e61847cfa8da4d562f",
+      "id": "f8bccb0e618c7a468f73",
       "source": "kontan",
       "title": "Piutang Syariah MUF Tumbuh 16,4% Jadi Rp8,7 Triliun hingga September 2026",
       "url": "https://keuangan.kontan.co.id/news/piutang-syariah-muf-tumbuh-164-jadi-rp87-triliun-hingga-september-2026?source=home_terbaru",
       "publishedAt": null,
-      "image": "https://foto.kontan.co.id/7ugECLVR5UXgs4LDI6bHb4M80hw=/smart/2025/01/14/2024010912t.jpg"
+      "image": "https://foto.kontan.co.id/7ugECLVR5UXgs4LDI6bHb4M80hw=/smart/2025/01/14/2024010912t.jpg",
+      "category": "other"
     },
     {
-      "id": "496e2554f17f89e89e8d",
+      "id": "cebab8a6937958f96a9f",
       "source": "kontan",
       "title": "Kesiapan Finansial Penting Hadapi Risiko Kesehatan",
       "url": "https://keuangan.kontan.co.id/news/kesiapan-finansial-penting-hadapi-risiko-kesehatan?source=home_terbaru",
       "publishedAt": null,
-      "image": "https://foto.kontan.co.id/n993QfIhHrCpLlyo4R80ntYyLeo=/smart/2024/10/28/134362903t.jpg"
+      "image": "https://foto.kontan.co.id/n993QfIhHrCpLlyo4R80ntYyLeo=/smart/2024/10/28/134362903t.jpg",
+      "category": "other"
     },
     {
-      "id": "f452f76d768ad283b37f",
+      "id": "c88ac1e32e59612c82cf",
       "source": "kontan",
       "title": "Asing Net Sell Jumbo Rp 871 Miliar, Cermati Saham yang Banyak Dijual, Rabu (7/10)",
       "url": "https://investasi.kontan.co.id/news/asing-net-sell-jumbo-rp-871-miliar-cermati-saham-yang-banyak-dijual-rabu-710?source=home_terbaru",
       "publishedAt": null,
-      "image": "https://foto.kontan.co.id/zt9Y6Pj0XV6SoZ93eJ4ihynhZE8=/smart/2026/09/15/128947954t.jpg"
+      "image": "https://foto.kontan.co.id/zt9Y6Pj0XV6SoZ93eJ4ihynhZE8=/smart/2026/09/15/128947954t.jpg",
+      "category": "markets"
     },
     {
-      "id": "9ae2d31550e1b353ac36",
+      "id": "816b5c687443c93c0e62",
       "source": "kontan",
       "title": "Lubrizol Incar Peluang Bisnis dari Transisi Energi Sektor Tambang Indonesia",
       "url": "https://industri.kontan.co.id/news/lubrizol-incar-peluang-bisnis-dari-transisi-energi-sektor-tambang-indonesia?source=home_terbaru",
       "publishedAt": null,
-      "image": "https://foto.kontan.co.id/m1QA8_5qaCjniXf3YLZAmxrYMlg=/smart/2025/07/27/1903960950t.jpg"
+      "image": "https://foto.kontan.co.id/m1QA8_5qaCjniXf3YLZAmxrYMlg=/smart/2025/07/27/1903960950t.jpg",
+      "category": "business"
     },
     {
-      "id": "e22e528d9df3bb5eb38e",
+      "id": "abb1df5486eb9c9fdb42",
       "source": "kontan",
       "title": "Purbaya Masih Rapat, Begini Kronologi Pergantian Menteri Keuangan dan PR Suahasil",
       "url": "https://fokus.kontan.co.id/news/purbaya-masih-rapat-begini-kronologi-pergantian-menteri-keuangan-dan-pr-suahasil?source=home_fokus",
       "publishedAt": null,
-      "image": "https://foto.kontan.co.id/B9iCie-VO2q3RyMurZXsb6N-qkk=/smart/2026/09/14/1408235902p.jpg"
+      "image": "https://foto.kontan.co.id/B9iCie-VO2q3RyMurZXsb6N-qkk=/smart/2026/09/14/1408235902p.jpg",
+      "category": "other"
     },
     {
-      "id": "ff2b3ac770f1e296cd49",
+      "id": "e91f5f266d9f30d51c48",
       "source": "kontan",
       "title": "Debu Vulkanik Anak Krakatau Ganggu Kegiatan Penerbangan, Ekonomi Ikut terdampak",
       "url": "https://fokus.kontan.co.id/news/debu-vulkanik-anak-krakatau-ganggu-kegiatan-penerbangan-ekonomi-ikut-terdampak?source=home_fokus",
       "publishedAt": null,
-      "image": "https://foto.kontan.co.id/hrt8eDRHomSfgeVlthv_sCXy6kA=/smart/2026/09/07/1054789009p.jpg"
+      "image": "https://foto.kontan.co.id/hrt8eDRHomSfgeVlthv_sCXy6kA=/smart/2026/09/07/1054789009p.jpg",
+      "category": "business"
     }
   ]
 }
