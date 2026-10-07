@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "checkedAt": "2026-10-07T17:35:07.887414+00:00",
+  "checkedAt": "2026-10-07T17:55:30.723658+00:00",
   "intervalMinutes": 30,
   "sources": [
     {
@@ -9,7 +9,7 @@
       "url": "https://www.investing.com/",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-07T17:35:06.835853+00:00"
+      "checkedAt": "2026-10-07T17:55:29.736478+00:00"
     },
     {
       "id": "cnbc",
@@ -17,7 +17,7 @@
       "url": "https://www.cnbc.com/markets/",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-07T17:35:06.799278+00:00"
+      "checkedAt": "2026-10-07T17:55:30.590670+00:00"
     },
     {
       "id": "kontan",
@@ -25,7 +25,7 @@
       "url": "https://www.kontan.co.id/",
       "kind": "html",
       "status": "ok",
-      "checkedAt": "2026-10-07T17:35:07.856892+00:00"
+      "checkedAt": "2026-10-07T17:55:30.463142+00:00"
     },
     {
       "id": "reuters",
@@ -33,7 +33,7 @@
       "url": "https://www.reuters.com/",
       "kind": "sitemap",
       "status": "ok",
-      "checkedAt": "2026-10-07T17:35:06.857550+00:00"
+      "checkedAt": "2026-10-07T17:55:29.697728+00:00"
     },
     {
       "id": "aljazeera",
@@ -41,7 +41,7 @@
       "url": "https://www.aljazeera.com/",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-07T17:35:06.812728+00:00"
+      "checkedAt": "2026-10-07T17:55:29.721967+00:00"
     },
     {
       "id": "bloomberg",
@@ -49,7 +49,7 @@
       "url": "https://www.bloomberg.com/asia",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-07T17:35:07.189020+00:00"
+      "checkedAt": "2026-10-07T17:55:29.816836+00:00"
     },
     {
       "id": "fedwatch",
@@ -68,28 +68,188 @@
   ],
   "items": [
     {
-      "id": "c2201db5deb368037cc3",
-      "source": "reuters",
-      "title": "CDC sees low plague risk, monitors Siberia arrivals after worker death, director says",
-      "url": "https://www.reuters.com/business/healthcare-pharmaceuticals/cdc-sees-low-plague-risk-monitors-siberia-arrivals-after-worker-death-director-2026-10-07/",
-      "publishedAt": "2026-10-07T17:30:28.719000+00:00",
+      "id": "ce194b3aeb576181eae9",
+      "source": "bloomberg",
+      "title": "Citi Says Private Equity Hasn’t Slowed Poaching of Bankers",
+      "url": "https://www.bloomberg.com/news/videos/2026-10-07/citi-private-equity-hasn-t-slowed-poaching-of-bankers-video",
+      "publishedAt": "2026-10-07T17:51:13+00:00",
       "image": null
     },
     {
-      "id": "f9277348048f1036312e",
+      "id": "b9b5e2ea5a267cdbb50c",
       "source": "reuters",
-      "title": "Some G20 trade ministers sign US-led statement denouncing excess factory capacity",
-      "url": "https://www.reuters.com/business/some-g20-trade-ministers-sign-us-led-statement-denouncing-excess-factory-2026-10-07/",
-      "publishedAt": "2026-10-07T17:29:04.947000+00:00",
-      "image": null
+      "title": "Is ChatGPT a 'product' or a 'service'? A wave of lawsuits tests a theory of AI liability",
+      "url": "https://www.reuters.com/legal/litigation/is-chatgpt-product-or-service-wave-lawsuits-tests-theory-ai-liability-2026-10-07/",
+      "publishedAt": "2026-10-07T17:50:45.644000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/JXEPMUA5RVPY7BGDIUL5FVGFCI.jpg?auth=ad725e19951cc73aa7684e3088102cc6e233a45463c7aefadd8b1b37f82beaba&smart=true&width=1920"
+    },
+    {
+      "id": "f6b086864a9913646315",
+      "source": "reuters",
+      "title": "France suspends use of stun grenades to police student protests",
+      "url": "https://www.reuters.com/world/europe/france-suspends-use-stun-grenades-police-student-protests-2026-10-07/",
+      "publishedAt": "2026-10-07T17:49:43.871000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/TFWHBXKTNJLKBNXOLKWEE4JGQA.jpg?auth=3940821d2b7e755d903baca15a98b9e3e955eccf6440d5584cea120a01ff341c&smart=true&width=1920"
     },
     {
       "id": "4bb3c30078eac0788ed9",
       "source": "reuters",
       "title": "France to release 10 mln barrels of diesel from stocks, French PM says",
       "url": "https://www.reuters.com/business/energy/france-release-10-mln-barrels-diesel-stocks-french-pm-says-2026-10-07/",
-      "publishedAt": "2026-10-07T17:28:09.558000+00:00",
+      "publishedAt": "2026-10-07T17:49:18.074000+00:00",
       "image": "https://www.reuters.com/resizer/v2/IKEANTVFGFNYBJS3GSLZBW4VDA.jpg?auth=e85a8d779062f557df64397292838917bcf2e4394a1cbe7c4c36b41d4b18eda6&smart=true&width=1920"
+    },
+    {
+      "id": "89d35416ce8204a62a68",
+      "source": "reuters",
+      "title": "Dozens of soldiers, militants and miners killed in Nigeria attacks",
+      "url": "https://www.reuters.com/world/africa/dozens-soldiers-militants-miners-killed-nigeria-attacks-2026-10-07/",
+      "publishedAt": "2026-10-07T17:48:32.938000+00:00",
+      "image": null
+    },
+    {
+      "id": "c516e9f3c41d73fb9755",
+      "source": "reuters",
+      "title": "UPS to hire 100,000 temporary workers for holiday season",
+      "url": "https://www.reuters.com/business/world-at-work/ups-hire-100000-temporary-workers-ahead-peak-holiday-season-2026-10-07/",
+      "publishedAt": "2026-10-07T17:48:19.402000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/Z2WWH7XTEZPYHNTGDEHBOFCFWQ.jpg?auth=85f674e81408c6903c8392cc198841dadddc13e6fbe54cda9bb3c13b4d1b87d2&smart=true&width=1920"
+    },
+    {
+      "id": "2be7530a308c93057f82",
+      "source": "bloomberg",
+      "title": "Unpacking the M&A Slowdown",
+      "url": "https://www.bloomberg.com/news/videos/2026-10-07/unpacking-the-m-a-slowdown-video",
+      "publishedAt": "2026-10-07T17:46:53+00:00",
+      "image": null
+    },
+    {
+      "id": "3be76df7976ded4333b3",
+      "source": "reuters",
+      "title": "Rubio, in Athens, ties ancient values to 'America First'",
+      "url": "https://www.reuters.com/world/us/rubio-link-ancient-greek-values-america-first-speech-athens-2026-10-07/",
+      "publishedAt": "2026-10-07T17:46:09.622000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/4GMVS3NARVMWNAC6JHENUGGCVI.jpg?auth=fba6f3b011602c787f165e7a335e5814b7608da8ce4dce7e0313a5d19a055c19&smart=true&width=1920"
+    },
+    {
+      "id": "4bf9e58cc89f684fe895",
+      "source": "reuters",
+      "title": "OPmobility lowers 2026 targets, to cut 770 jobs in Europe",
+      "url": "https://www.reuters.com/business/opmobility-lowers-2026-targets-cut-770-jobs-europe-2026-10-07/",
+      "publishedAt": "2026-10-07T17:44:27.388000+00:00",
+      "image": null
+    },
+    {
+      "id": "478b462f4b9fdcdd71de",
+      "source": "reuters",
+      "title": "Rahm to leave LIV Golf after three seasons, reports say",
+      "url": "https://www.reuters.com/sports/golf/rahm-leave-liv-golf-after-three-seasons-reports-say-2026-10-07/",
+      "publishedAt": "2026-10-07T17:44:09.842000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/D4RCGVNPARK5BINX5IL4EQLMA4.jpg?auth=c39fa55b46aa845c1d4806055281b1ef28e48314796b8ead4e45a0a36e155ce6&smart=true&width=1920"
+    },
+    {
+      "id": "c49290bddc23c7e403ba",
+      "source": "reuters",
+      "title": "Portugal jumps into top 5 of FIFA world rankings",
+      "url": "https://www.reuters.com/sports/soccer/portugal-jumps-into-top-5-fifa-world-rankings--flm-2026-10-07/",
+      "publishedAt": "2026-10-07T17:43:44.141000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/2NSRCMKL2BN27M5OGPAWKUDDNY.jpg?auth=6f2362529aef481bf0fe59866d8b4c3504a2663e1bfdd89c4ece7fd879de1314&smart=true&width=1920"
+    },
+    {
+      "id": "f9277348048f1036312e",
+      "source": "reuters",
+      "title": "Some G20 trade ministers sign US-led statement denouncing excess factory capacity",
+      "url": "https://www.reuters.com/business/some-g20-trade-ministers-sign-us-led-statement-denouncing-excess-factory-2026-10-07/",
+      "publishedAt": "2026-10-07T17:39:43.852000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/N2HGMZVIXJKXFAVDZ35MY237WI.jpg?auth=f806dd086cbf1b4549be9f17f0b80d39d455e7c922d1a5cef3b5688ae3ac34ad&smart=true&width=1920"
+    },
+    {
+      "id": "f7a27e7cbe987f289b67",
+      "source": "reuters",
+      "title": "Wells Fargo faces potential probe over Black homeownership commitments, WSJ reports",
+      "url": "https://www.reuters.com/business/finance/wells-fargo-faces-regulator-probe-over-efforts-boost-black-homeownership-wsj-2026-10-07/",
+      "publishedAt": "2026-10-07T17:39:28.986000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/S2CHGQQGBVN3DK2DIYAUXJY5CI.jpg?auth=e40b015bdda1339ef3594fa9fd8dae124dfeb90378953beb44c757bea7de20c4&smart=true&width=1920"
+    },
+    {
+      "id": "185acac64465cb9ff4d8",
+      "source": "bloomberg",
+      "title": "SEC Warns Activist Investors After Climate Push at Exxon Mobil",
+      "url": "https://www.bloomberg.com/news/articles/2026-10-07/sec-warns-activist-investors-after-climate-push-at-exxon-mobil",
+      "publishedAt": "2026-10-07T17:39:04+00:00",
+      "image": null
+    },
+    {
+      "id": "c2201db5deb368037cc3",
+      "source": "reuters",
+      "title": "CDC sees low plague risk, monitors Siberia arrivals after worker death, director says",
+      "url": "https://www.reuters.com/business/healthcare-pharmaceuticals/cdc-sees-low-plague-risk-monitors-siberia-arrivals-after-worker-death-director-2026-10-07/",
+      "publishedAt": "2026-10-07T17:38:37.447000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/E73RUJPT6VMYLMJDCZFEUJAXVU.jpg?auth=bb42700be445dc25b9b7c8dfc56ef12c8cb34ae78d162389c29a4af574f22727&smart=true&width=1920"
+    },
+    {
+      "id": "3251f15b7ea42118bdfe",
+      "source": "reuters",
+      "title": "South Korea denies Ukrainian report that it eased Russia's fuel crisis",
+      "url": "https://www.reuters.com/business/energy/south-korea-denies-ukrainian-report-that-it-eased-russias-fuel-crisis-2026-10-07/",
+      "publishedAt": "2026-10-07T17:37:45.852000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/O6OJQ7VG7JMSJDOV5A4ZJ7FW6A.jpg?auth=feeb146b0b121ed2cec1155f076a059056f1c12e4649e5a7dc28d4e84a07fe6d&smart=true&width=1920"
+    },
+    {
+      "id": "44391158cfb7533d5e59",
+      "source": "reuters",
+      "title": "Taiwan's US envoy says ties robust after Trump-Xi summit",
+      "url": "https://www.reuters.com/world/china/taiwans-us-envoy-says-ties-robust-after-trump-xi-summit-2026-10-07/",
+      "publishedAt": "2026-10-07T17:36:30.866000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/H43QF3TUVNNHNE5J2DI4AZLMY4.jpg?auth=15ff8f2afe50780bd303c49f038e08854560365f0800215511b2afb04b214aeb&smart=true&width=1920"
+    },
+    {
+      "id": "e9fdeb85634d8ea40c31",
+      "source": "reuters",
+      "title": "UK's Aberdeen to halve Standard Life stake to about 5.2%",
+      "url": "https://www.reuters.com/legal/transactional/uks-aberdeen-halve-standard-life-stake-about-52-2026-10-07/",
+      "publishedAt": "2026-10-07T17:35:51.183000+00:00",
+      "image": null
+    },
+    {
+      "id": "dfae2f57ac3ed85f1e7c",
+      "source": "reuters",
+      "title": "World shares, euro slide as high oil prices, fiscal worries linger",
+      "url": "https://www.reuters.com/world/china/global-markets-global-markets-2026-10-07/",
+      "publishedAt": "2026-10-07T17:34:37.565000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/3GFJ422VYFM57ITJ3ITNOMKR5M.jpg?auth=0848b32097ef35a1df49aa1d8f5a8173cafc6080b02e74a83ecc66b47b3fb36a&smart=true&width=1920"
+    },
+    {
+      "id": "05d695ef1bf95e64c0aa",
+      "source": "bloomberg",
+      "title": "US Bonds Rise as Yields at 2002 High Lures Buyers at Auction",
+      "url": "https://www.bloomberg.com/news/articles/2026-10-07/us-bonds-rise-as-yields-at-2002-high-lures-buyers-at-auction",
+      "publishedAt": "2026-10-07T17:32:18+00:00",
+      "image": null
+    },
+    {
+      "id": "1b81404750699f06d977",
+      "source": "reuters",
+      "title": "Tropical Storm Isaias forecast to hit US Gulf coast as hurricane early Saturday",
+      "url": "https://www.reuters.com/business/environment/tropical-storm-isaias-forecast-hit-us-gulf-coast-hurricane-early-saturday-2026-10-07/",
+      "publishedAt": "2026-10-07T17:32:09.728000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/4L6RT2JHOFLCTN4BUVYRJCYH4Y.jpg?auth=056b8c22369445933f417bfe033138f9e84328d2d9a4ca11f0c593345f9b64bc&smart=true&width=1920"
+    },
+    {
+      "id": "ec9404ea0f9d14c9965a",
+      "source": "bloomberg",
+      "title": "Canada Reviews Foreign Homebuyers Ban as 2027 Expiry Approaches",
+      "url": "https://www.bloomberg.com/news/articles/2026-10-07/canada-reviews-foreign-homebuyers-ban-as-2027-expiry-approaches",
+      "publishedAt": "2026-10-07T17:31:56+00:00",
+      "image": null
+    },
+    {
+      "id": "4e5b034f89fa299676f4",
+      "source": "reuters",
+      "title": "Webull sinks after CNBC reports US House panel flagged China ties",
+      "url": "https://www.reuters.com/world/asia-pacific/webull-sinks-after-cnbc-reports-us-house-panel-flagged-china-ties-2026-10-07/",
+      "publishedAt": "2026-10-07T17:31:11.626000+00:00",
+      "image": null
     },
     {
       "id": "34d4822fb1cba5abd9cb",
@@ -116,52 +276,12 @@
       "image": null
     },
     {
-      "id": "ce5e4aae795ae95c358b",
-      "source": "reuters",
-      "title": "African Union launches continent's first credit rating agency",
-      "url": "https://www.reuters.com/world/africa/african-union-launch-continents-first-credit-rating-agency-2026-10-07/",
-      "publishedAt": "2026-10-07T17:21:51.846000+00:00",
-      "image": "https://www.reuters.com/resizer/v2/DXR5GBVEABOZVNGWDDYAV6XW6I.jpg?auth=0a23f29b2738280320efba9477e8fecd3dad117bc721b1f8da07832bd36bd6fa&smart=true&width=1920"
-    },
-    {
-      "id": "24a2d6d01cd13cb50427",
-      "source": "reuters",
-      "title": "FireFly Robotics files for Nasdaq direct listing",
-      "url": "https://www.reuters.com/business/firefly-robotics-files-nasdaq-direct-listing-2026-10-07/",
-      "publishedAt": "2026-10-07T17:21:43.714000+00:00",
-      "image": "https://www.reuters.com/resizer/v2/5I4QERQ4HFJE7ESTEB4PX3LCDY.jpg?auth=4839aa9e54a1ba84009b3b9300a217f228520cc33e065cde0fc32e435a3c95c5&smart=true&width=1920"
-    },
-    {
-      "id": "b6cfca342cac545745e5",
-      "source": "reuters",
-      "title": "Priceline to face FTC action over deceptive hotel ads, sources say",
-      "url": "https://www.reuters.com/world/priceline-owner-face-ftc-action-over-affiliates-hotel-ads-sources-say-2026-10-07/",
-      "publishedAt": "2026-10-07T17:20:58.025000+00:00",
-      "image": "https://www.reuters.com/resizer/v2/BGI6ZTJRONL2NCWCD7WGXW2GAE.jpg?auth=cbf290238f6cb6a7cae56fabbbeed2f48c98ef91a2e35817b9ea20c031dd2e73&smart=true&width=1920"
-    },
-    {
       "id": "04b86374f6f2709893dc",
       "source": "cnbc",
       "title": "Meta's Muse assistant tops app charts. Now it needs to become a habit",
       "url": "https://www.cnbc.com/2026/10/07/meta-muse-personal-ai-agents-dazzle.html",
       "publishedAt": "2026-10-07T17:20:12+00:00",
       "image": "https://image.cnbcfm.com/api/v1/image/108367520-1790264014969-gettyimages-2296209074-META_CONNECT.jpeg?v=1790264039&w=1920&h=1080"
-    },
-    {
-      "id": "155c716c48ec4e0efdaa",
-      "source": "reuters",
-      "title": "Florida asks court to force Meta to change Facebook, Instagram for teens",
-      "url": "https://www.reuters.com/world/us/florida-asks-court-force-meta-change-facebook-instagram-teens-2026-10-07/",
-      "publishedAt": "2026-10-07T17:19:41.290000+00:00",
-      "image": "https://www.reuters.com/resizer/v2/ZW36RUINW5PODPMPYDWCN75D6A.jpg?auth=90693353fb00e8b1a5ca079a7df4ec05436f00e00e598b2837d5dfe1a44977cc&smart=true&width=1920"
-    },
-    {
-      "id": "bfe6b8ada26721e46378",
-      "source": "reuters",
-      "title": "Costa Rica's Grynspan ahead in race to be next UN chief, sources say",
-      "url": "https://www.reuters.com/world/americas/costa-ricas-grynspan-ahead-race-be-next-un-chief-sources-say-2026-10-07/",
-      "publishedAt": "2026-10-07T17:17:23.189000+00:00",
-      "image": "https://www.reuters.com/resizer/v2/OZSW5HCNP5PZ5IOXVQPDSG4CVQ.jpg?auth=d0aa93f5f6281518f842a45cd755380a046b4471e96e9816b1df2a6ea4a2afee&smart=true&width=1920"
     },
     {
       "id": "c6cf0341ce3ed1c3d2e2",
@@ -172,14 +292,6 @@
       "image": "https://image.cnbcfm.com/api/v1/image/108373796-1791360823662-gettyimages-2297901439-AFP_C9W887L.jpeg?v=1791360836&w=1920&h=1080"
     },
     {
-      "id": "03af650e2b12381951d4",
-      "source": "reuters",
-      "title": "Mexico enacts reform barring dual citizens from presidency",
-      "url": "https://www.reuters.com/world/americas/mexico-enacts-reform-barring-dual-citizens-presidency-2026-10-07/",
-      "publishedAt": "2026-10-07T17:15:43.614000+00:00",
-      "image": "https://www.reuters.com/resizer/v2/URIUJK5BLBIYFNWDX25X5WIDUY.jpg?auth=5b1ed7fd9f5e3c6076b7e693651f31503590dfedb511c10d3a1365bd49a8f778&smart=true&width=1920"
-    },
-    {
       "id": "18f2236ff40757b26840",
       "source": "bloomberg",
       "title": "Tropical Storm Isaias Could Turn Into Cat 2 Hurricane",
@@ -188,83 +300,11 @@
       "image": null
     },
     {
-      "id": "dba0aabe404f8cf7cc49",
-      "source": "reuters",
-      "title": "China rejects EU request for voluntary hybrid car export curbs, FT reports",
-      "url": "https://www.reuters.com/world/china/china-rejects-eu-request-voluntary-hybrid-car-export-curbs-ft-reports-2026-10-07/",
-      "publishedAt": "2026-10-07T17:11:44.958000+00:00",
-      "image": "https://www.reuters.com/resizer/v2/GY4YWDMFXRMJJI7SQT6S44YMYM.jpg?auth=87bcab8b92b11bade3760c57869adf5a8ed8773b34a073e899eeb87fbcb19934&smart=true&width=1920"
-    },
-    {
-      "id": "768349e568b68a99eae4",
-      "source": "reuters",
-      "title": "Christa Pike's lawyers demand to see syringes, drug residue from botched execution",
-      "url": "https://www.reuters.com/legal/government/christa-pikes-lawyers-demand-see-syringes-drug-residue-botched-execution-2026-10-07/",
-      "publishedAt": "2026-10-07T17:11:44.256000+00:00",
-      "image": "https://www.reuters.com/resizer/v2/NSXAWEGU2NNSVKHNDTN5L5EOPY.jpg?auth=9a03f8a6d4165a5ff0519a99d28fc546b163c1ddd9217cd53128841277f3ca51&smart=true&width=1920"
-    },
-    {
-      "id": "a8f6bc6f2216d1bef7c1",
-      "source": "reuters",
-      "title": "Israelis mark three years since October 7 as Palestinians mourn Gaza's destruction",
-      "url": "https://www.reuters.com/world/middle-east/israelis-mark-three-years-since-hamas-attack-that-set-off-gaza-assault-2026-10-07/",
-      "publishedAt": "2026-10-07T17:11:19.794000+00:00",
-      "image": "https://www.reuters.com/resizer/v2/YXLHGZRYRFPWJDL6WRYDJA5IUQ.jpg?auth=34d687dab6a4d723fe35d9e329dec4e742fa1b02f4c31e3c6501c1e748cd36bc&smart=true&width=1920"
-    },
-    {
-      "id": "0e16da0e31072666711f",
-      "source": "reuters",
-      "title": "Elon Musk readies his signature gambit at SpaceX",
-      "url": "https://www.reuters.com/commentary/breakingviews/elon-musk-readies-his-signature-gambit-spacex-2026-10-07/",
-      "publishedAt": "2026-10-07T17:11:04.572000+00:00",
-      "image": "https://www.reuters.com/resizer/v2/J7QLSSQKZVPZPKHJQAYE6XXHNU.jpg?auth=328fc2f8863469b92584c816457680367bb591fb6232d4cedbc502bcdfa55966&smart=true&width=1920"
-    },
-    {
       "id": "e65b574d274854e96b05",
       "source": "bloomberg",
       "title": "Disney Confirms That Disney+ Will Stream The 2027 Super Bowl",
       "url": "https://www.bloomberg.com/news/videos/2026-10-07/disney-confirms-that-disney-will-stream-2027-super-bowl-video",
       "publishedAt": "2026-10-07T17:10:39+00:00",
-      "image": null
-    },
-    {
-      "id": "346a8b6f84e50f7b503d",
-      "source": "reuters",
-      "title": "Canada to exclude mental illness as sole reason for euthanasia",
-      "url": "https://www.reuters.com/legal/litigation/canada-exclude-mental-illness-sole-reason-euthanasia-2026-10-07/",
-      "publishedAt": "2026-10-07T17:09:47.215000+00:00",
-      "image": "https://www.reuters.com/resizer/v2/C2RX3GKZIJPTBO6ZEHZ6ZU3M3E.jpg?auth=7af3d53d0661c7fcb3d261d7bc03de0b6ca5673971a51ef069350a2840616841&smart=true&width=1920"
-    },
-    {
-      "id": "eeb83e716808fa815d27",
-      "source": "reuters",
-      "title": "Pharma lobby sues Trump administration over Medicare drug price cuts",
-      "url": "https://www.reuters.com/legal/litigation/pharmaceutical-trade-group-sues-trump-administration-2026-10-07/",
-      "publishedAt": "2026-10-07T17:08:33.792000+00:00",
-      "image": "https://www.reuters.com/resizer/v2/7QPYM5B2ORMA7APDKJWQOLCSZU.jpg?auth=93b7d945c1518db07a3d0f4e9fca8ff4c956b52aa90b13c2d91d7b5066011a32&smart=true&width=1920"
-    },
-    {
-      "id": "00a486d2f1f880f41901",
-      "source": "reuters",
-      "title": "Wildfire ash turns Spanish mountain river black, contaminating water supply",
-      "url": "https://www.reuters.com/business/environment/wildfire-ash-turns-spanish-mountain-river-black-contaminating-water-supply-2026-10-07/",
-      "publishedAt": "2026-10-07T17:07:52.251000+00:00",
-      "image": "https://www.reuters.com/resizer/v2/S4LOKHMQTNND5JM6VF5DRGHCW4.jpg?auth=92f9640e439b5d7fe7ab221032e3b9b4bf288bfcb010f3bd01a1e79b97b6a648&smart=true&width=1920"
-    },
-    {
-      "id": "7ede0ae8df21d34eb61a",
-      "source": "reuters",
-      "title": "US SEC will not pursue charges against climate group, warns of disclosure obligations",
-      "url": "https://www.reuters.com/legal/government/us-sec-will-not-pursue-charges-against-climate-group-warns-disclosure-2026-10-07/",
-      "publishedAt": "2026-10-07T17:07:44.418000+00:00",
-      "image": "https://www.reuters.com/resizer/v2/V6S6NAWGL5NVVFQ5EQVUTBMSMA.jpg?auth=7b42ea25f19624ab4e2604fc50cde8096d8baec730be00fe6e49c1b92252cb48&smart=true&width=1920"
-    },
-    {
-      "id": "1b81404750699f06d977",
-      "source": "reuters",
-      "title": "Tropical Storm Isaias forecast to hit US Gulf coast as hurricane early Saturday",
-      "url": "https://www.reuters.com/business/environment/tropical-storm-isaias-forecast-hit-us-gulf-coast-hurricane-early-saturday-2026-10-07/",
-      "publishedAt": "2026-10-07T17:06:29.296000+00:00",
       "image": null
     },
     {
@@ -404,44 +444,12 @@
       "image": "https://image.cnbcfm.com/api/v1/image/108315139-17804039612026-06-02t070118z_611004174_rc2jlla6px5v_rtrmadp_0_computex-intel.jpeg?v=1780403995&w=1920&h=1080"
     },
     {
-      "id": "2bb535887b7e13ad1b58",
-      "source": "bloomberg",
-      "title": "Constellation Brands Down on Earnings; Intel Up on Terafab | Stock Movers",
-      "url": "https://www.bloomberg.com/news/videos/2026-10-07/constellation-brands-earnings-intel-up-on-terafab-video",
-      "publishedAt": "2026-10-07T15:34:08+00:00",
-      "image": null
-    },
-    {
-      "id": "8c0b18e4e7b5a569a390",
-      "source": "bloomberg",
-      "title": "From Goldman to BofA, Strategists Try to Call Peak Bond Yields",
-      "url": "https://www.bloomberg.com/news/articles/2026-10-07/from-goldman-to-bofa-strategists-try-to-call-peak-bond-yields",
-      "publishedAt": "2026-10-07T15:30:00+00:00",
-      "image": null
-    },
-    {
-      "id": "66a158a972ea9ea5f4c0",
-      "source": "bloomberg",
-      "title": "Oil Prices Rise as Flows Through Hormuz Increase",
-      "url": "https://www.bloomberg.com/news/videos/2026-10-07/oil-prices-rise-as-flows-through-hormuz-increase-video",
-      "publishedAt": "2026-10-07T15:28:05+00:00",
-      "image": null
-    },
-    {
       "id": "3ad7df659869e3b36386",
       "source": "aljazeera",
       "title": "The mass killing does not mean Israel’s winning",
       "url": "https://www.aljazeera.com/opinions/2026/10/7/the-mass-killing-does-not-mean-israels-winning?traffic_source=rss",
       "publishedAt": "2026-10-07T15:25:06+00:00",
       "image": "https://www.aljazeera.com/wp-content/uploads/2026/06/getty_6a1ffd2d48-1780481325.jpg?resize=1920%2C1440"
-    },
-    {
-      "id": "7a4bf92a740d51da00ae",
-      "source": "bloomberg",
-      "title": "Global Bond Yields Weigh on Stocks After Reaching New All-Time Highs",
-      "url": "https://www.bloomberg.com/news/videos/2026-10-07/bloomberg-surveillance-10-7-2026-video",
-      "publishedAt": "2026-10-07T15:24:03+00:00",
-      "image": null
     },
     {
       "id": "12e57017508cf061c372",
@@ -482,14 +490,6 @@
       "url": "https://www.aljazeera.com/news/2026/10/7/millions-of-pakistanis-get-government-fuel-relief-but-some-miss-out?traffic_source=rss",
       "publishedAt": "2026-10-07T14:02:40+00:00",
       "image": "https://www.aljazeera.com/wp-content/uploads/2026/10/2026-09-16T215240Z_1506421248_RC2IKNAE0RRX_RTRMADP_3_IRAN-CRISIS-SOUTHASIA-ENERGY-1791364869.jpg?resize=1920%2C1440"
-    },
-    {
-      "id": "b3bd529f98cbe67fed5a",
-      "source": "bloomberg",
-      "title": "Syria Eyes Doubling Oil Output in a Year as Investors Return",
-      "url": "https://www.bloomberg.com/news/articles/2026-10-07/syria-plans-to-double-oil-output-in-a-year-as-investors-return",
-      "publishedAt": "2026-10-07T14:02:18+00:00",
-      "image": null
     },
     {
       "id": "848e8ccd118e9e0d613e",
@@ -554,6 +554,14 @@
       "url": "https://www.cnbc.com/2026/10/07/french-student-protests-budget-deadlock.html",
       "publishedAt": "2026-10-07T13:23:31+00:00",
       "image": "https://image.cnbcfm.com/api/v1/image/108210403-1760076268432-gettyimages-2239147271-AFP_77U3372.jpeg?v=1760076286&w=1920&h=1080"
+    },
+    {
+      "id": "0dd056c941f051b805d2",
+      "source": "bloomberg",
+      "title": "Kalshi Proposes Oil Contract With 10-Year Expiry",
+      "url": "https://www.bloomberg.com/news/articles/2026-10-07/kalshi-files-proposal-for-never-expiring-oil-contract-with-cftc",
+      "publishedAt": "2026-10-07T13:10:46+00:00",
+      "image": null
     },
     {
       "id": "0e1c390c371c2958a51c",
@@ -700,12 +708,44 @@
       "image": null
     },
     {
-      "id": "ee1814fcd53373a0cdd9",
-      "source": "bloomberg",
-      "title": "Latest Oil Market News and Analysis for Oct. 7",
-      "url": "https://www.bloomberg.com/news/articles/2026-10-06/latest-oil-market-news-and-analysis-for-oct-7",
-      "publishedAt": "2026-10-06T22:02:47+00:00",
-      "image": null
+      "id": "2610cc0d103ae25382b8",
+      "source": "investing",
+      "title": "World shares, euro slide as high oil prices, fiscal worries linger",
+      "url": "https://www.investing.com/news/economy-news/asia-shares-weaker-oil-up-investors-weigh-saudihouthi-escalation-4935555",
+      "publishedAt": null,
+      "image": "https://content-media.investing.com/trkd-images/LYNXMPEM9605M_L.jpg"
+    },
+    {
+      "id": "e5fa8b99b168606c3d21",
+      "source": "investing",
+      "title": "Deere bull and bear case: recovery priced in at $660",
+      "url": "https://www.investing.com/news/stock-market-news/deere-bull-and-bear-case-recovery-priced-in-at-660-93CH-4937288",
+      "publishedAt": null,
+      "image": "https://content-media.investing.com/news/LYNXNPEB7J0TJ_M.jpg"
+    },
+    {
+      "id": "98631ad2c1bddbb89439",
+      "source": "investing",
+      "title": "Tropical Storm Isaias forecast to hit US Gulf coast as hurricane early Saturday",
+      "url": "https://www.investing.com/news/commodities-news/tropical-stormisaias-forecast-to-hit-us-gulf-coast-as-hurricane-early-saturday-4937254",
+      "publishedAt": null,
+      "image": "https://content-media.investing.com/news/oil_2_M_1440047844.jpg"
+    },
+    {
+      "id": "0b7e0145c321a2db530a",
+      "source": "investing",
+      "title": "Caterpillar bull and bear case: valuation vs. growth story",
+      "url": "https://www.investing.com/news/stock-market-news/caterpillar-bull-and-bear-case-valuation-vs-growth-story-93CH-4937285",
+      "publishedAt": null,
+      "image": "https://content-media.investing.com/news/LYNXMPED301WM_L.jpg"
+    },
+    {
+      "id": "89b3c21514e7c7a8b3cc",
+      "source": "investing",
+      "title": "France to release 10m barrels of diesel from reserves to lower fuel prices",
+      "url": "https://www.investing.com/news/economy-news/france-to-release-10m-barrels-of-diesel-from-reserves-to-lower-fuel-prices-4937284",
+      "publishedAt": null,
+      "image": "https://content-media.investing.com/news/LYNXNPEE9I0TQ_M.jpg"
     },
     {
       "id": "d9fa05c98df87f73500e",
@@ -738,54 +778,6 @@
       "url": "https://www.investing.com/news/stock-market-news/webull-stock-drops-after-congressional-report-flags-china-ties-as-security-risk-93CH-4937276",
       "publishedAt": null,
       "image": "https://content-media.investing.com/news/LYNXMPEM5L113_1200_L.jpg"
-    },
-    {
-      "id": "71f44684ce009ab9bf63",
-      "source": "investing",
-      "title": "FireFly Robotics files for Nasdaq direct listing",
-      "url": "https://www.investing.com/news/stock-market-news/firefly-robotics-files-for-nasdaq-direct-listing-4937275",
-      "publishedAt": null,
-      "image": "https://content-media.investing.com/trkd-images/LYNXMPEM961PB_L.jpg"
-    },
-    {
-      "id": "120a464ab57d62b7f856",
-      "source": "investing",
-      "title": "GigaCloud Technology Inc stock reaches 52-week high at $56.37",
-      "url": "https://www.investing.com/news/company-news/gigacloud-technology-inc-stock-reaches-52week-high-at-5637-93CH-4937274",
-      "publishedAt": null,
-      "image": "https://content-media.investing.com/news/LYNXMPEM3F1FY_1200_L.jpg"
-    },
-    {
-      "id": "ad68dadd7d20adf070b0",
-      "source": "investing",
-      "title": "Evercore ISI reiterates Arista Networks stock rating on AI networking expansion",
-      "url": "https://www.investing.com/news/analyst-ratings/evercore-isi-reiterates-arista-networks-stock-rating-on-ai-networking-expansion-93CH-4937273",
-      "publishedAt": null,
-      "image": "https://content-media.investing.com/news/moved_LYNXMPEM450ND_1200_L.jpg"
-    },
-    {
-      "id": "d9cc3287550ff6392b9a",
-      "source": "investing",
-      "title": "Yum Brands vs Restaurant Brands International: a valuation and pairs trade comparison",
-      "url": "https://www.investing.com/news/stock-market-news/yum-brands-vs-restaurant-brands-international-a-valuation-and-pairs-trade-comparison-93CH-4937272",
-      "publishedAt": null,
-      "image": "https://content-media.investing.com/news/moved_LYNXMPELA30NK_L.jpg"
-    },
-    {
-      "id": "2690c242588b691b1144",
-      "source": "investing",
-      "title": "Cruise sector outlook: Carnival, Royal Caribbean and Norwegian compared",
-      "url": "https://www.investing.com/news/stock-market-news/cruise-sector-outlook-carnival-royal-caribbean-and-norwegian-compared-93CH-4937271",
-      "publishedAt": null,
-      "image": "https://content-media.investing.com/news/RoyalCaribbean_800x533_L_1598327283.jpg"
-    },
-    {
-      "id": "e821fde1f791379488f1",
-      "source": "investing",
-      "title": "Applied Digital earnings preview: loss expected as market discounts beat streak",
-      "url": "https://www.investing.com/news/stock-market-news/applied-digital-earnings-preview-loss-expected-as-market-discounts-beat-streak-93CH-4937270",
-      "publishedAt": null,
-      "image": "https://content-media.investing.com/news/LYNXNPEC0K08U_M.jpg"
     },
     {
       "id": "bf0685fc7626a03dc0c6",
