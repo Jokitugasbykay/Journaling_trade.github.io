@@ -3214,3 +3214,23 @@
 @media (min-width: 769px) {
   .landing-hero { min-height: calc(100svh - 96px); }
 }
+
+@media (max-width: 768px) {
+  .navbar { display: grid; grid-template-columns: minmax(0, 1fr) auto; height: auto; min-height: 108px; gap: 8px 10px; padding: 10px 16px 0; }
+  .navbar-left { display: contents; }
+  .brand-logo { grid-column: 1; grid-row: 1; min-width: 0; }
+  .brand-name { font-size: 14px; }
+  .navbar-right { grid-column: 2; grid-row: 1; height: 44px; gap: 8px; margin-left: 0; }
+  .nav-btn-masuk, .nav-btn-coba { min-height: 44px; padding: 10px 12px; font-size: 12px; }
+  .nav-tabs { grid-column: 1 / -1; grid-row: 2; width: 100%; min-width: 0; height: 44px; gap: 16px; padding: 0; overflow-x: auto; overscroll-behavior-x: contain; }
+  .nav-tab { flex: 0 0 auto; min-height: 44px; padding: 10px 2px; font-size: 13px; border-bottom: 2px solid transparent; }
+  .nav-tab.active { border-bottom-color: currentColor; }
+  .main-wrap { padding: 20px 20px 40px; }
+  .landing-hero { min-height: calc(100svh - 128px); padding: 40px 0 48px; }
+  .landing-intro h1 { max-width: 330px; margin: 0 auto; font-size: clamp(28px, 7.5vw, 34px); line-height: 1.22; letter-spacing: -.04em; text-wrap: balance; }
+  .landing-lead { max-width: 320px; margin: 24px auto 0; font-size: 16px; line-height: 1.75; text-wrap: pretty; }
+  .landing-actions { display: grid; grid-template-columns: 1fr; gap: 12px; max-width: 360px; margin: 28px auto 0; }
+  .landing-actions .btn { width: 100%; min-height: 48px; }
+  .landing-hint { max-width: 320px; margin: 20px auto 0; font-size: 13px; line-height: 1.65; text-wrap: balance; }
+  .learning-guide h2 { font-size: clamp(25px, 6.6vw, 32px); line-height: 1.3; text-wrap: balance; }
+}
