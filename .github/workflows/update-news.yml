@@ -15,7 +15,7 @@ concurrency:
 jobs:
   update:
     runs-on: ubuntu-latest
-    timeout-minutes: 5
+    timeout-minutes: 15
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
@@ -33,6 +33,7 @@ jobs:
           git add berita.json
           if ! git diff --cached --quiet; then
             git commit -m 'Refresh publisher headlines'
+            git pull --rebase origin main
             git push origin HEAD:main
           fi
       - name: Prepare website
