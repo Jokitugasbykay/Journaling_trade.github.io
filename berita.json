@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "checkedAt": "2026-10-07T17:29:11.885873+00:00",
+  "checkedAt": "2026-10-07T17:35:07.887414+00:00",
   "intervalMinutes": 30,
   "sources": [
     {
@@ -9,7 +9,7 @@
       "url": "https://www.investing.com/",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-07T17:29:10.935113+00:00"
+      "checkedAt": "2026-10-07T17:35:06.835853+00:00"
     },
     {
       "id": "cnbc",
@@ -17,7 +17,7 @@
       "url": "https://www.cnbc.com/markets/",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-07T17:29:10.867646+00:00"
+      "checkedAt": "2026-10-07T17:35:06.799278+00:00"
     },
     {
       "id": "kontan",
@@ -25,7 +25,7 @@
       "url": "https://www.kontan.co.id/",
       "kind": "html",
       "status": "ok",
-      "checkedAt": "2026-10-07T17:29:11.816387+00:00"
+      "checkedAt": "2026-10-07T17:35:07.856892+00:00"
     },
     {
       "id": "reuters",
@@ -33,7 +33,7 @@
       "url": "https://www.reuters.com/",
       "kind": "sitemap",
       "status": "ok",
-      "checkedAt": "2026-10-07T17:29:10.989802+00:00"
+      "checkedAt": "2026-10-07T17:35:06.857550+00:00"
     },
     {
       "id": "aljazeera",
@@ -41,7 +41,7 @@
       "url": "https://www.aljazeera.com/",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-07T17:29:11.000873+00:00"
+      "checkedAt": "2026-10-07T17:35:06.812728+00:00"
     },
     {
       "id": "bloomberg",
@@ -49,7 +49,7 @@
       "url": "https://www.bloomberg.com/asia",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-07T17:29:11.133710+00:00"
+      "checkedAt": "2026-10-07T17:35:07.189020+00:00"
     },
     {
       "id": "fedwatch",
@@ -68,12 +68,44 @@
   ],
   "items": [
     {
+      "id": "c2201db5deb368037cc3",
+      "source": "reuters",
+      "title": "CDC sees low plague risk, monitors Siberia arrivals after worker death, director says",
+      "url": "https://www.reuters.com/business/healthcare-pharmaceuticals/cdc-sees-low-plague-risk-monitors-siberia-arrivals-after-worker-death-director-2026-10-07/",
+      "publishedAt": "2026-10-07T17:30:28.719000+00:00",
+      "image": null
+    },
+    {
+      "id": "f9277348048f1036312e",
+      "source": "reuters",
+      "title": "Some G20 trade ministers sign US-led statement denouncing excess factory capacity",
+      "url": "https://www.reuters.com/business/some-g20-trade-ministers-sign-us-led-statement-denouncing-excess-factory-2026-10-07/",
+      "publishedAt": "2026-10-07T17:29:04.947000+00:00",
+      "image": null
+    },
+    {
+      "id": "4bb3c30078eac0788ed9",
+      "source": "reuters",
+      "title": "France to release 10 mln barrels of diesel from stocks, French PM says",
+      "url": "https://www.reuters.com/business/energy/france-release-10-mln-barrels-diesel-stocks-french-pm-says-2026-10-07/",
+      "publishedAt": "2026-10-07T17:28:09.558000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/IKEANTVFGFNYBJS3GSLZBW4VDA.jpg?auth=e85a8d779062f557df64397292838917bcf2e4394a1cbe7c4c36b41d4b18eda6&smart=true&width=1920"
+    },
+    {
       "id": "34d4822fb1cba5abd9cb",
       "source": "cnbc",
       "title": "10-year Treasury yield falls from 24-year high after solid bond auction eases demand fears",
       "url": "https://www.cnbc.com/2026/10/07/treasury-yields-auction-fomc-minutes.html",
       "publishedAt": "2026-10-07T17:27:34+00:00",
       "image": "https://image.cnbcfm.com/api/v1/image/108363665-1789568651170-gettyimages-2295586459-mms19512_dnx4op25.jpeg?v=1789568741&w=1920&h=1080"
+    },
+    {
+      "id": "f8967fdeeb91758f58ed",
+      "source": "reuters",
+      "title": "Former Spurs defender Vega declares intention to run against Infantino",
+      "url": "https://www.reuters.com/sports/soccer/former-spurs-defender-vega-declares-intention-run-against-infantino-2026-10-07/",
+      "publishedAt": "2026-10-07T17:27:16.440000+00:00",
+      "image": null
     },
     {
       "id": "29b79575fc9d0a3f125d",
@@ -242,38 +274,6 @@
       "url": "https://www.aljazeera.com/economy/2026/10/7/us-mortgage-rates-hit-their-highest-level-in-three-years?traffic_source=rss",
       "publishedAt": "2026-10-07T17:05:10+00:00",
       "image": "https://www.aljazeera.com/wp-content/uploads/2026/10/2026-10-07T110012Z_2103323680_RC21ZDAJ0G5H_RTRMADP_3_USA-ECONOMY-MORTGAGES-1791389874.jpg?resize=1920%2C1440"
-    },
-    {
-      "id": "8d94a33348d182952175",
-      "source": "reuters",
-      "title": "IEA to accelerate oil reserve release, says 100 million barrels still to come",
-      "url": "https://www.reuters.com/business/energy/iea-meet-wednesday-over-proposed-release-reserves-say-two-eu-diplomats-2026-10-07/",
-      "publishedAt": "2026-10-07T17:04:32.358000+00:00",
-      "image": "https://www.reuters.com/resizer/v2/7KITUJOPDVJH5GFPS4ZPUJDV7Q.jpg?auth=731e2242ce77743fb374fdd7acb6d6d8b0ebbe2063c73eae4f3b038eba0f7a27&smart=true&width=1920"
-    },
-    {
-      "id": "e9e535c22c2e495b4db2",
-      "source": "reuters",
-      "title": "Halozyme wins court order to block Merck's injected Keytruda in select European markets",
-      "url": "https://www.reuters.com/legal/litigation/halozyme-wins-court-order-block-mercks-injected-keytruda-select-european-markets-2026-10-07/",
-      "publishedAt": "2026-10-07T17:03:38.573000+00:00",
-      "image": "https://www.reuters.com/resizer/v2/VV4A2LF7RBIT7CGUA64MXZYCD4.jpg?auth=09c4b9e4271dd0ea3bc9e713ef918a153d25c01abc42fa3dae30d37b02bc4cc3&smart=true&width=1920"
-    },
-    {
-      "id": "f7a27e7cbe987f289b67",
-      "source": "reuters",
-      "title": "Wells Fargo faces potential probe over Black homeownership commitments, WSJ reports",
-      "url": "https://www.reuters.com/business/finance/wells-fargo-faces-regulator-probe-over-efforts-boost-black-homeownership-wsj-2026-10-07/",
-      "publishedAt": "2026-10-07T16:57:26.181000+00:00",
-      "image": "https://www.reuters.com/resizer/v2/S2CHGQQGBVN3DK2DIYAUXJY5CI.jpg?auth=e40b015bdda1339ef3594fa9fd8dae124dfeb90378953beb44c757bea7de20c4&smart=true&width=1920"
-    },
-    {
-      "id": "1bcdb6f00b094c1fd302",
-      "source": "reuters",
-      "title": "Airbus says Biman Bangladesh confirms order for 10 jets",
-      "url": "https://www.reuters.com/business/aerospace-defense/airbus-says-biman-bangladesh-confirms-order-10-jets-2026-10-07/",
-      "publishedAt": "2026-10-07T16:55:44.257000+00:00",
-      "image": "https://www.reuters.com/resizer/v2/ASJGQ56PXJMYHOWY4NGDR625HA.jpg?auth=cb2dbf59a91d7964feff0b86b7b8645b2e1e37cdda85f7f14d3dbc21d4b128a8&smart=true&width=1920"
     },
     {
       "id": "f26b01ea80be5dc6ff64",
@@ -708,84 +708,84 @@
       "image": null
     },
     {
-      "id": "aece75e76a342aa244fe",
+      "id": "d9fa05c98df87f73500e",
       "source": "investing",
-      "title": "Seaport Therapeutics doses first patient in anxiety trial",
-      "url": "https://www.investing.com/news/company-news/seaport-therapeutics-doses-first-patient-in-anxiety-trial-93CH-4937247",
+      "title": "San Francisco imposes temporary ban on new data centers",
+      "url": "https://www.investing.com/news/stock-market-news/san-francisco-imposes-temporary-ban-on-new-data-centers-4937278",
       "publishedAt": null,
-      "image": "https://content-media.investing.com/news/LYNXMPEM502AK_1200_L.jpg"
+      "image": "https://content-media.investing.com/news/LYNXMPEABC01J_M.jpg"
     },
     {
-      "id": "d5776aef5fb6e2b740a2",
+      "id": "5fae238667bc18450c06",
       "source": "investing",
-      "title": "FDA approves Tukysa for first-line HER2+ breast cancer treatment",
-      "url": "https://www.investing.com/news/company-news/fda-approves-tukysa-for-firstline-her2-breast-cancer-treatment-93CH-4937243",
+      "title": "W P Carey stock hits 52-week low at 63.08 USD",
+      "url": "https://www.investing.com/news/company-news/w-p-carey-stock-hits-52week-low-at-6308-usd-93CH-4937279",
       "publishedAt": null,
-      "image": "https://content-media.investing.com/news/pfizer_M_1440049959.jpg"
+      "image": "https://content-media.investing.com/news/LYNXMPEM3Q0HO_1200_L.jpg"
     },
     {
-      "id": "577263eb62fab79365ef",
+      "id": "f11ecb741cfe1474da82",
       "source": "investing",
-      "title": "Amaroq admits 147,879 shares to trading on London Stock Exchange",
-      "url": "https://www.investing.com/news/company-news/amaroq-admits-147879-shares-to-trading-on-london-stock-exchange-93CH-4937236",
+      "title": "Farm equipment stocks after the FTC and USDA joint inquiry: AGCO, Deere and CNH compared",
+      "url": "https://www.investing.com/news/stock-market-news/farm-equipment-stocks-after-the-ftc-and-usda-joint-inquiry-agco-deere-and-cnh-compared-93CH-4937277",
       "publishedAt": null,
-      "image": "https://content-media.investing.com/news/LYNXMPEM4J1W2_1200_L.jpg"
+      "image": "https://content-media.investing.com/news/LYNXMPEDAF0IH_M.jpg"
     },
     {
-      "id": "f180417885378388b270",
+      "id": "8a07bf80f579d13ce89a",
       "source": "investing",
-      "title": "General Dynamics partners with Primordial Labs on vehicle control",
-      "url": "https://www.investing.com/news/company-news/general-dynamics-partners-with-primordial-labs-on-vehicle-control-93CH-4937235",
+      "title": "Webull stock drops after congressional report flags China ties as security risk",
+      "url": "https://www.investing.com/news/stock-market-news/webull-stock-drops-after-congressional-report-flags-china-ties-as-security-risk-93CH-4937276",
       "publishedAt": null,
-      "image": "https://content-media.investing.com/news/LYNXMPEM211DX_1200_L.jpg"
+      "image": "https://content-media.investing.com/news/LYNXMPEM5L113_1200_L.jpg"
     },
     {
-      "id": "45f516077d5f1e50fb3a",
+      "id": "71f44684ce009ab9bf63",
       "source": "investing",
-      "title": "Biman Bangladesh Airlines orders 10 Airbus aircraft",
-      "url": "https://www.investing.com/news/stock-market-news/biman-bangladesh-airlines-orders-10-airbus-aircraft-93CH-4937234",
+      "title": "FireFly Robotics files for Nasdaq direct listing",
+      "url": "https://www.investing.com/news/stock-market-news/firefly-robotics-files-for-nasdaq-direct-listing-4937275",
       "publishedAt": null,
-      "image": "https://content-media.investing.com/news/LYNXNPEC780K2_M.jpg"
+      "image": "https://content-media.investing.com/trkd-images/LYNXMPEM961PB_L.jpg"
     },
     {
-      "id": "8f942eb7027af383396c",
+      "id": "120a464ab57d62b7f856",
       "source": "investing",
-      "title": "Exclusive-Apollo submits non-binding bid for German energy firm Uniper, sources say",
-      "url": "https://www.investing.com/news/stock-market-news/exclusiveapollo-submits-nonbinding-bid-for-german-energy-firm-uniper-sources-say-4936283",
+      "title": "GigaCloud Technology Inc stock reaches 52-week high at $56.37",
+      "url": "https://www.investing.com/news/company-news/gigacloud-technology-inc-stock-reaches-52week-high-at-5637-93CH-4937274",
       "publishedAt": null,
-      "image": "https://content-media.investing.com/trkd-images/LYNXMPEM960Z9_L.jpg"
+      "image": "https://content-media.investing.com/news/LYNXMPEM3F1FY_1200_L.jpg"
     },
     {
-      "id": "48fc4472f13cd873e483",
+      "id": "ad68dadd7d20adf070b0",
       "source": "investing",
-      "title": "acglo stock hits 52-week low at 18.05 USD",
-      "url": "https://www.investing.com/news/company-news/acglo-stock-hits-52week-low-at-1805-usd-93CH-4937233",
+      "title": "Evercore ISI reiterates Arista Networks stock rating on AI networking expansion",
+      "url": "https://www.investing.com/news/analyst-ratings/evercore-isi-reiterates-arista-networks-stock-rating-on-ai-networking-expansion-93CH-4937273",
       "publishedAt": null,
-      "image": "https://content-media.investing.com/news/LYNXMPEM5F17R_1200_L.jpg"
+      "image": "https://content-media.investing.com/news/moved_LYNXMPEM450ND_1200_L.jpg"
     },
     {
-      "id": "6a4be1913bf1d87507f7",
+      "id": "d9cc3287550ff6392b9a",
       "source": "investing",
-      "title": "Why is Fresenius Medical Care ADR stock sliding today?",
-      "url": "https://www.investing.com/news/stock-market-news/why-is-fresenius-medical-care-adr-stock-sliding-today-93CH-4937231",
+      "title": "Yum Brands vs Restaurant Brands International: a valuation and pairs trade comparison",
+      "url": "https://www.investing.com/news/stock-market-news/yum-brands-vs-restaurant-brands-international-a-valuation-and-pairs-trade-comparison-93CH-4937272",
       "publishedAt": null,
-      "image": "https://content-media.investing.com/news/SP500StandardandPoors500Index_800x533_L_1657544297.jpg"
+      "image": "https://content-media.investing.com/news/moved_LYNXMPELA30NK_L.jpg"
     },
     {
-      "id": "50319c05ac6eaf6b180c",
+      "id": "2690c242588b691b1144",
       "source": "investing",
-      "title": "Fresenius Medical Care tumbles on CEO transition announcement",
-      "url": "https://www.investing.com/news/stock-market-news/fresenius-medical-care-tumbles-on-ceo-transition-announcement-4937226",
+      "title": "Cruise sector outlook: Carnival, Royal Caribbean and Norwegian compared",
+      "url": "https://www.investing.com/news/stock-market-news/cruise-sector-outlook-carnival-royal-caribbean-and-norwegian-compared-93CH-4937271",
       "publishedAt": null,
-      "image": "https://content-media.investing.com/news/moved_LYNXMPEL3D0QK_L.jpg"
+      "image": "https://content-media.investing.com/news/RoyalCaribbean_800x533_L_1598327283.jpg"
     },
     {
-      "id": "c2af19837deb1d54ad62",
+      "id": "e821fde1f791379488f1",
       "source": "investing",
-      "title": "NHI stock hits 52-week low at 64.51 USD",
-      "url": "https://www.investing.com/news/company-news/nhi-stock-hits-52week-low-at-6451-usd-93CH-4937225",
+      "title": "Applied Digital earnings preview: loss expected as market discounts beat streak",
+      "url": "https://www.investing.com/news/stock-market-news/applied-digital-earnings-preview-loss-expected-as-market-discounts-beat-streak-93CH-4937270",
       "publishedAt": null,
-      "image": "https://content-media.investing.com/news/LYNXMPEM1B112_1200_L.jpg"
+      "image": "https://content-media.investing.com/news/LYNXNPEC0K08U_M.jpg"
     },
     {
       "id": "bf0685fc7626a03dc0c6",
