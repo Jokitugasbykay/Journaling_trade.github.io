@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "checkedAt": "2026-10-07T18:04:37.153071+00:00",
+  "checkedAt": "2026-10-07T18:04:54.321658+00:00",
   "intervalMinutes": 30,
   "sources": [
     {
@@ -9,7 +9,7 @@
       "url": "https://www.investing.com/",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-07T18:04:29.830644+00:00"
+      "checkedAt": "2026-10-07T18:04:52.934515+00:00"
     },
     {
       "id": "cnbc",
@@ -17,7 +17,7 @@
       "url": "https://www.cnbc.com/markets/",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-07T18:04:30.017977+00:00"
+      "checkedAt": "2026-10-07T18:04:53.468488+00:00"
     },
     {
       "id": "kontan",
@@ -25,7 +25,7 @@
       "url": "https://www.kontan.co.id/",
       "kind": "html",
       "status": "ok",
-      "checkedAt": "2026-10-07T18:04:29.862538+00:00"
+      "checkedAt": "2026-10-07T18:04:54.320452+00:00"
     },
     {
       "id": "reuters",
@@ -33,7 +33,7 @@
       "url": "https://www.reuters.com/",
       "kind": "sitemap",
       "status": "ok",
-      "checkedAt": "2026-10-07T18:04:30.647989+00:00"
+      "checkedAt": "2026-10-07T18:04:53.036748+00:00"
     },
     {
       "id": "aljazeera",
@@ -41,7 +41,7 @@
       "url": "https://www.aljazeera.com/",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-07T18:04:29.726456+00:00"
+      "checkedAt": "2026-10-07T18:04:52.945561+00:00"
     },
     {
       "id": "bloomberg",
@@ -49,7 +49,7 @@
       "url": "https://www.bloomberg.com/asia",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-07T18:04:30.872798+00:00"
+      "checkedAt": "2026-10-07T18:04:53.024859+00:00"
     },
     {
       "id": "fnc",
@@ -57,7 +57,7 @@
       "url": "https://tradewithfnc.com/",
       "kind": "json",
       "status": "ok",
-      "checkedAt": "2026-10-07T18:04:36.456154+00:00"
+      "checkedAt": "2026-10-07T18:04:53.232692+00:00"
     },
     {
       "id": "fedwatch",
@@ -80,7 +80,7 @@
       "source": "cnbc",
       "title": "10-year Treasury yield ease from 24-year high after solid bond auction eases demand fears",
       "url": "https://www.cnbc.com/2026/10/07/treasury-yields-auction-fomc-minutes.html",
-      "publishedAt": "2026-10-07T18:04:03+00:00",
+      "publishedAt": "2026-10-07T18:04:27+00:00",
       "image": "https://image.cnbcfm.com/api/v1/image/108363665-1789568651170-gettyimages-2295586459-mms19512_dnx4op25.jpeg?v=1789568741&w=1920&h=1080",
       "category": "markets"
     },
@@ -976,60 +976,6 @@
       "category": "markets"
     },
     {
-      "id": "badd67aee5ca263066c1",
-      "source": "investing",
-      "title": "Truist comments on homebuilder stocks amid rising mortgage rates",
-      "url": "https://www.investing.com/news/stock-market-news/truist-comments-on-homebuilder-stocks-amid-rising-mortgage-rates-93CH-4937304",
-      "publishedAt": null,
-      "image": "https://content-media.investing.com/news/LYNXNPEBAG0BO_M.jpg",
-      "category": "markets"
-    },
-    {
-      "id": "efb08377d284bd81cd2b",
-      "source": "investing",
-      "title": "FireFly Robotics files for Nasdaq direct listing",
-      "url": "https://www.investing.com/news/company-news/firefly-robotics-files-for-nasdaq-direct-listing-93CH-4937302",
-      "publishedAt": null,
-      "image": "https://content-media.investing.com/news/LYNXMPEM5H10K_1200_L.jpg",
-      "category": "business"
-    },
-    {
-      "id": "12a044bc34d3eea25945",
-      "source": "investing",
-      "title": "Air Products signs deal for LNG-based air separation unit in Malaysia",
-      "url": "https://www.investing.com/news/stock-market-news/air-products-signs-deal-for-lngbased-air-separation-unit-in-malaysia-93CH-4937301",
-      "publishedAt": null,
-      "image": "https://content-media.investing.com/news/LYNXNPEB6U08A_M.jpg",
-      "category": "markets"
-    },
-    {
-      "id": "713a70fb2b33879259a7",
-      "source": "investing",
-      "title": "Jefferies highlights 1.6T transition ahead of OCP Summit",
-      "url": "https://www.investing.com/news/stock-market-news/jefferies-highlights-16t-transition-ahead-of-ocp-summit-93CH-4937300",
-      "publishedAt": null,
-      "image": "https://content-media.investing.com/news/LYNXMPEB1A16P_M.jpg",
-      "category": "markets"
-    },
-    {
-      "id": "520f176158fe958c37c4",
-      "source": "investing",
-      "title": "Earnings call transcript: Netcall posts record FY 2026 growth in H2 2026",
-      "url": "https://www.investing.com/news/transcripts/earnings-call-transcript-netcall-posts-record-fy-2026-growth-in-h2-2026-93CH-4937298",
-      "publishedAt": null,
-      "image": "https://content-media.investing.com/news/moved_LYNXMPEM4416N_1200_L.jpg",
-      "category": "business"
-    },
-    {
-      "id": "52efb841e01166c1a348",
-      "source": "investing",
-      "title": "OPmobility cuts jobs and lowers 2026 targets amid market slump",
-      "url": "https://www.investing.com/news/stock-market-news/opmobility-cuts-jobs-and-lowers-2026-targets-amid-market-slump-93CH-4937295",
-      "publishedAt": null,
-      "image": "https://content-media.investing.com/news/LYNXNPEB7Q0U9_M.jpg",
-      "category": "markets"
-    },
-    {
       "id": "88cfde9b901f35677c53",
       "source": "investing",
       "title": "World shares, euro slide as high oil prices, fiscal worries linger",
@@ -1055,6 +1001,60 @@
       "publishedAt": null,
       "image": "https://content-media.investing.com/news/oil_2_M_1440047844.jpg",
       "category": "other"
+    },
+    {
+      "id": "01b9fe8ee5054484483c",
+      "source": "investing",
+      "title": "Caterpillar bull and bear case: valuation vs. growth story",
+      "url": "https://www.investing.com/news/stock-market-news/caterpillar-bull-and-bear-case-valuation-vs-growth-story-93CH-4937285",
+      "publishedAt": null,
+      "image": "https://content-media.investing.com/news/LYNXMPED301WM_L.jpg",
+      "category": "markets"
+    },
+    {
+      "id": "6a75de13efae3f69bd9d",
+      "source": "investing",
+      "title": "France to release 10m barrels of diesel from reserves to lower fuel prices",
+      "url": "https://www.investing.com/news/economy-news/france-to-release-10m-barrels-of-diesel-from-reserves-to-lower-fuel-prices-4937284",
+      "publishedAt": null,
+      "image": "https://content-media.investing.com/news/LYNXNPEE9I0TQ_M.jpg",
+      "category": "business"
+    },
+    {
+      "id": "f0a3f72458e71d2045a9",
+      "source": "investing",
+      "title": "San Francisco imposes temporary ban on new data centers",
+      "url": "https://www.investing.com/news/stock-market-news/san-francisco-imposes-temporary-ban-on-new-data-centers-4937278",
+      "publishedAt": null,
+      "image": "https://content-media.investing.com/news/LYNXMPEABC01J_M.jpg",
+      "category": "technology"
+    },
+    {
+      "id": "8d4a0726ac952c640640",
+      "source": "investing",
+      "title": "W P Carey stock hits 52-week low at 63.08 USD",
+      "url": "https://www.investing.com/news/company-news/w-p-carey-stock-hits-52week-low-at-6308-usd-93CH-4937279",
+      "publishedAt": null,
+      "image": "https://content-media.investing.com/news/LYNXMPEM3Q0HO_1200_L.jpg",
+      "category": "markets"
+    },
+    {
+      "id": "77e5f421a48409821195",
+      "source": "investing",
+      "title": "Farm equipment stocks after the FTC and USDA joint inquiry: AGCO, Deere and CNH compared",
+      "url": "https://www.investing.com/news/stock-market-news/farm-equipment-stocks-after-the-ftc-and-usda-joint-inquiry-agco-deere-and-cnh-compared-93CH-4937277",
+      "publishedAt": null,
+      "image": "https://content-media.investing.com/news/LYNXMPEDAF0IH_M.jpg",
+      "category": "markets"
+    },
+    {
+      "id": "d98b4efa585a2f254777",
+      "source": "investing",
+      "title": "Webull stock drops after congressional report flags China ties as security risk",
+      "url": "https://www.investing.com/news/stock-market-news/webull-stock-drops-after-congressional-report-flags-china-ties-as-security-risk-93CH-4937276",
+      "publishedAt": null,
+      "image": "https://content-media.investing.com/news/LYNXMPEM5L113_1200_L.jpg",
+      "category": "markets"
     },
     {
       "id": "e9cc1e2d7f76d2b3195b",
