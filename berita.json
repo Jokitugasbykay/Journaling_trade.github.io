@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "checkedAt": "2026-10-07T18:20:42.849991+00:00",
+  "checkedAt": "2026-10-07T18:32:10.582325+00:00",
   "intervalMinutes": 30,
   "sources": [
     {
@@ -9,7 +9,7 @@
       "url": "https://www.investing.com/",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-07T18:20:39.303093+00:00"
+      "checkedAt": "2026-10-07T18:32:08.640607+00:00"
     },
     {
       "id": "cnbc",
@@ -17,7 +17,7 @@
       "url": "https://www.cnbc.com/markets/",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-07T18:20:39.533126+00:00"
+      "checkedAt": "2026-10-07T18:32:09.106043+00:00"
     },
     {
       "id": "kontan",
@@ -25,7 +25,7 @@
       "url": "https://www.kontan.co.id/",
       "kind": "html",
       "status": "ok",
-      "checkedAt": "2026-10-07T18:20:42.560533+00:00"
+      "checkedAt": "2026-10-07T18:32:09.146935+00:00"
     },
     {
       "id": "reuters",
@@ -33,7 +33,7 @@
       "url": "https://www.reuters.com/",
       "kind": "sitemap",
       "status": "ok",
-      "checkedAt": "2026-10-07T18:20:39.434267+00:00"
+      "checkedAt": "2026-10-07T18:32:08.779059+00:00"
     },
     {
       "id": "aljazeera",
@@ -41,7 +41,7 @@
       "url": "https://www.aljazeera.com/",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-07T18:20:39.385223+00:00"
+      "checkedAt": "2026-10-07T18:32:08.588807+00:00"
     },
     {
       "id": "bloomberg",
@@ -49,7 +49,7 @@
       "url": "https://www.bloomberg.com/asia",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-07T18:20:39.554762+00:00"
+      "checkedAt": "2026-10-07T18:32:09.148725+00:00"
     },
     {
       "id": "fnc",
@@ -57,7 +57,7 @@
       "url": "https://tradewithfnc.com/",
       "kind": "json",
       "status": "ok",
-      "checkedAt": "2026-10-07T18:20:39.837946+00:00"
+      "checkedAt": "2026-10-07T18:32:09.778129+00:00"
     },
     {
       "id": "fedwatch",
@@ -75,6 +75,78 @@
     }
   ],
   "items": [
+    {
+      "id": "4de5de2ff3d642a0a2e8",
+      "source": "cnbc",
+      "title": "Modelo owner Constellation is getting creative to bring back beer drinkers as overall demand weakens",
+      "url": "https://www.cnbc.com/2026/10/07/constellation-brands-earnings-beer-demand.html",
+      "publishedAt": "2026-10-07T18:28:27+00:00",
+      "image": "https://image.cnbcfm.com/api/v1/image/108104289-17399715182025-02-18t160441z_1704028396_rc2uwcacnx1r_rtrmadp_0_usa-trump-tariffs-mexico.jpeg?v=1739971599&w=1920&h=1080",
+      "category": "business"
+    },
+    {
+      "id": "05939284f3afb033e967",
+      "source": "reuters",
+      "title": "S&P 500, Nasdaq ease from record highs as Treasury yields climb",
+      "url": "https://www.reuters.com/business/wall-st-futures-slip-yields-oil-rebound-fed-minutes-focus-2026-10-07/",
+      "publishedAt": "2026-10-07T18:27:19.835000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/GCFMMABDZZM4LIXAZTC4IJJ7UQ.jpg?auth=f78af9c14d20adb476a11c4cd842169bc1d5276ddd76c728f7b6c54439bd3cd1&smart=true&width=1920",
+      "category": "markets"
+    },
+    {
+      "id": "57148f251c9c06a26f9e",
+      "source": "reuters",
+      "title": "Judge tells Tennessee to preserve syringes, other evidence in failed Christa Pike execution",
+      "url": "https://www.reuters.com/legal/government/christa-pikes-lawyers-demand-see-syringes-drug-residue-botched-execution-2026-10-07/",
+      "publishedAt": "2026-10-07T18:26:57.235000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/NSXAWEGU2NNSVKHNDTN5L5EOPY.jpg?auth=9a03f8a6d4165a5ff0519a99d28fc546b163c1ddd9217cd53128841277f3ca51&smart=true&width=1920",
+      "category": "legal"
+    },
+    {
+      "id": "e298b2733cbfda8d0f35",
+      "source": "cnbc",
+      "title": "Americans grow more pessimistic about their finances, New York Fed finds - expert warns of ‘tough choices’ ahead",
+      "url": "https://www.cnbc.com/2026/10/07/new-york-fed-financial-outlook-inflation.html",
+      "publishedAt": "2026-10-07T18:24:12+00:00",
+      "image": "https://image.cnbcfm.com/api/v1/image/108362037-1789154887112-gettyimages-2294761951-jr_15582_qgkfm4fo.jpeg?v=1789155120&w=1920&h=1080",
+      "category": "markets"
+    },
+    {
+      "id": "699d5e03d45c3a832f45",
+      "source": "reuters",
+      "title": "Canadian dollar weakens as risk-off sentiment drives markets",
+      "url": "https://www.reuters.com/business/canadian-dollar-weakens-risk-off-sentiment-drives-markets-2026-10-07/",
+      "publishedAt": "2026-10-07T18:22:09.983000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/T7QMEAQ57FOVLL2RUDQJJB2TVQ.jpg?auth=8588a8b920889d7fce6894be8ebec200db990a0afa82c661dbc4ca5ef91c20d5&smart=true&width=1920",
+      "category": "markets"
+    },
+    {
+      "id": "1c376c783e1af2955d0c",
+      "source": "reuters",
+      "title": "Syria weighs military aid for Saudi Arabia amid Yemen war, sources say",
+      "url": "https://www.reuters.com/world/middle-east/syria-weighs-military-aid-saudi-arabia-amid-yemen-war-sources-say-2026-10-07/",
+      "publishedAt": "2026-10-07T18:21:27.732000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/SXDWNICTJZKS5CNUARVS7MNZNY.jpg?auth=ced9e84f0d646259c3e06a79ccbd2832f445ff470b64696f7a7aeec42ca4a292&smart=true&width=1920",
+      "category": "world"
+    },
+    {
+      "id": "b393e0b7258c765832fb",
+      "source": "cnbc",
+      "title": "Here comes third-quarter earnings season. Booming profits could propel the S&P 500 to new heights",
+      "url": "https://www.cnbc.com/2026/10/07/here-comes-third-quarter-earnings-season-booming-profits-could-propel-the-sp-500-to-new-heights.html",
+      "publishedAt": "2026-10-07T18:19:53+00:00",
+      "image": "https://image.cnbcfm.com/api/v1/image/108370320-1790781020673-Traders-Photo-20260929-KK-PRESS-006.jpg?v=1790781195&w=1920&h=1080",
+      "category": "business"
+    },
+    {
+      "id": "ea59ab01f5fbe4498bcb",
+      "source": "reuters",
+      "title": "Florida asks court to force Meta to change Facebook, Instagram for teens",
+      "url": "https://www.reuters.com/world/us/florida-asks-court-force-meta-change-facebook-instagram-teens-2026-10-07/",
+      "publishedAt": "2026-10-07T18:19:01.464000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/ZW36RUINW5PODPMPYDWCN75D6A.jpg?auth=90693353fb00e8b1a5ca079a7df4ec05436f00e00e598b2837d5dfe1a44977cc&smart=true&width=1920",
+      "category": "legal"
+    },
     {
       "id": "ca43f0c0e0e8b7ec1ad0",
       "source": "cnbc",
@@ -101,15 +173,6 @@
       "publishedAt": "2026-10-07T18:17:01.515000+00:00",
       "image": null,
       "category": "business"
-    },
-    {
-      "id": "57148f251c9c06a26f9e",
-      "source": "reuters",
-      "title": "Judge tells Tennessee to preserve syringes, other evidence in failed Christa Pike execution",
-      "url": "https://www.reuters.com/legal/government/christa-pikes-lawyers-demand-see-syringes-drug-residue-botched-execution-2026-10-07/",
-      "publishedAt": "2026-10-07T18:16:53.532000+00:00",
-      "image": "https://www.reuters.com/resizer/v2/NE3X7JDHVFM7JJTOACSCDMKNHA.jpg?auth=83a0971ef9951038f5b3586e242f871ddd81d741524e54c90b3253573ac8b426&smart=true&width=1920",
-      "category": "legal"
     },
     {
       "id": "42215bc75e8f9be44c8b",
@@ -146,15 +209,6 @@
       "publishedAt": "2026-10-07T18:13:00.690000+00:00",
       "image": "https://www.reuters.com/resizer/v2/4HW6Q2SENNMTVJGNJQJJZE3PZY.jpg?auth=8540304fb54f2e4009fcd41b99851843b19406a28ed44a1ae85d94dc6ad23a37&smart=true&width=1920",
       "category": "sport"
-    },
-    {
-      "id": "ea59ab01f5fbe4498bcb",
-      "source": "reuters",
-      "title": "Florida asks court to force Meta to change Facebook, Instagram for teens",
-      "url": "https://www.reuters.com/world/us/florida-asks-court-force-meta-change-facebook-instagram-teens-2026-10-07/",
-      "publishedAt": "2026-10-07T18:12:42.735000+00:00",
-      "image": "https://www.reuters.com/resizer/v2/ZW36RUINW5PODPMPYDWCN75D6A.jpg?auth=90693353fb00e8b1a5ca079a7df4ec05436f00e00e598b2837d5dfe1a44977cc&smart=true&width=1920",
-      "category": "legal"
     },
     {
       "id": "07ae557dab7121f3e057",
@@ -211,6 +265,15 @@
       "category": "business"
     },
     {
+      "id": "00faab173dbd6427e701",
+      "source": "cnbc",
+      "title": "Trump’s diesel order exposes White House limits to counter surging fuel prices",
+      "url": "https://www.cnbc.com/2026/10/07/trump-red-dye-offroad-diesel-price-iran-ukraine-war-midterm.html",
+      "publishedAt": "2026-10-07T18:09:33+00:00",
+      "image": "https://image.cnbcfm.com/api/v1/image/108364429-1789658380560-gettyimages-2295761542-mms10061_tiwtupzm.jpeg?v=1789658521&w=1920&h=1080",
+      "category": "world"
+    },
+    {
       "id": "a03347d87c5359f8869c",
       "source": "reuters",
       "title": "Rubio says US, Greece to jointly combat security threats",
@@ -238,24 +301,6 @@
       "category": "legal"
     },
     {
-      "id": "0f541f406c0462221f42",
-      "source": "reuters",
-      "title": "Anthropic launches third Claude 5.5 model, expanding AI lineup before planned IPO",
-      "url": "https://www.reuters.com/business/anthropic-launches-third-claude-55-model-expanding-ai-lineup-before-planned-ipo-2026-10-07/",
-      "publishedAt": "2026-10-07T18:07:44.292000+00:00",
-      "image": "https://www.reuters.com/resizer/v2/ROCIYCC445JVBKGHFB4OQIM6EQ.jpg?auth=73534d66e8fdb2ec81380184a5ea2553ebdba0a58b57a1a99dc2645cf57777ae&smart=true&width=1920",
-      "category": "technology"
-    },
-    {
-      "id": "189cb881587a72014ab9",
-      "source": "reuters",
-      "title": "US SEC will not charge top funds over climate concerns but warns of disclosure obligations",
-      "url": "https://www.reuters.com/legal/government/us-sec-will-not-pursue-charges-against-climate-group-warns-disclosure-2026-10-07/",
-      "publishedAt": "2026-10-07T18:07:16.458000+00:00",
-      "image": "https://www.reuters.com/resizer/v2/V6S6NAWGL5NVVFQ5EQVUTBMSMA.jpg?auth=7b42ea25f19624ab4e2604fc50cde8096d8baec730be00fe6e49c1b92252cb48&smart=true&width=1920",
-      "category": "legal"
-    },
-    {
       "id": "08e91b4dc0b41b2f59fc",
       "source": "cnbc",
       "title": "Fed officials see another hike coming, but no sign as to when, minutes show",
@@ -263,15 +308,6 @@
       "publishedAt": "2026-10-07T18:07:09+00:00",
       "image": "https://image.cnbcfm.com/api/v1/image/108363920-1789584172531-gettyimages-2295044570-WARSH_FOMC.jpeg?v=1789584195&w=1920&h=1080",
       "category": "other"
-    },
-    {
-      "id": "6b3f581a4bc699f85aad",
-      "source": "reuters",
-      "title": "Congo miners could save $1 bln a year with new power project, Trafigura executive says",
-      "url": "https://www.reuters.com/business/energy/congo-miners-could-save-1-bln-year-with-new-power-project-trafigura-executive-2026-10-07/",
-      "publishedAt": "2026-10-07T18:06:38.968000+00:00",
-      "image": null,
-      "category": "business"
     },
     {
       "id": "5957bd3ae259127b220a",
@@ -290,24 +326,6 @@
       "publishedAt": "2026-10-07T18:04:27+00:00",
       "image": "https://image.cnbcfm.com/api/v1/image/108363665-1789568651170-gettyimages-2295586459-mms19512_dnx4op25.jpeg?v=1789568741&w=1920&h=1080",
       "category": "markets"
-    },
-    {
-      "id": "721a3ef83988cc7b1996",
-      "source": "aljazeera",
-      "title": "Jerusalem Daily: Gaza’s devastation, three years after October 7",
-      "url": "https://www.aljazeera.com/video/newsfeed/2026/10/7/jerusalem-daily-gazas-devastation-three-years-after-october-7?traffic_source=rss",
-      "publishedAt": "2026-10-07T18:03:14+00:00",
-      "image": "https://www.aljazeera.com/wp-content/uploads/2026/10/image-1791396130.jpg?resize=1920%2C1080&quality=80",
-      "category": "world"
-    },
-    {
-      "id": "ce6c71cf4ef755e21064",
-      "source": "aljazeera",
-      "title": "Spanish unions call general strike over housing before snap election",
-      "url": "https://www.aljazeera.com/news/2026/10/7/spanish-unions-call-general-strike-over-housing-before-snap-election?traffic_source=rss",
-      "publishedAt": "2026-10-07T18:02:47+00:00",
-      "image": "https://www.aljazeera.com/wp-content/uploads/2026/10/reuters_6ac67a7c-1791392380.jpg?resize=1920%2C1440",
-      "category": "world"
     },
     {
       "id": "cbab7a3654088d36b8e4",
@@ -445,15 +463,6 @@
       "category": "other"
     },
     {
-      "id": "4de5de2ff3d642a0a2e8",
-      "source": "cnbc",
-      "title": "Modelo owner Constellation is getting creative to bring back beer drinkers as overall demand weakens",
-      "url": "https://www.cnbc.com/2026/10/07/constellation-brands-earnings-beer-demand.html",
-      "publishedAt": "2026-10-07T16:40:50+00:00",
-      "image": "https://image.cnbcfm.com/api/v1/image/108104289-17399715182025-02-18t160441z_1704028396_rc2uwcacnx1r_rtrmadp_0_usa-trump-tariffs-mexico.jpeg?v=1739971599&w=1920&h=1080",
-      "category": "business"
-    },
-    {
       "id": "0cb09731de10f8792289",
       "source": "cnbc",
       "title": "Disney+ to stream upcoming Super Bowl",
@@ -474,7 +483,7 @@
     {
       "id": "90915335634e6332546b",
       "source": "bloomberg",
-      "title": "Novogratz Says AI Is in a Bubble, and Investors Should Pile in",
+      "title": "Novogratz Joins Chorus Citing an AI Bubble, and Says to Pile In",
       "url": "https://www.bloomberg.com/news/articles/2026-10-07/novogratz-says-ai-is-in-a-bubble-and-investors-should-pile-in",
       "publishedAt": "2026-10-07T16:33:13+00:00",
       "image": null,
@@ -690,7 +699,7 @@
     {
       "id": "bca09da0b34de09d2c6f",
       "source": "bloomberg",
-      "title": "Kalshi Proposes Oil Contract With 10-Year Expiry",
+      "title": "Kalshi Submits Bid for Perpetual-Style Oil Contract to CFTC",
       "url": "https://www.bloomberg.com/news/articles/2026-10-07/kalshi-files-proposal-for-never-expiring-oil-contract-with-cftc",
       "publishedAt": "2026-10-07T13:10:46+00:00",
       "image": null,
@@ -769,6 +778,15 @@
       "category": "business"
     },
     {
+      "id": "d02056e9c7f11ea765c4",
+      "source": "aljazeera",
+      "title": "Yes, Zionism is racism",
+      "url": "https://www.aljazeera.com/opinions/2026/10/7/yes-zionism-is-racism?traffic_source=rss",
+      "publishedAt": "2026-10-07T12:33:55+00:00",
+      "image": "https://www.aljazeera.com/wp-content/uploads/2026/10/2022-10-25T000000Z_743940304_RC278X9HVV5Z_RTRMADP_3_ISRAEL-PALESTINIANS-VIOLENCE-1791369743.jpg?resize=1920%2C1440",
+      "category": "commentary"
+    },
+    {
       "id": "b85fb6ea63f5e8a1dfa5",
       "source": "cnbc",
       "title": "Chevron CEO warns against 'unwise' diesel export ban, saying it could make things worse",
@@ -778,31 +796,13 @@
       "category": "other"
     },
     {
-      "id": "0ca64493649a3350b38d",
-      "source": "cnbc",
-      "title": "ICE came to town and left behind weakened economies",
-      "url": "https://www.cnbc.com/2026/10/07/ice-raids-local-economies.html",
-      "publishedAt": "2026-10-07T12:24:32+00:00",
-      "image": "https://image.cnbcfm.com/api/v1/image/108259877-1769815783573-gettyimages-2258528609-_sm14983.jpeg?v=1769815824&w=1920&h=1080",
-      "category": "business"
-    },
-    {
-      "id": "b1cba31b63e9748ccc68",
-      "source": "cnbc",
-      "title": "The SALT deduction limit is $40,400 for 2026. Here's how to maximize it",
-      "url": "https://www.cnbc.com/2026/10/07/salt-deduction-limit-2026.html",
-      "publishedAt": "2026-10-07T12:15:01+00:00",
-      "image": "https://image.cnbcfm.com/api/v1/image/108372762-1791224953943-gettyimages-2179151643-dual_00081.jpeg?v=1791224969&w=1920&h=1080",
-      "category": "other"
-    },
-    {
-      "id": "c8f0e9046582d1a3cb76",
-      "source": "cnbc",
-      "title": "India’s central bank hikes rates for the first time since 2023 as inflation risks build",
-      "url": "https://www.cnbc.com/2026/10/07/india-rbi-interest-rates-inflation.html",
-      "publishedAt": "2026-10-07T11:55:36+00:00",
-      "image": "https://image.cnbcfm.com/api/v1/image/108373925-1791374076652-gettyimages-2298413594-AFP_D2FY7DW.jpeg?v=1791374109&w=1920&h=1080",
-      "category": "markets"
+      "id": "8c6b49cfc52a97baede9",
+      "source": "aljazeera",
+      "title": "South Korea’s military service exemption could be cut for athletes",
+      "url": "https://www.aljazeera.com/video/newsfeed/2026/10/7/south-koreas-military-service-exemption-could-be-cut-for-athletes?traffic_source=rss",
+      "publishedAt": "2026-10-07T12:09:18+00:00",
+      "image": "https://www.aljazeera.com/wp-content/uploads/2026/10/Screenshot-2026-10-07-at-15.08.41-1791374948.png?resize=1200%2C675",
+      "category": "world"
     },
     {
       "id": "0a8baf52ea5f9de21903",
@@ -976,94 +976,94 @@
       "category": "markets"
     },
     {
-      "id": "24a2a9883e8f0cb23191",
+      "id": "fcbb4ed0ad829063b291",
       "source": "investing",
-      "title": "Fed minutes show most policymakers see another rate hike by year end",
-      "url": "https://www.investing.com/news/economy-news/fed-minutes-show-most-policymakers-see-another-rate-hike-by-year-end-4937310",
+      "title": "Why is Black Hills stock surging today?",
+      "url": "https://www.investing.com/news/stock-market-news/why-is-black-hills-stock-surging-today-93CH-4937337",
       "publishedAt": null,
-      "image": "https://content-media.investing.com/news/moved_LYNXMPEI710GU_L.jpg",
+      "image": "https://content-media.investing.com/news/LYNXNPEB6J0AJ_M.jpg",
+      "category": "markets"
+    },
+    {
+      "id": "91e5ea6625b285512e9c",
+      "source": "investing",
+      "title": "Why is Spotify stock rallying today?",
+      "url": "https://www.investing.com/news/stock-market-news/why-is-spotify-stock-rallying-today-93CH-4937336",
+      "publishedAt": null,
+      "image": "https://content-media.investing.com/news/LYNXNPEAAA112_M.jpg",
+      "category": "markets"
+    },
+    {
+      "id": "c2b698f74ed28d2e4679",
+      "source": "investing",
+      "title": "Lucid Group bull and bear case: upside potential against deep execution risk",
+      "url": "https://www.investing.com/news/stock-market-news/lucid-group-bull-and-bear-case-upside-potential-against-deep-execution-risk-93CH-4937335",
+      "publishedAt": null,
+      "image": "https://content-media.investing.com/news/moved_LYNXMPEHB50EU_L.jpg",
+      "category": "markets"
+    },
+    {
+      "id": "d54091afe153d7a5b59a",
+      "source": "investing",
+      "title": "Trump administration plans to charge international students $70,000 for work authorization",
+      "url": "https://www.investing.com/news/economy-news/trump-administration-plans-to-charge-international-students-70000-for-work-authorization-4937334",
+      "publishedAt": null,
+      "image": "https://content-media.investing.com/trkd-images/LYNXMPEM961SF_L.jpg",
       "category": "business"
     },
     {
-      "id": "03a4ce63040c0bb86f24",
+      "id": "90e261a7f7f195699822",
       "source": "investing",
-      "title": "HP announces pricing for AI-powered PCs, demos Windows on GB300",
-      "url": "https://www.investing.com/news/company-news/hp-announces-pricing-for-aipowered-pcs-demos-windows-on-gb300-93CH-4937316",
+      "title": "Stag Industrial stock hits 52-week low at $35.37",
+      "url": "https://www.investing.com/news/company-news/stag-industrial-stock-hits-52week-low-at-3537-93CH-4937332",
       "publishedAt": null,
-      "image": "https://content-media.investing.com/news/LYNXMPEM5F12L_1200_L.jpg",
+      "image": "https://content-media.investing.com/news/LYNXMPEM0J0ZC_1200_L.jpg",
+      "category": "markets"
+    },
+    {
+      "id": "6effd652024da83b2b21",
+      "source": "investing",
+      "title": "Anthropic launches third Claude 5.5 model, expanding AI lineup before planned IPO",
+      "url": "https://www.investing.com/news/stock-market-news/anthropic-launches-third-claude-55-model-expanding-ai-lineup-before-planned-ipo-4937326",
+      "publishedAt": null,
+      "image": "https://content-media.investing.com/trkd-images/LYNXMPEM961RH_L.jpg",
       "category": "technology"
     },
     {
-      "id": "32e2a612b6ced0a706f5",
+      "id": "386ecf4395973eeeba45",
       "source": "investing",
-      "title": "Tropical Storm Isaias forecast to hit US Gulf coast as hurricane early Saturday",
-      "url": "https://www.investing.com/news/commodities-news/tropical-stormisaias-forecast-to-hit-us-gulf-coast-as-hurricane-early-saturday-4937254",
+      "title": "US SEC will not charge top funds over climate concerns but warns of disclosure obligations",
+      "url": "https://www.investing.com/news/stock-market-news/us-sec-will-not-pursue-charges-against-climate-group-warns-of-disclosure-obligations-4937029",
       "publishedAt": null,
-      "image": "https://content-media.investing.com/news/oil_2_M_1440047844.jpg",
-      "category": "other"
+      "image": "https://content-media.investing.com/trkd-images/LYNXMPEM961AN_L.jpg",
+      "category": "sustainability"
     },
     {
-      "id": "eae103233d7b8bdffe7a",
+      "id": "a71b220516c81cf6d74d",
       "source": "investing",
-      "title": "Brazil regulator approves American Airlines’ investment in Azul",
-      "url": "https://www.investing.com/news/stock-market-news/brazil-regulator-approves-american-airlines-investment-in-azul-4937308",
+      "title": "JBT Marel Corporation stock hits 52-week low at 104.32 USD",
+      "url": "https://www.investing.com/news/company-news/jbt-marel-corporation-stock-hits-52week-low-at-10432-usd-93CH-4937325",
       "publishedAt": null,
-      "image": "https://content-media.investing.com/trkd-images/LYNXMPEM961R9_L.jpg",
+      "image": "https://content-media.investing.com/news/LYNXMPEM1J0WY_1200_L.jpg",
       "category": "markets"
     },
     {
-      "id": "e17b0181ddf12f2d4e0c",
+      "id": "9046a9d83585eed309c8",
       "source": "investing",
-      "title": "Initial jobless claims highlight economic data due Thursday",
-      "url": "https://www.investing.com/news/stock-market-news/initial-jobless-claims-highlight-economic-data-due-thursday-93CH-4937309",
+      "title": "U.S. stocks cut losses as oil turns lower, yields pare gains on strong auction",
+      "url": "https://www.investing.com/news/stock-market-news/us-stock-futures-steady-after-tech-rally-lifts-sp-500-nasdaq-to-records-4935463",
       "publishedAt": null,
-      "image": "https://content-media.investing.com/news/gas_M_1440047759.jpg",
+      "image": "https://content-media.investing.com/news/LYNXMPEM4J1W2_1200_L.jpg",
       "category": "markets"
     },
     {
-      "id": "3694aa40b231a88e3d01",
+      "id": "972bb58c8a4e2d59238a",
       "source": "investing",
-      "title": "American Airlines’ $100m Azul investment wins Brazil approval",
-      "url": "https://www.investing.com/news/stock-market-news/american-airlines-100m-azul-investment-wins-brazil-approval-93CH-4937305",
+      "title": "Andersen announces three acquisitions across Europe and Africa",
+      "url": "https://www.investing.com/news/company-news/andersen-announces-three-acquisitions-across-europe-and-africa-93CH-4937323",
       "publishedAt": null,
-      "image": "https://content-media.investing.com/news/LYNXMPEB3N0GT_M.jpg",
-      "category": "markets"
-    },
-    {
-      "id": "badd67aee5ca263066c1",
-      "source": "investing",
-      "title": "Truist comments on homebuilder stocks amid rising mortgage rates",
-      "url": "https://www.investing.com/news/stock-market-news/truist-comments-on-homebuilder-stocks-amid-rising-mortgage-rates-93CH-4937304",
-      "publishedAt": null,
-      "image": "https://content-media.investing.com/news/LYNXNPEBAG0BO_M.jpg",
-      "category": "markets"
-    },
-    {
-      "id": "efb08377d284bd81cd2b",
-      "source": "investing",
-      "title": "FireFly Robotics files for Nasdaq direct listing",
-      "url": "https://www.investing.com/news/company-news/firefly-robotics-files-for-nasdaq-direct-listing-93CH-4937302",
-      "publishedAt": null,
-      "image": "https://content-media.investing.com/news/LYNXMPEM5H10K_1200_L.jpg",
+      "image": "https://content-media.investing.com/news/LYNXMPEM1P0ZM_1200_L.jpg",
       "category": "business"
-    },
-    {
-      "id": "12a044bc34d3eea25945",
-      "source": "investing",
-      "title": "Air Products signs deal for LNG-based air separation unit in Malaysia",
-      "url": "https://www.investing.com/news/stock-market-news/air-products-signs-deal-for-lngbased-air-separation-unit-in-malaysia-93CH-4937301",
-      "publishedAt": null,
-      "image": "https://content-media.investing.com/news/LYNXNPEB6U08A_M.jpg",
-      "category": "markets"
-    },
-    {
-      "id": "713a70fb2b33879259a7",
-      "source": "investing",
-      "title": "Jefferies highlights 1.6T transition ahead of OCP Summit",
-      "url": "https://www.investing.com/news/stock-market-news/jefferies-highlights-16t-transition-ahead-of-ocp-summit-93CH-4937300",
-      "publishedAt": null,
-      "image": "https://content-media.investing.com/news/LYNXMPEB1A16P_M.jpg",
-      "category": "markets"
     },
     {
       "id": "e9cc1e2d7f76d2b3195b",
