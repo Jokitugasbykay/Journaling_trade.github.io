@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "checkedAt": "2026-10-07T17:14:36.514544+00:00",
+  "checkedAt": "2026-10-07T17:14:51.366776+00:00",
   "intervalMinutes": 30,
   "sources": [
     {
@@ -9,7 +9,7 @@
       "url": "https://www.investing.com/",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-07T17:14:35.534474+00:00"
+      "checkedAt": "2026-10-07T17:14:50.580579+00:00"
     },
     {
       "id": "cnbc",
@@ -17,7 +17,7 @@
       "url": "https://www.cnbc.com/markets/",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-07T17:14:35.794944+00:00"
+      "checkedAt": "2026-10-07T17:14:50.493698+00:00"
     },
     {
       "id": "kontan",
@@ -25,7 +25,7 @@
       "url": "https://www.kontan.co.id/",
       "kind": "html",
       "status": "ok",
-      "checkedAt": "2026-10-07T17:14:35.664058+00:00"
+      "checkedAt": "2026-10-07T17:14:51.318224+00:00"
     },
     {
       "id": "reuters",
@@ -33,7 +33,7 @@
       "url": "https://www.reuters.com/",
       "kind": "sitemap",
       "status": "ok",
-      "checkedAt": "2026-10-07T17:14:35.853972+00:00"
+      "checkedAt": "2026-10-07T17:14:50.562783+00:00"
     },
     {
       "id": "aljazeera",
@@ -41,7 +41,7 @@
       "url": "https://www.aljazeera.com/",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-07T17:14:35.420796+00:00"
+      "checkedAt": "2026-10-07T17:14:50.579477+00:00"
     },
     {
       "id": "bloomberg",
@@ -49,7 +49,7 @@
       "url": "https://www.bloomberg.com/asia",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-07T17:14:36.512021+00:00"
+      "checkedAt": "2026-10-07T17:14:50.648798+00:00"
     },
     {
       "id": "fedwatch",
@@ -67,6 +67,22 @@
     }
   ],
   "items": [
+    {
+      "id": "18f2236ff40757b26840",
+      "source": "bloomberg",
+      "title": "Tropical Storm Isaias Could Turn Into Cat 2 Hurricane",
+      "url": "https://www.bloomberg.com/news/videos/2026-10-07/tropical-storm-isaias-could-turn-into-cat-2-hurricane-video",
+      "publishedAt": "2026-10-07T17:12:18+00:00",
+      "image": null
+    },
+    {
+      "id": "e65b574d274854e96b05",
+      "source": "bloomberg",
+      "title": "Disney Confirms That Disney+ Will Stream The 2027 Super Bowl",
+      "url": "https://www.bloomberg.com/news/videos/2026-10-07/disney-confirms-that-disney-will-stream-2027-super-bowl-video",
+      "publishedAt": "2026-10-07T17:10:39+00:00",
+      "image": null
+    },
     {
       "id": "768349e568b68a99eae4",
       "source": "reuters",
@@ -404,14 +420,6 @@
       "image": null
     },
     {
-      "id": "d72c81797d7db9fb90dd",
-      "source": "bloomberg",
-      "title": "Dollar Nears New High of the Year as Investors Rush to Safety",
-      "url": "https://www.bloomberg.com/news/articles/2026-10-07/dollar-nears-new-high-of-the-year-as-investors-rush-to-safety",
-      "publishedAt": "2026-10-07T15:20:23+00:00",
-      "image": null
-    },
-    {
       "id": "12e57017508cf061c372",
       "source": "aljazeera",
       "title": "How Israel’s genocide in Gaza pulled Britons into the Palestine movement",
@@ -684,14 +692,6 @@
       "image": "https://image.cnbcfm.com/api/v1/image/108373796-1791360823662-gettyimages-2297901439-AFP_C9W887L.jpeg?v=1791360836&w=1920&h=1080"
     },
     {
-      "id": "971ddd22ac8169fdd0a8",
-      "source": "bloomberg",
-      "title": "Reliance Drives India’s Venezuela Oil Imports to 7-Year High",
-      "url": "https://www.bloomberg.com/news/articles/2026-10-07/reliance-drives-india-s-venezuela-oil-imports-to-seven-year-high",
-      "publishedAt": "2026-10-07T06:59:59+00:00",
-      "image": null
-    },
-    {
       "id": "7ea3c094d5c2a7c78527",
       "source": "bloomberg",
       "title": "Stocks Fall From All-Time Highs on Inflation Worry: Markets Wrap",
@@ -706,22 +706,6 @@
       "url": "https://www.bloomberg.com/news/articles/2026-10-06/latest-oil-market-news-and-analysis-for-oct-7",
       "publishedAt": "2026-10-06T22:02:47+00:00",
       "image": null
-    },
-    {
-      "id": "ad0b743491935085a1f7",
-      "source": "investing",
-      "title": "US inflation expectations rise to highest since May 2023",
-      "url": "https://www.investing.com/news/economy-news/us-inflation-expectations-rise-to-highest-since-may-2023-93CH-4937249",
-      "publishedAt": null,
-      "image": "https://content-media.investing.com/news/LYNXMPEM190XL_1200_L.jpg"
-    },
-    {
-      "id": "976bbb617264f8461ce9",
-      "source": "investing",
-      "title": "ALK raises 2026 outlook on strong tablet sales growth",
-      "url": "https://www.investing.com/news/stock-market-news/alk-raises-2026-outlook-on-strong-tablet-sales-growth-93CH-4937248",
-      "publishedAt": null,
-      "image": "https://content-media.investing.com/news/LYNXMPED0C0KP_M.jpg"
     },
     {
       "id": "aece75e76a342aa244fe",
@@ -786,6 +770,22 @@
       "url": "https://www.investing.com/news/stock-market-news/why-is-fresenius-medical-care-adr-stock-sliding-today-93CH-4937231",
       "publishedAt": null,
       "image": "https://content-media.investing.com/news/SP500StandardandPoors500Index_800x533_L_1657544297.jpg"
+    },
+    {
+      "id": "50319c05ac6eaf6b180c",
+      "source": "investing",
+      "title": "Fresenius Medical Care tumbles on CEO transition announcement",
+      "url": "https://www.investing.com/news/stock-market-news/fresenius-medical-care-tumbles-on-ceo-transition-announcement-4937226",
+      "publishedAt": null,
+      "image": "https://content-media.investing.com/news/moved_LYNXMPEL3D0QK_L.jpg"
+    },
+    {
+      "id": "c2af19837deb1d54ad62",
+      "source": "investing",
+      "title": "NHI stock hits 52-week low at 64.51 USD",
+      "url": "https://www.investing.com/news/company-news/nhi-stock-hits-52week-low-at-6451-usd-93CH-4937225",
+      "publishedAt": null,
+      "image": "https://content-media.investing.com/news/LYNXMPEM1B112_1200_L.jpg"
     },
     {
       "id": "bf0685fc7626a03dc0c6",
