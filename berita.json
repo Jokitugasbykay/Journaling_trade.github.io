@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "checkedAt": "2026-10-07T18:43:39.817431+00:00",
+  "checkedAt": "2026-10-07T18:44:11.264641+00:00",
   "intervalMinutes": 30,
   "sources": [
     {
@@ -9,7 +9,7 @@
       "url": "https://www.investing.com/",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-07T18:43:23.031250+00:00"
+      "checkedAt": "2026-10-07T18:44:06.228423+00:00"
     },
     {
       "id": "cnbc",
@@ -17,7 +17,7 @@
       "url": "https://www.cnbc.com/markets/",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-07T18:43:23.028715+00:00"
+      "checkedAt": "2026-10-07T18:44:06.300373+00:00"
     },
     {
       "id": "kontan",
@@ -25,7 +25,7 @@
       "url": "https://www.kontan.co.id/",
       "kind": "html",
       "status": "ok",
-      "checkedAt": "2026-10-07T18:43:24.095921+00:00"
+      "checkedAt": "2026-10-07T18:44:07.027528+00:00"
     },
     {
       "id": "reuters",
@@ -33,7 +33,7 @@
       "url": "https://www.reuters.com/",
       "kind": "sitemap",
       "status": "ok",
-      "checkedAt": "2026-10-07T18:43:24.730388+00:00"
+      "checkedAt": "2026-10-07T18:44:06.719387+00:00"
     },
     {
       "id": "aljazeera",
@@ -41,7 +41,7 @@
       "url": "https://www.aljazeera.com/",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-07T18:43:23.085767+00:00"
+      "checkedAt": "2026-10-07T18:44:06.252203+00:00"
     },
     {
       "id": "bloomberg",
@@ -49,7 +49,7 @@
       "url": "https://www.bloomberg.com/asia",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-07T18:43:24.717337+00:00"
+      "checkedAt": "2026-10-07T18:44:06.456369+00:00"
     },
     {
       "id": "fnc",
@@ -57,7 +57,7 @@
       "url": "https://tradewithfnc.com/",
       "kind": "json",
       "status": "ok",
-      "checkedAt": "2026-10-07T18:43:38.614252+00:00"
+      "checkedAt": "2026-10-07T18:44:06.930956+00:00"
     },
     {
       "id": "investing_id",
@@ -65,15 +65,15 @@
       "url": "https://id.investing.com/news",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-07T18:43:23.826029+00:00"
+      "checkedAt": "2026-10-07T18:44:06.357915+00:00"
     },
     {
       "id": "pluang",
       "name": "Pluang",
       "url": "https://pluang.com/news-feed",
       "kind": "html",
-      "status": "unavailable",
-      "checkedAt": null
+      "status": "ok",
+      "checkedAt": "2026-10-07T18:44:06.737278+00:00"
     },
     {
       "id": "kompas",
@@ -81,7 +81,7 @@
       "url": "https://money.kompas.com/",
       "kind": "html",
       "status": "ok",
-      "checkedAt": "2026-10-07T18:43:28.425104+00:00"
+      "checkedAt": "2026-10-07T18:44:07.825654+00:00"
     },
     {
       "id": "detik",
@@ -89,7 +89,7 @@
       "url": "https://finance.detik.com/",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-07T18:43:29.795697+00:00"
+      "checkedAt": "2026-10-07T18:44:08.366951+00:00"
     },
     {
       "id": "kemenkeu",
@@ -104,7 +104,7 @@
       "name": "CNN Indonesia Ekonomi",
       "url": "https://www.cnnindonesia.com/ekonomi",
       "kind": "rss",
-      "status": "ok",
+      "status": "stale",
       "checkedAt": "2026-10-07T18:43:27.983282+00:00"
     },
     {
@@ -121,7 +121,7 @@
       "url": "https://ekbis.sindonews.com/",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-07T18:43:28.115313+00:00"
+      "checkedAt": "2026-10-07T18:44:07.294041+00:00"
     },
     {
       "id": "fedwatch",
@@ -140,6 +140,24 @@
   ],
   "items": [
     {
+      "id": "0da38b6a0e55c811fdfc",
+      "source": "reuters",
+      "title": "Oregon head coach Dana Altman retires in surprise move",
+      "url": "https://www.reuters.com/sports/oregon-head-coach-dana-altman-retires-surprise-move--flm-2026-10-07/",
+      "publishedAt": "2026-10-07T18:43:01.623000+00:00",
+      "image": null,
+      "category": "sport"
+    },
+    {
+      "id": "b43abd32962f54cbbf12",
+      "source": "reuters",
+      "title": "Tanzania gold mine deaths at centre of case against London accreditor of refiners",
+      "url": "https://www.reuters.com/world/africa/tanzania-gold-mine-deaths-centre-case-against-london-accreditor-refiners-2026-10-07/",
+      "publishedAt": "2026-10-07T18:42:53.897000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/W4S6XVC47BPTZBBY5AFTGYPZNA.jpg?auth=3a033e424e7cd3a7b5ab700f5c7a211aad7a7ab1aa2d240522849314274c1f22&smart=true&width=1920",
+      "category": "markets"
+    },
+    {
       "id": "08e91b4dc0b41b2f59fc",
       "source": "cnbc",
       "title": "Fed officials see another hike coming, but no sign as to when, minutes show",
@@ -147,6 +165,24 @@
       "publishedAt": "2026-10-07T18:42:36+00:00",
       "image": "https://image.cnbcfm.com/api/v1/image/108363920-1789584172531-gettyimages-2295044570-WARSH_FOMC.jpeg?v=1789584195&w=1920&h=1080",
       "category": "other"
+    },
+    {
+      "id": "8a5e0365e97ce91a5e30",
+      "source": "reuters",
+      "title": "Formula One statistics for the Singapore Grand Prix",
+      "url": "https://www.reuters.com/sports/formula1/formula-one-statistics-singapore-grand-prix-2026-10-07/",
+      "publishedAt": "2026-10-07T18:41:44.407000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/ZLILQ57UOVKTHFFQ7AOUDMZDUA.jpg?auth=528ce2408ac4ab4401cf3ed72f5107b7372ff2358df939c4eab5d8d738063656&smart=true&width=1920",
+      "category": "sport"
+    },
+    {
+      "id": "44cc6c0a1043097d47e0",
+      "source": "reuters",
+      "title": "Elliott and Siris explore $2 billion-plus Gigamon sale, sources say",
+      "url": "https://www.reuters.com/business/elliott-siris-explore-2-billion-plus-gigamon-sale-sources-say-2026-10-07/",
+      "publishedAt": "2026-10-07T18:38:55.103000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/DW54HB6PNBIUHJJI3V3MHKYXIM.jpg?auth=2b2a6cbd886b9aa2daf4a89a344223be6baedcbc283b9edc6a6949bbe200ee13&smart=true&width=1920",
+      "category": "business"
     },
     {
       "id": "72741db9e0b38670c510",
@@ -203,24 +239,6 @@
       "category": "world"
     },
     {
-      "id": "7b1dc598bc16170ea885",
-      "source": "aljazeera",
-      "title": "At least 24 killed as Russia launches massive attack on Ukraine",
-      "url": "https://www.aljazeera.com/video/newsfeed/2026/10/7/at-least-24-killed-as-russia-launches-massive-attack-on-ukraine?traffic_source=rss",
-      "publishedAt": "2026-10-07T18:32:08+00:00",
-      "image": "https://www.aljazeera.com/wp-content/uploads/2026/10/image-1791397914.jpg?resize=1920%2C1080&quality=80",
-      "category": "other"
-    },
-    {
-      "id": "6bea1861608c494c7da8",
-      "source": "aljazeera",
-      "title": "Kenya on high alert amid concern over screening after first Ebola death",
-      "url": "https://www.aljazeera.com/video/newsfeed/2026/10/7/kenya-on-high-alert-amid-concern-over-screening-after-first-ebola-death?traffic_source=rss",
-      "publishedAt": "2026-10-07T18:31:57+00:00",
-      "image": "https://www.aljazeera.com/wp-content/uploads/2026/10/image-1791397882.jpg?resize=1298%2C1080&quality=80",
-      "category": "other"
-    },
-    {
       "id": "cda518321250a9807e73",
       "source": "reuters",
       "title": "Zealand, Roche's obesity drug helps patients lose up to 9.2% weight in mid-stage trial",
@@ -246,15 +264,6 @@
       "publishedAt": "2026-10-07T18:30:26.702000+00:00",
       "image": "https://www.reuters.com/resizer/v2/5XB5MXAIAFPY3MBT4HGXQXAJ3E.jpg?auth=28ce392e9cbb1d4fa3581ea41bb32b2c28ca104f9aec2e911b81a921193abb68&smart=true&width=1920",
       "category": "sustainability"
-    },
-    {
-      "id": "36a2e5ce05348d27490f",
-      "source": "aljazeera",
-      "title": "Saudi Arabia says three foreign nationals killed in attacks on airports",
-      "url": "https://www.aljazeera.com/news/2026/10/7/saudi-arabia-says-three-foreign-nationals-killed-in-attacks-on-airports?traffic_source=rss",
-      "publishedAt": "2026-10-07T18:29:34+00:00",
-      "image": "https://www.aljazeera.com/wp-content/uploads/2026/10/reuters_6ac68de0-1791397344.jpg?resize=1920%2C1440",
-      "category": "other"
     },
     {
       "id": "95cddbb2d1a1824ed026",
@@ -311,33 +320,6 @@
       "category": "markets"
     },
     {
-      "id": "4ab9d5bc3f6aac1dc3f9",
-      "source": "aljazeera",
-      "title": "LSD - from counterculture to clinical trials",
-      "url": "https://www.aljazeera.com/video/newsfeed/2026/10/7/lsd-from-counterculture-to-clinical-trials?traffic_source=rss",
-      "publishedAt": "2026-10-07T18:27:12+00:00",
-      "image": "https://www.aljazeera.com/wp-content/uploads/2026/10/FULL-THUMBNAIL-Templates3_2-clean-1791397498.jpg?resize=1920%2C1080&quality=80",
-      "category": "other"
-    },
-    {
-      "id": "c1c1aec8406154c38def",
-      "source": "aljazeera",
-      "title": "Most Americans oppose Trump’s taxpayer-funded ‘golden age’ ads: Poll",
-      "url": "https://www.aljazeera.com/news/2026/10/7/most-americans-oppose-trumps-taxpayer-funded-golden-age-ads-poll?traffic_source=rss",
-      "publishedAt": "2026-10-07T18:27:09+00:00",
-      "image": "https://www.aljazeera.com/wp-content/uploads/2026/10/afp_6ac6854a81df-1791395146.jpg?resize=1920%2C1440",
-      "category": "markets"
-    },
-    {
-      "id": "b482a8344c931b76543a",
-      "source": "aljazeera",
-      "title": "In El Salvador’s mass trials, lawyers struggle to defend hundreds",
-      "url": "https://www.aljazeera.com/news/2026/10/7/in-el-salvadors-mass-trials-lawyers-struggle-to-defend-hundreds?traffic_source=rss",
-      "publishedAt": "2026-10-07T18:26:07+00:00",
-      "image": "https://www.aljazeera.com/wp-content/uploads/2026/10/getty_6ac67492ba-1791390866.jpg?resize=1920%2C1440",
-      "category": "other"
-    },
-    {
       "id": "e298b2733cbfda8d0f35",
       "source": "cnbc",
       "title": "Americans grow more pessimistic about their finances, New York Fed finds - expert warns of ‘tough choices’ ahead",
@@ -392,15 +374,6 @@
       "category": "world"
     },
     {
-      "id": "44cc6c0a1043097d47e0",
-      "source": "reuters",
-      "title": "Elliott and Siris explore $2 billion-plus Gigamon sale, sources say",
-      "url": "https://www.reuters.com/business/elliott-siris-explore-2-billion-plus-gigamon-sale-sources-say-2026-10-07/",
-      "publishedAt": "2026-10-07T18:17:01.515000+00:00",
-      "image": null,
-      "category": "business"
-    },
-    {
       "id": "db5b1b79150662907e78",
       "source": "aljazeera",
       "title": "How genocide in Gaza followed Bosnia’s painful pattern",
@@ -452,33 +425,6 @@
       "url": "https://www.reuters.com/sports/cricket/t20-ties-have-softened-on-field-rivalries-says-harmer-2026-10-07/",
       "publishedAt": "2026-10-07T18:13:00.690000+00:00",
       "image": "https://www.reuters.com/resizer/v2/4HW6Q2SENNMTVJGNJQJJZE3PZY.jpg?auth=8540304fb54f2e4009fcd41b99851843b19406a28ed44a1ae85d94dc6ad23a37&smart=true&width=1920",
-      "category": "sport"
-    },
-    {
-      "id": "07ae557dab7121f3e057",
-      "source": "reuters",
-      "title": "Saudi Arabia launches air safety probe into flydubai incident, sources say",
-      "url": "https://www.reuters.com/world/middle-east/saudi-arabia-launches-air-safety-probe-into-flydubai-incident-sources-say-2026-10-07/",
-      "publishedAt": "2026-10-07T18:12:07.276000+00:00",
-      "image": "https://www.reuters.com/resizer/v2/EDJPXSRJFNPNNN2F53PYIMCLRY.jpg?auth=b86b86c9045d3c31520faebaaf926a6686174d4255332a80ab92f3a8aa519f72&smart=true&width=1920",
-      "category": "world"
-    },
-    {
-      "id": "bcf6b92b10c22bd39db1",
-      "source": "reuters",
-      "title": "EU envoys approve new Russia sanctions listings, diplomats say",
-      "url": "https://www.reuters.com/business/aerospace-defense/eu-envoys-approve-new-russia-sanctions-listings-diplomats-say-2026-10-07/",
-      "publishedAt": "2026-10-07T18:11:54.467000+00:00",
-      "image": "https://www.reuters.com/resizer/v2/3MEPP4YTRJM7TAW6XLJCWETDEU.jpg?auth=2e2e5ac5a4e4e5a8095b39587737cb51047fde81ee343e3488b7bf6b44d43c4b&smart=true&width=1920",
-      "category": "business"
-    },
-    {
-      "id": "0a5d4d71f236260ce48d",
-      "source": "reuters",
-      "title": "McTominay cleared to return, Napoli say",
-      "url": "https://www.reuters.com/sports/soccer/mctominay-cleared-return-napoli-say-2026-10-07/",
-      "publishedAt": "2026-10-07T18:11:45.884000+00:00",
-      "image": "https://www.reuters.com/resizer/v2/K35VTM4ORBIVTB7OCWN4JADTGQ.jpg?auth=bcebd7c638a8b54cf63076a1972552115fd09376ea6d88460e86797df0962039&smart=true&width=1920",
       "category": "sport"
     },
     {
@@ -1013,6 +959,15 @@
       "category": "markets"
     },
     {
+      "id": "351314f9510726b01c60",
+      "source": "aljazeera",
+      "title": "South Korea signals military exemption cuts for athletes after Asian Games",
+      "url": "https://www.aljazeera.com/sports/2026/10/7/south-korea-signals-military-exemption-cuts-for-gold-medallists-after-backlash-at-athletes-asian-games-comments?traffic_source=rss",
+      "publishedAt": "2026-10-07T13:38:14+00:00",
+      "image": "https://www.aljazeera.com/wp-content/uploads/2026/10/2026-10-03T142237Z_296345539_UP1EMA30YPL65_RTRMADP_3_GAMES-ASIA-1791376596.jpg?resize=1920%2C1440",
+      "category": "sport"
+    },
+    {
       "id": "baa151ac8fe1a80ef32b",
       "source": "detik",
       "title": "Pemerintah Kejar Pertumbuhan Ekonomi 6%, Pakai Jurus Ini",
@@ -1038,6 +993,24 @@
       "publishedAt": "2026-10-07T13:32:28+00:00",
       "image": "https://akcdn.detik.net.id/visual/2026/10/07/mrt-jadi-penggerak-mobilitas-warga-25-ribu-orang-padati-blok-m-setiap-hari-1791367427407_169.jpeg?w=360&q=90",
       "category": "local"
+    },
+    {
+      "id": "3178e0dcec2a9625be22",
+      "source": "aljazeera",
+      "title": "Okinawa governor urges Japan action after US Marine arrested over killing",
+      "url": "https://www.aljazeera.com/news/2026/10/7/okinawa-governor-urges-japan-action-after-us-marine-arrested-over-killing?traffic_source=rss",
+      "publishedAt": "2026-10-07T13:31:18+00:00",
+      "image": "https://www.aljazeera.com/wp-content/uploads/2026/10/afp_6ac63b7fd4d5-1791376255.jpg?resize=1920%2C1440",
+      "category": "other"
+    },
+    {
+      "id": "846f7bdc11f7cfbe9957",
+      "source": "aljazeera",
+      "title": "Saudi Arabia beat UAE 2-0 to end 22-year wait for Arabian Gulf Cup crown",
+      "url": "https://www.aljazeera.com/sports/2026/10/7/saudi-arabia-beat-uae-2-0-to-end-22-year-wait-for-arabian-gulf-cup-crown?traffic_source=rss",
+      "publishedAt": "2026-10-07T13:30:40+00:00",
+      "image": "https://www.aljazeera.com/wp-content/uploads/2026/10/2026-10-06T210352Z_1330511782_UP1EMA61MIFNG_RTRMADP_3_SOCCER-GULFCUP-SAU-ARE-1791373568.jpg?resize=1920%2C1440",
+      "category": "sport"
     },
     {
       "id": "e200bf53f2b78ce3454c",
@@ -1094,6 +1067,15 @@
       "category": "other"
     },
     {
+      "id": "b1473d8dd976e38a07df",
+      "source": "aljazeera",
+      "title": "Henri Kagan, Kenso Soai win Nobel chemistry prize for ‘mirror image’ work",
+      "url": "https://www.aljazeera.com/news/2026/10/7/henri-kagan-kenso-soai-win-chemistry-nobel-for-mirror-image-breakthrough?traffic_source=rss",
+      "publishedAt": "2026-10-07T13:00:32+00:00",
+      "image": "https://www.aljazeera.com/wp-content/uploads/2026/10/2026-10-07T095918Z_1190866280_RC29YNAW98IB_RTRMADP_3_NOBEL-PRIZE-CHEMISTRY-1791373038.jpg?resize=1920%2C1440",
+      "category": "science"
+    },
+    {
       "id": "7df2fd9ec90e03e233b7",
       "source": "detik",
       "title": "Penjelasan Pengusaha soal Usulan Waktu Kerja 45 Jam/ Minggu",
@@ -1101,6 +1083,15 @@
       "publishedAt": "2026-10-07T13:00:23+00:00",
       "image": "https://akcdn.detik.net.id/community/media/visual/2026/08/21/ketua-umum-asosiasi-pengusaha-indonesia-apindo-shinta-kamdani-1787293865409_169.jpeg?w=360&q=90",
       "category": "local"
+    },
+    {
+      "id": "c0a7b178a79f5ca7f372",
+      "source": "aljazeera",
+      "title": "Coco Gauff says online racist abuse was ‘draining’ after China Open exit",
+      "url": "https://www.aljazeera.com/sports/2026/10/7/coco-gauff-says-online-racist-abuse-was-draining-after-china-open-exit?traffic_source=rss",
+      "publishedAt": "2026-10-07T12:53:11+00:00",
+      "image": "https://www.aljazeera.com/wp-content/uploads/2026/10/AFP__20261007__D2GL3ZQ__v1__MidRes__TennisChnOpen-1791375646.jpg?resize=1200%2C630",
+      "category": "sport"
     },
     {
       "id": "1c37ed99bc71e12cde5f",
@@ -1128,6 +1119,15 @@
       "publishedAt": "2026-10-07T12:41:44+00:00",
       "image": "https://asset.kompas.com/crops/iKxz6Y7AmSJKQBtpQe15k8GawO8=/0x0:1593x1062/750x500/data/photo/2026/07/25/6a63fef21e624.jpeg",
       "category": "local"
+    },
+    {
+      "id": "b7dd2495245258e6dbd4",
+      "source": "aljazeera",
+      "title": "Israeli soldier assaults Palestinian woman in occupied West Bank",
+      "url": "https://www.aljazeera.com/video/newsfeed/2026/10/7/israeli-soldier-assaults-palestinian-woman-in-occupied-west-bank?traffic_source=rss",
+      "publishedAt": "2026-10-07T12:39:07+00:00",
+      "image": "https://www.aljazeera.com/wp-content/uploads/2026/10/image-1791376577.jpg?resize=1920%2C1080&quality=80",
+      "category": "business"
     },
     {
       "id": "1e53ff30fe2029ddbfbd",
@@ -1760,60 +1760,6 @@
       "category": "local"
     },
     {
-      "id": "202e3bd22c1045be2e58",
-      "source": "investing",
-      "title": "Alamos Gold at John Tumazos conference: growth plan targets 1 million ounces",
-      "url": "https://www.investing.com/news/transcripts/alamos-gold-at-john-tumazos-conference-growth-plan-targets-1-million-ounces-93CH-4937344",
-      "publishedAt": null,
-      "image": null,
-      "category": "markets"
-    },
-    {
-      "id": "8a7d82e5627c46dca4bf",
-      "source": "investing",
-      "title": "Saba Capital sells $239,193 of PIMCO Dynamic Income Strategy fund",
-      "url": "https://www.investing.com/news/insider-trading-news/saba-capital-sells-239193-of-pimco-dynamic-income-strategy-fund-93CH-4937341",
-      "publishedAt": null,
-      "image": null,
-      "category": "other"
-    },
-    {
-      "id": "6b112045650427cb007e",
-      "source": "investing",
-      "title": "Saba Capital buys $16,649 of Gabelli Healthcare & WellnessRx trust",
-      "url": "https://www.investing.com/news/insider-trading-news/saba-capital-buys-16649-of-gabelli-healthcare--wellnessrx-trust-93CH-4937342",
-      "publishedAt": null,
-      "image": null,
-      "category": "other"
-    },
-    {
-      "id": "36f964afa3fcd7e157ca",
-      "source": "investing",
-      "title": "S&P 500, Nasdaq ease from record highs as Treasury yields climb",
-      "url": "https://www.investing.com/news/economy-news/wall-st-futures-slip-as-yields-and-oil-rebound-fed-minutes-in-focus-4936151",
-      "publishedAt": null,
-      "image": "https://content-media.investing.com/trkd-images/LYNXMPEM960WU_L.jpg",
-      "category": "markets"
-    },
-    {
-      "id": "24a2a9883e8f0cb23191",
-      "source": "investing",
-      "title": "Fed minutes show most policymakers see another rate hike by year end",
-      "url": "https://www.investing.com/news/economy-news/fed-minutes-show-most-policymakers-see-another-rate-hike-by-year-end-4937310",
-      "publishedAt": null,
-      "image": "https://content-media.investing.com/news/moved_LYNXMPEI710GU_L.jpg",
-      "category": "business"
-    },
-    {
-      "id": "702e2bdd5c0f9f8c85ff",
-      "source": "investing",
-      "title": "Why is QXO stock sliding today?",
-      "url": "https://www.investing.com/news/stock-market-news/why-is-qxo-stock-sliding-today-93CH-4937338",
-      "publishedAt": null,
-      "image": "https://content-media.investing.com/news/LYNXNPEC0D0AP_M.jpg",
-      "category": "markets"
-    },
-    {
       "id": "fcbb4ed0ad829063b291",
       "source": "investing",
       "title": "Why is Black Hills stock surging today?",
@@ -1847,6 +1793,60 @@
       "url": "https://www.investing.com/news/economy-news/trump-administration-plans-to-charge-international-students-70000-for-work-authorization-4937334",
       "publishedAt": null,
       "image": "https://content-media.investing.com/trkd-images/LYNXMPEM961SF_L.jpg",
+      "category": "business"
+    },
+    {
+      "id": "90e261a7f7f195699822",
+      "source": "investing",
+      "title": "Stag Industrial stock hits 52-week low at $35.37",
+      "url": "https://www.investing.com/news/company-news/stag-industrial-stock-hits-52week-low-at-3537-93CH-4937332",
+      "publishedAt": null,
+      "image": "https://content-media.investing.com/news/LYNXMPEM0J0ZC_1200_L.jpg",
+      "category": "markets"
+    },
+    {
+      "id": "6effd652024da83b2b21",
+      "source": "investing",
+      "title": "Anthropic launches third Claude 5.5 model, expanding AI lineup before planned IPO",
+      "url": "https://www.investing.com/news/stock-market-news/anthropic-launches-third-claude-55-model-expanding-ai-lineup-before-planned-ipo-4937326",
+      "publishedAt": null,
+      "image": "https://content-media.investing.com/trkd-images/LYNXMPEM961RH_L.jpg",
+      "category": "technology"
+    },
+    {
+      "id": "386ecf4395973eeeba45",
+      "source": "investing",
+      "title": "US SEC will not charge top funds over climate concerns but warns of disclosure obligations",
+      "url": "https://www.investing.com/news/stock-market-news/us-sec-will-not-pursue-charges-against-climate-group-warns-of-disclosure-obligations-4937029",
+      "publishedAt": null,
+      "image": "https://content-media.investing.com/trkd-images/LYNXMPEM961AN_L.jpg",
+      "category": "sustainability"
+    },
+    {
+      "id": "a71b220516c81cf6d74d",
+      "source": "investing",
+      "title": "JBT Marel Corporation stock hits 52-week low at 104.32 USD",
+      "url": "https://www.investing.com/news/company-news/jbt-marel-corporation-stock-hits-52week-low-at-10432-usd-93CH-4937325",
+      "publishedAt": null,
+      "image": "https://content-media.investing.com/news/LYNXMPEM1J0WY_1200_L.jpg",
+      "category": "markets"
+    },
+    {
+      "id": "9046a9d83585eed309c8",
+      "source": "investing",
+      "title": "U.S. stocks cut losses as oil turns lower, yields pare gains on strong auction",
+      "url": "https://www.investing.com/news/stock-market-news/us-stock-futures-steady-after-tech-rally-lifts-sp-500-nasdaq-to-records-4935463",
+      "publishedAt": null,
+      "image": "https://content-media.investing.com/news/LYNXMPEM4J1W2_1200_L.jpg",
+      "category": "markets"
+    },
+    {
+      "id": "972bb58c8a4e2d59238a",
+      "source": "investing",
+      "title": "Andersen announces three acquisitions across Europe and Africa",
+      "url": "https://www.investing.com/news/company-news/andersen-announces-three-acquisitions-across-europe-and-africa-93CH-4937323",
+      "publishedAt": null,
+      "image": "https://content-media.investing.com/news/LYNXMPEM1P0ZM_1200_L.jpg",
       "category": "business"
     },
     {
@@ -2030,60 +2030,6 @@
       "category": "local"
     },
     {
-      "id": "c2b64a66100bc5673777",
-      "source": "investing_id",
-      "title": "Fifth Third tunjuk Darren King pimpin Commercial Bank yang diperluas",
-      "url": "https://id.investing.com/news/company-news/fifth-third-tunjuk-darren-king-pimpin-commercial-bank-yang-diperluas-93CH-3089731",
-      "publishedAt": null,
-      "image": "https://content-media.investing.com/news/LYNXMPEM1J0WY_1200_L.jpg",
-      "category": "local"
-    },
-    {
-      "id": "68fc826322c943cc2dee",
-      "source": "investing_id",
-      "title": "Alamos Gold paparkan rencana pertumbuhan menuju 1 juta ons",
-      "url": "https://id.investing.com/news/transcripts/alamos-gold-paparkan-rencana-pertumbuhan-menuju-1-juta-ons-93CH-3089730",
-      "publishedAt": null,
-      "image": "https://content-media.investing.com/news/LYNXNPEC0E0NG_M.jpg",
-      "category": "local"
-    },
-    {
-      "id": "ccaf728bb05f13b4fcc5",
-      "source": "investing_id",
-      "title": "Saba Capital jual $239.193 saham dana PIMCO Dynamic Income Strategy",
-      "url": "https://id.investing.com/news/insider-trading-news/saba-capital-jual-239193-saham-dana-pimco-dynamic-income-strategy-93CH-3089729",
-      "publishedAt": null,
-      "image": "https://content-media.investing.com/news/moved_LYNXMPEM3Q0WG_1200_L.jpg",
-      "category": "local"
-    },
-    {
-      "id": "f501774a19dd66a00dee",
-      "source": "investing_id",
-      "title": "Saba Capital membeli saham GRX senilai $16.649",
-      "url": "https://id.investing.com/news/insider-trading-news/saba-capital-membeli-saham-grx-senilai-16649-93CH-3089728",
-      "publishedAt": null,
-      "image": "https://content-media.investing.com/news/moved_LYNXMPEM4416N_1200_L.jpg",
-      "category": "local"
-    },
-    {
-      "id": "a370c73b2538e6470b41",
-      "source": "investing_id",
-      "title": "Mengapa saham QXO merosot hari ini?",
-      "url": "https://id.investing.com/news/stock-market-news/mengapa-saham-qxo-merosot-hari-ini-93CH-3089727",
-      "publishedAt": null,
-      "image": "https://content-media.investing.com/news/LYNXNPEC0D0AP_M.jpg",
-      "category": "local"
-    },
-    {
-      "id": "aeb5b7ff9926cd6f7dba",
-      "source": "investing_id",
-      "title": "Mengapa saham Black Hills melonjak hari ini?",
-      "url": "https://id.investing.com/news/stock-market-news/mengapa-saham-black-hills-melonjak-hari-ini-93CH-3089726",
-      "publishedAt": null,
-      "image": "https://content-media.investing.com/news/LYNXNPEB6J0AJ_M.jpg",
-      "category": "local"
-    },
-    {
       "id": "0ddb857e226ecbe965e0",
       "source": "investing_id",
       "title": "Mengapa saham Spotify melonjak hari ini?",
@@ -2117,6 +2063,69 @@
       "url": "https://id.investing.com/news/commodities-news/futures-gas-alam-lebih-tinggi-pada-masa-dagang-as-3089722",
       "publishedAt": null,
       "image": "https://content-media.investing.com/news/NaturalGas_800x533_L_1744805256.jpg",
+      "category": "local"
+    },
+    {
+      "id": "2435720c1426facdd9e3",
+      "source": "investing_id",
+      "title": "Saham JBT Marel Corporation sentuh level terendah 52 minggu di $104,32",
+      "url": "https://id.investing.com/news/company-news/saham-jbt-marel-corporation-sentuh-level-terendah-52-minggu-di-10432-93CH-3089721",
+      "publishedAt": null,
+      "image": "https://content-media.investing.com/news/LYNXMPEM1J0WY_1200_L.jpg",
+      "category": "local"
+    },
+    {
+      "id": "1abf0e5238dad5da01c8",
+      "source": "investing_id",
+      "title": "Andersen umumkan tiga akuisisi di Eropa dan Afrika",
+      "url": "https://id.investing.com/news/company-news/andersen-umumkan-tiga-akuisisi-di-eropa-dan-afrika-93CH-3089720",
+      "publishedAt": null,
+      "image": "https://content-media.investing.com/news/LYNXMPEM1P0ZM_1200_L.jpg",
+      "category": "local"
+    },
+    {
+      "id": "884225a6419d39bab401",
+      "source": "investing_id",
+      "title": "Mengapa Saham Waste Connections Naik Hari Ini?",
+      "url": "https://id.investing.com/news/stock-market-news/mengapa-saham-waste-connections-naik-hari-ini-93CH-3089719",
+      "publishedAt": null,
+      "image": "https://content-media.investing.com/news/SP500StandardandPoors500Index_800x533_L_1657544297.jpg",
+      "category": "local"
+    },
+    {
+      "id": "5126a69a19d3b618a2db",
+      "source": "investing_id",
+      "title": "Mengapa saham Americas Gold and Silver turun hari ini?",
+      "url": "https://id.investing.com/news/stock-market-news/mengapa-saham-americas-gold-and-silver-turun-hari-ini-93CH-3089716",
+      "publishedAt": null,
+      "image": "https://content-media.investing.com/news/gold_2_M_1440047838.jpg",
+      "category": "local"
+    },
+    {
+      "id": "aaa8beb1bd29a1f5a3fb",
+      "source": "investing_id",
+      "title": "HP umumkan harga PC bertenaga AI, demo Windows di GB300",
+      "url": "https://id.investing.com/news/company-news/hp-umumkan-harga-pc-bertenaga-ai-demo-windows-di-gb300-93CH-3089713",
+      "publishedAt": null,
+      "image": "https://content-media.investing.com/news/LYNXMPEM4D1J3_1200_L.jpg",
+      "category": "local"
+    },
+    {
+      "id": "b48c6a23881c750980a9",
+      "source": "investing_id",
+      "title": "Menit Fed tunjukkan sebagian besar pejabat perkirakan kenaikan suku bunga lagi sebelum akhir tahun",
+      "url": "https://id.investing.com/news/economy-news/menit-fed-tunjukkan-sebagian-besar-pejabat-perkirakan-kenaikan-suku-bunga-lagi-sebelum-akhir-tahun-3089712",
+      "publishedAt": null,
+      "image": "https://content-media.investing.com/news/moved_LYNXMPEI710GU_L.jpg",
+      "category": "local"
+    },
+    {
+      "id": "821437860694ef39dec8",
+      "source": "pluang",
+      "title": "ETF Invesco Leisure and Entertainment dinilai HOLD di tengah risiko ekonomi dan laporan laba mendatang.",
+      "url": "https://pluang.com/news-feed/peluang-pertumbuhan-sektor-leisure-terkendala-dengan-angin-melawan-siklik",
+      "publishedAt": null,
+      "image": "https://image-cdn.pluang.com/web/news-cards/v2/GSS/7213a6772ba737db732964d56118e0c3052c9d823f73e2dbec84e1828e4da5db-id.webp",
       "category": "local"
     }
   ]
