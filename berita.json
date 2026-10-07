@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "checkedAt": "2026-10-07T18:04:54.321658+00:00",
+  "checkedAt": "2026-10-07T18:20:42.849991+00:00",
   "intervalMinutes": 30,
   "sources": [
     {
@@ -9,7 +9,7 @@
       "url": "https://www.investing.com/",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-07T18:04:52.934515+00:00"
+      "checkedAt": "2026-10-07T18:20:39.303093+00:00"
     },
     {
       "id": "cnbc",
@@ -17,7 +17,7 @@
       "url": "https://www.cnbc.com/markets/",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-07T18:04:53.468488+00:00"
+      "checkedAt": "2026-10-07T18:20:39.533126+00:00"
     },
     {
       "id": "kontan",
@@ -25,7 +25,7 @@
       "url": "https://www.kontan.co.id/",
       "kind": "html",
       "status": "ok",
-      "checkedAt": "2026-10-07T18:04:54.320452+00:00"
+      "checkedAt": "2026-10-07T18:20:42.560533+00:00"
     },
     {
       "id": "reuters",
@@ -33,7 +33,7 @@
       "url": "https://www.reuters.com/",
       "kind": "sitemap",
       "status": "ok",
-      "checkedAt": "2026-10-07T18:04:53.036748+00:00"
+      "checkedAt": "2026-10-07T18:20:39.434267+00:00"
     },
     {
       "id": "aljazeera",
@@ -41,7 +41,7 @@
       "url": "https://www.aljazeera.com/",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-07T18:04:52.945561+00:00"
+      "checkedAt": "2026-10-07T18:20:39.385223+00:00"
     },
     {
       "id": "bloomberg",
@@ -49,7 +49,7 @@
       "url": "https://www.bloomberg.com/asia",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-07T18:04:53.024859+00:00"
+      "checkedAt": "2026-10-07T18:20:39.554762+00:00"
     },
     {
       "id": "fnc",
@@ -57,7 +57,7 @@
       "url": "https://tradewithfnc.com/",
       "kind": "json",
       "status": "ok",
-      "checkedAt": "2026-10-07T18:04:53.232692+00:00"
+      "checkedAt": "2026-10-07T18:20:39.837946+00:00"
     },
     {
       "id": "fedwatch",
@@ -76,6 +76,213 @@
   ],
   "items": [
     {
+      "id": "ca43f0c0e0e8b7ec1ad0",
+      "source": "cnbc",
+      "title": "Oil prices fall as IEA members agree to prioritize release of diesel stocks",
+      "url": "https://www.cnbc.com/2026/10/07/oil-prices-today-brent-wti-hormuz.html",
+      "publishedAt": "2026-10-07T18:18:47+00:00",
+      "image": "https://image.cnbcfm.com/api/v1/image/108359880-1788886357349-gettyimages-2293680927-AA_08092026_2943632.jpeg?v=1788886580&w=1920&h=1080",
+      "category": "markets"
+    },
+    {
+      "id": "b3fbf0dcd9c7a617d98b",
+      "source": "reuters",
+      "title": "France suspends use of stun grenades to police student protests",
+      "url": "https://www.reuters.com/world/europe/france-suspends-use-stun-grenades-police-student-protests-2026-10-07/",
+      "publishedAt": "2026-10-07T18:17:03.955000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/6YWGXLZPHVMWZMHWOCYEOGTGO4.jpg?auth=3160a54e8dc9b986150b5f17ccd404d9ac0672e029f7e10fc2b3369532f50784&smart=true&width=1920",
+      "category": "world"
+    },
+    {
+      "id": "44cc6c0a1043097d47e0",
+      "source": "reuters",
+      "title": "Elliott and Siris explore $2 billion-plus Gigamon sale, sources say",
+      "url": "https://www.reuters.com/business/elliott-siris-explore-2-billion-plus-gigamon-sale-sources-say-2026-10-07/",
+      "publishedAt": "2026-10-07T18:17:01.515000+00:00",
+      "image": null,
+      "category": "business"
+    },
+    {
+      "id": "57148f251c9c06a26f9e",
+      "source": "reuters",
+      "title": "Judge tells Tennessee to preserve syringes, other evidence in failed Christa Pike execution",
+      "url": "https://www.reuters.com/legal/government/christa-pikes-lawyers-demand-see-syringes-drug-residue-botched-execution-2026-10-07/",
+      "publishedAt": "2026-10-07T18:16:53.532000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/NE3X7JDHVFM7JJTOACSCDMKNHA.jpg?auth=83a0971ef9951038f5b3586e242f871ddd81d741524e54c90b3253573ac8b426&smart=true&width=1920",
+      "category": "legal"
+    },
+    {
+      "id": "42215bc75e8f9be44c8b",
+      "source": "reuters",
+      "title": "Belgian student protests against education costs echo France",
+      "url": "https://www.reuters.com/world/belgian-students-rally-over-education-costs-protests-echoing-france-2026-10-07/",
+      "publishedAt": "2026-10-07T18:14:31.353000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/VLIS6HCNFZKMLL5LROMYJHTWB4.jpg?auth=a7db85d705cf7ea487497676561153d56f0c5eccb8f7b22b949d923bb63bbfe1&smart=true&width=1920",
+      "category": "world"
+    },
+    {
+      "id": "fcce6628be1b2487cf4a",
+      "source": "reuters",
+      "title": "Anglo American threatens to close Brazilian nickel operation if EU blocks sale to MMG",
+      "url": "https://www.reuters.com/business/finance/anglo-american-threatens-close-brazilian-nickel-operation-if-eu-blocks-sale-mmg-2026-10-07/",
+      "publishedAt": "2026-10-07T18:13:43.880000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/PUMUJ4NJ7BOKHA5SMV7MYXUL3M.jpg?auth=35372f250edd84c4d2fcc8d73ee9c8d4e376587e4b6766ea42a48beb5b0973e4&smart=true&width=1920",
+      "category": "business"
+    },
+    {
+      "id": "1ceb0215b956a0dc1ee0",
+      "source": "reuters",
+      "title": "Trump administration plans to charge international students $70,000 for work authorization",
+      "url": "https://www.reuters.com/legal/government/trump-administration-plans-charge-international-students-70000-work-2026-10-07/",
+      "publishedAt": "2026-10-07T18:13:16.648000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/QUURC4JVW5IAPMQVAFVLBUYX5Y.jpg?auth=9811182b669ca1d3a7c9ff3117812e56df8af631f9a6e82b0ebb423432e28a0d&smart=true&width=1920",
+      "category": "legal"
+    },
+    {
+      "id": "63b6c9d7bf062f00726e",
+      "source": "reuters",
+      "title": "T20 ties have softened on-field rivalries, says Harmer",
+      "url": "https://www.reuters.com/sports/cricket/t20-ties-have-softened-on-field-rivalries-says-harmer-2026-10-07/",
+      "publishedAt": "2026-10-07T18:13:00.690000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/4HW6Q2SENNMTVJGNJQJJZE3PZY.jpg?auth=8540304fb54f2e4009fcd41b99851843b19406a28ed44a1ae85d94dc6ad23a37&smart=true&width=1920",
+      "category": "sport"
+    },
+    {
+      "id": "ea59ab01f5fbe4498bcb",
+      "source": "reuters",
+      "title": "Florida asks court to force Meta to change Facebook, Instagram for teens",
+      "url": "https://www.reuters.com/world/us/florida-asks-court-force-meta-change-facebook-instagram-teens-2026-10-07/",
+      "publishedAt": "2026-10-07T18:12:42.735000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/ZW36RUINW5PODPMPYDWCN75D6A.jpg?auth=90693353fb00e8b1a5ca079a7df4ec05436f00e00e598b2837d5dfe1a44977cc&smart=true&width=1920",
+      "category": "legal"
+    },
+    {
+      "id": "07ae557dab7121f3e057",
+      "source": "reuters",
+      "title": "Saudi Arabia launches air safety probe into flydubai incident, sources say",
+      "url": "https://www.reuters.com/world/middle-east/saudi-arabia-launches-air-safety-probe-into-flydubai-incident-sources-say-2026-10-07/",
+      "publishedAt": "2026-10-07T18:12:07.276000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/EDJPXSRJFNPNNN2F53PYIMCLRY.jpg?auth=b86b86c9045d3c31520faebaaf926a6686174d4255332a80ab92f3a8aa519f72&smart=true&width=1920",
+      "category": "world"
+    },
+    {
+      "id": "bcf6b92b10c22bd39db1",
+      "source": "reuters",
+      "title": "EU envoys approve new Russia sanctions listings, diplomats say",
+      "url": "https://www.reuters.com/business/aerospace-defense/eu-envoys-approve-new-russia-sanctions-listings-diplomats-say-2026-10-07/",
+      "publishedAt": "2026-10-07T18:11:54.467000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/3MEPP4YTRJM7TAW6XLJCWETDEU.jpg?auth=2e2e5ac5a4e4e5a8095b39587737cb51047fde81ee343e3488b7bf6b44d43c4b&smart=true&width=1920",
+      "category": "business"
+    },
+    {
+      "id": "0a5d4d71f236260ce48d",
+      "source": "reuters",
+      "title": "McTominay cleared to return, Napoli say",
+      "url": "https://www.reuters.com/sports/soccer/mctominay-cleared-return-napoli-say-2026-10-07/",
+      "publishedAt": "2026-10-07T18:11:45.884000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/K35VTM4ORBIVTB7OCWN4JADTGQ.jpg?auth=bcebd7c638a8b54cf63076a1972552115fd09376ea6d88460e86797df0962039&smart=true&width=1920",
+      "category": "sport"
+    },
+    {
+      "id": "d7c219493d76d1967bd5",
+      "source": "reuters",
+      "title": "Lebanon's Hezbollah gets $200 million from Iran to help displaced, sources say",
+      "url": "https://www.reuters.com/world/middle-east/lebanons-hezbollah-gets-200-million-iran-help-displaced-sources-say-2026-10-07/",
+      "publishedAt": "2026-10-07T18:11:45.244000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/45J42P6MSFLHPAOFCEA4NF2MY4.jpg?auth=cc740cd0d9c8ece609cf5d75fcbe73124c25fd878d83a5d259c67e13546486e7&smart=true&width=1920",
+      "category": "world"
+    },
+    {
+      "id": "1ef5b37d236956b593a4",
+      "source": "reuters",
+      "title": "A 194-year-old tortoise, world's oldest land animal, may hold clues to longer life",
+      "url": "https://www.reuters.com/science/194-year-old-tortoise-worlds-oldest-land-animal-may-hold-clues-longer-life-2026-10-07/",
+      "publishedAt": "2026-10-07T18:11:43.970000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/DKAYD7EMQFJ3XFRBE5JIJJHYUQ.jpg?auth=340bb08a31e7cbdb16d618cc8dd19fc875b0fd577b4ae076aa1eadd4cad05d1e&smart=true&width=1920",
+      "category": "science"
+    },
+    {
+      "id": "580d9e158e94a28c2560",
+      "source": "reuters",
+      "title": "Russia says plague institute worker's death does not risk an epidemic",
+      "url": "https://www.reuters.com/business/healthcare-pharmaceuticals/who-seeks-details-russia-media-reports-a-second-lab-worker-with-pneumonia-2026-10-07/",
+      "publishedAt": "2026-10-07T18:11:15.533000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/GQHC2I3VIZKPBNH4CODCXOAPV4.jpg?auth=2b216d4188ed941b318cbf6d0f634deaaa77545557ff4f3127e77cd704436773&smart=true&width=1920",
+      "category": "business"
+    },
+    {
+      "id": "a03347d87c5359f8869c",
+      "source": "reuters",
+      "title": "Rubio says US, Greece to jointly combat security threats",
+      "url": "https://www.reuters.com/world/europe/rubio-says-us-greece-jointly-combat-security-threats-2026-10-07/",
+      "publishedAt": "2026-10-07T18:08:28.053000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/2CCLODVL7NJSRMPT5YXXT2SWU4.jpg?auth=822dc613b02e6030563c7342d0945984d903b2c73fe8a844090c1f80922fa8f6&smart=true&width=1920",
+      "category": "world"
+    },
+    {
+      "id": "9145ade4871b620c759e",
+      "source": "reuters",
+      "title": "Michigan Republican Rogers calls for end to Canada tariff fight, breaking with Trump again",
+      "url": "https://www.reuters.com/world/us/michigan-republican-rogers-calls-end-canada-tariff-fight-breaking-with-trump-2026-10-07/",
+      "publishedAt": "2026-10-07T18:08:25.435000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/HFN2RLD2MJPLTOJSO53IP647PE.jpg?auth=5e873a1bcbe88455f86b3ee9463048bd0f0aa82186e6e8b573f08a68279cef5f&smart=true&width=1920",
+      "category": "world"
+    },
+    {
+      "id": "6d87525e63858c3c4344",
+      "source": "reuters",
+      "title": "Litigation funder Omni Bridgeway raises $1 billion",
+      "url": "https://www.reuters.com/legal/transactional/litigation-funder-omni-bridgeway-raises-1-billion-2026-10-07/",
+      "publishedAt": "2026-10-07T18:07:44.864000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/QVUJB77BFBLH3M435P73DVXCVE.jpg?auth=7d5875b793744d06a6176cb24b81b7ef038b954aa4e0409de26af901f7620a2b&smart=true&width=1920",
+      "category": "legal"
+    },
+    {
+      "id": "0f541f406c0462221f42",
+      "source": "reuters",
+      "title": "Anthropic launches third Claude 5.5 model, expanding AI lineup before planned IPO",
+      "url": "https://www.reuters.com/business/anthropic-launches-third-claude-55-model-expanding-ai-lineup-before-planned-ipo-2026-10-07/",
+      "publishedAt": "2026-10-07T18:07:44.292000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/ROCIYCC445JVBKGHFB4OQIM6EQ.jpg?auth=73534d66e8fdb2ec81380184a5ea2553ebdba0a58b57a1a99dc2645cf57777ae&smart=true&width=1920",
+      "category": "technology"
+    },
+    {
+      "id": "189cb881587a72014ab9",
+      "source": "reuters",
+      "title": "US SEC will not charge top funds over climate concerns but warns of disclosure obligations",
+      "url": "https://www.reuters.com/legal/government/us-sec-will-not-pursue-charges-against-climate-group-warns-disclosure-2026-10-07/",
+      "publishedAt": "2026-10-07T18:07:16.458000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/V6S6NAWGL5NVVFQ5EQVUTBMSMA.jpg?auth=7b42ea25f19624ab4e2604fc50cde8096d8baec730be00fe6e49c1b92252cb48&smart=true&width=1920",
+      "category": "legal"
+    },
+    {
+      "id": "08e91b4dc0b41b2f59fc",
+      "source": "cnbc",
+      "title": "Fed officials see another hike coming, but no sign as to when, minutes show",
+      "url": "https://www.cnbc.com/2026/10/07/fed-officials-see-another-hike-coming-but-no-sign-as-to-when-minutes-show.html",
+      "publishedAt": "2026-10-07T18:07:09+00:00",
+      "image": "https://image.cnbcfm.com/api/v1/image/108363920-1789584172531-gettyimages-2295044570-WARSH_FOMC.jpeg?v=1789584195&w=1920&h=1080",
+      "category": "other"
+    },
+    {
+      "id": "6b3f581a4bc699f85aad",
+      "source": "reuters",
+      "title": "Congo miners could save $1 bln a year with new power project, Trafigura executive says",
+      "url": "https://www.reuters.com/business/energy/congo-miners-could-save-1-bln-year-with-new-power-project-trafigura-executive-2026-10-07/",
+      "publishedAt": "2026-10-07T18:06:38.968000+00:00",
+      "image": null,
+      "category": "business"
+    },
+    {
+      "id": "5957bd3ae259127b220a",
+      "source": "bloomberg",
+      "title": "Former Barclays Traders Have Rate-Rigging Convictions Overturned",
+      "url": "https://www.bloomberg.com/news/videos/2026-10-07/former-barclays-traders-have-convictions-overturned-video",
+      "publishedAt": "2026-10-07T18:05:15+00:00",
+      "image": null,
+      "category": "business"
+    },
+    {
       "id": "afa517c11dbfabf54839",
       "source": "cnbc",
       "title": "10-year Treasury yield ease from 24-year high after solid bond auction eases demand fears",
@@ -85,130 +292,31 @@
       "category": "markets"
     },
     {
-      "id": "08e91b4dc0b41b2f59fc",
+      "id": "721a3ef83988cc7b1996",
+      "source": "aljazeera",
+      "title": "Jerusalem Daily: Gaza’s devastation, three years after October 7",
+      "url": "https://www.aljazeera.com/video/newsfeed/2026/10/7/jerusalem-daily-gazas-devastation-three-years-after-october-7?traffic_source=rss",
+      "publishedAt": "2026-10-07T18:03:14+00:00",
+      "image": "https://www.aljazeera.com/wp-content/uploads/2026/10/image-1791396130.jpg?resize=1920%2C1080&quality=80",
+      "category": "world"
+    },
+    {
+      "id": "ce6c71cf4ef755e21064",
+      "source": "aljazeera",
+      "title": "Spanish unions call general strike over housing before snap election",
+      "url": "https://www.aljazeera.com/news/2026/10/7/spanish-unions-call-general-strike-over-housing-before-snap-election?traffic_source=rss",
+      "publishedAt": "2026-10-07T18:02:47+00:00",
+      "image": "https://www.aljazeera.com/wp-content/uploads/2026/10/reuters_6ac67a7c-1791392380.jpg?resize=1920%2C1440",
+      "category": "world"
+    },
+    {
+      "id": "cbab7a3654088d36b8e4",
       "source": "cnbc",
-      "title": "Fed officials see another hike coming, but no sign as to when, minutes show",
-      "url": "https://www.cnbc.com/2026/10/07/fed-officials-see-another-hike-coming-but-no-sign-as-to-when-minutes-show.html",
-      "publishedAt": "2026-10-07T18:00:56+00:00",
-      "image": "https://image.cnbcfm.com/api/v1/image/108363920-1789584172531-gettyimages-2295044570-WARSH_FOMC.jpeg?v=1789584195&w=1920&h=1080",
+      "title": "Another Micron triple? Where we agree with this wildly bullish call and where we don't",
+      "url": "https://www.cnbc.com/investingclub/2026/10/07/another-micron-triple-where-we-agree-with-this-wildly-bullish-call-and-where-we-dont.html",
+      "publishedAt": "2026-10-07T17:52:55+00:00",
+      "image": "https://image.cnbcfm.com/api/v1/image/108240006-1765390998579-gettyimages-2244770556-CHINA_CIIE.jpeg?v=1773772572&w=1920&h=1080",
       "category": "other"
-    },
-    {
-      "id": "6b3f581a4bc699f85aad",
-      "source": "reuters",
-      "title": "Congo miners could save $1 bln a year with new power project, Trafigura executive says",
-      "url": "https://www.reuters.com/business/energy/congo-miners-could-save-1-bln-year-with-new-power-project-trafigura-executive-2026-10-07/",
-      "publishedAt": "2026-10-07T17:59:47.422000+00:00",
-      "image": null,
-      "category": "business"
-    },
-    {
-      "id": "1a020dc2e9b3b4742a3b",
-      "source": "reuters",
-      "title": "Brazil regulator approves American Airlines' investment in Azul",
-      "url": "https://www.reuters.com/legal/litigation/brazil-regulator-approves-american-airlines-investment-azul-2026-10-07/",
-      "publishedAt": "2026-10-07T17:59:43.717000+00:00",
-      "image": "https://www.reuters.com/resizer/v2/RPHDSVKZ45PUPIX7OFOBA5XJ6Q.jpg?auth=7dc83991f924275bf7526205fac09513ff9f4e430c555b92a7b88bca3acf7546&smart=true&width=1920",
-      "category": "legal"
-    },
-    {
-      "id": "d7c219493d76d1967bd5",
-      "source": "reuters",
-      "title": "Lebanon's Hezbollah gets $200 million from Iran to help displaced, sources say",
-      "url": "https://www.reuters.com/world/middle-east/lebanons-hezbollah-gets-200-million-iran-help-displaced-sources-say-2026-10-07/",
-      "publishedAt": "2026-10-07T17:58:31.005000+00:00",
-      "image": "https://www.reuters.com/resizer/v2/EXVCVSYZTZOMPDIW5WNM2IK2UE.jpg?auth=160213a33a6922da117e9c78cadd3982fc09b87ee292b2b4b9398e4a1c9ebf0f&smart=true&width=1920",
-      "category": "world"
-    },
-    {
-      "id": "4aadcc1c6720b355ae27",
-      "source": "reuters",
-      "title": "Tropical Storm Isaias forecast to hit US Gulf coast as hurricane early Saturday",
-      "url": "https://www.reuters.com/business/environment/tropical-storm-isaias-forecast-hit-us-gulf-coast-hurricane-early-saturday-2026-10-07/",
-      "publishedAt": "2026-10-07T17:58:09.691000+00:00",
-      "image": "https://www.reuters.com/resizer/v2/4L6RT2JHOFLCTN4BUVYRJCYH4Y.jpg?auth=056b8c22369445933f417bfe033138f9e84328d2d9a4ca11f0c593345f9b64bc&smart=true&width=1920",
-      "category": "sustainability"
-    },
-    {
-      "id": "eee7660dc5b51e7c6655",
-      "source": "reuters",
-      "title": "Pennsylvania measles cases rise to 1,078 as outbreak spreads",
-      "url": "https://www.reuters.com/business/healthcare-pharmaceuticals/pennsylvania-measles-cases-rise-1078-outbreak-spreads-2026-10-07/",
-      "publishedAt": "2026-10-07T17:57:56.596000+00:00",
-      "image": null,
-      "category": "business"
-    },
-    {
-      "id": "57148f251c9c06a26f9e",
-      "source": "reuters",
-      "title": "Judge tells Tennessee to preserve syringes, other evidence in failed Christa Pike execution",
-      "url": "https://www.reuters.com/legal/government/christa-pikes-lawyers-demand-see-syringes-drug-residue-botched-execution-2026-10-07/",
-      "publishedAt": "2026-10-07T17:57:53.236000+00:00",
-      "image": "https://www.reuters.com/resizer/v2/NSXAWEGU2NNSVKHNDTN5L5EOPY.jpg?auth=9a03f8a6d4165a5ff0519a99d28fc546b163c1ddd9217cd53128841277f3ca51&smart=true&width=1920",
-      "category": "legal"
-    },
-    {
-      "id": "89718970a11e47fd628d",
-      "source": "reuters",
-      "title": "Elon Musk readies his signature gambit at SpaceX",
-      "url": "https://www.reuters.com/commentary/breakingviews/elon-musk-readies-his-signature-gambit-spacex-2026-10-07/",
-      "publishedAt": "2026-10-07T17:57:12.482000+00:00",
-      "image": "https://www.reuters.com/resizer/v2/J7QLSSQKZVPZPKHJQAYE6XXHNU.jpg?auth=328fc2f8863469b92584c816457680367bb591fb6232d4cedbc502bcdfa55966&smart=true&width=1920",
-      "category": "commentary"
-    },
-    {
-      "id": "a03347d87c5359f8869c",
-      "source": "reuters",
-      "title": "Rubio says US, Greece to jointly combat security threats",
-      "url": "https://www.reuters.com/world/europe/rubio-says-us-greece-jointly-combat-security-threats-2026-10-07/",
-      "publishedAt": "2026-10-07T17:56:20.661000+00:00",
-      "image": "https://www.reuters.com/resizer/v2/QMUHORHX2JP3VACB52QNIX2SUQ.jpg?auth=cb990338682cfbc6a90e50bc29a4a92c80c260eeb850d012853ff1a14cc494fa&smart=true&width=1920",
-      "category": "world"
-    },
-    {
-      "id": "4e88353731521a67eab0",
-      "source": "reuters",
-      "title": "Rubio, in Athens, ties ancient values to 'America First'",
-      "url": "https://www.reuters.com/world/us/rubio-link-ancient-greek-values-america-first-speech-athens-2026-10-07/",
-      "publishedAt": "2026-10-07T17:56:10.346000+00:00",
-      "image": "https://www.reuters.com/resizer/v2/6LWRJQOVVFI2ZHI5ZWHHZ5UQ5U.jpg?auth=59ecf849af2fb8e2812ae622aebed5a77d14812e02c5a53a77313ec2a7fc20c2&smart=true&width=1920",
-      "category": "world"
-    },
-    {
-      "id": "902b264d61a48de9dffc",
-      "source": "reuters",
-      "title": "France to be 'strategic' on new debt issues, finance minister tells WSJ",
-      "url": "https://www.reuters.com/business/france-is-considering-more-shorter-term-debt-issuance-finance-minister-tells-wsj-2026-10-07/",
-      "publishedAt": "2026-10-07T17:56:05.013000+00:00",
-      "image": "https://www.reuters.com/resizer/v2/6OZXNSN3ENPDZI2PI4AINV575I.jpg?auth=b42218c735736d61b0378160495d4b6bcc881808ab0b94883e9da38a9f1f8c11&smart=true&width=1920",
-      "category": "legal"
-    },
-    {
-      "id": "ea59ab01f5fbe4498bcb",
-      "source": "reuters",
-      "title": "Florida asks court to force Meta to change Facebook, Instagram for teens",
-      "url": "https://www.reuters.com/world/us/florida-asks-court-force-meta-change-facebook-instagram-teens-2026-10-07/",
-      "publishedAt": "2026-10-07T17:54:49.659000+00:00",
-      "image": "https://www.reuters.com/resizer/v2/ZW36RUINW5PODPMPYDWCN75D6A.jpg?auth=90693353fb00e8b1a5ca079a7df4ec05436f00e00e598b2837d5dfe1a44977cc&smart=true&width=1920",
-      "category": "legal"
-    },
-    {
-      "id": "f43586f6c497df322d8e",
-      "source": "reuters",
-      "title": "UK's Headlam to delist after it collapses into administration",
-      "url": "https://www.reuters.com/legal/transactional/uks-headlam-delist-after-it-collapses-into-administration-2026-10-07/",
-      "publishedAt": "2026-10-07T17:52:21.444000+00:00",
-      "image": "https://www.reuters.com/resizer/v2/WFCNLWZSHNJTJCXN4HYQJR5RLU.jpg?auth=e5262f23390999b66ca3d0def734ce4905a7398129ffd0e24ae1aa37d1d71fea&smart=true&width=1920",
-      "category": "legal"
-    },
-    {
-      "id": "e78358609a47afdb8973",
-      "source": "reuters",
-      "title": "Air Products to build LNG-based air separation unit for Petronas-led venture in Malaysia",
-      "url": "https://www.reuters.com/world/asia-pacific/air-products-build-lng-based-air-separation-unit-petronas-led-venture-malaysia-2026-10-07/",
-      "publishedAt": "2026-10-07T17:51:51.020000+00:00",
-      "image": null,
-      "category": "world"
     },
     {
       "id": "a2270647ce28e1d934f4",
@@ -220,51 +328,6 @@
       "category": "business"
     },
     {
-      "id": "5f5a42f112f76d5ee84f",
-      "source": "reuters",
-      "title": "Is ChatGPT a 'product' or a 'service'? A wave of lawsuits tests a theory of AI liability",
-      "url": "https://www.reuters.com/legal/litigation/is-chatgpt-product-or-service-wave-lawsuits-tests-theory-ai-liability-2026-10-07/",
-      "publishedAt": "2026-10-07T17:50:45.644000+00:00",
-      "image": "https://www.reuters.com/resizer/v2/JXEPMUA5RVPY7BGDIUL5FVGFCI.jpg?auth=ad725e19951cc73aa7684e3088102cc6e233a45463c7aefadd8b1b37f82beaba&smart=true&width=1920",
-      "category": "legal"
-    },
-    {
-      "id": "b3fbf0dcd9c7a617d98b",
-      "source": "reuters",
-      "title": "France suspends use of stun grenades to police student protests",
-      "url": "https://www.reuters.com/world/europe/france-suspends-use-stun-grenades-police-student-protests-2026-10-07/",
-      "publishedAt": "2026-10-07T17:49:43.871000+00:00",
-      "image": "https://www.reuters.com/resizer/v2/TFWHBXKTNJLKBNXOLKWEE4JGQA.jpg?auth=3940821d2b7e755d903baca15a98b9e3e955eccf6440d5584cea120a01ff341c&smart=true&width=1920",
-      "category": "world"
-    },
-    {
-      "id": "59d5d66c1f0d5b725a53",
-      "source": "reuters",
-      "title": "France to release 10 mln barrels of diesel from stocks, French PM says",
-      "url": "https://www.reuters.com/business/energy/france-release-10-mln-barrels-diesel-stocks-french-pm-says-2026-10-07/",
-      "publishedAt": "2026-10-07T17:49:18.074000+00:00",
-      "image": "https://www.reuters.com/resizer/v2/IKEANTVFGFNYBJS3GSLZBW4VDA.jpg?auth=e85a8d779062f557df64397292838917bcf2e4394a1cbe7c4c36b41d4b18eda6&smart=true&width=1920",
-      "category": "markets"
-    },
-    {
-      "id": "d1261f5ae9cd3b3199d9",
-      "source": "reuters",
-      "title": "Dozens of soldiers, militants and miners killed in Nigeria attacks",
-      "url": "https://www.reuters.com/world/africa/dozens-soldiers-militants-miners-killed-nigeria-attacks-2026-10-07/",
-      "publishedAt": "2026-10-07T17:48:32.938000+00:00",
-      "image": null,
-      "category": "world"
-    },
-    {
-      "id": "ecd0db470d96401ede99",
-      "source": "reuters",
-      "title": "UPS to hire 100,000 temporary workers for holiday season",
-      "url": "https://www.reuters.com/business/world-at-work/ups-hire-100000-temporary-workers-ahead-peak-holiday-season-2026-10-07/",
-      "publishedAt": "2026-10-07T17:48:19.402000+00:00",
-      "image": "https://www.reuters.com/resizer/v2/Z2WWH7XTEZPYHNTGDEHBOFCFWQ.jpg?auth=85f674e81408c6903c8392cc198841dadddc13e6fbe54cda9bb3c13b4d1b87d2&smart=true&width=1920",
-      "category": "business"
-    },
-    {
       "id": "82fc1216d7cacd503f7b",
       "source": "bloomberg",
       "title": "Unpacking the M&A Slowdown",
@@ -272,24 +335,6 @@
       "publishedAt": "2026-10-07T17:46:53+00:00",
       "image": null,
       "category": "other"
-    },
-    {
-      "id": "e90d905d0c0b7dabd71b",
-      "source": "reuters",
-      "title": "OPmobility lowers 2026 targets, to cut 770 jobs in Europe",
-      "url": "https://www.reuters.com/business/opmobility-lowers-2026-targets-cut-770-jobs-europe-2026-10-07/",
-      "publishedAt": "2026-10-07T17:44:27.388000+00:00",
-      "image": null,
-      "category": "business"
-    },
-    {
-      "id": "a78d919ff3f4d7368fdb",
-      "source": "reuters",
-      "title": "Rahm to leave LIV Golf after three seasons, reports say",
-      "url": "https://www.reuters.com/sports/golf/rahm-leave-liv-golf-after-three-seasons-reports-say-2026-10-07/",
-      "publishedAt": "2026-10-07T17:44:09.842000+00:00",
-      "image": "https://www.reuters.com/resizer/v2/D4RCGVNPARK5BINX5IL4EQLMA4.jpg?auth=c39fa55b46aa845c1d4806055281b1ef28e48314796b8ead4e45a0a36e155ce6&smart=true&width=1920",
-      "category": "sport"
     },
     {
       "id": "42510e2949de284927d3",
@@ -508,15 +553,6 @@
       "category": "other"
     },
     {
-      "id": "3632d3f01eb124774768",
-      "source": "cnbc",
-      "title": "Jim Cramer's key to Wednesday's market - plus, relief for Intel after a concerning report",
-      "url": "https://www.cnbc.com/investingclub/2026/10/07/jim-cramers-key-to-wednesday-market-plus-relief-for-intel-after-a-concerning-report.html",
-      "publishedAt": "2026-10-07T15:38:22+00:00",
-      "image": "https://image.cnbcfm.com/api/v1/image/108315139-17804039612026-06-02t070118z_611004174_rc2jlla6px5v_rtrmadp_0_computex-intel.jpeg?v=1780403995&w=1920&h=1080",
-      "category": "markets"
-    },
-    {
       "id": "a4cb9421dde13891264f",
       "source": "aljazeera",
       "title": "The mass killing does not mean Israel’s winning",
@@ -578,15 +614,6 @@
       "publishedAt": "2026-10-07T14:02:40+00:00",
       "image": "https://www.aljazeera.com/wp-content/uploads/2026/10/2026-09-16T215240Z_1506421248_RC2IKNAE0RRX_RTRMADP_3_IRAN-CRISIS-SOUTHASIA-ENERGY-1791364869.jpg?resize=1920%2C1440",
       "category": "other"
-    },
-    {
-      "id": "552371d910cf6ff6536e",
-      "source": "bloomberg",
-      "title": "Syria Eyes Doubling Oil Output in a Year as Investors Return",
-      "url": "https://www.bloomberg.com/news/articles/2026-10-07/syria-plans-to-double-oil-output-in-a-year-as-investors-return",
-      "publishedAt": "2026-10-07T14:02:18+00:00",
-      "image": null,
-      "category": "markets"
     },
     {
       "id": "1e393b91bf42c88c45c4",
@@ -742,15 +769,6 @@
       "category": "business"
     },
     {
-      "id": "d02056e9c7f11ea765c4",
-      "source": "aljazeera",
-      "title": "Yes, Zionism is racism",
-      "url": "https://www.aljazeera.com/opinions/2026/10/7/yes-zionism-is-racism?traffic_source=rss",
-      "publishedAt": "2026-10-07T12:33:55+00:00",
-      "image": "https://www.aljazeera.com/wp-content/uploads/2026/10/2022-10-25T000000Z_743940304_RC278X9HVV5Z_RTRMADP_3_ISRAEL-PALESTINIANS-VIOLENCE-1791369743.jpg?resize=1920%2C1440",
-      "category": "commentary"
-    },
-    {
       "id": "b85fb6ea63f5e8a1dfa5",
       "source": "cnbc",
       "title": "Chevron CEO warns against 'unwise' diesel export ban, saying it could make things worse",
@@ -769,15 +787,6 @@
       "category": "business"
     },
     {
-      "id": "ca43f0c0e0e8b7ec1ad0",
-      "source": "cnbc",
-      "title": "Oil edges higher as concerns over Houthi attacks on Saudi Arabia eclipse supply recovery",
-      "url": "https://www.cnbc.com/2026/10/07/oil-prices-today-brent-wti-hormuz.html",
-      "publishedAt": "2026-10-07T12:23:28+00:00",
-      "image": "https://image.cnbcfm.com/api/v1/image/108359880-1788886357349-gettyimages-2293680927-AA_08092026_2943632.jpeg?v=1788886580&w=1920&h=1080",
-      "category": "markets"
-    },
-    {
       "id": "b1cba31b63e9748ccc68",
       "source": "cnbc",
       "title": "The SALT deduction limit is $40,400 for 2026. Here's how to maximize it",
@@ -785,15 +794,6 @@
       "publishedAt": "2026-10-07T12:15:01+00:00",
       "image": "https://image.cnbcfm.com/api/v1/image/108372762-1791224953943-gettyimages-2179151643-dual_00081.jpeg?v=1791224969&w=1920&h=1080",
       "category": "other"
-    },
-    {
-      "id": "8c6b49cfc52a97baede9",
-      "source": "aljazeera",
-      "title": "South Korea’s military service exemption could be cut for athletes",
-      "url": "https://www.aljazeera.com/video/newsfeed/2026/10/7/south-koreas-military-service-exemption-could-be-cut-for-athletes?traffic_source=rss",
-      "publishedAt": "2026-10-07T12:09:18+00:00",
-      "image": "https://www.aljazeera.com/wp-content/uploads/2026/10/Screenshot-2026-10-07-at-15.08.41-1791374948.png?resize=1200%2C675",
-      "category": "world"
     },
     {
       "id": "c8f0e9046582d1a3cb76",
@@ -976,22 +976,22 @@
       "category": "markets"
     },
     {
-      "id": "88cfde9b901f35677c53",
+      "id": "24a2a9883e8f0cb23191",
       "source": "investing",
-      "title": "World shares, euro slide as high oil prices, fiscal worries linger",
-      "url": "https://www.investing.com/news/economy-news/asia-shares-weaker-oil-up-investors-weigh-saudihouthi-escalation-4935555",
+      "title": "Fed minutes show most policymakers see another rate hike by year end",
+      "url": "https://www.investing.com/news/economy-news/fed-minutes-show-most-policymakers-see-another-rate-hike-by-year-end-4937310",
       "publishedAt": null,
-      "image": "https://content-media.investing.com/trkd-images/LYNXMPEM9605M_L.jpg",
-      "category": "markets"
+      "image": "https://content-media.investing.com/news/moved_LYNXMPEI710GU_L.jpg",
+      "category": "business"
     },
     {
-      "id": "df79033b3f38b32e921f",
+      "id": "03a4ce63040c0bb86f24",
       "source": "investing",
-      "title": "Deere bull and bear case: recovery priced in at $660",
-      "url": "https://www.investing.com/news/stock-market-news/deere-bull-and-bear-case-recovery-priced-in-at-660-93CH-4937288",
+      "title": "HP announces pricing for AI-powered PCs, demos Windows on GB300",
+      "url": "https://www.investing.com/news/company-news/hp-announces-pricing-for-aipowered-pcs-demos-windows-on-gb300-93CH-4937316",
       "publishedAt": null,
-      "image": "https://content-media.investing.com/news/LYNXNPEB7J0TJ_M.jpg",
-      "category": "markets"
+      "image": "https://content-media.investing.com/news/LYNXMPEM5F12L_1200_L.jpg",
+      "category": "technology"
     },
     {
       "id": "32e2a612b6ced0a706f5",
@@ -1003,57 +1003,66 @@
       "category": "other"
     },
     {
-      "id": "01b9fe8ee5054484483c",
+      "id": "eae103233d7b8bdffe7a",
       "source": "investing",
-      "title": "Caterpillar bull and bear case: valuation vs. growth story",
-      "url": "https://www.investing.com/news/stock-market-news/caterpillar-bull-and-bear-case-valuation-vs-growth-story-93CH-4937285",
+      "title": "Brazil regulator approves American Airlines’ investment in Azul",
+      "url": "https://www.investing.com/news/stock-market-news/brazil-regulator-approves-american-airlines-investment-in-azul-4937308",
       "publishedAt": null,
-      "image": "https://content-media.investing.com/news/LYNXMPED301WM_L.jpg",
+      "image": "https://content-media.investing.com/trkd-images/LYNXMPEM961R9_L.jpg",
       "category": "markets"
     },
     {
-      "id": "6a75de13efae3f69bd9d",
+      "id": "e17b0181ddf12f2d4e0c",
       "source": "investing",
-      "title": "France to release 10m barrels of diesel from reserves to lower fuel prices",
-      "url": "https://www.investing.com/news/economy-news/france-to-release-10m-barrels-of-diesel-from-reserves-to-lower-fuel-prices-4937284",
+      "title": "Initial jobless claims highlight economic data due Thursday",
+      "url": "https://www.investing.com/news/stock-market-news/initial-jobless-claims-highlight-economic-data-due-thursday-93CH-4937309",
       "publishedAt": null,
-      "image": "https://content-media.investing.com/news/LYNXNPEE9I0TQ_M.jpg",
+      "image": "https://content-media.investing.com/news/gas_M_1440047759.jpg",
+      "category": "markets"
+    },
+    {
+      "id": "3694aa40b231a88e3d01",
+      "source": "investing",
+      "title": "American Airlines’ $100m Azul investment wins Brazil approval",
+      "url": "https://www.investing.com/news/stock-market-news/american-airlines-100m-azul-investment-wins-brazil-approval-93CH-4937305",
+      "publishedAt": null,
+      "image": "https://content-media.investing.com/news/LYNXMPEB3N0GT_M.jpg",
+      "category": "markets"
+    },
+    {
+      "id": "badd67aee5ca263066c1",
+      "source": "investing",
+      "title": "Truist comments on homebuilder stocks amid rising mortgage rates",
+      "url": "https://www.investing.com/news/stock-market-news/truist-comments-on-homebuilder-stocks-amid-rising-mortgage-rates-93CH-4937304",
+      "publishedAt": null,
+      "image": "https://content-media.investing.com/news/LYNXNPEBAG0BO_M.jpg",
+      "category": "markets"
+    },
+    {
+      "id": "efb08377d284bd81cd2b",
+      "source": "investing",
+      "title": "FireFly Robotics files for Nasdaq direct listing",
+      "url": "https://www.investing.com/news/company-news/firefly-robotics-files-for-nasdaq-direct-listing-93CH-4937302",
+      "publishedAt": null,
+      "image": "https://content-media.investing.com/news/LYNXMPEM5H10K_1200_L.jpg",
       "category": "business"
     },
     {
-      "id": "f0a3f72458e71d2045a9",
+      "id": "12a044bc34d3eea25945",
       "source": "investing",
-      "title": "San Francisco imposes temporary ban on new data centers",
-      "url": "https://www.investing.com/news/stock-market-news/san-francisco-imposes-temporary-ban-on-new-data-centers-4937278",
+      "title": "Air Products signs deal for LNG-based air separation unit in Malaysia",
+      "url": "https://www.investing.com/news/stock-market-news/air-products-signs-deal-for-lngbased-air-separation-unit-in-malaysia-93CH-4937301",
       "publishedAt": null,
-      "image": "https://content-media.investing.com/news/LYNXMPEABC01J_M.jpg",
-      "category": "technology"
-    },
-    {
-      "id": "8d4a0726ac952c640640",
-      "source": "investing",
-      "title": "W P Carey stock hits 52-week low at 63.08 USD",
-      "url": "https://www.investing.com/news/company-news/w-p-carey-stock-hits-52week-low-at-6308-usd-93CH-4937279",
-      "publishedAt": null,
-      "image": "https://content-media.investing.com/news/LYNXMPEM3Q0HO_1200_L.jpg",
+      "image": "https://content-media.investing.com/news/LYNXNPEB6U08A_M.jpg",
       "category": "markets"
     },
     {
-      "id": "77e5f421a48409821195",
+      "id": "713a70fb2b33879259a7",
       "source": "investing",
-      "title": "Farm equipment stocks after the FTC and USDA joint inquiry: AGCO, Deere and CNH compared",
-      "url": "https://www.investing.com/news/stock-market-news/farm-equipment-stocks-after-the-ftc-and-usda-joint-inquiry-agco-deere-and-cnh-compared-93CH-4937277",
+      "title": "Jefferies highlights 1.6T transition ahead of OCP Summit",
+      "url": "https://www.investing.com/news/stock-market-news/jefferies-highlights-16t-transition-ahead-of-ocp-summit-93CH-4937300",
       "publishedAt": null,
-      "image": "https://content-media.investing.com/news/LYNXMPEDAF0IH_M.jpg",
-      "category": "markets"
-    },
-    {
-      "id": "d98b4efa585a2f254777",
-      "source": "investing",
-      "title": "Webull stock drops after congressional report flags China ties as security risk",
-      "url": "https://www.investing.com/news/stock-market-news/webull-stock-drops-after-congressional-report-flags-china-ties-as-security-risk-93CH-4937276",
-      "publishedAt": null,
-      "image": "https://content-media.investing.com/news/LYNXMPEM5L113_1200_L.jpg",
+      "image": "https://content-media.investing.com/news/LYNXMPEB1A16P_M.jpg",
       "category": "markets"
     },
     {
