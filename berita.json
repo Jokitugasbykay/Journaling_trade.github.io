@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "checkedAt": "2026-10-07T20:08:17.020778+00:00",
+  "checkedAt": "2026-10-07T20:11:35.024789+00:00",
   "intervalMinutes": 30,
   "sources": [
     {
@@ -9,7 +9,7 @@
       "url": "https://www.investing.com/",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-07T20:08:12.171929+00:00"
+      "checkedAt": "2026-10-07T20:11:25.369378+00:00"
     },
     {
       "id": "cnbc",
@@ -17,7 +17,7 @@
       "url": "https://www.cnbc.com/markets/",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-07T20:08:11.905270+00:00"
+      "checkedAt": "2026-10-07T20:11:25.435331+00:00"
     },
     {
       "id": "kontan",
@@ -25,7 +25,7 @@
       "url": "https://www.kontan.co.id/",
       "kind": "html",
       "status": "ok",
-      "checkedAt": "2026-10-07T20:08:13.284470+00:00"
+      "checkedAt": "2026-10-07T20:11:26.244066+00:00"
     },
     {
       "id": "reuters",
@@ -33,7 +33,7 @@
       "url": "https://www.reuters.com/",
       "kind": "sitemap",
       "status": "ok",
-      "checkedAt": "2026-10-07T20:08:12.020877+00:00"
+      "checkedAt": "2026-10-07T20:11:25.582890+00:00"
     },
     {
       "id": "aljazeera",
@@ -41,7 +41,7 @@
       "url": "https://www.aljazeera.com/",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-07T20:08:11.849429+00:00"
+      "checkedAt": "2026-10-07T20:11:25.388058+00:00"
     },
     {
       "id": "bloomberg",
@@ -49,7 +49,7 @@
       "url": "https://www.bloomberg.com/asia",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-07T20:08:12.181244+00:00"
+      "checkedAt": "2026-10-07T20:11:25.802356+00:00"
     },
     {
       "id": "fnc",
@@ -57,7 +57,7 @@
       "url": "https://tradewithfnc.com/",
       "kind": "json",
       "status": "ok",
-      "checkedAt": "2026-10-07T20:08:12.849227+00:00"
+      "checkedAt": "2026-10-07T20:11:26.032312+00:00"
     },
     {
       "id": "investing_id",
@@ -65,7 +65,7 @@
       "url": "https://id.investing.com/news",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-07T20:08:12.745590+00:00"
+      "checkedAt": "2026-10-07T20:11:25.685074+00:00"
     },
     {
       "id": "pluang",
@@ -73,7 +73,7 @@
       "url": "https://pluang.com/news-feed",
       "kind": "html",
       "status": "ok",
-      "checkedAt": "2026-10-07T20:08:13.262837+00:00"
+      "checkedAt": "2026-10-07T20:11:25.928049+00:00"
     },
     {
       "id": "kompas",
@@ -81,7 +81,7 @@
       "url": "https://money.kompas.com/",
       "kind": "html",
       "status": "ok",
-      "checkedAt": "2026-10-07T20:08:13.165390+00:00"
+      "checkedAt": "2026-10-07T20:11:27.077268+00:00"
     },
     {
       "id": "detik",
@@ -89,7 +89,7 @@
       "url": "https://finance.detik.com/",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-07T20:08:13.640829+00:00"
+      "checkedAt": "2026-10-07T20:11:27.301668+00:00"
     },
     {
       "id": "kemenkeu",
@@ -121,7 +121,7 @@
       "url": "https://ekbis.sindonews.com/",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-07T20:08:13.742244+00:00"
+      "checkedAt": "2026-10-07T20:11:27.944440+00:00"
     },
     {
       "id": "fedwatch",
@@ -139,6 +139,69 @@
     }
   ],
   "items": [
+    {
+      "id": "afa517c11dbfabf54839",
+      "source": "cnbc",
+      "title": "10-year Treasury yield backs off from 24-year high after solid bond auction eases demand fears",
+      "url": "https://www.cnbc.com/2026/10/07/treasury-yields-auction-fomc-minutes.html",
+      "publishedAt": "2026-10-07T20:09:59+00:00",
+      "image": "https://image.cnbcfm.com/api/v1/image/108363665-1789568651170-gettyimages-2295586459-mms19512_dnx4op25.jpeg?v=1789568741&w=1920&h=1080",
+      "category": "markets"
+    },
+    {
+      "id": "7185a4a9a74a3fa17e15",
+      "source": "reuters",
+      "title": "FIFA says unpaid court sanction over alleged AI misuse justifies tossing antitrust lawsuit",
+      "url": "https://www.reuters.com/legal/litigation/fifa-says-unpaid-court-sanction-over-alleged-ai-misuse-justifies-tossing-2026-10-07/",
+      "publishedAt": "2026-10-07T20:07:44.064000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/KJA6OOTK6RMMLDV3MWS7I3PYHU.jpg?auth=95ce7091392c75933eef17c055164184d414ba8e769f60de06dc922330da6b01&smart=true&width=1920",
+      "category": "legal"
+    },
+    {
+      "id": "e768bf9caedf607d8583",
+      "source": "reuters",
+      "title": "Life sciences firm Danaher to launch AI-powered autonomous research lab in 2027",
+      "url": "https://www.reuters.com/business/healthcare-pharmaceuticals/life-sciences-firm-danaher-launch-ai-powered-autonomous-research-lab-2027-2026-10-07/",
+      "publishedAt": "2026-10-07T20:07:11.494000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/3K4N2KKJX5K4FKEZL56LCRL5EY.jpg?auth=40d3aeab75ce7e16524b57b3db3361e64b64e3380a1943d3946175495c90b0b5&smart=true&width=1920",
+      "category": "technology"
+    },
+    {
+      "id": "15f217eae8e92847426f",
+      "source": "reuters",
+      "title": "AI companies run virtual drug trials, aim to improve success of human studies",
+      "url": "https://www.reuters.com/legal/litigation/ai-companies-run-virtual-drug-trials-aim-improve-success-human-studies-2026-10-07/",
+      "publishedAt": "2026-10-07T20:06:03.301000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/3TTXSDI3WZMKRDJI6UPSI6XRR4.jpg?auth=02d92713bfb202e79b950984a7661608434062628e1e3923eedf45b90122ab77&smart=true&width=1920",
+      "category": "legal"
+    },
+    {
+      "id": "53a1b1b40b9969f386ef",
+      "source": "reuters",
+      "title": "US bonds selloff eases, yields off highs, after strong 10-year note auction",
+      "url": "https://www.reuters.com/business/us-30-year-bond-yield-hits-fresh-24-year-high-2026-10-07/",
+      "publishedAt": "2026-10-07T20:05:34.963000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/G5JAJ7O7XRM7VNJT7OIT4DV4OM.jpg?auth=a72174bfd7a6814953dd2c484d6e7ad42140a35e36e99514060b738c18608aa6&smart=true&width=1920",
+      "category": "markets"
+    },
+    {
+      "id": "27ff3e7f53958d3340bd",
+      "source": "reuters",
+      "title": "EPA says will rescind policy targeting oil and gas industry methane leaks",
+      "url": "https://www.reuters.com/legal/government/epa-says-will-soon-act-rescind-biden-policy-targeting-methane-leaks-2026-10-07/",
+      "publishedAt": "2026-10-07T20:04:41.574000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/JCMLDT5N25MIZGLEDFHQS4CJWM.jpg?auth=6b20311d14e34aa798800232d4510725b86fee1cb5eed190439820e500de3a52&smart=true&width=1920",
+      "category": "legal"
+    },
+    {
+      "id": "d3ba69b67918a403b92e",
+      "source": "cnbc",
+      "title": "FCC to vote on auctioning 25MHz of 'prime spectrum' in move that could benefit Amazon, SpaceX",
+      "url": "https://www.cnbc.com/2026/10/07/fcc-spectrum-auction-spacex-amazon.html",
+      "publishedAt": "2026-10-07T20:03:50+00:00",
+      "image": "https://image.cnbcfm.com/api/v1/image/106807806-16074358342020-12-03t230819z_202191474_rc2zfk9y7yyw_rtrmadp_0_usa-tech-fcc.jpeg?v=1696436624&w=1920&h=1080",
+      "category": "other"
+    },
     {
       "id": "f08e045ac665dc72c751",
       "source": "reuters",
@@ -248,15 +311,6 @@
       "category": "other"
     },
     {
-      "id": "27ff3e7f53958d3340bd",
-      "source": "reuters",
-      "title": "EPA says will rescind policy targeting oil and gas industry methane leaks",
-      "url": "https://www.reuters.com/legal/government/epa-says-will-soon-act-rescind-biden-policy-targeting-methane-leaks-2026-10-07/",
-      "publishedAt": "2026-10-07T19:52:28.119000+00:00",
-      "image": "https://www.reuters.com/resizer/v2/JCMLDT5N25MIZGLEDFHQS4CJWM.jpg?auth=6b20311d14e34aa798800232d4510725b86fee1cb5eed190439820e500de3a52&smart=true&width=1920",
-      "category": "legal"
-    },
-    {
       "id": "8bfde3ae7afd2d44f741",
       "source": "reuters",
       "title": "Pressure mounting on Cornell administration, president over handling of alleged gang rape",
@@ -320,24 +374,6 @@
       "category": "business"
     },
     {
-      "id": "004b830856f01bd631c1",
-      "source": "reuters",
-      "title": "Britain's BBC, Channel 4 discuss broader tie-up to cut costs, sources say",
-      "url": "https://www.reuters.com/world/britains-bbc-channel-4-discuss-broader-tie-up-cut-costs-sources-say-2026-10-07/",
-      "publishedAt": "2026-10-07T19:42:20.325000+00:00",
-      "image": "https://www.reuters.com/resizer/v2/7YOJALLZZFOLJMUKZ6BRMR2RJ4.jpg?auth=5dc2e4b87c89add0f5f5376d7200a354bbc1ca1fa8131ac2a4ff314f27ebb675&smart=true&width=1920",
-      "category": "world"
-    },
-    {
-      "id": "57148f251c9c06a26f9e",
-      "source": "reuters",
-      "title": "Christa Pike 'angry and confused' about Tennessee's failed execution effort, lawyers say",
-      "url": "https://www.reuters.com/legal/government/christa-pikes-lawyers-demand-see-syringes-drug-residue-botched-execution-2026-10-07/",
-      "publishedAt": "2026-10-07T19:41:42.197000+00:00",
-      "image": "https://www.reuters.com/resizer/v2/NE3X7JDHVFM7JJTOACSCDMKNHA.jpg?auth=83a0971ef9951038f5b3586e242f871ddd81d741524e54c90b3253573ac8b426&smart=true&width=1920",
-      "category": "legal"
-    },
-    {
       "id": "e298b2733cbfda8d0f35",
       "source": "cnbc",
       "title": "Americans grow more pessimistic about their finances, New York Fed finds - expert warns of ‘tough choices’ ahead",
@@ -356,15 +392,6 @@
       "category": "world"
     },
     {
-      "id": "9e1150d0fbe4aa7577b9",
-      "source": "reuters",
-      "title": "Anglo-Teck merger, nickel sale are test cases for navigating geopolitical complexities, CEO says",
-      "url": "https://www.reuters.com/world/asia-pacific/anglo-teck-merger-nickel-sale-are-test-cases-navigating-geopolitical-2026-10-07/",
-      "publishedAt": "2026-10-07T19:38:19.204000+00:00",
-      "image": "https://www.reuters.com/resizer/v2/ITOXPPG5KJPNPLESTZ5BCFRAHI.jpg?auth=241e8938a4644edc4517452f459b130f3945632ab2a17f1740517b78f8a8b6ce&smart=true&width=1920",
-      "category": "world"
-    },
-    {
       "id": "2b49dd45ee9011fa4af9",
       "source": "bloomberg",
       "title": "Why China Shock 2.0 Is Different",
@@ -372,15 +399,6 @@
       "publishedAt": "2026-10-07T19:37:59+00:00",
       "image": null,
       "category": "other"
-    },
-    {
-      "id": "d1152dca41b8746ffb2f",
-      "source": "reuters",
-      "title": "Pharma lobby sues Trump administration over Medicare drug price cuts",
-      "url": "https://www.reuters.com/legal/litigation/pharmaceutical-trade-group-sues-trump-administration-2026-10-07/",
-      "publishedAt": "2026-10-07T19:31:53.026000+00:00",
-      "image": "https://www.reuters.com/resizer/v2/7QPYM5B2ORMA7APDKJWQOLCSZU.jpg?auth=93b7d945c1518db07a3d0f4e9fca8ff4c956b52aa90b13c2d91d7b5066011a32&smart=true&width=1920",
-      "category": "legal"
     },
     {
       "id": "b14e54ba312c21dd65d6",
@@ -480,15 +498,6 @@
       "publishedAt": "2026-10-07T18:50:21+00:00",
       "image": "https://image.cnbcfm.com/api/v1/image/108374101-1791385507503-gettyimages-503850269-bld134034.jpeg?v=1791385521&w=1920&h=1080",
       "category": "world"
-    },
-    {
-      "id": "afa517c11dbfabf54839",
-      "source": "cnbc",
-      "title": "10-year Treasury yield backs off from 24-year high after solid bond auction eases demand fears",
-      "url": "https://www.cnbc.com/2026/10/07/treasury-yields-auction-fomc-minutes.html",
-      "publishedAt": "2026-10-07T18:47:30+00:00",
-      "image": "https://image.cnbcfm.com/api/v1/image/108363665-1789568651170-gettyimages-2295586459-mms19512_dnx4op25.jpeg?v=1789568741&w=1920&h=1080",
-      "category": "markets"
     },
     {
       "id": "5b6f5970df69305c4c9c",
@@ -651,6 +660,15 @@
       "publishedAt": "2026-10-07T18:02:47+00:00",
       "image": "https://www.aljazeera.com/wp-content/uploads/2026/10/reuters_6ac67a7c-1791392380.jpg?resize=1920%2C1440",
       "category": "world"
+    },
+    {
+      "id": "42510e2949de284927d3",
+      "source": "bloomberg",
+      "title": "SEC Warns Activist Investors After Climate Push at Exxon",
+      "url": "https://www.bloomberg.com/news/articles/2026-10-07/sec-warns-activist-investors-after-climate-push-at-exxon-mobil",
+      "publishedAt": "2026-10-07T17:39:04+00:00",
+      "image": null,
+      "category": "sustainability"
     },
     {
       "id": "cc889858741060fa9f3e",
@@ -1058,15 +1076,6 @@
       "category": "local"
     },
     {
-      "id": "ba1300b2f6a3fe467607",
-      "source": "cnbc",
-      "title": "France is caught between angry students and unforgiving bond markets",
-      "url": "https://www.cnbc.com/2026/10/07/french-student-protests-budget-deadlock.html",
-      "publishedAt": "2026-10-07T13:23:31+00:00",
-      "image": "https://image.cnbcfm.com/api/v1/image/108210403-1760076268432-gettyimages-2239147271-AFP_77U3372.jpeg?v=1760076286&w=1920&h=1080",
-      "category": "markets"
-    },
-    {
       "id": "a4fb9c02ee2be4caf74b",
       "source": "cnn_id",
       "title": "Danantara Sebut Menteri dan Wamen Bakal Dapat Mobil Dinas Maung",
@@ -1074,15 +1083,6 @@
       "publishedAt": "2026-10-07T13:08:38+00:00",
       "image": "https://akcdn.detik.net.id/visual/2025/03/01/jumlah-kendaraan-maung-untuk-tni-polri-1740810506999_169.jpeg?w=360&q=90",
       "category": "local"
-    },
-    {
-      "id": "091d95edf83fe6f4ff19",
-      "source": "bloomberg",
-      "title": "SpaceX Credit-Risk Gauge Hits Fresh High on Fundraising Reports",
-      "url": "https://www.bloomberg.com/news/articles/2026-10-07/spacex-credit-risk-gauge-hits-record-high-on-fundraising-reports",
-      "publishedAt": "2026-10-07T13:01:46+00:00",
-      "image": null,
-      "category": "other"
     },
     {
       "id": "7df2fd9ec90e03e233b7",
@@ -2117,15 +2117,6 @@
       "url": "https://id.investing.com/news/company-news/fifth-third-tunjuk-darren-king-pimpin-commercial-bank-yang-diperluas-93CH-3089731",
       "publishedAt": null,
       "image": "https://content-media.investing.com/news/LYNXMPEM1J0WY_1200_L.jpg",
-      "category": "local"
-    },
-    {
-      "id": "fd3b0ac4455b2b014142",
-      "source": "pluang",
-      "title": "Moody’s beri peringkat B3 pada Sky Protocol, stablecoin pertama dengan risiko kredit karena modal rendah.",
-      "url": "https://pluang.com/news-feed/moody-beri-penilaian-kredit-stablecoin-pertama-untuk-sky-protocol",
-      "publishedAt": null,
-      "image": "https://image-cdn.pluang.com/web/news-cards/v2/CRYPTO/6e837e3ac00331f9fb4e1a74d0114b54bcfa2b7a34333af70c3422ea403540a2-id.webp",
       "category": "local"
     },
     {
