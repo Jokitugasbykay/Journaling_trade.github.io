@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "checkedAt": "2026-10-07T17:14:51.366776+00:00",
+  "checkedAt": "2026-10-07T17:21:21.288855+00:00",
   "intervalMinutes": 30,
   "sources": [
     {
@@ -9,7 +9,7 @@
       "url": "https://www.investing.com/",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-07T17:14:50.580579+00:00"
+      "checkedAt": "2026-10-07T17:21:19.721798+00:00"
     },
     {
       "id": "cnbc",
@@ -17,7 +17,7 @@
       "url": "https://www.cnbc.com/markets/",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-07T17:14:50.493698+00:00"
+      "checkedAt": "2026-10-07T17:21:19.803466+00:00"
     },
     {
       "id": "kontan",
@@ -25,7 +25,7 @@
       "url": "https://www.kontan.co.id/",
       "kind": "html",
       "status": "ok",
-      "checkedAt": "2026-10-07T17:14:51.318224+00:00"
+      "checkedAt": "2026-10-07T17:21:21.042479+00:00"
     },
     {
       "id": "reuters",
@@ -33,7 +33,7 @@
       "url": "https://www.reuters.com/",
       "kind": "sitemap",
       "status": "ok",
-      "checkedAt": "2026-10-07T17:14:50.562783+00:00"
+      "checkedAt": "2026-10-07T17:21:19.949191+00:00"
     },
     {
       "id": "aljazeera",
@@ -41,7 +41,7 @@
       "url": "https://www.aljazeera.com/",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-07T17:14:50.579477+00:00"
+      "checkedAt": "2026-10-07T17:21:19.857205+00:00"
     },
     {
       "id": "bloomberg",
@@ -49,7 +49,7 @@
       "url": "https://www.bloomberg.com/asia",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-07T17:14:50.648798+00:00"
+      "checkedAt": "2026-10-07T17:21:19.976934+00:00"
     },
     {
       "id": "fedwatch",
@@ -68,6 +68,46 @@
   ],
   "items": [
     {
+      "id": "04b86374f6f2709893dc",
+      "source": "cnbc",
+      "title": "Meta's Muse assistant tops app charts. Now it needs to become a habit",
+      "url": "https://www.cnbc.com/2026/10/07/meta-muse-personal-ai-agents-dazzle.html",
+      "publishedAt": "2026-10-07T17:20:12+00:00",
+      "image": "https://image.cnbcfm.com/api/v1/image/108367520-1790264014969-gettyimages-2296209074-META_CONNECT.jpeg?v=1790264039&w=1920&h=1080"
+    },
+    {
+      "id": "34d4822fb1cba5abd9cb",
+      "source": "cnbc",
+      "title": "10-year Treasury yield falls from 24-year high after solid bond auction eases demand fears",
+      "url": "https://www.cnbc.com/2026/10/07/treasury-yields-auction-fomc-minutes.html",
+      "publishedAt": "2026-10-07T17:17:24+00:00",
+      "image": "https://image.cnbcfm.com/api/v1/image/108363665-1789568651170-gettyimages-2295586459-mms19512_dnx4op25.jpeg?v=1789568741&w=1920&h=1080"
+    },
+    {
+      "id": "c6cf0341ce3ed1c3d2e2",
+      "source": "cnbc",
+      "title": "Google ordered to halt work on two data centers in ‘Texas of Europe’",
+      "url": "https://www.cnbc.com/2026/10/07/google-finland-data-center-halt.html",
+      "publishedAt": "2026-10-07T17:16:28+00:00",
+      "image": "https://image.cnbcfm.com/api/v1/image/108373796-1791360823662-gettyimages-2297901439-AFP_C9W887L.jpeg?v=1791360836&w=1920&h=1080"
+    },
+    {
+      "id": "03af650e2b12381951d4",
+      "source": "reuters",
+      "title": "Mexico enacts reform barring dual citizens from presidency",
+      "url": "https://www.reuters.com/world/americas/mexico-enacts-reform-barring-dual-citizens-presidency-2026-10-07/",
+      "publishedAt": "2026-10-07T17:14:55.844000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/URIUJK5BLBIYFNWDX25X5WIDUY.jpg?auth=5b1ed7fd9f5e3c6076b7e693651f31503590dfedb511c10d3a1365bd49a8f778&smart=true&width=1920"
+    },
+    {
+      "id": "155c716c48ec4e0efdaa",
+      "source": "reuters",
+      "title": "Florida asks court to force Meta to change Facebook, Instagram for teens",
+      "url": "https://www.reuters.com/world/us/florida-asks-court-force-meta-change-facebook-instagram-teens-2026-10-07/",
+      "publishedAt": "2026-10-07T17:14:21.730000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/ZW36RUINW5PODPMPYDWCN75D6A.jpg?auth=90693353fb00e8b1a5ca079a7df4ec05436f00e00e598b2837d5dfe1a44977cc&smart=true&width=1920"
+    },
+    {
       "id": "18f2236ff40757b26840",
       "source": "bloomberg",
       "title": "Tropical Storm Isaias Could Turn Into Cat 2 Hurricane",
@@ -76,27 +116,43 @@
       "image": null
     },
     {
-      "id": "e65b574d274854e96b05",
-      "source": "bloomberg",
-      "title": "Disney Confirms That Disney+ Will Stream The 2027 Super Bowl",
-      "url": "https://www.bloomberg.com/news/videos/2026-10-07/disney-confirms-that-disney-will-stream-2027-super-bowl-video",
-      "publishedAt": "2026-10-07T17:10:39+00:00",
-      "image": null
+      "id": "dba0aabe404f8cf7cc49",
+      "source": "reuters",
+      "title": "China rejects EU request for voluntary hybrid car export curbs, FT reports",
+      "url": "https://www.reuters.com/world/china/china-rejects-eu-request-voluntary-hybrid-car-export-curbs-ft-reports-2026-10-07/",
+      "publishedAt": "2026-10-07T17:11:44.958000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/GY4YWDMFXRMJJI7SQT6S44YMYM.jpg?auth=87bcab8b92b11bade3760c57869adf5a8ed8773b34a073e899eeb87fbcb19934&smart=true&width=1920"
     },
     {
       "id": "768349e568b68a99eae4",
       "source": "reuters",
       "title": "Christa Pike's lawyers demand to see syringes, drug residue from botched execution",
       "url": "https://www.reuters.com/legal/government/christa-pikes-lawyers-demand-see-syringes-drug-residue-botched-execution-2026-10-07/",
-      "publishedAt": "2026-10-07T17:10:09.775000+00:00",
-      "image": "https://www.reuters.com/resizer/v2/NE3X7JDHVFM7JJTOACSCDMKNHA.jpg?auth=83a0971ef9951038f5b3586e242f871ddd81d741524e54c90b3253573ac8b426&smart=true&width=1920"
+      "publishedAt": "2026-10-07T17:11:44.256000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/NSXAWEGU2NNSVKHNDTN5L5EOPY.jpg?auth=9a03f8a6d4165a5ff0519a99d28fc546b163c1ddd9217cd53128841277f3ca51&smart=true&width=1920"
+    },
+    {
+      "id": "a8f6bc6f2216d1bef7c1",
+      "source": "reuters",
+      "title": "Israelis mark three years since October 7 as Palestinians mourn Gaza's destruction",
+      "url": "https://www.reuters.com/world/middle-east/israelis-mark-three-years-since-hamas-attack-that-set-off-gaza-assault-2026-10-07/",
+      "publishedAt": "2026-10-07T17:11:19.794000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/YXLHGZRYRFPWJDL6WRYDJA5IUQ.jpg?auth=34d687dab6a4d723fe35d9e329dec4e742fa1b02f4c31e3c6501c1e748cd36bc&smart=true&width=1920"
     },
     {
       "id": "0e16da0e31072666711f",
       "source": "reuters",
       "title": "Elon Musk readies his signature gambit at SpaceX",
       "url": "https://www.reuters.com/commentary/breakingviews/elon-musk-readies-his-signature-gambit-spacex-2026-10-07/",
-      "publishedAt": "2026-10-07T17:09:54.291000+00:00",
+      "publishedAt": "2026-10-07T17:11:04.572000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/J7QLSSQKZVPZPKHJQAYE6XXHNU.jpg?auth=328fc2f8863469b92584c816457680367bb591fb6232d4cedbc502bcdfa55966&smart=true&width=1920"
+    },
+    {
+      "id": "e65b574d274854e96b05",
+      "source": "bloomberg",
+      "title": "Disney Confirms That Disney+ Will Stream The 2027 Super Bowl",
+      "url": "https://www.bloomberg.com/news/videos/2026-10-07/disney-confirms-that-disney-will-stream-2027-super-bowl-video",
+      "publishedAt": "2026-10-07T17:10:39+00:00",
       "image": null
     },
     {
@@ -172,14 +228,6 @@
       "image": "https://www.reuters.com/resizer/v2/S2CHGQQGBVN3DK2DIYAUXJY5CI.jpg?auth=e40b015bdda1339ef3594fa9fd8dae124dfeb90378953beb44c757bea7de20c4&smart=true&width=1920"
     },
     {
-      "id": "03af650e2b12381951d4",
-      "source": "reuters",
-      "title": "Mexico enacts reform barring dual citizens from presidency",
-      "url": "https://www.reuters.com/world/americas/mexico-enacts-reform-barring-dual-citizens-presidency-2026-10-07/",
-      "publishedAt": "2026-10-07T16:55:44.873000+00:00",
-      "image": "https://www.reuters.com/resizer/v2/URIUJK5BLBIYFNWDX25X5WIDUY.jpg?auth=5b1ed7fd9f5e3c6076b7e693651f31503590dfedb511c10d3a1365bd49a8f778&smart=true&width=1920"
-    },
-    {
       "id": "1bcdb6f00b094c1fd302",
       "source": "reuters",
       "title": "Airbus says Biman Bangladesh confirms order for 10 jets",
@@ -220,36 +268,12 @@
       "image": "https://www.reuters.com/resizer/v2/TT5XOUR4EBNIFODEPRNUYC6CQQ.jpg?auth=39316252bec299a4afaa08cabca257646855e09e12e136b44fc82e30e3125e07&smart=true&width=1920"
     },
     {
-      "id": "82c137c1965896230a05",
-      "source": "reuters",
-      "title": "Canada's Weston family to buy UK's Boots in $8.9 billion deal",
-      "url": "https://www.reuters.com/legal/transactional/canadas-weston-family-buys-pharmacy-chain-boots-89-billion-2026-10-07/",
-      "publishedAt": "2026-10-07T16:53:59.802000+00:00",
-      "image": "https://www.reuters.com/resizer/v2/GCTUZ2QYN5K3HA5Q6KTSVWFM4M.jpg?auth=4dbfebbe5d739e3825a9ff8cbf6748d6be0a64187b5ec6b8ef30062404054d69&smart=true&width=1920"
-    },
-    {
-      "id": "20e996843226a7697b4c",
-      "source": "reuters",
-      "title": "Belgian student protests against education costs echo France",
-      "url": "https://www.reuters.com/world/belgian-students-rally-over-education-costs-protests-echoing-france-2026-10-07/",
-      "publishedAt": "2026-10-07T16:53:23.272000+00:00",
-      "image": "https://www.reuters.com/resizer/v2/VLIS6HCNFZKMLL5LROMYJHTWB4.jpg?auth=a7db85d705cf7ea487497676561153d56f0c5eccb8f7b22b949d923bb63bbfe1&smart=true&width=1920"
-    },
-    {
       "id": "f26b01ea80be5dc6ff64",
       "source": "bloomberg",
       "title": "McDonald’s Franchisees Balk at Costly Bill to Upgrade Stores",
       "url": "https://www.bloomberg.com/news/videos/2026-10-07/mcdonald-s-franchisees-balk-at-bill-to-upgrade-stores-video",
       "publishedAt": "2026-10-07T16:53:23+00:00",
       "image": null
-    },
-    {
-      "id": "ac5acaa16a6e21764791",
-      "source": "reuters",
-      "title": "Kasey Kahne returning to full-time racing in '27 in Spire truck",
-      "url": "https://www.reuters.com/sports/kasey-kahne-returning-full-time-racing-27-spire-truck--flm-2026-10-07/",
-      "publishedAt": "2026-10-07T16:53:19.027000+00:00",
-      "image": "https://www.reuters.com/resizer/v2/EMT6E7W2BNNYHOE35TLPKXMUNQ.jpg?auth=c2b5c6c06af1b09be0452b6195607bd2dd9ad625aaa1c79b823e845c66ffceac&smart=true&width=1920"
     },
     {
       "id": "01ec186969d6c5efe9ab",
@@ -322,14 +346,6 @@
       "url": "https://www.cnbc.com/2026/10/07/used-cars-manheim-index.html",
       "publishedAt": "2026-10-07T16:25:52+00:00",
       "image": "https://image.cnbcfm.com/api/v1/image/107306192-1695673773493-gettyimages-1466470824-mt_17958_0e9e89f3-d542-43cd-8d41-28c2e3700156.jpeg?v=1778167391&w=1920&h=1080"
-    },
-    {
-      "id": "8700e69f4853507fe1e5",
-      "source": "cnbc",
-      "title": "Inflation fears on the rise as one-year outlook in Fed survey hits highest level since May 2023",
-      "url": "https://www.cnbc.com/2026/10/07/inflation-fears-on-the-rise-as-one-year-outlook-in-fed-survey-hits-highest-since-may-2023.html",
-      "publishedAt": "2026-10-07T16:18:22+00:00",
-      "image": "https://image.cnbcfm.com/api/v1/image/108374148-1791392801813-108374148-1791388061460-108374148-1791387933444-gettyimages-2297102806-US_DIESEL.jpg?v=1791392813&w=1920&h=1080"
     },
     {
       "id": "423195fffb4d89af1d94",
@@ -426,14 +442,6 @@
       "url": "https://www.aljazeera.com/news/2026/10/7/how-israels-genocide-in-gaza-pulled-britons-into-the-palestine-movement?traffic_source=rss",
       "publishedAt": "2026-10-07T15:13:21+00:00",
       "image": "https://www.aljazeera.com/wp-content/uploads/2026/10/2025-07-12T160204Z_582396475_RC21LFAVWRDR_RTRMADP_3_ISRAEL-PALESTINIANS-BRITAIN-PALESTINE-ACTION-1791383408.jpg?resize=1920%2C1440"
-    },
-    {
-      "id": "04b86374f6f2709893dc",
-      "source": "cnbc",
-      "title": "Meta's Muse assistant tops app charts. Now it needs to become a habit",
-      "url": "https://www.cnbc.com/2026/10/07/meta-muse-personal-ai-agents-dazzle.html",
-      "publishedAt": "2026-10-07T15:01:41+00:00",
-      "image": "https://image.cnbcfm.com/api/v1/image/108367520-1790264014969-gettyimages-2296209074-META_CONNECT.jpeg?v=1790264039&w=1920&h=1080"
     },
     {
       "id": "5748f18435642d15b6f1",
@@ -682,14 +690,6 @@
       "url": "https://www.cnbc.com/2026/10/07/imf-france-debt-student-protests-yields.html",
       "publishedAt": "2026-10-07T11:09:30+00:00",
       "image": "https://image.cnbcfm.com/api/v1/image/108289388-1775758322358-gettyimages-2269957315-AFP_A7B73A9.jpeg?v=1775758361&w=1920&h=1080"
-    },
-    {
-      "id": "c6cf0341ce3ed1c3d2e2",
-      "source": "cnbc",
-      "title": "Google ordered to halt work on two data centers in ‘Texas of Europe’",
-      "url": "https://www.cnbc.com/2026/10/07/google-finland-data-center-halt.html",
-      "publishedAt": "2026-10-07T09:26:02+00:00",
-      "image": "https://image.cnbcfm.com/api/v1/image/108373796-1791360823662-gettyimages-2297901439-AFP_C9W887L.jpeg?v=1791360836&w=1920&h=1080"
     },
     {
       "id": "7ea3c094d5c2a7c78527",
