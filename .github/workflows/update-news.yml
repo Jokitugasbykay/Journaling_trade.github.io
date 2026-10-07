@@ -43,6 +43,10 @@ jobs:
           mkdir _site
           cp index.html berita.json kalender.json bi.json _site/
           cp -r css js _site/
+          for route in home journal statistics calculator economic-news economic-news/calendar economic-news/social login profile; do
+            mkdir -p "_site/$route"
+            cp index.html "_site/$route/index.html"
+          done
       - uses: actions/upload-pages-artifact@v3
         with:
           path: _site

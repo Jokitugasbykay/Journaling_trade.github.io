@@ -28,6 +28,10 @@ assert news.clean('<b>News</b> &amp; data') == 'News & data'
 assert news.clean('News \U0001f600') == 'News'
 html = b'<a href="https://investasi.kontan.co.id/news/market-update"><img src="https://foto.kontan.co.id/photo.jpg" alt="Economic news from the Indonesian market"></a>'
 assert news.parse(html, news.SOURCES[2])[0]['image'] == 'https://foto.kontan.co.id/photo.jpg'
+kompas = next(source for source in news.SOURCES if source['id'] == 'kompas')
+local_date = (now + dt.timedelta(hours=7, days=-1)).strftime('%Y/%m/%d')
+local = news.parse(f'<a href="https://money.kompas.com/read/{local_date}/120000123/market-news"><img src="https://asset.kompas.com/photo.jpg" alt="New economic policy announced today"></a>'.encode(), kompas)
+assert len(local) == 1 and local[0]['category'] == 'local' and local[0]['image'] == 'https://asset.kompas.com/photo.jpg'
 sitemap = f'''<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:n="http://www.google.com/schemas/sitemap-news/0.9"><url><loc>https://www.reuters.com/world/news</loc><n:news><n:title>New economic data released by the government</n:title><n:publication_date>{now.isoformat()}</n:publication_date></n:news></url></urlset>'''
 assert len(news.parse(sitemap.encode(), news.SOURCES[3])) == 1
 assert not news.parse(sitemap.replace('/world/news', '/es/mundo/news').encode(), news.SOURCES[3])

@@ -108,7 +108,7 @@
 });
       Object.assign(englishCopy, {"newsPageTitle":"News & economic calendar","newsPageLead":"Headlines from your selected publishers, publication times, and the economic calendar.","newsHeadlines":"Latest news","newsCalendar":"Economic calendar","newsSourceLabel":"News source","newsAllSources":"All sources","newsRefresh":"Refresh news","newsOriginalLanguage":"Headlines remain in the publisher’s original language. Read the full story on the source website.","newsCmeHint":"View current interest-rate probabilities and market data directly on CME Group."});
       Object.assign(englishCopy, {"newsLatestStories": "Latest stories", "newsShowMore": "Show more stories", "newsFeedDetails": "Sources & update schedule", "newsSchedule": "News is collected every 30 minutes daily. This page checks for updates every 5 minutes."});
-      Object.assign(englishCopy, {"newsSocial": "Social media", "socialLead": "Open the latest posts directly on Instagram. Instagram may ask you to sign in.", "socialOpen": "View posts on Instagram", "categoryAll": "All", "categoryWorld": "World", "categoryBusiness": "Business", "categoryMarkets": "Markets", "categorySustainability": "Sustainability", "categoryLegal": "Legal", "categoryCommentary": "Commentary", "categoryTechnology": "Technology", "categoryInvestigations": "Investigations", "categoryMore": "More", "categoryScience": "Science", "categorySport": "Sport", "categoryOther": "Other news", "biSource": "Bank Indonesia transaction rates", "biBasis": "Journal conversion uses the midpoint of BI USD sell and buy rates. BI publishes rates once per business day."});
+      Object.assign(englishCopy, {"newsSocial": "Social media", "socialLead": "Open the latest posts directly on Instagram. Instagram may ask you to sign in.", "socialOpen": "View posts on Instagram", "categoryAll": "All", "categoryWorld": "World", "categoryBusiness": "Business", "categoryMarkets": "Markets", "categorySustainability": "Sustainability", "categoryLegal": "Legal", "categoryCommentary": "Commentary", "categoryTechnology": "Technology", "categoryInvestigations": "Investigations", "categoryMore": "More", "categoryLocal": "Local news", "categoryScience": "Science", "categorySport": "Sport", "categoryOther": "Other news", "biSource": "Bank Indonesia transaction rates", "biBasis": "Journal conversion uses the midpoint of BI USD sell and buy rates. BI publishes rates once per business day."});
       document.querySelectorAll('[data-i18n]').forEach(element => {
         originalCopy.set(element.dataset.i18n, element.innerHTML);
       });
@@ -625,7 +625,10 @@
       }
 
       /* Tab Switching */
-      window.switchTab = function (tabId) {
+      const pageRoutes = { beranda: 'home', jurnal: 'journal', statistik: 'statistics', kalkulator: 'calculator', berita: 'economic-news', profil: 'profile' };
+      const pagePath = route => new URL(route + '/', document.baseURI).pathname;
+      let loginReturnPath = pagePath('home');
+      window.switchTab = function (tabId, updateUrl = true) {
         if (!$('view-' + tabId)) return;
         if (tabId !== 'beranda' && !onboarding.started) {
           $('home-access-hint').focus();
@@ -647,9 +650,11 @@
         } else if (tabId === 'kalkulator') {
           runAllCalculators();
         } else if (tabId === 'berita') {
+          switchBeritaSub('ringkasan', false);
           renderEconomicCalendar();
           reloadPublisherNews();
         }
+        if (updateUrl && pageRoutes[tabId] && location.pathname !== pagePath(pageRoutes[tabId])) history.pushState(null, '', pagePath(pageRoutes[tabId]));
         applyLanguage();
         window.scrollTo({ top: 0, behavior: 'smooth' });
       };
@@ -685,14 +690,19 @@
         switchTab('jurnal');
       };
 
-      window.openLoginDialog = function () {
+      window.openLoginDialog = function (updateUrl = true) {
         closeNavAccountDropdown();
+        if (location.pathname !== pagePath('login')) loginReturnPath = location.pathname + location.search;
         $('local-login-name').value = onboarding.name;
         $('local-login-name').setCustomValidity('');
         $('login-feedback').textContent = '';
-        $('login-dialog').showModal();
+        if (!$('login-dialog').open) $('login-dialog').showModal();
+        if (updateUrl && location.pathname !== pagePath('login')) history.pushState(null, '', pagePath('login'));
       };
       window.closeLoginDialog = function () { $('login-dialog').close(); };
+      $('login-dialog').addEventListener('close', () => {
+        if (location.pathname === pagePath('login')) history.replaceState(null, '', loginReturnPath);
+      });
       window.signInLocal = function (event) {
         event.preventDefault();
         const input = $('local-login-name');
@@ -2975,10 +2985,10 @@
       let newsVisibleCount = 12;
       let newsSelectedSource = '';
       let newsCategory = '';
-      const newsCategoryNames = {world:['Dunia','World'], business:['Bisnis','Business'], markets:['Pasar','Markets'], sustainability:['Keberlanjutan','Sustainability'], legal:['Hukum','Legal'], commentary:['Komentar','Commentary'], technology:['Teknologi','Technology'], investigations:['Investigasi','Investigations'], science:['Sains','Science'], sport:['Olahraga','Sport'], other:['Berita lainnya','Other news']};
+      const newsCategoryNames = {world:['Dunia','World'], business:['Bisnis','Business'], markets:['Pasar','Markets'], sustainability:['Keberlanjutan','Sustainability'], legal:['Hukum','Legal'], commentary:['Komentar','Commentary'], technology:['Teknologi','Technology'], investigations:['Investigasi','Investigations'], local:['Berita lokal','Local news'], science:['Sains','Science'], sport:['Olahraga','Sport'], other:['Berita lainnya','Other news']};
       let publisherNewsBusy = false;
       let publisherNewsFailed = false;
-      const publisherDomains = { investing: 'investing.com', cnbc: 'cnbc.com', kontan: 'kontan.co.id', reuters: 'reuters.com', aljazeera: 'aljazeera.com', bloomberg: 'bloomberg.com', fnc: 'tradewithfnc.com', fedwatch: 'cmegroup.com', cme: 'cmegroup.com' };
+      const publisherDomains = { investing: 'investing.com', cnbc: 'cnbc.com', kontan: 'kontan.co.id', reuters: 'reuters.com', aljazeera: 'aljazeera.com', bloomberg: 'bloomberg.com', fnc: 'tradewithfnc.com', investing_id: 'investing.com', pluang: 'pluang.com', kompas: 'kompas.com', detik: 'detik.com', kemenkeu: 'kemenkeu.go.id', cnn_id: 'cnnindonesia.com', bisnis: 'bisnis.com', sindo: 'sindonews.com', fedwatch: 'cmegroup.com', cme: 'cmegroup.com' };
       const newsText = (id, en) => language === 'en' ? en : id;
       function publisherUrl(value, sourceId) {
         try {
@@ -2994,7 +3004,7 @@
       function publisherImageUrl(value) {
         try {
           const url = new URL(value);
-          const domains = ['investing.com', 'cnbcfm.com', 'kontan.co.id', 'reuters.com', 'aljazeera.com', 'bloomberg.com', 'bwbx.io'];
+          const domains = ['investing.com', 'cnbcfm.com', 'kontan.co.id', 'reuters.com', 'aljazeera.com', 'bloomberg.com', 'bwbx.io', 'pluang.com', 'kompas.com', 'detik.net.id', 'kemenkeu.go.id', 'cnnindonesia.com', 'bisnis.com', 'sindonews.com'];
           return url.protocol === 'https:' && !url.username && !url.password && domains.some(domain => url.hostname === domain || url.hostname.endsWith('.' + domain)) ? url.href : null;
         } catch { return null; }
       }
@@ -3022,7 +3032,7 @@
         const sources = new Map(publisherNews.sources.map(source => [source.id, source]));
         const rows = publisherNews.items.filter(item => (!selected || item.source === selected) && (!newsCategory || (item.category || 'other') === newsCategory));
         document.querySelectorAll('#news-categories [data-category]').forEach(button => button.setAttribute('aria-pressed', String(button.dataset.category === newsCategory)));
-        $('news-more-category').value = ['science','sport','other'].includes(newsCategory) ? newsCategory : '';
+        $('news-more-category').value = ['local','science','sport','other'].includes(newsCategory) ? newsCategory : '';
         document.querySelector('.publisher-grid-heading').textContent = newsCategory ? newsCategoryNames[newsCategory][language === 'en' ? 1 : 0] : newsText('Berita terbaru', 'Latest stories');
         $('news-more').hidden = rows.length <= newsVisibleCount;
         $('publisher-news-list').innerHTML = rows.length ? rows.slice(0, newsVisibleCount).map(item => {
@@ -3031,7 +3041,7 @@
           if (!url || !source) return '';
           const time = publisherTime(item.publishedAt) || newsText('Waktu terbit tidak disediakan penerbit', 'Publication time not provided by the publisher');
           const image = publisherImageUrl(item.image);
-          const media = '<span class="publisher-photo"><span class="publisher-photo-fallback" aria-hidden="true"><span>' + esc(source.name) + '</span><small>' + newsText('Foto tidak tersedia', 'Photo unavailable') + '</small></span>' + (image ? '<img src="' + esc(image) + '" alt="" width="640" height="360" loading="lazy" decoding="async" referrerpolicy="no-referrer">' : '') + '</span>';
+          const media = '<span class="publisher-photo"><span class="publisher-photo-fallback" aria-hidden="true"><small>' + newsText('Foto tidak tersedia', 'Photo unavailable') + '</small></span>' + (image ? '<img src="' + esc(image) + '" alt="" width="640" height="360" loading="lazy" decoding="async" referrerpolicy="no-referrer">' : '') + '</span>';
           return '<article class="publisher-news-item"><a class="publisher-story-link" href="' + esc(url) + '" target="_blank" rel="noopener noreferrer">' + media + '<h3>' + esc(item.title) + '</h3></a><p class="publisher-news-meta"><span>' + esc(source.name) + '</span><time' + (publisherTime(item.publishedAt) ? ' datetime="' + esc(item.publishedAt) + '"' : '') + '>' + esc(time) + '</time></p></article>';
         }).join('') : '<p>' + newsText('Belum ada berita yang sesuai filter ini. Pilih kategori atau sumber lain.', 'No stories match these filters. Choose another category or source.') + '</p>';
         $('publisher-news-list').querySelectorAll('img').forEach(img => { img.addEventListener('error', () => img.remove(), { once: true }); });
@@ -3049,7 +3059,7 @@
           const data = await response.json();
           if (data.version !== 1 || !Array.isArray(data.sources) || !Array.isArray(data.items) || !publisherTime(data.checkedAt)) throw new Error('Invalid news feed');
           data.sources = data.sources.filter(source => source && publisherDomains[source.id] && typeof source.name === 'string' && publisherUrl(source.url, source.id));
-          data.items = data.items.filter(item => item && typeof item.title === 'string' && publisherUrl(item.url, item.source)).slice(0, 140);
+          data.items = data.items.filter(item => item && typeof item.title === 'string' && publisherUrl(item.url, item.source)).slice(0, 400);
           publisherNews = data;
           publisherNewsFailed = false;
         } catch (error) { publisherNewsFailed = true; }
@@ -3059,7 +3069,8 @@
       document.addEventListener('visibilitychange', () => { if (!document.hidden) reloadPublisherNews(); });
 
       /* Sub-view Switcher */
-      window.switchBeritaSub = function (sub) {
+      window.switchBeritaSub = function (sub, updateUrl = true) {
+        if (!['ringkasan', 'kalender', 'sosial'].includes(sub)) return;
         document.querySelectorAll('#berita-seg .seg-btn').forEach(b => {
           b.classList.toggle('active', b.dataset.sub === sub);
         });
@@ -3075,7 +3086,29 @@
         } else if (sub === 'kalender') {
           renderEconomicCalendar();
         }
+        const route = 'economic-news' + (sub === 'ringkasan' ? '' : '/' + (sub === 'kalender' ? 'calendar' : 'social'));
+        if (updateUrl && location.pathname !== pagePath(route)) history.pushState(null, '', pagePath(route));
       };
+
+      function restoreRoute() {
+        const base = new URL(document.baseURI).pathname;
+        const parts = location.pathname.startsWith(base) ? location.pathname.slice(base.length).split('/').filter(Boolean) : [];
+        if (parts[0] === 'login') {
+          switchTab('beranda', false);
+          openLoginDialog(false);
+          return;
+        }
+        if ($('login-dialog').open) $('login-dialog').close();
+        const tabId = Object.keys(pageRoutes).find(key => pageRoutes[key] === parts[0]) || 'beranda';
+        if (tabId !== 'beranda' && !onboarding.started) {
+          onboarding.started = true;
+          persistOnboarding();
+          updateAccess();
+        }
+        switchTab(tabId, false);
+        if (tabId === 'berita') switchBeritaSub(parts[1] === 'calendar' ? 'kalender' : parts[1] === 'social' ? 'sosial' : 'ringkasan', false);
+        if (!parts.length || !pageRoutes[tabId] || parts[0] !== pageRoutes[tabId]) history.replaceState(null, '', pagePath(pageRoutes[tabId]));
+      }
 
       /* Initial Startup */
       loadData();
@@ -3091,6 +3124,8 @@
       reloadPublisherNews();
       applyLanguage();
       renderStatistics();
+      restoreRoute();
+      window.addEventListener('popstate', restoreRoute);
       refreshExchangeRate();
       setInterval(() => { if (!document.hidden) refreshExchangeRate(); }, 3600000);
       document.addEventListener('visibilitychange', () => { if (!document.hidden && Date.now() - exchangeCheckedAt >= 3600000) refreshExchangeRate(); });

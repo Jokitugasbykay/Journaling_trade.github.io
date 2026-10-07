@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "checkedAt": "2026-10-07T18:32:10.582325+00:00",
+  "checkedAt": "2026-10-07T18:43:39.817431+00:00",
   "intervalMinutes": 30,
   "sources": [
     {
@@ -9,7 +9,7 @@
       "url": "https://www.investing.com/",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-07T18:32:08.640607+00:00"
+      "checkedAt": "2026-10-07T18:43:23.031250+00:00"
     },
     {
       "id": "cnbc",
@@ -17,7 +17,7 @@
       "url": "https://www.cnbc.com/markets/",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-07T18:32:09.106043+00:00"
+      "checkedAt": "2026-10-07T18:43:23.028715+00:00"
     },
     {
       "id": "kontan",
@@ -25,7 +25,7 @@
       "url": "https://www.kontan.co.id/",
       "kind": "html",
       "status": "ok",
-      "checkedAt": "2026-10-07T18:32:09.146935+00:00"
+      "checkedAt": "2026-10-07T18:43:24.095921+00:00"
     },
     {
       "id": "reuters",
@@ -33,7 +33,7 @@
       "url": "https://www.reuters.com/",
       "kind": "sitemap",
       "status": "ok",
-      "checkedAt": "2026-10-07T18:32:08.779059+00:00"
+      "checkedAt": "2026-10-07T18:43:24.730388+00:00"
     },
     {
       "id": "aljazeera",
@@ -41,7 +41,7 @@
       "url": "https://www.aljazeera.com/",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-07T18:32:08.588807+00:00"
+      "checkedAt": "2026-10-07T18:43:23.085767+00:00"
     },
     {
       "id": "bloomberg",
@@ -49,7 +49,7 @@
       "url": "https://www.bloomberg.com/asia",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-07T18:32:09.148725+00:00"
+      "checkedAt": "2026-10-07T18:43:24.717337+00:00"
     },
     {
       "id": "fnc",
@@ -57,7 +57,71 @@
       "url": "https://tradewithfnc.com/",
       "kind": "json",
       "status": "ok",
-      "checkedAt": "2026-10-07T18:32:09.778129+00:00"
+      "checkedAt": "2026-10-07T18:43:38.614252+00:00"
+    },
+    {
+      "id": "investing_id",
+      "name": "Investing Indonesia",
+      "url": "https://id.investing.com/news",
+      "kind": "rss",
+      "status": "ok",
+      "checkedAt": "2026-10-07T18:43:23.826029+00:00"
+    },
+    {
+      "id": "pluang",
+      "name": "Pluang",
+      "url": "https://pluang.com/news-feed",
+      "kind": "html",
+      "status": "unavailable",
+      "checkedAt": null
+    },
+    {
+      "id": "kompas",
+      "name": "Kompas Money",
+      "url": "https://money.kompas.com/",
+      "kind": "html",
+      "status": "ok",
+      "checkedAt": "2026-10-07T18:43:28.425104+00:00"
+    },
+    {
+      "id": "detik",
+      "name": "detikFinance",
+      "url": "https://finance.detik.com/",
+      "kind": "rss",
+      "status": "ok",
+      "checkedAt": "2026-10-07T18:43:29.795697+00:00"
+    },
+    {
+      "id": "kemenkeu",
+      "name": "Kementerian Keuangan",
+      "url": "https://www.kemenkeu.go.id/informasi-publik/publikasi/berita-utama",
+      "kind": "html",
+      "status": "unavailable",
+      "checkedAt": null
+    },
+    {
+      "id": "cnn_id",
+      "name": "CNN Indonesia Ekonomi",
+      "url": "https://www.cnnindonesia.com/ekonomi",
+      "kind": "rss",
+      "status": "ok",
+      "checkedAt": "2026-10-07T18:43:27.983282+00:00"
+    },
+    {
+      "id": "bisnis",
+      "name": "Bisnis Ekonomi",
+      "url": "https://ekonomi.bisnis.com/",
+      "kind": "html",
+      "status": "unavailable",
+      "checkedAt": null
+    },
+    {
+      "id": "sindo",
+      "name": "SINDOnews Ekbis",
+      "url": "https://ekbis.sindonews.com/",
+      "kind": "rss",
+      "status": "ok",
+      "checkedAt": "2026-10-07T18:43:28.115313+00:00"
     },
     {
       "id": "fedwatch",
@@ -76,6 +140,132 @@
   ],
   "items": [
     {
+      "id": "08e91b4dc0b41b2f59fc",
+      "source": "cnbc",
+      "title": "Fed officials see another hike coming, but no sign as to when, minutes show",
+      "url": "https://www.cnbc.com/2026/10/07/fed-officials-see-another-hike-coming-but-no-sign-as-to-when-minutes-show.html",
+      "publishedAt": "2026-10-07T18:42:36+00:00",
+      "image": "https://image.cnbcfm.com/api/v1/image/108363920-1789584172531-gettyimages-2295044570-WARSH_FOMC.jpeg?v=1789584195&w=1920&h=1080",
+      "category": "other"
+    },
+    {
+      "id": "72741db9e0b38670c510",
+      "source": "cnbc",
+      "title": "Trump doesn't think Russia plague incident is bioweapon, plans Putin call Wednesday",
+      "url": "https://www.cnbc.com/2026/10/07/trump-russia-plague-bioweapon-putin.html",
+      "publishedAt": "2026-10-07T18:38:51+00:00",
+      "image": "https://image.cnbcfm.com/api/v1/image/108374253-1791394167686-gettyimages-2298462558-AFP_D2JK6CJ.jpeg?v=1791394189&w=1920&h=1080",
+      "category": "other"
+    },
+    {
+      "id": "70e08054e9c17799b105",
+      "source": "bloomberg",
+      "title": "Drone Companies Will Eventually Consolidate: Kahyaoglu",
+      "url": "https://www.bloomberg.com/news/videos/2026-10-07/drone-companies-will-eventually-consolidate-kahyaoglu-video",
+      "publishedAt": "2026-10-07T18:37:25+00:00",
+      "image": null,
+      "category": "business"
+    },
+    {
+      "id": "f2457248c13a7784d13b",
+      "source": "reuters",
+      "title": "Russell’s title hopes on the line as F1 heads to Singapore",
+      "url": "https://www.reuters.com/sports/formula1/russells-title-hopes-line-f1-heads-singapore-2026-10-07/",
+      "publishedAt": "2026-10-07T18:35:45.556000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/XKQL2R6OX5LZ3FKO6WFGPTPTXM.jpg?auth=b51f2317b65514e9477e4f3d8b1719b04b89207ab444e5516c2e353179018933&smart=true&width=1920",
+      "category": "sport"
+    },
+    {
+      "id": "8635cfb6d14f2218fc47",
+      "source": "bloomberg",
+      "title": "Hertz Lenders Team Up With Advisers as Possible Debt Fight Looms",
+      "url": "https://www.bloomberg.com/news/articles/2026-10-07/hertz-lenders-team-up-with-advisers-as-possible-debt-fight-looms",
+      "publishedAt": "2026-10-07T18:35:19+00:00",
+      "image": null,
+      "category": "other"
+    },
+    {
+      "id": "8d539aaf9492daaac139",
+      "source": "cnbc",
+      "title": "Microsoft to sell $2,599 Surface Laptop Ultra containing Nvidia AI chip",
+      "url": "https://www.cnbc.com/2026/10/07/microsoft-starts-taking-preorders-for-2599-surface-laptop-ultra.html",
+      "publishedAt": "2026-10-07T18:34:31+00:00",
+      "image": "https://image.cnbcfm.com/api/v1/image/108374272-1791394791672-Screenshot-2026-10-07-at-13735_PM.jpg?v=1791394804&w=1920&h=1080",
+      "category": "technology"
+    },
+    {
+      "id": "c74476bd4d4f8fac2896",
+      "source": "cnbc",
+      "title": "Supertanker chartered from Gulf Coast to China for $76 million, 10 times higher than pre-war level",
+      "url": "https://www.cnbc.com/2026/10/07/supertanker-from-us-to-china-chartered-for-76-million-source.html",
+      "publishedAt": "2026-10-07T18:32:55+00:00",
+      "image": "https://image.cnbcfm.com/api/v1/image/108374101-1791385507503-gettyimages-503850269-bld134034.jpeg?v=1791385521&w=1920&h=1080",
+      "category": "world"
+    },
+    {
+      "id": "7b1dc598bc16170ea885",
+      "source": "aljazeera",
+      "title": "At least 24 killed as Russia launches massive attack on Ukraine",
+      "url": "https://www.aljazeera.com/video/newsfeed/2026/10/7/at-least-24-killed-as-russia-launches-massive-attack-on-ukraine?traffic_source=rss",
+      "publishedAt": "2026-10-07T18:32:08+00:00",
+      "image": "https://www.aljazeera.com/wp-content/uploads/2026/10/image-1791397914.jpg?resize=1920%2C1080&quality=80",
+      "category": "other"
+    },
+    {
+      "id": "6bea1861608c494c7da8",
+      "source": "aljazeera",
+      "title": "Kenya on high alert amid concern over screening after first Ebola death",
+      "url": "https://www.aljazeera.com/video/newsfeed/2026/10/7/kenya-on-high-alert-amid-concern-over-screening-after-first-ebola-death?traffic_source=rss",
+      "publishedAt": "2026-10-07T18:31:57+00:00",
+      "image": "https://www.aljazeera.com/wp-content/uploads/2026/10/image-1791397882.jpg?resize=1298%2C1080&quality=80",
+      "category": "other"
+    },
+    {
+      "id": "cda518321250a9807e73",
+      "source": "reuters",
+      "title": "Zealand, Roche's obesity drug helps patients lose up to 9.2% weight in mid-stage trial",
+      "url": "https://www.reuters.com/business/healthcare-pharmaceuticals/zealand-roches-obesity-drug-helps-patients-lose-up-92-weight-mid-stage-trial-2026-10-07/",
+      "publishedAt": "2026-10-07T18:31:42.358000+00:00",
+      "image": null,
+      "category": "business"
+    },
+    {
+      "id": "c1d9bf06a15357677d69",
+      "source": "reuters",
+      "title": "Halozyme wins court order to block Merck's injected Keytruda in select European markets",
+      "url": "https://www.reuters.com/legal/litigation/halozyme-wins-court-order-block-mercks-injected-keytruda-select-european-markets-2026-10-07/",
+      "publishedAt": "2026-10-07T18:31:35.611000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/VV4A2LF7RBIT7CGUA64MXZYCD4.jpg?auth=09c4b9e4271dd0ea3bc9e713ef918a153d25c01abc42fa3dae30d37b02bc4cc3&smart=true&width=1920",
+      "category": "legal"
+    },
+    {
+      "id": "4aadcc1c6720b355ae27",
+      "source": "reuters",
+      "title": "Tropical Storm Isaias forecast to hit US Gulf coast as hurricane early Saturday",
+      "url": "https://www.reuters.com/business/environment/tropical-storm-isaias-forecast-hit-us-gulf-coast-hurricane-early-saturday-2026-10-07/",
+      "publishedAt": "2026-10-07T18:30:26.702000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/5XB5MXAIAFPY3MBT4HGXQXAJ3E.jpg?auth=28ce392e9cbb1d4fa3581ea41bb32b2c28ca104f9aec2e911b81a921193abb68&smart=true&width=1920",
+      "category": "sustainability"
+    },
+    {
+      "id": "36a2e5ce05348d27490f",
+      "source": "aljazeera",
+      "title": "Saudi Arabia says three foreign nationals killed in attacks on airports",
+      "url": "https://www.aljazeera.com/news/2026/10/7/saudi-arabia-says-three-foreign-nationals-killed-in-attacks-on-airports?traffic_source=rss",
+      "publishedAt": "2026-10-07T18:29:34+00:00",
+      "image": "https://www.aljazeera.com/wp-content/uploads/2026/10/reuters_6ac68de0-1791397344.jpg?resize=1920%2C1440",
+      "category": "other"
+    },
+    {
+      "id": "95cddbb2d1a1824ed026",
+      "source": "reuters",
+      "title": "CDC sees low plague risk, monitors Siberia arrivals after worker death, director says",
+      "url": "https://www.reuters.com/business/healthcare-pharmaceuticals/cdc-sees-low-plague-risk-monitors-siberia-arrivals-after-worker-death-director-2026-10-07/",
+      "publishedAt": "2026-10-07T18:29:00.002000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/E73RUJPT6VMYLMJDCZFEUJAXVU.jpg?auth=bb42700be445dc25b9b7c8dfc56ef12c8cb34ae78d162389c29a4af574f22727&smart=true&width=1920",
+      "category": "business"
+    },
+    {
       "id": "4de5de2ff3d642a0a2e8",
       "source": "cnbc",
       "title": "Modelo owner Constellation is getting creative to bring back beer drinkers as overall demand weakens",
@@ -83,6 +273,33 @@
       "publishedAt": "2026-10-07T18:28:27+00:00",
       "image": "https://image.cnbcfm.com/api/v1/image/108104289-17399715182025-02-18t160441z_1704028396_rc2uwcacnx1r_rtrmadp_0_usa-trump-tariffs-mexico.jpeg?v=1739971599&w=1920&h=1080",
       "category": "business"
+    },
+    {
+      "id": "8a9725bedca8aa524d78",
+      "source": "reuters",
+      "title": "Gold slides to two-month low as robust dollar, yields add pressure",
+      "url": "https://www.reuters.com/world/india/gold-edges-lower-with-focus-fed-minutes-rate-path-clues-2026-10-07/",
+      "publishedAt": "2026-10-07T18:28:15.811000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/LYLIQMUNFNMWDGEKY6JPCZ6ATA.jpg?auth=8f2144d6aa8c0be4c1bf5a75192a07196bb7e504035010a2b91a4e2400cba4f6&smart=true&width=1920",
+      "category": "markets"
+    },
+    {
+      "id": "57148f251c9c06a26f9e",
+      "source": "reuters",
+      "title": "Judge tells Tennessee to preserve syringes, other evidence in failed Christa Pike execution",
+      "url": "https://www.reuters.com/legal/government/christa-pikes-lawyers-demand-see-syringes-drug-residue-botched-execution-2026-10-07/",
+      "publishedAt": "2026-10-07T18:27:45.186000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/NSXAWEGU2NNSVKHNDTN5L5EOPY.jpg?auth=9a03f8a6d4165a5ff0519a99d28fc546b163c1ddd9217cd53128841277f3ca51&smart=true&width=1920",
+      "category": "legal"
+    },
+    {
+      "id": "699d5e03d45c3a832f45",
+      "source": "reuters",
+      "title": "Canadian dollar weakens as risk-off sentiment drives markets",
+      "url": "https://www.reuters.com/business/canadian-dollar-weakens-risk-off-sentiment-drives-markets-2026-10-07/",
+      "publishedAt": "2026-10-07T18:27:43.635000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/OE2FGDU7WFJZRIAA65QWMRPRTQ.jpg?auth=09d9f6ed0094a7dd1d0025152e4a7e9d733dc31b6f333575e1c53972491c2a85&smart=true&width=1920",
+      "category": "markets"
     },
     {
       "id": "05939284f3afb033e967",
@@ -94,13 +311,31 @@
       "category": "markets"
     },
     {
-      "id": "57148f251c9c06a26f9e",
-      "source": "reuters",
-      "title": "Judge tells Tennessee to preserve syringes, other evidence in failed Christa Pike execution",
-      "url": "https://www.reuters.com/legal/government/christa-pikes-lawyers-demand-see-syringes-drug-residue-botched-execution-2026-10-07/",
-      "publishedAt": "2026-10-07T18:26:57.235000+00:00",
-      "image": "https://www.reuters.com/resizer/v2/NSXAWEGU2NNSVKHNDTN5L5EOPY.jpg?auth=9a03f8a6d4165a5ff0519a99d28fc546b163c1ddd9217cd53128841277f3ca51&smart=true&width=1920",
-      "category": "legal"
+      "id": "4ab9d5bc3f6aac1dc3f9",
+      "source": "aljazeera",
+      "title": "LSD - from counterculture to clinical trials",
+      "url": "https://www.aljazeera.com/video/newsfeed/2026/10/7/lsd-from-counterculture-to-clinical-trials?traffic_source=rss",
+      "publishedAt": "2026-10-07T18:27:12+00:00",
+      "image": "https://www.aljazeera.com/wp-content/uploads/2026/10/FULL-THUMBNAIL-Templates3_2-clean-1791397498.jpg?resize=1920%2C1080&quality=80",
+      "category": "other"
+    },
+    {
+      "id": "c1c1aec8406154c38def",
+      "source": "aljazeera",
+      "title": "Most Americans oppose Trump’s taxpayer-funded ‘golden age’ ads: Poll",
+      "url": "https://www.aljazeera.com/news/2026/10/7/most-americans-oppose-trumps-taxpayer-funded-golden-age-ads-poll?traffic_source=rss",
+      "publishedAt": "2026-10-07T18:27:09+00:00",
+      "image": "https://www.aljazeera.com/wp-content/uploads/2026/10/afp_6ac6854a81df-1791395146.jpg?resize=1920%2C1440",
+      "category": "markets"
+    },
+    {
+      "id": "b482a8344c931b76543a",
+      "source": "aljazeera",
+      "title": "In El Salvador’s mass trials, lawyers struggle to defend hundreds",
+      "url": "https://www.aljazeera.com/news/2026/10/7/in-el-salvadors-mass-trials-lawyers-struggle-to-defend-hundreds?traffic_source=rss",
+      "publishedAt": "2026-10-07T18:26:07+00:00",
+      "image": "https://www.aljazeera.com/wp-content/uploads/2026/10/getty_6ac67492ba-1791390866.jpg?resize=1920%2C1440",
+      "category": "other"
     },
     {
       "id": "e298b2733cbfda8d0f35",
@@ -109,15 +344,6 @@
       "url": "https://www.cnbc.com/2026/10/07/new-york-fed-financial-outlook-inflation.html",
       "publishedAt": "2026-10-07T18:24:12+00:00",
       "image": "https://image.cnbcfm.com/api/v1/image/108362037-1789154887112-gettyimages-2294761951-jr_15582_qgkfm4fo.jpeg?v=1789155120&w=1920&h=1080",
-      "category": "markets"
-    },
-    {
-      "id": "699d5e03d45c3a832f45",
-      "source": "reuters",
-      "title": "Canadian dollar weakens as risk-off sentiment drives markets",
-      "url": "https://www.reuters.com/business/canadian-dollar-weakens-risk-off-sentiment-drives-markets-2026-10-07/",
-      "publishedAt": "2026-10-07T18:22:09.983000+00:00",
-      "image": "https://www.reuters.com/resizer/v2/T7QMEAQ57FOVLL2RUDQJJB2TVQ.jpg?auth=8588a8b920889d7fce6894be8ebec200db990a0afa82c661dbc4ca5ef91c20d5&smart=true&width=1920",
       "category": "markets"
     },
     {
@@ -173,6 +399,24 @@
       "publishedAt": "2026-10-07T18:17:01.515000+00:00",
       "image": null,
       "category": "business"
+    },
+    {
+      "id": "db5b1b79150662907e78",
+      "source": "aljazeera",
+      "title": "How genocide in Gaza followed Bosnia’s painful pattern",
+      "url": "https://www.aljazeera.com/video/newsfeed/2026/10/7/how-genocide-in-gaza-followed-bosnias-painful-pattern?traffic_source=rss",
+      "publishedAt": "2026-10-07T18:16:20+00:00",
+      "image": "https://www.aljazeera.com/wp-content/uploads/2026/10/image-1791396969.jpg?resize=1920%2C1080&quality=80",
+      "category": "world"
+    },
+    {
+      "id": "adaf98663cc61bfc11a5",
+      "source": "aljazeera",
+      "title": "US Supreme Court hears challenge to air force UXO detonations in Guam",
+      "url": "https://www.aljazeera.com/news/2026/10/7/us-supreme-court-hears-challenge-to-air-force-uxo-detonations-in-guam?traffic_source=rss",
+      "publishedAt": "2026-10-07T18:16:07+00:00",
+      "image": "https://www.aljazeera.com/wp-content/uploads/2026/10/2020-09-01T154136Z_765960337_RC2RPI92CN3D_RTRMADP_3_USA-CHINA-BOMBERS-1791393544.jpg?resize=1920%2C1440",
+      "category": "legal"
     },
     {
       "id": "42215bc75e8f9be44c8b",
@@ -238,33 +482,6 @@
       "category": "sport"
     },
     {
-      "id": "d7c219493d76d1967bd5",
-      "source": "reuters",
-      "title": "Lebanon's Hezbollah gets $200 million from Iran to help displaced, sources say",
-      "url": "https://www.reuters.com/world/middle-east/lebanons-hezbollah-gets-200-million-iran-help-displaced-sources-say-2026-10-07/",
-      "publishedAt": "2026-10-07T18:11:45.244000+00:00",
-      "image": "https://www.reuters.com/resizer/v2/45J42P6MSFLHPAOFCEA4NF2MY4.jpg?auth=cc740cd0d9c8ece609cf5d75fcbe73124c25fd878d83a5d259c67e13546486e7&smart=true&width=1920",
-      "category": "world"
-    },
-    {
-      "id": "1ef5b37d236956b593a4",
-      "source": "reuters",
-      "title": "A 194-year-old tortoise, world's oldest land animal, may hold clues to longer life",
-      "url": "https://www.reuters.com/science/194-year-old-tortoise-worlds-oldest-land-animal-may-hold-clues-longer-life-2026-10-07/",
-      "publishedAt": "2026-10-07T18:11:43.970000+00:00",
-      "image": "https://www.reuters.com/resizer/v2/DKAYD7EMQFJ3XFRBE5JIJJHYUQ.jpg?auth=340bb08a31e7cbdb16d618cc8dd19fc875b0fd577b4ae076aa1eadd4cad05d1e&smart=true&width=1920",
-      "category": "science"
-    },
-    {
-      "id": "580d9e158e94a28c2560",
-      "source": "reuters",
-      "title": "Russia says plague institute worker's death does not risk an epidemic",
-      "url": "https://www.reuters.com/business/healthcare-pharmaceuticals/who-seeks-details-russia-media-reports-a-second-lab-worker-with-pneumonia-2026-10-07/",
-      "publishedAt": "2026-10-07T18:11:15.533000+00:00",
-      "image": "https://www.reuters.com/resizer/v2/GQHC2I3VIZKPBNH4CODCXOAPV4.jpg?auth=2b216d4188ed941b318cbf6d0f634deaaa77545557ff4f3127e77cd704436773&smart=true&width=1920",
-      "category": "business"
-    },
-    {
       "id": "00faab173dbd6427e701",
       "source": "cnbc",
       "title": "Trump’s diesel order exposes White House limits to counter surging fuel prices",
@@ -272,42 +489,6 @@
       "publishedAt": "2026-10-07T18:09:33+00:00",
       "image": "https://image.cnbcfm.com/api/v1/image/108364429-1789658380560-gettyimages-2295761542-mms10061_tiwtupzm.jpeg?v=1789658521&w=1920&h=1080",
       "category": "world"
-    },
-    {
-      "id": "a03347d87c5359f8869c",
-      "source": "reuters",
-      "title": "Rubio says US, Greece to jointly combat security threats",
-      "url": "https://www.reuters.com/world/europe/rubio-says-us-greece-jointly-combat-security-threats-2026-10-07/",
-      "publishedAt": "2026-10-07T18:08:28.053000+00:00",
-      "image": "https://www.reuters.com/resizer/v2/2CCLODVL7NJSRMPT5YXXT2SWU4.jpg?auth=822dc613b02e6030563c7342d0945984d903b2c73fe8a844090c1f80922fa8f6&smart=true&width=1920",
-      "category": "world"
-    },
-    {
-      "id": "9145ade4871b620c759e",
-      "source": "reuters",
-      "title": "Michigan Republican Rogers calls for end to Canada tariff fight, breaking with Trump again",
-      "url": "https://www.reuters.com/world/us/michigan-republican-rogers-calls-end-canada-tariff-fight-breaking-with-trump-2026-10-07/",
-      "publishedAt": "2026-10-07T18:08:25.435000+00:00",
-      "image": "https://www.reuters.com/resizer/v2/HFN2RLD2MJPLTOJSO53IP647PE.jpg?auth=5e873a1bcbe88455f86b3ee9463048bd0f0aa82186e6e8b573f08a68279cef5f&smart=true&width=1920",
-      "category": "world"
-    },
-    {
-      "id": "6d87525e63858c3c4344",
-      "source": "reuters",
-      "title": "Litigation funder Omni Bridgeway raises $1 billion",
-      "url": "https://www.reuters.com/legal/transactional/litigation-funder-omni-bridgeway-raises-1-billion-2026-10-07/",
-      "publishedAt": "2026-10-07T18:07:44.864000+00:00",
-      "image": "https://www.reuters.com/resizer/v2/QVUJB77BFBLH3M435P73DVXCVE.jpg?auth=7d5875b793744d06a6176cb24b81b7ef038b954aa4e0409de26af901f7620a2b&smart=true&width=1920",
-      "category": "legal"
-    },
-    {
-      "id": "08e91b4dc0b41b2f59fc",
-      "source": "cnbc",
-      "title": "Fed officials see another hike coming, but no sign as to when, minutes show",
-      "url": "https://www.cnbc.com/2026/10/07/fed-officials-see-another-hike-coming-but-no-sign-as-to-when-minutes-show.html",
-      "publishedAt": "2026-10-07T18:07:09+00:00",
-      "image": "https://image.cnbcfm.com/api/v1/image/108363920-1789584172531-gettyimages-2295044570-WARSH_FOMC.jpeg?v=1789584195&w=1920&h=1080",
-      "category": "other"
     },
     {
       "id": "5957bd3ae259127b220a",
@@ -326,6 +507,24 @@
       "publishedAt": "2026-10-07T18:04:27+00:00",
       "image": "https://image.cnbcfm.com/api/v1/image/108363665-1789568651170-gettyimages-2295586459-mms19512_dnx4op25.jpeg?v=1789568741&w=1920&h=1080",
       "category": "markets"
+    },
+    {
+      "id": "721a3ef83988cc7b1996",
+      "source": "aljazeera",
+      "title": "Jerusalem Daily: Gaza’s devastation, three years after October 7",
+      "url": "https://www.aljazeera.com/video/newsfeed/2026/10/7/jerusalem-daily-gazas-devastation-three-years-after-october-7?traffic_source=rss",
+      "publishedAt": "2026-10-07T18:03:14+00:00",
+      "image": "https://www.aljazeera.com/wp-content/uploads/2026/10/image-1791396130.jpg?resize=1920%2C1080&quality=80",
+      "category": "world"
+    },
+    {
+      "id": "ce6c71cf4ef755e21064",
+      "source": "aljazeera",
+      "title": "Spanish unions call general strike over housing before snap election",
+      "url": "https://www.aljazeera.com/news/2026/10/7/spanish-unions-call-general-strike-over-housing-before-snap-election?traffic_source=rss",
+      "publishedAt": "2026-10-07T18:02:47+00:00",
+      "image": "https://www.aljazeera.com/wp-content/uploads/2026/10/reuters_6ac67a7c-1791392380.jpg?resize=1920%2C1440",
+      "category": "world"
     },
     {
       "id": "cbab7a3654088d36b8e4",
@@ -463,6 +662,15 @@
       "category": "other"
     },
     {
+      "id": "db6c294d59c88b85c53c",
+      "source": "sindo",
+      "title": "Stok Beras Nasional 5,3 Juta Ton, Hashim: Tak Perlu Lagi Perluasan Lahan Sawah",
+      "url": "https://ekbis.sindonews.com/read/1758081/34/stok-beras-nasional-53-juta-ton-hashim-tak-perlu-lagi-perluasan-lahan-sawah-1791389421",
+      "publishedAt": "2026-10-07T16:39:16+00:00",
+      "image": "https://pict.sindonews.com/dyn/850/pena/news/2026/10/07/34/1758081/stok-beras-nasional-53-juta-ton-hashim-tak-perlu-lagi-perluasan-lahan-sawah-bta.jpg",
+      "category": "local"
+    },
+    {
       "id": "0cb09731de10f8792289",
       "source": "cnbc",
       "title": "Disney+ to stream upcoming Super Bowl",
@@ -483,7 +691,7 @@
     {
       "id": "90915335634e6332546b",
       "source": "bloomberg",
-      "title": "Novogratz Joins Chorus Citing an AI Bubble, and Says to Pile In",
+      "title": "Novogratz Joins Crowd Warning of AI Bubble, Says Pile In Anyway",
       "url": "https://www.bloomberg.com/news/articles/2026-10-07/novogratz-says-ai-is-in-a-bubble-and-investors-should-pile-in",
       "publishedAt": "2026-10-07T16:33:13+00:00",
       "image": null,
@@ -499,6 +707,33 @@
       "category": "business"
     },
     {
+      "id": "14efe1bbb3cf196c197f",
+      "source": "detik",
+      "title": "Masih Catat Transaksi Manual? Saatnya Kenalan dengan Accurate Biar Laporan Rapi",
+      "url": "https://finance.detik.com/berita-ekonomi-bisnis/d-8697221/masih-catat-transaksi-manual-saatnya-kenalan-dengan-accurate-biar-laporan-rapi",
+      "publishedAt": "2026-10-07T16:32:17+00:00",
+      "image": "https://akcdn.detik.net.id/community/media/visual/2026/10/07/accurate-online-b14-1791381301555_169.png?w=360&q=90",
+      "category": "local"
+    },
+    {
+      "id": "e7946efd5c9721745710",
+      "source": "sindo",
+      "title": "KPR Subsidi 6% Diingatkan Jangan Sampai Cuma Untungkan Pengembang",
+      "url": "https://ekbis.sindonews.com/read/1758079/34/kpr-subsidi-6-diingatkan-jangan-sampai-cuma-untungkan-pengembang-1791389424",
+      "publishedAt": "2026-10-07T16:30:18+00:00",
+      "image": "https://pict.sindonews.com/dyn/850/pena/news/2026/10/07/34/1758079/kpr-subsidi-6-diingatkan-jangan-sampai-cuma-untungkan-pengembang-iqx.jpg",
+      "category": "local"
+    },
+    {
+      "id": "16248327409ad16b6cef",
+      "source": "detik",
+      "title": "Masih Hitung Manual? 7 Skill Excel Ini Bikin Laporan Keuangan Lebih Cepat",
+      "url": "https://finance.detik.com/berita-ekonomi-bisnis/d-8697220/masih-hitung-manual-7-skill-excel-ini-bikin-laporan-keuangan-lebih-cepat",
+      "publishedAt": "2026-10-07T16:28:01+00:00",
+      "image": "https://akcdn.detik.net.id/community/media/visual/2026/08/15/excel-accounting-1786812755686_169.png?w=360&q=90",
+      "category": "local"
+    },
+    {
       "id": "9fc5cfb52bdd70644848",
       "source": "cnbc",
       "title": "Used car prices fall in Q3, while demand for fuel-efficient vehicles grows",
@@ -508,13 +743,22 @@
       "category": "other"
     },
     {
+      "id": "093182da809f7df45fae",
+      "source": "kompas",
+      "title": "KEK Industropolis Batang Bidik Gelombang Ekspansi Perusahaan China",
+      "url": "https://money.kompas.com/read/2026/10/07/231936026/kek-industropolis-batang-bidik-gelombang-ekspansi-perusahaan-china",
+      "publishedAt": "2026-10-07T16:19:36+00:00",
+      "image": "https://asset.kompas.com/crops/Ib7X8R19bOL6MzzNTbCxJ8XgRVk=/400x267:3600x2399/750x500/data/photo/2026/10/07/6ac66fb5f3453.jpg",
+      "category": "local"
+    },
+    {
       "id": "406ebcc2ced3955e0860",
       "source": "fnc",
       "title": "BOJ Sinyalkan Inflasi Dekati Target 2%, Peluang Kenaikan Suku Bunga Desember Menguat",
       "url": "https://tradewithfnc.com/",
       "publishedAt": "2026-10-07T16:14:00+00:00",
       "image": null,
-      "category": "markets"
+      "category": "local"
     },
     {
       "id": "e51e2f3796afba7ea499",
@@ -553,13 +797,40 @@
       "category": "other"
     },
     {
-      "id": "de662bb9df0a5e828b32",
-      "source": "bloomberg",
-      "title": "Wall Street Profits Could Top $90 Billion, Says State Comptroller",
-      "url": "https://www.bloomberg.com/news/videos/2026-10-07/new-york-s-record-profits-hidden-risks-video",
-      "publishedAt": "2026-10-07T15:44:09+00:00",
-      "image": null,
-      "category": "other"
+      "id": "72fddd91edf00d7b5103",
+      "source": "sindo",
+      "title": "Langkah Membumi Market 2026: Dari Fashion hingga Eco Workshop untuk Better Living",
+      "url": "https://ekbis.sindonews.com/read/1758061/34/langkah-membumi-market-2026-dari-fashion-hingga-eco-workshop-untuk-better-living-1791385857",
+      "publishedAt": "2026-10-07T15:41:19+00:00",
+      "image": "https://pict.sindonews.com/dyn/850/pena/news/2026/10/07/34/1758061/langkah-membumi-market-2026-dari-fashion-hingga-eco-workshop-untuk-better-living-xvh.jpeg",
+      "category": "local"
+    },
+    {
+      "id": "3311acacd9e14233583b",
+      "source": "sindo",
+      "title": "Kementerian PU Kebut Pemulihan Infrastruktur Pascabencana Sumatera",
+      "url": "https://ekbis.sindonews.com/read/1758059/34/kementerian-pu-kebut-pemulihan-infrastruktur-pascabencana-sumatera-1791385847",
+      "publishedAt": "2026-10-07T15:34:26+00:00",
+      "image": "https://pict.sindonews.com/dyn/850/pena/news/2026/10/07/34/1758059/kementerian-pu-kebut-pemulihan-infrastruktur-pascabencana-sumatera-sxh.jpg",
+      "category": "local"
+    },
+    {
+      "id": "771d3001f816b245177e",
+      "source": "kompas",
+      "title": "Bank BSN Bidik Potensi Bisnis di Ekosistem Sepak Bola",
+      "url": "https://money.kompas.com/read/2026/10/07/223125926/bank-bsn-bidik-potensi-bisnis-di-ekosistem-sepak-bola",
+      "publishedAt": "2026-10-07T15:31:25+00:00",
+      "image": "https://asset.kompas.com/crops/uJHXtnufx9JcivB7jjCIBx5RiEA=/179x77:1101x691/750x500/data/photo/2026/10/07/6ac664891857e.jpg",
+      "category": "local"
+    },
+    {
+      "id": "bbb750ea491f8b8d9e85",
+      "source": "detik",
+      "title": "Utang di Bawah Rp 1 Juta Tak Masuk SLIK, OJK Beri Penjelasan",
+      "url": "https://finance.detik.com/moneter/d-8697194/utang-di-bawah-rp-1-juta-tak-masuk-slik-ojk-beri-penjelasan",
+      "publishedAt": "2026-10-07T15:27:21+00:00",
+      "image": "https://akcdn.detik.net.id/community/media/visual/2026/05/07/ilustrasi-cicilan-rumah-1778123144660_169.jpeg?w=360&q=90",
+      "category": "local"
     },
     {
       "id": "a4cb9421dde13891264f",
@@ -571,6 +842,15 @@
       "category": "commentary"
     },
     {
+      "id": "c305558a3561b2dce3a4",
+      "source": "kompas",
+      "title": "Alfamart (AMRT) Pakai CDM Machine untuk Kelola Kas Lebih Efisien dan Aman",
+      "url": "https://money.kompas.com/read/2026/10/07/222021626/alfamart-amrt-pakai-cdm-machine-untuk-kelola-kas-lebih-efisien-dan-aman",
+      "publishedAt": "2026-10-07T15:20:21+00:00",
+      "image": "https://asset.kompas.com/crops/9JBtsX4TO4G6eSWUqFsqa4irjus=/86x3:617x357/750x500/data/photo/2021/12/10/61b371940d4b4.jpg",
+      "category": "local"
+    },
+    {
       "id": "d57c078bb5a3e432c156",
       "source": "aljazeera",
       "title": "How Israel’s genocide in Gaza pulled Britons into the Palestine movement",
@@ -580,13 +860,13 @@
       "category": "world"
     },
     {
-      "id": "d74697a7ab9354ba8ce4",
-      "source": "bloomberg",
-      "title": "Farm Machinery Shares Drop on US Probe Into Market Practices",
-      "url": "https://www.bloomberg.com/news/articles/2026-10-07/ftc-usda-seek-comment-on-farm-equipment-market-practices",
-      "publishedAt": "2026-10-07T14:56:22+00:00",
-      "image": null,
-      "category": "markets"
+      "id": "8fe4628a3b3f117b7fad",
+      "source": "sindo",
+      "title": "Perkuat Transisi Energi Terbarukan, APP Group Bergabung dengan RE100",
+      "url": "https://ekbis.sindonews.com/read/1758047/34/perkuat-transisi-energi-terbarukan-app-group-bergabung-dengan-re100-1791382256",
+      "publishedAt": "2026-10-07T14:59:15+00:00",
+      "image": "https://pict.sindonews.com/dyn/850/pena/news/2026/10/07/34/1758047/perkuat-transisi-energi-terbarukan-app-group-bergabung-dengan-re100-jqw.jpeg",
+      "category": "local"
     },
     {
       "id": "781b4825780170af50eb",
@@ -604,7 +884,43 @@
       "url": "https://tradewithfnc.com/",
       "publishedAt": "2026-10-07T14:52:00+00:00",
       "image": null,
-      "category": "other"
+      "category": "local"
+    },
+    {
+      "id": "9ea5740dc339db7910e4",
+      "source": "sindo",
+      "title": "Upah Ojol hingga Kurir Bakal Diatur Pemerintah, Ada Cantolan di UU Pelindungan Ketenagakerjaan",
+      "url": "https://ekbis.sindonews.com/read/1758035/34/upah-ojol-hingga-kurir-bakal-diatur-pemerintah-ada-cantolan-di-uu-pelindungan-ketenagakerjaan-1791382246",
+      "publishedAt": "2026-10-07T14:36:37+00:00",
+      "image": "https://pict.sindonews.com/dyn/850/pena/news/2026/10/07/34/1758035/upah-ojol-hingga-kurir-bakal-diatur-pemerintah-ada-cantolan-di-uu-pelindungan-ketenagakerjaan-kje.jpg",
+      "category": "local"
+    },
+    {
+      "id": "ccc4419f60e0ed3e292f",
+      "source": "detik",
+      "title": "OJK Cabut Izin Usaha BTPN Syariah Ventura, Likuidasi Sedang Berjalan",
+      "url": "https://finance.detik.com/moneter/d-8697158/ojk-cabut-izin-usaha-btpn-syariah-ventura-likuidasi-sedang-berjalan",
+      "publishedAt": "2026-10-07T14:32:17+00:00",
+      "image": "https://akcdn.detik.net.id/community/media/visual/2016/12/30/ed5ec33a-5357-40f8-8f66-6713c06687ea_169.jpg?w=360&q=90",
+      "category": "local"
+    },
+    {
+      "id": "69ea597350832e8e41cf",
+      "source": "sindo",
+      "title": "LSP Praktisi Lingkungan Indonesia dan PSLH ITY Perkuat Ekosistem Kompetensi Lingkungan",
+      "url": "https://ekbis.sindonews.com/read/1758033/34/lsp-praktisi-lingkungan-indonesia-dan-pslh-ity-perkuat-ekosistem-kompetensi-lingkungan-1791382226",
+      "publishedAt": "2026-10-07T14:30:48+00:00",
+      "image": "https://pict.sindonews.com/dyn/850/pena/news/2026/10/07/34/1758033/lsp-praktisi-lingkungan-indonesia-dan-pslh-ity-perkuat-ekosistem-kompetensi-lingkungan-dhc.jpg",
+      "category": "local"
+    },
+    {
+      "id": "cc8bb965464e2c9f8cb3",
+      "source": "cnn_id",
+      "title": "PLN dan The Climate Group Teken MoU Kembangkan Produk Energi Hijau",
+      "url": "https://www.cnnindonesia.com/ekonomi/20261007211325-625-1412881/pln-dan-the-climate-group-teken-mou-kembangkan-produk-energi-hijau",
+      "publishedAt": "2026-10-07T14:30:12+00:00",
+      "image": "https://akcdn.detik.net.id/visual/2026/10/07/arsip-pt-pln-persero-1791382679413_169.jpeg?w=360&q=90",
+      "category": "local"
     },
     {
       "id": "add8431557a6635641cb",
@@ -616,6 +932,15 @@
       "category": "world"
     },
     {
+      "id": "2f9b85891a4f3253ec2c",
+      "source": "sindo",
+      "title": "Dorong Inklusi Keuangan, JULO dan Bank DBS Indonesia Salurkan Kredit Rp640 Miliar",
+      "url": "https://ekbis.sindonews.com/read/1758025/178/dorong-inklusi-keuangan-julo-dan-bank-dbs-indonesia-salurkan-kredit-rp640-miliar-1791382246",
+      "publishedAt": "2026-10-07T14:04:21+00:00",
+      "image": "https://pict.sindonews.com/dyn/850/pena/news/2026/10/07/178/1758025/dorong-inklusi-keuangan-julo-dan-bank-dbs-indonesia-salurkan-kredit-rp640-miliar-cpg.jpeg",
+      "category": "local"
+    },
+    {
       "id": "8d83438436a92dd29795",
       "source": "aljazeera",
       "title": "Millions of Pakistanis get government fuel relief but some miss out",
@@ -625,6 +950,24 @@
       "category": "other"
     },
     {
+      "id": "f3f05c666c4753b7bdc9",
+      "source": "cnn_id",
+      "title": "Luhut Sebut Subsidi Barang Bakal Diganti Tunai Bertahap",
+      "url": "https://www.cnnindonesia.com/ekonomi/20261007204427-532-1412872/luhut-sebut-subsidi-barang-bakal-diganti-tunai-bertahap",
+      "publishedAt": "2026-10-07T14:00:31+00:00",
+      "image": "https://akcdn.detik.net.id/visual/2025/03/19/prabowo-kumpulkan-sri-mulyani-hingga-luhut-ke-istana-usai-ihsg-anjlok-1742377847925_169.jpeg?w=360&q=90",
+      "category": "local"
+    },
+    {
+      "id": "a8964fc06512a7d1f6e1",
+      "source": "detik",
+      "title": "Mengenalkan Maritim-Literasi ke Generasi Muda Lewat Cara Fun",
+      "url": "https://finance.detik.com/foto-bisnis/d-8697076/mengenalkan-maritim-literasi-ke-generasi-muda-lewat-cara-fun",
+      "publishedAt": "2026-10-07T14:00:19+00:00",
+      "image": "https://akcdn.detik.net.id/community/media/visual/2026/10/07/mengenalkan-maritim-literasi-ke-generasi-muda-lewat-cara-fun-1791379146358.jpeg?w=360&q=90",
+      "category": "local"
+    },
+    {
       "id": "1e393b91bf42c88c45c4",
       "source": "cnbc",
       "title": "Stocks made a record high. Two big bearish trades point to skepticism",
@@ -632,6 +975,24 @@
       "publishedAt": "2026-10-07T13:59:16+00:00",
       "image": "https://image.cnbcfm.com/api/v1/image/108285956-1775048846885-gettyimages-2269291703-6e6a0089_copy_zhv0gn6f.jpeg?v=1775048926&w=1920&h=1080",
       "category": "markets"
+    },
+    {
+      "id": "4e116c8dd6dee7e52e47",
+      "source": "sindo",
+      "title": "Pupuk Indonesia Buka PIMA 2026, Angkat Cerita Transformasi Industri Pupuk untuk Swasembada Pangan",
+      "url": "https://ekbis.sindonews.com/read/1758019/34/pupuk-indonesia-buka-pima-2026-angkat-cerita-transformasi-industri-pupuk-untuk-swasembada-pangan-1791378623",
+      "publishedAt": "2026-10-07T13:57:20+00:00",
+      "image": "https://pict.sindonews.com/dyn/850/pena/news/2026/10/07/34/1758019/pupuk-indonesia-buka-pima-2026-angkat-cerita-transformasi-industri-pupuk-untuk-swasembada-pangan-ksh.jpeg",
+      "category": "local"
+    },
+    {
+      "id": "80b6389d26a38b48938d",
+      "source": "sindo",
+      "title": "Kinerja Wamen Sektor Ekonomi Dinilai Mampu Dorong Citra Positif Pemerintah",
+      "url": "https://ekbis.sindonews.com/read/1758021/34/kinerja-wamen-sektor-ekonomi-dinilai-mampu-dorong-citra-positif-pemerintah-1791378629",
+      "publishedAt": "2026-10-07T13:56:45+00:00",
+      "image": "https://pict.sindonews.com/dyn/850/pena/news/2026/10/07/34/1758021/kinerja-wamen-sektor-ekonomi-dorong-citra-positif-pemerintah-teo.jpeg",
+      "category": "local"
     },
     {
       "id": "6a5db551764f89b19b4e",
@@ -652,40 +1013,49 @@
       "category": "markets"
     },
     {
-      "id": "351314f9510726b01c60",
-      "source": "aljazeera",
-      "title": "South Korea signals military exemption cuts for athletes after Asian Games",
-      "url": "https://www.aljazeera.com/sports/2026/10/7/south-korea-signals-military-exemption-cuts-for-gold-medallists-after-backlash-at-athletes-asian-games-comments?traffic_source=rss",
-      "publishedAt": "2026-10-07T13:38:14+00:00",
-      "image": "https://www.aljazeera.com/wp-content/uploads/2026/10/2026-10-03T142237Z_296345539_UP1EMA30YPL65_RTRMADP_3_GAMES-ASIA-1791376596.jpg?resize=1920%2C1440",
-      "category": "sport"
+      "id": "baa151ac8fe1a80ef32b",
+      "source": "detik",
+      "title": "Pemerintah Kejar Pertumbuhan Ekonomi 6%, Pakai Jurus Ini",
+      "url": "https://finance.detik.com/berita-ekonomi-bisnis/d-8697096/pemerintah-kejar-pertumbuhan-ekonomi-6-pakai-jurus-ini",
+      "publishedAt": "2026-10-07T13:37:04+00:00",
+      "image": "https://akcdn.detik.net.id/community/media/visual/2021/05/27/bangkit-dari-pandemi-ekonomi-ri-kuartal-ii-2021-diramal-tembus-7-1_169.jpeg?w=360&q=90",
+      "category": "local"
     },
     {
-      "id": "3178e0dcec2a9625be22",
-      "source": "aljazeera",
-      "title": "Okinawa governor urges Japan action after US Marine arrested over killing",
-      "url": "https://www.aljazeera.com/news/2026/10/7/okinawa-governor-urges-japan-action-after-us-marine-arrested-over-killing?traffic_source=rss",
-      "publishedAt": "2026-10-07T13:31:18+00:00",
-      "image": "https://www.aljazeera.com/wp-content/uploads/2026/10/afp_6ac63b7fd4d5-1791376255.jpg?resize=1920%2C1440",
-      "category": "other"
+      "id": "cacef01aa16c1994dfa2",
+      "source": "cnn_id",
+      "title": "Rider Touring to Mandalika Intip Produksi dan Uji Kualitas BBM Balongan",
+      "url": "https://www.cnnindonesia.com/ekonomi/20261007203406-625-1412870/rider-touring-to-mandalika-intip-produksi-uji-kualitas-bbm-balongan",
+      "publishedAt": "2026-10-07T13:36:36+00:00",
+      "image": "https://akcdn.detik.net.id/visual/2026/10/07/bnr-pertamina-180245-paket-billcom-1791377244253_169.jpeg?w=360&q=90",
+      "category": "local"
     },
     {
-      "id": "846f7bdc11f7cfbe9957",
-      "source": "aljazeera",
-      "title": "Saudi Arabia beat UAE 2-0 to end 22-year wait for Arabian Gulf Cup crown",
-      "url": "https://www.aljazeera.com/sports/2026/10/7/saudi-arabia-beat-uae-2-0-to-end-22-year-wait-for-arabian-gulf-cup-crown?traffic_source=rss",
-      "publishedAt": "2026-10-07T13:30:40+00:00",
-      "image": "https://www.aljazeera.com/wp-content/uploads/2026/10/2026-10-06T210352Z_1330511782_UP1EMA61MIFNG_RTRMADP_3_SOCCER-GULFCUP-SAU-ARE-1791373568.jpg?resize=1920%2C1440",
-      "category": "sport"
+      "id": "481e11f3d663f3c99e9c",
+      "source": "cnn_id",
+      "title": "FOTO: MRT Jadi Penggerak Ekonomi 'Negara' Blok M",
+      "url": "https://www.cnnindonesia.com/ekonomi/20261007181203-94-1412813/foto-mrt-jadi-penggerak-ekonomi-negara-blok-m",
+      "publishedAt": "2026-10-07T13:32:28+00:00",
+      "image": "https://akcdn.detik.net.id/visual/2026/10/07/mrt-jadi-penggerak-mobilitas-warga-25-ribu-orang-padati-blok-m-setiap-hari-1791367427407_169.jpeg?w=360&q=90",
+      "category": "local"
     },
     {
-      "id": "6e5688b53539ba429a45",
-      "source": "bloomberg",
-      "title": "Boots Sold for $8.9 Billion as Canada’s Westons Re-Enter UK",
-      "url": "https://www.bloomberg.com/news/articles/2026-10-07/canada-s-westons-to-buy-uk-pharmacy-chain-boots-for-8-9-billion",
-      "publishedAt": "2026-10-07T13:26:54+00:00",
-      "image": null,
-      "category": "other"
+      "id": "e200bf53f2b78ce3454c",
+      "source": "kompas",
+      "title": "Imbal Hasil SBN Dinilai Menarik, Kapan Investor Bisa Masuk ke Obligasi?",
+      "url": "https://money.kompas.com/read/2026/10/07/202823326/imbal-hasil-sbn-dinilai-menarik-kapan-investor-bisa-masuk-ke-obligasi",
+      "publishedAt": "2026-10-07T13:28:23+00:00",
+      "image": "https://asset.kompas.com/crops/DJiKy89pMbAo_QGqZhIJ6BGFtbc=/0x1:1500x1001/750x500/data/photo/2026/10/02/6abf6c4e08431.jpg",
+      "category": "local"
+    },
+    {
+      "id": "302d627a5206388f0692",
+      "source": "sindo",
+      "title": "Kebutuhan Listrik Indonesia Bakal Melonjak 3 Kali Lipat, Pengembangan Energi Surya Disiapkan",
+      "url": "https://ekbis.sindonews.com/read/1758011/34/kebutuhan-listrik-indonesia-bakal-melonjak-3-kali-lipat-pengembangan-energi-surya-disiapkan-1791378602",
+      "publishedAt": "2026-10-07T13:24:54+00:00",
+      "image": "https://pict.sindonews.com/dyn/850/pena/news/2026/10/07/34/1758011/kebutuhan-listrik-indonesia-bakal-melonjak-3-kali-lipat-pengembangan-energi-surya-disiapkan-vqk.jpeg",
+      "category": "local"
     },
     {
       "id": "ba1300b2f6a3fe467607",
@@ -706,67 +1076,58 @@
       "category": "markets"
     },
     {
-      "id": "b880a41c20edb3b69564",
-      "source": "cnbc",
-      "title": "Refinance demand is now half what it was a year ago, as mortgage rates rise again",
-      "url": "https://www.cnbc.com/2026/10/07/mortgage-rates-sit-at-nearly-3-year-high-and-demand-continues-to-shrink.html",
-      "publishedAt": "2026-10-07T13:02:18+00:00",
-      "image": "https://image.cnbcfm.com/api/v1/image/108368370-1790370689933-gettyimages-2296548222-AFP_C9EH2CQ.jpeg?v=1790370788&w=1920&h=1080",
+      "id": "a4fb9c02ee2be4caf74b",
+      "source": "cnn_id",
+      "title": "Danantara Sebut Menteri dan Wamen Bakal Dapat Mobil Dinas Maung",
+      "url": "https://www.cnnindonesia.com/ekonomi/20261007194850-92-1412855/danantara-sebut-menteri-dan-wamen-bakal-dapat-mobil-dinas-maung",
+      "publishedAt": "2026-10-07T13:08:38+00:00",
+      "image": "https://akcdn.detik.net.id/visual/2025/03/01/jumlah-kendaraan-maung-untuk-tni-polri-1740810506999_169.jpeg?w=360&q=90",
+      "category": "local"
+    },
+    {
+      "id": "091d95edf83fe6f4ff19",
+      "source": "bloomberg",
+      "title": "SpaceX Credit-Risk Gauge Hits Fresh High on Fundraising Reports",
+      "url": "https://www.bloomberg.com/news/articles/2026-10-07/spacex-credit-risk-gauge-hits-record-high-on-fundraising-reports",
+      "publishedAt": "2026-10-07T13:01:46+00:00",
+      "image": null,
       "category": "other"
     },
     {
-      "id": "b1473d8dd976e38a07df",
-      "source": "aljazeera",
-      "title": "Henri Kagan, Kenso Soai win Nobel chemistry prize for ‘mirror image’ work",
-      "url": "https://www.aljazeera.com/news/2026/10/7/henri-kagan-kenso-soai-win-chemistry-nobel-for-mirror-image-breakthrough?traffic_source=rss",
-      "publishedAt": "2026-10-07T13:00:32+00:00",
-      "image": "https://www.aljazeera.com/wp-content/uploads/2026/10/2026-10-07T095918Z_1190866280_RC29YNAW98IB_RTRMADP_3_NOBEL-PRIZE-CHEMISTRY-1791373038.jpg?resize=1920%2C1440",
-      "category": "science"
+      "id": "7df2fd9ec90e03e233b7",
+      "source": "detik",
+      "title": "Penjelasan Pengusaha soal Usulan Waktu Kerja 45 Jam/ Minggu",
+      "url": "https://finance.detik.com/berita-ekonomi-bisnis/d-8697011/penjelasan-pengusaha-soal-usulan-waktu-kerja-45-jam-minggu",
+      "publishedAt": "2026-10-07T13:00:23+00:00",
+      "image": "https://akcdn.detik.net.id/community/media/visual/2026/08/21/ketua-umum-asosiasi-pengusaha-indonesia-apindo-shinta-kamdani-1787293865409_169.jpeg?w=360&q=90",
+      "category": "local"
     },
     {
-      "id": "c0a7b178a79f5ca7f372",
-      "source": "aljazeera",
-      "title": "Coco Gauff says online racist abuse was ‘draining’ after China Open exit",
-      "url": "https://www.aljazeera.com/sports/2026/10/7/coco-gauff-says-online-racist-abuse-was-draining-after-china-open-exit?traffic_source=rss",
-      "publishedAt": "2026-10-07T12:53:11+00:00",
-      "image": "https://www.aljazeera.com/wp-content/uploads/2026/10/AFP__20261007__D2GL3ZQ__v1__MidRes__TennisChnOpen-1791375646.jpg?resize=1200%2C630",
-      "category": "sport"
+      "id": "1c37ed99bc71e12cde5f",
+      "source": "sindo",
+      "title": "Bahlil Beri Bocoran Kementerian Apa Saja di Bawah Menko Hilirisasi dan Transisi Energi",
+      "url": "https://ekbis.sindonews.com/read/1758003/34/bahlil-beri-bocoran-kementerian-apa-saja-di-bawah-menko-hilirisasi-dan-transisi-energi-1791375005",
+      "publishedAt": "2026-10-07T12:50:57+00:00",
+      "image": "https://pict.sindonews.com/dyn/850/pena/news/2026/10/07/34/1758003/bahlil-beri-bocoran-kementerian-apa-saja-di-bawah-menko-hilirisasi-dan-transisi-energi-kfw.jpg",
+      "category": "local"
     },
     {
-      "id": "b7dd2495245258e6dbd4",
-      "source": "aljazeera",
-      "title": "Israeli soldier assaults Palestinian woman in occupied West Bank",
-      "url": "https://www.aljazeera.com/video/newsfeed/2026/10/7/israeli-soldier-assaults-palestinian-woman-in-occupied-west-bank?traffic_source=rss",
-      "publishedAt": "2026-10-07T12:39:07+00:00",
-      "image": "https://www.aljazeera.com/wp-content/uploads/2026/10/image-1791376577.jpg?resize=1920%2C1080&quality=80",
-      "category": "business"
+      "id": "621d0c550e23559a8960",
+      "source": "cnn_id",
+      "title": "Menaker Beber 10 Poin Penting UU Ketenagakerjaan Baru, Apa Saja?",
+      "url": "https://www.cnnindonesia.com/ekonomi/20261007193054-92-1412852/menaker-beber-10-poin-penting-uu-ketenagakerjaan-baru-apa-saja",
+      "publishedAt": "2026-10-07T12:46:29+00:00",
+      "image": "https://akcdn.detik.net.id/visual/2026/07/28/menaker-bakal-roadshow-ke-daerah-cek-fakta-phk-di-lapangan-1785216022219_169.jpeg?w=360&q=90",
+      "category": "local"
     },
     {
-      "id": "45156e3e391285aa7671",
-      "source": "aljazeera",
-      "title": "Palestinian killed, 16 wounded in Israeli pogrom in occupied West Bank",
-      "url": "https://www.aljazeera.com/news/2026/10/7/palestinian-killed-several-injured-in-israeli-pogrom-in-occupied-west-bank?traffic_source=rss",
-      "publishedAt": "2026-10-07T12:38:31+00:00",
-      "image": "https://www.aljazeera.com/wp-content/uploads/2026/10/afp_6ac618613480-1791367265.jpg?resize=1920%2C1440",
-      "category": "business"
-    },
-    {
-      "id": "6242533f80bebb7baf53",
-      "source": "aljazeera",
-      "title": "UK Greens are wrong - Zionism is not racism",
-      "url": "https://www.aljazeera.com/opinions/2026/10/7/the-uk-greens-are-wrong-zionism-is-not-racism?traffic_source=rss",
-      "publishedAt": "2026-10-07T12:37:22+00:00",
-      "image": "https://www.aljazeera.com/wp-content/uploads/2026/10/epa_6ac6333d667d-1791374141.jpg?resize=1920%2C1440",
-      "category": "commentary"
-    },
-    {
-      "id": "143585877c7c25024a17",
-      "source": "cnbc",
-      "title": "Home heating oil prices are soaring - and users' winter bills could rise 21%, federal outlook shows",
-      "url": "https://www.cnbc.com/2026/10/07/home-heating-oil-costs-winter.html",
-      "publishedAt": "2026-10-07T12:35:01+00:00",
-      "image": "https://image.cnbcfm.com/api/v1/image/108372755-1791224604889-gettyimages-664647173-ti01093750.jpeg?v=1791224713&w=1920&h=1080",
-      "category": "markets"
+      "id": "8025646b72147ce2d490",
+      "source": "kompas",
+      "title": "Diskon Biaya Layanan E-commerce 50 Persen untuk UMKM Ditargetkan Berlaku Akhir Oktober",
+      "url": "https://money.kompas.com/read/2026/10/07/194144626/diskon-biaya-layanan-e-commerce-50-persen-untuk-umkm-ditargetkan-berlaku-akhir",
+      "publishedAt": "2026-10-07T12:41:44+00:00",
+      "image": "https://asset.kompas.com/crops/iKxz6Y7AmSJKQBtpQe15k8GawO8=/0x0:1593x1062/750x500/data/photo/2026/07/25/6a63fef21e624.jpeg",
+      "category": "local"
     },
     {
       "id": "1e53ff30fe2029ddbfbd",
@@ -775,34 +1136,178 @@
       "url": "https://tradewithfnc.com/",
       "publishedAt": "2026-10-07T12:35:00+00:00",
       "image": null,
-      "category": "business"
+      "category": "local"
     },
     {
-      "id": "d02056e9c7f11ea765c4",
-      "source": "aljazeera",
-      "title": "Yes, Zionism is racism",
-      "url": "https://www.aljazeera.com/opinions/2026/10/7/yes-zionism-is-racism?traffic_source=rss",
-      "publishedAt": "2026-10-07T12:33:55+00:00",
-      "image": "https://www.aljazeera.com/wp-content/uploads/2026/10/2022-10-25T000000Z_743940304_RC278X9HVV5Z_RTRMADP_3_ISRAEL-PALESTINIANS-VIOLENCE-1791369743.jpg?resize=1920%2C1440",
-      "category": "commentary"
+      "id": "78d3dec27bc797355d6b",
+      "source": "kompas",
+      "title": "Bantu UMKM Tentukan Harga Jual, Shopee Hadirkan Fitur Kalkulator Biaya",
+      "url": "https://money.kompas.com/read/2026/10/07/193446026/bantu-umkm-tentukan-harga-jual-shopee-hadirkan-fitur-kalkulator-biaya",
+      "publishedAt": "2026-10-07T12:34:46+00:00",
+      "image": "https://asset.kompas.com/crops/yNkuox714kht8At9K-UjTrYvtus=/0x0:0x0/750x500/data/photo/2026/10/07/6ac62c9b3e7db.jpg",
+      "category": "local"
     },
     {
-      "id": "b85fb6ea63f5e8a1dfa5",
-      "source": "cnbc",
-      "title": "Chevron CEO warns against 'unwise' diesel export ban, saying it could make things worse",
-      "url": "https://www.cnbc.com/2026/10/07/chevron-ceo-diesel-export-ban-trump-supply.html",
-      "publishedAt": "2026-10-07T12:25:52+00:00",
-      "image": "https://image.cnbcfm.com/api/v1/image/108373938-1791375909497-gettyimages-2291635421-AFP_C6KY7DL.jpeg?v=1791375927&w=1920&h=1080",
-      "category": "other"
+      "id": "93423e23fe4781d81130",
+      "source": "kompas",
+      "title": "Konsumsi Energi Turun 10 Persen, Peremajaan Pabrik Amonia Pupuk Kaltim Hemat Rp 228 Miliar",
+      "url": "https://money.kompas.com/read/2026/10/07/193254126/konsumsi-energi-turun-10-persen-peremajaan-pabrik-amonia-pupuk-kaltim-hemat-rp",
+      "publishedAt": "2026-10-07T12:32:54+00:00",
+      "image": "https://asset.kompas.com/crops/j9iiCYYunB4tP6ilMksI0C7--Pg=/0x0:4896x3264/750x500/data/photo/2024/12/13/675bd2a694c37.jpg",
+      "category": "local"
     },
     {
-      "id": "8c6b49cfc52a97baede9",
-      "source": "aljazeera",
-      "title": "South Korea’s military service exemption could be cut for athletes",
-      "url": "https://www.aljazeera.com/video/newsfeed/2026/10/7/south-koreas-military-service-exemption-could-be-cut-for-athletes?traffic_source=rss",
-      "publishedAt": "2026-10-07T12:09:18+00:00",
-      "image": "https://www.aljazeera.com/wp-content/uploads/2026/10/Screenshot-2026-10-07-at-15.08.41-1791374948.png?resize=1200%2C675",
-      "category": "world"
+      "id": "5dbbf6bb29e6a2d4eaa3",
+      "source": "sindo",
+      "title": "Harga Pakan Naik dan Telur Anjlok, Titiek Soeharto Janji Cari Solusi Bersama Menteri dan Bulog",
+      "url": "https://ekbis.sindonews.com/read/1757997/34/harga-pakan-naik-dan-telur-anjlok-titiek-soeharto-janji-cari-solusi-bersama-menteri-dan-bulog-1791375030",
+      "publishedAt": "2026-10-07T12:30:58+00:00",
+      "image": "https://pict.sindonews.com/dyn/850/pena/news/2026/10/07/34/1757997/harga-pakan-naik-dan-telur-anjlok-titiek-soeharto-janji-cari-solusi-bersama-menteri-dan-bulog-cpu.jpg",
+      "category": "local"
+    },
+    {
+      "id": "b4c39ca81a4ba072ddcf",
+      "source": "detik",
+      "title": "Luhut Minta Investor Tak Ragu: Indonesia Tidak Akan Kolaps!",
+      "url": "https://finance.detik.com/berita-ekonomi-bisnis/d-8696992/luhut-minta-investor-tak-ragu-indonesia-tidak-akan-kolaps",
+      "publishedAt": "2026-10-07T12:30:27+00:00",
+      "image": "https://akcdn.detik.net.id/community/media/visual/2026/08/20/ketua-den-luhut-binsar-pandjaitan-dan-kepala-bgn-sudaryono-1787233734124_169.jpeg?w=360&q=90",
+      "category": "local"
+    },
+    {
+      "id": "ae661c582ed82683920a",
+      "source": "cnn_id",
+      "title": "Wamenko Ungkap 8 Tugas dari Airlangga, Apa Saja?",
+      "url": "https://www.cnnindonesia.com/ekonomi/20261007185846-532-1412840/wamenko-ungkap-8-tugas-dari-airlangga-apa-saja",
+      "publishedAt": "2026-10-07T12:28:52+00:00",
+      "image": "https://akcdn.detik.net.id/visual/2024/02/20/drajad-wibowo_169.jpeg?w=360&q=90",
+      "category": "local"
+    },
+    {
+      "id": "908e587f4118a109abb9",
+      "source": "kompas",
+      "title": "Flip Minta Maaf atas Gangguan Layanan, Saldo Pengguna Sudah Bisa Dipakai",
+      "url": "https://money.kompas.com/read/2026/10/07/192556926/flip-minta-maaf-atas-gangguan-layanan-saldo-pengguna-sudah-bisa-dipakai",
+      "publishedAt": "2026-10-07T12:25:56+00:00",
+      "image": "https://asset.kompas.com/crops/FK0XKk3rwz3e-ASNaRzvu6ibSvg=/0x0:0x0/750x500/data/photo/2024/12/12/675ae35847831.jpg",
+      "category": "local"
+    },
+    {
+      "id": "c944cb588305942f99a3",
+      "source": "kompas",
+      "title": "Bank of America: Dana Asing Berpeluang Kembali ke Indonesia, tapi Suku Bunga AS Jadi Tantangan",
+      "url": "https://money.kompas.com/read/2026/10/07/192242926/bank-of-america-dana-asing-berpeluang-kembali-ke-indonesia-tapi-suku-bunga-as",
+      "publishedAt": "2026-10-07T12:22:42+00:00",
+      "image": "https://asset.kompas.com/crops/HKnBZL_gW6nWPhq3htbjoArEyMY=/0x0:780x390/750x500/data/photo/2014/08/22/0806274bank-of-america780x390.jpg",
+      "category": "local"
+    },
+    {
+      "id": "b18198667c658d189287",
+      "source": "sindo",
+      "title": "Sambut MotoGP Mandalika, Pertamina Retail Buka Booth Merchandise Resmi di Bandara Lombok",
+      "url": "https://ekbis.sindonews.com/read/1757987/34/sambut-motogp-mandalika-pertamina-retail-buka-booth-merchandise-resmi-di-bandara-lombok-1791375001",
+      "publishedAt": "2026-10-07T12:02:27+00:00",
+      "image": "https://pict.sindonews.com/dyn/850/pena/news/2026/10/07/34/1757987/sambut-motogp-mandalika-pertamina-retail-buka-booth-merchandise-resmi-di-bandara-lombok-msz.jpeg",
+      "category": "local"
+    },
+    {
+      "id": "ff42a1b8ec9388999a22",
+      "source": "detik",
+      "title": "Hashim Sebut Indonesia Makin Terang Jika Harga Minyak Dunia Turun",
+      "url": "https://finance.detik.com/energi/d-8696903/hashim-sebut-indonesia-makin-terang-jika-harga-minyak-dunia-turun",
+      "publishedAt": "2026-10-07T12:00:21+00:00",
+      "image": "https://akcdn.detik.net.id/community/media/visual/2026/10/06/utusan-khusus-presiden-bidang-iklim-dan-energi-hashim-djojohadikusumo-1791262508691_169.jpeg?w=360&q=90",
+      "category": "local"
+    },
+    {
+      "id": "6ccb3bca21be0c992cde",
+      "source": "kompas",
+      "title": "MK Tutup Pintu Perkara Ijazah Gibran, DPR Jangan Tutup Mata",
+      "url": "https://money.kompas.com/read/2026/10/07/190000726/mk-tutup-pintu-perkara-ijazah-gibran-dpr-jangan-tutup-mata",
+      "publishedAt": "2026-10-07T12:00:00+00:00",
+      "image": "https://asset.kompas.com/crops/BlaF7TI9zDYAuN7aoE7xYtn3gH0=/0x0:5000x3333/750x500/data/photo/2026/10/07/6ac608dbc71d3.jpg",
+      "category": "local"
+    },
+    {
+      "id": "d655cc509e10b8370a4c",
+      "source": "cnn_id",
+      "title": "AHY Respons Rencana KAI Impor KRL Bekas Jepang",
+      "url": "https://www.cnnindonesia.com/ekonomi/20261007185259-92-1412839/ahy-respons-rencana-kai-impor-krl-bekas-jepang",
+      "publishedAt": "2026-10-07T11:57:16+00:00",
+      "image": "https://akcdn.detik.net.id/visual/2026/09/14/ahy-beber-ada-7000-kawasan-kumuh-di-ri-1789375467517_169.png?w=360&q=90",
+      "category": "local"
+    },
+    {
+      "id": "9bd29543327d65012cf3",
+      "source": "cnn_id",
+      "title": "BRI Edukasi Menabung Sejak Dini Lewat Mobile Legends: Bang Bang",
+      "url": "https://www.cnnindonesia.com/ekonomi/20261007182029-625-1412827/bri-edukasi-menabung-sejak-dini-lewat-mobile-legends-bang-bang",
+      "publishedAt": "2026-10-07T11:56:07+00:00",
+      "image": "https://akcdn.detik.net.id/visual/2026/10/07/bri-1791353709654_169.png?w=360&q=90",
+      "category": "local"
+    },
+    {
+      "id": "d2c2453f4a373e8a8cf7",
+      "source": "sindo",
+      "title": "Bedah Buku Beyond the Horizon, GDPS Bagikan Kisah Perjalanan Transformasi 7 Tahun",
+      "url": "https://ekbis.sindonews.com/read/1757981/34/bedah-buku-beyond-the-horizon-gdps-bagikan-kisah-perjalanan-transformasi-7-tahun-1791371448",
+      "publishedAt": "2026-10-07T11:54:50+00:00",
+      "image": "https://pict.sindonews.com/dyn/850/pena/news/2026/10/07/34/1757981/bedah-buku-beyond-the-horizon-gdps-ungkap-perjalanan-transformasi-7-tahun-oec.jpg",
+      "category": "local"
+    },
+    {
+      "id": "2152615671e6590cceb5",
+      "source": "sindo",
+      "title": "Kerugian Ekonomi Akibat Perubahan Iklim Diperkirakan Capai Rp544 Triliun",
+      "url": "https://ekbis.sindonews.com/read/1757979/33/kerugian-ekonomi-akibat-perubahan-iklim-diperkirakan-capai-rp544-triliun-1791371432",
+      "publishedAt": "2026-10-07T11:45:16+00:00",
+      "image": "https://pict.sindonews.com/dyn/850/pena/news/2026/10/07/33/1757979/kerugian-ekonomi-akibat-perubahan-iklim-diperkirakan-capai-rp544-triliun-owp.jpg",
+      "category": "local"
+    },
+    {
+      "id": "b0b0d1eac80603ec0611",
+      "source": "sindo",
+      "title": "Revamping Ammonia Pabrik-2, Pupuk Kaltim Bisa Hemat hingga Rp228 Miliar",
+      "url": "https://ekbis.sindonews.com/read/1757977/34/revamping-ammonia-pabrik-2-pupuk-kaltim-bisa-hemat-hingga-rp228-miliar-1791371427",
+      "publishedAt": "2026-10-07T11:43:21+00:00",
+      "image": "https://pict.sindonews.com/dyn/850/pena/news/2026/10/07/34/1757977/revamping-ammonia-pabrik2-pupuk-kaltim-bisa-hemat-hingga-rp228-miliar-lyt.jpeg",
+      "category": "local"
+    },
+    {
+      "id": "4d43621a5d0f9cbdff7e",
+      "source": "kompas",
+      "title": "100 Persen Saham Pengendali Perusahaan Haji Isam Digadaikan ke Bank Mandiri",
+      "url": "https://money.kompas.com/read/2026/10/07/183941526/100-persen-saham-pengendali-perusahaan-haji-isam-digadaikan-ke-bank-mandiri",
+      "publishedAt": "2026-10-07T11:39:41+00:00",
+      "image": "https://asset.kompas.com/crops/BvJRW5jBWC4fUJel_DOxXXSv8X8=/0x0:1920x1280/750x500/data/photo/2026/06/22/6a391cc0b6be3.jpg",
+      "category": "local"
+    },
+    {
+      "id": "5507fd38114518883d2e",
+      "source": "detik",
+      "title": "Shopee Hadirkan 2 Inovasi Baru Bantu UMKM Atur Harga hingga Jualan Live",
+      "url": "https://finance.detik.com/berita-ekonomi-bisnis/d-8696923/shopee-hadirkan-2-inovasi-baru-bantu-umkm-atur-harga-hingga-jualan-live",
+      "publishedAt": "2026-10-07T11:31:19+00:00",
+      "image": "https://akcdn.detik.net.id/community/media/visual/2026/10/07/shopee-1791372512087_169.jpeg?w=360&q=90",
+      "category": "local"
+    },
+    {
+      "id": "a43050a90c4a32c7a618",
+      "source": "detik",
+      "title": "Luhut soal Subsidi Barang Diganti Cash: Bertahap",
+      "url": "https://finance.detik.com/berita-ekonomi-bisnis/d-8696894/luhut-soal-subsidi-barang-diganti-cash-bertahap",
+      "publishedAt": "2026-10-07T11:30:42+00:00",
+      "image": "https://akcdn.detik.net.id/community/media/visual/2026/09/10/ketua-komite-percepatan-transformasi-digital-pemerintah-luhut-binsar-pandjaitan-1789019836285_169.jpeg?w=360&q=90",
+      "category": "local"
+    },
+    {
+      "id": "cacbc40c0f06989465b0",
+      "source": "kompas",
+      "title": "Smelter Nikel Bertambah, Pemerintah Justru Siapkan Kendali Produksi",
+      "url": "https://money.kompas.com/read/2026/10/07/183025926/smelter-nikel-bertambah-pemerintah-justru-siapkan-kendali-produksi",
+      "publishedAt": "2026-10-07T11:30:25+00:00",
+      "image": "https://asset.kompas.com/crops/wK-ZzN6nMaxCudAxAbPm9U_ZtEQ=/0x0:0x0/750x500/data/photo/2026/10/07/6ac5e48f7336e.jpg",
+      "category": "local"
     },
     {
       "id": "0a8baf52ea5f9de21903",
@@ -814,13 +1319,265 @@
       "category": "markets"
     },
     {
+      "id": "8281575296a63e336214",
+      "source": "detik",
+      "title": "Samator Tingkatkan Keandalan Specialty Gas untuk Industri-Laboratorium",
+      "url": "https://finance.detik.com/energi/d-8696909/samator-tingkatkan-keandalan-specialty-gas-untuk-industri-laboratorium",
+      "publishedAt": "2026-10-07T11:22:40+00:00",
+      "image": "https://akcdn.detik.net.id/community/media/visual/2026/10/07/ilustrasi-gas-produksi-samator-1791372135858.jpeg?w=360&q=90",
+      "category": "local"
+    },
+    {
+      "id": "10c8597dcadea359b489",
+      "source": "kompas",
+      "title": "Bursa Global Turun, Investor Mulai Waspadai Harga Minyak dan Gelembung Saham AI",
+      "url": "https://money.kompas.com/read/2026/10/07/182122726/bursa-global-turun-investor-mulai-waspadai-harga-minyak-dan-gelembung-saham-ai",
+      "publishedAt": "2026-10-07T11:21:22+00:00",
+      "image": "https://asset.kompas.com/crops/_Z6GzdjobBEe1llxDQX4MGPT5KY=/0x0:3000x2000/750x500/data/photo/2026/06/24/6a3b950c59d33.jpg",
+      "category": "local"
+    },
+    {
+      "id": "37ff00f4238dc3530873",
+      "source": "kompas",
+      "title": "Kapasitas Smelter Nikel Naik, ESDM Evaluasi Ulang Kuota Produksi Bijih",
+      "url": "https://money.kompas.com/read/2026/10/07/181748626/kapasitas-smelter-nikel-naik-esdm-evaluasi-ulang-kuota-produksi-bijih",
+      "publishedAt": "2026-10-07T11:17:48+00:00",
+      "image": "https://asset.kompas.com/crops/f1ckkxF41ckXTKLVIbSQ2eF0oKE=/0x0:1200x800/750x500/data/photo/2026/09/30/6abd3508c51bc.jpg",
+      "category": "local"
+    },
+    {
+      "id": "a54701ca400f9e864ab4",
+      "source": "cnn_id",
+      "title": "BYOND by BSI Hadirkan Diskon Tiket MotoGP Mandalika hingga Rp375 Ribu",
+      "url": "https://www.cnnindonesia.com/ekonomi/20261007125831-625-1412614/byond-by-bsi-hadirkan-diskon-tiket-motogp-mandalika-hingga-rp375-ribu",
+      "publishedAt": "2026-10-07T11:12:04+00:00",
+      "image": "https://akcdn.detik.net.id/visual/2026/09/21/bsi-1790000687525_169.jpeg?w=360&q=90",
+      "category": "local"
+    },
+    {
+      "id": "19eda45f46ba62ce64e7",
+      "source": "kompas",
+      "title": "Pertumbuhan Uang Primer Melambat Jadi 9,3 Persen pada September 2026",
+      "url": "https://money.kompas.com/read/2026/10/07/180926726/pertumbuhan-uang-primer-melambat-jadi-93-persen-pada-september-2026",
+      "publishedAt": "2026-10-07T11:09:26+00:00",
+      "image": "https://asset.kompas.com/crops/-YbW_7uhQKhfdRjGRZZsq8seOeA=/0x0:5092x3395/750x500/data/photo/2025/03/26/67e364e1f3ecc.jpg",
+      "category": "local"
+    },
+    {
+      "id": "8676a9383a2af5f6331e",
+      "source": "detik",
+      "title": "KAI Mau Impor Kereta Bekas Jepang, Begini Respons AHY",
+      "url": "https://finance.detik.com/infrastruktur/d-8696889/kai-mau-impor-kereta-bekas-jepang-begini-respons-ahy",
+      "publishedAt": "2026-10-07T11:09:05+00:00",
+      "image": "https://akcdn.detik.net.id/community/media/visual/2026/09/14/menteri-koordinator-bidang-infrastruktur-dan-pembangunan-kewilayahan-agus-harimurti-yudhoyono-ahy-1789371416249_169.jpeg?w=360&q=90",
+      "category": "local"
+    },
+    {
+      "id": "630f779ea14f8bb5c7eb",
+      "source": "kompas",
+      "title": "Inflasi Naik, Bank Sentral India Naikkan Suku Bunga untuk Pertama Kali sejak 2023",
+      "url": "https://money.kompas.com/read/2026/10/07/180648726/inflasi-naik-bank-sentral-india-naikkan-suku-bunga-untuk-pertama-kali-sejak",
+      "publishedAt": "2026-10-07T11:06:48+00:00",
+      "image": "https://asset.kompas.com/crops/vU2fZEWLGQcRty6BSZigerXYhSw=/92x0:677x390/750x500/data/photo/2017/02/15/1527344Bendera-India780x390.jpg",
+      "category": "local"
+    },
+    {
+      "id": "6be4d06ccd03168b24bc",
+      "source": "kompas",
+      "title": "Keselamatan Kru Jadi Perhatian Pertamina di Pelabuhan Cilacap",
+      "url": "https://money.kompas.com/read/2026/10/07/180624426/keselamatan-kru-jadi-perhatian-pertamina-di-pelabuhan-cilacap",
+      "publishedAt": "2026-10-07T11:06:24+00:00",
+      "image": "https://asset.kompas.com/crops/BeHyYUK7-aSNmYp_U3aRw8mAY7w=/0x150:1600x1217/750x500/data/photo/2026/10/07/6ac6264325072.jpeg",
+      "category": "local"
+    },
+    {
+      "id": "8792a87f3fb70df3abf6",
+      "source": "detik",
+      "title": "KemenUMKM Puji Kalkulator Biaya Shopee, Seller Kini Bisa Simulasi Margin",
+      "url": "https://finance.detik.com/berita-ekonomi-bisnis/d-8696866/kemenumkm-puji-kalkulator-biaya-shopee-seller-kini-bisa-simulasi-margin",
+      "publishedAt": "2026-10-07T11:05:15+00:00",
+      "image": "https://akcdn.detik.net.id/community/media/visual/2026/10/07/sea-group-1791371093464_169.png?w=360&q=90",
+      "category": "local"
+    },
+    {
+      "id": "a7a7cb7275b236bc775b",
+      "source": "kompas",
+      "title": "Temasek: Pembalikan Investasi AI Jadi Risiko Terbesar Pasar Keuangan Global",
+      "url": "https://money.kompas.com/read/2026/10/07/180157826/temasek-pembalikan-investasi-ai-jadi-risiko-terbesar-pasar-keuangan-global",
+      "publishedAt": "2026-10-07T11:01:57+00:00",
+      "image": "https://asset.kompas.com/crops/5zABi_E5C44rHpBleTxh64MuFg0=/31x0:283x168/750x500/data/photo/2025/02/24/67bc7dd865252.jpeg",
+      "category": "local"
+    },
+    {
+      "id": "0433cb5eecc652d60409",
+      "source": "cnn_id",
+      "title": "Airlangga Jembreng Alasan Ekonomi Vietnam Lebih Maju dari Indonesia",
+      "url": "https://www.cnnindonesia.com/ekonomi/20261007122902-532-1412596/airlangga-jembreng-alasan-ekonomi-vietnam-lebih-maju-dari-indonesia",
+      "publishedAt": "2026-10-07T11:00:59+00:00",
+      "image": "https://akcdn.detik.net.id/visual/2025/11/30/vietnam-transport-motorbike-1764495882051_169.jpeg?w=360&q=90",
+      "category": "local"
+    },
+    {
+      "id": "05ebefdd02a0db0c8f6a",
+      "source": "sindo",
+      "title": "Menteri Ferry Ungkap 3 Fungsi Utama Koperasi Desa Merah Putih",
+      "url": "https://ekbis.sindonews.com/read/1757963/34/menteri-ferry-ungkap-3-fungsi-utama-koperasi-desa-merah-putih-1791367814",
+      "publishedAt": "2026-10-07T10:59:31+00:00",
+      "image": "https://pict.sindonews.com/dyn/850/pena/news/2026/10/07/34/1757963/menteri-ferry-ungkap-3-fungsi-utama-koperasi-desa-merah-putih-kgo.jpeg",
+      "category": "local"
+    },
+    {
+      "id": "ad379639d1c828e86579",
+      "source": "kompas",
+      "title": "Samator Kantongi Akreditasi ISO, Specialty Gas Dipakai untuk Kalibrasi Industri",
+      "url": "https://money.kompas.com/read/2026/10/07/175622126/samator-kantongi-akreditasi-iso-specialty-gas-dipakai-untuk-kalibrasi-industri",
+      "publishedAt": "2026-10-07T10:56:22+00:00",
+      "image": "https://asset.kompas.com/crops/usDM6FsZ4r2wuDUn-lwrqfh9hU0=/260x90:1340x810/750x500/data/photo/2026/04/29/69f1e9ce7ae5e.jpg",
+      "category": "local"
+    },
+    {
+      "id": "97fc934a5c3889963c91",
+      "source": "detik",
+      "title": "bank bjb Perkuat Dukungan bagi Komunitas PERSIB Lewat Kartu ATM Edisi PERSIB",
+      "url": "https://finance.detik.com/moneter/d-8696838/bank-bjb-perkuat-dukungan-bagi-komunitas-persib-lewat-kartu-atm-edisi-persib",
+      "publishedAt": "2026-10-07T10:53:34+00:00",
+      "image": "https://akcdn.detik.net.id/community/media/visual/2026/10/07/bank-bjb-1791370394240_169.jpeg?w=360&q=90",
+      "category": "local"
+    },
+    {
+      "id": "75fd4afb359467f1e049",
+      "source": "kompas",
+      "title": "Kementerian UMKM Dorong ASN Belanja Produk Lokal Setiap Gajian, Ada Voucher Rp 50.000",
+      "url": "https://money.kompas.com/read/2026/10/07/175131726/kementerian-umkm-dorong-asn-belanja-produk-lokal-setiap-gajian-ada-voucher-rp",
+      "publishedAt": "2026-10-07T10:51:31+00:00",
+      "image": "https://asset.kompas.com/crops/MLlVHa6PpjE5ehVlfm7Er4QsvlA=/0x0:0x0/750x500/data/photo/2024/10/03/66fe74f1215e2.jpeg",
+      "category": "local"
+    },
+    {
+      "id": "6c2f37897610b3569fe4",
+      "source": "cnn_id",
+      "title": "Tentang Penghargaan Energi Subroto Tahun 2026",
+      "url": "https://www.cnnindonesia.com/ekonomi/20261007161948-85-1412745/tentang-penghargaan-energi-subroto-tahun-2026",
+      "publishedAt": "2026-10-07T10:44:20+00:00",
+      "image": "https://akcdn.detik.net.id/visual/2026/10/07/penghargaan-energi-subroto-tahun-2026-1791369613916_169.jpeg?w=360&q=90",
+      "category": "local"
+    },
+    {
+      "id": "9902afe17e5d513b4af8",
+      "source": "sindo",
+      "title": "Soal Wacana Koperasi Salurkan Gaji PNS dan Bayar Pensiun, Begini Kata OJK",
+      "url": "https://ekbis.sindonews.com/read/1757957/34/soal-wacana-koperasi-salurkan-gaji-pns-dan-bayar-pensiun-begini-kata-ojk-1791367812",
+      "publishedAt": "2026-10-07T10:26:49+00:00",
+      "image": "https://pict.sindonews.com/dyn/850/pena/news/2026/10/07/34/1757957/soal-wacana-koperasi-salurkan-gaji-pns-dan-bayar-pensiun-begini-kata-ojk-roh.jpg",
+      "category": "local"
+    },
+    {
+      "id": "db923d98293f38ed9370",
+      "source": "cnn_id",
+      "title": "Harga Telur Anjlok, Titiek Janji Bawa Keluhan Peternak ke Prabowo",
+      "url": "https://www.cnnindonesia.com/ekonomi/20261007170548-92-1412761/harga-telur-anjlok-titiek-janji-bawa-keluhan-peternak-ke-prabowo",
+      "publishedAt": "2026-10-07T10:18:43+00:00",
+      "image": "https://akcdn.detik.net.id/visual/2019/05/17/f9f0f503-ba09-4e72-b14e-15f68dd2f5dc_169.jpeg?w=360&q=90",
+      "category": "local"
+    },
+    {
       "id": "040e99355ec5671cc1c1",
       "source": "fnc",
       "title": "Harga Emas Antam Naik Rp10.000, Buyback Menguat Lebih Tajam",
       "url": "https://tradewithfnc.com/",
       "publishedAt": "2026-10-07T10:18:00+00:00",
       "image": null,
-      "category": "markets"
+      "category": "local"
+    },
+    {
+      "id": "27dd49a82a85201e0d73",
+      "source": "detik",
+      "title": "Dukung Program Pemerintah, bank bjb Perluas Akses Kredit Perumahan Warga-UMKM",
+      "url": "https://finance.detik.com/berita-ekonomi-bisnis/d-8696751/dukung-program-pemerintah-bank-bjb-perluas-akses-kredit-perumahan-warga-umkm",
+      "publishedAt": "2026-10-07T10:05:51+00:00",
+      "image": "https://akcdn.detik.net.id/community/media/visual/2026/10/07/bank-bjb-1791367537990_169.png?w=360&q=90",
+      "category": "local"
+    },
+    {
+      "id": "9a686411a0fd245871f6",
+      "source": "detik",
+      "title": "Proyek Giant Sea Wall Bakal Groundbreaking di Demak, Diawali Tanam Mangrove",
+      "url": "https://finance.detik.com/infrastruktur/d-8696736/proyek-giant-sea-wall-bakal-groundbreaking-di-demak-diawali-tanam-mangrove",
+      "publishedAt": "2026-10-07T09:57:46+00:00",
+      "image": "https://akcdn.detik.net.id/community/media/visual/2026/04/22/ahy-dorong-percepatan-pengembangan-kereta-api-di-sumatera-sulawesi-1776841867228_169.jpeg?w=360&q=90",
+      "category": "local"
+    },
+    {
+      "id": "feb3a540c1448e41de59",
+      "source": "detik",
+      "title": "Setelah 42 Tahun, Akhirnya RI Ekspor Beras 500 Ribu Ton ke Malaysia",
+      "url": "https://finance.detik.com/berita-ekonomi-bisnis/d-8696727/setelah-42-tahun-akhirnya-ri-ekspor-beras-500-ribu-ton-ke-malaysia",
+      "publishedAt": "2026-10-07T09:53:12+00:00",
+      "image": "https://akcdn.detik.net.id/community/media/visual/2023/06/26/ilustrasi-kontainer-ekspor_169.jpeg?w=360&q=90",
+      "category": "local"
+    },
+    {
+      "id": "428cb097e17a1fd27543",
+      "source": "sindo",
+      "title": "IHSG Hari Ini Berbalik Jatuh ke 6.146, Transaksi Sentuh Rp36,1 Triliun",
+      "url": "https://ekbis.sindonews.com/read/1757941/178/ihsg-hari-ini-berbalik-jatuh-ke-6146-transaksi-sentuh-rp361-triliun-1791364202",
+      "publishedAt": "2026-10-07T09:51:03+00:00",
+      "image": "https://pict.sindonews.com/dyn/850/pena/news/2026/10/07/178/1757941/ihsg-hari-ini-ditutup-jatuh-ke-6146-diwarnai-pelemahan-390-saham-gol.jpg",
+      "category": "local"
+    },
+    {
+      "id": "ac6fcd47751202f95cc6",
+      "source": "cnn_id",
+      "title": "Bahlil Buka-bukaan soal Gaji Rangkap Jabatan di 2 Kementerian",
+      "url": "https://www.cnnindonesia.com/ekonomi/20261007135158-85-1412653/bahlil-buka-bukaan-soal-gaji-rangkap-jabatan-di-2-kementerian",
+      "publishedAt": "2026-10-07T09:48:28+00:00",
+      "image": "https://akcdn.detik.net.id/visual/2026/10/07/bahlil-lahadalia-1791356004285_169.jpeg?w=360&q=90",
+      "category": "local"
+    },
+    {
+      "id": "f986c7e29a33319d497d",
+      "source": "cnn_id",
+      "title": "IHSG Lunglai ke 6.146 Rabu Sore, 378 Saham Merah",
+      "url": "https://www.cnnindonesia.com/ekonomi/20261007163220-92-1412753/ihsg-lunglai-ke-6146-rabu-sore-378-saham-merah",
+      "publishedAt": "2026-10-07T09:36:43+00:00",
+      "image": "https://akcdn.detik.net.id/visual/2016/03/29/a105b599-ab94-4b73-9e75-b4f2d33d5316_169.jpg?w=360&q=90",
+      "category": "local"
+    },
+    {
+      "id": "ee9e5c94f6cf748aed01",
+      "source": "detik",
+      "title": "Pertamina Perkuat Ketahanan BBM di Grand Prix 2026 Lewat Elnusa Petrofin",
+      "url": "https://finance.detik.com/energi/d-8696671/pertamina-perkuat-ketahanan-bbm-di-grand-prix-2026-lewat-elnusa-petrofin",
+      "publishedAt": "2026-10-07T09:32:16+00:00",
+      "image": "https://akcdn.detik.net.id/community/media/visual/2026/10/07/elnusa-perkuat-ketahanan-bbm-jelang-pertamina-grand-prix-of-indonesia-1791365525929.jpeg?w=360&q=90",
+      "category": "local"
+    },
+    {
+      "id": "a66b7990218ba73112c2",
+      "source": "detik",
+      "title": "Jhonlin (JARR) Milik Haji Isam Gadai 7,99 Miliar Saham ke Bank BUMN",
+      "url": "https://finance.detik.com/bursa-dan-valas/d-8696667/jhonlin-jarr-milik-haji-isam-gadai-7-99-miliar-saham-ke-bank-bumn",
+      "publishedAt": "2026-10-07T09:31:01+00:00",
+      "image": "https://akcdn.detik.net.id/community/media/visual/2026/01/28/bei-terapkan-trading-halt-imbas-ihsg-anjlok-1769587530987_169.jpeg?w=360&q=90",
+      "category": "local"
+    },
+    {
+      "id": "6697dabfb1a3403786d6",
+      "source": "cnn_id",
+      "title": "Rupiah Bangkit Tipis ke Rp17.887 per Dolar AS Rabu Sore",
+      "url": "https://www.cnnindonesia.com/ekonomi/20261007161818-78-1412744/rupiah-bangkit-tipis-ke-rp17887-per-dolar-as-rabu-sore",
+      "publishedAt": "2026-10-07T09:26:03+00:00",
+      "image": "https://akcdn.detik.net.id/visual/2025/04/08/hari-ini-rupiah-masih-lunglai-1744099285876_169.jpeg?w=360&q=90",
+      "category": "local"
+    },
+    {
+      "id": "8943b3fbe4b37ecd7fe5",
+      "source": "cnn_id",
+      "title": "KSPI: Ojol-Kreator Konten Masuk Definisi Pekerja di UU Ketenagakerjaan",
+      "url": "https://www.cnnindonesia.com/ekonomi/20261007154542-92-1412730/kspi-ojol-kreator-konten-masuk-definisi-pekerja-di-uu-ketenagakerjaan",
+      "publishedAt": "2026-10-07T09:07:03+00:00",
+      "image": "https://akcdn.detik.net.id/visual/2025/02/10/rencana-thr-dan-usulan-bbm-bersubsidi-untuk-ojol-8_169.jpeg?w=360&q=90",
+      "category": "local"
     },
     {
       "id": "7b7f317d6ae5e155da80",
@@ -829,7 +1586,34 @@
       "url": "https://tradewithfnc.com/",
       "publishedAt": "2026-10-07T08:46:00+00:00",
       "image": null,
-      "category": "other"
+      "category": "local"
+    },
+    {
+      "id": "c14c619be5ade5bad4c3",
+      "source": "cnn_id",
+      "title": "Bahlil Beber Kementerian yang Bakal Ada di Bawah Kemenko Hilirisasi",
+      "url": "https://www.cnnindonesia.com/ekonomi/20261007151826-85-1412715/bahlil-beber-kementerian-yang-bakal-ada-di-bawah-kemenko-hilirisasi",
+      "publishedAt": "2026-10-07T08:45:05+00:00",
+      "image": "https://akcdn.detik.net.id/visual/2026/10/07/bahlil-lahadalia-1791356004285_169.jpeg?w=360&q=90",
+      "category": "local"
+    },
+    {
+      "id": "b4b1d5cd2bf4443d8063",
+      "source": "cnn_id",
+      "title": "UU Ketenagakerjaan Baru Batasi Kontrak Kerja Maksimal 4 Tahun",
+      "url": "https://www.cnnindonesia.com/ekonomi/20261007150748-92-1412702/uu-ketenagakerjaan-baru-batasi-kontrak-kerja-maksimal-4-tahun",
+      "publishedAt": "2026-10-07T08:18:03+00:00",
+      "image": "https://akcdn.detik.net.id/visual/2024/12/12/ump-dki-jakarta-2025-naik-65-persen-3_169.jpeg?w=360&q=90",
+      "category": "local"
+    },
+    {
+      "id": "57951dd3b962d339dac0",
+      "source": "cnn_id",
+      "title": "UU Ketenagakerjaan Baru Beri Pesangon Pekerja Kontrak dan Outsourcing",
+      "url": "https://www.cnnindonesia.com/ekonomi/20261007144127-92-1412685/uu-ketenagakerjaan-baru-beri-pesangon-pekerja-kontrak-dan-outsourcing",
+      "publishedAt": "2026-10-07T07:53:12+00:00",
+      "image": "https://akcdn.detik.net.id/visual/2026/06/08/said-iqbal-1780909168706_169.jpeg?w=360&q=90",
+      "category": "local"
     },
     {
       "id": "87f8f619d1056a83edd5",
@@ -838,7 +1622,7 @@
       "url": "https://tradewithfnc.com/",
       "publishedAt": "2026-10-07T06:29:00+00:00",
       "image": null,
-      "category": "other"
+      "category": "local"
     },
     {
       "id": "8e49f8b5a2ee3592f6f5",
@@ -847,7 +1631,7 @@
       "url": "https://tradewithfnc.com/",
       "publishedAt": "2026-10-07T04:56:00+00:00",
       "image": null,
-      "category": "markets"
+      "category": "local"
     },
     {
       "id": "1b96cb37f68fdc038871",
@@ -856,7 +1640,7 @@
       "url": "https://tradewithfnc.com/",
       "publishedAt": "2026-10-07T02:32:00+00:00",
       "image": null,
-      "category": "other"
+      "category": "local"
     },
     {
       "id": "74b7e4cb6bd3e6920075",
@@ -865,7 +1649,7 @@
       "url": "https://tradewithfnc.com/",
       "publishedAt": "2026-10-07T00:18:00+00:00",
       "image": null,
-      "category": "business"
+      "category": "local"
     },
     {
       "id": "f3b85fee4545f88dcefd",
@@ -874,7 +1658,7 @@
       "url": "https://tradewithfnc.com/",
       "publishedAt": "2026-10-06T22:37:00+00:00",
       "image": null,
-      "category": "business"
+      "category": "local"
     },
     {
       "id": "97d9dec15fd877f5cc32",
@@ -892,7 +1676,7 @@
       "url": "https://tradewithfnc.com/",
       "publishedAt": "2026-10-06T16:20:00+00:00",
       "image": null,
-      "category": "other"
+      "category": "local"
     },
     {
       "id": "21555fbd84b088ff0397",
@@ -901,7 +1685,7 @@
       "url": "https://tradewithfnc.com/",
       "publishedAt": "2026-10-06T14:44:00+00:00",
       "image": null,
-      "category": "markets"
+      "category": "local"
     },
     {
       "id": "21dcf68b56f3a58b9890",
@@ -910,7 +1694,7 @@
       "url": "https://tradewithfnc.com/",
       "publishedAt": "2026-10-06T12:25:00+00:00",
       "image": null,
-      "category": "other"
+      "category": "local"
     },
     {
       "id": "194d6c662c204569ab4c",
@@ -919,7 +1703,7 @@
       "url": "https://tradewithfnc.com/",
       "publishedAt": "2026-10-06T10:48:00+00:00",
       "image": null,
-      "category": "other"
+      "category": "local"
     },
     {
       "id": "25055c35bbe7e1120597",
@@ -928,7 +1712,7 @@
       "url": "https://tradewithfnc.com/",
       "publishedAt": "2026-10-06T08:24:00+00:00",
       "image": null,
-      "category": "other"
+      "category": "local"
     },
     {
       "id": "ab8ee57911a5a19e4ad7",
@@ -937,7 +1721,7 @@
       "url": "https://tradewithfnc.com/",
       "publishedAt": "2026-10-06T06:43:00+00:00",
       "image": null,
-      "category": "markets"
+      "category": "local"
     },
     {
       "id": "87f18a73e55005bbd0ad",
@@ -946,7 +1730,7 @@
       "url": "https://tradewithfnc.com/",
       "publishedAt": "2026-10-06T04:08:00+00:00",
       "image": null,
-      "category": "markets"
+      "category": "local"
     },
     {
       "id": "5c8e8ba22198744a9f4f",
@@ -955,7 +1739,7 @@
       "url": "https://tradewithfnc.com/",
       "publishedAt": "2026-10-06T02:42:00+00:00",
       "image": null,
-      "category": "markets"
+      "category": "local"
     },
     {
       "id": "c42ecd3386ef6fc87c4b",
@@ -964,7 +1748,7 @@
       "url": "https://tradewithfnc.com/",
       "publishedAt": "2026-10-06T00:16:00+00:00",
       "image": null,
-      "category": "markets"
+      "category": "local"
     },
     {
       "id": "19274a2541683689d7d1",
@@ -973,6 +1757,60 @@
       "url": "https://tradewithfnc.com/",
       "publishedAt": "2026-10-05T22:53:00+00:00",
       "image": null,
+      "category": "local"
+    },
+    {
+      "id": "202e3bd22c1045be2e58",
+      "source": "investing",
+      "title": "Alamos Gold at John Tumazos conference: growth plan targets 1 million ounces",
+      "url": "https://www.investing.com/news/transcripts/alamos-gold-at-john-tumazos-conference-growth-plan-targets-1-million-ounces-93CH-4937344",
+      "publishedAt": null,
+      "image": null,
+      "category": "markets"
+    },
+    {
+      "id": "8a7d82e5627c46dca4bf",
+      "source": "investing",
+      "title": "Saba Capital sells $239,193 of PIMCO Dynamic Income Strategy fund",
+      "url": "https://www.investing.com/news/insider-trading-news/saba-capital-sells-239193-of-pimco-dynamic-income-strategy-fund-93CH-4937341",
+      "publishedAt": null,
+      "image": null,
+      "category": "other"
+    },
+    {
+      "id": "6b112045650427cb007e",
+      "source": "investing",
+      "title": "Saba Capital buys $16,649 of Gabelli Healthcare & WellnessRx trust",
+      "url": "https://www.investing.com/news/insider-trading-news/saba-capital-buys-16649-of-gabelli-healthcare--wellnessrx-trust-93CH-4937342",
+      "publishedAt": null,
+      "image": null,
+      "category": "other"
+    },
+    {
+      "id": "36f964afa3fcd7e157ca",
+      "source": "investing",
+      "title": "S&P 500, Nasdaq ease from record highs as Treasury yields climb",
+      "url": "https://www.investing.com/news/economy-news/wall-st-futures-slip-as-yields-and-oil-rebound-fed-minutes-in-focus-4936151",
+      "publishedAt": null,
+      "image": "https://content-media.investing.com/trkd-images/LYNXMPEM960WU_L.jpg",
+      "category": "markets"
+    },
+    {
+      "id": "24a2a9883e8f0cb23191",
+      "source": "investing",
+      "title": "Fed minutes show most policymakers see another rate hike by year end",
+      "url": "https://www.investing.com/news/economy-news/fed-minutes-show-most-policymakers-see-another-rate-hike-by-year-end-4937310",
+      "publishedAt": null,
+      "image": "https://content-media.investing.com/news/moved_LYNXMPEI710GU_L.jpg",
+      "category": "business"
+    },
+    {
+      "id": "702e2bdd5c0f9f8c85ff",
+      "source": "investing",
+      "title": "Why is QXO stock sliding today?",
+      "url": "https://www.investing.com/news/stock-market-news/why-is-qxo-stock-sliding-today-93CH-4937338",
+      "publishedAt": null,
+      "image": "https://content-media.investing.com/news/LYNXNPEC0D0AP_M.jpg",
       "category": "markets"
     },
     {
@@ -1012,67 +1850,13 @@
       "category": "business"
     },
     {
-      "id": "90e261a7f7f195699822",
-      "source": "investing",
-      "title": "Stag Industrial stock hits 52-week low at $35.37",
-      "url": "https://www.investing.com/news/company-news/stag-industrial-stock-hits-52week-low-at-3537-93CH-4937332",
-      "publishedAt": null,
-      "image": "https://content-media.investing.com/news/LYNXMPEM0J0ZC_1200_L.jpg",
-      "category": "markets"
-    },
-    {
-      "id": "6effd652024da83b2b21",
-      "source": "investing",
-      "title": "Anthropic launches third Claude 5.5 model, expanding AI lineup before planned IPO",
-      "url": "https://www.investing.com/news/stock-market-news/anthropic-launches-third-claude-55-model-expanding-ai-lineup-before-planned-ipo-4937326",
-      "publishedAt": null,
-      "image": "https://content-media.investing.com/trkd-images/LYNXMPEM961RH_L.jpg",
-      "category": "technology"
-    },
-    {
-      "id": "386ecf4395973eeeba45",
-      "source": "investing",
-      "title": "US SEC will not charge top funds over climate concerns but warns of disclosure obligations",
-      "url": "https://www.investing.com/news/stock-market-news/us-sec-will-not-pursue-charges-against-climate-group-warns-of-disclosure-obligations-4937029",
-      "publishedAt": null,
-      "image": "https://content-media.investing.com/trkd-images/LYNXMPEM961AN_L.jpg",
-      "category": "sustainability"
-    },
-    {
-      "id": "a71b220516c81cf6d74d",
-      "source": "investing",
-      "title": "JBT Marel Corporation stock hits 52-week low at 104.32 USD",
-      "url": "https://www.investing.com/news/company-news/jbt-marel-corporation-stock-hits-52week-low-at-10432-usd-93CH-4937325",
-      "publishedAt": null,
-      "image": "https://content-media.investing.com/news/LYNXMPEM1J0WY_1200_L.jpg",
-      "category": "markets"
-    },
-    {
-      "id": "9046a9d83585eed309c8",
-      "source": "investing",
-      "title": "U.S. stocks cut losses as oil turns lower, yields pare gains on strong auction",
-      "url": "https://www.investing.com/news/stock-market-news/us-stock-futures-steady-after-tech-rally-lifts-sp-500-nasdaq-to-records-4935463",
-      "publishedAt": null,
-      "image": "https://content-media.investing.com/news/LYNXMPEM4J1W2_1200_L.jpg",
-      "category": "markets"
-    },
-    {
-      "id": "972bb58c8a4e2d59238a",
-      "source": "investing",
-      "title": "Andersen announces three acquisitions across Europe and Africa",
-      "url": "https://www.investing.com/news/company-news/andersen-announces-three-acquisitions-across-europe-and-africa-93CH-4937323",
-      "publishedAt": null,
-      "image": "https://content-media.investing.com/news/LYNXMPEM1P0ZM_1200_L.jpg",
-      "category": "business"
-    },
-    {
       "id": "e9cc1e2d7f76d2b3195b",
       "source": "kontan",
       "title": "Produksi & Ekspansi Jadi Penopang Pertamina Geothermal (PGEO), Ini Rekomendasi Analis",
       "url": "https://investasi.kontan.co.id/news/produksi-ekspansi-jadi-penopang-pertamina-geothermal-pgeo-ini-rekomendasi-analis?source=home_headline",
       "publishedAt": null,
       "image": "https://foto.kontan.co.id/UBHCoSW6uwpZ6XL8VRUa8JpKc2k=/smart/2026/09/21/633726160p.jpg",
-      "category": "other"
+      "category": "local"
     },
     {
       "id": "3cdd20cfe984ffcafefd",
@@ -1081,7 +1865,7 @@
       "url": "https://industri.kontan.co.id/news/apindo-usulan-45-jam-kerja-sepekan-hanya-untuk-studi-banding?source=home_headline",
       "publishedAt": null,
       "image": "https://foto.kontan.co.id/5Hdcmp72sLgvxk7OInnjyiMRf5I=/smart/2026/01/29/562880590p.jpg",
-      "category": "other"
+      "category": "local"
     },
     {
       "id": "87435ba1df45ccfba6e5",
@@ -1090,7 +1874,7 @@
       "url": "https://internasional.kontan.co.id/news/iran-ancam-tutup-jalur-transit-ilegal-di-selat-hormuz?source=home_headline",
       "publishedAt": null,
       "image": "https://foto.kontan.co.id/0n8ZLesu6mmPo0PYf5blQq6Hejw=/smart/2026/09/13/1591762545p.jpg",
-      "category": "other"
+      "category": "local"
     },
     {
       "id": "f6e6b917a79798fd11a6",
@@ -1099,7 +1883,7 @@
       "url": "https://keuangan.kontan.co.id/news/bei-soroti-lonjakan-saham-beks-3182-bank-banten-buka-suara?source=home_terbaru",
       "publishedAt": null,
       "image": "https://foto.kontan.co.id/-QaURSqgtn0p-C-jMOWbxUKwML0=/smart/2021/10/06/780394635t.jpg",
-      "category": "markets"
+      "category": "local"
     },
     {
       "id": "dc0f232b903d6ee04aff",
@@ -1108,7 +1892,7 @@
       "url": "https://keuangan.kontan.co.id/news/prudential-indonesia-catatkan-premi-asuransi-penyakit-kritis-naik-5?source=home_terbaru",
       "publishedAt": null,
       "image": "https://foto.kontan.co.id/7JoVShjLptH3TUxfek0BFpiz2Y4=/smart/2024/05/27/616886676t.jpg",
-      "category": "other"
+      "category": "local"
     },
     {
       "id": "04a1c5e79590eab52900",
@@ -1117,7 +1901,7 @@
       "url": "https://industri.kontan.co.id/news/diastika-biotekindo-chek-gandeng-kalgen-innolab-genomik-jadi-fokus?source=home_terbaru",
       "publishedAt": null,
       "image": "https://foto.kontan.co.id/-yzuyOFx5260eSJKcoui0n61M_w=/smart/2025/06/23/822836358t.jpg",
-      "category": "other"
+      "category": "local"
     },
     {
       "id": "7051812352371208a881",
@@ -1126,7 +1910,7 @@
       "url": "https://nasional.kontan.co.id/news/pertamina-siagakan-spbu-di-jalur-menuju-mandalika-jelang-pertamina-grand-prix-2026?source=home_terbaru",
       "publishedAt": null,
       "image": "https://foto.kontan.co.id/xZ0VJkk3fXolkzSvHlYzZ3NNRvo=/smart/2026/10/07/1357683567t.jpg",
-      "category": "other"
+      "category": "local"
     },
     {
       "id": "7e8d1ba41dba9f301e8f",
@@ -1135,7 +1919,7 @@
       "url": "https://investasi.kontan.co.id/news/wall-street-tertekan-yield-treasury-dan-harga-minyak-kembali-melonjak?source=home_terbaru",
       "publishedAt": null,
       "image": "https://foto.kontan.co.id/D27bBxHKNfuLlthx4p0VXNUJxY8=/smart/2026/09/18/1323732390t.jpg",
-      "category": "markets"
+      "category": "local"
     },
     {
       "id": "f7584eeb67dee213eb7d",
@@ -1144,7 +1928,7 @@
       "url": "https://nasional.kontan.co.id/news/kementerian-pu-lanjutkan-pemulihan-infrastruktur-pascabencana-di-sumatra?source=home_terbaru",
       "publishedAt": null,
       "image": "https://foto.kontan.co.id/89xVuE1LKvFJYl7OeCcy1BoBzJY=/smart/2025/04/11/224758978t.jpg",
-      "category": "other"
+      "category": "local"
     },
     {
       "id": "b6ee3b9d36d16e055a73",
@@ -1153,7 +1937,7 @@
       "url": "https://investasi.kontan.co.id/news/produksi-ekspansi-jadi-penopang-pertamina-geothermal-pgeo-ini-rekomendasi-analis?source=home_terbaru",
       "publishedAt": null,
       "image": "https://foto.kontan.co.id/qOynzx862gQ4rRLzxq9hTlOwc-A=/smart/2026/09/21/633726160t.jpg",
-      "category": "other"
+      "category": "local"
     },
     {
       "id": "31537daee70483497bed",
@@ -1162,7 +1946,7 @@
       "url": "https://insight.kontan.co.id/news/uu-pelindungan-ketenagakerjaan-disahkan-bagaimana-dampaknya-ke-pengusaha-dan-buruh?source=home_insight",
       "publishedAt": null,
       "image": "https://foto.kontan.co.id/kPp0Eof25dcDO7iRmwFdknoUR80=/smart/2026/10/06/1668900014p.jpg",
-      "category": "other"
+      "category": "local"
     },
     {
       "id": "830091e21a8b502889c5",
@@ -1171,7 +1955,7 @@
       "url": "https://insight.kontan.co.id/news/aali-buyback-rp-400-miliar-murni-undervalued-atau-cuma-pemanis?source=home_insight",
       "publishedAt": null,
       "image": "https://foto.kontan.co.id/eFx21ZoHREZyjkGz3svEl7UEfts=/smart/2022/10/19/2069580884p.jpg",
-      "category": "other"
+      "category": "local"
     },
     {
       "id": "9fe22676cf9bb3ff6ab0",
@@ -1180,7 +1964,7 @@
       "url": "https://insight.kontan.co.id/news/biar-anak-tidak-kaget-saat-mengelola-uang-sendiri?source=home_insight",
       "publishedAt": null,
       "image": "https://foto.kontan.co.id/2qeQUELa-0KvMX7qMFrJ_pHFwHU=/smart/2023/06/23/286931065p.jpg",
-      "category": "other"
+      "category": "local"
     },
     {
       "id": "84d0c41a7dfad0e19b22",
@@ -1189,7 +1973,7 @@
       "url": "https://nasional.kontan.co.id/news/dukung-program-3-juta-rumah-lahan-komdigi-di-depok-jadi-aset-kementerian-pkp?source=home_terbaru",
       "publishedAt": null,
       "image": "https://foto.kontan.co.id/ucP8715lX76KQXdtr6XqqqnsP-o=/smart/2026/04/14/781453392t.jpg",
-      "category": "other"
+      "category": "local"
     },
     {
       "id": "f8bccb0e618c7a468f73",
@@ -1198,7 +1982,7 @@
       "url": "https://keuangan.kontan.co.id/news/piutang-syariah-muf-tumbuh-164-jadi-rp87-triliun-hingga-september-2026?source=home_terbaru",
       "publishedAt": null,
       "image": "https://foto.kontan.co.id/7ugECLVR5UXgs4LDI6bHb4M80hw=/smart/2025/01/14/2024010912t.jpg",
-      "category": "other"
+      "category": "local"
     },
     {
       "id": "cebab8a6937958f96a9f",
@@ -1207,7 +1991,7 @@
       "url": "https://keuangan.kontan.co.id/news/kesiapan-finansial-penting-hadapi-risiko-kesehatan?source=home_terbaru",
       "publishedAt": null,
       "image": "https://foto.kontan.co.id/n993QfIhHrCpLlyo4R80ntYyLeo=/smart/2024/10/28/134362903t.jpg",
-      "category": "other"
+      "category": "local"
     },
     {
       "id": "c88ac1e32e59612c82cf",
@@ -1216,7 +2000,7 @@
       "url": "https://investasi.kontan.co.id/news/asing-net-sell-jumbo-rp-871-miliar-cermati-saham-yang-banyak-dijual-rabu-710?source=home_terbaru",
       "publishedAt": null,
       "image": "https://foto.kontan.co.id/zt9Y6Pj0XV6SoZ93eJ4ihynhZE8=/smart/2026/09/15/128947954t.jpg",
-      "category": "markets"
+      "category": "local"
     },
     {
       "id": "816b5c687443c93c0e62",
@@ -1225,7 +2009,7 @@
       "url": "https://industri.kontan.co.id/news/lubrizol-incar-peluang-bisnis-dari-transisi-energi-sektor-tambang-indonesia?source=home_terbaru",
       "publishedAt": null,
       "image": "https://foto.kontan.co.id/m1QA8_5qaCjniXf3YLZAmxrYMlg=/smart/2025/07/27/1903960950t.jpg",
-      "category": "business"
+      "category": "local"
     },
     {
       "id": "abb1df5486eb9c9fdb42",
@@ -1234,7 +2018,7 @@
       "url": "https://fokus.kontan.co.id/news/purbaya-masih-rapat-begini-kronologi-pergantian-menteri-keuangan-dan-pr-suahasil?source=home_fokus",
       "publishedAt": null,
       "image": "https://foto.kontan.co.id/B9iCie-VO2q3RyMurZXsb6N-qkk=/smart/2026/09/14/1408235902p.jpg",
-      "category": "other"
+      "category": "local"
     },
     {
       "id": "e91f5f266d9f30d51c48",
@@ -1243,7 +2027,97 @@
       "url": "https://fokus.kontan.co.id/news/debu-vulkanik-anak-krakatau-ganggu-kegiatan-penerbangan-ekonomi-ikut-terdampak?source=home_fokus",
       "publishedAt": null,
       "image": "https://foto.kontan.co.id/hrt8eDRHomSfgeVlthv_sCXy6kA=/smart/2026/09/07/1054789009p.jpg",
-      "category": "business"
+      "category": "local"
+    },
+    {
+      "id": "c2b64a66100bc5673777",
+      "source": "investing_id",
+      "title": "Fifth Third tunjuk Darren King pimpin Commercial Bank yang diperluas",
+      "url": "https://id.investing.com/news/company-news/fifth-third-tunjuk-darren-king-pimpin-commercial-bank-yang-diperluas-93CH-3089731",
+      "publishedAt": null,
+      "image": "https://content-media.investing.com/news/LYNXMPEM1J0WY_1200_L.jpg",
+      "category": "local"
+    },
+    {
+      "id": "68fc826322c943cc2dee",
+      "source": "investing_id",
+      "title": "Alamos Gold paparkan rencana pertumbuhan menuju 1 juta ons",
+      "url": "https://id.investing.com/news/transcripts/alamos-gold-paparkan-rencana-pertumbuhan-menuju-1-juta-ons-93CH-3089730",
+      "publishedAt": null,
+      "image": "https://content-media.investing.com/news/LYNXNPEC0E0NG_M.jpg",
+      "category": "local"
+    },
+    {
+      "id": "ccaf728bb05f13b4fcc5",
+      "source": "investing_id",
+      "title": "Saba Capital jual $239.193 saham dana PIMCO Dynamic Income Strategy",
+      "url": "https://id.investing.com/news/insider-trading-news/saba-capital-jual-239193-saham-dana-pimco-dynamic-income-strategy-93CH-3089729",
+      "publishedAt": null,
+      "image": "https://content-media.investing.com/news/moved_LYNXMPEM3Q0WG_1200_L.jpg",
+      "category": "local"
+    },
+    {
+      "id": "f501774a19dd66a00dee",
+      "source": "investing_id",
+      "title": "Saba Capital membeli saham GRX senilai $16.649",
+      "url": "https://id.investing.com/news/insider-trading-news/saba-capital-membeli-saham-grx-senilai-16649-93CH-3089728",
+      "publishedAt": null,
+      "image": "https://content-media.investing.com/news/moved_LYNXMPEM4416N_1200_L.jpg",
+      "category": "local"
+    },
+    {
+      "id": "a370c73b2538e6470b41",
+      "source": "investing_id",
+      "title": "Mengapa saham QXO merosot hari ini?",
+      "url": "https://id.investing.com/news/stock-market-news/mengapa-saham-qxo-merosot-hari-ini-93CH-3089727",
+      "publishedAt": null,
+      "image": "https://content-media.investing.com/news/LYNXNPEC0D0AP_M.jpg",
+      "category": "local"
+    },
+    {
+      "id": "aeb5b7ff9926cd6f7dba",
+      "source": "investing_id",
+      "title": "Mengapa saham Black Hills melonjak hari ini?",
+      "url": "https://id.investing.com/news/stock-market-news/mengapa-saham-black-hills-melonjak-hari-ini-93CH-3089726",
+      "publishedAt": null,
+      "image": "https://content-media.investing.com/news/LYNXNPEB6J0AJ_M.jpg",
+      "category": "local"
+    },
+    {
+      "id": "0ddb857e226ecbe965e0",
+      "source": "investing_id",
+      "title": "Mengapa saham Spotify melonjak hari ini?",
+      "url": "https://id.investing.com/news/stock-market-news/mengapa-saham-spotify-melonjak-hari-ini-93CH-3089725",
+      "publishedAt": null,
+      "image": "https://content-media.investing.com/news/LYNXNPEAAA112_M.jpg",
+      "category": "local"
+    },
+    {
+      "id": "e7d2aa1688440aa4bbdb",
+      "source": "investing_id",
+      "title": "Mengapa saham Spotify melonjak hari ini?",
+      "url": "https://id.investing.com/news/stock-market-news/mengapa-saham-spotify-melonjak-hari-ini-93CH-3089724",
+      "publishedAt": null,
+      "image": "https://content-media.investing.com/news/LYNXNPEAAA112_M.jpg",
+      "category": "local"
+    },
+    {
+      "id": "5f86cd856ea9a443329e",
+      "source": "investing_id",
+      "title": "Saham Stag Industrial Sentuh Level Terendah 52 Minggu di $35,37",
+      "url": "https://id.investing.com/news/company-news/saham-stag-industrial-sentuh-level-terendah-52-minggu-di-3537-93CH-3089723",
+      "publishedAt": null,
+      "image": "https://content-media.investing.com/news/LYNXMPEM0J0ZC_1200_L.jpg",
+      "category": "local"
+    },
+    {
+      "id": "8da3575d4e274ede22f6",
+      "source": "investing_id",
+      "title": "Futures gas alam lebih tinggi pada masa dagang AS",
+      "url": "https://id.investing.com/news/commodities-news/futures-gas-alam-lebih-tinggi-pada-masa-dagang-as-3089722",
+      "publishedAt": null,
+      "image": "https://content-media.investing.com/news/NaturalGas_800x533_L_1744805256.jpg",
+      "category": "local"
     }
   ]
 }

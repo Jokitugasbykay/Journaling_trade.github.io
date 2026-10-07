@@ -3,6 +3,15 @@
 
 <head>
   <meta charset="utf-8">
+  <base id="site-base" href="/">
+  <script>
+    (() => {
+      const parts = location.pathname.split('/').filter(Boolean);
+      const route = parts.findIndex(part => ['home', 'journal', 'statistics', 'calculator', 'economic-news', 'login', 'profile'].includes(part));
+      const prefix = route < 0 ? parts.filter(part => part !== 'index.html') : parts.slice(0, route);
+      document.getElementById('site-base').href = '/' + (prefix.length ? prefix.join('/') + '/' : '');
+    })();
+  </script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>journalingtrade · Professional Trading Journal & Analytics</title>
   <meta name="description" content="Platform jurnal trading presisi, analitik statistik mendalam, kalkulator risiko, dan wawasan ekonomi pasar finansial.">
@@ -11,7 +20,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
 
-  <link rel="stylesheet" href="css/style.css?v=20261008-categories-bi">
+  <link rel="stylesheet" href="css/style.css?v=20261008-local-routes">
 </head>
 
 <body>
@@ -830,6 +839,7 @@
           <button type="button" data-category="investigations" aria-pressed="false" onclick="selectNewsCategory('investigations')" data-i18n="categoryInvestigations">Investigasi</button>
           <select id="news-more-category" aria-label="More categories" onchange="selectNewsCategory(this.value)">
             <option value="" data-i18n="categoryMore">Lainnya</option>
+            <option value="local" data-i18n="categoryLocal">Berita lokal</option>
             <option value="science" data-i18n="categoryScience">Sains</option>
             <option value="sport" data-i18n="categorySport">Olahraga</option>
             <option value="other" data-i18n="categoryOther">Berita lainnya</option>
@@ -1251,7 +1261,7 @@
        ==================================================================== -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.86.0"></script>
   <script src="js/scan.js?v=20261007"></script>
-  <script src="js/app.js?v=20261008-supabase"></script>
+  <script src="js/app.js?v=20261008-local-routes"></script>
 
  </body>
 

@@ -17,16 +17,24 @@ ROOT = Path(__file__).resolve().parents[1]
 SOURCES = [
     {"id": "investing", "name": "Investing.com", "url": "https://www.investing.com/", "feed": "https://www.investing.com/rss/news.rss", "kind": "rss", "domain": "investing.com"},
     {"id": "cnbc", "name": "CNBC", "url": "https://www.cnbc.com/markets/", "feed": "https://www.cnbc.com/id/100003114/device/rss/rss.html", "kind": "rss", "domain": "cnbc.com"},
-    {"id": "kontan", "name": "Kontan", "url": "https://www.kontan.co.id/", "feed": "https://www.kontan.co.id/", "kind": "html", "domain": "kontan.co.id"},
+    {"id": "kontan", "name": "Kontan", "url": "https://www.kontan.co.id/", "feed": "https://www.kontan.co.id/", "kind": "html", "domain": "kontan.co.id", "article_pattern": r"/news/", "category": "local"},
     {"id": "reuters", "name": "Reuters", "url": "https://www.reuters.com/", "feed": "https://www.reuters.com/arc/outboundfeeds/news-sitemap/?outputType=xml", "kind": "sitemap", "domain": "reuters.com"},
     {"id": "aljazeera", "name": "Al Jazeera", "url": "https://www.aljazeera.com/", "feed": "https://www.aljazeera.com/xml/rss/all.xml", "kind": "rss", "domain": "aljazeera.com"},
     {"id": "bloomberg", "name": "Bloomberg", "url": "https://www.bloomberg.com/asia", "feed": "https://feeds.bloomberg.com/markets/news.rss", "kind": "rss", "domain": "bloomberg.com"},
-    {'id': 'fnc', 'name': 'Trade With FNC', 'url': 'https://tradewithfnc.com/', 'feed': 'https://tradewithfnc.com/berita.json', 'kind': 'json', 'domain': 'tradewithfnc.com'},
+    {'id': 'fnc', 'name': 'Trade With FNC', 'url': 'https://tradewithfnc.com/', 'feed': 'https://tradewithfnc.com/berita.json', 'kind': 'json', 'domain': 'tradewithfnc.com', 'category': 'local'},
+    {"id": "investing_id", "name": "Investing Indonesia", "url": "https://id.investing.com/news", "feed": "https://id.investing.com/rss/news.rss", "kind": "rss", "domain": "investing.com", "category": "local"},
+    {"id": "pluang", "name": "Pluang", "url": "https://pluang.com/news-feed", "feed": "https://pluang.com/news-feed", "kind": "html", "domain": "pluang.com", "article_pattern": r"/news-feed/", "category": "local"},
+    {"id": "kompas", "name": "Kompas Money", "url": "https://money.kompas.com/", "feed": "https://money.kompas.com/", "kind": "html", "domain": "kompas.com", "article_pattern": r"/read/\d{4}/\d{2}/\d{2}/", "category": "local"},
+    {"id": "detik", "name": "detikFinance", "url": "https://finance.detik.com/", "feed": "https://finance.detik.com/rss", "kind": "rss", "domain": "detik.com", "category": "local"},
+    {"id": "kemenkeu", "name": "Kementerian Keuangan", "url": "https://www.kemenkeu.go.id/informasi-publik/publikasi/berita-utama", "feed": "https://www.kemenkeu.go.id/informasi-publik/publikasi/berita-utama", "kind": "html", "domain": "kemenkeu.go.id", "article_pattern": r"/informasi-publik/publikasi/berita-utama/", "category": "local"},
+    {"id": "cnn_id", "name": "CNN Indonesia Ekonomi", "url": "https://www.cnnindonesia.com/ekonomi", "feed": "https://www.cnnindonesia.com/ekonomi/rss", "kind": "rss", "domain": "cnnindonesia.com", "category": "local"},
+    {"id": "bisnis", "name": "Bisnis Ekonomi", "url": "https://ekonomi.bisnis.com/", "feed": "https://ekonomi.bisnis.com/", "kind": "html", "domain": "bisnis.com", "article_pattern": r"/read/\d{8}/", "category": "local"},
+    {"id": "sindo", "name": "SINDOnews Ekbis", "url": "https://ekbis.sindonews.com/", "feed": "https://ekbis.sindonews.com/rss", "kind": "rss", "domain": "sindonews.com", "category": "local"},
     {"id": "fedwatch", "name": "CME FedWatch", "url": "https://www.cmegroup.com/markets/interest-rates/cme-fedwatch-tool.html", "kind": "tool", "domain": "cmegroup.com"},
     {"id": "cme", "name": "CME Markets", "url": "https://www.cmegroup.com/markets.html?redirect=/markets/", "kind": "tool", "domain": "cmegroup.com"},
 ]
 SIGNALS = re.compile(r"\b(?:buy on (?:dip|pullback)|sell on (?:rally|bounce)|stocks? to buy|stock picks?|trading signals?|price targets?|target harga|sinyal trading|rekomendasi (?:beli|jual)|buy now|sell now)\b", re.I)
-IMAGE_DOMAINS = ('investing.com', 'cnbcfm.com', 'kontan.co.id', 'reuters.com', 'aljazeera.com', 'bloomberg.com', 'bwbx.io')
+IMAGE_DOMAINS = ('investing.com', 'cnbcfm.com', 'kontan.co.id', 'reuters.com', 'aljazeera.com', 'bloomberg.com', 'bwbx.io', 'pluang.com', 'kompas.com', 'detik.net.id', 'kemenkeu.go.id', 'cnnindonesia.com', 'bisnis.com', 'sindonews.com')
 
 
 def category_for(url, title, tag=''):
@@ -100,17 +108,18 @@ def date_iso(value):
         return None
 
 
-class KontanHeadlines(HTMLParser):
-    def __init__(self):
+class PublisherHeadlines(HTMLParser):
+    def __init__(self, source):
         super().__init__()
+        self.source = source
         self.current = None
         self.rows = []
 
     def handle_starttag(self, tag, attrs):
         if tag == "a":
             attrs = dict(attrs)
-            link = urllib.parse.urljoin("https://www.kontan.co.id/", attrs.get("href", ""))
-            self.current = {"url": link, "title": attrs.get("title", ""), "parts": []} if "/news/" in link else None
+            link = urllib.parse.urljoin(self.source["url"], attrs.get("href", ""))
+            self.current = {"url": link, "title": attrs.get("title", ""), "parts": []} if re.search(self.source["article_pattern"], link) else None
         elif tag == 'img' and self.current is not None:
             attrs = dict(attrs)
             self.current['image'] = image_url(attrs.get('data-src') or attrs.get('src'))
@@ -124,6 +133,10 @@ class KontanHeadlines(HTMLParser):
         if tag == "a" and self.current is not None:
             row = self.current
             row["title"] = row["title"] or " ".join(row["parts"])
+            if self.source['id'] == 'kompas':
+                match = re.search(r'/read/(\d{4})/(\d{2})/(\d{2})/(\d{2})(\d{2})(\d{2})', row['url'])
+                if match:
+                    row['publishedAt'] = f'{match[1]}-{match[2]}-{match[3]}T{match[4]}:{match[5]}:{match[6]}+07:00'
             self.rows.append(row)
             self.current = None
 
@@ -133,7 +146,7 @@ def parse(data, source):
         raw = json.loads(data)
         rows = [{'title': row.get('title'), 'url': source['url'], 'publishedAt': row.get('pub'), 'tag': row.get('tag', ''), 'id': row.get('id')} for row in raw.get('items', []) if isinstance(row, dict)]
     elif source["kind"] == "html":
-        parser = KontanHeadlines()
+        parser = PublisherHeadlines(source)
         parser.feed(data.decode("utf-8", errors="replace"))
         rows = parser.rows
     else:
@@ -164,7 +177,7 @@ def parse(data, source):
         if not link or identity in seen or len(title) < 20 or len(title) > 250 or SIGNALS.search(title):
             continue
         seen.add(identity)
-        items.append({"id": hashlib.sha256((source['id'] + str(identity)).encode()).hexdigest()[:20], "source": source["id"], "title": title, "url": link, "publishedAt": published, 'image': image_url(row.get('image')), 'category': category_for(link, title, row.get('tag', ''))})
+        items.append({"id": hashlib.sha256((source['id'] + str(identity)).encode()).hexdigest()[:20], "source": source["id"], "title": title, "url": link, "publishedAt": published, 'image': image_url(row.get('image')), 'category': source.get('category') or category_for(link, title, row.get('tag', ''))})
     items.sort(key=lambda item: item["publishedAt"] or "", reverse=True)
     return items[:20]
 
@@ -230,7 +243,8 @@ def main():
     previous_items = {row.get('url'): row for row in previous.get('items', [])}
     missing = []
     for item in items:
-        item['category'] = item.get('category') or category_for(item['url'], item['title'])
+        source_config = next((source for source in SOURCES if source['id'] == item['source']), {})
+        item['category'] = source_config.get('category') or item.get('category') or category_for(item['url'], item['title'])
         if item['source'] == 'fnc':
             continue
         old = previous_items.get(item['url'], {})
@@ -241,7 +255,7 @@ def main():
     with concurrent.futures.ThreadPoolExecutor(max_workers=8) as pool:
         list(pool.map(add_article_image, missing))
     items.sort(key=lambda item: item.get("publishedAt") or "", reverse=True)
-    output = {"version": 1, "checkedAt": dt.datetime.now(dt.timezone.utc).isoformat(), "intervalMinutes": 30, "sources": sources, "items": items[:140]}
+    output = {"version": 1, "checkedAt": dt.datetime.now(dt.timezone.utc).isoformat(), "intervalMinutes": 30, "sources": sources, "items": items[:400]}
     temporary = path.with_suffix(".json.tmp")
     temporary.write_text(json.dumps(output, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     temporary.replace(path)
