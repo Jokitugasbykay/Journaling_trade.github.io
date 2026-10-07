@@ -22,8 +22,9 @@
       let uploadTrigger = null;
       let onboarding = { name: '', started: false };
       let language = 'id';
-      const cloudClient = window.supabase?.createClient(SUPABASE_URL, SUPABASE_KEY);
+      const cloudClient = window.supabase?.createClient(SUPABASE_URL, SUPABASE_KEY, { auth: { storageKey: 'journalingtrade_nmddjuqkdyhcobddinkc_auth', flowType: 'pkce' } });
       let cloudUser = null, cloudReady = false, cloudBusy = false, cloudTimer = null, localRevision = 0;
+      let accountAccess = null, nicknameReady = false, hydratingUserId = '', authMode = 'signin';
       const cloudAccountIds = new Map(), cloudStrategyIds = new Map(), localAccountIds = new Map();
       let cloudSnapshot = '';
       const originalCopy = new Map();
@@ -77,11 +78,11 @@
         tryFree: 'Try Free', plusDescription: 'Build a consistent journaling routine.', proDescription: 'Review your performance in greater detail.',
         plusSoon: 'Plus coming soon', proSoon: 'Pro coming soon', paidNote: 'Subscriptions are coming soon',
         featureDetails: 'Show all features', freeFeature1: 'Manual trade journaling', freeFeature2: 'Statistics and risk calculators',
-        freeFeature3: 'PDF/PNG scanning and CSV/TXT imports', freeFeature4: 'Local backup and restore',
+        freeFeature3: 'PDF/PNG scans and CSV/TXT imports: 10 uploads every 12 hours', freeFeature4: 'Local backup and restore',
         priceDetails: 'Show pricing details', perMonth: 'USD / month', perYear: 'USD / year',
         plusSavings: 'Save $20 compared with 12 monthly payments. The discount rounds to 17%.',
         proSavings: 'Save $40 compared with 12 monthly payments. The discount rounds to 17%.',
-        paidHint: 'Features and pricing details will be confirmed before subscriptions launch.',
+        paidHint: 'Payments will be available once checkout launches.',
         localDataHint: 'Notes are stored in this browser on this device. Export a backup to keep a copy.',
         loginTitle: 'Sign in to your journal', loginDescription: 'Sign in with email to save your journal in the cloud and access it on other devices.',
         googleLogin: 'Sign in with Google', googleSoon: 'Google sign-in is not available yet.', localName: 'Local profile name',
@@ -109,6 +110,16 @@
       Object.assign(englishCopy, {"newsPageTitle":"News & economic calendar","newsPageLead":"Headlines from your selected publishers, publication times, and the economic calendar.","newsHeadlines":"Latest news","newsCalendar":"Economic calendar","newsSourceLabel":"News source","newsAllSources":"All sources","newsRefresh":"Refresh news","newsOriginalLanguage":"Headlines remain in the publisher’s original language. Read the full story on the source website.","newsCmeHint":"View current interest-rate probabilities and market data directly on CME Group."});
       Object.assign(englishCopy, {"newsLatestStories": "Latest stories", "newsShowMore": "Show more stories", "newsFeedDetails": "Sources & update schedule", "newsSchedule": "News is collected every 30 minutes daily. This page checks for updates every 5 minutes."});
       Object.assign(englishCopy, {"newsSocial": "Social media", "socialLead": "Open the latest posts directly on Instagram. Instagram may ask you to sign in.", "socialOpen": "View posts on Instagram", "categoryAll": "All", "categoryWorld": "World", "categoryBusiness": "Business", "categoryMarkets": "Markets", "categorySustainability": "Sustainability", "categoryLegal": "Legal", "categoryCommentary": "Commentary", "categoryTechnology": "Technology", "categoryInvestigations": "Investigations", "categoryMore": "More", "categoryLocal": "Local news", "categoryScience": "Science", "categorySport": "Sport", "categoryOther": "Other news", "biSource": "Bank Indonesia transaction rates", "biBasis": "Journal conversion uses the midpoint of BI USD sell and buy rates. BI publishes rates once per business day."});
+      Object.assign(englishCopy, {
+        signupTitle: 'Create your journalingtrade account', signupLead: 'Start with Free and track your trading journey.',
+        authEmailDivider: 'or use email', confirmPassword: 'Confirm password',
+        authShowSignup: 'New here? Create an account', authShowSignin: 'Already have an account? Sign in',
+        nicknameTitle: 'What should we call you?', nicknameLead: 'Choose a nickname for your journal profile.',
+        authSwitchAccount: 'Use another account', nicknameLabel: 'Nickname', nicknameSave: 'Save and open journal', authBack: 'Back to Home',
+        plusFeature1: 'All Free features', plusFeature2: 'Unlimited uploads', plusFeature3: 'Economic news and calendar access',
+        newsLockedTitle: 'Economic news for Plus members', newsLockedLead: 'Unlock local and global news, the economic calendar, and social media sources with Plus.',
+        newsViewPlans: 'View plans', newsSignIn: 'Already subscribed? Sign in'
+      });
       document.querySelectorAll('[data-i18n]').forEach(element => {
         originalCopy.set(element.dataset.i18n, element.innerHTML);
       });
@@ -230,7 +241,7 @@
           translatedAttributes.set(element, originals);
         });
         $('language-select').value = language;
-        $('local-login-name').placeholder = language === 'en' ? 'Your name' : 'Nama Anda';
+        $('nickname-input').placeholder = language === 'en' ? 'Your nickname' : 'Nama panggilan Anda';
         if (window.renderPublisherNews) renderPublisherNews();
         if (window.renderBiIndicators) renderBiIndicators();
         updatePricingDisplay();
@@ -350,7 +361,7 @@
       }
 
       async function syncCloud() {
-        if (!cloudUser || !cloudReady || cloudBusy || !cloudClient) return;
+        if (!cloudUser || !cloudReady || !nicknameReady || cloudBusy || !cloudClient) return;
         cloudBusy = true;
         const startRevision = localRevision;
         try {
@@ -417,12 +428,14 @@
         return `${parts.year}-${parts.month}-${parts.day}`;
       }
       function scheduleCloudSave() {
-        if (!cloudUser || !cloudReady) return;
+        if (!cloudUser || !cloudReady || !nicknameReady) return;
         clearTimeout(cloudTimer);
         cloudTimer = setTimeout(syncCloud, 700);
       }
 
       async function hydrateCloud(user) {
+        if (hydratingUserId === user.id) return;
+        hydratingUserId = user.id;
         cloudUser = user;
         cloudReady = false;
         try {
@@ -435,7 +448,7 @@
             cloudSnapshot = saved.snapshot || '';
           } catch {}
           const [profileResult, accountResult, strategyResult, tradeResult] = await Promise.all([
-            cloudClient.from('profiles').select('display_name').eq('id', user.id).maybeSingle(),
+            cloudClient.from('profiles').select('display_name,nickname_set').eq('id', user.id).maybeSingle(),
             cloudClient.from('trading_accounts').select('*').eq('user_id', user.id),
             cloudClient.from('strategies').select('*').eq('user_id', user.id),
             cloudClient.from('trades').select('*').eq('user_id', user.id)
@@ -456,25 +469,29 @@
             accounts = remoteAccounts.map(a => { const id = 'cloud_' + a.id; cloudAccountIds.set(id, a.id); localAccountIds.set(a.id, id); return { id, name: a.name, broker: a.broker || '', type: a.account_type || 'Standard', currency: a.currency, startBalance: Number(a.initial_balance), status: a.is_active ? 'Active' : 'Inactive' }; });
             const strategies = new Map((strategyResult.data || []).map(s => { cloudStrategyIds.set(s.name, s.id); return [s.id, s.name]; }));
             trades = remoteTrades.map(t => { const id = 'cloud_' + t.id; cloudTradeIds.set(id, t.id); return { id, accountId: localAccountIds.get(t.account_id) || '', date: tradeDateJakarta(t.opened_at), jam: t.opened_at ? new Date(t.opened_at).toLocaleTimeString('id-ID', { timeZone: 'Asia/Jakarta', hour: '2-digit', minute: '2-digit', hour12: false }) : '', market: t.market || t.symbol, posisi: t.side === 'short' ? 'Sell' : 'Buy', entry: Number(t.entry_price) || 0, exit: t.exit_price === null ? null : Number(t.exit_price), sl: t.stop_loss === null ? null : Number(t.stop_loss), tp: t.take_profit === null ? null : Number(t.take_profit), vol: t.quantity === null ? null : Number(t.quantity), riskPct: t.risk_percent === null ? null : Number(t.risk_percent), actualPnl: t.pnl === null ? null : Number(t.pnl), result: t.notes?.match(/Result: (Win|Loss|BE)/)?.[1] || 'Win', strategy: strategies.get(t.strategy_id) || '', tf: t.notes?.match(/TF: ([^·]+)/)?.[1]?.trim() || '', reason: t.notes?.split(' · ')[0] || '' }; });
-            profile.name = profileResult.data?.display_name || user.email || 'Trader';
+            profile.name = profileResult.data?.display_name || '';
             profile.currentAccount = accounts[0]?.id || '';
             onboarding.name = profile.name; onboarding.started = true;
             persistOnboarding(); persistCloudMaps();
             saveLocalData();
-          } else {
-            const { error } = await cloudClient.from('profiles').upsert({ id: user.id, display_name: profile.name || user.email, timezone: 'Asia/Jakarta' }, { onConflict: 'id' });
-            if (error) throw error;
           }
-          if (!onboarding.name) onboarding.name = profile.name || user.email || 'Trader';
+          nicknameReady = profileResult.data?.nickname_set === true && !!profileResult.data.display_name?.trim();
+          profile.name = nicknameReady ? profileResult.data.display_name : '';
+          onboarding.name = profile.name;
           onboarding.started = true;
           persistOnboarding();
           cloudReady = true;
+          await refreshAccountAccess();
           updateAccess(); renderJournalTable(); renderStatistics(); renderProfileView(); runAllCalculators();
           scheduleCloudSave();
+          if (!nicknameReady) { switchTab('login'); setAuthMode('nickname'); }
+          else if ($('view-login').classList.contains('active')) switchTab('jurnal');
         } catch (error) {
           console.error('Supabase load error:', error);
           if ($('cloud-status')) $('cloud-status').textContent = cloudMessage(error);
-          cloudUser = null; cloudReady = false;
+          cloudUser = null; cloudReady = false; nicknameReady = false; accountAccess = null;
+        } finally {
+          hydratingUserId = '';
         }
       }
 
@@ -490,12 +507,37 @@
       async function initCloudAuth() {
         if (!cloudClient) { if ($('cloud-status')) $('cloud-status').textContent = 'Koneksi Supabase tidak tersedia. Data lokal tetap tersimpan.'; return; }
         cloudClient.auth.onAuthStateChange((event, session) => {
-          if (event === 'SIGNED_IN' && session?.user) setTimeout(() => hydrateCloud(session.user), 0);
-          if (event === 'SIGNED_OUT') { cloudUser = null; cloudReady = false; }
+          if (event === 'SIGNED_IN' && session?.user && (!cloudReady || cloudUser?.id !== session.user.id)) setTimeout(() => hydrateCloud(session.user), 0);
+          if (event === 'SIGNED_OUT') { cloudUser = null; cloudReady = false; nicknameReady = false; accountAccess = null; updateAccess(); }
         });
         const { data, error } = await cloudClient.auth.getSession();
         if (error) { console.error('Supabase session error:', error); return; }
         if (data.session?.user) await hydrateCloud(data.session.user);
+      }
+
+      function canReadNews() { return !!cloudUser && nicknameReady && ['plus', 'pro'].includes(accountAccess?.plan); }
+      async function refreshAccountAccess(consumeUpload = false) {
+        if (!cloudUser) throw new Error(language === 'en' ? 'Sign in to use your Free upload allowance.' : 'Masuk untuk menggunakan jatah upload Free.');
+        if (!nicknameReady && consumeUpload) throw new Error(language === 'en' ? 'Complete your nickname first.' : 'Isi nama panggilan Anda terlebih dahulu.');
+        const { data, error } = await cloudClient.rpc('journal_access', { consume_upload: consumeUpload });
+        if (error) throw error;
+        if (!data || !['free', 'plus', 'pro'].includes(data.plan) || typeof data.allowed !== 'boolean') throw new Error('Invalid account access response');
+        accountAccess = data;
+        renderAccountAccess();
+        if (!data.allowed) throw new Error(uploadAllowanceText());
+        return data;
+      }
+      function uploadAllowanceText() {
+        if (!cloudUser) return language === 'en' ? 'Sign in for 10 Free uploads every 12 hours.' : 'Masuk untuk 10 upload Free setiap 12 jam.';
+        if (!accountAccess) return language === 'en' ? 'Checking your upload allowance...' : 'Memeriksa jatah upload...';
+        if (accountAccess.plan !== 'free') return (accountAccess.plan === 'pro' ? 'Pro' : 'Plus') + (language === 'en' ? ' · Unlimited uploads' : ' · Upload tanpa batas');
+        const reset = accountAccess.resetAt ? new Date(accountAccess.resetAt).toLocaleString(language === 'en' ? 'en-GB' : 'id-ID', { hour: '2-digit', minute: '2-digit', day: 'numeric', month: 'short' }) : '';
+        return language === 'en' ? `Free · ${accountAccess.remaining}/10 uploads remaining${reset ? '. Resets ' + reset : ' every 12 hours'}.` : `Free · Sisa ${accountAccess.remaining}/10 upload${reset ? '. Reset ' + reset : ' setiap 12 jam'}.`;
+      }
+      function renderAccountAccess() {
+        $('upload-quota-note').textContent = uploadAllowanceText();
+        $('news-content').hidden = !canReadNews();
+        $('news-paywall').hidden = canReadNews();
       }
 
       function disciplineMetrics(rows) {
@@ -625,12 +667,12 @@
       }
 
       /* Tab Switching */
-      const pageRoutes = { beranda: 'home', jurnal: 'journal', statistik: 'statistics', kalkulator: 'calculator', berita: 'economic-news', profil: 'profile' };
+      const pageRoutes = { beranda: 'home', jurnal: 'journal', statistik: 'statistics', kalkulator: 'calculator', berita: 'economic-news', profil: 'profile', login: 'login' };
       const pagePath = route => new URL(route + '/', document.baseURI).pathname;
-      let loginReturnPath = pagePath('home');
       window.switchTab = function (tabId, updateUrl = true) {
         if (!$('view-' + tabId)) return;
-        if (tabId !== 'beranda' && !onboarding.started) {
+        if (tabId !== 'login' && cloudUser && cloudReady && !nicknameReady) { tabId = 'login'; showAuthMode('nickname'); }
+        if (!['beranda', 'login', 'berita'].includes(tabId) && !onboarding.started) {
           $('home-access-hint').focus();
           return;
         }
@@ -640,6 +682,7 @@
         document.querySelectorAll('.view-content').forEach(v => {
           v.classList.toggle('active', v.id === 'view-' + tabId);
         });
+        document.body.classList.toggle('auth-page', tabId === 'login');
 
         if (tabId === 'statistik') {
           renderStatistics();
@@ -666,7 +709,7 @@
 
       function updateAccess() {
         document.querySelectorAll('.nav-tab, [data-workspace-action]').forEach(button => {
-          const locked = button.dataset.tab !== 'beranda' && !onboarding.started;
+          const locked = !['beranda', 'berita'].includes(button.dataset.tab) && !onboarding.started;
           button.disabled = locked;
           button.setAttribute('aria-disabled', String(locked));
           button.title = locked ? (language === 'en' ? 'Click Try on Home to open this tab.' : 'Klik Coba di Beranda untuk membuka tab ini.') : '';
@@ -677,9 +720,11 @@
         $('nav-dd-username').removeAttribute('data-i18n');
         $('nav-dd-status').dataset.i18n = cloudUser ? 'cloudStatus' : (onboarding.name ? 'localProfileStatus' : 'guestStatus');
         $('menu-login').dataset.i18n = cloudUser ? 'cloudManage' : (onboarding.name ? 'changeProfile' : 'loginMenu');
-        $('menu-logout').hidden = !onboarding.name;
+        $('menu-logout').hidden = !cloudUser && !onboarding.name;
         $('menu-logout').dataset.i18n = cloudUser ? 'cloudSignOut' : 'signOut';
         applyLanguage();
+        renderAccountAccess();
+        if (canReadNews()) reloadPublisherNews();
       }
 
       window.startTrial = function () {
@@ -690,78 +735,102 @@
         switchTab('jurnal');
       };
 
-      window.openLoginDialog = function (updateUrl = true) {
-        closeNavAccountDropdown();
-        if (location.pathname !== pagePath('login')) loginReturnPath = location.pathname + location.search;
-        $('local-login-name').value = onboarding.name;
-        $('local-login-name').setCustomValidity('');
-        $('login-feedback').textContent = '';
-        if (!$('login-dialog').open) $('login-dialog').showModal();
-        if (updateUrl && location.pathname !== pagePath('login')) history.pushState(null, '', pagePath('login'));
+      function showAuthMode(mode) {
+        authMode = mode;
+        const nickname = mode === 'nickname', signup = mode === 'signup';
+        $('auth-signin-heading').hidden = signup || nickname;
+        $('auth-signup-heading').hidden = !signup || nickname;
+        $('auth-credentials').hidden = nickname;
+        $('nickname-form').hidden = !nickname;
+        for (const id of ['auth-confirm-field', 'auth-signup-submit', 'auth-show-signin']) $(id).hidden = !signup;
+        for (const id of ['auth-signin-submit', 'auth-show-signup']) $(id).hidden = signup;
+        $('cloud-password-confirm').disabled = !signup;
+        $('cloud-password-confirm').required = signup;
+        $('cloud-password').autocomplete = signup ? 'new-password' : 'current-password';
+        $('cloud-status').textContent = '';
+      }
+      window.setAuthMode = function (mode) {
+        if (!['signin', 'signup', 'nickname'].includes(mode)) return;
+        if (mode === 'nickname' && !cloudUser) return;
+        showAuthMode(mode);
+        history.replaceState(null, '', pagePath('login') + (mode === 'signin' ? '' : '#' + mode));
       };
-      window.closeLoginDialog = function () { $('login-dialog').close(); };
-      $('login-dialog').addEventListener('close', () => {
-        if (location.pathname === pagePath('login')) history.replaceState(null, '', loginReturnPath);
-      });
-      window.signInLocal = function (event) {
+      window.submitCloudAuth = function (event) {
         event.preventDefault();
-        const input = $('local-login-name');
-        const name = input.value.trim();
-        input.setCustomValidity(name ? '' : (language === 'en' ? 'Enter your profile name.' : 'Isi nama profil Anda.'));
-        if (!input.reportValidity()) return;
-        if (onboarding.name !== name) onboarding.started = false;
-        onboarding.name = name;
-        profile.name = name;
-        persistOnboarding();
-        saveData();
-        renderProfileView();
-        updateAccess();
-        closeLoginDialog();
-        switchTab('beranda');
+        return authMode === 'signup' ? signUpCloud() : signInCloud();
       };
-      window.signInCloud = async function (event) {
-        event.preventDefault();
-        if (!cloudClient) { $('cloud-status').textContent = 'Koneksi Supabase belum tersedia.'; return; }
-        const button = $('cloud-login-form').querySelector('[type="submit"]');
-        button.disabled = true;
+      window.signInCloud = async function () {
+        if (!cloudClient) { $('cloud-status').textContent = language === 'en' ? 'Account connection is unavailable.' : 'Koneksi akun belum tersedia.'; return; }
+        const button = $('auth-signin-submit'); button.disabled = true;
         $('cloud-status').textContent = language === 'en' ? 'Signing in...' : 'Sedang masuk...';
         try {
           const { error } = await cloudClient.auth.signInWithPassword({ email: $('cloud-email').value.trim(), password: $('cloud-password').value });
           if (error) throw error;
           $('cloud-password').value = '';
-          $('login-feedback').textContent = '';
-          closeLoginDialog();
         } catch (error) { $('cloud-status').textContent = cloudMessage(error); }
         finally { button.disabled = false; }
       };
       window.signUpCloud = async function () {
-        if (!cloudClient) { $('cloud-status').textContent = 'Koneksi Supabase belum tersedia.'; return; }
-        const email = $('cloud-email').value.trim(), password = $('cloud-password').value;
-        if (!$('cloud-email').reportValidity() || !$('cloud-password').reportValidity()) return;
-        const button = $('cloud-login-form').querySelector('[type="button"]');
-        button.disabled = true;
+        if (!cloudClient) return;
+        const password = $('cloud-password'), confirmation = $('cloud-password-confirm');
+        confirmation.setCustomValidity(password.value === confirmation.value ? '' : (language === 'en' ? 'Passwords do not match.' : 'Kata sandi tidak sama.'));
+        if (!$('cloud-login-form').reportValidity()) return;
+        const button = $('auth-signup-submit'); button.disabled = true;
         $('cloud-status').textContent = language === 'en' ? 'Creating your account...' : 'Membuat akun...';
         try {
-          const { data, error } = await cloudClient.auth.signUp({ email, password });
+          const { data, error } = await cloudClient.auth.signUp({ email: $('cloud-email').value.trim(), password: password.value, options: { emailRedirectTo: new URL('login/', document.baseURI).href } });
           if (error) throw error;
-          if (!data.session) $('cloud-status').textContent = language === 'en' ? 'Check your email to confirm your account, then sign in here.' : 'Buka email untuk konfirmasi akun, lalu masuk dari sini.';
-          else { $('cloud-status').textContent = language === 'en' ? 'Account created. Syncing your journal...' : 'Akun dibuat. Jurnal sedang disinkronkan...'; closeLoginDialog(); }
+          password.value = ''; confirmation.value = '';
+          if (!data.session) $('cloud-status').textContent = language === 'en' ? 'Check your email to confirm your account, then sign in.' : 'Buka email untuk konfirmasi akun, lalu masuk.';
         } catch (error) { $('cloud-status').textContent = cloudMessage(error); }
         finally { button.disabled = false; }
       };
-      $('local-login-name').addEventListener('input', event => event.target.setCustomValidity(''));
+      $('cloud-password-confirm').addEventListener('input', event => event.target.setCustomValidity(''));
+      window.signInGoogle = async function () {
+        const status = $('google-login-status'), button = $('google-login-btn');
+        if (!cloudClient) return;
+        button.disabled = true;
+        try {
+          const response = await fetch(SUPABASE_URL + '/auth/v1/settings', { headers: { apikey: SUPABASE_KEY }, signal: AbortSignal.timeout(10000) });
+          if (!response.ok) throw new Error(language === 'en' ? 'Unable to check Google sign-in. Try again.' : 'Tidak dapat memeriksa login Google. Coba lagi.');
+          const config = await response.json();
+          if (!config.external?.google) throw new Error(language === 'en' ? 'Google sign-in is awaiting account setup. Please use email for now.' : 'Login Google sedang menunggu konfigurasi akun. Gunakan email untuk saat ini.');
+          const { error } = await cloudClient.auth.signInWithOAuth({ provider: 'google', options: { redirectTo: new URL('login/', document.baseURI).href, queryParams: { prompt: 'select_account' } } });
+          if (error) throw error;
+        } catch (error) { status.textContent = error.message; }
+        finally { button.disabled = false; }
+      };
+      window.saveNickname = async function (event) {
+        event.preventDefault();
+        if (!cloudUser) return;
+        const input = $('nickname-input'), name = input.value.trim();
+        input.setCustomValidity(name.length >= 2 ? '' : (language === 'en' ? 'Enter at least 2 characters.' : 'Isi sedikitnya 2 karakter.'));
+        if (!input.reportValidity()) return;
+        const button = $('nickname-form').querySelector('button'); button.disabled = true;
+        try {
+          const { error } = await cloudClient.from('profiles').upsert({ id: cloudUser.id, display_name: name, nickname_set: true }, { onConflict: 'id' });
+          if (error) throw error;
+          profile.name = name; onboarding.name = name; nicknameReady = true;
+          persistOnboarding(); saveData(); updateAccess(); renderProfileView();
+          switchTab('jurnal');
+        } catch (error) { $('cloud-status').textContent = cloudMessage(error); }
+        finally { button.disabled = false; }
+      };
+      $('nickname-input').addEventListener('input', event => event.target.setCustomValidity(''));
       window.signOutLocal = function () {
         if (cloudClient && cloudUser) {
           clearTimeout(cloudTimer);
           (async () => {
             while (cloudBusy) await new Promise(resolve => setTimeout(resolve, 50));
-            if (!await syncCloud()) return;
+            if (nicknameReady && !await syncCloud()) return;
             const { error } = await cloudClient.auth.signOut();
-            if (error) console.error('Supabase sign out error:', error);
+            if (error) { $('cloud-status').textContent = cloudMessage(error); return; }
+            cloudUser = null; cloudReady = false; nicknameReady = false; accountAccess = null;
             localStorage.removeItem(K_ACCOUNTS); localStorage.removeItem(K_TRADES); localStorage.removeItem(K_SETTINGS); localStorage.removeItem(K_PROFILE);
             accounts = []; trades = []; settings = { kurs: 17000, billingAnnual: false }; profile = { name: 'Trader', currentAccount: 'demo_acc' };
             onboarding = { name: '', started: false }; loadData(); persistOnboarding();
             updateAccess(); renderJournalTable(); renderProfileView(); renderStatistics(); runAllCalculators();
+            switchTab('beranda');
           })();
           return;
         }
@@ -1420,6 +1489,9 @@
         parsedTradesToImport = [];
 
         try {
+          if (!['pdf', 'png', 'jpg', 'jpeg', 'txt', 'csv'].includes(ext)) throw new Error(language === 'en' ? 'Use PDF, PNG, JPG, TXT, or CSV.' : 'Gunakan PDF, PNG, JPG, TXT, atau CSV.');
+          await refreshAccountAccess(true);
+          if (job !== scanJob) return;
           if (ext === 'txt' || ext === 'csv') {
             const text = await file.text();
             if (job === scanJob) parseTextOrCSV(text);
@@ -3009,6 +3081,7 @@
         } catch { return null; }
       }
       window.renderPublisherNews = function () {
+        if (!canReadNews()) { $('publisher-news-list').innerHTML = ''; return; }
         const status = $('publisher-news-status');
         if (!status) return;
         if (!publisherNews) {
@@ -3049,6 +3122,7 @@
       window.selectNewsCategory = function (value) { newsCategory = newsCategoryNames[value] ? value : ''; newsVisibleCount = 12; renderPublisherNews(); };
       window.showMoreNews = function () { newsVisibleCount += 12; renderPublisherNews(); };
       window.reloadPublisherNews = async function () {
+        if (!canReadNews()) { publisherNews = null; return; }
         if (publisherNewsBusy) return;
         publisherNewsBusy = true;
         $('news-refresh').disabled = true;
@@ -3070,6 +3144,7 @@
 
       /* Sub-view Switcher */
       window.switchBeritaSub = function (sub, updateUrl = true) {
+        if (!canReadNews()) return;
         if (!['ringkasan', 'kalender', 'sosial'].includes(sub)) return;
         document.querySelectorAll('#berita-seg .seg-btn').forEach(b => {
           b.classList.toggle('active', b.dataset.sub === sub);
@@ -3094,11 +3169,12 @@
         const base = new URL(document.baseURI).pathname;
         const parts = location.pathname.startsWith(base) ? location.pathname.slice(base.length).split('/').filter(Boolean) : [];
         if (parts[0] === 'login') {
-          switchTab('beranda', false);
-          openLoginDialog(false);
+          showAuthMode(cloudUser && cloudReady && !nicknameReady ? 'nickname' : location.hash === '#signup' ? 'signup' : 'signin');
+          switchTab('login', false);
+          const error = new URLSearchParams(location.hash.slice(1)).get('error_description');
+          if (error) $('cloud-status').textContent = error;
           return;
         }
-        if ($('login-dialog').open) $('login-dialog').close();
         const tabId = Object.keys(pageRoutes).find(key => pageRoutes[key] === parts[0]) || 'beranda';
         if (tabId !== 'beranda' && !onboarding.started) {
           onboarding.started = true;
@@ -3126,12 +3202,22 @@
       renderStatistics();
       restoreRoute();
       window.addEventListener('popstate', restoreRoute);
+      window.addEventListener('hashchange', () => { if (location.pathname === pagePath('login')) restoreRoute(); });
       refreshExchangeRate();
       setInterval(() => { if (!document.hidden) refreshExchangeRate(); }, 3600000);
       document.addEventListener('visibilitychange', () => { if (!document.hidden && Date.now() - exchangeCheckedAt >= 3600000) refreshExchangeRate(); });
       window.addEventListener('storage', event => {
         if ([K_ACCOUNTS, K_TRADES, K_SETTINGS, K_PROFILE].includes(event.key) || event.key === null) {
           loadData(); renderJournalTable(); renderStatistics(); renderProfileView(); runAllCalculators();
+        }
+        if (event.key === K_PROFILE && cloudUser && !nicknameReady) {
+          const userId = cloudUser.id;
+          cloudClient.from('profiles').select('display_name,nickname_set').eq('id', userId).maybeSingle().then(({ data, error }) => {
+            if (error || cloudUser?.id !== userId || !data?.nickname_set || !data.display_name?.trim()) return;
+            nicknameReady = true; profile.name = data.display_name; onboarding.name = data.display_name;
+            persistOnboarding(); updateAccess();
+            if ($('view-login').classList.contains('active')) switchTab('jurnal');
+          });
         }
       });
 

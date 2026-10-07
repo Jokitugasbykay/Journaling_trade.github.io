@@ -20,7 +20,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
 
-  <link rel="stylesheet" href="css/style.css?v=20261008-local-routes">
+  <link rel="stylesheet" href="css/style.css?v=20261008-plans-auth">
 </head>
 
 <body>
@@ -48,7 +48,7 @@
             <span class="nav-dd-role" id="nav-dd-status" data-i18n="guestStatus">Kenali jurnal dari Beranda.</span>
           </div>
           <div class="nav-dd-divider"></div>
-          <button type="button" class="nav-dd-item" id="menu-login" onclick="openLoginDialog()" data-i18n="loginMenu">Masuk / login</button>
+          <a class="nav-dd-item" id="menu-login" href="login/" target="_blank" rel="noopener" data-i18n="loginMenu">Masuk / login</a>
           <button type="button" class="nav-dd-item" data-workspace-action onclick="switchTab('profil'); closeNavAccountDropdown();" disabled data-i18n="profileSettings">Pengaturan profil</button>
           <button type="button" class="nav-dd-item" data-workspace-action onclick="switchTab('jurnal'); closeNavAccountDropdown();" disabled data-i18n="openJournal">Buka jurnal trade</button>
           <div class="nav-dd-divider"></div>
@@ -118,17 +118,18 @@
               <p class="plan-billing" data-i18n="freeBilling">Gratis, tanpa langganan</p>
               <button class="btn btn-primary" type="button" onclick="startTrial()" data-i18n="tryFree">Coba Free</button>
               <p class="plan-action-note" data-i18n="freeNote">Mulai dengan data di perangkat Anda</p>
-              <details><summary data-i18n="featureDetails">Tampilkan semua fitur</summary><ul class="free-features"><li data-i18n="freeFeature1">Pencatatan jurnal manual</li><li data-i18n="freeFeature2">Statistik dan kalkulator risiko</li><li data-i18n="freeFeature3">Scan PDF/PNG dan impor CSV/TXT</li><li data-i18n="freeFeature4">Backup dan pemulihan data lokal</li></ul></details>
+              <details><summary data-i18n="featureDetails">Tampilkan semua fitur</summary><ul class="free-features"><li data-i18n="freeFeature1">Pencatatan jurnal manual</li><li data-i18n="freeFeature2">Statistik dan kalkulator risiko</li><li data-i18n="freeFeature3">Scan PDF/PNG dan impor CSV/TXT: 10 upload setiap 12 jam</li><li data-i18n="freeFeature4">Backup dan pemulihan data lokal</li></ul></details>
             </article>
             <article class="plan-card">
               <div class="plan-card-heading"><h3>Plus</h3><div class="billing-toggle" role="group" aria-label="Periode Plus"><button id="btn-monthly" data-cycle="monthly" type="button" class="active" onclick="setBillingCycle(false)" aria-pressed="true" data-i18n="monthly">Bulanan</button><button id="btn-annual" data-cycle="annual" type="button" onclick="setBillingCycle(true)" aria-pressed="false"><span data-i18n="annual">Tahunan</span><span class="annual-saving" data-i18n="save17">Hemat 17%</span></button></div></div>
               <p class="plan-description" data-i18n="plusDescription">Untuk rutinitas jurnal yang lebih teratur.</p>
               <div class="plan-price-line"><span class="plan-price" id="plus-price">$10</span><span class="plan-period" id="plus-period">USD / bulan</span></div>
               <p class="plan-billing" id="plus-billing">Ditagih bulanan</p>
-              <!-- TODO: connect paid checkout when subscription products are configured. -->
+
               <button class="btn plan-unavailable" type="button" disabled data-i18n="plusSoon">Plus segera tersedia</button>
               <p class="plan-action-note" data-i18n="paidNote">Langganan belum dibuka</p>
-              <details><summary data-i18n="priceDetails">Lihat rincian harga</summary><dl class="plan-details"><div><dt data-i18n="monthly">Bulanan</dt><dd>$10 <span data-i18n="perMonth">USD / bulan</span></dd></div><div><dt data-i18n="annual">Tahunan</dt><dd>$100 <span data-i18n="perYear">USD / tahun</span></dd></div></dl><p data-i18n="plusSavings">Hemat $20 dibanding 12 pembayaran bulanan. Diskon dibulatkan menjadi 17%.</p><p data-i18n="paidHint">Fitur paket dan pembayaran akan diumumkan sebelum langganan dibuka.</p></details>
+              <ul class="free-features"><li data-i18n="plusFeature1">Semua fitur Free</li><li data-i18n="plusFeature2">Upload tanpa batas</li><li data-i18n="plusFeature3">Akses berita dan kalender ekonomi</li></ul>
+              <details><summary data-i18n="priceDetails">Lihat rincian harga</summary><dl class="plan-details"><div><dt data-i18n="monthly">Bulanan</dt><dd>$10 <span data-i18n="perMonth">USD / bulan</span></dd></div><div><dt data-i18n="annual">Tahunan</dt><dd>$100 <span data-i18n="perYear">USD / tahun</span></dd></div></dl><p data-i18n="plusSavings">Hemat $20 dibanding 12 pembayaran bulanan. Diskon dibulatkan menjadi 17%.</p><p data-i18n="paidHint">Pembayaran akan tersedia setelah checkout diaktifkan.</p></details>
             </article>
             <article class="plan-card">
               <div class="plan-card-heading"><h3>Pro</h3><div class="billing-toggle" role="group" aria-label="Periode Pro"><button data-cycle="monthly" type="button" class="active" onclick="setBillingCycle(false)" aria-pressed="true" data-i18n="monthly">Bulanan</button><button data-cycle="annual" type="button" onclick="setBillingCycle(true)" aria-pressed="false"><span data-i18n="annual">Tahunan</span><span class="annual-saving" data-i18n="save17">Hemat 17%</span></button></div></div>
@@ -137,7 +138,7 @@
               <p class="plan-billing" id="pro-billing">Ditagih bulanan</p>
               <button class="btn plan-unavailable" type="button" disabled data-i18n="proSoon">Pro segera tersedia</button>
               <p class="plan-action-note" data-i18n="paidNote">Langganan belum dibuka</p>
-              <details><summary data-i18n="priceDetails">Lihat rincian harga</summary><dl class="plan-details"><div><dt data-i18n="monthly">Bulanan</dt><dd>$20 <span data-i18n="perMonth">USD / bulan</span></dd></div><div><dt data-i18n="annual">Tahunan</dt><dd>$200 <span data-i18n="perYear">USD / tahun</span></dd></div></dl><p data-i18n="proSavings">Hemat $40 dibanding 12 pembayaran bulanan. Diskon dibulatkan menjadi 17%.</p><p data-i18n="paidHint">Fitur paket dan pembayaran akan diumumkan sebelum langganan dibuka.</p></details>
+              <details><summary data-i18n="priceDetails">Lihat rincian harga</summary><dl class="plan-details"><div><dt data-i18n="monthly">Bulanan</dt><dd>$20 <span data-i18n="perMonth">USD / bulan</span></dd></div><div><dt data-i18n="annual">Tahunan</dt><dd>$200 <span data-i18n="perYear">USD / tahun</span></dd></div></dl><p data-i18n="proSavings">Hemat $40 dibanding 12 pembayaran bulanan. Diskon dibulatkan menjadi 17%.</p><p data-i18n="paidHint">Pembayaran akan tersedia setelah checkout diaktifkan.</p></details>
             </article>
           </div>
           <p class="pricing-footnote" data-i18n="localDataHint">Catatan tersimpan di browser perangkat ini. Ekspor backup untuk menyimpan salinannya.</p>
@@ -183,7 +184,7 @@
           <h2>Jurnal Trading Terstruktur</h2>
           <p>Catat, filter, dan evaluasi setiap posisi trading secara objektif dan terukur.</p>
         </div>
-        <div class="journal-actions">
+        <div class="journal-actions"><p id="upload-quota-note" class="upload-quota-note" role="status"></p>
           <button class="btn btn-accent" onclick="toggleTradeForm()">+ Catat Trade</button>
           <button class="btn btn-ghost" onclick="openUploadModal()">
             <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
@@ -815,6 +816,13 @@
          VIEW 5: BERITA EKONOMI & KALENDER (FREE + PRO INTELLIGENCE)
          ==================================================================== -->
     <section class="view-content" id="view-berita">
+      <div id="news-paywall" class="news-paywall">
+        <p class="plan-eyebrow">Plus</p><h2 data-i18n="newsLockedTitle">Berita ekonomi untuk pelanggan Plus</h2>
+        <p data-i18n="newsLockedLead">Buka berita lokal dan global, kalender ekonomi, dan sumber sosial media dengan paket Plus.</p>
+        <button class="btn btn-primary" type="button" onclick="switchTab('beranda'); scrollToPricing();" data-i18n="newsViewPlans">Lihat paket</button>
+        <a href="login/" target="_blank" rel="noopener" data-i18n="newsSignIn">Sudah berlangganan? Masuk</a>
+      </div><div id="news-content" hidden>
+
       <div class="section-head publisher-heading">
         <h2 data-i18n="newsPageTitle">Berita & kalender ekonomi</h2>
         <p data-i18n="newsPageLead">Berita dari penerbit pilihan Anda, waktu publikasi, dan kalender ekonomi.</p>
@@ -918,6 +926,7 @@
 
         <!-- Economic Calendar Feed Table -->
         <div id="kal-list"></div>
+      </div>
       </div>
     </section>
 
@@ -1054,39 +1063,46 @@
       </div>
     </section>
 
+    <section class="view-content" id="view-login">
+      <div class="auth-shell">
+        <a class="auth-brand" href="home/">journalingtrade</a>
+        <div class="auth-card">
+          <div id="auth-signin-heading"><h1 data-i18n="loginTitle">Masuk ke jurnal Anda</h1><p class="login-description" data-i18n="loginDescription">Masuk untuk menyimpan jurnal dan membukanya di perangkat lain.</p></div>
+          <div id="auth-signup-heading" hidden><h1 data-i18n="signupTitle">Buat akun journalingtrade</h1><p class="login-description" data-i18n="signupLead">Mulai dengan Free dan catat perjalanan trading Anda.</p></div>
+          <div id="auth-credentials">
+            <button class="google-login-btn" id="google-login-btn" type="button" onclick="signInGoogle()"><span class="google-letter" aria-hidden="true">G</span><span data-i18n="googleLogin">Masuk dengan Google</span></button>
+            <p id="google-login-status" class="login-note" role="status"></p>
+            <div class="auth-divider" data-i18n="authEmailDivider">atau gunakan email</div>
+            <form id="cloud-login-form" onsubmit="submitCloudAuth(event)">
+              <label for="cloud-email" data-i18n="cloudEmail">Email</label>
+              <input id="cloud-email" name="email" type="email" autocomplete="username" required maxlength="254" placeholder="nama@email.com">
+              <label for="cloud-password" data-i18n="cloudPassword">Kata sandi</label>
+              <input id="cloud-password" name="password" type="password" autocomplete="current-password" required minlength="8" maxlength="128">
+              <div id="auth-confirm-field" hidden><label for="cloud-password-confirm" data-i18n="confirmPassword">Konfirmasi kata sandi</label><input id="cloud-password-confirm" type="password" autocomplete="new-password" minlength="8" maxlength="128" disabled></div>
+              <button class="btn btn-primary" id="auth-signin-submit" type="submit" data-i18n="cloudSignIn">Masuk dan sinkronkan</button>
+              <button class="btn btn-primary" id="auth-signup-submit" type="submit" hidden data-i18n="cloudSignUp">Buat akun</button>
+            </form>
+            <button id="auth-show-signup" class="text-action" type="button" onclick="setAuthMode('signup')" data-i18n="authShowSignup">Belum punya akun? Daftar sekarang</button>
+            <button id="auth-show-signin" class="text-action" type="button" onclick="setAuthMode('signin')" hidden data-i18n="authShowSignin">Sudah punya akun? Masuk di sini</button>
+          </div>
+          <form id="nickname-form" onsubmit="saveNickname(event)" hidden>
+            <h1 data-i18n="nicknameTitle">Kami harus memanggil Anda siapa?</h1>
+            <p class="login-description" data-i18n="nicknameLead">Pilih nama panggilan untuk profil jurnal Anda.</p>
+            <label for="nickname-input" data-i18n="nicknameLabel">Nama panggilan</label>
+            <input id="nickname-input" type="text" autocomplete="nickname" required minlength="2" maxlength="40" placeholder="Nama panggilan Anda">
+            <button class="btn btn-primary" type="submit" data-i18n="nicknameSave">Simpan dan buka jurnal</button>
+            <button class="text-action" type="button" onclick="signOutLocal()" data-i18n="authSwitchAccount">Gunakan akun lain</button>
+          </form>
+          <p id="cloud-status" class="login-note" role="status" aria-live="polite"></p>
+        </div>
+        <a class="auth-back" href="home/" data-i18n="authBack">Kembali ke Beranda</a>
+      </div>
+    </section>
   </main>
 
   <!-- ====================================================================
        MODAL 1: UPLOAD JURNAL TRADE (CODEFRONTS DRAG & DROP ZONE - MAKS 10MB)
        ==================================================================== -->
-  <dialog class="login-dialog" id="login-dialog" aria-labelledby="login-title">
-    <div class="modal-head"><h2 id="login-title" data-i18n="loginTitle">Masuk ke jurnal Anda</h2><button class="modal-close" type="button" onclick="closeLoginDialog()" aria-label="Tutup">&times;</button></div>
-    <p class="login-description" data-i18n="loginDescription">Masuk dengan akun email untuk menyimpan jurnal Anda di cloud dan membukanya di perangkat lain.</p>
-    <!-- TODO: connect Google Identity Services after a public OAuth Client ID is supplied. -->
-    <button class="google-login-btn" type="button" disabled aria-describedby="google-login-status"><span class="google-letter" aria-hidden="true">G</span><span data-i18n="googleLogin">Masuk dengan Google</span></button>
-    <p id="google-login-status" class="login-note" data-i18n="googleSoon">Gunakan email dan kata sandi untuk sinkronisasi cloud.</p>
-    <form id="cloud-login-form" onsubmit="signInCloud(event)">
-      <label for="cloud-email" data-i18n="cloudEmail">Email</label>
-      <input id="cloud-email" name="email" type="email" autocomplete="username" required maxlength="254" placeholder="nama@email.com">
-      <label for="cloud-password" data-i18n="cloudPassword">Kata sandi</label>
-      <input id="cloud-password" name="password" type="password" autocomplete="current-password" required minlength="8" maxlength="128">
-      <p class="login-note" data-i18n="cloudHint">Akun baru mungkin perlu verifikasi email. Jurnal lokal akan diunggah saat pertama kali akun berhasil masuk.</p>
-      <div style="display:flex;gap:8px;flex-wrap:wrap;">
-        <button class="btn btn-primary" type="submit" data-i18n="cloudSignIn">Masuk dan sinkronkan</button>
-        <button class="btn btn-ghost" type="button" onclick="signUpCloud()" data-i18n="cloudSignUp">Buat akun</button>
-      </div>
-    </form>
-    <p id="cloud-status" class="login-note" role="status"></p>
-    <form id="local-login-form" onsubmit="signInLocal(event)">
-      <label for="local-login-name" data-i18n="localName">Nama profil lokal</label>
-      <input id="local-login-name" name="name" type="text" autocomplete="nickname" required minlength="1" maxlength="80" placeholder="Nama Anda">
-      <p class="login-note" data-i18n="localLoginHint">Profil lokal memakai data browser yang sama, bukan akun cloud. Saat pertama masuk, klik Coba di Beranda untuk membuka tab lainnya.</p>
-      <button class="btn btn-primary" type="submit" data-i18n="localLogin">Gunakan profil lokal</button>
-    </form>
-    <button class="text-action" type="button" onclick="closeLoginDialog(); startTrial();" data-i18n="tryWithoutAccount">Coba tanpa akun</button>
-    <p id="login-feedback" role="status"></p>
-  </dialog>
-
   <div class="modal-overlay" id="upload-modal" role="dialog" aria-modal="true" aria-labelledby="upload-title" tabindex="-1">
     <div class="modal-card" style="max-width:560px;">
       <div class="modal-head">
@@ -1261,7 +1277,7 @@
        ==================================================================== -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.86.0"></script>
   <script src="js/scan.js?v=20261007"></script>
-  <script src="js/app.js?v=20261008-local-routes"></script>
+  <script src="js/app.js?v=20261008-plans-auth"></script>
 
  </body>
 

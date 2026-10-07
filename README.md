@@ -39,10 +39,10 @@ Aplikasi ini dibangun menggunakan arsitektur **Client-Side Open Source**. Anda t
 
 1. **Beranda & Akses Awal**:
    - Panduan singkat dalam bahasa Indonesia dan Inggris: mengenali market, mengatur risiko, mencatat atau mengimpor trade, dan mengevaluasi hasil.
-   - Tombol Minat menuju paket. Tombol Coba membuka akses Jurnal, Statistik, Kalkulator, Berita Ekonomi, dan Profil.
-   - Saat pertama masuk dengan profil lokal, hanya Beranda yang dapat dibuka. Pilihan bahasa Indonesia/English berada di menu Masuk.
+   - Tombol Minat menuju paket. Tombol Coba membuka jurnal manual, statistik, kalkulator, dan profil. Berita ekonomi memerlukan Plus atau Pro.
+   - Halaman /login/ dibuka pada tab browser tersendiri. Setelah login pertama, nama panggilan wajib disimpan sebelum membuka jurnal. Pilihan bahasa Indonesia/English berada di menu Masuk.
    - Paket Free ($0), Plus ($10/bulan atau $100/tahun), dan Pro ($20/bulan atau $200/tahun). Label penghematan tahunan 17% dibulatkan dari 16,67%.
-   - Login Google tampil sebagai tombol belum tersedia. Profil lokal bukan autentikasi cloud; semua profil di browser ini memakai penyimpanan yang sama. Pembayaran Plus/Pro belum dibuka.
+   - Free memiliki 10 upload setiap 12 jam untuk akun login. Kuota dimulai pada upload pertama dan disimpan di Supabase; berkas yang terlalu besar atau formatnya tidak didukung tidak mengurangi kuota. Plus/Pro mendapat upload tanpa batas dan akses berita ekonomi. Pro tetap coming soon untuk penjualan publik; checkout pembayaran belum diaktifkan.
 2. **Jurnal Trading**:
    - Formulir entri cepat (*Quick Entry*), mode tempel teks (*Paste Mode*), dan formulir penuh (*Full Form*).
    - **PDF/PNG/JPG** mengenali riwayat posisi (market, arah, lot, tanggal/waktu, entry, exit, profit) dan setup TradingView (label entry, SL, TP, jarak stop/target, R:R, Qty/PnL alat). Hasil dan teks OCR dapat disimpan dan dibuka kembali secara lokal. Riwayat lengkap bisa dimasukkan ke jurnal lewat tombol impor setelah memilih mata uang profit (USD/IDR). Profit aktual digunakan pada jurnal dan statistik; SL/TP, risiko, serta R:R yang belum diketahui ditandai kosong. Scan yang sama tidak diimpor dua kali ke akun yang sama.
@@ -78,3 +78,14 @@ Rapor dihitung dari jurnal akun aktif, termasuk kelengkapan SL, rata-rata risiko
 Hero desktop memenuhi layar awal; panduan forex muncul setelah menggulir. Rapor dihitung dari transaksi akun aktif dan diperbarui saat data disimpan. Kurs referensi USD/IDR menggunakan titik tengah kurs transaksi USD Bank Indonesia pada awal penggunaan dan diperiksa setiap jam; sumber menerbitkan kurs setiap hari kerja. Waktu sumber ditampilkan pada Profil. Jika jaringan gagal, kurs tersimpan tetap digunakan.
 
 Pemeriksaan rapor: `node js/discipline.test.cjs`.
+
+## Auth dan paket Supabase
+
+Project aplikasi: `nmddjuqkdyhcobddinkc` (`journaltrading`). Tidak memakai project JOKIIN. Role paket dan kuota hanya dapat diubah oleh server; frontend membaca/mengurangi kuota melalui RPC `journal_access`. SQL yang diterapkan ada di `supabase/access.sql`; jalankan `supabase/test_access.sql` untuk memeriksa kuota tanpa menyimpan perubahan pengujian.
+
+Login Google memakai redirect di tab login, dengan PKCE dan penyimpanan sesi khusus project. Pengaturan yang masih perlu diisi oleh pemilik:
+
+1. Buat OAuth Web Client khusus Journaling Trading di Google Cloud. Origin: `https://jokitugasbykay.github.io`.
+2. Authorized redirect URI: `https://nmddjuqkdyhcobddinkc.supabase.co/auth/v1/callback`.
+3. Masukkan Client ID dan Client Secret pada provider Google di Supabase project journaltrading, lalu aktifkan provider. Client Secret tidak boleh masuk ke repository.
+4. Pada Supabase Auth URL Configuration, gunakan Site URL `https://jokitugasbykay.github.io/Journaling_trade.github.io/` dan izinkan redirect `https://jokitugasbykay.github.io/Journaling_trade.github.io/login/`.
