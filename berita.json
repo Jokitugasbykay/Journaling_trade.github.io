@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "checkedAt": "2026-10-07T20:55:02.759416+00:00",
+  "checkedAt": "2026-10-07T21:28:02.673156+00:00",
   "intervalMinutes": 30,
   "sources": [
     {
@@ -9,7 +9,7 @@
       "url": "https://www.investing.com/",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-07T20:54:58.004496+00:00"
+      "checkedAt": "2026-10-07T21:27:57.613672+00:00"
     },
     {
       "id": "cnbc",
@@ -17,7 +17,7 @@
       "url": "https://www.cnbc.com/markets/",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-07T20:54:57.915863+00:00"
+      "checkedAt": "2026-10-07T21:27:57.655964+00:00"
     },
     {
       "id": "kontan",
@@ -25,7 +25,7 @@
       "url": "https://www.kontan.co.id/",
       "kind": "html",
       "status": "ok",
-      "checkedAt": "2026-10-07T20:54:58.501913+00:00"
+      "checkedAt": "2026-10-07T21:27:59.065487+00:00"
     },
     {
       "id": "reuters",
@@ -33,7 +33,7 @@
       "url": "https://www.reuters.com/",
       "kind": "sitemap",
       "status": "ok",
-      "checkedAt": "2026-10-07T20:54:58.132560+00:00"
+      "checkedAt": "2026-10-07T21:27:57.918139+00:00"
     },
     {
       "id": "aljazeera",
@@ -41,7 +41,7 @@
       "url": "https://www.aljazeera.com/",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-07T20:54:57.876599+00:00"
+      "checkedAt": "2026-10-07T21:27:57.801992+00:00"
     },
     {
       "id": "bloomberg",
@@ -49,7 +49,7 @@
       "url": "https://www.bloomberg.com/asia",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-07T20:54:58.247789+00:00"
+      "checkedAt": "2026-10-07T21:27:58.003877+00:00"
     },
     {
       "id": "fnc",
@@ -57,7 +57,7 @@
       "url": "https://tradewithfnc.com/",
       "kind": "json",
       "status": "ok",
-      "checkedAt": "2026-10-07T20:54:59.116809+00:00"
+      "checkedAt": "2026-10-07T21:27:58.518433+00:00"
     },
     {
       "id": "investing_id",
@@ -65,7 +65,7 @@
       "url": "https://id.investing.com/news",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-07T20:54:59.138671+00:00"
+      "checkedAt": "2026-10-07T21:27:57.788108+00:00"
     },
     {
       "id": "pluang",
@@ -73,7 +73,7 @@
       "url": "https://pluang.com/news-feed",
       "kind": "html",
       "status": "ok",
-      "checkedAt": "2026-10-07T20:54:58.334313+00:00"
+      "checkedAt": "2026-10-07T21:27:58.308983+00:00"
     },
     {
       "id": "kompas",
@@ -81,7 +81,7 @@
       "url": "https://money.kompas.com/",
       "kind": "html",
       "status": "ok",
-      "checkedAt": "2026-10-07T20:54:59.320680+00:00"
+      "checkedAt": "2026-10-07T21:27:58.875332+00:00"
     },
     {
       "id": "detik",
@@ -89,7 +89,7 @@
       "url": "https://finance.detik.com/",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-07T20:54:59.610833+00:00"
+      "checkedAt": "2026-10-07T21:27:59.646746+00:00"
     },
     {
       "id": "kemenkeu",
@@ -121,7 +121,7 @@
       "url": "https://ekbis.sindonews.com/",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-07T20:54:58.825512+00:00"
+      "checkedAt": "2026-10-07T21:27:58.824831+00:00"
     },
     {
       "id": "fedwatch",
@@ -139,6 +139,231 @@
     }
   ],
   "items": [
+    {
+      "id": "40824d16386f0f445017",
+      "source": "reuters",
+      "title": "Applied Digital's revenue soars, loss widens on growing AI investments",
+      "url": "https://www.reuters.com/technology/applied-digitals-revenue-soars-loss-widens-growing-ai-investments-2026-10-07/",
+      "publishedAt": "2026-10-07T21:23:22.401000+00:00",
+      "image": null,
+      "category": "technology"
+    },
+    {
+      "id": "bfc774d93721f81efccd",
+      "source": "reuters",
+      "title": "We need a solution with the NBA, says Panathinaikos owner",
+      "url": "https://www.reuters.com/sports/we-need-solution-with-nba-says-panathinaikos-owner-2026-10-07/",
+      "publishedAt": "2026-10-07T21:22:28.394000+00:00",
+      "image": null,
+      "category": "sport"
+    },
+    {
+      "id": "3ee740ee5a28402f62b0",
+      "source": "reuters",
+      "title": "Aces G Jewell Loyd (leg) ruled out for Game 2 vs. Valkyries",
+      "url": "https://www.reuters.com/sports/aces-g-jewell-loyd-leg-ruled-out-game-2-vs-valkyries--flm-2026-10-07/",
+      "publishedAt": "2026-10-07T21:22:10.587000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/X4OYIG2FY5I3RFMU64W3RQCKGQ.jpg?auth=0e2880a748fc41d2e52bdd801fd8030a01914f17ceb956d4d3fe6450fc5ee48d&smart=true&width=1920",
+      "category": "sport"
+    },
+    {
+      "id": "a7857d438f21394a3b0d",
+      "source": "reuters",
+      "title": "Texans coach DeMeco Ryans assumes defensive play-calling duties",
+      "url": "https://www.reuters.com/sports/texans-coach-demeco-ryans-assumes-defensive-play-calling-duties--flm-2026-10-07/",
+      "publishedAt": "2026-10-07T21:21:43.791000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/BBDMKRSJJJMDTH6AFAI4L4A5YI.jpg?auth=daa7f039299721328a7ec1c86fb37ec0be53e4c53a6c453dc1ab93c4f4a686ee&smart=true&width=1920",
+      "category": "sport"
+    },
+    {
+      "id": "608173ba8c04b3a456d1",
+      "source": "reuters",
+      "title": "Missouri sued over alleged decades of underfunding at historically Black university",
+      "url": "https://www.reuters.com/legal/government/missouri-sued-over-alleged-decades-underfunding-historically-black-university-2026-10-07/",
+      "publishedAt": "2026-10-07T21:20:14.803000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/G2RH7VC6SJJIRKESOJRJPRHU4U.jpg?auth=23f70d6d9053a1dfdf6b9095d22a0461a056c67f93ea8c744d71981b11aa6afc&smart=true&width=1920",
+      "category": "legal"
+    },
+    {
+      "id": "61f9c3803100662eb71d",
+      "source": "reuters",
+      "title": "Lululemon puts Nike veteran in charge of product as CEO O'Neill looks to right ship",
+      "url": "https://www.reuters.com/business/retail-consumer/lululemon-puts-nike-veteran-charge-product-ceo-oneill-looks-right-ship-2026-10-07/",
+      "publishedAt": "2026-10-07T21:20:12.030000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/QDTESJIANVKENA4SVY4OJRKPMQ.jpg?auth=b2d8a0c09fde0b658b4e10a5e4c24d1c47172841bfc877f1cc7827d3c18b3e6c&smart=true&width=1920",
+      "category": "business"
+    },
+    {
+      "id": "00faab173dbd6427e701",
+      "source": "cnbc",
+      "title": "Trump’s diesel order exposes White House limits to counter surging fuel prices",
+      "url": "https://www.cnbc.com/2026/10/07/trump-red-dye-offroad-diesel-price-iran-ukraine-war-midterm.html",
+      "publishedAt": "2026-10-07T21:19:19+00:00",
+      "image": "https://image.cnbcfm.com/api/v1/image/108364429-1789658380560-gettyimages-2295761542-mms10061_tiwtupzm.jpeg?v=1789658521&w=1920&h=1080",
+      "category": "world"
+    },
+    {
+      "id": "65ac0828e50d9a03860b",
+      "source": "reuters",
+      "title": "Democrats sue Trump to halt taxpayer-funded TV ads that praised him",
+      "url": "https://www.reuters.com/legal/government/democrats-sue-trump-halt-taxpayer-funded-tv-ads-that-praised-him-2026-10-07/",
+      "publishedAt": "2026-10-07T21:19:17.908000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/7JWIGKHS6RJOPL7WDXNXWMHFEQ.jpg?auth=71a8a2dcfcdd334dd08837add1db4247bd551a1cd1a1ae4e920471cc6cae8c2d&smart=true&width=1920",
+      "category": "legal"
+    },
+    {
+      "id": "399304fa64d278f79ee3",
+      "source": "reuters",
+      "title": "Trading Day: Stocks, bonds in delicate dance",
+      "url": "https://www.reuters.com/commentary/reuters-open-interest/global-markets-trading-day-graphic-2026-10-07/",
+      "publishedAt": "2026-10-07T21:16:32.637000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/3GFJ422VYFM57ITJ3ITNOMKR5M.jpg?auth=0848b32097ef35a1df49aa1d8f5a8173cafc6080b02e74a83ecc66b47b3fb36a&smart=true&width=1920",
+      "category": "commentary"
+    },
+    {
+      "id": "aa7d45b1b7258855b990",
+      "source": "cnbc",
+      "title": "Apollo, banks in talks to finance SpaceX's $40 billion Nvidia GPU purchase",
+      "url": "https://www.cnbc.com/2026/10/07/spacex-nvidia-chips-apollo-financing.html",
+      "publishedAt": "2026-10-07T21:16:24+00:00",
+      "image": "https://image.cnbcfm.com/api/v1/image/108321428-17812944792026-06-12t161555z_305406967_rc2gsla0exkf_rtrmadp_0_spacex-ipo-california.jpeg?v=1784319677&w=1920&h=1080",
+      "category": "business"
+    },
+    {
+      "id": "587bc53f6b83d7e5d938",
+      "source": "reuters",
+      "title": "Medical device maker Centinel Spine discloses revenue rise in US IPO filing",
+      "url": "https://www.reuters.com/business/healthcare-pharmaceuticals/medical-device-maker-centinel-spine-discloses-revenue-rise-us-ipo-filing-2026-10-07/",
+      "publishedAt": "2026-10-07T21:13:13.708000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/ZVUR2TBKHFNXXHH7UO7NU7ADUE.jpg?auth=c46ddea9c6fab1c617780d46e82a9ce08433a08e8dce5d614c80c3ada9001f42&smart=true&width=1920",
+      "category": "business"
+    },
+    {
+      "id": "d0cac94d0a823106da51",
+      "source": "reuters",
+      "title": "Microsoft brings more AI to PCs as it challenges Apple",
+      "url": "https://www.reuters.com/business/microsoft-nvidia-ceos-unveil-new-ai-laptop-san-francisco-event-2026-10-07/",
+      "publishedAt": "2026-10-07T21:11:44.034000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/GZWBVVQW7BMGHK622C36DRVF7U.jpg?auth=9f7f6251fd7c438285523ae8b26a05bd168db9823cf0d4276b79fb372c87a787&smart=true&width=1920",
+      "category": "technology"
+    },
+    {
+      "id": "27ff3e7f53958d3340bd",
+      "source": "reuters",
+      "title": "US will rescind policy targeting oil and gas industry methane leaks",
+      "url": "https://www.reuters.com/legal/government/epa-says-will-soon-act-rescind-biden-policy-targeting-methane-leaks-2026-10-07/",
+      "publishedAt": "2026-10-07T21:10:27.202000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/VPLMLRWSRBN37HRNXMEK5GCRC4.jpg?auth=04137f69d4ba86d8689adc50ebf5b2d353ed3c0510f9421ecc9859780b6b09b4&smart=true&width=1920",
+      "category": "legal"
+    },
+    {
+      "id": "67d2556a1a594f1ac3bb",
+      "source": "reuters",
+      "title": "Wolfspeed secures $1.5 billion conditional loan commitment from US defense department",
+      "url": "https://www.reuters.com/business/wolfspeed-secures-15-billion-conditional-loan-commitment-us-defense-department-2026-10-07/",
+      "publishedAt": "2026-10-07T21:09:43.854000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/L5XFA5JQR5NXVO45A4YU36ZQNQ.jpg?auth=c5ec23ac3d72fa245aae9f31810e2e3e1c332e33205b117d144422839563d966&smart=true&width=1920",
+      "category": "business"
+    },
+    {
+      "id": "b3fbf0dcd9c7a617d98b",
+      "source": "reuters",
+      "title": "France suspends use of stun grenades to police student protests",
+      "url": "https://www.reuters.com/world/europe/france-suspends-use-stun-grenades-police-student-protests-2026-10-07/",
+      "publishedAt": "2026-10-07T21:09:31.290000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/6YWGXLZPHVMWZMHWOCYEOGTGO4.jpg?auth=3160a54e8dc9b986150b5f17ccd404d9ac0672e029f7e10fc2b3369532f50784&smart=true&width=1920",
+      "category": "world"
+    },
+    {
+      "id": "7fa2bf0801dda8f0ef66",
+      "source": "aljazeera",
+      "title": "South Africa host Australia who battle more than ‘Sandpapergate’ memories",
+      "url": "https://www.aljazeera.com/sports/2026/10/7/south-africa-host-an-australia-battling-more-than-sandpapergate-memories?traffic_source=rss",
+      "publishedAt": "2026-10-07T21:09:20+00:00",
+      "image": "https://www.aljazeera.com/wp-content/uploads/2026/10/GettyImages-2298427884-1791374309.jpg?resize=1200%2C675",
+      "category": "sport"
+    },
+    {
+      "id": "3f76db430be0bd051eea",
+      "source": "aljazeera",
+      "title": "Harmanpreet Kaur: The captain who changed how India’s women played cricket",
+      "url": "https://www.aljazeera.com/sports/2026/10/7/harmanpreet-kaur-the-captain-who-changed-how-indias-women-played-cricket?traffic_source=rss",
+      "publishedAt": "2026-10-07T21:08:59+00:00",
+      "image": "https://www.aljazeera.com/wp-content/uploads/2026/10/2026-07-13T123731Z_1793825986_UP1EM7D0Z2IQU_RTRMADP_3_CRICKET-ENG-IND-1-1791352032.jpg?resize=1920%2C1440",
+      "category": "sport"
+    },
+    {
+      "id": "379430de4c9f6f002a01",
+      "source": "reuters",
+      "title": "French mayor caught in viral video clash says student protesters 'could be my children'",
+      "url": "https://www.reuters.com/world/french-mayor-caught-viral-video-clash-says-student-protesters-could-be-my-2026-10-07/",
+      "publishedAt": "2026-10-07T21:08:45.127000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/ICD5D26ENBMVHMSWAJ7BYFDALM.jpg?auth=8860367fa76e99519709d1fc0082299d84d6e8118969789873fdc362ea0bafbc&smart=true&width=1920",
+      "category": "world"
+    },
+    {
+      "id": "afa23306f4147da675f4",
+      "source": "aljazeera",
+      "title": "Gaza child’s autoimmune condition triggered amid Israel’s war",
+      "url": "https://www.aljazeera.com/video/newsfeed/2026/10/7/gaza-childs-autoimmune-condition-triggered-amid-israels-war?traffic_source=rss",
+      "publishedAt": "2026-10-07T21:06:46+00:00",
+      "image": "https://www.aljazeera.com/wp-content/uploads/2026/10/Gaza-child-autoimmune-Horizontal-thumb-1791407164.jpg?resize=1920%2C1080&quality=80",
+      "category": "world"
+    },
+    {
+      "id": "15f217eae8e92847426f",
+      "source": "reuters",
+      "title": "AI companies run virtual drug trials, aim to improve success of human studies",
+      "url": "https://www.reuters.com/legal/litigation/ai-companies-run-virtual-drug-trials-aim-improve-success-human-studies-2026-10-07/",
+      "publishedAt": "2026-10-07T21:01:28.687000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/3TTXSDI3WZMKRDJI6UPSI6XRR4.jpg?auth=02d92713bfb202e79b950984a7661608434062628e1e3923eedf45b90122ab77&smart=true&width=1920",
+      "category": "legal"
+    },
+    {
+      "id": "74bb8235f0e475dfa34b",
+      "source": "bloomberg",
+      "title": "Longshots Losing 98% of Time Dominate Kalshi, Polymarket Trading",
+      "url": "https://www.bloomberg.com/news/features/2026-10-07/longshots-losing-98-of-time-dominate-kalshi-polymarket-trading",
+      "publishedAt": "2026-10-07T21:00:06+00:00",
+      "image": null,
+      "category": "markets"
+    },
+    {
+      "id": "c6cb3b82e9fba8899f5f",
+      "source": "reuters",
+      "title": "AI wants to cure disease. It needs data first",
+      "url": "https://www.reuters.com/technology/artificial-intelligence/ai-wants-cure-disease-it-needs-data-first-2026-10-07/",
+      "publishedAt": "2026-10-07T21:00:00.278000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/GDZ5IYM5GRCCRGGIGTFCIVNBTE.png?auth=09d437544019d400122ca65c2983c82c758593679014127eafa120883a4f2cdb&smart=true&width=1920",
+      "category": "technology"
+    },
+    {
+      "id": "d830e30f3fba12760a20",
+      "source": "reuters",
+      "title": "Attacks on Saudi airports kill three people, as fighting escalates in Yemen",
+      "url": "https://www.reuters.com/world/middle-east/houthis-launch-missiles-yemens-aden-airport-fighting-intensifies-2026-10-07/",
+      "publishedAt": "2026-10-07T20:59:19.556000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/EDCEF3KM6ZMYHOT2QFBCW32XA4.jpg?auth=4616ae75f15a048b2d7b0b747bf764f06ae0b164d18586df51f55575819ab59b&smart=true&width=1920",
+      "category": "world"
+    },
+    {
+      "id": "1c796a91558e7418eba0",
+      "source": "reuters",
+      "title": "Raise a glass: League to allow drinking celebrations after 'juice' saga",
+      "url": "https://www.reuters.com/sports/raise-glass-league-allow-drinking-celebrations-after-juice-saga-2026-10-07/",
+      "publishedAt": "2026-10-07T20:55:43.590000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/LIHZ7MHSAFPW5AD52WPBGP3XMM.jpg?auth=d56ede440921118ef272c9df1e60c2871743a0244909edf4eacfcec377bf12f3&smart=true&width=1920",
+      "category": "sport"
+    },
+    {
+      "id": "eb0db9c3deb116882013",
+      "source": "aljazeera",
+      "title": "Inside SpaceX’s new look for AI data centres in orbit",
+      "url": "https://www.aljazeera.com/video/newsfeed/2026/10/7/inside-spacexs-new-look-for-ai-data-centres-in-orbit?traffic_source=rss",
+      "publishedAt": "2026-10-07T20:54:43+00:00",
+      "image": "https://www.aljazeera.com/wp-content/uploads/2026/10/FULL-THUMBNAIL-Templates3_2-Website-1791406396.jpg?resize=1920%2C1080&quality=80",
+      "category": "technology"
+    },
     {
       "id": "5176116a460ae9e4ade4",
       "source": "reuters",
@@ -158,60 +383,6 @@
       "category": "sport"
     },
     {
-      "id": "a8d4272dc0bde85d0cc7",
-      "source": "reuters",
-      "title": "Venezuela's Maduro to face new US charges over alleged torture of Americans, official says",
-      "url": "https://www.reuters.com/world/americas/maduro-wife-expected-face-new-charges-over-alleged-torture-americans-cnn-says-2026-10-07/",
-      "publishedAt": "2026-10-07T20:47:14.029000+00:00",
-      "image": "https://www.reuters.com/resizer/v2/6QSXLFHPMRIRLD7ANR6HZTPJEE.jpg?auth=5e35fd98ee211c19c4a333e965ee0f2032431bae2179be794caacefe8a26fb4d&smart=true&width=1920",
-      "category": "world"
-    },
-    {
-      "id": "5456917d40e266810eba",
-      "source": "reuters",
-      "title": "Spanish unions call general strike for November 11, weeks before snap election",
-      "url": "https://www.reuters.com/business/world-at-work/spanish-unions-call-general-strike-november-11-weeks-before-snap-election-2026-10-07/",
-      "publishedAt": "2026-10-07T20:46:18.122000+00:00",
-      "image": "https://www.reuters.com/resizer/v2/XV4ZPLUHIZJ4NOLKAEGKJIY4OU.jpg?auth=55e04425d3c45e919e5b7f3d151537c690b53cee76d0379b2b1e58095d896843&smart=true&width=1920",
-      "category": "business"
-    },
-    {
-      "id": "c40036ae867dad344ff5",
-      "source": "reuters",
-      "title": "Trump says he deserves Nobel Peace Prize but has doubts he will get it",
-      "url": "https://www.reuters.com/world/europe/trump-says-he-deserves-nobel-peace-prize-has-doubts-he-will-get-it-2026-10-07/",
-      "publishedAt": "2026-10-07T20:45:43.838000+00:00",
-      "image": "https://www.reuters.com/resizer/v2/GBGDRTVU5VPFNMKWLFZKIBTTBU.jpg?auth=6eac47ff474b29727b10f60c17fc4f899fc97dcf8916207805cd2762cdf459f4&smart=true&width=1920",
-      "category": "science"
-    },
-    {
-      "id": "9c8071e0fc0b040cc31d",
-      "source": "reuters",
-      "title": "Levi Strauss lifts annual profit outlook on tariff refunds, holiday demand",
-      "url": "https://www.reuters.com/business/retail-consumer/levi-strauss-lifts-annual-profit-outlook-tariff-refunds-holiday-demand-2026-10-07/",
-      "publishedAt": "2026-10-07T20:43:57.452000+00:00",
-      "image": "https://www.reuters.com/resizer/v2/HGUCXMESPRNGHMRPQCU4TX74IM.jpg?auth=7556eb46bfa234e149406b5258812d03fb046eaaa7c9041687f560a0ddf2aa41&smart=true&width=1920",
-      "category": "business"
-    },
-    {
-      "id": "7fccd6e9033657c4655d",
-      "source": "reuters",
-      "title": "Leak exposes payments made to hacking group that has extorted millions from law firms",
-      "url": "https://www.reuters.com/legal/government/leak-exposes-payments-made-hacking-group-that-has-extorted-millions-law-firms-2026-10-07/",
-      "publishedAt": "2026-10-07T20:42:57.897000+00:00",
-      "image": null,
-      "category": "legal"
-    },
-    {
-      "id": "f5ffe144bb69723033c8",
-      "source": "reuters",
-      "title": "TSX posts steepest decline in four months as bond yields climb",
-      "url": "https://www.reuters.com/business/tsx-futures-slip-oil-yields-fuel-rate-hike-fears-ahead-fed-minutes-2026-10-07/",
-      "publishedAt": "2026-10-07T20:40:03.267000+00:00",
-      "image": "https://www.reuters.com/resizer/v2/INFAMRXS2RMPNLIHTQW2GXZH7U.jpg?auth=e49551b4d9da3d21e0f4be3d6469701fa99c7297ad04e3ba8aaf1632d73b8877&smart=true&width=1920",
-      "category": "markets"
-    },
-    {
       "id": "50c34b30acd072005201",
       "source": "cnbc",
       "title": "Lululemon poaches Athleta CEO as new chief product officer",
@@ -219,33 +390,6 @@
       "publishedAt": "2026-10-07T20:39:39+00:00",
       "image": "https://image.cnbcfm.com/api/v1/image/108335663-1784152010295-gettyimages-2285645602-RETAIL_SALES.jpeg?v=1791300296&w=1920&h=1080",
       "category": "other"
-    },
-    {
-      "id": "5a9e92fe2ba5d7700e79",
-      "source": "reuters",
-      "title": "Glaukos says late-stage eye disease treatment shows lasting benefits after single dose",
-      "url": "https://www.reuters.com/business/healthcare-pharmaceuticals/glaukos-says-late-stage-eye-disease-treatment-shows-lasting-benefits-after-2026-10-07/",
-      "publishedAt": "2026-10-07T20:35:39.614000+00:00",
-      "image": null,
-      "category": "business"
-    },
-    {
-      "id": "95cddbb2d1a1824ed026",
-      "source": "reuters",
-      "title": "CDC sees low plague risk, monitors Siberia arrivals after worker death, director says",
-      "url": "https://www.reuters.com/business/healthcare-pharmaceuticals/cdc-sees-low-plague-risk-monitors-siberia-arrivals-after-worker-death-director-2026-10-07/",
-      "publishedAt": "2026-10-07T20:34:18.190000+00:00",
-      "image": "https://www.reuters.com/resizer/v2/E73RUJPT6VMYLMJDCZFEUJAXVU.jpg?auth=bb42700be445dc25b9b7c8dfc56ef12c8cb34ae78d162389c29a4af574f22727&smart=true&width=1920",
-      "category": "business"
-    },
-    {
-      "id": "27ff3e7f53958d3340bd",
-      "source": "reuters",
-      "title": "EPA says it will rescind US policy targeting oil and gas industry methane leaks",
-      "url": "https://www.reuters.com/legal/government/epa-says-will-soon-act-rescind-biden-policy-targeting-methane-leaks-2026-10-07/",
-      "publishedAt": "2026-10-07T20:33:39.417000+00:00",
-      "image": "https://www.reuters.com/resizer/v2/VPLMLRWSRBN37HRNXMEK5GCRC4.jpg?auth=04137f69d4ba86d8689adc50ebf5b2d353ed3c0510f9421ecc9859780b6b09b4&smart=true&width=1920",
-      "category": "legal"
     },
     {
       "id": "c74476bd4d4f8fac2896",
@@ -257,57 +401,12 @@
       "category": "world"
     },
     {
-      "id": "4aadcc1c6720b355ae27",
-      "source": "reuters",
-      "title": "Tropical Storm Isaias forecast to hit US Gulf coast as hurricane early Saturday",
-      "url": "https://www.reuters.com/business/environment/tropical-storm-isaias-forecast-hit-us-gulf-coast-hurricane-early-saturday-2026-10-07/",
-      "publishedAt": "2026-10-07T20:31:12.292000+00:00",
-      "image": "https://www.reuters.com/resizer/v2/5XB5MXAIAFPY3MBT4HGXQXAJ3E.jpg?auth=28ce392e9cbb1d4fa3581ea41bb32b2c28ca104f9aec2e911b81a921193abb68&smart=true&width=1920",
-      "category": "sustainability"
-    },
-    {
-      "id": "ff12955a54b85276af6b",
-      "source": "reuters",
-      "title": "World shares, euro slide as high oil prices, fiscal worries linger",
-      "url": "https://www.reuters.com/world/china/global-markets-global-markets-2026-10-07/",
-      "publishedAt": "2026-10-07T20:31:07.993000+00:00",
-      "image": "https://www.reuters.com/resizer/v2/3GFJ422VYFM57ITJ3ITNOMKR5M.jpg?auth=0848b32097ef35a1df49aa1d8f5a8173cafc6080b02e74a83ecc66b47b3fb36a&smart=true&width=1920",
-      "category": "markets"
-    },
-    {
-      "id": "670bf9a39edb8be7bb35",
-      "source": "reuters",
-      "title": "US proposes to boost transit funding to areas with higher marriage, birth rates",
-      "url": "https://www.reuters.com/world/us/us-proposes-boost-transit-funding-areas-with-higher-marriage-birth-rates-2026-10-07/",
-      "publishedAt": "2026-10-07T20:27:58.617000+00:00",
-      "image": "https://www.reuters.com/resizer/v2/J2OT46IMSVO2LHG3HHCW3T5WGM.jpg?auth=1bb42dc711388997fd45b2f1aac58ca16ebd233c55b315fd77faa5f6343d7aff&smart=true&width=1920",
-      "category": "world"
-    },
-    {
       "id": "d0bb0ee1bf10d4f246cc",
       "source": "aljazeera",
       "title": "US Republicans, independents express low trust in election integrity: Poll",
       "url": "https://www.aljazeera.com/news/2026/10/7/us-republicans-independents-express-low-trust-in-election-integrity-poll?traffic_source=rss",
       "publishedAt": "2026-10-07T20:27:47+00:00",
       "image": "https://www.aljazeera.com/wp-content/uploads/2026/10/reuters_6ac1be8e-1791082126.jpg?resize=1920%2C1440",
-      "category": "world"
-    },
-    {
-      "id": "1b7404c297d544ea204a",
-      "source": "reuters",
-      "title": "Trump to appear at White House science event on Thursday",
-      "url": "https://www.reuters.com/business/media-telecom/trump-expected-award-science-medal-spacexs-elon-musk-fox-news-reports-2026-10-07/",
-      "publishedAt": "2026-10-07T20:27:32.564000+00:00",
-      "image": "https://www.reuters.com/resizer/v2/DHOWK6DTXBLRFORI2CPHTY2ERY.jpg?auth=c85907bf9891a11db9e5f4b6b0e5277f0bf078d6e990671b26a6bcc5d4e9d37b&smart=true&width=1920",
-      "category": "science"
-    },
-    {
-      "id": "00faab173dbd6427e701",
-      "source": "cnbc",
-      "title": "Trump’s diesel order exposes White House limits to counter surging fuel prices",
-      "url": "https://www.cnbc.com/2026/10/07/trump-red-dye-offroad-diesel-price-iran-ukraine-war-midterm.html",
-      "publishedAt": "2026-10-07T20:26:51+00:00",
-      "image": "https://image.cnbcfm.com/api/v1/image/108364429-1789658380560-gettyimages-2295761542-mms10061_tiwtupzm.jpeg?v=1789658521&w=1920&h=1080",
       "category": "world"
     },
     {
@@ -336,51 +435,6 @@
       "publishedAt": "2026-10-07T20:24:48+00:00",
       "image": "https://image.cnbcfm.com/api/v1/image/108238869-1765273146995-gettyimages-2250207687-NVIDIA_Chip.jpeg?v=1773959556&w=1920&h=1080",
       "category": "markets"
-    },
-    {
-      "id": "d830e30f3fba12760a20",
-      "source": "reuters",
-      "title": "Attacks on Saudi airports kill three people, as fighting escalates in Yemen",
-      "url": "https://www.reuters.com/world/middle-east/houthis-launch-missiles-yemens-aden-airport-fighting-intensifies-2026-10-07/",
-      "publishedAt": "2026-10-07T20:21:28.631000+00:00",
-      "image": "https://www.reuters.com/resizer/v2/EDCEF3KM6ZMYHOT2QFBCW32XA4.jpg?auth=4616ae75f15a048b2d7b0b747bf764f06ae0b164d18586df51f55575819ab59b&smart=true&width=1920",
-      "category": "world"
-    },
-    {
-      "id": "10b73971c52e9bc5a4fe",
-      "source": "reuters",
-      "title": "Evicted Spanish octogenarian Maricarmen Abascal, heart of Spain's housing protests, has died",
-      "url": "https://www.reuters.com/world/evicted-spanish-octogenarian-maricarmen-abascal-heart-spains-housing-protests-2026-10-07/",
-      "publishedAt": "2026-10-07T20:20:30.104000+00:00",
-      "image": "https://www.reuters.com/resizer/v2/ORWZUTGM3BPNHAT6UZZ5T2PDHE.jpg?auth=3c50039e27cf7260035fb6ee99b2de77a39b04c60857ea579e7122227abe36d4&smart=true&width=1920",
-      "category": "world"
-    },
-    {
-      "id": "6f5b6b4dac3b2dbea5c5",
-      "source": "reuters",
-      "title": "Fed policymakers divided over rate-hike logic in September, minutes show",
-      "url": "https://www.reuters.com/business/fed-policymakers-divided-over-rate-hike-logic-september-minutes-show-2026-10-07/",
-      "publishedAt": "2026-10-07T20:19:52.747000+00:00",
-      "image": "https://www.reuters.com/resizer/v2/5NF4SM4BTRLKPJT6LY3AHR4HZA.jpg?auth=b8f806f3629b1ac1b9320a0695d15163bf1102fafbb4319b2f3d90921f466b81&smart=true&width=1920",
-      "category": "business"
-    },
-    {
-      "id": "05939284f3afb033e967",
-      "source": "reuters",
-      "title": "Wall Street ends lower, off record highs, as Treasury yields climb",
-      "url": "https://www.reuters.com/business/wall-st-futures-slip-yields-oil-rebound-fed-minutes-focus-2026-10-07/",
-      "publishedAt": "2026-10-07T20:19:47.176000+00:00",
-      "image": "https://www.reuters.com/resizer/v2/GCFMMABDZZM4LIXAZTC4IJJ7UQ.jpg?auth=f78af9c14d20adb476a11c4cd842169bc1d5276ddd76c728f7b6c54439bd3cd1&smart=true&width=1920",
-      "category": "markets"
-    },
-    {
-      "id": "207b62f0417703dbc507",
-      "source": "reuters",
-      "title": "Kennedy offers federal support to New York over measles outbreak",
-      "url": "https://www.reuters.com/legal/litigation/kennedy-offers-federal-support-new-york-over-measles-outbreak-2026-10-07/",
-      "publishedAt": "2026-10-07T20:19:44.744000+00:00",
-      "image": "https://www.reuters.com/resizer/v2/3PFO2JEKXJL3XIXVPIJOKLMFVE.jpg?auth=eb80834d8650563a59c51cb1a0cf77522dd72fcc7a75ab456541bea1ef128210&smart=true&width=1920",
-      "category": "legal"
     },
     {
       "id": "997798aeab1971bc0c66",
@@ -453,15 +507,6 @@
       "publishedAt": "2026-10-07T19:46:42+00:00",
       "image": null,
       "category": "world"
-    },
-    {
-      "id": "aa7d45b1b7258855b990",
-      "source": "cnbc",
-      "title": "Apollo, banks in talks to finance SpaceX's $40 billion Nvidia GPU purchase",
-      "url": "https://www.cnbc.com/2026/10/07/spacex-nvidia-chips-apollo-financing.html",
-      "publishedAt": "2026-10-07T19:42:31+00:00",
-      "image": "https://image.cnbcfm.com/api/v1/image/108321428-17812944792026-06-12t161555z_305406967_rc2gsla0exkf_rtrmadp_0_spacex-ipo-california.jpeg?v=1784319677&w=1920&h=1080",
-      "category": "business"
     },
     {
       "id": "e298b2733cbfda8d0f35",
@@ -581,15 +626,6 @@
       "category": "other"
     },
     {
-      "id": "0a8bdcaa508a602847ca",
-      "source": "bloomberg",
-      "title": "LIV Golf Gets Potential Lifeline From BC Partners Credit",
-      "url": "https://www.bloomberg.com/news/videos/2026-10-07/liv-golf-gets-potential-lifeline-from-bc-partners-credit-video",
-      "publishedAt": "2026-10-07T18:43:20+00:00",
-      "image": null,
-      "category": "other"
-    },
-    {
       "id": "08e91b4dc0b41b2f59fc",
       "source": "cnbc",
       "title": "Fed officials see another hike coming, but no sign as to when, minutes show",
@@ -689,15 +725,6 @@
       "category": "world"
     },
     {
-      "id": "ce6c71cf4ef755e21064",
-      "source": "aljazeera",
-      "title": "Woman whose eviction sparked Spain housing protests dies aged 87",
-      "url": "https://www.aljazeera.com/news/2026/10/7/spanish-unions-call-general-strike-over-housing-before-snap-election?traffic_source=rss",
-      "publishedAt": "2026-10-07T18:02:47+00:00",
-      "image": "https://www.aljazeera.com/wp-content/uploads/2026/10/reuters_6ac67a7c-1791392380.jpg?resize=1920%2C1440",
-      "category": "world"
-    },
-    {
       "id": "42510e2949de284927d3",
       "source": "bloomberg",
       "title": "SEC Warns Activist Investors After Climate Push at Exxon",
@@ -725,15 +752,6 @@
       "category": "other"
     },
     {
-      "id": "48d4da5bc16fe28f8df2",
-      "source": "aljazeera",
-      "title": "Over 100 arrested in Belgium student protests over education costs",
-      "url": "https://www.aljazeera.com/news/2026/10/7/over-100-arrested-in-belgium-student-protests-over-education-costs?traffic_source=rss",
-      "publishedAt": "2026-10-07T17:28:56+00:00",
-      "image": "https://www.aljazeera.com/wp-content/uploads/2026/10/epa_6ac66b286167-1791388456.jpg?resize=1920%2C1440",
-      "category": "other"
-    },
-    {
       "id": "04b23d11949f8bff07e5",
       "source": "cnbc",
       "title": "Meta's Muse assistant tops app charts. Now it needs to become a habit",
@@ -750,24 +768,6 @@
       "publishedAt": "2026-10-07T17:16:28+00:00",
       "image": "https://image.cnbcfm.com/api/v1/image/108373796-1791360823662-gettyimages-2297901439-AFP_C9W887L.jpeg?v=1791360836&w=1920&h=1080",
       "category": "technology"
-    },
-    {
-      "id": "a9c21e46fa81e44a2666",
-      "source": "aljazeera",
-      "title": "US mortgage rates hit their highest level in three years",
-      "url": "https://www.aljazeera.com/economy/2026/10/7/us-mortgage-rates-hit-their-highest-level-in-three-years?traffic_source=rss",
-      "publishedAt": "2026-10-07T17:05:10+00:00",
-      "image": "https://www.aljazeera.com/wp-content/uploads/2026/10/2026-10-07T110012Z_2103323680_RC21ZDAJ0G5H_RTRMADP_3_USA-ECONOMY-MORTGAGES-1791389874.jpg?resize=1920%2C1440",
-      "category": "business"
-    },
-    {
-      "id": "663d6119b62dbb935577",
-      "source": "aljazeera",
-      "title": "UEFA football leaders meet to shape strategy to oust FIFA’s Infantino",
-      "url": "https://www.aljazeera.com/sports/2026/10/7/uefa-football-leaders-meet-to-shape-strategy-to-oust-fifas-infantino?traffic_source=rss",
-      "publishedAt": "2026-10-07T16:47:24+00:00",
-      "image": "https://www.aljazeera.com/wp-content/uploads/2026/10/AP26280543584270-1791389805.jpg?resize=1920%2C1440",
-      "category": "sport"
     },
     {
       "id": "db6c294d59c88b85c53c",
@@ -1751,93 +1751,84 @@
       "category": "local"
     },
     {
-      "id": "c87f3e3dbbfa4d50bc62",
+      "id": "7ed4c99a6a0bfe332c71",
       "source": "investing",
-      "title": "Why is Profound Medical stock surging today?",
-      "url": "https://www.investing.com/news/stock-market-news/why-is-profound-medical-stock-surging-today-93CH-4937522",
+      "title": "Democrats sue Trump to halt taxpayer-funded TV ads that praised him",
+      "url": "https://www.investing.com/news/economy-news/democrats-sue-trump-to-halt-taxpayerfunded-tv-ads-that-praised-him-4937574",
       "publishedAt": null,
-      "image": "https://content-media.investing.com/news/LYNXNPEC0Q0MJ_M.jpg",
-      "category": "markets"
-    },
-    {
-      "id": "4c740ecd213dd0261710",
-      "source": "investing",
-      "title": "MicroVision stock tumbles on reiterated 2026 guidance",
-      "url": "https://www.investing.com/news/stock-market-news/microvision-stock-tumbles-on-reiterated-2026-guidance-4937521",
-      "publishedAt": null,
-      "image": "https://content-media.investing.com/news/LYNXMPEM3D1C7_1200_L.jpg",
-      "category": "markets"
-    },
-    {
-      "id": "88cfde9b901f35677c53",
-      "source": "investing",
-      "title": "World shares, euro slide as high oil prices, fiscal worries linger",
-      "url": "https://www.investing.com/news/economy-news/asia-shares-weaker-oil-up-investors-weigh-saudihouthi-escalation-4935555",
-      "publishedAt": null,
-      "image": "https://content-media.investing.com/trkd-images/LYNXMPEM9605M_L.jpg",
-      "category": "markets"
-    },
-    {
-      "id": "a931af4f80a439c14603",
-      "source": "investing",
-      "title": "NextNRG amends preferred stock terms to boost equity",
-      "url": "https://www.investing.com/news/company-news/nextnrg-amends-preferred-stock-terms-to-boost-equity-93CH-4937519",
-      "publishedAt": null,
-      "image": "https://content-media.investing.com/news/LYNXMPEM4J1W2_1200_L.jpg",
-      "category": "markets"
-    },
-    {
-      "id": "0152a8279ee86ae8e337",
-      "source": "investing",
-      "title": "Applied Digital posts top-line beat in Q1 amid data center growth",
-      "url": "https://www.investing.com/news/earnings/applied-digital-posts-topline-beat-in-q1-amid-data-center-growth-4937518",
-      "publishedAt": null,
-      "image": "https://content-media.investing.com/news/moved_LYNXMPEM8O0Y3_L.jpg",
-      "category": "technology"
-    },
-    {
-      "id": "32e2a612b6ced0a706f5",
-      "source": "investing",
-      "title": "Tropical Storm Isaias forecast to hit US Gulf coast as hurricane early Saturday",
-      "url": "https://www.investing.com/news/commodities-news/tropical-stormisaias-forecast-to-hit-us-gulf-coast-as-hurricane-early-saturday-4937254",
-      "publishedAt": null,
-      "image": "https://content-media.investing.com/news/oil_2_M_1440047844.jpg",
-      "category": "other"
-    },
-    {
-      "id": "88a79522a3e396eef006",
-      "source": "investing",
-      "title": "Western Union renews partnership with Publix Super Markets",
-      "url": "https://www.investing.com/news/company-news/western-union-renews-partnership-with-publix-super-markets-93CH-4937514",
-      "publishedAt": null,
-      "image": "https://content-media.investing.com/news/LYNXNPEC101V6_M.jpg",
-      "category": "markets"
-    },
-    {
-      "id": "912b35e0555567e44fc7",
-      "source": "investing",
-      "title": "Clear Channel Outdoor receives CFIUS approval for Mubadala deal",
-      "url": "https://www.investing.com/news/company-news/clear-channel-outdoor-receives-cfius-approval-for-mubadala-deal-93CH-4937515",
-      "publishedAt": null,
-      "image": "https://content-media.investing.com/news/LYNXMPEM0M17X_1200_L.jpg",
+      "image": "https://content-media.investing.com/trkd-images/LYNXMPEM9622M_L.jpg",
       "category": "business"
     },
     {
-      "id": "ef91ffa347e1bbab7318",
+      "id": "4cc73602a44e910cf2ee",
       "source": "investing",
-      "title": "CF Industries declares $0.60 per share quarterly dividend",
-      "url": "https://www.investing.com/news/company-news/cf-industries-declares-060-per-share-quarterly-dividend-93CH-4937516",
+      "title": "Missouri sued over alleged decades of underfunding at historically Black university",
+      "url": "https://www.investing.com/news/economy-news/missouri-sued-over-alleged-decades-of-underfunding-at-historically-black-university-4937565",
       "publishedAt": null,
-      "image": "https://content-media.investing.com/news/LYNXMPEM1B112_1200_L.jpg",
+      "image": "https://content-media.investing.com/trkd-images/LYNXMPEM9621F_L.jpg",
+      "category": "business"
+    },
+    {
+      "id": "5bf9d7262e64eef35c56",
+      "source": "investing",
+      "title": "Lululemon puts Nike veteran in charge of product as CEO O’Neill looks to right ship",
+      "url": "https://www.investing.com/news/stock-market-news/lululemon-puts-nike-veteran-in-charge-of-product-as-ceo-oneill-looks-to-right-ship-4937579",
+      "publishedAt": null,
+      "image": "https://content-media.investing.com/trkd-images/LYNXMPEM9622P_L.jpg",
       "category": "markets"
     },
     {
-      "id": "3c5ada96495a2f09dfb5",
+      "id": "de933d99e99188fdd528",
       "source": "investing",
-      "title": "EPA says it will rescind US policy targeting oil and gas industry methane leaks",
-      "url": "https://www.investing.com/news/commodities-news/epa-says-will-soon-act-to-rescind-biden-policy-targeting-methane-leaks-4937368",
+      "title": "Pan American Silver director Charles Jeannes to retire",
+      "url": "https://www.investing.com/news/company-news/pan-american-silver-director-charles-jeannes-to-retire-93CH-4937577",
       "publishedAt": null,
-      "image": "https://content-media.investing.com/news/LYNXMPEM4P1PU_1200_L.jpg",
+      "image": "https://content-media.investing.com/news/LYNXMPEM3Q0HO_1200_L.jpg",
+      "category": "business"
+    },
+    {
+      "id": "578210634f68034bc6c0",
+      "source": "investing",
+      "title": "Russia stocks higher at close of trade; MOEX Russia Index up 0.39%",
+      "url": "https://www.investing.com/news/stock-market-news/russia-stocks-higher-at-close-of-trade-moex-russia-index-up-039-4937576",
+      "publishedAt": null,
+      "image": "https://content-media.investing.com/news/LYNXMPEA77098_L.jpg",
+      "category": "markets"
+    },
+    {
+      "id": "878fc78c7f4e2a9aefd0",
+      "source": "investing",
+      "title": "Medical device maker Centinel Spine discloses revenue rise in US IPO filing",
+      "url": "https://www.investing.com/news/economy-news/medical-device-maker-centinel-spine-discloses-revenue-rise-in-us-ipo-filing-4937575",
+      "publishedAt": null,
+      "image": "https://content-media.investing.com/trkd-images/LYNXMPEM9622H_L.jpg",
+      "category": "business"
+    },
+    {
+      "id": "68d2850ab17363bf85df",
+      "source": "investing",
+      "title": "Gold slips as dollar firms on Fed minutes, oil prices rise in volatile session",
+      "url": "https://www.investing.com/news/commodities-news/gold-holds-gains-as-oil-flows-recover-treasury-yields-ease-4935492",
+      "publishedAt": null,
+      "image": "https://content-media.investing.com/news/Gold_800x533_L_1609947477.jpg",
+      "category": "markets"
+    },
+    {
+      "id": "83281e750391caaf25bd",
+      "source": "investing",
+      "title": "Wolfspeed secures $1.5 billion conditional loan commitment from US defense department",
+      "url": "https://www.investing.com/news/stock-market-news/wolfspeed-secures-15-billion-conditional-loan-commitment-from-us-defense-department-4937569",
+      "publishedAt": null,
+      "image": "https://content-media.investing.com/trkd-images/LYNXMPEM9621Z_L.jpg",
+      "category": "markets"
+    },
+    {
+      "id": "3b8d1f2f3dce9dd52114",
+      "source": "investing",
+      "title": "Exxon to repair Guyana offshore pipeline starting Oct. 14",
+      "url": "https://www.investing.com/news/stock-market-news/exxon-to-repair-guyana-offshore-pipeline-starting-oct-14-93CH-4937568",
+      "publishedAt": null,
+      "image": "https://content-media.investing.com/news/LYNXNPEB6U0PS_M.jpg",
       "category": "markets"
     },
     {
@@ -1868,6 +1859,51 @@
       "category": "local"
     },
     {
+      "id": "643f8ab0cdd9a4e85a45",
+      "source": "kontan",
+      "title": "Daftar Saham PER Terendah & Tertinggi LQ45 (7 Oktober 2026), BRPT dan GOTO Terkoreksi",
+      "url": "https://investasi.kontan.co.id/news/daftar-saham-per-terendah-tertinggi-lq45-7-oktober-2026-brpt-dan-goto-terkoreksi?source=home_terbaru",
+      "publishedAt": null,
+      "image": "https://foto.kontan.co.id/-QMZB4DlRXyxXZscYfWvtpi3dIE=/smart/2025/11/23/943661990t.jpg",
+      "category": "local"
+    },
+    {
+      "id": "7b1302b513f201f821e5",
+      "source": "kontan",
+      "title": "Harga Emas Antam Hari Ini (7/10), Simak Selisihnya dengan Harga Buyback",
+      "url": "https://pusatdata.kontan.co.id/news/harga-emas-antam-hari-ini-710-simak-selisihnya-dengan-harga-buyback?source=home_terbaru",
+      "publishedAt": null,
+      "image": "https://foto.kontan.co.id/Xu85bHebEOtke97tN5lbuOwLMaI=/smart/2024/02/03/863365089t.jpg",
+      "category": "local"
+    },
+    {
+      "id": "87b981080cb218a0f82c",
+      "source": "kontan",
+      "title": "Satu Harga, Dua Dasar Pajak",
+      "url": "https://insight.kontan.co.id/news/satu-harga-dua-dasar-pajak?source=home_terbaru",
+      "publishedAt": null,
+      "image": "https://foto.kontan.co.id/0eZlb7pZZoZ36lNwI4xwmbYREdk=/smart/2026/08/02/2010882439t.jpg",
+      "category": "local"
+    },
+    {
+      "id": "e2880b24e904132f4ab4",
+      "source": "kontan",
+      "title": "Tiga Tahun Israel Bombardir Gaza: Rasa Kemanusian yang Hilang untuk Warga Palestina",
+      "url": "https://internasional.kontan.co.id/news/tiga-tahun-israel-bombardir-gaza-rasa-kemanusian-yang-hilang-untuk-warga-palestina?source=home_terbaru",
+      "publishedAt": null,
+      "image": "https://foto.kontan.co.id/ZpVo3Bdo_f8BtvmPsX770Phs1dI=/smart/2026/08/13/1527534441t.jpg",
+      "category": "local"
+    },
+    {
+      "id": "28600ffb635b9ca85d5b",
+      "source": "kontan",
+      "title": "Harga iPhone 18 Di Indonesia Mulai Rp 27 Juta, Apakah Lebih Murah Beli Di Singapura?",
+      "url": "https://internasional.kontan.co.id/news/harga-iphone-18-di-indonesia-mulai-rp-27-juta-apakah-lebih-murah-beli-di-singapura?source=home_terbaru",
+      "publishedAt": null,
+      "image": "https://foto.kontan.co.id/V8mMaZrz8UwyhiwtHcSvj54lZP4=/smart/2026/10/07/575522991t.jpg",
+      "category": "local"
+    },
+    {
       "id": "f6e6b917a79798fd11a6",
       "source": "kontan",
       "title": "BEI Soroti Lonjakan Saham BEKS 31,82%, Bank Banten Buka Suara",
@@ -1883,6 +1919,33 @@
       "url": "https://keuangan.kontan.co.id/news/prudential-indonesia-catatkan-premi-asuransi-penyakit-kritis-naik-5?source=home_terbaru",
       "publishedAt": null,
       "image": "https://foto.kontan.co.id/7JoVShjLptH3TUxfek0BFpiz2Y4=/smart/2024/05/27/616886676t.jpg",
+      "category": "local"
+    },
+    {
+      "id": "153ae09e9abc99a83315",
+      "source": "kontan",
+      "title": "Satu Harga, Dua Dasar Pajak",
+      "url": "https://insight.kontan.co.id/news/satu-harga-dua-dasar-pajak?source=home_insight",
+      "publishedAt": null,
+      "image": "https://foto.kontan.co.id/KYZj7fZef3nJXYHGGtQDZiWXzFA=/smart/2026/08/02/2010882439p.jpg",
+      "category": "local"
+    },
+    {
+      "id": "31537daee70483497bed",
+      "source": "kontan",
+      "title": "UU Pelindungan Ketenagakerjaan Disahkan, Bagaimana Dampaknya ke Pengusaha dan Buruh?",
+      "url": "https://insight.kontan.co.id/news/uu-pelindungan-ketenagakerjaan-disahkan-bagaimana-dampaknya-ke-pengusaha-dan-buruh?source=home_insight",
+      "publishedAt": null,
+      "image": "https://foto.kontan.co.id/kPp0Eof25dcDO7iRmwFdknoUR80=/smart/2026/10/06/1668900014p.jpg",
+      "category": "local"
+    },
+    {
+      "id": "830091e21a8b502889c5",
+      "source": "kontan",
+      "title": "AALI Buyback Rp 400 miliar, Murni Undervalued atau Cuma Pemanis?",
+      "url": "https://insight.kontan.co.id/news/aali-buyback-rp-400-miliar-murni-undervalued-atau-cuma-pemanis?source=home_insight",
+      "publishedAt": null,
+      "image": "https://foto.kontan.co.id/eFx21ZoHREZyjkGz3svEl7UEfts=/smart/2022/10/19/2069580884p.jpg",
       "category": "local"
     },
     {
@@ -1931,78 +1994,6 @@
       "category": "local"
     },
     {
-      "id": "31537daee70483497bed",
-      "source": "kontan",
-      "title": "UU Pelindungan Ketenagakerjaan Disahkan, Bagaimana Dampaknya ke Pengusaha dan Buruh?",
-      "url": "https://insight.kontan.co.id/news/uu-pelindungan-ketenagakerjaan-disahkan-bagaimana-dampaknya-ke-pengusaha-dan-buruh?source=home_insight",
-      "publishedAt": null,
-      "image": "https://foto.kontan.co.id/kPp0Eof25dcDO7iRmwFdknoUR80=/smart/2026/10/06/1668900014p.jpg",
-      "category": "local"
-    },
-    {
-      "id": "830091e21a8b502889c5",
-      "source": "kontan",
-      "title": "AALI Buyback Rp 400 miliar, Murni Undervalued atau Cuma Pemanis?",
-      "url": "https://insight.kontan.co.id/news/aali-buyback-rp-400-miliar-murni-undervalued-atau-cuma-pemanis?source=home_insight",
-      "publishedAt": null,
-      "image": "https://foto.kontan.co.id/eFx21ZoHREZyjkGz3svEl7UEfts=/smart/2022/10/19/2069580884p.jpg",
-      "category": "local"
-    },
-    {
-      "id": "9fe22676cf9bb3ff6ab0",
-      "source": "kontan",
-      "title": "Biar Anak Tidak Kaget saat Mengelola Uang Sendiri",
-      "url": "https://insight.kontan.co.id/news/biar-anak-tidak-kaget-saat-mengelola-uang-sendiri?source=home_insight",
-      "publishedAt": null,
-      "image": "https://foto.kontan.co.id/2qeQUELa-0KvMX7qMFrJ_pHFwHU=/smart/2023/06/23/286931065p.jpg",
-      "category": "local"
-    },
-    {
-      "id": "84d0c41a7dfad0e19b22",
-      "source": "kontan",
-      "title": "Dukung Program 3 Juta Rumah, Lahan Komdigi di Depok Jadi Aset Kementerian PKP",
-      "url": "https://nasional.kontan.co.id/news/dukung-program-3-juta-rumah-lahan-komdigi-di-depok-jadi-aset-kementerian-pkp?source=home_terbaru",
-      "publishedAt": null,
-      "image": "https://foto.kontan.co.id/ucP8715lX76KQXdtr6XqqqnsP-o=/smart/2026/04/14/781453392t.jpg",
-      "category": "local"
-    },
-    {
-      "id": "f8bccb0e618c7a468f73",
-      "source": "kontan",
-      "title": "Piutang Syariah MUF Tumbuh 16,4% Jadi Rp8,7 Triliun hingga September 2026",
-      "url": "https://keuangan.kontan.co.id/news/piutang-syariah-muf-tumbuh-164-jadi-rp87-triliun-hingga-september-2026?source=home_terbaru",
-      "publishedAt": null,
-      "image": "https://foto.kontan.co.id/7ugECLVR5UXgs4LDI6bHb4M80hw=/smart/2025/01/14/2024010912t.jpg",
-      "category": "local"
-    },
-    {
-      "id": "cebab8a6937958f96a9f",
-      "source": "kontan",
-      "title": "Kesiapan Finansial Penting Hadapi Risiko Kesehatan",
-      "url": "https://keuangan.kontan.co.id/news/kesiapan-finansial-penting-hadapi-risiko-kesehatan?source=home_terbaru",
-      "publishedAt": null,
-      "image": "https://foto.kontan.co.id/n993QfIhHrCpLlyo4R80ntYyLeo=/smart/2024/10/28/134362903t.jpg",
-      "category": "local"
-    },
-    {
-      "id": "c88ac1e32e59612c82cf",
-      "source": "kontan",
-      "title": "Asing Net Sell Jumbo Rp 871 Miliar, Cermati Saham yang Banyak Dijual, Rabu (7/10)",
-      "url": "https://investasi.kontan.co.id/news/asing-net-sell-jumbo-rp-871-miliar-cermati-saham-yang-banyak-dijual-rabu-710?source=home_terbaru",
-      "publishedAt": null,
-      "image": "https://foto.kontan.co.id/zt9Y6Pj0XV6SoZ93eJ4ihynhZE8=/smart/2026/09/15/128947954t.jpg",
-      "category": "local"
-    },
-    {
-      "id": "816b5c687443c93c0e62",
-      "source": "kontan",
-      "title": "Lubrizol Incar Peluang Bisnis dari Transisi Energi Sektor Tambang Indonesia",
-      "url": "https://industri.kontan.co.id/news/lubrizol-incar-peluang-bisnis-dari-transisi-energi-sektor-tambang-indonesia?source=home_terbaru",
-      "publishedAt": null,
-      "image": "https://foto.kontan.co.id/m1QA8_5qaCjniXf3YLZAmxrYMlg=/smart/2025/07/27/1903960950t.jpg",
-      "category": "local"
-    },
-    {
       "id": "abb1df5486eb9c9fdb42",
       "source": "kontan",
       "title": "Purbaya Masih Rapat, Begini Kronologi Pergantian Menteri Keuangan dan PR Suahasil",
@@ -2021,93 +2012,93 @@
       "category": "local"
     },
     {
-      "id": "e33fdd0e6dc8ace7a707",
+      "id": "06afcf5835541f2c16c6",
       "source": "investing_id",
-      "title": "NextNRG ubah ketentuan saham preferen untuk perkuat ekuitas",
-      "url": "https://id.investing.com/news/company-news/nextnrg-ubah-ketentuan-saham-preferen-untuk-perkuat-ekuitas-93CH-3089811",
+      "title": "Direktur Pan American Silver, Charles Jeannes, akan pensiun",
+      "url": "https://id.investing.com/news/company-news/direktur-pan-american-silver-charles-jeannes-akan-pensiun-93CH-3089839",
       "publishedAt": null,
       "image": "https://content-media.investing.com/news/LYNXMPEM4R1OV_1200_L.jpg",
       "category": "local"
     },
     {
-      "id": "a1113e9434d412c5e204",
+      "id": "6401b0531c89e8cf6a6a",
       "source": "investing_id",
-      "title": "Clear Channel Outdoor mendapat persetujuan CFIUS untuk kesepakatan Mubadala",
-      "url": "https://id.investing.com/news/company-news/clear-channel-outdoor-mendapat-persetujuan-cfius-untuk-kesepakatan-mubadala-93CH-3089809",
+      "title": "Exxon akan perbaiki pipa lepas pantai Guyana mulai 14 Oktober",
+      "url": "https://id.investing.com/news/stock-market-news/exxon-akan-perbaiki-pipa-lepas-pantai-guyana-mulai-14-oktober-93CH-3089838",
       "publishedAt": null,
-      "image": "https://content-media.investing.com/news/LYNXMPEM0M17X_1200_L.jpg",
+      "image": "https://content-media.investing.com/news/LYNXNPEB6U0PS_M.jpg",
       "category": "local"
     },
     {
-      "id": "65be13d9b5bd070cc010",
+      "id": "3c47a4757f49b9d1de4e",
       "source": "investing_id",
-      "title": "Western Union perbarui kemitraan dengan Publix Super Markets",
-      "url": "https://id.investing.com/news/company-news/western-union-perbarui-kemitraan-dengan-publix-super-markets-93CH-3089810",
+      "title": "Gandum Euronext turun dari level tertinggi empat pekan jelang data panen AS",
+      "url": "https://id.investing.com/news/commodities-news/gandum-euronext-turun-dari-level-tertinggi-empat-pekan-jelang-data-panen-as-93CH-3089837",
       "publishedAt": null,
-      "image": "https://content-media.investing.com/news/LYNXNPEC101V6_M.jpg",
+      "image": "https://content-media.investing.com/news/LYNXNPEB9A0II_M.jpg",
       "category": "local"
     },
     {
-      "id": "45c3bed5a7235634bb49",
+      "id": "9b4067a0440400c36a5a",
       "source": "investing_id",
-      "title": "CF Industries umumkan dividen kuartalan $0,60 per saham",
-      "url": "https://id.investing.com/news/company-news/cf-industries-umumkan-dividen-kuartalan-060-per-saham-93CH-3089808",
+      "title": "Cruz Battery Metals umumkan konsolidasi saham 1-banding-10",
+      "url": "https://id.investing.com/news/company-news/cruz-battery-metals-umumkan-konsolidasi-saham-1banding10-93CH-3089836",
       "publishedAt": null,
-      "image": "https://content-media.investing.com/news/LYNXMPEM1B112_1200_L.jpg",
+      "image": "https://content-media.investing.com/news/LYNXMPEM2T0WR_1200_L.jpg",
       "category": "local"
     },
     {
-      "id": "41b70276d9c45eda118e",
+      "id": "5900fb2daab5012aa190",
       "source": "investing_id",
-      "title": "Pendapatan Q1 & Laba Per Saham Applied Digital melampaui harapan",
-      "url": "https://id.investing.com/news/earnings/pendapatan-q1--laba-per-saham-applied-digital-melampaui-harapan-3089804",
+      "title": "Mengapa saham Valneva turun hari ini?",
+      "url": "https://id.investing.com/news/stock-market-news/mengapa-saham-valneva-turun-hari-ini-93CH-3089833",
       "publishedAt": null,
-      "image": "https://content-media.investing.com/news/LYNXMPEA7L0F3_M.jpg",
+      "image": "https://content-media.investing.com/news/SP500StandardandPoors500Index_800x533_L_1657544297.jpg",
       "category": "local"
     },
     {
-      "id": "d94c1a679c54e9a18a68",
+      "id": "5290ac6ea408a58a6b35",
       "source": "investing_id",
-      "title": "SVP Applied Optoelectronics Yeh jual saham senilai $720.180",
-      "url": "https://id.investing.com/news/insider-trading-news/svp-applied-optoelectronics-yeh-jual-saham-senilai-720180-93CH-3089803",
+      "title": "Aris Mining catat kenaikan produksi emas 16% dalam sembilan bulan",
+      "url": "https://id.investing.com/news/company-news/aris-mining-catat-kenaikan-produksi-emas-16-dalam-sembilan-bulan-93CH-3089832",
       "publishedAt": null,
-      "image": null,
+      "image": "https://content-media.investing.com/news/gold_2_M_1440047838.jpg",
       "category": "local"
     },
     {
-      "id": "efb4686cb45056b3b333",
+      "id": "34465d86928d93e260c7",
       "source": "investing_id",
-      "title": "APA rilis data keuangan awal kuartal ketiga 2026",
-      "url": "https://id.investing.com/news/company-news/apa-rilis-data-keuangan-awal-kuartal-ketiga-2026-93CH-3089800",
+      "title": "Ameriwest tutup penempatan privat $500.000 dengan harga premium",
+      "url": "https://id.investing.com/news/company-news/ameriwest-tutup-penempatan-privat-500000-dengan-harga-premium-93CH-3089831",
       "publishedAt": null,
-      "image": null,
+      "image": "https://content-media.investing.com/news/LYNXMPEM310T5_1200_L.jpg",
       "category": "local"
     },
     {
-      "id": "c9c2563c3131d4b8b357",
+      "id": "ee4d27d2c5660b5beed8",
       "source": "investing_id",
-      "title": "Saham Resources Connection anjlok 10% akibat volume proyek yang lebih rendah",
-      "url": "https://id.investing.com/news/earnings/saham-resources-connection-anjlok-10-akibat-volume-proyek-yang-lebih-rendah-3089806",
+      "title": "General Dynamics tunjuk Danny Deep sebagai CEO berikutnya",
+      "url": "https://id.investing.com/news/company-news/general-dynamics-tunjuk-danny-deep-sebagai-ceo-berikutnya-93CH-3089830",
       "publishedAt": null,
-      "image": "https://content-media.investing.com/news/LYNXMPEM4L1MC_1200_L.jpg",
+      "image": "https://content-media.investing.com/news/LYNXMPEM50182_1200_L.jpg",
       "category": "local"
     },
     {
-      "id": "3da46989a9edd74012bc",
+      "id": "9cfe0c1178d95f8d0108",
       "source": "investing_id",
-      "title": "Margin diesel Eropa naik lebih dari 10% di tengah pembicaraan pelepasan stok",
-      "url": "https://id.investing.com/news/commodities-news/margin-diesel-eropa-naik-lebih-dari-10-di-tengah-pembicaraan-pelepasan-stok-93CH-3089799",
+      "title": "Mengapa saham Microvision turun hari ini?",
+      "url": "https://id.investing.com/news/stock-market-news/mengapa-saham-microvision-turun-hari-ini-93CH-3089828",
       "publishedAt": null,
-      "image": "https://content-media.investing.com/news/OilwellinColorado_800x533_L_1645345712.jpg",
+      "image": "https://content-media.investing.com/news/LYNXNPEC0D0AP_M.jpg",
       "category": "local"
     },
     {
-      "id": "cf34f3acc592d9eb535b",
+      "id": "72521b1dda61ca2def07",
       "source": "investing_id",
-      "title": "Pengadilan Belanda perintahkan Merck hentikan penjualan Keytruda di Eropa",
-      "url": "https://id.investing.com/news/stock-market-news/pengadilan-belanda-perintahkan-merck-hentikan-penjualan-keytruda-di-eropa-93CH-3089797",
+      "title": "Mengapa saham Valneva menguat hari ini?",
+      "url": "https://id.investing.com/news/stock-market-news/mengapa-saham-valneva-menguat-hari-ini-93CH-3089829",
       "publishedAt": null,
-      "image": "https://content-media.investing.com/news/LYNXNPEB6R0AQ_M.jpg",
+      "image": "https://content-media.investing.com/news/LYNXNPEC0K08U_M.jpg",
       "category": "local"
     },
     {
@@ -2117,33 +2108,6 @@
       "url": "https://pluang.com/news-feed/pratinjau-laporan-keuangan-kuartal-3-2026-delta-air-lines",
       "publishedAt": null,
       "image": "https://image-cdn.pluang.com/web/news-cards/v2/GSS/6fd27be83de2fc3d929487d95149104b7332fb4b81ca370ab3b3c70ed73f7038-id.webp",
-      "category": "local"
-    },
-    {
-      "id": "0ac996cc62eaa6e0ba4c",
-      "source": "pluang",
-      "title": "Moonbeam Protocol luncurkan sistem dua jalur untuk sengketa agen perangkat lunak dan klaim kecurangan.",
-      "url": "https://pluang.com/news-feed/moonbeam-protocol-pisahkan-kerja-buruk-dari-kecurangan-dalam-agent-commerce",
-      "publishedAt": null,
-      "image": "https://image-cdn.pluang.com/web/news-cards/v2/CRYPTO/7c20a3e708e4e9f19bb59dd89842940cb95d00a02485da1781c35b43c9178978-id.webp",
-      "category": "local"
-    },
-    {
-      "id": "24034c1b60b2927bdde1",
-      "source": "pluang",
-      "title": "3 ETF bantu jembatani kesenjangan pendapatan setelah pensiun, lindungi portofolio dari penarikan awal.",
-      "url": "https://pluang.com/news-feed/apa-yang-terjadi-setelah-gaji-terakhir-dan-portofolio-membangun-jembatan-3-etf",
-      "publishedAt": null,
-      "image": "https://image-cdn.pluang.com/web/news-cards/v2/GSS/74a052845dc10f1ae69dc884e3629917a9dd0aae8f9f3b4053337dd55be2f9a4-id.webp",
-      "category": "local"
-    },
-    {
-      "id": "1fc7584f40d87684dcd2",
-      "source": "pluang",
-      "title": "Enjin jadwalkan upgrade Fort Canning 9 Nov dan Matrixchain 16 Nov, menunggu persetujuan governance.",
-      "url": "https://pluang.com/news-feed/ethereum-glamsterdam-upgrade-hidup-di-sepolia-testnet-sebelum-mainnet",
-      "publishedAt": null,
-      "image": "https://image-cdn.pluang.com/web/news-cards/v2/CRYPTO/400930aa0d516f7fcdddebf73863547db2534e36297489441a14006481e3d941-id.webp",
       "category": "local"
     }
   ]
