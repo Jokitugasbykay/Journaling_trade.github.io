@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "checkedAt": "2026-10-08T08:13:59.454200+00:00",
+  "checkedAt": "2026-10-08T08:18:56.964059+00:00",
   "intervalMinutes": 5,
   "sources": [
     {
@@ -9,7 +9,7 @@
       "url": "https://www.investing.com/",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-08T08:13:46.598767+00:00"
+      "checkedAt": "2026-10-08T08:18:47.735699+00:00"
     },
     {
       "id": "cnbc",
@@ -17,7 +17,7 @@
       "url": "https://www.cnbc.com/markets/",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-08T08:13:46.637872+00:00"
+      "checkedAt": "2026-10-08T08:18:47.758559+00:00"
     },
     {
       "id": "kontan",
@@ -25,7 +25,7 @@
       "url": "https://www.kontan.co.id/",
       "kind": "html",
       "status": "ok",
-      "checkedAt": "2026-10-08T08:13:47.276764+00:00"
+      "checkedAt": "2026-10-08T08:18:49.117728+00:00"
     },
     {
       "id": "reuters",
@@ -33,7 +33,7 @@
       "url": "https://www.reuters.com/",
       "kind": "sitemap",
       "status": "ok",
-      "checkedAt": "2026-10-08T08:13:46.668484+00:00"
+      "checkedAt": "2026-10-08T08:18:48.039708+00:00"
     },
     {
       "id": "aljazeera",
@@ -41,7 +41,7 @@
       "url": "https://www.aljazeera.com/",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-08T08:13:46.595672+00:00"
+      "checkedAt": "2026-10-08T08:18:47.749999+00:00"
     },
     {
       "id": "bloomberg",
@@ -49,7 +49,7 @@
       "url": "https://www.bloomberg.com/asia",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-08T08:13:46.787783+00:00"
+      "checkedAt": "2026-10-08T08:18:47.888507+00:00"
     },
     {
       "id": "fnc",
@@ -57,7 +57,7 @@
       "url": "https://tradewithfnc.com/",
       "kind": "json",
       "status": "ok",
-      "checkedAt": "2026-10-08T08:13:47.447670+00:00"
+      "checkedAt": "2026-10-08T08:18:47.967812+00:00"
     },
     {
       "id": "investing_id",
@@ -65,7 +65,7 @@
       "url": "https://id.investing.com/news",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-08T08:13:46.712336+00:00"
+      "checkedAt": "2026-10-08T08:18:47.844965+00:00"
     },
     {
       "id": "pluang",
@@ -73,7 +73,7 @@
       "url": "https://pluang.com/news-feed",
       "kind": "html",
       "status": "ok",
-      "checkedAt": "2026-10-08T08:13:47.033974+00:00"
+      "checkedAt": "2026-10-08T08:18:48.880011+00:00"
     },
     {
       "id": "kompas",
@@ -81,7 +81,7 @@
       "url": "https://money.kompas.com/",
       "kind": "html",
       "status": "ok",
-      "checkedAt": "2026-10-08T08:13:47.498874+00:00"
+      "checkedAt": "2026-10-08T08:18:49.035034+00:00"
     },
     {
       "id": "detik",
@@ -89,7 +89,7 @@
       "url": "https://finance.detik.com/",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-08T08:13:48.434695+00:00"
+      "checkedAt": "2026-10-08T08:18:49.568119+00:00"
     },
     {
       "id": "kemenkeu",
@@ -121,7 +121,7 @@
       "url": "https://ekbis.sindonews.com/",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-08T08:13:47.288421+00:00"
+      "checkedAt": "2026-10-08T08:18:48.234592+00:00"
     },
     {
       "id": "ap",
@@ -137,7 +137,7 @@
       "url": "https://www.bbc.com/news",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-08T08:13:47.692427+00:00"
+      "checkedAt": "2026-10-08T08:18:48.597427+00:00"
     },
     {
       "id": "afp",
@@ -152,7 +152,7 @@
       "url": "https://www.wsj.com/",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-08T08:13:47.830314+00:00"
+      "checkedAt": "2026-10-08T08:18:48.998995+00:00"
     },
     {
       "id": "guardian",
@@ -160,7 +160,7 @@
       "url": "https://www.theguardian.com/",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-08T08:13:48.253295+00:00"
+      "checkedAt": "2026-10-08T08:18:49.362556+00:00"
     },
     {
       "id": "ft",
@@ -168,7 +168,7 @@
       "url": "https://www.ft.com/",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-08T08:13:48.573695+00:00"
+      "checkedAt": "2026-10-08T08:18:49.936225+00:00"
     },
     {
       "id": "dw",
@@ -176,7 +176,7 @@
       "url": "https://www.dw.com/en/top-stories/s-9097",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-08T08:13:48.516228+00:00"
+      "checkedAt": "2026-10-08T08:18:50.219096+00:00"
     },
     {
       "id": "fedwatch",
@@ -198,7 +198,7 @@
       "url": "https://www.nrk.no",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-08T08:09:08.759404+00:00"
+      "checkedAt": "2026-10-08T08:18:49.233430+00:00"
     },
     {
       "id": "no_aftenposten",
@@ -255,7 +255,7 @@
       "url": "https://www.dr.dk",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-08T08:09:08.804409+00:00"
+      "checkedAt": "2026-10-08T08:18:49.388358+00:00"
     },
     {
       "id": "dk_politiken",
@@ -312,7 +312,7 @@
       "url": "https://yle.fi",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-08T08:09:09.845108+00:00"
+      "checkedAt": "2026-10-08T08:18:49.672225+00:00"
     },
     {
       "id": "fi_hs",
@@ -376,7 +376,7 @@
       "url": "https://www.irozhlas.cz",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-08T08:09:09.262622+00:00"
+      "checkedAt": "2026-10-08T08:18:49.651741+00:00"
     },
     {
       "id": "cz_idnes",
@@ -447,7 +447,7 @@
       "url": "https://hotnews.ro",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-08T08:09:09.084406+00:00"
+      "checkedAt": "2026-10-08T08:18:49.927276+00:00"
     },
     {
       "id": "ro_europa",
@@ -482,7 +482,7 @@
       "name": "Telex",
       "url": "https://telex.hu",
       "kind": "rss",
-      "status": "ok",
+      "status": "stale",
       "checkedAt": "2026-10-08T08:09:10.147901+00:00"
     },
     {
@@ -540,7 +540,7 @@
       "url": "https://www.rte.ie/news",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-08T08:09:09.566831+00:00"
+      "checkedAt": "2026-10-08T08:18:49.721404+00:00"
     },
     {
       "id": "ie_times",
@@ -597,7 +597,7 @@
       "url": "https://orf.at",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-08T08:09:10.490143+00:00"
+      "checkedAt": "2026-10-08T08:18:50.944974+00:00"
     },
     {
       "id": "at_standard",
@@ -651,13 +651,189 @@
   ],
   "items": [
     {
+      "id": "6a0a662fbb431780a9e7",
+      "source": "cnbc",
+      "title": "Russia's internet giant Yandex halts operations at major data center after drone attack",
+      "url": "https://www.cnbc.com/2026/10/08/russia-yandex-ukraine-drone-strike-data-center.html",
+      "publishedAt": "2026-10-08T08:17:47+00:00",
+      "image": "https://image.cnbcfm.com/api/v1/image/108365399-17899005772026-09-20t042905z_1824787393_rc2qmna5qbak_rtrmadp_0_ukraine-crisis-russia-refinery.jpeg?v=1789900628&w=1920&h=1080",
+      "category": "technology",
+      "topics": []
+    },
+    {
+      "id": "c905a1ec4779ba5dd006",
+      "source": "kompas",
+      "title": "Aturan Baru Ojol Terbit, Bagaimana Dampaknya ke Tarif dan Ongkir?",
+      "url": "https://money.kompas.com/read/2026/10/08/151649926/aturan-baru-ojol-terbit-bagaimana-dampaknya-ke-tarif-dan-ongkir",
+      "publishedAt": "2026-10-08T08:16:49+00:00",
+      "image": "https://asset.kompas.com/crops/j7GixjkX9z6MT3yPEYWZOTEcN2M=/0x0:0x0/750x500/data/photo/2026/10/03/6ac0839290b70.jpg",
+      "category": "other",
+      "topics": [
+        "politics"
+      ]
+    },
+    {
+      "id": "23d9190f2c205703b4a2",
+      "source": "bbc",
+      "title": "Burnham to meet German chancellor in Berlin to discuss security and EU ties",
+      "url": "https://www.bbc.co.uk/news/articles/cmwyq34qexdzo?at_medium=RSS&at_campaign=rss",
+      "publishedAt": "2026-10-08T08:15:56+00:00",
+      "image": "https://ichef.bbci.co.uk/ace/standard/240/cpsprodpb/caa2/live/bfe16cb0-c2ef-11f1-bc2e-018d645d8d21.jpg",
+      "category": "politics",
+      "topics": [
+        "politics"
+      ]
+    },
+    {
+      "id": "8b4a3d0ee581dd4982e5",
+      "source": "reuters",
+      "title": "Two people injured in attack in Polish school, 15-year old detained, minister says",
+      "url": "https://www.reuters.com/world/two-people-injured-attack-polish-school-15-year-old-detained-minister-says-2026-10-08/",
+      "publishedAt": "2026-10-08T08:14:29.686000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/J2OT46IMSVO2LHG3HHCW3T5WGM.jpg?auth=1bb42dc711388997fd45b2f1aac58ca16ebd233c55b315fd77faa5f6343d7aff&smart=true&width=1920",
+      "category": "world",
+      "topics": []
+    },
+    {
+      "id": "1c06b58ef2da28ee1917",
+      "source": "reuters",
+      "title": "BYD exec says biggest challenge to expansion is geopolitics",
+      "url": "https://www.reuters.com/world/asia-pacific/byd-exec-says-biggest-challenge-expansion-is-geopolitics-2026-10-08/",
+      "publishedAt": "2026-10-08T08:14:03.844000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/O62I5TYA5ZNVPPJLJMRN3UCUSU.jpg?auth=40c324ac5b71772d8e5465e42c8772c56bd8be6d01d2611210c0c6a54aa8d3f5&smart=true&width=1920",
+      "category": "world",
+      "topics": []
+    },
+    {
+      "id": "136593ac7ee5a38372aa",
+      "source": "cz_irozhlas",
+      "title": "Nezaměstnanost v Česku zůstala v září třetí měsíc po sobě na pěti procentech",
+      "url": "https://www.irozhlas.cz/ekonomika/nezamestnanost-v-cesku-zustala-v-zari-treti-mesic-po-sobe-na-peti-procentech_2610081014_cen",
+      "publishedAt": "2026-10-08T08:14:00+00:00",
+      "image": "https://www.irozhlas.cz/sites/default/files/styles/zpravy_maly_nahled/public/uploader/zuj_2644_251001-164744_zuj.jpg?itok=PGRWehtO",
+      "category": "business",
+      "topics": []
+    },
+    {
+      "id": "8b67efdeaf45841cab9c",
+      "source": "reuters",
+      "title": "South Korea finance ministry says it may ban foreign banks arranging global bond deals",
+      "url": "https://www.reuters.com/world/asia-pacific/south-korea-may-ban-foreign-banks-arranging-global-bond-deals-bloomberg-news-2026-10-08/",
+      "publishedAt": "2026-10-08T08:13:57.957000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/N4GXWOMHBNNEXMLKXKLY5SSDGE.jpg?auth=5ba95c059981ff417f8d9728ffbb4f4ba9748403b260e0feed57b9e338629c21&smart=true&width=1920",
+      "category": "markets",
+      "topics": []
+    },
+    {
+      "id": "b8734d0efa3b4c84d81d",
+      "source": "reuters",
+      "title": "Drones, explosions and soldiers in bulldozers: surrounded by Israelis in Lebanon's 'model town'",
+      "url": "https://www.reuters.com/world/middle-east/drones-explosions-soldiers-bulldozers-surrounded-by-israelis-lebanons-model-town-2026-10-08/",
+      "publishedAt": "2026-10-08T08:13:52.757000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/IWR4KUN2EZKIFKIVGJOIELB7IU.jpg?auth=62346b0dc90b70ae45e136650fbb0ccdcb56fc81f16d435830e726927d4a16d3&smart=true&width=1920",
+      "category": "world",
+      "topics": []
+    },
+    {
+      "id": "b5a6ff5141b95d073cd9",
+      "source": "reuters",
+      "title": "Keeping global temperature gain in check is a matter of survival, COP31 president says",
+      "url": "https://www.reuters.com/sustainability/cop/keeping-global-temperature-gain-check-is-matter-survival-cop31-president-says-2026-10-08/",
+      "publishedAt": "2026-10-08T08:13:44.778000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/SKMEK3D4B5OILHKH6YTQIZCFQU.jpg?auth=2ea1d79a13617b5cfb9512f125b3388327687ec00fa23bf3b44d21ba662fe4b6&smart=true&width=1920",
+      "category": "sustainability",
+      "topics": [
+        "politics"
+      ]
+    },
+    {
+      "id": "06a396201a0c11b4fb9c",
+      "source": "reuters",
+      "title": "With inflation risks to upside, ECB may need to hike more, Dolenc says",
+      "url": "https://www.reuters.com/world/europe/with-inflation-risks-upside-ecb-may-need-hike-more-dolenc-says-2026-10-08/",
+      "publishedAt": "2026-10-08T08:13:43.937000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/VED75SSBZRPJBCEASWKHKXFPYE.jpg?auth=466ec3c7120beb4b207c352b664cf7ca73fa60e27333d44ddc85f8b9eb54143d&smart=true&width=1920",
+      "category": "markets",
+      "topics": []
+    },
+    {
+      "id": "c84ef87c5bcb6a71c89b",
+      "source": "reuters",
+      "title": "Deloitte fined £6.05 million in UK over audits of transport operator Go-Ahead Group",
+      "url": "https://www.reuters.com/world/uk/deloitte-fined-605-million-uk-over-audits-transport-operator-go-ahead-group-2026-10-08/",
+      "publishedAt": "2026-10-08T08:13:35.091000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/Z2RKY26NAFPGDKNDROUJAQF6BE.jpg?auth=dfb2530f9a356e1454990c8f6fdfcde2ef7d274adaa1e5932683c0aa89f3e9b0&smart=true&width=1920",
+      "category": "world",
+      "topics": []
+    },
+    {
+      "id": "75b3d9429fee8ff85001",
+      "source": "reuters",
+      "title": "Bank of Japan sees broadening inflationary pressure",
+      "url": "https://www.reuters.com/world/asia-pacific/bank-japan-sees-broadening-inflationary-pressure-2026-10-08/",
+      "publishedAt": "2026-10-08T08:13:24.294000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/EGP7DURCV5N4LCFTE4ZVPPSEQQ.jpg?auth=9287d6bd76de6622deb38bbbb24e5c1d728ceb269ccd0bd88f75c38c0c3e355a&smart=true&width=1920",
+      "category": "markets",
+      "topics": []
+    },
+    {
+      "id": "d28db38cd91396dc2525",
+      "source": "reuters",
+      "title": "AI use lifts participation in WorldQuant contest",
+      "url": "https://www.reuters.com/business/ai-use-lifts-participation-worldquant-contest-2026-10-08/",
+      "publishedAt": "2026-10-08T08:12:30.443000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/BGKOW7KYVNPLVA7IYVW36IGCMM.jpg?auth=543ea8a308aa907ed95817b6363b720e39ebdfa13459f675e360c61118b212ee&smart=true&width=1920",
+      "category": "technology",
+      "topics": []
+    },
+    {
+      "id": "e7ff15f8f05c57478ed4",
+      "source": "detik",
+      "title": "BULOG Percepat Penyaluran SPHP Jagung Pakan, Pastikan Stok Nasional Cukup",
+      "url": "https://finance.detik.com/berita-ekonomi-bisnis/d-8698125/bulog-percepat-penyaluran-sphp-jagung-pakan-pastikan-stok-nasional-cukup",
+      "publishedAt": "2026-10-08T08:11:59+00:00",
+      "image": "https://akcdn.detik.net.id/community/media/visual/2026/10/08/bulog-percepat-penyaluran-sphp-jagung-pakan-pastikan-stok-nasional-cukup-1791447033665.jpeg?w=360&q=90",
+      "category": "business",
+      "topics": []
+    },
+    {
+      "id": "bb557facef3058d327a8",
+      "source": "reuters",
+      "title": "Gulf stocks retreat as Hormuz tanker attacks hit wartime high",
+      "url": "https://www.reuters.com/world/middle-east/gulf-stocks-retreat-hormuz-tanker-attacks-hit-wartime-high-2026-10-08/",
+      "publishedAt": "2026-10-08T08:11:45.701000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/UWADNWBNLNP4XHTOIJP5RBTNVI.jpg?auth=4f92360903a4adff326f3f8341fa6d25e195263ac2f14ee1ac22e0a9ca88d488&smart=true&width=1920",
+      "category": "markets",
+      "topics": []
+    },
+    {
       "id": "dc8db32aa7fdbb8c0eab",
       "source": "reuters",
       "title": "Reuters interview with ECB policymaker Dolenc",
       "url": "https://www.reuters.com/markets/us/reuters-interview-with-ecb-policymaker-dolenc-2026-10-08/",
-      "publishedAt": "2026-10-08T08:09:39.523000+00:00",
-      "image": null,
+      "publishedAt": "2026-10-08T08:11:44.756000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/5HMLB47CGNO2DNUJHOSF2K4VDY.jpg?auth=14d2624ff875b9116ae28e3f47a478a436932c4d82425740cb8d7be9cf6b72da&smart=true&width=1920",
       "category": "markets",
+      "topics": []
+    },
+    {
+      "id": "90aae761f484f6776498",
+      "source": "reuters",
+      "title": "Dollar holds near 18-month high, euro lags as bond yields rise",
+      "url": "https://www.reuters.com/world/africa/dollar-edges-back-18-month-high-after-fomc-minutes-2026-10-08/",
+      "publishedAt": "2026-10-08T08:11:29.069000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/G5JAJ7O7XRM7VNJT7OIT4DV4OM.jpg?auth=a72174bfd7a6814953dd2c484d6e7ad42140a35e36e99514060b738c18608aa6&smart=true&width=1920",
+      "category": "markets",
+      "topics": []
+    },
+    {
+      "id": "e1b8ff8df633d4075aa4",
+      "source": "guardian",
+      "title": "French high school protests continue despite PM’s promise of action - Europe live",
+      "url": "https://www.theguardian.com/world/live/2026/oct/08/france-protests-spain-housing-maria-del-carmen-abascal-burnham-merz-europe-latest-news",
+      "publishedAt": "2026-10-08T08:10:44+00:00",
+      "image": "https://i.guim.co.uk/img/media/6808748f258465be6966650001e3a2f3a5e8870f/608_0_6278_5023/master/6278.jpg?width=140&quality=85&auto=format&fit=max&s=ad4f097347d95b433737386cf9d0e67c",
+      "category": "world",
       "topics": []
     },
     {
@@ -681,16 +857,6 @@
       "topics": []
     },
     {
-      "id": "06a396201a0c11b4fb9c",
-      "source": "reuters",
-      "title": "With inflation risks to upside, ECB may need to hike more, Dolenc says",
-      "url": "https://www.reuters.com/world/europe/with-inflation-risks-upside-ecb-may-need-hike-more-dolenc-says-2026-10-08/",
-      "publishedAt": "2026-10-08T08:08:45.030000+00:00",
-      "image": "https://www.reuters.com/resizer/v2/VED75SSBZRPJBCEASWKHKXFPYE.jpg?auth=466ec3c7120beb4b207c352b664cf7ca73fa60e27333d44ddc85f8b9eb54143d&smart=true&width=1920",
-      "category": "markets",
-      "topics": []
-    },
-    {
       "id": "1a527e99fa7a9b5f8352",
       "source": "reuters",
       "title": "Coupang files lawsuits over $462 million in South Korea fines over data breach",
@@ -701,16 +867,34 @@
       "topics": []
     },
     {
-      "id": "b5a6ff5141b95d073cd9",
+      "id": "390d81e5fac551b9c245",
+      "source": "guardian",
+      "title": "Football Q&A: ask Ed Aarons your questions as the Premier League returns",
+      "url": "https://www.theguardian.com/sport/live/2026/oct/08/football-qa-ask-ed-aarons-your-questions-as-the-premier-league-returns",
+      "publishedAt": "2026-10-08T08:08:27+00:00",
+      "image": "https://i.guim.co.uk/img/media/778f70b6f7fe66d4eb2eda280a62158f35a78b51/0_0_2000_1600/master/2000.jpg?width=140&quality=85&auto=format&fit=max&s=dda2dab2d6dbfe356d046f4d52e8fa9f",
+      "category": "sport",
+      "topics": []
+    },
+    {
+      "id": "472efeffe652e4c24db3",
+      "source": "ie_rte",
+      "title": "Flooding possible amid rain warnings for five counties",
+      "url": "https://www.rte.ie/news/ireland/2026/1008/1594512-weather-warnings/",
+      "publishedAt": "2026-10-08T08:07:27+00:00",
+      "image": "https://www.rte.ie/images/00252366-800.jpg",
+      "category": "other",
+      "topics": []
+    },
+    {
+      "id": "d7abfabcde33565b40fb",
       "source": "reuters",
-      "title": "Keeping global temperature gain in check is a matter of survival, COP31 president says",
-      "url": "https://www.reuters.com/sustainability/cop/keeping-global-temperature-gain-check-is-matter-survival-cop31-president-says-2026-10-08/",
-      "publishedAt": "2026-10-08T08:08:35.346000+00:00",
-      "image": "https://www.reuters.com/resizer/v2/SKMEK3D4B5OILHKH6YTQIZCFQU.jpg?auth=2ea1d79a13617b5cfb9512f125b3388327687ec00fa23bf3b44d21ba662fe4b6&smart=true&width=1920",
-      "category": "sustainability",
-      "topics": [
-        "politics"
-      ]
+      "title": "Swiss pension fund hit by data leak after cyber attack on software provider",
+      "url": "https://www.reuters.com/technology/swiss-pension-fund-hit-by-data-leak-after-cyber-attack-software-provider-2026-10-08/",
+      "publishedAt": "2026-10-08T08:05:44.865000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/B6RHQGQ32NNRXN32LX4KIMILXE.jpg?auth=75a3893d0d9010a47a85aea2e67e856a7d6bc882fef9cf00ef709846c9c96a41&smart=true&width=1920",
+      "category": "technology",
+      "topics": []
     },
     {
       "id": "b1ec3122c1db6c72b8a0",
@@ -723,16 +907,6 @@
       "topics": []
     },
     {
-      "id": "d7abfabcde33565b40fb",
-      "source": "reuters",
-      "title": "Swiss pension fund hit by data leak after cyber attack on software provider",
-      "url": "https://www.reuters.com/technology/swiss-pension-fund-hit-by-data-leak-after-cyber-attack-software-provider-2026-10-08/",
-      "publishedAt": "2026-10-08T08:05:00.305000+00:00",
-      "image": "https://www.reuters.com/resizer/v2/B6RHQGQ32NNRXN32LX4KIMILXE.jpg?auth=75a3893d0d9010a47a85aea2e67e856a7d6bc882fef9cf00ef709846c9c96a41&smart=true&width=1920",
-      "category": "technology",
-      "topics": []
-    },
-    {
       "id": "d52753f135db60b8b3f5",
       "source": "wsj",
       "title": "European Gas Prices Climb on LNG Shipping Risks",
@@ -740,16 +914,6 @@
       "publishedAt": "2026-10-08T08:05:00+00:00",
       "image": null,
       "category": "markets",
-      "topics": []
-    },
-    {
-      "id": "b8734d0efa3b4c84d81d",
-      "source": "reuters",
-      "title": "Drones, explosions and soldiers in bulldozers: surrounded by Israelis in Lebanon's 'model town'",
-      "url": "https://www.reuters.com/world/middle-east/drones-explosions-soldiers-bulldozers-surrounded-by-israelis-lebanons-model-town-2026-10-08/",
-      "publishedAt": "2026-10-08T08:04:09.722000+00:00",
-      "image": "https://www.reuters.com/resizer/v2/Q5PUWBA3OVI57AKJAK536UPZ5U.jpg?auth=28c28c866b85eef744e69fb47f8f660e0729e141e384c6ce1d145eb77f404b16&smart=true&width=1920",
-      "category": "world",
       "topics": []
     },
     {
@@ -813,6 +977,26 @@
       "topics": []
     },
     {
+      "id": "0078f3efcbfacb183371",
+      "source": "guardian",
+      "title": "‘Spend time going down rabbit holes’: how the Avalanches created their wildest album yet",
+      "url": "https://www.theguardian.com/music/2026/oct/08/the-avalanches-no-bad-memories-interview",
+      "publishedAt": "2026-10-08T08:00:14+00:00",
+      "image": "https://i.guim.co.uk/img/media/2146bff505b5d0a4bbe92d3903ea428c65f6e5f5/296_0_4428_3543/master/4428.jpg?width=140&quality=85&auto=format&fit=max&s=f0ae5896fb4e68151b76009dbd1af35a",
+      "category": "other",
+      "topics": []
+    },
+    {
+      "id": "e75696a5336e6853b645",
+      "source": "guardian",
+      "title": "Britons kept in dark about scale of climate crisis, say viewers of ‘first-of-its-kind’ emergency briefing",
+      "url": "https://www.theguardian.com/environment/2026/oct/08/britons-kept-in-dark-scale-of-climate-crisis-first-of-its-kind-emergency-briefing",
+      "publishedAt": "2026-10-08T08:00:13+00:00",
+      "image": "https://i.guim.co.uk/img/media/a4bf9f2d66919e93a27dbaad74442a677c8bc864/403_0_3750_3000/master/3750.jpg?width=140&quality=85&auto=format&fit=max&s=c4a170acad33fa42b0eea6447535f9f5",
+      "category": "sustainability",
+      "topics": []
+    },
+    {
       "id": "5a3e3d049deb88da2520",
       "source": "bloomberg",
       "title": "Odd Lots: Understanding Europe’s Economic Problems(Podcast)",
@@ -843,16 +1027,6 @@
       "topics": []
     },
     {
-      "id": "1c06b58ef2da28ee1917",
-      "source": "reuters",
-      "title": "BYD exec says biggest challenge to expansion is geopolitics",
-      "url": "https://www.reuters.com/world/asia-pacific/byd-exec-says-biggest-challenge-expansion-is-geopolitics-2026-10-08/",
-      "publishedAt": "2026-10-08T07:58:10.168000+00:00",
-      "image": "https://www.reuters.com/resizer/v2/O62I5TYA5ZNVPPJLJMRN3UCUSU.jpg?auth=40c324ac5b71772d8e5465e42c8772c56bd8be6d01d2611210c0c6a54aa8d3f5&smart=true&width=1920",
-      "category": "world",
-      "topics": []
-    },
-    {
       "id": "8f1257146f5e91c24382",
       "source": "reuters",
       "title": "UN weather body says El Niño set to intensify and last until February 2027",
@@ -861,18 +1035,6 @@
       "image": "https://www.reuters.com/resizer/v2/TBV2YJWQ75LVPDI4IXUM2KNBGI.jpg?auth=60acfc2a5486eb0fe0ed61d008ae90cf510eaf6c4fdf0c56d931f8023d217b2a&smart=true&width=1920",
       "category": "sustainability",
       "topics": []
-    },
-    {
-      "id": "23d9190f2c205703b4a2",
-      "source": "bbc",
-      "title": "Burnham to hold security talks with German chancellor in Berlin",
-      "url": "https://www.bbc.co.uk/news/articles/cmwyq34qexdzo?at_medium=RSS&at_campaign=rss",
-      "publishedAt": "2026-10-08T07:57:49+00:00",
-      "image": "https://ichef.bbci.co.uk/ace/standard/240/cpsprodpb/36b5/live/8f1d1c90-c2cd-11f1-ab6e-cf822873aef1.jpg",
-      "category": "politics",
-      "topics": [
-        "politics"
-      ]
     },
     {
       "id": "97fff9a354cf9c544c27",
@@ -935,16 +1097,6 @@
       "topics": []
     },
     {
-      "id": "c84ef87c5bcb6a71c89b",
-      "source": "reuters",
-      "title": "Deloitte fined £6.05 million in UK over audits of transport operator Go-Ahead Group",
-      "url": "https://www.reuters.com/world/uk/deloitte-fined-605-million-uk-over-audits-transport-operator-go-ahead-group-2026-10-08/",
-      "publishedAt": "2026-10-08T07:54:01.982000+00:00",
-      "image": "https://www.reuters.com/resizer/v2/Z2RKY26NAFPGDKNDROUJAQF6BE.jpg?auth=dfb2530f9a356e1454990c8f6fdfcde2ef7d274adaa1e5932683c0aa89f3e9b0&smart=true&width=1920",
-      "category": "world",
-      "topics": []
-    },
-    {
       "id": "a7cfaf910ddb171050d9",
       "source": "wsj",
       "title": "Oil Climbs on Intensifying Shipping Attacks, U.S. Storm Fears",
@@ -977,21 +1129,11 @@
     {
       "id": "6699e7dc973813056edf",
       "source": "guardian",
-      "title": "Royal Navy serviceman charged with spying to benefit foreign power",
+      "title": "Royal Navy service member charged with spying",
       "url": "https://www.theguardian.com/uk-news/2026/oct/08/royal-navy-serviceman-arrested-under-national-security-act",
       "publishedAt": "2026-10-08T07:52:39+00:00",
       "image": "https://i.guim.co.uk/img/media/1d3a02c81e640d50939827f6f4824deb5e34c455/518_0_5177_4142/master/5177.jpg?width=140&quality=85&auto=format&fit=max&s=99eaf3fdf31e08af758e7cd62f7f756d",
       "category": "other",
-      "topics": []
-    },
-    {
-      "id": "6a0a662fbb431780a9e7",
-      "source": "cnbc",
-      "title": "Russia's internet giant Yandex halts operations at major data center after drone attack",
-      "url": "https://www.cnbc.com/2026/10/08/russia-yandex-ukraine-drone-strike-data-center.html",
-      "publishedAt": "2026-10-08T07:52:25+00:00",
-      "image": "https://image.cnbcfm.com/api/v1/image/108365399-17899005772026-09-20t042905z_1824787393_rc2qmna5qbak_rtrmadp_0_ukraine-crisis-russia-refinery.jpeg?v=1789900628&w=1920&h=1080",
-      "category": "technology",
       "topics": []
     },
     {
@@ -1007,7 +1149,7 @@
     {
       "id": "7ae0c98ac9008a537652",
       "source": "bbc",
-      "title": "UK says 'vital services' to continue in East Jerusalem as Israel says most consulate diplomats leaving",
+      "title": "Most UK diplomats to leave East Jerusalem consulate, Israel says, as Miliband says 'vital services' to remain",
       "url": "https://www.bbc.co.uk/news/articles/cw33xd6vegnno?at_medium=RSS&at_campaign=rss",
       "publishedAt": "2026-10-08T07:51:06+00:00",
       "image": "https://ichef.bbci.co.uk/ace/standard/240/cpsprodpb/1af2/live/5079a140-c2df-11f1-bc2e-018d645d8d21.jpg",
@@ -1063,16 +1205,6 @@
       "url": "https://www.reuters.com/world/china/china-militia-boat-spotted-first-time-off-taiwans-east-coast-patrol-finds-2026-10-08/",
       "publishedAt": "2026-10-08T07:47:30.633000+00:00",
       "image": "https://www.reuters.com/resizer/v2/R3BTVQ5JBFLF3DWYVPZ7LK5NZA.jpg?auth=402f1eb04eee4645224401e4d572cd606c06b9338c4deec9799c14e36cd30a2b&smart=true&width=1920",
-      "category": "world",
-      "topics": []
-    },
-    {
-      "id": "e1b8ff8df633d4075aa4",
-      "source": "guardian",
-      "title": "French high school protests continue despite PM’s promise of action - Europe live",
-      "url": "https://www.theguardian.com/world/live/2026/oct/08/france-protests-spain-housing-maria-del-carmen-abascal-burnham-merz-europe-latest-news",
-      "publishedAt": "2026-10-08T07:46:30+00:00",
-      "image": "https://i.guim.co.uk/img/media/6808748f258465be6966650001e3a2f3a5e8870f/608_0_6278_5023/master/6278.jpg?width=140&quality=85&auto=format&fit=max&s=ad4f097347d95b433737386cf9d0e67c",
       "category": "world",
       "topics": []
     },
@@ -2056,7 +2188,7 @@
       "title": "How can home nations reach Women's World Cup?",
       "url": "https://www.bbc.co.uk/sport/football/articles/cqzrdmjp5162o?at_medium=RSS&at_campaign=rss",
       "publishedAt": "2026-10-08T07:01:10+00:00",
-      "image": "https://ichef.bbci.co.uk/ace/standard/240/cpsprodpb/6a04/live/acc60470-c2df-11f1-b16a-35bd7e82ae06.jpg",
+      "image": "https://ichef.bbci.co.uk/ace/standard/240/cpsprodpb/0909/live/5c1b6eb0-c2ef-11f1-babe-4199b0e7ccea.png",
       "category": "sport",
       "topics": []
     },
@@ -2513,11 +2645,11 @@
     {
       "id": "2dc024c09f7aba68dce7",
       "source": "bloomberg",
-      "title": "India Shuns Costly Russian Crude as Middle East Flows Recover",
+      "title": "India Shuns Costly Russian Oil as Middle East Flows Recover",
       "url": "https://www.bloomberg.com/news/articles/2026-10-08/india-shuns-costly-russian-crude-as-middle-east-flows-recover",
       "publishedAt": "2026-10-08T06:45:33+00:00",
       "image": null,
-      "category": "other",
+      "category": "markets",
       "topics": []
     },
     {
@@ -2623,16 +2755,6 @@
       "topics": []
     },
     {
-      "id": "8b67efdeaf45841cab9c",
-      "source": "reuters",
-      "title": "South Korea finance ministry says it may ban foreign banks arranging global bond deals",
-      "url": "https://www.reuters.com/world/asia-pacific/south-korea-may-ban-foreign-banks-arranging-global-bond-deals-bloomberg-news-2026-10-08/",
-      "publishedAt": "2026-10-08T06:39:20.708000+00:00",
-      "image": "https://www.reuters.com/resizer/v2/N4GXWOMHBNNEXMLKXKLY5SSDGE.jpg?auth=5ba95c059981ff417f8d9728ffbb4f4ba9748403b260e0feed57b9e338629c21&smart=true&width=1920",
-      "category": "markets",
-      "topics": []
-    },
-    {
       "id": "949cdeb67814d9c0cbbb",
       "source": "at_orf",
       "title": "Zahl der Toten in Ukraine stieg auf über 30",
@@ -2690,16 +2812,6 @@
       "publishedAt": "2026-10-08T06:35:14.479000+00:00",
       "image": "https://www.reuters.com/resizer/v2/6JS7TXO35JLTBG6HCX3VUQMYWM.jpg?auth=f8cf5774fb57470df567d510d299b10fa1a74835620054ef10b24859a9ec175b&smart=true&width=1920",
       "category": "world",
-      "topics": []
-    },
-    {
-      "id": "75b3d9429fee8ff85001",
-      "source": "reuters",
-      "title": "Bank of Japan sees broadening inflationary pressure",
-      "url": "https://www.reuters.com/world/asia-pacific/bank-japan-sees-broadening-inflationary-pressure-2026-10-08/",
-      "publishedAt": "2026-10-08T06:35:07.339000+00:00",
-      "image": "https://www.reuters.com/resizer/v2/EGP7DURCV5N4LCFTE4ZVPPSEQQ.jpg?auth=9287d6bd76de6622deb38bbbb24e5c1d728ceb269ccd0bd88f75c38c0c3e355a&smart=true&width=1920",
-      "category": "markets",
       "topics": []
     },
     {
@@ -4051,7 +4163,7 @@
     {
       "id": "17dbc5c46dd8387581e3",
       "source": "aljazeera",
-      "title": "UK renames East Jerusalem consulate as a mission, some diplomats to remain",
+      "title": "UK renames East Jerusalem consulate as a mission; some diplomats to remain",
       "url": "https://www.aljazeera.com/news/2026/10/8/signage-at-uk-consulate-in-east-jerusalem-removed-as-israels-deadline-over?traffic_source=rss",
       "publishedAt": "2026-10-08T05:06:25+00:00",
       "image": "https://www.aljazeera.com/wp-content/uploads/2026/10/reuters_6ac71dfa-1791434234.jpg?resize=1920%2C1440",
@@ -4201,7 +4313,7 @@
       "url": "https://www.theguardian.com/money/2026/oct/08/uk-drivers-live-petrol-diesel-prices-google-maps-pump-pricing",
       "publishedAt": "2026-10-08T05:00:11+00:00",
       "image": "https://i.guim.co.uk/img/media/f3773eb249c385e9fb1ae557f371e226117849ea/500_0_5000_4000/master/5000.jpg?width=140&quality=85&auto=format&fit=max&s=df426a9b920af7bdd38ea97ac4efec1f",
-      "category": "business",
+      "category": "technology",
       "topics": []
     },
     {
@@ -4366,16 +4478,6 @@
       "publishedAt": "2026-10-08T04:53:10+00:00",
       "image": "https://akcdn.detik.net.id/visual/2026/08/13/peluncuran-motor-listrik-nasional-1786607249211_169.png?w=360&q=90",
       "category": "business",
-      "topics": []
-    },
-    {
-      "id": "90aae761f484f6776498",
-      "source": "reuters",
-      "title": "Dollar steady near 18-month high after Fed minutes flag inflation risks",
-      "url": "https://www.reuters.com/world/africa/dollar-edges-back-18-month-high-after-fomc-minutes-2026-10-08/",
-      "publishedAt": "2026-10-08T04:52:52.487000+00:00",
-      "image": "https://www.reuters.com/resizer/v2/G5JAJ7O7XRM7VNJT7OIT4DV4OM.jpg?auth=a72174bfd7a6814953dd2c484d6e7ad42140a35e36e99514060b738c18608aa6&smart=true&width=1920",
-      "category": "markets",
       "topics": []
     },
     {
@@ -5211,7 +5313,7 @@
       "url": "https://www.ft.com/content/70b7333c-f746-462f-a973-30a999403b15?syn-25a6b1a6=1",
       "publishedAt": "2026-10-08T04:00:16+00:00",
       "image": "https://images.ft.com/v3/image/raw/https%3A%2F%2Fd1e00ek4ebabms.cloudfront.net%2Fproduction%2F9c4bf82f-99f0-4af2-ae42-ce7e9025d095.jpg?source=next-barrier-page&fit=scale-down&quality=highest&width=700&dpr=1",
-      "category": "markets",
+      "category": "world",
       "topics": []
     },
     {
@@ -8453,7 +8555,7 @@
     {
       "id": "70b7a51381ca9e226ba6",
       "source": "at_orf",
-      "title": "Zwangsgeräumte 87-jährige Spanierin ist tot",
+      "title": "Delogierte 87-jährige Spanierin ist tot",
       "url": "https://orf.at/stories/3444415/",
       "publishedAt": "2026-10-07T20:46:46+00:00",
       "image": "https://ibs.orf.at/news?image=https%3A%2F%2Fassets.orf.at%2Fmims%2F2026%2F41%2F85%2Fcrops%2Fw%3D1200%2Ch%3D630%2Cq%3D75%2F3208988_master_1245085_spanien_wohnungsnot_delogierte_gestorben_afp.jpg%3Fs%3D77079f3107cdca4a0d9606a479a67108f36a20e2",
@@ -20383,12 +20485,12 @@
       "topics": []
     },
     {
-      "id": "d8bb8493d4b9a1b8cd1a",
+      "id": "ec8e1ee409262e6c092c",
       "source": "kontan",
       "title": "Kategori Pendanaan Macet di Fintech Lending Akan Diubah Jadi Lebih dari 180 Hari",
-      "url": "https://keuangan.kontan.co.id/news/kategori-pendanaan-macet-di-fintech-lending-akan-diubah-jadi-lebih-dari-180-hari?source=home_terbaru",
+      "url": "https://keuangan.kontan.co.id/news/kategori-pendanaan-macet-di-fintech-lending-akan-diubah-jadi-lebih-dari-180-hari?source=home_headline",
       "publishedAt": null,
-      "image": "https://foto.kontan.co.id/4KTnNlfNo9vAO_HwsTFvK3-YTHU=/smart/2022/05/12/1870511257t.jpg",
+      "image": "https://foto.kontan.co.id/c7il0toIrsLzA-glXYHXdlgeceY=/smart/2022/05/12/1870511257p.jpg",
       "category": "other",
       "topics": []
     },
@@ -21239,12 +21341,12 @@
       "topics": []
     },
     {
-      "id": "ef805bcb2bd02207c415",
+      "id": "718e0ed0670a892ce313",
       "source": "kontan",
       "title": "Rupiah Ditutup Melemah ke Rp 17.915 Per Dolar AS Hari Ini (8/10), Asia Kompak Melemah",
-      "url": "https://investasi.kontan.co.id/news/rupiah-ditutup-melemah-ke-rp-17915-per-dolar-as-hari-ini-810-asia-kompak-melemah?source=home_headline",
+      "url": "https://investasi.kontan.co.id/news/rupiah-ditutup-melemah-ke-rp-17915-per-dolar-as-hari-ini-810-asia-kompak-melemah?source=home_terbaru",
       "publishedAt": null,
-      "image": "https://foto.kontan.co.id/ItZDYrRo6xviu4QeNlrluDaAwxQ=/smart/2022/09/29/195596909p.jpg",
+      "image": "https://foto.kontan.co.id/QpcpTy-k_c5p7tWeNyzw-eec5nk=/smart/2022/09/29/195596909t.jpg",
       "category": "local",
       "topics": []
     },
@@ -21435,6 +21537,66 @@
       "url": "https://www.investing.com/news/stock-market-news/next-15-shares-drop-10-after-halfyear-revenue-falls-pretax-loss-93CH-4938041",
       "publishedAt": null,
       "image": "https://content-media.investing.com/news/LYNXNPEB8506G_M.jpg",
+      "category": "markets",
+      "topics": []
+    },
+    {
+      "id": "1a9d30acee9e2c400773",
+      "source": "kontan",
+      "title": "OJK: Nilai Ekuitas Industri LKM Capai Rp 655,20 Miliar per Agustus 2026",
+      "url": "https://keuangan.kontan.co.id/news/ojk-nilai-ekuitas-industri-lkm-capai-rp-65520-miliar-per-agustus-2026?source=home_terbaru",
+      "publishedAt": null,
+      "image": "https://foto.kontan.co.id/ZpPR5WDXUmlKiVThB3A3O809OU0=/smart/2025/08/14/1199958317t.jpg",
+      "category": "local",
+      "topics": []
+    },
+    {
+      "id": "651c8340552cfc3a4e31",
+      "source": "kontan",
+      "title": "AREBI Dorong Sertifikasi Manajerial Broker Properti",
+      "url": "https://industri.kontan.co.id/news/arebi-dorong-sertifikasi-manajerial-broker-properti?source=home_terbaru",
+      "publishedAt": null,
+      "image": "https://foto.kontan.co.id/4hoIMcxQSK1DUppD6MUjU4eQ2V4=/smart/2026/05/19/796818481t.jpg",
+      "category": "other",
+      "topics": []
+    },
+    {
+      "id": "9c3fd59b04e028f9e220",
+      "source": "kontan",
+      "title": "Pegadaian Berharap Pembentukan IBMA Bisa Jadi Wadah Penguatan Industri Bullion",
+      "url": "https://keuangan.kontan.co.id/news/pegadaian-berharap-pembentukan-ibma-bisa-jadi-wadah-penguatan-industri-bullion?source=home_terbaru",
+      "publishedAt": null,
+      "image": "https://foto.kontan.co.id/x-ZCrQLlY_aKY5HuKevhBCb0SZI=/smart/2026/09/29/343077269t.jpg",
+      "category": "business",
+      "topics": []
+    },
+    {
+      "id": "5cc50ae0fd8f02cc03b0",
+      "source": "kontan",
+      "title": "OJK Jelaskan Peran Satker yang Dibentuk AFPI untuk Tangani Portofolio Bermasalah",
+      "url": "https://keuangan.kontan.co.id/news/ojk-jelaskan-peran-satker-yang-dibentuk-afpi-untuk-tangani-portofolio-bermasalah?source=home_terbaru",
+      "publishedAt": null,
+      "image": "https://foto.kontan.co.id/nHSiUt7kkoA5JOdUAsnOty6J3Ss=/smart/2025/11/20/455523020t.jpg",
+      "category": "local",
+      "topics": []
+    },
+    {
+      "id": "de6ded59b273e3eab2b5",
+      "source": "kontan",
+      "title": "Centrepark Seimbangkan Ekspansi Bisnis dengan TJSL",
+      "url": "https://industri.kontan.co.id/news/centrepark-seimbangkan-ekspansi-bisnis-dengan-tjsl?source=home_terbaru",
+      "publishedAt": null,
+      "image": "https://foto.kontan.co.id/jTdSWD3vSEL600Ugh3lcuv9wbbQ=/smart/2026/06/11/1085407092t.jpg",
+      "category": "business",
+      "topics": []
+    },
+    {
+      "id": "17fe5932c12e998b08b8",
+      "source": "kontan",
+      "title": "Adleeva Perkuat Strategi Pemasaran Digital, Bidik Pasar Skincare Lewat Kreator",
+      "url": "https://industri.kontan.co.id/news/adleeva-perkuat-strategi-pemasaran-digital-bidik-pasar-skincare-lewat-kreator?source=home_terbaru",
+      "publishedAt": null,
+      "image": "https://foto.kontan.co.id/S11Cz6c15jNF-kNTjljO9pSt15c=/smart/2026/10/08/1761767730t.jpg",
       "category": "markets",
       "topics": []
     }
