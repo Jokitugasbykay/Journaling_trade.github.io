@@ -13,6 +13,8 @@ FED = 'https://www.federalreserve.gov/monetarypolicy/fomccalendars.htm'
 BEANS = 'https://growbeansprout.com/tools/fedwatch'
 MONITOR = 'https://www.investing.com/central-banks/fed-rate-monitor'
 CALENDAR = 'https://www.investing.com/economic-calendar/'
+MONTHLY = 'https://www.forexfactory.com/calendar?month='
+JACKSON = 'https://www.kansascityfed.org/research/jackson-hole-economic-symposium/'
 
 def download(url):
     req = urllib.request.Request(url, headers={'User-Agent': 'JournalingTrade/1.0 (public calendar reader)'})
@@ -113,6 +115,50 @@ def calendar_rows(data):
     if not rows:raise ValueError('No events with verified timestamps')
     return rows
 
+def monthly_rows(data):
+    match = re.search(r'\bdays:\s*(\[)', data)
+    if not match:
+        raise ValueError('Monthly calendar data unavailable')
+    days = json.JSONDecoder().raw_decode(data[match.start(1):])[0]
+    rows = []
+    for day in days:
+        for event in day.get('events', []):
+            impact = {'low': 1, 'medium': 2, 'high': 3}.get(event.get('impactName'))
+            if not impact or not re.fullmatch('[A-Z]{3}', event.get('currency', '')):
+                continue
+            moment = dt.datetime.fromtimestamp(int(event['dateline']), dt.timezone.utc).astimezone(ZoneInfo('Asia/Jakarta'))
+            country = {'UK': 'GB', 'CH': 'CN', 'EZ': 'EU', 'JN': 'JP', 'SZ': 'CH'}.get(event.get('country'), event.get('country', ''))
+            rows.append({'id': 'ff-' + str(event['id']), 'tgl': moment.date().isoformat(), 'jam': '' if event.get('timeMasked') else moment.strftime('%H:%M'),
+                         'neg': event['currency'], 'countryCode': country, 'nama': plain(event['name']), 'dmp': impact,
+                         'akt': plain(str(event.get('actual') or '')), 'prk': plain(str(event.get('forecast') or '')), 'sbl': plain(str(event.get('previous') or '')),
+                         'cat': '', 'source': 'https://www.forexfactory.com' + event.get('url', '/calendar')})
+    if not rows:
+        raise ValueError('No monthly events parsed')
+    return rows
+
+def merge_calendar(monthly, daily):
+    # Match exact release names/times; do not merge distinct YoY/MoM indicators.
+    def key(row):
+        name = row['nama'].lower()
+        name = re.sub(r'\((?:jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec|q[1-4]|\d{4})\)', '', name)
+        name = name.replace(' m/m', ' mom').replace(' y/y', ' yoy').replace(' q/q', ' qoq')
+        return row['tgl'], row['jam'], row['neg'], re.sub(r'[^a-z0-9]', '', name)
+    merged = {key(row): row for row in monthly}
+    for row in daily:
+        row = {**row, 'source': CALENDAR}
+        merged[key(row)] = row
+    return sorted(merged.values(), key=lambda row: (row['tgl'], row['jam'], row['nama']))
+
+def jackson_agenda(data, year):
+    text = plain(data)
+    dates = re.findall(r'August (\d{1,2}), ' + str(year), text)
+    if len(dates) < 2:
+        raise ValueError('Official Jackson Hole dates unavailable')
+    start, end = int(dates[0]), int(dates[1])
+    if not 1 <= start <= end <= 31:
+        raise ValueError('Invalid symposium dates')
+    return {'name': 'Jackson Hole Economic Symposium', 'start': f'{year}-08-{start:02}', 'end': f'{year}-08-{end:02}', 'source': JACKSON + str(year) + '/'}
+
 def main():
     path=ROOT/'fomc.json'
     data=json.loads(path.read_text(encoding='utf-8')) if path.exists() else {'meetings':[],'probabilities':[]}
@@ -139,15 +185,36 @@ def main():
     data.update(version=1,checkedAt=now,scheduleSource=FED)
     path.write_text(json.dumps(data,ensure_ascii=False,indent=2)+'\n',encoding='utf-8',newline='\n')
     path=ROOT/'kalender.json'
-    calendar_newline='\r\n' if path.exists() and b'\r\n' in path.read_bytes() else '\n'
     cached=json.loads(path.read_text(encoding='utf-8')) if path.exists() else {'items':[]}
+    today = dt.datetime.now(ZoneInfo('Asia/Jakarta')).date()
+    start = today.replace(day=1)
+    end = (start.replace(day=28) + dt.timedelta(days=4)).replace(day=1) - dt.timedelta(days=1)
+    monthly_url = MONTHLY + start.strftime('%b.%Y').lower()
+    monthly = [row for row in cached.get('items', []) if start.isoformat() <= row['tgl'] <= end.isoformat()]
+    monthly_ok = False
     try:
-        cached={'items':calendar_rows(download(CALENDAR)),'updated':now,'source':CALENDAR,'status':'ok'}
+        monthly = monthly_rows(download(monthly_url))
+        monthly = [row for row in monthly if start.isoformat() <= row['tgl'] <= end.isoformat()]
+        monthly_ok = True
     except Exception as error:
-        print('Investing calendar:',error)
-        cached['status']='stale' if cached.get('items') else 'unavailable'
-        cached['source']=cached.get('source','https://tradewithfnc.com/kalender.json')
+        print('Monthly calendar:', error)
+    daily = []
+    try:
+        daily = [row for row in calendar_rows(download(CALENDAR)) if start.isoformat() <= row['tgl'] <= end.isoformat()]
+    except Exception as error:
+        print('Investing calendar:', error)
+    items = merge_calendar(monthly, daily)
+    cached.update(items=items, status='ok' if monthly_ok else 'stale' if items else 'unavailable', source=monthly_url,
+                  coverageStart=start.isoformat(), coverageEnd=end.isoformat())
+    if monthly_ok:
+        cached['updated'] = now
+    for year in [today.year, today.year + 1]:
+        try:
+            agenda = jackson_agenda(download(JACKSON + str(year) + '/'), year)
+            cached['agenda'] = [row for row in cached.get('agenda', []) if row['start'][:4] != str(year)] + [agenda]
+        except Exception as error:
+            print('Jackson Hole', year, error)
     cached['checkedAt']=now
-    path.write_text(json.dumps(cached,ensure_ascii=False,indent=1)+'\n',encoding='utf-8',newline=calendar_newline)
+    path.write_text(json.dumps(cached,ensure_ascii=False,indent=1)+'\n',encoding='utf-8',newline='\n')
 
 if __name__=='__main__':main()

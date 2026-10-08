@@ -98,6 +98,15 @@
         scanEmpty: 'No scans have been saved on this device.', uploadLimit: 'Max. 10 MB · Excel: export as CSV'
       };
       Object.assign(englishCopy, {
+        profileHeading: 'Profile & account', profileLead: 'Manage your identity, trading accounts, and journal storage.',
+        profileTotalTrades: 'Total trades', profileNetPL: 'Total P/L', profileAverageRR: 'Average R:R',
+        profileSettings: 'Profile settings', profileSettingsLead: 'Set your nickname and journal preferences.', profileSave: 'Save changes',
+        profileNickname: 'Nickname', profileEmail: 'Account email', profileCurrency: 'Currency & region',
+        profileCurrencyLead: 'Conversion settings for your journal reports.', profileReportCurrency: 'Report currency', profileTimezone: 'Journal timezone',
+        profileTradingAccounts: 'Trading accounts', profileAccountsLead: 'Broker accounts recorded in your journal.', profileAddAccount: '+ Add account',
+        profileAccountSecurity: 'Account & storage', profileSignInMethod: 'Sign-in method', profileJournalStorage: 'Journal storage',
+        profileDiscipline: 'Trading discipline', profileBackup: 'Backup & restore', profileBackupLead: 'Save a journal copy or restore data from a backup file.', profileLocalCopy: 'Local copy',
+        profileGoogleManage: 'Manage Google photo', profileLocalUsage: 'Local data size', profileRecordCount: 'Saved trades', profileRestore: 'Restore data', profileExport: 'Export CSV', profileDeleteLocal: 'Delete journal data',
   "guideTitle": "Build better trading habits",
   "guideLead": "Understand the market, set your risk, and use your journal to see what needs improving.",
   "guideMarketTitle": "Know the market you trade",
@@ -254,7 +263,7 @@
         if (window.renderPublisherNews) renderPublisherNews();
         if (window.renderBiIndicators) renderBiIndicators();
         if (kalCache) {
-          gambarKalUlang(); renderTodayOverviewCalendar(kalCache.items); updateNextEventCountdown(); calendarStamp();
+          gambarKalUlang(); renderCalendarAgenda(); renderTodayOverviewCalendar(kalCache.items); updateNextEventCountdown(); calendarStamp();
         }
         if (window.renderFedWatch) window.renderFedWatch();
         updatePricingDisplay();
@@ -2307,13 +2316,13 @@
       function googleAccountProfile() {
         const user = cloudUser;
         if (!user || (user.app_metadata?.provider !== 'google' && !user.identities?.some(identity => identity.provider === 'google'))) return null;
-        const metadata = user.user_metadata || {};
+        const metadata = { ...(user.identities?.find(identity => identity.provider === 'google')?.identity_data || {}), ...(user.user_metadata || {}) };
         let avatar = metadata.avatar_url || metadata.picture || '';
         try {
           const url = new URL(avatar);
-          if (url.protocol !== 'https:' || !url.hostname.endsWith('googleusercontent.com')) avatar = '';
+          if (url.protocol !== 'https:' || !(url.hostname === 'googleusercontent.com' || url.hostname.endsWith('.googleusercontent.com'))) avatar = '';
         } catch { avatar = ''; }
-        return { name: String(metadata.full_name || metadata.name || '').trim(), email: user.email || '', avatar };
+        return { name: String(metadata.full_name || metadata.name || '').trim(), email: user.email || metadata.email || '', avatar };
       }
 
       window.renderProfileView = function () {
@@ -2323,6 +2332,14 @@
         // Trader Passport Card updates
         const google = googleAccountProfile();
         const traderName = google?.name || profile.name || 'Trader';
+        $('profile-google-manage').hidden = !google;
+        $('p-account-email').value = cloudUser?.email || '';
+        $('p-account-email').placeholder = language === 'en' ? 'Not signed in' : 'Belum masuk';
+        $('p-account-note').textContent = google ? (language === 'en' ? 'Managed by your Google account.' : 'Dikelola oleh akun Google Anda.') : cloudUser ? (language === 'en' ? 'Email used to sign in.' : 'Email yang digunakan untuk masuk.') : (language === 'en' ? 'Sign in to save your journal to the server.' : 'Masuk untuk menyimpan jurnal ke server.');
+        $('profile-signin-method').textContent = google ? 'Google' : cloudUser ? 'Email' : (language === 'en' ? 'Local profile' : 'Profil lokal');
+        $('profile-storage-method').textContent = cloudUser ? (language === 'en' ? 'Server + browser copy' : 'Server + salinan browser') : (language === 'en' ? 'This browser' : 'Browser ini');
+        $('profile-account-summary').textContent = cloudUser?.email || (language === 'en' ? 'You are using a local profile.' : 'Anda menggunakan profil lokal.');
+        $('profile-sync-status').textContent = cloudUser ? ($('cloud-status')?.textContent || (language === 'en' ? 'Journal changes are saved to the server automatically.' : 'Perubahan jurnal otomatis disimpan ke server.')) : (language === 'en' ? 'Journal data stays in this browser. Export a backup to keep a copy.' : 'Data jurnal tersimpan di browser ini. Ekspor backup untuk menyimpan salinannya.');
         if ($('tpc-display-name')) $('tpc-display-name').textContent = google?.name || traderName;
         if ($('tpc-google-email')) { $('tpc-google-email').hidden = !google?.email; $('tpc-google-email').textContent = google?.email || ''; }
         if ($('tpc-account-provider')) $('tpc-account-provider').textContent = google ? (language === 'en' ? 'Google account' : 'Akun Google') : cloudUser ? (language === 'en' ? 'Server account' : 'Akun server') : (language === 'en' ? 'Local profile' : 'Profil lokal');
@@ -2336,17 +2353,21 @@
 
         const curAcc = currentAccount();
         if ($('tpc-sub-status') && curAcc) {
-          $('tpc-sub-status').textContent = `Trader Mandiri · Akun Utama: ${curAcc.broker} ${curAcc.type || 'Standard'} (${curAcc.name})`;
+          $('tpc-sub-status').textContent = `${language === 'en' ? 'Active journal' : 'Jurnal aktif'}: ${curAcc.broker} · ${curAcc.name}`;
         }
-
-        const totalEquity = accounts.reduce((sum, a) => sum + (parseFloat(a.startBalance) || 0), 0);
-        if ($('tpc-total-equity')) $('tpc-total-equity').textContent = fmtUSD(totalEquity);
+        if (!curAcc) $('tpc-sub-status').textContent = language === 'en' ? 'Add a trading account to start your journal.' : 'Tambah akun trading untuk memulai jurnal.';
 
         const wins = trades.filter(t => t.result === 'Win').length;
         const totalTrades = trades.length;
         const wr = totalTrades ? ((wins / totalTrades) * 100).toFixed(1) : '0.0';
         if ($('tpc-winrate')) $('tpc-winrate').textContent = wr + '%';
-        if ($('tpc-total-trades')) $('tpc-total-trades').textContent = `${totalTrades} Trade`;
+        if ($('tpc-total-trades')) $('tpc-total-trades').textContent = String(totalTrades);
+        const metrics = trades.map(t => computeTradeMetrics(t, accounts.find(a => a.id === t.accountId)));
+        const pnl = metrics.reduce((sum, metric) => sum + metric.pnlUSD, 0);
+        const rr = metrics.map(metric => metric.rr).filter(Number.isFinite);
+        $('tpc-net-pl').textContent = fmtPLUSD(pnl);
+        $('tpc-net-pl').style.color = pnl > 0 ? 'var(--green)' : pnl < 0 ? 'var(--red)' : 'var(--text-main)';
+        $('tpc-average-rr').textContent = rr.length ? (rr.reduce((sum, value) => sum + value, 0) / rr.length).toFixed(2) : '—';
 
         // Storage Vault status calculation
         try {
@@ -2355,18 +2376,20 @@
                              (localStorage.getItem(K_SETTINGS) || '').length +
                              (localStorage.getItem(K_PROFILE) || '').length;
           const kb = (totalBytes / 1024).toFixed(1);
-          if ($('vault-storage-used')) $('vault-storage-used').textContent = `${kb} KB / 5 MB`;
-          if ($('vault-total-records')) $('vault-total-records').textContent = `${totalTrades} Trade Tercatat`;
-        } catch (e) {}
+          if ($('vault-storage-used')) $('vault-storage-used').textContent = `${kb} KB`;
+          if ($('vault-total-records')) $('vault-total-records').textContent = String(totalTrades);
+          $('vault-storage-status').textContent = language === 'en' ? 'Available in this browser' : 'Tersedia di browser ini';
+        } catch (e) { $('vault-storage-status').textContent = language === 'en' ? 'Browser storage unavailable' : 'Penyimpanan browser tidak tersedia'; }
 
         const wrap = $('accounts-list-wrap');
         if (!wrap) return;
 
         wrap.innerHTML = accounts.map(a => `
           <div class="account-item">
+            <span class="profile-broker-icon" aria-hidden="true">${esc((a.broker || a.name).slice(0, 2).toUpperCase())}</span>
             <div>
               <div class="account-item-title">${esc(a.name)}</div>
-              <div class="account-item-sub">${esc(a.broker)} · ${esc(a.currency)} · Saldo Awal: ${a.currency === 'IDR' ? fmtIDR(a.startBalance) : fmtUSD(a.startBalance)}</div>
+              <div class="account-item-sub">${esc(a.broker)} · ${esc(a.currency)} · ${language === 'en' ? 'Initial balance' : 'Saldo awal'}: ${a.currency === 'IDR' ? fmtIDR(a.startBalance) : fmtUSD(a.startBalance)}</div>
             </div>
             <div style="display:flex; align-items:center; gap:10px;">
               <span class="account-item-bal">${a.currency === 'IDR' ? fmtIDR(a.startBalance) : fmtUSD(a.startBalance)}</span>
@@ -2378,7 +2401,7 @@
         // Update nav bar name
         const navName = $('nav-trader-name');
         const navBroker = $('nav-account-label');
-        if (navName) navName.textContent = profile.name || 'Trader';
+        if (navName) navName.textContent = google?.name || profile.name || 'Trader';
         if (navBroker && curAcc) navBroker.textContent = `${curAcc.broker} (${curAcc.name})`;
       }
 
@@ -2642,7 +2665,7 @@
 
       /* Economic calendar engine & dataset (wib gmt+7)
          matches reference system schema, filters & impact calculations */
-      let kalCache = null, kalCari = '', kalDmp = [1,2,3], kalTh = '', kalBl = '', kalTg = '', kalLihatLalu = false;
+      let kalCache = null, kalCari = '', kalDmp = [1,2,3], kalTh = '', kalBl = '', kalTg = '', kalLihatLalu = true;
       let kalCountries = null, kalCategory = '';
       let kalPollingTimer = null, kalCountdownTimer = null;
 
@@ -2695,7 +2718,7 @@
         if (kalCategory) isi = isi.filter(x => kalEventCategory(x) === kalCategory);
         const q = kalCari.trim().toLowerCase();
         if (q) {
-          isi = isi.filter(x => ((x.nama || '') + ' ' + (x.neg || '') + ' ' + (x.cat || '')).toLowerCase().indexOf(q) >= 0);
+          isi = isi.filter(x => ((x.nama || '') + ' ' + (x.neg || '') + ' ' + (x.cat || '') + (/non.?farm/i.test(x.nama) ? ' NFP' : '')).toLowerCase().indexOf(q) >= 0);
         }
         return kalUrut(isi);
       }
@@ -2822,7 +2845,7 @@
             info.textContent = isi.length
               ? isi.length + kalText(' rilis ditemukan dari ', ' releases found out of ') + semua.length
               : kalText('Tidak ada yang cocok', 'No matches');
-          } else { info.hidden = true; info.textContent = ''; }
+          } else { info.hidden = false; info.textContent = isi.length + kalText(' rilis dalam kalender bulanan', ' releases in the monthly calendar'); }
         }
         const hari = kalHariIni();
         let bilah = '';
@@ -2959,6 +2982,24 @@
         fetchKalenderData(true);
       };
 
+      function renderCalendarAgenda() {
+        const root = $('calendar-agenda');
+        if (!root || !kalCache) return;
+        const featured = kalUrut(kalCache.items).filter(row => row.neg === 'USD' && /non.?farm|\bcpi\b|fomc statement|fomc press conference|fomc meeting minutes/i.test(row.nama));
+        const unique = [...new Map(featured.map(row => [row.tgl + (/non.?farm/i.test(row.nama) ? 'nfp' : /cpi/i.test(row.nama) ? 'cpi' : row.nama), row])).values()];
+        const sourceLink = value => {
+          try { const url = new URL(value); return url.protocol === 'https:' && ['www.forexfactory.com','www.investing.com','www.kansascityfed.org'].includes(url.hostname) ? esc(url.href) : ''; } catch { return ''; }
+        };
+        root.innerHTML = '<h3>' + kalText('Agenda utama bulan ini', 'Key events this month') + '</h3><div class="calendar-agenda-list">' + unique.map(row => {
+          const name = /non.?farm/i.test(row.nama) ? 'Non-Farm Payrolls (NFP)' : /cpi/i.test(row.nama) ? 'Consumer Price Index (CPI)' : row.nama;
+          const url = sourceLink(row.source);
+          return '<div class="calendar-agenda-item"><b>' + (url ? '<a href="' + url + '" target="_blank" rel="noopener noreferrer">' + esc(name) + '</a>' : esc(name)) + '</b><span>' + kalTglID(row.tgl) + ' · ' + esc(row.jam || '--:--') + ' WIB</span></div>';
+        }).join('') + '</div>' + (kalCache.agenda || []).map(row => {
+          const url = sourceLink(row.source);
+          return '<p>' + (url ? '<a href="' + url + '" target="_blank" rel="noopener noreferrer">' + esc(row.name) + '</a>' : esc(row.name)) + ': ' + kalTglID(row.start) + ' – ' + kalTglID(row.end) + ' · ' + (row.end < kalHariIni() ? kalText('Agenda tahunan yang sudah berlangsung.', 'Past annual event.') : kalText('Agenda tahunan terjadwal.', 'Scheduled annual event.')) + '</p>';
+        }).join('');
+      }
+
       async function fetchKalenderData(force) {
         const stampEl = $('kal-stamp');
         if (stampEl && force) {
@@ -2966,7 +3007,7 @@
         }
 
         let items = null;
-        let updatedStr = '', sourceStatus = 'stale';
+        let updatedStr = '', sourceStatus = 'stale', agenda = [], coverageStart = '', coverageEnd = '';
 
         // 1. Fetch from local kalender.json
         try {
@@ -2977,6 +3018,8 @@
               items = data.items;
               updatedStr = data.updated || '';
               sourceStatus = data.status || 'stale';
+              agenda = Array.isArray(data.agenda) ? data.agenda : [];
+              coverageStart = data.coverageStart || ''; coverageEnd = data.coverageEnd || '';
             }
           }
         } catch (e) {
@@ -3026,10 +3069,11 @@
 
         kalCache = {
           items: items,
-          rawUpdated: updatedStr, sourceStatus
+          rawUpdated: updatedStr, sourceStatus, agenda, coverageStart, coverageEnd
         };
 
         gambarKalender(kalCache.items);
+        renderCalendarAgenda();
         renderTodayOverviewCalendar(kalCache.items);
         updateNextEventCountdown();
 
@@ -3052,6 +3096,7 @@
         $('kal-stamp').textContent = !kalCache.items.length ? kalText('Kalender tidak tersedia', 'Calendar unavailable') :
           (stale ? kalText('Kalender tersimpan; pembaruan live belum tersedia. Data per: ', 'Saved calendar; live refresh unavailable. Data as of: ') : kalText('Sumber diperbarui: ', 'Source updated: ')) +
           (kalCache.rawUpdated ? new Date(kalCache.rawUpdated).toLocaleString(language === 'en' ? 'en-GB' : 'id-ID', {timeZone:'Asia/Jakarta'}) + ' WIB' : kalText('Tidak diketahui', 'Unknown'));
+        if (kalCache.coverageStart && kalCache.coverageEnd) $('kal-stamp').textContent += ' · ' + kalCache.coverageStart + ' – ' + kalCache.coverageEnd;
       }
 
       function renderEconomicCalendar(force) {

@@ -1,5 +1,17 @@
 const fs=require('node:fs'),vm=require('node:vm'),assert=require('node:assert/strict'),path=require('node:path'),crypto=require('node:crypto');
 const root=path.join(__dirname,'..'),source=fs.readFileSync(path.join(__dirname,'app.js'),'utf8'),html=fs.readFileSync(path.join(root,'index.html'),'utf8');
+{
+  const context = {cloudUser:null, URL};
+  vm.runInNewContext(source.slice(source.indexOf('      function googleAccountProfile()'), source.indexOf('      window.renderProfileView =')), context);
+  assert.equal(context.googleAccountProfile(), null);
+  context.cloudUser = {email:'test@example.com', app_metadata:{provider:'email'}, user_metadata:{name:'Local'}};
+  assert.equal(context.googleAccountProfile(), null);
+  context.cloudUser = {email:'test@example.com', identities:[{provider:'google', identity_data:{name:'Google Name', picture:'https://lh3.googleusercontent.com/photo'}}]};
+  assert.equal(context.googleAccountProfile().name, 'Google Name');
+  assert.equal(context.googleAccountProfile().avatar, 'https://lh3.googleusercontent.com/photo');
+  context.cloudUser.user_metadata = {picture:'https://evilgoogleusercontent.com/photo'};
+  assert.equal(context.googleAccountProfile().avatar, '');
+}
 const vendor=fs.readFileSync(path.join(__dirname,'vendor/supabase-2.86.0.js'));
 assert.ok(html.includes('sha384-'+crypto.createHash('sha384').update(vendor).digest('base64')));
 assert.ok(html.includes("object-src 'none'"));assert.ok(!html.includes('src="https://cdn.jsdelivr.net/npm/@supabase'));

@@ -22,7 +22,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
 
-  <link rel="stylesheet" href="css/style.css?v=20261008-google-profile-equity">
+  <link rel="stylesheet" href="css/style.css?v=20261008-month-profile">
 </head>
 
 <body>
@@ -882,6 +882,7 @@
         </div>
 
         <!-- Search Box -->
+        <div id="calendar-agenda" class="calendar-agenda"></div>
         <div class="cari" id="cari-kal-box">
           <span class="ic"></span>
           <input type="search" id="cari-kal" placeholder="Cari rilis data atau mata uang (Core CPI, NFP, USD, EUR, AUD...)" autocomplete="off">
@@ -923,7 +924,7 @@
 
 
     <section class="view-content" id="view-profil">
-      <!-- Trader Identity Passport Card -->
+      <div class="profile-page-heading"><h1 data-i18n="profileHeading">Profil & akun</h1><p data-i18n="profileLead">Kelola identitas, akun trading, dan penyimpanan jurnal Anda.</p></div>
       <div class="trader-passport-card">
         <div class="tpc-left">
           <div class="tpc-avatar" id="tpc-avatar">
@@ -934,25 +935,29 @@
             <div class="tpc-title-row">
               <h2 id="tpc-display-name">Trader</h2>
               <span id="tpc-profile-alias" class="badge-pill" hidden></span>
-              <span class="badge-pill" style="color:var(--green); border-color:var(--green-border);">Rapor dari jurnal</span>
-              <span id="tpc-account-provider" class="badge-pill" style="color:var(--accent); border-color:var(--line-light);"></span>
             </div>
             <p class="tpc-sub" id="tpc-google-email" hidden></p>
+            <p class="tpc-sub" id="tpc-account-provider"></p>
+            <a id="profile-google-manage" class="btn btn-ghost btn-sm" href="https://myaccount.google.com/personal-info" target="_blank" rel="noopener noreferrer" hidden data-i18n="profileGoogleManage">Kelola foto Google</a>
             <p class="tpc-sub" id="tpc-sub-status">Trader Mandiri · Akun Utama: EXNESS Standard (demo_acc)</p>
           </div>
         </div>
         <div class="tpc-stats">
           <div class="tpc-stat-item">
-            <span>Saldo Terkelola</span>
-            <b id="tpc-total-equity">$1,000.00</b>
+            <span data-i18n="profileTotalTrades">Total transaksi</span>
+            <b id="tpc-total-trades">0</b>
           </div>
           <div class="tpc-stat-item">
             <span>Win Rate</span>
             <b id="tpc-winrate" style="color:var(--green);">0.0%</b>
           </div>
           <div class="tpc-stat-item">
-            <span>Total Eksekusi</span>
-            <b id="tpc-total-trades">0 Trade</b>
+            <span data-i18n="profileNetPL">Total P/L</span>
+            <b id="tpc-net-pl">$0.00</b>
+          </div>
+          <div class="tpc-stat-item">
+            <span data-i18n="profileAverageRR">R:R rata-rata</span>
+            <b id="tpc-average-rr">—</b>
           </div>
         </div>
       </div>
@@ -960,13 +965,22 @@
       <div class="profile-grid">
         <!-- Trader Settings Card -->
         <div class="profile-card">
-          <h3>Pengaturan Profil & Kurs</h3>
-          <p class="calc-desc" style="margin-bottom:14px;">Sesuaikan nama alias trader dan nilai kurs konversi Dolar ke Rupiah.</p>
+          <div class="profile-section-heading"><div><h3 data-i18n="profileSettings">Pengaturan profil</h3><p class="calc-desc" data-i18n="profileSettingsLead">Atur nama panggilan dan preferensi jurnal Anda.</p></div><button type="button" class="btn btn-accent btn-sm" onclick="saveProfileSettings()" data-i18n="profileSave">Simpan perubahan</button></div>
           <div class="form-grid">
-            <div class="field-group full">
-              <label for="p-trader-name">Nama Panggilan / Alias Trader</label>
-              <input type="text" id="p-trader-name" value="Trader">
+            <div class="field-group">
+              <label for="p-trader-name" data-i18n="profileNickname">Nama panggilan</label>
+              <input type="text" id="p-trader-name" value="Trader" maxlength="80" autocomplete="nickname">
             </div>
+            <div class="field-group">
+              <label for="p-account-email" data-i18n="profileEmail">Email akun</label>
+              <input type="email" id="p-account-email" readonly aria-describedby="p-account-note">
+              <small id="p-account-note"></small>
+            </div>
+          </div>
+          <div class="profile-region-heading"><h3 data-i18n="profileCurrency">Mata uang & wilayah</h3><p class="calc-desc" data-i18n="profileCurrencyLead">Pengaturan konversi untuk laporan jurnal Anda.</p></div>
+          <div class="form-grid">
+            <div class="field-group"><label for="p-report-currency" data-i18n="profileReportCurrency">Mata uang laporan</label><input id="p-report-currency" value="USD / IDR" readonly></div>
+            <div class="field-group"><label for="p-report-timezone" data-i18n="profileTimezone">Zona waktu jurnal</label><input id="p-report-timezone" value="Asia/Jakarta (UTC+07:00)" readonly></div>
             <div class="field-group full">
               <label for="p-kurs-input">Kurs Dolar ke Rupiah (USD to IDR)</label>
               <input type="number" id="p-kurs-input" value="17000" min="1" step="any">
@@ -974,9 +988,6 @@
               <button type="button" class="btn btn-outline btn-sm" onclick="refreshExchangeRate()">Perbarui kurs otomatis</button>
               <small><a href="https://www.bi.go.id/id/statistik/informasi-kurs/transaksi-bi/default.aspx" target="_blank" rel="noopener noreferrer" data-i18n="biSource">Kurs Transaksi Bank Indonesia</a>. <span data-i18n="biBasis">Konversi jurnal memakai titik tengah kurs jual dan beli USD BI. BI menerbitkan kurs sekali setiap hari kerja.</span></small>
             </div>
-          </div>
-          <div style="margin-top:16px;">
-            <button class="btn btn-accent btn-sm" onclick="saveProfileSettings()">Simpan Profil & Kurs</button>
           </div>
           <div data-i18n="localDataHint" style="margin-top:18px; padding-top:14px; border-top:1px solid var(--line); font-size:12px; color:var(--text-muted);">
             Saat login, jurnal otomatis tersimpan ke server. Tanpa login, jurnal tersimpan di browser perangkat ini. Ekspor backup untuk menyimpan salinannya.
@@ -987,22 +998,26 @@
         <div class="profile-card">
           <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:14px;">
             <div>
-              <h3 style="margin-bottom:2px;">Akun Broker Terdaftar</h3>
-              <p class="calc-desc" style="margin-bottom:0;">Kelola akun real atau demo Anda.</p>
+              <h3 style="margin-bottom:2px;" data-i18n="profileTradingAccounts">Akun trading</h3>
+              <p class="calc-desc" style="margin-bottom:0;" data-i18n="profileAccountsLead">Akun broker yang tercatat di jurnal Anda.</p>
             </div>
-            <button class="btn btn-ghost btn-sm" onclick="openNewAccountModal()">+ Akun Baru</button>
+            <button class="btn btn-accent btn-sm" onclick="openNewAccountModal()" data-i18n="profileAddAccount">+ Tambah akun</button>
           </div>
           <div id="accounts-list-wrap">
             <!-- Populated via JS -->
           </div>
+          <div class="profile-region-heading"><h3 data-i18n="profileAccountSecurity">Akun & penyimpanan</h3><p id="profile-account-summary" class="calc-desc"></p></div>
+          <div class="profile-account-row"><span data-i18n="profileSignInMethod">Metode masuk</span><b id="profile-signin-method"></b></div>
+          <div class="profile-account-row"><span data-i18n="profileJournalStorage">Penyimpanan jurnal</span><b id="profile-storage-method"></b></div>
+          <p class="profile-account-note" id="profile-sync-status" role="status"></p>
         </div>
       </div>
 
       <!-- Golden Rules & Storage Health Row -->
       <div class="profile-bottom-grid">
         <!-- Golden Rules Card -->
-        <div class="profile-card">
-          <h3>Kaidah & Aturan Disiplin Trading</h3>
+        <details class="profile-card profile-discipline">
+          <summary data-i18n="profileDiscipline">Aturan disiplin trading</summary>
           <p class="calc-desc" style="margin-bottom:14px;">Pengingat psikologis sebelum mengeksekusi order di pasar.</p>
           <div class="rules-list">
             <div class="rule-item">
@@ -1026,32 +1041,31 @@
               <span>Catat dan evaluasi setiap trade di journalingtrade secara objektif.</span>
             </div>
           </div>
-        </div>
+        </details>
 
         <!-- Local Storage Health & Vault Card -->
         <div class="profile-card">
-          <h3>Penyimpanan Lokal & Backup Vault</h3>
-          <p class="calc-desc" style="margin-bottom:14px;">Status integritas data offline di perangkat Anda saat ini.</p>
+          <h3 data-i18n="profileBackup">Backup & pemulihan</h3>
+          <p class="calc-desc" style="margin-bottom:14px;" data-i18n="profileBackupLead">Simpan salinan jurnal atau pulihkan data dari file backup.</p>
           <div class="vault-status-box">
             <div class="vs-row">
-              <span>Status Penyimpanan Browser</span>
-              <b style="color:var(--green);"> Normal (Offline Ready)</b>
+              <span data-i18n="profileLocalCopy">Salinan lokal</span>
+              <b id="vault-storage-status"></b>
             </div>
             <div class="vs-row">
-              <span>Penggunaan Memori Lokal</span>
-              <b id="vault-storage-used">~35 KB / 5 MB</b>
+              <span data-i18n="profileLocalUsage">Ukuran data lokal</span>
+              <b id="vault-storage-used">—</b>
             </div>
-            <div class="bar-track" style="margin: 8px 0 14px;"><div class="bar-fill" style="width:2%; background:var(--accent);"></div></div>
             <div class="vs-row">
-              <span>Total Catatan Tersimpan</span>
-              <b id="vault-total-records">8 Trade</b>
+              <span data-i18n="profileRecordCount">Transaksi tersimpan</span>
+              <b id="vault-total-records">0</b>
             </div>
           </div>
           <div style="display:flex; gap:8px; flex-wrap:wrap; margin-top:16px;">
             <button class="btn btn-ghost btn-sm" onclick="exportBackupJSON()">Backup JSON</button>
-            <button class="btn btn-ghost btn-sm" onclick="triggerRestore()">Restore Data</button>
-            <button class="btn btn-ghost btn-sm" onclick="exportCSV()">Ekspor CSV</button>
-            <button class="btn btn-danger btn-sm" onclick="resetAllData()">Hapus Semua Data</button>
+            <button class="btn btn-ghost btn-sm" onclick="triggerRestore()" data-i18n="profileRestore">Pulihkan data</button>
+            <button class="btn btn-ghost btn-sm" onclick="exportCSV()" data-i18n="profileExport">Ekspor CSV</button>
+            <button class="btn btn-danger btn-sm" onclick="resetAllData()" data-i18n="profileDeleteLocal">Hapus data jurnal</button>
           </div>
         </div>
       </div>
@@ -1263,7 +1277,7 @@
 
   <script src="js/vendor/supabase-2.86.0.js" integrity="sha384-3Sgm1bFlHa+gvzgZCHY6SyQwlKZpsgWl0qwxcwsypsSZQvo1vV1miPkn7n1lU1/L"></script>
   <script src="js/scan.js?v=20261007"></script>
-  <script src="js/app.js?v=20261008-google-profile-equity"></script>
+  <script src="js/app.js?v=20261008-month-profile"></script>
   <script src="js/fed.js?v=20261008-fomc"></script>
 
  </body>

@@ -1,5 +1,5 @@
 import datetime as dt
-from update_macro import meetings, beans_probability, investing_probability, calendar_rows, validate_probability, target_rate
+from update_macro import meetings, beans_probability, investing_probability, calendar_rows, validate_probability, target_rate, monthly_rows, merge_calendar, jackson_agenda
 
 schedule = meetings('2026 FOMC Meetings<div class="fomc-meeting__month"><strong>October</strong></div><div class="fomc-meeting__date">27-28</div><div class="fomc-meeting__month"><strong>December</strong></div><div class="fomc-meeting__date">8-9*</div>')
 assert schedule[0]['decisionAt'] == '2026-10-28T18:00:00+00:00'
@@ -30,3 +30,11 @@ rows = calendar_rows('<script id="__NEXT_DATA__" type="application/json">' + jso
 assert len(rows) == 1 and rows[0]['jam'] == '01:00' and rows[0]['tgl'] == '2026-10-09'
 assert rows[0]['akt'] == '2.1%' and rows[0]['prk'] == '2.0%' and rows[0]['sbl'] == '2.2%'
 print('Modern calendar timestamps and release values passed')
+
+event = {'id': 1, 'dateline': epoch, 'name': 'CPI m/m', 'country': 'US', 'currency': 'USD', 'impactName': 'high', 'actual': '0', 'url': '/calendar'}
+month = monthly_rows('days: ' + json.dumps([{'events': [event, {**event, 'id': 2, 'name': 'CPI y/y'}, {**event, 'id': 3, 'name': 'Bank holiday', 'impactName': 'holiday'}]}]))
+assert len(month) == 2 and month[0]['jam'] == '01:00' and month[0]['countryCode'] == 'US'
+merged = merge_calendar(month, [{**month[0], 'nama': 'CPI (MoM) (Sep)', 'akt': '2.1%'}])
+assert len(merged) == 2 and any(row['akt'] == '2.1%' for row in merged)
+assert jackson_agenda('Thursday, August 27, 2026 – Saturday, August 29, 2026', 2026)['end'] == '2026-08-29'
+print('Monthly timezone, distinct indicators, daily updates and official symposium checks passed')
