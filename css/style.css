@@ -2877,10 +2877,10 @@
     [hidden] { display: none !important; }
     :focus-visible { outline: 2px solid #f5f5f5; outline-offset: 4px; }
     .brand-logo { border: 0; background: none; padding: 0; min-height: 44px; }
-    .navbar { padding: 0 32px; height: 72px; }
+    .navbar { padding: 0 max(24px, calc((100% - 1380px) / 2)); height: 64px; }
     .nav-tab { min-height: 44px; }
     .nav-tab:disabled, .nav-dd-item:disabled { opacity: .4; cursor: not-allowed; }
-    .nav-btn-masuk, .nav-btn-coba { min-height: 44px; border-radius: 10px; }
+    .nav-btn-masuk, .nav-btn-coba { min-height: 44px; border-radius: var(--radius-full); }
     .nav-dropdown-menu { width: 284px; max-width: calc(100vw - 32px); }
     .nav-dd-item { min-height: 44px; font-size: 13px; }
     .nav-dd-role { color: #b0b0b4; }
@@ -3248,3 +3248,16 @@ a, button, summary, input, select, label { -webkit-tap-highlight-color: transpar
 
 #profile-google-manage[hidden] { display:none; }
 #profile-google-manage { margin-top:8px; }
+
+@media (min-width: 961px) {
+  .navbar { padding-inline: max(24px, calc((100% - 1380px) / 2)); }
+  .navbar-left { gap:36px; }
+  .nav-tabs { gap:32px; }
+}
+@media (min-width: 769px) and (max-width: 960px) {
+  .navbar { display:grid; grid-template-columns:minmax(0,1fr) auto; height:auto; min-height:108px; gap:8px 10px; padding:10px 24px 0; }
+  .navbar-left { display:contents; }
+  .brand-logo { grid-column:1; grid-row:1; }
+  .navbar-right { grid-column:2; grid-row:1; height:44px; margin-left:0; }
+  .nav-tabs { grid-column:1 / -1; grid-row:2; height:44px; gap:24px; padding:0; }
+}
