@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "checkedAt": "2026-10-08T01:02:08.989703+00:00",
+  "checkedAt": "2026-10-08T01:10:32.068840+00:00",
   "intervalMinutes": 30,
   "sources": [
     {
@@ -9,7 +9,7 @@
       "url": "https://www.investing.com/",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-08T01:02:04.796013+00:00"
+      "checkedAt": "2026-10-08T01:10:27.563346+00:00"
     },
     {
       "id": "cnbc",
@@ -17,7 +17,7 @@
       "url": "https://www.cnbc.com/markets/",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-08T01:02:04.747243+00:00"
+      "checkedAt": "2026-10-08T01:10:27.683960+00:00"
     },
     {
       "id": "kontan",
@@ -25,7 +25,7 @@
       "url": "https://www.kontan.co.id/",
       "kind": "html",
       "status": "ok",
-      "checkedAt": "2026-10-08T01:02:05.866378+00:00"
+      "checkedAt": "2026-10-08T01:10:28.496512+00:00"
     },
     {
       "id": "reuters",
@@ -33,7 +33,7 @@
       "url": "https://www.reuters.com/",
       "kind": "sitemap",
       "status": "ok",
-      "checkedAt": "2026-10-08T01:02:04.836653+00:00"
+      "checkedAt": "2026-10-08T01:10:27.721391+00:00"
     },
     {
       "id": "aljazeera",
@@ -41,7 +41,7 @@
       "url": "https://www.aljazeera.com/",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-08T01:02:04.839623+00:00"
+      "checkedAt": "2026-10-08T01:10:27.526844+00:00"
     },
     {
       "id": "bloomberg",
@@ -49,7 +49,7 @@
       "url": "https://www.bloomberg.com/asia",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-08T01:02:05.228567+00:00"
+      "checkedAt": "2026-10-08T01:10:27.880193+00:00"
     },
     {
       "id": "fnc",
@@ -57,7 +57,7 @@
       "url": "https://tradewithfnc.com/",
       "kind": "json",
       "status": "ok",
-      "checkedAt": "2026-10-08T01:02:05.719596+00:00"
+      "checkedAt": "2026-10-08T01:10:28.206904+00:00"
     },
     {
       "id": "investing_id",
@@ -65,7 +65,7 @@
       "url": "https://id.investing.com/news",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-08T01:02:05.124731+00:00"
+      "checkedAt": "2026-10-08T01:10:27.727037+00:00"
     },
     {
       "id": "pluang",
@@ -73,7 +73,7 @@
       "url": "https://pluang.com/news-feed",
       "kind": "html",
       "status": "ok",
-      "checkedAt": "2026-10-08T01:02:05.466393+00:00"
+      "checkedAt": "2026-10-08T01:10:28.083677+00:00"
     },
     {
       "id": "kompas",
@@ -81,7 +81,7 @@
       "url": "https://money.kompas.com/",
       "kind": "html",
       "status": "ok",
-      "checkedAt": "2026-10-08T01:02:05.753798+00:00"
+      "checkedAt": "2026-10-08T01:10:28.247619+00:00"
     },
     {
       "id": "detik",
@@ -89,7 +89,7 @@
       "url": "https://finance.detik.com/",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-08T01:02:06.270510+00:00"
+      "checkedAt": "2026-10-08T01:10:29.252004+00:00"
     },
     {
       "id": "kemenkeu",
@@ -121,7 +121,7 @@
       "url": "https://ekbis.sindonews.com/",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-08T01:02:05.825779+00:00"
+      "checkedAt": "2026-10-08T01:10:28.381648+00:00"
     },
     {
       "id": "fedwatch",
@@ -140,6 +140,78 @@
   ],
   "items": [
     {
+      "id": "834cb2f995d64c5a6835",
+      "source": "kompas",
+      "title": "Wacana Gaji ASN Lewat Koperasi: Jangan Ciptakan Perantara",
+      "url": "https://money.kompas.com/read/2026/10/08/081000826/wacana-gaji-asn-lewat-koperasi--jangan-ciptakan-perantara",
+      "publishedAt": "2026-10-08T01:10:00+00:00",
+      "image": "https://asset.kompas.com/crops/tF6CuqP8By6WZZK_aHF3x5cGu0I=/0x0:5000x3333/750x500/data/photo/2026/10/06/6ac4a2b68bfc3.jpg",
+      "category": "local"
+    },
+    {
+      "id": "d8f70bebcf7c641a6509",
+      "source": "kompas",
+      "title": "Nasihat Warren Buffett untuk Investor Kembali Terbukti Ampuh",
+      "url": "https://money.kompas.com/read/2026/10/08/080934026/nasihat-warren-buffett-untuk-investor-kembali-terbukti-ampuh",
+      "publishedAt": "2026-10-08T01:09:34+00:00",
+      "image": "https://asset.kompas.com/crops/URomSotF8HxC-KIzwW7pcgX20w4=/0x0:1200x800/750x500/data/photo/2026/07/04/6a4905a674800.jpg",
+      "category": "local"
+    },
+    {
+      "id": "2594cda4219739ec3f8c",
+      "source": "kompas",
+      "title": "Diskon Beras dan Minyak Goreng di FamilyMart Hari Ini, serta Promo Hemat Produk Rumah Tangga",
+      "url": "https://money.kompas.com/read/2026/10/08/080800226/diskon-beras-dan-minyak-goreng-di-familymart-hari-ini-serta-promo-hemat-produk",
+      "publishedAt": "2026-10-08T01:08:00+00:00",
+      "image": "https://asset.kompas.com/crops/ybN5vKtZIYj-gf4pvCLh9-0c6Xs=/26x0:1284x629/750x500/data/photo/2026/07/14/6a55f408164c6.png",
+      "category": "local"
+    },
+    {
+      "id": "04958ad6ffc0f6ea12f5",
+      "source": "reuters",
+      "title": "Thai household debt trap tests growth ambitions as Bangkok hosts IMF",
+      "url": "https://www.reuters.com/world/asia-pacific/thai-household-debt-trap-tests-growth-ambitions-bangkok-hosts-imf-2026-10-08/",
+      "publishedAt": "2026-10-08T01:06:17.932000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/ZF45ZGBQOFJMRBZ5MSRKWQWW7E.jpg?auth=bae3c1d3e059ced9af928ca9beb2b8faab550ec6e0c86482877160b18d3c1c28&smart=true&width=1920",
+      "category": "world"
+    },
+    {
+      "id": "189cb881587a72014ab9",
+      "source": "reuters",
+      "title": "US SEC will not charge top funds over climate concerns but warns of disclosure obligations",
+      "url": "https://www.reuters.com/legal/government/us-sec-will-not-pursue-charges-against-climate-group-warns-disclosure-2026-10-07/",
+      "publishedAt": "2026-10-08T01:06:14.445000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/V6S6NAWGL5NVVFQ5EQVUTBMSMA.jpg?auth=7b42ea25f19624ab4e2604fc50cde8096d8baec730be00fe6e49c1b92252cb48&smart=true&width=1920",
+      "category": "legal"
+    },
+    {
+      "id": "3c031dbfaa7244aad15c",
+      "source": "reuters",
+      "title": "Taiwan's US envoy says ties robust after Trump-Xi summit",
+      "url": "https://www.reuters.com/world/china/taiwans-us-envoy-says-ties-robust-after-trump-xi-summit-2026-10-07/",
+      "publishedAt": "2026-10-08T01:04:05.501000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/H43QF3TUVNNHNE5J2DI4AZLMY4.jpg?auth=15ff8f2afe50780bd303c49f038e08854560365f0800215511b2afb04b214aeb&smart=true&width=1920",
+      "category": "world"
+    },
+    {
+      "id": "098ad90262fa74b2dfb9",
+      "source": "reuters",
+      "title": "Tin rides the AI investment wave to a new price dimension",
+      "url": "https://www.reuters.com/commentary/reuters-open-interest/tin-rides-ai-investment-wave-new-price-dimension-2026-10-07/",
+      "publishedAt": "2026-10-08T01:00:18.556000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/UVVIBNPUEVLI5OJMOAARS3V77A.jpg?auth=646a0c6062f1cdd1162cd3c708fd57d32a45f720ea6fb416cc30fe2657f74912&smart=true&width=1920",
+      "category": "commentary"
+    },
+    {
+      "id": "b1ae7a2649ec654b900d",
+      "source": "reuters",
+      "title": "Asia shares subdued, bonds swamped by AI debt wave",
+      "url": "https://www.reuters.com/world/china/global-markets-global-markets-2026-10-08/",
+      "publishedAt": "2026-10-08T00:59:03.194000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/4GTPNAX7Z5LYNCIC5KVFOG4MUQ.jpg?auth=6e57564dc68f026a26b8f9b5d71cd5968172ebbe2a445a2b62e738de7a15b89b&smart=true&width=1920",
+      "category": "technology"
+    },
+    {
       "id": "ce85684a091474cb1fb2",
       "source": "kompas",
       "title": "Harga Emas Hari Ini di Pegadaian 8 Oktober 2026: Galeri 24-UBS",
@@ -147,6 +219,15 @@
       "publishedAt": "2026-10-08T00:57:40+00:00",
       "image": "https://asset.kompas.com/crops/t9JcUPLz6maZR_TN6YfL2R6NsMM=/0x0:1200x800/750x500/data/photo/2025/12/13/693cc3572e475.jpeg",
       "category": "local"
+    },
+    {
+      "id": "4a618121d82250ec6018",
+      "source": "reuters",
+      "title": "Valkyries first WNBA franchise to hit $100M in annual revenue",
+      "url": "https://www.reuters.com/sports/valkyries-first-wnba-franchise-hit-100m-annual-revenue--flm-2026-10-08/",
+      "publishedAt": "2026-10-08T00:56:52.239000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/OTDBGW3C4FMK3OFY2AAT3X4IQU.jpg?auth=53dcc329fdd3a11d52e133fdd9834801e6d1f1e58ce703a901a3fbdea85b942a&smart=true&width=1920",
+      "category": "sport"
     },
     {
       "id": "8a4646ffa7ea2042fedb",
@@ -183,6 +264,15 @@
       "publishedAt": "2026-10-08T00:48:46.633000+00:00",
       "image": "https://www.reuters.com/resizer/v2/ZIMSNJ34UZNBRI6JFIAGSAKOHA.jpg?auth=d3a24dd6e6e7ab53ee1a8910ee4cf4ac50b36dd9e321f94c2f300a83d53b2c73&smart=true&width=1920",
       "category": "legal"
+    },
+    {
+      "id": "ca9386887dea702fbd71",
+      "source": "aljazeera",
+      "title": "How kidnappings are hitting Nigeria’s Borno families hard",
+      "url": "https://www.aljazeera.com/news/2026/10/8/how-kidnappings-are-hitting-nigerias-borno-families-hard?traffic_source=rss",
+      "publishedAt": "2026-10-08T00:47:32+00:00",
+      "image": "https://www.aljazeera.com/wp-content/uploads/2024/03/2024-03-08T184042Z_689896617_RC2PH6AI71M2_RTRMADP_3_NIGERIA-SECURITY-1710779517.jpg?resize=1920%2C1440",
+      "category": "other"
     },
     {
       "id": "90aae761f484f6776498",
@@ -255,15 +345,6 @@
       "publishedAt": "2026-10-08T00:33:03+00:00",
       "image": "https://www.aljazeera.com/wp-content/uploads/2026/10/2026-09-29T153733Z_1630952478_RC21TNAYUIBH_RTRMADP_3_USA-STOCKS-1791415373.jpg?resize=1920%2C1440",
       "category": "markets"
-    },
-    {
-      "id": "189cb881587a72014ab9",
-      "source": "reuters",
-      "title": "US SEC will not charge top funds over climate concerns but warns of disclosure obligations",
-      "url": "https://www.reuters.com/legal/government/us-sec-will-not-pursue-charges-against-climate-group-warns-disclosure-2026-10-07/",
-      "publishedAt": "2026-10-08T00:32:32.930000+00:00",
-      "image": "https://www.reuters.com/resizer/v2/V6S6NAWGL5NVVFQ5EQVUTBMSMA.jpg?auth=7b42ea25f19624ab4e2604fc50cde8096d8baec730be00fe6e49c1b92252cb48&smart=true&width=1920",
-      "category": "legal"
     },
     {
       "id": "0e8a3da9919a93f63367",
@@ -430,47 +511,11 @@
     {
       "id": "8c83c86cf93fcf4c107d",
       "source": "bloomberg",
-      "title": "LG Energy Profit Beats Estimates on Energy-Storage System Demand",
+      "title": "LG Energy Profit Beats Estimates on Energy-Storage Systems",
       "url": "https://www.bloomberg.com/news/articles/2026-10-07/lg-energy-profit-beats-estimates-on-energy-storage-system-demand",
       "publishedAt": "2026-10-07T23:58:55+00:00",
       "image": null,
       "category": "other"
-    },
-    {
-      "id": "0253e89ecbf7f26a85fe",
-      "source": "reuters",
-      "title": "Jose Ramirez stars as Guardians force Game 4 against White Sox",
-      "url": "https://www.reuters.com/sports/baseball/jose-ramirez-stars-guardians-force-game-4-against-white-sox--flm-2026-10-07/",
-      "publishedAt": "2026-10-07T23:57:47.878000+00:00",
-      "image": "https://www.reuters.com/resizer/v2/JLZ3XBCAMJNYJNYYQO34EUGCRE.jpg?auth=b6b6750d2c21c79e00665ee5e776bd8ca0b9f24c07426803155f0362fe83ff40&smart=true&width=1920",
-      "category": "sport"
-    },
-    {
-      "id": "c1ec2bd1cd6df6ef6b13",
-      "source": "reuters",
-      "title": "Trump rallies for Paxton in third Texas trip in a month as Republicans defend stronghold",
-      "url": "https://www.reuters.com/world/us/trump-makes-third-texas-trip-month-republicans-defend-longtime-stronghold-2026-10-07/",
-      "publishedAt": "2026-10-07T23:57:20.426000+00:00",
-      "image": "https://www.reuters.com/resizer/v2/NEILZ2UA7ZOANIREOQQKQX5MVU.jpg?auth=e34d480cbc790edf6d43eb71238ce95112ddb219d08e5b91c25faacdfabf46e3&smart=true&width=1920",
-      "category": "world"
-    },
-    {
-      "id": "8d3944b156121c9426a0",
-      "source": "reuters",
-      "title": "LG Energy Solution flags 26% rise in Q3 operating profit",
-      "url": "https://www.reuters.com/world/asia-pacific/lg-energy-solution-flags-26-rise-q3-operating-profit-2026-10-07/",
-      "publishedAt": "2026-10-07T23:51:20.565000+00:00",
-      "image": "https://www.reuters.com/resizer/v2/INAZB676OVMDRPPYWNB7BS4CXA.jpg?auth=e106a08d39addd5b7cc80b486ed6a0b43b26722876a0d43a1746a121677937be&smart=true&width=1920",
-      "category": "world"
-    },
-    {
-      "id": "9dac693e7deb98244142",
-      "source": "reuters",
-      "title": "Rate hike fears weigh on UK housing market, RICS says",
-      "url": "https://www.reuters.com/business/rate-hike-fears-weigh-uk-housing-market-rics-says-2026-10-07/",
-      "publishedAt": "2026-10-07T23:50:16.218000+00:00",
-      "image": "https://www.reuters.com/resizer/v2/VVOXBYYBHJNF3OG2TNV4EDE7JU.jpg?auth=2abe0819baaa27ebfb79ae3c4b37a99950f8a13f1cfe672667483d7890900129&smart=true&width=1920",
-      "category": "markets"
     },
     {
       "id": "f050a8106a2ff40bbceb",
@@ -479,15 +524,6 @@
       "url": "https://www.aljazeera.com/economy/2026/10/7/eu-china-trade-talks-begin-in-beijing-amid-escalating-pressure?traffic_source=rss",
       "publishedAt": "2026-10-07T23:45:03+00:00",
       "image": "https://www.aljazeera.com/wp-content/uploads/2026/10/epa_6ac6c9b2a1c6-1791412658.jpg?resize=1920%2C1440",
-      "category": "business"
-    },
-    {
-      "id": "8e5b0d5fcfa9d7d360c3",
-      "source": "reuters",
-      "title": "Denmark says Russia has conducted sabotage attacks against its defense firms",
-      "url": "https://www.reuters.com/business/aerospace-defense/denmark-says-russia-has-conducted-sabotage-attacks-against-its-defense-firms-2026-10-07/",
-      "publishedAt": "2026-10-07T23:42:13.926000+00:00",
-      "image": "https://www.reuters.com/resizer/v2/UFOR4WDKE5IBVHK42EMDSL73YA.jpg?auth=8e1c85ea2df2674e241b383acd60cf99157e8a49c2519781a27cadd57dd5ef89&smart=true&width=1920",
       "category": "business"
     },
     {
@@ -604,7 +640,7 @@
       "title": "Finlandia Minta Google Hentikan Pembangunan Dua Data Center AI, Ada Apa?",
       "url": "https://money.kompas.com/read/2026/10/08/054100726/finlandia-minta-google-hentikan-pembangunan-dua-data-center-ai-ada-apa",
       "publishedAt": "2026-10-07T22:41:00+00:00",
-      "image": "https://asset.kompas.com/crops/79Y6Nw8E87VnYBA_PSCLzrhXoDg=/0x0:1080x720/750x500/data/photo/2026/10/04/6ac1d6af3002d.jpeg",
+      "image": "https://asset.kompas.com/crops/AC3MXd4-lDgO6fborpzeP6EZMWs=/0x0:1080x720/514x319/data/photo/2026/10/04/6ac1d6af3002d.jpeg",
       "category": "local"
     },
     {
@@ -912,15 +948,6 @@
       "publishedAt": "2026-10-07T19:40:31+00:00",
       "image": "https://image.cnbcfm.com/api/v1/image/108362037-1789154887112-gettyimages-2294761951-jr_15582_qgkfm4fo.jpeg?v=1789155120&w=1920&h=1080",
       "category": "markets"
-    },
-    {
-      "id": "38961dac7ccdf79458cd",
-      "source": "aljazeera",
-      "title": "Indian opposition leader Rahul Gandhi detained over election chief protest",
-      "url": "https://www.aljazeera.com/news/2026/10/7/indian-opposition-leader-rahul-gandhi-detained-over-election-chief-protest?traffic_source=rss",
-      "publishedAt": "2026-10-07T19:40:07+00:00",
-      "image": "https://www.aljazeera.com/wp-content/uploads/2026/10/afp_6ac68ae8f112-1791396585.jpg?resize=1920%2C1440",
-      "category": "world"
     },
     {
       "id": "ca43f0c0e0e8b7ec1ad0",
@@ -1265,24 +1292,6 @@
       "category": "local"
     },
     {
-      "id": "78d3dec27bc797355d6b",
-      "source": "kompas",
-      "title": "Bantu UMKM Tentukan Harga Jual, Shopee Hadirkan Fitur Kalkulator Biaya",
-      "url": "https://money.kompas.com/read/2026/10/07/193446026/bantu-umkm-tentukan-harga-jual-shopee-hadirkan-fitur-kalkulator-biaya",
-      "publishedAt": "2026-10-07T12:34:46+00:00",
-      "image": "https://asset.kompas.com/crops/yNkuox714kht8At9K-UjTrYvtus=/0x0:0x0/750x500/data/photo/2026/10/07/6ac62c9b3e7db.jpg",
-      "category": "local"
-    },
-    {
-      "id": "93423e23fe4781d81130",
-      "source": "kompas",
-      "title": "Konsumsi Energi Turun 10 Persen, Peremajaan Pabrik Amonia Pupuk Kaltim Hemat Rp 228 Miliar",
-      "url": "https://money.kompas.com/read/2026/10/07/193254126/konsumsi-energi-turun-10-persen-peremajaan-pabrik-amonia-pupuk-kaltim-hemat-rp",
-      "publishedAt": "2026-10-07T12:32:54+00:00",
-      "image": "https://asset.kompas.com/crops/j9iiCYYunB4tP6ilMksI0C7--Pg=/0x0:4896x3264/750x500/data/photo/2024/12/13/675bd2a694c37.jpg",
-      "category": "local"
-    },
-    {
       "id": "5dbbf6bb29e6a2d4eaa3",
       "source": "sindo",
       "title": "Harga Pakan Naik dan Telur Anjlok, Titiek Soeharto Janji Cari Solusi Bersama Menteri dan Bulog",
@@ -1307,15 +1316,6 @@
       "url": "https://www.cnnindonesia.com/ekonomi/20261007185846-532-1412840/wamenko-ungkap-8-tugas-dari-airlangga-apa-saja",
       "publishedAt": "2026-10-07T12:28:52+00:00",
       "image": "https://akcdn.detik.net.id/visual/2024/02/20/drajad-wibowo_169.jpeg?w=360&q=90",
-      "category": "local"
-    },
-    {
-      "id": "908e587f4118a109abb9",
-      "source": "kompas",
-      "title": "Flip Minta Maaf atas Gangguan Layanan, Saldo Pengguna Sudah Bisa Dipakai",
-      "url": "https://money.kompas.com/read/2026/10/07/192556926/flip-minta-maaf-atas-gangguan-layanan-saldo-pengguna-sudah-bisa-dipakai",
-      "publishedAt": "2026-10-07T12:25:56+00:00",
-      "image": "https://asset.kompas.com/crops/FK0XKk3rwz3e-ASNaRzvu6ibSvg=/0x0:0x0/750x500/data/photo/2024/12/12/675ae35847831.jpg",
       "category": "local"
     },
     {
@@ -1751,6 +1751,24 @@
       "category": "local"
     },
     {
+      "id": "dd642cdd6490483978af",
+      "source": "investing",
+      "title": "Axion Minerals closes $390,000 flow-through private placement",
+      "url": "https://www.investing.com/news/company-news/axion-minerals-closes-390000-flowthrough-private-placement-93CH-4937788",
+      "publishedAt": null,
+      "image": "https://content-media.investing.com/news/LYNXMPEM1J0WY_1200_L.jpg",
+      "category": "business"
+    },
+    {
+      "id": "f8b797e9abed7a9fb327",
+      "source": "investing",
+      "title": "Asia shares subdued, bonds swamped by AI debt wave",
+      "url": "https://www.investing.com/news/stock-market-news/asia-shares-subdued-bonds-swamped-by-ai-debt-wave-4937787",
+      "publishedAt": null,
+      "image": "https://content-media.investing.com/trkd-images/LYNXMPEM97027_L.jpg",
+      "category": "technology"
+    },
+    {
       "id": "4ee9299260d03b9d1ba1",
       "source": "investing",
       "title": "Bezos says Blue Origin likely to pursue IPO in coming years",
@@ -1758,6 +1776,33 @@
       "publishedAt": null,
       "image": "https://content-media.investing.com/trkd-images/LYNXMPEM97011_L.jpg",
       "category": "markets"
+    },
+    {
+      "id": "8ef5e362a3d0381b74e9",
+      "source": "investing",
+      "title": "Blue Origin IPO several years away, but makes sense, Bezos says",
+      "url": "https://www.investing.com/news/stock-market-news/blue-origin-ipo-several-years-away-but-makes-sense-bezos-says-4937780",
+      "publishedAt": null,
+      "image": "https://content-media.investing.com/news/moved_LYNXMPEM7919B_1200_L.jpg",
+      "category": "markets"
+    },
+    {
+      "id": "5848f606bd53941374c0",
+      "source": "investing",
+      "title": "Why is LG Energy Solution stock surging today?",
+      "url": "https://www.investing.com/news/stock-market-news/why-is-lg-energy-solution-stock-surging-today-93CH-4937779",
+      "publishedAt": null,
+      "image": "https://content-media.investing.com/news/LYNXMPEB2T0ER_M.jpg",
+      "category": "markets"
+    },
+    {
+      "id": "7f747a4eadd4e4f9f941",
+      "source": "investing",
+      "title": "Dollar edges back from 18-month high after FOMC minutes",
+      "url": "https://www.investing.com/news/economy-news/dollar-edges-back-from-18month-high-after-fomc-minutes-4937777",
+      "publishedAt": null,
+      "image": "https://content-media.investing.com/trkd-images/LYNXMPEM9701R_L.jpg",
+      "category": "business"
     },
     {
       "id": "5af5f75085764f62204b",
@@ -1793,51 +1838,6 @@
       "url": "https://www.investing.com/news/commodities-news/oil-prices-rise-as-markets-brace-for-us-gulf-coast-supply-disruptions-4937767",
       "publishedAt": null,
       "image": "https://content-media.investing.com/news/LYNXMPEA5T0D5_M.jpg",
-      "category": "markets"
-    },
-    {
-      "id": "386ecf4395973eeeba45",
-      "source": "investing",
-      "title": "US SEC will not charge top funds over climate concerns but warns of disclosure obligations",
-      "url": "https://www.investing.com/news/stock-market-news/us-sec-will-not-pursue-charges-against-climate-group-warns-of-disclosure-obligations-4937029",
-      "publishedAt": null,
-      "image": "https://content-media.investing.com/trkd-images/LYNXMPEM961AN_L.jpg",
-      "category": "sustainability"
-    },
-    {
-      "id": "a9c9779e568e2dea23f0",
-      "source": "investing",
-      "title": "Meta Platforms COO Javier Olivan sells $1.15m in stock",
-      "url": "https://www.investing.com/news/insider-trading-news/meta-platforms-coo-javier-olivan-sells-115m-in-stock-93CH-4937764",
-      "publishedAt": null,
-      "image": "https://content-media.investing.com/news/facebook_2_M_1440049069.jpg",
-      "category": "markets"
-    },
-    {
-      "id": "c36fdc1b8da708689729",
-      "source": "investing",
-      "title": "Recursion Pharmaceuticals director Blake Borgeson sells $242,000 in stock",
-      "url": "https://www.investing.com/news/insider-trading-news/recursion-pharmaceuticals-director-blake-borgeson-sells-242000-in-stock-93CH-4937752",
-      "publishedAt": null,
-      "image": "https://content-media.investing.com/news/moved_LYNXMPEM3S10Z_1200_L.jpg",
-      "category": "markets"
-    },
-    {
-      "id": "d3a268e17bf72639f673",
-      "source": "investing",
-      "title": "TikTok gave teens, children placebo safety feature in experiment, New York alleges",
-      "url": "https://www.investing.com/news/stock-market-news/tiktok-gave-teens-children-placebo-safety-feature-in-experiment-new-york-alleges-4937622",
-      "publishedAt": null,
-      "image": "https://content-media.investing.com/trkd-images/LYNXMPEM9623H_L.jpg",
-      "category": "markets"
-    },
-    {
-      "id": "a8a9b3a5a3c5f4815283",
-      "source": "investing",
-      "title": "Cathie Wood’s ARK sells Robinhood stock, buys CoreWeave and Kratos",
-      "url": "https://www.investing.com/news/company-news/cathie-woods-ark-sells-robinhood-stock-buys-coreweave-and-kratos-93CH-4937750",
-      "publishedAt": null,
-      "image": "https://content-media.investing.com/news/Robinhood_800x533_L_1595405475.jpg",
       "category": "markets"
     },
     {
@@ -2021,18 +2021,45 @@
       "category": "local"
     },
     {
+      "id": "a8e06fe23c84c9068f38",
+      "source": "investing_id",
+      "title": "IPO Blue Origin masih beberapa tahun lagi, tapi masuk akal, kata Bezos",
+      "url": "https://id.investing.com/news/stock-market-news/ipo-blue-origin-masih-beberapa-tahun-lagi-tapi-masuk-akal-kata-bezos-3089921",
+      "publishedAt": null,
+      "image": "https://content-media.investing.com/news/LYNXMPEE020QH_M.jpg",
+      "category": "local"
+    },
+    {
+      "id": "db331b80f4ed406de0ac",
+      "source": "investing_id",
+      "title": "Mengapa saham LG Energy Solution melonjak hari ini?",
+      "url": "https://id.investing.com/news/stock-market-news/mengapa-saham-lg-energy-solution-melonjak-hari-ini-93CH-3089919",
+      "publishedAt": null,
+      "image": "https://content-media.investing.com/news/LYNXMPEB2T0ER_M.jpg",
+      "category": "local"
+    },
+    {
+      "id": "1696ff7b9f5c59b11f44",
+      "source": "investing_id",
+      "title": "CTO BillionToOne David Tsao menjual saham senilai $2,16 juta",
+      "url": "https://id.investing.com/news/insider-trading-news/cto-billiontoone-david-tsao-menjual-saham-senilai-216-juta-93CH-3089912",
+      "publishedAt": null,
+      "image": "https://content-media.investing.com/news/moved_LYNXMPEM3T1K3_1200_L.jpg",
+      "category": "local"
+    },
+    {
       "id": "f65ff16fc84ec82ba04d",
       "source": "investing_id",
       "title": "Harga minyak naik saat pasar bersiap hadapi gangguan pasokan di Teluk AS",
       "url": "https://id.investing.com/news/commodities-news/harga-minyak-naik-saat-pasar-bersiap-hadapi-gangguan-pasokan-di-teluk-as-3089910",
       "publishedAt": null,
-      "image": "https://content-media.investing.com/news/LYNXMPEBBH09C_M.jpg",
+      "image": "https://content-media.investing.com/news/LYNXMPEA5T0D5_S.jpg",
       "category": "local"
     },
     {
       "id": "ea77cacb2a84939178e4",
       "source": "investing_id",
-      "title": "Laba operasional LG Energy Solution Q3 melampaui estimasi lebih dari dua kali lipat",
+      "title": "Saham LG Energy Solution capai tertinggi hampir 4 bulan usai laba Q3 lebih dari dua kali lipat",
       "url": "https://id.investing.com/news/earnings/laba-operasional-lg-energy-solution-q3-melampaui-estimasi-lebih-dari-dua-kali-lipat-3089908",
       "publishedAt": null,
       "image": "https://content-media.investing.com/news/moved_LYNXMPEM431A2_1200_L.jpg",
@@ -2084,33 +2111,6 @@
       "category": "local"
     },
     {
-      "id": "479a2a95b89c7dd64641",
-      "source": "investing_id",
-      "title": "CEO PACS Group Jason Hulse jual saham senilai $1,58 juta",
-      "url": "https://id.investing.com/news/insider-trading-news/ceo-pacs-group-jason-hulse-jual-saham-senilai-158-juta-93CH-3089899",
-      "publishedAt": null,
-      "image": "https://content-media.investing.com/news/moved_LYNXMPEM4416N_1200_L.jpg",
-      "category": "local"
-    },
-    {
-      "id": "d4c596456c1706b285b1",
-      "source": "investing_id",
-      "title": "EVP & Presiden Vistra Energy Scott Hudson jual saham senilai $3,5 juta",
-      "url": "https://id.investing.com/news/insider-trading-news/evp--presiden-vistra-energy-scott-hudson-jual-saham-senilai-35-juta-93CH-3089898",
-      "publishedAt": null,
-      "image": "https://content-media.investing.com/news/moved_LYNXMPEM4510G_1200_L.jpg",
-      "category": "local"
-    },
-    {
-      "id": "6aadcf0bee2914f36e6a",
-      "source": "investing_id",
-      "title": "Kepala Pertumbuhan Grail Andrew Partridge jual saham senilai $1,15 juta",
-      "url": "https://id.investing.com/news/insider-trading-news/kepala-pertumbuhan-grail-andrew-partridge-jual-saham-senilai-115-juta-93CH-3089897",
-      "publishedAt": null,
-      "image": "https://content-media.investing.com/news/moved_LYNXMPEM3Q0V4_1200_L.jpg",
-      "category": "local"
-    },
-    {
       "id": "29ebc9382c60d0c9dabd",
       "source": "pluang",
       "title": "Monarch Casino akan umumkan hasil kuartal 3 2026 setelah pasar tutup 27 Oktober",
@@ -2120,21 +2120,21 @@
       "category": "local"
     },
     {
+      "id": "d58cfc80a0849f6fe3fa",
+      "source": "pluang",
+      "title": "Tiga alamat baru tarik 23.456 ETH dari Coinbase senilai $60,37 juta, tanda aliran keluar besar.",
+      "url": "https://pluang.com/news-feed/tiga-alamat-baru-tarik-60-juta-dollar-ether-dari-coinbase",
+      "publishedAt": null,
+      "image": "https://image-cdn.pluang.com/web/news-cards/v2/CRYPTO/79917dd5d20b8a6b474c6c2a49f0e06ce82b04173bb958f333c6e191eccbbe84-id.webp",
+      "category": "local"
+    },
+    {
       "id": "801917ec7976694ae357",
       "source": "pluang",
       "title": "Penarikan besar XRP dari Binance capai level tertinggi 7 bulan, potensi pasokan perdagangan berkurang.",
       "url": "https://pluang.com/news-feed/transfer-xrp-whale-dari-binance-tertinggi-7-bulan",
       "publishedAt": null,
       "image": "https://image-cdn.pluang.com/web/news-cards/v2/CRYPTO/3a405b1c2527e27f684a24c414ce4136c640c88c7671719258e6fa245a80e6c8-id.webp",
-      "category": "local"
-    },
-    {
-      "id": "53dc582ebaf88979d0b1",
-      "source": "pluang",
-      "title": "Forum BlackRock bahas blockchain dan stablecoin untuk transaksi berbasis AI",
-      "url": "https://pluang.com/news-feed/pendiri-chainlink-bergabung-diskusi-blackrock-tentang-transaksi-ai",
-      "publishedAt": null,
-      "image": "https://image-cdn.pluang.com/web/news-cards/v2/CRYPTO/73f89c062ed19fa1764df27dd281cf774ef1397764b4e7be8f9ee559eb15190a-id.webp",
       "category": "local"
     }
   ]
