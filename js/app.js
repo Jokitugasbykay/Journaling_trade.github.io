@@ -485,7 +485,7 @@
         hydratingUserId = user.id;
         const guestJournal = !journalOwner && trades.length ? { accounts: structuredClone(accounts), trades: structuredClone(trades) } : null;
         cloudUser = user;
-        cloudReady = false;
+        cloudReady = false; nicknameReady = false; accountAccess = null;
         try {
           if (journalOwner !== user.id) selectJournalOwner(user.id);
           try {
@@ -567,7 +567,7 @@
         if (data.session?.user) await hydrateCloud(data.session.user);
       }
 
-      function canReadNews() { return !!cloudUser && nicknameReady && ['plus', 'pro'].includes(accountAccess?.plan); }
+      function canReadNews() { return !!cloudUser && cloudReady && nicknameReady && ['plus', 'pro'].includes(accountAccess?.plan); }
       async function refreshAccountAccess(consumeUpload = false) {
         if (!cloudUser) throw new Error(language === 'en' ? 'Sign in to use your Free upload allowance.' : 'Masuk untuk menggunakan jatah upload Free.');
         const userId = cloudUser.id;

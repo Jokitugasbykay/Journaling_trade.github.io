@@ -4,6 +4,7 @@ const vendor=fs.readFileSync(path.join(__dirname,'vendor/supabase-2.86.0.js'));
 assert.ok(html.includes('sha384-'+crypto.createHash('sha384').update(vendor).digest('base64')));
 assert.ok(html.includes("object-src 'none'"));assert.ok(!html.includes('src="https://cdn.jsdelivr.net/npm/@supabase'));
 assert.ok(!source.includes('buildDefaultCalendarEvents'));assert.ok(!source.includes('(Live)'));
+const readNews=vm.runInNewContext(source.slice(source.indexOf('      function canReadNews()'),source.indexOf('      async function refreshAccountAccess('))+'\ncanReadNews', {cloudUser:{id:'a'},cloudReady:false,nicknameReady:true,accountAccess:{plan:'pro'}});assert.equal(readNews(),false);
 for(const name of ['toggleBillingCycle','openQuickTrade','openProfileModal']) assert.ok(!source.includes('window.'+name+' ='));
 (async()=>{
   const calls=[];
