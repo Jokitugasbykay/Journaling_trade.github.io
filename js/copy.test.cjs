@@ -14,6 +14,14 @@ for (const file of ['index.html', 'js/app.js', 'js/scan.js', 'berita.json', 'kal
 }
 console.log('UI text and incoming emoji checks passed');
 
+const matchesSearch = vm.runInNewContext(source.slice(source.indexOf('      function newsMatchesSearch('), source.indexOf('      function updateNewsSearch(')) + '\nnewsMatchesSearch');
+assert.ok(matchesSearch({title:'Fed weighs inflation data'}, 'Reuters', '  REUTERS inflation  '));
+assert.ok(matchesSearch({title:'Café prices rise'}, 'Reuters', 'cafe'));
+assert.ok(matchesSearch({title:'Fed weighs inflation data'}, 'Reuters', ''));
+assert.ok(!matchesSearch({title:'Fed weighs inflation data'}, 'Reuters', 'fed oil'));
+assert.ok(!matchesSearch({title:'Fed weighs inflation data'}, 'Reuters', '<script>'));
+console.log('News search matches archive headlines and publishers without case/spacing/accent sensitivity');
+
 const guideStart = source.indexOf('      Object.assign(englishCopy,');
 const guideEnd = source.indexOf("      document.querySelectorAll('[data-i18n]')", guideStart);
 const guideCopy = vm.runInNewContext('const englishCopy = {};\n' + source.slice(guideStart, guideEnd) + '\nenglishCopy');

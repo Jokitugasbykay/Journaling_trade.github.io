@@ -22,7 +22,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
 
-  <link rel="stylesheet" href="css/style.css?v=20261008-fomc">
+  <link rel="stylesheet" href="css/style.css?v=20261008-news-search">
 </head>
 
 <body>
@@ -850,6 +850,13 @@
             <option value="other" data-i18n="categoryOther">Berita lainnya</option>
           </select>
         </nav>
+        <label for="news-search" class="news-search-label" data-i18n="newsSearchLabel">Cari berita</label>
+        <div class="cari news-search" id="news-search-box">
+          <span class="ic" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 5 5"/></svg></span>
+          <input type="search" id="news-search" placeholder="Cari judul atau sumber berita..." aria-controls="publisher-news-list" aria-describedby="news-search-info" autocomplete="off" maxlength="200">
+          <button class="hapus" id="news-search-clear" type="button" aria-label="Hapus pencarian berita" data-i18n="newsSearchClear">Hapus</button>
+        </div>
+        <p class="cari-info" id="news-search-info" role="status" aria-live="polite" hidden></p>
         <div class="publisher-news-toolbar">
           <label for="news-source" data-i18n="newsSourceLabel">Sumber berita</label>
           <select id="news-source" onchange="renderPublisherNews()"><option value="" data-i18n="newsAllSources">Semua sumber</option></select>
@@ -1261,7 +1268,7 @@
 
   <script src="js/vendor/supabase-2.86.0.js" integrity="sha384-3Sgm1bFlHa+gvzgZCHY6SyQwlKZpsgWl0qwxcwsypsSZQvo1vV1miPkn7n1lU1/L"></script>
   <script src="js/scan.js?v=20261007"></script>
-  <script src="js/app.js?v=20261008-news-archive"></script>
+  <script src="js/app.js?v=20261008-news-search"></script>
   <script src="js/fed.js?v=20261008-fomc"></script>
 
  </body>

@@ -3100,6 +3100,11 @@
 #view-berita #berita-seg .seg-btn { background:none; color:var(--text-muted); border:0; border-bottom:2px solid transparent; border-radius:0; padding:12px 0; min-height:44px; font-size:14px; box-shadow:none; }
 #view-berita #berita-seg .seg-btn.active { color:var(--text-main); border-bottom-color:var(--text-main); }
 .publisher-news-toolbar { display:flex; flex-wrap:wrap; align-items:center; gap:12px; }
+.news-search-label { display:block; font-size:13px; font-weight:600; margin:18px 0 8px; }
+.news-search input { min-height:48px; padding-right:76px; font-size:16px; }
+.news-search .ic { display:flex; }
+.news-search .hapus { right:2px; width:auto; min-width:60px; height:44px; padding:0 10px; background:transparent; border-radius:4px; font-size:12px; }
+.news-search input::-webkit-search-cancel-button { -webkit-appearance:none; }
 .publisher-news-toolbar label { font-size:14px; font-weight:600; }
 .publisher-news-toolbar select { min-height:44px; max-width:100%; background:var(--bg-card); color:var(--text-main); border:1px solid var(--line); border-radius:4px; padding:10px 12px; font:inherit; font-size:14px; }
 #view-berita .btn-secondary { background:var(--bg-card); color:var(--text-main); border:1px solid var(--line); border-radius:4px; min-height:44px; }

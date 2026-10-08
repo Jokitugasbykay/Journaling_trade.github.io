@@ -131,8 +131,11 @@
         calendarLiveHint: 'The official calendar updates release results automatically. If the widget cannot load, open the source directly.',
         calendarSource: 'Open Investing.com'
       });
+      Object.assign(englishCopy, {newsSearchLabel:'Search news', newsSearchClear:'Clear'});
       const translatedText = new WeakMap();
       const legacyCopy = {
+        'Cari judul atau sumber berita...': 'Search headlines or publishers...',
+        'Hapus pencarian berita': 'Clear news search',
         'Jurnal Trading Terstruktur': 'Structured trading journal',
         'Catat, filter, dan evaluasi setiap posisi trading secara objektif dan terukur.': 'Record, filter, and review each trading position.',
         '+ Catat Trade': '+ Record trade', 'Total Jurnal': 'Total trades', 'Histori Akun': 'Account history',
@@ -3036,12 +3039,31 @@
       let publisherNews = null;
       let newsVisibleCount = 12;
       let newsSelectedSource = '';
+      let newsQuery = '';
       let newsCategory = '';
       const newsCategoryNames = {politics:['Politik','Politics'], fed:['The Fed','The Fed'], world:['Dunia','World'], business:['Bisnis','Business'], markets:['Pasar','Markets'], sustainability:['Keberlanjutan','Sustainability'], legal:['Hukum','Legal'], commentary:['Komentar','Commentary'], technology:['Teknologi','Technology'], investigations:['Investigasi','Investigations'], local:['Berita lokal','Local news'], science:['Sains','Science'], sport:['Olahraga','Sport'], other:['Berita lainnya','Other news']};
       let publisherNewsBusy = false;
       let publisherNewsFailed = false;
       const publisherDomains = { investing: 'investing.com', cnbc: 'cnbc.com', kontan: 'kontan.co.id', reuters: 'reuters.com', aljazeera: 'aljazeera.com', bloomberg: 'bloomberg.com', fnc: 'tradewithfnc.com', investing_id: 'investing.com', pluang: 'pluang.com', kompas: 'kompas.com', detik: 'detik.com', kemenkeu: 'kemenkeu.go.id', cnn_id: 'cnnindonesia.com', bisnis: 'bisnis.com', sindo: 'sindonews.com', fedwatch: 'cmegroup.com', cme: 'cmegroup.com' };
       const newsText = (id, en) => language === 'en' ? en : id;
+      function newsMatchesSearch(item, sourceName, query) {
+        const normalize = value => String(value || '').normalize('NFKD').replace(/\p{M}/gu, '').toLowerCase();
+        const haystack = normalize(item.title + ' ' + (sourceName || ''));
+        return normalize(query).trim().split(/\s+/).every(term => haystack.includes(term));
+      }
+      function updateNewsSearch() {
+        newsQuery = $('news-search').value;
+        newsVisibleCount = 12;
+        $('news-search-box').classList.toggle('isi', !!newsQuery);
+        renderPublisherNews();
+      }
+      $('news-search').addEventListener('input', updateNewsSearch);
+      $('news-search-clear').addEventListener('click', () => {
+        $('news-search').value = ''; updateNewsSearch(); $('news-search').focus();
+      });
+      $('news-search').addEventListener('keydown', event => {
+        if (event.key === 'Escape' && $('news-search').value) { event.preventDefault(); $('news-search-clear').click(); }
+      });
       function publisherUrl(value, sourceId) {
         try {
           const url = new URL(value);
@@ -3085,7 +3107,9 @@
           return '<a href="' + esc(url) + '" target="_blank" rel="noopener noreferrer">' + esc(source.name) + '<small>' + esc(state) + '</small></a>';
         }).join('');
         const sources = new Map(publisherNews.sources.map(source => [source.id, source]));
-        const rows = publisherNews.items.filter(item => (!selected || item.source === selected) && (!newsCategory || ((item.category || 'other') === newsCategory || item.topics?.includes(newsCategory))));
+        const rows = publisherNews.items.filter(item => (!selected || item.source === selected) && (!newsCategory || ((item.category || 'other') === newsCategory || item.topics?.includes(newsCategory))) && newsMatchesSearch(item, sources.get(item.source)?.name, newsQuery));
+        $('news-search-info').hidden = !newsQuery.trim();
+        $('news-search-info').textContent = newsQuery.trim() ? rows.length.toLocaleString(language === 'en' ? 'en-GB' : 'id-ID') + newsText(' berita cocok', ' matching stories') : '';
         document.querySelectorAll('#news-categories [data-category]').forEach(button => button.setAttribute('aria-pressed', String(button.dataset.category === newsCategory)));
         $('news-more-category').value = ['local','science','sport','other'].includes(newsCategory) ? newsCategory : '';
         document.querySelector('.publisher-grid-heading').textContent = newsCategory ? newsCategoryNames[newsCategory][language === 'en' ? 1 : 0] : newsText('Berita terbaru', 'Latest stories');
@@ -3098,7 +3122,7 @@
           const image = publisherImageUrl(item.image);
           const media = '<span class="publisher-photo"><span class="publisher-photo-fallback" aria-hidden="true"><small>' + newsText('Foto tidak tersedia', 'Photo unavailable') + '</small></span>' + (image ? '<img src="' + esc(image) + '" alt="" width="640" height="360" loading="lazy" decoding="async" referrerpolicy="no-referrer">' : '') + '</span>';
           return '<article class="publisher-news-item"><a class="publisher-story-link" href="' + esc(url) + '" target="_blank" rel="noopener noreferrer">' + media + '<h3>' + esc(item.title) + '</h3></a><p class="publisher-news-meta"><span>' + esc(source.name) + '</span><time' + (publisherTime(item.publishedAt) ? ' datetime="' + esc(item.publishedAt) + '"' : '') + '>' + esc(time) + '</time></p></article>';
-        }).join('') : '<p>' + newsText('Belum ada berita yang sesuai filter ini. Pilih kategori atau sumber lain.', 'No stories match these filters. Choose another category or source.') + '</p>';
+        }).join('') : '<p>' + (newsQuery.trim() ? newsText('Tidak ada berita yang cocok. Coba kata kunci lain atau hapus filter kategori dan sumber.', 'No stories match your search. Try different keywords or clear the category and source filters.') : newsText('Belum ada berita yang sesuai filter ini. Pilih kategori atau sumber lain.', 'No stories match these filters. Choose another category or source.')) + '</p>';
         $('publisher-news-list').querySelectorAll('img').forEach(img => { img.addEventListener('error', () => img.remove(), { once: true }); });
       };
       window.selectNewsCategory = function (value) { newsCategory = newsCategoryNames[value] ? value : ''; newsVisibleCount = 12; renderPublisherNews(); };
