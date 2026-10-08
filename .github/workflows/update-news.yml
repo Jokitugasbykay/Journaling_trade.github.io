@@ -1,7 +1,7 @@
 name: Update publisher news
 on:
   schedule:
-    - cron: '17,47 * * * *'
+    - cron: '*/5 * * * *'
   workflow_dispatch:
   push:
     branches: [main]
@@ -25,15 +25,19 @@ jobs:
         with:
           python-version: '3.12'
       - run: python scripts/test_news.py
+      - run: python scripts/test_macro.py
       - run: node js/copy.test.cjs
       - run: node js/security.test.cjs
+      - run: node js/discipline.test.cjs
+      - run: node js/fed.test.cjs
       - run: python scripts/update_news.py
       - run: python scripts/update_bi.py
+      - run: python scripts/update_macro.py
       - name: Publish headlines
         run: |
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add berita.json bi.json
+          git add berita.json bi.json kalender.json fomc.json
           if ! git diff --cached --quiet; then
             git commit -m 'Refresh publisher headlines'
             git pull --rebase origin main
@@ -42,7 +46,7 @@ jobs:
       - name: Prepare website
         run: |
           mkdir _site
-          cp index.html berita.json kalender.json bi.json _site/
+          cp index.html berita.json kalender.json bi.json fomc.json _site/
           cp -r css js _site/
           for route in home journal statistics calculator economic-news economic-news/calendar economic-news/social login profile; do
             mkdir -p "_site/$route"

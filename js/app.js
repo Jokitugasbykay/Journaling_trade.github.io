@@ -110,7 +110,7 @@
   "guideReviewText": "Open Statistics to review profit and loss, win rate, and drawdown. Compare your setups and entry reasons, then choose one habit to improve in your next session."
 });
       Object.assign(englishCopy, {"newsPageTitle":"News & economic calendar","newsPageLead":"Headlines from your selected publishers, publication times, and the economic calendar.","newsHeadlines":"Latest news","newsCalendar":"Economic calendar","newsSourceLabel":"News source","newsAllSources":"All sources","newsRefresh":"Refresh news","newsOriginalLanguage":"Headlines remain in the publisher’s original language. Read the full story on the source website.","newsCmeHint":"View current interest-rate probabilities and market data directly on CME Group."});
-      Object.assign(englishCopy, {"newsLatestStories": "Latest stories", "newsShowMore": "Show more stories", "newsFeedDetails": "Sources & update schedule", "newsSchedule": "News is collected every 30 minutes daily. This page checks for updates every 5 minutes."});
+      Object.assign(englishCopy, {"newsLatestStories": "Latest stories", "newsShowMore": "Show more stories", "newsFeedDetails": "Sources & update schedule", "newsSchedule": "News collection is scheduled every 5 minutes. This page checks for updates every 5 minutes; source timestamps show freshness."});
       Object.assign(englishCopy, {"categoryAll": "All", "categoryWorld": "World", "categoryPolitics": "Politics", "categoryBusiness": "Business", "categoryMarkets": "Markets", "categorySustainability": "Sustainability", "categoryLegal": "Legal", "categoryCommentary": "Commentary", "categoryTechnology": "Technology", "categoryInvestigations": "Investigations", "categoryMore": "More", "categoryLocal": "Local news", "categoryScience": "Science", "categorySport": "Sport", "categoryOther": "Other news", "biSource": "Bank Indonesia transaction rates", "biBasis": "Journal conversion uses the midpoint of BI USD sell and buy rates. BI publishes rates once per business day."});
       Object.assign(englishCopy, {
         signupTitle: 'Create your journalingtrade account', signupLead: 'Start with Free and track your trading journey.',
@@ -124,6 +124,12 @@
       });
       document.querySelectorAll('[data-i18n]').forEach(element => {
         originalCopy.set(element.dataset.i18n, element.innerHTML);
+      });
+      Object.assign(englishCopy, {
+        calendarLead: 'Macroeconomic, employment, inflation and interest-rate releases. Table times are in WIB.',
+        calendarImpact: 'Impact', calendarLive: 'Open the live Investing.com calendar',
+        calendarLiveHint: 'The official calendar updates release results automatically. If the widget cannot load, open the source directly.',
+        calendarSource: 'Open Investing.com'
       });
       const translatedText = new WeakMap();
       const legacyCopy = {
@@ -246,6 +252,10 @@
         $('nickname-input').placeholder = language === 'en' ? 'Your nickname' : 'Nama panggilan Anda';
         if (window.renderPublisherNews) renderPublisherNews();
         if (window.renderBiIndicators) renderBiIndicators();
+        if (kalCache) {
+          gambarKalUlang(); renderTodayOverviewCalendar(kalCache.items); updateNextEventCountdown(); calendarStamp();
+        }
+        if (window.renderFedWatch) window.renderFedWatch();
         updatePricingDisplay();
       }
       window.setLanguage = function (value) {
@@ -2585,26 +2595,17 @@
       let kalCache = null, kalCari = '', kalDmp = [], kalTh = '', kalBl = '', kalTg = '', kalLihatLalu = false;
       let kalPollingTimer = null, kalCountdownTimer = null;
 
-      function kalPad(n) { return String(n).length < 2 ? '0' + n : String(n); }
+      const kalText = (id, en) => language === 'en' ? en : id;
       function kalHariIni() {
-        const d = new Date();
-        return d.getFullYear() + '-' + kalPad(d.getMonth() + 1) + '-' + kalPad(d.getDate());
-      }
-      function getActiveCalendarDate(items) {
-        const sysHari = kalHariIni();
-        const allDates = [...new Set((items || []).map(x => x && x.tgl).filter(Boolean))].sort();
-        if (!allDates.length) return sysHari;
-        if (allDates.includes(sysHari)) return sysHari;
-        const future = allDates.find(t => t >= sysHari);
-        if (future) return future;
-        return allDates[allDates.length - 1];
+        const parts = new Intl.DateTimeFormat('en-CA', {timeZone:'Asia/Jakarta',year:'numeric',month:'2-digit',day:'2-digit'}).formatToParts(new Date());
+        return ['year','month','day'].map(type => parts.find(p => p.type === type).value).join('-');
       }
       function kalTglID(t) {
         const p = String(t || '').split('-');
         if (p.length !== 3) return t || '';
-        const d = new Date(+p[0], +p[1] - 1, +p[2]);
+        const d = new Date(t + 'T12:00:00+07:00');
         if (isNaN(d)) return t || '';
-        return d.toLocaleDateString('id-ID', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
+        return d.toLocaleDateString(language === 'en' ? 'en-GB' : 'id-ID', { timeZone:'Asia/Jakarta', weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
       }
       function kalAngka(v) {
         if (v === null || v === undefined) return null;
@@ -2632,7 +2633,7 @@
       function kalDmpNorm(v) { return Math.max(1, Math.min(3, +v || 1)); }
 
       function kalSaring(a) {
-        const hari = getActiveCalendarDate(a);
+        const hari = kalHariIni();
         let isi = (a || []).filter(x => x && x.tgl);
         if (!kalLihatLalu && !kalTh && !kalBl && !kalTg) isi = isi.filter(x => x.tgl >= hari);
         if (kalTh) isi = isi.filter(x => String(x.tgl).slice(0, 4) === kalTh);
@@ -2650,7 +2651,6 @@
         return !!(kalCari.trim() || kalDmp.length || kalTh || kalBl || kalTg);
       }
 
-      const KAL_BULAN = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
 
       function renderKalTgl(items) {
         if (!$('kal-th')) return;
@@ -2670,9 +2670,9 @@
             daftar.map(v => '<option value="' + v + '"' + (v === nilai ? ' selected' : '') + '>' +
               (label ? label(v) : v) + '</option>').join('');
         };
-        isi($('kal-th'), th, kalTh, 'Semua tahun');
-        isi($('kal-bl'), bl, kalBl, 'Semua bulan', v => KAL_BULAN[parseInt(v, 10) - 1] || v);
-        isi($('kal-tg'), tg, kalTg, 'Semua tgl', v => String(parseInt(v, 10)));
+        isi($('kal-th'), th, kalTh, kalText('Semua tahun', 'All years'));
+        isi($('kal-bl'), bl, kalBl, kalText('Semua bulan', 'All months'), v => new Date(Date.UTC(2000, +v - 1, 1)).toLocaleString(language === 'en' ? 'en-GB' : 'id-ID', {month:'long',timeZone:'UTC'}));
+        isi($('kal-tg'), tg, kalTg, kalText('Semua tgl', 'All days'), v => String(parseInt(v, 10)));
       }
 
       function renderKalChipDmp() {
@@ -2690,7 +2690,7 @@
 
       function kalBand(tgl, hari) {
         return '<div class="kal-band">' + kalTglID(tgl) +
-          (tgl === hari ? '<span class="kini">Hari Ini</span>' : '') + '</div>';
+          (tgl === hari ? '<span class="kini">' + kalText('Hari Ini','Today') + '</span>' : '') + '</div>';
       }
 
       function kalBaris(x) {
@@ -2703,19 +2703,19 @@
           '<span class="kal-neg">' + esc(x.neg || '') + '</span>' +
           kalDmpBar(x.dmp) +
           '<div><div class="kal-nama">' + esc(x.nama || '') + '</div>' +
-          (adaAngka ? '<div class="kal-ang">Akt <b class="' + cls.trim() + '">' + esc(x.akt || '-') +
-            '</b> &middot; Perk ' + esc(x.prk || '-') + ' &middot; Sblm ' + esc(x.sbl || '-') + '</div>' : '') +
+          (adaAngka ? '<div class="kal-ang">' + kalText('Akt','Actual') + ' <b class="' + cls.trim() + '">' + esc(x.akt || '-') +
+            '</b> &middot; ' + kalText('Perk','Forecast') + ' ' + esc(x.prk || '-') + ' &middot; ' + kalText('Sblm','Previous') + ' ' + esc(x.sbl || '-') + '</div>' : '') +
           (x.cat ? '<div class="kal-cat"> ' + esc(x.cat) + '</div>' : '') +
           '</div></div>';
       }
 
       function kalKosong() {
         if (kalAdaSaringan()) {
-          return '<div class="feed-empty">Tidak ada rilis yang cocok dengan saringan ini.<br>' +
+          return '<div class="feed-empty">' + kalText('Tidak ada rilis yang cocok dengan saringan ini.', 'No releases match these filters.') + '<br>' +
             '<button class="btn btn-secondary btn-sm" style="margin-top:11px;" ' +
-            'onclick="window.__kalReset()">Bersihkan Saringan</button></div>';
+            'onclick="window.__kalReset()">' + kalText('Bersihkan Saringan','Clear filters') + '</button></div>';
         }
-        return '<div class="feed-empty">Belum ada jadwal kalender.<br>Cek lagi nanti.</div>';
+        return '<div class="feed-empty">' + kalText('Belum ada jadwal kalender. Cek lagi nanti.','Calendar unavailable. Check again later.') + '</div>';
       }
 
       function gambarKalender(items) {
@@ -2728,23 +2728,23 @@
           if (kalAdaSaringan()) {
             info.hidden = false;
             info.textContent = isi.length
-              ? isi.length + ' rilis ditemukan dari ' + semua.length + ' jadwal'
-              : 'Tidak ada yang cocok';
+              ? isi.length + kalText(' rilis ditemukan dari ', ' releases found out of ') + semua.length
+              : kalText('Tidak ada yang cocok', 'No matches');
           } else { info.hidden = true; info.textContent = ''; }
         }
-        const hari = getActiveCalendarDate(semua);
+        const hari = kalHariIni();
         let bilah = '';
         if (!kalLihatLalu && !kalTh && !kalBl && !kalTg) {
           const lalu = semua.filter(x => x && x.tgl && x.tgl < hari).length;
           if (lalu) {
-            bilah = '<div class="kal-lalu"><span>' + lalu + ' jadwal lampau</span>' +
+            bilah = '<div class="kal-lalu"><span>' + lalu + kalText(' jadwal lampau', ' past releases') + '</span>' +
               '<button class="btn btn-secondary btn-sm" type="button" onclick="window.__kalLalu(true)">' +
-              'Tampilkan</button></div>';
+              kalText('Tampilkan', 'Show') + '</button></div>';
           }
         } else if (kalLihatLalu && !kalTh && !kalBl && !kalTg) {
-          bilah = '<div class="kal-lalu"><span>Jadwal lampau ikut tampil</span>' +
+          bilah = '<div class="kal-lalu"><span>' + kalText('Jadwal lampau ikut tampil','Past releases included') + '</span>' +
             '<button class="btn btn-secondary btn-sm" type="button" onclick="window.__kalLalu(false)">' +
-            'Sembunyikan</button></div>';
+            kalText('Sembunyikan', 'Hide') + '</button></div>';
         }
         if (!isi.length) {
           if ($('kal-list')) $('kal-list').innerHTML = kalKosong() + bilah;
@@ -2769,37 +2769,28 @@
         if (!container) return;
 
         const semua = items || [];
-        const hari = getActiveCalendarDate(semua);
+        const hari = kalHariIni();
 
         let todayItems = semua.filter(x => x && x.tgl === hari);
-        if (!todayItems.length) {
-          const futureDates = [...new Set(semua.map(x => x.tgl).filter(t => t >= hari))].sort();
-          if (futureDates.length) {
-            todayItems = semua.filter(x => x.tgl === futureDates[0]);
-          } else {
-            todayItems = semua.slice(-5);
-          }
-        }
-
         todayItems = kalUrut(todayItems);
 
         if (!todayItems.length) {
-          container.innerHTML = '<div style="padding:15px; color:var(--text-muted); font-size:12.5px; text-align:center;">Tidak ada rilis data terjadwal untuk hari ini.</div>';
+          container.innerHTML = '<div style="padding:15px; color:var(--text-muted); font-size:12.5px; text-align:center;">' + kalText('Tidak ada rilis data terjadwal untuk hari ini.', 'No releases scheduled today.') + '</div>';
           return;
         }
 
         container.innerHTML = todayItems.map(x => {
           const dmp = Math.max(1, Math.min(3, +x.dmp || 1));
           const dmpCls = dmp === 3 ? 'high' : (dmp === 2 ? 'med' : 'low');
-          const dmpLbl = dmp === 3 ? 'Tinggi' : (dmp === 2 ? 'Sedang' : 'Rendah');
+          const dmpLbl = dmp === 3 ? kalText('Tinggi','High') : (dmp === 2 ? kalText('Sedang','Medium') : kalText('Rendah','Low'));
           const metaParts = [];
-          if (x.akt) metaParts.push('Akt: ' + x.akt);
+          if (x.akt) metaParts.push(kalText('Akt: ', 'Actual: ') + x.akt);
           if (x.prk) metaParts.push('Fcst: ' + x.prk);
           if (x.sbl) metaParts.push('Prev: ' + x.sbl);
-          const metaStr = metaParts.length ? metaParts.join(' | ') : 'Menunggu konsensus rilis';
+          const metaStr = metaParts.length ? metaParts.join(' | ') : kalText('Menunggu konsensus rilis', 'Awaiting release consensus');
 
           return `
-            <div class="cal-row" onclick="switchBeritaSub('kalender')" style="cursor:pointer;" title="Klik untuk membuka kalender lengkap">
+            <div class="cal-row" onclick="switchBeritaSub('kalender')" style="cursor:pointer;" title="${kalText('Klik untuk membuka kalender lengkap', 'Open the full calendar')}">
               <span class="cal-time">${esc(x.jam || '--:--')}</span>
               <span class="cal-cur">${esc(x.neg || '')}</span>
               <div class="cal-event-box">
@@ -2819,32 +2810,27 @@
 
         const items = (kalCache && kalCache.items) || [];
         if (!items.length) {
-          titleEl.textContent = 'Memuat Jadwal Kalender...';
-          timerEl.textContent = 'Sinkronisasi otomatis';
+          titleEl.textContent = kalText('Memuat Jadwal Kalender...', 'Loading calendar...');
+          timerEl.textContent = kalText('Sinkronisasi otomatis', 'Automatic refresh');
           return;
         }
 
         const now = new Date();
-        const hari = getActiveCalendarDate(items);
+        const hari = kalHariIni();
 
         const highImpact = items
           .filter(x => x && x.tgl && x.jam && (+x.dmp >= 3))
           .map(x => {
-            const pTgl = String(x.tgl).split('-').map(Number);
-            const pJam = String(x.jam).split(':').map(Number);
-            const evtDate = new Date(pTgl[0], pTgl[1] - 1, pTgl[2], pJam[0] || 0, pJam[1] || 0, 0);
+            const evtDate = new Date(x.tgl + 'T' + x.jam + ':00+07:00');
             return { ...x, evtDate };
           })
           .sort((a, b) => a.evtDate - b.evtDate);
 
-        let nextEvt = highImpact.find(x => x.evtDate.getTime() + 30 * 60 * 1000 > now.getTime());
-        if (!nextEvt && highImpact.length) {
-          nextEvt = highImpact[highImpact.length - 1];
-        }
+        const nextEvt = highImpact.find(x => x.evtDate.getTime() + 30 * 60 * 1000 > now.getTime());
 
         if (!nextEvt) {
-          titleEl.textContent = 'Tidak Ada Rilis Berdampak Tinggi Terjadwal';
-          timerEl.textContent = 'Semua rilis periode ini telah selesai';
+          titleEl.textContent = kalText('Tidak Ada Rilis Berdampak Tinggi Terjadwal', 'No upcoming high-impact releases');
+          timerEl.textContent = kalText('Semua rilis periode ini telah selesai', 'No upcoming release in this snapshot');
           return;
         }
 
@@ -2860,11 +2846,9 @@
           const mins = Math.floor((totalSec % 3600) / 60);
           const secs = totalSec % 60;
           const cdStr = `${String(hrs).padStart(2, '0')}:${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
-          timerEl.textContent = `${timeFormatted} · Dimulai dalam ${cdStr}${isToday ? ' (Hari Ini)' : ' (' + kalTglID(nextEvt.tgl) + ')'}`;
-        } else if (diffMs >= -30 * 60 * 1000) {
-          timerEl.textContent = `${timeFormatted} · Rilis Sedang Berlangsung / Baru Rilis`;
+          timerEl.textContent = `${timeFormatted} · ${kalText('Dimulai dalam', 'Starts in')} ${cdStr}${isToday ? kalText(' (Hari Ini)', ' (Today)') : ' (' + kalTglID(nextEvt.tgl) + ')'}`;
         } else {
-          timerEl.textContent = `${timeFormatted} · Telah Dirilis (Aktual: ${nextEvt.akt || 'Tersedia'})`;
+          timerEl.textContent = `${timeFormatted} · ${kalText('Rilis Sedang Berlangsung / Baru Rilis', 'Release due / just released')}`;
         }
       }
 
@@ -2886,11 +2870,11 @@
       async function fetchKalenderData(force) {
         const stampEl = $('kal-stamp');
         if (stampEl && force) {
-          stampEl.textContent = 'Memperbarui otomatis...';
+          stampEl.textContent = kalText('Memperbarui otomatis...', 'Refreshing...');
         }
 
         let items = null;
-        let updatedStr = '';
+        let updatedStr = '', sourceStatus = 'stale';
 
         // 1. Fetch from local kalender.json
         try {
@@ -2900,6 +2884,7 @@
             if (data && Array.isArray(data.items) && data.items.length) {
               items = data.items;
               updatedStr = data.updated || '';
+              sourceStatus = data.status || 'stale';
             }
           }
         } catch (e) {
@@ -2947,21 +2932,16 @@
           localStorage.setItem('jt_kalender_cache_v2', JSON.stringify({ items, updated: updatedStr }));
         } catch (e) {}
 
-        const nowStr = new Date().toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit', second: '2-digit' }) + ' WIB';
-
         kalCache = {
           items: items,
-          updated: nowStr,
-          rawUpdated: updatedStr
+          rawUpdated: updatedStr, sourceStatus
         };
 
         gambarKalender(kalCache.items);
         renderTodayOverviewCalendar(kalCache.items);
         updateNextEventCountdown();
 
-        if ($('kal-stamp')) {
-          $('kal-stamp').textContent = !items.length ? 'Calendar unavailable' : !updatedStr || Date.now() - new Date(updatedStr).getTime() > 3600000 ? 'Saved calendar · source: ' + (updatedStr || 'Unknown') : 'Calendar source updated: ' + updatedStr;
-        }
+        calendarStamp();
 
         // Start real-time timers if not running
         if (!kalCountdownTimer) {
@@ -2973,6 +2953,22 @@
           }, 60000); // auto-poll every 60 seconds
         }
       }
+
+      function calendarStamp() {
+        if (!$('kal-stamp') || !kalCache) return;
+        const stale = kalCache.sourceStatus !== 'ok' || !kalCache.rawUpdated || Date.now()-Date.parse(kalCache.rawUpdated)>3600000;
+        $('kal-stamp').textContent = !kalCache.items.length ? kalText('Kalender tidak tersedia', 'Calendar unavailable') :
+          (stale ? kalText('Kalender tersimpan; pembaruan live belum tersedia. Data per: ', 'Saved calendar; live refresh unavailable. Data as of: ') : kalText('Sumber diperbarui: ', 'Source updated: ')) +
+          (kalCache.rawUpdated ? new Date(kalCache.rawUpdated).toLocaleString(language === 'en' ? 'en-GB' : 'id-ID', {timeZone:'Asia/Jakarta'}) + ' WIB' : kalText('Tidak diketahui', 'Unknown'));
+      }
+      $('calendar-live').addEventListener('toggle', () => {
+        if (!$('calendar-live').open || $('calendar-live-frame').firstChild) return;
+        const frame = document.createElement('iframe');
+        frame.title = 'Investing.com live economic calendar';
+        frame.src = 'https://sslecal2.investing.com/?columns=exc_flags,exc_currency,exc_importance,exc_actual,exc_forecast,exc_previous&features=datepicker,timezone,timeselector,filters&calType=week&lang=1&ecoDayBackground=%230c0d10&defaultFont=%23eeeeee&innerBorderColor=%23262a32&borderColor=%23262a32&ecoDayFontColor=%23eeeeee';
+        frame.loading = 'lazy';
+        $('calendar-live-frame').appendChild(frame);
+      });
 
       function renderEconomicCalendar(force) {
         if (!kalCache || force) {
@@ -3066,7 +3062,8 @@
       }
       window.renderPublisherNews = function () {
         if (!canReadNews()) { $('publisher-news-list').innerHTML = ''; return; }
-        $('fedwatch-link').hidden = newsCategory !== 'fed';
+        $('fomc-panel').hidden = newsCategory !== 'fed';
+        if (window.renderFedWatch) window.renderFedWatch();
         const status = $('publisher-news-status');
         if (!status) return;
         if (!publisherNews) {

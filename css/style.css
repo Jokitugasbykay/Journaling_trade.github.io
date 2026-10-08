@@ -3193,4 +3193,32 @@ body.auth-page .main-wrap { max-width:none; width:100%; margin:0; padding:0; }
 
 #market-ticker tv-ticker-tape { display: block; height: 88px; }
 
-#fedwatch-link { margin: 0 0 20px; }
+.fomc-panel { margin: 0 0 32px; }
+.fomc-hero { display: grid; grid-template-columns: 1.2fr 1fr; gap: 28px; padding: 28px; margin-bottom: 26px; background: #11151c; border: 1px solid var(--line); border-radius: 12px; }
+.fomc-hero h3 { font-size: clamp(24px, 3vw, 34px); margin: 8px 0 12px; }
+.fomc-eyebrow { color: var(--text-muted); font-size: 11px; letter-spacing: .12em; }
+.fomc-meta { color: var(--text-muted); font-size: 12px; line-height: 1.7; }
+.fomc-clock { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-top: 16px; }
+.fomc-clock div { display: grid; gap: 8px; padding: 16px 6px; text-align: center; border: 1px solid #343c49; background: #1b222d; border-radius: 8px; }
+.fomc-clock b { font: 500 clamp(24px, 3vw, 36px) var(--mono); color: var(--text-main); }
+.fomc-clock span { font-size: 10px; color: #aab4c3; letter-spacing: .06em; }
+.fomc-sources, .fomc-analysis-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; }
+.fomc-sources article { padding: 20px; border: 1px solid var(--line); border-radius: 8px; }
+.fomc-panel h4 { font-size: 15px; margin: 0 0 12px; }
+.fomc-panel a { color: var(--text-main); text-underline-offset: 3px; }
+.fomc-distribution { margin: 16px 0 0; }
+.fomc-distribution div { display: flex; justify-content: space-between; gap: 14px; padding: 10px 0; border-top: 1px solid var(--line); }
+.fomc-distribution dt { color: var(--text-muted); font-size: 13px; }
+.fomc-distribution dd { margin: 0; font-weight: 700; font-variant-numeric: tabular-nums; }
+.fomc-analysis { margin-top: 28px; }
+.fomc-analysis summary, .calendar-live summary { cursor: pointer; font-weight: 600; padding: 14px 0; }
+.fomc-analysis-grid p { font-size: 13px; line-height: 1.8; color: var(--text-muted); }
+.calendar-live { margin: 16px 0; padding: 0 16px 12px; background: #101319; border: 1px solid var(--line); border-radius: 10px; }
+.calendar-live p, .calendar-live a { font-size: 12px; color: var(--text-muted); }
+.calendar-live iframe { width: 100%; height: 600px; border: 0; margin-top: 16px; background: #101319; }
+@media (max-width: 680px) {
+  .fomc-hero { grid-template-columns: 1fr; gap: 18px; padding: 20px 16px; }
+  .fomc-sources, .fomc-analysis-grid { grid-template-columns: 1fr; gap: 18px; }
+  .fomc-clock { gap: 8px; }
+  .fomc-sources article { padding: 16px; }
+}

@@ -265,7 +265,7 @@ def main():
         list(pool.map(add_article_image, missing))
     items = [item for item in items if not SIGNALS.search(item['title'])]
     items.sort(key=lambda item: item.get("publishedAt") or "", reverse=True)
-    output = {"version": 1, "checkedAt": dt.datetime.now(dt.timezone.utc).isoformat(), "intervalMinutes": 30, "sources": sources, "items": items[:400]}
+    output = {"version": 1, "checkedAt": dt.datetime.now(dt.timezone.utc).isoformat(), "intervalMinutes": 5, "sources": sources, "items": items[:400]}
     temporary = path.with_suffix(".json.tmp")
     temporary.write_text(json.dumps(output, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     temporary.replace(path)
