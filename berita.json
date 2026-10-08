@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "checkedAt": "2026-10-08T05:30:06.654456+00:00",
+  "checkedAt": "2026-10-08T05:34:16.662563+00:00",
   "intervalMinutes": 5,
   "sources": [
     {
@@ -9,7 +9,7 @@
       "url": "https://www.investing.com/",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-08T05:29:56.025113+00:00"
+      "checkedAt": "2026-10-08T05:34:11.621700+00:00"
     },
     {
       "id": "cnbc",
@@ -17,7 +17,7 @@
       "url": "https://www.cnbc.com/markets/",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-08T05:29:55.989227+00:00"
+      "checkedAt": "2026-10-08T05:34:11.627451+00:00"
     },
     {
       "id": "kontan",
@@ -25,7 +25,7 @@
       "url": "https://www.kontan.co.id/",
       "kind": "html",
       "status": "ok",
-      "checkedAt": "2026-10-08T05:29:57.042056+00:00"
+      "checkedAt": "2026-10-08T05:34:13.041396+00:00"
     },
     {
       "id": "reuters",
@@ -33,7 +33,7 @@
       "url": "https://www.reuters.com/",
       "kind": "sitemap",
       "status": "ok",
-      "checkedAt": "2026-10-08T05:29:56.191393+00:00"
+      "checkedAt": "2026-10-08T05:34:11.784201+00:00"
     },
     {
       "id": "aljazeera",
@@ -41,7 +41,7 @@
       "url": "https://www.aljazeera.com/",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-08T05:29:56.046984+00:00"
+      "checkedAt": "2026-10-08T05:34:11.694908+00:00"
     },
     {
       "id": "bloomberg",
@@ -49,7 +49,7 @@
       "url": "https://www.bloomberg.com/asia",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-08T05:29:56.151421+00:00"
+      "checkedAt": "2026-10-08T05:34:11.791377+00:00"
     },
     {
       "id": "fnc",
@@ -57,7 +57,7 @@
       "url": "https://tradewithfnc.com/",
       "kind": "json",
       "status": "ok",
-      "checkedAt": "2026-10-08T05:29:56.490013+00:00"
+      "checkedAt": "2026-10-08T05:34:11.884006+00:00"
     },
     {
       "id": "investing_id",
@@ -65,7 +65,7 @@
       "url": "https://id.investing.com/news",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-08T05:29:56.094809+00:00"
+      "checkedAt": "2026-10-08T05:34:11.785873+00:00"
     },
     {
       "id": "pluang",
@@ -73,7 +73,7 @@
       "url": "https://pluang.com/news-feed",
       "kind": "html",
       "status": "ok",
-      "checkedAt": "2026-10-08T05:29:56.502212+00:00"
+      "checkedAt": "2026-10-08T05:34:12.867646+00:00"
     },
     {
       "id": "kompas",
@@ -81,7 +81,7 @@
       "url": "https://money.kompas.com/",
       "kind": "html",
       "status": "ok",
-      "checkedAt": "2026-10-08T05:29:56.723589+00:00"
+      "checkedAt": "2026-10-08T05:34:12.450411+00:00"
     },
     {
       "id": "detik",
@@ -89,7 +89,7 @@
       "url": "https://finance.detik.com/",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-08T05:29:57.684155+00:00"
+      "checkedAt": "2026-10-08T05:34:13.467829+00:00"
     },
     {
       "id": "kemenkeu",
@@ -121,7 +121,7 @@
       "url": "https://ekbis.sindonews.com/",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-08T05:29:56.593913+00:00"
+      "checkedAt": "2026-10-08T05:34:12.046387+00:00"
     },
     {
       "id": "fedwatch",
@@ -139,6 +139,26 @@
     }
   ],
   "items": [
+    {
+      "id": "5f88cef99d45287b6e8f",
+      "source": "cnbc",
+      "title": "America shut out Chinese EVs. Britain welcomed them - and now faces a difficult choice",
+      "url": "https://www.cnbc.com/2026/10/08/autos-china-evs-uk-tariffs-hybrid-cars.html",
+      "publishedAt": "2026-10-08T05:30:49+00:00",
+      "image": "https://image.cnbcfm.com/api/v1/image/108373886-1791368699021-gettyimages-2244760464-CHINA_BYD.jpeg?v=1791369118&w=1920&h=1080",
+      "category": "other",
+      "topics": []
+    },
+    {
+      "id": "42e1f7954c9b9f38c6e0",
+      "source": "reuters",
+      "title": "Brewers KO Padres in Game 4, set up NLCS rematch vs. Dodgers",
+      "url": "https://www.reuters.com/sports/baseball/brewers-ko-padres-game-4-set-up-nlcs-rematch-vs-dodgers--flm-2026-10-08/",
+      "publishedAt": "2026-10-08T05:30:44.006000+00:00",
+      "image": null,
+      "category": "sport",
+      "topics": []
+    },
     {
       "id": "bc6e59e1cd9be69dc743",
       "source": "kompas",
@@ -12389,6 +12409,16 @@
       "publishedAt": null,
       "image": "https://content-media.investing.com/news/moved_LYNXMPEM4510G_1200_L.jpg",
       "category": "markets",
+      "topics": []
+    },
+    {
+      "id": "1cbb8155314cb82886ee",
+      "source": "kontan",
+      "title": "Vietnam Ungkap Negosiasi Kesepakatan Dagang dengan AS Hampir Rampung",
+      "url": "https://internasional.kontan.co.id/news/vietnam-ungkap-negosiasi-kesepakatan-dagang-dengan-as-hampir-rampung?source=home_terbaru",
+      "publishedAt": null,
+      "image": "https://foto.kontan.co.id/XZ-8G5uh6RkcAgpQLCHBfmeEjuQ=/smart/2018/04/25/882622882t.jpg",
+      "category": "other",
       "topics": []
     }
   ]
