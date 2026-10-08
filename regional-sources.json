@@ -90,7 +90,8 @@
     {"id":"dk_borsen","name":"Børsen","url":"https://borsen.dk"},
     {"id":"dk_information","name":"Information","url":"https://information.dk","feed":"https://www.information.dk/feed","kind":"rss"},
     {"id":"dk_tv2","name":"TV 2 Nyheder","url":"https://nyheder.tv2.dk"},
-    {"id":"dk_cphpost","name":"The Copenhagen Post","url":"https://cphpost.dk","feed":"https://cphpost.dk/feed/"}
+    {"id":"dk_cphpost","name":"The Copenhagen Post","url":"https://cphpost.dk","feed":"https://cphpost.dk/feed/"},
+    {"id":"dk_bt","name":"B.T.","url":"https://www.bt.dk","feed":"https://www.bt.dk/nyheder/seneste/rss","https_links":true,"kind":"rss"}
   ],
   "FI": [
     {"id":"fi_yle","name":"Yle","url":"https://yle.fi","feed":"https://feeds.yle.fi/uutiset/v1/recent.rss?publisherIds=YLE_NEWS"},
@@ -444,7 +445,8 @@
     {"id":"et_p7","name":"Borkena","url":"https://borkena.com","feed":"https://borkena.com","kind":"html","article_pattern":"^https://borkena\\.com/(?!entertainment-ethiopian-music-drama-show/)(?:[a-z0-9]+-){4,}[a-z0-9-]+/?$"},
     {"id":"et_p8","name":"Walta TV","url":"https://waltainfo.com"},
     {"id":"et_fortune","name":"Addis Fortune","url":"https://addisfortune.news","feed":"https://addisfortune.news/feed/","kind":"rss"},
-    {"id":"et_fana","name":"Fana Media Corporation","url":"https://www.fanamc.com/english","feed":"https://www.fanamc.com/english/feed/","kind":"rss"}
+    {"id":"et_fana","name":"Fana Media Corporation","url":"https://www.fanamc.com/english","feed":"https://www.fanamc.com/english/feed/","kind":"rss"},
+    {"id":"et_observer","name":"Ethiopia Observer","url":"https://www.ethiopiaobserver.com","feed":"https://www.ethiopiaobserver.com/feed/","kind":"rss"}
   ],
   "DZ": [
     {"id":"dz_p1","name":"APS","url":"https://www.aps.dz"},
@@ -551,7 +553,8 @@
     {"id":"iq_baghdad","name":"Baghdad Today","url":"https://baghdadtoday.news","feed":"https://baghdadtoday.news/rss.xml","kind":"rss"},
     {"id":"iq_business","name":"Iraq Business News","url":"https://www.iraq-businessnews.com","feed":"https://www.iraq-businessnews.com/feed/","kind":"rss"},
     {"id":"iq_ina","name":"Iraqi News Agency","url":"https://ina.iq/eng","feed":"https://ina.iq/rssdzen.xml","kind":"rss"},
-    {"id":"iq_rudaw","name":"Rudaw","url":"https://www.rudaw.net","feed":"https://www.rudaw.net/sorani","kind":"html","article_pattern":"/(?:english/[^/]+/\\d+|sorani/categories/[^/]+/\\d+)$"}
+    {"id":"iq_rudaw","name":"Rudaw","url":"https://www.rudaw.net","feed":"https://www.rudaw.net/sorani","kind":"html","article_pattern":"/(?:english/[^/]+/\\d+|sorani/categories/[^/]+/\\d+)$"},
+    {"id":"iq_shafaq","name":"Shafaq News","url":"https://shafaq.com/en","feed":"https://shafaq.com/rss/en","kind":"rss"}
   ],
   "KW": [
     {"id":"kw_arabtimes","name":"Arab Times Kuwait","url":"https://www.arabtimesonline.com","feed":"https://www.arabtimesonline.com/sitemaps/newsSitemap.xml","kind":"sitemap"},
@@ -678,6 +681,7 @@
     {"id":"lk_p6","name":"Daily FT","url":"https://www.ft.lk","feed":"https://www.ft.lk","kind":"html","article_pattern":"/[^/]+/\\d+-\\d+/?$"},
     {"id":"lk_p7","name":"The Morning","url":"https://www.themorning.lk"},
     {"id":"lk_p8","name":"News First","url":"https://www.newsfirst.lk"},
-    {"id":"lk_economynext","name":"EconomyNext","url":"https://economynext.com","feed":"https://economynext.com/feed/","kind":"rss"}
+    {"id":"lk_economynext","name":"EconomyNext","url":"https://economynext.com","feed":"https://economynext.com/feed/","kind":"rss"},
+    {"id":"lk_lankanewsweb","name":"Lanka News Web","url":"https://lankanewsweb.net","feed":"https://lankanewsweb.net/feed/","kind":"rss"}
   ]
 }

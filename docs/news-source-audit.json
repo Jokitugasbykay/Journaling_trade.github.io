@@ -1,21 +1,21 @@
 {
   "startedAt": "2026-10-08T17:18:49.744342+00:00",
-  "finishedAt": "2026-10-08T17:37:18.180258+00:00",
-  "sourceCount": 525,
+  "finishedAt": "2026-10-08T18:23:33.650855+00:00",
+  "sourceCount": 529,
   "statusCounts": {
     "external": 196,
-    "working": 320,
+    "working": 324,
     "blocked": 3,
     "unavailable": 2,
     "no_parsed_headlines": 4
   },
   "portalStatusCounts": {
-    "reachable": 404,
+    "reachable": 408,
     "unavailable": 42,
     "blocked": 79
   },
   "candidateFeedUpdates": [],
-  "method": "Every unique configured source ID: GET publisher URL and every configured endpoint, maximum 24 concurrent source workers, 10-second socket timeout, 5 MB per response. Optional discovery follows advertised official RSS/Atom links, one linked RSS index, and news sitemap links in robots.txt; maximum three candidates per source. No paywall or bot protection bypass. Parsed headline counts use production validation/freshness rules and are not total publisher output. Transient unavailable endpoints were rechecked with a 20-second socket timeout and at most six concurrent workers; publisher states can change during the audit window.",
+  "method": "Every unique configured source ID: GET publisher URL and every configured endpoint, maximum 24 concurrent source workers, 10-second socket timeout, 5 MB per response. Optional discovery follows advertised official RSS/Atom links, one linked RSS index, and news sitemap links in robots.txt; maximum three candidates per source. No paywall or bot protection bypass. Parsed headline counts use production validation/freshness rules and are not total publisher output.",
   "sources": [
     {
       "id": "nz_1news",
@@ -1162,6 +1162,38 @@
         "bytes": 432163
       },
       "endpoints": [],
+      "discoveredFeeds": [],
+      "discoveryPages": []
+    },
+    {
+      "id": "dk_bt",
+      "name": "B.T.",
+      "kind": "rss",
+      "country": "DK",
+      "status": "working",
+      "portal": {
+        "url": "https://www.bt.dk",
+        "status": "reachable",
+        "httpStatus": 200,
+        "finalUrl": "https://www.bt.dk",
+        "contentType": "text/html; charset=utf-8",
+        "bytes": 868765
+      },
+      "endpoints": [
+        {
+          "url": "https://www.bt.dk/nyheder/seneste/rss",
+          "status": "working",
+          "httpStatus": 200,
+          "finalUrl": "https://www.bt.dk/next-api/feeds/kategori/nyheder",
+          "contentType": "text/xml",
+          "bytes": 10152,
+          "format": "rss",
+          "rawEntries": 10,
+          "parsedHeadlines": 10,
+          "sampleArticleUrl": "https://www.bt.dk/udland/over-500-personer-tilbageholdt-under-skoleprotester-i-frankrig?referrer=RSS",
+          "samplePublishedAt": "2026-10-08T18:08:48+00:00"
+        }
+      ],
       "discoveredFeeds": [],
       "discoveryPages": []
     },
@@ -4327,6 +4359,38 @@
       "discoveryPages": []
     },
     {
+      "id": "et_observer",
+      "name": "Ethiopia Observer",
+      "kind": "rss",
+      "country": "ET",
+      "status": "working",
+      "portal": {
+        "url": "https://www.ethiopiaobserver.com",
+        "status": "reachable",
+        "httpStatus": 200,
+        "finalUrl": "https://www.ethiopiaobserver.com",
+        "contentType": "text/html; charset=UTF-8",
+        "bytes": 206838
+      },
+      "endpoints": [
+        {
+          "url": "https://www.ethiopiaobserver.com/feed/",
+          "status": "working",
+          "httpStatus": 200,
+          "finalUrl": "https://www.ethiopiaobserver.com/feed/",
+          "contentType": "application/rss+xml; charset=UTF-8",
+          "bytes": 39937,
+          "format": "rss",
+          "rawEntries": 10,
+          "parsedHeadlines": 6,
+          "sampleArticleUrl": "https://www.ethiopiaobserver.com/2026/10/05/drone-strike-on-tigray-displacement-camp-kills-at-least-eight-afp-reports/",
+          "samplePublishedAt": "2026-10-05T16:07:10+00:00"
+        }
+      ],
+      "discoveredFeeds": [],
+      "discoveryPages": []
+    },
+    {
       "id": "et_p6",
       "name": "Ethiopian Monitor",
       "kind": "external",
@@ -7081,6 +7145,38 @@
           "parsedHeadlines": 131,
           "sampleArticleUrl": "https://www.lavanguardia.com/local/barcelona/20261008/11654493/siete-detenidos-agresion-joven-italiano-agosto-barcelona-quedo-coma.html",
           "samplePublishedAt": "2026-10-08T16:19:18+00:00"
+        }
+      ],
+      "discoveredFeeds": [],
+      "discoveryPages": []
+    },
+    {
+      "id": "lk_lankanewsweb",
+      "name": "Lanka News Web",
+      "kind": "rss",
+      "country": "LK",
+      "status": "working",
+      "portal": {
+        "url": "https://lankanewsweb.net",
+        "status": "reachable",
+        "httpStatus": 200,
+        "finalUrl": "https://lankanewsweb.net",
+        "contentType": "text/html; charset=UTF-8",
+        "bytes": 741586
+      },
+      "endpoints": [
+        {
+          "url": "https://lankanewsweb.net/feed/",
+          "status": "working",
+          "httpStatus": 200,
+          "finalUrl": "https://lankanewsweb.net/feed/",
+          "contentType": "application/rss+xml; charset=UTF-8",
+          "bytes": 46287,
+          "format": "rss",
+          "rawEntries": 10,
+          "parsedHeadlines": 10,
+          "sampleArticleUrl": "https://lankanewsweb.net/archives/280337/shiranthi-rajapaksa-to-be-taken-to-national-eye-hospital-for-specialist-consultation-tomorrow/",
+          "samplePublishedAt": "2026-10-08T10:44:43+00:00"
         }
       ],
       "discoveredFeeds": [],
@@ -10157,6 +10253,38 @@
           "parsedHeadlines": 166,
           "sampleArticleUrl": "https://www.seznamzpravy.cz/clanek/zahranicni-video-otevre-se-obri-most-do-kimovy-rise-cina-reaguje-na-putina-317121",
           "samplePublishedAt": "2026-10-08T17:00:00+00:00"
+        }
+      ],
+      "discoveredFeeds": [],
+      "discoveryPages": []
+    },
+    {
+      "id": "iq_shafaq",
+      "name": "Shafaq News",
+      "kind": "rss",
+      "country": "IQ",
+      "status": "working",
+      "portal": {
+        "url": "https://shafaq.com/en",
+        "status": "reachable",
+        "httpStatus": 200,
+        "finalUrl": "https://shafaq.com/en",
+        "contentType": "text/html; charset=UTF-8",
+        "bytes": 412524
+      },
+      "endpoints": [
+        {
+          "url": "https://shafaq.com/rss/en",
+          "status": "working",
+          "httpStatus": 200,
+          "finalUrl": "https://shafaq.com/rss/en",
+          "contentType": "text/xml; charset=utf-8",
+          "bytes": 85724,
+          "format": "rss",
+          "rawEntries": 25,
+          "parsedHeadlines": 25,
+          "sampleArticleUrl": "https://shafaq.com/en/Middle-East/Lebanon-s-Hezbollah-nears-aid-payments-to-displaced-families",
+          "samplePublishedAt": "2026-10-08T17:49:37+00:00"
         }
       ],
       "discoveredFeeds": [],
@@ -13962,8 +14090,8 @@
       "working": 5
     },
     "DK": {
-      "configured": 8,
-      "working": 4
+      "configured": 9,
+      "working": 5
     },
     "FI": {
       "configured": 8,
@@ -14094,8 +14222,8 @@
       "working": 4
     },
     "ET": {
-      "configured": 10,
-      "working": 4
+      "configured": 11,
+      "working": 5
     },
     "DZ": {
       "configured": 8,
@@ -14142,8 +14270,8 @@
       "working": 4
     },
     "IQ": {
-      "configured": 4,
-      "working": 4
+      "configured": 5,
+      "working": 5
     },
     "KW": {
       "configured": 5,
@@ -14198,8 +14326,8 @@
       "working": 4
     },
     "LK": {
-      "configured": 9,
-      "working": 5
+      "configured": 10,
+      "working": 6
     }
   },
   "regionsBelowMinimum": []

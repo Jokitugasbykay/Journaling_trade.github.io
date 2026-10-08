@@ -1,6 +1,6 @@
 # News source audit
 
-Audit finished: 2026-10-08T17:37:18.180258+00:00. Checked **525** unique source IDs.
+Audit finished: 2026-10-08T18:23:33.650855+00:00. Checked **529** unique source IDs.
 
 ## Results
 
@@ -10,15 +10,13 @@ Audit finished: 2026-10-08T17:37:18.180258+00:00. Checked **525** unique source 
 | external | 196 |
 | no_parsed_headlines | 4 |
 | unavailable | 2 |
-| working | 320 |
+| working | 324 |
 
-Portal reachability: {'reachable': 404, 'unavailable': 42, 'blocked': 79}.
+Portal reachability: {'reachable': 408, 'unavailable': 42, 'blocked': 79}.
 
 **Audit network limitation:** 3 portal requests failed DNS resolution in this environment. These results do not establish that those publishers are globally offline.
 
-Transient unavailable endpoints were rechecked with a 20-second socket timeout and at most six concurrent workers.
-
-An external source is a publisher portal link without a configured automatic collector. A reachable portal does not imply its feed is collectable. Blocked/unavailable results describe this audit location and time. XML entries with no parsed headlines may be old, unsupported Atom, off-domain, or rejected by headline validation; production currently keeps headlines dated within seven days.
+An external source is a directory/portal link without a configured automatic collector. A reachable portal does not imply its feed is collectable. Blocked/unavailable results describe this audit location and time. XML entries with no parsed headlines may be old, unsupported Atom, off-domain, or rejected by headline validation; production currently keeps headlines dated within seven days.
 
 ## Validated official feed candidates
 
@@ -46,11 +44,11 @@ Target: at least four distinct working publisher IDs in each configured dataset.
 | CZ | 8 | 7 |
 | DE | 8 | 6 |
 | DEFAULT | 8 | 8 |
-| DK | 8 | 4 |
+| DK | 9 | 5 |
 | DZ | 8 | 5 |
 | EG | 9 | 4 |
 | ES | 8 | 4 |
-| ET | 10 | 4 |
+| ET | 11 | 5 |
 | FI | 8 | 6 |
 | FR | 8 | 6 |
 | GB | 8 | 6 |
@@ -61,7 +59,7 @@ Target: at least four distinct working publisher IDs in each configured dataset.
 | IE | 8 | 6 |
 | IL | 5 | 5 |
 | IN | 8 | 5 |
-| IQ | 4 | 4 |
+| IQ | 5 | 5 |
 | IR | 8 | 4 |
 | IT | 8 | 4 |
 | JO | 6 | 6 |
@@ -70,7 +68,7 @@ Target: at least four distinct working publisher IDs in each configured dataset.
 | KR | 8 | 5 |
 | KW | 5 | 5 |
 | LB | 4 | 4 |
-| LK | 9 | 5 |
+| LK | 10 | 6 |
 | MA | 10 | 5 |
 | MX | 8 | 4 |
 | MY | 9 | 4 |
@@ -146,6 +144,7 @@ Target: at least four distinct working publisher IDs in each configured dataset.
 | Atheer | working | [Publisher](https://atheer.om) (reachable) | [working](https://www.atheer.om/) |
 | Aujourd’hui le Maroc | working | [Publisher](https://aujourdhui.ma) (reachable) | [working](https://aujourdhui.ma/feed/) |
 | B&FT Online | external | [Publisher](https://thebftonline.com) (reachable) | No collector configured |
+| B.T. | working | [Publisher](https://www.bt.dk) (reachable) | [working](https://www.bt.dk/nyheder/seneste/rss) |
 | Baghdad Today | working | [Publisher](https://baghdadtoday.news) (reachable) | [working](https://baghdadtoday.news/rss.xml) |
 | Bangkok Post | working | [Publisher](https://www.bangkokpost.com) (reachable) | [working](https://www.bangkokpost.com/rss/data/topstories.xml) |
 | Barron's | working | [Publisher](https://www.barrons.com/) (blocked) | [working](https://www.barrons.com/bol_news_sitemap.xml) |
@@ -260,6 +259,7 @@ Target: at least four distinct working publisher IDs in each configured dataset.
 | EMOL | external | [Publisher](https://www.emol.com) (reachable) | No collector configured |
 | En Perspectiva | working | [Publisher](https://enperspectiva.uy) (reachable) | [working](https://enperspectiva.uy/feed/) |
 | English News CN | external | [Publisher](https://english.news.cn) (unavailable) | No collector configured |
+| Ethiopia Observer | working | [Publisher](https://www.ethiopiaobserver.com) (reachable) | [working](https://www.ethiopiaobserver.com/feed/) |
 | Ethiopian Monitor | external | [Publisher](https://ethiopianmonitor.com) (reachable) | No collector configured |
 | Ethiopian News Agency | external | [Publisher](https://www.ena.et) (reachable) | No collector configured |
 | ETtoday | external | [Publisher](https://www.ettoday.net) (unavailable) | No collector configured |
@@ -361,6 +361,7 @@ Target: at least four distinct working publisher IDs in each configured dataset.
 | La Stampa | working | [Publisher](https://www.lastampa.it) (reachable) | [working](https://www.lastampa.it/rss/copertina.xml) |
 | La Tercera | external | [Publisher](https://www.latercera.com) (reachable) | No collector configured |
 | La Vanguardia | working | [Publisher](https://www.lavanguardia.com) (reachable) | [working](https://www.lavanguardia.com/rss/home.xml) |
+| Lanka News Web | working | [Publisher](https://lankanewsweb.net) (reachable) | [working](https://lankanewsweb.net/feed/) |
 | Lao Động | external | [Publisher](https://laodong.vn) (reachable) | No collector configured |
 | LBCI News | working | [Publisher](https://www.lbcgroup.tv/news) (reachable) | [working](https://www.lbcgroup.tv/news) |
 | Le Figaro | working | [Publisher](https://www.lefigaro.fr) (reachable) | [working](https://www.lefigaro.fr/sitemap_news.xml) |
@@ -483,6 +484,7 @@ Target: at least four distinct working publisher IDs in each configured dataset.
 | Semanario Universidad | external | [Publisher](https://semanariouniversidad.com) (reachable) | No collector configured |
 | SET News | working | [Publisher](https://www.setn.com) (reachable) | [working](https://www.setn.com/sitemapGoogleNews.xml) |
 | Seznam Zprávy | working | [Publisher](https://www.seznamzpravy.cz) (reachable) | [working](https://www.seznamzpravy.cz/sitemaps/sitemap_news.xml) |
+| Shafaq News | working | [Publisher](https://shafaq.com/en) (reachable) | [working](https://shafaq.com/rss/en) |
 | Shorouk News | external | [Publisher](https://www.shorouknews.com) (reachable) | No collector configured |
 | Sinar Harian | external | [Publisher](https://www.sinarharian.com.my) (unavailable) | No collector configured |
 | SINDOnews Ekbis | working | [Publisher](https://ekbis.sindonews.com/) (reachable) | [working](https://ekbis.sindonews.com/rss) |

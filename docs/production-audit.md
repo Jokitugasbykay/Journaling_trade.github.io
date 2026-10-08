@@ -5,7 +5,7 @@ Tanggal: 9 Oktober 2026 WIB. Project: Journaling Trade. Database: **journaltradi
 ## Ringkasan
 
 - Seluruh **65 negara** di registry memiliki sedikitnya **empat portal yang berhasil memuat judul** pada audit ini. Tiga dataset tambahan — GLOBAL, DEFAULT, dan global_founder — juga memenuhi target. Antarktika menggunakan sumber global; tidak ada klaim bahwa tersedia empat penerbit lokal Antarktika.
-- **525 ID sumber unik** diperiksa. Audit endpoint menghasilkan **320 sumber working**. Refresh kolektor produksi menghasilkan **322 sumber ok** dan **33.776 artikel tersimpan**. Angka berbeda karena request dilakukan pada waktu berbeda, sebagian sumber memiliki beberapa endpoint, dan batas respons audit adalah 5 MB sedangkan kolektor JSON mendukung 32 MB.
+- **529 ID sumber unik** diperiksa. Audit endpoint menghasilkan **324 sumber working**. Refresh awal kolektor produksi menghasilkan **322 sumber ok** dan **33.776 artikel tersimpan**. Angka berbeda karena request dilakukan pada waktu berbeda, sebagian sumber memiliki beberapa endpoint, dan batas respons audit adalah 5 MB sedangkan kolektor JSON mendukung 32 MB.
 - **674 baris CSS dihapus**, mencakup 120 cabang selector yang tidak lagi dirujuk HTML/JavaScript. Terjemahan modul analisa market yang sudah dihapus dan variabel CSS yang tidak digunakan ikut dibersihkan.
 - Bug parser, nilai nol kalender, dan rekomendasi The Fed diperbaiki. Gates aplikasi, parser, serta dua pengujian database dalam transaksi rollback lolos.
 - **Verdict: perlu perbaikan sebelum produksi berbayar penuh.** Penegakan akses berita masih berada di browser, dan ukuran arsip berita membutuhkan perbaikan distribusi data.
@@ -60,7 +60,7 @@ Audit awal: 467 ID unik, 120 working, dan 109 kandidat feed resmi ditemukan. Kan
 | Qatar (QA) | 5 |
 | Yordania (JO) | 6 |
 | Lebanon (LB) | 4 |
-| Irak (IQ) | 4 |
+| Irak (IQ) | 5 |
 | Kuwait (KW) | 5 |
 | Oman (OM) | 4 |
 | Bahrain (BH) | 4 |
@@ -71,6 +71,8 @@ Audit awal: 467 ID unik, 120 working, dan 109 kandidat feed resmi ditemukan. Kan
 Al Jazeera tetap tersedia. Perintah terbaru untuk minimal empat portal menggantikan pembatasan lama “hanya Al Jazeera”. Kebijakan global/founder serta strict lock negara Asia, termasuk CN/TW, tetap diuji.
 
 Daftar lengkap tiap negara dan endpoint: [laporan sumber](news-source-audit.md), [bukti JSON](news-source-audit.json).
+
+Validasi deployment pertama di runner GitHub menghasilkan 313 sumber `ok`; Denmark, Ethiopia, Irak, dan Sri Lanka saat itu masing-masing hanya memiliki tiga portal yang berhasil diperbarui. Log runner menunjukkan penolakan 403 atau halaman non-RSS dari beberapa penerbit. Empat feed alternatif resmi ditambahkan: B.T., Ethiopia Observer, Shafaq News, dan Lanka News Web. Endpoint alternatif lolos parser dan audit URL; Shafaq memakai URL RSS HTTPS kanonis agar tidak mengikuti redirect HTTP. B.T. memakai upgrade HTTPS opt-in untuk link legacy feed resminya.
 
 Ketersediaan feed dapat berubah. Request yang timeout diperiksa ulang dengan timeout 20 detik dan maksimal enam worker. Status dalam laporan berlaku selama jendela pemeriksaan; bukan jaminan uptime. Sebanyak 196 sumber masih merupakan portal tanpa kolektor otomatis, tiga endpoint blocked, dua unavailable, dan empat tidak menghasilkan judul valid. Dataset portal tersebut tidak dihitung sebagai sumber working.
 
