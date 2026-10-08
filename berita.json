@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "checkedAt": "2026-10-08T10:52:11.245198+00:00",
+  "checkedAt": "2026-10-08T11:11:19.479545+00:00",
   "intervalMinutes": 5,
   "sources": [
     {
@@ -9,7 +9,7 @@
       "url": "https://www.investing.com/",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-08T10:51:31.265823+00:00"
+      "checkedAt": "2026-10-08T11:11:03.323379+00:00"
     },
     {
       "id": "cnbc",
@@ -17,7 +17,7 @@
       "url": "https://www.cnbc.com/markets/",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-08T10:51:31.245413+00:00"
+      "checkedAt": "2026-10-08T11:11:03.349745+00:00"
     },
     {
       "id": "kontan",
@@ -25,7 +25,7 @@
       "url": "https://www.kontan.co.id/",
       "kind": "html",
       "status": "ok",
-      "checkedAt": "2026-10-08T10:51:32.367470+00:00"
+      "checkedAt": "2026-10-08T11:11:04.633270+00:00"
     },
     {
       "id": "reuters",
@@ -33,7 +33,7 @@
       "url": "https://www.reuters.com/",
       "kind": "sitemap",
       "status": "ok",
-      "checkedAt": "2026-10-08T10:51:31.262119+00:00"
+      "checkedAt": "2026-10-08T11:11:03.569851+00:00"
     },
     {
       "id": "aljazeera",
@@ -41,7 +41,7 @@
       "url": "https://www.aljazeera.com/",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-08T10:51:31.254449+00:00"
+      "checkedAt": "2026-10-08T11:11:03.293816+00:00"
     },
     {
       "id": "bloomberg",
@@ -49,7 +49,7 @@
       "url": "https://www.bloomberg.com/asia",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-08T10:51:31.519821+00:00"
+      "checkedAt": "2026-10-08T11:11:03.469737+00:00"
     },
     {
       "id": "fnc",
@@ -57,7 +57,7 @@
       "url": "https://tradewithfnc.com/",
       "kind": "json",
       "status": "ok",
-      "checkedAt": "2026-10-08T10:51:32.165865+00:00"
+      "checkedAt": "2026-10-08T11:11:03.870991+00:00"
     },
     {
       "id": "investing_id",
@@ -65,7 +65,7 @@
       "url": "https://id.investing.com/news",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-08T10:51:31.515860+00:00"
+      "checkedAt": "2026-10-08T11:11:03.431692+00:00"
     },
     {
       "id": "pluang",
@@ -73,7 +73,7 @@
       "url": "https://pluang.com/news-feed",
       "kind": "html",
       "status": "ok",
-      "checkedAt": "2026-10-08T10:51:31.502668+00:00"
+      "checkedAt": "2026-10-08T11:11:03.881017+00:00"
     },
     {
       "id": "kompas",
@@ -81,7 +81,7 @@
       "url": "https://money.kompas.com/",
       "kind": "html",
       "status": "ok",
-      "checkedAt": "2026-10-08T10:51:32.263136+00:00"
+      "checkedAt": "2026-10-08T11:11:04.204159+00:00"
     },
     {
       "id": "detik",
@@ -89,7 +89,7 @@
       "url": "https://finance.detik.com/",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-08T10:51:32.818549+00:00"
+      "checkedAt": "2026-10-08T11:11:05.092895+00:00"
     },
     {
       "id": "kemenkeu",
@@ -121,7 +121,7 @@
       "url": "https://ekbis.sindonews.com/",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-08T10:51:32.335853+00:00"
+      "checkedAt": "2026-10-08T11:11:04.029666+00:00"
     },
     {
       "id": "ap",
@@ -137,7 +137,7 @@
       "url": "https://www.bbc.com/news",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-08T10:51:32.966501+00:00"
+      "checkedAt": "2026-10-08T11:11:04.546427+00:00"
     },
     {
       "id": "afp",
@@ -152,7 +152,7 @@
       "url": "https://www.wsj.com/",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-08T10:51:32.412249+00:00"
+      "checkedAt": "2026-10-08T11:11:04.285466+00:00"
     },
     {
       "id": "guardian",
@@ -160,7 +160,7 @@
       "url": "https://www.theguardian.com/",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-08T10:51:33.505951+00:00"
+      "checkedAt": "2026-10-08T11:11:04.888080+00:00"
     },
     {
       "id": "ft",
@@ -168,7 +168,7 @@
       "url": "https://www.ft.com/",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-08T10:51:33.541680+00:00"
+      "checkedAt": "2026-10-08T11:11:05.156731+00:00"
     },
     {
       "id": "dw",
@@ -176,7 +176,7 @@
       "url": "https://www.dw.com/en/top-stories/s-9097",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-08T10:51:33.696582+00:00"
+      "checkedAt": "2026-10-08T11:11:05.727482+00:00"
     },
     {
       "id": "fedwatch",
@@ -198,7 +198,7 @@
       "url": "https://www.marketwatch.com",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-08T10:51:32.984458+00:00"
+      "checkedAt": "2026-10-08T11:11:04.697252+00:00"
     },
     {
       "id": "id_katadata",
@@ -213,7 +213,7 @@
       "url": "https://www.antaranews.com",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-08T10:51:33.917912+00:00"
+      "checkedAt": "2026-10-08T11:11:05.893049+00:00"
     },
     {
       "id": "id_jakartapost",
@@ -263,7 +263,7 @@
       "url": "https://www.npr.org",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-08T10:51:33.187403+00:00"
+      "checkedAt": "2026-10-08T11:11:05.018932+00:00"
     },
     {
       "id": "us_cbs",
@@ -292,7 +292,7 @@
       "url": "https://news.sky.com",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-08T10:51:33.767891+00:00"
+      "checkedAt": "2026-10-08T11:11:05.185948+00:00"
     },
     {
       "id": "gb_independent",
@@ -349,7 +349,7 @@
       "url": "https://www.freemalaysiatoday.com",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-08T10:51:33.579723+00:00"
+      "checkedAt": "2026-10-08T11:11:05.301211+00:00"
     },
     {
       "id": "my_sinar",
@@ -371,7 +371,7 @@
       "url": "https://www.channelnewsasia.com",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-08T10:51:33.584629+00:00"
+      "checkedAt": "2026-10-08T11:11:05.271955+00:00"
     },
     {
       "id": "sg_business",
@@ -435,7 +435,7 @@
       "url": "https://www.nrk.no",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-08T10:51:33.796818+00:00"
+      "checkedAt": "2026-10-08T11:11:05.590781+00:00"
     },
     {
       "id": "no_aftenposten",
@@ -492,7 +492,7 @@
       "url": "https://www.dr.dk",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-08T10:51:33.843710+00:00"
+      "checkedAt": "2026-10-08T11:11:05.507204+00:00"
     },
     {
       "id": "dk_politiken",
@@ -549,7 +549,7 @@
       "url": "https://yle.fi",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-08T10:51:33.921924+00:00"
+      "checkedAt": "2026-10-08T11:11:05.569634+00:00"
     },
     {
       "id": "fi_hs",
@@ -613,7 +613,7 @@
       "url": "https://www.irozhlas.cz",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-08T10:51:34.018604+00:00"
+      "checkedAt": "2026-10-08T11:11:05.635746+00:00"
     },
     {
       "id": "cz_idnes",
@@ -684,7 +684,7 @@
       "url": "https://hotnews.ro",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-08T10:51:34.460620+00:00"
+      "checkedAt": "2026-10-08T11:11:05.716257+00:00"
     },
     {
       "id": "ro_europa",
@@ -719,7 +719,7 @@
       "name": "Telex",
       "url": "https://telex.hu",
       "kind": "rss",
-      "status": "ok",
+      "status": "stale",
       "checkedAt": "2026-10-08T10:51:34.685465+00:00"
     },
     {
@@ -777,7 +777,7 @@
       "url": "https://www.rte.ie/news",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-08T10:51:34.270392+00:00"
+      "checkedAt": "2026-10-08T11:11:05.777165+00:00"
     },
     {
       "id": "ie_times",
@@ -834,7 +834,7 @@
       "url": "https://orf.at",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-08T10:51:35.812272+00:00"
+      "checkedAt": "2026-10-08T11:11:07.069033+00:00"
     },
     {
       "id": "at_standard",
@@ -891,7 +891,7 @@
       "url": "https://www.cbc.ca/news",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-08T10:51:34.162932+00:00"
+      "checkedAt": "2026-10-08T11:11:05.798350+00:00"
     },
     {
       "id": "ca_globe",
@@ -1004,7 +1004,7 @@
       "url": "https://www.clarin.com",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-08T10:51:34.209456+00:00"
+      "checkedAt": "2026-10-08T11:11:05.765253+00:00"
     },
     {
       "id": "ar_nacion",
@@ -1229,7 +1229,7 @@
       "url": "https://www.abc.net.au/news",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-08T10:51:34.608748+00:00"
+      "checkedAt": "2026-10-08T11:11:05.943011+00:00"
     },
     {
       "id": "au_smh",
@@ -1272,7 +1272,7 @@
       "url": "https://www.theguardian.com/australia-news",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-08T10:51:34.430101+00:00"
+      "checkedAt": "2026-10-08T11:11:05.897692+00:00"
     },
     {
       "id": "au_news",
@@ -1287,7 +1287,7 @@
       "url": "https://www.rnz.co.nz",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-08T10:51:34.693113+00:00"
+      "checkedAt": "2026-10-08T11:11:05.971126+00:00"
     },
     {
       "id": "nz_stuff",
@@ -1414,7 +1414,7 @@
       "url": "https://ladiaria.com.uy",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-08T10:51:34.824105+00:00"
+      "checkedAt": "2026-10-08T11:11:09.381388+00:00"
     },
     {
       "id": "uy_montevideo",
@@ -1464,7 +1464,7 @@
       "url": "https://www.tagesschau.de",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-08T10:51:35.457955+00:00"
+      "checkedAt": "2026-10-08T11:11:06.361047+00:00"
     },
     {
       "id": "de_3",
@@ -1514,7 +1514,7 @@
       "url": "https://www.lemonde.fr",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-08T10:51:34.781595+00:00"
+      "checkedAt": "2026-10-08T11:11:05.986593+00:00"
     },
     {
       "id": "fr_3",
@@ -1557,7 +1557,7 @@
       "url": "https://www.ansa.it",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-08T10:51:36.023397+00:00"
+      "checkedAt": "2026-10-08T11:11:06.880175+00:00"
     },
     {
       "id": "it_2",
@@ -1614,7 +1614,7 @@
       "url": "https://elpais.com",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-08T10:51:34.890635+00:00"
+      "checkedAt": "2026-10-08T11:11:06.057310+00:00"
     },
     {
       "id": "es_2",
@@ -1671,7 +1671,7 @@
       "url": "https://nos.nl",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-08T10:51:35.652295+00:00"
+      "checkedAt": "2026-10-08T11:11:06.694846+00:00"
     },
     {
       "id": "nl_2",
@@ -1798,7 +1798,7 @@
       "url": "https://www.svt.se/nyheter",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-08T10:51:35.142087+00:00"
+      "checkedAt": "2026-10-08T11:11:06.652469+00:00"
     },
     {
       "id": "se_4",
@@ -1890,7 +1890,7 @@
       "url": "https://notesfrompoland.com",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-08T10:51:35.262325+00:00"
+      "checkedAt": "2026-10-08T11:11:06.724722+00:00"
     },
     {
       "id": "ua_1",
@@ -2010,7 +2010,7 @@
       "url": "https://punchng.com",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-08T10:51:35.859672+00:00"
+      "checkedAt": "2026-10-08T11:11:06.907552+00:00"
     },
     {
       "id": "ng_p2",
@@ -2242,7 +2242,7 @@
       "url": "https://www.myjoyonline.com",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-08T10:51:36.020831+00:00"
+      "checkedAt": "2026-10-08T11:11:07.066086+00:00"
     },
     {
       "id": "gh_p3",
@@ -2467,7 +2467,7 @@
       "url": "https://dailynews.co.tz",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-08T10:51:37.958179+00:00"
+      "checkedAt": "2026-10-08T11:11:09.383359+00:00"
     },
     {
       "id": "tz_p3",
@@ -2559,7 +2559,7 @@
       "url": "https://thestandard.co",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-08T10:51:36.544489+00:00"
+      "checkedAt": "2026-10-08T11:11:07.469087+00:00"
     },
     {
       "id": "th_p8",
@@ -2637,7 +2637,7 @@
       "url": "https://vnexpress.net",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-08T10:51:37.032388+00:00"
+      "checkedAt": "2026-10-08T11:11:09.346138+00:00"
     },
     {
       "id": "vn_p3",
@@ -2729,7 +2729,7 @@
       "url": "https://www.japantimes.co.jp",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-08T10:51:36.101678+00:00"
+      "checkedAt": "2026-10-08T11:11:07.272292+00:00"
     },
     {
       "id": "jp_p8",
@@ -2758,7 +2758,7 @@
       "url": "https://www.koreatimes.co.kr",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-08T10:51:36.851137+00:00"
+      "checkedAt": "2026-10-08T11:11:08.078704+00:00"
     },
     {
       "id": "kr_p4",
@@ -2843,7 +2843,7 @@
       "url": "https://dohanews.co",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-08T10:51:36.313478+00:00"
+      "checkedAt": "2026-10-08T11:11:07.750988+00:00"
     },
     {
       "id": "jo_p1",
@@ -2977,7 +2977,7 @@
       "url": "https://www.iraq-businessnews.com",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-08T10:51:36.788964+00:00"
+      "checkedAt": "2026-10-08T11:11:08.429247+00:00"
     },
     {
       "id": "iq_p4",
@@ -3244,7 +3244,7 @@
       "url": "https://www.thehindu.com",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-08T10:51:36.402567+00:00"
+      "checkedAt": "2026-10-08T11:11:08.159283+00:00"
     },
     {
       "id": "in_p2",
@@ -3357,7 +3357,7 @@
       "url": "https://www.dawn.com",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-08T10:51:36.510817+00:00"
+      "checkedAt": "2026-10-08T11:11:08.251385+00:00"
     },
     {
       "id": "pk_p2",
@@ -3652,7 +3652,7 @@
       "url": "https://www.dailysabah.com",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-08T10:51:37.082860+00:00"
+      "checkedAt": "2026-10-08T11:11:08.672424+00:00"
     },
     {
       "id": "tr_p4",
@@ -3702,7 +3702,7 @@
       "url": "https://www.tehrantimes.com",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-08T10:51:37.660820+00:00"
+      "checkedAt": "2026-10-08T11:11:09.305965+00:00"
     },
     {
       "id": "ir_p3",
@@ -3840,6 +3840,842 @@
   ],
   "items": [
     {
+      "id": "a659c42d621ca17c4a52",
+      "source": "ng_p1",
+      "title": "UK PM faces pressure over Man City comments",
+      "url": "https://punchng.com/uk-pm-faces-pressure-over-man-city-comments/?utm_source=rss.punchng.com&utm_medium=web",
+      "publishedAt": "2026-10-08T11:19:40+00:00",
+      "image": null,
+      "category": "other",
+      "topics": []
+    },
+    {
+      "id": "48c8f7fa4516d41d1774",
+      "source": "bbc",
+      "title": "Three sisters who died in sea off Brighton took own lives, inquest finds",
+      "url": "https://www.bbc.co.uk/news/articles/c689zxd8w87lo?at_medium=RSS&at_campaign=rss",
+      "publishedAt": "2026-10-08T11:10:30+00:00",
+      "image": "https://ichef.bbci.co.uk/ace/standard/240/cpsprodpb/05b7/live/52103b30-b507-11f1-91cc-c5691e33b858.jpg",
+      "category": "other",
+      "topics": []
+    },
+    {
+      "id": "9bd96e339c34f4f0359a",
+      "source": "id_antara",
+      "title": "Pelindo Benoa Bali integrasikan layanan sambut musim wisata cruise",
+      "url": "https://www.antaranews.com/berita/5777276/pelindo-benoa-bali-integrasikan-layanan-sambut-musim-wisata-cruise",
+      "publishedAt": "2026-10-08T11:10:03+00:00",
+      "image": null,
+      "category": "other",
+      "topics": []
+    },
+    {
+      "id": "e1b8ff8df633d4075aa4",
+      "source": "guardian",
+      "title": "French high school protests continue despite PM’s promise of action - Europe live",
+      "url": "https://www.theguardian.com/world/live/2026/oct/08/france-protests-spain-housing-maria-del-carmen-abascal-burnham-merz-europe-latest-news",
+      "publishedAt": "2026-10-08T11:09:40+00:00",
+      "image": "https://i.guim.co.uk/img/media/6808748f258465be6966650001e3a2f3a5e8870f/608_0_6278_5023/master/6278.jpg?width=140&quality=85&auto=format&fit=max&s=ad4f097347d95b433737386cf9d0e67c",
+      "category": "world",
+      "topics": []
+    },
+    {
+      "id": "e44ab3d3319b6ef82f5e",
+      "source": "pk_p1",
+      "title": "Mobile services reportedly non-functional in parts of Peshawar ahead of PTI march’s expected arrival",
+      "url": "https://www.dawn.com/news/2035662/mobile-services-reportedly-non-functional-in-parts-of-peshawar-ahead-of-pti-marchs-expected-arrival",
+      "publishedAt": "2026-10-08T11:09:28+00:00",
+      "image": null,
+      "category": "world",
+      "topics": []
+    },
+    {
+      "id": "17aebfebea23f56dfc32",
+      "source": "id_antara",
+      "title": "Kemenkes-BPOM manfaatkan SatuSehat Logistik untuk awasi obat tertentu",
+      "url": "https://www.antaranews.com/berita/5777274/kemenkes-bpom-manfaatkan-satusehat-logistik-untuk-awasi-obat-tertentu",
+      "publishedAt": "2026-10-08T11:08:18+00:00",
+      "image": null,
+      "category": "other",
+      "topics": []
+    },
+    {
+      "id": "91ffcf65f0bfd2c5b939",
+      "source": "es_1",
+      "title": "Maricarmen y las elecciones del 29-N, en directo | El PP veta los minutos de silencio por Maricarmen en el Senado, el Ayuntamiento y la Asamblea de Madrid",
+      "url": "https://elpais.com/espana/2026-10-08/reacciones-tras-la-muerte-de-maricarmen-y-ultima-hora-de-las-elecciones-del-29-n-en-directo.html",
+      "publishedAt": "2026-10-08T11:08:17+00:00",
+      "image": null,
+      "category": "other",
+      "topics": []
+    },
+    {
+      "id": "8b5460d178d15af8ab9a",
+      "source": "at_orf",
+      "title": "Smartwatch sorgt wieder für Debatten",
+      "url": "https://orf.at/stories/3444436/",
+      "publishedAt": "2026-10-08T11:07:38+00:00",
+      "image": "https://ibs.orf.at/news?image=https%3A%2F%2Fassets.orf.at%2Fmims%2F2026%2F41%2F59%2Fcrops%2Fw%3D1200%2Ch%3D630%2Cq%3D75%2F3209157_master_1245159_261008_pilnacek_untersuchungsausschuss_17_luk.jpg%3Fs%3D361e4fcd67900359d7571f3b305f973f13c4165e",
+      "category": "other",
+      "topics": []
+    },
+    {
+      "id": "6699e7dc973813056edf",
+      "source": "guardian",
+      "title": "Royal Navy service member charged with spying",
+      "url": "https://www.theguardian.com/uk-news/2026/oct/08/royal-navy-serviceman-arrested-under-national-security-act",
+      "publishedAt": "2026-10-08T11:07:26+00:00",
+      "image": "https://i.guim.co.uk/img/media/fd46f6089f8c012e9ff75d81f216257db320b9ac/274_0_2670_2136/master/2670.jpg?width=140&quality=85&auto=format&fit=max&s=52c17fe746de976baecd82e4f9ba5245",
+      "category": "other",
+      "topics": []
+    },
+    {
+      "id": "646eb230184a7a171267",
+      "source": "ca_cbc",
+      "title": "Canadian Anne Carson awarded Nobel Prize in Literature",
+      "url": "https://www.cbc.ca/news/entertainment/nobel-literature-prize-9.7372580?cmp=rss",
+      "publishedAt": "2026-10-08T11:07:26+00:00",
+      "image": null,
+      "category": "science",
+      "topics": []
+    },
+    {
+      "id": "a1c91b45d4f37e4a25f9",
+      "source": "kr_p3",
+      "title": "Seoul to turn Jamsu Bridge into 1st pedestrian-only Han River bridge",
+      "url": "https://www.koreatimes.co.kr/southkorea/20261008/seoul-to-turn-jamsu-bridge-into-1st-pedestrian-only-han-river-bridge?utm_source=rss",
+      "publishedAt": "2026-10-08T11:07:03+00:00",
+      "image": null,
+      "category": "other",
+      "topics": []
+    },
+    {
+      "id": "b9d62c8903203955e8e8",
+      "source": "kr_p3",
+      "title": "Why is imprisoned ex-official 'very angry' with Lee over lack of parole?",
+      "url": "https://www.koreatimes.co.kr/southkorea/politics/20261008/why-is-imprisoned-ex-official-very-angry-with-lee-over-lack-of-parole?utm_source=rss",
+      "publishedAt": "2026-10-08T11:07:03+00:00",
+      "image": null,
+      "category": "world",
+      "topics": []
+    },
+    {
+      "id": "bb6f3f75a895858e2839",
+      "source": "kr_p3",
+      "title": "Gov't 'undecided' on plan to raise admission fees to royal palaces, tombs",
+      "url": "https://www.koreatimes.co.kr/southkorea/20261008/govt-undecided-on-plan-to-raise-admission-fees-to-royal-palaces-tombs?utm_source=rss",
+      "publishedAt": "2026-10-08T11:07:03+00:00",
+      "image": null,
+      "category": "other",
+      "topics": []
+    },
+    {
+      "id": "63fe1152a88d906f0ecc",
+      "source": "kr_p3",
+      "title": "Bus, taxi workers feel vulnerable over self-driving future",
+      "url": "https://www.koreatimes.co.kr/southkorea/society/20261008/bus-taxi-workers-feel-vulnerable-over-self-driving-future?utm_source=rss",
+      "publishedAt": "2026-10-08T11:07:03+00:00",
+      "image": null,
+      "category": "other",
+      "topics": []
+    },
+    {
+      "id": "2a141ed1e4d921464f36",
+      "source": "kr_p3",
+      "title": "Recent electronic tracker damage case raises concerns over sex offender monitoring",
+      "url": "https://www.koreatimes.co.kr/southkorea/society/20261008/recent-electronic-tracker-damage-case-raises-concerns-over-sex-offender-monitoring?utm_source=rss",
+      "publishedAt": "2026-10-08T11:07:03+00:00",
+      "image": null,
+      "category": "other",
+      "topics": []
+    },
+    {
+      "id": "7d1f0faa3ec087fe5c75",
+      "source": "kr_p3",
+      "title": "Religious cult, leader ordered to pay $277,000 in damages to victims of sexual assault",
+      "url": "https://www.koreatimes.co.kr/southkorea/law-crime/20261008/religious-cult-leader-ordered-to-pay-277000-in-damages-to-victims-of-sexual-assault?utm_source=rss",
+      "publishedAt": "2026-10-08T11:07:03+00:00",
+      "image": null,
+      "category": "other",
+      "topics": []
+    },
+    {
+      "id": "335584734bb34e343c94",
+      "source": "kr_p3",
+      "title": "Lee orders Korea not apply for CPTPP membership this year",
+      "url": "https://www.koreatimes.co.kr/southkorea/20261008/lee-orders-korea-not-apply-for-cptpp-membership-this-year?utm_source=rss",
+      "publishedAt": "2026-10-08T11:07:03+00:00",
+      "image": null,
+      "category": "other",
+      "topics": []
+    },
+    {
+      "id": "3305b869e7788ee54e93",
+      "source": "kr_p3",
+      "title": "UNC's future plan on NK mine blast issue under wraps",
+      "url": "https://www.koreatimes.co.kr/southkorea/defense/20261008/uncs-future-plan-on-nk-mine-blast-issue-under-wraps?utm_source=rss",
+      "publishedAt": "2026-10-08T11:07:03+00:00",
+      "image": null,
+      "category": "other",
+      "topics": []
+    },
+    {
+      "id": "cbd3b65bd9c271cc3151",
+      "source": "kr_p3",
+      "title": "Defense companies accelerate developing systems integrating manned, unmanned weapons",
+      "url": "https://www.koreatimes.co.kr/southkorea/defense/20261008/defense-companies-accelerate-developing-systems-integrating-manned-unmanned-weapons?utm_source=rss",
+      "publishedAt": "2026-10-08T11:07:03+00:00",
+      "image": null,
+      "category": "business",
+      "topics": []
+    },
+    {
+      "id": "45e9a93dfdcbaf4f00fb",
+      "source": "kr_p3",
+      "title": "NIS excluded from June meeting with US, Japan over N. Korean cyber threats",
+      "url": "https://www.koreatimes.co.kr/southkorea/20261008/nis-excluded-from-june-meeting-with-us-japan-over-n-korean-cyber-threats?utm_source=rss",
+      "publishedAt": "2026-10-08T11:07:03+00:00",
+      "image": null,
+      "category": "other",
+      "topics": []
+    },
+    {
+      "id": "96a70a3eefcf3909d9d5",
+      "source": "kr_p3",
+      "title": "Defense chief discusses shipbuilding cooperation with U.S. senator",
+      "url": "https://www.koreatimes.co.kr/southkorea/defense/20261008/defense-chief-discusses-shipbuilding-cooperation-with-us-senator?utm_source=rss",
+      "publishedAt": "2026-10-08T11:07:03+00:00",
+      "image": null,
+      "category": "other",
+      "topics": [
+        "politics"
+      ]
+    },
+    {
+      "id": "d70a35d114e44c6d52fb",
+      "source": "kr_p3",
+      "title": "SCIA chief nominee vows to end 'politicization' of investigations",
+      "url": "https://www.koreatimes.co.kr/southkorea/20261008/scia-chief-nominee-vows-to-end-politicization-of-investigations?utm_source=rss",
+      "publishedAt": "2026-10-08T11:07:03+00:00",
+      "image": null,
+      "category": "investigations",
+      "topics": [
+        "politics"
+      ]
+    },
+    {
+      "id": "bf0d414c5ab1ddd5698c",
+      "source": "kr_p3",
+      "title": "Top court upholds HSBC's acquittal in short-selling case",
+      "url": "https://www.koreatimes.co.kr/southkorea/law-crime/20261008/top-court-upholds-hsbcs-acquittal-in-short-selling-case?utm_source=rss",
+      "publishedAt": "2026-10-08T11:07:03+00:00",
+      "image": null,
+      "category": "legal",
+      "topics": []
+    },
+    {
+      "id": "e7cfbee49240f9d5ee9b",
+      "source": "kr_p3",
+      "title": "JCS chief describes DMZ mine blast as 'provocation'; vows to review response measures",
+      "url": "https://www.koreatimes.co.kr/southkorea/20261008/jcs-chief-describes-dmz-mine-blast-as-provocation-vows-to-review-response-measures?utm_source=rss",
+      "publishedAt": "2026-10-08T11:07:03+00:00",
+      "image": null,
+      "category": "other",
+      "topics": []
+    },
+    {
+      "id": "f0624343e2f2d53bce34",
+      "source": "kr_p3",
+      "title": "Veterans ministry recommends local governments raise compensation for veterans",
+      "url": "https://www.koreatimes.co.kr/southkorea/defense/20261008/veterans-ministry-recommends-local-governments-raise-compensation-for-veterans?utm_source=rss",
+      "publishedAt": "2026-10-08T11:07:03+00:00",
+      "image": null,
+      "category": "other",
+      "topics": []
+    },
+    {
+      "id": "ff386f625e8c9795f7bb",
+      "source": "kr_p3",
+      "title": "[COVER STORY] K-defense expands global footprint amid shifting security order",
+      "url": "https://www.koreatimes.co.kr/southkorea/defense/20261008/cover-story-k-defense-expands-global-footprint-amid-shifting-security-order?utm_source=rss",
+      "publishedAt": "2026-10-08T11:07:03+00:00",
+      "image": null,
+      "category": "other",
+      "topics": []
+    },
+    {
+      "id": "884f7abe50e222654820",
+      "source": "kr_p3",
+      "title": "Korea's rice production projected to fall 0.6% in 2026: data ministry",
+      "url": "https://www.koreatimes.co.kr/southkorea/20261008/koreas-rice-production-projected-to-fall-06-in-2026-data-ministry?utm_source=rss",
+      "publishedAt": "2026-10-08T11:07:03+00:00",
+      "image": null,
+      "category": "other",
+      "topics": []
+    },
+    {
+      "id": "a50d381e705871d3b868",
+      "source": "kr_p3",
+      "title": "Kookmin University steps up internationalization efforts to boost students' global readiness",
+      "url": "https://www.koreatimes.co.kr/southkorea/education/20261008/kookmin-university-steps-up-internationalization-efforts-to-boost-students-global-readiness?utm_source=rss",
+      "publishedAt": "2026-10-08T11:07:03+00:00",
+      "image": null,
+      "category": "other",
+      "topics": []
+    },
+    {
+      "id": "b9aa760f117d50795390",
+      "source": "kr_p3",
+      "title": "New major crimes unit, police likely to face friction over unclear jurisdiction",
+      "url": "https://www.koreatimes.co.kr/southkorea/law-crime/20261008/new-major-crimes-unit-police-likely-to-face-friction-over-unclear-jurisdiction?utm_source=rss",
+      "publishedAt": "2026-10-08T11:07:03+00:00",
+      "image": null,
+      "category": "other",
+      "topics": []
+    },
+    {
+      "id": "5be21c80f99d58d3774a",
+      "source": "kr_p3",
+      "title": "Chinese-speaking hacker possibly linked to AI-driven attacks on S. Korean banks: report",
+      "url": "https://www.koreatimes.co.kr/southkorea/law-crime/20261008/chinese-speaking-hacker-possibly-linked-to-ai-driven-attacks-on-s-korean-banks-report?utm_source=rss",
+      "publishedAt": "2026-10-08T11:07:03+00:00",
+      "image": null,
+      "category": "technology",
+      "topics": []
+    },
+    {
+      "id": "36880037a7fc0593cba6",
+      "source": "gh_p2",
+      "title": "WAFU B U-17 Championship: Black Starlets’ road trip to Burkina Faso was planned - Joe Abu Salam",
+      "url": "https://www.myjoyonline.com/wafu-b-u-17-championship-black-starlets-road-trip-to-burkina-faso-was-planned-joe-abu-salam/",
+      "publishedAt": "2026-10-08T11:06:25+00:00",
+      "image": null,
+      "category": "sport",
+      "topics": []
+    },
+    {
+      "id": "d5e52b1f3a02ae91ee58",
+      "source": "gh_p2",
+      "title": "South Korea recalls Ukraine envoy over prisoner-of-war row",
+      "url": "https://www.myjoyonline.com/south-korea-recalls-ukraine-envoy-over-prisoner-of-war-row/",
+      "publishedAt": "2026-10-08T11:05:56+00:00",
+      "image": null,
+      "category": "world",
+      "topics": []
+    },
+    {
+      "id": "f88f939976d235c24af0",
+      "source": "id_antara",
+      "title": "Komisi II DPR jelaskan alasan rapat RUU Pemilu masih digelar tertutup",
+      "url": "https://www.antaranews.com/berita/5777269/komisi-ii-dpr-jelaskan-alasan-rapat-ruu-pemilu-masih-digelar-tertutup",
+      "publishedAt": "2026-10-08T11:05:38+00:00",
+      "image": null,
+      "category": "world",
+      "topics": [
+        "politics"
+      ]
+    },
+    {
+      "id": "c9e71c7ad0ddc7adaa96",
+      "source": "es_1",
+      "title": "Anne Carson gana el Premio Nobel de Literatura 2026",
+      "url": "https://elpais.com/cultura/2026-10-08/premio-nobel-de-literatura.html",
+      "publishedAt": "2026-10-08T11:05:25+00:00",
+      "image": null,
+      "category": "science",
+      "topics": []
+    },
+    {
+      "id": "290b06dfe27574c703b9",
+      "source": "wsj",
+      "title": "Novembers in Iowa don’t traditionally bring much drama. That could be about to change. Read more in today’s WSJ Politics Newsletter:",
+      "url": "https://www.wsj.com/politics/high-energy-prices-give-democrats-hope-of-an-unusual-breakthrough-in-iowa-352707d1?mod=rss_socialpoliticsfeed",
+      "publishedAt": "2026-10-08T11:05:00+00:00",
+      "image": "https://images.wsj.net/im-03367026",
+      "category": "politics",
+      "topics": [
+        "politics"
+      ]
+    },
+    {
+      "id": "24b57f8f5e164a9c172d",
+      "source": "guardian",
+      "title": "Canadian poet Anne Carson wins Nobel prize in literature 2026 - live",
+      "url": "https://www.theguardian.com/books/live/2026/oct/08/nobel-prize-in-literature-2026-winner-latest-news-updates",
+      "publishedAt": "2026-10-08T11:04:57+00:00",
+      "image": "https://i.guim.co.uk/img/media/6a654be294fa052899fd8b061483418b9cc7f121/0_17_1024_819/master/1024.jpg?width=140&quality=85&auto=format&fit=max&s=dc206dfefdc9d77826f85995113f499e",
+      "category": "science",
+      "topics": []
+    },
+    {
+      "id": "7d44a12394be633b6ffb",
+      "source": "es_1",
+      "title": "La jueza Biedma narra una situación de “angustia” provocada por las supuestas maniobras del ‘caso Leire Díez’",
+      "url": "https://elpais.com/espana/2026-10-08/la-jueza-biedma-narra-una-situacion-de-angustia-provocada-por-las-supuestas-maniobras-del-caso-leire-diez.html",
+      "publishedAt": "2026-10-08T11:04:32+00:00",
+      "image": null,
+      "category": "other",
+      "topics": []
+    },
+    {
+      "id": "59ff37c268ec9340c173",
+      "source": "ie_rte",
+      "title": "State migration budget to fall by €682 million next year",
+      "url": "https://www.rte.ie/news/politics/2026/1008/1594556-state-migration-budget/",
+      "publishedAt": "2026-10-08T11:04:13+00:00",
+      "image": "https://www.rte.ie/images/00241cab-800.jpg",
+      "category": "world",
+      "topics": [
+        "politics"
+      ]
+    },
+    {
+      "id": "7108e794c9de91e48b22",
+      "source": "wsj",
+      "title": "Oil Majors Cut Production in Gulf of Mexico as Hurricane Isaias Strengthens",
+      "url": "https://www.wsj.com/business/harbour-energy-curbs-gulf-of-mexico-production-ahead-of-storm-isaias-48734408?mod=rss_markets_main",
+      "publishedAt": "2026-10-08T11:04:00+00:00",
+      "image": "https://images.wsj.net/im-26108900",
+      "category": "markets",
+      "topics": []
+    },
+    {
+      "id": "8bb7d3536fc87e69d768",
+      "source": "wsj",
+      "title": "Electric-Truck Drivers Struggle to Compete, Even as Diesel Prices Surge",
+      "url": "https://www.wsj.com/logistics-report/electric-truck-drivers-struggle-to-compete-even-as-diesel-prices-surge-65fea007?mod=pls_whats_news_us_business_f",
+      "publishedAt": "2026-10-08T11:04:00+00:00",
+      "image": "https://images.wsj.net/im-44428196",
+      "category": "business",
+      "topics": []
+    },
+    {
+      "id": "c4de461b8126f6bf1795",
+      "source": "nl_1",
+      "title": "Energieverbruik op piekuren vanaf 2029 voor iedereen duurder, dalgebruik goedkoper",
+      "url": "https://nos.nl/l/2634132",
+      "publishedAt": "2026-10-08T11:04:00+00:00",
+      "image": null,
+      "category": "other",
+      "topics": []
+    },
+    {
+      "id": "6453be979c69d1521509",
+      "source": "reuters",
+      "title": "UK 10-year borrowing costs rise to 19-year high after oil prices jump",
+      "url": "https://www.reuters.com/world/us/uk-10-year-borrowing-costs-rise-19-year-high-after-oil-prices-jump-2026-10-08/",
+      "publishedAt": "2026-10-08T11:03:46.567000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/FQASLPNQ4RLJNOX26HMKPHNVME.jpg?auth=0afc6e7a76e3323624bfcf6ed23bb8613c2219e587d0ae237b63da6db9e27755&smart=true&width=1920",
+      "category": "markets",
+      "topics": []
+    },
+    {
+      "id": "5c2274db078a8dbf4a2d",
+      "source": "reuters",
+      "title": "Mexican auto exports slump in September as US tariffs take toll",
+      "url": "https://www.reuters.com/business/autos-transportation/mexican-auto-exports-slump-september-us-tariffs-take-toll-2026-10-08/",
+      "publishedAt": "2026-10-08T11:03:45.275000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/MKU2JOMREBKKZP56OMODTJ6R4M.jpg?auth=6a5a27a4bd567c3efe5dc5605a1d0bab95caa161b6b18659a414baa43f9c021b&smart=true&width=1920",
+      "category": "business",
+      "topics": [
+        "politics"
+      ]
+    },
+    {
+      "id": "67d92e2b8f11cfe060e1",
+      "source": "reuters",
+      "title": "Cuban actors insist the show must go on despite blackouts",
+      "url": "https://www.reuters.com/world/americas/cuban-actors-insist-show-must-go-despite-blackouts-2026-10-08/",
+      "publishedAt": "2026-10-08T11:03:43.856000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/TQFUI6NIUFJV3GOLFEWTY4FTHI.jpg?auth=c39a3708f863e6e25ad60828c76fec1a8e15a42ccfd10c8b3e13e83f2eda5f89&smart=true&width=1920",
+      "category": "world",
+      "topics": []
+    },
+    {
+      "id": "b843c38a348ef18fbfdc",
+      "source": "bbc",
+      "title": "Canadian poet Anne Carson wins Nobel Prize in Literature",
+      "url": "https://www.bbc.co.uk/news/articles/cq4g1j54nepyo?at_medium=RSS&at_campaign=rss",
+      "publishedAt": "2026-10-08T11:03:39+00:00",
+      "image": "https://ichef.bbci.co.uk/ace/standard/240/cpsprodpb/9b88/live/12ba7400-c308-11f1-8f04-85217d686658.jpg",
+      "category": "science",
+      "topics": []
+    },
+    {
+      "id": "f500192729203a310ccf",
+      "source": "in_p1",
+      "title": "‘State government should spare farmers from remitting crop insurance premium’",
+      "url": "https://www.thehindu.com/news/cities/Tiruchirapalli/state-government-should-spare-farmers-from-remitting-crop-insurance-premium/article71559244.ece",
+      "publishedAt": "2026-10-08T11:02:58+00:00",
+      "image": null,
+      "category": "other",
+      "topics": [
+        "politics"
+      ]
+    },
+    {
+      "id": "01c41bbeeb1b868eb4a8",
+      "source": "at_orf",
+      "title": "Literaturnobelpreis geht an Anne Carson",
+      "url": "https://orf.at/stories/3444472/",
+      "publishedAt": "2026-10-08T11:02:14+00:00",
+      "image": "https://orf.at/mojo/1_4_1/storyserver//news/common/images/og-fallback-news.png",
+      "category": "science",
+      "topics": []
+    },
+    {
+      "id": "3a7939163b19838b4665",
+      "source": "reuters",
+      "title": "Margaret Qualley drawn to 'emotional ride' of romantic drama 'Love of Your Life'",
+      "url": "https://www.reuters.com/business/media-telecom/margaret-qualley-drawn-emotional-ride-romantic-drama-love-your-life-2026-10-08/",
+      "publishedAt": "2026-10-08T11:02:10.591000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/KZQZ67AZ2ZMX3NNXWQLSO3RU6E.jpg?auth=cfa84ad2b86b1055313e31177453b7eb967c801f15a28a9b0c7d03705ea49747&smart=true&width=1920",
+      "category": "business",
+      "topics": []
+    },
+    {
+      "id": "44868dfd1e20a1330f98",
+      "source": "ro_hotnews",
+      "title": "Premiul Nobel pentru Literatură a fost câștigat în 2026 de Anne Carson",
+      "url": "https://hotnews.ro/premiul-nobel-pentru-literatura-a-fost-castigat-in-2026-de-anne-carson-2370549",
+      "publishedAt": "2026-10-08T11:02:06+00:00",
+      "image": "https://hotnews.ro/wp-content/uploads/2025/10/shutterstock_2553831365_1.jpg",
+      "category": "science",
+      "topics": []
+    },
+    {
+      "id": "53977a513cff791d2ce6",
+      "source": "gh_p2",
+      "title": "Caretaker killed and two teachers injured in knife attack at Poland school",
+      "url": "https://www.myjoyonline.com/caretaker-killed-and-two-teachers-injured-in-knife-attack-at-poland-school/",
+      "publishedAt": "2026-10-08T11:02:06+00:00",
+      "image": null,
+      "category": "other",
+      "topics": []
+    },
+    {
+      "id": "a9c70adc44bb5fc6ca55",
+      "source": "dw",
+      "title": "Nobel Prize in Literature goes to Canada's Anne Carson",
+      "url": "https://www.dw.com/en/nobel-prize-in-literature-goes-to-canada-s-anne-carson/a-79594136?maca=en-rss-en-all-1573-xml-mrss",
+      "publishedAt": "2026-10-08T11:02:00+00:00",
+      "image": "https://static.dw.com/image/63282138_6.jpg",
+      "category": "science",
+      "topics": []
+    },
+    {
+      "id": "6ea3bcfa65f92bf7a373",
+      "source": "reuters",
+      "title": "EV maker Polestar logs slightly higher quarterly sales as US ban looms",
+      "url": "https://www.reuters.com/business/autos-transportation/ev-maker-polestar-logs-slightly-higher-quarterly-sales-us-ban-looms-2026-10-08/",
+      "publishedAt": "2026-10-08T11:01:43.717000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/TWTEUQESYNMGRELUPUR6FS2KNY.jpg?auth=242e40cff173af216da8bc878211a74acc6bc3ecea949f366db498d8dfaf0608&smart=true&width=1920",
+      "category": "business",
+      "topics": []
+    },
+    {
+      "id": "55c370711b5844163dac",
+      "source": "bbc",
+      "title": "Asos hackers took more personal details than first revealed, BBC finds",
+      "url": "https://www.bbc.co.uk/news/articles/c3zxjdw5ywgpo?at_medium=RSS&at_campaign=rss",
+      "publishedAt": "2026-10-08T11:01:29+00:00",
+      "image": "https://ichef.bbci.co.uk/ace/standard/240/cpsprodpb/49a4/live/930ee0a0-c303-11f1-a64c-550be9e3c66b.jpg",
+      "category": "business",
+      "topics": []
+    },
+    {
+      "id": "9b323370a582745af62a",
+      "source": "reuters",
+      "title": "German government raises growth forecasts for 2026 and 2027",
+      "url": "https://www.reuters.com/business/german-government-raises-growth-forecasts-2026-2027-2026-10-08/",
+      "publishedAt": "2026-10-08T11:01:09.891000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/6Q6IGJATCVJBDB5L4WLOI37NDY.jpg?auth=f95654d25855e307001ca0fb149f7bbe14d80d85218896079ad48a44cb09a2ea&smart=true&width=1920",
+      "category": "business",
+      "topics": [
+        "politics"
+      ]
+    },
+    {
+      "id": "6157e45e39770e0ea3fa",
+      "source": "in_p1",
+      "title": "Kanniyakumari tops State in e-Sevai revenue certificate application disposal for two consecutive months",
+      "url": "https://www.thehindu.com/news/cities/Madurai/kanniyakumari-tops-state-in-e-sevai-revenue-certificate-application-disposal-for-two-consecutive-months/article71555803.ece",
+      "publishedAt": "2026-10-08T11:00:59+00:00",
+      "image": null,
+      "category": "other",
+      "topics": []
+    },
+    {
+      "id": "419a6b4a57e565c18baf",
+      "source": "pk_p1",
+      "title": "Bahrain working to 'speed up' approval of Pak-GCC free trade pact, foreign minister says",
+      "url": "https://www.dawn.com/news/2035648/bahrain-working-to-speed-up-approval-of-pak-gcc-free-trade-pact-foreign-minister-says",
+      "publishedAt": "2026-10-08T11:00:48+00:00",
+      "image": null,
+      "category": "business",
+      "topics": []
+    },
+    {
+      "id": "5f41cee2df22eaae71c6",
+      "source": "bloomberg",
+      "title": "Yardeni Sees Bond Yields Heading in ‘Danger Zone’ Direction",
+      "url": "https://www.bloomberg.com/news/videos/2026-10-08/yardeni-bond-yields-heading-in-danger-zone-direction-video",
+      "publishedAt": "2026-10-08T11:00:43+00:00",
+      "image": null,
+      "category": "markets",
+      "topics": []
+    },
+    {
+      "id": "004b830856f01bd631c1",
+      "source": "reuters",
+      "title": "Britain's BBC, Channel 4 discuss broader tie-up to cut costs, sources say",
+      "url": "https://www.reuters.com/world/britains-bbc-channel-4-discuss-broader-tie-up-cut-costs-sources-say-2026-10-07/",
+      "publishedAt": "2026-10-08T11:00:40.129000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/7YOJALLZZFOLJMUKZ6BRMR2RJ4.jpg?auth=5dc2e4b87c89add0f5f5376d7200a354bbc1ca1fa8131ac2a4ff314f27ebb675&smart=true&width=1920",
+      "category": "world",
+      "topics": []
+    },
+    {
+      "id": "365debed26b5db63c0d2",
+      "source": "detik",
+      "title": "Penerapan Teknologi IoT untuk Pertanian di Semarang",
+      "url": "https://finance.detik.com/foto-bisnis/d-8698349/penerapan-teknologi-iot-untuk-pertanian-di-semarang",
+      "publishedAt": "2026-10-08T11:00:40+00:00",
+      "image": "https://akcdn.detik.net.id/community/media/visual/2026/10/08/penerapan-teknologi-iot-untuk-pertanian-di-semarang-1791453087477.jpeg?w=360&q=90",
+      "category": "technology",
+      "topics": []
+    },
+    {
+      "id": "ee8ddf12359a2d6d7f19",
+      "source": "in_p1",
+      "title": "Chennai Corporation, MSSRF discuss measures to strengthen waste management",
+      "url": "https://www.thehindu.com/news/national/tamil-nadu/gcc-mssrf-discuss-measures-to-strengthen-waste-management/article71557026.ece",
+      "publishedAt": "2026-10-08T11:00:21+00:00",
+      "image": null,
+      "category": "business",
+      "topics": []
+    },
+    {
+      "id": "29cd8c596fb06aff5e14",
+      "source": "guardian",
+      "title": "Inside NBA Europe’s $10bn plan that has football clubs queuing to join",
+      "url": "https://www.theguardian.com/sport/2026/oct/08/basketball-nba-europe-launch-franchise-football",
+      "publishedAt": "2026-10-08T11:00:18+00:00",
+      "image": "https://i.guim.co.uk/img/media/481c59c7798967286336352bfe77b4d144f1c579/0_0_4973_3978/master/4973.jpg?width=140&quality=85&auto=format&fit=max&s=18da2e36de64bb279dadc7b1df185dce",
+      "category": "sport",
+      "topics": []
+    },
+    {
+      "id": "bfa38c10aa62be474c83",
+      "source": "ft",
+      "title": "Houston start-up aims to loosen China’s grip on critical metal",
+      "url": "https://www.ft.com/content/c4ef549c-0451-4884-b922-23cd24cf35a6?syn-25a6b1a6=1",
+      "publishedAt": "2026-10-08T11:00:02+00:00",
+      "image": null,
+      "category": "world",
+      "topics": []
+    },
+    {
+      "id": "bc39fc926939a67c9192",
+      "source": "marketwatch",
+      "title": "Rising yields are quietly crashing the stock market’s earlier winners of 2026",
+      "url": "https://www.marketwatch.com/story/rising-yields-are-quietly-crashing-the-stock-markets-earlier-winners-of-2026-a29f2863?mod=mw_rss_topstories",
+      "publishedAt": "2026-10-08T11:00:00+00:00",
+      "image": null,
+      "category": "markets",
+      "topics": []
+    },
+    {
+      "id": "3a66683f6eaaa472e41e",
+      "source": "wsj",
+      "title": "Quantum Startup Oratomic Now Worth $5.4 Billion After Series-B Funding",
+      "url": "https://www.wsj.com/cio-journal/quantum-startup-oratomic-now-worth-5-4-billion-after-series-b-funding-538a80fc?mod=pls_whats_news_us_business_f",
+      "publishedAt": "2026-10-08T11:00:00+00:00",
+      "image": "https://images.wsj.net/im-00367419",
+      "category": "business",
+      "topics": []
+    },
+    {
+      "id": "f1d397fb630d5404348b",
+      "source": "reuters",
+      "title": "Key points in Italy's new electoral law",
+      "url": "https://www.reuters.com/world/key-points-italys-new-electoral-law-2026-10-08/",
+      "publishedAt": "2026-10-08T10:59:45.792000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/UUKFTAVCSRPXHFMXDLBYZHD5OU.jpg?auth=e0a458479f4e8a85d43d09b593e6b5fc6b91d57b0aff2ed3a3b2753fba28f789&smart=true&width=1920",
+      "category": "world",
+      "topics": []
+    },
+    {
+      "id": "6ab26d6faed302f5aaa7",
+      "source": "reuters",
+      "title": "South Africa fast bowler Rabada to sit out first test against Australia",
+      "url": "https://www.reuters.com/sports/cricket/south-africa-fast-bowler-rabada-sit-out-first-test-against-australia-2026-10-08/",
+      "publishedAt": "2026-10-08T10:59:44.298000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/6PGS7YMKKZI2BIT236UXUXOH6U.jpg?auth=52518fcbd720be97efce9725c481a9d8ef6207914c3b83f8ca6d111724805d08&smart=true&width=1920",
+      "category": "sport",
+      "topics": []
+    },
+    {
+      "id": "b55c43931a09b43e6920",
+      "source": "in_p1",
+      "title": "ISRO employees seek meeting with Chairperson to discuss queries on privatisation",
+      "url": "https://www.thehindu.com/sci-tech/isro-employees-seek-meeting-with-chairperson-to-discussqueries-on-privatisation/article71559271.ece",
+      "publishedAt": "2026-10-08T10:59:23+00:00",
+      "image": null,
+      "category": "other",
+      "topics": []
+    },
+    {
+      "id": "42973ffe5638861c9ded",
+      "source": "in_p1",
+      "title": "BJP slams TVK-led govt. over sexual assault on five-year-old in Gummidipoondi",
+      "url": "https://www.thehindu.com/news/national/tamil-nadu/bjp-slams-tvk-led-govt-over-sexual-assault-on-five-year-old-in-gummidipoondi/article71558912.ece",
+      "publishedAt": "2026-10-08T10:59:21+00:00",
+      "image": null,
+      "category": "other",
+      "topics": []
+    },
+    {
+      "id": "a51ab53ed87ffc6ee0d0",
+      "source": "in_p1",
+      "title": "CEC row LIVE: INDIA bloc MPs head to Gandhi Smriti to stage sit-in protest; Dipke, Dhruv Rathee address Bengaluru's ‘People’s Tribunal’ against SIR",
+      "url": "https://www.thehindu.com/news/national/cec-gyanesh-kumar-india-bloc-congress-jantar-mantar-rahul-priyanka-gandhi-detention-cjp-protest-live-updates/article71558244.ece",
+      "publishedAt": "2026-10-08T10:59:08+00:00",
+      "image": null,
+      "category": "other",
+      "topics": []
+    },
+    {
+      "id": "f917a81ad9c79b93a1e5",
+      "source": "ie_rte",
+      "title": "UHG apologises to woman over missed cancer diagnosis",
+      "url": "https://www.rte.ie/news/courts/2026/1008/1594553-mary-keane/",
+      "publishedAt": "2026-10-08T10:59:02+00:00",
+      "image": "https://www.rte.ie/images/002523ca-800.jpg",
+      "category": "legal",
+      "topics": []
+    },
+    {
+      "id": "1c3c8cde21d93a4e92a2",
+      "source": "reuters",
+      "title": "Democrats in tight Midwest US races split on trans rights strategy",
+      "url": "https://www.reuters.com/legal/government/democrats-tight-midwest-us-races-split-trans-rights-strategy-2026-10-08/",
+      "publishedAt": "2026-10-08T10:58:57.942000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/XXWTSMI6RNIEFEDLA2VIAM3N5M.jpg?auth=05845a5d65f05b84c278d6a522518712a988b10f1ed0ed1d8615f4f3079e5344&smart=true&width=1920",
+      "category": "legal",
+      "topics": []
+    },
+    {
+      "id": "bc408dfb3ba476ce406b",
+      "source": "in_p1",
+      "title": "PMIST bags three ICT Academy awards",
+      "url": "https://www.thehindu.com/news/cities/Tiruchirapalli/pmist-bags-three-ict-academy-awards/article71559248.ece",
+      "publishedAt": "2026-10-08T10:58:52+00:00",
+      "image": null,
+      "category": "other",
+      "topics": []
+    },
+    {
+      "id": "543a181169db7c253dda",
+      "source": "sg_cna",
+      "title": "South Africa fast bowler Rabada to sit out first test against Australia",
+      "url": "https://www.channelnewsasia.com/sport/south-africa-fast-bowler-rabada-sit-out-first-test-against-australia-6442506",
+      "publishedAt": "2026-10-08T10:58:50+00:00",
+      "image": null,
+      "category": "sport",
+      "topics": []
+    },
+    {
+      "id": "48ca8caf46d6c374c24d",
+      "source": "reuters",
+      "title": "PepsiCo to cut costs as weak N.America business hurts core profit forecast",
+      "url": "https://www.reuters.com/business/retail-consumer/pepsico-cuts-annual-core-profit-forecast-higher-costs-hurt-margins-2026-10-08/",
+      "publishedAt": "2026-10-08T10:58:36.939000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/WPSAI4NE6BLYRHBDSF72USPL5Y.jpg?auth=311b15ab5c55f48c8a7411c05356a59679c4a6885836b62a1b04c80fe60aa1a2&smart=true&width=1920",
+      "category": "business",
+      "topics": []
+    },
+    {
+      "id": "21a38edb60a519b6ba14",
+      "source": "ro_hotnews",
+      "title": "Mii de pelerini la Sfânta Parascheva: Se așteaptă peste șapte ore la moaște. Restricții majore de trafic în Iași",
+      "url": "https://hotnews.ro/mii-de-pelerini-la-sfanta-parascheva-se-asteapta-peste-sapte-ore-la-moaste-restrictii-majore-de-trafic-in-iasi-2370418",
+      "publishedAt": "2026-10-08T10:58:34+00:00",
+      "image": "https://hotnews.ro/wp-content/uploads/2026/10/WhatsApp-Image-2026-10-08-at-13.57.29.jpeg",
+      "category": "other",
+      "topics": []
+    },
+    {
+      "id": "9b9272804be6aa0d1e52",
+      "source": "reuters",
+      "title": "Singapore Grand Prix entertainment may be curbed if haze worsens, FIA says",
+      "url": "https://www.reuters.com/business/environment/singapore-grand-prix-entertainment-may-be-curbed-if-haze-worsens-fia-says-2026-10-08/",
+      "publishedAt": "2026-10-08T10:58:23.191000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/2KDBXE44JVO5HEB7I6J2GXVL3U.jpg?auth=f0e3eaa791ad970013c3a4f0f173d81b48effc0537c9830d6e9722aba81a2e44&smart=true&width=1920",
+      "category": "sustainability",
+      "topics": []
+    },
+    {
+      "id": "0cfee8a1839b27194848",
+      "source": "id_antara",
+      "title": "Danantara targetkan merger empat BUMN karya paling lambat November",
+      "url": "https://www.antaranews.com/berita/5777268/danantara-targetkan-merger-empat-bumn-karya-paling-lambat-november",
+      "publishedAt": "2026-10-08T10:57:25+00:00",
+      "image": null,
+      "category": "local",
+      "topics": []
+    },
+    {
+      "id": "4eab56e8b75e3e696f2d",
+      "source": "reuters",
+      "title": "Shipping group Maersk raises UK, Ireland inland emergency fuel surcharge due to Middle East conflict",
+      "url": "https://www.reuters.com/business/energy/shipping-group-maersk-raises-emergency-fuel-surcharge-due-middle-east-conflict-2026-10-08/",
+      "publishedAt": "2026-10-08T10:57:21.932000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/ZY2JB7AOMNNULNAED3SBOVDQ54.jpg?auth=4b9e0cb84b3e0a37c0e92cb5799b832811b345d92ab1bee35a39c296d69e56d0&smart=true&width=1920",
+      "category": "business",
+      "topics": []
+    },
+    {
+      "id": "9728d704ce2751334ca7",
+      "source": "cnbc",
+      "title": "CNBC's No. 1 financial advisor takes a family-office approach: 'There is real value in all of those relationships'",
+      "url": "https://www.cnbc.com/2026/10/08/howland-capital-management-top-financial-advisor-strategy.html",
+      "publishedAt": "2026-10-08T10:56:47+00:00",
+      "image": "https://image.cnbcfm.com/api/v1/image/108372293-1791151512396-gettyimages-1155934450-crewing740155r.jpeg?v=1791151612&w=1920&h=1080",
+      "category": "other",
+      "topics": []
+    },
+    {
+      "id": "141600dea9c7600537cc",
+      "source": "kompas",
+      "title": "Bos Danantara Ungkap Alasan Waskita dan Wika Belum Ikut Merger BUMN Karya Tahun Ini",
+      "url": "https://money.kompas.com/read/2026/10/08/175641426/bos-danantara-ungkap-alasan-waskita-dan-wika-belum-ikut-merger-bumn-karya",
+      "publishedAt": "2026-10-08T10:56:41+00:00",
+      "image": "https://asset.kompas.com/crops/7phJGpCA68CXsrhPHnYabPTDhFY=/0x0:0x0/750x500/data/photo/2026/10/08/6ac74ff9f0243.jpg",
+      "category": "local",
+      "topics": []
+    },
+    {
+      "id": "ebf438a4410fd4b817dc",
+      "source": "gh_p2",
+      "title": "Adwoa Safo calls for unity, endorses brother as Kristo Asafo Church leader",
+      "url": "https://www.myjoyonline.com/adwoa-safo-calls-for-unity-endorses-brother-as-kristo-asafo-church-leader/",
+      "publishedAt": "2026-10-08T10:56:11+00:00",
+      "image": null,
+      "category": "other",
+      "topics": []
+    },
+    {
+      "id": "a9269e9416b009472dbb",
+      "source": "id_antara",
+      "title": "Menaker: Kolaborasi multipihak atasi kesenjangan kompetensi naker",
+      "url": "https://www.antaranews.com/berita/5777262/menaker-kolaborasi-multipihak-atasi-kesenjangan-kompetensi-naker",
+      "publishedAt": "2026-10-08T10:56:03+00:00",
+      "image": null,
+      "category": "other",
+      "topics": []
+    },
+    {
       "id": "e1c6d31a24704d36debf",
       "source": "ng_p1",
       "title": "China unveils candidate for WHO chief position",
@@ -3850,6 +4686,266 @@
       "topics": []
     },
     {
+      "id": "24eeacb20bb9de00b7eb",
+      "source": "wsj",
+      "title": "Gridlock Is Good for Stocks. Certainty Is Better.",
+      "url": "https://www.wsj.com/finance/investing/gridlock-is-good-for-stocks-certainty-is-better-d4d2bb1a?mod=rss_markets_main",
+      "publishedAt": "2026-10-08T10:56:00+00:00",
+      "image": "https://images.wsj.net/im-39521645",
+      "category": "markets",
+      "topics": []
+    },
+    {
+      "id": "9fd14a4167d80024e234",
+      "source": "in_p1",
+      "title": "42 former judges defend ECI, slam ‘calculated campaign’ driven by ‘vested political interests’",
+      "url": "https://www.thehindu.com/news/national/42-former-judges-defend-eci-slam-calculated-campaign-driven-by-vested-political-interests/article71559277.ece",
+      "publishedAt": "2026-10-08T10:55:49+00:00",
+      "image": null,
+      "category": "world",
+      "topics": [
+        "politics"
+      ]
+    },
+    {
+      "id": "a54a522fed1aa43300e0",
+      "source": "reuters",
+      "title": "Wall St futures slide as rising oil, yields dampen mood",
+      "url": "https://www.reuters.com/business/wall-st-futures-slide-rising-oil-yields-dampen-mood-2026-10-08/",
+      "publishedAt": "2026-10-08T10:55:44.079000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/3GFJ422VYFM57ITJ3ITNOMKR5M.jpg?auth=0848b32097ef35a1df49aa1d8f5a8173cafc6080b02e74a83ecc66b47b3fb36a&smart=true&width=1920",
+      "category": "markets",
+      "topics": []
+    },
+    {
+      "id": "4b880bd4ce8029a133df",
+      "source": "guardian",
+      "title": "USS Lincoln carrier to return to port in San Diego after record-breaking deployment - US politics live",
+      "url": "https://www.theguardian.com/us-news/live/2026/oct/08/uss-lincoln-san-diego-donald-trump-republicans-democrats-us-politics-latest-news",
+      "publishedAt": "2026-10-08T10:55:25+00:00",
+      "image": "https://i.guim.co.uk/img/media/010e3c4e8d9a5aa7b8405608c784690e871955a1/285_0_3463_2771/master/3463.jpg?width=140&quality=85&auto=format&fit=max&s=8c06a1f8ffce4f4487712512d5659372",
+      "category": "world",
+      "topics": [
+        "politics"
+      ]
+    },
+    {
+      "id": "f8eb4d672175fb03fbbc",
+      "source": "ie_rte",
+      "title": "PIke may face execution after recovery, says US doctor",
+      "url": "https://www.rte.ie/news/2026/1008/1594543-christa-pike-doctor/",
+      "publishedAt": "2026-10-08T10:55:21+00:00",
+      "image": "https://www.rte.ie/images/002519b2-800.jpg",
+      "category": "other",
+      "topics": []
+    },
+    {
+      "id": "fefedb52479f1b46990d",
+      "source": "wsj",
+      "title": "Fed Minutes Show No Urgency for October Hike",
+      "url": "https://www.wsj.com/cfo-journal/fed-minutes-show-no-urgency-for-october-hike-66be7bd8?mod=rss_markets_main",
+      "publishedAt": "2026-10-08T10:55:00+00:00",
+      "image": "https://images.wsj.net/im-62300636",
+      "category": "markets",
+      "topics": []
+    },
+    {
+      "id": "e83c96ec3922e6a75aec",
+      "source": "dw",
+      "title": "South Korea recalls Ukraine ambassador amid POW dispute",
+      "url": "https://www.dw.com/en/south-korea-recalls-ukraine-ambassador-amid-pow-dispute/a-79590511?maca=en-rss-en-all-1573-xml-mrss",
+      "publishedAt": "2026-10-08T10:55:00+00:00",
+      "image": "https://static.dw.com/image/79403749_6.jpg",
+      "category": "other",
+      "topics": []
+    },
+    {
+      "id": "48ba1cc544f039151f9f",
+      "source": "marketwatch",
+      "title": "After a 33% gain in the first half, this fund manager grew tired of the AI trade. Here’s where he’s looking now.",
+      "url": "https://www.marketwatch.com/story/after-a-33-gain-in-the-first-half-this-fund-manager-grew-tired-of-the-ai-trade-heres-where-hes-looking-now-1783b3a4?mod=mw_rss_topstories",
+      "publishedAt": "2026-10-08T10:55:00+00:00",
+      "image": null,
+      "category": "technology",
+      "topics": []
+    },
+    {
+      "id": "dc37a23730f85c3f1b16",
+      "source": "reuters",
+      "title": "As Munir's military takes on Gulf role, Pakistan's parliament is not involved",
+      "url": "https://www.reuters.com/world/asia-pacific/munirs-military-takes-gulf-role-pakistans-parliament-is-not-involved-2026-10-08/",
+      "publishedAt": "2026-10-08T10:54:39.259000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/TATFS3VDRFJETGUCCUZE2W4QTY.jpg?auth=141b205dded410252290d003a10e63effd7fc4ba10d61d62cb252d84abd13121&smart=true&width=1920",
+      "category": "world",
+      "topics": [
+        "politics"
+      ]
+    },
+    {
+      "id": "418fa257d7488f2554cc",
+      "source": "in_p1",
+      "title": "Minister reviews monsoon preparedness in Chennai’s Adyar Zone",
+      "url": "https://www.thehindu.com/news/cities/chennai/it-minister-reviews-monsoon-preparedness-in-adyar-zone/article71556258.ece",
+      "publishedAt": "2026-10-08T10:54:35+00:00",
+      "image": null,
+      "category": "other",
+      "topics": []
+    },
+    {
+      "id": "ae70a3e5fda73b2c2449",
+      "source": "bbc",
+      "title": "Wakefield top as all 14 Super League clubs stay for 2027",
+      "url": "https://www.bbc.co.uk/sport/rugby-league/articles/cxdd86mgpq68o?at_medium=RSS&at_campaign=rss",
+      "publishedAt": "2026-10-08T10:54:00+00:00",
+      "image": "https://ichef.bbci.co.uk/ace/standard/240/cpsprodpb/c79c/live/c7dc83d0-c300-11f1-9955-5d2e13ff2bea.jpg",
+      "category": "sport",
+      "topics": []
+    },
+    {
+      "id": "26c72ecbe4ac19c7b448",
+      "source": "es_1",
+      "title": "Mia Goth solicita el divorcio de Shia LaBeouf y la custodia exclusiva de su hija de cuatro años",
+      "url": "https://elpais.com/gente/2026-10-08/mia-goth-solicita-el-divorcio-de-shia-labeouf-y-la-custodia-exclusiva-de-su-hija-de-cuatro-anos.html",
+      "publishedAt": "2026-10-08T10:53:46+00:00",
+      "image": null,
+      "category": "other",
+      "topics": []
+    },
+    {
+      "id": "be151b4fe959dcddb700",
+      "source": "reuters",
+      "title": "US bank investors to focus on impact of higher rates, deals outlook in Q3 earnings",
+      "url": "https://www.reuters.com/business/finance/us-bank-investors-focus-impact-higher-rates-deals-outlook-q3-earnings-2026-10-08/",
+      "publishedAt": "2026-10-08T10:53:02.326000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/JHXODOTZNZOX3JVQ6I47F7YGHY.jpg?auth=5f99f0cc248b5eb7b617bfd5e07d28c42d1dc7277f3160a715a93e27698ca835&smart=true&width=1920",
+      "category": "business",
+      "topics": []
+    },
+    {
+      "id": "e7eee55f644e97060e39",
+      "source": "gb_sky",
+      "title": "Sisters pulled from sea near Brighton took own lives, coroner rules",
+      "url": "https://news.sky.com/story/sisters-pulled-from-sea-near-brighton-took-own-lives-coroner-rules-13596453",
+      "publishedAt": "2026-10-08T10:53:00+00:00",
+      "image": null,
+      "category": "other",
+      "topics": []
+    },
+    {
+      "id": "3b5af56e41fa06c4a4b0",
+      "source": "bbc",
+      "title": "Russian strike on buses kills 33, say officials, as deadly attacks on Ukraine surge",
+      "url": "https://www.bbc.co.uk/news/articles/c875pwq134l3o?at_medium=RSS&at_campaign=rss",
+      "publishedAt": "2026-10-08T10:52:50+00:00",
+      "image": "https://ichef.bbci.co.uk/ace/standard/240/cpsprodpb/0a5b/live/25d71060-c2fa-11f1-b8c6-6d610e41a5d9.jpg",
+      "category": "other",
+      "topics": []
+    },
+    {
+      "id": "90f1e67d8bb821f122e5",
+      "source": "tz_p2",
+      "title": "Tanzania marks the Eye Health Day, insists on seeking early intervention for vision problems",
+      "url": "https://dailynews.co.tz/tanzania-marks-the-eye-health-day-insists-on-seeking-early-intervention-for-vision-problems/",
+      "publishedAt": "2026-10-08T10:52:46+00:00",
+      "image": null,
+      "category": "other",
+      "topics": []
+    },
+    {
+      "id": "cd499b2d1458973fb8ac",
+      "source": "in_p1",
+      "title": "ECI special drive in Tamil Nadu till October 9 to enrol young, first-time eligible voters",
+      "url": "https://www.thehindu.com/news/national/tamil-nadu/eci-special-drive-till-oct-9-to-enrol-young-first-time-eligible-voters/article71556142.ece",
+      "publishedAt": "2026-10-08T10:52:41+00:00",
+      "image": null,
+      "category": "other",
+      "topics": []
+    },
+    {
+      "id": "0f0087dc13777bdbd668",
+      "source": "reuters",
+      "title": "Data centers' 'flexible' power usage could save the grid billions. Can they scale?",
+      "url": "https://www.reuters.com/business/energy/data-centers-flexible-power-usage-could-save-grid-billions-can-they-scale-2026-10-08/",
+      "publishedAt": "2026-10-08T10:52:29.060000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/4HUAHCEO4BI7LNWGWLRMMNT7XY.jpg?auth=0479f44bfdf7bc0375b401ceee0ac157e3a419df35a0df03ba819d9b3b2bc98e&smart=true&width=1920",
+      "category": "technology",
+      "topics": []
+    },
+    {
+      "id": "dbb8ae39e26088d2ef8a",
+      "source": "reuters",
+      "title": "CNN, MS NOW, Politico to urge judge to block White House ban long-term",
+      "url": "https://www.reuters.com/legal/government/cnn-ms-now-politico-urge-judge-block-white-house-ban-long-term-2026-10-08/",
+      "publishedAt": "2026-10-08T10:52:02.114000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/IJE5B4Q6CVJYDBVZY7XVXWI4VU.jpg?auth=0a3ef7b2589186b7c796d56b8af3a0a8e594fabea30ee6e60aaa0c9290fc7142&smart=true&width=1920",
+      "category": "legal",
+      "topics": [
+        "politics"
+      ]
+    },
+    {
+      "id": "fe10d644f4edf1ba2b9b",
+      "source": "dw",
+      "title": "As Russia steps up attacks on Ukrainian data centers, could Ukraine soon be offline?",
+      "url": "https://www.dw.com/en/as-russia-steps-up-attacks-on-ukrainian-data-centers-could-ukraine-soon-be-offline/a-79582503?maca=en-rss-en-all-1573-xml-mrss",
+      "publishedAt": "2026-10-08T10:52:00+00:00",
+      "image": "https://static.dw.com/image/75698517_6.jpg",
+      "category": "technology",
+      "topics": []
+    },
+    {
+      "id": "b44354b62ebb2bf560b5",
+      "source": "reuters",
+      "title": "Oil jumps as Middle East supply concerns persist amid shipping attacks",
+      "url": "https://www.reuters.com/business/energy/oil-rises-middle-east-supply-concerns-persist-amid-shipping-attacks-2026-10-08/",
+      "publishedAt": "2026-10-08T10:51:58.191000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/3MA2ADNGIRKMBOKQMCZO5TRY3U.jpg?auth=ede0483b7519f56b9bea9303855509843d7e1f0beaf7b816f3556c8874afbc44&smart=true&width=1920",
+      "category": "markets",
+      "topics": []
+    },
+    {
+      "id": "89c79e2ea124f62f6441",
+      "source": "reuters",
+      "title": "US farm debt is at a record. Official data might be undercounting it",
+      "url": "https://www.reuters.com/business/finance/us-farm-debt-is-record-official-data-might-be-undercounting-it-2026-10-08/",
+      "publishedAt": "2026-10-08T10:51:46.829000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/LP2C7OMDG5K3PFTMD266H7WI5Y.jpg?auth=1571142139317326dccfe4c073d8465638fac903640d3efd350aa333ab421e7f&smart=true&width=1920",
+      "category": "business",
+      "topics": []
+    },
+    {
+      "id": "de46faf764979d9f776a",
+      "source": "gh_p2",
+      "title": "Russian strike on buses kills 33, say officials, as deadly attacks on Ukraine surge",
+      "url": "https://www.myjoyonline.com/russian-strike-on-buses-kills-33-say-officials-as-deadly-attacks-on-ukraine-surge/",
+      "publishedAt": "2026-10-08T10:51:38+00:00",
+      "image": null,
+      "category": "other",
+      "topics": []
+    },
+    {
+      "id": "6963962412c245c2dfbc",
+      "source": "de_2",
+      "title": "Mögliche CDU-Stimmen für AfD: Radtke fordert Parteiausschluss für Abweichler",
+      "url": "https://www.tagesschau.de/inland/innenpolitik/cdu-reaktionen-wahl-sachsen-anhalt-100.html",
+      "publishedAt": "2026-10-08T10:51:26+00:00",
+      "image": null,
+      "category": "world",
+      "topics": []
+    },
+    {
+      "id": "b385ec8f4493beef2b30",
+      "source": "guardian",
+      "title": "Polls open in Holborn and St Pancras byelection - UK politics live",
+      "url": "https://www.theguardian.com/politics/live/2026/oct/08/holborn-st-pancras-byelection-labour-greens-zack-polanski-uk-politics-live-news-updates",
+      "publishedAt": "2026-10-08T10:51:06+00:00",
+      "image": "https://i.guim.co.uk/img/media/6f517b8ce6a5ef1dcba53a4b4acdc0d07c3ae463/559_0_3901_3123/master/3901.jpg?width=140&quality=85&auto=format&fit=max&s=062d38f65ffb0407f1eb2837558ebc7b",
+      "category": "politics",
+      "topics": [
+        "politics"
+      ]
+    },
+    {
       "id": "f273edf2962294718efb",
       "source": "id_antara",
       "title": "Timnas sepak bola CP bidik lolos fase grup di debut IFCPF 2026 AS",
@@ -3857,16 +4953,6 @@
       "publishedAt": "2026-10-08T10:50:58+00:00",
       "image": null,
       "category": "local",
-      "topics": []
-    },
-    {
-      "id": "24b57f8f5e164a9c172d",
-      "source": "guardian",
-      "title": "Nobel prize in literature 2026 live: winner to be announced shortly",
-      "url": "https://www.theguardian.com/books/live/2026/oct/08/nobel-prize-in-literature-2026-winner-latest-news-updates",
-      "publishedAt": "2026-10-08T10:50:54+00:00",
-      "image": "https://i.guim.co.uk/img/media/b0a180a816bea04404a61ac8e81eef7551b4fece/500_0_5000_4000/master/5000.jpg?width=140&quality=85&auto=format&fit=max&s=02b276bf258aad2cf0f58cf49731ce1c",
-      "category": "science",
       "topics": []
     },
     {
@@ -3890,6 +4976,16 @@
       "topics": [
         "politics"
       ]
+    },
+    {
+      "id": "df5bf6ba3f21a3d24eea",
+      "source": "es_1",
+      "title": "Muere Margaret Hamilton, la mujer que enseñó al ordenador del Apolo a no perder los nervios sobre la Luna",
+      "url": "https://elpais.com/ciencia/2026-10-08/muere-margaret-hamilton-la-pionera-de-la-informatica-que-hizo-posible-la-llegada-a-la-luna.html",
+      "publishedAt": "2026-10-08T10:50:47+00:00",
+      "image": null,
+      "category": "other",
+      "topics": []
     },
     {
       "id": "ef2e07246145ba9411ec",
@@ -3944,23 +5040,23 @@
       "topics": []
     },
     {
-      "id": "e1b8ff8df633d4075aa4",
-      "source": "guardian",
-      "title": "French high school protests continue despite PM’s promise of action - Europe live",
-      "url": "https://www.theguardian.com/world/live/2026/oct/08/france-protests-spain-housing-maria-del-carmen-abascal-burnham-merz-europe-latest-news",
-      "publishedAt": "2026-10-08T10:49:42+00:00",
-      "image": "https://i.guim.co.uk/img/media/6808748f258465be6966650001e3a2f3a5e8870f/608_0_6278_5023/master/6278.jpg?width=140&quality=85&auto=format&fit=max&s=ad4f097347d95b433737386cf9d0e67c",
-      "category": "world",
+      "id": "2c91bd77a407c5dcbcdc",
+      "source": "es_1",
+      "title": "Un estudiante mata a una persona y hiere a otras dos en un ataque en una escuela de Polonia",
+      "url": "https://elpais.com/internacional/2026-10-08/un-estudiante-mata-a-una-persona-y-hiere-a-otras-dos-en-un-ataque-en-una-escuela-de-polonia.html",
+      "publishedAt": "2026-10-08T10:49:51+00:00",
+      "image": null,
+      "category": "other",
       "topics": []
     },
     {
-      "id": "419a6b4a57e565c18baf",
-      "source": "pk_p1",
-      "title": "Bahrain working to 'speed up' approval of Pak-GCC free trade pact, foreign minister says",
-      "url": "https://www.dawn.com/news/2035648/bahrain-working-to-speed-up-approval-of-pak-gcc-free-trade-pact-foreign-minister-says",
-      "publishedAt": "2026-10-08T10:49:15+00:00",
+      "id": "7af8ee3e33a92a777b9a",
+      "source": "in_p1",
+      "title": "Over 1.10 lakh tonnes of waste processed in final phase at Ariyamangalam",
+      "url": "https://www.thehindu.com/news/cities/Tiruchirapalli/over-110-lakh-tonnes-of-waste-processed-in-final-phase-at-ariyamangalam/article71555646.ece",
+      "publishedAt": "2026-10-08T10:49:35+00:00",
       "image": null,
-      "category": "business",
+      "category": "other",
       "topics": []
     },
     {
@@ -3971,6 +5067,26 @@
       "publishedAt": "2026-10-08T10:49:11.526000+00:00",
       "image": null,
       "category": "markets",
+      "topics": []
+    },
+    {
+      "id": "f5aa2c0f23c764a14bb8",
+      "source": "wsj",
+      "title": "U.S. Dollar Trades Higher",
+      "url": "https://www.wsj.com/finance/commodities-futures/dollar-stays-elevated-as-treasury-yields-oil-prices-rise-274a97c5?mod=rss_markets_main",
+      "publishedAt": "2026-10-08T10:49:00+00:00",
+      "image": null,
+      "category": "markets",
+      "topics": []
+    },
+    {
+      "id": "0dcac3c7fcc36dd1337e",
+      "source": "gb_sky",
+      "title": "Water companies failed to report more than 50,000 sewage spills in time, charity claims",
+      "url": "https://news.sky.com/story/englands-water-companies-failed-to-report-more-than-50000-sewage-spills-in-time-charity-claims-13596212",
+      "publishedAt": "2026-10-08T10:49:00+00:00",
+      "image": null,
+      "category": "business",
       "topics": []
     },
     {
@@ -4001,6 +5117,16 @@
       "publishedAt": "2026-10-08T10:48:45.071000+00:00",
       "image": "https://www.reuters.com/resizer/v2/T7YJQTVB3NLP3OQDQCW5CNODIE.jpg?auth=c338f934063dc379192195adc2c9da1ad2233ecc87f275c3c437f6d076785711&smart=true&width=1920",
       "category": "business",
+      "topics": []
+    },
+    {
+      "id": "019be1d1219b8e505ee6",
+      "source": "aljazeera",
+      "title": "Photos: Protests erupt after 87-year-old evicted woman dies in Madrid",
+      "url": "https://www.aljazeera.com/gallery/2026/10/8/photos-protests-erupt-after-87-year-old-evicted-woman-dies-in-madrid?traffic_source=rss",
+      "publishedAt": "2026-10-08T10:48:41+00:00",
+      "image": "https://www.aljazeera.com/wp-content/uploads/2026/10/AP26280805472763-1791444460.jpg?resize=1920%2C1440",
+      "category": "other",
       "topics": []
     },
     {
@@ -4056,11 +5182,21 @@
       "topics": []
     },
     {
-      "id": "7d44a12394be633b6ffb",
-      "source": "es_1",
-      "title": "La jueza Biedma narra una situación de “angustia” provocada por las supuestas maniobras del ‘caso Leire Díez’",
-      "url": "https://elpais.com/espana/2026-10-08/la-jueza-biedma-narra-una-situacion-de-angustia-provocada-por-las-supuestas-maniobras-del-caso-leire-diez.html",
-      "publishedAt": "2026-10-08T10:47:27+00:00",
+      "id": "9ce306a2d1014ecb44ed",
+      "source": "it_1",
+      "title": "Mosca, 'malsane' le accuse di Tajani di interferenze russe nelle elezioni",
+      "url": "https://www.ansa.it/sito/notizie/topnews/2026/10/08/mosca-malsane-le-accuse-di-tajani-di-interferenze-russe-nelle-elezioni_7daa07b5-b6bb-462a-9687-594b553bd892.html",
+      "publishedAt": "2026-10-08T10:47:50+00:00",
+      "image": null,
+      "category": "other",
+      "topics": []
+    },
+    {
+      "id": "dc0dfb2f5ff3c5779b95",
+      "source": "in_p1",
+      "title": "Beyond the textbook: Why an exhibition on Constitution in Keralam is drawing young minds",
+      "url": "https://www.thehindu.com/news/national/kerala/beyond-the-textbook-why-an-exhibition-on-constitution-in-keralam-is-drawing-young-minds/article71559189.ece",
+      "publishedAt": "2026-10-08T10:47:26+00:00",
       "image": null,
       "category": "other",
       "topics": []
@@ -4096,210 +5232,6 @@
       "topics": []
     },
     {
-      "id": "a1c91b45d4f37e4a25f9",
-      "source": "kr_p3",
-      "title": "Seoul to turn Jamsu Bridge into 1st pedestrian-only Han River bridge",
-      "url": "https://www.koreatimes.co.kr/southkorea/20261008/seoul-to-turn-jamsu-bridge-into-1st-pedestrian-only-han-river-bridge?utm_source=rss",
-      "publishedAt": "2026-10-08T10:47:02+00:00",
-      "image": null,
-      "category": "other",
-      "topics": []
-    },
-    {
-      "id": "b9d62c8903203955e8e8",
-      "source": "kr_p3",
-      "title": "Why is imprisoned ex-official 'very angry' with Lee over lack of parole?",
-      "url": "https://www.koreatimes.co.kr/southkorea/politics/20261008/why-is-imprisoned-ex-official-very-angry-with-lee-over-lack-of-parole?utm_source=rss",
-      "publishedAt": "2026-10-08T10:47:02+00:00",
-      "image": null,
-      "category": "world",
-      "topics": []
-    },
-    {
-      "id": "bb6f3f75a895858e2839",
-      "source": "kr_p3",
-      "title": "Gov't 'undecided' on plan to raise admission fees to royal palaces, tombs",
-      "url": "https://www.koreatimes.co.kr/southkorea/20261008/govt-undecided-on-plan-to-raise-admission-fees-to-royal-palaces-tombs?utm_source=rss",
-      "publishedAt": "2026-10-08T10:47:02+00:00",
-      "image": null,
-      "category": "other",
-      "topics": []
-    },
-    {
-      "id": "63fe1152a88d906f0ecc",
-      "source": "kr_p3",
-      "title": "Bus, taxi workers feel vulnerable over self-driving future",
-      "url": "https://www.koreatimes.co.kr/southkorea/society/20261008/bus-taxi-workers-feel-vulnerable-over-self-driving-future?utm_source=rss",
-      "publishedAt": "2026-10-08T10:47:02+00:00",
-      "image": null,
-      "category": "other",
-      "topics": []
-    },
-    {
-      "id": "2a141ed1e4d921464f36",
-      "source": "kr_p3",
-      "title": "Recent electronic tracker damage case raises concerns over sex offender monitoring",
-      "url": "https://www.koreatimes.co.kr/southkorea/society/20261008/recent-electronic-tracker-damage-case-raises-concerns-over-sex-offender-monitoring?utm_source=rss",
-      "publishedAt": "2026-10-08T10:47:02+00:00",
-      "image": null,
-      "category": "other",
-      "topics": []
-    },
-    {
-      "id": "7d1f0faa3ec087fe5c75",
-      "source": "kr_p3",
-      "title": "Religious cult, leader ordered to pay $277,000 in damages to victims of sexual assault",
-      "url": "https://www.koreatimes.co.kr/southkorea/law-crime/20261008/religious-cult-leader-ordered-to-pay-277000-in-damages-to-victims-of-sexual-assault?utm_source=rss",
-      "publishedAt": "2026-10-08T10:47:02+00:00",
-      "image": null,
-      "category": "other",
-      "topics": []
-    },
-    {
-      "id": "335584734bb34e343c94",
-      "source": "kr_p3",
-      "title": "Lee orders Korea not apply for CPTPP membership this year",
-      "url": "https://www.koreatimes.co.kr/southkorea/20261008/lee-orders-korea-not-apply-for-cptpp-membership-this-year?utm_source=rss",
-      "publishedAt": "2026-10-08T10:47:02+00:00",
-      "image": null,
-      "category": "other",
-      "topics": []
-    },
-    {
-      "id": "3305b869e7788ee54e93",
-      "source": "kr_p3",
-      "title": "UNC's future plan on NK mine blast issue under wraps",
-      "url": "https://www.koreatimes.co.kr/southkorea/defense/20261008/uncs-future-plan-on-nk-mine-blast-issue-under-wraps?utm_source=rss",
-      "publishedAt": "2026-10-08T10:47:02+00:00",
-      "image": null,
-      "category": "other",
-      "topics": []
-    },
-    {
-      "id": "cbd3b65bd9c271cc3151",
-      "source": "kr_p3",
-      "title": "Defense companies accelerate developing systems integrating manned, unmanned weapons",
-      "url": "https://www.koreatimes.co.kr/southkorea/defense/20261008/defense-companies-accelerate-developing-systems-integrating-manned-unmanned-weapons?utm_source=rss",
-      "publishedAt": "2026-10-08T10:47:02+00:00",
-      "image": null,
-      "category": "business",
-      "topics": []
-    },
-    {
-      "id": "45e9a93dfdcbaf4f00fb",
-      "source": "kr_p3",
-      "title": "NIS excluded from June meeting with US, Japan over N. Korean cyber threats",
-      "url": "https://www.koreatimes.co.kr/southkorea/20261008/nis-excluded-from-june-meeting-with-us-japan-over-n-korean-cyber-threats?utm_source=rss",
-      "publishedAt": "2026-10-08T10:47:02+00:00",
-      "image": null,
-      "category": "other",
-      "topics": []
-    },
-    {
-      "id": "96a70a3eefcf3909d9d5",
-      "source": "kr_p3",
-      "title": "Defense chief discusses shipbuilding cooperation with U.S. senator",
-      "url": "https://www.koreatimes.co.kr/southkorea/defense/20261008/defense-chief-discusses-shipbuilding-cooperation-with-us-senator?utm_source=rss",
-      "publishedAt": "2026-10-08T10:47:02+00:00",
-      "image": null,
-      "category": "other",
-      "topics": [
-        "politics"
-      ]
-    },
-    {
-      "id": "d70a35d114e44c6d52fb",
-      "source": "kr_p3",
-      "title": "SCIA chief nominee vows to end 'politicization' of investigations",
-      "url": "https://www.koreatimes.co.kr/southkorea/20261008/scia-chief-nominee-vows-to-end-politicization-of-investigations?utm_source=rss",
-      "publishedAt": "2026-10-08T10:47:02+00:00",
-      "image": null,
-      "category": "investigations",
-      "topics": [
-        "politics"
-      ]
-    },
-    {
-      "id": "bf0d414c5ab1ddd5698c",
-      "source": "kr_p3",
-      "title": "Top court upholds HSBC's acquittal in short-selling case",
-      "url": "https://www.koreatimes.co.kr/southkorea/law-crime/20261008/top-court-upholds-hsbcs-acquittal-in-short-selling-case?utm_source=rss",
-      "publishedAt": "2026-10-08T10:47:02+00:00",
-      "image": null,
-      "category": "legal",
-      "topics": []
-    },
-    {
-      "id": "e7cfbee49240f9d5ee9b",
-      "source": "kr_p3",
-      "title": "JCS chief describes DMZ mine blast as 'provocation'; vows to review response measures",
-      "url": "https://www.koreatimes.co.kr/southkorea/20261008/jcs-chief-describes-dmz-mine-blast-as-provocation-vows-to-review-response-measures?utm_source=rss",
-      "publishedAt": "2026-10-08T10:47:02+00:00",
-      "image": null,
-      "category": "other",
-      "topics": []
-    },
-    {
-      "id": "f0624343e2f2d53bce34",
-      "source": "kr_p3",
-      "title": "Veterans ministry recommends local governments raise compensation for veterans",
-      "url": "https://www.koreatimes.co.kr/southkorea/defense/20261008/veterans-ministry-recommends-local-governments-raise-compensation-for-veterans?utm_source=rss",
-      "publishedAt": "2026-10-08T10:47:02+00:00",
-      "image": null,
-      "category": "other",
-      "topics": []
-    },
-    {
-      "id": "ff386f625e8c9795f7bb",
-      "source": "kr_p3",
-      "title": "[COVER STORY] K-defense expands global footprint amid shifting security order",
-      "url": "https://www.koreatimes.co.kr/southkorea/defense/20261008/cover-story-k-defense-expands-global-footprint-amid-shifting-security-order?utm_source=rss",
-      "publishedAt": "2026-10-08T10:47:02+00:00",
-      "image": null,
-      "category": "other",
-      "topics": []
-    },
-    {
-      "id": "884f7abe50e222654820",
-      "source": "kr_p3",
-      "title": "Korea's rice production projected to fall 0.6% in 2026: data ministry",
-      "url": "https://www.koreatimes.co.kr/southkorea/20261008/koreas-rice-production-projected-to-fall-06-in-2026-data-ministry?utm_source=rss",
-      "publishedAt": "2026-10-08T10:47:02+00:00",
-      "image": null,
-      "category": "other",
-      "topics": []
-    },
-    {
-      "id": "a50d381e705871d3b868",
-      "source": "kr_p3",
-      "title": "Kookmin University steps up internationalization efforts to boost students' global readiness",
-      "url": "https://www.koreatimes.co.kr/southkorea/education/20261008/kookmin-university-steps-up-internationalization-efforts-to-boost-students-global-readiness?utm_source=rss",
-      "publishedAt": "2026-10-08T10:47:02+00:00",
-      "image": null,
-      "category": "other",
-      "topics": []
-    },
-    {
-      "id": "b9aa760f117d50795390",
-      "source": "kr_p3",
-      "title": "New major crimes unit, police likely to face friction over unclear jurisdiction",
-      "url": "https://www.koreatimes.co.kr/southkorea/law-crime/20261008/new-major-crimes-unit-police-likely-to-face-friction-over-unclear-jurisdiction?utm_source=rss",
-      "publishedAt": "2026-10-08T10:47:02+00:00",
-      "image": null,
-      "category": "other",
-      "topics": []
-    },
-    {
-      "id": "5be21c80f99d58d3774a",
-      "source": "kr_p3",
-      "title": "Chinese-speaking hacker possibly linked to AI-driven attacks on S. Korean banks: report",
-      "url": "https://www.koreatimes.co.kr/southkorea/law-crime/20261008/chinese-speaking-hacker-possibly-linked-to-ai-driven-attacks-on-s-korean-banks-report?utm_source=rss",
-      "publishedAt": "2026-10-08T10:47:02+00:00",
-      "image": null,
-      "category": "technology",
-      "topics": []
-    },
-    {
       "id": "d6998f461c78b43de6dc",
       "source": "id_antara",
       "title": "Tren desain ruang kerja kini beradaptasi dengan cara bekerja",
@@ -4317,16 +5249,6 @@
       "publishedAt": "2026-10-08T10:46:44+00:00",
       "image": null,
       "category": "sustainability",
-      "topics": []
-    },
-    {
-      "id": "dc0dfb2f5ff3c5779b95",
-      "source": "in_p1",
-      "title": "Beyond the textbook: Why an exhibition on Constitution in Keralam is drawing young minds",
-      "url": "https://www.thehindu.com/news/national/kerala/beyond-the-textbook-why-an-exhibition-on-constitution-in-keralam-is-drawing-young-minds/article71559189.ece",
-      "publishedAt": "2026-10-08T10:46:38+00:00",
-      "image": null,
-      "category": "other",
       "topics": []
     },
     {
@@ -4360,6 +5282,16 @@
       "topics": []
     },
     {
+      "id": "961ec7bba24eb1e7255e",
+      "source": "ft",
+      "title": "Oil prices jump on tanker attack and slowing flows through Strait of Hormuz",
+      "url": "https://www.ft.com/content/ec860f96-5a2b-461a-a897-a957860c3dba?syn-25a6b1a6=1",
+      "publishedAt": "2026-10-08T10:46:10+00:00",
+      "image": "https://images.ft.com/v3/image/raw/https%3A%2F%2Fd1e00ek4ebabms.cloudfront.net%2Fproduction%2F702c6a16-5b65-439a-b19a-3aaf9fac8d45.jpg?source=next-home-page&dpr=2&width=580&fit=scale-down",
+      "category": "world",
+      "topics": []
+    },
+    {
       "id": "90b27c30c149c5012623",
       "source": "nl_1",
       "title": "Oud-leerling steekt op Poolse school vrouw dood, twee anderen gewond",
@@ -4390,12 +5322,12 @@
       "topics": []
     },
     {
-      "id": "0f0087dc13777bdbd668",
-      "source": "reuters",
-      "title": "Data centers' 'flexible' power usage could save the grid billions. Can they scale?",
-      "url": "https://www.reuters.com/business/energy/data-centers-flexible-power-usage-could-save-grid-billions-can-they-scale-2026-10-08/",
-      "publishedAt": "2026-10-08T10:45:22.342000+00:00",
-      "image": "https://www.reuters.com/resizer/v2/4HUAHCEO4BI7LNWGWLRMMNT7XY.jpg?auth=0479f44bfdf7bc0375b401ceee0ac157e3a419df35a0df03ba819d9b3b2bc98e&smart=true&width=1920",
+      "id": "c431f5caaba64dd4134f",
+      "source": "sg_cna",
+      "title": "Firmus investor stock falls after reports AI data centre operator may cut $5 billion IPO",
+      "url": "https://www.channelnewsasia.com/business/firmus-investor-stock-falls-after-reports-ai-data-centre-operator-may-cut-5-billion-ipo-6442461",
+      "publishedAt": "2026-10-08T10:45:12+00:00",
+      "image": null,
       "category": "technology",
       "topics": []
     },
@@ -4420,13 +5352,23 @@
       "topics": []
     },
     {
-      "id": "48c8f7fa4516d41d1774",
-      "source": "bbc",
-      "title": "Three sisters who died in sea off Brighton took own lives, inquest finds",
-      "url": "https://www.bbc.co.uk/news/articles/c689zxd8w87lo?at_medium=RSS&at_campaign=rss",
-      "publishedAt": "2026-10-08T10:44:54+00:00",
-      "image": "https://ichef.bbci.co.uk/ace/standard/240/cpsprodpb/1a2d/live/537ff930-6139-11ee-b101-6f93d6dfbcc2.png",
+      "id": "7892f023b82398b23dbe",
+      "source": "it_1",
+      "title": "Ok Ue alla clausola di salvaguardia per l'Italia, 'nessun rischio'",
+      "url": "https://www.ansa.it/sito/notizie/topnews/2026/10/08/ok-ue-alla-clausola-di-salvaguardia-per-litalia-nessun-rischio_f7790f9d-da13-4208-8350-bec2bb66c07d.html",
+      "publishedAt": "2026-10-08T10:44:56+00:00",
+      "image": null,
       "category": "other",
+      "topics": []
+    },
+    {
+      "id": "cfb1a34f159e45943ab2",
+      "source": "sg_cna",
+      "title": "Explainer-Data centers' 'flexible' power usage could save the grid billions. Can they scale?",
+      "url": "https://www.channelnewsasia.com/business/explainer-data-centers-flexible-power-usage-could-save-grid-billions-can-they-scale-6442466",
+      "publishedAt": "2026-10-08T10:44:54+00:00",
+      "image": null,
+      "category": "technology",
       "topics": []
     },
     {
@@ -4440,10 +5382,10 @@
       "topics": []
     },
     {
-      "id": "b402b6315eb818355326",
+      "id": "1ce21785d9958d8b9ea9",
       "source": "es_1",
       "title": "Rusia mata al menos a 33 personas en un ataque contra la ciudad ucrania de Kramatorsk",
-      "url": "https://elpais.com/internacional/2026-10-08/rusia-mata-al-menos-a-33-personas-en-un-ataque-contra-la-ciudad-ucrania-de-kramatorsk.html",
+      "url": "https://elpais.com/internacional/2026-10-08/rusia-mata-a-decenas-de-personas-en-un-ataque-contra-la-ciudad-ucrania-de-kramatorsk.html",
       "publishedAt": "2026-10-08T10:44:10+00:00",
       "image": null,
       "category": "other",
@@ -4458,18 +5400,6 @@
       "image": null,
       "category": "other",
       "topics": []
-    },
-    {
-      "id": "dc37a23730f85c3f1b16",
-      "source": "reuters",
-      "title": "As Munir's military takes on Gulf role, Pakistan's parliament is not involved",
-      "url": "https://www.reuters.com/world/asia-pacific/munirs-military-takes-gulf-role-pakistans-parliament-is-not-involved-2026-10-08/",
-      "publishedAt": "2026-10-08T10:43:54.463000+00:00",
-      "image": "https://www.reuters.com/resizer/v2/TATFS3VDRFJETGUCCUZE2W4QTY.jpg?auth=141b205dded410252290d003a10e63effd7fc4ba10d61d62cb252d84abd13121&smart=true&width=1920",
-      "category": "world",
-      "topics": [
-        "politics"
-      ]
     },
     {
       "id": "08792019851e52142415",
@@ -4552,16 +5482,6 @@
       "topics": []
     },
     {
-      "id": "91ffcf65f0bfd2c5b939",
-      "source": "es_1",
-      "title": "Maricarmen y las elecciones del 29-N, en directo | El PP veta los minutos de silencio por Maricarmen en el Senado, el Ayuntamiento y la Asamblea de Madrid",
-      "url": "https://elpais.com/espana/2026-10-08/reacciones-tras-la-muerte-de-maricarmen-y-ultima-hora-de-las-elecciones-del-29-n-en-directo.html",
-      "publishedAt": "2026-10-08T10:42:50+00:00",
-      "image": null,
-      "category": "other",
-      "topics": []
-    },
-    {
       "id": "1431ba33148e384b5b62",
       "source": "in_p1",
       "title": "Chennai nephrologist given lifetime contribution award",
@@ -4579,6 +5499,16 @@
       "publishedAt": "2026-10-08T10:42:41.476000+00:00",
       "image": "https://www.reuters.com/resizer/v2/4EZJBITPARLRRH65LW6X3TTH74.jpg?auth=f2cb3ce12de56783ebb3423ac2f2a40175a86e9936b931fa82e75293cc6fa9cc&smart=true&width=1920",
       "category": "commentary",
+      "topics": []
+    },
+    {
+      "id": "b47d2dd4c3aaca686f3d",
+      "source": "it_1",
+      "title": "Ok della Camera con 227 sì, la riforma elettorale è legge",
+      "url": "https://www.ansa.it/sito/notizie/topnews/2026/10/08/ok-della-camera-con-227-si-la-riforma-elettorale-e-legge_597111dc-a0cc-4997-890c-92fdb20de08b.html",
+      "publishedAt": "2026-10-08T10:42:40+00:00",
+      "image": null,
+      "category": "other",
       "topics": []
     },
     {
@@ -4674,7 +5604,7 @@
     {
       "id": "60c11602b00cd1b74242",
       "source": "au_abc",
-      "title": "Breaking: Russian strike on Ukrainian bus stop kills 33",
+      "title": "Breaking: Russian attack on bus stop kills at least 33 in Ukraine, officials say",
       "url": "https://www.abc.net.au/news/2026-10-08/ukraine-russia-bus-stop-strike-attack-bomb/107245320",
       "publishedAt": "2026-10-08T10:40:02+00:00",
       "image": null,
@@ -4736,7 +5666,7 @@
       "source": "fr_1",
       "title": "A la première du « Legend Tour », un public conquis d’avance malgré les polémiques visant Guillaume Pley",
       "url": "https://www.lemonde.fr/pixels/article/2026/10/08/a-la-premiere-du-legend-tour-un-public-conquis-d-avance-malgre-les-polemiques-visant-guillaume-pley_6790197_4408996.html",
-      "publishedAt": "2026-10-08T10:38:38+00:00",
+      "publishedAt": "2026-10-08T10:38:34+00:00",
       "image": null,
       "category": "other",
       "topics": []
@@ -4792,18 +5722,6 @@
       "topics": []
     },
     {
-      "id": "4b880bd4ce8029a133df",
-      "source": "guardian",
-      "title": "USS Lincoln carrier to return to port in San Diego after record-breaking deployment - US politics live",
-      "url": "https://www.theguardian.com/us-news/live/2026/oct/08/uss-lincoln-san-diego-donald-trump-republicans-democrats-us-politics-latest-news",
-      "publishedAt": "2026-10-08T10:37:48+00:00",
-      "image": "https://i.guim.co.uk/img/media/010e3c4e8d9a5aa7b8405608c784690e871955a1/285_0_3463_2771/master/3463.jpg?width=140&quality=85&auto=format&fit=max&s=8c06a1f8ffce4f4487712512d5659372",
-      "category": "world",
-      "topics": [
-        "politics"
-      ]
-    },
-    {
       "id": "20c869b7eeb3bb97676b",
       "source": "bbc",
       "title": "'Nothing impossible' as NI begin long road to Brazil",
@@ -4821,6 +5739,16 @@
       "publishedAt": "2026-10-08T10:37:20+00:00",
       "image": null,
       "category": "other",
+      "topics": []
+    },
+    {
+      "id": "58495a98dc7ad6f10f3c",
+      "source": "bbc",
+      "title": "How Brighton attract and develop the best young players ahead of their rivals",
+      "url": "https://www.bbc.co.uk/sport/football/articles/cm0e35gzgdqeo?at_medium=RSS&at_campaign=rss",
+      "publishedAt": "2026-10-08T10:37:14+00:00",
+      "image": "https://ichef.bbci.co.uk/ace/standard/240/cpsprodpb/f4ad/live/ca558840-c23e-11f1-b390-9f59a375fdd2.jpg",
+      "category": "sport",
       "topics": []
     },
     {
@@ -4986,18 +5914,6 @@
       "topics": []
     },
     {
-      "id": "b385ec8f4493beef2b30",
-      "source": "guardian",
-      "title": "Polls open in Holborn and St Pancras byelection - UK politics live",
-      "url": "https://www.theguardian.com/politics/live/2026/oct/08/holborn-st-pancras-byelection-labour-greens-zack-polanski-uk-politics-live-news-updates",
-      "publishedAt": "2026-10-08T10:33:53+00:00",
-      "image": "https://i.guim.co.uk/img/media/6f517b8ce6a5ef1dcba53a4b4acdc0d07c3ae463/559_0_3901_3123/master/3901.jpg?width=140&quality=85&auto=format&fit=max&s=062d38f65ffb0407f1eb2837558ebc7b",
-      "category": "politics",
-      "topics": [
-        "politics"
-      ]
-    },
-    {
       "id": "af0f95092e043825010c",
       "source": "at_orf",
       "title": "Prognose für deutsche Wirtschaft deutlich verbessert",
@@ -5078,6 +5994,16 @@
       "topics": []
     },
     {
+      "id": "8ef8ae1ff1d994379afb",
+      "source": "ar_clarin",
+      "title": "De las pasarelas al cuadrilátero: Miss Alemania debuta como boxeadora profesional",
+      "url": "https://www.clarin.com/internacional/pasarelas-cuadrilatero-miss-alemania-debuta-boxeadora-profesional_0_o7iPAWePFL.html",
+      "publishedAt": "2026-10-08T10:31:52+00:00",
+      "image": null,
+      "category": "other",
+      "topics": []
+    },
+    {
       "id": "5b3679f341c5bd781701",
       "source": "aljazeera",
       "title": "Russian attack on Ukraine’s Kramatorsk kills at least 12 people",
@@ -5115,16 +6041,6 @@
       "publishedAt": "2026-10-08T10:31:00+00:00",
       "image": null,
       "category": "other",
-      "topics": []
-    },
-    {
-      "id": "e44ab3d3319b6ef82f5e",
-      "source": "pk_p1",
-      "title": "Mobile services reportedly non-functional in parts of Peshawar ahead of PTI march’s expected arrival",
-      "url": "https://www.dawn.com/news/2035662/mobile-services-reportedly-non-functional-in-parts-of-peshawar-ahead-of-pti-marchs-expected-arrival",
-      "publishedAt": "2026-10-08T10:30:49+00:00",
-      "image": null,
-      "category": "world",
       "topics": []
     },
     {
@@ -5470,16 +6386,6 @@
       "topics": []
     },
     {
-      "id": "55c370711b5844163dac",
-      "source": "bbc",
-      "title": "Asos hackers took more personal details than first revealed, BBC finds",
-      "url": "https://www.bbc.co.uk/news/articles/c3zxjdw5ywgpo?at_medium=RSS&at_campaign=rss",
-      "publishedAt": "2026-10-08T10:24:26+00:00",
-      "image": "https://ichef.bbci.co.uk/ace/standard/240/cpsprodpb/49a4/live/930ee0a0-c303-11f1-a64c-550be9e3c66b.jpg",
-      "category": "business",
-      "topics": []
-    },
-    {
       "id": "1699fb88bd493171744f",
       "source": "in_p1",
       "title": "Delhi police monitor travel plans, bus bookings ahead of proposed CJP protest",
@@ -5552,16 +6458,6 @@
       "topics": []
     },
     {
-      "id": "4eab56e8b75e3e696f2d",
-      "source": "reuters",
-      "title": "Shipping group Maersk raises UK, Ireland inland emergency fuel surcharge due to Middle East conflict",
-      "url": "https://www.reuters.com/business/energy/shipping-group-maersk-raises-emergency-fuel-surcharge-due-middle-east-conflict-2026-10-08/",
-      "publishedAt": "2026-10-08T10:22:53.303000+00:00",
-      "image": "https://www.reuters.com/resizer/v2/ZY2JB7AOMNNULNAED3SBOVDQ54.jpg?auth=4b9e0cb84b3e0a37c0e92cb5799b832811b345d92ab1bee35a39c296d69e56d0&smart=true&width=1920",
-      "category": "business",
-      "topics": []
-    },
-    {
       "id": "38d46e18ed1e7d83669a",
       "source": "id_antara",
       "title": "Telkomsel buka peluang startup NextDev terhubung ke program pemerintah",
@@ -5599,16 +6495,6 @@
       "title": "Mindestens 30 Tote bei russischen Angriffen auf Busse in der Ukraine",
       "url": "https://www.tagesschau.de/ausland/europa/ukraine-bus-kramatorsk-100.html",
       "publishedAt": "2026-10-08T10:22:18+00:00",
-      "image": null,
-      "category": "other",
-      "topics": []
-    },
-    {
-      "id": "a51ab53ed87ffc6ee0d0",
-      "source": "in_p1",
-      "title": "CEC row LIVE: INDIA bloc MPs head to Gandhi Smriti to stage sit-in protest; Dipke, Dhruv Rathee address Bengaluru's ‘People’s Tribunal’ against SIR",
-      "url": "https://www.thehindu.com/news/national/cec-gyanesh-kumar-india-bloc-congress-jantar-mantar-rahul-priyanka-gandhi-detention-cjp-protest-live-updates/article71558244.ece",
-      "publishedAt": "2026-10-08T10:22:05+00:00",
       "image": null,
       "category": "other",
       "topics": []
@@ -5750,16 +6636,6 @@
       "topics": []
     },
     {
-      "id": "9728d704ce2751334ca7",
-      "source": "cnbc",
-      "title": "CNBC's No. 1 financial advisor takes a family-office approach: 'There is real value in all of those relationships'",
-      "url": "https://www.cnbc.com/2026/10/08/howland-capital-management-top-financial-advisor-strategy.html",
-      "publishedAt": "2026-10-08T10:19:53+00:00",
-      "image": "https://image.cnbcfm.com/api/v1/image/108372293-1791151512396-gettyimages-1155934450-crewing740155r.jpeg?v=1791151612&w=1920&h=1080",
-      "category": "other",
-      "topics": []
-    },
-    {
       "id": "32eca832232902270d7b",
       "source": "in_p1",
       "title": "Supreme Court directs Udayasthamana pooja to be held as per Guruvayur temple practices",
@@ -5767,16 +6643,6 @@
       "publishedAt": "2026-10-08T10:19:53+00:00",
       "image": null,
       "category": "legal",
-      "topics": []
-    },
-    {
-      "id": "89c79e2ea124f62f6441",
-      "source": "reuters",
-      "title": "US farm debt is at a record. Official data might be undercounting it",
-      "url": "https://www.reuters.com/business/finance/us-farm-debt-is-record-official-data-might-be-undercounting-it-2026-10-08/",
-      "publishedAt": "2026-10-08T10:19:47.430000+00:00",
-      "image": "https://www.reuters.com/resizer/v2/FALFWHGELBMFDNMT6XQJT77UQA.jpg?auth=b6b18bed2c2cb369b0e94788e52ed5f667080179492eb6ec4f8b1cbdaee86946&smart=true&width=1920",
-      "category": "business",
       "topics": []
     },
     {
@@ -5860,18 +6726,6 @@
       "topics": []
     },
     {
-      "id": "9b323370a582745af62a",
-      "source": "reuters",
-      "title": "German government raises growth forecasts for 2026 and 2027",
-      "url": "https://www.reuters.com/business/german-government-raises-growth-forecasts-2026-2027-2026-10-08/",
-      "publishedAt": "2026-10-08T10:17:43.900000+00:00",
-      "image": "https://www.reuters.com/resizer/v2/RYIMEV2CEVOTTILYSRCM7B4LYA.jpg?auth=c3b30156e8d93e76af8067dc679180838ebc4d54cc21ce18fb87dc4d38a31d88&smart=true&width=1920",
-      "category": "business",
-      "topics": [
-        "politics"
-      ]
-    },
-    {
       "id": "471a264a1d4c1aba048b",
       "source": "bloomberg",
       "title": "Germany Doubles 2026 Growth Outlook as Manufacturing Rallies",
@@ -5924,16 +6778,6 @@
       ]
     },
     {
-      "id": "3b5af56e41fa06c4a4b0",
-      "source": "bbc",
-      "title": "Russian strike on buses kills 33, say officials, as deadly attacks on Ukraine surge",
-      "url": "https://www.bbc.co.uk/news/articles/c875pwq134l3o?at_medium=RSS&at_campaign=rss",
-      "publishedAt": "2026-10-08T10:16:33+00:00",
-      "image": "https://ichef.bbci.co.uk/ace/standard/240/cpsprodpb/0a5b/live/25d71060-c2fa-11f1-b8c6-6d610e41a5d9.jpg",
-      "category": "other",
-      "topics": []
-    },
-    {
       "id": "28f5f368070143f0e482",
       "source": "gh_p2",
       "title": "Most UK diplomats to leave East Jerusalem consulate, Israel says, as Miliband says ‘vital services’ to rema",
@@ -5980,16 +6824,6 @@
       "url": "https://www.reuters.com/business/finance/ecbs-wunsch-pushes-back-proposal-increase-bank-charges-2026-10-08/",
       "publishedAt": "2026-10-08T10:15:48.369000+00:00",
       "image": "https://www.reuters.com/resizer/v2/EQLXHI7YXVKQJCXJE5W4QBOWMM.jpg?auth=ce0fdf1d8b1cc0a9b7424ce780b382ffeb25e067d0a6f859593d21fbddcc7b39&smart=true&width=1920",
-      "category": "business",
-      "topics": []
-    },
-    {
-      "id": "be151b4fe959dcddb700",
-      "source": "reuters",
-      "title": "US bank investors to focus on impact of higher rates, deals outlook in Q3 earnings",
-      "url": "https://www.reuters.com/business/finance/us-bank-investors-focus-impact-higher-rates-deals-outlook-q3-earnings-2026-10-08/",
-      "publishedAt": "2026-10-08T10:15:45.675000+00:00",
-      "image": "https://www.reuters.com/resizer/v2/JHXODOTZNZOX3JVQ6I47F7YGHY.jpg?auth=5f99f0cc248b5eb7b617bfd5e07d28c42d1dc7277f3160a715a93e27698ca835&smart=true&width=1920",
       "category": "business",
       "topics": []
     },
@@ -6318,6 +7152,16 @@
       "topics": []
     },
     {
+      "id": "c1c7b7f001a7d596c95a",
+      "source": "sg_cna",
+      "title": "PepsiCo to cut costs as weak N.America business hurts core profit forecast",
+      "url": "https://www.channelnewsasia.com/business/pepsico-cut-costs-weak-namerica-business-hurts-core-profit-forecast-6442351",
+      "publishedAt": "2026-10-08T10:08:17+00:00",
+      "image": null,
+      "category": "business",
+      "topics": []
+    },
+    {
       "id": "e8a92e736f5157dd9921",
       "source": "ar_clarin",
       "title": "Dólar tarjeta hoy: a cuánto cotiza este jueves 08 de octubre",
@@ -6497,28 +7341,6 @@
       "publishedAt": "2026-10-08T10:04:27+00:00",
       "image": "https://hotnews.ro/wp-content/uploads/2026/10/profimedia-1140030884.jpg",
       "category": "world",
-      "topics": [
-        "politics"
-      ]
-    },
-    {
-      "id": "1c3c8cde21d93a4e92a2",
-      "source": "reuters",
-      "title": "Democrats in tight Midwest US races split on trans rights strategy",
-      "url": "https://www.reuters.com/legal/government/democrats-tight-midwest-us-races-split-trans-rights-strategy-2026-10-08/",
-      "publishedAt": "2026-10-08T10:03:47.007000+00:00",
-      "image": "https://www.reuters.com/resizer/v2/XXWTSMI6RNIEFEDLA2VIAM3N5M.jpg?auth=05845a5d65f05b84c278d6a522518712a988b10f1ed0ed1d8615f4f3079e5344&smart=true&width=1920",
-      "category": "legal",
-      "topics": []
-    },
-    {
-      "id": "dbb8ae39e26088d2ef8a",
-      "source": "reuters",
-      "title": "CNN, MS NOW, Politico to urge judge to block White House ban long-term",
-      "url": "https://www.reuters.com/legal/government/cnn-ms-now-politico-urge-judge-block-white-house-ban-long-term-2026-10-08/",
-      "publishedAt": "2026-10-08T10:03:45.585000+00:00",
-      "image": "https://www.reuters.com/resizer/v2/FDD47QG6K5MWHOIIM72CJZT2GY.jpg?auth=ef1471bd2ed08bfb1802fec7bf1924e8be6da51047f27dcf13ea4fa33daad6ff&smart=true&width=1920",
-      "category": "legal",
       "topics": [
         "politics"
       ]
@@ -6844,7 +7666,7 @@
     {
       "id": "fa02515b0efbef719894",
       "source": "ft",
-      "title": "Flávio Bolsonaro’s plan to ‘wield the big scissors’ to Brazil’s budget",
+      "title": "Flávio Bolsonaro’s plan to ‘wield the big scissors’ on Brazil’s budget",
       "url": "https://www.ft.com/content/c09ef0e4-c5f8-4b69-a510-9864f907fe55?syn-25a6b1a6=1",
       "publishedAt": "2026-10-08T10:00:02+00:00",
       "image": null,
@@ -7081,16 +7903,6 @@
       "publishedAt": "2026-10-08T09:56:00+00:00",
       "image": "https://static.dw.com/image/79590832_6.jpg",
       "category": "other",
-      "topics": []
-    },
-    {
-      "id": "ae70a3e5fda73b2c2449",
-      "source": "bbc",
-      "title": "London omitted as Super League clubs named for 2027",
-      "url": "https://www.bbc.co.uk/sport/rugby-league/articles/cxdd86mgpq68o?at_medium=RSS&at_campaign=rss",
-      "publishedAt": "2026-10-08T09:55:42+00:00",
-      "image": "https://ichef.bbci.co.uk/ace/standard/240/cpsprodpb/d50f/live/e7432340-c2fc-11f1-b8c6-6d610e41a5d9.jpg",
-      "category": "sport",
       "topics": []
     },
     {
@@ -7350,7 +8162,7 @@
     {
       "id": "1e0d71c2746cd04f1986",
       "source": "marketwatch",
-      "title": "Samsung just did something no tech company has ever done, and investors still aren’t satisfied",
+      "title": "Samsung just did something no tech company has ever done, but investors still aren’t satisfied",
       "url": "https://www.marketwatch.com/story/samsung-just-did-something-no-tech-company-has-ever-done-and-investors-still-arent-satisfied-3ff5ecb2?mod=mw_rss_topstories",
       "publishedAt": "2026-10-08T09:50:00+00:00",
       "image": null,
@@ -7756,6 +8568,16 @@
       "topics": [
         "politics"
       ]
+    },
+    {
+      "id": "2211d66e239994ab7a6f",
+      "source": "au_abc",
+      "title": "Second schoolgirl inquest rejected in 1988 because of missing evidence",
+      "url": "https://www.abc.net.au/news/2026-10-08/missing-evidence-in-marilyn-wallman-disappearance/107245052",
+      "publishedAt": "2026-10-08T09:38:56+00:00",
+      "image": null,
+      "category": "legal",
+      "topics": []
     },
     {
       "id": "bf950cc24dddb0b70da4",
@@ -8490,16 +9312,6 @@
       "topics": []
     },
     {
-      "id": "9b9272804be6aa0d1e52",
-      "source": "reuters",
-      "title": "Singapore Grand Prix entertainment may be curbed if haze worsens, FIA says",
-      "url": "https://www.reuters.com/business/environment/singapore-grand-prix-entertainment-may-be-curbed-if-haze-worsens-fia-says-2026-10-08/",
-      "publishedAt": "2026-10-08T09:26:29.365000+00:00",
-      "image": "https://www.reuters.com/resizer/v2/2KDBXE44JVO5HEB7I6J2GXVL3U.jpg?auth=f0e3eaa791ad970013c3a4f0f173d81b48effc0537c9830d6e9722aba81a2e44&smart=true&width=1920",
-      "category": "sustainability",
-      "topics": []
-    },
-    {
       "id": "ef608d607c23610f1eb0",
       "source": "reuters",
       "title": "Südzucker expects sugar prices to rebound as lower harvests limit supply",
@@ -8597,26 +9409,6 @@
       "publishedAt": "2026-10-08T09:24:57.621000+00:00",
       "image": "https://www.reuters.com/resizer/v2/H7AN2WWKQFM2ZCEBQMSSZB24WI.jpg?auth=943b370246b7d9cecbbae0d74249126f59d22ae163fc4431dcdb636858e3c334&smart=true&width=1920",
       "category": "world",
-      "topics": []
-    },
-    {
-      "id": "6699e7dc973813056edf",
-      "source": "guardian",
-      "title": "Royal Navy service member charged with spying",
-      "url": "https://www.theguardian.com/uk-news/2026/oct/08/royal-navy-serviceman-arrested-under-national-security-act",
-      "publishedAt": "2026-10-08T09:24:47+00:00",
-      "image": "https://i.guim.co.uk/img/media/fd46f6089f8c012e9ff75d81f216257db320b9ac/274_0_2670_2136/master/2670.jpg?width=140&quality=85&auto=format&fit=max&s=52c17fe746de976baecd82e4f9ba5245",
-      "category": "other",
-      "topics": []
-    },
-    {
-      "id": "b44354b62ebb2bf560b5",
-      "source": "reuters",
-      "title": "Oil jumps as Middle East supply concerns persist amid shipping attacks",
-      "url": "https://www.reuters.com/business/energy/oil-rises-middle-east-supply-concerns-persist-amid-shipping-attacks-2026-10-08/",
-      "publishedAt": "2026-10-08T09:24:41.266000+00:00",
-      "image": "https://www.reuters.com/resizer/v2/3MA2ADNGIRKMBOKQMCZO5TRY3U.jpg?auth=ede0483b7519f56b9bea9303855509843d7e1f0beaf7b816f3556c8874afbc44&smart=true&width=1920",
-      "category": "markets",
       "topics": []
     },
     {
@@ -9106,16 +9898,6 @@
       "topics": []
     },
     {
-      "id": "f5aa2c0f23c764a14bb8",
-      "source": "wsj",
-      "title": "Dollar Likely to Remain Lifted by U.S. Rate-Rise Bets",
-      "url": "https://www.wsj.com/finance/commodities-futures/dollar-stays-elevated-as-treasury-yields-oil-prices-rise-274a97c5?mod=rss_markets_main",
-      "publishedAt": "2026-10-08T09:11:00+00:00",
-      "image": null,
-      "category": "markets",
-      "topics": []
-    },
-    {
       "id": "4d47c6b3f050b7f88174",
       "source": "ar_clarin",
       "title": "Embajadora de EEUU en Grecia pidió 100.000 USD a un donante de Trump (WSJ)",
@@ -9456,7 +10238,7 @@
     {
       "id": "0f692a4d0fa1ac3fef69",
       "source": "fr_1",
-      "title": "EN DIRECT, mobilisation lycéenne : à Marseille et Lyon, des cortèges de lycéens et étudiants moins denses mais toujours aussi « deter »",
+      "title": "EN DIRECT, mobilisation lycéenne : le gouvernement présentera d’ici à « quelques heures ou quelques jours », un « plan d’urgence » pour le non-remplacement d’enseignants absents",
       "url": "https://www.lemonde.fr/societe/live/2026/10/08/en-direct-mobilisation-lyceenne-le-ministre-de-l-education-va-recevoir-les-trois-principaux-syndicats-dans-la-journee_6788487_3224.html",
       "publishedAt": "2026-10-08T09:02:28+00:00",
       "image": null,
@@ -9680,7 +10462,7 @@
       "source": "fr_1",
       "title": "Vingt-trois grands économistes pressent les élus d’agir enfin pour stopper le décrochage français",
       "url": "https://www.lemonde.fr/politique/article/2026/10/08/vingt-trois-grands-economistes-pressent-les-elus-d-agir-enfin-pour-stopper-le-decrochage-francais_6790181_823448.html",
-      "publishedAt": "2026-10-08T09:00:07+00:00",
+      "publishedAt": "2026-10-08T09:00:05+00:00",
       "image": null,
       "category": "business",
       "topics": []
@@ -10367,16 +11149,6 @@
       "publishedAt": "2026-10-08T08:46:37+00:00",
       "image": "https://assets.telex.hu/images/20261008/1791446143-temp-m95ookg9qp1edfgadon_cimlap-normal.jpg",
       "category": "other",
-      "topics": []
-    },
-    {
-      "id": "5225eb4ad209feaa0e8d",
-      "source": "wsj",
-      "title": "Oil Majors Cut Production in Gulf of Mexico as Tropical Storm Isaias Strengthens",
-      "url": "https://www.wsj.com/business/harbour-energy-curbs-gulf-of-mexico-production-ahead-of-storm-isaias-48734408?mod=rss_worldnews",
-      "publishedAt": "2026-10-08T08:46:00+00:00",
-      "image": "https://images.wsj.net/im-26108900",
-      "category": "world",
       "topics": []
     },
     {
@@ -11082,7 +11854,7 @@
     {
       "id": "ad3e062cdb7fc6fcbb3c",
       "source": "wsj",
-      "title": "Stock Market Today: Oil Rises on Fresh Tanker Attack, Pushing Yields Higher",
+      "title": "Stock Market Today: Oil Jumps, Dow Futures Slide on Fresh Tanker Attack",
       "url": "https://www.wsj.com/livecoverage/stock-market-today-dow-sp-500-nasdaq-10-08-2026?mod=rss_markets_main",
       "publishedAt": "2026-10-08T08:21:45+00:00",
       "image": "https://images.wsj.net/im-925351",
@@ -12890,7 +13662,7 @@
     {
       "id": "77ee18600c55f38c98c6",
       "source": "at_orf",
-      "title": "U-Ausschuss: Chef des Bundeskriminalamts wird befragt",
+      "title": "U-Ausschuss: Chef des Bundeskriminalamts befragt",
       "url": "https://orf.at/stories/3444445/",
       "publishedAt": "2026-10-08T07:18:55+00:00",
       "image": "https://orf.at/mojo/1_4_1/storyserver//news/common/images/og-fallback-news.png",
@@ -14435,16 +15207,6 @@
       "publishedAt": "2026-10-08T06:19:15+00:00",
       "image": null,
       "category": "legal",
-      "topics": []
-    },
-    {
-      "id": "004b830856f01bd631c1",
-      "source": "reuters",
-      "title": "Britain's BBC, Channel 4 discuss broader tie-up to cut costs, sources say",
-      "url": "https://www.reuters.com/world/britains-bbc-channel-4-discuss-broader-tie-up-cut-costs-sources-say-2026-10-07/",
-      "publishedAt": "2026-10-08T06:19:03.409000+00:00",
-      "image": "https://www.reuters.com/resizer/v2/7YOJALLZZFOLJMUKZ6BRMR2RJ4.jpg?auth=5dc2e4b87c89add0f5f5376d7200a354bbc1ca1fa8131ac2a4ff314f27ebb675&smart=true&width=1920",
-      "category": "world",
       "topics": []
     },
     {
@@ -16066,7 +16828,7 @@
       "url": "https://www.ft.com/content/bf40e0fb-9542-4ddf-9ac3-c216be55a5a6",
       "publishedAt": "2026-10-08T05:00:06+00:00",
       "image": "https://images.ft.com/v3/image/raw/https%3A%2F%2Fd1e00ek4ebabms.cloudfront.net%2Fproduction%2F93014c20-cd84-4efd-9e1e-ee202dcd7dcb.jpg?source=next-barrier-page&fit=scale-down&quality=highest&width=700&dpr=1",
-      "category": "world",
+      "category": "markets",
       "topics": []
     },
     {
@@ -17408,6 +18170,16 @@
       "topics": []
     },
     {
+      "id": "5318c29cc0cbeebcf36d",
+      "source": "fr_1",
+      "title": "A la poursuite du soleil couchant avec les « opacarophiles »",
+      "url": "https://www.lemonde.fr/m-perso/article/2026/10/08/a-la-poursuite-du-soleil-couchant-avec-les-opacarophiles_6789926_4497916.html",
+      "publishedAt": "2026-10-08T04:00:11+00:00",
+      "image": null,
+      "category": "other",
+      "topics": []
+    },
+    {
       "id": "b4a4276a4a7f5bdf0193",
       "source": "detik",
       "title": "Target Produksi Kopra Indonesia Tembus 2,86 Juta Ton pada 2028",
@@ -17452,6 +18224,26 @@
       "source": "vn_p2",
       "title": "Khoảnh khắc lịch sử của bóng đá Việt ở đấu trường quốc tế",
       "url": "https://vnexpress.net/khoanh-khac-lich-su-cua-bong-da-viet-o-dau-truong-quoc-te-5129843.html",
+      "publishedAt": "2026-10-08T04:00:00+00:00",
+      "image": null,
+      "category": "other",
+      "topics": []
+    },
+    {
+      "id": "83347f6e1f5ad90d292e",
+      "source": "vn_p2",
+      "title": "Chuyên gia: Cần rõ tiêu chí xác định đất bỏ hoang trước khi thu thuế 0,2%",
+      "url": "https://vnexpress.net/chuyen-gia-can-ro-tieu-chi-xac-dinh-dat-bo-hoang-truoc-khi-thu-thue-0-2-5129740.html",
+      "publishedAt": "2026-10-08T04:00:00+00:00",
+      "image": null,
+      "category": "other",
+      "topics": []
+    },
+    {
+      "id": "b3aee1d87754fef7f322",
+      "source": "vn_p2",
+      "title": "Có nên phẫu thuật u bã đậu?",
+      "url": "https://vnexpress.net/co-nen-phau-thuat-u-ba-dau-5129805.html",
       "publishedAt": "2026-10-08T04:00:00+00:00",
       "image": null,
       "category": "other",
@@ -20282,16 +21074,6 @@
       "topics": [
         "politics"
       ]
-    },
-    {
-      "id": "bc39fc926939a67c9192",
-      "source": "marketwatch",
-      "title": "Rising yields are quietly crashing the stock market’s earlier winners of 2026",
-      "url": "https://www.marketwatch.com/story/rising-yields-are-quietly-crashing-the-stock-markets-earlier-winners-of-2026-a29f2863?mod=mw_rss_topstories",
-      "publishedAt": "2026-10-07T22:32:00+00:00",
-      "image": null,
-      "category": "markets",
-      "topics": []
     },
     {
       "id": "fe6f1b0ca3cdb09864ae",
@@ -35790,12 +36572,12 @@
       "topics": []
     },
     {
-      "id": "9140d88ea5838fcdb026",
+      "id": "954c7ecb12f3e434adf0",
       "source": "kontan",
       "title": "IHSG Anjlok 1,88% ke 6.031 pada Kamis (8/10/2026), CUAN, AMMN, EMTK Top Losers LQ45",
-      "url": "https://investasi.kontan.co.id/news/ihsg-anjlok-188-ke-6031-pada-kamis-8102026-cuan-ammn-emtk-top-losers-lq45?source=home_analisis",
+      "url": "https://investasi.kontan.co.id/news/ihsg-anjlok-188-ke-6031-pada-kamis-8102026-cuan-ammn-emtk-top-losers-lq45?source=home_headline",
       "publishedAt": null,
-      "image": "https://foto.kontan.co.id/WRWObEh3hlsX8LtzSL9LrWWXRJA=/smart/2026/05/04/650229050t.jpg",
+      "image": "https://foto.kontan.co.id/m7qXcmZ4rcdHmZfhrQEs-Po8_wE=/smart/2026/05/04/650229050p.jpg",
       "category": "local",
       "topics": []
     },
@@ -36905,6 +37687,286 @@
       "publishedAt": null,
       "image": "https://content-media.investing.com/news/LYNXNPEC0Q1B5_M.jpg",
       "category": "technology",
+      "topics": []
+    },
+    {
+      "id": "92d4d67b2ceb68566629",
+      "source": "investing",
+      "title": "Oil jumps as Middle East supply concerns persist amid shipping attacks",
+      "url": "https://www.investing.com/news/commodities-news/oil-jumps-as-middle-east-supply-concerns-persist-amid-shipping-attacks-4938452",
+      "publishedAt": null,
+      "image": "https://content-media.investing.com/trkd-images/LYNXMPEM9703E_L.jpg",
+      "category": "markets",
+      "topics": []
+    },
+    {
+      "id": "b423c07164b452fb8b70",
+      "source": "investing",
+      "title": "Explainer-Data centers’ ’flexible’ power usage could save the grid billions. Can they scale?",
+      "url": "https://www.investing.com/news/stock-market-news/explainerdata-centers-flexible-power-usage-could-save-the-grid-billions-can-they-scale-4938451",
+      "publishedAt": null,
+      "image": "https://content-media.investing.com/trkd-images/LYNXMPEM970VC_L.jpg",
+      "category": "technology",
+      "topics": []
+    },
+    {
+      "id": "27df50868e1fa3a5f5e6",
+      "source": "investing",
+      "title": "US bank investors to focus on impact of higher rates, deals outlook in Q3 earnings",
+      "url": "https://www.investing.com/news/economy-news/us-bank-investors-to-focus-on-impact-of-higher-rates-deals-outlook-in-q3-earnings-4938365",
+      "publishedAt": null,
+      "image": "https://content-media.investing.com/trkd-images/LYNXMPEM970S3_L.jpg",
+      "category": "business",
+      "topics": []
+    },
+    {
+      "id": "3b285957e61d130c35f1",
+      "source": "investing",
+      "title": "Britain’s watchdog proposes 90-day notice for property fund exits",
+      "url": "https://www.investing.com/news/economy-news/britains-watchdog-proposes-90day-notice-for-property-fund-exits-93CH-4938450",
+      "publishedAt": null,
+      "image": "https://content-media.investing.com/news/LYNXMPEM1O0V1_1200_L.jpg",
+      "category": "business",
+      "topics": []
+    },
+    {
+      "id": "473e12f468449682240f",
+      "source": "investing",
+      "title": "Why is Constellation Brands stock sliding today?",
+      "url": "https://www.investing.com/news/stock-market-news/why-is-constellation-brands-stock-sliding-today-93CH-4938438",
+      "publishedAt": null,
+      "image": "https://content-media.investing.com/news/SP500StandardandPoors500Index_800x533_L_1657544297.jpg",
+      "category": "markets",
+      "topics": []
+    },
+    {
+      "id": "5a726b04b727d0c93043",
+      "source": "investing",
+      "title": "Italy completes oil reserve release, open to more supply",
+      "url": "https://www.investing.com/news/economy-news/italy-completes-oil-reserve-release-open-to-more-supply-93CH-4938437",
+      "publishedAt": null,
+      "image": "https://content-media.investing.com/news/OilwellinColorado_800x533_L_1645345712.jpg",
+      "category": "markets",
+      "topics": []
+    },
+    {
+      "id": "01629b1ac56ac711113c",
+      "source": "investing",
+      "title": "Helen of Troy Ltd earnings beat by $0.28, revenue fell short of estimates",
+      "url": "https://www.investing.com/news/earnings/helen-of-troy-ltd-earnings-beat-by-028-revenue-fell-short-of-estimates-4938434",
+      "publishedAt": null,
+      "image": "https://content-media.investing.com/news/moved_LYNXMPEM4416N_1200_L.jpg",
+      "category": "business",
+      "topics": []
+    },
+    {
+      "id": "fe0e26a650132162e66d",
+      "source": "investing",
+      "title": "William Blair downgrades Latham Group stock rating on 2027 outlook",
+      "url": "https://www.investing.com/news/analyst-ratings/william-blair-downgrades-latham-group-stock-rating-on-2027-outlook-93CH-4938433",
+      "publishedAt": null,
+      "image": "https://content-media.investing.com/news/moved_LYNXMPEM450ND_1200_L.jpg",
+      "category": "markets",
+      "topics": []
+    },
+    {
+      "id": "46319d71c686c4dff537",
+      "source": "investing",
+      "title": "TSX futures edge lower amid bond market woes, higher oil prices",
+      "url": "https://www.investing.com/news/stock-market-news/tsx-futures-edge-lower-amid-bond-market-woes-higher-oil-prices-4938432",
+      "publishedAt": null,
+      "image": "https://content-media.investing.com/news/moved_LYNXMPEI1E0JY_L.jpg",
+      "category": "markets",
+      "topics": []
+    },
+    {
+      "id": "edf2d7c85548a38d75f3",
+      "source": "kontan",
+      "title": "Haji Isam Tuntaskan Akuisisi 30,25% Saham BYAN, Harga Beli di Rp 2.588 per Saham",
+      "url": "https://investasi.kontan.co.id/news/haji-isam-tuntaskan-akuisisi-3025-saham-byan-harga-beli-di-rp-2588-per-saham?source=home_headline",
+      "publishedAt": null,
+      "image": "https://foto.kontan.co.id/XnONo5ZlDxSHTEHz8P3l2dnYyy4=/smart/2023/04/27/872360187p.jpg",
+      "category": "markets",
+      "topics": []
+    },
+    {
+      "id": "7e7bcbc6a1c9c45b42c2",
+      "source": "kontan",
+      "title": "Empat Saham BUMN Karya Disuspensi Bursa, Simak Prospek dan Dampaknya ke Investor",
+      "url": "https://investasi.kontan.co.id/news/empat-saham-bumn-karya-disuspensi-bursa-simak-prospek-dan-dampaknya-ke-investor?source=home_analisis",
+      "publishedAt": null,
+      "image": "https://foto.kontan.co.id/P-VQlrd6gyUsqGlC-AySRMLlbfg=/smart/2024/05/16/1403209473p.jpg",
+      "category": "local",
+      "topics": []
+    },
+    {
+      "id": "6a8b17862182659c96a4",
+      "source": "kontan",
+      "title": "HSBC Indonesia Bidik Nasabah Baru Jelang Pelepasan Bisnis Wealth Management 2027",
+      "url": "https://keuangan.kontan.co.id/news/hsbc-indonesia-bidik-nasabah-baru-jelang-pelepasan-bisnis-wealth-management-2027?source=home_terbaru",
+      "publishedAt": null,
+      "image": "https://foto.kontan.co.id/-MUbIajtYrA3YIrlYQzEcJKOS1c=/smart/2026/09/29/1715550787t.jpg",
+      "category": "local",
+      "topics": []
+    },
+    {
+      "id": "d0d75a3400494645e945",
+      "source": "kontan",
+      "title": "BEI Pertanyakan Detail Gadai Saham JARR-PGUN",
+      "url": "https://investasi.kontan.co.id/news/bei-pertanyakan-detail-gadai-saham-jarr-pgun?source=home_terbaru",
+      "publishedAt": null,
+      "image": "https://foto.kontan.co.id/zHNkdhoJv6EgL4V55HGNEV0KWqE=/smart/2026/10/05/1006850760t.jpg",
+      "category": "markets",
+      "topics": []
+    },
+    {
+      "id": "cd7ac38c6ff02ad014bc",
+      "source": "kontan",
+      "title": "Konflik Timur Tengah Pangkas Sumber Minyak, DEN Dorong Diversifikasi Sumber Impor",
+      "url": "https://industri.kontan.co.id/news/konflik-timur-tengah-pangkas-sumber-minyak-den-dorong-diversifikasi-sumber-impor?source=home_terbaru",
+      "publishedAt": null,
+      "image": "https://foto.kontan.co.id/pgxqYEhNAX6X4ZoBQj7W6qMGXTk=/smart/2026/09/10/454387487t.jpg",
+      "category": "markets",
+      "topics": []
+    },
+    {
+      "id": "3a21c46c47f83efc1e2a",
+      "source": "kontan",
+      "title": "Bank BSN Siap Guyur Pembiayaan KUR Usai Teken Kerja Sama dengan Kementerian UMKM",
+      "url": "https://keuangan.kontan.co.id/news/bank-bsn-siap-guyur-pembiayaan-kur-usai-teken-kerja-sama-dengan-kementerian-umkm?source=home_terbaru",
+      "publishedAt": null,
+      "image": "https://foto.kontan.co.id/_4WRbIe4PpvOCKRXciozqInOjdg=/smart/2026/06/23/1355683757t.jpg",
+      "category": "local",
+      "topics": []
+    },
+    {
+      "id": "ce192cb69ada7f6d8165",
+      "source": "kontan",
+      "title": "Suahasil: Sinergi Fiskal APBN-Danantara Harus Diperkuat untuk Pertumbuhan Ekonomi RI",
+      "url": "https://nasional.kontan.co.id/news/suahasil-sinergi-fiskal-apbn-danantara-harus-diperkuat-untuk-pertumbuhan-ekonomi-ri?source=home_terbaru",
+      "publishedAt": null,
+      "image": "https://foto.kontan.co.id/rLxtsvtBqsSzMKE445F6eyBs1k4=/smart/2026/09/29/364357197t.jpg",
+      "category": "local",
+      "topics": []
+    },
+    {
+      "id": "8394d86541226ccfa2e8",
+      "source": "kontan",
+      "title": "Prospek Saham PGAS hingga Akhir 2026 Masih Positif, Ini Katalis dan Risikonya",
+      "url": "https://investasi.kontan.co.id/news/prospek-saham-pgas-hingga-akhir-2026-masih-positif-ini-katalis-dan-risikonya?source=home_analisis",
+      "publishedAt": null,
+      "image": "https://foto.kontan.co.id/eCBI_4RqrzgKEwNm3YhdtzJnh7Y=/smart/2026/09/29/1647384047t.jpg",
+      "category": "markets",
+      "topics": []
+    },
+    {
+      "id": "56560eb09412076823d0",
+      "source": "investing_id",
+      "title": "Italia selesaikan pelepasan cadangan minyak, siap tambah pasokan",
+      "url": "https://id.investing.com/news/economy-news/italia-selesaikan-pelepasan-cadangan-minyak-siap-tambah-pasokan-93CH-3090283",
+      "publishedAt": null,
+      "image": "https://content-media.investing.com/news/LYNXMPEM0L0V0_1200_L.jpg",
+      "category": "markets",
+      "topics": []
+    },
+    {
+      "id": "644c9db3989798f6ef19",
+      "source": "investing_id",
+      "title": "William Blair turunkan peringkat saham Latham Group karena prospek 2027",
+      "url": "https://id.investing.com/news/analyst-ratings/william-blair-turunkan-peringkat-saham-latham-group-karena-prospek-2027-93CH-3090282",
+      "publishedAt": null,
+      "image": "https://content-media.investing.com/news/moved_LYNXMPEM3S10Z_1200_L.jpg",
+      "category": "markets",
+      "topics": []
+    },
+    {
+      "id": "a7e180c653ba3beab92e",
+      "source": "investing_id",
+      "title": "Laba Per Saham Helen of Troy Ltd & Pendapatan tak sesuai ekspektasi di Q2",
+      "url": "https://id.investing.com/news/earnings/laba-per-saham-helen-of-troy-ltd--pendapatan-tak-sesuai-ekspektasi-di-q2-3090281",
+      "publishedAt": null,
+      "image": "https://content-media.investing.com/news/04884b1911db56b353dbce418a99df8d_M.jpg",
+      "category": "markets",
+      "topics": []
+    },
+    {
+      "id": "7108a68bebd36c95990f",
+      "source": "investing_id",
+      "title": "Mengapa saham PepsiCo naik hari ini?",
+      "url": "https://id.investing.com/news/stock-market-news/mengapa-saham-pepsico-naik-hari-ini-93CH-3090280",
+      "publishedAt": null,
+      "image": "https://content-media.investing.com/news/LYNXNPEA901SG_M.jpg",
+      "category": "markets",
+      "topics": []
+    },
+    {
+      "id": "6ed574bf5c2ef7d0e2a7",
+      "source": "investing_id",
+      "title": "Rusia sebut potensi pengerahan pasukan NATO ke Baltik sebagai eskalasi",
+      "url": "https://id.investing.com/news/economy-news/rusia-sebut-potensi-pengerahan-pasukan-nato-ke-baltik-sebagai-eskalasi-93CH-3090279",
+      "publishedAt": null,
+      "image": null,
+      "category": "business",
+      "topics": []
+    },
+    {
+      "id": "ae34dc0b98826e64d1df",
+      "source": "investing_id",
+      "title": "Movado Group jual 95% saham merek EBEL seharga $66,5 juta",
+      "url": "https://id.investing.com/news/company-news/movado-group-jual-95-saham-merek-ebel-seharga-665-juta-93CH-3090277",
+      "publishedAt": null,
+      "image": null,
+      "category": "markets",
+      "topics": []
+    },
+    {
+      "id": "6e3c0c9c82c50c40caf5",
+      "source": "investing_id",
+      "title": "NielsenIQ melampaui ambang 90% dalam penawaran pengambilalihan U Group",
+      "url": "https://id.investing.com/news/company-news/nielseniq-melampaui-ambang-90-dalam-penawaran-pengambilalihan-u-group-93CH-3090278",
+      "publishedAt": null,
+      "image": null,
+      "category": "business",
+      "topics": []
+    },
+    {
+      "id": "b743aae25fc2e51cbdaf",
+      "source": "investing_id",
+      "title": "World Chess satu-satunya pelamar aktif untuk domain .chess",
+      "url": "https://id.investing.com/news/company-news/world-chess-satusatunya-pelamar-aktif-untuk-domain-chess-93CH-3090273",
+      "publishedAt": null,
+      "image": "https://content-media.investing.com/news/LYNXMPEM1P0JL_150x108_S.jpg",
+      "category": "business",
+      "topics": []
+    },
+    {
+      "id": "400b7c17fe693dc54b26",
+      "source": "investing_id",
+      "title": "Goldman Sachs naikkan rating saham Paladin Energy berdasarkan valuasi",
+      "url": "https://id.investing.com/news/analyst-ratings/goldman-sachs-naikkan-rating-saham-paladin-energy-berdasarkan-valuasi-93CH-3090272",
+      "publishedAt": null,
+      "image": "https://content-media.investing.com/news/moved_LYNXMPEM4416N_1200_L.jpg",
+      "category": "markets",
+      "topics": []
+    },
+    {
+      "id": "bad4e10716a5fd0d66f2",
+      "source": "investing_id",
+      "title": "Largo terima izin lingkungan untuk tambang vanadium kedua",
+      "url": "https://id.investing.com/news/company-news/largo-terima-izin-lingkungan-untuk-tambang-vanadium-kedua-93CH-3090271",
+      "publishedAt": null,
+      "image": "https://content-media.investing.com/news/LYNXMPEM5F12L_1200_L.jpg",
+      "category": "sustainability",
+      "topics": []
+    },
+    {
+      "id": "6026db662745a8752d1d",
+      "source": "pluang",
+      "title": "Laba Helen of Troy Q2 melampaui ekspektasi, pendapatan sedikit meleset, arus kas operasi membaik signifikan",
+      "url": "https://pluang.com/news-feed/hasil-keuangan-helen-of-troy-triwulan-2-2027",
+      "publishedAt": null,
+      "image": "https://image-cdn.pluang.com/web/news-cards/v2/CRYPTO/82681ea18a2517a444ed479a44507b17551478c1c51aa31ca7d35eb0aac3bca4-id.webp",
+      "category": "other",
       "topics": []
     }
   ]
