@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "checkedAt": "2026-10-08T07:43:18.393251+00:00",
+  "checkedAt": "2026-10-08T07:47:36.238193+00:00",
   "intervalMinutes": 5,
   "sources": [
     {
@@ -9,7 +9,7 @@
       "url": "https://www.investing.com/",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-08T07:30:49.864103+00:00"
+      "checkedAt": "2026-10-08T07:47:32.106501+00:00"
     },
     {
       "id": "cnbc",
@@ -17,7 +17,7 @@
       "url": "https://www.cnbc.com/markets/",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-08T07:30:50.548160+00:00"
+      "checkedAt": "2026-10-08T07:47:32.063197+00:00"
     },
     {
       "id": "kontan",
@@ -25,7 +25,7 @@
       "url": "https://www.kontan.co.id/",
       "kind": "html",
       "status": "ok",
-      "checkedAt": "2026-10-08T07:30:51.918666+00:00"
+      "checkedAt": "2026-10-08T07:47:33.321226+00:00"
     },
     {
       "id": "reuters",
@@ -33,7 +33,7 @@
       "url": "https://www.reuters.com/",
       "kind": "sitemap",
       "status": "ok",
-      "checkedAt": "2026-10-08T07:30:50.118810+00:00"
+      "checkedAt": "2026-10-08T07:47:32.126745+00:00"
     },
     {
       "id": "aljazeera",
@@ -41,7 +41,7 @@
       "url": "https://www.aljazeera.com/",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-08T07:30:49.885793+00:00"
+      "checkedAt": "2026-10-08T07:47:32.094325+00:00"
     },
     {
       "id": "bloomberg",
@@ -49,7 +49,7 @@
       "url": "https://www.bloomberg.com/asia",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-08T07:30:50.263954+00:00"
+      "checkedAt": "2026-10-08T07:47:32.459948+00:00"
     },
     {
       "id": "fnc",
@@ -57,7 +57,7 @@
       "url": "https://tradewithfnc.com/",
       "kind": "json",
       "status": "ok",
-      "checkedAt": "2026-10-08T07:30:50.537500+00:00"
+      "checkedAt": "2026-10-08T07:47:32.712169+00:00"
     },
     {
       "id": "investing_id",
@@ -65,7 +65,7 @@
       "url": "https://id.investing.com/news",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-08T07:30:49.957226+00:00"
+      "checkedAt": "2026-10-08T07:47:32.384176+00:00"
     },
     {
       "id": "pluang",
@@ -73,15 +73,15 @@
       "url": "https://pluang.com/news-feed",
       "kind": "html",
       "status": "ok",
-      "checkedAt": "2026-10-08T07:30:51.012774+00:00"
+      "checkedAt": "2026-10-08T07:47:33.065071+00:00"
     },
     {
       "id": "kompas",
       "name": "Kompas Money",
       "url": "https://money.kompas.com/",
       "kind": "html",
-      "status": "stale",
-      "checkedAt": "2026-10-08T07:22:26.942780+00:00"
+      "status": "ok",
+      "checkedAt": "2026-10-08T07:47:33.354177+00:00"
     },
     {
       "id": "detik",
@@ -89,7 +89,7 @@
       "url": "https://finance.detik.com/",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-08T07:30:52.707129+00:00"
+      "checkedAt": "2026-10-08T07:47:33.749652+00:00"
     },
     {
       "id": "kemenkeu",
@@ -121,14 +121,14 @@
       "url": "https://ekbis.sindonews.com/",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-08T07:30:50.633371+00:00"
+      "checkedAt": "2026-10-08T07:47:33.471685+00:00"
     },
     {
       "id": "ap",
       "name": "Associated Press",
       "url": "https://apnews.com/",
       "kind": "html",
-      "status": "ok",
+      "status": "stale",
       "checkedAt": "2026-10-08T07:43:05.520658+00:00"
     },
     {
@@ -137,7 +137,7 @@
       "url": "https://www.bbc.com/news",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-08T07:43:04.685098+00:00"
+      "checkedAt": "2026-10-08T07:47:33.731373+00:00"
     },
     {
       "id": "afp",
@@ -152,7 +152,7 @@
       "url": "https://www.wsj.com/",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-08T07:43:06.924760+00:00"
+      "checkedAt": "2026-10-08T07:47:33.494272+00:00"
     },
     {
       "id": "guardian",
@@ -160,7 +160,7 @@
       "url": "https://www.theguardian.com/",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-08T07:43:05.822678+00:00"
+      "checkedAt": "2026-10-08T07:47:34.542823+00:00"
     },
     {
       "id": "ft",
@@ -168,7 +168,7 @@
       "url": "https://www.ft.com/",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-08T07:43:06.196760+00:00"
+      "checkedAt": "2026-10-08T07:47:34.722636+00:00"
     },
     {
       "id": "dw",
@@ -176,7 +176,7 @@
       "url": "https://www.dw.com/en/top-stories/s-9097",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-08T07:45:34.321159+00:00"
+      "checkedAt": "2026-10-08T07:47:35.218370+00:00"
     },
     {
       "id": "fedwatch",
@@ -194,6 +194,18 @@
     }
   ],
   "items": [
+    {
+      "id": "d7a21d0a02eb5343ac51",
+      "source": "detik",
+      "title": "Rincian 11 Proyek Rp 180 Triliun yang Diresmikan Prabowo",
+      "url": "https://finance.detik.com/energi/d-8698042/rincian-11-proyek-rp-180-triliun-yang-diresmikan-prabowo",
+      "publishedAt": "2026-10-08T07:42:53+00:00",
+      "image": "https://akcdn.detik.net.id/community/media/visual/2026/10/08/presiden-prabowo-subianto-dok-youtube-setpres-1791440438852_169.jpeg?w=360&q=90",
+      "category": "local",
+      "topics": [
+        "politics"
+      ]
+    },
     {
       "id": "825c7d5662ad61d57d27",
       "source": "cnbc",
@@ -213,6 +225,16 @@
       "url": "https://www.bloomberg.com/sessions/2026-10-08/live-q-amp-a-why-global-bond-yields-are-at-their-highest-level-in-decades",
       "publishedAt": "2026-10-08T07:41:35+00:00",
       "image": null,
+      "category": "markets",
+      "topics": []
+    },
+    {
+      "id": "b1dffae37d60bf25aff8",
+      "source": "reuters",
+      "title": "UK labour market shows more recovery signs in September, KPMG/REC survey shows",
+      "url": "https://www.reuters.com/world/uk/uk-labour-market-shows-more-signs-recovery-september-kpmgrec-survey-shows-2026-10-07/",
+      "publishedAt": "2026-10-08T07:40:52.803000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/4HZBZA5BWFN2TJU7RO6VNALTBQ.jpg?auth=f660030b0fec0c8bba17b09458bfa6defe37bda828c71dbe9aba1ff9a9388341&smart=true&width=1920",
       "category": "markets",
       "topics": []
     },
@@ -299,6 +321,16 @@
       "topics": []
     },
     {
+      "id": "866c9eeef67af26d0dc6",
+      "source": "bloomberg",
+      "title": "Malaysia Gets Myanmar Vow to Take Back More Refugees, Does Not Recognize Regime",
+      "url": "https://www.bloomberg.com/news/articles/2026-10-08/malaysia-gets-myanmar-vow-to-take-back-more-refugees-does-not-recognize-regime",
+      "publishedAt": "2026-10-08T07:35:19+00:00",
+      "image": null,
+      "category": "other",
+      "topics": []
+    },
+    {
       "id": "1efc75e0653282c5044c",
       "source": "ft",
       "title": "Iran war blows near-£12bn hole in Britain’s public finances",
@@ -339,6 +371,26 @@
       "topics": []
     },
     {
+      "id": "0253e89ecbf7f26a85fe",
+      "source": "reuters",
+      "title": "Jose Ramirez stars as Guardians force Game 4 against White Sox",
+      "url": "https://www.reuters.com/sports/baseball/jose-ramirez-stars-guardians-force-game-4-against-white-sox--flm-2026-10-07/",
+      "publishedAt": "2026-10-08T07:33:08.533000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/JLZ3XBCAMJNYJNYYQO34EUGCRE.jpg?auth=b6b6750d2c21c79e00665ee5e776bd8ca0b9f24c07426803155f0362fe83ff40&smart=true&width=1920",
+      "category": "sport",
+      "topics": []
+    },
+    {
+      "id": "04094644d6384c521139",
+      "source": "guardian",
+      "title": "How the Kop’s chants propelled Andy Burnham to fight for Hillsborough justice",
+      "url": "https://www.theguardian.com/football/2026/oct/08/how-the-kops-chants-propelled-andy-burnham-to-fight-for-hillsborough-justice",
+      "publishedAt": "2026-10-08T07:32:11+00:00",
+      "image": "https://i.guim.co.uk/img/media/ecd62ccc0ac15b97cd88aeccf37c3842d3e10bad/412_0_2029_1623/master/2029.jpg?width=140&quality=85&auto=format&fit=max&s=099a1fb7ae3927027640d4867bd97cb9",
+      "category": "sport",
+      "topics": []
+    },
+    {
       "id": "ba00a5a38ce96cec0f29",
       "source": "cnn_id",
       "title": "Penghargaan Energi Subroto Tokoh Muda Inspiratif, Daftar di Sini",
@@ -356,6 +408,26 @@
       "publishedAt": "2026-10-08T07:31:00+00:00",
       "image": null,
       "category": "markets",
+      "topics": []
+    },
+    {
+      "id": "03d3915693cc3819376e",
+      "source": "reuters",
+      "title": "Manus raises more than $500 million after Meta exit",
+      "url": "https://www.reuters.com/world/china/manus-raises-more-than-500-million-after-meta-exit-2026-10-08/",
+      "publishedAt": "2026-10-08T07:30:35.982000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/EK346KTHQJLZFH7YPZ73IBZQN4.jpg?auth=ec2bbb3805d25f92c95ab5f24c548c22d2436f6e9af5bac6d0349ea5809d4392&smart=true&width=1920",
+      "category": "world",
+      "topics": []
+    },
+    {
+      "id": "795846c2613c99087871",
+      "source": "reuters",
+      "title": "Italy's Caltagirone deals blow to Monte dei Paschi defence plan against Intesa",
+      "url": "https://www.reuters.com/business/finance/italys-caltagirone-vote-against-monte-dei-paschi-defence-moves-against-intesa-2026-10-08/",
+      "publishedAt": "2026-10-08T07:29:55.180000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/2PK3VX2CZ5M33NLEPRMG7XD7EE.jpg?auth=407c5ca8e4af68818c439ea3a698dafd87ea29278790315c2dea3bec919d2684&smart=true&width=1920",
+      "category": "business",
       "topics": []
     },
     {
@@ -379,6 +451,26 @@
       "topics": []
     },
     {
+      "id": "13410de14e619232f5eb",
+      "source": "reuters",
+      "title": "Surge in India FX forward premiums muddies market signal, stokes nervousness",
+      "url": "https://www.reuters.com/world/india/india-fx-forward-premiums-extend-post-rbi-policy-surge-1-year-up-64-bps-this-2026-10-08/",
+      "publishedAt": "2026-10-08T07:28:27.746000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/MM7DFMYR2VMGLEQI7CEXKTW34A.jpg?auth=9b39e2eb809ddeb10b32cc566610b1f14aa7cc3f9a7ec25637cfe0f1d65c37d3&smart=true&width=1920",
+      "category": "markets",
+      "topics": []
+    },
+    {
+      "id": "c6ec1d90182a6fce175b",
+      "source": "reuters",
+      "title": "What's happening with Britain's Jerusalem consulate?",
+      "url": "https://www.reuters.com/world/middle-east/whats-happening-with-britains-jerusalem-consulate-2026-10-08/",
+      "publishedAt": "2026-10-08T07:27:19.210000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/JT4SMSN6WBNY3MXCOCAUWL5BUM.jpg?auth=681eaadde941940a28dbc670fcce9943e001caf038a2062e8cc107a0351b9f37&smart=true&width=1920",
+      "category": "world",
+      "topics": []
+    },
+    {
       "id": "2506a45c22390541e63f",
       "source": "detik",
       "title": "Investasi di Kawasan Industri Weda Bay Rp 483 T, Serap 117 Ribu Tenaga Kerja",
@@ -389,22 +481,22 @@
       "topics": []
     },
     {
-      "id": "1430695a62fa52fef2a9",
+      "id": "c84ef87c5bcb6a71c89b",
       "source": "reuters",
-      "title": "Seven & i operating profit falls 11% in second quarter",
-      "url": "https://www.reuters.com/world/asia-pacific/seven-i-operating-profit-falls-11-second-quarter-2026-10-08/",
-      "publishedAt": "2026-10-08T07:24:22.357000+00:00",
-      "image": "https://www.reuters.com/resizer/v2/IVNPZBWTANLJ7NGPQNRLRDPKWA.jpg?auth=e2c96f5b89628c8a9536adf8b6bd2408e05df25aaa01d1b55bd59a9b9ec1ad5f&smart=true&width=1920",
+      "title": "Deloitte fined £6.05 million in UK over audits of transport operator Go-Ahead Group",
+      "url": "https://www.reuters.com/world/uk/deloitte-fined-605-million-uk-over-audits-transport-operator-go-ahead-group-2026-10-08/",
+      "publishedAt": "2026-10-08T07:26:20.606000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/Z2RKY26NAFPGDKNDROUJAQF6BE.jpg?auth=dfb2530f9a356e1454990c8f6fdfcde2ef7d274adaa1e5932683c0aa89f3e9b0&smart=true&width=1920",
       "category": "world",
       "topics": []
     },
     {
-      "id": "03d3915693cc3819376e",
+      "id": "1430695a62fa52fef2a9",
       "source": "reuters",
-      "title": "Manus raises more than $500 million after Meta exit",
-      "url": "https://www.reuters.com/world/china/manus-raises-more-than-500-million-after-meta-exit-2026-10-08/",
-      "publishedAt": "2026-10-08T07:23:44.702000+00:00",
-      "image": "https://www.reuters.com/resizer/v2/EK346KTHQJLZFH7YPZ73IBZQN4.jpg?auth=ec2bbb3805d25f92c95ab5f24c548c22d2436f6e9af5bac6d0349ea5809d4392&smart=true&width=1920",
+      "title": "Seven & i operating profit falls 11% in second quarter",
+      "url": "https://www.reuters.com/world/asia-pacific/seven-i-operating-profit-falls-11-second-quarter-2026-10-08/",
+      "publishedAt": "2026-10-08T07:25:44.314000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/IVNPZBWTANLJ7NGPQNRLRDPKWA.jpg?auth=e2c96f5b89628c8a9536adf8b6bd2408e05df25aaa01d1b55bd59a9b9ec1ad5f&smart=true&width=1920",
       "category": "world",
       "topics": []
     },
@@ -597,16 +689,6 @@
       "topics": []
     },
     {
-      "id": "c84ef87c5bcb6a71c89b",
-      "source": "reuters",
-      "title": "Deloitte fined £6.05 million in UK over audits of transport operator Go-Ahead Group",
-      "url": "https://www.reuters.com/world/uk/deloitte-fined-605-million-uk-over-audits-transport-operator-go-ahead-group-2026-10-08/",
-      "publishedAt": "2026-10-08T07:15:01.746000+00:00",
-      "image": "https://www.reuters.com/resizer/v2/Z2RKY26NAFPGDKNDROUJAQF6BE.jpg?auth=dfb2530f9a356e1454990c8f6fdfcde2ef7d274adaa1e5932683c0aa89f3e9b0&smart=true&width=1920",
-      "category": "world",
-      "topics": []
-    },
-    {
       "id": "6699e7dc973813056edf",
       "source": "guardian",
       "title": "Royal Navy serviceman charged with obtaining information to benefit foreign power",
@@ -697,16 +779,6 @@
       "topics": []
     },
     {
-      "id": "c6ec1d90182a6fce175b",
-      "source": "reuters",
-      "title": "What's happening with Britain's Jerusalem consulate?",
-      "url": "https://www.reuters.com/world/middle-east/whats-happening-with-britains-jerusalem-consulate-2026-10-08/",
-      "publishedAt": "2026-10-08T07:07:21.743000+00:00",
-      "image": "https://www.reuters.com/resizer/v2/JT4SMSN6WBNY3MXCOCAUWL5BUM.jpg?auth=681eaadde941940a28dbc670fcce9943e001caf038a2062e8cc107a0351b9f37&smart=true&width=1920",
-      "category": "world",
-      "topics": []
-    },
-    {
       "id": "2fb4e41847bb1604818c",
       "source": "reuters",
       "title": "Battle for Mideast oil market share has already begun",
@@ -724,6 +796,16 @@
       "publishedAt": "2026-10-08T07:06:15+00:00",
       "image": "https://ichef.bbci.co.uk/ace/standard/240/cpsprodpb/1af2/live/5079a140-c2df-11f1-bc2e-018d645d8d21.jpg",
       "category": "other",
+      "topics": []
+    },
+    {
+      "id": "18c866ba9b123f79d807",
+      "source": "guardian",
+      "title": "Guardiola expected at Manchester City v PSG next week in show of support for owners",
+      "url": "https://www.theguardian.com/football/2026/oct/08/manchester-city-pep-guardiola-owners-guilty-verdict",
+      "publishedAt": "2026-10-08T07:06:09+00:00",
+      "image": "https://i.guim.co.uk/img/media/d3cd3a4aebcab9c88f299f5c9e9036f210286e87/464_0_3534_2828/master/3534.jpg?width=140&quality=85&auto=format&fit=max&s=60bc4b0c1758086bcd6813eb2d210c73",
+      "category": "sport",
       "topics": []
     },
     {
@@ -1334,16 +1416,6 @@
       "publishedAt": "2026-10-08T06:38:29+00:00",
       "image": null,
       "category": "markets",
-      "topics": []
-    },
-    {
-      "id": "795846c2613c99087871",
-      "source": "reuters",
-      "title": "Italy's Caltagirone to vote against Monte dei Paschi defence moves against Intesa",
-      "url": "https://www.reuters.com/business/finance/italys-caltagirone-vote-against-monte-dei-paschi-defence-moves-against-intesa-2026-10-08/",
-      "publishedAt": "2026-10-08T06:37:58.973000+00:00",
-      "image": "https://www.reuters.com/resizer/v2/2PK3VX2CZ5M33NLEPRMG7XD7EE.jpg?auth=407c5ca8e4af68818c439ea3a698dafd87ea29278790315c2dea3bec919d2684&smart=true&width=1920",
-      "category": "business",
       "topics": []
     },
     {
@@ -2041,7 +2113,7 @@
       "url": "https://ekbis.sindonews.com/read/1758229/178/3-pertimbangan-penting-sebelum-merchant-beralih-payment-gateway-1791436234",
       "publishedAt": "2026-10-08T05:42:14+00:00",
       "image": "https://pict.sindonews.com/dyn/850/pena/news/2026/10/08/178/1758229/3-pertimbangan-penting-sebelum-merchant-beralih-payment-gateway-vpn.jpeg",
-      "category": "other",
+      "category": "business",
       "topics": []
     },
     {
@@ -2181,7 +2253,7 @@
       "url": "https://ekbis.sindonews.com/read/1758221/178/4-faktor-yang-perlu-dicermati-investor-kripto-di-kuartal-iv-2026-1791436256",
       "publishedAt": "2026-10-08T05:31:32+00:00",
       "image": "https://pict.sindonews.com/dyn/850/pena/news/2026/10/08/178/1758221/4-faktor-yang-perlu-dicermati-investor-kripto-di-kuartal-iv-2026-mwz.jpeg",
-      "category": "other",
+      "category": "business",
       "topics": []
     },
     {
@@ -2635,7 +2707,7 @@
       "url": "https://www.theguardian.com/money/2026/oct/08/uk-drivers-live-petrol-diesel-prices-google-maps-pump-pricing",
       "publishedAt": "2026-10-08T05:00:11+00:00",
       "image": "https://i.guim.co.uk/img/media/f3773eb249c385e9fb1ae557f371e226117849ea/500_0_5000_4000/master/5000.jpg?width=140&quality=85&auto=format&fit=max&s=df426a9b920af7bdd38ea97ac4efec1f",
-      "category": "business",
+      "category": "technology",
       "topics": []
     },
     {
@@ -2977,16 +3049,6 @@
       "topics": []
     },
     {
-      "id": "13410de14e619232f5eb",
-      "source": "reuters",
-      "title": "India FX forward premiums extend post-RBI policy surge; 1-year up 64 bps this week",
-      "url": "https://www.reuters.com/world/india/india-fx-forward-premiums-extend-post-rbi-policy-surge-1-year-up-64-bps-this-2026-10-08/",
-      "publishedAt": "2026-10-08T04:36:09.519000+00:00",
-      "image": "https://www.reuters.com/resizer/v2/MM7DFMYR2VMGLEQI7CEXKTW34A.jpg?auth=9b39e2eb809ddeb10b32cc566610b1f14aa7cc3f9a7ec25637cfe0f1d65c37d3&smart=true&width=1920",
-      "category": "world",
-      "topics": []
-    },
-    {
       "id": "e465f2bf51731643cf64",
       "source": "kompas",
       "title": "Saham BREN Sideways Cenderung Bearish, Investor Perlu Cermati Level Ini",
@@ -3099,6 +3161,16 @@
       "topics": []
     },
     {
+      "id": "4690dc957c0ae3da3cc0",
+      "source": "guardian",
+      "title": "Golden State Valkyries become first women’s sports team to top $100m in annual revenue",
+      "url": "https://www.theguardian.com/sport/2026/oct/08/golden-state-valkyries-100-million-revenue-wnba-womens-sports",
+      "publishedAt": "2026-10-08T04:23:50+00:00",
+      "image": "https://i.guim.co.uk/img/media/4d0991473f029867d6ea52c7445a00d46e5ba6d4/219_0_3717_2973/master/3717.jpg?width=140&quality=85&auto=format&fit=max&s=47845f5dcf1cf0bbe2b5e67b7ec8ffb1",
+      "category": "sport",
+      "topics": []
+    },
+    {
       "id": "8910dfb81282e0cd8591",
       "source": "reuters",
       "title": "Bollywood actor Nana Patekar dies at 75",
@@ -3115,7 +3187,7 @@
       "url": "https://ekbis.sindonews.com/read/1758191/34/harga-aneka-cabai-naik-rawit-merah-tembus-rp102250-per-kg-1791432625",
       "publishedAt": "2026-10-08T04:21:32+00:00",
       "image": "https://pict.sindonews.com/dyn/850/pena/news/2026/10/08/34/1758191/harga-aneka-cabai-naik-rawit-merah-tembus-rp102250-per-kg-ssk.jpeg",
-      "category": "other",
+      "category": "business",
       "topics": []
     },
     {
@@ -3547,7 +3619,7 @@
       "url": "https://www.theguardian.com/business/2026/oct/08/uk-banknotes-new-design-barn-owl-bumblebee-puffin-hedgehog",
       "publishedAt": "2026-10-08T04:00:11+00:00",
       "image": "https://i.guim.co.uk/img/media/1975ca3bc874ed3182fad31527d9a002428b8d52/0_0_2890_2312/master/2890.jpg?width=140&quality=85&auto=format&fit=max&s=28a475460ea3881a6db0f926de41b8ac",
-      "category": "business",
+      "category": "sustainability",
       "topics": []
     },
     {
@@ -4139,7 +4211,7 @@
       "url": "https://ekbis.sindonews.com/read/1758157/34/pakar-selisih-data-ekspor-dan-impor-perlu-ditelusuri-bukan-langsung-disebut-kerugian-negara-1791425416",
       "publishedAt": "2026-10-08T02:49:43+00:00",
       "image": "https://pict.sindonews.com/dyn/850/pena/news/2026/10/08/34/1758157/pakar-selisih-data-ekspor-dan-impor-perlu-ditelusuri-bukan-langsung-disebut-kerugian-negara-fqz.jpeg",
-      "category": "other",
+      "category": "business",
       "topics": []
     },
     {
@@ -4347,16 +4419,6 @@
       "topics": []
     },
     {
-      "id": "0253e89ecbf7f26a85fe",
-      "source": "reuters",
-      "title": "Jose Ramirez stars as Guardians force Game 4 against White Sox",
-      "url": "https://www.reuters.com/sports/baseball/jose-ramirez-stars-guardians-force-game-4-against-white-sox--flm-2026-10-07/",
-      "publishedAt": "2026-10-08T02:17:49.045000+00:00",
-      "image": "https://www.reuters.com/resizer/v2/JLZ3XBCAMJNYJNYYQO34EUGCRE.jpg?auth=b6b6750d2c21c79e00665ee5e776bd8ca0b9f24c07426803155f0362fe83ff40&smart=true&width=1920",
-      "category": "sport",
-      "topics": []
-    },
-    {
       "id": "7ddb4915cfc6b9e9415c",
       "source": "ap",
       "title": "Capitals top Penguins 5-3 in Alex Ovechkin’s final home opener in Washington",
@@ -4423,7 +4485,7 @@
       "url": "https://ekbis.sindonews.com/read/1758139/33/kebijakan-tarif-gagal-defisit-dagang-as-tembus-level-tertinggi-dalam-17-bulan-1791425410",
       "publishedAt": "2026-10-08T02:08:39+00:00",
       "image": "https://pict.sindonews.com/dyn/850/pena/news/2026/10/08/33/1758139/kebijakan-tarif-gagal-defisit-dagang-as-tembus-level-tertinggi-dalam-17-bulan-dsi.jpeg",
-      "category": "other",
+      "category": "business",
       "topics": [
         "politics"
       ]
@@ -5441,16 +5503,6 @@
       "topics": []
     },
     {
-      "id": "b1dffae37d60bf25aff8",
-      "source": "reuters",
-      "title": "UK labour market shows more signs recovery in September, KPMG/REC survey shows",
-      "url": "https://www.reuters.com/world/uk/uk-labour-market-shows-more-signs-recovery-september-kpmgrec-survey-shows-2026-10-07/",
-      "publishedAt": "2026-10-07T23:19:44.766000+00:00",
-      "image": "https://www.reuters.com/resizer/v2/4HZBZA5BWFN2TJU7RO6VNALTBQ.jpg?auth=f660030b0fec0c8bba17b09458bfa6defe37bda828c71dbe9aba1ff9a9388341&smart=true&width=1920",
-      "category": "markets",
-      "topics": []
-    },
-    {
       "id": "0461349df8d4580dc2d4",
       "source": "kompas",
       "title": "Promo Menu Sarapan dan Camilan di Alfamart 1-15 Oktober 2026, Ada Diskon hingga 40 Persen",
@@ -5911,7 +5963,7 @@
     {
       "id": "4594e7f7d2f1de1a06e9",
       "source": "bloomberg",
-      "title": "Stocks and Treasuries Decline as Brent Tops $102: Markets Wrap",
+      "title": "Oil Rise Spurs Fresh Selling in Stocks and Bonds: Markets Wrap",
       "url": "https://www.bloomberg.com/news/articles/2026-10-07/stock-market-today-dow-s-p-live-updates",
       "publishedAt": "2026-10-07T22:03:17+00:00",
       "image": null,
@@ -7415,6 +7467,16 @@
       "topics": []
     },
     {
+      "id": "f6751c66ccd79949832b",
+      "source": "guardian",
+      "title": "Southampton manager Tonda Eckert given six-week suspended ban for Spygate scandal",
+      "url": "https://www.theguardian.com/football/2026/oct/07/southampton-manager-tonda-eckert-six-week-suspended-ban-spygate-fa",
+      "publishedAt": "2026-10-07T18:53:31+00:00",
+      "image": "https://i.guim.co.uk/img/media/0f0c510558f69480e55e1695e603a5e507469433/304_0_2900_2320/master/2900.jpg?width=140&quality=85&auto=format&fit=max&s=886ba3e02ce4848c552667036252aa5c",
+      "category": "sport",
+      "topics": []
+    },
+    {
       "id": "a5f8aade073e5e2fc988",
       "source": "wsj",
       "title": "Five Things to Know About Tokenized Stocks",
@@ -7933,6 +7995,16 @@
       "topics": [
         "politics"
       ]
+    },
+    {
+      "id": "fff8395eb6a9ea3b3746",
+      "source": "guardian",
+      "title": "England ready to level up and embrace ‘calculated risks’, claims Tuchel",
+      "url": "https://www.theguardian.com/football/2026/oct/07/england-level-up-thomas-tuchel-tactics-jarell-quansah",
+      "publishedAt": "2026-10-07T18:00:03+00:00",
+      "image": "https://i.guim.co.uk/img/media/182cb6f8440a7143a51746c97ec5d5cb048f48ae/50_0_3750_3000/master/3750.jpg?width=140&quality=85&auto=format&fit=max&s=66364d1695d6f01eaec0d01240744d12",
+      "category": "sport",
+      "topics": []
     },
     {
       "id": "f991f3c7612f4d2e2511",
@@ -8658,7 +8730,7 @@
       "url": "https://ekbis.sindonews.com/read/1758081/34/stok-beras-nasional-53-juta-ton-hashim-tak-perlu-lagi-perluasan-lahan-sawah-1791389421",
       "publishedAt": "2026-10-07T16:39:16+00:00",
       "image": "https://pict.sindonews.com/dyn/850/pena/news/2026/10/07/34/1758081/stok-beras-nasional-53-juta-ton-hashim-tak-perlu-lagi-perluasan-lahan-sawah-bta.jpg",
-      "category": "other",
+      "category": "business",
       "topics": []
     },
     {
@@ -8776,7 +8848,7 @@
       "url": "https://ekbis.sindonews.com/read/1758079/34/kpr-subsidi-6-diingatkan-jangan-sampai-cuma-untungkan-pengembang-1791389424",
       "publishedAt": "2026-10-07T16:30:18+00:00",
       "image": "https://pict.sindonews.com/dyn/850/pena/news/2026/10/07/34/1758079/kpr-subsidi-6-diingatkan-jangan-sampai-cuma-untungkan-pengembang-iqx.jpg",
-      "category": "other",
+      "category": "business",
       "topics": []
     },
     {
@@ -9122,7 +9194,7 @@
       "url": "https://ekbis.sindonews.com/read/1758059/34/kementerian-pu-kebut-pemulihan-infrastruktur-pascabencana-sumatera-1791385847",
       "publishedAt": "2026-10-07T15:34:26+00:00",
       "image": "https://pict.sindonews.com/dyn/850/pena/news/2026/10/07/34/1758059/kementerian-pu-kebut-pemulihan-infrastruktur-pascabencana-sumatera-sxh.jpg",
-      "category": "other",
+      "category": "business",
       "topics": []
     },
     {
@@ -9397,7 +9469,7 @@
       "url": "https://ekbis.sindonews.com/read/1758047/34/perkuat-transisi-energi-terbarukan-app-group-bergabung-dengan-re100-1791382256",
       "publishedAt": "2026-10-07T14:59:15+00:00",
       "image": "https://pict.sindonews.com/dyn/850/pena/news/2026/10/07/34/1758047/perkuat-transisi-energi-terbarukan-app-group-bergabung-dengan-re100-jqw.jpeg",
-      "category": "other",
+      "category": "business",
       "topics": []
     },
     {
@@ -9480,7 +9552,7 @@
       "url": "https://ekbis.sindonews.com/read/1758035/34/upah-ojol-hingga-kurir-bakal-diatur-pemerintah-ada-cantolan-di-uu-pelindungan-ketenagakerjaan-1791382246",
       "publishedAt": "2026-10-07T14:36:37+00:00",
       "image": "https://pict.sindonews.com/dyn/850/pena/news/2026/10/07/34/1758035/upah-ojol-hingga-kurir-bakal-diatur-pemerintah-ada-cantolan-di-uu-pelindungan-ketenagakerjaan-kje.jpg",
-      "category": "other",
+      "category": "business",
       "topics": [
         "politics"
       ]
@@ -9731,6 +9803,16 @@
       "publishedAt": "2026-10-07T13:43:00+00:00",
       "image": "https://images.wsj.net/im-84922725",
       "category": "business",
+      "topics": []
+    },
+    {
+      "id": "10112a3d8f3391077f0c",
+      "source": "guardian",
+      "title": "Bochum ban fans from jumping in unison over sickness fears",
+      "url": "https://www.theguardian.com/football/2026/oct/07/bochum-ban-fans-from-jumping-in-unison-over-sickness-fears",
+      "publishedAt": "2026-10-07T13:41:43+00:00",
+      "image": "https://i.guim.co.uk/img/media/9c57f8e8aace5ce88e5298ad3308c44e34c2e9af/537_0_4348_3478/master/4348.jpg?width=140&quality=85&auto=format&fit=max&s=6fc80ab3056262b07498ecfd8f8b6cc8",
+      "category": "sport",
       "topics": []
     },
     {
@@ -10152,6 +10234,16 @@
       "topics": []
     },
     {
+      "id": "a19fb4dd1d8c26ee3c19",
+      "source": "guardian",
+      "title": "Teen brilliance to Pochettino’s haters: Winners and losers from the USMNT’s perfect window",
+      "url": "https://www.theguardian.com/football/2026/oct/07/usmnt-winners-and-losers-international-window",
+      "publishedAt": "2026-10-07T12:30:09+00:00",
+      "image": "https://i.guim.co.uk/img/media/8038f3fba3f4ba66837cb4ffbfa0bc614b68f5b5/323_0_3217_2575/master/3217.jpg?width=140&quality=85&auto=format&fit=max&s=4e3d31cc8ebf694c76dd219f4a95c57e",
+      "category": "sport",
+      "topics": []
+    },
+    {
       "id": "845dc99c00af026b44e3",
       "source": "guardian",
       "title": "The Jaguar Type 01: a £150k gargantuan getaway vehicle utterly useless in the city",
@@ -10271,6 +10363,16 @@
       "publishedAt": "2026-10-07T12:02:27+00:00",
       "image": "https://pict.sindonews.com/dyn/850/pena/news/2026/10/07/34/1757987/sambut-motogp-mandalika-pertamina-retail-buka-booth-merchandise-resmi-di-bandara-lombok-msz.jpeg",
       "category": "local",
+      "topics": []
+    },
+    {
+      "id": "2c1a6cc85bdbf9781621",
+      "source": "guardian",
+      "title": "Robertson rant and the wrong system? Pocognoli’s Scotland start raises questions",
+      "url": "https://www.theguardian.com/football/2026/oct/07/robertson-system-pocognoli-scotland-start-questions",
+      "publishedAt": "2026-10-07T12:01:23+00:00",
+      "image": "https://i.guim.co.uk/img/media/058589d302d1b397fc3c55e1035a7f3ab49722f9/464_141_2702_2162/master/2702.jpg?width=140&quality=85&auto=format&fit=max&s=37855ab83e1b7730e6d925aa78ec4bbd",
+      "category": "sport",
       "topics": []
     },
     {
@@ -10666,6 +10768,16 @@
       "topics": []
     },
     {
+      "id": "f3de49e6092d7b1e4d78",
+      "source": "guardian",
+      "title": "Millionaire tax no more? Rightwing groups lead effort to repeal Washington state law",
+      "url": "https://www.theguardian.com/us-news/2026/oct/07/washington-state-millionaire-tax",
+      "publishedAt": "2026-10-07T11:00:09+00:00",
+      "image": "https://i.guim.co.uk/img/media/286ce4f8176dd450ccfbb45c59e76cabd97a02ef/92_0_916_733/master/916.jpg?width=140&quality=85&auto=format&fit=max&s=cb9564eda1254eaa4b1ba827d736ff71",
+      "category": "business",
+      "topics": []
+    },
+    {
       "id": "f9559654423e85cba2e8",
       "source": "guardian",
       "title": "‘I wanted to depart in the best way possible’: Kieran McKenna on Ipswich exit and future plans",
@@ -10673,6 +10785,16 @@
       "publishedAt": "2026-10-07T11:00:08+00:00",
       "image": "https://i.guim.co.uk/img/media/b209f1c39ef4ee52448a469b2daddd3d27f23152/1103_191_4081_3265/master/4081.jpg?width=140&quality=85&auto=format&fit=max&s=9f4384c7597ad96fe99431af08d23f7e",
       "category": "sport",
+      "topics": []
+    },
+    {
+      "id": "ea6b0d5cd891c79dc5e9",
+      "source": "guardian",
+      "title": "McDonald’s sued for allegedly using AI tool to determine pricing for franchises",
+      "url": "https://www.theguardian.com/business/2026/oct/07/mcdonalds-ai-prices-lawsuit",
+      "publishedAt": "2026-10-07T11:00:08+00:00",
+      "image": "https://i.guim.co.uk/img/media/bb76948bfbc9a99557b50e41f7610704ac96a9a4/186_0_2501_2000/master/2501.jpg?width=140&quality=85&auto=format&fit=max&s=c437aaf6f8280f3852dba1d94c3b2d10",
+      "category": "business",
       "topics": []
     },
     {
@@ -11428,6 +11550,28 @@
       ]
     },
     {
+      "id": "834ce6e8fa7e33212a00",
+      "source": "guardian",
+      "title": "S&P 500 and Nasdaq surge to record highs after AI chipmaker rally",
+      "url": "https://www.theguardian.com/business/2026/oct/06/sp-500-nasdaq-stocks-ai-chipmakers",
+      "publishedAt": "2026-10-06T20:28:42+00:00",
+      "image": "https://i.guim.co.uk/img/media/00c2ea0abb3b9f48e6b5a480fc44774f1d1d300b/656_0_4717_3774/master/4717.jpg?width=140&quality=85&auto=format&fit=max&s=666b7461de8f86225e07112817a3aa04",
+      "category": "business",
+      "topics": []
+    },
+    {
+      "id": "f472d5f2dd6c461c3ad6",
+      "source": "guardian",
+      "title": "Disney accuses Trump officials of ‘blatant violations’ of constitution amid FCC battle",
+      "url": "https://www.theguardian.com/media/2026/oct/06/disney-trump-abc-fcc",
+      "publishedAt": "2026-10-06T20:12:20+00:00",
+      "image": "https://i.guim.co.uk/img/media/07112941d53cf377565dc4da384145855e1dec14/367_0_2766_2214/master/2766.jpg?width=140&quality=85&auto=format&fit=max&s=22e32276856fda5e4f486f0c64ac9b9f",
+      "category": "business",
+      "topics": [
+        "politics"
+      ]
+    },
+    {
       "id": "3ff35ee58b244482f318",
       "source": "ap",
       "title": "Republicans to spend $5 million in South Carolina Senate race as Trump plans trip there",
@@ -11558,6 +11702,16 @@
       "topics": []
     },
     {
+      "id": "58dc59b8ec5f61c5c5ae",
+      "source": "guardian",
+      "title": "Paramount completes $111bn acquisition of Warner Bros to form new media empire Skydance",
+      "url": "https://www.theguardian.com/business/2026/oct/06/paramount-warner-bros-skydance-merger",
+      "publishedAt": "2026-10-06T14:14:56+00:00",
+      "image": "https://i.guim.co.uk/img/media/9a282f79db8e6ffa47a3059b463463be690f1508/118_0_6864_5489/master/6864.jpg?width=140&quality=85&auto=format&fit=max&s=23f41fed666ef0568af324e6e4ae63c9",
+      "category": "business",
+      "topics": []
+    },
+    {
       "id": "21dcf68b56f3a58b9890",
       "source": "fnc",
       "title": "Kemenko Bahlil Diusulkan Naungi Kemendag dan Kemenperin untuk Percepat Hilirisasi",
@@ -11566,6 +11720,18 @@
       "image": null,
       "category": "other",
       "topics": []
+    },
+    {
+      "id": "d3532f9a4f9d7748b3ee",
+      "source": "guardian",
+      "title": "Misuse of AI is brands’ top reputational threat, new survey says",
+      "url": "https://www.theguardian.com/technology/2026/oct/06/ai-misuse-brand-reputation",
+      "publishedAt": "2026-10-06T11:00:35+00:00",
+      "image": "https://i.guim.co.uk/img/media/6d7b4ac09c1a7cc7e496eabec88cca48e84f2343/634_0_5001_4000/master/5001.jpg?width=140&quality=85&auto=format&fit=max&s=277f0b24f8e54c0f9263b2601b863308",
+      "category": "business",
+      "topics": [
+        "politics"
+      ]
     },
     {
       "id": "ccf25c00bf6bf097e1a8",
@@ -11694,6 +11860,16 @@
       ]
     },
     {
+      "id": "75be44a6057ce105ea71",
+      "source": "guardian",
+      "title": "US supreme court hears big oil’s bid to block climate damage lawsuits",
+      "url": "https://www.theguardian.com/us-news/2026/oct/05/supreme-court-big-oil-climate-damage-lawsuits",
+      "publishedAt": "2026-10-05T19:57:36+00:00",
+      "image": "https://i.guim.co.uk/img/media/0d739a8bfd1d9ce7c20c22a65ad3a7c6eeab8d0a/27_0_4908_3927/master/4908.jpg?width=140&quality=85&auto=format&fit=max&s=87d22798e94e88371606e3970f143a1d",
+      "category": "business",
+      "topics": []
+    },
+    {
       "id": "48b2307e2ba76076cb82",
       "source": "dw",
       "title": "Merz, Macron seek tougher EU measures against unfair trade",
@@ -11714,6 +11890,16 @@
       "topics": []
     },
     {
+      "id": "b66576066d9074ce8e4b",
+      "source": "guardian",
+      "title": "Mark Thompson will remain chief executive at CNN after Paramount sale",
+      "url": "https://www.theguardian.com/media/2026/oct/05/mark-thompson-cnn-chief-paramount-sale",
+      "publishedAt": "2026-10-05T14:14:17+00:00",
+      "image": "https://i.guim.co.uk/img/media/48dacc4b5b67e1e14fb504b62f55e4a61fe4510f/416_0_4168_3334/master/4168.jpg?width=140&quality=85&auto=format&fit=max&s=c99fce1bafef6389c2490335d06cf8fb",
+      "category": "business",
+      "topics": []
+    },
+    {
       "id": "e0dca67423772183b626",
       "source": "wsj",
       "title": "Michigan Football Is Wobbling, and Wolverine Claws Are Out",
@@ -11721,6 +11907,16 @@
       "publishedAt": "2026-10-05T12:00:00+00:00",
       "image": "https://images.wsj.net/im-36875398",
       "category": "sport",
+      "topics": []
+    },
+    {
+      "id": "50e399f71e2ca311b036",
+      "source": "guardian",
+      "title": "Euro falls to 17-month low against dollar amid French debt fears",
+      "url": "https://www.theguardian.com/business/2026/oct/05/euro-falls-dollar-amid-french-debt-cac-40-spain-eurozone",
+      "publishedAt": "2026-10-05T11:18:20+00:00",
+      "image": "https://i.guim.co.uk/img/media/4f8cfc2283ce9b8b686cbd47a16f80f2e2b91e4b/21_0_3333_2666/master/3333.jpg?width=140&quality=85&auto=format&fit=max&s=c5f2e09cda0ffe702157bf1066136722",
+      "category": "business",
       "topics": []
     },
     {
@@ -11732,6 +11928,18 @@
       "image": "https://images.wsj.net/im-07498706",
       "category": "sport",
       "topics": []
+    },
+    {
+      "id": "f4e5452faa1014128d4b",
+      "source": "guardian",
+      "title": "Trump’s recent statements on the economy are even more bonkers than usual | Steven Greenhouse",
+      "url": "https://www.theguardian.com/commentisfree/2026/oct/05/trump-us-economy-comments",
+      "publishedAt": "2026-10-05T10:00:53+00:00",
+      "image": "https://i.guim.co.uk/img/media/7eaafa9f8fc27d258da6b9119a5c75bfdd43194e/534_0_5339_4271/master/5339.jpg?width=140&quality=85&auto=format&fit=max&s=8abcc2551429982f5243c2a0c2fdc0e4",
+      "category": "business",
+      "topics": [
+        "politics"
+      ]
     },
     {
       "id": "c5f99388ab3b4ab032c8",
@@ -11788,6 +11996,30 @@
       "topics": []
     },
     {
+      "id": "e97470a9e78b6fe11583",
+      "source": "guardian",
+      "title": "Republicans say they hate communists. So why do they like Donald Trump?",
+      "url": "https://www.theguardian.com/business/2026/oct/04/trump-communism-republicans",
+      "publishedAt": "2026-10-04T11:00:27+00:00",
+      "image": "https://i.guim.co.uk/img/media/fa04304a475db3643525814926606e15359ee470/293_0_2915_2333/master/2915.jpg?width=140&quality=85&auto=format&fit=max&s=af873e89429072f07b899fcf5ba99ee1",
+      "category": "business",
+      "topics": [
+        "politics"
+      ]
+    },
+    {
+      "id": "b0290e2585c00844c2ce",
+      "source": "guardian",
+      "title": "‘The violence is off the scale’: staff and passengers at risk as assaults on trains in Great Britain soar to record high",
+      "url": "https://www.theguardian.com/uk-news/2026/oct/04/violence-rail-workers-passengers-risk-assaults-uk-railways-soar-record-high-transport",
+      "publishedAt": "2026-10-04T10:00:25+00:00",
+      "image": "https://i.guim.co.uk/img/media/80a7d613b1bc97dd58f046db0668a8d9498ef346/0_0_4841_3872/master/4841.jpg?width=140&quality=85&auto=format&fit=max&s=0ea1d833f1fc8912b81dbd4cfc47d6af",
+      "category": "business",
+      "topics": [
+        "politics"
+      ]
+    },
+    {
       "id": "7d815c942c6638303890",
       "source": "wsj",
       "title": "Advanced Stats and $500 Bats: Why Baseball for 6-Year-Olds Is Breaking the Bank",
@@ -11828,6 +12060,18 @@
       "image": "https://images.wsj.net/im-61652345",
       "category": "sport",
       "topics": []
+    },
+    {
+      "id": "030d86ee19d21d3e0196",
+      "source": "guardian",
+      "title": "The American dream remains elusive in the valley that inspired East of Eden",
+      "url": "https://www.theguardian.com/us-news/2026/oct/03/salinas-california-john-steinbeck",
+      "publishedAt": "2026-10-03T09:00:54+00:00",
+      "image": "https://i.guim.co.uk/img/media/ed62391476cf888240cd6a1f638bde36baf9fcc9/0_17_2957_2365/master/2957.jpg?width=140&quality=85&auto=format&fit=max&s=38d56bc6b4416e1cf78914232882263b",
+      "category": "business",
+      "topics": [
+        "politics"
+      ]
     },
     {
       "id": "1d154426bad8a2e1eb4f",
@@ -11943,6 +12187,16 @@
       "publishedAt": "2026-10-01T11:00:00+00:00",
       "image": "https://images.wsj.net/im-01596628",
       "category": "sport",
+      "topics": []
+    },
+    {
+      "id": "46f8bc54e30b70e1a5f2",
+      "source": "guardian",
+      "title": "Tech in cars can be used to snoop on you, Dutch spy chiefs warn",
+      "url": "https://www.theguardian.com/technology/2026/oct/01/cars-smart-features-spy-gps-chinese-imports",
+      "publishedAt": "2026-10-01T10:49:24+00:00",
+      "image": "https://i.guim.co.uk/img/media/938586c5c4e34a02d8b527189005f688010cd578/307_306_3368_2694/master/3368.jpg?width=140&quality=85&auto=format&fit=max&s=8bfbb7bfaaa9f8990a4859e40003715b",
+      "category": "business",
       "topics": []
     },
     {
@@ -12566,7 +12820,7 @@
     {
       "id": "52efb841e01166c1a348",
       "source": "investing",
-      "title": "OPmobility cuts jobs and lowers 2026 targets amid market slump",
+      "title": "OPmobility plunges after cutting jobs, lowering 2026 targets amid market slump",
       "url": "https://www.investing.com/news/stock-market-news/opmobility-cuts-jobs-and-lowers-2026-targets-amid-market-slump-93CH-4937295",
       "publishedAt": null,
       "image": "https://content-media.investing.com/news/LYNXNPEB7Q0U9_M.jpg",
@@ -16683,7 +16937,7 @@
     {
       "id": "c40388851be54d210a38",
       "source": "investing",
-      "title": "Asian currencies rangebound as dollar holds near 18-month high, yen slips",
+      "title": "Asian currencies rangebound as dollar holds 18-month high, euro under pressure",
       "url": "https://www.investing.com/news/forex-news/asian-currencies-rangebound-as-dollar-holds-near-18month-high-yen-slips-4937859",
       "publishedAt": null,
       "image": "https://content-media.investing.com/news/LYNXMPEM4S0T5_1200_L.jpg",
@@ -17429,12 +17683,12 @@
       ]
     },
     {
-      "id": "5dd3745c41fbba461201",
+      "id": "e9f20b3b94f076a99ee1",
       "source": "kontan",
       "title": "Danantara: Tak Ada Rencana Setor Rp 120 T ke APBN, Keuntungan Akan Diinvestasikan",
-      "url": "https://nasional.kontan.co.id/news/danantara-tak-ada-rencana-setor-rp-120-t-ke-apbn-keuntungan-akan-diinvestasikan?source=home_terbaru",
+      "url": "https://nasional.kontan.co.id/news/danantara-tak-ada-rencana-setor-rp-120-t-ke-apbn-keuntungan-akan-diinvestasikan?source=home_headline",
       "publishedAt": null,
-      "image": "https://foto.kontan.co.id/k5uBDwwNBmlN7BqoqNcuX0AftCU=/smart/2026/04/07/1402944523t.jpg",
+      "image": "https://foto.kontan.co.id/65PCI8LNoSszU_8KmPa15mulbt8=/smart/2026/04/07/1402944523p.jpg",
       "category": "local",
       "topics": []
     },
@@ -17551,10 +17805,10 @@
       "topics": []
     },
     {
-      "id": "0f72cf06d4e93645e66c",
+      "id": "a1f9aed10238a8df41a0",
       "source": "kontan",
       "title": "Ini Dampak Putusan FTSE Russel ke Pasar Saham di Akhir 2026",
-      "url": "https://investasi.kontan.co.id/news/ini-dampak-putusan-ftse-russel-ke-pasar-saham-di-akhir-2026?source=home_terbaru",
+      "url": "https://investasi.kontan.co.id/news/ini-dampak-putusan-ftse-russel-ke-pasar-saham-di-akhir-2026?source=home_analisis",
       "publishedAt": null,
       "image": "https://foto.kontan.co.id/c-JISPbUJbkMf2NxZLhoW96DuOo=/smart/2026/03/03/1624793042t.jpg",
       "category": "markets",
@@ -18352,7 +18606,7 @@
       "title": "Mengapa saham argenx anjlok hari ini?",
       "url": "https://id.investing.com/news/stock-market-news/mengapa-saham-argenx-anjlok-hari-ini-93CH-3090079",
       "publishedAt": null,
-      "image": "https://content-media.investing.com/news/LYNXNPEC3B0CQ_M.jpg",
+      "image": "https://content-media.investing.com/news/LYNXNPEB7Q0U9_M.jpg",
       "category": "markets",
       "topics": []
     },
@@ -18433,6 +18687,48 @@
       "url": "https://id.investing.com/news/analyst-ratings/jpmorgan-turunkan-peringkat-saham-leidos-karena-kekhawatiran-margin-93CH-3090062",
       "publishedAt": null,
       "image": "https://content-media.investing.com/news/moved_LYNXMPEM3T1AG_1200_L.jpg",
+      "category": "markets",
+      "topics": []
+    },
+    {
+      "id": "329cb460d7747534671e",
+      "source": "investing",
+      "title": "Argenx shares plunge 16% after Sjögren’s drug trial halted",
+      "url": "https://www.investing.com/news/stock-market-news/argenx-shares-plunge-16-after-sjogrens-drug-trial-halted-4938026",
+      "publishedAt": null,
+      "image": "https://content-media.investing.com/news/arrows_down_b_4._M_1440048110.jpg",
+      "category": "markets",
+      "topics": []
+    },
+    {
+      "id": "a35b4e9a082036b799e2",
+      "source": "investing",
+      "title": "Why is argenx stock plunging today?",
+      "url": "https://www.investing.com/news/stock-market-news/why-is-argenx-stock-plunging-today-93CH-4938025",
+      "publishedAt": null,
+      "image": "https://content-media.investing.com/news/LYNXNPEC3B0CQ_M.jpg",
+      "category": "markets",
+      "topics": []
+    },
+    {
+      "id": "0455dfbe95f882765a23",
+      "source": "kontan",
+      "title": "Prabowo: Pemerintah Jamin Keamanan Investasi Asing di Indonesia",
+      "url": "https://nasional.kontan.co.id/news/prabowo-pemerintah-jamin-keamanan-investasi-asing-di-indonesia?source=home_headline",
+      "publishedAt": null,
+      "image": "https://foto.kontan.co.id/2BX38HT0xAQO51Sgt9R67T6jCF8=/smart/2026/10/01/1834156115p.jpg",
+      "category": "local",
+      "topics": [
+        "politics"
+      ]
+    },
+    {
+      "id": "ab92c97afbf7aecd91b3",
+      "source": "investing_id",
+      "title": "Mengapa saham Bavarian Nordic melonjak hari ini?",
+      "url": "https://id.investing.com/news/stock-market-news/mengapa-saham-bavarian-nordic-melonjak-hari-ini-93CH-3090061",
+      "publishedAt": null,
+      "image": "https://content-media.investing.com/news/LYNXMPEBBR0PM_M.jpg",
       "category": "markets",
       "topics": []
     }
