@@ -2419,6 +2419,69 @@
       border-color: rgba(255, 255, 255, 0.3);
     }
 
+    .kal-tbl {
+      border: 1px solid var(--line);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      background: var(--bg-card);
+    }
+    .kal-band {
+      background: var(--bg-surface);
+      border-bottom: 1px solid var(--line);
+      padding: 10px 14px;
+      font-size: 12.5px;
+      font-weight: 700;
+      color: var(--text-main);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      letter-spacing: -0.01em;
+    }
+    .kal-band:not(:first-child) {
+      border-top: 1px solid var(--line);
+    }
+    .kal-band .kini {
+      font-size: 10px;
+      font-weight: 700;
+      background: var(--accent);
+      color: var(--bg-main);
+      padding: 2px 8px;
+      border-radius: var(--radius-full);
+      text-transform: uppercase;
+      letter-spacing: .05em;
+    }
+    .kal-baris {
+      display: grid;
+      grid-template-columns: 50px 42px 24px minmax(0, 1fr);
+      gap: 10px;
+      padding: 11px 14px;
+      border-bottom: 1px solid var(--line);
+      align-items: start;
+      transition: background 0.15s ease;
+    }
+    .kal-baris:hover {
+      background: var(--bg-card-hover);
+    }
+    .kal-baris:last-child {
+      border-bottom: none;
+    }
+    .kal-baris.tinggi {
+      background: rgba(244, 63, 94, 0.03);
+    }
+    .kal-jam {
+      font-family: var(--mono);
+      font-size: 12px;
+      color: var(--text-muted);
+      padding-top: 1px;
+    }
+    .kal-neg {
+      font-size: 11.5px;
+      font-weight: 700;
+      color: var(--text-main);
+      padding-top: 1px;
+      letter-spacing: .02em;
+      font-family: var(--mono);
+    }
     .kal-dmp {
       display: flex;
       gap: 2px;
