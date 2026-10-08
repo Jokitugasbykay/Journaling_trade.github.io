@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "checkedAt": "2026-10-08T05:34:16.662563+00:00",
+  "checkedAt": "2026-10-08T05:35:35.306514+00:00",
   "intervalMinutes": 5,
   "sources": [
     {
@@ -9,7 +9,7 @@
       "url": "https://www.investing.com/",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-08T05:34:11.621700+00:00"
+      "checkedAt": "2026-10-08T05:35:29.168678+00:00"
     },
     {
       "id": "cnbc",
@@ -17,7 +17,7 @@
       "url": "https://www.cnbc.com/markets/",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-08T05:34:11.627451+00:00"
+      "checkedAt": "2026-10-08T05:35:29.180347+00:00"
     },
     {
       "id": "kontan",
@@ -25,7 +25,7 @@
       "url": "https://www.kontan.co.id/",
       "kind": "html",
       "status": "ok",
-      "checkedAt": "2026-10-08T05:34:13.041396+00:00"
+      "checkedAt": "2026-10-08T05:35:30.448851+00:00"
     },
     {
       "id": "reuters",
@@ -33,7 +33,7 @@
       "url": "https://www.reuters.com/",
       "kind": "sitemap",
       "status": "ok",
-      "checkedAt": "2026-10-08T05:34:11.784201+00:00"
+      "checkedAt": "2026-10-08T05:35:29.401032+00:00"
     },
     {
       "id": "aljazeera",
@@ -41,7 +41,7 @@
       "url": "https://www.aljazeera.com/",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-08T05:34:11.694908+00:00"
+      "checkedAt": "2026-10-08T05:35:29.130891+00:00"
     },
     {
       "id": "bloomberg",
@@ -49,7 +49,7 @@
       "url": "https://www.bloomberg.com/asia",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-08T05:34:11.791377+00:00"
+      "checkedAt": "2026-10-08T05:35:29.457822+00:00"
     },
     {
       "id": "fnc",
@@ -57,7 +57,7 @@
       "url": "https://tradewithfnc.com/",
       "kind": "json",
       "status": "ok",
-      "checkedAt": "2026-10-08T05:34:11.884006+00:00"
+      "checkedAt": "2026-10-08T05:35:29.862406+00:00"
     },
     {
       "id": "investing_id",
@@ -65,7 +65,7 @@
       "url": "https://id.investing.com/news",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-08T05:34:11.785873+00:00"
+      "checkedAt": "2026-10-08T05:35:29.300587+00:00"
     },
     {
       "id": "pluang",
@@ -73,7 +73,7 @@
       "url": "https://pluang.com/news-feed",
       "kind": "html",
       "status": "ok",
-      "checkedAt": "2026-10-08T05:34:12.867646+00:00"
+      "checkedAt": "2026-10-08T05:35:29.629447+00:00"
     },
     {
       "id": "kompas",
@@ -81,7 +81,7 @@
       "url": "https://money.kompas.com/",
       "kind": "html",
       "status": "ok",
-      "checkedAt": "2026-10-08T05:34:12.450411+00:00"
+      "checkedAt": "2026-10-08T05:35:30.867883+00:00"
     },
     {
       "id": "detik",
@@ -89,7 +89,7 @@
       "url": "https://finance.detik.com/",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-08T05:34:13.467829+00:00"
+      "checkedAt": "2026-10-08T05:35:30.924568+00:00"
     },
     {
       "id": "kemenkeu",
@@ -121,7 +121,7 @@
       "url": "https://ekbis.sindonews.com/",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-08T05:34:12.046387+00:00"
+      "checkedAt": "2026-10-08T05:35:30.105964+00:00"
     },
     {
       "id": "fedwatch",
@@ -430,6 +430,16 @@
       "topics": [
         "politics"
       ]
+    },
+    {
+      "id": "477f1a4d13bd80491e87",
+      "source": "sindo",
+      "title": "Harga Emas Antam Turun Rp15.000, Jadi Rp2,56 Juta per Gram Hari Ini",
+      "url": "https://ekbis.sindonews.com/read/1758205/178/harga-emas-antam-turun-rp15000-jadi-rp256-juta-per-gram-hari-ini-1791432624",
+      "publishedAt": "2026-10-08T05:02:29+00:00",
+      "image": "https://pict.sindonews.com/dyn/850/pena/news/2026/10/08/178/1758205/harga-emas-antam-turun-rp15000-jadi-rp256-juta-per-gram-hari-ini-wqw.jpeg",
+      "category": "local",
+      "topics": []
     },
     {
       "id": "2935ec994f6160cc456e",
