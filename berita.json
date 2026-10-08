@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "checkedAt": "2026-10-08T05:46:53.533852+00:00",
+  "checkedAt": "2026-10-08T05:51:13.673424+00:00",
   "intervalMinutes": 5,
   "sources": [
     {
@@ -9,7 +9,7 @@
       "url": "https://www.investing.com/",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-08T05:46:49.909540+00:00"
+      "checkedAt": "2026-10-08T05:51:06.146592+00:00"
     },
     {
       "id": "cnbc",
@@ -17,7 +17,7 @@
       "url": "https://www.cnbc.com/markets/",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-08T05:46:49.887665+00:00"
+      "checkedAt": "2026-10-08T05:51:06.186801+00:00"
     },
     {
       "id": "kontan",
@@ -25,7 +25,7 @@
       "url": "https://www.kontan.co.id/",
       "kind": "html",
       "status": "ok",
-      "checkedAt": "2026-10-08T05:46:51.021919+00:00"
+      "checkedAt": "2026-10-08T05:51:07.161536+00:00"
     },
     {
       "id": "reuters",
@@ -33,7 +33,7 @@
       "url": "https://www.reuters.com/",
       "kind": "sitemap",
       "status": "ok",
-      "checkedAt": "2026-10-08T05:46:50.013133+00:00"
+      "checkedAt": "2026-10-08T05:51:06.206539+00:00"
     },
     {
       "id": "aljazeera",
@@ -41,7 +41,7 @@
       "url": "https://www.aljazeera.com/",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-08T05:46:49.882992+00:00"
+      "checkedAt": "2026-10-08T05:51:06.156871+00:00"
     },
     {
       "id": "bloomberg",
@@ -49,7 +49,7 @@
       "url": "https://www.bloomberg.com/asia",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-08T05:46:50.298056+00:00"
+      "checkedAt": "2026-10-08T05:51:06.414095+00:00"
     },
     {
       "id": "fnc",
@@ -57,7 +57,7 @@
       "url": "https://tradewithfnc.com/",
       "kind": "json",
       "status": "ok",
-      "checkedAt": "2026-10-08T05:46:50.552746+00:00"
+      "checkedAt": "2026-10-08T05:51:06.410750+00:00"
     },
     {
       "id": "investing_id",
@@ -65,7 +65,7 @@
       "url": "https://id.investing.com/news",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-08T05:46:50.142197+00:00"
+      "checkedAt": "2026-10-08T05:51:06.423178+00:00"
     },
     {
       "id": "pluang",
@@ -73,7 +73,7 @@
       "url": "https://pluang.com/news-feed",
       "kind": "html",
       "status": "ok",
-      "checkedAt": "2026-10-08T05:46:50.857191+00:00"
+      "checkedAt": "2026-10-08T05:51:06.456374+00:00"
     },
     {
       "id": "kompas",
@@ -81,7 +81,7 @@
       "url": "https://money.kompas.com/",
       "kind": "html",
       "status": "ok",
-      "checkedAt": "2026-10-08T05:46:50.801570+00:00"
+      "checkedAt": "2026-10-08T05:51:07.344615+00:00"
     },
     {
       "id": "detik",
@@ -89,7 +89,7 @@
       "url": "https://finance.detik.com/",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-08T05:46:51.294691+00:00"
+      "checkedAt": "2026-10-08T05:51:07.536971+00:00"
     },
     {
       "id": "kemenkeu",
@@ -121,7 +121,7 @@
       "url": "https://ekbis.sindonews.com/",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-08T05:46:50.725263+00:00"
+      "checkedAt": "2026-10-08T05:51:06.567207+00:00"
     },
     {
       "id": "fedwatch",
@@ -140,6 +140,96 @@
   ],
   "items": [
     {
+      "id": "c8fc03d6d698f5c82208",
+      "source": "reuters",
+      "title": "Francis Halzen wins Nobel physics prize for Antarctic 'ghost particle' hunt",
+      "url": "https://www.reuters.com/science/francis-halzen-wins-2026-nobel-prize-physics-2026-10-06/",
+      "publishedAt": "2026-10-08T05:48:20.120000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/XEK5OYNOWFN25NUZAJBGOHUS5U.jpg?auth=0ec8ad773cd323feacb8d28e7e6a1a03f0d96f3f7966554c828a9e50ab67c1a4&smart=true&width=1920",
+      "category": "science",
+      "topics": []
+    },
+    {
+      "id": "d98930cc236cdb8646a7",
+      "source": "reuters",
+      "title": "Malaysia to work towards Myanmar's full reintegration into ASEAN, PM says",
+      "url": "https://www.reuters.com/world/asia-pacific/malaysia-pm-says-he-will-do-whatever-possible-ensure-myanmars-acceptance-2026-10-08/",
+      "publishedAt": "2026-10-08T05:48:04.641000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/G7M6FFYUABKIXBKKZVZ24KC7RM.jpg?auth=ed37b90016e5d2a72363fc0ad6894d86c475a7a6972a6466091f4300102e6028&smart=true&width=1920",
+      "category": "world",
+      "topics": []
+    },
+    {
+      "id": "84b98ba72b5465482641",
+      "source": "kompas",
+      "title": "Harga Emas di Pegadaian Siang Ini Kompak Turun, Antam Susut Rp 15.000",
+      "url": "https://money.kompas.com/read/2026/10/08/124644926/harga-emas-di-pegadaian-siang-ini-kompak-turun-antam-susut-rp-15000",
+      "publishedAt": "2026-10-08T05:46:44+00:00",
+      "image": "https://asset.kompas.com/crops/0ogr9V9Zq2AMtG8J5bGQ9l0Ymrg=/0x0:1200x800/750x500/data/photo/2026/04/25/69ec5bc0f25da.jpg",
+      "category": "local",
+      "topics": []
+    },
+    {
+      "id": "ab0d2a2f4ff706e6ccdd",
+      "source": "bloomberg",
+      "title": "FTSE 100 Live: UK Assets Show Few Signs of Recovery",
+      "url": "https://www.bloomberg.com/news/live-blog/2026-10-08/ftse-100-uk-jobs-data-house-prices-pound-houthis-oil-prices-hormuz-ai-stocks-what-s-moving-uk-markets-right-now-markets-today",
+      "publishedAt": "2026-10-08T05:46:37+00:00",
+      "image": null,
+      "category": "technology",
+      "topics": []
+    },
+    {
+      "id": "75b3d9429fee8ff85001",
+      "source": "reuters",
+      "title": "Bank of Japan sees broadening inflationary pressure",
+      "url": "https://www.reuters.com/world/asia-pacific/bank-japan-sees-broadening-inflationary-pressure-2026-10-08/",
+      "publishedAt": "2026-10-08T05:46:33.968000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/EGP7DURCV5N4LCFTE4ZVPPSEQQ.jpg?auth=9287d6bd76de6622deb38bbbb24e5c1d728ceb269ccd0bd88f75c38c0c3e355a&smart=true&width=1920",
+      "category": "markets",
+      "topics": []
+    },
+    {
+      "id": "1edb223775c814cd6c05",
+      "source": "cnbc",
+      "title": "TSMC September sales hit another record as AI boom rolls on",
+      "url": "https://www.cnbc.com/2026/10/08/tsmc-september-sales-hit-another-record-as-ai-boom-rolls-on.html",
+      "publishedAt": "2026-10-08T05:45:21+00:00",
+      "image": "https://image.cnbcfm.com/api/v1/image/108373707-1791333068896-gettyimages-2296986094-logos.jpeg?v=1791333111&w=1920&h=1080",
+      "category": "technology",
+      "topics": []
+    },
+    {
+      "id": "ef608d607c23610f1eb0",
+      "source": "reuters",
+      "title": "Südzucker posts stable first-half sales as biofuel demand offsets low sugar prices",
+      "url": "https://www.reuters.com/business/retail-consumer/sdzucker-reports-broadly-stable-first-half-revenue-2026-10-08/",
+      "publishedAt": "2026-10-08T05:45:20.897000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/YQEAPIX7KZKCNOOY3OYXLSJJZM.jpg?auth=38c25adfb0b7343b5d18a67abfc692d47a5330c886b83bc544a745295bbb7bf3&smart=true&width=1920",
+      "category": "business",
+      "topics": []
+    },
+    {
+      "id": "3ab2c9c2f6dd7ed8c3a6",
+      "source": "reuters",
+      "title": "France's Sesterce plans $11 billion AI investment in Finland",
+      "url": "https://www.reuters.com/business/frances-sesterce-plans-11-billion-ai-investment-finland-2026-10-08/",
+      "publishedAt": "2026-10-08T05:44:22.383000+00:00",
+      "image": null,
+      "category": "technology",
+      "topics": []
+    },
+    {
+      "id": "44388cd68918413e875e",
+      "source": "reuters",
+      "title": "Alcaraz, Sinner among stars locked in for Australian Open 1 Point Slam",
+      "url": "https://www.reuters.com/sports/tennis/alcaraz-sinner-among-stars-locked-australian-open-1-point-slam-2026-10-08/",
+      "publishedAt": "2026-10-08T05:43:53.799000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/M6NNAGPDWZO6LAFNBRJCD4YBPY.jpg?auth=8981b961389a76e5c713cc69db0d51652ff48275f72b1d66c570a158ca196310&smart=true&width=1920",
+      "category": "sport",
+      "topics": []
+    },
+    {
       "id": "d1671314fd485d75849d",
       "source": "kompas",
       "title": "Menkeu Suahasil: APBN dan Danantara Harus Jadi",
@@ -157,16 +247,6 @@
       "publishedAt": "2026-10-08T05:42:56.282000+00:00",
       "image": "https://www.reuters.com/resizer/v2/AMQYMMEMFFK2JBHWXBVDDKZCG4.jpg?auth=7707035cd500908699e164dffcbe8d552a42d7ca02330ae38bd627631504a581&smart=true&width=1920",
       "category": "sport",
-      "topics": []
-    },
-    {
-      "id": "75b3d9429fee8ff85001",
-      "source": "reuters",
-      "title": "Bank of Japan sees broadening inflationary pressure",
-      "url": "https://www.reuters.com/world/asia-pacific/bank-japan-sees-broadening-inflationary-pressure-2026-10-08/",
-      "publishedAt": "2026-10-08T05:41:40.291000+00:00",
-      "image": "https://www.reuters.com/resizer/v2/EGP7DURCV5N4LCFTE4ZVPPSEQQ.jpg?auth=9287d6bd76de6622deb38bbbb24e5c1d728ceb269ccd0bd88f75c38c0c3e355a&smart=true&width=1920",
-      "category": "markets",
       "topics": []
     },
     {
@@ -337,16 +417,6 @@
       "publishedAt": "2026-10-08T05:24:48.782000+00:00",
       "image": "https://www.reuters.com/resizer/v2/2QGOWEYLRBNEDAYP2XOICFKSXU.jpg?auth=7b2a30e475c3c6142c0da0bf517cd6cfb688701e3a023de843f74fe352d6dc67&smart=true&width=1920",
       "category": "world",
-      "topics": []
-    },
-    {
-      "id": "ef608d607c23610f1eb0",
-      "source": "reuters",
-      "title": "Südzucker reports broadly stable first-half revenue",
-      "url": "https://www.reuters.com/business/retail-consumer/sdzucker-reports-broadly-stable-first-half-revenue-2026-10-08/",
-      "publishedAt": "2026-10-08T05:19:46.054000+00:00",
-      "image": "https://www.reuters.com/resizer/v2/YQEAPIX7KZKCNOOY3OYXLSJJZM.jpg?auth=38c25adfb0b7343b5d18a67abfc692d47a5330c886b83bc544a745295bbb7bf3&smart=true&width=1920",
-      "category": "business",
       "topics": []
     },
     {
@@ -599,16 +669,6 @@
       "publishedAt": "2026-10-08T04:54:59+00:00",
       "image": null,
       "category": "markets",
-      "topics": []
-    },
-    {
-      "id": "44388cd68918413e875e",
-      "source": "reuters",
-      "title": "Alcaraz, Sinner among stars locked in for Australian Open 1 Point Slam",
-      "url": "https://www.reuters.com/sports/tennis/alcaraz-sinner-among-stars-locked-australian-open-1-point-slam-2026-10-08/",
-      "publishedAt": "2026-10-08T04:53:43.724000+00:00",
-      "image": "https://www.reuters.com/resizer/v2/M6NNAGPDWZO6LAFNBRJCD4YBPY.jpg?auth=8981b961389a76e5c713cc69db0d51652ff48275f72b1d66c570a158ca196310&smart=true&width=1920",
-      "category": "sport",
       "topics": []
     },
     {
@@ -927,16 +987,6 @@
       "publishedAt": "2026-10-08T04:17:53+00:00",
       "image": "https://asset.kompas.com/crops/Vjp9IENb_S0tfa5JdRaygZ3ToTs=/0x0:0x0/750x500/data/photo/2026/09/30/6abd15d0cb699.jpg",
       "category": "local",
-      "topics": []
-    },
-    {
-      "id": "d98930cc236cdb8646a7",
-      "source": "reuters",
-      "title": "Malaysia PM says he will do whatever possible to ensure Myanmar's acceptance in regional community",
-      "url": "https://www.reuters.com/world/asia-pacific/malaysia-pm-says-he-will-do-whatever-possible-ensure-myanmars-acceptance-2026-10-08/",
-      "publishedAt": "2026-10-08T04:16:09.594000+00:00",
-      "image": "https://www.reuters.com/resizer/v2/G7M6FFYUABKIXBKKZVZ24KC7RM.jpg?auth=ed37b90016e5d2a72363fc0ad6894d86c475a7a6972a6466091f4300102e6028&smart=true&width=1920",
-      "category": "world",
       "topics": []
     },
     {
@@ -12560,6 +12610,88 @@
       "image": "https://content-media.investing.com/news/LYNXMPEA5T0CX_M.jpg",
       "category": "markets",
       "topics": []
+    },
+    {
+      "id": "38dfb7e93adc3651bb45",
+      "source": "investing",
+      "title": "Why is MiniMax stock dropping today?",
+      "url": "https://www.investing.com/news/stock-market-news/why-is-minimax-stock-dropping-today-93CH-4937916",
+      "publishedAt": null,
+      "image": "https://content-media.investing.com/news/LYNXMPEB59082_M.jpg",
+      "category": "markets",
+      "topics": []
+    },
+    {
+      "id": "bde60f8c98e8f36cc023",
+      "source": "investing",
+      "title": "Why is Sanan Optoelectronics stock rallying today?",
+      "url": "https://www.investing.com/news/stock-market-news/why-is-sanan-optoelectronics-stock-rallying-today-93CH-4937915",
+      "publishedAt": null,
+      "image": "https://content-media.investing.com/news/LYNXNPEC0E0NI_M.jpg",
+      "category": "markets",
+      "topics": []
+    },
+    {
+      "id": "8bb84a76d17963f86181",
+      "source": "investing",
+      "title": "Why is Paytm stock sliding today?",
+      "url": "https://www.investing.com/news/stock-market-news/why-is-paytm-stock-sliding-today-93CH-4937914",
+      "publishedAt": null,
+      "image": "https://content-media.investing.com/news/LYNXNPEB9M0BY_M.jpg",
+      "category": "markets",
+      "topics": []
+    },
+    {
+      "id": "446a5f412de2162c5239",
+      "source": "investing",
+      "title": "TSMC’s third-quarter revenue surges 50% y/y, beating market forecast",
+      "url": "https://www.investing.com/news/stock-market-news/tsmcs-thirdquarter-revenue-surges-50-yy-beating-market-forecast-4937913",
+      "publishedAt": null,
+      "image": "https://content-media.investing.com/trkd-images/LYNXMPEM970AP_L.jpg",
+      "category": "markets",
+      "topics": []
+    },
+    {
+      "id": "7796b7d99ceda7db0b84",
+      "source": "investing",
+      "title": "Bank of Japan sees broadening inflationary pressure",
+      "url": "https://www.investing.com/news/economy-news/bank-of-japan-sees-broadening-inflationary-pressure-4937912",
+      "publishedAt": null,
+      "image": "https://content-media.investing.com/trkd-images/LYNXMPEM9709X_L.jpg",
+      "category": "markets",
+      "topics": []
+    },
+    {
+      "id": "6d1c41be2e38865182df",
+      "source": "investing",
+      "title": "Südzucker raises forecast floor as first-half EBITDA jumps to €303 million",
+      "url": "https://www.investing.com/news/earnings/sudzucker-raises-forecast-floor-as-firsthalf-ebitda-jumps-to-303-million-4937911",
+      "publishedAt": null,
+      "image": "https://content-media.investing.com/news/LYNXNPEC180BO_M.jpg",
+      "category": "business",
+      "topics": []
+    },
+    {
+      "id": "638d9711a668860ded76",
+      "source": "investing",
+      "title": "Australia stocks lower at close of trade; S&P/ASX 200 down 0.77%",
+      "url": "https://www.investing.com/news/stock-market-news/australia-stocks-lower-at-close-of-trade-spasx-200-down-077-4937906",
+      "publishedAt": null,
+      "image": "https://content-media.investing.com/news/moved_LYNXMPEF9N06M-OCATP_L.jpg",
+      "category": "markets",
+      "topics": []
+    },
+    {
+      "id": "ae17334727757760d913",
+      "source": "kontan",
+      "title": "Dua Tahun Prabowo-Gibran, Kemenperin Bidik Kontribusi Industri Jadi 25% Terhadap PDB",
+      "url": "https://industri.kontan.co.id/news/dua-tahun-prabowo-gibran-kemenperin-bidik-kontribusi-industri-jadi-25-terhadap-pdb?source=home_terbaru",
+      "publishedAt": null,
+      "image": "https://foto.kontan.co.id/aI4XFeG6b9WssYo5XWl5BN816ME=/smart/2026/10/01/514591848t.jpg",
+      "category": "local",
+      "topics": [
+        "politics"
+      ]
     }
   ]
 }
