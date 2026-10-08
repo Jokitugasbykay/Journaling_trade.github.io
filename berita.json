@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "checkedAt": "2026-10-08T05:39:13.934214+00:00",
+  "checkedAt": "2026-10-08T05:46:53.533852+00:00",
   "intervalMinutes": 5,
   "sources": [
     {
@@ -9,7 +9,7 @@
       "url": "https://www.investing.com/",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-08T05:39:06.028574+00:00"
+      "checkedAt": "2026-10-08T05:46:49.909540+00:00"
     },
     {
       "id": "cnbc",
@@ -17,7 +17,7 @@
       "url": "https://www.cnbc.com/markets/",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-08T05:39:06.110027+00:00"
+      "checkedAt": "2026-10-08T05:46:49.887665+00:00"
     },
     {
       "id": "kontan",
@@ -25,7 +25,7 @@
       "url": "https://www.kontan.co.id/",
       "kind": "html",
       "status": "ok",
-      "checkedAt": "2026-10-08T05:39:07.341154+00:00"
+      "checkedAt": "2026-10-08T05:46:51.021919+00:00"
     },
     {
       "id": "reuters",
@@ -33,7 +33,7 @@
       "url": "https://www.reuters.com/",
       "kind": "sitemap",
       "status": "ok",
-      "checkedAt": "2026-10-08T05:39:06.212097+00:00"
+      "checkedAt": "2026-10-08T05:46:50.013133+00:00"
     },
     {
       "id": "aljazeera",
@@ -41,7 +41,7 @@
       "url": "https://www.aljazeera.com/",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-08T05:39:06.015107+00:00"
+      "checkedAt": "2026-10-08T05:46:49.882992+00:00"
     },
     {
       "id": "bloomberg",
@@ -49,7 +49,7 @@
       "url": "https://www.bloomberg.com/asia",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-08T05:39:06.229135+00:00"
+      "checkedAt": "2026-10-08T05:46:50.298056+00:00"
     },
     {
       "id": "fnc",
@@ -57,7 +57,7 @@
       "url": "https://tradewithfnc.com/",
       "kind": "json",
       "status": "ok",
-      "checkedAt": "2026-10-08T05:39:06.203737+00:00"
+      "checkedAt": "2026-10-08T05:46:50.552746+00:00"
     },
     {
       "id": "investing_id",
@@ -65,7 +65,7 @@
       "url": "https://id.investing.com/news",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-08T05:39:06.096677+00:00"
+      "checkedAt": "2026-10-08T05:46:50.142197+00:00"
     },
     {
       "id": "pluang",
@@ -73,7 +73,7 @@
       "url": "https://pluang.com/news-feed",
       "kind": "html",
       "status": "ok",
-      "checkedAt": "2026-10-08T05:39:06.225025+00:00"
+      "checkedAt": "2026-10-08T05:46:50.857191+00:00"
     },
     {
       "id": "kompas",
@@ -81,7 +81,7 @@
       "url": "https://money.kompas.com/",
       "kind": "html",
       "status": "ok",
-      "checkedAt": "2026-10-08T05:39:06.831482+00:00"
+      "checkedAt": "2026-10-08T05:46:50.801570+00:00"
     },
     {
       "id": "detik",
@@ -89,7 +89,7 @@
       "url": "https://finance.detik.com/",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-08T05:39:07.846135+00:00"
+      "checkedAt": "2026-10-08T05:46:51.294691+00:00"
     },
     {
       "id": "kemenkeu",
@@ -121,7 +121,7 @@
       "url": "https://ekbis.sindonews.com/",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-08T05:39:06.400833+00:00"
+      "checkedAt": "2026-10-08T05:46:50.725263+00:00"
     },
     {
       "id": "fedwatch",
@@ -140,6 +140,56 @@
   ],
   "items": [
     {
+      "id": "d1671314fd485d75849d",
+      "source": "kompas",
+      "title": "Menkeu Suahasil: APBN dan Danantara Harus Jadi",
+      "url": "https://money.kompas.com/read/2026/10/08/124309926/menkeu-suahasil-apbn-dan-danantara-harus-jadi-2-lengan-untuk-kejar-investasi-7",
+      "publishedAt": "2026-10-08T05:43:09+00:00",
+      "image": "https://asset.kompas.com/crops/4WiA5KQPhqbt3W0wblKiv5M4EZw=/755x270:3449x2066/750x500/data/photo/2026/10/08/6ac70740969ba.jpg",
+      "category": "local",
+      "topics": []
+    },
+    {
+      "id": "e79d3df4f58ff85a6e4b",
+      "source": "reuters",
+      "title": "India among seven countries vying for 2036 Olympics, IOC says",
+      "url": "https://www.reuters.com/sports/india-among-seven-countries-vying-2036-olympics-ioc-says-2026-10-06/",
+      "publishedAt": "2026-10-08T05:42:56.282000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/AMQYMMEMFFK2JBHWXBVDDKZCG4.jpg?auth=7707035cd500908699e164dffcbe8d552a42d7ca02330ae38bd627631504a581&smart=true&width=1920",
+      "category": "sport",
+      "topics": []
+    },
+    {
+      "id": "75b3d9429fee8ff85001",
+      "source": "reuters",
+      "title": "Bank of Japan sees broadening inflationary pressure",
+      "url": "https://www.reuters.com/world/asia-pacific/bank-japan-sees-broadening-inflationary-pressure-2026-10-08/",
+      "publishedAt": "2026-10-08T05:41:40.291000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/EGP7DURCV5N4LCFTE4ZVPPSEQQ.jpg?auth=9287d6bd76de6622deb38bbbb24e5c1d728ceb269ccd0bd88f75c38c0c3e355a&smart=true&width=1920",
+      "category": "markets",
+      "topics": []
+    },
+    {
+      "id": "e416470da01cc041014d",
+      "source": "reuters",
+      "title": "TSMC's third-quarter revenue surges 50% y/y, beating market forecast",
+      "url": "https://www.reuters.com/world/asia-pacific/tsmcs-third-quarter-revenue-surges-50-yy-beating-market-forecast-2026-10-08/",
+      "publishedAt": "2026-10-08T05:41:27.339000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/VP33QQQMOZLO3BPCJWYX2S52CQ.jpg?auth=017a7dce2d78d137343170d3854cc3608b8a6489838badd8986db9f72f6cb745&smart=true&width=1920",
+      "category": "markets",
+      "topics": []
+    },
+    {
+      "id": "6cd80020c753def2c8ee",
+      "source": "kompas",
+      "title": "Zero ODOL 2027, Kemenko Perekonomian: Multimoda Kunci Utama agar Llogistik Tetap Murah",
+      "url": "https://money.kompas.com/read/2026/10/08/124000426/zero-odol-2027-kemenko-perekonomian--multimoda-kunci-utama-agar-llogistik",
+      "publishedAt": "2026-10-08T05:40:00+00:00",
+      "image": "https://asset.kompas.com/crops/y5TUQD6Q7sFH4yc9azyFiLwukIc=/66x0:1146x720/750x500/data/photo/2026/08/24/6a8b6ad1342f6.jpeg",
+      "category": "business",
+      "topics": []
+    },
+    {
       "id": "20cf42b189a7d4c90708",
       "source": "kompas",
       "title": "4 Saham BUMN Karya Disuspensi BEI",
@@ -147,6 +197,36 @@
       "publishedAt": "2026-10-08T05:38:44+00:00",
       "image": "https://asset.kompas.com/crops/lpEYqDAPLYGpJYJgTAXlvxmmtOg=/0x0:4500x3000/750x500/data/photo/2019/07/01/4196213879.jpg",
       "category": "local",
+      "topics": []
+    },
+    {
+      "id": "aed6f320b62d2b93f552",
+      "source": "reuters",
+      "title": "Oilers erase early deficit with 5-goal second period, down Ducks",
+      "url": "https://www.reuters.com/sports/nhl/oilers-erase-early-deficit-with-5-goal-second-period-down-ducks--flm-2026-10-08/",
+      "publishedAt": "2026-10-08T05:38:24.323000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/IJEUZT4FFFKLZC6SWODPQX737U.jpg?auth=f47cff359799c25afc7fe1c3f9ac433b86e7e84d262fa22e2ab2ee08a25b2407&smart=true&width=1920",
+      "category": "sport",
+      "topics": []
+    },
+    {
+      "id": "b22390b6b389f3b14c7d",
+      "source": "detik",
+      "title": "Mendag Sebut Harga Cabai Mahal Gara-gara Produksi Turun",
+      "url": "https://finance.detik.com/berita-ekonomi-bisnis/d-8697768/mendag-sebut-harga-cabai-mahal-gara-gara-produksi-turun",
+      "publishedAt": "2026-10-08T05:37:23+00:00",
+      "image": "https://akcdn.detik.net.id/community/media/visual/2026/10/08/menteri-perdagangan-budi-santoso-1791435231230_169.jpeg?w=360&q=90",
+      "category": "business",
+      "topics": []
+    },
+    {
+      "id": "ad3e0c1519576386e69b",
+      "source": "bloomberg",
+      "title": "Tencent Mulls $5 Billion Bond Offering as AI Push Ramps Up",
+      "url": "https://www.bloomberg.com/news/articles/2026-10-08/tencent-mulls-5-billion-bond-offering-as-ai-push-ramps-up",
+      "publishedAt": "2026-10-08T05:37:14+00:00",
+      "image": null,
+      "category": "technology",
       "topics": []
     },
     {
@@ -160,6 +240,36 @@
       "topics": []
     },
     {
+      "id": "42e1f7954c9b9f38c6e0",
+      "source": "reuters",
+      "title": "Brewers KO Padres in Game 4, set up NLCS rematch vs. Dodgers",
+      "url": "https://www.reuters.com/sports/baseball/brewers-ko-padres-game-4-set-up-nlcs-rematch-vs-dodgers--flm-2026-10-08/",
+      "publishedAt": "2026-10-08T05:34:08.197000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/7LXH3SAEQNMP5MQBQJOZKFUPQE.jpg?auth=98ef70ecccc73d00715306bd7ee2d4c6fbaa5a433edb58ae932593c7aaef8ea2&smart=true&width=1920",
+      "category": "sport",
+      "topics": []
+    },
+    {
+      "id": "f0dace92d0f590dcc448",
+      "source": "reuters",
+      "title": "US, Russia explore gas sale to Europe amid Ukraine war, say sources",
+      "url": "https://www.reuters.com/business/energy/us-russia-explore-gas-sale-europe-amid-ukraine-war-say-sources-2026-10-08/",
+      "publishedAt": "2026-10-08T05:33:41.948000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/DBTTPICFRRMA7FIG6KMFDNNJGY.jpg?auth=2434d0661f9f8521c4d25b80586d8d8a31aad5a1d362199ba1e8f793f2929221&smart=true&width=1920",
+      "category": "business",
+      "topics": []
+    },
+    {
+      "id": "2bc2ca00c7413870a1de",
+      "source": "detik",
+      "title": "Bos Danantara Yakin Laba BUMN Tembus Rp 360 T pada 2026",
+      "url": "https://finance.detik.com/berita-ekonomi-bisnis/d-8697761/bos-danantara-yakin-laba-bumn-tembus-rp-360-t-pada-2026",
+      "publishedAt": "2026-10-08T05:32:24+00:00",
+      "image": "https://akcdn.detik.net.id/community/media/visual/2026/10/02/danantara-dony-oskaria-1790919868613_169.jpeg?w=360&q=90",
+      "category": "local",
+      "topics": []
+    },
+    {
       "id": "5f88cef99d45287b6e8f",
       "source": "cnbc",
       "title": "America shut out Chinese EVs. Britain welcomed them - and now faces a difficult choice",
@@ -167,16 +277,6 @@
       "publishedAt": "2026-10-08T05:30:49+00:00",
       "image": "https://image.cnbcfm.com/api/v1/image/108373886-1791368699021-gettyimages-2244760464-CHINA_BYD.jpeg?v=1791369118&w=1920&h=1080",
       "category": "other",
-      "topics": []
-    },
-    {
-      "id": "42e1f7954c9b9f38c6e0",
-      "source": "reuters",
-      "title": "Brewers KO Padres in Game 4, set up NLCS rematch vs. Dodgers",
-      "url": "https://www.reuters.com/sports/baseball/brewers-ko-padres-game-4-set-up-nlcs-rematch-vs-dodgers--flm-2026-10-08/",
-      "publishedAt": "2026-10-08T05:30:44.006000+00:00",
-      "image": null,
-      "category": "sport",
       "topics": []
     },
     {
@@ -227,16 +327,6 @@
       "publishedAt": "2026-10-08T05:25:59.207000+00:00",
       "image": "https://www.reuters.com/resizer/v2/OZW5ORNAQRKS5LEX5H3PV4CQTY.jpg?auth=37630d489a132105802bdf64fb7e21fffa6bd589d4787a669eeefb693758584e&smart=true&width=1920",
       "category": "sport",
-      "topics": []
-    },
-    {
-      "id": "f0dace92d0f590dcc448",
-      "source": "reuters",
-      "title": "US, Russia explore gas sale to Europe amid Ukraine war, say sources",
-      "url": "https://www.reuters.com/business/energy/us-russia-explore-gas-sale-europe-amid-ukraine-war-say-sources-2026-10-08/",
-      "publishedAt": "2026-10-08T05:25:28.028000+00:00",
-      "image": "https://www.reuters.com/resizer/v2/DBTTPICFRRMA7FIG6KMFDNNJGY.jpg?auth=2434d0661f9f8521c4d25b80586d8d8a31aad5a1d362199ba1e8f793f2929221&smart=true&width=1920",
-      "category": "business",
       "topics": []
     },
     {
@@ -357,16 +447,6 @@
       "publishedAt": "2026-10-08T05:11:53.516000+00:00",
       "image": "https://www.reuters.com/resizer/v2/EQGRE7SVEVLU3DD5NXZRSY2DA4.jpg?auth=a4914743cac5704db904c406ae4b766f392e874b9dfea7431c271ba2134eb632&smart=true&width=1920",
       "category": "markets",
-      "topics": []
-    },
-    {
-      "id": "aed6f320b62d2b93f552",
-      "source": "reuters",
-      "title": "Oilers erase early deficit with 5-goal second period, down Ducks",
-      "url": "https://www.reuters.com/sports/nhl/oilers-erase-early-deficit-with-5-goal-second-period-down-ducks--flm-2026-10-08/",
-      "publishedAt": "2026-10-08T05:11:36.527000+00:00",
-      "image": "https://www.reuters.com/resizer/v2/IJEUZT4FFFKLZC6SWODPQX737U.jpg?auth=f47cff359799c25afc7fe1c3f9ac433b86e7e84d262fa22e2ab2ee08a25b2407&smart=true&width=1920",
-      "category": "sport",
       "topics": []
     },
     {
@@ -12449,6 +12529,36 @@
       "publishedAt": null,
       "image": "https://foto.kontan.co.id/XZ-8G5uh6RkcAgpQLCHBfmeEjuQ=/smart/2018/04/25/882622882t.jpg",
       "category": "other",
+      "topics": []
+    },
+    {
+      "id": "e56cf846f3b78bfecbfa",
+      "source": "investing_id",
+      "title": "Bank Dunia tunjuk David Vaillant sebagai CFO dan direktur pelaksana",
+      "url": "https://id.investing.com/news/general-news/bank-dunia-tunjuk-david-vaillant-sebagai-cfo-dan-direktur-pelaksana-93CH-3089990",
+      "publishedAt": null,
+      "image": "https://content-media.investing.com/news/1200_1_800x533_L_1783516233.jpg",
+      "category": "business",
+      "topics": []
+    },
+    {
+      "id": "21d85c173f20fa489d3b",
+      "source": "investing_id",
+      "title": "Universal Quantum raih $100 juta untuk pengembangan komputer kuantum",
+      "url": "https://id.investing.com/news/stock-market-news/universal-quantum-raih-100-juta-untuk-pengembangan-komputer-kuantum-93CH-3089989",
+      "publishedAt": null,
+      "image": "https://content-media.investing.com/news/Microsoft_2_M_1440048702.jpg",
+      "category": "markets",
+      "topics": []
+    },
+    {
+      "id": "3b9f4ad0e3896f961fd9",
+      "source": "investing_id",
+      "title": "Futures emas lebih tinggi pada masa dagang Asia",
+      "url": "https://id.investing.com/news/commodities-news/futures-emas-lebih-tinggi-pada-masa-dagang-asia-3089988",
+      "publishedAt": null,
+      "image": "https://content-media.investing.com/news/LYNXMPEA5T0CX_M.jpg",
+      "category": "markets",
       "topics": []
     }
   ]
