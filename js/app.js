@@ -3303,14 +3303,14 @@
           for (const portal of portals) {
             const url = new URL(portal.url);
             const domains = [].concat(publisherDomains[portal.id] || []);
-            if (!/^[a-z][a-z0-9_]{0,63}$/.test(portal.id) || typeof portal.name !== 'string' || url.protocol !== 'https:' || url.username || url.password || (domains.length && !domains.some(domain => url.hostname === domain || url.hostname.endsWith('.' + domain)))) throw new Error('Invalid regional publisher');
+            if (!/^[a-z][a-z0-9_]{0,63}$/.test(portal.id) || typeof portal.name !== 'string' || (portal.country && !kalCountryCodes.includes(portal.country)) || url.protocol !== 'https:' || url.username || url.password || (domains.length && !domains.some(domain => url.hostname === domain || url.hostname.endsWith('.' + domain)))) throw new Error('Invalid regional publisher');
           }
         }
         for (const [country, portals] of Object.entries(data)) {
           NEWS_REGIONS[country] = portals;
           for (const portal of portals) {
             if (!publisherDomains[portal.id]) publisherDomains[portal.id] = new URL(portal.url).hostname.replace(/^www\./, '');
-            if (kalCountryCodes.includes(country) && !publisherCountries[portal.id]) publisherCountries[portal.id] = country;
+            if (!publisherCountries[portal.id] && kalCountryCodes.includes(portal.country || country)) publisherCountries[portal.id] = portal.country || country;
           }
         }
         NEWS_REGIONS.UK = NEWS_REGIONS.GB;

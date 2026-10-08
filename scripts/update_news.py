@@ -6,6 +6,7 @@ import hashlib
 import gzip
 import io
 import html
+import http.client
 from html.parser import HTMLParser
 import json
 from pathlib import Path
@@ -65,7 +66,7 @@ for country, portals in REGIONAL_NEWS_SOURCES.items():
         if any(source['id'] == portal['id'] for source in SOURCES):
             continue
         domain = urllib.parse.urlsplit(portal['url']).hostname.removeprefix('www.')
-        SOURCES.append({**portal, 'country': country, 'domain': domain, 'kind': portal.get('kind', 'rss' if portal.get('feed') else 'external')})
+        SOURCES.append({**portal, 'country': portal.get('country', country), 'domain': domain, 'kind': portal.get('kind', 'rss' if portal.get('feed') else 'external')})
 SIGNALS = re.compile(r"\b(?:buy on (?:dip|pullback)|sell on (?:rally|bounce)|stocks? to buy|stock picks?|trading signals?|price targets?|target harga|sinyal trading|rekomendasi (?:beli|jual)|buy now|sell now|support (?:dan |and )?resistance|rekomendasi saham)\b", re.I)
 IMAGE_DOMAINS = ('investing.com', 'cnbcfm.com', 'kontan.co.id', 'reuters.com', 'aljazeera.com', 'bloomberg.com', 'bwbx.io', 'pluang.com', 'kompas.com', 'detik.net.id', 'kemenkeu.go.id', 'cnnindonesia.com', 'bisnis.com', 'sindonews.com', 'apnews.com', 'bbc.co.uk', 'bbci.co.uk', 'wsj.net', 'guim.co.uk', 'ft.com', 'dw.com', 'nrk.no', 'dr.dk', 'yle.fi', 'yleisradio.fi', 'irozhlas.cz', 'hotnews.ro', 'telex.hu', 'rte.ie', 'orf.at')
 
@@ -92,11 +93,11 @@ def category_for(url, title, tag=''):
     return 'other'
 
 
-def topics_for(title):
-    return [topic for topic, pattern in [
-        ('fed', r'\b(?:the fed|federal reserve|fomc|fedwatch|fed funds|powell|bank sentral (?:as|amerika))\b'),
+def topics_for(title, url='', source_topics=()):
+    return list(dict.fromkeys([*source_topics, *[topic for topic, pattern in [
+        ('fed', r"\b(?:the fed|federal reserve|fomc|fedwatch|fed funds|fed(?:['’]s|[- ]s)?[- ]+(?:waller|powell|bowman|governor|officials?|chair|signals?|rate|hikes?|cuts?)|powell|bank sentral (?:as|amerika))\b"),
         ('politics', r'\b(?:trump|biden|prabowo|presiden(?:t)?|politic\w*|politik|pemilu|election\w*|parliament|parlemen|kongres|congress|senat\w*|pemerintah|government|dpr|tariff\w*|tarif)\b'),
-    ] if re.search(pattern, title, re.I)]
+    ] if re.search(pattern, title + ' ' + urllib.parse.unquote(urllib.parse.urlsplit(url).path).replace('-', ' '), re.I)]]))
 
 
 def image_url(value):
@@ -266,7 +267,7 @@ def parse(data, source):
             continue
         seen.add(identity)
         category = source.get('category') or category_for(link, title, row.get('tag', ''))
-        topics = topics_for(title + ' ' + row.get('tag', ''))
+        topics = topics_for(title + ' ' + row.get('tag', ''), link, source.get('topics', ()))
         if category == 'politics' and 'politics' not in topics:
             topics.append('politics')
         items.append({"id": hashlib.sha256((source['id'] + str(identity)).encode()).hexdigest()[:20], "source": source["id"], "title": title, "url": link, "publishedAt": published, 'image': image_url(row.get('image')), 'category': category, 'topics':topics})
@@ -298,7 +299,13 @@ def collect_feed(source):
         request = urllib.request.Request(source["feed"], headers={"User-Agent": "JournalingTrade/1.0 (public headline reader)", "Accept": "application/rss+xml, application/xml, text/html"})
         with urllib.request.urlopen(request, timeout=20) as response:
             limit = 32_000_000 if source['kind'] == 'json' else 5_000_000
-            data = response.read(limit + 1)
+            try:
+                data = response.read(limit + 1)
+            except http.client.IncompleteRead as error:
+                if source['kind'] != 'html':
+                    raise
+                # HTML collection accepts only complete article anchors from an interrupted stream.
+                data = error.partial
         if len(data) > limit:
             raise ValueError("Response too large")
         items = parse(data, source)
@@ -343,6 +350,7 @@ def article_identity(item):
 
 def merge_items(previous, incoming):
     domains = {source['id']: source.get('domains', source['domain']) for source in SOURCES}
+    source_topics = {source['id']: source.get('topics', []) for source in SOURCES}
     merged, headlines = {}, {}
     # ponytail: keep the complete headline archive in one feed; split by month if download size becomes a problem.
     for item in [*previous, *incoming]:
@@ -357,6 +365,7 @@ def merge_items(previous, incoming):
             headlines[headline] = key
         old = merged.get(key, {})
         row = {**old, **item}
+        row['topics'] = topics_for(row['title'], row['url'], [*old.get('topics', []), *item.get('topics', []), *source_topics[item['source']]])
         for field in ('image', 'publishedAt'):
             if not row.get(field) and old.get(field):
                 row[field] = old[field]

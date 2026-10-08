@@ -26,9 +26,13 @@ const set = code => vm.runInContext(code, ctx);
   assert.equal(ctx.isNewsFounder(), false, 'Cached/local founder email granted access');
   assert.equal(ctx.canReadNews(), false);
   ctx.registerRegionalSources(registry);
-  assert.equal(Object.values(registry).flat().length, 565);
+  assert.equal(Object.values(registry).flat().length, 571);
+  for (const id of ['federal_reserve','stocktwits','barrons','yahoo_finance']) {
+    assert.equal(vm.runInContext(`publisherCountries['${id}']`, ctx), 'US');
+  }
+  assert.equal(vm.runInContext('publisherCountries.economic_times', ctx), 'IN');
   for (const [country, portals] of Object.entries(registry)) {
-    assert.equal(portals.length, country === 'GLOBAL' ? 16 : country === 'DIRECTORIES' ? 5 : country === 'CN' ? 10 : country === 'TW' ? 12 : ['ID','SG'].includes(country) ? 9 : 8);
+    assert.equal(portals.length, country === 'GLOBAL' ? 22 : country === 'DIRECTORIES' ? 5 : country === 'CN' ? 10 : country === 'TW' ? 12 : ['ID','SG'].includes(country) ? 9 : 8);
     if (['global_founder','DEFAULT','GLOBAL','DIRECTORIES'].includes(country)) continue;
     set(`newsCountry = '${country}'`);
     assert.ok(portals.every(portal => ctx.newsSourceInRegion(portal.id)));
@@ -193,5 +197,5 @@ const set = code => vm.runInContext(code, ctx);
   assert.equal(nodes.get('news-region').disabled, true);
   nodes.get('news-region').value='global_founder';ctx.changeNewsRegion();
   assert.notEqual(set('activeNewsRegion()'),'global_founder');
-  console.log('565 regional/global/directory entries, founder persistence, DEFAULT/Tier 1 scopes, regular region lock, verified founder and logout checks passed');
+  console.log('571 regional/global/directory entries, founder persistence, DEFAULT/Tier 1 scopes, regular region lock, verified founder and logout checks passed');
 })().catch(error=>{console.error(error);process.exitCode=1});

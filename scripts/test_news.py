@@ -168,9 +168,9 @@ for code in ("CA","MX","AR","CO","CL","PE","AU","NZ","CR","UY"):
     assert all(row["id"].startswith(code.lower()+"_") for row in news.REGIONAL_NEWS_SOURCES[code])
 print("Americas and Oceania: all 80 official portal mappings passed")
 
-assert len(news.REGIONAL_NEWS_SOURCES["GLOBAL"]) == 16
-assert len({row["id"] for row in news.REGIONAL_NEWS_SOURCES["GLOBAL"]}) == 16
-assert {row["region"] for row in news.REGIONAL_NEWS_SOURCES["GLOBAL"]} == {"Global/US","Global/UK"}
+assert len(news.REGIONAL_NEWS_SOURCES["GLOBAL"]) == 22
+assert len({row["id"] for row in news.REGIONAL_NEWS_SOURCES["GLOBAL"]}) == 22
+assert {row["region"] for row in news.REGIONAL_NEWS_SOURCES["GLOBAL"]} == {"Global/US","Global/UK","Global/International"}
 assert "us_pbs" in {row["id"] for row in news.SOURCES}
 print("Global publisher list and shared-source deduplication passed")
 
@@ -208,3 +208,29 @@ assert len(news.parse('<rss><channel><item><title>新しい経済データを公
 print('Compressed-feed size limit and short multilingual publisher headlines passed')
 
 assert news.clean("Retail\u2122 headline") == "Retail headline"
+
+for headline in ["Fed's Waller sees additional rate hikes", "Fed’s Waller anticipates more rate hikes", "Fed Governor Waller speaks", "Fed signals a possible rate hike"]:
+    assert 'fed' in news.topics_for(headline), headline
+assert 'fed' in news.topics_for('Economic outlook', 'https://stocktwits.com/news-articles/fed-s-waller-speaks/abc')
+for headline in ['FedEx reports earnings', 'Federer wins tennis match', 'Waller paints a portrait']:
+    assert 'fed' not in news.topics_for(headline), headline
+fed_source = next(source for source in news.SOURCES if source['id'] == 'federal_reserve')
+assert fed_source['topics'] == ['fed'] and len(fed_source['feeds']) == 2
+fed_row = {'source':'federal_reserve', 'title':'The Signaling Value of Economic Projections', 'url':'https://www.federalreserve.gov/newsevents/speech/waller20261008a.htm', 'topics':[], 'publishedAt':now.isoformat()}
+assert 'fed' in news.merge_items([fed_row], [])[0]['topics']
+old_row = {**fed_row, 'source':'stocktwits', 'url':'https://stocktwits.com/news-articles/fed-s-waller-speaks/abc'}
+assert 'fed' in news.merge_items([old_row], [])[0]['topics']
+print('Fed headline variants, URL context, official source and archived topic repair passed')
+
+from unittest.mock import patch
+import http.client
+biggo = next(source for source in news.SOURCES if source['id'] == 'biggo_finance')
+class InterruptedResponse:
+    def __enter__(self): return self
+    def __exit__(self, *args): pass
+    def read(self, limit):
+        raise http.client.IncompleteRead(b'<a href="/news/valid">Economic data released by the government</a><a href="/news/truncated">Broken headline', 100)
+with patch('urllib.request.urlopen', return_value=InterruptedResponse()):
+    state, rows = news.collect(biggo)
+assert state['status'] == 'ok' and len(rows) == 1 and rows[0]['url'] == 'https://finance.biggo.com/news/valid'
+print('Interrupted HTML stream retains complete publisher anchors and discards truncated headlines')

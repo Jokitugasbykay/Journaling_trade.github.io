@@ -267,7 +267,13 @@
     {"id":"gb_telegraph","name":"The Telegraph","url":"https://www.telegraph.co.uk","tag":"Global","region":"Global/UK"},
     {"id":"gb_times","name":"The Times UK","url":"https://www.thetimes.com","tag":"Global","region":"Global/UK","feed":"https://www.thetimes.com/sitemaps/news","kind":"sitemap"},
     {"id":"gb_sky","name":"Sky News","url":"https://news.sky.com","tag":"Global","feed":"https://feeds.skynews.com/feeds/rss/home.xml","region":"Global/UK"},
-    {"id":"gb_independent","name":"The Independent","url":"https://www.independent.co.uk","tag":"Global","region":"Global/UK"}
+    {"id":"gb_independent","name":"The Independent","url":"https://www.independent.co.uk","tag":"Global","region":"Global/UK"},
+    {"id":"economic_times","name":"The Economic Times","url":"https://economictimes.indiatimes.com/","region":"Global/International","country":"IN","feed":"https://economictimes.indiatimes.com/rssfeeds/13352306.cms"},
+    {"id":"stocktwits","name":"Stocktwits","url":"https://stocktwits.com/","region":"Global/US","country":"US","feed":"https://stocktwits.com/sitemap/rss_feed.xml"},
+    {"id":"federal_reserve","name":"Federal Reserve","url":"https://www.federalreserve.gov/","region":"Global/US","country":"US","kind":"rss","topics":["fed"],"feeds":[{"url":"https://www.federalreserve.gov/feeds/speeches.xml"},{"url":"https://www.federalreserve.gov/feeds/press_all.xml"}]},
+    {"id":"barrons","name":"Barron's","url":"https://www.barrons.com/","region":"Global/US","country":"US"},
+    {"id":"biggo_finance","name":"BigGo Finance","url":"https://finance.biggo.com/","region":"Global/International","kind":"html","feed":"https://finance.biggo.com/","article_pattern":"/news/[^/?#]+$"},
+    {"id":"yahoo_finance","name":"Yahoo Finance","url":"https://finance.yahoo.com/","region":"Global/US","country":"US","kind":"html","feed":"https://finance.yahoo.com/","article_pattern":"/(?:news|(?:economy|markets|technology|small-business|real-estate)/[^?#]*?(?:articles?|live))/[^/?#]+\\.html$"}
   ],
   "DE": [
     {"id":"dw","name":"Deutsche Welle (DW)","url":"https://www.dw.com"},
