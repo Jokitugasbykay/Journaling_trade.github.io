@@ -3142,7 +3142,7 @@ body.auth-page .main-wrap { max-width:none; width:100%; margin:0; padding:0; }
 #market-ticker { height: 56px; overflow: hidden; color-scheme: dark; }
 
 
-#market-ticker tv-ticker-tape { display: block; height: 88px; }
+#market-ticker tv-ticker-tape { display: block; height: 88px; --tv-widget-border-color: transparent; }
 
 .fomc-panel { margin: 0 0 32px; }
 .fomc-hero { display: grid; grid-template-columns: 1.2fr 1fr; gap: 28px; padding: 28px; margin-bottom: 26px; background: #11151c; border: 1px solid var(--line); border-radius: 12px; }
