@@ -607,7 +607,9 @@
     {"id":"cn_p5","name":"South China Morning Post","url":"https://www.scmp.com"},
     {"id":"cn_p6","name":"CCTV","url":"https://www.cctv.com"},
     {"id":"cn_p7","name":"English News CN","url":"https://english.news.cn"},
-    {"id":"cn_p8","name":"The Paper","url":"https://www.thepaper.cn"}
+    {"id":"cn_p8","name":"The Paper","url":"https://www.thepaper.cn"},
+    {"id":"cn_p9","name":"People's Daily","url":"https://peoplesdaily.pdnews.cn"},
+    {"id":"cn_p10","name":"Huanqiu","url":"https://www.huanqiu.com"}
   ],
   "PK": [
     {"id":"pk_p1","name":"Dawn","url":"https://www.dawn.com","feed":"https://www.dawn.com/feeds/home"},

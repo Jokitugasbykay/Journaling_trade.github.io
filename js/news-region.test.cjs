@@ -26,9 +26,9 @@ const set = code => vm.runInContext(code, ctx);
   assert.equal(ctx.isNewsFounder(), false, 'Cached/local founder email granted access');
   assert.equal(ctx.canReadNews(), false);
   ctx.registerRegionalSources(registry);
-  assert.equal(Object.values(registry).flat().length, 559);
+  assert.equal(Object.values(registry).flat().length, 561);
   for (const [country, portals] of Object.entries(registry)) {
-    assert.equal(portals.length, country === 'GLOBAL' ? 16 : country === 'DIRECTORIES' ? 5 : ['ID','SG'].includes(country) ? 9 : 8);
+    assert.equal(portals.length, country === 'GLOBAL' ? 16 : country === 'DIRECTORIES' ? 5 : country === 'CN' ? 10 : ['ID','SG'].includes(country) ? 9 : 8);
     if (['global_founder','DEFAULT','GLOBAL','DIRECTORIES'].includes(country)) continue;
     set(`newsCountry = '${country}'`);
     assert.ok(portals.every(portal => ctx.newsSourceInRegion(portal.id)));
@@ -79,6 +79,18 @@ const set = code => vm.runInContext(code, ctx);
     assert.ok(registry.DIRECTORIES.every(portal=>ctx.newsSourceInRegion(portal.id)));
   }
   set("newsCountry = 'ID'; newsRegionMode = 'auto'");
+  assert.equal(registry.CN.length,10);
+  assert.equal(registry.CN[8].url,'https://peoplesdaily.pdnews.cn');
+  assert.equal(registry.CN[9].url,'https://www.huanqiu.com');
+  for (const country of ['CN','HK','TW','ID','SG','US','GB']) {
+    set(`newsCountry = '${country}'; newsRegionMode = 'auto'`);
+    nodes.get('news-source').value='ASIA';
+    for (const portal of registry.CN) assert.equal(ctx.newsSourceInRegion(portal.id),country==='CN',country+' China source access');
+    nodes.get('news-source').value='';
+    nodes.get('news-region').value='CN'; ctx.changeNewsRegion();
+    assert.equal(set('activeNewsRegion()')==='CN',country==='CN','Manual region bypass from '+country);
+  }
+  set("newsCountry = 'ID'; newsRegionMode = 'auto'");
   const directoryOptions=ctx.newsSourceOptions([...registry.GLOBAL,...registry.ID,...registry.DIRECTORIES]);
   assert.ok(directoryOptions.indexOf('International Directories') < directoryOptions.indexOf('label="Global News"'));
   assert.equal(ctx.newsSourceInRegion('aljazeera'),false);
@@ -120,6 +132,8 @@ const set = code => vm.runInContext(code, ctx);
   assert.equal(nodes.get('news-founder-badge').hidden, false);
   assert.equal(nodes.get('news-region').disabled, false);
   assert.equal(set('activeNewsRegion()'),'');
+  assert.ok(registry.CN.every(portal=>ctx.newsSourceInRegion(portal.id)), 'Founder cannot access all ten China sources');
+
   assert.ok(registry.global_founder.every(portal => ctx.newsSourceInRegion(portal.id)));
   assert.equal(ctx.newsSourceInRegion('no_nrk'),true);
   set("newsRegionMode = 'manual'; newsRegion = ''");
@@ -177,5 +191,5 @@ const set = code => vm.runInContext(code, ctx);
   assert.equal(nodes.get('news-region').disabled, true);
   nodes.get('news-region').value='global_founder';ctx.changeNewsRegion();
   assert.notEqual(set('activeNewsRegion()'),'global_founder');
-  console.log('559 regional/global/directory entries, founder persistence, DEFAULT/Tier 1 scopes, regular region lock, verified founder and logout checks passed');
+  console.log('561 regional/global/directory entries, founder persistence, DEFAULT/Tier 1 scopes, regular region lock, verified founder and logout checks passed');
 })().catch(error=>{console.error(error);process.exitCode=1});
