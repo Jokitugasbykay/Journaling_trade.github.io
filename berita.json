@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "checkedAt": "2026-10-08T07:17:01.585513+00:00",
+  "checkedAt": "2026-10-08T07:22:41.964887+00:00",
   "intervalMinutes": 5,
   "sources": [
     {
@@ -9,7 +9,7 @@
       "url": "https://www.investing.com/",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-08T07:16:50.373041+00:00"
+      "checkedAt": "2026-10-08T07:22:26.065912+00:00"
     },
     {
       "id": "cnbc",
@@ -17,7 +17,7 @@
       "url": "https://www.cnbc.com/markets/",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-08T07:16:50.377189+00:00"
+      "checkedAt": "2026-10-08T07:22:26.063134+00:00"
     },
     {
       "id": "kontan",
@@ -25,7 +25,7 @@
       "url": "https://www.kontan.co.id/",
       "kind": "html",
       "status": "ok",
-      "checkedAt": "2026-10-08T07:16:51.733981+00:00"
+      "checkedAt": "2026-10-08T07:22:26.969653+00:00"
     },
     {
       "id": "reuters",
@@ -33,7 +33,7 @@
       "url": "https://www.reuters.com/",
       "kind": "sitemap",
       "status": "ok",
-      "checkedAt": "2026-10-08T07:16:50.716444+00:00"
+      "checkedAt": "2026-10-08T07:22:26.086451+00:00"
     },
     {
       "id": "aljazeera",
@@ -41,7 +41,7 @@
       "url": "https://www.aljazeera.com/",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-08T07:16:50.401697+00:00"
+      "checkedAt": "2026-10-08T07:22:26.055486+00:00"
     },
     {
       "id": "bloomberg",
@@ -49,7 +49,7 @@
       "url": "https://www.bloomberg.com/asia",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-08T07:16:50.660375+00:00"
+      "checkedAt": "2026-10-08T07:22:26.342429+00:00"
     },
     {
       "id": "fnc",
@@ -57,7 +57,7 @@
       "url": "https://tradewithfnc.com/",
       "kind": "json",
       "status": "ok",
-      "checkedAt": "2026-10-08T07:16:50.712215+00:00"
+      "checkedAt": "2026-10-08T07:22:26.701387+00:00"
     },
     {
       "id": "investing_id",
@@ -65,7 +65,7 @@
       "url": "https://id.investing.com/news",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-08T07:16:50.605307+00:00"
+      "checkedAt": "2026-10-08T07:22:26.335748+00:00"
     },
     {
       "id": "pluang",
@@ -73,15 +73,15 @@
       "url": "https://pluang.com/news-feed",
       "kind": "html",
       "status": "ok",
-      "checkedAt": "2026-10-08T07:16:50.593490+00:00"
+      "checkedAt": "2026-10-08T07:22:26.474920+00:00"
     },
     {
       "id": "kompas",
       "name": "Kompas Money",
       "url": "https://money.kompas.com/",
       "kind": "html",
-      "status": "stale",
-      "checkedAt": "2026-10-08T07:09:46.067196+00:00"
+      "status": "ok",
+      "checkedAt": "2026-10-08T07:22:26.942780+00:00"
     },
     {
       "id": "detik",
@@ -89,7 +89,7 @@
       "url": "https://finance.detik.com/",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-08T07:16:52.081088+00:00"
+      "checkedAt": "2026-10-08T07:22:27.500081+00:00"
     },
     {
       "id": "kemenkeu",
@@ -121,7 +121,7 @@
       "url": "https://ekbis.sindonews.com/",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-08T07:16:51.046022+00:00"
+      "checkedAt": "2026-10-08T07:22:26.788938+00:00"
     },
     {
       "id": "fedwatch",
@@ -140,12 +140,134 @@
   ],
   "items": [
     {
+      "id": "d12191f4a5f0352aae6f",
+      "source": "reuters",
+      "title": "Greece plans 10% cryptocurrency capital gains tax",
+      "url": "https://www.reuters.com/business/finance/greece-plans-10-cryptocurrency-capital-gains-tax-2026-10-08/",
+      "publishedAt": "2026-10-08T07:19:34.152000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/WPFUDHGQGZMHZNVHDWEK3CYV2Y.jpg?auth=5f07bcf87960d83ba7dca2633640e72260cfb7cd34aba4cf8bc9d2225146c652&smart=true&width=1920",
+      "category": "markets",
+      "topics": []
+    },
+    {
+      "id": "b72d91a89e458ec60da9",
+      "source": "kompas",
+      "title": "The Fed Beri Sinyal Suku Bunga Bisa Naik Lagi Sebelum Akhir 2026",
+      "url": "https://money.kompas.com/read/2026/10/08/141846926/the-fed-beri-sinyal-suku-bunga-bisa-naik-lagi-sebelum-akhir-2026",
+      "publishedAt": "2026-10-08T07:18:46+00:00",
+      "image": "https://asset.kompas.com/crops/Gz2ljEcvIS0aH5iQ65L8enOju_4=/508x0:2549x2041/750x500/data/photo/2025/12/11/693a6659934ba.jpg",
+      "category": "markets",
+      "topics": [
+        "fed"
+      ]
+    },
+    {
+      "id": "0ff077f1d8977051e492",
+      "source": "detik",
+      "title": "Ternyata Lebih dari 100 BUMN Sudah Dilepas ke Swasta",
+      "url": "https://finance.detik.com/berita-ekonomi-bisnis/d-8698009/ternyata-lebih-dari-100-bumn-sudah-dilepas-ke-swasta",
+      "publishedAt": "2026-10-08T07:17:51+00:00",
+      "image": "https://akcdn.detik.net.id/community/media/visual/2020/07/02/logo-baru-kementerian-bumn-1_169.jpeg?w=360&q=90",
+      "category": "local",
+      "topics": []
+    },
+    {
+      "id": "11242d3283bbf46e7d0a",
+      "source": "reuters",
+      "title": "Thai central bank in no rush to raise rates, governor says",
+      "url": "https://www.reuters.com/world/asia-pacific/thai-central-bank-no-rush-raise-rates-governor-says-2026-10-08/",
+      "publishedAt": "2026-10-08T07:17:44.425000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/YR5OREWY7NORLIEAXAGCDQE7VM.jpg?auth=af80e11640389f3747c8b35959fcf99064cc59b2f857c5c291197caa33415cdc&smart=true&width=1920",
+      "category": "markets",
+      "topics": []
+    },
+    {
+      "id": "a8905f624b7c8ec4170d",
+      "source": "kompas",
+      "title": "BPJPH: Industri Halal Indonesia Sumbang Rp 6.400 Triliun untuk Negara",
+      "url": "https://money.kompas.com/read/2026/10/08/141729326/bpjph-industri-halal-indonesia-sumbang-rp-6400-triliun-untuk-negara",
+      "publishedAt": "2026-10-08T07:17:29+00:00",
+      "image": "https://asset.kompas.com/crops/rZdVQlw9b54Y2Z_B6sxhbmlQTfk=/0x0:0x0/750x500/data/photo/2026/10/08/6ac7405bb4742.jpg",
+      "category": "local",
+      "topics": []
+    },
+    {
+      "id": "cb47ca0570364b1c36f4",
+      "source": "reuters",
+      "title": "What do we know about plague institute lab worker's death in Russia?",
+      "url": "https://www.reuters.com/business/healthcare-pharmaceuticals/what-do-we-know-about-plague-institute-lab-workers-death-russia-2026-10-06/",
+      "publishedAt": "2026-10-08T07:17:28.892000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/SCK6KN42XVPWNAFIS7UCJ2RLHA.jpg?auth=f4900c32c9bf314fb9dd58c73c5da6f9a08416ecf129abc05f1f7c2ee812f331&smart=true&width=1920",
+      "category": "business",
+      "topics": []
+    },
+    {
+      "id": "115bf99cd4e952b05828",
+      "source": "reuters",
+      "title": "Britain's Tesco raises profit outlook floor after first-half rise",
+      "url": "https://www.reuters.com/business/britains-tesco-raises-profit-outlook-floor-after-first-half-rise-2026-10-08/",
+      "publishedAt": "2026-10-08T07:17:25.721000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/IF5H3GSRDFNL3PBAWI2J5C4PKE.jpg?auth=d83f4e17c97966d7953860575662c9fbf20fc44aad6682b2065226283c920cbc&smart=true&width=1920",
+      "category": "business",
+      "topics": []
+    },
+    {
+      "id": "712ddab6bf1b8bc456a4",
+      "source": "reuters",
+      "title": "Wallabies streak faces Eden Park reality check in first Bledisloe clash",
+      "url": "https://www.reuters.com/sports/wallabies-streak-faces-eden-park-reality-check-first-bledisloe-clash-2026-10-08/",
+      "publishedAt": "2026-10-08T07:17:03.476000+00:00",
+      "image": null,
+      "category": "sport",
+      "topics": []
+    },
+    {
+      "id": "1430695a62fa52fef2a9",
+      "source": "reuters",
+      "title": "Seven & i operating profit falls 11% in second quarter",
+      "url": "https://www.reuters.com/world/asia-pacific/seven-i-operating-profit-falls-11-second-quarter-2026-10-08/",
+      "publishedAt": "2026-10-08T07:16:23.740000+00:00",
+      "image": null,
+      "category": "world",
+      "topics": []
+    },
+    {
       "id": "0cd1ba5b356ecd803f45",
       "source": "reuters",
       "title": "British diplomats to remain at renamed consulate in Jerusalem",
       "url": "https://www.reuters.com/world/middle-east/britain-removes-east-jerusalem-consulate-signage-israeli-shutdown-order-expires-2026-10-08/",
-      "publishedAt": "2026-10-08T07:14:02.047000+00:00",
+      "publishedAt": "2026-10-08T07:15:35.466000+00:00",
       "image": "https://www.reuters.com/resizer/v2/QI4UDDQJEZI45AQK7BTSYZTGBY.jpg?auth=f183e4ed3ea08709e08ec132530f42934ba0f63ea990de1854bf1dd1ad3b672f&smart=true&width=1920",
+      "category": "world",
+      "topics": []
+    },
+    {
+      "id": "4319e63755addaf1dd84",
+      "source": "bloomberg",
+      "title": "France’s Debt Is Now Riskier Than 38% of Nation’s Company Bonds",
+      "url": "https://www.bloomberg.com/news/articles/2026-10-08/france-s-debt-is-now-riskier-than-38-of-nation-s-company-bonds",
+      "publishedAt": "2026-10-08T07:15:35+00:00",
+      "image": null,
+      "category": "markets",
+      "topics": []
+    },
+    {
+      "id": "10b73971c52e9bc5a4fe",
+      "source": "reuters",
+      "title": "Spanish woman whose eviction ignited housing protests dies at 87",
+      "url": "https://www.reuters.com/world/evicted-spanish-octogenarian-maricarmen-abascal-heart-spains-housing-protests-2026-10-07/",
+      "publishedAt": "2026-10-08T07:15:30.249000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/ORWZUTGM3BPNHAT6UZZ5T2PDHE.jpg?auth=3c50039e27cf7260035fb6ee99b2de77a39b04c60857ea579e7122227abe36d4&smart=true&width=1920",
+      "category": "world",
+      "topics": []
+    },
+    {
+      "id": "c84ef87c5bcb6a71c89b",
+      "source": "reuters",
+      "title": "Deloitte fined £6.05 million in UK over audits of transport operator Go-Ahead Group",
+      "url": "https://www.reuters.com/world/uk/deloitte-fined-605-million-uk-over-audits-transport-operator-go-ahead-group-2026-10-08/",
+      "publishedAt": "2026-10-08T07:15:01.746000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/Z2RKY26NAFPGDKNDROUJAQF6BE.jpg?auth=dfb2530f9a356e1454990c8f6fdfcde2ef7d274adaa1e5932683c0aa89f3e9b0&smart=true&width=1920",
       "category": "world",
       "topics": []
     },
@@ -160,13 +282,23 @@
       "topics": []
     },
     {
-      "id": "c84ef87c5bcb6a71c89b",
-      "source": "reuters",
-      "title": "Deloitte fined £6.05 million in UK over audits of transport operator Go-Ahead Group",
-      "url": "https://www.reuters.com/world/uk/deloitte-fined-605-million-uk-over-audits-transport-operator-go-ahead-group-2026-10-08/",
-      "publishedAt": "2026-10-08T07:12:54.335000+00:00",
-      "image": "https://www.reuters.com/resizer/v2/Z2RKY26NAFPGDKNDROUJAQF6BE.jpg?auth=dfb2530f9a356e1454990c8f6fdfcde2ef7d274adaa1e5932683c0aa89f3e9b0&smart=true&width=1920",
-      "category": "world",
+      "id": "30451057677545a6d10e",
+      "source": "aljazeera",
+      "title": "Cristiano Ronaldo pays tribute to Lionel Messi after Argentina farewell",
+      "url": "https://www.aljazeera.com/sports/2026/10/8/cristiano-ronaldo-pays-tribute-to-lionel-messi-after-argentina-farewell?traffic_source=rss",
+      "publishedAt": "2026-10-08T07:12:46+00:00",
+      "image": "https://www.aljazeera.com/wp-content/uploads/2026/10/AP25035601407012-1791439343.jpg?resize=1920%2C1440",
+      "category": "sport",
+      "topics": []
+    },
+    {
+      "id": "1e706104908566ca6c43",
+      "source": "kompas",
+      "title": "JNE Kantongi Sertifikasi Halal, Penanganan Barang Non-Halal Dipisah",
+      "url": "https://money.kompas.com/read/2026/10/08/141115726/jne-kantongi-sertifikasi-halal-penanganan-barang-non-halal-dipisah",
+      "publishedAt": "2026-10-08T07:11:15+00:00",
+      "image": "https://asset.kompas.com/crops/aviKuw6Xx5bfGjNpWzy9jnLvh_o=/0x0:0x0/750x500/data/photo/2026/10/08/6ac739ca84eb8.jpg",
+      "category": "other",
       "topics": []
     },
     {
@@ -247,16 +379,6 @@
       "publishedAt": "2026-10-08T07:04:34+00:00",
       "image": "https://asset.kompas.com/crops/8v-TVFQUoZx45HpleM-oaDExZFE=/0x0:0x0/750x500/data/photo/2026/10/08/6ac73fc216bfe.jpg",
       "category": "other",
-      "topics": []
-    },
-    {
-      "id": "10b73971c52e9bc5a4fe",
-      "source": "reuters",
-      "title": "Spanish woman whose eviction ignited housing protests dies at 87",
-      "url": "https://www.reuters.com/world/evicted-spanish-octogenarian-maricarmen-abascal-heart-spains-housing-protests-2026-10-07/",
-      "publishedAt": "2026-10-08T07:04:25.632000+00:00",
-      "image": "https://www.reuters.com/resizer/v2/ORWZUTGM3BPNHAT6UZZ5T2PDHE.jpg?auth=3c50039e27cf7260035fb6ee99b2de77a39b04c60857ea579e7122227abe36d4&smart=true&width=1920",
-      "category": "world",
       "topics": []
     },
     {
@@ -381,6 +503,16 @@
       "publishedAt": "2026-10-08T06:56:02+00:00",
       "image": null,
       "category": "markets",
+      "topics": []
+    },
+    {
+      "id": "1769f0857fc830eae111",
+      "source": "bloomberg",
+      "title": "Nomura, Daiwa CEOs Flag Risk AI May Spoil Stock Market Rally",
+      "url": "https://www.bloomberg.com/news/articles/2026-10-08/nomura-daiwa-ceos-flag-risk-ai-may-spoil-stock-market-rally",
+      "publishedAt": "2026-10-08T06:55:32+00:00",
+      "image": null,
+      "category": "technology",
       "topics": []
     },
     {
@@ -695,16 +827,6 @@
       "publishedAt": "2026-10-08T06:34:46.947000+00:00",
       "image": "https://www.reuters.com/resizer/v2/7LXH3SAEQNMP5MQBQJOZKFUPQE.jpg?auth=98ef70ecccc73d00715306bd7ee2d4c6fbaa5a433edb58ae932593c7aaef8ea2&smart=true&width=1920",
       "category": "sport",
-      "topics": []
-    },
-    {
-      "id": "115bf99cd4e952b05828",
-      "source": "reuters",
-      "title": "Britain's Tesco raises profit outlook floor after first-half rise",
-      "url": "https://www.reuters.com/business/britains-tesco-raises-profit-outlook-floor-after-first-half-rise-2026-10-08/",
-      "publishedAt": "2026-10-08T06:34:02.357000+00:00",
-      "image": "https://www.reuters.com/resizer/v2/IF5H3GSRDFNL3PBAWI2J5C4PKE.jpg?auth=d83f4e17c97966d7953860575662c9fbf20fc44aad6682b2065226283c920cbc&smart=true&width=1920",
-      "category": "business",
       "topics": []
     },
     {
@@ -1432,7 +1554,7 @@
     {
       "id": "17dbc5c46dd8387581e3",
       "source": "aljazeera",
-      "title": "Signage at UK consulate in East Jerusalem removed as Israel’s deadline over",
+      "title": "UK says East Jerusalem consulate building to remain open as a mission",
       "url": "https://www.aljazeera.com/news/2026/10/8/signage-at-uk-consulate-in-east-jerusalem-removed-as-israels-deadline-over?traffic_source=rss",
       "publishedAt": "2026-10-08T05:06:25+00:00",
       "image": "https://www.aljazeera.com/wp-content/uploads/2026/10/reuters_6ac71dfa-1791434234.jpg?resize=1920%2C1440",
@@ -8556,7 +8678,7 @@
     {
       "id": "3c5ada96495a2f09dfb5",
       "source": "investing",
-      "title": "EPA says it will rescind US policy targeting oil and gas industry methane leaks",
+      "title": "US will rescind policy targeting oil and gas industry methane leaks",
       "url": "https://www.investing.com/news/commodities-news/epa-says-will-soon-act-to-rescind-biden-policy-targeting-methane-leaks-4937368",
       "publishedAt": null,
       "image": "https://content-media.investing.com/news/LYNXMPEM4P1PU_1200_L.jpg",
@@ -11148,7 +11270,7 @@
     {
       "id": "3ecd82384a12bd8a3476",
       "source": "investing",
-      "title": "Hang Seng tests 23,734 support amid bearish bias: Live levels",
+      "title": "Hang Seng tests 23,734 support as bears dominate: Live levels",
       "url": "https://www.investing.com/news/stock-market-news/hang-seng-oversold-at-23876-with-rsi-2796-live-levels-93CH-4930985",
       "publishedAt": null,
       "image": "https://content-media.investing.com/news/LYNXNPEB8506G_M.jpg",
@@ -12628,12 +12750,12 @@
       "topics": []
     },
     {
-      "id": "c281ce4f8fb76c7faf1c",
+      "id": "9ab0cd1ba9af1f0aab53",
       "source": "kontan",
       "title": "Kepercayaan Konsumen Thailand Turun, Banjir dan Biaya Hidup Jadi Beban",
-      "url": "https://internasional.kontan.co.id/news/kepercayaan-konsumen-thailand-turun-banjir-dan-biaya-hidup-jadi-beban?source=home_terbaru",
+      "url": "https://internasional.kontan.co.id/news/kepercayaan-konsumen-thailand-turun-banjir-dan-biaya-hidup-jadi-beban?source=home_headline",
       "publishedAt": null,
-      "image": "https://foto.kontan.co.id/2E3WFzqM1vbTtnzi3GSIcaEM2h0=/smart/2026/10/08/884320157t.jpg",
+      "image": "https://foto.kontan.co.id/N1kRjKA5PWzRjLASvCwBxzhwgpQ=/smart/2026/10/08/884320157p.jpg",
       "category": "other",
       "topics": []
     },
@@ -12906,12 +13028,12 @@
       "topics": []
     },
     {
-      "id": "5d424784236cac3d84ec",
+      "id": "f00293f3fed95f689898",
       "source": "kontan",
       "title": "Opsi Moratorium Smelter Nikel Mencuat, Begini Kata Menteri Bahlil",
-      "url": "https://industri.kontan.co.id/news/opsi-moratorium-smelter-nikel-mencuat-begini-kata-menteri-bahlil?source=home_terbaru",
+      "url": "https://industri.kontan.co.id/news/opsi-moratorium-smelter-nikel-mencuat-begini-kata-menteri-bahlil?source=home_headline",
       "publishedAt": null,
-      "image": "https://foto.kontan.co.id/1ZGX7nS5zFfI_oGGTWgZn4D_BdE=/smart/2025/08/07/737618233t.jpg",
+      "image": "https://foto.kontan.co.id/-bNGmMPKm9yenUnZGx8dcl3TQuY=/smart/2025/08/07/737618233p.jpg",
       "category": "other",
       "topics": []
     },
@@ -13188,12 +13310,12 @@
       "topics": []
     },
     {
-      "id": "772ec8485b294ab6f68b",
+      "id": "9b360ec30b90a9e5ddbb",
       "source": "kontan",
       "title": "Harga Emas Dunia Rebound Tipis, Ketegangan Baru di Timur Tengah Membayangi",
-      "url": "https://momsmoney.kontan.co.id/news/harga-emas-dunia-rebound-tipis-ketegangan-baru-di-timur-tengah-membayangi?source=home_terbaru",
+      "url": "https://momsmoney.kontan.co.id/news/harga-emas-dunia-rebound-tipis-ketegangan-baru-di-timur-tengah-membayangi?source=home_momsmoney",
       "publishedAt": null,
-      "image": "https://foto.kontan.co.id/II0jkbBwr7IqiRXXlAKMqoI2Gy0=/smart/2025/08/14/1790503803t.jpg",
+      "image": "https://foto.kontan.co.id/h5ajW_akmc9HjrTw7RXobsupQZU=/smart/2025/08/14/1790503803p.jpg",
       "category": "markets",
       "topics": []
     },
@@ -13365,7 +13487,7 @@
       "title": "Pusat data Yandex di wilayah Ryazan diserang drone",
       "url": "https://id.investing.com/news/stock-market-news/pusat-data-yandex-di-wilayah-ryazan-diserang-drone-93CH-3090047",
       "publishedAt": null,
-      "image": "https://content-media.investing.com/news/LYNXNPEC0E0NI_M.jpg",
+      "image": "https://content-media.investing.com/news/LYNXNPEB6R0AQ_M.jpg",
       "category": "markets",
       "topics": []
     },
@@ -13375,7 +13497,7 @@
       "title": "Saham Tencent turun saat perusahaan pertimbangkan penjualan obligasi hingga $5 miliar",
       "url": "https://id.investing.com/news/stock-market-news/saham-tencent-turun-saat-perusahaan-pertimbangkan-penjualan-obligasi-hingga-5-miliar-3090042",
       "publishedAt": null,
-      "image": "https://content-media.investing.com/news/LYNXNPEB820J9_M.jpg",
+      "image": "https://content-media.investing.com/news/LYNXNPED4H22G_M.jpg",
       "category": "markets",
       "topics": []
     },
@@ -13460,6 +13582,196 @@
       "topics": [
         "politics"
       ]
+    },
+    {
+      "id": "4b31fbc3bcec5e3f6b98",
+      "source": "investing",
+      "title": "Deloitte fined £6.05 million in UK over audits of transport operator Go-Ahead Group",
+      "url": "https://www.investing.com/news/economy-news/deloitte-fined-605-million-in-uk-over-audits-of-transport-operator-goahead-group-4937997",
+      "publishedAt": null,
+      "image": "https://content-media.investing.com/trkd-images/LYNXMPEM970FE_L.jpg",
+      "category": "business",
+      "topics": []
+    },
+    {
+      "id": "21706bbac1c706d49129",
+      "source": "investing",
+      "title": "Thai central bank in no rush to raise rates, governor says",
+      "url": "https://www.investing.com/news/economy-news/thai-central-bank-in-no-rush-to-raise-rates-governor-says-4937996",
+      "publishedAt": null,
+      "image": "https://content-media.investing.com/trkd-images/LYNXMPEM970FI_L.jpg",
+      "category": "markets",
+      "topics": []
+    },
+    {
+      "id": "fd937edc916fba5d53ee",
+      "source": "investing",
+      "title": "European shares drift to 4-month lows on mega-debt swaps, and French debt woes",
+      "url": "https://www.investing.com/news/stock-market-news/european-shares-drift-to-4month-lows-on-megadebt-swaps-and-french-debt-woes-4937936",
+      "publishedAt": null,
+      "image": "https://content-media.investing.com/news/LYNXNPEF0N0WI_M.jpg",
+      "category": "markets",
+      "topics": []
+    },
+    {
+      "id": "8360a094dcb14eeb5a2b",
+      "source": "investing",
+      "title": "Why is Tesco stock climbing today?",
+      "url": "https://www.investing.com/news/stock-market-news/why-is-tesco-stock-climbing-today-93CH-4937993",
+      "publishedAt": null,
+      "image": "https://content-media.investing.com/news/fa8a2f803ea2ddf92359d55091dcde0a_M.jpg",
+      "category": "markets",
+      "topics": []
+    },
+    {
+      "id": "2dd6ac8acc0bea57f09f",
+      "source": "investing",
+      "title": "JPMorgan downgrades Leidos stock rating on margin concerns",
+      "url": "https://www.investing.com/news/analyst-ratings/jpmorgan-downgrades-leidos-stock-rating-on-margin-concerns-93CH-4937992",
+      "publishedAt": null,
+      "image": "https://content-media.investing.com/news/moved_LYNXMPEM3T1AG_1200_L.jpg",
+      "category": "markets",
+      "topics": []
+    },
+    {
+      "id": "e0cd9e85b6652fcb2b51",
+      "source": "investing",
+      "title": "Why is Bavarian Nordic stock surging today?",
+      "url": "https://www.investing.com/news/stock-market-news/why-is-bavarian-nordic-stock-surging-today-93CH-4937991",
+      "publishedAt": null,
+      "image": "https://content-media.investing.com/news/LYNXMPEBBR0PM_M.jpg",
+      "category": "markets",
+      "topics": []
+    },
+    {
+      "id": "f64db3c05b162526dfd8",
+      "source": "investing",
+      "title": "Bitcoin clings to $83K below key averages: Live levels",
+      "url": "https://www.investing.com/news/cryptocurrency-news/bitcoin-tests-87363-resistance-with-fading-momentum-live-levels-93CH-4931135",
+      "publishedAt": null,
+      "image": "https://content-media.investing.com/news/Bitcoin_800x533_L_1535981214.jpg",
+      "category": "markets",
+      "topics": []
+    },
+    {
+      "id": "d4603f7ef967b641a814",
+      "source": "investing",
+      "title": "Silver breaks $60 support, targets $58.46: Live levels",
+      "url": "https://www.investing.com/news/commodities-news/silver-bounces-at-6165-but-macro-downtrend-looms-live-levels-93CH-4931129",
+      "publishedAt": null,
+      "image": "https://content-media.investing.com/news/LYNXNPEB8T1CF_M.jpg",
+      "category": "other",
+      "topics": []
+    },
+    {
+      "id": "341da8a3fdcd04a5d9ff",
+      "source": "kontan",
+      "title": "Gojek Tunggu Aturan Komdigi untuk Layanan Antar Makanan dan Barang",
+      "url": "https://industri.kontan.co.id/news/gojek-tunggu-aturan-komdigi-untuk-layanan-antar-makanan-dan-barang?source=home_terbaru",
+      "publishedAt": null,
+      "image": "https://foto.kontan.co.id/w19aBNTuE1uSMHIJg9gNvB6K0WA=/smart/2026/04/21/573198400t.jpg",
+      "category": "other",
+      "topics": []
+    },
+    {
+      "id": "828308a89ed6dfe0a828",
+      "source": "kontan",
+      "title": "Ini 10 Unitlink Pendapatan Tetap yang Mencetak Return Tertinggi per September 2026",
+      "url": "https://investasi.kontan.co.id/news/ini-10-unitlink-pendapatan-tetap-yang-mencetak-return-tertinggi-per-september-2026?source=home_terbaru",
+      "publishedAt": null,
+      "image": "https://foto.kontan.co.id/EtBBNl_pHsqAwh21wXAmuwbAX_8=/smart/2024/04/03/1608956984t.jpg",
+      "category": "other",
+      "topics": []
+    },
+    {
+      "id": "69a7350b0326cc4a096b",
+      "source": "investing_id",
+      "title": "Citi pertahankan 2 saham medtech ini sebagai pilihan utama di sektor ini",
+      "url": "https://id.investing.com/news/stock-market-news/citi-pertahankan-2-saham-medtech-ini-sebagai-pilihan-utama-di-sektor-ini-3090060",
+      "publishedAt": null,
+      "image": "https://content-media.investing.com/news/LYNXNPEB970WT_M.jpg",
+      "category": "markets",
+      "topics": []
+    },
+    {
+      "id": "42d98450afb7ae053bf1",
+      "source": "investing_id",
+      "title": "Hi-View perluas properti Junker di British Columbia",
+      "url": "https://id.investing.com/news/company-news/hiview-perluas-properti-junker-di-british-columbia-93CH-3090056",
+      "publishedAt": null,
+      "image": "https://content-media.investing.com/news/LYNXMPEM0J1E6_1200_L.jpg",
+      "category": "business",
+      "topics": []
+    },
+    {
+      "id": "3146bfcb42f1cac6570f",
+      "source": "investing_id",
+      "title": "FDA terima pengajuan Kerendia milik Bayer untuk penyakit ginjal tanpa diabetes",
+      "url": "https://id.investing.com/news/stock-market-news/fda-terima-pengajuan-kerendia-milik-bayer-untuk-penyakit-ginjal-tanpa-diabetes-3090058",
+      "publishedAt": null,
+      "image": null,
+      "category": "markets",
+      "topics": []
+    },
+    {
+      "id": "0d5f0ad4f40f1908211d",
+      "source": "investing_id",
+      "title": "Jefferies perbarui cakupan saham Nayax dengan rating beli",
+      "url": "https://id.investing.com/news/analyst-ratings/jefferies-perbarui-cakupan-saham-nayax-dengan-rating-beli-93CH-3090052",
+      "publishedAt": null,
+      "image": "https://content-media.investing.com/news/YairNechmadandDavidBen-AviNayaxCEOandCTO_150x108_S_1642925523.jpg",
+      "category": "markets",
+      "topics": []
+    },
+    {
+      "id": "50e55827a40fdbd3a326",
+      "source": "investing_id",
+      "title": "Pemilik Uniqlo, Fast Retailing, catat lonjakan laba 32% dan proyeksikan pertumbuhan melambat",
+      "url": "https://id.investing.com/news/earnings/pemilik-uniqlo-fast-retailing-catat-lonjakan-laba-32-dan-proyeksikan-pertumbuhan-melambat-3090053",
+      "publishedAt": null,
+      "image": "https://content-media.investing.com/news/LYNXMPEA8G0YH_L.jpg",
+      "category": "business",
+      "topics": []
+    },
+    {
+      "id": "d4a34b70207b8db45014",
+      "source": "investing_id",
+      "title": "Stifel kembali rekomendasikan beli saham Halma atas kenaikan margin",
+      "url": "https://id.investing.com/news/analyst-ratings/stifel-kembali-rekomendasikan-beli-saham-halma-atas-kenaikan-margin-93CH-3090048",
+      "publishedAt": null,
+      "image": "https://content-media.investing.com/news/moved_LYNXMPEM3T1AG_1200_L.jpg",
+      "category": "markets",
+      "topics": []
+    },
+    {
+      "id": "b13f846a293dc7b3161b",
+      "source": "investing_id",
+      "title": "Bavarian Nordic naikkan outlook pendapatan didorong permintaan vaksin rabies AS",
+      "url": "https://id.investing.com/news/earnings/bavarian-nordic-naikkan-outlook-pendapatan-didorong-permintaan-vaksin-rabies-as-3090051",
+      "publishedAt": null,
+      "image": "https://content-media.investing.com/news/LYNXMPEB380A9_M.jpg",
+      "category": "business",
+      "topics": []
+    },
+    {
+      "id": "0fe42e3e2aef07dd2e44",
+      "source": "pluang",
+      "title": "Michelin beli kembali 202.417 saham seharga €32,33 per saham pada 8 Oktober 2026 untuk dibatalkan.",
+      "url": "https://pluang.com/news-feed/michelin-pengumuman-transaksi-pembelian-saham-sendiri-8-oktober-2026",
+      "publishedAt": null,
+      "image": "https://image-cdn.pluang.com/web/news-cards/v2/GSS/bb4f526782dcc704e116d07ca154b5a42a21ee3aa3db5ef5e9527a1f7cc939cd-id.webp",
+      "category": "markets",
+      "topics": []
+    },
+    {
+      "id": "f27bfd1d3957a9f35e7c",
+      "source": "pluang",
+      "title": "Michelin beli kembali 202.417 saham seharga €32,33 per saham untuk dibatalkan pada 8 Oktober 2026",
+      "url": "https://pluang.com/news-feed/michelin-pengungkapan-perdagangan-saham-tunai-8-oktober-2026",
+      "publishedAt": null,
+      "image": "https://image-cdn.pluang.com/web/news-cards/v2/GSS/636d27e6b68c629fc47a65d731794a7a00784c74699efd0d62475d3ed8f246d0-id.webp",
+      "category": "markets",
+      "topics": []
     }
   ]
 }
