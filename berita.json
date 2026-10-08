@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "checkedAt": "2026-10-08T07:47:36.238193+00:00",
+  "checkedAt": "2026-10-08T07:53:09.048878+00:00",
   "intervalMinutes": 5,
   "sources": [
     {
@@ -9,7 +9,7 @@
       "url": "https://www.investing.com/",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-08T07:47:32.106501+00:00"
+      "checkedAt": "2026-10-08T07:53:01.263642+00:00"
     },
     {
       "id": "cnbc",
@@ -17,7 +17,7 @@
       "url": "https://www.cnbc.com/markets/",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-08T07:47:32.063197+00:00"
+      "checkedAt": "2026-10-08T07:53:01.207419+00:00"
     },
     {
       "id": "kontan",
@@ -25,7 +25,7 @@
       "url": "https://www.kontan.co.id/",
       "kind": "html",
       "status": "ok",
-      "checkedAt": "2026-10-08T07:47:33.321226+00:00"
+      "checkedAt": "2026-10-08T07:53:02.293372+00:00"
     },
     {
       "id": "reuters",
@@ -33,7 +33,7 @@
       "url": "https://www.reuters.com/",
       "kind": "sitemap",
       "status": "ok",
-      "checkedAt": "2026-10-08T07:47:32.126745+00:00"
+      "checkedAt": "2026-10-08T07:53:01.293032+00:00"
     },
     {
       "id": "aljazeera",
@@ -41,7 +41,7 @@
       "url": "https://www.aljazeera.com/",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-08T07:47:32.094325+00:00"
+      "checkedAt": "2026-10-08T07:53:01.258770+00:00"
     },
     {
       "id": "bloomberg",
@@ -49,7 +49,7 @@
       "url": "https://www.bloomberg.com/asia",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-08T07:47:32.459948+00:00"
+      "checkedAt": "2026-10-08T07:53:01.538994+00:00"
     },
     {
       "id": "fnc",
@@ -57,7 +57,7 @@
       "url": "https://tradewithfnc.com/",
       "kind": "json",
       "status": "ok",
-      "checkedAt": "2026-10-08T07:47:32.712169+00:00"
+      "checkedAt": "2026-10-08T07:53:02.225882+00:00"
     },
     {
       "id": "investing_id",
@@ -65,7 +65,7 @@
       "url": "https://id.investing.com/news",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-08T07:47:32.384176+00:00"
+      "checkedAt": "2026-10-08T07:53:01.516678+00:00"
     },
     {
       "id": "pluang",
@@ -73,7 +73,7 @@
       "url": "https://pluang.com/news-feed",
       "kind": "html",
       "status": "ok",
-      "checkedAt": "2026-10-08T07:47:33.065071+00:00"
+      "checkedAt": "2026-10-08T07:53:02.239100+00:00"
     },
     {
       "id": "kompas",
@@ -81,7 +81,7 @@
       "url": "https://money.kompas.com/",
       "kind": "html",
       "status": "ok",
-      "checkedAt": "2026-10-08T07:47:33.354177+00:00"
+      "checkedAt": "2026-10-08T07:53:02.423591+00:00"
     },
     {
       "id": "detik",
@@ -89,7 +89,7 @@
       "url": "https://finance.detik.com/",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-08T07:47:33.749652+00:00"
+      "checkedAt": "2026-10-08T07:53:02.724630+00:00"
     },
     {
       "id": "kemenkeu",
@@ -121,7 +121,7 @@
       "url": "https://ekbis.sindonews.com/",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-08T07:47:33.471685+00:00"
+      "checkedAt": "2026-10-08T07:53:02.389881+00:00"
     },
     {
       "id": "ap",
@@ -137,7 +137,7 @@
       "url": "https://www.bbc.com/news",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-08T07:47:33.731373+00:00"
+      "checkedAt": "2026-10-08T07:53:02.617141+00:00"
     },
     {
       "id": "afp",
@@ -152,7 +152,7 @@
       "url": "https://www.wsj.com/",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-08T07:47:33.494272+00:00"
+      "checkedAt": "2026-10-08T07:53:02.697563+00:00"
     },
     {
       "id": "guardian",
@@ -160,7 +160,7 @@
       "url": "https://www.theguardian.com/",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-08T07:47:34.542823+00:00"
+      "checkedAt": "2026-10-08T07:53:04.043882+00:00"
     },
     {
       "id": "ft",
@@ -168,7 +168,7 @@
       "url": "https://www.ft.com/",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-08T07:47:34.722636+00:00"
+      "checkedAt": "2026-10-08T07:53:03.633653+00:00"
     },
     {
       "id": "dw",
@@ -176,7 +176,7 @@
       "url": "https://www.dw.com/en/top-stories/s-9097",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-08T07:47:35.218370+00:00"
+      "checkedAt": "2026-10-08T07:53:04.061164+00:00"
     },
     {
       "id": "fedwatch",
@@ -194,6 +194,56 @@
     }
   ],
   "items": [
+    {
+      "id": "6699e7dc973813056edf",
+      "source": "guardian",
+      "title": "Royal Navy serviceman charged with spying to benefit foreign power",
+      "url": "https://www.theguardian.com/uk-news/2026/oct/08/royal-navy-serviceman-arrested-under-national-security-act",
+      "publishedAt": "2026-10-08T07:52:39+00:00",
+      "image": "https://i.guim.co.uk/img/media/1d3a02c81e640d50939827f6f4824deb5e34c455/518_0_5177_4142/master/5177.jpg?width=140&quality=85&auto=format&fit=max&s=99eaf3fdf31e08af758e7cd62f7f756d",
+      "category": "other",
+      "topics": []
+    },
+    {
+      "id": "7ae0c98ac9008a537652",
+      "source": "bbc",
+      "title": "Most UK diplomats to leave East Jerusalem consulate, Israel says, as Miliband says 'vital services' will continue",
+      "url": "https://www.bbc.co.uk/news/articles/cw33xd6vegnno?at_medium=RSS&at_campaign=rss",
+      "publishedAt": "2026-10-08T07:51:06+00:00",
+      "image": "https://ichef.bbci.co.uk/ace/standard/240/cpsprodpb/1af2/live/5079a140-c2df-11f1-bc2e-018d645d8d21.jpg",
+      "category": "other",
+      "topics": []
+    },
+    {
+      "id": "b68ebc7390649b92e3d3",
+      "source": "reuters",
+      "title": "China militia boat spotted for first time off Taiwan's east coast, patrol finds",
+      "url": "https://www.reuters.com/world/china/china-militia-boat-spotted-first-time-off-taiwans-east-coast-patrol-finds-2026-10-08/",
+      "publishedAt": "2026-10-08T07:47:30.633000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/R3BTVQ5JBFLF3DWYVPZ7LK5NZA.jpg?auth=402f1eb04eee4645224401e4d572cd606c06b9338c4deec9799c14e36cd30a2b&smart=true&width=1920",
+      "category": "world",
+      "topics": []
+    },
+    {
+      "id": "e1b8ff8df633d4075aa4",
+      "source": "guardian",
+      "title": "French high school protests continue despite PM’s promise of action - Europe live",
+      "url": "https://www.theguardian.com/world/live/2026/oct/08/france-protests-spain-housing-maria-del-carmen-abascal-burnham-merz-europe-latest-news",
+      "publishedAt": "2026-10-08T07:46:30+00:00",
+      "image": "https://i.guim.co.uk/img/media/6808748f258465be6966650001e3a2f3a5e8870f/608_0_6278_5023/master/6278.jpg?width=140&quality=85&auto=format&fit=max&s=ad4f097347d95b433737386cf9d0e67c",
+      "category": "world",
+      "topics": []
+    },
+    {
+      "id": "f232d2e992dbb1a98241",
+      "source": "reuters",
+      "title": "The status of Iran's uranium enrichment programme",
+      "url": "https://www.reuters.com/world/middle-east/status-irans-uranium-enrichment-programme-2026-10-07/",
+      "publishedAt": "2026-10-08T07:45:14.025000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/KYHNHOEN7VPH7MVUAV2VQCFLZM.jpg?auth=ca60950be22bc7c9f36c98185616b8ed2bf6d07d31a02555c60dd20cea1fd8a9&smart=true&width=1920",
+      "category": "world",
+      "topics": []
+    },
     {
       "id": "d7a21d0a02eb5343ac51",
       "source": "detik",
@@ -244,7 +294,7 @@
       "title": "Royal Navy service member charged with spying",
       "url": "https://www.bbc.co.uk/news/articles/cw203n6emde8o?at_medium=RSS&at_campaign=rss",
       "publishedAt": "2026-10-08T07:40:30+00:00",
-      "image": "https://ichef.bbci.co.uk/ace/standard/240/cpsprodpb/1a2d/live/537ff930-6139-11ee-b101-6f93d6dfbcc2.png",
+      "image": "https://ichef.bbci.co.uk/ace/standard/240/cpsprodpb/1162/live/6f452970-c2ec-11f1-89a3-9b445bfcfe23.jpg",
       "category": "other",
       "topics": []
     },
@@ -276,16 +326,6 @@
       "publishedAt": "2026-10-08T07:37:43.796000+00:00",
       "image": "https://www.reuters.com/resizer/v2/LVBHBDULE5IPZDJPGISBRP3BHM.jpg?auth=1d23695e0a75c947b631f28ac1eac65ef2584b4a97933497d5b268d43221b9bf&smart=true&width=1920",
       "category": "technology",
-      "topics": []
-    },
-    {
-      "id": "b68ebc7390649b92e3d3",
-      "source": "reuters",
-      "title": "China militia boat spotted for first time off Taiwan's east coast, patrol finds",
-      "url": "https://www.reuters.com/world/china/china-militia-boat-spotted-first-time-off-taiwans-east-coast-patrol-finds-2026-10-08/",
-      "publishedAt": "2026-10-08T07:37:26.011000+00:00",
-      "image": "https://www.reuters.com/resizer/v2/R3BTVQ5JBFLF3DWYVPZ7LK5NZA.jpg?auth=402f1eb04eee4645224401e4d572cd606c06b9338c4deec9799c14e36cd30a2b&smart=true&width=1920",
-      "category": "world",
       "topics": []
     },
     {
@@ -689,16 +729,6 @@
       "topics": []
     },
     {
-      "id": "6699e7dc973813056edf",
-      "source": "guardian",
-      "title": "Royal Navy serviceman charged with obtaining information to benefit foreign power",
-      "url": "https://www.theguardian.com/uk-news/2026/oct/08/royal-navy-serviceman-arrested-under-national-security-act",
-      "publishedAt": "2026-10-08T07:14:20+00:00",
-      "image": "https://i.guim.co.uk/img/media/1d3a02c81e640d50939827f6f4824deb5e34c455/518_0_5177_4142/master/5177.jpg?width=140&quality=85&auto=format&fit=max&s=99eaf3fdf31e08af758e7cd62f7f756d",
-      "category": "other",
-      "topics": []
-    },
-    {
       "id": "30451057677545a6d10e",
       "source": "aljazeera",
       "title": "Cristiano Ronaldo pays tribute to Lionel Messi after Argentina farewell",
@@ -786,16 +816,6 @@
       "publishedAt": "2026-10-08T07:07:06.688000+00:00",
       "image": "https://www.reuters.com/resizer/v2/3JVBKPRE5VOBZDDRHYNN2COVRY.jpg?auth=24a17c8e44bc4fc3f92de463cb76f7343a6d3dff9b2c48ee7547a094f8c7c479&smart=true&width=1920",
       "category": "commentary",
-      "topics": []
-    },
-    {
-      "id": "7ae0c98ac9008a537652",
-      "source": "bbc",
-      "title": "Most UK diplomats to leave East Jerusalem consulate, Israel says, as Miliband says 'vital services' will continue",
-      "url": "https://www.bbc.co.uk/news/articles/cw33xd6vegnno?at_medium=RSS&at_campaign=rss",
-      "publishedAt": "2026-10-08T07:06:15+00:00",
-      "image": "https://ichef.bbci.co.uk/ace/standard/240/cpsprodpb/1af2/live/5079a140-c2df-11f1-bc2e-018d645d8d21.jpg",
-      "category": "other",
       "topics": []
     },
     {
@@ -2681,7 +2701,7 @@
     {
       "id": "281463984320cc3855bc",
       "source": "bbc",
-      "title": "Syrian general accused of atrocities paid and protected by US and Lebanon, BBC finds",
+      "title": "US and Lebanon protecting wanted Syrian general, BBC finds",
       "url": "https://www.bbc.co.uk/news/articles/c81dldewl5gwo?at_medium=RSS&at_campaign=rss",
       "publishedAt": "2026-10-08T05:00:44+00:00",
       "image": "https://ichef.bbci.co.uk/ace/standard/240/cpsprodpb/6350/live/ef6a77a0-c1a6-11f1-a64c-550be9e3c66b.jpg",
@@ -6941,16 +6961,6 @@
       "topics": []
     },
     {
-      "id": "f232d2e992dbb1a98241",
-      "source": "reuters",
-      "title": "The status of Iran's uranium enrichment programme",
-      "url": "https://www.reuters.com/world/middle-east/status-irans-uranium-enrichment-programme-2026-10-07/",
-      "publishedAt": "2026-10-07T20:02:52.810000+00:00",
-      "image": "https://www.reuters.com/resizer/v2/KYHNHOEN7VPH7MVUAV2VQCFLZM.jpg?auth=ca60950be22bc7c9f36c98185616b8ed2bf6d07d31a02555c60dd20cea1fd8a9&smart=true&width=1920",
-      "category": "world",
-      "topics": []
-    },
-    {
       "id": "a78d919ff3f4d7368fdb",
       "source": "reuters",
       "title": "Rahm's lawyer tells court Spaniard is done with LIV Golf after three seasons",
@@ -10527,6 +10537,16 @@
       "publishedAt": "2026-10-07T11:39:41+00:00",
       "image": "https://asset.kompas.com/crops/QXv7LQWdVF4zdht7hD_kRs-tNhg=/0x0:1920x1280/514x319/data/photo/2026/06/22/6a391cc0b6be3.jpg",
       "category": "markets",
+      "topics": []
+    },
+    {
+      "id": "a543cf8276a76923b3cd",
+      "source": "guardian",
+      "title": "Coco Gauff says online racist abuse during China Open was ‘draining’ after loss to Mertens",
+      "url": "https://www.theguardian.com/sport/2026/oct/07/coco-gauff-racist-abuse-online-china-open-disputed-point",
+      "publishedAt": "2026-10-07T11:39:07+00:00",
+      "image": "https://i.guim.co.uk/img/media/32837da828691e459d5a862c387cb899e7ed401d/224_0_2238_1791/master/2238.jpg?width=140&quality=85&auto=format&fit=max&s=adfcf9ee4ec7c533cd55d03b639610c8",
+      "category": "sport",
       "topics": []
     },
     {
@@ -18711,12 +18731,12 @@
       "topics": []
     },
     {
-      "id": "0455dfbe95f882765a23",
+      "id": "217ae46c8dc9b66f50b2",
       "source": "kontan",
       "title": "Prabowo: Pemerintah Jamin Keamanan Investasi Asing di Indonesia",
-      "url": "https://nasional.kontan.co.id/news/prabowo-pemerintah-jamin-keamanan-investasi-asing-di-indonesia?source=home_headline",
+      "url": "https://nasional.kontan.co.id/news/prabowo-pemerintah-jamin-keamanan-investasi-asing-di-indonesia?source=home_terbaru",
       "publishedAt": null,
-      "image": "https://foto.kontan.co.id/2BX38HT0xAQO51Sgt9R67T6jCF8=/smart/2026/10/01/1834156115p.jpg",
+      "image": "https://foto.kontan.co.id/sRC8Syauxg3nlOGtQ0Shx5GcBbM=/smart/2026/10/01/1834156115t.jpg",
       "category": "local",
       "topics": [
         "politics"
