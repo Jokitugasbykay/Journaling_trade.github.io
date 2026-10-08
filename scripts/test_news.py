@@ -98,7 +98,7 @@ fnc_rows = [{**latest, 'source':'fnc', 'id':str(n), 'url':'https://tradewithfnc.
 assert len(news.merge_items([], fnc_rows)) == 2
 print('News archive survives successful/failed refreshes, duplicates and the former 400-story limit')
 
-story = {**latest, 'source':'kompas', 'url':'https://money.kompas.com/read/2026/10/08/063340926/original-title', 'image':old[0]['image']}
+story = {**latest, 'source':'kompas', 'url':f'https://money.kompas.com/read/{local_date}/063340926/original-title', 'image':old[0]['image']}
 revision = {**story, 'id':'revision', 'title':'Updated technology headline from the same publisher',
             'url':story['url'].replace('original-title', 'updated-title'), 'image':None}
 merged = news.merge_items([story], [revision])
