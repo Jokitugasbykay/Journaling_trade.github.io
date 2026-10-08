@@ -80,3 +80,20 @@ assert news.topics_for('Federal Reserve FOMC interest rate decision') == ['fed']
 assert news.topics_for('Government responds to Powell and The Fed') == ['fed', 'politics']
 assert news.topics_for('Gold prices rise today') == []
 print('Politics and Fed topic filters passed')
+
+old = [{'id':str(n), 'source':'reuters', 'url':f'https://www.reuters.com/world/archive-{n}/',
+        'title':f'Archived Reuters headline number {n}', 'publishedAt':'2026-09-01T00:00:00+00:00',
+        'image':'https://www.reuters.com/photo.jpg'} for n in range(450)]
+latest = {'id':'new', 'source':'reuters', 'url':'https://www.reuters.com/world/latest/',
+          'title':'Reuters publishes the latest economic figures', 'publishedAt':now.isoformat()}
+updated = {**old[0], 'title':'Reuters updates the archived headline', 'image':None, 'publishedAt':None}
+archive = news.merge_items(old, [latest, updated])
+assert len(archive) == 451 and archive[0]['id'] == 'new'
+restored = next(item for item in archive if item['id'] == '0')
+assert restored['title'] == updated['title'] and restored['image'] == old[0]['image']
+assert restored['publishedAt'] == old[0]['publishedAt']
+assert len(news.merge_items(archive, [])) == 451
+assert len(news.merge_items(archive, [latest])) == 451
+fnc_rows = [{**latest, 'source':'fnc', 'id':str(n), 'url':'https://tradewithfnc.com/'} for n in (1,2)]
+assert len(news.merge_items([], fnc_rows)) == 2
+print('News archive survives successful/failed refreshes, duplicates and the former 400-story limit')

@@ -228,6 +228,25 @@ def collect(source):
         return {**public, "status": "unavailable"}, []
 
 
+def merge_items(previous, incoming):
+    domains = {source['id']: source['domain'] for source in SOURCES}
+    merged = {}
+    # ponytail: keep the complete headline archive in one feed; split by month if download size becomes a problem.
+    for item in [*previous, *incoming]:
+        if not isinstance(item, dict) or item.get('source') not in domains or not isinstance(item.get('title'), str):
+            continue
+        if not safe_url(item.get('url', ''), domains[item['source']]) or SIGNALS.search(item['title']):
+            continue
+        key = (item['source'], item.get('id') or item['title']) if item['source'] == 'fnc' else (item['source'], item['url'])
+        old = merged.get(key, {})
+        row = {**old, **item}
+        for field in ('image', 'publishedAt'):
+            if not row.get(field) and old.get(field):
+                row[field] = old[field]
+        merged[key] = row
+    return sorted(merged.values(), key=lambda item: item.get('publishedAt') or '', reverse=True)
+
+
 def main():
     path = ROOT / "berita.json"
     previous = {}
@@ -263,9 +282,8 @@ def main():
             missing.append(item)
     with concurrent.futures.ThreadPoolExecutor(max_workers=8) as pool:
         list(pool.map(add_article_image, missing))
-    items = [item for item in items if not SIGNALS.search(item['title'])]
-    items.sort(key=lambda item: item.get("publishedAt") or "", reverse=True)
-    output = {"version": 1, "checkedAt": dt.datetime.now(dt.timezone.utc).isoformat(), "intervalMinutes": 5, "sources": sources, "items": items[:400]}
+    items = merge_items(previous.get('items', []), items)
+    output = {"version": 1, "checkedAt": dt.datetime.now(dt.timezone.utc).isoformat(), "intervalMinutes": 5, "sources": sources, "items": items}
     temporary = path.with_suffix(".json.tmp")
     temporary.write_text(json.dumps(output, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     temporary.replace(path)

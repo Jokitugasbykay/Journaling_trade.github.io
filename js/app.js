@@ -3115,7 +3115,7 @@
           const data = await response.json();
           if (data.version !== 1 || !Array.isArray(data.sources) || !Array.isArray(data.items) || !publisherTime(data.checkedAt)) throw new Error('Invalid news feed');
           data.sources = data.sources.filter(source => source && publisherDomains[source.id] && typeof source.name === 'string' && publisherUrl(source.url, source.id));
-          data.items = data.items.filter(item => item && typeof item.title === 'string' && publisherUrl(item.url, item.source)).slice(0, 400);
+          data.items = data.items.filter(item => item && typeof item.title === 'string' && publisherUrl(item.url, item.source));
           publisherNews = data;
           publisherNewsFailed = false;
         } catch (error) { publisherNewsFailed = true; }
