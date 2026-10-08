@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "checkedAt": "2026-10-08T05:51:13.673424+00:00",
+  "checkedAt": "2026-10-08T06:11:18.154920+00:00",
   "intervalMinutes": 5,
   "sources": [
     {
@@ -9,7 +9,7 @@
       "url": "https://www.investing.com/",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-08T05:51:06.146592+00:00"
+      "checkedAt": "2026-10-08T06:11:12.656654+00:00"
     },
     {
       "id": "cnbc",
@@ -17,7 +17,7 @@
       "url": "https://www.cnbc.com/markets/",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-08T05:51:06.186801+00:00"
+      "checkedAt": "2026-10-08T06:11:12.620268+00:00"
     },
     {
       "id": "kontan",
@@ -25,7 +25,7 @@
       "url": "https://www.kontan.co.id/",
       "kind": "html",
       "status": "ok",
-      "checkedAt": "2026-10-08T05:51:07.161536+00:00"
+      "checkedAt": "2026-10-08T06:11:13.349612+00:00"
     },
     {
       "id": "reuters",
@@ -33,7 +33,7 @@
       "url": "https://www.reuters.com/",
       "kind": "sitemap",
       "status": "ok",
-      "checkedAt": "2026-10-08T05:51:06.206539+00:00"
+      "checkedAt": "2026-10-08T06:11:12.680144+00:00"
     },
     {
       "id": "aljazeera",
@@ -41,7 +41,7 @@
       "url": "https://www.aljazeera.com/",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-08T05:51:06.156871+00:00"
+      "checkedAt": "2026-10-08T06:11:12.615468+00:00"
     },
     {
       "id": "bloomberg",
@@ -49,7 +49,7 @@
       "url": "https://www.bloomberg.com/asia",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-08T05:51:06.414095+00:00"
+      "checkedAt": "2026-10-08T06:11:12.918365+00:00"
     },
     {
       "id": "fnc",
@@ -57,7 +57,7 @@
       "url": "https://tradewithfnc.com/",
       "kind": "json",
       "status": "ok",
-      "checkedAt": "2026-10-08T05:51:06.410750+00:00"
+      "checkedAt": "2026-10-08T06:11:13.664323+00:00"
     },
     {
       "id": "investing_id",
@@ -65,7 +65,7 @@
       "url": "https://id.investing.com/news",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-08T05:51:06.423178+00:00"
+      "checkedAt": "2026-10-08T06:11:12.883225+00:00"
     },
     {
       "id": "pluang",
@@ -73,7 +73,7 @@
       "url": "https://pluang.com/news-feed",
       "kind": "html",
       "status": "ok",
-      "checkedAt": "2026-10-08T05:51:06.456374+00:00"
+      "checkedAt": "2026-10-08T06:11:13.000415+00:00"
     },
     {
       "id": "kompas",
@@ -81,7 +81,7 @@
       "url": "https://money.kompas.com/",
       "kind": "html",
       "status": "ok",
-      "checkedAt": "2026-10-08T05:51:07.344615+00:00"
+      "checkedAt": "2026-10-08T06:11:13.846880+00:00"
     },
     {
       "id": "detik",
@@ -89,7 +89,7 @@
       "url": "https://finance.detik.com/",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-08T05:51:07.536971+00:00"
+      "checkedAt": "2026-10-08T06:11:14.061703+00:00"
     },
     {
       "id": "kemenkeu",
@@ -121,7 +121,7 @@
       "url": "https://ekbis.sindonews.com/",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-08T05:51:06.567207+00:00"
+      "checkedAt": "2026-10-08T06:11:13.210446+00:00"
     },
     {
       "id": "fedwatch",
@@ -139,6 +139,246 @@
     }
   ],
   "items": [
+    {
+      "id": "39a8dd6592b2cae9aa3e",
+      "source": "kompas",
+      "title": "MotoGP Mandalika 2026, Pertamina Siapkan Tambahan BBM hingga 30 Persen",
+      "url": "https://money.kompas.com/read/2026/10/08/131000426/motogp-mandalika-2026-pertamina-siapkan-tambahan-bbm-hingga-30-persen",
+      "publishedAt": "2026-10-08T06:10:00+00:00",
+      "image": "https://asset.kompas.com/crops/knW0PsiMUvdrx1djd9w7Kc13j5Q=/70x267:1233x1042/750x500/data/photo/2026/10/01/6abe5cb9241c8.jpg",
+      "category": "local",
+      "topics": []
+    },
+    {
+      "id": "ba7f41de84d460a2b46b",
+      "source": "reuters",
+      "title": "China border town can't shake the blues despite promise of bridge to North Korea",
+      "url": "https://www.reuters.com/world/china/china-border-town-cant-shake-blues-despite-promise-bridge-north-korea-2026-10-08/",
+      "publishedAt": "2026-10-08T06:08:38.663000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/JSD4YIBCJFL55O2MBNRYBDVFII.jpg?auth=20e5e9bbebaaf52f0a86fec89fafb4157ad45c915c25fc8c6ec636026dea29e5&smart=true&width=1920",
+      "category": "world",
+      "topics": []
+    },
+    {
+      "id": "482752030e241512cc21",
+      "source": "reuters",
+      "title": "German exports unexpectedly fall in August",
+      "url": "https://www.reuters.com/world/china/german-exports-unexpectedly-fall-august-2026-10-08/",
+      "publishedAt": "2026-10-08T06:08:17.091000+00:00",
+      "image": null,
+      "category": "world",
+      "topics": []
+    },
+    {
+      "id": "2fb4e41847bb1604818c",
+      "source": "reuters",
+      "title": "Battle for Mideast oil market share has already begun",
+      "url": "https://www.reuters.com/commentary/reuters-open-interest/battle-mideast-oil-market-share-has-already-begun-2026-10-08/",
+      "publishedAt": "2026-10-08T06:08:02.511000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/3JVBKPRE5VOBZDDRHYNN2COVRY.jpg?auth=24a17c8e44bc4fc3f92de463cb76f7343a6d3dff9b2c48ee7547a094f8c7c479&smart=true&width=1920",
+      "category": "commentary",
+      "topics": []
+    },
+    {
+      "id": "125bf7fd18fb825d4bee",
+      "source": "detik",
+      "title": "Tring!versary, Login Setiap Hari Bisa Dapat Extra Poin",
+      "url": "https://finance.detik.com/berita-ekonomi-bisnis/d-8697843/tring-versary-login-setiap-hari-bisa-dapat-extra-poin",
+      "publishedAt": "2026-10-08T06:07:48+00:00",
+      "image": "https://akcdn.detik.net.id/community/media/visual/2026/10/08/tringversary-login-setiap-hari-bisa-dapat-extra-poin-1791439521740.jpeg?w=360&q=90",
+      "category": "business",
+      "topics": []
+    },
+    {
+      "id": "e051f187698d7027f369",
+      "source": "reuters",
+      "title": "China's funding of development institutions is up sharply, but its power still lags, study shows",
+      "url": "https://www.reuters.com/world/china/chinas-funding-development-institutions-is-up-sharply-its-power-still-lags-study-2026-10-08/",
+      "publishedAt": "2026-10-08T06:07:29.004000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/J26QYBWO3BOF3ICKFE5AUZESCU.jpg?auth=086377f73f055794d7eb41309a4f53744ddb4bd400e49fb7511fb276e02090e0&smart=true&width=1920",
+      "category": "world",
+      "topics": []
+    },
+    {
+      "id": "115bf99cd4e952b05828",
+      "source": "reuters",
+      "title": "Britain's Tesco raises profit outlook floor after first-half rise",
+      "url": "https://www.reuters.com/business/britains-tesco-raises-profit-outlook-floor-after-first-half-rise-2026-10-08/",
+      "publishedAt": "2026-10-08T06:06:38.451000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/IF5H3GSRDFNL3PBAWI2J5C4PKE.jpg?auth=d83f4e17c97966d7953860575662c9fbf20fc44aad6682b2065226283c920cbc&smart=true&width=1920",
+      "category": "business",
+      "topics": []
+    },
+    {
+      "id": "42e1f7954c9b9f38c6e0",
+      "source": "reuters",
+      "title": "Brewers KO Padres in Game 4, set up NLCS rematch vs. Dodgers",
+      "url": "https://www.reuters.com/sports/baseball/brewers-ko-padres-game-4-set-up-nlcs-rematch-vs-dodgers--flm-2026-10-08/",
+      "publishedAt": "2026-10-08T06:04:57.989000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/7LXH3SAEQNMP5MQBQJOZKFUPQE.jpg?auth=98ef70ecccc73d00715306bd7ee2d4c6fbaa5a433edb58ae932593c7aaef8ea2&smart=true&width=1920",
+      "category": "sport",
+      "topics": []
+    },
+    {
+      "id": "9f359131eb9e6b66c6a6",
+      "source": "kompas",
+      "title": "Harga Emas Hari Ini 8 Oktober 2026: Antam, Galeri 24 Pegadaian, UBS",
+      "url": "https://money.kompas.com/read/2026/10/08/130456626/harga-emas-hari-ini-8-oktober-2026-antam-galeri-24-pegadaian-ubs",
+      "publishedAt": "2026-10-08T06:04:56+00:00",
+      "image": "https://asset.kompas.com/crops/IocUXFKGFR59Cv5BYKKsKbGdq2I=/0x1253:2223x2735/750x500/data/photo/2026/02/03/698180b8d4659.jpg",
+      "category": "local",
+      "topics": []
+    },
+    {
+      "id": "d5f3a6e6124d2b35f8a7",
+      "source": "reuters",
+      "title": "Isaias intensifies into first Atlantic hurricane of 2026",
+      "url": "https://www.reuters.com/business/environment/us-nhc-says-isaias-has-become-hurricane-2026-10-08/",
+      "publishedAt": "2026-10-08T06:04:49.864000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/IOWJVIQCTRNT5AUA3EFEAYV43U.jpg?auth=e30475f77d17f6bdf70324f4fb91e7e47c04ef46a613526f774b91127a4bf6c5&smart=true&width=1920",
+      "category": "sustainability",
+      "topics": []
+    },
+    {
+      "id": "987193e0b4d04875b31c",
+      "source": "detik",
+      "title": "OJK Cabut Izin Perusahaan Modal Ventura di SCBD",
+      "url": "https://finance.detik.com/moneter/d-8697835/ojk-cabut-izin-perusahaan-modal-ventura-di-scbd",
+      "publishedAt": "2026-10-08T06:04:31+00:00",
+      "image": "https://akcdn.detik.net.id/community/media/visual/2016/12/30/92b40aae-7615-45cc-8e4c-0d4951ac21b9_169.jpg?w=360&q=90",
+      "category": "local",
+      "topics": []
+    },
+    {
+      "id": "924b6b31d7ca9a6ade68",
+      "source": "reuters",
+      "title": "Daimler Truck Q3 sales rise 26% as North America and Europe grow",
+      "url": "https://www.reuters.com/business/daimler-truck-q3-sales-rise-26-north-america-europe-grow-2026-10-08/",
+      "publishedAt": "2026-10-08T06:03:53.901000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/ORXO5C3ZTBMFXNJM754WHPGKIU.jpg?auth=b853564df552908210b90cb0185609ed86357287fd77ee16163011b999d571e1&smart=true&width=1920",
+      "category": "business",
+      "topics": []
+    },
+    {
+      "id": "9360e4849fd1bf01bb2e",
+      "source": "reuters",
+      "title": "Shaky $4 bln neocloud IPO pricks AI bubble",
+      "url": "https://www.reuters.com/commentary/breakingviews/shaky-4-bln-neocloud-ipo-pricks-ai-bubble-2026-10-08/",
+      "publishedAt": "2026-10-08T06:03:28.835000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/EK346KTHQJLZFH7YPZ73IBZQN4.jpg?auth=ec2bbb3805d25f92c95ab5f24c548c22d2436f6e9af5bac6d0349ea5809d4392&smart=true&width=1920",
+      "category": "commentary",
+      "topics": []
+    },
+    {
+      "id": "13fc0deaa28942c02333",
+      "source": "reuters",
+      "title": "Bezos says Blue Origin likely to pursue IPO in coming years",
+      "url": "https://www.reuters.com/legal/transactional/bezos-says-blue-origin-likely-pursue-ipo-coming-years-2026-10-08/",
+      "publishedAt": "2026-10-08T06:03:22.466000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/ZIMSNJ34UZNBRI6JFIAGSAKOHA.jpg?auth=d3a24dd6e6e7ab53ee1a8910ee4cf4ac50b36dd9e321f94c2f300a83d53b2c73&smart=true&width=1920",
+      "category": "legal",
+      "topics": []
+    },
+    {
+      "id": "da55a4b6cf45e6830afd",
+      "source": "reuters",
+      "title": "People in Russian-occupied Ukrainian town risk 'road of death' to get food",
+      "url": "https://www.reuters.com/world/europe/people-russian-occupied-ukrainian-town-risk-road-death-get-food-2026-10-08/",
+      "publishedAt": "2026-10-08T06:02:52.445000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/HDCJQPNPSFLUBDCGSI4N2ACMPM.jpg?auth=edd8b7db281df2da76afc3444c459997d23ac81a3836b38913e3500c054b2a81&smart=true&width=1920",
+      "category": "world",
+      "topics": []
+    },
+    {
+      "id": "1edb223775c814cd6c05",
+      "source": "cnbc",
+      "title": "TSMC's September sales jump more than 50% year over year",
+      "url": "https://www.cnbc.com/2026/10/08/tsmc-september-sales-hit-another-record-as-ai-boom-rolls-on.html",
+      "publishedAt": "2026-10-08T06:02:48+00:00",
+      "image": "https://image.cnbcfm.com/api/v1/image/108373707-1791333068896-gettyimages-2296986094-logos.jpeg?v=1791333111&w=1920&h=1080",
+      "category": "technology",
+      "topics": []
+    },
+    {
+      "id": "9b9272804be6aa0d1e52",
+      "source": "reuters",
+      "title": "Singapore Grand Prix entertainment may be curbed if haze worsens, FIA says",
+      "url": "https://www.reuters.com/business/environment/singapore-grand-prix-entertainment-may-be-curbed-if-haze-worsens-fia-says-2026-10-08/",
+      "publishedAt": "2026-10-08T06:02:20.906000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/2KDBXE44JVO5HEB7I6J2GXVL3U.jpg?auth=f0e3eaa791ad970013c3a4f0f173d81b48effc0537c9830d6e9722aba81a2e44&smart=true&width=1920",
+      "category": "sustainability",
+      "topics": []
+    },
+    {
+      "id": "f0dace92d0f590dcc448",
+      "source": "reuters",
+      "title": "US, Russia explore gas sale to Europe amid Ukraine war, say sources",
+      "url": "https://www.reuters.com/business/energy/us-russia-explore-gas-sale-europe-amid-ukraine-war-say-sources-2026-10-08/",
+      "publishedAt": "2026-10-08T06:00:38.475000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/DBTTPICFRRMA7FIG6KMFDNNJGY.jpg?auth=2434d0661f9f8521c4d25b80586d8d8a31aad5a1d362199ba1e8f793f2929221&smart=true&width=1920",
+      "category": "business",
+      "topics": []
+    },
+    {
+      "id": "5a2a8a9761dac1318b6c",
+      "source": "detik",
+      "title": "Kolaborasi Jadi Cara UMKM Naik Kelas dan Perluas Pasar",
+      "url": "https://finance.detik.com/berita-ekonomi-bisnis/d-8697830/kolaborasi-jadi-cara-umkm-naik-kelas-dan-perluas-pasar",
+      "publishedAt": "2026-10-08T06:00:13+00:00",
+      "image": "https://akcdn.detik.net.id/community/media/visual/2026/10/08/director-of-stakeholder-relations-and-sustainability-pt-hm-sampoerna-tbk-sampoerna-romulus-sutanto-1791439117904.jpeg?w=360&q=90",
+      "category": "local",
+      "topics": []
+    },
+    {
+      "id": "afba6afe973dfe3aa5b9",
+      "source": "detik",
+      "title": "Ramai Seruan Boikot Produk RI di Malaysia, Mendag: Nggak Ada Masalah",
+      "url": "https://finance.detik.com/berita-ekonomi-bisnis/d-8697826/ramai-seruan-boikot-produk-ri-di-malaysia-mendag-nggak-ada-masalah",
+      "publishedAt": "2026-10-08T05:59:27+00:00",
+      "image": "https://akcdn.detik.net.id/community/media/visual/2026/10/08/menteri-perdagangan-budi-santoso-1791435231230_169.jpeg?w=360&q=90",
+      "category": "business",
+      "topics": []
+    },
+    {
+      "id": "e1fd684ba987b5ab3bbc",
+      "source": "reuters",
+      "title": "India considers delaying UPI payment fee rollout, sources say",
+      "url": "https://www.reuters.com/world/india/indian-payment-stocks-slide-after-report-upi-mdr-rollout-delay-2026-10-08/",
+      "publishedAt": "2026-10-08T05:57:56.150000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/JDL2HILN2VMBJFEAO5HCWLYWZU.jpg?auth=554fec5f37386c12ac30e14ce41dbd67a532f621ae0346a26ebcc9f26ebe6159&smart=true&width=1920",
+      "category": "markets",
+      "topics": []
+    },
+    {
+      "id": "3ab2c9c2f6dd7ed8c3a6",
+      "source": "reuters",
+      "title": "France's Sesterce plans $11 billion AI investment in Finland",
+      "url": "https://www.reuters.com/business/frances-sesterce-plans-11-billion-ai-investment-finland-2026-10-08/",
+      "publishedAt": "2026-10-08T05:54:48.217000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/Q5R6AMCW2RJ7TBW6TWRBVV5RII.jpg?auth=68f5cf92650461d2dee48a2bb4ac44f42821dde69f35535387cd0c33b862e322&smart=true&width=1920",
+      "category": "technology",
+      "topics": []
+    },
+    {
+      "id": "e416470da01cc041014d",
+      "source": "reuters",
+      "title": "TSMC's third-quarter revenue surges 50% y/y, beating market forecast",
+      "url": "https://www.reuters.com/world/asia-pacific/tsmcs-third-quarter-revenue-surges-50-yy-beating-market-forecast-2026-10-08/",
+      "publishedAt": "2026-10-08T05:51:59.574000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/R3BE34NFIBN3LECJZIQYCJPFBI.jpg?auth=463cd084d22bda163113dbe370684c755da05de985ccc92d55735f6f15d565cd&smart=true&width=1920",
+      "category": "markets",
+      "topics": []
+    },
+    {
+      "id": "a8d4272dc0bde85d0cc7",
+      "source": "reuters",
+      "title": "Venezuela's Maduro to face new US charges over alleged torture of Americans, official says",
+      "url": "https://www.reuters.com/world/americas/maduro-wife-expected-face-new-charges-over-alleged-torture-americans-cnn-says-2026-10-07/",
+      "publishedAt": "2026-10-08T05:51:45.558000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/6QSXLFHPMRIRLD7ANR6HZTPJEE.jpg?auth=5e35fd98ee211c19c4a333e965ee0f2032431bae2179be794caacefe8a26fb4d&smart=true&width=1920",
+      "category": "world",
+      "topics": []
+    },
     {
       "id": "c8fc03d6d698f5c82208",
       "source": "reuters",
@@ -190,16 +430,6 @@
       "topics": []
     },
     {
-      "id": "1edb223775c814cd6c05",
-      "source": "cnbc",
-      "title": "TSMC September sales hit another record as AI boom rolls on",
-      "url": "https://www.cnbc.com/2026/10/08/tsmc-september-sales-hit-another-record-as-ai-boom-rolls-on.html",
-      "publishedAt": "2026-10-08T05:45:21+00:00",
-      "image": "https://image.cnbcfm.com/api/v1/image/108373707-1791333068896-gettyimages-2296986094-logos.jpeg?v=1791333111&w=1920&h=1080",
-      "category": "technology",
-      "topics": []
-    },
-    {
       "id": "ef608d607c23610f1eb0",
       "source": "reuters",
       "title": "Südzucker posts stable first-half sales as biofuel demand offsets low sugar prices",
@@ -207,16 +437,6 @@
       "publishedAt": "2026-10-08T05:45:20.897000+00:00",
       "image": "https://www.reuters.com/resizer/v2/YQEAPIX7KZKCNOOY3OYXLSJJZM.jpg?auth=38c25adfb0b7343b5d18a67abfc692d47a5330c886b83bc544a745295bbb7bf3&smart=true&width=1920",
       "category": "business",
-      "topics": []
-    },
-    {
-      "id": "3ab2c9c2f6dd7ed8c3a6",
-      "source": "reuters",
-      "title": "France's Sesterce plans $11 billion AI investment in Finland",
-      "url": "https://www.reuters.com/business/frances-sesterce-plans-11-billion-ai-investment-finland-2026-10-08/",
-      "publishedAt": "2026-10-08T05:44:22.383000+00:00",
-      "image": null,
-      "category": "technology",
       "topics": []
     },
     {
@@ -247,16 +467,6 @@
       "publishedAt": "2026-10-08T05:42:56.282000+00:00",
       "image": "https://www.reuters.com/resizer/v2/AMQYMMEMFFK2JBHWXBVDDKZCG4.jpg?auth=7707035cd500908699e164dffcbe8d552a42d7ca02330ae38bd627631504a581&smart=true&width=1920",
       "category": "sport",
-      "topics": []
-    },
-    {
-      "id": "e416470da01cc041014d",
-      "source": "reuters",
-      "title": "TSMC's third-quarter revenue surges 50% y/y, beating market forecast",
-      "url": "https://www.reuters.com/world/asia-pacific/tsmcs-third-quarter-revenue-surges-50-yy-beating-market-forecast-2026-10-08/",
-      "publishedAt": "2026-10-08T05:41:27.339000+00:00",
-      "image": "https://www.reuters.com/resizer/v2/VP33QQQMOZLO3BPCJWYX2S52CQ.jpg?auth=017a7dce2d78d137343170d3854cc3608b8a6489838badd8986db9f72f6cb745&smart=true&width=1920",
-      "category": "markets",
       "topics": []
     },
     {
@@ -317,26 +527,6 @@
       "publishedAt": "2026-10-08T05:35:54+00:00",
       "image": "https://asset.kompas.com/crops/FFMUcFeHsnF_gDzh0_DbWNfaHnc=/228x222:2057x1440/750x500/data/photo/2026/07/08/6a4df43e16f7a.png",
       "category": "other",
-      "topics": []
-    },
-    {
-      "id": "42e1f7954c9b9f38c6e0",
-      "source": "reuters",
-      "title": "Brewers KO Padres in Game 4, set up NLCS rematch vs. Dodgers",
-      "url": "https://www.reuters.com/sports/baseball/brewers-ko-padres-game-4-set-up-nlcs-rematch-vs-dodgers--flm-2026-10-08/",
-      "publishedAt": "2026-10-08T05:34:08.197000+00:00",
-      "image": "https://www.reuters.com/resizer/v2/7LXH3SAEQNMP5MQBQJOZKFUPQE.jpg?auth=98ef70ecccc73d00715306bd7ee2d4c6fbaa5a433edb58ae932593c7aaef8ea2&smart=true&width=1920",
-      "category": "sport",
-      "topics": []
-    },
-    {
-      "id": "f0dace92d0f590dcc448",
-      "source": "reuters",
-      "title": "US, Russia explore gas sale to Europe amid Ukraine war, say sources",
-      "url": "https://www.reuters.com/business/energy/us-russia-explore-gas-sale-europe-amid-ukraine-war-say-sources-2026-10-08/",
-      "publishedAt": "2026-10-08T05:33:41.948000+00:00",
-      "image": "https://www.reuters.com/resizer/v2/DBTTPICFRRMA7FIG6KMFDNNJGY.jpg?auth=2434d0661f9f8521c4d25b80586d8d8a31aad5a1d362199ba1e8f793f2929221&smart=true&width=1920",
-      "category": "business",
       "topics": []
     },
     {
@@ -639,16 +829,6 @@
       "publishedAt": "2026-10-08T04:57:31+00:00",
       "image": "https://akcdn.detik.net.id/community/media/visual/2026/10/08/menteri-perdagangan-budi-santoso-1791435231230_169.jpeg?w=360&q=90",
       "category": "business",
-      "topics": []
-    },
-    {
-      "id": "e1fd684ba987b5ab3bbc",
-      "source": "reuters",
-      "title": "India considers delaying rollout of UPI payments fee, sources say",
-      "url": "https://www.reuters.com/world/india/indian-payment-stocks-slide-after-report-upi-mdr-rollout-delay-2026-10-08/",
-      "publishedAt": "2026-10-08T04:56:55.568000+00:00",
-      "image": "https://www.reuters.com/resizer/v2/JDL2HILN2VMBJFEAO5HCWLYWZU.jpg?auth=554fec5f37386c12ac30e14ce41dbd67a532f621ae0346a26ebcc9f26ebe6159&smart=true&width=1920",
-      "category": "markets",
       "topics": []
     },
     {
@@ -1100,16 +1280,6 @@
       "topics": []
     },
     {
-      "id": "d5f3a6e6124d2b35f8a7",
-      "source": "reuters",
-      "title": "US NHC says Isaias has become a hurricane",
-      "url": "https://www.reuters.com/business/environment/us-nhc-says-isaias-has-become-hurricane-2026-10-08/",
-      "publishedAt": "2026-10-08T04:00:39.322000+00:00",
-      "image": "https://www.reuters.com/resizer/v2/IOWJVIQCTRNT5AUA3EFEAYV43U.jpg?auth=e30475f77d17f6bdf70324f4fb91e7e47c04ef46a613526f774b91127a4bf6c5&smart=true&width=1920",
-      "category": "sustainability",
-      "topics": []
-    },
-    {
       "id": "b4a4276a4a7f5bdf0193",
       "source": "detik",
       "title": "Target Produksi Kopra Indonesia Tembus 2,86 Juta Ton pada 2028",
@@ -1363,16 +1533,6 @@
       "publishedAt": "2026-10-08T03:16:28+00:00",
       "image": "https://pict.sindonews.com/dyn/850/pena/news/2026/10/08/178/1758165/ihsg-tibatiba-balik-arah-melemah-ke-level-6141-pagi-ini-lhw.jpeg",
       "category": "local",
-      "topics": []
-    },
-    {
-      "id": "9360e4849fd1bf01bb2e",
-      "source": "reuters",
-      "title": "Shaky $4 bln neocloud IPO pricks AI bubble",
-      "url": "https://www.reuters.com/commentary/breakingviews/shaky-4-bln-neocloud-ipo-pricks-ai-bubble-2026-10-08/",
-      "publishedAt": "2026-10-08T03:13:40.651000+00:00",
-      "image": null,
-      "category": "commentary",
       "topics": []
     },
     {
@@ -1798,7 +1958,7 @@
     {
       "id": "073b8d4ce8b7577b2195",
       "source": "bloomberg",
-      "title": "Singapore Bank Stocks Drop as High Bond Yields May Hit Earnings",
+      "title": "Singapore Bank Shares Tumble as Yield Surge Threatens Earnings",
       "url": "https://www.bloomberg.com/news/articles/2026-10-08/singapore-banks-hot-rally-stutters-over-surging-bond-yields",
       "publishedAt": "2026-10-08T02:03:35+00:00",
       "image": null,
@@ -2205,16 +2365,6 @@
       "publishedAt": "2026-10-08T00:51:23+00:00",
       "image": "https://image.cnbcfm.com/api/v1/image/108373696-1791330151985-gettyimages-2264237810-cros-mobilewo260304_npWoD.jpeg?v=1791330161&w=1920&h=1080",
       "category": "technology",
-      "topics": []
-    },
-    {
-      "id": "13fc0deaa28942c02333",
-      "source": "reuters",
-      "title": "Bezos says Blue Origin likely to pursue IPO in coming years",
-      "url": "https://www.reuters.com/legal/transactional/bezos-says-blue-origin-likely-pursue-ipo-coming-years-2026-10-08/",
-      "publishedAt": "2026-10-08T00:48:46.633000+00:00",
-      "image": "https://www.reuters.com/resizer/v2/ZIMSNJ34UZNBRI6JFIAGSAKOHA.jpg?auth=d3a24dd6e6e7ab53ee1a8910ee4cf4ac50b36dd9e321f94c2f300a83d53b2c73&smart=true&width=1920",
-      "category": "legal",
       "topics": []
     },
     {
@@ -3083,16 +3233,6 @@
       "publishedAt": "2026-10-07T21:52:27.066000+00:00",
       "image": "https://www.reuters.com/resizer/v2/WD6R5CPX7JPYZB2XKEBV5NTK74.jpg?auth=fed136b3b77ccc9cb4943862fb4a2295a3d564f7af9fe0408c4369eb9ac91291&smart=true&width=1920",
       "category": "business",
-      "topics": []
-    },
-    {
-      "id": "a8d4272dc0bde85d0cc7",
-      "source": "reuters",
-      "title": "Venezuela's Maduro to face new US charges over alleged torture of Americans, official says",
-      "url": "https://www.reuters.com/world/americas/maduro-wife-expected-face-new-charges-over-alleged-torture-americans-cnn-says-2026-10-07/",
-      "publishedAt": "2026-10-07T21:52:21.934000+00:00",
-      "image": "https://www.reuters.com/resizer/v2/6QSXLFHPMRIRLD7ANR6HZTPJEE.jpg?auth=5e35fd98ee211c19c4a333e965ee0f2032431bae2179be794caacefe8a26fb4d&smart=true&width=1920",
-      "category": "world",
       "topics": []
     },
     {
@@ -12692,6 +12832,68 @@
       "topics": [
         "politics"
       ]
+    },
+    {
+      "id": "e9f20b3b94f076a99ee1",
+      "source": "kontan",
+      "title": "Danantara: Tak Ada Rencana Setor Rp 120 T ke APBN, Keuntungan Akan Diinvestasikan",
+      "url": "https://nasional.kontan.co.id/news/danantara-tak-ada-rencana-setor-rp-120-t-ke-apbn-keuntungan-akan-diinvestasikan?source=home_headline",
+      "publishedAt": null,
+      "image": "https://foto.kontan.co.id/65PCI8LNoSszU_8KmPa15mulbt8=/smart/2026/04/07/1402944523p.jpg",
+      "category": "local",
+      "topics": []
+    },
+    {
+      "id": "5d49bb8f2b15b0c23f10",
+      "source": "kontan",
+      "title": "IHSG Turun 0,80% ke 6.097 Sesi I, Top Losers LQ45: GOTO, CUAN, WIFI, Kamis (8/10)",
+      "url": "https://investasi.kontan.co.id/news/ihsg-turun-080-ke-6097-sesi-i-top-losers-lq45-goto-cuan-wifi-kamis-810?source=home_headline",
+      "publishedAt": null,
+      "image": "https://foto.kontan.co.id/3VmC0jbN6WJtHQ6aw_jM3EmKchg=/smart/2026/09/15/128947954p.jpg",
+      "category": "local",
+      "topics": []
+    },
+    {
+      "id": "5dd3745c41fbba461201",
+      "source": "kontan",
+      "title": "Danantara: Tak Ada Rencana Setor Rp 120 T ke APBN, Keuntungan Akan Diinvestasikan",
+      "url": "https://nasional.kontan.co.id/news/danantara-tak-ada-rencana-setor-rp-120-t-ke-apbn-keuntungan-akan-diinvestasikan?source=home_terbaru",
+      "publishedAt": null,
+      "image": "https://foto.kontan.co.id/k5uBDwwNBmlN7BqoqNcuX0AftCU=/smart/2026/04/07/1402944523t.jpg",
+      "category": "local",
+      "topics": []
+    },
+    {
+      "id": "92de518311d9089010da",
+      "source": "kontan",
+      "title": "DPR Setujui 5 Dewan Pengawas LPP RRI Periode 2026-2031",
+      "url": "https://nasional.kontan.co.id/news/dpr-setujui-5-dewan-pengawas-lpp-rri-periode-2026-2031?source=home_terbaru",
+      "publishedAt": null,
+      "image": "https://foto.kontan.co.id/Ebk5OfMKUbznhTgpTqmYIGz9jgE=/smart/2023/08/22/964719786t.jpg",
+      "category": "other",
+      "topics": [
+        "politics"
+      ]
+    },
+    {
+      "id": "dd2dbe6bb2dc5dc2188c",
+      "source": "kontan",
+      "title": "Masih Minim, Ditjen Pajak Hanya Cairkan Restitusi Pajak Rp 6,89 Triliun dalam Sebulan",
+      "url": "https://nasional.kontan.co.id/news/masih-minim-ditjen-pajak-hanya-cairkan-restitusi-pajak-rp-689-triliun-dalam-sebulan?source=home_terbaru",
+      "publishedAt": null,
+      "image": "https://foto.kontan.co.id/oE3CcWS3mQKjZSOT-TN4Z_VCND8=/smart/2026/02/24/1184529518t.jpg",
+      "category": "other",
+      "topics": []
+    },
+    {
+      "id": "3415a23227e5d65117fa",
+      "source": "pluang",
+      "title": "ETF Roundhill Magnificent Seven Covered Call kalah saing meski fokus pendapatan mingguan.",
+      "url": "https://pluang.com/news-feed/magy-eksekusi-buruk-beli-indeks",
+      "publishedAt": null,
+      "image": "https://image-cdn.pluang.com/web/news-cards/v2/GSS/7bc243a43335f65a4bcac67bca9a2046fb1a2fd0c96156330ffa0db86a5c5c46-id.webp",
+      "category": "other",
+      "topics": []
     }
   ]
 }
