@@ -25,6 +25,7 @@ jobs:
         with:
           python-version: '3.12'
       - run: python scripts/test_news.py
+      - run: python scripts/audit_news.py --self-test
       - run: python scripts/test_macro.py
       - run: node js/copy.test.cjs
       - run: node js/security.test.cjs

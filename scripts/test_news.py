@@ -184,3 +184,27 @@ assert len(news.REGIONAL_NEWS_SOURCES["DIRECTORIES"]) == 5
 assert news.REGIONAL_NEWS_SOURCES["TZ"][1]["url"] == "https://dailynews.co.tz"
 assert news.REGIONAL_NEWS_SOURCES["TH"][5]["url"] == "https://www.dailynews.co.th"
 print("Middle East, Asia, Africa, ASEAN, directories and corrected publisher domains passed")
+
+atom = f'<feed xmlns="http://www.w3.org/2005/Atom"><entry><title>News from the official publisher</title><link href="https://www.investing.com/news/atom-story"/><published>{now.isoformat()}</published></entry></feed>'
+assert len(news.parse(atom.encode(), source)) == 1
+assert news.parse(atom.encode(), source)[0]['publishedAt'] == now.isoformat()
+regional_sitemap = sitemap.replace('https://www.reuters.com', 'https://orf.at')
+assert len(news.parse(regional_sitemap.encode(), {**orf, 'kind':'sitemap'})) == 1
+assert news.date_iso('2026-10-08 16:24:00') is None
+assert news.date_iso('2026-10-08 16:24:00', 'Asia/Colombo') == '2026-10-08T10:54:00+00:00'
+many = '<rss><channel>' + ''.join(f'<item><title>Official inflation report number {i}</title><link>https://www.investing.com/news/report-{i}</link></item>' for i in range(550)) + '</channel></rss>'
+assert len(news.parse(many.encode(), source)) == 500
+assert len(news.merge_items([], [{**latest, 'id':str(i), 'title':f'Archived economic report number {i}', 'url':f'https://www.reuters.com/world/story-{i}/'} for i in range(550)])) == 550
+print('Atom, regional-language sitemaps, explicit publisher timezone and 500-headline fetch limit passed; archives retained')
+
+import gzip
+assert len(news.parse(gzip.compress(atom.encode()), source)) == 1
+try:
+    news.parse(gzip.compress(b'x' * 5_000_001), source)
+    raise AssertionError('Oversized decompressed feed accepted')
+except ValueError:
+    pass
+assert len(news.parse('<rss><channel><item><title>新しい経済データを公表</title><link>https://www.investing.com/news/short-title</link></item></channel></rss>'.encode(), source)) == 1
+print('Compressed-feed size limit and short multilingual publisher headlines passed')
+
+assert news.clean("Retail\u2122 headline") == "Retail headline"

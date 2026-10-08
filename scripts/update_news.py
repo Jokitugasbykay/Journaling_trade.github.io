@@ -3,6 +3,8 @@ import concurrent.futures
 import datetime as dt
 import email.utils
 import hashlib
+import gzip
+import io
 import html
 from html.parser import HTMLParser
 import json
@@ -12,6 +14,7 @@ import sys
 import urllib.parse
 import urllib.request
 import xml.etree.ElementTree as ET
+from zoneinfo import ZoneInfo
 
 ROOT = Path(__file__).resolve().parents[1]
 SOURCES = [
@@ -62,7 +65,7 @@ for country, portals in REGIONAL_NEWS_SOURCES.items():
         if any(source['id'] == portal['id'] for source in SOURCES):
             continue
         domain = urllib.parse.urlsplit(portal['url']).hostname.removeprefix('www.')
-        SOURCES.append({**portal, 'country': country, 'domain': domain, 'kind': 'rss' if portal.get('feed') else 'external'})
+        SOURCES.append({**portal, 'country': country, 'domain': domain, 'kind': portal.get('kind', 'rss' if portal.get('feed') else 'external')})
 SIGNALS = re.compile(r"\b(?:buy on (?:dip|pullback)|sell on (?:rally|bounce)|stocks? to buy|stock picks?|trading signals?|price targets?|target harga|sinyal trading|rekomendasi (?:beli|jual)|buy now|sell now|support (?:dan |and )?resistance|rekomendasi saham)\b", re.I)
 IMAGE_DOMAINS = ('investing.com', 'cnbcfm.com', 'kontan.co.id', 'reuters.com', 'aljazeera.com', 'bloomberg.com', 'bwbx.io', 'pluang.com', 'kompas.com', 'detik.net.id', 'kemenkeu.go.id', 'cnnindonesia.com', 'bisnis.com', 'sindonews.com', 'apnews.com', 'bbc.co.uk', 'bbci.co.uk', 'wsj.net', 'guim.co.uk', 'ft.com', 'dw.com', 'nrk.no', 'dr.dk', 'yle.fi', 'yleisradio.fi', 'irozhlas.cz', 'hotnews.ro', 'telex.hu', 'rte.ie', 'orf.at')
 
@@ -120,7 +123,7 @@ class ArticleImage(HTMLParser):
 
 def clean(value):
     text = re.sub(r"<[^>]*>", "", html.unescape(value or ""))
-    text = re.sub(r"[\U0001F000-\U0001FAFF\u2600-\u27BF\uFE0F\u200D]", "", text)
+    text = re.sub(r"[\U0001F000-\U0001FAFF\u2600-\u27BF\u2122\uFE0F\u200D]", "", text)
     return " ".join(text.replace("—", "-").replace("–", "-").split())
 
 
@@ -135,14 +138,16 @@ def safe_url(value, domain):
     return urllib.parse.urlunsplit((url.scheme, url.netloc, url.path, url.query, ""))
 
 
-def date_iso(value):
+def date_iso(value, timezone=None):
     if not value:
         return None
     try:
         value = value.strip()
         parsed = dt.datetime.fromisoformat(value.replace("Z", "+00:00")) if re.match(r"\d{4}-", value) else email.utils.parsedate_to_datetime(value)
         if parsed.tzinfo is None:
-            return None
+            if not timezone:
+                return None
+            parsed = parsed.replace(tzinfo=ZoneInfo(timezone))
         return parsed.astimezone(dt.timezone.utc).isoformat()
     except (ValueError, TypeError, OverflowError):
         return None
@@ -215,6 +220,11 @@ class APHeadlines(PublisherHeadlines):
 
 
 def parse(data, source):
+    if data.startswith(b'\x1f\x8b'):
+        with gzip.GzipFile(fileobj=io.BytesIO(data)) as compressed:
+            data = compressed.read(5_000_001)
+        if len(data) > 5_000_000:
+            raise ValueError('Decompressed feed too large')
     if source['kind'] == 'json':
         raw = json.loads(data)
         rows = [{'title': row.get('title'), 'url': source['url'], 'publishedAt': row.get('pub'), 'tag': row.get('tag', ''), 'id': row.get('id')} for row in raw.get('items', []) if isinstance(row, dict)]
@@ -231,9 +241,14 @@ def parse(data, source):
             for row in root.findall('.//{*}item'):
                 photo = next((image_url(el.get('url')) for el in row.iter() if el.tag.split('}')[-1] in ('enclosure', 'thumbnail', 'content') and image_url(el.get('url'))), None)
                 rows.append({'title': row.findtext('{*}title'), 'url': row.findtext('{*}link'), 'publishedAt': row.findtext('{*}pubDate') or row.findtext('{http://purl.org/dc/elements/1.1/}date'), 'image': photo, 'tag':' '.join(''.join(category.itertext()) for category in row.findall('{*}category'))})
+            for row in root.findall('.//{http://www.w3.org/2005/Atom}entry'):
+                link = next((el.get('href') for el in row.findall('{*}link') if el.get('rel', 'alternate') == 'alternate'), '')
+                rows.append({'title': ''.join(row.find('{*}title').itertext()) if row.find('{*}title') is not None else '', 'url': link,
+                             'publishedAt': row.findtext('{*}published') or row.findtext('{*}updated'),
+                             'tag': ' '.join(el.get('term', '') for el in row.findall('{*}category'))})
         else:
             ns = {"s": "http://www.sitemaps.org/schemas/sitemap/0.9", "n": "http://www.google.com/schemas/sitemap-news/0.9", 'i': 'http://www.google.com/schemas/sitemap-image/1.1'}
-            rows = [{"title": row.findtext("n:news/n:title", namespaces=ns), "url": row.findtext("s:loc", namespaces=ns), "publishedAt": row.findtext("n:news/n:publication_date", namespaces=ns), 'image': row.findtext('i:image/i:loc', namespaces=ns)} for row in root.findall("s:url", ns) if row.findtext('n:news/n:publication/n:language', default='en', namespaces=ns) == 'en']
+            rows = [{"title": row.findtext("n:news/n:title", namespaces=ns), "url": row.findtext("s:loc", namespaces=ns), "publishedAt": row.findtext("n:news/n:publication_date", namespaces=ns), 'image': row.findtext('i:image/i:loc', namespaces=ns)} for row in root.findall("s:url", ns) if source['id'] != 'reuters' or row.findtext('n:news/n:publication/n:language', default='en', namespaces=ns) == 'en']
     items, seen = [], set()
     now = dt.datetime.now(dt.timezone.utc)
     for row in rows:
@@ -241,13 +256,13 @@ def parse(data, source):
         link = safe_url(row.get("url") or "", source.get('domains', source['domain']))
         if source['id'] == 'reuters' and link and re.match(r'^/(?!en/)[a-z]{2}/', urllib.parse.urlsplit(link).path):
             continue
-        published = date_iso(row.get("publishedAt"))
+        published = date_iso(row.get("publishedAt"), source.get("timezone"))
         if published:
             age = now - dt.datetime.fromisoformat(published)
             if age > dt.timedelta(days=7) or age < -dt.timedelta(minutes=10):
                 continue
         identity = str(row.get('id') or title) if source['kind'] == 'json' else link
-        if not link or identity in seen or len(title) < 20 or len(title) > 250 or SIGNALS.search(title):
+        if not link or identity in seen or len(title) < 8 or len(title) > 250 or SIGNALS.search(title):
             continue
         seen.add(identity)
         category = source.get('category') or category_for(link, title, row.get('tag', ''))
@@ -255,7 +270,7 @@ def parse(data, source):
         if category == 'politics' and 'politics' not in topics:
             topics.append('politics')
         items.append({"id": hashlib.sha256((source['id'] + str(identity)).encode()).hexdigest()[:20], "source": source["id"], "title": title, "url": link, "publishedAt": published, 'image': image_url(row.get('image')), 'category': category, 'topics':topics})
-    return merge_items([], items)[:20]
+    return merge_items([], items)[:500]
 
 
 def add_article_image(item):
@@ -383,7 +398,8 @@ def main():
         elif not item.get('image'):
             missing.append(item)
     with concurrent.futures.ThreadPoolExecutor(max_workers=8) as pool:
-        list(pool.map(add_article_image, missing))
+        # ponytail: enrich 96 new thumbnails per refresh; remaining headlines keep the photo-unavailable state.
+        list(pool.map(add_article_image, missing[:96]))
     items = merge_items(previous.get('items', []), items)
     output = {"version": 1, "checkedAt": dt.datetime.now(dt.timezone.utc).isoformat(), "intervalMinutes": 5, "sources": sources, "items": items}
     temporary = path.with_suffix(".json.tmp")

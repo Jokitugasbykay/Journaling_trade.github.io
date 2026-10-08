@@ -133,6 +133,30 @@ const set = code => vm.runInContext(code, ctx);
   const restoredFounder={...ctx,window:{},isNewsFounder:()=>true};
   vm.runInNewContext(extract('      const newsText =','      function newsMatchesSearch(')+'\nwindow.restored = activeNewsRegion();',restoredFounder);
   assert.equal(restoredFounder.window.restored,'UY');
+  for (const [area, inside, outside] of [
+    ['AFRICA','ng_p1','no_nrk'], ['ANTARCTICA',null,'ng_p1'], ['ASIA','lk_p1','au_abc'],
+    ['EUROPE','no_nrk','ca_cbc'], ['NORTH_AMERICA','ca_cbc','ar_clarin'],
+    ['SOUTH_AMERICA','ar_clarin','ca_cbc'], ['OCEANIA','au_abc','lk_p1']
+  ]) {
+    nodes.get('news-region').value=area; ctx.changeNewsRegion();
+    assert.equal(set('activeNewsRegion()'),area);
+    if (inside) assert.ok(ctx.newsSourceInRegion(inside),area);
+    assert.equal(ctx.newsSourceInRegion(outside),false,area);
+    assert.ok(registry.GLOBAL.every(portal=>ctx.newsSourceInRegion(portal.id)),area+' locked Global');
+    set("newsRegion = 'NO'"); nodes.get('news-source').value=area;
+    if (inside) assert.ok(ctx.newsSourceInRegion(inside),area+' source selection');
+    assert.equal(ctx.newsSourceMatchesSelection(outside,area),false);
+    const options=ctx.newsSourceOptions([]);
+    for (const code of ['AFRICA','ANTARCTICA','ASIA','EUROPE','NORTH_AMERICA','SOUTH_AMERICA','OCEANIA']) assert.ok(options.includes('value="'+code+'"'));
+    nodes.get('news-source').value='';
+  }
+  const sorted=ctx.newsSourceOptions([{id:'ca_cbc',name:'Zebra'}, {id:'ca_ctv',name:'Alpha'}]);
+  assert.ok(sorted.indexOf('Alpha') < sorted.indexOf('Zebra'));
+  const display=ctx.newsItemsForDisplay(Array.from({length:1100},(_,i)=>({source:i<550?'a':'b',publishedAt:new Date(1700000000000+i*1000).toISOString(),id:i})));
+  assert.equal(display.length,1000);
+  assert.equal(display.filter(row=>row.source==='a').length,500);
+  assert.equal(display.filter(row=>row.source==='b').length,500);
+  assert.ok(display[0].id > display[499].id);
   set("newsRegion = 'CZ'"); assert.equal(ctx.newsSourceInRegion('cz_ct24'), true); assert.equal(ctx.newsSourceInRegion('no_nrk'), false);
   set("newsRegion = 'ASIA'"); assert.equal(ctx.newsSourceInRegion('kompas'), true); assert.equal(ctx.newsSourceInRegion('cnbc'), false);
   set("newsRegion = 'DEFAULT'"); assert.equal(ctx.newsSourceInRegion('reuters'), true); assert.equal(ctx.newsSourceInRegion('bbc'), true);
