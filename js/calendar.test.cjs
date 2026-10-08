@@ -11,4 +11,7 @@ scope.kalCountries=null;scope.kalCategory='employment';assert.equal(scope.kalSar
 scope.kalDmp=[1,2];assert.equal(scope.kalSaring(rows).length,0);
 scope.kalCategory='';scope.kalDmp=[];assert.equal(scope.kalSaring(rows).length,0);
 scope.kalDmp=[1,2,3];scope.kalCari='rate';assert.equal(scope.kalSaring(rows)[0].countryCode,'FR');
+assert.equal(scope.kalCountryCode({countryCode:'UK'}),'GB');
+assert.ok(scope.kalCountryFlag('US').includes('https://flagcdn.com/us.svg'));
+assert.equal(scope.kalCountryFlag('../invalid'), '');
 console.log('Calendar country/category/importance intersection and empty selections passed');

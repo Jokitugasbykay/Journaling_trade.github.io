@@ -2681,7 +2681,10 @@
       }
 
       function kalCountryCode(event) {
-        return event.countryCode || ({USD:'US',GBP:'GB',JPY:'JP',EUR:'EU',AUD:'AU',NZD:'NZ',CAD:'CA',CHF:'CH',CNY:'CN',IDR:'ID',INR:'IN',KRW:'KR',BRL:'BR',ZAR:'ZA',TRY:'TR',SGD:'SG',HKD:'HK',RUB:'RU',MXN:'MX',SEK:'SE',NOK:'NO'}[event.neg] || event.neg || '');
+        return (event.countryCode === 'UK' ? 'GB' : event.countryCode) || ({USD:'US',GBP:'GB',JPY:'JP',EUR:'EU',AUD:'AU',NZD:'NZ',CAD:'CA',CHF:'CH',CNY:'CN',IDR:'ID',INR:'IN',KRW:'KR',BRL:'BR',ZAR:'ZA',TRY:'TR',SGD:'SG',HKD:'HK',RUB:'RU',MXN:'MX',SEK:'SE',NOK:'NO'}[event.neg] || event.neg || '');
+      }
+      function kalCountryFlag(code) {
+        return /^[A-Z]{2}$/.test(code) ? '<img class="country-flag" src="https://flagcdn.com/' + code.toLowerCase() + '.svg" alt="" width="20" height="14" loading="lazy" onerror="this.hidden=true">' : '';
       }
       const kalCategories = [
         ['inflation','Inflasi','Inflation',/inflation|\bcpi\b|\bppi\b|price index|deflator/i],
@@ -2709,8 +2712,8 @@
         const actions = {reset:kalText('Kembali ke default','Reset to default'),all:kalText('Pilih semua','Select all'),none:kalText('Hapus semua','Clear all')};
         document.querySelectorAll('[data-country-action]').forEach(button => button.textContent = actions[button.dataset.countryAction]);
         const query = $('kal-country-search').value.toLocaleLowerCase();
-        $('kal-country-list').innerHTML = codes.filter(code => (countryName(code)+' '+code).toLocaleLowerCase().includes(query)).map(code => '<label><input type="checkbox" name="calendar-country" value="'+esc(code)+'" '+(kalCountries === null || kalCountries.includes(code) ? 'checked' : '')+'><span>'+esc(countryName(code))+'</span><small>'+esc(code)+'</small></label>').join('') || '<p>'+kalText('Negara tidak ditemukan','No countries found')+'</p>';
-        $('kal-country-chips').innerHTML = (kalCountries === null ? codes : kalCountries).map(code => '<button type="button" data-remove-country="'+esc(code)+'" aria-label="'+esc(kalText('Hapus ','Remove ')+countryName(code))+'">'+esc(code)+' <span aria-hidden="true">×</span></button>').join('');
+        $('kal-country-list').innerHTML = codes.filter(code => (countryName(code)+' '+code).toLocaleLowerCase().includes(query)).map(code => '<label><input type="checkbox" name="calendar-country" value="'+esc(code)+'" '+(kalCountries === null || kalCountries.includes(code) ? 'checked' : '')+'>'+kalCountryFlag(code)+'<span>'+esc(countryName(code))+'</span><small>'+esc(code)+'</small></label>').join('') || '<p>'+kalText('Negara tidak ditemukan','No countries found')+'</p>';
+        $('kal-country-chips').innerHTML = (kalCountries === null ? codes : kalCountries).map(code => '<button type="button" data-remove-country="'+esc(code)+'" aria-label="'+esc(kalText('Hapus ','Remove ')+countryName(code))+'">'+kalCountryFlag(code)+esc(code)+' <span aria-hidden="true">×</span></button>').join('');
         $('kal-category').innerHTML = '<option value="">'+kalText('Semua kategori','All categories')+'</option>'+kalCategories.map(row => '<option value="'+row[0]+'">'+row[language === 'en' ? 2 : 1]+'</option>').join('');
         $('kal-category').value = kalCategory;
         const impacts = [[1,kalText('Rendah','Low')],[2,kalText('Sedang','Medium')],[3,kalText('Tinggi','High')]];
