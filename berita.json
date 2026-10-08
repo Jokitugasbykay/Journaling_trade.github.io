@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "checkedAt": "2026-10-08T07:03:10.613452+00:00",
+  "checkedAt": "2026-10-08T07:05:15.039818+00:00",
   "intervalMinutes": 5,
   "sources": [
     {
@@ -9,7 +9,7 @@
       "url": "https://www.investing.com/",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-08T07:02:58.017499+00:00"
+      "checkedAt": "2026-10-08T07:05:04.688121+00:00"
     },
     {
       "id": "cnbc",
@@ -17,7 +17,7 @@
       "url": "https://www.cnbc.com/markets/",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-08T07:02:58.101931+00:00"
+      "checkedAt": "2026-10-08T07:05:04.685792+00:00"
     },
     {
       "id": "kontan",
@@ -25,7 +25,7 @@
       "url": "https://www.kontan.co.id/",
       "kind": "html",
       "status": "ok",
-      "checkedAt": "2026-10-08T07:02:59.084506+00:00"
+      "checkedAt": "2026-10-08T07:05:06.090143+00:00"
     },
     {
       "id": "reuters",
@@ -33,7 +33,7 @@
       "url": "https://www.reuters.com/",
       "kind": "sitemap",
       "status": "ok",
-      "checkedAt": "2026-10-08T07:02:58.386021+00:00"
+      "checkedAt": "2026-10-08T07:05:05.001178+00:00"
     },
     {
       "id": "aljazeera",
@@ -41,7 +41,7 @@
       "url": "https://www.aljazeera.com/",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-08T07:02:58.104860+00:00"
+      "checkedAt": "2026-10-08T07:05:04.669540+00:00"
     },
     {
       "id": "bloomberg",
@@ -49,7 +49,7 @@
       "url": "https://www.bloomberg.com/asia",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-08T07:02:58.271691+00:00"
+      "checkedAt": "2026-10-08T07:05:04.824520+00:00"
     },
     {
       "id": "fnc",
@@ -57,7 +57,7 @@
       "url": "https://tradewithfnc.com/",
       "kind": "json",
       "status": "ok",
-      "checkedAt": "2026-10-08T07:02:59.931412+00:00"
+      "checkedAt": "2026-10-08T07:05:05.509995+00:00"
     },
     {
       "id": "investing_id",
@@ -65,7 +65,7 @@
       "url": "https://id.investing.com/news",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-08T07:02:58.248188+00:00"
+      "checkedAt": "2026-10-08T07:05:04.786938+00:00"
     },
     {
       "id": "pluang",
@@ -73,7 +73,7 @@
       "url": "https://pluang.com/news-feed",
       "kind": "html",
       "status": "ok",
-      "checkedAt": "2026-10-08T07:02:58.637153+00:00"
+      "checkedAt": "2026-10-08T07:05:05.017542+00:00"
     },
     {
       "id": "kompas",
@@ -81,7 +81,7 @@
       "url": "https://money.kompas.com/",
       "kind": "html",
       "status": "ok",
-      "checkedAt": "2026-10-08T07:02:59.286762+00:00"
+      "checkedAt": "2026-10-08T07:05:05.049782+00:00"
     },
     {
       "id": "detik",
@@ -89,7 +89,7 @@
       "url": "https://finance.detik.com/",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-08T07:02:59.945653+00:00"
+      "checkedAt": "2026-10-08T07:05:06.386015+00:00"
     },
     {
       "id": "kemenkeu",
@@ -121,7 +121,7 @@
       "url": "https://ekbis.sindonews.com/",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-08T07:02:59.189054+00:00"
+      "checkedAt": "2026-10-08T07:05:05.377362+00:00"
     },
     {
       "id": "fedwatch",
@@ -224,7 +224,7 @@
     {
       "id": "f01b6b3a1e8419c2f938",
       "source": "bloomberg",
-      "title": "MCB CEO: Growth Fueled by Current Oil Market Demand (Video)",
+      "title": "MCB CEO: Growth Fueled by Current Oil Market Demand",
       "url": "https://www.bloomberg.com/news/videos/2026-10-08/mcb-ceo-growth-fueled-by-current-oil-market-demand-video",
       "publishedAt": "2026-10-08T06:56:02+00:00",
       "image": null,
@@ -1300,7 +1300,7 @@
     {
       "id": "17dbc5c46dd8387581e3",
       "source": "aljazeera",
-      "title": "UK says East Jerusalem consulate building to remain open as a mission",
+      "title": "Signage at UK consulate in East Jerusalem removed as Israel’s deadline over",
       "url": "https://www.aljazeera.com/news/2026/10/8/signage-at-uk-consulate-in-east-jerusalem-removed-as-israels-deadline-over?traffic_source=rss",
       "publishedAt": "2026-10-08T05:06:25+00:00",
       "image": "https://www.aljazeera.com/wp-content/uploads/2026/10/reuters_6ac71dfa-1791434234.jpg?resize=1920%2C1440",
@@ -13895,6 +13895,16 @@
       "publishedAt": null,
       "image": "https://content-media.investing.com/news/LYNXMPED09124_M.jpg",
       "category": "markets",
+      "topics": []
+    },
+    {
+      "id": "f53427e01db67b1e8a48",
+      "source": "kontan",
+      "title": "Investasi IWIP Bakal Tembus US$ 27 Miliar, Serap 117.000 Tenaga Kerja",
+      "url": "https://nasional.kontan.co.id/news/investasi-iwip-bakal-tembus-us-27-miliar-serap-117000-tenaga-kerja?source=home_terbaru",
+      "publishedAt": null,
+      "image": "https://foto.kontan.co.id/bwGkGShmFtfjqtyH1hDudW6qBAw=/smart/2026/06/18/1410531752t.jpg",
+      "category": "other",
       "topics": []
     }
   ]
