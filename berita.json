@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "checkedAt": "2026-10-08T07:53:09.048878+00:00",
+  "checkedAt": "2026-10-08T08:13:59.454200+00:00",
   "intervalMinutes": 5,
   "sources": [
     {
@@ -9,7 +9,7 @@
       "url": "https://www.investing.com/",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-08T07:53:01.263642+00:00"
+      "checkedAt": "2026-10-08T08:13:46.598767+00:00"
     },
     {
       "id": "cnbc",
@@ -17,7 +17,7 @@
       "url": "https://www.cnbc.com/markets/",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-08T07:53:01.207419+00:00"
+      "checkedAt": "2026-10-08T08:13:46.637872+00:00"
     },
     {
       "id": "kontan",
@@ -25,7 +25,7 @@
       "url": "https://www.kontan.co.id/",
       "kind": "html",
       "status": "ok",
-      "checkedAt": "2026-10-08T07:53:02.293372+00:00"
+      "checkedAt": "2026-10-08T08:13:47.276764+00:00"
     },
     {
       "id": "reuters",
@@ -33,7 +33,7 @@
       "url": "https://www.reuters.com/",
       "kind": "sitemap",
       "status": "ok",
-      "checkedAt": "2026-10-08T07:53:01.293032+00:00"
+      "checkedAt": "2026-10-08T08:13:46.668484+00:00"
     },
     {
       "id": "aljazeera",
@@ -41,7 +41,7 @@
       "url": "https://www.aljazeera.com/",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-08T07:53:01.258770+00:00"
+      "checkedAt": "2026-10-08T08:13:46.595672+00:00"
     },
     {
       "id": "bloomberg",
@@ -49,7 +49,7 @@
       "url": "https://www.bloomberg.com/asia",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-08T07:53:01.538994+00:00"
+      "checkedAt": "2026-10-08T08:13:46.787783+00:00"
     },
     {
       "id": "fnc",
@@ -57,7 +57,7 @@
       "url": "https://tradewithfnc.com/",
       "kind": "json",
       "status": "ok",
-      "checkedAt": "2026-10-08T07:53:02.225882+00:00"
+      "checkedAt": "2026-10-08T08:13:47.447670+00:00"
     },
     {
       "id": "investing_id",
@@ -65,7 +65,7 @@
       "url": "https://id.investing.com/news",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-08T07:53:01.516678+00:00"
+      "checkedAt": "2026-10-08T08:13:46.712336+00:00"
     },
     {
       "id": "pluang",
@@ -73,7 +73,7 @@
       "url": "https://pluang.com/news-feed",
       "kind": "html",
       "status": "ok",
-      "checkedAt": "2026-10-08T07:53:02.239100+00:00"
+      "checkedAt": "2026-10-08T08:13:47.033974+00:00"
     },
     {
       "id": "kompas",
@@ -81,7 +81,7 @@
       "url": "https://money.kompas.com/",
       "kind": "html",
       "status": "ok",
-      "checkedAt": "2026-10-08T07:53:02.423591+00:00"
+      "checkedAt": "2026-10-08T08:13:47.498874+00:00"
     },
     {
       "id": "detik",
@@ -89,7 +89,7 @@
       "url": "https://finance.detik.com/",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-08T07:53:02.724630+00:00"
+      "checkedAt": "2026-10-08T08:13:48.434695+00:00"
     },
     {
       "id": "kemenkeu",
@@ -121,7 +121,7 @@
       "url": "https://ekbis.sindonews.com/",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-08T07:53:02.389881+00:00"
+      "checkedAt": "2026-10-08T08:13:47.288421+00:00"
     },
     {
       "id": "ap",
@@ -137,7 +137,7 @@
       "url": "https://www.bbc.com/news",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-08T07:53:02.617141+00:00"
+      "checkedAt": "2026-10-08T08:13:47.692427+00:00"
     },
     {
       "id": "afp",
@@ -152,7 +152,7 @@
       "url": "https://www.wsj.com/",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-08T07:53:02.697563+00:00"
+      "checkedAt": "2026-10-08T08:13:47.830314+00:00"
     },
     {
       "id": "guardian",
@@ -160,7 +160,7 @@
       "url": "https://www.theguardian.com/",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-08T07:53:04.043882+00:00"
+      "checkedAt": "2026-10-08T08:13:48.253295+00:00"
     },
     {
       "id": "ft",
@@ -168,7 +168,7 @@
       "url": "https://www.ft.com/",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-08T07:53:03.633653+00:00"
+      "checkedAt": "2026-10-08T08:13:48.573695+00:00"
     },
     {
       "id": "dw",
@@ -176,7 +176,7 @@
       "url": "https://www.dw.com/en/top-stories/s-9097",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-08T07:53:04.061164+00:00"
+      "checkedAt": "2026-10-08T08:13:48.516228+00:00"
     },
     {
       "id": "fedwatch",
@@ -195,6 +195,270 @@
   ],
   "items": [
     {
+      "id": "90aae761f484f6776498",
+      "source": "reuters",
+      "title": "Dollar holds near 18-month high, euro lags as bond yields rise",
+      "url": "https://www.reuters.com/world/africa/dollar-edges-back-18-month-high-after-fomc-minutes-2026-10-08/",
+      "publishedAt": "2026-10-08T08:10:22.157000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/G5JAJ7O7XRM7VNJT7OIT4DV4OM.jpg?auth=a72174bfd7a6814953dd2c484d6e7ad42140a35e36e99514060b738c18608aa6&smart=true&width=1920",
+      "category": "markets",
+      "topics": []
+    },
+    {
+      "id": "b8734d0efa3b4c84d81d",
+      "source": "reuters",
+      "title": "Drones, explosions and soldiers in bulldozers: surrounded by Israelis in Lebanon's 'model town'",
+      "url": "https://www.reuters.com/world/middle-east/drones-explosions-soldiers-bulldozers-surrounded-by-israelis-lebanons-model-town-2026-10-08/",
+      "publishedAt": "2026-10-08T08:10:09.787000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/PJJHOFM4QZMNFJN5B2YR5QVVK4.jpg?auth=6cea8d4c1a90c9fce300e25952346b7dc9be2f9d4795e6d6d20d360829c4645f&smart=true&width=1920",
+      "category": "world",
+      "topics": []
+    },
+    {
+      "id": "dc8db32aa7fdbb8c0eab",
+      "source": "reuters",
+      "title": "Reuters interview with ECB policymaker Dolenc",
+      "url": "https://www.reuters.com/markets/us/reuters-interview-with-ecb-policymaker-dolenc-2026-10-08/",
+      "publishedAt": "2026-10-08T08:09:39.523000+00:00",
+      "image": null,
+      "category": "markets",
+      "topics": []
+    },
+    {
+      "id": "75f0728de29d8f32010a",
+      "source": "wsj",
+      "title": "Oil Prices Rise More Than 2% Amid Houthi Attacks, U.S. Gulf Shut-Ins",
+      "url": "https://www.wsj.com/world/middle-east/oil-prices-rise-more-than-2-amid-houthi-attacks-u-s-gulf-shut-ins-51687549?mod=pls_whats_news_us_business_f",
+      "publishedAt": "2026-10-08T08:09:00+00:00",
+      "image": "https://images.wsj.net/im-40380723",
+      "category": "business",
+      "topics": []
+    },
+    {
+      "id": "06a396201a0c11b4fb9c",
+      "source": "reuters",
+      "title": "With inflation risks to upside, ECB may need to hike more, Dolenc says",
+      "url": "https://www.reuters.com/world/europe/with-inflation-risks-upside-ecb-may-need-hike-more-dolenc-says-2026-10-08/",
+      "publishedAt": "2026-10-08T08:08:45.030000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/VED75SSBZRPJBCEASWKHKXFPYE.jpg?auth=466ec3c7120beb4b207c352b664cf7ca73fa60e27333d44ddc85f8b9eb54143d&smart=true&width=1920",
+      "category": "markets",
+      "topics": []
+    },
+    {
+      "id": "1a527e99fa7a9b5f8352",
+      "source": "reuters",
+      "title": "Coupang files lawsuits over $462 million in South Korea fines over data breach",
+      "url": "https://www.reuters.com/legal/litigation/coupang-files-lawsuits-over-462-million-south-korea-fines-over-data-breach-2026-10-08/",
+      "publishedAt": "2026-10-08T08:08:42.203000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/GAURSIB5PVMTLHY2DWEFC7D6AY.jpg?auth=e0adb5017121a1f8d06c373752fae1838ebb32abba5309d658ca33cdab61f09a&smart=true&width=1920",
+      "category": "legal",
+      "topics": []
+    },
+    {
+      "id": "b5a6ff5141b95d073cd9",
+      "source": "reuters",
+      "title": "Keeping global temperature gain in check is a matter of survival, COP31 president says",
+      "url": "https://www.reuters.com/sustainability/cop/keeping-global-temperature-gain-check-is-matter-survival-cop31-president-says-2026-10-08/",
+      "publishedAt": "2026-10-08T08:08:35.346000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/SKMEK3D4B5OILHKH6YTQIZCFQU.jpg?auth=2ea1d79a13617b5cfb9512f125b3388327687ec00fa23bf3b44d21ba662fe4b6&smart=true&width=1920",
+      "category": "sustainability",
+      "topics": [
+        "politics"
+      ]
+    },
+    {
+      "id": "d7abfabcde33565b40fb",
+      "source": "reuters",
+      "title": "Swiss pension fund hit by data leak after cyber attack on software provider",
+      "url": "https://www.reuters.com/technology/swiss-pension-fund-hit-by-data-leak-after-cyber-attack-software-provider-2026-10-08/",
+      "publishedAt": "2026-10-08T08:05:44.865000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/B6RHQGQ32NNRXN32LX4KIMILXE.jpg?auth=75a3893d0d9010a47a85aea2e67e856a7d6bc882fef9cf00ef709846c9c96a41&smart=true&width=1920",
+      "category": "technology",
+      "topics": []
+    },
+    {
+      "id": "d52753f135db60b8b3f5",
+      "source": "wsj",
+      "title": "European Gas Prices Climb on LNG Shipping Risks",
+      "url": "https://www.wsj.com/finance/commodities-futures/european-gas-prices-climb-on-lng-shipping-risks-df4625ad?mod=rss_markets_main",
+      "publishedAt": "2026-10-08T08:05:00+00:00",
+      "image": null,
+      "category": "markets",
+      "topics": []
+    },
+    {
+      "id": "5af653a924796e91074b",
+      "source": "kompas",
+      "title": "INACRAFT Oktober Targetkan Transaksi Ritel Rp 100 Miliar, Kontrak Dagang Jutaan Dollar AS",
+      "url": "https://money.kompas.com/read/2026/10/08/150334726/inacraft-oktober-targetkan-transaksi-ritel-rp-100-miliar-kontrak-dagang-jutaan",
+      "publishedAt": "2026-10-08T08:03:34+00:00",
+      "image": "https://asset.kompas.com/crops/8XqfbdW_7OqpU_KFZNsOL9XBxD8=/0x0:0x0/750x500/data/photo/2026/10/08/6ac74ae0689bb.jpg",
+      "category": "other",
+      "topics": []
+    },
+    {
+      "id": "9c6d5e063be753674a91",
+      "source": "kompas",
+      "title": "BPJPH Klaim Penerbitan Sertifikat Halal Melonjak hingga 7 Juta per Tahun",
+      "url": "https://money.kompas.com/read/2026/10/08/150312226/bpjph-klaim-penerbitan-sertifikat-halal-melonjak-hingga-7-juta-per-tahun",
+      "publishedAt": "2026-10-08T08:03:12+00:00",
+      "image": "https://asset.kompas.com/crops/rZdVQlw9b54Y2Z_B6sxhbmlQTfk=/0x0:0x0/750x500/data/photo/2026/10/08/6ac7405bb4742.jpg",
+      "category": "other",
+      "topics": []
+    },
+    {
+      "id": "4aa73afddb4be4975021",
+      "source": "wsj",
+      "title": "Gold Inches Higher After Fed Minutes",
+      "url": "https://www.wsj.com/finance/commodities-futures/gold-falls-as-higher-yields-stronger-dollar-weigh-0759a7e8?mod=rss_markets_main",
+      "publishedAt": "2026-10-08T08:02:00+00:00",
+      "image": null,
+      "category": "markets",
+      "topics": []
+    },
+    {
+      "id": "3e50f37ddd4119f44a52",
+      "source": "detik",
+      "title": "Mengapa Vietnam Bisa? Hikmah dari 'The New Tiger of Asia'",
+      "url": "https://finance.detik.com/berita-ekonomi-bisnis/d-8698103/mengapa-vietnam-bisa-hikmah-dari-the-new-tiger-of-asia",
+      "publishedAt": "2026-10-08T08:01:44+00:00",
+      "image": "https://akcdn.detik.net.id/community/media/visual/2019/12/11/f051dec1-90e3-410a-aa0b-875cccb0fbd9_169.jpeg?w=360&q=90",
+      "category": "business",
+      "topics": []
+    },
+    {
+      "id": "ae737f9d49610e5c3867",
+      "source": "kompas",
+      "title": "Dony Oskaria Beri Lampu Hijau KAI Impor KRL Bekas dari Jepang",
+      "url": "https://money.kompas.com/read/2026/10/08/150037526/dony-oskaria-beri-lampu-hijau-kai-impor-krl-bekas-dari-jepang",
+      "publishedAt": "2026-10-08T08:00:37+00:00",
+      "image": "https://asset.kompas.com/crops/8v-TVFQUoZx45HpleM-oaDExZFE=/0x0:0x0/750x500/data/photo/2026/10/08/6ac73fc216bfe.jpg",
+      "category": "other",
+      "topics": []
+    },
+    {
+      "id": "eb223d029c28333a9c2e",
+      "source": "bloomberg",
+      "title": "What Everyone Gets Wrong About the Economic Problems in Europe",
+      "url": "https://www.bloomberg.com/news/articles/2026-10-08/what-everyone-gets-wrong-about-the-economic-problems-in-europe",
+      "publishedAt": "2026-10-08T08:00:25+00:00",
+      "image": null,
+      "category": "business",
+      "topics": []
+    },
+    {
+      "id": "5a3e3d049deb88da2520",
+      "source": "bloomberg",
+      "title": "Odd Lots: Understanding Europe’s Economic Problems(Podcast)",
+      "url": "https://www.bloomberg.com/news/audio/2026-10-08/odd-lots-understanding-europe-s-economic-problems-podcast",
+      "publishedAt": "2026-10-08T08:00:00+00:00",
+      "image": null,
+      "category": "business",
+      "topics": []
+    },
+    {
+      "id": "11242d3283bbf46e7d0a",
+      "source": "reuters",
+      "title": "Thai central bank in no rush to raise rates, governor says",
+      "url": "https://www.reuters.com/world/asia-pacific/thai-central-bank-no-rush-raise-rates-governor-says-2026-10-08/",
+      "publishedAt": "2026-10-08T07:58:44.562000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/YR5OREWY7NORLIEAXAGCDQE7VM.jpg?auth=af80e11640389f3747c8b35959fcf99064cc59b2f857c5c291197caa33415cdc&smart=true&width=1920",
+      "category": "markets",
+      "topics": []
+    },
+    {
+      "id": "482752030e241512cc21",
+      "source": "reuters",
+      "title": "German exports fall in August, pointing to weak third quarter",
+      "url": "https://www.reuters.com/world/china/german-exports-unexpectedly-fall-august-2026-10-08/",
+      "publishedAt": "2026-10-08T07:58:36.202000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/DRDWQCUZ6FMJROYBTS2RNAA53U.jpg?auth=bbcbdcb304f893c19bbdfc09c749c06939902944f7e900d304f15e428f41c7e6&smart=true&width=1920",
+      "category": "world",
+      "topics": []
+    },
+    {
+      "id": "1c06b58ef2da28ee1917",
+      "source": "reuters",
+      "title": "BYD exec says biggest challenge to expansion is geopolitics",
+      "url": "https://www.reuters.com/world/asia-pacific/byd-exec-says-biggest-challenge-expansion-is-geopolitics-2026-10-08/",
+      "publishedAt": "2026-10-08T07:58:10.168000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/O62I5TYA5ZNVPPJLJMRN3UCUSU.jpg?auth=40c324ac5b71772d8e5465e42c8772c56bd8be6d01d2611210c0c6a54aa8d3f5&smart=true&width=1920",
+      "category": "world",
+      "topics": []
+    },
+    {
+      "id": "8f1257146f5e91c24382",
+      "source": "reuters",
+      "title": "UN weather body says El Niño set to intensify and last until February 2027",
+      "url": "https://www.reuters.com/business/environment/un-weather-body-says-el-nio-set-intensify-last-until-february-2027-2026-10-08/",
+      "publishedAt": "2026-10-08T07:58:08.364000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/TBV2YJWQ75LVPDI4IXUM2KNBGI.jpg?auth=60acfc2a5486eb0fe0ed61d008ae90cf510eaf6c4fdf0c56d931f8023d217b2a&smart=true&width=1920",
+      "category": "sustainability",
+      "topics": []
+    },
+    {
+      "id": "23d9190f2c205703b4a2",
+      "source": "bbc",
+      "title": "Burnham to hold security talks with German chancellor in Berlin",
+      "url": "https://www.bbc.co.uk/news/articles/cmwyq34qexdzo?at_medium=RSS&at_campaign=rss",
+      "publishedAt": "2026-10-08T07:57:49+00:00",
+      "image": "https://ichef.bbci.co.uk/ace/standard/240/cpsprodpb/36b5/live/8f1d1c90-c2cd-11f1-ab6e-cf822873aef1.jpg",
+      "category": "politics",
+      "topics": [
+        "politics"
+      ]
+    },
+    {
+      "id": "cf490a72f60b8ddce857",
+      "source": "wsj",
+      "title": "Porsche AG Increases Stake in Manthey Racing to 67%",
+      "url": "https://www.wsj.com/business/autos/porsche-ag-increases-stake-in-manthey-racing-to-67-93c13b92?mod=pls_whats_news_us_business_f",
+      "publishedAt": "2026-10-08T07:55:00+00:00",
+      "image": "https://images.wsj.net/im-79219934",
+      "category": "business",
+      "topics": []
+    },
+    {
+      "id": "a7d5d81e30c249c09006",
+      "source": "reuters",
+      "title": "German coalition affirms reform agenda amid 'historic test' for democracy",
+      "url": "https://www.reuters.com/business/finance/german-coalition-affirms-reform-agenda-amid-historic-test-democracy-2026-10-08/",
+      "publishedAt": "2026-10-08T07:54:40.501000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/BHNNVCYSGRLKPD45PJRNXOP7JE.jpg?auth=b31047f2ef57d30b36231a334619db1d6eed62fe03de20cece4051e6eab64333&smart=true&width=1920",
+      "category": "business",
+      "topics": []
+    },
+    {
+      "id": "c84ef87c5bcb6a71c89b",
+      "source": "reuters",
+      "title": "Deloitte fined £6.05 million in UK over audits of transport operator Go-Ahead Group",
+      "url": "https://www.reuters.com/world/uk/deloitte-fined-605-million-uk-over-audits-transport-operator-go-ahead-group-2026-10-08/",
+      "publishedAt": "2026-10-08T07:54:01.982000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/Z2RKY26NAFPGDKNDROUJAQF6BE.jpg?auth=dfb2530f9a356e1454990c8f6fdfcde2ef7d274adaa1e5932683c0aa89f3e9b0&smart=true&width=1920",
+      "category": "world",
+      "topics": []
+    },
+    {
+      "id": "a7cfaf910ddb171050d9",
+      "source": "wsj",
+      "title": "Oil Climbs on Intensifying Shipping Attacks, U.S. Storm Fears",
+      "url": "https://www.wsj.com/finance/commodities-futures/oil-rises-amid-rising-mideast-tensions-3cd98941?mod=rss_markets_main",
+      "publishedAt": "2026-10-08T07:54:00+00:00",
+      "image": "https://images.wsj.net/im-93649508",
+      "category": "markets",
+      "topics": []
+    },
+    {
+      "id": "ae20d7271a8c01834f22",
+      "source": "reuters",
+      "title": "Starc compares Australia's daunting year to McIlroy's major sweep",
+      "url": "https://www.reuters.com/sports/cricket/starc-compares-australias-daunting-year-mcilroys-major-sweep-2026-10-08/",
+      "publishedAt": "2026-10-08T07:53:43.836000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/7UD6DORZYJLUJD4Z6ZBV4O7IZ4.jpg?auth=b7c3853379f37674667b8baac20c8d17902e5cdb66f8f940666b7d3effa4306d&smart=true&width=1920",
+      "category": "sport",
+      "topics": []
+    },
+    {
       "id": "6699e7dc973813056edf",
       "source": "guardian",
       "title": "Royal Navy serviceman charged with spying to benefit foreign power",
@@ -205,13 +469,63 @@
       "topics": []
     },
     {
+      "id": "6a0a662fbb431780a9e7",
+      "source": "cnbc",
+      "title": "Russia's internet giant Yandex halts operations at major data center after drone attack",
+      "url": "https://www.cnbc.com/2026/10/08/russia-yandex-ukraine-drone-strike-data-center.html",
+      "publishedAt": "2026-10-08T07:52:25+00:00",
+      "image": "https://image.cnbcfm.com/api/v1/image/108365399-17899005772026-09-20t042905z_1824787393_rc2qmna5qbak_rtrmadp_0_ukraine-crisis-russia-refinery.jpeg?v=1789900628&w=1920&h=1080",
+      "category": "technology",
+      "topics": []
+    },
+    {
+      "id": "43d6ee1900ae81c9801a",
+      "source": "bbc",
+      "title": "'Improving' James impresses Exeter boss Baxter",
+      "url": "https://www.bbc.co.uk/sport/rugby-union/articles/c6rmyn4xwyxdo?at_medium=RSS&at_campaign=rss",
+      "publishedAt": "2026-10-08T07:51:09+00:00",
+      "image": "https://ichef.bbci.co.uk/ace/standard/240/cpsprodpb/2417/live/107b7c20-c2ea-11f1-89a3-9b445bfcfe23.jpg",
+      "category": "sport",
+      "topics": []
+    },
+    {
       "id": "7ae0c98ac9008a537652",
       "source": "bbc",
-      "title": "Most UK diplomats to leave East Jerusalem consulate, Israel says, as Miliband says 'vital services' will continue",
+      "title": "UK says 'vital services' to continue in East Jerusalem as Israel says most consulate diplomats leaving",
       "url": "https://www.bbc.co.uk/news/articles/cw33xd6vegnno?at_medium=RSS&at_campaign=rss",
       "publishedAt": "2026-10-08T07:51:06+00:00",
       "image": "https://ichef.bbci.co.uk/ace/standard/240/cpsprodpb/1af2/live/5079a140-c2df-11f1-bc2e-018d645d8d21.jpg",
       "category": "other",
+      "topics": []
+    },
+    {
+      "id": "f5aa2c0f23c764a14bb8",
+      "source": "wsj",
+      "title": "Euro at Risk of Further Losses on French Debt Concerns",
+      "url": "https://www.wsj.com/finance/commodities-futures/dollar-stays-elevated-as-treasury-yields-oil-prices-rise-274a97c5?mod=rss_markets_main",
+      "publishedAt": "2026-10-08T07:51:00+00:00",
+      "image": null,
+      "category": "markets",
+      "topics": []
+    },
+    {
+      "id": "0a2fdca31da05e9d99ec",
+      "source": "aljazeera",
+      "title": "Southampton manager Eckert can stay on despite role in ‘spygate’ scandal",
+      "url": "https://www.aljazeera.com/sports/2026/10/8/southampton-manager-eckert-can-stay-on-despite-role-in-spygate-scandal?traffic_source=rss",
+      "publishedAt": "2026-10-08T07:49:46+00:00",
+      "image": "https://www.aljazeera.com/wp-content/uploads/2026/10/2026-05-09T132619Z_78867361_UP1EM5911BT4B_RTRMADP_3_SOCCER-ENGLAND-MID-SOU-1791444628.jpg?resize=1920%2C1440",
+      "category": "sport",
+      "topics": []
+    },
+    {
+      "id": "548a978ce579ea06c32e",
+      "source": "detik",
+      "title": "Strategi Menguatkan Rupiah: Bukan Sekadar Menaikkan Suku Bunga",
+      "url": "https://finance.detik.com/bursa-dan-valas/d-8698065/strategi-menguatkan-rupiah-bukan-sekadar-menaikkan-suku-bunga",
+      "publishedAt": "2026-10-08T07:48:06+00:00",
+      "image": "https://akcdn.detik.net.id/community/media/visual/2026/09/29/rupiah-tertekan-dolar-as-tembus-rp18000-lagi-1790659730413_169.jpeg?w=360&q=90",
+      "category": "local",
       "topics": []
     },
     {
@@ -291,7 +605,7 @@
     {
       "id": "e7682b61d9d70ead2a4b",
       "source": "bbc",
-      "title": "Royal Navy service member charged with spying",
+      "title": "Royal Navy service member charged with spying for foreign power",
       "url": "https://www.bbc.co.uk/news/articles/cw203n6emde8o?at_medium=RSS&at_campaign=rss",
       "publishedAt": "2026-10-08T07:40:30+00:00",
       "image": "https://ichef.bbci.co.uk/ace/standard/240/cpsprodpb/1162/live/6f452970-c2ec-11f1-89a3-9b445bfcfe23.jpg",
@@ -398,16 +712,6 @@
       "publishedAt": "2026-10-08T07:34:11.593000+00:00",
       "image": null,
       "category": "world",
-      "topics": []
-    },
-    {
-      "id": "a7d5d81e30c249c09006",
-      "source": "reuters",
-      "title": "German coalition affirms reform agenda amid 'historic test' for democracy",
-      "url": "https://www.reuters.com/business/finance/german-coalition-affirms-reform-agenda-amid-historic-test-democracy-2026-10-08/",
-      "publishedAt": "2026-10-08T07:33:43.727000+00:00",
-      "image": "https://www.reuters.com/resizer/v2/BHNNVCYSGRLKPD45PJRNXOP7JE.jpg?auth=b31047f2ef57d30b36231a334619db1d6eed62fe03de20cece4051e6eab64333&smart=true&width=1920",
-      "category": "business",
       "topics": []
     },
     {
@@ -521,16 +825,6 @@
       "topics": []
     },
     {
-      "id": "c84ef87c5bcb6a71c89b",
-      "source": "reuters",
-      "title": "Deloitte fined £6.05 million in UK over audits of transport operator Go-Ahead Group",
-      "url": "https://www.reuters.com/world/uk/deloitte-fined-605-million-uk-over-audits-transport-operator-go-ahead-group-2026-10-08/",
-      "publishedAt": "2026-10-08T07:26:20.606000+00:00",
-      "image": "https://www.reuters.com/resizer/v2/Z2RKY26NAFPGDKNDROUJAQF6BE.jpg?auth=dfb2530f9a356e1454990c8f6fdfcde2ef7d274adaa1e5932683c0aa89f3e9b0&smart=true&width=1920",
-      "category": "world",
-      "topics": []
-    },
-    {
       "id": "1430695a62fa52fef2a9",
       "source": "reuters",
       "title": "Seven & i operating profit falls 11% in second quarter",
@@ -570,16 +864,6 @@
       "publishedAt": "2026-10-08T07:22:45+00:00",
       "image": null,
       "category": "other",
-      "topics": []
-    },
-    {
-      "id": "8f1257146f5e91c24382",
-      "source": "reuters",
-      "title": "UN weather body says El Niño set to intensify and last until February 2027",
-      "url": "https://www.reuters.com/business/environment/un-weather-body-says-el-nio-set-intensify-last-until-february-2027-2026-10-08/",
-      "publishedAt": "2026-10-08T07:21:43.827000+00:00",
-      "image": "https://www.reuters.com/resizer/v2/TBV2YJWQ75LVPDI4IXUM2KNBGI.jpg?auth=60acfc2a5486eb0fe0ed61d008ae90cf510eaf6c4fdf0c56d931f8023d217b2a&smart=true&width=1920",
-      "category": "sustainability",
       "topics": []
     },
     {
@@ -637,16 +921,6 @@
       "topics": [
         "politics"
       ]
-    },
-    {
-      "id": "11242d3283bbf46e7d0a",
-      "source": "reuters",
-      "title": "Thai central bank in no rush to raise rates, governor says",
-      "url": "https://www.reuters.com/world/asia-pacific/thai-central-bank-no-rush-raise-rates-governor-says-2026-10-08/",
-      "publishedAt": "2026-10-08T07:17:44.425000+00:00",
-      "image": "https://www.reuters.com/resizer/v2/YR5OREWY7NORLIEAXAGCDQE7VM.jpg?auth=af80e11640389f3747c8b35959fcf99064cc59b2f857c5c291197caa33415cdc&smart=true&width=1920",
-      "category": "markets",
-      "topics": []
     },
     {
       "id": "a8905f624b7c8ec4170d",
@@ -849,6 +1123,16 @@
       "topics": []
     },
     {
+      "id": "7c6d2e3ad6bb08c0b68c",
+      "source": "bbc",
+      "title": "Working with Iraola, car clauses and hope - the Liverpool academy approach",
+      "url": "https://www.bbc.co.uk/sport/football/articles/cmx2z9z10wezo?at_medium=RSS&at_campaign=rss",
+      "publishedAt": "2026-10-08T07:04:50+00:00",
+      "image": "https://ichef.bbci.co.uk/ace/standard/240/cpsprodpb/97ab/live/65d4a550-bcc5-11f1-ae14-0b840f99ba59.jpg",
+      "category": "sport",
+      "topics": []
+    },
+    {
       "id": "720adbdba0b3ee46eb7a",
       "source": "kompas",
       "title": "Dony Oskaria: Dividen Danantara Diinvestasikan, Bukan Disetor ke Kas Negara",
@@ -924,7 +1208,7 @@
       "title": "How can home nations reach Women's World Cup?",
       "url": "https://www.bbc.co.uk/sport/football/articles/cqzrdmjp5162o?at_medium=RSS&at_campaign=rss",
       "publishedAt": "2026-10-08T07:01:10+00:00",
-      "image": "https://ichef.bbci.co.uk/ace/standard/240/cpsprodpb/6a04/live/acc60470-c2df-11f1-b16a-35bd7e82ae06.jpg",
+      "image": "https://ichef.bbci.co.uk/ace/standard/240/cpsprodpb/0909/live/5c1b6eb0-c2ef-11f1-babe-4199b0e7ccea.png",
       "category": "sport",
       "topics": []
     },
@@ -1103,16 +1387,6 @@
       "topics": []
     },
     {
-      "id": "f5aa2c0f23c764a14bb8",
-      "source": "wsj",
-      "title": "Dollar Stays Elevated as Treasury Yields, Oil Prices Rise",
-      "url": "https://www.wsj.com/finance/commodities-futures/dollar-stays-elevated-as-treasury-yields-oil-prices-rise-274a97c5?mod=rss_markets_main",
-      "publishedAt": "2026-10-08T06:55:00+00:00",
-      "image": null,
-      "category": "markets",
-      "topics": []
-    },
-    {
       "id": "f0dace92d0f590dcc448",
       "source": "reuters",
       "title": "US, Russia explore gas sale to Europe amid Ukraine war, say sources",
@@ -1264,16 +1538,6 @@
       "publishedAt": "2026-10-08T06:48:41.306000+00:00",
       "image": "https://www.reuters.com/resizer/v2/WSGZTEG2IROPNOGFZIIUZFBYXQ.jpg?auth=06742f670a1977c6bc5e65df8b0a329ece0ba5a63a5172012b0b2b4725c423f6&smart=true&width=1920",
       "category": "other",
-      "topics": []
-    },
-    {
-      "id": "482752030e241512cc21",
-      "source": "reuters",
-      "title": "German exports fall unexpectedly in August",
-      "url": "https://www.reuters.com/world/china/german-exports-unexpectedly-fall-august-2026-10-08/",
-      "publishedAt": "2026-10-08T06:48:40.599000+00:00",
-      "image": "https://www.reuters.com/resizer/v2/DRDWQCUZ6FMJROYBTS2RNAA53U.jpg?auth=bbcbdcb304f893c19bbdfc09c749c06939902944f7e900d304f15e428f41c7e6&smart=true&width=1920",
-      "category": "world",
       "topics": []
     },
     {
@@ -2599,7 +2863,7 @@
     {
       "id": "17dbc5c46dd8387581e3",
       "source": "aljazeera",
-      "title": "UK says East Jerusalem consulate building to remain open as a mission",
+      "title": "UK renames East Jerusalem consulate as a mission; some diplomats to remain",
       "url": "https://www.aljazeera.com/news/2026/10/8/signage-at-uk-consulate-in-east-jerusalem-removed-as-israels-deadline-over?traffic_source=rss",
       "publishedAt": "2026-10-08T05:06:25+00:00",
       "image": "https://www.aljazeera.com/wp-content/uploads/2026/10/reuters_6ac71dfa-1791434234.jpg?resize=1920%2C1440",
@@ -2805,7 +3069,7 @@
     {
       "id": "e231dcd9f672db2b236c",
       "source": "bbc",
-      "title": "UK bluefin tuna comeback shows nature can recover, says WWF",
+      "title": "Bluefin tuna return to British waters in huge numbers",
       "url": "https://www.bbc.co.uk/news/articles/c5rmyzgdjzkwo?at_medium=RSS&at_campaign=rss",
       "publishedAt": "2026-10-08T05:00:04+00:00",
       "image": "https://ichef.bbci.co.uk/ace/standard/240/cpsprodpb/239f/live/5580dbc0-c24b-11f1-ab30-1f92d324dff9.jpg",
@@ -2875,16 +3139,6 @@
       "topics": []
     },
     {
-      "id": "90aae761f484f6776498",
-      "source": "reuters",
-      "title": "Dollar steady near 18-month high after Fed minutes flag inflation risks",
-      "url": "https://www.reuters.com/world/africa/dollar-edges-back-18-month-high-after-fomc-minutes-2026-10-08/",
-      "publishedAt": "2026-10-08T04:52:52.487000+00:00",
-      "image": "https://www.reuters.com/resizer/v2/G5JAJ7O7XRM7VNJT7OIT4DV4OM.jpg?auth=a72174bfd7a6814953dd2c484d6e7ad42140a35e36e99514060b738c18608aa6&smart=true&width=1920",
-      "category": "markets",
-      "topics": []
-    },
-    {
       "id": "8174b29d973bf5b429b3",
       "source": "reuters",
       "title": "Samsung flags $80 billion profit on AI boom, highest quarterly for any tech company",
@@ -2933,18 +3187,6 @@
       "image": "https://akcdn.detik.net.id/community/media/visual/2026/10/08/mrdiy-umumkan-pemenang-regional-art-competition-2026-ini-daftarnya-1791434622958.jpeg?w=360&q=90",
       "category": "business",
       "topics": []
-    },
-    {
-      "id": "23d9190f2c205703b4a2",
-      "source": "bbc",
-      "title": "Burnham to hold security talks with German chancellor in Berlin",
-      "url": "https://www.bbc.co.uk/news/articles/cmwyq34qexdzo?at_medium=RSS&at_campaign=rss",
-      "publishedAt": "2026-10-08T04:45:56+00:00",
-      "image": "https://ichef.bbci.co.uk/ace/standard/240/cpsprodpb/36b5/live/8f1d1c90-c2cd-11f1-ab6e-cf822873aef1.jpg",
-      "category": "politics",
-      "topics": [
-        "politics"
-      ]
     },
     {
       "id": "b9c3863ac8c0101f5e25",
@@ -5027,16 +5269,6 @@
       "topics": []
     },
     {
-      "id": "4aa73afddb4be4975021",
-      "source": "wsj",
-      "title": "Gold Falls as Higher Yields, Stronger Dollar Weigh",
-      "url": "https://www.wsj.com/finance/commodities-futures/gold-falls-as-higher-yields-stronger-dollar-weigh-0759a7e8?mod=rss_markets_main",
-      "publishedAt": "2026-10-08T00:50:00+00:00",
-      "image": null,
-      "category": "markets",
-      "topics": []
-    },
-    {
       "id": "287c13264824911998f6",
       "source": "dw",
       "title": "Brazil: Thousands of students march against Bolsonaro",
@@ -5094,16 +5326,6 @@
       "publishedAt": "2026-10-08T00:39:38.414000+00:00",
       "image": "https://www.reuters.com/resizer/v2/QF6O7VTBY5LUVG5ADQEMSS25KI.jpg?auth=41b016543cc482b296053e19abced7712f773bdc5c2531c8e490adf062e0a7cf&smart=true&width=1920",
       "category": "sport",
-      "topics": []
-    },
-    {
-      "id": "a7cfaf910ddb171050d9",
-      "source": "wsj",
-      "title": "Oil Rises Amid Rising Mideast Tensions",
-      "url": "https://www.wsj.com/finance/commodities-futures/oil-rises-amid-rising-mideast-tensions-3cd98941?mod=rss_markets_main",
-      "publishedAt": "2026-10-08T00:36:00+00:00",
-      "image": "https://images.wsj.net/im-93649508",
-      "category": "markets",
       "topics": []
     },
     {
@@ -13947,12 +14169,12 @@
       "topics": []
     },
     {
-      "id": "5900fb2daab5012aa190",
+      "id": "ef26d8abe0247c7a5809",
       "source": "investing_id",
       "title": "Mengapa saham Valneva turun hari ini?",
-      "url": "https://id.investing.com/news/stock-market-news/mengapa-saham-valneva-turun-hari-ini-93CH-3089833",
+      "url": "https://id.investing.com/news/stock-market-news/mengapa-saham-valneva-turun-hari-ini-93CH-3090096",
       "publishedAt": null,
-      "image": "https://content-media.investing.com/news/SP500StandardandPoors500Index_800x533_L_1657544297.jpg",
+      "image": "https://content-media.investing.com/news/OilwellinColorado_800x533_L_1645345712.jpg",
       "category": "markets",
       "topics": []
     },
@@ -18749,6 +18971,246 @@
       "url": "https://id.investing.com/news/stock-market-news/mengapa-saham-bavarian-nordic-melonjak-hari-ini-93CH-3090061",
       "publishedAt": null,
       "image": "https://content-media.investing.com/news/LYNXMPEBBR0PM_M.jpg",
+      "category": "markets",
+      "topics": []
+    },
+    {
+      "id": "e556aa0dd2a3de5258b0",
+      "source": "investing",
+      "title": "Czech retail sales growth slows to 4.3% in August",
+      "url": "https://www.investing.com/news/economic-indicators/czech-retail-sales-growth-slows-to-43-in-august-93CH-4938078",
+      "publishedAt": null,
+      "image": "https://content-media.investing.com/news/LYNXMPEBBR0PM_M.jpg",
+      "category": "business",
+      "topics": []
+    },
+    {
+      "id": "9f1b5c69a412dfa395b3",
+      "source": "investing",
+      "title": "DAX oversold at 28 RSI in downtrend: Live levels",
+      "url": "https://www.investing.com/news/stock-market-news/dax-presses-resistance-at-25367-in-bear-flag-live-levels-93CH-4931189",
+      "publishedAt": null,
+      "image": "https://content-media.investing.com/news/LYNXMPEBBR0PM_M.jpg",
+      "category": "markets",
+      "topics": []
+    },
+    {
+      "id": "88664e421daead450619",
+      "source": "investing",
+      "title": "With inflation risks to upside, ECB may need to hike more, Dolenc says",
+      "url": "https://www.investing.com/news/economy-news/with-inflation-risks-to-upside-ecb-may-need-to-hike-more-dolenc-says-4938067",
+      "publishedAt": null,
+      "image": "https://content-media.investing.com/trkd-images/LYNXMPEM970IN_L.jpg",
+      "category": "markets",
+      "topics": []
+    },
+    {
+      "id": "315934366e61ef0d36f6",
+      "source": "investing",
+      "title": "Jefferies upgrades Royal Caribbean stock rating on improved revenue outlook",
+      "url": "https://www.investing.com/news/analyst-ratings/jefferies-upgrades-royal-caribbean-stock-rating-on-improved-revenue-outlook-93CH-4938066",
+      "publishedAt": null,
+      "image": "https://content-media.investing.com/news/moved_LYNXMPEM3Q0WG_1200_L.jpg",
+      "category": "markets",
+      "topics": []
+    },
+    {
+      "id": "e996917cbc2762b0d901",
+      "source": "investing",
+      "title": "KeyBanc upgrades Generac stock rating on Amazon deal confidence",
+      "url": "https://www.investing.com/news/analyst-ratings/keybanc-upgrades-generac-stock-rating-on-amazon-deal-confidence-93CH-4938065",
+      "publishedAt": null,
+      "image": "https://content-media.investing.com/news/amazon_M_1440049058.jpg",
+      "category": "markets",
+      "topics": []
+    },
+    {
+      "id": "5b0eabb6498f09c7120e",
+      "source": "investing",
+      "title": "JPMorgan initiates Travel + Leisure stock at neutral on stable earnings",
+      "url": "https://www.investing.com/news/analyst-ratings/jpmorgan-initiates-travel--leisure-stock-at-neutral-on-stable-earnings-93CH-4938064",
+      "publishedAt": null,
+      "image": "https://content-media.investing.com/news/moved_LYNXMPEM3Q0WG_1200_L.jpg",
+      "category": "markets",
+      "topics": []
+    },
+    {
+      "id": "e9895eb7d9fdd3afa924",
+      "source": "investing",
+      "title": "JPMorgan initiates Neurogene stock rating at Overweight on gene therapy potential",
+      "url": "https://www.investing.com/news/analyst-ratings/jpmorgan-initiates-neurogene-stock-rating-at-overweight-on-gene-therapy-potential-93CH-4938063",
+      "publishedAt": null,
+      "image": "https://content-media.investing.com/news/moved_LYNXMPEM40318_1200_L.jpg",
+      "category": "markets",
+      "topics": []
+    },
+    {
+      "id": "fde08061a5a1639ed462",
+      "source": "investing",
+      "title": "Biohaven licenses IgG degrader portfolio to Ono for Asia",
+      "url": "https://www.investing.com/news/company-news/biohaven-licenses-igg-degrader-portfolio-to-ono-for-asia-93CH-4938062",
+      "publishedAt": null,
+      "image": "https://content-media.investing.com/news/LYNXMPEM0P15Q_1200_L.jpg",
+      "category": "business",
+      "topics": []
+    },
+    {
+      "id": "a9a1d6007e8f38f940fa",
+      "source": "investing",
+      "title": "Standard Life falls 5% after Aberdeen plans to sell half its stake",
+      "url": "https://www.investing.com/news/stock-market-news/standard-life-falls-5-after-aberdeen-plans-to-sell-half-its-stake-4938059",
+      "publishedAt": null,
+      "image": "https://content-media.investing.com/news/LYNXMPECAD0I7_M.jpg",
+      "category": "markets",
+      "topics": []
+    },
+    {
+      "id": "c18f4a3bf5d24a6fa7d5",
+      "source": "investing",
+      "title": "Earnings call transcript: Fagron Q3 2026 revenue rises 23.2%, stock falls 4.8%",
+      "url": "https://www.investing.com/news/transcripts/earnings-call-transcript-fagron-q3-2026-revenue-rises-232-stock-falls-48-93CH-4938049",
+      "publishedAt": null,
+      "image": "https://content-media.investing.com/news/LYNXNPEC0E0NG_M.jpg",
+      "category": "markets",
+      "topics": []
+    },
+    {
+      "id": "ef805bcb2bd02207c415",
+      "source": "kontan",
+      "title": "Rupiah Ditutup Melemah ke Rp 17.915 Per Dolar AS Hari Ini (8/10), Asia Kompak Melemah",
+      "url": "https://investasi.kontan.co.id/news/rupiah-ditutup-melemah-ke-rp-17915-per-dolar-as-hari-ini-810-asia-kompak-melemah?source=home_headline",
+      "publishedAt": null,
+      "image": "https://foto.kontan.co.id/ItZDYrRo6xviu4QeNlrluDaAwxQ=/smart/2022/09/29/195596909p.jpg",
+      "category": "local",
+      "topics": []
+    },
+    {
+      "id": "bd108130cc5653c33012",
+      "source": "kontan",
+      "title": "Survei BI: Persepsi Konsumen Atas Ekonomi Melemah, Penghasilan & Lapangan Kerja Turun",
+      "url": "https://nasional.kontan.co.id/news/survei-bi-persepsi-konsumen-atas-ekonomi-melemah-penghasilan-lapangan-kerja-turun?source=home_terbaru",
+      "publishedAt": null,
+      "image": "https://foto.kontan.co.id/mPHlj30QSpsEUBZ-iVndy4AQ4ic=/smart/2018/06/11/887792118t.jpg",
+      "category": "business",
+      "topics": []
+    },
+    {
+      "id": "e8952609b1a4ee31e159",
+      "source": "kontan",
+      "title": "Survei BI: Keyakinan Konsumen Terjaga, Persepsi Ekonomi Saat Ini Melemah",
+      "url": "https://nasional.kontan.co.id/news/survei-bi-keyakinan-konsumen-terjaga-persepsi-ekonomi-saat-ini-melemah?source=home_terbaru",
+      "publishedAt": null,
+      "image": "https://foto.kontan.co.id/DCmKW6m6WJE63DXbVMen4IBw8uU=/smart/2025/08/11/1418691601t.jpg",
+      "category": "business",
+      "topics": []
+    },
+    {
+      "id": "e41beee44073742310e7",
+      "source": "kontan",
+      "title": "MR.D.I.Y Perkuat Brand di Asia Tenggara, Gandeng Talenta 3 Negara",
+      "url": "https://industri.kontan.co.id/news/mrdiy-perkuat-brand-di-asia-tenggara-gandeng-talenta-3-negara?source=home_terbaru",
+      "publishedAt": null,
+      "image": "https://foto.kontan.co.id/A3P3_LGmaQ2U64pmtzihZqhvdrA=/smart/2019/06/25/626880095t.jpg",
+      "category": "other",
+      "topics": []
+    },
+    {
+      "id": "839dbc3527bf39720376",
+      "source": "kontan",
+      "title": "WIKA Benahi Keuangan di Tengah Rencana Merger BUMN Karya",
+      "url": "https://industri.kontan.co.id/news/wika-benahi-keuangan-di-tengah-rencana-merger-bumn-karya?source=home_terbaru",
+      "publishedAt": null,
+      "image": "https://foto.kontan.co.id/Ar_rR4d3tYHi4HF1CcY2JxDYK7Q=/smart/2024/01/03/1159067241t.jpg",
+      "category": "local",
+      "topics": []
+    },
+    {
+      "id": "308d48586666b4b68c96",
+      "source": "investing_id",
+      "title": "JPMorgan mulai liput saham Marriott Vacations dengan rating overweight",
+      "url": "https://id.investing.com/news/analyst-ratings/jpmorgan-mulai-liput-saham-marriott-vacations-dengan-rating-overweight-93CH-3090098",
+      "publishedAt": null,
+      "image": "https://content-media.investing.com/news/moved_LYNXMPEM3T1AG_1200_L.jpg",
+      "category": "markets",
+      "topics": []
+    },
+    {
+      "id": "36cda01f9369ed57683f",
+      "source": "investing_id",
+      "title": "JPMorgan mulai liput saham Hilton Grand Vacations dengan rating Netral",
+      "url": "https://id.investing.com/news/analyst-ratings/jpmorgan-mulai-liput-saham-hilton-grand-vacations-dengan-rating-netral-93CH-3090097",
+      "publishedAt": null,
+      "image": "https://content-media.investing.com/news/moved_LYNXMPEM3T1K3_1200_L.jpg",
+      "category": "markets",
+      "topics": []
+    },
+    {
+      "id": "2a3347886c077d07cdb4",
+      "source": "investing_id",
+      "title": "Saham Next 15 Anjlok 10% Usai Pendapatan Turun dan Rugi Sebelum Pajak",
+      "url": "https://id.investing.com/news/stock-market-news/saham-next-15-anjlok-10-usai-pendapatan-turun-dan-rugi-sebelum-pajak-93CH-3090095",
+      "publishedAt": null,
+      "image": "https://content-media.investing.com/news/LYNXNPEB8506G_M.jpg",
+      "category": "markets",
+      "topics": []
+    },
+    {
+      "id": "374479612fd5d6016cae",
+      "source": "investing_id",
+      "title": "Saham Valneva turun setelah Inggris cabut izin vaksin Ixchiq",
+      "url": "https://id.investing.com/news/stock-market-news/saham-valneva-turun-setelah-inggris-cabut-izin-vaksin-ixchiq-93CH-3090094",
+      "publishedAt": null,
+      "image": "https://content-media.investing.com/news/fa8a2f803ea2ddf92359d55091dcde0a_M.jpg",
+      "category": "markets",
+      "topics": []
+    },
+    {
+      "id": "2f0a8004bcece4801811",
+      "source": "investing_id",
+      "title": "Saham Zealand Pharma turun 3% meski hasil uji obat obesitas positif",
+      "url": "https://id.investing.com/news/stock-market-news/saham-zealand-pharma-turun-3-meski-hasil-uji-obat-obesitas-positif-3090090",
+      "publishedAt": null,
+      "image": "https://content-media.investing.com/news/LYNXMPED0C0KP_M.jpg",
+      "category": "markets",
+      "topics": []
+    },
+    {
+      "id": "e8fd515265b4af16adc5",
+      "source": "investing_id",
+      "title": "Gelombang kesepakatan utang AI; Applied Digital melapor - apa yang menggerakkan pasar",
+      "url": "https://id.investing.com/news/economy-news/gelombang-kesepakatan-utang-ai-applied-digital-melapor--apa-yang-menggerakkan-pasar-3090093",
+      "publishedAt": null,
+      "image": "https://content-media.investing.com/news/LYNXMPEM5H1NY_1200_L.jpg",
+      "category": "technology",
+      "topics": []
+    },
+    {
+      "id": "88f203d7a420e0dc71dd",
+      "source": "investing_id",
+      "title": "Mengapa Saham Standard Life Turun Hari Ini?",
+      "url": "https://id.investing.com/news/stock-market-news/mengapa-saham-standard-life-turun-hari-ini-93CH-3090085",
+      "publishedAt": null,
+      "image": "https://content-media.investing.com/news/OilwellinColorado_800x533_L_1645345712.jpg",
+      "category": "markets",
+      "topics": []
+    },
+    {
+      "id": "3b8fded5634af39dd564",
+      "source": "investing_id",
+      "title": "Wise turun setelah laporan FT soal pembayaran tagihan pajak pelanggan",
+      "url": "https://id.investing.com/news/stock-market-news/wise-turun-setelah-laporan-ft-soal-pembayaran-tagihan-pajak-pelanggan-3090088",
+      "publishedAt": null,
+      "image": "https://content-media.investing.com/news/LYNXNPEC0E0NG_M.jpg",
+      "category": "markets",
+      "topics": []
+    },
+    {
+      "id": "19f0d7784dec05505827",
+      "source": "investing_id",
+      "title": "Imbal hasil Prancis naik dalam kerugian mingguan keenam berturut-turut",
+      "url": "https://id.investing.com/news/forex-news/imbal-hasil-prancis-naik-dalam-kerugian-mingguan-keenam-berturutturut-3090083",
+      "publishedAt": null,
+      "image": "https://content-media.investing.com/news/LYNXMPEB4C0GZ_M.jpg",
       "category": "markets",
       "topics": []
     }
