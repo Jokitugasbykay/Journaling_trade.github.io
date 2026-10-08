@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "checkedAt": "2026-10-08T07:22:41.964887+00:00",
+  "checkedAt": "2026-10-08T07:31:00.408228+00:00",
   "intervalMinutes": 5,
   "sources": [
     {
@@ -9,7 +9,7 @@
       "url": "https://www.investing.com/",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-08T07:22:26.065912+00:00"
+      "checkedAt": "2026-10-08T07:30:49.864103+00:00"
     },
     {
       "id": "cnbc",
@@ -17,7 +17,7 @@
       "url": "https://www.cnbc.com/markets/",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-08T07:22:26.063134+00:00"
+      "checkedAt": "2026-10-08T07:30:50.548160+00:00"
     },
     {
       "id": "kontan",
@@ -25,7 +25,7 @@
       "url": "https://www.kontan.co.id/",
       "kind": "html",
       "status": "ok",
-      "checkedAt": "2026-10-08T07:22:26.969653+00:00"
+      "checkedAt": "2026-10-08T07:30:51.918666+00:00"
     },
     {
       "id": "reuters",
@@ -33,7 +33,7 @@
       "url": "https://www.reuters.com/",
       "kind": "sitemap",
       "status": "ok",
-      "checkedAt": "2026-10-08T07:22:26.086451+00:00"
+      "checkedAt": "2026-10-08T07:30:50.118810+00:00"
     },
     {
       "id": "aljazeera",
@@ -41,7 +41,7 @@
       "url": "https://www.aljazeera.com/",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-08T07:22:26.055486+00:00"
+      "checkedAt": "2026-10-08T07:30:49.885793+00:00"
     },
     {
       "id": "bloomberg",
@@ -49,7 +49,7 @@
       "url": "https://www.bloomberg.com/asia",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-08T07:22:26.342429+00:00"
+      "checkedAt": "2026-10-08T07:30:50.263954+00:00"
     },
     {
       "id": "fnc",
@@ -57,7 +57,7 @@
       "url": "https://tradewithfnc.com/",
       "kind": "json",
       "status": "ok",
-      "checkedAt": "2026-10-08T07:22:26.701387+00:00"
+      "checkedAt": "2026-10-08T07:30:50.537500+00:00"
     },
     {
       "id": "investing_id",
@@ -65,7 +65,7 @@
       "url": "https://id.investing.com/news",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-08T07:22:26.335748+00:00"
+      "checkedAt": "2026-10-08T07:30:49.957226+00:00"
     },
     {
       "id": "pluang",
@@ -73,14 +73,14 @@
       "url": "https://pluang.com/news-feed",
       "kind": "html",
       "status": "ok",
-      "checkedAt": "2026-10-08T07:22:26.474920+00:00"
+      "checkedAt": "2026-10-08T07:30:51.012774+00:00"
     },
     {
       "id": "kompas",
       "name": "Kompas Money",
       "url": "https://money.kompas.com/",
       "kind": "html",
-      "status": "ok",
+      "status": "stale",
       "checkedAt": "2026-10-08T07:22:26.942780+00:00"
     },
     {
@@ -89,7 +89,7 @@
       "url": "https://finance.detik.com/",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-08T07:22:27.500081+00:00"
+      "checkedAt": "2026-10-08T07:30:52.707129+00:00"
     },
     {
       "id": "kemenkeu",
@@ -121,7 +121,7 @@
       "url": "https://ekbis.sindonews.com/",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-08T07:22:26.788938+00:00"
+      "checkedAt": "2026-10-08T07:30:50.633371+00:00"
     },
     {
       "id": "fedwatch",
@@ -139,6 +139,78 @@
     }
   ],
   "items": [
+    {
+      "id": "2506a45c22390541e63f",
+      "source": "detik",
+      "title": "Investasi di Kawasan Industri Weda Bay Rp 483 T, Serap 117 Ribu Tenaga Kerja",
+      "url": "https://finance.detik.com/industri/d-8698024/investasi-di-kawasan-industri-weda-bay-rp-483-t-serap-117-ribu-tenaga-kerja",
+      "publishedAt": "2026-10-08T07:27:14+00:00",
+      "image": "https://akcdn.detik.net.id/community/media/visual/2026/04/13/raker-komisi-xii-dpr-dengan-menteri-investasi-dan-hilirisasi-1776070429780_169.jpeg?w=360&q=90",
+      "category": "business",
+      "topics": []
+    },
+    {
+      "id": "1430695a62fa52fef2a9",
+      "source": "reuters",
+      "title": "Seven & i operating profit falls 11% in second quarter",
+      "url": "https://www.reuters.com/world/asia-pacific/seven-i-operating-profit-falls-11-second-quarter-2026-10-08/",
+      "publishedAt": "2026-10-08T07:24:22.357000+00:00",
+      "image": null,
+      "category": "world",
+      "topics": []
+    },
+    {
+      "id": "03d3915693cc3819376e",
+      "source": "reuters",
+      "title": "Manus raises more than $500 million after Meta exit",
+      "url": "https://www.reuters.com/world/china/manus-raises-more-than-500-million-after-meta-exit-2026-10-08/",
+      "publishedAt": "2026-10-08T07:23:44.702000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/EK346KTHQJLZFH7YPZ73IBZQN4.jpg?auth=ec2bbb3805d25f92c95ab5f24c548c22d2436f6e9af5bac6d0349ea5809d4392&smart=true&width=1920",
+      "category": "world",
+      "topics": []
+    },
+    {
+      "id": "244cc87f32e742445ac9",
+      "source": "detik",
+      "title": "Sambangi Weda Bay, Prabowo: Saya Lihat Masa Depan Indonesia Cerah",
+      "url": "https://finance.detik.com/industri/d-8698019/sambangi-weda-bay-prabowo-saya-lihat-masa-depan-indonesia-cerah",
+      "publishedAt": "2026-10-08T07:23:32+00:00",
+      "image": "https://akcdn.detik.net.id/community/media/visual/2026/10/08/presiden-prabowo-subianto-dok-youtube-setpres-1791440438852_169.jpeg?w=360&q=90",
+      "category": "local",
+      "topics": [
+        "politics"
+      ]
+    },
+    {
+      "id": "42a22969423db5ca6275",
+      "source": "reuters",
+      "title": "Parker Messick, Guardians geared up to level ALDS against White Sox",
+      "url": "https://www.reuters.com/sports/baseball/parker-messick-guardians-geared-up-level-alds-against-white-sox--flm-2026-10-08/",
+      "publishedAt": "2026-10-08T07:23:15.676000+00:00",
+      "image": null,
+      "category": "sport",
+      "topics": []
+    },
+    {
+      "id": "9db595f1be7383095031",
+      "source": "bloomberg",
+      "title": "Rupee Slide Tests RBI’s Multiple Defenses as Record Low Nears",
+      "url": "https://www.bloomberg.com/news/articles/2026-10-08/rupee-slide-tests-rbi-s-multiple-defenses-as-record-low-nears",
+      "publishedAt": "2026-10-08T07:22:45+00:00",
+      "image": null,
+      "category": "other",
+      "topics": []
+    },
+    {
+      "id": "8f1257146f5e91c24382",
+      "source": "reuters",
+      "title": "UN weather body says El Niño set to intensify and last until February 2027",
+      "url": "https://www.reuters.com/business/environment/un-weather-body-says-el-nio-set-intensify-last-until-february-2027-2026-10-08/",
+      "publishedAt": "2026-10-08T07:21:43.827000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/TBV2YJWQ75LVPDI4IXUM2KNBGI.jpg?auth=60acfc2a5486eb0fe0ed61d008ae90cf510eaf6c4fdf0c56d931f8023d217b2a&smart=true&width=1920",
+      "category": "sustainability",
+      "topics": []
+    },
     {
       "id": "d12191f4a5f0352aae6f",
       "source": "reuters",
@@ -222,16 +294,6 @@
       "topics": []
     },
     {
-      "id": "1430695a62fa52fef2a9",
-      "source": "reuters",
-      "title": "Seven & i operating profit falls 11% in second quarter",
-      "url": "https://www.reuters.com/world/asia-pacific/seven-i-operating-profit-falls-11-second-quarter-2026-10-08/",
-      "publishedAt": "2026-10-08T07:16:23.740000+00:00",
-      "image": null,
-      "category": "world",
-      "topics": []
-    },
-    {
       "id": "0cd1ba5b356ecd803f45",
       "source": "reuters",
       "title": "British diplomats to remain at renamed consulate in Jerusalem",
@@ -269,16 +331,6 @@
       "publishedAt": "2026-10-08T07:15:01.746000+00:00",
       "image": "https://www.reuters.com/resizer/v2/Z2RKY26NAFPGDKNDROUJAQF6BE.jpg?auth=dfb2530f9a356e1454990c8f6fdfcde2ef7d274adaa1e5932683c0aa89f3e9b0&smart=true&width=1920",
       "category": "world",
-      "topics": []
-    },
-    {
-      "id": "8f1257146f5e91c24382",
-      "source": "reuters",
-      "title": "UN weather body says El Niño set to intensify and last until February 2027",
-      "url": "https://www.reuters.com/business/environment/un-weather-body-says-el-nio-set-intensify-last-until-february-2027-2026-10-08/",
-      "publishedAt": "2026-10-08T07:13:03.327000+00:00",
-      "image": "https://www.reuters.com/resizer/v2/2K7J6AGPX5JLNECFZEY7UM7BCM.jpg?auth=f9656c86560aa3e3d0aeb3859ba8cb020a35a26e6c92045d01888637b6cf4044&smart=true&width=1920",
-      "category": "sustainability",
       "topics": []
     },
     {
@@ -707,6 +759,16 @@
       "publishedAt": "2026-10-08T06:42:33+00:00",
       "image": "https://asset.kompas.com/crops/0A4pDq57WNvh2JQwHdxWOycsW4Q=/106x71:780x520/750x500/data/photo/2026/02/27/69a15c73eb5b9.jpg",
       "category": "other",
+      "topics": []
+    },
+    {
+      "id": "2e601b66d4e1b1d8280e",
+      "source": "sindo",
+      "title": "Jamkrindo Syariah Gandeng Privy Percepat Digitalisasi Bisnis Penjaminan",
+      "url": "https://ekbis.sindonews.com/read/1758263/34/jamkrindo-syariah-gandeng-privy-percepat-digitalisasi-bisnis-penjaminan-1791439811",
+      "publishedAt": "2026-10-08T06:42:00+00:00",
+      "image": "https://pict.sindonews.com/dyn/850/pena/news/2026/10/08/34/1758263/jamkrindo-syariah-gandeng-privy-percepat-digitalisasi-bisnis-penjaminan-ngq.jpeg",
+      "category": "business",
       "topics": []
     },
     {
@@ -13771,6 +13833,26 @@
       "publishedAt": null,
       "image": "https://image-cdn.pluang.com/web/news-cards/v2/GSS/636d27e6b68c629fc47a65d731794a7a00784c74699efd0d62475d3ed8f246d0-id.webp",
       "category": "markets",
+      "topics": []
+    },
+    {
+      "id": "0f1458c49b7ad24ffced",
+      "source": "kontan",
+      "title": "Terkontraksi 2,99%, Laba Fintech Lending Capai Rp 1,58 Triliun per Agustus 2026",
+      "url": "https://keuangan.kontan.co.id/news/terkontraksi-299-laba-fintech-lending-capai-rp-158-triliun-per-agustus-2026?source=home_terbaru",
+      "publishedAt": null,
+      "image": "https://foto.kontan.co.id/MRXvJ4sUPqP5Ic653k6KVz95lj8=/smart/2024/02/15/1316917173t.jpg",
+      "category": "other",
+      "topics": []
+    },
+    {
+      "id": "6ca653056a1070686090",
+      "source": "kontan",
+      "title": "Indeks Nikkei Ditutup Turun 1,42%: Investor Tahan Diri",
+      "url": "https://internasional.kontan.co.id/news/indeks-nikkei-ditutup-turun-142-investor-tahan-diri?source=home_terbaru",
+      "publishedAt": null,
+      "image": "https://foto.kontan.co.id/0wwFRx5IYe8Kwm3DEkUmZcFIsMU=/smart/2026/09/16/1379928226t.jpg",
+      "category": "other",
       "topics": []
     }
   ]
