@@ -3202,7 +3202,7 @@
       const newsCategoryNames = {politics:['Politik','Politics'], fed:['The Fed','The Fed'], world:['Dunia','World'], business:['Bisnis','Business'], markets:['Pasar','Markets'], sustainability:['Keberlanjutan','Sustainability'], legal:['Hukum','Legal'], commentary:['Komentar','Commentary'], technology:['Teknologi','Technology'], investigations:['Investigasi','Investigations'], local:['Berita lokal','Local news'], science:['Sains','Science'], sport:['Olahraga','Sport'], other:['Berita lainnya','Other news']};
       let publisherNewsBusy = false;
       let publisherNewsFailed = false;
-      const publisherDomains = { investing: 'investing.com', cnbc: 'cnbc.com', kontan: 'kontan.co.id', reuters: 'reuters.com', aljazeera: 'aljazeera.com', bloomberg: 'bloomberg.com', fnc: 'tradewithfnc.com', investing_id: 'investing.com', pluang: 'pluang.com', kompas: 'kompas.com', detik: 'detik.com', kemenkeu: 'kemenkeu.go.id', cnn_id: 'cnnindonesia.com', bisnis: 'bisnis.com', sindo: 'sindonews.com', fedwatch: 'cmegroup.com', cme: 'cmegroup.com' };
+      const publisherDomains = { investing: 'investing.com', cnbc: 'cnbc.com', kontan: 'kontan.co.id', reuters: 'reuters.com', aljazeera: 'aljazeera.com', bloomberg: 'bloomberg.com', fnc: 'tradewithfnc.com', investing_id: 'investing.com', pluang: 'pluang.com', kompas: 'kompas.com', detik: 'detik.com', kemenkeu: 'kemenkeu.go.id', cnn_id: 'cnnindonesia.com', bisnis: 'bisnis.com', sindo: 'sindonews.com', ap:'apnews.com', bbc:['bbc.com','bbc.co.uk'], afp:'afp.com', wsj:'wsj.com', guardian:'theguardian.com', ft:'ft.com', dw:'dw.com', fedwatch: 'cmegroup.com', cme: 'cmegroup.com' };
       const newsText = (id, en) => language === 'en' ? en : id;
       function newsMatchesSearch(item, sourceName, query) {
         const normalize = value => String(value || '').normalize('NFKD').replace(/\p{M}/gu, '').toLowerCase();
@@ -3225,8 +3225,8 @@
       function publisherUrl(value, sourceId) {
         try {
           const url = new URL(value);
-          const domain = publisherDomains[sourceId];
-          return domain && url.protocol === 'https:' && !url.username && !url.password && (url.hostname === domain || url.hostname.endsWith('.' + domain)) ? url.href : null;
+          const domains = [].concat(publisherDomains[sourceId] || []);
+          return url.protocol === 'https:' && !url.username && !url.password && domains.some(domain => url.hostname === domain || url.hostname.endsWith('.' + domain)) ? url.href : null;
         } catch { return null; }
       }
       function publisherTime(value) {
@@ -3236,7 +3236,7 @@
       function publisherImageUrl(value) {
         try {
           const url = new URL(value);
-          const domains = ['investing.com', 'cnbcfm.com', 'kontan.co.id', 'reuters.com', 'aljazeera.com', 'bloomberg.com', 'bwbx.io', 'pluang.com', 'kompas.com', 'detik.net.id', 'kemenkeu.go.id', 'cnnindonesia.com', 'bisnis.com', 'sindonews.com'];
+          const domains = ['investing.com', 'cnbcfm.com', 'kontan.co.id', 'reuters.com', 'aljazeera.com', 'bloomberg.com', 'bwbx.io', 'pluang.com', 'kompas.com', 'detik.net.id', 'kemenkeu.go.id', 'cnnindonesia.com', 'bisnis.com', 'sindonews.com', 'apnews.com', 'bbc.co.uk', 'bbci.co.uk', 'wsj.net', 'guim.co.uk', 'ft.com', 'dw.com'];
           return url.protocol === 'https:' && !url.username && !url.password && domains.some(domain => url.hostname === domain || url.hostname.endsWith('.' + domain)) ? url.href : null;
         } catch { return null; }
       }
@@ -3261,7 +3261,7 @@
         $('publisher-source-status').innerHTML = publisherNews.sources.filter(source => source.kind !== 'tool').map(source => {
           const url = publisherUrl(source.url, source.id);
           if (!url) return '';
-          const state = source.status === 'ok' ? newsText('Tersedia', 'Available') : source.status === 'stale' ? newsText('Data tersimpan; sumber gagal diperbarui', 'Saved headlines; source refresh failed') : newsText('Feed tidak tersedia; buka sumber', 'Feed unavailable; visit source');
+          const state = source.kind === 'external' ? newsText('Buka penerbit; feed otomatis memerlukan akses', 'Visit publisher; automatic feed requires access') : source.status === 'ok' ? newsText('Tersedia', 'Available') : source.status === 'stale' ? newsText('Data tersimpan; sumber gagal diperbarui', 'Saved headlines; source refresh failed') : newsText('Feed tidak tersedia; buka sumber', 'Feed unavailable; visit source');
           return '<a href="' + esc(url) + '" target="_blank" rel="noopener noreferrer">' + esc(source.name) + '<small>' + esc(state) + '</small></a>';
         }).join('');
         const sources = new Map(publisherNews.sources.map(source => [source.id, source]));

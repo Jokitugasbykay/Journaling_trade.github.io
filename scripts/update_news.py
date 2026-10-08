@@ -30,11 +30,34 @@ SOURCES = [
     {"id": "cnn_id", "name": "CNN Indonesia Ekonomi", "url": "https://www.cnnindonesia.com/ekonomi", "feed": "https://www.cnnindonesia.com/ekonomi/rss", "kind": "rss", "domain": "cnnindonesia.com"},
     {"id": "bisnis", "name": "Bisnis Ekonomi", "url": "https://ekonomi.bisnis.com/", "feed": "https://ekonomi.bisnis.com/", "kind": "html", "domain": "bisnis.com", "article_pattern": r"/read/\d{8}/"},
     {"id": "sindo", "name": "SINDOnews Ekbis", "url": "https://ekbis.sindonews.com/", "feed": "https://ekbis.sindonews.com/rss", "kind": "rss", "domain": "sindonews.com"},
+    {'id':'ap', 'name':'Associated Press', 'url':'https://apnews.com/', 'kind':'html', 'domain':'apnews.com', 'article_pattern':r'/article/[^/]+-[a-f0-9]{32}$', 'feeds':[
+        {'url':'https://apnews.com/'}, {'url':'https://apnews.com/sports', 'category':'sport'},
+        {'url':'https://apnews.com/business', 'category':'business'}, {'url':'https://apnews.com/politics', 'category':'politics'}]},
+    {'id':'bbc', 'name':'BBC News', 'url':'https://www.bbc.com/news', 'kind':'rss', 'domain':'bbc.com', 'domains':('bbc.com','bbc.co.uk'), 'feeds':[
+        {'url':'https://feeds.bbci.co.uk/news/rss.xml'}, {'url':'https://feeds.bbci.co.uk/news/business/rss.xml', 'category':'business'},
+        {'url':'https://feeds.bbci.co.uk/news/politics/rss.xml', 'category':'politics'}, {'url':'https://feeds.bbci.co.uk/sport/rss.xml', 'category':'sport'}]},
+    {'id':'afp', 'name':'AFP', 'url':'https://www.afp.com/en', 'kind':'external', 'domain':'afp.com'},
+    {'id':'wsj', 'name':'The Wall Street Journal', 'url':'https://www.wsj.com/', 'kind':'rss', 'domain':'wsj.com', 'feeds':[
+        {'url':'https://feeds.content.dowjones.io/public/rss/RSSWorldNews', 'category':'world'},
+        {'url':'https://feeds.content.dowjones.io/public/rss/WSJcomUSBusiness', 'category':'business'},
+        {'url':'https://feeds.content.dowjones.io/public/rss/RSSMarketsMain', 'category':'markets'},
+        {'url':'https://feeds.content.dowjones.io/public/rss/socialpoliticsfeed', 'category':'politics'},
+        {'url':'https://feeds.content.dowjones.io/public/rss/rsssportsfeed', 'category':'sport'}]},
+    {'id':'guardian', 'name':'The Guardian', 'url':'https://www.theguardian.com/', 'kind':'rss', 'domain':'theguardian.com', 'feeds':[
+        {'url':'https://www.theguardian.com/international/rss'}, {'url':'https://www.theguardian.com/business/rss', 'category':'business'},
+        {'url':'https://www.theguardian.com/politics/rss', 'category':'politics'}, {'url':'https://www.theguardian.com/sport/rss', 'category':'sport'}]},
+    {'id':'ft', 'name':'Financial Times', 'url':'https://www.ft.com/', 'kind':'rss', 'domain':'ft.com', 'feeds':[
+        {'url':'https://www.ft.com/rss/home'}, {'url':'https://www.ft.com/markets?format=rss', 'category':'markets'},
+        {'url':'https://www.ft.com/world?format=rss', 'category':'world'}]},
+    {'id':'dw', 'name':'Deutsche Welle', 'url':'https://www.dw.com/en/top-stories/s-9097', 'kind':'rss', 'domain':'dw.com', 'feeds':[
+        {'url':'https://rss.dw.com/xml/rss-en-all'}, {'url':'https://rss.dw.com/xml/rss-en-world', 'category':'world'},
+        {'url':'https://rss.dw.com/xml/rss-en-bus', 'category':'business'}, {'url':'https://rss.dw.com/xml/rss-en-sports', 'category':'sport'},
+        {'url':'https://rss.dw.com/xml/rss_en_science', 'category':'science'}, {'url':'https://rss.dw.com/xml/rss_en_environment', 'category':'sustainability'}]},
     {"id": "fedwatch", "name": "CME FedWatch", "url": "https://www.cmegroup.com/markets/interest-rates/cme-fedwatch-tool.html", "kind": "tool", "domain": "cmegroup.com"},
     {"id": "cme", "name": "CME Markets", "url": "https://www.cmegroup.com/markets.html?redirect=/markets/", "kind": "tool", "domain": "cmegroup.com"},
 ]
 SIGNALS = re.compile(r"\b(?:buy on (?:dip|pullback)|sell on (?:rally|bounce)|stocks? to buy|stock picks?|trading signals?|price targets?|target harga|sinyal trading|rekomendasi (?:beli|jual)|buy now|sell now|support (?:dan |and )?resistance|rekomendasi saham)\b", re.I)
-IMAGE_DOMAINS = ('investing.com', 'cnbcfm.com', 'kontan.co.id', 'reuters.com', 'aljazeera.com', 'bloomberg.com', 'bwbx.io', 'pluang.com', 'kompas.com', 'detik.net.id', 'kemenkeu.go.id', 'cnnindonesia.com', 'bisnis.com', 'sindonews.com')
+IMAGE_DOMAINS = ('investing.com', 'cnbcfm.com', 'kontan.co.id', 'reuters.com', 'aljazeera.com', 'bloomberg.com', 'bwbx.io', 'pluang.com', 'kompas.com', 'detik.net.id', 'kemenkeu.go.id', 'cnnindonesia.com', 'bisnis.com', 'sindonews.com', 'apnews.com', 'bbc.co.uk', 'bbci.co.uk', 'wsj.net', 'guim.co.uk', 'ft.com', 'dw.com')
 
 
 def category_for(url, title, tag=''):
@@ -49,7 +72,7 @@ def category_for(url, title, tag=''):
         ('technology', r'technolog|teknologi|artificial intelligence|\bai\b|data center|chipmaker|software'),
         ('sustainability', r'sustainab|climate|iklim|environment|lingkungan|carbon|renewable'),
         ('science', r'science|scientist|nobel|sains'),
-        ('sport', r'/sport|football|soccer|olahraga|fifa|uefa'),
+        ('sport', r'/sport|\b(?:sports?|football|soccer|olahraga|fifa|uefa|basketball|baseball|tennis|cricket|rugby|golf|hockey|nba|nfl|mlb|nhl|olympics|formula (?:one|1))\b'),
         ('markets', r'/markets/|market|forex|currency|currencies|yield|treasury|the fed|bonds?|stocks?|shares?|oil|gold|crypto|bitcoin|inflation|interest rate|central bank|suku bunga|rupiah|emas|minyak|batu bara|saham|inflasi'),
         ('business', r'/business/|econom|bisnis|ekonomi|company|companies|earnings|corporat|bank|industr|trade|perdagangan'),
         ('world', r'/world/|politic|politik|war\b|election|pemilu|president|military|conflict|gaza|lebanon'),
@@ -97,7 +120,8 @@ def clean(value):
 def safe_url(value, domain):
     url = urllib.parse.urlsplit(value)
     host = (url.hostname or "").lower()
-    if url.scheme != "https" or url.username or url.password or not (host == domain or host.endswith("." + domain)):
+    domains = (domain,) if isinstance(domain, str) else domain
+    if url.scheme != "https" or url.username or url.password or not any(host == allowed or host.endswith('.' + allowed) for allowed in domains):
         return None
     if re.search(r"/(?:analysis|opinion|stocksetup)/", url.path, re.I):
         return None
@@ -150,12 +174,45 @@ class PublisherHeadlines(HTMLParser):
             self.current = None
 
 
+class APHeadlines(PublisherHeadlines):
+    def __init__(self, source):
+        super().__init__(source)
+        self.card = {}
+        self.headline_tag = None
+
+    def handle_starttag(self, tag, attrs):
+        values = dict(attrs)
+        if 'PagePromo' in values.get('class', '').split():
+            self.card = {}
+            stamp = values.get('data-posted-date-timestamp', '')
+            if stamp.isdigit():
+                try:
+                    self.card['publishedAt'] = dt.datetime.fromtimestamp(int(stamp) / 1000, dt.timezone.utc).isoformat()
+                except (ValueError, OverflowError, OSError):
+                    pass
+        if tag in ('h2', 'h3') and 'PagePromo-title' in values.get('class', '').split():
+            self.headline_tag = tag
+        if tag == 'img':
+            self.card['image'] = image_url(values.get('src') or values.get('data-src'))
+        if tag == 'a' and not self.headline_tag:
+            self.current = None
+            return
+        super().handle_starttag(tag, attrs)
+        if tag == 'a' and self.current is not None:
+            self.current.update(self.card)
+
+    def handle_endtag(self, tag):
+        super().handle_endtag(tag)
+        if tag == self.headline_tag:
+            self.headline_tag = None
+
+
 def parse(data, source):
     if source['kind'] == 'json':
         raw = json.loads(data)
         rows = [{'title': row.get('title'), 'url': source['url'], 'publishedAt': row.get('pub'), 'tag': row.get('tag', ''), 'id': row.get('id')} for row in raw.get('items', []) if isinstance(row, dict)]
     elif source["kind"] == "html":
-        parser = PublisherHeadlines(source)
+        parser = APHeadlines(source) if source['id'] == 'ap' else PublisherHeadlines(source)
         parser.feed(data.decode("utf-8", errors="replace"))
         rows = parser.rows
     else:
@@ -166,7 +223,7 @@ def parse(data, source):
             rows = []
             for row in root.findall('.//item'):
                 photo = next((image_url(el.get('url')) for el in row.iter() if el.tag.split('}')[-1] in ('enclosure', 'thumbnail', 'content') and image_url(el.get('url'))), None)
-                rows.append({'title': row.findtext('title'), 'url': row.findtext('link'), 'publishedAt': row.findtext('pubDate'), 'image': photo})
+                rows.append({'title': row.findtext('title'), 'url': row.findtext('link'), 'publishedAt': row.findtext('pubDate'), 'image': photo, 'tag':' '.join(''.join(category.itertext()) for category in row.findall('category'))})
         else:
             ns = {"s": "http://www.sitemaps.org/schemas/sitemap/0.9", "n": "http://www.google.com/schemas/sitemap-news/0.9", 'i': 'http://www.google.com/schemas/sitemap-image/1.1'}
             rows = [{"title": row.findtext("n:news/n:title", namespaces=ns), "url": row.findtext("s:loc", namespaces=ns), "publishedAt": row.findtext("n:news/n:publication_date", namespaces=ns), 'image': row.findtext('i:image/i:loc', namespaces=ns)} for row in root.findall("s:url", ns) if row.findtext('n:news/n:publication/n:language', default='en', namespaces=ns) == 'en']
@@ -174,7 +231,7 @@ def parse(data, source):
     now = dt.datetime.now(dt.timezone.utc)
     for row in rows:
         title = clean(row.get("title"))
-        link = safe_url(row.get("url") or "", source["domain"])
+        link = safe_url(row.get("url") or "", source.get('domains', source['domain']))
         if source['id'] == 'reuters' and link and re.match(r'^/(?!en/)[a-z]{2}/', urllib.parse.urlsplit(link).path):
             continue
         published = date_iso(row.get("publishedAt"))
@@ -186,7 +243,11 @@ def parse(data, source):
         if not link or identity in seen or len(title) < 20 or len(title) > 250 or SIGNALS.search(title):
             continue
         seen.add(identity)
-        items.append({"id": hashlib.sha256((source['id'] + str(identity)).encode()).hexdigest()[:20], "source": source["id"], "title": title, "url": link, "publishedAt": published, 'image': image_url(row.get('image')), 'category': category_for(link, title, row.get('tag', ''))})
+        category = source.get('category') or category_for(link, title, row.get('tag', ''))
+        topics = topics_for(title + ' ' + row.get('tag', ''))
+        if category == 'politics' and 'politics' not in topics:
+            topics.append('politics')
+        items.append({"id": hashlib.sha256((source['id'] + str(identity)).encode()).hexdigest()[:20], "source": source["id"], "title": title, "url": link, "publishedAt": published, 'image': image_url(row.get('image')), 'category': category, 'topics':topics})
     return merge_items([], items)[:20]
 
 
@@ -207,9 +268,9 @@ def add_article_image(item):
     return item
 
 
-def collect(source):
+def collect_feed(source):
     public = {key: source[key] for key in ("id", "name", "url", "kind")}
-    if source["kind"] == "tool":
+    if source["kind"] in ('tool', 'external'):
         return {**public, "status": "external"}, []
     try:
         request = urllib.request.Request(source["feed"], headers={"User-Agent": "JournalingTrade/1.0 (public headline reader)", "Accept": "application/rss+xml, application/xml, text/html"})
@@ -227,22 +288,39 @@ def collect(source):
         return {**public, "status": "unavailable"}, []
 
 
+def collect(source):
+    if not source.get('feeds'):
+        return collect_feed(source)
+    items, checked = [], None
+    for feed in source['feeds']:
+        state, found = collect_feed({**source, **{key:value for key,value in feed.items() if key != 'url'}, 'feed':feed['url']})
+        items.extend(found)
+        if state['status'] == 'ok':
+            checked = state['checkedAt']
+    public = {key:source[key] for key in ('id','name','url','kind')}
+    return {**public, 'status':'ok' if items else 'unavailable', 'checkedAt':checked}, merge_items([], items)
+
+
 def article_identity(item):
     source = item['source']
     if source == 'fnc':
         return source, item.get('id') or item['title']
     url = urllib.parse.urlsplit(item['url'])
+    if source == 'ap':
+        article = re.search(r'/article/[^/]+-([a-f0-9]{32})$', url.path)
+        if article:
+            return source, article[1]
     if source == 'kompas':
         article = re.match(r'/read/(\d{4}/\d{2}/\d{2}/\d+)(?:/|$)', url.path)
         if article:
             return source, article[1]
     query = [(key, value) for key, value in urllib.parse.parse_qsl(url.query, keep_blank_values=True)
-             if not key.lower().startswith('utm_') and key.lower() not in ('source', 'fbclid', 'gclid')]
+             if not key.lower().startswith(('utm_', 'at_', 'syn-')) and key.lower() not in ('source', 'fbclid', 'gclid', 'mod', 'maca')]
     return source, urllib.parse.urlunsplit((url.scheme, url.netloc.lower(), url.path.rstrip('/'), urllib.parse.urlencode(sorted(query)), ''))
 
 
 def merge_items(previous, incoming):
-    domains = {source['id']: source['domain'] for source in SOURCES}
+    domains = {source['id']: source.get('domains', source['domain']) for source in SOURCES}
     merged, headlines = {}, {}
     # ponytail: keep the complete headline archive in one feed; split by month if download size becomes a problem.
     for item in [*previous, *incoming]:
@@ -288,8 +366,8 @@ def main():
     previous_items = {row.get('url'): row for row in previous.get('items', [])}
     missing = []
     for item in items:
-        item['category'] = category_for(item['url'], item['title'])
-        item['topics'] = topics_for(item['title'])
+        item.setdefault('category', category_for(item['url'], item['title']))
+        item.setdefault('topics', topics_for(item['title']))
         if item['source'] == 'fnc':
             continue
         old = previous_items.get(item['url'], {})

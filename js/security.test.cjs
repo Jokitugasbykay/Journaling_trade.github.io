@@ -1,6 +1,18 @@
 const fs=require('node:fs'),vm=require('node:vm'),assert=require('node:assert/strict'),path=require('node:path'),crypto=require('node:crypto');
 const root=path.join(__dirname,'..'),source=fs.readFileSync(path.join(__dirname,'app.js'),'utf8'),html=fs.readFileSync(path.join(root,'index.html'),'utf8');
 {
+  const helpers = source.slice(source.indexOf('      const publisherDomains ='), source.indexOf('      const newsText ='))
+    + source.slice(source.indexOf('      function publisherUrl('), source.indexOf('      function publisherTime('));
+  const urlFor = vm.runInNewContext(helpers + '\npublisherUrl', {URL});
+  for (const [id, url] of Object.entries({ap:'https://apnews.com/article/example', bbc:'https://www.bbc.co.uk/news/articles/example', afp:'https://www.afp.com/en', wsj:'https://www.wsj.com/sports/example', guardian:'https://www.theguardian.com/world/example', ft:'https://www.ft.com/content/example', dw:'https://www.dw.com/en/example/a-123'})) {
+    assert.equal(urlFor(url,id), url);
+  }
+  assert.equal(urlFor('https://www.bbc.com/news','bbc'), 'https://www.bbc.com/news');
+  assert.equal(urlFor('https://bbc.co.uk.evil.test/news','bbc'), null);
+  assert.equal(urlFor('https://bbc.com@evil.test/news','bbc'), null);
+  assert.equal(urlFor('https://apnews.com/article/example','unknown'), null);
+}
+{
   const context = {cloudUser:null, URL};
   vm.runInNewContext(source.slice(source.indexOf('      function googleAccountProfile()'), source.indexOf('      window.renderProfileView =')), context);
   assert.equal(context.googleAccountProfile(), null);

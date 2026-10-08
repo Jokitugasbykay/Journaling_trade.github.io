@@ -113,3 +113,40 @@ assert len(news.merge_items([], [{**latest, 'url':latest['url']+'?id=1'}, {**lat
 html = f'<a href="{story["url"]}">{story["title"]}</a><a href="{revision["url"]}">{revision["title"]}</a>'
 assert len(news.parse(html.encode(), kompas)) == 1
 print('Article IDs, tracking URLs and same-publisher headlines deduplicate without merging different days or publishers')
+
+publishers = {source['id']:source for source in news.SOURCES}
+assert {'ap','bbc','afp','wsj','guardian','ft','dw'} <= publishers.keys()
+bbc = publishers['bbc']
+assert news.safe_url('https://www.bbc.co.uk/news/articles/example', bbc['domains'])
+assert not news.safe_url('https://bbc.co.uk.evil.test/news', bbc['domains'])
+assert not news.safe_url('https://bbc.com@evil.test/news', bbc['domains'])
+rss = f'''<rss><channel><item><title>A champion announces retirement from professional tennis</title>
+<link>https://www.bbc.co.uk/sport/tennis/articles/example?at_campaign=rss</link>
+<pubDate>{now.isoformat()}</pubDate><category>Sports</category>
+<enclosure url="https://ichef.bbci.co.uk/photo.jpg"/></item></channel></rss>'''.encode()
+row = news.parse(rss, bbc)[0]
+assert row['category'] == 'sport' and row['image'] == 'https://ichef.bbci.co.uk/photo.jpg'
+politics = news.parse(rss, {**bbc, 'category':'politics'})[0]
+assert politics['category'] == 'politics' and 'politics' in politics['topics']
+from unittest.mock import patch
+with patch.object(news, 'collect_feed', side_effect=[({'status':'unavailable'}, []), ({'status':'ok', 'checkedAt':now.isoformat()}, [row])]):
+    state, rows = news.collect({**bbc, 'feeds':bbc['feeds'][:2]})
+    assert state['id'] == 'bbc' and state['status'] == 'ok' and len(rows) == 1
+assert news.collect(publishers['afp'])[0]['status'] == 'external'
+
+ap = publishers['ap']
+link = 'https://apnews.com/article/tennis-champion-' + 'a' * 32
+stamp = int(now.timestamp() * 1000)
+ap_html = f'''<a href="{link}">Misleading navigation teaser for this article</a>
+<div class="PagePromo" data-posted-date-timestamp="{stamp}">
+<a href="{link}"><img src="https://dims.apnews.com/photo.jpg" alt="Photo caption must not become the headline"></a>
+<h3 class="PagePromo-title"><a href="{link}">Tennis champion wins the tournament final</a></h3></div>
+<div class="PagePromo"><h3 class="PagePromo-title"><a href="{link.replace('a'*32,'b'*32)}">Another champion reaches a tournament final</a></h3></div>'''
+ap_rows = news.parse(ap_html.encode(), {**ap,'category':'sport'})
+assert len(ap_rows) == 2
+assert ap_rows[0]['title'] == 'Tennis champion wins the tournament final'
+assert ap_rows[0]['image'] == 'https://dims.apnews.com/photo.jpg' and ap_rows[0]['publishedAt']
+assert ap_rows[1]['image'] is None and ap_rows[1]['publishedAt'] is None
+assert all(row['category'] == 'sport' for row in ap_rows)
+assert len(news.merge_items([ap_rows[0]], [{**ap_rows[0], 'title':'Updated headline for the same AP article', 'url':link.replace('tennis-champion-', 'updated-title-')}])) == 1
+print('New publishers: official domains, RSS taxonomy, AP headline/date/photo isolation and partial feed failures passed')
