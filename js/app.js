@@ -3035,7 +3035,7 @@
           panel.addEventListener('toggle', () => { if (panel.open) document.querySelectorAll('.calendar-dropdown').forEach(other => { if (other !== panel) other.open = false; }); });
           panel.addEventListener('keydown', event => { if (event.key === 'Escape') { panel.open = false; panel.querySelector('summary').focus(); } });
         });
-        document.addEventListener('click', event => { document.querySelectorAll('.calendar-dropdown[open]').forEach(panel => { if (!panel.contains(event.target)) panel.open = false; }); });
+        document.addEventListener('click', event => { document.querySelectorAll('.calendar-dropdown[open]').forEach(panel => { if (!event.composedPath().includes(panel)) panel.open = false; }); });
 
         ['kal-th', 'kal-bl', 'kal-tg'].forEach(id => {
           const el = $(id);
