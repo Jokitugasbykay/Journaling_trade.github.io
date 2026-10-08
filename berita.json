@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "checkedAt": "2026-10-08T01:10:32.068840+00:00",
+  "checkedAt": "2026-10-08T01:12:11.712420+00:00",
   "intervalMinutes": 30,
   "sources": [
     {
@@ -9,7 +9,7 @@
       "url": "https://www.investing.com/",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-08T01:10:27.563346+00:00"
+      "checkedAt": "2026-10-08T01:12:04.063051+00:00"
     },
     {
       "id": "cnbc",
@@ -17,7 +17,7 @@
       "url": "https://www.cnbc.com/markets/",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-08T01:10:27.683960+00:00"
+      "checkedAt": "2026-10-08T01:12:04.097462+00:00"
     },
     {
       "id": "kontan",
@@ -25,7 +25,7 @@
       "url": "https://www.kontan.co.id/",
       "kind": "html",
       "status": "ok",
-      "checkedAt": "2026-10-08T01:10:28.496512+00:00"
+      "checkedAt": "2026-10-08T01:12:05.477513+00:00"
     },
     {
       "id": "reuters",
@@ -33,7 +33,7 @@
       "url": "https://www.reuters.com/",
       "kind": "sitemap",
       "status": "ok",
-      "checkedAt": "2026-10-08T01:10:27.721391+00:00"
+      "checkedAt": "2026-10-08T01:12:04.262879+00:00"
     },
     {
       "id": "aljazeera",
@@ -41,7 +41,7 @@
       "url": "https://www.aljazeera.com/",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-08T01:10:27.526844+00:00"
+      "checkedAt": "2026-10-08T01:12:04.093866+00:00"
     },
     {
       "id": "bloomberg",
@@ -49,7 +49,7 @@
       "url": "https://www.bloomberg.com/asia",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-08T01:10:27.880193+00:00"
+      "checkedAt": "2026-10-08T01:12:04.214362+00:00"
     },
     {
       "id": "fnc",
@@ -57,7 +57,7 @@
       "url": "https://tradewithfnc.com/",
       "kind": "json",
       "status": "ok",
-      "checkedAt": "2026-10-08T01:10:28.206904+00:00"
+      "checkedAt": "2026-10-08T01:12:04.709612+00:00"
     },
     {
       "id": "investing_id",
@@ -65,7 +65,7 @@
       "url": "https://id.investing.com/news",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-08T01:10:27.727037+00:00"
+      "checkedAt": "2026-10-08T01:12:04.181483+00:00"
     },
     {
       "id": "pluang",
@@ -73,7 +73,7 @@
       "url": "https://pluang.com/news-feed",
       "kind": "html",
       "status": "ok",
-      "checkedAt": "2026-10-08T01:10:28.083677+00:00"
+      "checkedAt": "2026-10-08T01:12:05.299358+00:00"
     },
     {
       "id": "kompas",
@@ -81,7 +81,7 @@
       "url": "https://money.kompas.com/",
       "kind": "html",
       "status": "ok",
-      "checkedAt": "2026-10-08T01:10:28.247619+00:00"
+      "checkedAt": "2026-10-08T01:12:05.720717+00:00"
     },
     {
       "id": "detik",
@@ -89,7 +89,7 @@
       "url": "https://finance.detik.com/",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-08T01:10:29.252004+00:00"
+      "checkedAt": "2026-10-08T01:12:06.169912+00:00"
     },
     {
       "id": "kemenkeu",
@@ -121,7 +121,7 @@
       "url": "https://ekbis.sindonews.com/",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-08T01:10:28.381648+00:00"
+      "checkedAt": "2026-10-08T01:12:04.993974+00:00"
     },
     {
       "id": "fedwatch",
@@ -192,6 +192,15 @@
       "publishedAt": "2026-10-08T01:04:05.501000+00:00",
       "image": "https://www.reuters.com/resizer/v2/H43QF3TUVNNHNE5J2DI4AZLMY4.jpg?auth=15ff8f2afe50780bd303c49f038e08854560365f0800215511b2afb04b214aeb&smart=true&width=1920",
       "category": "world"
+    },
+    {
+      "id": "2aa205c7c5d58d9792bc",
+      "source": "aljazeera",
+      "title": "Yemeni government forces claim 1,860 Houthis ‘neutralised’",
+      "url": "https://www.aljazeera.com/news/2026/10/8/yemeni-government-forces-claim-1860-houthis-neutralised?traffic_source=rss",
+      "publishedAt": "2026-10-08T01:02:07+00:00",
+      "image": "https://www.aljazeera.com/wp-content/uploads/2026/10/afp_6ac5750c6711-1791325452.jpg?resize=1920%2C1440",
+      "category": "other"
     },
     {
       "id": "098ad90262fa74b2dfb9",
@@ -929,15 +938,6 @@
       "url": "https://www.cnbc.com/2026/10/07/fcc-spectrum-auction-spacex-amazon.html",
       "publishedAt": "2026-10-07T20:03:50+00:00",
       "image": "https://image.cnbcfm.com/api/v1/image/106807806-16074358342020-12-03t230819z_202191474_rc2zfk9y7yyw_rtrmadp_0_usa-tech-fcc.jpeg?v=1696436624&w=1920&h=1080",
-      "category": "other"
-    },
-    {
-      "id": "8ef00dc4d51f7e410337",
-      "source": "aljazeera",
-      "title": "Former Catholic bishop sentenced for abusing indigenous men in Australia",
-      "url": "https://www.aljazeera.com/news/2026/10/7/former-catholic-bishop-sentenced-for-abusing-indigenous-men-in-australia?traffic_source=rss",
-      "publishedAt": "2026-10-07T19:57:14+00:00",
-      "image": "https://www.aljazeera.com/wp-content/uploads/2026/10/getty_6ac68b6ea3-1791396718.jpg?resize=1920%2C1440",
       "category": "other"
     },
     {
@@ -2117,24 +2117,6 @@
       "url": "https://pluang.com/news-feed/monarch-casino-resort-laporkan-hasil-kuartal-iii-2026",
       "publishedAt": null,
       "image": "https://image-cdn.pluang.com/web/news-cards/v2/GSS/aec136ae7350c33bbfb16af1acc7b235570c924ca9d8ae22ea5319acc0985428-id.webp",
-      "category": "local"
-    },
-    {
-      "id": "d58cfc80a0849f6fe3fa",
-      "source": "pluang",
-      "title": "Tiga alamat baru tarik 23.456 ETH dari Coinbase senilai $60,37 juta, tanda aliran keluar besar.",
-      "url": "https://pluang.com/news-feed/tiga-alamat-baru-tarik-60-juta-dollar-ether-dari-coinbase",
-      "publishedAt": null,
-      "image": "https://image-cdn.pluang.com/web/news-cards/v2/CRYPTO/79917dd5d20b8a6b474c6c2a49f0e06ce82b04173bb958f333c6e191eccbbe84-id.webp",
-      "category": "local"
-    },
-    {
-      "id": "801917ec7976694ae357",
-      "source": "pluang",
-      "title": "Penarikan besar XRP dari Binance capai level tertinggi 7 bulan, potensi pasokan perdagangan berkurang.",
-      "url": "https://pluang.com/news-feed/transfer-xrp-whale-dari-binance-tertinggi-7-bulan",
-      "publishedAt": null,
-      "image": "https://image-cdn.pluang.com/web/news-cards/v2/CRYPTO/3a405b1c2527e27f684a24c414ce4136c640c88c7671719258e6fa245a80e6c8-id.webp",
       "category": "local"
     }
   ]
