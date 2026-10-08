@@ -92,7 +92,7 @@ def calendar_rows(data):
                     if not moment.tzinfo or impact not in (1, 2, 3) or not re.fullmatch('[A-Z]{3}', currency) or not name:
                         continue
                     moment = moment.astimezone(ZoneInfo('Asia/Jakarta'))
-                    rows.append({'id': str(event['occurrenceId']), 'tgl': moment.date().isoformat(), 'jam': moment.strftime('%H:%M'), 'neg': currency, 'nama': name + (' ' + event['period'] if event.get('period') else ''), 'dmp': impact, 'akt': str(event.get('actual') or ''), 'prk': str(event.get('forecast') or ''), 'sbl': str(event.get('previous') or ''), 'cat': ''})
+                    rows.append({'id': str(event['occurrenceId']), 'tgl': moment.date().isoformat(), 'jam': moment.strftime('%H:%M'), 'neg': currency, 'countryCode': event.get('currencyFlag', ''), 'nama': name + (' ' + event['period'] if event.get('period') else ''), 'dmp': impact, 'akt': str(event.get('actual') or ''), 'prk': str(event.get('forecast') or ''), 'sbl': str(event.get('previous') or ''), 'cat': ''})
                 except (ValueError, TypeError, KeyError):
                     continue
         if rows:

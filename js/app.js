@@ -2594,7 +2594,8 @@
 
       /* Economic calendar engine & dataset (wib gmt+7)
          matches reference system schema, filters & impact calculations */
-      let kalCache = null, kalCari = '', kalDmp = [], kalTh = '', kalBl = '', kalTg = '', kalLihatLalu = false;
+      let kalCache = null, kalCari = '', kalDmp = [1,2,3], kalTh = '', kalBl = '', kalTg = '', kalLihatLalu = false;
+      let kalCountries = null, kalCategory = '';
       let kalPollingTimer = null, kalCountdownTimer = null;
 
       const kalText = (id, en) => language === 'en' ? en : id;
@@ -2641,7 +2642,9 @@
         if (kalTh) isi = isi.filter(x => String(x.tgl).slice(0, 4) === kalTh);
         if (kalBl) isi = isi.filter(x => String(x.tgl).slice(5, 7) === kalBl);
         if (kalTg) isi = isi.filter(x => String(x.tgl).slice(8, 10) === kalTg);
-        if (kalDmp.length) isi = isi.filter(x => kalDmp.indexOf(kalDmpNorm(x.dmp)) >= 0);
+        isi = isi.filter(x => kalDmp.includes(kalDmpNorm(x.dmp)));
+        if (kalCountries !== null) isi = isi.filter(x => kalCountries.includes(kalCountryCode(x)));
+        if (kalCategory) isi = isi.filter(x => kalEventCategory(x) === kalCategory);
         const q = kalCari.trim().toLowerCase();
         if (q) {
           isi = isi.filter(x => ((x.nama || '') + ' ' + (x.neg || '') + ' ' + (x.cat || '')).toLowerCase().indexOf(q) >= 0);
@@ -2650,7 +2653,7 @@
       }
 
       function kalAdaSaringan() {
-        return !!(kalCari.trim() || kalDmp.length || kalTh || kalBl || kalTg);
+        return !!(kalCari.trim() || kalDmp.length !== 3 || kalCountries !== null || kalCategory || kalTh || kalBl || kalTg);
       }
 
 
@@ -2677,11 +2680,42 @@
         isi($('kal-tg'), tg, kalTg, kalText('Semua tgl', 'All days'), v => String(parseInt(v, 10)));
       }
 
-      function renderKalChipDmp() {
-        document.querySelectorAll('#kal-dmp-chips [data-dmp]').forEach(b => {
-          const v = +b.dataset.dmp;
-          b.classList.toggle('on', v === 0 ? kalDmp.length === 0 : kalDmp.indexOf(v) >= 0);
-        });
+      function kalCountryCode(event) {
+        return event.countryCode || ({USD:'US',GBP:'GB',JPY:'JP',EUR:'EU',AUD:'AU',NZD:'NZ',CAD:'CA',CHF:'CH',CNY:'CN',IDR:'ID',INR:'IN',KRW:'KR',BRL:'BR',ZAR:'ZA',TRY:'TR',SGD:'SG',HKD:'HK',RUB:'RU',MXN:'MX',SEK:'SE',NOK:'NO'}[event.neg] || event.neg || '');
+      }
+      const kalCategories = [
+        ['inflation','Inflasi','Inflation',/inflation|\bcpi\b|\bppi\b|price index|deflator/i],
+        ['employment','Ketenagakerjaan','Employment',/employment|unemployment|jobless|payroll|job openings|labor|labour|earnings/i],
+        ['rates','Bank sentral','Central banks',/interest rate|rate decision|fomc|\bfed\b|\becb\b|\bboe\b|\bboj\b|central bank|monetary/i],
+        ['growth','Aktivitas ekonomi','Economic activity',/\bgdp\b|\bpmi\b|production|retail|consumer|manufacturing|confidence|orders|sentiment/i],
+        ['housing','Perumahan','Housing',/housing|home sales|building|mortgage/i],
+        ['trade','Perdagangan & fiskal','Trade & fiscal',/trade|export|import|budget|auction|balance|treasury/i],
+        ['energy','Energi','Energy',/oil|gas|petroleum|energy|crude|eia|baker hughes/i],
+        ['other','Lainnya','Other',null]
+      ];
+      function kalEventCategory(event) {
+        return kalCategories.find(row => row[3]?.test(event.nama || ''))?.[0] || 'other';
+      }
+      function renderKalFilters() {
+        const names = new Intl.DisplayNames([language === 'en' ? 'en' : 'id'], {type:'region'});
+        const codes = [...new Set((kalCache?.items || []).map(kalCountryCode).filter(Boolean))];
+        const countryName = code => /^[A-Z]{2}$/.test(code) ? names.of(code) : code;
+        codes.sort((a,b) => countryName(a).localeCompare(countryName(b)));
+        $('kal-country-label').textContent = kalText('Negara','Countries');
+        $('kal-category-label').textContent = kalText('Kategori','Category');
+        $('kal-importance-label').textContent = kalText('Kepentingan','Importance');
+        $('kal-country-summary').textContent = kalCountries === null ? kalText('Semua negara','All countries') + ' (' + codes.length + ')' : kalCountries.length + kalText(' dipilih',' selected');
+        $('kal-country-search').placeholder = kalText('Cari negara…','Search countries…');
+        const actions = {reset:kalText('Kembali ke default','Reset to default'),all:kalText('Pilih semua','Select all'),none:kalText('Hapus semua','Clear all')};
+        document.querySelectorAll('[data-country-action]').forEach(button => button.textContent = actions[button.dataset.countryAction]);
+        const query = $('kal-country-search').value.toLocaleLowerCase();
+        $('kal-country-list').innerHTML = codes.filter(code => (countryName(code)+' '+code).toLocaleLowerCase().includes(query)).map(code => '<label><input type="checkbox" name="calendar-country" value="'+esc(code)+'" '+(kalCountries === null || kalCountries.includes(code) ? 'checked' : '')+'><span>'+esc(countryName(code))+'</span><small>'+esc(code)+'</small></label>').join('') || '<p>'+kalText('Negara tidak ditemukan','No countries found')+'</p>';
+        $('kal-country-chips').innerHTML = (kalCountries === null ? codes : kalCountries).map(code => '<button type="button" data-remove-country="'+esc(code)+'" aria-label="'+esc(kalText('Hapus ','Remove ')+countryName(code))+'">'+esc(code)+' <span aria-hidden="true">×</span></button>').join('');
+        $('kal-category').innerHTML = '<option value="">'+kalText('Semua kategori','All categories')+'</option>'+kalCategories.map(row => '<option value="'+row[0]+'">'+row[language === 'en' ? 2 : 1]+'</option>').join('');
+        $('kal-category').value = kalCategory;
+        const impacts = [[1,kalText('Rendah','Low')],[2,kalText('Sedang','Medium')],[3,kalText('Tinggi','High')]];
+        $('kal-importance-summary').textContent = kalDmp.length === 3 ? kalText('Apa saja','Any importance') : kalDmp.length ? impacts.filter(row => kalDmp.includes(row[0])).map(row => row[1]).join(', ') : kalText('Tidak ada','None');
+        $('kal-importance-list').innerHTML = impacts.map(row => '<label><input type="checkbox" name="calendar-importance" value="'+row[0]+'" '+(kalDmp.includes(row[0]) ? 'checked' : '')+'>'+kalDmpBar(row[0])+'<span>'+row[1]+'</span></label>').join('');
       }
 
       function kalKelompok(isi) {
@@ -2723,7 +2757,7 @@
       function gambarKalender(items) {
         const semua = items || [];
         renderKalTgl(semua);
-        renderKalChipDmp();
+        renderKalFilters();
         const isi = kalSaring(semua);
         const info = $('cari-kal-info');
         if (info) {
@@ -2855,7 +2889,7 @@
       }
 
       window.__kalReset = function () {
-        kalCari = ''; kalDmp = []; kalTh = ''; kalBl = ''; kalTg = '';
+        kalCari = ''; kalDmp = [1,2,3]; kalCountries = null; kalCategory = ''; $('kal-country-search').value = ''; kalTh = ''; kalBl = ''; kalTg = '';
         if ($('cari-kal')) { $('cari-kal').value = ''; $('cari-kal-box').classList.remove('isi'); }
         gambarKalUlang();
       };
@@ -2975,18 +3009,33 @@
       }
 
       function initCalendarEventListeners() {
-        if ($('kal-dmp-chips')) {
-          $('kal-dmp-chips').onclick = e => {
-            const b = e.target.closest('[data-dmp]'); if (!b) return;
-            const v = +b.dataset.dmp;
-            if (v === 0) { kalDmp = []; }
-            else {
-              const i = kalDmp.indexOf(v);
-              if (i >= 0) kalDmp.splice(i, 1); else kalDmp.push(v);
-            }
-            gambarKalUlang();
-          };
-        }
+        $('kal-country-search').addEventListener('input', renderKalFilters);
+        $('kal-category').addEventListener('change', () => { kalCategory = $('kal-category').value; gambarKalUlang(); });
+        $('calendar-filters').addEventListener('change', event => {
+          if (event.target.name === 'calendar-country') {
+            if (kalCountries === null) kalCountries = [...new Set((kalCache?.items || []).map(kalCountryCode))];
+            kalCountries = event.target.checked ? [...new Set([...kalCountries,event.target.value])] : kalCountries.filter(code => code !== event.target.value);
+          } else if (event.target.name === 'calendar-importance') {
+            const value = +event.target.value;
+            kalDmp = event.target.checked ? [...new Set([...kalDmp,value])] : kalDmp.filter(impact => impact !== value);
+          } else return;
+          const name = event.target.name, value = event.target.value;
+          gambarKalUlang();
+          document.querySelector('#calendar-filters input[name="'+name+'"][value="'+CSS.escape(value)+'"]')?.focus({preventScroll:true});
+        });
+        $('calendar-filters').addEventListener('click', event => {
+          const button = event.target.closest('button');
+          if (!button) return;
+          if (button.dataset.countryAction) kalCountries = button.dataset.countryAction === 'none' ? [] : null;
+          else if (button.dataset.removeCountry) kalCountries = (kalCountries || [...new Set((kalCache?.items || []).map(kalCountryCode))]).filter(code => code !== button.dataset.removeCountry);
+          else return;
+          gambarKalUlang();
+        });
+        document.querySelectorAll('.calendar-dropdown').forEach(panel => {
+          panel.addEventListener('toggle', () => { if (panel.open) document.querySelectorAll('.calendar-dropdown').forEach(other => { if (other !== panel) other.open = false; }); });
+          panel.addEventListener('keydown', event => { if (event.key === 'Escape') { panel.open = false; panel.querySelector('summary').focus(); } });
+        });
+        document.addEventListener('click', event => { document.querySelectorAll('.calendar-dropdown[open]').forEach(panel => { if (!panel.contains(event.target)) panel.open = false; }); });
 
         ['kal-th', 'kal-bl', 'kal-tg'].forEach(id => {
           const el = $(id);

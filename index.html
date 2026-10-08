@@ -22,7 +22,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
 
-  <link rel="stylesheet" href="css/style.css?v=20261008-server-save">
+  <link rel="stylesheet" href="css/style.css?v=20261008-calendar-filters">
 </head>
 
 <body>
@@ -910,13 +910,21 @@
           <button class="btn btn-secondary btn-sm" type="button" id="kal-tgl-clr" style="padding:4px 10px; font-size:11.5px;">Semua</button>
         </div>
 
-        <!-- Impact Filter Chips -->
-        <div class="kal-filter" id="kal-dmp-chips">
-          <span class="lbl" data-i18n="calendarImpact">Dampak</span>
-          <button class="kdc all on" type="button" data-dmp="0">Semua</button>
-          <button class="kdc d3" type="button" data-dmp="3"><i></i><i></i><i></i>Tinggi</button>
-          <button class="kdc d2" type="button" data-dmp="2"><i></i><i></i><i></i>Sedang</button>
-          <button class="kdc d1" type="button" data-dmp="1"><i></i><i></i><i></i>Rendah</button>
+        <div class="calendar-filters" id="calendar-filters">
+          <div><span class="calendar-filter-label" id="kal-country-label"></span>
+            <details id="kal-countries" class="calendar-dropdown"><summary aria-labelledby="kal-country-label kal-country-summary"><span id="kal-country-summary"></span></summary>
+              <div class="calendar-dropdown-panel country-panel">
+                <input type="search" id="kal-country-search" name="country-search" autocomplete="off" aria-labelledby="kal-country-label">
+                <div class="country-actions"><button type="button" data-country-action="reset"></button><button type="button" data-country-action="all"></button><button type="button" data-country-action="none"></button></div>
+                <div id="kal-country-chips" class="country-chips"></div>
+                <div id="kal-country-list" class="country-list"></div>
+              </div>
+            </details>
+          </div>
+          <div><label class="calendar-filter-label" for="kal-category" id="kal-category-label"></label><select id="kal-category" name="calendar-category"></select></div>
+          <div><span class="calendar-filter-label" id="kal-importance-label"></span>
+            <details id="kal-importance" class="calendar-dropdown"><summary aria-labelledby="kal-importance-label kal-importance-summary"><span id="kal-importance-summary"></span></summary><div class="calendar-dropdown-panel" id="kal-importance-list"></div></details>
+          </div>
         </div>
 
         <!-- Economic Calendar Feed Table -->
@@ -1262,7 +1270,7 @@
 
   <script src="js/vendor/supabase-2.86.0.js" integrity="sha384-3Sgm1bFlHa+gvzgZCHY6SyQwlKZpsgWl0qwxcwsypsSZQvo1vV1miPkn7n1lU1/L"></script>
   <script src="js/scan.js?v=20261007"></script>
-  <script src="js/app.js?v=20261008-server-save"></script>
+  <script src="js/app.js?v=20261008-calendar-filters"></script>
   <script src="js/fed.js?v=20261008-fomc"></script>
 
  </body>
