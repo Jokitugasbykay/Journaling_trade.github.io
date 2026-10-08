@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "checkedAt": "2026-10-08T03:43:26.436987+00:00",
+  "checkedAt": "2026-10-08T03:48:09.230535+00:00",
   "intervalMinutes": 5,
   "sources": [
     {
@@ -9,7 +9,7 @@
       "url": "https://www.investing.com/",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-08T03:43:15.206091+00:00"
+      "checkedAt": "2026-10-08T03:48:02.701986+00:00"
     },
     {
       "id": "cnbc",
@@ -17,7 +17,7 @@
       "url": "https://www.cnbc.com/markets/",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-08T03:43:15.163506+00:00"
+      "checkedAt": "2026-10-08T03:48:02.763300+00:00"
     },
     {
       "id": "kontan",
@@ -25,7 +25,7 @@
       "url": "https://www.kontan.co.id/",
       "kind": "html",
       "status": "ok",
-      "checkedAt": "2026-10-08T03:43:16.207175+00:00"
+      "checkedAt": "2026-10-08T03:48:03.699574+00:00"
     },
     {
       "id": "reuters",
@@ -33,7 +33,7 @@
       "url": "https://www.reuters.com/",
       "kind": "sitemap",
       "status": "ok",
-      "checkedAt": "2026-10-08T03:43:15.278341+00:00"
+      "checkedAt": "2026-10-08T03:48:03.070944+00:00"
     },
     {
       "id": "aljazeera",
@@ -41,7 +41,7 @@
       "url": "https://www.aljazeera.com/",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-08T03:43:15.230738+00:00"
+      "checkedAt": "2026-10-08T03:48:02.662870+00:00"
     },
     {
       "id": "bloomberg",
@@ -49,7 +49,7 @@
       "url": "https://www.bloomberg.com/asia",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-08T03:43:15.633820+00:00"
+      "checkedAt": "2026-10-08T03:48:03.111529+00:00"
     },
     {
       "id": "fnc",
@@ -57,7 +57,7 @@
       "url": "https://tradewithfnc.com/",
       "kind": "json",
       "status": "ok",
-      "checkedAt": "2026-10-08T03:43:16.026459+00:00"
+      "checkedAt": "2026-10-08T03:48:05.255382+00:00"
     },
     {
       "id": "investing_id",
@@ -65,7 +65,7 @@
       "url": "https://id.investing.com/news",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-08T03:43:15.525372+00:00"
+      "checkedAt": "2026-10-08T03:48:02.854293+00:00"
     },
     {
       "id": "pluang",
@@ -73,7 +73,7 @@
       "url": "https://pluang.com/news-feed",
       "kind": "html",
       "status": "ok",
-      "checkedAt": "2026-10-08T03:43:15.547711+00:00"
+      "checkedAt": "2026-10-08T03:48:03.167902+00:00"
     },
     {
       "id": "kompas",
@@ -81,7 +81,7 @@
       "url": "https://money.kompas.com/",
       "kind": "html",
       "status": "ok",
-      "checkedAt": "2026-10-08T03:43:16.450930+00:00"
+      "checkedAt": "2026-10-08T03:48:03.768028+00:00"
     },
     {
       "id": "detik",
@@ -89,7 +89,7 @@
       "url": "https://finance.detik.com/",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-08T03:43:17.218033+00:00"
+      "checkedAt": "2026-10-08T03:48:09.069589+00:00"
     },
     {
       "id": "kemenkeu",
@@ -121,7 +121,7 @@
       "url": "https://ekbis.sindonews.com/",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-08T03:43:15.902447+00:00"
+      "checkedAt": "2026-10-08T03:48:03.535105+00:00"
     },
     {
       "id": "fedwatch",
@@ -147,6 +147,26 @@
       "publishedAt": "2026-10-08T03:41:51+00:00",
       "image": "https://asset.kompas.com/crops/EfAuRL_yklnUyNws7BoCq2JMoII=/0x0:4974x3316/750x500/data/photo/2025/07/07/686b48e653ae5.jpg",
       "category": "local",
+      "topics": []
+    },
+    {
+      "id": "a851c55391194441f508",
+      "source": "reuters",
+      "title": "Kyle Connor's 2 goals keep Jets rolling at expense of Avalanche",
+      "url": "https://www.reuters.com/sports/nhl/kyle-connors-2-goals-keep-jets-rolling-expense-avalanche--flm-2026-10-08/",
+      "publishedAt": "2026-10-08T03:41:25.736000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/64VYWDRNZRJQHOXUKHSKJDPPCI.jpg?auth=04375fa8917860631a4a6133d139355932d07af71ec86294959f53394c4f5118&smart=true&width=1920",
+      "category": "sport",
+      "topics": []
+    },
+    {
+      "id": "4d7098e44b347800728d",
+      "source": "reuters",
+      "title": "Tom Wilson produces 3 points as Capitals get past Penguins",
+      "url": "https://www.reuters.com/sports/nhl/tom-wilson-produces-3-points-capitals-get-past-penguins--flm-2026-10-08/",
+      "publishedAt": "2026-10-08T03:40:21.923000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/HXBQMZY5TRLUXEA7BWDO7MYEKU.jpg?auth=e9120e617cf3370416acd02b00731d10f722d9afad95bbd32e825ed7ed441173&smart=true&width=1920",
+      "category": "sport",
       "topics": []
     },
     {
@@ -272,6 +292,16 @@
       "topics": []
     },
     {
+      "id": "621fd85e33eb2935dc1e",
+      "source": "aljazeera",
+      "title": "Global protests mark October 7 attack with calls for Gaza ceasefire",
+      "url": "https://www.aljazeera.com/video/newsfeed/2026/10/8/global-protests-mark-october-7-attack-with-calls-for-gaza-ceasefire?traffic_source=rss",
+      "publishedAt": "2026-10-08T03:25:47+00:00",
+      "image": "https://www.aljazeera.com/wp-content/uploads/2026/10/image-1791429924.jpg?resize=1920%2C1080&quality=80",
+      "category": "world",
+      "topics": []
+    },
+    {
       "id": "5b5f7db9d1ede70402e3",
       "source": "reuters",
       "title": "Christian Dior board replaces two members ahead of new shareholding structure",
@@ -319,16 +349,6 @@
       "publishedAt": "2026-10-08T03:19:59.628000+00:00",
       "image": null,
       "category": "commentary",
-      "topics": []
-    },
-    {
-      "id": "a851c55391194441f508",
-      "source": "reuters",
-      "title": "Kyle Connor's 2 goals keep Jets rolling at expense of Avalanche",
-      "url": "https://www.reuters.com/sports/nhl/kyle-connors-2-goals-keep-jets-rolling-expense-avalanche--flm-2026-10-08/",
-      "publishedAt": "2026-10-08T03:18:37.138000+00:00",
-      "image": "https://www.reuters.com/resizer/v2/64VYWDRNZRJQHOXUKHSKJDPPCI.jpg?auth=04375fa8917860631a4a6133d139355932d07af71ec86294959f53394c4f5118&smart=true&width=1920",
-      "category": "sport",
       "topics": []
     },
     {
@@ -538,6 +558,16 @@
       "topics": []
     },
     {
+      "id": "f214445147f91038d9cd",
+      "source": "sindo",
+      "title": "Pakar: Selisih Data Ekspor dan Impor Perlu Ditelusuri, Bukan Langsung Disebut Kerugian Negara",
+      "url": "https://ekbis.sindonews.com/read/1758157/34/pakar-selisih-data-ekspor-dan-impor-perlu-ditelusuri-bukan-langsung-disebut-kerugian-negara-1791425416",
+      "publishedAt": "2026-10-08T02:49:43+00:00",
+      "image": "https://pict.sindonews.com/dyn/850/pena/news/2026/10/08/34/1758157/pakar-selisih-data-ekspor-dan-impor-perlu-ditelusuri-bukan-langsung-disebut-kerugian-negara-fqz.jpeg",
+      "category": "other",
+      "topics": []
+    },
+    {
       "id": "b3fbf0dcd9c7a617d98b",
       "source": "reuters",
       "title": "France suspends use of stun grenades to police student protests",
@@ -575,16 +605,6 @@
       "publishedAt": "2026-10-08T02:44:10.584000+00:00",
       "image": "https://www.reuters.com/resizer/v2/6UCXIF4PLRN7BGJKOQZ74FBUTY.jpg?auth=9c4d034cfc37ae45a628878f50ed99041b2f61be7bbac19e8791c38332e241f9&smart=true&width=1920",
       "category": "science",
-      "topics": []
-    },
-    {
-      "id": "4d7098e44b347800728d",
-      "source": "reuters",
-      "title": "Tom Wilson produces 3 points as Capitals get past Penguins",
-      "url": "https://www.reuters.com/sports/nhl/tom-wilson-produces-3-points-capitals-get-past-penguins--flm-2026-10-08/",
-      "publishedAt": "2026-10-08T02:43:18.526000+00:00",
-      "image": "https://www.reuters.com/resizer/v2/HXBQMZY5TRLUXEA7BWDO7MYEKU.jpg?auth=e9120e617cf3370416acd02b00731d10f722d9afad95bbd32e825ed7ed441173&smart=true&width=1920",
-      "category": "sport",
       "topics": []
     },
     {
@@ -2130,7 +2150,7 @@
     {
       "id": "4594e7f7d2f1de1a06e9",
       "source": "bloomberg",
-      "title": "Stocks Fall on Inflation Worries, Brent Tops $102: Markets Wrap",
+      "title": "Stocks and Treasuries Decline as Brent Tops $102: Markets Wrap",
       "url": "https://www.bloomberg.com/news/articles/2026-10-07/stock-market-today-dow-s-p-live-updates",
       "publishedAt": "2026-10-07T22:03:17+00:00",
       "image": null,
@@ -10712,6 +10732,106 @@
       "url": "https://pluang.com/news-feed/solv-protocol-50-bitcoin-terkunci-dalam-tinjauan-keamanan",
       "publishedAt": null,
       "image": "https://image-cdn.pluang.com/web/news-cards/v2/CRYPTO/7982b595cd0ee6a67aca42364fa2bd5950873f507018104824119ea089632a2c-id.webp",
+      "category": "markets",
+      "topics": []
+    },
+    {
+      "id": "3928ff2f3c0de6c3f1a2",
+      "source": "kontan",
+      "title": "Kemenperin Bidik 4,43 Juta IKM Naik Kelas dan Tembus Pasar Ekspor",
+      "url": "https://industri.kontan.co.id/news/kemenperin-bidik-443-juta-ikm-naik-kelas-dan-tembus-pasar-ekspor?source=home_terbaru",
+      "publishedAt": null,
+      "image": "https://foto.kontan.co.id/jL6Eoo_9w63NQqHjI6RFqq5hspY=/smart/2024/09/22/692173687t.jpg",
+      "category": "other",
+      "topics": []
+    },
+    {
+      "id": "58eabd10d26d41684497",
+      "source": "kontan",
+      "title": "Kolaborasi Jadi Cara UMKM Naik Kelas dan Perluas Pasar",
+      "url": "https://industri.kontan.co.id/news/kolaborasi-jadi-cara-umkm-naik-kelas-dan-perluas-pasar?source=home_terbaru",
+      "publishedAt": null,
+      "image": "https://foto.kontan.co.id/xUqpf4oOpzeuf6Vu9iaXWEE-u1c=/smart/2026/10/08/821080906t.jpg",
+      "category": "local",
+      "topics": []
+    },
+    {
+      "id": "d2b3c72370efa2501006",
+      "source": "investing_id",
+      "title": "Mengapa saham Standard Chartered turun hari ini?",
+      "url": "https://id.investing.com/news/stock-market-news/mengapa-saham-standard-chartered-turun-hari-ini-93CH-3089958",
+      "publishedAt": null,
+      "image": "https://content-media.investing.com/news/HSBC_2_M_1440048631.jpg",
+      "category": "markets",
+      "topics": []
+    },
+    {
+      "id": "d17382c5f6fb5804cafb",
+      "source": "investing_id",
+      "title": "Mengapa saham HSBC turun hari ini?",
+      "url": "https://id.investing.com/news/stock-market-news/mengapa-saham-hsbc-turun-hari-ini-93CH-3089957",
+      "publishedAt": null,
+      "image": "https://content-media.investing.com/news/HSBC_2_M_1440048631.jpg",
+      "category": "markets",
+      "topics": []
+    },
+    {
+      "id": "a23a6b92d93c11a85caa",
+      "source": "investing_id",
+      "title": "CEO 4D Molecular Therapeutics David Kirn jual saham senilai $753 ribu",
+      "url": "https://id.investing.com/news/insider-trading-news/ceo-4d-molecular-therapeutics-david-kirn-jual-saham-senilai-753-ribu-93CH-3089959",
+      "publishedAt": null,
+      "image": "https://content-media.investing.com/news/moved_LYNXMPEM40318_1200_L.jpg",
+      "category": "markets",
+      "topics": []
+    },
+    {
+      "id": "d159c129ac23f072d3d8",
+      "source": "investing_id",
+      "title": "Mengapa saham Greentown China melonjak hari ini?",
+      "url": "https://id.investing.com/news/stock-market-news/mengapa-saham-greentown-china-melonjak-hari-ini-93CH-3089956",
+      "publishedAt": null,
+      "image": "https://content-media.investing.com/news/LYNXMPEBBR0PM_M.jpg",
+      "category": "markets",
+      "topics": []
+    },
+    {
+      "id": "3fa0320f01b57bd9f927",
+      "source": "investing_id",
+      "title": "Futures minyak mentah lebih tinggi selama sesi Asia",
+      "url": "https://id.investing.com/news/commodities-news/futures-minyak-mentah-lebih-tinggi-selama-sesi-asia-3089955",
+      "publishedAt": null,
+      "image": "https://content-media.investing.com/news/oil_M_1440047764.jpg",
+      "category": "markets",
+      "topics": []
+    },
+    {
+      "id": "414eab41d6c963413db5",
+      "source": "pluang",
+      "title": "Europol: Blockchain Bitcoin tahan serangan kuantum, tapi 30% koin di dompet rentan dicuri.",
+      "url": "https://pluang.com/news-feed/europol-komputasi-kuantum-tidak-ancam-bitcoin-tapi-dompet-terancam",
+      "publishedAt": null,
+      "image": "https://image-cdn.pluang.com/web/news-cards/v2/CRYPTO/a8e79d98664248b40bdd82183bef8e1ad2d47e561f5daadf53ae2c337281dadf-id.webp",
+      "category": "markets",
+      "topics": []
+    },
+    {
+      "id": "fd8101574449c417a5ed",
+      "source": "pluang",
+      "title": "Sui kembangkan layanan arbitrase AI dan pembayaran, tapi harga token turun meski uji coba throughput tinggi",
+      "url": "https://pluang.com/news-feed/sui-sui-targetkan-ai-perusahaan-token-belum-berhasil-breakout",
+      "publishedAt": null,
+      "image": "https://image-cdn.pluang.com/web/news-cards/v2/CRYPTO/ef3b63dbc1eab1943e3b888aee951f1796228fda8ab91266b605fded10eda507-id.webp",
+      "category": "technology",
+      "topics": []
+    },
+    {
+      "id": "54000390227b9fa87ade",
+      "source": "pluang",
+      "title": "Posisi long Bitcoin senilai $2,52 juta dilikuidasi di Binance pada harga $82.589, penyebab belum jelas.",
+      "url": "https://pluang.com/news-feed/binance-catatan-likuidasi-posisi-panjang-bitcoin-252-juta-di-82589",
+      "publishedAt": null,
+      "image": "https://image-cdn.pluang.com/web/news-cards/v2/CRYPTO/d5d6bec36f2b4974cff0d552ead94ff34bda66115633f070876e5111de12a06b-id.webp",
       "category": "markets",
       "topics": []
     }
