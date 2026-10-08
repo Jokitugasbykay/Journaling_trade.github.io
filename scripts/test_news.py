@@ -180,7 +180,7 @@ print("Nine new European regions: 72 portal entries and unique collector IDs pas
 
 for code in ("QA","JO","LB","IQ","KW","OM","BH","IL","IN","CN","PK","BD","TW","SA","AE","TR","IR","LK","ZA","NG","KE","EG","MA","GH","ET","DZ","UG","TZ","TH","PH","VN","JP","KR"):
     assert len(news.REGIONAL_NEWS_SOURCES[code]) == (1 if code == "QA" else 0 if code in ("JO","LB","IQ","KW","OM","BH","IL","SA","AE") else 10 if code == "CN" else 12 if code == "TW" else 8)
-assert len(news.REGIONAL_NEWS_SOURCES["DIRECTORIES"]) == 5
+assert len(news.REGIONAL_NEWS_SOURCES["DIRECTORIES"]) == 0
 assert news.REGIONAL_NEWS_SOURCES["TZ"][1]["url"] == "https://dailynews.co.tz"
 assert news.REGIONAL_NEWS_SOURCES["TH"][5]["url"] == "https://www.dailynews.co.th"
 print("Middle East, Asia, Africa, ASEAN, directories and corrected publisher domains passed")
@@ -243,3 +243,12 @@ assert news.merge_items([removed_row], []) == []
 print('Middle East contains only Al Jazeera; deleted sources cannot return during refresh')
 
 assert news.clean('Brand\u00ae and publisher\u00a9') == 'Brand and publisher'
+
+assert not any(source['id'].startswith('dir_') for source in news.SOURCES)
+for sid, feed in [('us_pbs','https://www.pbs.org/newshour/feeds/rss/headlines'),('gb_independent','https://www.independent.co.uk/news/rss')]:
+    publisher = next(source for source in news.SOURCES if source['id'] == sid)
+    assert publisher['kind'] == 'rss' and publisher['feed'] == feed
+    article = publisher['url'].rstrip('/') + '/news-test'
+    sample = f'<rss><channel><item><title>Publisher releases the latest world news</title><link>{article}</link><pubDate>{now.strftime("%a, %d %b %Y %H:%M:%S +0000")}</pubDate></item></channel></rss>'
+    assert news.parse(sample.encode(), publisher)[0]['source'] == sid
+print('PBS/Independent official RSS enabled; non-news directories removed from collector')

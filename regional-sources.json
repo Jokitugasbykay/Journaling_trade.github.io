@@ -38,7 +38,7 @@
     {"id":"gb_telegraph","name":"The Telegraph","url":"https://www.telegraph.co.uk","tag":"Business"},
     {"id":"gb_times","name":"The Times UK","url":"https://www.thetimes.com","tag":"National","feed":"https://www.thetimes.com/sitemaps/news","kind":"sitemap"},
     {"id":"gb_sky","name":"Sky News","url":"https://news.sky.com","tag":"Breaking","feed":"https://feeds.skynews.com/feeds/rss/home.xml"},
-    {"id":"gb_independent","name":"The Independent","url":"https://www.independent.co.uk","tag":"General"}
+    {"id":"gb_independent","name":"The Independent","url":"https://www.independent.co.uk","tag":"General","feed":"https://www.independent.co.uk/news/rss"}
   ],
   "MY": [
     {"id":"my_bernama","name":"Bernama","url":"https://www.bernama.com","tag":"National"},
@@ -259,7 +259,7 @@
     {"id":"us_npr","name":"NPR","url":"https://www.npr.org","tag":"Global","feed":"https://feeds.npr.org/1001/rss.xml","region":"Global/US"},
     {"id":"bloomberg","name":"Bloomberg","url":"https://www.bloomberg.com","tag":"Global","region":"Global/US"},
     {"id":"us_cbs","name":"CBS News","url":"https://www.cbsnews.com","tag":"Global","region":"Global/US","feed":"https://www.cbsnews.com/latest/rss/main"},
-    {"id":"us_pbs","url":"https://www.pbs.org/newshour","name":"PBS NewsHour","region":"Global/US","tag":"Global"},
+    {"id":"us_pbs","url":"https://www.pbs.org/newshour","name":"PBS NewsHour","region":"Global/US","tag":"Global","feed":"https://www.pbs.org/newshour/feeds/rss/headlines"},
     {"id":"bbc","name":"BBC News","url":"https://www.bbc.com/news","tag":"Global","region":"Global/UK"},
     {"id":"guardian","name":"The Guardian","url":"https://www.theguardian.com","tag":"Global","region":"Global/UK"},
     {"id":"reuters","name":"Reuters","url":"https://www.reuters.com","tag":"Global","region":"Global/UK"},
@@ -267,7 +267,7 @@
     {"id":"gb_telegraph","name":"The Telegraph","url":"https://www.telegraph.co.uk","tag":"Global","region":"Global/UK"},
     {"id":"gb_times","name":"The Times UK","url":"https://www.thetimes.com","tag":"Global","region":"Global/UK","feed":"https://www.thetimes.com/sitemaps/news","kind":"sitemap"},
     {"id":"gb_sky","name":"Sky News","url":"https://news.sky.com","tag":"Global","feed":"https://feeds.skynews.com/feeds/rss/home.xml","region":"Global/UK"},
-    {"id":"gb_independent","name":"The Independent","url":"https://www.independent.co.uk","tag":"Global","region":"Global/UK"},
+    {"id":"gb_independent","name":"The Independent","url":"https://www.independent.co.uk","tag":"Global","region":"Global/UK","feed":"https://www.independent.co.uk/news/rss"},
     {"id":"economic_times","name":"The Economic Times","url":"https://economictimes.indiatimes.com/","region":"Global/International","country":"IN","feed":"https://economictimes.indiatimes.com/rssfeeds/13352306.cms"},
     {"id":"stocktwits","name":"Stocktwits","url":"https://stocktwits.com/","region":"Global/US","country":"US","feed":"https://stocktwits.com/sitemap/rss_feed.xml"},
     {"id":"federal_reserve","name":"Federal Reserve","url":"https://www.federalreserve.gov/","region":"Global/US","country":"US","kind":"rss","topics":["fed"],"feeds":[{"url":"https://www.federalreserve.gov/feeds/speeches.xml"},{"url":"https://www.federalreserve.gov/feeds/press_all.xml"}]},
@@ -613,11 +613,5 @@
     {"id":"lk_p7","name":"The Morning","url":"https://www.themorning.lk"},
     {"id":"lk_p8","name":"News First","url":"https://www.newsfirst.lk"}
   ],
-  "DIRECTORIES": [
-    {"id":"dir_worldpress","name":"Worldpress","url":"https://worldpress.org","category":"Direktori Media Dunia","description":"Direktori media terkurasi berdasarkan negara dan kawasan global"},
-    {"id":"dir_abyz","name":"ABYZ News Links","url":"https://www.abyznewslinks.com","category":"Indeks Surat Kabar","description":"Indeks ribuan surat kabar dan portal berita resmi dari seluruh negara"},
-    {"id":"dir_newspapers","name":"Online Newspapers","url":"https://onlinenewspapers.com","category":"Katalog Media Daring","description":"Katalog portal berita daring dari setiap negara di dunia"},
-    {"id":"dir_reuters_institute","name":"Reuters Institute","url":"https://reutersinstitute.politics.ox.ac.uk","category":"Riset Kepercayaan Media","description":"Laporan riset independen mengenai tingkat kepercayaan publik terhadap media"},
-    {"id":"dir_rsf","name":"Reporters Without Borders (RSF)","url":"https://rsf.org","category":"Indeks Kebebasan Pers","description":"Evaluasi kredibilitas dan kebebasan iklim pers dunia"}
-  ]
+  "DIRECTORIES": []
 }
