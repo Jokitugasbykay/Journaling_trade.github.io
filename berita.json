@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "checkedAt": "2026-10-08T04:50:06.450585+00:00",
+  "checkedAt": "2026-10-08T05:07:12.653700+00:00",
   "intervalMinutes": 5,
   "sources": [
     {
@@ -9,7 +9,7 @@
       "url": "https://www.investing.com/",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-08T04:49:53.762659+00:00"
+      "checkedAt": "2026-10-08T05:07:02.944620+00:00"
     },
     {
       "id": "cnbc",
@@ -17,7 +17,7 @@
       "url": "https://www.cnbc.com/markets/",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-08T04:49:53.786618+00:00"
+      "checkedAt": "2026-10-08T05:07:03.003252+00:00"
     },
     {
       "id": "kontan",
@@ -25,7 +25,7 @@
       "url": "https://www.kontan.co.id/",
       "kind": "html",
       "status": "ok",
-      "checkedAt": "2026-10-08T04:49:55.129317+00:00"
+      "checkedAt": "2026-10-08T05:07:04.516256+00:00"
     },
     {
       "id": "reuters",
@@ -33,7 +33,7 @@
       "url": "https://www.reuters.com/",
       "kind": "sitemap",
       "status": "ok",
-      "checkedAt": "2026-10-08T04:49:54.281667+00:00"
+      "checkedAt": "2026-10-08T05:07:02.965242+00:00"
     },
     {
       "id": "aljazeera",
@@ -41,7 +41,7 @@
       "url": "https://www.aljazeera.com/",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-08T04:49:53.924213+00:00"
+      "checkedAt": "2026-10-08T05:07:02.948469+00:00"
     },
     {
       "id": "bloomberg",
@@ -49,7 +49,7 @@
       "url": "https://www.bloomberg.com/asia",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-08T04:49:54.118211+00:00"
+      "checkedAt": "2026-10-08T05:07:04.571924+00:00"
     },
     {
       "id": "fnc",
@@ -57,7 +57,7 @@
       "url": "https://tradewithfnc.com/",
       "kind": "json",
       "status": "ok",
-      "checkedAt": "2026-10-08T04:49:54.539055+00:00"
+      "checkedAt": "2026-10-08T05:07:03.612544+00:00"
     },
     {
       "id": "investing_id",
@@ -65,7 +65,7 @@
       "url": "https://id.investing.com/news",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-08T04:49:53.956925+00:00"
+      "checkedAt": "2026-10-08T05:07:03.111662+00:00"
     },
     {
       "id": "pluang",
@@ -73,15 +73,15 @@
       "url": "https://pluang.com/news-feed",
       "kind": "html",
       "status": "ok",
-      "checkedAt": "2026-10-08T04:49:55.127056+00:00"
+      "checkedAt": "2026-10-08T05:07:03.438854+00:00"
     },
     {
       "id": "kompas",
       "name": "Kompas Money",
       "url": "https://money.kompas.com/",
       "kind": "html",
-      "status": "stale",
-      "checkedAt": "2026-10-08T04:26:53.516427+00:00"
+      "status": "ok",
+      "checkedAt": "2026-10-08T05:07:03.683451+00:00"
     },
     {
       "id": "detik",
@@ -89,7 +89,7 @@
       "url": "https://finance.detik.com/",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-08T04:49:55.995593+00:00"
+      "checkedAt": "2026-10-08T05:07:04.790670+00:00"
     },
     {
       "id": "kemenkeu",
@@ -121,7 +121,7 @@
       "url": "https://ekbis.sindonews.com/",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-08T04:49:54.626125+00:00"
+      "checkedAt": "2026-10-08T05:07:03.831705+00:00"
     },
     {
       "id": "fedwatch",
@@ -140,6 +140,180 @@
   ],
   "items": [
     {
+      "id": "11e31c0b1f0a56f70d09",
+      "source": "kompas",
+      "title": "1,9 Juta Ton E-Waste di Indonesia, Lintasarta Dorong Edukasi Ekonomi Sirkular",
+      "url": "https://money.kompas.com/read/2026/10/08/120421826/19-juta-ton-e-waste-di-indonesia-lintasarta-dorong-edukasi-ekonomi-sirkular",
+      "publishedAt": "2026-10-08T05:04:21+00:00",
+      "image": "https://asset.kompas.com/crops/2kMf-QqxcxSGCSAOUkjULmCbnOU=/0x0:999x666/750x500/data/photo/2018/10/29/3485732970.jpg",
+      "category": "local",
+      "topics": []
+    },
+    {
+      "id": "0cd1ba5b356ecd803f45",
+      "source": "reuters",
+      "title": "Britain removes East Jerusalem consulate signage as Israeli shutdown order expires",
+      "url": "https://www.reuters.com/world/middle-east/britain-removes-east-jerusalem-consulate-signage-israeli-shutdown-order-expires-2026-10-08/",
+      "publishedAt": "2026-10-08T05:02:09.582000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/DW4ROZG72FI65E6TIHXSSXHU74.jpg?auth=f0f8cc77eb11d2386f54168e756bfd914e53aabea177e692523ea2251ca0a30b&smart=true&width=1920",
+      "category": "world",
+      "topics": []
+    },
+    {
+      "id": "2935ec994f6160cc456e",
+      "source": "reuters",
+      "title": "Proteinmaxxing is puny remedy for consumer giants",
+      "url": "https://www.reuters.com/commentary/breakingviews/proteinmaxxing-is-puny-remedy-consumer-giants-2026-10-08/",
+      "publishedAt": "2026-10-08T05:00:52.155000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/CWKTLRLSQJK3VGPPEF5ONLTSQY.jpg?auth=0450289cbd9d58a931cb9b84368f3e945bafe50294625b5878f04addd94dcd97&smart=true&width=1920",
+      "category": "commentary",
+      "topics": []
+    },
+    {
+      "id": "d5d4fc1a063993c4068c",
+      "source": "reuters",
+      "title": "UK PM Burnham's Labour Party faces challenge from Greens in Starmer's old seat",
+      "url": "https://www.reuters.com/world/uk/uk-pm-burnhams-labour-party-faces-challenge-greens-starmers-old-seat-2026-10-07/",
+      "publishedAt": "2026-10-08T05:00:17.677000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/A5VFUD76WJLMLMLZ4GCYN5MFCI.jpg?auth=4908cdd6c8fcea4ae9008731ca678747a841ea053e36105e650ed606f9faa5e7&smart=true&width=1920",
+      "category": "world",
+      "topics": []
+    },
+    {
+      "id": "80d797a57dc7a445744b",
+      "source": "reuters",
+      "title": "Thai consumer confidence drops in September, survey shows",
+      "url": "https://www.reuters.com/world/asia-pacific/thai-consumer-confidence-drops-september-survey-shows-2026-10-08/",
+      "publishedAt": "2026-10-08T04:59:43.660000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/YMXBTAIOSZPYTP6JHRDL3KOFWY.jpg?auth=4ee111e44e74fc064f7ae052adc699a5f2a27d14d877bd280306806aac31d4e7&smart=true&width=1920",
+      "category": "world",
+      "topics": []
+    },
+    {
+      "id": "c1a6e79f0ef0b8f22fcd",
+      "source": "detik",
+      "title": "Produsen Telur Teriak Harga Pakan Ayam Naik, Mendag Buka Peluang Subsidi",
+      "url": "https://finance.detik.com/berita-ekonomi-bisnis/d-8697701/produsen-telur-teriak-harga-pakan-ayam-naik-mendag-buka-peluang-subsidi",
+      "publishedAt": "2026-10-08T04:57:31+00:00",
+      "image": "https://akcdn.detik.net.id/community/media/visual/2026/10/08/menteri-perdagangan-budi-santoso-1791435231230_169.jpeg?w=360&q=90",
+      "category": "business",
+      "topics": []
+    },
+    {
+      "id": "e1fd684ba987b5ab3bbc",
+      "source": "reuters",
+      "title": "India considers delaying rollout of UPI payments fee, sources say",
+      "url": "https://www.reuters.com/world/india/indian-payment-stocks-slide-after-report-upi-mdr-rollout-delay-2026-10-08/",
+      "publishedAt": "2026-10-08T04:56:55.568000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/JDL2HILN2VMBJFEAO5HCWLYWZU.jpg?auth=554fec5f37386c12ac30e14ce41dbd67a532f621ae0346a26ebcc9f26ebe6159&smart=true&width=1920",
+      "category": "markets",
+      "topics": []
+    },
+    {
+      "id": "0af9ff33bdc16977f244",
+      "source": "reuters",
+      "title": "Rays, benefiting from fan-interference call, complete sweep of Yankees",
+      "url": "https://www.reuters.com/sports/baseball/rays-benefiting-fan-interference-call-complete-sweep-yankees--flm-2026-10-08/",
+      "publishedAt": "2026-10-08T04:55:45.668000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/LL6Z4H6MFNNZLCRAPG5MZOBYUY.jpg?auth=cd9c28a01be3013c5fded774ed536eeda80120933a60decc2627de24f37a23e9&smart=true&width=1920",
+      "category": "sport",
+      "topics": []
+    },
+    {
+      "id": "f6c6b19b32d21760707d",
+      "source": "bloomberg",
+      "title": "Tikehau: Private Markets Entering a More Selective Phase",
+      "url": "https://www.bloomberg.com/news/videos/2026-10-08/tikehau-private-markets-entering-a-more-selective-phase-video",
+      "publishedAt": "2026-10-08T04:54:59+00:00",
+      "image": null,
+      "category": "markets",
+      "topics": []
+    },
+    {
+      "id": "44388cd68918413e875e",
+      "source": "reuters",
+      "title": "Alcaraz, Sinner among stars locked in for Australian Open 1 Point Slam",
+      "url": "https://www.reuters.com/sports/tennis/alcaraz-sinner-among-stars-locked-australian-open-1-point-slam-2026-10-08/",
+      "publishedAt": "2026-10-08T04:53:43.724000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/M6NNAGPDWZO6LAFNBRJCD4YBPY.jpg?auth=8981b961389a76e5c713cc69db0d51652ff48275f72b1d66c570a158ca196310&smart=true&width=1920",
+      "category": "sport",
+      "topics": []
+    },
+    {
+      "id": "12a30a7295520ccb514a",
+      "source": "kompas",
+      "title": "The Fed Ungkap Investasi AI Picu Inflasi AS, Kenapa Bisa Terjadi?",
+      "url": "https://money.kompas.com/read/2026/10/08/115326126/the-fed-ungkap-investasi-ai-picu-inflasi-as-kenapa-bisa-terjadi",
+      "publishedAt": "2026-10-08T04:53:26+00:00",
+      "image": "https://asset.kompas.com/crops/rBA6nX-CKk7eEAnqs2myOMMqH_Q=/264x183:1859x1246/750x500/data/photo/2024/06/12/6668f6d9969f3.png",
+      "category": "technology",
+      "topics": [
+        "fed"
+      ]
+    },
+    {
+      "id": "90aae761f484f6776498",
+      "source": "reuters",
+      "title": "Dollar steady near 18-month high after Fed minutes flag inflation risks",
+      "url": "https://www.reuters.com/world/africa/dollar-edges-back-18-month-high-after-fomc-minutes-2026-10-08/",
+      "publishedAt": "2026-10-08T04:52:52.487000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/G5JAJ7O7XRM7VNJT7OIT4DV4OM.jpg?auth=a72174bfd7a6814953dd2c484d6e7ad42140a35e36e99514060b738c18608aa6&smart=true&width=1920",
+      "category": "markets",
+      "topics": []
+    },
+    {
+      "id": "3a9c454433ecec8b4092",
+      "source": "reuters",
+      "title": "Rays, benefiting from fan-interference call, complete sweep of Yankees",
+      "url": "https://www.reuters.com/sports/rays-benefiting-fan-interference-call-complete-sweep-yankees--fldm-2026-10-08/",
+      "publishedAt": "2026-10-08T04:52:07.476000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/RDLIOIDBTBK37KG34WMAEMYZTA.jpg?auth=3a7b6365ac3dbf6e69f12f8f46b1f8da503bd28474b4b4a74598e922ef4e4469&smart=true&width=1920",
+      "category": "sport",
+      "topics": []
+    },
+    {
+      "id": "8174b29d973bf5b429b3",
+      "source": "reuters",
+      "title": "Samsung flags $80 billion profit on AI boom, highest quarterly for any tech company",
+      "url": "https://www.reuters.com/business/samsung-q3-profit-jumps-783-ai-memory-boom-lifts-chip-earnings-2026-10-07/",
+      "publishedAt": "2026-10-08T04:49:53.210000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/4JWZRVJJ2ZLE3D3MVGWUT6QEXM.jpg?auth=eff9c913b8628105a8ef7800558de7938eb08f6bfecad0feaae1ec471782f4df&smart=true&width=1920",
+      "category": "technology",
+      "topics": []
+    },
+    {
+      "id": "c1ec2bd1cd6df6ef6b13",
+      "source": "reuters",
+      "title": "Trump rallies for Paxton in third Texas trip in a month as Republicans defend stronghold",
+      "url": "https://www.reuters.com/world/us/trump-makes-third-texas-trip-month-republicans-defend-longtime-stronghold-2026-10-07/",
+      "publishedAt": "2026-10-08T04:49:29.688000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/NEILZ2UA7ZOANIREOQQKQX5MVU.jpg?auth=e34d480cbc790edf6d43eb71238ce95112ddb219d08e5b91c25faacdfabf46e3&smart=true&width=1920",
+      "category": "world",
+      "topics": [
+        "politics"
+      ]
+    },
+    {
+      "id": "8b027115d6ab5dcfc536",
+      "source": "reuters",
+      "title": "Samsung's AI riches lag Nvidia's money machine",
+      "url": "https://www.reuters.com/commentary/breakingviews/samsungs-ai-riches-lag-nvidias-money-machine-2026-10-08/",
+      "publishedAt": "2026-10-08T04:48:44.071000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/CXKLRLN77NJXFLBC2O5RXZLEJE.jpg?auth=b5b0a75d1dd966d3f9f4c050c39c54c34e0dab62a2f3bc8b6051ed869397329d&smart=true&width=1920",
+      "category": "commentary",
+      "topics": []
+    },
+    {
+      "id": "4017cde73c07cd5b10b9",
+      "source": "kompas",
+      "title": "OJK Sebut Spin Off Unit Usaha Syariah Sejumlah Bank Molor ke 2027",
+      "url": "https://money.kompas.com/read/2026/10/08/114730726/ojk-sebut-spin-off-unit-usaha-syariah-sejumlah-bank-molor-ke-2027",
+      "publishedAt": "2026-10-08T04:47:30+00:00",
+      "image": "https://asset.kompas.com/crops/iG16M6BR7sm5sy6gDTu3Mgd7TKk=/0x0:0x0/750x500/data/photo/2026/07/08/6a4e0a5f5e74c.jpg",
+      "category": "local",
+      "topics": []
+    },
+    {
       "id": "b1ae7a2649ec654b900d",
       "source": "reuters",
       "title": "Asia shares slip, bonds submerged in tide of AI debt",
@@ -150,14 +324,26 @@
       "topics": []
     },
     {
-      "id": "3a9c454433ecec8b4092",
-      "source": "reuters",
-      "title": "Rays, benefiting from fan-interference call, complete sweep of Yankees",
-      "url": "https://www.reuters.com/sports/rays-benefiting-fan-interference-call-complete-sweep-yankees--fldm-2026-10-08/",
-      "publishedAt": "2026-10-08T04:45:09.600000+00:00",
-      "image": "https://www.reuters.com/resizer/v2/RDLIOIDBTBK37KG34WMAEMYZTA.jpg?auth=3a7b6365ac3dbf6e69f12f8f46b1f8da503bd28474b4b4a74598e922ef4e4469&smart=true&width=1920",
-      "category": "sport",
+      "id": "cfc538fbfcb413d69dfb",
+      "source": "detik",
+      "title": "MR.D.I.Y. Umumkan Pemenang Regional Art Competition 2026, Ini Daftarnya",
+      "url": "https://finance.detik.com/berita-ekonomi-bisnis/d-8697669/mr-d-i-y-umumkan-pemenang-regional-art-competition-2026-ini-daftarnya",
+      "publishedAt": "2026-10-08T04:46:26+00:00",
+      "image": "https://akcdn.detik.net.id/community/media/visual/2026/10/08/mrdiy-umumkan-pemenang-regional-art-competition-2026-ini-daftarnya-1791434622958.jpeg?w=360&q=90",
+      "category": "business",
       "topics": []
+    },
+    {
+      "id": "b9c3863ac8c0101f5e25",
+      "source": "detik",
+      "title": "Perpres Baru Transportasi Online: Tarif Ojol Diatur Kemenhub, Kurir di Komdigi",
+      "url": "https://finance.detik.com/berita-ekonomi-bisnis/d-8697667/perpres-baru-transportasi-online-tarif-ojol-diatur-kemenhub-kurir-di-komdigi",
+      "publishedAt": "2026-10-08T04:45:49+00:00",
+      "image": "https://akcdn.detik.net.id/community/media/visual/2025/11/10/ilustrasi-driver-ojol-1762782634885_169.jpeg?w=360&q=90",
+      "category": "business",
+      "topics": [
+        "politics"
+      ]
     },
     {
       "id": "4d7098e44b347800728d",
@@ -177,6 +363,26 @@
       "publishedAt": "2026-10-08T04:43:10.200000+00:00",
       "image": "https://www.reuters.com/resizer/v2/BG73HF2H3RMPVNS3YZS3I5XLSA.jpg?auth=21e23ecba4652e7b09067e1c20ef558119b7777e882bf55e3ab6e5a4471cd79b&smart=true&width=1920",
       "category": "world",
+      "topics": []
+    },
+    {
+      "id": "e514b66013e7efc7173e",
+      "source": "kompas",
+      "title": "Menkeu Suahasil Bicara Tax Ratio: Bukan Sekadar Kumpulkan Pajak",
+      "url": "https://money.kompas.com/read/2026/10/08/114200126/menkeu-suahasil-bicara-tax-ratio-bukan-sekadar-kumpulkan-pajak",
+      "publishedAt": "2026-10-08T04:42:00+00:00",
+      "image": "https://asset.kompas.com/crops/4WiA5KQPhqbt3W0wblKiv5M4EZw=/755x270:3449x2066/750x500/data/photo/2026/10/08/6ac70740969ba.jpg",
+      "category": "other",
+      "topics": []
+    },
+    {
+      "id": "56e818a50dced8d15294",
+      "source": "kompas",
+      "title": "PT Len Industri Dorong Penguasaan AI hingga Semikonduktor",
+      "url": "https://money.kompas.com/read/2026/10/08/114200826/pt-len-industri-dorong-penguasaan-ai-hingga-semikonduktor",
+      "publishedAt": "2026-10-08T04:42:00+00:00",
+      "image": "https://asset.kompas.com/crops/SRQuq_LezK_dCk0EGPpG9hBwPik=/0x0:0x0/750x500/data/photo/2026/10/08/6ac6f1827f16d.jpeg",
+      "category": "technology",
       "topics": []
     },
     {
@@ -220,6 +426,16 @@
       "topics": []
     },
     {
+      "id": "e465f2bf51731643cf64",
+      "source": "kompas",
+      "title": "Saham BREN Sideways Cenderung Bearish, Investor Perlu Cermati Level Ini",
+      "url": "https://money.kompas.com/read/2026/10/08/113525326/saham-bren-sideways-cenderung-bearish-investor-perlu-cermati-level-ini",
+      "publishedAt": "2026-10-08T04:35:25+00:00",
+      "image": "https://asset.kompas.com/crops/TOhctYE5sxY_QOQwgQuR5jxDBME=/192x128:1728x1152/750x500/data/photo/2026/06/22/6a391dadc2683.jpg",
+      "category": "markets",
+      "topics": []
+    },
+    {
       "id": "1fee4e6f1e43c3baee5f",
       "source": "reuters",
       "title": "Indian shares extend losses as RBI rate hike, rising oil weigh",
@@ -237,6 +453,28 @@
       "publishedAt": "2026-10-08T04:31:43+00:00",
       "image": "https://akcdn.detik.net.id/community/media/visual/2026/10/08/menteri-keuangan-suahasil-1791428499911_169.jpeg?w=360&q=90",
       "category": "local",
+      "topics": []
+    },
+    {
+      "id": "b250b4ae6930f3b9a655",
+      "source": "aljazeera",
+      "title": "Trump interrupted by protesters at Texas rally",
+      "url": "https://www.aljazeera.com/video/newsfeed/2026/10/8/trump-interrupted-by-protesters-at-texas-rally?traffic_source=rss",
+      "publishedAt": "2026-10-08T04:30:57+00:00",
+      "image": "https://www.aljazeera.com/wp-content/uploads/2026/10/image-1791433849.jpg?resize=1918%2C1080&quality=80",
+      "category": "other",
+      "topics": [
+        "politics"
+      ]
+    },
+    {
+      "id": "2721cacfcc731093723e",
+      "source": "kompas",
+      "title": "Said Iqbal Minta Definisi",
+      "url": "https://money.kompas.com/read/2026/10/08/113028226/said-iqbal-minta-definisi-tidak-mampu-dalam-pasal-upah-minimum-diperjelas",
+      "publishedAt": "2026-10-08T04:30:28+00:00",
+      "image": "https://asset.kompas.com/crops/xSYi00aHPfEPomVwHPYEnRyw3og=/0x0:0x0/750x500/data/photo/2026/07/14/6a55e217aae0a.jpg",
+      "category": "other",
       "topics": []
     },
     {
@@ -290,16 +528,6 @@
       "topics": []
     },
     {
-      "id": "e1fd684ba987b5ab3bbc",
-      "source": "reuters",
-      "title": "Indian payment stocks slide after report on UPI MDR rollout delay,",
-      "url": "https://www.reuters.com/world/india/indian-payment-stocks-slide-after-report-upi-mdr-rollout-delay-2026-10-08/",
-      "publishedAt": "2026-10-08T04:24:09.689000+00:00",
-      "image": "https://www.reuters.com/resizer/v2/JDL2HILN2VMBJFEAO5HCWLYWZU.jpg?auth=554fec5f37386c12ac30e14ce41dbd67a532f621ae0346a26ebcc9f26ebe6159&smart=true&width=1920",
-      "category": "markets",
-      "topics": []
-    },
-    {
       "id": "8910dfb81282e0cd8591",
       "source": "reuters",
       "title": "Bollywood actor Nana Patekar dies at 75",
@@ -310,16 +538,6 @@
       "topics": []
     },
     {
-      "id": "0cd1ba5b356ecd803f45",
-      "source": "reuters",
-      "title": "Britain removes East Jerusalem consulate signage as Israeli shutdown order expires",
-      "url": "https://www.reuters.com/world/middle-east/britain-removes-east-jerusalem-consulate-signage-israeli-shutdown-order-expires-2026-10-08/",
-      "publishedAt": "2026-10-08T04:22:30.283000+00:00",
-      "image": "https://www.reuters.com/resizer/v2/2LWDTYLEABMBXAS7SAZOLUUMVY.jpg?auth=4c72b27b5730f16d12173314d5005ef112df965b08e89b236bbf5d5605b03696&smart=true&width=1920",
-      "category": "world",
-      "topics": []
-    },
-    {
       "id": "c467a60425d945da8190",
       "source": "reuters",
       "title": "Gold prices recover from two-month low as dollar rally stalls",
@@ -327,6 +545,16 @@
       "publishedAt": "2026-10-08T04:22:01.072000+00:00",
       "image": "https://www.reuters.com/resizer/v2/GV5E2ZCNLBMD5AW2PI6CTIY4HY.jpg?auth=7e2d7f40543ba6ffc7491a644a3adcd8387b6e7f31be6e7d50fb6cb341594d44&smart=true&width=1920",
       "category": "markets",
+      "topics": []
+    },
+    {
+      "id": "f27fb8b356519212f97d",
+      "source": "sindo",
+      "title": "Harga Aneka Cabai Naik, Rawit Merah Tembus Rp102.250 per Kg",
+      "url": "https://ekbis.sindonews.com/read/1758191/34/harga-aneka-cabai-naik-rawit-merah-tembus-rp102250-per-kg-1791432625",
+      "publishedAt": "2026-10-08T04:21:32+00:00",
+      "image": "https://pict.sindonews.com/dyn/850/pena/news/2026/10/08/34/1758191/harga-aneka-cabai-naik-rawit-merah-tembus-rp102250-per-kg-ssk.jpeg",
+      "category": "other",
       "topics": []
     },
     {
@@ -412,16 +640,6 @@
       "topics": []
     },
     {
-      "id": "8b027115d6ab5dcfc536",
-      "source": "reuters",
-      "title": "Samsung's AI riches lag Nvidia's money machine",
-      "url": "https://www.reuters.com/commentary/breakingviews/samsungs-ai-riches-lag-nvidias-money-machine-2026-10-08/",
-      "publishedAt": "2026-10-08T04:12:46.580000+00:00",
-      "image": "https://www.reuters.com/resizer/v2/CXKLRLN77NJXFLBC2O5RXZLEJE.jpg?auth=b5b0a75d1dd966d3f9f4c050c39c54c34e0dab62a2f3bc8b6051ed869397329d&smart=true&width=1920",
-      "category": "commentary",
-      "topics": []
-    },
-    {
       "id": "98c3fde98a95f5460f1b",
       "source": "detik",
       "title": "Perpres Ojol Resmi Diluncurkan, Ini Isinya",
@@ -439,16 +657,6 @@
       "publishedAt": "2026-10-08T04:08:39.593000+00:00",
       "image": "https://www.reuters.com/resizer/v2/JZZUA6AWBNKD3CL5LJG2RKTTWE.jpg?auth=c9b8644f8282c10faea1e51d57619a16768b5c584314cc08bbf008345e18f31b&smart=true&width=1920",
       "category": "world",
-      "topics": []
-    },
-    {
-      "id": "0af9ff33bdc16977f244",
-      "source": "reuters",
-      "title": "Rays, benefiting from fan-interference call, complete sweep of Yankees",
-      "url": "https://www.reuters.com/sports/baseball/rays-benefiting-fan-interference-call-complete-sweep-yankees--flm-2026-10-08/",
-      "publishedAt": "2026-10-08T04:08:36.654000+00:00",
-      "image": "https://www.reuters.com/resizer/v2/LL6Z4H6MFNNZLCRAPG5MZOBYUY.jpg?auth=cd9c28a01be3013c5fded774ed536eeda80120933a60decc2627de24f37a23e9&smart=true&width=1920",
-      "category": "sport",
       "topics": []
     },
     {
@@ -591,6 +799,16 @@
       "publishedAt": "2026-10-08T03:54:17+00:00",
       "image": null,
       "category": "markets",
+      "topics": []
+    },
+    {
+      "id": "11a51e35ef5f6af45808",
+      "source": "sindo",
+      "title": "BCA Dukung BBW Jakarta 2026, Perluas Akses Buku ke Seluruh Indonesia",
+      "url": "https://ekbis.sindonews.com/read/1758181/34/bca-dukung-bbw-jakarta-2026-perluas-akses-buku-ke-seluruh-indonesia-1791429022",
+      "publishedAt": "2026-10-08T03:52:00+00:00",
+      "image": "https://pict.sindonews.com/dyn/850/pena/news/2026/10/08/34/1758181/bca-dukung-bbw-jakarta-2026-perluas-akses-buku-ke-seluruh-indonesia-jjm.jpeg",
+      "category": "local",
       "topics": []
     },
     {
@@ -1066,16 +1284,6 @@
       "topics": []
     },
     {
-      "id": "8174b29d973bf5b429b3",
-      "source": "reuters",
-      "title": "Samsung flags $80 billion profit on AI boom, highest quarterly for any tech company",
-      "url": "https://www.reuters.com/business/samsung-q3-profit-jumps-783-ai-memory-boom-lifts-chip-earnings-2026-10-07/",
-      "publishedAt": "2026-10-08T02:31:37.635000+00:00",
-      "image": "https://www.reuters.com/resizer/v2/4JWZRVJJ2ZLE3D3MVGWUT6QEXM.jpg?auth=eff9c913b8628105a8ef7800558de7938eb08f6bfecad0feaae1ec471782f4df&smart=true&width=1920",
-      "category": "technology",
-      "topics": []
-    },
-    {
       "id": "57ea327d8d755f7e1619",
       "source": "bloomberg",
       "title": "EU Is Taking Harder Line on China’s Trade Gap as Talks Kick Off",
@@ -1472,18 +1680,6 @@
       "topics": []
     },
     {
-      "id": "c1ec2bd1cd6df6ef6b13",
-      "source": "reuters",
-      "title": "Trump rallies for Paxton in third Texas trip in a month as Republicans defend stronghold",
-      "url": "https://www.reuters.com/world/us/trump-makes-third-texas-trip-month-republicans-defend-longtime-stronghold-2026-10-07/",
-      "publishedAt": "2026-10-08T01:17:35.934000+00:00",
-      "image": "https://www.reuters.com/resizer/v2/NEILZ2UA7ZOANIREOQQKQX5MVU.jpg?auth=e34d480cbc790edf6d43eb71238ce95112ddb219d08e5b91c25faacdfabf46e3&smart=true&width=1920",
-      "category": "world",
-      "topics": [
-        "politics"
-      ]
-    },
-    {
       "id": "68eefa67d93b6d4d921e",
       "source": "kompas",
       "title": "Ray Dalio Peringatkan",
@@ -1690,18 +1886,6 @@
       "image": "https://www.aljazeera.com/wp-content/uploads/2024/03/2024-03-08T184042Z_689896617_RC2PH6AI71M2_RTRMADP_3_NIGERIA-SECURITY-1710779517.jpg?resize=1920%2C1440",
       "category": "other",
       "topics": []
-    },
-    {
-      "id": "90aae761f484f6776498",
-      "source": "reuters",
-      "title": "Dollar edges back from 18-month high after FOMC minutes",
-      "url": "https://www.reuters.com/world/africa/dollar-edges-back-18-month-high-after-fomc-minutes-2026-10-08/",
-      "publishedAt": "2026-10-08T00:46:20.591000+00:00",
-      "image": "https://www.reuters.com/resizer/v2/G5JAJ7O7XRM7VNJT7OIT4DV4OM.jpg?auth=a72174bfd7a6814953dd2c484d6e7ad42140a35e36e99514060b738c18608aa6&smart=true&width=1920",
-      "category": "world",
-      "topics": [
-        "fed"
-      ]
     },
     {
       "id": "8862680ff28504dda1a4",
@@ -11342,7 +11526,7 @@
     {
       "id": "bba4909fb6d873e92d04",
       "source": "investing",
-      "title": "Why is SK Hynix stock gaining today?",
+      "title": "Why is SK Hynix stock falling today?",
       "url": "https://www.investing.com/news/stock-market-news/why-is-sk-hynix-stock-gaining-today-93CH-4937860",
       "publishedAt": null,
       "image": "https://content-media.investing.com/news/LYNXNPEB6J0AJ_M.jpg",
@@ -11486,7 +11670,7 @@
     {
       "id": "774600be52b216a59029",
       "source": "investing_id",
-      "title": "Mengapa saham SK Hynix naik hari ini?",
+      "title": "Mengapa saham SK Hynix turun hari ini?",
       "url": "https://id.investing.com/news/stock-market-news/mengapa-saham-sk-hynix-naik-hari-ini-93CH-3089963",
       "publishedAt": null,
       "image": "https://content-media.investing.com/news/LYNXNPEB6J0AJ_M.jpg",
@@ -11631,6 +11815,236 @@
       "publishedAt": null,
       "image": "https://image-cdn.pluang.com/web/news-cards/v2/GSS/cbf3e96b647147bab5437720752c1e6640658152aa0bb85fca2ed97b101836e7-id.webp",
       "category": "other",
+      "topics": []
+    },
+    {
+      "id": "b0f9978ec2c939a04b72",
+      "source": "investing",
+      "title": "Hershey Trust Co. sells $4.8 million in Hershey (NYSE:HSY) shares",
+      "url": "https://www.investing.com/news/insider-trading-news/hershey-trust-co-sells-48-million-in-hershey-nysehsy-shares-93CH-4937893",
+      "publishedAt": null,
+      "image": "https://content-media.investing.com/news/moved_LYNXMPEM3T1AG_1200_L.jpg",
+      "category": "markets",
+      "topics": []
+    },
+    {
+      "id": "0e638230b3b4f9bcef29",
+      "source": "investing",
+      "title": "Analog Devices CFO Richard Puccio Jr. sells $631,620 in stock",
+      "url": "https://www.investing.com/news/insider-trading-news/analog-devices-cfo-richard-puccio-jr-sells-631620-in-stock-93CH-4937891",
+      "publishedAt": null,
+      "image": "https://content-media.investing.com/news/moved_LYNXMPEM3Q0WG_1200_L.jpg",
+      "category": "markets",
+      "topics": []
+    },
+    {
+      "id": "424ef4a2d75dfe666013",
+      "source": "investing",
+      "title": "QuantumScape CTO Timothy Holme sells $544,812 in company stock",
+      "url": "https://www.investing.com/news/insider-trading-news/quantumscape-cto-timothy-holme-sells-544812-in-company-stock-93CH-4937890",
+      "publishedAt": null,
+      "image": "https://content-media.investing.com/news/moved_LYNXMPEM4510G_1200_L.jpg",
+      "category": "markets",
+      "topics": []
+    },
+    {
+      "id": "7bee2628d888e7089290",
+      "source": "investing",
+      "title": "Why is Shanghai Biren Technology stock sliding today?",
+      "url": "https://www.investing.com/news/stock-market-news/why-is-shanghai-biren-technology-stock-sliding-today-93CH-4937886",
+      "publishedAt": null,
+      "image": "https://content-media.investing.com/news/LYNXNPEC0E0NG_M.jpg",
+      "category": "technology",
+      "topics": []
+    },
+    {
+      "id": "41b7378b4546492526d8",
+      "source": "investing",
+      "title": "Why is Samsung Electronics stock falling today?",
+      "url": "https://www.investing.com/news/stock-market-news/why-is-samsung-electronics-stock-falling-today-93CH-4937885",
+      "publishedAt": null,
+      "image": "https://content-media.investing.com/news/LYNXMPED0C0KP_M.jpg",
+      "category": "markets",
+      "topics": []
+    },
+    {
+      "id": "1efdc5b44fd0eabff4ae",
+      "source": "investing",
+      "title": "Why is Shanghai Allist Pharmaceuticals stock crashing today?",
+      "url": "https://www.investing.com/news/stock-market-news/why-is-shanghai-allist-pharmaceuticals-stock-crashing-today-93CH-4937880",
+      "publishedAt": null,
+      "image": "https://content-media.investing.com/news/LYNXNPEC0Q0MJ_M.jpg",
+      "category": "markets",
+      "topics": []
+    },
+    {
+      "id": "255048654cacc9df4a11",
+      "source": "investing",
+      "title": "Gap director William Fisher sells $22.07 million in company stock",
+      "url": "https://www.investing.com/news/insider-trading-news/gap-director-william-fisher-sells-2207-million-in-company-stock-93CH-4937879",
+      "publishedAt": null,
+      "image": "https://content-media.investing.com/news/moved_LYNXMPEM3S10Z_1200_L.jpg",
+      "category": "markets",
+      "topics": []
+    },
+    {
+      "id": "a5415ce06ce485b4e194",
+      "source": "investing",
+      "title": "Core Scientific officer Todd Duchene sells $163,055 in stock",
+      "url": "https://www.investing.com/news/insider-trading-news/core-scientific-officer-todd-duchene-sells-163055-in-stock-93CH-4937878",
+      "publishedAt": null,
+      "image": "https://content-media.investing.com/news/moved_LYNXMPEM3Q0V4_1200_L.jpg",
+      "category": "markets",
+      "topics": []
+    },
+    {
+      "id": "d6933dcd7eedde734690",
+      "source": "kontan",
+      "title": "Bank SMBC Indonesia (BTPN) Bayar Kupon Obligasi Rp 23,99 Miliar",
+      "url": "https://keuangan.kontan.co.id/news/bank-smbc-indonesia-btpn-bayar-kupon-obligasi-rp-2399-miliar?source=home_headline",
+      "publishedAt": null,
+      "image": "https://foto.kontan.co.id/bTc06kQsk91oITkj30Go9gnHR3Y=/smart/2026/04/15/1749284837p.jpg",
+      "category": "local",
+      "topics": []
+    },
+    {
+      "id": "d41b7f1af8a11696f3c5",
+      "source": "kontan",
+      "title": "Sebut Penghinaan, Adik Perempuan Kim Jong Un Tolak Bantuan Medis Korea Selatan",
+      "url": "https://internasional.kontan.co.id/news/sebut-penghinaan-adik-perempuan-kim-jong-un-tolak-bantuan-medis-korea-selatan?source=home_terbaru",
+      "publishedAt": null,
+      "image": "https://foto.kontan.co.id/wWtxYoBPWfsdz770IDJWqccgXbM=/smart/2020/05/01/1724618590t.jpg",
+      "category": "other",
+      "topics": []
+    },
+    {
+      "id": "9c57be4f65f9249b4b6e",
+      "source": "kontan",
+      "title": "Bursa Asia Tertekan, Lonjakan Utang Perusahaan AI Bebani Pasar Obligasi Global",
+      "url": "https://internasional.kontan.co.id/news/bursa-asia-tertekan-lonjakan-utang-perusahaan-ai-bebani-pasar-obligasi-global?source=home_terbaru",
+      "publishedAt": null,
+      "image": "https://foto.kontan.co.id/BybuIzLRtSU7FRj4_PcKoqMc5XY=/smart/2026/05/06/309978703t.jpg",
+      "category": "technology",
+      "topics": []
+    },
+    {
+      "id": "4cab8e9651197babb000",
+      "source": "kontan",
+      "title": "Stok Beras Melimpah Tapi Harga Tetap Naik, Apa yang Terjadi?",
+      "url": "https://insight.kontan.co.id/news/stok-beras-melimpah-tapi-harga-tetap-naik-apa-yang-terjadi?source=home_terbaru",
+      "publishedAt": null,
+      "image": "https://foto.kontan.co.id/QF3WDZu_N6EEqLuOVddNxAhZrss=/smart/2026/10/02/1030475607t.jpg",
+      "category": "other",
+      "topics": []
+    },
+    {
+      "id": "ce1bc4b469fc3ba0c383",
+      "source": "kontan",
+      "title": "Bank SMBC Indonesia (BTPN) Bayar Kupon Obligasi Rp 23,99 Miliar",
+      "url": "https://keuangan.kontan.co.id/news/bank-smbc-indonesia-btpn-bayar-kupon-obligasi-rp-2399-miliar?source=home_terbaru",
+      "publishedAt": null,
+      "image": "https://foto.kontan.co.id/1FkO-m-wjpAYZKZXVIb8FgKQ37c=/smart/2026/04/15/1749284837t.jpg",
+      "category": "local",
+      "topics": []
+    },
+    {
+      "id": "9e0f362933333b0a2f28",
+      "source": "kontan",
+      "title": "PRISM Perluas Bisnis Hospitality di Indonesia, Bidik Portofolio Premium",
+      "url": "https://industri.kontan.co.id/news/prism-perluas-bisnis-hospitality-di-indonesia-bidik-portofolio-premium?source=home_terbaru",
+      "publishedAt": null,
+      "image": "https://foto.kontan.co.id/csIjBoM-G6vSaRPBiTmHUERO7EM=/smart/2026/04/06/409707534t.jpg",
+      "category": "local",
+      "topics": []
+    },
+    {
+      "id": "0c8b9d9b38a583d8c210",
+      "source": "kontan",
+      "title": "Tujuh Bulan Berunding, Perjanjian Dagang Vietnam-AS Tinggal Soal Teknis",
+      "url": "https://internasional.kontan.co.id/news/tujuh-bulan-berunding-perjanjian-dagang-vietnam-as-tinggal-soal-teknis?source=home_terbaru",
+      "publishedAt": null,
+      "image": "https://foto.kontan.co.id/GfxsSrLT5TTLF7CQKMh5oTIJJTs=/smart/2025/11/07/2039497947t.jpg",
+      "category": "other",
+      "topics": []
+    },
+    {
+      "id": "bf849dda8428895cfac1",
+      "source": "kontan",
+      "title": "Stok Beras Melimpah Tapi Harga Tetap Naik, Apa yang Terjadi?",
+      "url": "https://insight.kontan.co.id/news/stok-beras-melimpah-tapi-harga-tetap-naik-apa-yang-terjadi?source=home_insight",
+      "publishedAt": null,
+      "image": "https://foto.kontan.co.id/cveaEWIip5_iwlavP0iWOD7ZZLM=/smart/2026/10/02/1030475607p.jpg",
+      "category": "other",
+      "topics": []
+    },
+    {
+      "id": "637e850598a0d747d383",
+      "source": "investing_id",
+      "title": "Mengapa saham Shanghai Biren Technology turun hari ini?",
+      "url": "https://id.investing.com/news/stock-market-news/mengapa-saham-shanghai-biren-technology-turun-hari-ini-93CH-3089979",
+      "publishedAt": null,
+      "image": "https://content-media.investing.com/news/LYNXNPEC0E0NI_M.jpg",
+      "category": "technology",
+      "topics": []
+    },
+    {
+      "id": "a0770583e6fdb678b617",
+      "source": "investing_id",
+      "title": "Mengapa saham Samsung Electronics turun hari ini?",
+      "url": "https://id.investing.com/news/stock-market-news/mengapa-saham-samsung-electronics-turun-hari-ini-93CH-3089978",
+      "publishedAt": null,
+      "image": "https://content-media.investing.com/news/LYNXMPED0C0KP_M.jpg",
+      "category": "markets",
+      "topics": []
+    },
+    {
+      "id": "3980d7b4b1d8e214fe89",
+      "source": "investing_id",
+      "title": "Mengapa saham Shanghai Allist Pharmaceuticals anjlok hari ini?",
+      "url": "https://id.investing.com/news/stock-market-news/mengapa-saham-shanghai-allist-pharmaceuticals-anjlok-hari-ini-93CH-3089976",
+      "publishedAt": null,
+      "image": "https://content-media.investing.com/news/LYNXNPEC0Q0MJ_M.jpg",
+      "category": "markets",
+      "topics": []
+    },
+    {
+      "id": "a5ef5fc92431f996589a",
+      "source": "investing_id",
+      "title": "Direktur Gap William Fisher jual saham senilai $22,07 juta",
+      "url": "https://id.investing.com/news/insider-trading-news/direktur-gap-william-fisher-jual-saham-senilai-2207-juta-93CH-3089975",
+      "publishedAt": null,
+      "image": "https://content-media.investing.com/news/moved_LYNXMPEM3S10Z_1200_L.jpg",
+      "category": "markets",
+      "topics": []
+    },
+    {
+      "id": "3a64217f59ddea952045",
+      "source": "investing_id",
+      "title": "Pejabat Core Scientific Todd Duchene jual saham senilai $163.055",
+      "url": "https://id.investing.com/news/insider-trading-news/pejabat-core-scientific-todd-duchene-jual-saham-senilai-163055-93CH-3089974",
+      "publishedAt": null,
+      "image": "https://content-media.investing.com/news/moved_LYNXMPEM3Q0V4_1200_L.jpg",
+      "category": "markets",
+      "topics": []
+    },
+    {
+      "id": "fed04bda81a1a99fa034",
+      "source": "investing_id",
+      "title": "CEO Ibotta Bryan Leach menjual saham senilai $627 ribu",
+      "url": "https://id.investing.com/news/insider-trading-news/ceo-ibotta-bryan-leach-menjual-saham-senilai-627-ribu-93CH-3089973",
+      "publishedAt": null,
+      "image": "https://content-media.investing.com/news/moved_LYNXMPEM4510G_1200_L.jpg",
+      "category": "markets",
+      "topics": []
+    },
+    {
+      "id": "da82f10ee98a47c50348",
+      "source": "investing_id",
+      "title": "Firmus yang didukung Nvidia tutup bookbuilding IPO di tengah kekhawatiran investor",
+      "url": "https://id.investing.com/news/stock-market-news/firmus-yang-didukung-nvidia-tutup-bookbuilding-ipo-di-tengah-kekhawatiran-investor-3089972",
+      "publishedAt": null,
+      "image": "https://content-media.investing.com/news/LYNXNPEB6208D_M.jpg",
+      "category": "markets",
       "topics": []
     }
   ]
