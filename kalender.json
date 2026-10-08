@@ -1443,18 +1443,32 @@
    "source": "https://www.forexfactory.com/calendar?day=oct7.2026#detail=149597"
   },
   {
-   "id": "ff-148103",
+   "id": "558348",
    "tgl": "2026-10-08",
    "jam": "07:00",
    "neg": "AUD",
    "countryCode": "AU",
-   "nama": "MI Inflation Expectations",
+   "nama": "MI Inflation Expectations (Oct)",
    "dmp": 1,
    "akt": "5.3%",
    "prk": "",
    "sbl": "4.9%",
    "cat": "",
-   "source": "https://www.forexfactory.com/calendar?day=oct7.2026#detail=148103"
+   "source": "https://www.investing.com/economic-calendar/"
+  },
+  {
+   "id": "558409",
+   "tgl": "2026-10-08",
+   "jam": "10:35",
+   "neg": "JPY",
+   "countryCode": "JP",
+   "nama": "30-Year JGB Auction",
+   "dmp": 1,
+   "akt": "4.109%",
+   "prk": "",
+   "sbl": "4.100%",
+   "cat": "",
+   "source": "https://www.investing.com/economic-calendar/"
   },
   {
    "id": "ff-150309",
@@ -1471,6 +1485,20 @@
    "source": "https://www.forexfactory.com/calendar?day=oct7.2026#detail=150309"
   },
   {
+   "id": "557579",
+   "tgl": "2026-10-08",
+   "jam": "12:00",
+   "neg": "JPY",
+   "countryCode": "JP",
+   "nama": "Economy Watchers Current Index (Sep)",
+   "dmp": 1,
+   "akt": "47.0",
+   "prk": "46.7",
+   "sbl": "46.4",
+   "cat": "",
+   "source": "https://www.investing.com/economic-calendar/"
+  },
+  {
    "id": "ff-148816",
    "tgl": "2026-10-08",
    "jam": "12:00",
@@ -1485,18 +1513,46 @@
    "source": "https://www.forexfactory.com/calendar?day=oct8.2026#detail=148816"
   },
   {
-   "id": "ff-151197",
+   "id": "556990",
    "tgl": "2026-10-08",
    "jam": "13:00",
    "neg": "EUR",
-   "countryCode": "GE",
-   "nama": "German Trade Balance",
+   "countryCode": "DE",
+   "nama": "German Exports (Aug)",
    "dmp": 1,
+   "akt": "-0.8%",
+   "prk": "0.8%",
+   "sbl": "-0.5%",
+   "cat": "",
+   "source": "https://www.investing.com/economic-calendar/"
+  },
+  {
+   "id": "556991",
+   "tgl": "2026-10-08",
+   "jam": "13:00",
+   "neg": "EUR",
+   "countryCode": "DE",
+   "nama": "German Imports (Aug)",
+   "dmp": 1,
+   "akt": "0.9%",
+   "prk": "2.8%",
+   "sbl": "-5.5%",
+   "cat": "",
+   "source": "https://www.investing.com/economic-calendar/"
+  },
+  {
+   "id": "556992",
+   "tgl": "2026-10-08",
+   "jam": "13:00",
+   "neg": "EUR",
+   "countryCode": "DE",
+   "nama": "German Trade Balance (Aug)",
+   "dmp": 2,
    "akt": "19.5B",
    "prk": "19.0B",
-   "sbl": "21.3B",
+   "sbl": "21.6B",
    "cat": "",
-   "source": "https://www.forexfactory.com/calendar?day=oct8.2026#detail=151197"
+   "source": "https://www.investing.com/economic-calendar/"
   },
   {
    "id": "ff-154095",
@@ -1513,18 +1569,18 @@
    "source": "https://www.forexfactory.com/calendar?day=oct8.2026#detail=154095"
   },
   {
-   "id": "ff-150699",
+   "id": "558515",
    "tgl": "2026-10-08",
    "jam": "15:30",
    "neg": "GBP",
-   "countryCode": "GB",
+   "countryCode": "UK",
    "nama": "BOE Credit Conditions Survey",
-   "dmp": 1,
+   "dmp": 2,
    "akt": "",
    "prk": "",
    "sbl": "",
    "cat": "",
-   "source": "https://www.forexfactory.com/calendar?day=oct8.2026#detail=150699"
+   "source": "https://www.investing.com/economic-calendar/"
   },
   {
    "id": "ff-154101",
@@ -1539,6 +1595,20 @@
    "sbl": "",
    "cat": "",
    "source": "https://www.forexfactory.com/calendar?day=oct8.2026#detail=154101"
+  },
+  {
+   "id": "558654",
+   "tgl": "2026-10-08",
+   "jam": "15:30",
+   "neg": "USD",
+   "countryCode": "US",
+   "nama": "Fed Waller Speaks",
+   "dmp": 2,
+   "akt": "",
+   "prk": "",
+   "sbl": "",
+   "cat": "",
+   "source": "https://www.investing.com/economic-calendar/"
   },
   {
    "id": "ff-154050",
@@ -1569,6 +1639,76 @@
    "source": "https://www.forexfactory.com/calendar?day=oct8.2026#detail=154049"
   },
   {
+   "id": "558657",
+   "tgl": "2026-10-08",
+   "jam": "17:00",
+   "neg": "EUR",
+   "countryCode": "EU",
+   "nama": "ECB's Lane Speaks",
+   "dmp": 2,
+   "akt": "",
+   "prk": "",
+   "sbl": "",
+   "cat": "",
+   "source": "https://www.investing.com/economic-calendar/"
+  },
+  {
+   "id": "558416",
+   "tgl": "2026-10-08",
+   "jam": "17:00",
+   "neg": "EUR",
+   "countryCode": "EU",
+   "nama": "Eurogroup Meetings",
+   "dmp": 2,
+   "akt": "",
+   "prk": "",
+   "sbl": "",
+   "cat": "",
+   "source": "https://www.investing.com/economic-calendar/"
+  },
+  {
+   "id": "558412",
+   "tgl": "2026-10-08",
+   "jam": "17:00",
+   "neg": "EUR",
+   "countryCode": "DE",
+   "nama": "German Car Registration (Sep)",
+   "dmp": 1,
+   "akt": "9.0%",
+   "prk": "",
+   "sbl": "2.6%",
+   "cat": "",
+   "source": "https://www.investing.com/economic-calendar/"
+  },
+  {
+   "id": "558517",
+   "tgl": "2026-10-08",
+   "jam": "17:30",
+   "neg": "GBP",
+   "countryCode": "UK",
+   "nama": "BoE MPC Member Pill Speaks",
+   "dmp": 2,
+   "akt": "",
+   "prk": "",
+   "sbl": "",
+   "cat": "",
+   "source": "https://www.investing.com/economic-calendar/"
+  },
+  {
+   "id": "557622",
+   "tgl": "2026-10-08",
+   "jam": "18:00",
+   "neg": "ZAR",
+   "countryCode": "ZA",
+   "nama": "Manufacturing Production (Aug)",
+   "dmp": 1,
+   "akt": "-3.1%",
+   "prk": "",
+   "sbl": "2.2%",
+   "cat": "",
+   "source": "https://www.investing.com/economic-calendar/"
+  },
+  {
    "id": "ff-150558",
    "tgl": "2026-10-08",
    "jam": "18:30",
@@ -1583,18 +1723,74 @@
    "source": "https://www.forexfactory.com/calendar?day=oct8.2026#detail=150558"
   },
   {
-   "id": "ff-154102",
+   "id": "558414",
    "tgl": "2026-10-08",
-   "jam": "19:15",
-   "neg": "GBP",
-   "countryCode": "GB",
-   "nama": "BOE Gov Bailey Speaks",
-   "dmp": 3,
+   "jam": "18:30",
+   "neg": "EUR",
+   "countryCode": "EU",
+   "nama": "ECB Publishes Account of Monetary Policy Meeting",
+   "dmp": 2,
    "akt": "",
    "prk": "",
    "sbl": "",
    "cat": "",
-   "source": "https://www.forexfactory.com/calendar?day=oct8.2026#detail=154102"
+   "source": "https://www.investing.com/economic-calendar/"
+  },
+  {
+   "id": "558518",
+   "tgl": "2026-10-08",
+   "jam": "19:15",
+   "neg": "GBP",
+   "countryCode": "UK",
+   "nama": "BoE Gov Bailey Speaks",
+   "dmp": 2,
+   "akt": "",
+   "prk": "",
+   "sbl": "",
+   "cat": "",
+   "source": "https://www.investing.com/economic-calendar/"
+  },
+  {
+   "id": "558350",
+   "tgl": "2026-10-08",
+   "jam": "19:30",
+   "neg": "USD",
+   "countryCode": "US",
+   "nama": "Continuing Jobless Claims",
+   "dmp": 2,
+   "akt": "1,716K",
+   "prk": "1,710K",
+   "sbl": "1,699K",
+   "cat": "",
+   "source": "https://www.investing.com/economic-calendar/"
+  },
+  {
+   "id": "558349",
+   "tgl": "2026-10-08",
+   "jam": "19:30",
+   "neg": "USD",
+   "countryCode": "US",
+   "nama": "Initial Jobless Claims",
+   "dmp": 3,
+   "akt": "197K",
+   "prk": "200K",
+   "sbl": "199K",
+   "cat": "",
+   "source": "https://www.investing.com/economic-calendar/"
+  },
+  {
+   "id": "558351",
+   "tgl": "2026-10-08",
+   "jam": "19:30",
+   "neg": "USD",
+   "countryCode": "US",
+   "nama": "Jobless Claims 4-Week Avg.",
+   "dmp": 1,
+   "akt": "198.00K",
+   "prk": "",
+   "sbl": "200.50K",
+   "cat": "",
+   "source": "https://www.investing.com/economic-calendar/"
   },
   {
    "id": "ff-147018",
@@ -1609,6 +1805,20 @@
    "sbl": "197K",
    "cat": "",
    "source": "https://www.forexfactory.com/calendar?day=oct8.2026#detail=147018"
+  },
+  {
+   "id": "558618",
+   "tgl": "2026-10-08",
+   "jam": "20:00",
+   "neg": "RUB",
+   "countryCode": "RU",
+   "nama": "Central Bank reserves (USD)",
+   "dmp": 1,
+   "akt": "733.2B",
+   "prk": "",
+   "sbl": "742.7B",
+   "cat": "",
+   "source": "https://www.investing.com/economic-calendar/"
   },
   {
    "id": "ff-154052",
@@ -1639,7 +1849,35 @@
    "source": "https://www.forexfactory.com/calendar?day=oct8.2026#detail=148199"
   },
   {
-   "id": "ff-148773",
+   "id": "557637",
+   "tgl": "2026-10-08",
+   "jam": "21:00",
+   "neg": "USD",
+   "countryCode": "US",
+   "nama": "Wholesale Inventories (Aug)",
+   "dmp": 1,
+   "akt": "0.5%",
+   "prk": "0.7%",
+   "sbl": "1.4%",
+   "cat": "",
+   "source": "https://www.investing.com/economic-calendar/"
+  },
+  {
+   "id": "557636",
+   "tgl": "2026-10-08",
+   "jam": "21:00",
+   "neg": "USD",
+   "countryCode": "US",
+   "nama": "Wholesale Trade Sales (Aug)",
+   "dmp": 1,
+   "akt": "1.8%",
+   "prk": "",
+   "sbl": "1.0%",
+   "cat": "",
+   "source": "https://www.investing.com/economic-calendar/"
+  },
+  {
+   "id": "558353",
    "tgl": "2026-10-08",
    "jam": "21:30",
    "neg": "USD",
@@ -1650,7 +1888,49 @@
    "prk": "79B",
    "sbl": "64B",
    "cat": "",
-   "source": "https://www.forexfactory.com/calendar?day=oct8.2026#detail=148773"
+   "source": "https://www.investing.com/economic-calendar/"
+  },
+  {
+   "id": "556459",
+   "tgl": "2026-10-08",
+   "jam": "22:10",
+   "neg": "USD",
+   "countryCode": "US",
+   "nama": "Atlanta Fed GDPNow (Q3)",
+   "dmp": 2,
+   "akt": "3.6%",
+   "prk": "3.7%",
+   "sbl": "3.7%",
+   "cat": "",
+   "source": "https://www.investing.com/economic-calendar/"
+  },
+  {
+   "id": "558354",
+   "tgl": "2026-10-08",
+   "jam": "22:30",
+   "neg": "USD",
+   "countryCode": "US",
+   "nama": "4-Week Bill Auction",
+   "dmp": 1,
+   "akt": "3.980%",
+   "prk": "",
+   "sbl": "3.890%",
+   "cat": "",
+   "source": "https://www.investing.com/economic-calendar/"
+  },
+  {
+   "id": "558355",
+   "tgl": "2026-10-08",
+   "jam": "22:30",
+   "neg": "USD",
+   "countryCode": "US",
+   "nama": "8-Week Bill Auction",
+   "dmp": 1,
+   "akt": "3.980%",
+   "prk": "",
+   "sbl": "3.990%",
+   "cat": "",
+   "source": "https://www.investing.com/economic-calendar/"
   },
   {
    "id": "ff-151380",
@@ -1665,6 +1945,20 @@
    "sbl": "",
    "cat": "",
    "source": "https://www.forexfactory.com/calendar?day=oct9.2026#detail=151380"
+  },
+  {
+   "id": "558415",
+   "tgl": "2026-10-09",
+   "jam": "00:00",
+   "neg": "USD",
+   "countryCode": "US",
+   "nama": "30-Year Bond Auction",
+   "dmp": 3,
+   "akt": "5.618%",
+   "prk": "",
+   "sbl": "5.308%",
+   "cat": "",
+   "source": "https://www.investing.com/economic-calendar/"
   },
   {
    "id": "ff-148914",
@@ -1693,6 +1987,48 @@
    "sbl": "",
    "cat": "",
    "source": "https://www.forexfactory.com/calendar?day=oct8.2026#detail=154053"
+  },
+  {
+   "id": "558658",
+   "tgl": "2026-10-09",
+   "jam": "03:30",
+   "neg": "USD",
+   "countryCode": "US",
+   "nama": "Fed's Balance Sheet",
+   "dmp": 2,
+   "akt": "6,748B",
+   "prk": "",
+   "sbl": "6,743B",
+   "cat": "",
+   "source": "https://www.investing.com/economic-calendar/"
+  },
+  {
+   "id": "558659",
+   "tgl": "2026-10-09",
+   "jam": "03:30",
+   "neg": "USD",
+   "countryCode": "US",
+   "nama": "Reserve Balances with Federal Reserve Banks",
+   "dmp": 1,
+   "akt": "3.022T",
+   "prk": "",
+   "sbl": "2.881T",
+   "cat": "",
+   "source": "https://www.investing.com/economic-calendar/"
+  },
+  {
+   "id": "557650",
+   "tgl": "2026-10-09",
+   "jam": "06:30",
+   "neg": "JPY",
+   "countryCode": "JP",
+   "nama": "Household Spending (Aug)",
+   "dmp": 2,
+   "akt": "",
+   "prk": "0.5%",
+   "sbl": "0.5%",
+   "cat": "",
+   "source": "https://www.investing.com/economic-calendar/"
   },
   {
    "id": "ff-149625",
@@ -2434,7 +2770,7 @@
    "prk": "",
    "sbl": "",
    "cat": "",
-   "source": "https://www.forexfactory.com/calendar?day=oct15.2026#detail=148530"
+   "source": "https://www.forexfactory.com/calendar?day=oct14.2026#detail=148530"
   },
   {
    "id": "ff-148636",
@@ -2546,7 +2882,7 @@
    "prk": "",
    "sbl": "-1.7%",
    "cat": "",
-   "source": "https://www.forexfactory.com/calendar?day=oct15.2026#detail=149687"
+   "source": "https://www.forexfactory.com/calendar?day=oct14.2026#detail=149687"
   },
   {
    "id": "ff-154993",
@@ -2560,7 +2896,7 @@
    "prk": "",
    "sbl": "",
    "cat": "",
-   "source": "https://www.forexfactory.com/calendar?day=oct15.2026#detail=154993"
+   "source": "https://www.forexfactory.com/calendar?day=oct14.2026#detail=154993"
   },
   {
    "id": "ff-151566",
@@ -2980,7 +3316,7 @@
    "prk": "",
    "sbl": "",
    "cat": "",
-   "source": "https://www.forexfactory.com/calendar?day=oct16.2026#detail=154978"
+   "source": "https://www.forexfactory.com/calendar?day=oct15.2026#detail=154978"
   },
   {
    "id": "ff-151321",
@@ -3316,7 +3652,7 @@
    "prk": "",
    "sbl": "",
    "cat": "",
-   "source": "https://www.forexfactory.com/calendar?day=oct19.2026#detail=149723"
+   "source": "https://www.forexfactory.com/calendar?day=oct18.2026#detail=149723"
   },
   {
    "id": "ff-149171",
@@ -5503,10 +5839,10 @@
    "source": "https://www.forexfactory.com/calendar?day=oct30.2026#detail=150083"
   }
  ],
- "updated": "2026-10-08T21:31:36.904913+00:00",
+ "updated": "2026-10-08T21:52:55.658713+00:00",
  "source": "https://www.forexfactory.com/calendar?month=oct.2026",
  "status": "ok",
- "checkedAt": "2026-10-08T21:31:36.904913+00:00",
+ "checkedAt": "2026-10-08T21:52:55.658713+00:00",
  "coverageStart": "2026-10-01",
  "coverageEnd": "2026-10-31",
  "agenda": [
