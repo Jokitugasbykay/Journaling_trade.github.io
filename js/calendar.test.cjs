@@ -1,6 +1,6 @@
 const assert = require('node:assert/strict'), fs = require('node:fs'), vm = require('node:vm');
 const source = fs.readFileSync('js/app.js','utf8');
-const scope = {language:'en',kalCari:'',kalDmp:[1,2,3],kalCountries:null,kalCategory:'',kalTh:'',kalBl:'',kalTg:'',kalLihatLalu:true,kalHariIni:()=> '2026-10-08'};
+const scope = {kalCache:{items:[]},language:'en',kalCari:'',kalDmp:[1,2,3],kalCountries:null,kalCategory:'',kalTh:'',kalBl:'',kalTg:'',kalLihatLalu:true,kalHariIni:()=> '2026-10-08'};
 vm.runInNewContext(source.slice(source.indexOf('      function kalUrut('),source.indexOf('      function renderKalTgl(')),scope);
 vm.runInNewContext(source.slice(source.indexOf('      function kalCountryCode('),source.indexOf('      function renderKalFilters(')),scope);
 const rows=[{tgl:'2026-10-08',nama:'Initial Jobless Claims',neg:'USD',countryCode:'US',dmp:3},{tgl:'2026-10-08',nama:'CPI',neg:'EUR',countryCode:'DE',dmp:2},{tgl:'2026-10-08',nama:'Interest Rate Decision',neg:'EUR',countryCode:'FR',dmp:3}];
@@ -12,6 +12,9 @@ scope.kalDmp=[1,2];assert.equal(scope.kalSaring(rows).length,0);
 scope.kalCategory='';scope.kalDmp=[];assert.equal(scope.kalSaring(rows).length,0);
 scope.kalDmp=[1,2,3];scope.kalCari='rate';assert.equal(scope.kalSaring(rows)[0].countryCode,'FR');
 assert.equal(scope.kalCountryCode({countryCode:'UK'}),'GB');
+assert.equal(scope.kalAvailableCountries().length,107);
+for(const country of ['ID','CA','CN','FR','IT','ES','TW','TH','VN','BA']) assert.ok(scope.kalAvailableCountries().includes(country));
+scope.kalCache.items=[{countryCode:'US'}];assert.equal(scope.kalAvailableCountries().length,107);
 assert.ok(scope.kalCountryFlag('US').includes('https://flagcdn.com/us.svg'));
 assert.equal(scope.kalCountryFlag('../invalid'), '');
 console.log('Calendar country/category/importance intersection and empty selections passed');
