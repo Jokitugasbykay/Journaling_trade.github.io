@@ -1,6 +1,4 @@
-/* ==========================================================================
-       JOURNALINGTRADE · DESIGN SYSTEM (STRICT DARK MODE ONLY · OPENAI ASTRA EDITORIAL)
-       ========================================================================== */
+
     :root {
       --bg-main: #08090c;
       --bg-surface: #101217;
@@ -408,9 +406,7 @@
     }
 
 
-    /* ==========================================================================
-       VIEW: JURNAL (TRADE JOURNAL TABLE & CONTROLS)
-       ========================================================================== */
+
     .journal-header {
       display: flex;
       justify-content: space-between;
@@ -644,9 +640,7 @@
       color: var(--text-main);
     }
 
-    /* ==========================================================================
-       VIEW: STATISTIK (CODEFRONTS TAILWIND DARK MODE UI CARDS & CHARTS)
-       ========================================================================== */
+
     .kpi-row {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
@@ -783,9 +777,7 @@
       font-weight: 600;
     }
 
-    /* ==========================================================================
-       VIEW: KALKULATOR (PRECISION TRADING CALCULATORS)
-       ========================================================================== */
+
     .calc-container {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
@@ -835,9 +827,7 @@
       color: var(--green);
     }
 
-    /* ==========================================================================
-       VIEW: BERITA EKONOMI & KALENDER
-       ========================================================================== */
+
     .news-grid {
       display: grid;
       grid-template-columns: 2fr 1fr;
@@ -933,9 +923,7 @@
     .cal-impact.med { background: var(--orange-bg); color: var(--orange); }
     .cal-impact.low { background: rgba(148, 163, 184, 0.15); color: var(--text-muted); }
 
-    /* ==========================================================================
-       VIEW: PROFIL & AKUN (OPEN SOURCE TRADER PROFILE)
-       ========================================================================== */
+
     .profile-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
@@ -978,9 +966,7 @@
       text-align: right;
     }
 
-    /* ==========================================================================
-       MODALS: UPLOAD JURNAL TRADE & EDITORS
-       ========================================================================== */
+
     .modal-overlay {
       position: fixed;
       inset: 0;
@@ -1032,10 +1018,7 @@
     }
 
     /* Drag & Drop Upload Zone */
-    /* ====================================================================
-       CODEFRONTS CANONICAL DRAG AND DROP FILE UPLOAD ZONE
-       Spec: https://codefronts.com/components/css-file-upload-button/drag-and-drop-file-upload-zone/
-       ==================================================================== */
+
     .fu-zone-wrap {
       width: 100%;
       margin-bottom: 16px;
@@ -1241,9 +1224,7 @@
       display: none;
     }
 
-    /* ==========================================================================
-       UPGRADED INSTITUTIONAL TERMINAL COMPONENTS & WORKSTATION STYLES
-       ========================================================================== */
+
     .badge-pill {
       font-size: 11px;
       font-family: var(--mono);
@@ -1720,14 +1701,9 @@
     }
 
     /* 4. Berita Makro Ribbon & Components */
-    /* ====================================================================
-       CODEFRONTS LIVE STOCK / CRYPTO PRICE TICKER INFINITE MARQUEE
-       Spec: https://codefronts.com/motion/css-infinite-marquee/live-stock-crypto-price-ticker/
-       ==================================================================== */
+
     .mqs-05 {
       width: 100%;
-      --gap: 36px;
-      --speed: 30s;
       font-family: var(--mono);
       margin-bottom: 24px;
     }
@@ -1750,104 +1726,6 @@
       border-bottom: 1px solid var(--line);
       background: rgba(255, 255, 255, 0.02);
     }
-    .mqs-05__bar-left {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-    .mqs-05__live {
-      width: 7px;
-      height: 7px;
-      border-radius: 50%;
-      background: #22c55e;
-      box-shadow: 0 0 8px rgba(34, 197, 94, 0.7);
-      animation: mqs-05-pulse 1.6s ease-in-out infinite;
-    }
-    @keyframes mqs-05-pulse {
-      50% { opacity: 0.35; }
-    }
-    .mqs-05__viewport {
-      display: flex;
-      gap: var(--gap);
-      overflow: hidden;
-      padding: 12px 0;
-      mask-image: linear-gradient(90deg, transparent, #000 4%, #000 96%, transparent);
-      -webkit-mask-image: linear-gradient(90deg, transparent, #000 4%, #000 96%, transparent);
-    }
-    .mqs-05__group {
-      flex: none;
-      display: flex;
-      align-items: center;
-      gap: var(--gap);
-      animation: mqs-05-scroll var(--speed) linear infinite;
-      will-change: transform;
-    }
-    @keyframes mqs-05-scroll {
-      to { transform: translateX(calc(-100% - var(--gap))); }
-    }
-    .mqs-05__viewport:hover .mqs-05__group {
-      animation-play-state: paused;
-    }
-    .mqs-05__quote {
-      flex: none;
-      display: flex;
-      align-items: baseline;
-      gap: 10px;
-      font-variant-numeric: tabular-nums;
-      padding: 6px 14px;
-      border-radius: 6px;
-      background: rgba(255, 255, 255, 0.03);
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      transition: background 0.2s ease, border-color 0.2s ease, transform 0.15s ease;
-      cursor: pointer;
-      text-decoration: none;
-      color: inherit;
-    }
-    .mqs-05__quote:hover {
-      background: rgba(255, 255, 255, 0.09);
-      border-color: rgba(255, 255, 255, 0.28);
-      transform: translateY(-1px);
-    }
-    .mqs-05__quote:active {
-      transform: translateY(0);
-      background: rgba(255, 255, 255, 0.14);
-    }
-    .mqs-05__sym {
-      font-size: 12.5px;
-      font-weight: 700;
-      color: #ffffff;
-      letter-spacing: 0.05em;
-    }
-    .mqs-05__px {
-      font-size: 12.5px;
-      color: var(--text-body);
-      min-width: 6.5ch;
-      text-align: right;
-    }
-    .mqs-05__dl {
-      font-size: 11.5px;
-      font-weight: 700;
-      min-width: 6.5ch;
-      text-align: right;
-    }
-    .mqs-05__quote[data-dir="up"] .mqs-05__dl {
-      color: var(--green);
-    }
-    .mqs-05__quote[data-dir="down"] .mqs-05__dl {
-      color: var(--red);
-    }
-    .mqs-05__link-icon {
-      font-size: 10px;
-      color: var(--text-muted);
-      opacity: 0.45;
-      margin-left: 2px;
-      transition: opacity 0.2s ease, transform 0.2s ease, color 0.2s ease;
-    }
-    .mqs-05__quote:hover .mqs-05__link-icon {
-      opacity: 1;
-      color: #ffffff;
-      transform: translate(1px, -1px);
-    }
     .btn-market-link {
       background: transparent;
       border: 1px solid transparent;
@@ -1865,15 +1743,8 @@
       background: rgba(255, 255, 255, 0.08);
       border-color: rgba(255, 255, 255, 0.2);
     }
-    @media (prefers-reduced-motion: reduce) {
-      .mqs-05__group { animation: none; }
-      .mqs-05__viewport { overflow-x: auto; }
-      .mqs-05__live { animation: none; }
-    }
 
-    /* ====================================================================
-       TRADINGVIEW IN-DOMAIN POP-UP MODAL
-       ==================================================================== */
+
     .modal-card.tv-modal-card {
       max-width: 1200px;
       width: 95vw;
@@ -2400,9 +2271,7 @@
       }
     }
 
-    /* ==========================================================================
-       SEGMENTED SUB-TABS (BERITA, ANALISA, KALENDER)
-       ========================================================================== */
+
     .seg {
       display: inline-flex;
       align-items: center;
@@ -2437,9 +2306,7 @@
       font-weight: 600;
     }
 
-    /* ==========================================================================
-       SEARCH & FILTERS (CARI & SARING)
-       ========================================================================== */
+
     .cari {
       position: relative;
       margin-bottom: 14px;
@@ -2533,9 +2400,7 @@
       font-weight: 600;
     }
 
-    /* ==========================================================================
-       KALENDER EKONOMI WORKSTATION
-       ========================================================================== */
+
     .kal-tgl {
       display: flex;
       gap: 8px;
@@ -2751,9 +2616,7 @@
       color: var(--text-muted);
     }
 
-    /* ==========================================================================
-       MARKET ANALYSIS (UTAMA & FEED ITEMS)
-       ========================================================================== */
+
     .utama {
       position: relative;
       border-radius: var(--radius-md);

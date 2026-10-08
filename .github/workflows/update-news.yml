@@ -26,6 +26,7 @@ jobs:
           python-version: '3.12'
       - run: python scripts/test_news.py
       - run: node js/copy.test.cjs
+      - run: node js/security.test.cjs
       - run: python scripts/update_news.py
       - run: python scripts/update_bi.py
       - name: Publish headlines

@@ -24,7 +24,7 @@ Journaling trade/
 
 ##  Cara Menjalankan
 
-Aplikasi ini dibangun menggunakan arsitektur **Client-Side Open Source**. Anda tidak memerlukan database server ataupun konfigurasi backend yang rumit.
+Aplikasi ini dibangun menggunakan arsitektur **Client-Side Open Source**. Jurnal tamu tersimpan lokal; login dan sinkronisasi memakai Supabase.
 
 1. **Buka Langsung di Browser**:
    - Cukup klik dua kali (*double-click*) berkas `index.html` pada File Explorer Anda, atau klik kanan lalu pilih **Open with Google Chrome / Edge / Firefox**.
@@ -60,7 +60,6 @@ Aplikasi ini dibangun menggunakan arsitektur **Client-Side Open Source**. Anda t
 5. **Berita & Kalender Ekonomi**:
    - Kalender rilis data makro ekonomi (CPI, NFP, Suku Bunga) dengan filter dampak pasar.
    - Berita dari Investing.com, CNBC, Kontan, Reuters, Al Jazeera, Bloomberg, dan berita publik Trade With FNC. Filter kategori berdasarkan bagian artikel, judul, dan tag penerbit; filter sumber dapat digabung dengan kategori.
-   - Tab Sosial Media membuka akun Instagram @tradewithfnc, @akademicryptocom, dan @tradewithsuli. Unggahan dibaca di Instagram, yang dapat meminta login.
    - Kurs jual/beli USD dan BI-Rate berasal dari halaman resmi Bank Indonesia. Konversi jurnal memakai titik tengah kurs transaksi USD BI, dihitung sebagai (jual + beli) / 2. Tanggal publikasi BI ditampilkan; data tersimpan diberi status saat pengambilan gagal.
    - GitHub Actions mengambil dan menerbitkan berita setiap 30 menit setiap hari; jadwal GitHub dapat tertunda. Browser memeriksa pembaruan setiap 5 menit. Waktu pemeriksaan dan status sumber ditampilkan.
    - CME FedWatch dan CME Markets tersedia melalui halaman resmi yang diperbarui oleh CME. Judul artikel mengikuti bahasa penerbit.
@@ -89,3 +88,7 @@ Login Google memakai redirect di tab login, dengan PKCE dan penyimpanan sesi khu
 2. Authorized redirect URI: `https://nmddjuqkdyhcobddinkc.supabase.co/auth/v1/callback`.
 3. Masukkan Client ID dan Client Secret pada provider Google di Supabase project journaltrading, lalu aktifkan provider. Client Secret tidak boleh masuk ke repository.
 4. Pada Supabase Auth URL Configuration, gunakan Site URL `https://jokitugasbykay.github.io/Journaling_trade.github.io/` dan izinkan redirect `https://jokitugasbykay.github.io/Journaling_trade.github.io/login/`.
+
+## Keamanan
+
+Library auth disimpan lokal dengan versi tetap dan pemeriksaan integritas. URL project dan publishable key tetap publik karena browser menghubungi Supabase langsung. Baca [audit keamanan](SECURITY_AUDIT.md) untuk pemeriksaan dan batasan yang masih ada.

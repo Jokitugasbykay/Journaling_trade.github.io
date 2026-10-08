@@ -2,12 +2,14 @@
       "use strict";
 
       /* Storage Keys */
-      const K_ACCOUNTS = 'fncjt_accounts';
-      const K_TRADES = 'fncjt_trades';
-      const K_SETTINGS = 'fncjt_settings';
-      const K_PROFILE = 'fncjt_profil';
+      let K_ACCOUNTS = 'fncjt_accounts';
+      let K_TRADES = 'fncjt_trades';
+      let K_SETTINGS = 'fncjt_settings';
+      let K_PROFILE = 'fncjt_profil';
       const SUPABASE_URL = 'https://nmddjuqkdyhcobddinkc.supabase.co';
       const SUPABASE_KEY = 'sb_publishable_8MdtL4bDt-4dn2gh5-M8hg_TjDEGATj';
+
+      let journalOwner = '', scanStorageKey = 'fncjt_scans';
 
       /* Global State */
       let accounts = [];
@@ -281,6 +283,7 @@
 
       /* Storage Load & Save */
       function loadData() {
+        accounts = []; trades = []; settings = { kurs: 17000, billingAnnual: false }; profile = { name: 'Trader', currentAccount: 'local_acc' };
         try {
           const accRaw = localStorage.getItem(K_ACCOUNTS);
           const trRaw = localStorage.getItem(K_TRADES);
@@ -374,12 +377,6 @@
           });
           const strategies = [...new Set(trades.map(t => String(t.strategy || '').trim()).filter(Boolean))];
           const strategyRows = strategies.map(name => ({ id: uuidFor(cloudStrategyIds, name), user_id: userId, name }));
-          let result = await cloudClient.from('trading_accounts').upsert(accountsForCloud, { onConflict: 'id' });
-          if (result.error) throw result.error;
-          if (strategyRows.length) {
-            result = await cloudClient.from('strategies').upsert(strategyRows, { onConflict: 'id' });
-            if (result.error) throw result.error;
-          }
           const tradeRows = trades.map(t => ({
             id: uuidFor(cloudTradeIds, t.id), user_id: userId, account_id: cloudAccountIds.get(t.accountId),
             strategy_id: t.strategy ? cloudStrategyIds.get(String(t.strategy).trim()) : null,
@@ -389,23 +386,36 @@
             stop_loss: finiteOrNull(t.sl), take_profit: finiteOrNull(t.tp), quantity: finiteOrNull(t.vol),
             pnl: finiteOrNull(t.actualPnl), risk_percent: finiteOrNull(t.riskPct), notes: [t.reason, t.tf ? `TF: ${t.tf}` : '', t.result ? `Result: ${t.result}` : ''].filter(Boolean).join(' · ') || null
           }));
+          const liveAccounts = new Set(accounts.map(a => a.id));
+          const removedTrades = [...cloudTradeIds].filter(([id]) => !trades.some(t => t.id === id)).map(([, id]) => id);
+          const removedAccounts = [...cloudAccountIds].filter(([id]) => !liveAccounts.has(id)).map(([, id]) => id);
+          const profileRow = { id: userId, display_name: profile.name || cloudUser.email, timezone: 'Asia/Jakarta' };
+          let result = await cloudClient.from('trading_accounts').upsert(accountsForCloud, { onConflict: 'id' });
+          if (result.error) throw result.error;
+          if (cloudUser?.id !== userId || !cloudReady) return false;
+          if (strategyRows.length) {
+            result = await cloudClient.from('strategies').upsert(strategyRows, { onConflict: 'id' });
+            if (result.error) throw result.error;
+            if (cloudUser?.id !== userId || !cloudReady) return false;
+          }
           if (tradeRows.length) {
             result = await cloudClient.from('trades').upsert(tradeRows, { onConflict: 'id' });
             if (result.error) throw result.error;
+            if (cloudUser?.id !== userId || !cloudReady) return false;
           }
-          const liveAccounts = new Set(accounts.map(a => a.id));
-          const removedTrades = [...cloudTradeIds].filter(([id]) => !trades.some(t => t.id === id)).map(([, id]) => id);
           if (removedTrades.length) {
             result = await cloudClient.from('trades').delete().eq('user_id', userId).in('id', removedTrades);
             if (result.error) throw result.error;
+            if (cloudUser?.id !== userId || !cloudReady) return false;
           }
-          const removedAccounts = [...cloudAccountIds].filter(([id]) => !liveAccounts.has(id)).map(([, id]) => id);
           if (removedAccounts.length) {
             result = await cloudClient.from('trading_accounts').update({ is_active: false }).eq('user_id', userId).in('id', removedAccounts);
             if (result.error) throw result.error;
+            if (cloudUser?.id !== userId || !cloudReady) return false;
           }
-          const profileResult = await cloudClient.from('profiles').upsert({ id: userId, display_name: profile.name || cloudUser.email, timezone: 'Asia/Jakarta' }, { onConflict: 'id' });
+          const profileResult = await cloudClient.from('profiles').upsert(profileRow, { onConflict: 'id' });
           if (profileResult.error) throw profileResult.error;
+          if (cloudUser?.id !== userId || !cloudReady) return false;
           cloudSnapshot = snapshot;
           persistCloudMaps();
           if ($('cloud-status')) $('cloud-status').textContent = language === 'en' ? 'Cloud sync is up to date.' : 'Sinkronisasi cloud sudah terbaru.';
@@ -433,12 +443,51 @@
         cloudTimer = setTimeout(syncCloud, 700);
       }
 
+      function migrateLegacyJournal() {
+        // Old cloud journals shared guest keys; archive them before enabling account isolation.
+        try {
+          if (localStorage.getItem('fncjt_storage_v2') === '1') return;
+          if (Object.keys(localStorage).some(key => key.startsWith('fncjt_cloud_map_'))) {
+            const keys = [K_ACCOUNTS, K_TRADES, K_SETTINGS, K_PROFILE, scanStorageKey];
+            const archive = Object.fromEntries(keys.map(key => [key, localStorage.getItem(key)]));
+            localStorage.setItem('fncjt_legacy_backup', JSON.stringify(archive));
+            keys.forEach(key => localStorage.removeItem(key));
+          }
+          localStorage.setItem('fncjt_storage_v2', '1');
+        } catch { throw new Error('Unable to isolate the previous journal. Export your browser data before continuing.'); }
+      }
+
+      function selectJournalOwner(userId = '') {
+        // Separate cloud caches from the guest journal; never upload another user's cached rows.
+        journalOwner = userId;
+        const suffix = userId ? '_' + userId : '';
+        K_ACCOUNTS = 'fncjt_accounts' + suffix; K_TRADES = 'fncjt_trades' + suffix;
+        K_SETTINGS = 'fncjt_settings' + suffix; K_PROFILE = 'fncjt_profil' + suffix;
+        scanStorageKey = 'fncjt_scans' + suffix;
+        clearTimeout(cloudTimer); scanJob++; currentScan = null; parsedTradesToImport = []; currentEditingTradeId = null;
+        cloudAccountIds.clear(); cloudStrategyIds.clear(); cloudTradeIds.clear(); localAccountIds.clear(); cloudSnapshot = '';
+        closeUploadModal(); closeTradeForm();
+        $('upload-preview-tbody').replaceChildren();
+        $('scan-result').hidden = true;
+        $('scan-text').value = ''; $('scan-recognition').replaceChildren(); $('saved-scans').replaceChildren();
+        loadData();
+        onboarding.name = profile.name;
+        updateAccess(); renderJournalTable(); renderProfileView(); renderStatistics(); runAllCalculators();
+      }
+
+      function handleCloudSignedOut() {
+        cloudUser = null; cloudReady = false; nicknameReady = false; accountAccess = null;
+        selectJournalOwner();
+      }
+
       async function hydrateCloud(user) {
         if (hydratingUserId === user.id) return;
         hydratingUserId = user.id;
+        const guestJournal = !journalOwner && trades.length ? { accounts: structuredClone(accounts), trades: structuredClone(trades) } : null;
         cloudUser = user;
         cloudReady = false;
         try {
+          if (journalOwner !== user.id) selectJournalOwner(user.id);
           try {
             const saved = JSON.parse(localStorage.getItem('fncjt_cloud_map_' + user.id) || '{}');
             cloudAccountIds.clear(); cloudTradeIds.clear(); cloudStrategyIds.clear();
@@ -456,6 +505,7 @@
           if (cloudUser?.id !== user.id) return;
           for (const result of [profileResult, accountResult, strategyResult, tradeResult]) if (result.error) throw result.error;
           const remoteAccounts = accountResult.data || [], remoteTrades = tradeResult.data || [];
+          if (!remoteAccounts.length && !remoteTrades.length && !trades.length && guestJournal && confirm(language === 'en' ? 'Import the local guest journal into this account?' : 'Impor jurnal lokal tamu ke akun ini?')) { accounts = guestJournal.accounts; trades = guestJournal.trades; saveLocalData(); }
           if (remoteAccounts.length || remoteTrades.length) {
             const hasLocalJournal = trades.length > 0 || accounts.some(a => a.id !== 'local_acc');
             const localChangedSinceSync = cloudSnapshot ? cloudSnapshot !== journalFingerprint() : hasLocalJournal;
@@ -491,7 +541,7 @@
           if (cloudUser?.id !== user.id) return;
           console.error('Supabase load error:', error);
           if ($('cloud-status')) $('cloud-status').textContent = cloudMessage(error);
-          cloudUser = null; cloudReady = false; nicknameReady = false; accountAccess = null;
+          handleCloudSignedOut();
         } finally {
           if (hydratingUserId === user.id) hydratingUserId = '';
         }
@@ -510,7 +560,7 @@
         if (!cloudClient) { if ($('cloud-status')) $('cloud-status').textContent = 'Koneksi Supabase tidak tersedia. Data lokal tetap tersimpan.'; return; }
         cloudClient.auth.onAuthStateChange((event, session) => {
           if (event === 'SIGNED_IN' && session?.user && (!cloudReady || cloudUser?.id !== session.user.id)) setTimeout(() => hydrateCloud(session.user), 0);
-          if (event === 'SIGNED_OUT') { cloudUser = null; cloudReady = false; nicknameReady = false; accountAccess = null; updateAccess(); }
+          if (event === 'SIGNED_OUT') handleCloudSignedOut();
         });
         const { data, error } = await cloudClient.auth.getSession();
         if (error) { console.error('Supabase session error:', error); return; }
@@ -808,13 +858,15 @@
       window.saveNickname = async function (event) {
         event.preventDefault();
         if (!cloudUser) return;
+        const userId = cloudUser.id;
         const input = $('nickname-input'), name = input.value.trim();
         input.setCustomValidity(name.length >= 2 ? '' : (language === 'en' ? 'Enter at least 2 characters.' : 'Isi sedikitnya 2 karakter.'));
         if (!input.reportValidity()) return;
         const button = $('nickname-form').querySelector('button'); button.disabled = true;
         try {
-          const { error } = await cloudClient.from('profiles').upsert({ id: cloudUser.id, display_name: name, nickname_set: true }, { onConflict: 'id' });
+          const { error } = await cloudClient.from('profiles').upsert({ id: userId, display_name: name, nickname_set: true }, { onConflict: 'id' });
           if (error) throw error;
+          if (cloudUser?.id !== userId || journalOwner !== userId) return;
           profile.name = name; onboarding.name = name; nicknameReady = true;
           persistOnboarding(); saveData(); updateAccess(); renderProfileView();
           switchTab('jurnal');
@@ -830,11 +882,7 @@
             if (nicknameReady && !await syncCloud()) return;
             const { error } = await cloudClient.auth.signOut();
             if (error) { $('cloud-status').textContent = cloudMessage(error); return; }
-            cloudUser = null; cloudReady = false; nicknameReady = false; accountAccess = null;
-            localStorage.removeItem(K_ACCOUNTS); localStorage.removeItem(K_TRADES); localStorage.removeItem(K_SETTINGS); localStorage.removeItem(K_PROFILE);
-            accounts = []; trades = []; settings = { kurs: 17000, billingAnnual: false }; profile = { name: 'Trader', currentAccount: 'demo_acc' };
-            onboarding = { name: '', started: false }; loadData(); persistOnboarding();
-            updateAccess(); renderJournalTable(); renderProfileView(); renderStatistics(); runAllCalculators();
+            handleCloudSignedOut();
             switchTab('beranda');
           })();
           return;
@@ -890,10 +938,6 @@
         updatePricingDisplay();
       };
 
-      window.toggleBillingCycle = function () {
-        setBillingCycle(!settings.billingAnnual);
-      };
-
       function updatePricingDisplay() {
         const annual = settings.billingAnnual;
         document.querySelectorAll('[data-cycle]').forEach(button => {
@@ -914,9 +958,7 @@
         if (el) el.scrollIntoView({ behavior: 'smooth' });
       };
 
-      /* ====================================================================
-         JOURNAL ENGINE & TABLE
-         ==================================================================== */
+      /* Journal engine & table */
       window.toggleTradeForm = function () {
         const p = $('trade-form-panel');
         if (!p) return;
@@ -924,12 +966,6 @@
         if (p.classList.contains('open')) {
           $('q-market').focus();
         }
-      };
-
-      window.openQuickTrade = function () {
-        const p = $('trade-form-panel');
-        if (p) p.classList.add('open');
-        setEntryMode('quick');
       };
 
       window.closeTradeForm = function () {
@@ -1356,10 +1392,8 @@
         }).join('');
       };
 
-      /* ====================================================================
-         UPLOAD JURNAL TRADE ENGINE (CODEFRONTS DRAG & DROP ZONE - MAKS 10MB)
-         Spec: https://codefronts.com/components/css-file-upload-button/drag-and-drop-file-upload-zone/
-         ==================================================================== */
+      /* Upload jurnal trade engine (codefronts drag & drop zone - maks 10mb)
+         spec: https://codefronts.com/components/css-file-upload-button/drag-and-drop-file-upload-zone/ */
       window.openUploadModal = function () {
         if (!onboarding.started) return;
         uploadTrigger = document.activeElement;
@@ -1718,7 +1752,7 @@
 
       function savedScans() {
         try {
-          const value = JSON.parse(localStorage.getItem('fncjt_scans') || '[]');
+          const value = JSON.parse(localStorage.getItem(scanStorageKey) || '[]');
           return Array.isArray(value) ? value.filter(s => s && typeof s.name === 'string' && typeof s.text === 'string' && s.status === 'ready') : [];
         } catch { return []; }
       }
@@ -1750,7 +1784,7 @@
       window.saveScanResult = function () {
         if (!currentScan) return;
         try {
-          localStorage.setItem('fncjt_scans', JSON.stringify([currentScan, ...savedScans()]));
+          localStorage.setItem(scanStorageKey, JSON.stringify([currentScan, ...savedScans()]));
           renderSavedScans();
           $('btn-save-scan').disabled = true;
           $('upload-status-msg').textContent = 'Hasil scan disimpan di perangkat ini. Jurnal Anda tidak berubah.';
@@ -1847,9 +1881,7 @@
         alert(`Sukses! ${parsedTradesToImport.length} trade telah ditambahkan ke Jurnal Anda.`);
       };
 
-      /* ====================================================================
-         STATISTICS & CHARTS (CODEFRONTS TAILWIND DARK METRIC CARDS)
-         ==================================================================== */
+      /* Statistics & charts (codefronts tailwind dark metric cards) */
       window.renderStatistics = function () {
         const acc = currentAccount();
         const startBal = acc ? acc.startBalance : 1000;
@@ -2081,9 +2113,7 @@
         renderBarGroup(marketMap, 'market-breakdown');
       }
 
-      /* ====================================================================
-         CALCULATOR ENGINE
-         ==================================================================== */
+      /* Calculator engine */
       const INSTRUMENTS = {
         'XAUUSD': { contract: 100, pip: 0.1, price: 3340, sl: 3332, tp: 3360 },
         'EURUSD': { contract: 100000, pip: 0.0001, price: 1.0920, sl: 1.0900, tp: 1.0970 },
@@ -2225,9 +2255,7 @@
         if (formPanel) formPanel.scrollIntoView({ behavior: 'smooth' });
       };
 
-      /* ====================================================================
-         PROFIL & MULTI-ACCOUNT MANAGEMENT
-         ==================================================================== */
+      /* Profil & multi-account management */
       window.renderProfileView = function () {
         $('p-trader-name').value = profile.name || 'Trader';
         $('p-kurs-input').value = settings.kurs || 17000;
@@ -2287,10 +2315,6 @@
         if (navName) navName.textContent = profile.name || 'Trader';
         if (navBroker && curAcc) navBroker.textContent = `${curAcc.broker} (${curAcc.name})`;
       }
-
-      window.openProfileModal = function () {
-        switchTab('profil');
-      };
 
       window.saveProfileSettings = function () {
         profile.name = ($('p-trader-name').value || 'Trader').trim();
@@ -2356,9 +2380,7 @@
         }
       };
 
-      /* ====================================================================
-         BACKUP, RESTORE & EXPORT
-         ==================================================================== */
+      /* Backup, restore & export */
       window.exportBackupJSON = function () {
         const payload = {
           app: 'journalingtrade',
@@ -2379,8 +2401,10 @@
       window.handleRestoreFile = function (input) {
         const f = input.files[0];
         if (!f) return;
+        const owner = journalOwner;
         const reader = new FileReader();
         reader.onload = function (e) {
+          if (journalOwner !== owner) return;
           try {
             if (f.size > 10 * 1024 * 1024) throw new Error('Backup too large');
             const data = JSON.parse(e.target.result);
@@ -2438,7 +2462,7 @@
 
       window.resetAllData = function () {
         if (confirm('PERINGATAN: Apakah Anda yakin ingin menghapus SEMUA akun dan catatan jurnal trade?')) {
-          [K_ACCOUNTS, K_TRADES, K_SETTINGS, K_PROFILE, 'jt_kalender_cache'].forEach(key => localStorage.removeItem(key));
+          [K_ACCOUNTS, K_TRADES, K_SETTINGS, K_PROFILE, scanStorageKey, 'jt_kalender_cache_v2'].forEach(key => localStorage.removeItem(key));
           loadData();
           renderJournalTable();
           renderProfileView();
@@ -2446,9 +2470,7 @@
         }
       };
 
-      /* ====================================================================
-         TRADINGVIEW IN-DOMAIN POP-UP CHART ROUTER
-         ==================================================================== */
+      /* Tradingview in-domain pop-up chart router */
       let currentTvSymbol = 'XAUUSD';
       let currentTvInterval = '60';
 
@@ -2546,65 +2568,10 @@
         }
       });
 
-      /* ====================================================================
-         ECONOMIC CALENDAR ENGINE & DATASET (WIB GMT+7)
-         Matches Reference System Schema, Filters & Impact Calculations
-         ==================================================================== */
-      function getFormattedDate(offsetDays) {
-        const d = new Date();
-        d.setDate(d.getDate() + offsetDays);
-        const yr = d.getFullYear();
-        const mo = String(d.getMonth() + 1).padStart(2, '0');
-        const da = String(d.getDate()).padStart(2, '0');
-        return `${yr}-${mo}-${da}`;
-      }
-
-      function buildDefaultCalendarEvents() {
-        const dMinus1 = getFormattedDate(-1);
-        const dToday = getFormattedDate(0);
-        const dPlus1 = getFormattedDate(1);
-        const dPlus2 = getFormattedDate(2);
-        const dPlus3 = getFormattedDate(3);
-
-        return [
-          // Yesterday (Jadwal Lampau)
-          { tgl: dMinus1, jam: '19:30', neg: 'USD', nama: 'Building Permits', dmp: 2, akt: '1.45M', prk: '1.40M', sbl: '1.39M', cat: 'Sektor perumahan menunjukkan tanda-tanda stabilisasi, menyokong yield obligasi AS.' },
-          { tgl: dMinus1, jam: '21:30', neg: 'USD', nama: 'EIA Natural Gas Storage', dmp: 1, akt: '+48B', prk: '+52B', sbl: '+65B', cat: 'Penambahan cadangan gas di bawah proyeksi, volatilitas minim.' },
-
-          // Today (Hari Ini)
-          { tgl: dToday, jam: '09:30', neg: 'AUD', nama: 'Employment Change', dmp: 3, akt: '+38.5K', prk: '+25.0K', sbl: '+18.2K', cat: 'Pasar tenaga kerja Australia solid, mengurangi peluang pemangkasan suku bunga RBA dalam waktu dekat.' },
-          { tgl: dToday, jam: '14:00', neg: 'GBP', nama: 'Retail Sales (MoM)', dmp: 2, akt: '+0.5%', prk: '+0.2%', sbl: '-0.3%', cat: 'Penjualan ritel Inggris meningkat di atas estimasi, GBPUSD terangkat dari support.' },
-          { tgl: dToday, jam: '16:00', neg: 'EUR', nama: 'Eurozone Flash Manufacturing PMI', dmp: 2, akt: '47.8', prk: '47.0', sbl: '45.8', cat: 'Aktivitas manufaktur zona euro mulai membaik meski masih berada di zona kontraksi (<50).' },
-          { tgl: dToday, jam: '19:30', neg: 'USD', nama: 'Core CPI (MoM)', dmp: 3, akt: '0.3%', prk: '0.3%', sbl: '0.3%', cat: 'Indeks harga konsumen inti stabil. Volatilitas tinggi diperkirakan terjadi pada instrumen XAUUSD dan DXY.' },
-          { tgl: dToday, jam: '19:30', neg: 'USD', nama: 'Initial Jobless Claims', dmp: 3, akt: '215K', prk: '218K', sbl: '212K', cat: 'Klaim pengangguran mingguan AS tetap rendah, menandakan resiliensi sektor tenaga kerja.' },
-          { tgl: dToday, jam: '21:00', neg: 'USD', nama: 'Existing Home Sales', dmp: 2, akt: '4.10M', prk: '3.98M', sbl: '3.96M', cat: 'Penjualan rumah bekas pulih tipis namun dibatasi tingginya suku bunga hipotek.' },
-          { tgl: dToday, jam: '22:30', neg: 'USD', nama: 'Crude Oil Inventories', dmp: 1, akt: '-2.4M', prk: '-1.1M', sbl: '+1.8M', cat: 'Penarikan cadangan minyak mentah komersial menopang rebound harga minyak mentah WTI.' },
-
-          // Tomorrow
-          { tgl: dPlus1, jam: '08:30', neg: 'JPY', nama: 'Tokyo Core CPI (YoY)', dmp: 2, akt: null, prk: '2.4%', sbl: '2.2%', cat: 'Indikator leading inflasi Jepang. Angka di atas 2.5% memperkuat ekspektasi kenaikan suku bunga BOJ.' },
-          { tgl: dPlus1, jam: '13:00', neg: 'EUR', nama: 'German Ifo Business Climate', dmp: 2, akt: null, prk: '88.2', sbl: '87.0', cat: 'Survei iklim bisnis ekonomi terbesar Eropa, berdampak moderat terhadap mata uang EUR.' },
-          { tgl: dPlus1, jam: '19:30', neg: 'USD', nama: 'Core PCE Price Index (MoM)', dmp: 3, akt: null, prk: '0.2%', sbl: '0.2%', cat: 'Ukuran inflasi favorit Federal Reserve. Deviasi 0.1% dapat menggerakkan arah kebijakan suku bunga The Fed.' },
-          { tgl: dPlus1, jam: '19:30', neg: 'CAD', nama: 'GDP (MoM)', dmp: 3, akt: null, prk: '0.3%', sbl: '0.1%', cat: 'Data pertumbuhan ekonomi Kanada, katalis utama pergerakan pasangan mata uang USDCAD.' },
-          { tgl: dPlus1, jam: '21:00', neg: 'USD', nama: 'Revised UoM Consumer Sentiment', dmp: 2, akt: null, prk: '69.5', sbl: '67.9', cat: 'Keyakinan konsumen AS terhadap prospek ekonomi dan ekspektasi inflasi jangka panjang.' },
-
-          // Day +2
-          { tgl: dPlus2, jam: '07:00', neg: 'CNY', nama: 'Manufacturing PMI', dmp: 3, akt: null, prk: '50.2', sbl: '49.8', cat: 'Indikator kunci aktivitas manufaktur Tiongkok, mempengaruhi permintaan komoditas dan mata uang AUD.' },
-          { tgl: dPlus2, jam: '14:00', neg: 'EUR', nama: 'CPI Flash Estimate (YoY)', dmp: 3, akt: null, prk: '2.5%', sbl: '2.6%', cat: 'Estimasi awal inflasi tahunan zona euro. Menentukan langkah suku bunga ECB berikutnya.' },
-
-          // Day +3
-          { tgl: dPlus3, jam: '19:30', neg: 'USD', nama: 'Non-Farm Employment Change (NFP)', dmp: 3, akt: null, prk: '180K', sbl: '206K', cat: 'Super high impact rilis ketenagakerjaan AS awal bulan. Waspadai pelebaran spread likuiditas pasar.' },
-          { tgl: dPlus3, jam: '19:30', neg: 'USD', nama: 'Unemployment Rate', dmp: 3, akt: null, prk: '4.1%', sbl: '4.1%', cat: 'Tingkat pengangguran AS di atas 4.2% akan memicu kekhawatiran resesi Sahm Rule.' },
-          { tgl: dPlus3, jam: '21:00', neg: 'USD', nama: 'ISM Manufacturing PMI', dmp: 3, akt: null, prk: '49.1', sbl: '48.5', cat: 'Kesehatan sektor manufaktur AS, sub-indeks Prices Paid menjadi fokus utama pelaku pasar.' }
-        ];
-      }
-
-      let kalCache = null;
-      let kalCari = '';
-      let kalDmp = [];
-      let kalTh = '', kalBl = '', kalTg = '';
-      let kalLihatLalu = false;
-      let kalPollingTimer = null;
-      let kalCountdownTimer = null;
+      /* Economic calendar engine & dataset (wib gmt+7)
+         matches reference system schema, filters & impact calculations */
+      let kalCache = null, kalCari = '', kalDmp = [], kalTh = '', kalBl = '', kalTg = '', kalLihatLalu = false;
+      let kalPollingTimer = null, kalCountdownTimer = null;
 
       function kalPad(n) { return String(n).length < 2 ? '0' + n : String(n); }
       function kalHariIni() {
@@ -2920,7 +2887,7 @@
             const data = await res.json();
             if (data && Array.isArray(data.items) && data.items.length) {
               items = data.items;
-              updatedStr = data.updated || new Date().toISOString();
+              updatedStr = data.updated || '';
             }
           }
         } catch (e) {
@@ -2935,7 +2902,7 @@
               const data = await res.json();
               if (data && Array.isArray(data.items) && data.items.length) {
                 items = data.items;
-                updatedStr = data.updated || new Date().toISOString();
+                updatedStr = data.updated || '';
               }
             }
           } catch (e) {
@@ -2946,7 +2913,7 @@
         // 3. Fallback to cached localStorage
         if (!items) {
           try {
-            const cached = localStorage.getItem('jt_kalender_cache');
+            const cached = localStorage.getItem('jt_kalender_cache_v2');
             if (cached) {
               const parsed = JSON.parse(cached);
               if (parsed && Array.isArray(parsed.items) && parsed.items.length) {
@@ -2959,13 +2926,13 @@
 
         // 4. Default fallback
         if (!items || !items.length) {
-          items = buildDefaultCalendarEvents();
-          updatedStr = new Date().toISOString();
+          items = [];
+          updatedStr = '';
         }
 
         // Save to cache
         try {
-          localStorage.setItem('jt_kalender_cache', JSON.stringify({ items, updated: updatedStr }));
+          localStorage.setItem('jt_kalender_cache_v2', JSON.stringify({ items, updated: updatedStr }));
         } catch (e) {}
 
         const nowStr = new Date().toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit', second: '2-digit' }) + ' WIB';
@@ -2981,7 +2948,7 @@
         updateNextEventCountdown();
 
         if ($('kal-stamp')) {
-          $('kal-stamp').textContent = 'Otomatis diperbarui ' + nowStr + ' (Live)';
+          $('kal-stamp').textContent = !items.length ? 'Calendar unavailable' : !updatedStr || Date.now() - new Date(updatedStr).getTime() > 3600000 ? 'Saved calendar · source: ' + (updatedStr || 'Unknown') : 'Calendar source updated: ' + updatedStr;
         }
 
         // Start real-time timers if not running
@@ -3204,6 +3171,7 @@
       }
 
       /* Initial Startup */
+      migrateLegacyJournal();
       loadData();
       initCloudAuth();
       updateAccess();

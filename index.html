@@ -12,6 +12,8 @@
       document.getElementById('site-base').href = '/' + (prefix.length ? prefix.join('/') + '/' : '');
     })();
   </script>
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; object-src 'none'; form-action 'self'; script-src 'self' 'unsafe-inline' 'wasm-unsafe-eval' https://cdn.jsdelivr.net https://s3.tradingview.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: blob: https:; connect-src 'self' https://nmddjuqkdyhcobddinkc.supabase.co https://cdn.jsdelivr.net https://tessdata.projectnaptha.com https://tradewithfnc.com; worker-src 'self' blob: https://cdn.jsdelivr.net; frame-src https://s.tradingview.com https://www.tradingview-widget.com;">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>journalingtrade · Professional Trading Journal & Analytics</title>
   <meta name="description" content="Platform jurnal trading presisi, analitik statistik mendalam, kalkulator risiko, dan wawasan ekonomi pasar finansial.">
@@ -20,7 +22,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
 
-  <link rel="stylesheet" href="css/style.css?v=20261008-ticker">
+  <link rel="stylesheet" href="css/style.css?v=20261008-security">
 </head>
 
 <body>
@@ -63,9 +65,7 @@
   <!-- Main Content Wrap -->
   <main class="main-wrap">
 
-    <!-- ====================================================================
-         VIEW 1: BERANDA (OPENAI ASTRA EDITORIAL STYLE HERO & PRICING SECTION)
-         ==================================================================== -->
+
     <section class="view-content active" id="view-beranda">
       <div class="home-shell">
         <section class="landing-hero" aria-labelledby="home-title">
@@ -145,9 +145,7 @@
       </div>
     </section>
 
-    <!-- ====================================================================
-         VIEW 2: JURNAL (REVAMPED TRADING JOURNAL & MULTI-FORMAT UPLOAD)
-         ==================================================================== -->
+
     <section class="view-content" id="view-jurnal">
       <!-- Quick Pulse Metrics Ribbon -->
       <div class="journal-pulse-ribbon">
@@ -438,9 +436,7 @@
       </div>
     </section>
 
-    <!-- ====================================================================
-         VIEW 3: STATISTIK (CODEFRONTS TAILWIND DARK MODE UI CARDS & ANALYTICS)
-         ==================================================================== -->
+
     <section class="view-content" id="view-statistik">
       <div class="section-head" style="margin: 10px 0 20px; text-align:left;">
         <h2>Statistik & Kinerja Portofolio</h2>
@@ -611,9 +607,7 @@
       </div>
     </section>
 
-    <!-- ====================================================================
-         VIEW 4: KALKULATOR (RISK, LOT SIZE, PIP & R:R WORKSTATION)
-         ==================================================================== -->
+
     <section class="view-content" id="view-kalkulator">
       <div class="section-head" style="margin: 10px 0 20px; text-align:left;">
         <h2>Kalkulator Trading Institusional</h2>
@@ -811,9 +805,7 @@
       </div>
     </section>
 
-    <!-- ====================================================================
-         VIEW 5: BERITA EKONOMI & KALENDER (FREE + PRO INTELLIGENCE)
-         ==================================================================== -->
+
     <section class="view-content" id="view-berita">
       <div id="news-paywall" class="news-paywall">
         <p class="plan-eyebrow">Plus</p><h2 data-i18n="newsLockedTitle">Berita ekonomi untuk pelanggan Plus</h2>
@@ -924,9 +916,7 @@
       </div>
     </section>
 
-    <!-- ====================================================================
-         VIEW 6: PROFIL & AKUN (OPEN SOURCE TRADER PASSPORT & CONFIG)
-         ==================================================================== -->
+
     <section class="view-content" id="view-profil">
       <!-- Trader Identity Passport Card -->
       <div class="trader-passport-card">
@@ -1094,9 +1084,7 @@
     </section>
   </main>
 
-  <!-- ====================================================================
-       MODAL 1: UPLOAD JURNAL TRADE (CODEFRONTS DRAG & DROP ZONE - MAKS 10MB)
-       ==================================================================== -->
+
   <div class="modal-overlay" id="upload-modal" role="dialog" aria-modal="true" aria-labelledby="upload-title" tabindex="-1">
     <div class="modal-card" style="max-width:560px;">
       <div class="modal-head">
@@ -1178,9 +1166,7 @@
     </div>
   </div>
 
-  <!-- ====================================================================
-       MODAL 2: TRADINGVIEW POP-UP CHART VIEWER (IN-DOMAIN)
-       ==================================================================== -->
+
   <div class="modal-overlay" id="tv-modal" onclick="handleTvModalBackdrop(event)">
     <div class="modal-card tv-modal-card">
       <div class="tv-modal-head">
@@ -1220,9 +1206,7 @@
     </div>
   </div>
 
-  <!-- ====================================================================
-       MODAL 3: ACCOUNT ADD / EDIT MODAL
-       ==================================================================== -->
+
   <div class="modal-overlay" id="account-modal">
     <div class="modal-card" style="max-width:480px;">
       <div class="modal-head">
@@ -1266,12 +1250,10 @@
     </div>
   </footer>
 
-  <!-- ====================================================================
-       APPLICATION LOGIC & DATA PERSISTENCE
-       ==================================================================== -->
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.86.0"></script>
+
+  <script src="js/vendor/supabase-2.86.0.js" integrity="sha384-3Sgm1bFlHa+gvzgZCHY6SyQwlKZpsgWl0qwxcwsypsSZQvo1vV1miPkn7n1lU1/L"></script>
   <script src="js/scan.js?v=20261007"></script>
-  <script src="js/app.js?v=20261008-ticker"></script>
+  <script src="js/app.js?v=20261008-security"></script>
 
  </body>
 
