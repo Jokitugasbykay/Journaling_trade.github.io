@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "checkedAt": "2026-10-08T03:50:02.227722+00:00",
+  "checkedAt": "2026-10-08T04:03:33.193605+00:00",
   "intervalMinutes": 5,
   "sources": [
     {
@@ -9,7 +9,7 @@
       "url": "https://www.investing.com/",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-08T03:49:49.012666+00:00"
+      "checkedAt": "2026-10-08T04:03:16.989839+00:00"
     },
     {
       "id": "cnbc",
@@ -17,7 +17,7 @@
       "url": "https://www.cnbc.com/markets/",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-08T03:49:49.010943+00:00"
+      "checkedAt": "2026-10-08T04:03:16.906474+00:00"
     },
     {
       "id": "kontan",
@@ -25,7 +25,7 @@
       "url": "https://www.kontan.co.id/",
       "kind": "html",
       "status": "ok",
-      "checkedAt": "2026-10-08T03:49:50.038458+00:00"
+      "checkedAt": "2026-10-08T04:03:17.565603+00:00"
     },
     {
       "id": "reuters",
@@ -33,7 +33,7 @@
       "url": "https://www.reuters.com/",
       "kind": "sitemap",
       "status": "ok",
-      "checkedAt": "2026-10-08T03:49:49.255254+00:00"
+      "checkedAt": "2026-10-08T04:03:20.331553+00:00"
     },
     {
       "id": "aljazeera",
@@ -41,7 +41,7 @@
       "url": "https://www.aljazeera.com/",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-08T03:49:49.038895+00:00"
+      "checkedAt": "2026-10-08T04:03:17.043940+00:00"
     },
     {
       "id": "bloomberg",
@@ -49,7 +49,7 @@
       "url": "https://www.bloomberg.com/asia",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-08T03:49:49.272970+00:00"
+      "checkedAt": "2026-10-08T04:03:17.251494+00:00"
     },
     {
       "id": "fnc",
@@ -57,7 +57,7 @@
       "url": "https://tradewithfnc.com/",
       "kind": "json",
       "status": "ok",
-      "checkedAt": "2026-10-08T03:49:49.416850+00:00"
+      "checkedAt": "2026-10-08T04:03:17.781506+00:00"
     },
     {
       "id": "investing_id",
@@ -65,7 +65,7 @@
       "url": "https://id.investing.com/news",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-08T03:49:49.093085+00:00"
+      "checkedAt": "2026-10-08T04:03:17.227416+00:00"
     },
     {
       "id": "pluang",
@@ -73,7 +73,7 @@
       "url": "https://pluang.com/news-feed",
       "kind": "html",
       "status": "ok",
-      "checkedAt": "2026-10-08T03:49:49.435380+00:00"
+      "checkedAt": "2026-10-08T04:03:18.149032+00:00"
     },
     {
       "id": "kompas",
@@ -81,7 +81,7 @@
       "url": "https://money.kompas.com/",
       "kind": "html",
       "status": "ok",
-      "checkedAt": "2026-10-08T03:49:49.777721+00:00"
+      "checkedAt": "2026-10-08T04:03:18.705726+00:00"
     },
     {
       "id": "detik",
@@ -89,7 +89,7 @@
       "url": "https://finance.detik.com/",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-08T03:50:01.676180+00:00"
+      "checkedAt": "2026-10-08T04:03:18.863682+00:00"
     },
     {
       "id": "kemenkeu",
@@ -121,7 +121,7 @@
       "url": "https://ekbis.sindonews.com/",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-08T03:49:49.534716+00:00"
+      "checkedAt": "2026-10-08T04:03:18.179049+00:00"
     },
     {
       "id": "fedwatch",
@@ -139,6 +139,108 @@
     }
   ],
   "items": [
+    {
+      "id": "e8c5cdc798a9d8e2a190",
+      "source": "bloomberg",
+      "title": "WTO's Okonjo-Iweala on Why Globalization Needs a Rethink",
+      "url": "https://www.bloomberg.com/news/videos/2026-10-08/wto-s-okonjo-iweala-on-why-globalization-needs-a-rethink-video",
+      "publishedAt": "2026-10-08T04:02:03+00:00",
+      "image": null,
+      "category": "other",
+      "topics": []
+    },
+    {
+      "id": "b861f3e09eab669cbc58",
+      "source": "reuters",
+      "title": "CrowdStrike says China-based suspect used AI tools in South Korean bank hacks",
+      "url": "https://www.reuters.com/world/suspect-behind-south-korea-bank-hacks-may-be-26-year-old-china-cybersecurity-2026-10-08/",
+      "publishedAt": "2026-10-08T04:01:29.009000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/VGTDWW26GRL4RARMHPXXLZCTHA.jpg?auth=5175f6223a6753453c4d31f02f4d865ebbd5ef632bce5a4cff7dccc29767ab1e&smart=true&width=1920",
+      "category": "technology",
+      "topics": []
+    },
+    {
+      "id": "d5f3a6e6124d2b35f8a7",
+      "source": "reuters",
+      "title": "US NHC says Isaias has become a hurricane",
+      "url": "https://www.reuters.com/business/environment/us-nhc-says-isaias-has-become-hurricane-2026-10-08/",
+      "publishedAt": "2026-10-08T04:00:39.322000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/IOWJVIQCTRNT5AUA3EFEAYV43U.jpg?auth=e30475f77d17f6bdf70324f4fb91e7e47c04ef46a613526f774b91127a4bf6c5&smart=true&width=1920",
+      "category": "sustainability",
+      "topics": []
+    },
+    {
+      "id": "8258b2c2976671f82e9d",
+      "source": "kompas",
+      "title": "Pengamat Dorong Bajaj Modern dan Becak Listrik Jadi Angkutan Pengumpan",
+      "url": "https://money.kompas.com/read/2026/10/08/105938826/pengamat-dorong-bajaj-modern-dan-becak-listrik-jadi-angkutan-pengumpan",
+      "publishedAt": "2026-10-08T03:59:38+00:00",
+      "image": "https://asset.kompas.com/crops/tTWQpGTewAaStpyxMxU_F7H2aVo=/0x0:0x0/750x500/data/photo/2026/09/28/6aba24b8be36b.jpg",
+      "category": "other",
+      "topics": []
+    },
+    {
+      "id": "0af9ff33bdc16977f244",
+      "source": "reuters",
+      "title": "Rays, benefiting from fan-interference call, complete sweep of Yankees",
+      "url": "https://www.reuters.com/sports/baseball/rays-benefiting-fan-interference-call-complete-sweep-yankees--flm-2026-10-08/",
+      "publishedAt": "2026-10-08T03:58:38.635000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/LL6Z4H6MFNNZLCRAPG5MZOBYUY.jpg?auth=cd9c28a01be3013c5fded774ed536eeda80120933a60decc2627de24f37a23e9&smart=true&width=1920",
+      "category": "sport",
+      "topics": []
+    },
+    {
+      "id": "a851c55391194441f508",
+      "source": "reuters",
+      "title": "Kyle Connor's 2 goals keep Jets rolling at expense of Avalanche",
+      "url": "https://www.reuters.com/sports/nhl/kyle-connors-2-goals-keep-jets-rolling-expense-avalanche--flm-2026-10-08/",
+      "publishedAt": "2026-10-08T03:58:32.837000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/64VYWDRNZRJQHOXUKHSKJDPPCI.jpg?auth=04375fa8917860631a4a6133d139355932d07af71ec86294959f53394c4f5118&smart=true&width=1920",
+      "category": "sport",
+      "topics": []
+    },
+    {
+      "id": "1fee4e6f1e43c3baee5f",
+      "source": "reuters",
+      "title": "Indian shares open lower as hawkish RBI rate hike, rising oil dent sentiment",
+      "url": "https://www.reuters.com/world/india/indian-shares-poised-muted-start-tcs-kicks-off-earnings-season-2026-10-08/",
+      "publishedAt": "2026-10-08T03:56:24.851000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/HHYESEPKURLKNBUBRY6Y5P3HIY.jpg?auth=a820259c6f043e9e032203fc913ce5d65ee4ac08318cb0309b4bda108eb89e8c&smart=true&width=1920",
+      "category": "markets",
+      "topics": []
+    },
+    {
+      "id": "81c76bf0dee5e866b0f7",
+      "source": "kompas",
+      "title": "Rupiah Menguat, Dolar AS Tertekan Usai Risalah The Fed",
+      "url": "https://money.kompas.com/read/2026/10/08/105517126/rupiah-menguat-dolar-as-tertekan-usai-risalah-the-fed",
+      "publishedAt": "2026-10-08T03:55:17+00:00",
+      "image": "https://asset.kompas.com/crops/jcjirvYW-IEhEe5M-FNSXoS908Y=/0x0:4828x3219/750x500/data/photo/2026/05/04/69f8af325f993.jpg",
+      "category": "local",
+      "topics": [
+        "fed"
+      ]
+    },
+    {
+      "id": "f485155921d2bbcd4689",
+      "source": "bloomberg",
+      "title": "Korea Mulls Banning Unlicensed Foreign Banks’ Global Bond Deals",
+      "url": "https://www.bloomberg.com/news/articles/2026-10-08/korea-mulls-banning-unlicensed-foreign-banks-global-bond-deals",
+      "publishedAt": "2026-10-08T03:54:17+00:00",
+      "image": null,
+      "category": "markets",
+      "topics": []
+    },
+    {
+      "id": "e4b32df238b4d8e46e36",
+      "source": "bloomberg",
+      "title": "Vietnam’s Long Thanh Airport Faces Uphill Battle to Open on Time",
+      "url": "https://www.bloomberg.com/news/articles/2026-10-08/vietnam-s-long-thanh-airport-faces-uphill-battle-to-open-on-time",
+      "publishedAt": "2026-10-08T03:51:50+00:00",
+      "image": null,
+      "category": "other",
+      "topics": []
+    },
     {
       "id": "f45dc0bdc2d71d987d44",
       "source": "kompas",
@@ -162,6 +264,26 @@
       ]
     },
     {
+      "id": "f0bdaab4773f889d6244",
+      "source": "reuters",
+      "title": "Tokyo Financial Exchange launches new BOJ rate futures as policy shifts accelerate",
+      "url": "https://www.reuters.com/world/asia-pacific/tokyo-financial-exchange-launches-new-boj-rate-futures-policy-shifts-accelerate-2026-10-08/",
+      "publishedAt": "2026-10-08T03:45:56.270000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/2LCNUC3FJRNTJMXP54MCQJXYII.jpg?auth=d6a4966c3d17b0d52a5a6a419cde63786caf8de901272b7683b8525e2f805b27&smart=true&width=1920",
+      "category": "world",
+      "topics": []
+    },
+    {
+      "id": "daee9a8d1cd659bbed74",
+      "source": "reuters",
+      "title": "Israelis mark three years since October 7 as Palestinians mourn Gaza's destruction",
+      "url": "https://www.reuters.com/world/middle-east/israelis-mark-three-years-since-hamas-attack-that-set-off-gaza-assault-2026-10-07/",
+      "publishedAt": "2026-10-08T03:45:50.514000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/YXLHGZRYRFPWJDL6WRYDJA5IUQ.jpg?auth=34d687dab6a4d723fe35d9e329dec4e742fa1b02f4c31e3c6501c1e748cd36bc&smart=true&width=1920",
+      "category": "world",
+      "topics": []
+    },
+    {
       "id": "74d89ab0841fb3c29554",
       "source": "kompas",
       "title": "Daftar Pinjol Resmi OJK Oktober 2026, Ini Layanan yang Berizin",
@@ -169,16 +291,6 @@
       "publishedAt": "2026-10-08T03:41:51+00:00",
       "image": "https://asset.kompas.com/crops/EfAuRL_yklnUyNws7BoCq2JMoII=/0x0:4974x3316/750x500/data/photo/2025/07/07/686b48e653ae5.jpg",
       "category": "local",
-      "topics": []
-    },
-    {
-      "id": "a851c55391194441f508",
-      "source": "reuters",
-      "title": "Kyle Connor's 2 goals keep Jets rolling at expense of Avalanche",
-      "url": "https://www.reuters.com/sports/nhl/kyle-connors-2-goals-keep-jets-rolling-expense-avalanche--flm-2026-10-08/",
-      "publishedAt": "2026-10-08T03:41:25.736000+00:00",
-      "image": "https://www.reuters.com/resizer/v2/64VYWDRNZRJQHOXUKHSKJDPPCI.jpg?auth=04375fa8917860631a4a6133d139355932d07af71ec86294959f53394c4f5118&smart=true&width=1920",
-      "category": "sport",
       "topics": []
     },
     {
@@ -232,16 +344,6 @@
       "topics": []
     },
     {
-      "id": "0af9ff33bdc16977f244",
-      "source": "reuters",
-      "title": "Rays, benefiting from fan-interference call, complete sweep of Yankees",
-      "url": "https://www.reuters.com/sports/baseball/rays-benefiting-fan-interference-call-complete-sweep-yankees--flm-2026-10-08/",
-      "publishedAt": "2026-10-08T03:35:35.025000+00:00",
-      "image": "https://www.reuters.com/resizer/v2/LL6Z4H6MFNNZLCRAPG5MZOBYUY.jpg?auth=cd9c28a01be3013c5fded774ed536eeda80120933a60decc2627de24f37a23e9&smart=true&width=1920",
-      "category": "sport",
-      "topics": []
-    },
-    {
       "id": "fd78f9d23ae52c2c9871",
       "source": "detik",
       "title": "Layang-layang Nyangkut di Sekitar Jalur Whoosh Masih Terjadi!",
@@ -292,26 +394,6 @@
       "topics": [
         "politics"
       ]
-    },
-    {
-      "id": "f0bdaab4773f889d6244",
-      "source": "reuters",
-      "title": "Tokyo Financial Exchange launches new BOJ rate futures as policy shifts accelerate",
-      "url": "https://www.reuters.com/world/asia-pacific/tokyo-financial-exchange-launches-new-boj-rate-futures-policy-shifts-accelerate-2026-10-08/",
-      "publishedAt": "2026-10-08T03:27:42.637000+00:00",
-      "image": "https://www.reuters.com/resizer/v2/2LCNUC3FJRNTJMXP54MCQJXYII.jpg?auth=d6a4966c3d17b0d52a5a6a419cde63786caf8de901272b7683b8525e2f805b27&smart=true&width=1920",
-      "category": "world",
-      "topics": []
-    },
-    {
-      "id": "b861f3e09eab669cbc58",
-      "source": "reuters",
-      "title": "CrowdStrike says China-based suspect used AI tools in South Korean bank hacks",
-      "url": "https://www.reuters.com/world/suspect-behind-south-korea-bank-hacks-may-be-26-year-old-china-cybersecurity-2026-10-08/",
-      "publishedAt": "2026-10-08T03:26:52.267000+00:00",
-      "image": "https://www.reuters.com/resizer/v2/VGTDWW26GRL4RARMHPXXLZCTHA.jpg?auth=5175f6223a6753453c4d31f02f4d865ebbd5ef632bce5a4cff7dccc29767ab1e&smart=true&width=1920",
-      "category": "technology",
-      "topics": []
     },
     {
       "id": "621fd85e33eb2935dc1e",
@@ -620,6 +702,16 @@
       "topics": []
     },
     {
+      "id": "c0a1b8dc54c4214401a6",
+      "source": "detik",
+      "title": "1,2 Miliar Batang Rokok Ilegal Disita Bea Cukai hingga September",
+      "url": "https://finance.detik.com/berita-ekonomi-bisnis/d-8697571/1-2-miliar-batang-rokok-ilegal-disita-bea-cukai-hingga-september",
+      "publishedAt": "2026-10-08T02:46:15+00:00",
+      "image": "https://akcdn.detik.net.id/community/media/visual/2026/10/08/menteri-keuangan-suahasil-1791428499832_169.jpeg?w=360&q=90",
+      "category": "business",
+      "topics": []
+    },
+    {
       "id": "4014e418a07975400afe",
       "source": "reuters",
       "title": "At least 28 killed in Ukraine, Zelenskiy condemns one of Russia's most 'vile strikes'",
@@ -741,16 +833,6 @@
       "publishedAt": "2026-10-08T02:25:31.604000+00:00",
       "image": "https://www.reuters.com/resizer/v2/BV4OA6YCMNPZNDTI3ERURSWMFQ.jpg?auth=28958a2d308582159e87923a1e682b9d691ac55d1d3f857907e1085eac594a7d&smart=true&width=1920",
       "category": "business",
-      "topics": []
-    },
-    {
-      "id": "1fee4e6f1e43c3baee5f",
-      "source": "reuters",
-      "title": "Indian shares poised for muted start, TCS kicks off earnings season",
-      "url": "https://www.reuters.com/world/india/indian-shares-poised-muted-start-tcs-kicks-off-earnings-season-2026-10-08/",
-      "publishedAt": "2026-10-08T02:24:00.268000+00:00",
-      "image": "https://www.reuters.com/resizer/v2/HHYESEPKURLKNBUBRY6Y5P3HIY.jpg?auth=a820259c6f043e9e032203fc913ce5d65ee4ac08318cb0309b4bda108eb89e8c&smart=true&width=1920",
-      "category": "markets",
       "topics": []
     },
     {
@@ -1454,7 +1536,7 @@
     {
       "id": "840bc12673ac70d293dd",
       "source": "bloomberg",
-      "title": "Japanese Stocks Fall as Inflation Fears Hit Cyclical Shares",
+      "title": "Japanese Equities Decline as Topix Weighting Announcement Weighs",
       "url": "https://www.bloomberg.com/news/articles/2026-10-08/japanese-stocks-fall-as-inflation-fears-hit-cyclical-shares",
       "publishedAt": "2026-10-08T00:27:54+00:00",
       "image": null,
@@ -3958,16 +4040,6 @@
       "url": "https://www.reuters.com/world/china/china-rejects-eu-request-voluntary-hybrid-car-export-curbs-ft-reports-2026-10-07/",
       "publishedAt": "2026-10-07T17:11:44.958000+00:00",
       "image": "https://www.reuters.com/resizer/v2/GY4YWDMFXRMJJI7SQT6S44YMYM.jpg?auth=87bcab8b92b11bade3760c57869adf5a8ed8773b34a073e899eeb87fbcb19934&smart=true&width=1920",
-      "category": "world",
-      "topics": []
-    },
-    {
-      "id": "a8f6bc6f2216d1bef7c1",
-      "source": "reuters",
-      "title": "Israelis mark three years since October 7 as Palestinians mourn Gaza's destruction",
-      "url": "https://www.reuters.com/world/middle-east/israelis-mark-three-years-since-hamas-attack-that-set-off-gaza-assault-2026-10-07/",
-      "publishedAt": "2026-10-07T17:11:19.794000+00:00",
-      "image": "https://www.reuters.com/resizer/v2/YXLHGZRYRFPWJDL6WRYDJA5IUQ.jpg?auth=34d687dab6a4d723fe35d9e329dec4e742fa1b02f4c31e3c6501c1e748cd36bc&smart=true&width=1920",
       "category": "world",
       "topics": []
     },
@@ -10935,6 +11007,56 @@
       "publishedAt": null,
       "image": "https://content-media.investing.com/news/LYNXMPEBBR0PM_M.jpg",
       "category": "markets",
+      "topics": []
+    },
+    {
+      "id": "34f4cff37b219640cdb1",
+      "source": "kontan",
+      "title": "Houthi Klaim Serang Bandara Riyadh Arab Saudi dengan Rudal Balistik",
+      "url": "https://internasional.kontan.co.id/news/houthi-klaim-serang-bandara-riyadh-arab-saudi-dengan-rudal-balistik?source=home_headline",
+      "publishedAt": null,
+      "image": "https://foto.kontan.co.id/BemShJPOwcmWm4ENYnbDGGOjaN0=/smart/2026/09/20/96381381p.jpg",
+      "category": "other",
+      "topics": []
+    },
+    {
+      "id": "1695c13dad4fd53c8985",
+      "source": "kontan",
+      "title": "Harga Emas Antam Turun Rp 15.000 Jadi Rp 2.565.000 per Gram Kamis (8/10)",
+      "url": "https://investasi.kontan.co.id/news/harga-emas-antam-turun-rp-15000-jadi-rp-2565000-per-gram-kamis-810?source=home_headline",
+      "publishedAt": null,
+      "image": "https://foto.kontan.co.id/nJ-5GAQ2hRsPl5m0_ICgJFxvzqg=/smart/2026/09/28/1710153795p.jpg",
+      "category": "local",
+      "topics": []
+    },
+    {
+      "id": "eddb14c46e5470e5e54e",
+      "source": "kontan",
+      "title": "Houthi Klaim Serang Bandara Riyadh Arab Saudi dengan Rudal Balistik",
+      "url": "https://internasional.kontan.co.id/news/houthi-klaim-serang-bandara-riyadh-arab-saudi-dengan-rudal-balistik?source=home_terbaru",
+      "publishedAt": null,
+      "image": "https://foto.kontan.co.id/Dx612vvQHlRGLq1K5UKbig40v2o=/smart/2026/09/20/96381381t.jpg",
+      "category": "other",
+      "topics": []
+    },
+    {
+      "id": "33e52cc825a8ea43ede3",
+      "source": "kontan",
+      "title": "IHSG Turun 6,96% pada September, EBC Soroti Aturan Baru dan Aksi Jual Asing",
+      "url": "https://investasi.kontan.co.id/news/ihsg-turun-696-pada-september-ebc-soroti-aturan-baru-dan-aksi-jual-asing?source=home_terbaru",
+      "publishedAt": null,
+      "image": "https://foto.kontan.co.id/zt9Y6Pj0XV6SoZ93eJ4ihynhZE8=/smart/2026/09/15/128947954t.jpg",
+      "category": "local",
+      "topics": []
+    },
+    {
+      "id": "8ccedca55806572eda67",
+      "source": "kontan",
+      "title": "Populasi Satwa Liar Turun 73% Sejak 1970, WWF Ungkap Ancaman Biodiversitas",
+      "url": "https://internasional.kontan.co.id/news/populasi-satwa-liar-turun-73-sejak-1970-wwf-ungkap-ancaman-biodiversitas?source=home_terbaru",
+      "publishedAt": null,
+      "image": "https://foto.kontan.co.id/F8PxPYoV2h3UQodqnjOb8MyVV08=/smart/2026/10/08/1465534911t.jpg",
+      "category": "other",
       "topics": []
     }
   ]
