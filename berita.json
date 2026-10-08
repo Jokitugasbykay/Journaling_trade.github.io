@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "checkedAt": "2026-10-08T04:03:33.193605+00:00",
+  "checkedAt": "2026-10-08T04:27:15.206489+00:00",
   "intervalMinutes": 5,
   "sources": [
     {
@@ -9,7 +9,7 @@
       "url": "https://www.investing.com/",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-08T04:03:16.989839+00:00"
+      "checkedAt": "2026-10-08T04:26:52.654209+00:00"
     },
     {
       "id": "cnbc",
@@ -17,7 +17,7 @@
       "url": "https://www.cnbc.com/markets/",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-08T04:03:16.906474+00:00"
+      "checkedAt": "2026-10-08T04:26:52.701404+00:00"
     },
     {
       "id": "kontan",
@@ -25,7 +25,7 @@
       "url": "https://www.kontan.co.id/",
       "kind": "html",
       "status": "ok",
-      "checkedAt": "2026-10-08T04:03:17.565603+00:00"
+      "checkedAt": "2026-10-08T04:26:53.921283+00:00"
     },
     {
       "id": "reuters",
@@ -33,7 +33,7 @@
       "url": "https://www.reuters.com/",
       "kind": "sitemap",
       "status": "ok",
-      "checkedAt": "2026-10-08T04:03:20.331553+00:00"
+      "checkedAt": "2026-10-08T04:26:53.007235+00:00"
     },
     {
       "id": "aljazeera",
@@ -41,7 +41,7 @@
       "url": "https://www.aljazeera.com/",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-08T04:03:17.043940+00:00"
+      "checkedAt": "2026-10-08T04:26:52.688206+00:00"
     },
     {
       "id": "bloomberg",
@@ -49,7 +49,7 @@
       "url": "https://www.bloomberg.com/asia",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-08T04:03:17.251494+00:00"
+      "checkedAt": "2026-10-08T04:26:53.091236+00:00"
     },
     {
       "id": "fnc",
@@ -57,7 +57,7 @@
       "url": "https://tradewithfnc.com/",
       "kind": "json",
       "status": "ok",
-      "checkedAt": "2026-10-08T04:03:17.781506+00:00"
+      "checkedAt": "2026-10-08T04:26:53.710074+00:00"
     },
     {
       "id": "investing_id",
@@ -65,7 +65,7 @@
       "url": "https://id.investing.com/news",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-08T04:03:17.227416+00:00"
+      "checkedAt": "2026-10-08T04:26:52.992404+00:00"
     },
     {
       "id": "pluang",
@@ -73,7 +73,7 @@
       "url": "https://pluang.com/news-feed",
       "kind": "html",
       "status": "ok",
-      "checkedAt": "2026-10-08T04:03:18.149032+00:00"
+      "checkedAt": "2026-10-08T04:26:53.895817+00:00"
     },
     {
       "id": "kompas",
@@ -81,14 +81,14 @@
       "url": "https://money.kompas.com/",
       "kind": "html",
       "status": "ok",
-      "checkedAt": "2026-10-08T04:03:18.705726+00:00"
+      "checkedAt": "2026-10-08T04:26:53.516427+00:00"
     },
     {
       "id": "detik",
       "name": "detikFinance",
       "url": "https://finance.detik.com/",
       "kind": "rss",
-      "status": "ok",
+      "status": "stale",
       "checkedAt": "2026-10-08T04:03:18.863682+00:00"
     },
     {
@@ -121,7 +121,7 @@
       "url": "https://ekbis.sindonews.com/",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-08T04:03:18.179049+00:00"
+      "checkedAt": "2026-10-08T04:26:53.865198+00:00"
     },
     {
       "id": "fedwatch",
@@ -140,6 +140,168 @@
   ],
   "items": [
     {
+      "id": "14d855b566df8df0c09d",
+      "source": "kompas",
+      "title": "The Fed Masih Pertimbangkan Kenaikan Suku Bunga hingga Akhir 2026",
+      "url": "https://money.kompas.com/read/2026/10/08/112126926/the-fed-masih-pertimbangkan-kenaikan-suku-bunga-hingga-akhir-2026",
+      "publishedAt": "2026-10-08T04:21:26+00:00",
+      "image": "https://asset.kompas.com/crops/9fqS2yFxeOgfl9nTh2t9-iIo-Y8=/100x67:900x600/750x500/data/photo/2023/09/19/650929abcfa99.jpg",
+      "category": "markets",
+      "topics": [
+        "fed"
+      ]
+    },
+    {
+      "id": "379430de4c9f6f002a01",
+      "source": "reuters",
+      "title": "French mayor caught in viral video clash says student protesters 'could be my children'",
+      "url": "https://www.reuters.com/world/french-mayor-caught-viral-video-clash-says-student-protesters-could-be-my-2026-10-07/",
+      "publishedAt": "2026-10-08T04:19:08.884000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/ICD5D26ENBMVHMSWAJ7BYFDALM.jpg?auth=8860367fa76e99519709d1fc0082299d84d6e8118969789873fdc362ea0bafbc&smart=true&width=1920",
+      "category": "world",
+      "topics": []
+    },
+    {
+      "id": "04958ad6ffc0f6ea12f5",
+      "source": "reuters",
+      "title": "Thai household debt trap tests growth ambitions as Bangkok hosts IMF",
+      "url": "https://www.reuters.com/world/asia-pacific/thai-household-debt-trap-tests-growth-ambitions-bangkok-hosts-imf-2026-10-08/",
+      "publishedAt": "2026-10-08T04:17:57.601000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/ZF45ZGBQOFJMRBZ5MSRKWQWW7E.jpg?auth=bae3c1d3e059ced9af928ca9beb2b8faab550ec6e0c86482877160b18d3c1c28&smart=true&width=1920",
+      "category": "world",
+      "topics": []
+    },
+    {
+      "id": "eace393a4fef91e9959f",
+      "source": "kompas",
+      "title": "Menkeu Suahasil: APBN Harus Fleksibel Hadapi Situasi Geopolitik",
+      "url": "https://money.kompas.com/read/2026/10/08/111753926/menkeu-suahasil-apbn-harus-fleksibel-hadapi-situasi-geopolitik",
+      "publishedAt": "2026-10-08T04:17:53+00:00",
+      "image": "https://asset.kompas.com/crops/Vjp9IENb_S0tfa5JdRaygZ3ToTs=/0x0:0x0/750x500/data/photo/2026/09/30/6abd15d0cb699.jpg",
+      "category": "local",
+      "topics": []
+    },
+    {
+      "id": "cfb88607f89116d5d37d",
+      "source": "reuters",
+      "title": "US opens direct talks with Myanmar's generals, reversing years of isolation",
+      "url": "https://www.reuters.com/world/asia-pacific/us-opens-direct-talks-with-myanmars-generals-reversing-years-isolation-2026-10-08/",
+      "publishedAt": "2026-10-08T04:17:05.923000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/2QGOWEYLRBNEDAYP2XOICFKSXU.jpg?auth=7b2a30e475c3c6142c0da0bf517cd6cfb688701e3a023de843f74fe352d6dc67&smart=true&width=1920",
+      "category": "world",
+      "topics": []
+    },
+    {
+      "id": "d98930cc236cdb8646a7",
+      "source": "reuters",
+      "title": "Malaysia PM says he will do whatever possible to ensure Myanmar's acceptance in regional community",
+      "url": "https://www.reuters.com/world/asia-pacific/malaysia-pm-says-he-will-do-whatever-possible-ensure-myanmars-acceptance-2026-10-08/",
+      "publishedAt": "2026-10-08T04:16:09.594000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/G7M6FFYUABKIXBKKZVZ24KC7RM.jpg?auth=ed37b90016e5d2a72363fc0ad6894d86c475a7a6972a6466091f4300102e6028&smart=true&width=1920",
+      "category": "world",
+      "topics": []
+    },
+    {
+      "id": "f53d078aa5d9ac69e7c3",
+      "source": "reuters",
+      "title": "Encroaching energy, mine concessions threaten protected ecosystems, research shows",
+      "url": "https://www.reuters.com/legal/litigation/encroaching-energy-mine-concessions-threaten-protected-ecosystems-research-shows-2026-10-08/",
+      "publishedAt": "2026-10-08T04:15:43.837000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/WCN5V66L3VKBJNQQ6L6L4ED5SI.jpg?auth=29c881bfacb8e1a87402064e0dedc693e4a29cc9793a2c93800ed53fd0c5b67f&smart=true&width=1920",
+      "category": "legal",
+      "topics": []
+    },
+    {
+      "id": "0cd1ba5b356ecd803f45",
+      "source": "reuters",
+      "title": "Britain removes East Jerusalem consulate signage as Israeli shutdown order expires",
+      "url": "https://www.reuters.com/world/middle-east/britain-removes-east-jerusalem-consulate-signage-israeli-shutdown-order-expires-2026-10-08/",
+      "publishedAt": "2026-10-08T04:14:17.557000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/2LWDTYLEABMBXAS7SAZOLUUMVY.jpg?auth=4c72b27b5730f16d12173314d5005ef112df965b08e89b236bbf5d5605b03696&smart=true&width=1920",
+      "category": "world",
+      "topics": []
+    },
+    {
+      "id": "bded92132fc2488e2a0f",
+      "source": "cnbc",
+      "title": "Elon Musk blames Indian 'oligarchs' for stalling Starlink launch",
+      "url": "https://www.cnbc.com/2026/10/08/elon-musk-starlink-spacex-jio-airtel-india.html",
+      "publishedAt": "2026-10-08T04:12:57+00:00",
+      "image": "https://image.cnbcfm.com/api/v1/image/108315896-1780491649482-gettyimages-1175168392-AFP_1LB3WB.jpeg?v=1781036537&w=1920&h=1080",
+      "category": "other",
+      "topics": []
+    },
+    {
+      "id": "8b027115d6ab5dcfc536",
+      "source": "reuters",
+      "title": "Samsung's AI riches lag Nvidia's money machine",
+      "url": "https://www.reuters.com/commentary/breakingviews/samsungs-ai-riches-lag-nvidias-money-machine-2026-10-08/",
+      "publishedAt": "2026-10-08T04:12:46.580000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/CXKLRLN77NJXFLBC2O5RXZLEJE.jpg?auth=b5b0a75d1dd966d3f9f4c050c39c54c34e0dab62a2f3bc8b6051ed869397329d&smart=true&width=1920",
+      "category": "commentary",
+      "topics": []
+    },
+    {
+      "id": "860455ba12c4f6838546",
+      "source": "reuters",
+      "title": "South Korea, Egypt upgrade ties to strategic partnership, Lee says",
+      "url": "https://www.reuters.com/world/asia-pacific/south-korea-egypt-upgrade-bilateral-ties-strategic-partnership-2026-10-08/",
+      "publishedAt": "2026-10-08T04:08:39.593000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/JZZUA6AWBNKD3CL5LJG2RKTTWE.jpg?auth=c9b8644f8282c10faea1e51d57619a16768b5c584314cc08bbf008345e18f31b&smart=true&width=1920",
+      "category": "world",
+      "topics": []
+    },
+    {
+      "id": "0af9ff33bdc16977f244",
+      "source": "reuters",
+      "title": "Rays, benefiting from fan-interference call, complete sweep of Yankees",
+      "url": "https://www.reuters.com/sports/baseball/rays-benefiting-fan-interference-call-complete-sweep-yankees--flm-2026-10-08/",
+      "publishedAt": "2026-10-08T04:08:36.654000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/LL6Z4H6MFNNZLCRAPG5MZOBYUY.jpg?auth=cd9c28a01be3013c5fded774ed536eeda80120933a60decc2627de24f37a23e9&smart=true&width=1920",
+      "category": "sport",
+      "topics": []
+    },
+    {
+      "id": "0ac719909d2b45ae9b06",
+      "source": "kompas",
+      "title": "DJBC Tindak 1,2 Miliar Batang Rokok Ilegal hingga September 2026",
+      "url": "https://money.kompas.com/read/2026/10/08/110805226/djbc-tindak-12-miliar-batang-rokok-ilegal-hingga-september-2026",
+      "publishedAt": "2026-10-08T04:08:05+00:00",
+      "image": "https://asset.kompas.com/crops/XWo5xhU3fzQqfYUgTqprPVbKMVw=/0x0:1920x1280/750x500/data/photo/2024/10/28/671f52ef8cc73.jpg",
+      "category": "other",
+      "topics": []
+    },
+    {
+      "id": "d78bcfb683071fb26490",
+      "source": "cnbc",
+      "title": "Oil gains as Middle East hostilities, potential escalation stoke supply worries",
+      "url": "https://www.cnbc.com/2026/10/08/oil-prices-today-brent-wti-hormuz.html",
+      "publishedAt": "2026-10-08T04:07:51+00:00",
+      "image": "https://image.cnbcfm.com/api/v1/image/108364361-1789650277260-gettyimages-2294896140-AA_15092026_2952186.jpeg?v=1789667988&w=1920&h=1080",
+      "category": "markets",
+      "topics": []
+    },
+    {
+      "id": "fee80d864531be83763a",
+      "source": "kompas",
+      "title": "Potensi 128 Cekungan Migas, Investasi Butuh Kepastian Regulasi",
+      "url": "https://money.kompas.com/read/2026/10/08/110421826/potensi-128-cekungan-migas-investasi-butuh-kepastian-regulasi",
+      "publishedAt": "2026-10-08T04:04:21+00:00",
+      "image": "https://asset.kompas.com/crops/uUL75mfDkHXsEancURK44xZIvDE=/0x61:1000x561/750x500/data/photo/2018/11/16/22186272562.jpg",
+      "category": "other",
+      "topics": []
+    },
+    {
+      "id": "48572f131975f40a31c1",
+      "source": "kompas",
+      "title": "Pengiriman Trainset INKA Dongkrak Kinerja Angkutan Barang KAI Daop 7 Hingga 1.100 Persen(LESTARI)",
+      "url": "https://money.kompas.com/read/2026/10/08/110313326/pengiriman-trainset-inka-dongkrak-kinerja-angkutan-barang-kai-daop-7-hingga",
+      "publishedAt": "2026-10-08T04:03:13+00:00",
+      "image": "https://asset.kompas.com/crops/DYH1ihl-Jv7rBpCdpWj_XHrA9Bc=/7x5:1269x847/750x500/data/photo/2026/09/29/6abba735cd0f9.jpeg",
+      "category": "other",
+      "topics": []
+    },
+    {
       "id": "e8c5cdc798a9d8e2a190",
       "source": "bloomberg",
       "title": "WTO's Okonjo-Iweala on Why Globalization Needs a Rethink",
@@ -154,9 +316,19 @@
       "source": "reuters",
       "title": "CrowdStrike says China-based suspect used AI tools in South Korean bank hacks",
       "url": "https://www.reuters.com/world/suspect-behind-south-korea-bank-hacks-may-be-26-year-old-china-cybersecurity-2026-10-08/",
-      "publishedAt": "2026-10-08T04:01:29.009000+00:00",
-      "image": "https://www.reuters.com/resizer/v2/VGTDWW26GRL4RARMHPXXLZCTHA.jpg?auth=5175f6223a6753453c4d31f02f4d865ebbd5ef632bce5a4cff7dccc29767ab1e&smart=true&width=1920",
+      "publishedAt": "2026-10-08T04:01:44.229000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/DAIR7LFZO5NI5HB63HE23ZEZZU.jpg?auth=cce50667d2a6f8815d897fc57ae317fcf86e8261309fe0230511249c7ffd3da3&smart=true&width=1920",
       "category": "technology",
+      "topics": []
+    },
+    {
+      "id": "6ec05a46f81104c3944e",
+      "source": "bloomberg",
+      "title": "WTO Chief Sees Urgent Need to Harden Supply Lines as World Frays",
+      "url": "https://www.bloomberg.com/news/articles/2026-10-08/wto-chief-sees-urgent-need-to-harden-supply-lines-as-world-frays",
+      "publishedAt": "2026-10-08T04:01:00+00:00",
+      "image": null,
+      "category": "other",
       "topics": []
     },
     {
@@ -177,16 +349,6 @@
       "publishedAt": "2026-10-08T03:59:38+00:00",
       "image": "https://asset.kompas.com/crops/tTWQpGTewAaStpyxMxU_F7H2aVo=/0x0:0x0/750x500/data/photo/2026/09/28/6aba24b8be36b.jpg",
       "category": "other",
-      "topics": []
-    },
-    {
-      "id": "0af9ff33bdc16977f244",
-      "source": "reuters",
-      "title": "Rays, benefiting from fan-interference call, complete sweep of Yankees",
-      "url": "https://www.reuters.com/sports/baseball/rays-benefiting-fan-interference-call-complete-sweep-yankees--flm-2026-10-08/",
-      "publishedAt": "2026-10-08T03:58:38.635000+00:00",
-      "image": "https://www.reuters.com/resizer/v2/LL6Z4H6MFNNZLCRAPG5MZOBYUY.jpg?auth=cd9c28a01be3013c5fded774ed536eeda80120933a60decc2627de24f37a23e9&smart=true&width=1920",
-      "category": "sport",
       "topics": []
     },
     {
@@ -316,7 +478,7 @@
     {
       "id": "ace413311d151d8bc2ec",
       "source": "bloomberg",
-      "title": "Japan 30-Year Bond Sale Sees Firmer Demand Than 12-Month Average",
+      "title": "Japan 30-Year Bond Auction Sees Firm Demand on Elevated Yields",
       "url": "https://www.bloomberg.com/news/articles/2026-10-08/japan-30-year-bond-sale-sees-firmer-demand-than-12-month-average-muyzkqpv",
       "publishedAt": "2026-10-08T03:38:03+00:00",
       "image": null,
@@ -331,16 +493,6 @@
       "publishedAt": "2026-10-08T03:37:54+00:00",
       "image": "https://asset.kompas.com/crops/vSWb4QerHR-QTrJiceOuWsE8Yg0=/0x0:0x0/750x500/data/photo/2026/07/24/6a635c52f26ad.jpg",
       "category": "other",
-      "topics": []
-    },
-    {
-      "id": "860455ba12c4f6838546",
-      "source": "reuters",
-      "title": "South Korea, Egypt upgrade bilateral ties to strategic partnership",
-      "url": "https://www.reuters.com/world/asia-pacific/south-korea-egypt-upgrade-bilateral-ties-strategic-partnership-2026-10-08/",
-      "publishedAt": "2026-10-08T03:36:25.851000+00:00",
-      "image": "https://www.reuters.com/resizer/v2/JZZUA6AWBNKD3CL5LJG2RKTTWE.jpg?auth=c9b8644f8282c10faea1e51d57619a16768b5c584314cc08bbf008345e18f31b&smart=true&width=1920",
-      "category": "world",
       "topics": []
     },
     {
@@ -443,16 +595,6 @@
       "publishedAt": "2026-10-08T03:21:56+00:00",
       "image": "https://akcdn.detik.net.id/community/media/visual/2025/09/08/kantor-bpkh-1757311028489_169.jpeg?w=360&q=90",
       "category": "business",
-      "topics": []
-    },
-    {
-      "id": "8b027115d6ab5dcfc536",
-      "source": "reuters",
-      "title": "Samsung's AI riches lag Nvidia's money machine",
-      "url": "https://www.reuters.com/commentary/breakingviews/samsungs-ai-riches-lag-nvidias-money-machine-2026-10-08/",
-      "publishedAt": "2026-10-08T03:19:59.628000+00:00",
-      "image": null,
-      "category": "commentary",
       "topics": []
     },
     {
@@ -612,16 +754,6 @@
       "topics": []
     },
     {
-      "id": "bded92132fc2488e2a0f",
-      "source": "cnbc",
-      "title": "Elon Musk blames Indian 'oligarchs' for stalling Starlink launch",
-      "url": "https://www.cnbc.com/2026/10/08/elon-musk-starlink-spacex-jio-airtel-india.html",
-      "publishedAt": "2026-10-08T02:55:34+00:00",
-      "image": "https://image.cnbcfm.com/api/v1/image/108315896-1780491649482-gettyimages-1175168392-AFP_1LB3WB.jpeg?v=1781036537&w=1920&h=1080",
-      "category": "other",
-      "topics": []
-    },
-    {
       "id": "8909ccc2af6576eada6a",
       "source": "kompas",
       "title": "IHSG Berbalik Turun, Sempat Sentuh 6.179 pada Awal Perdagangan",
@@ -659,16 +791,6 @@
       "publishedAt": "2026-10-08T02:50:17+00:00",
       "image": "https://www.aljazeera.com/wp-content/uploads/2026/10/getty_6ac6f66c78-1791424108.jpg?resize=1920%2C1440",
       "category": "other",
-      "topics": []
-    },
-    {
-      "id": "379430de4c9f6f002a01",
-      "source": "reuters",
-      "title": "French mayor caught in viral video clash says student protesters 'could be my children'",
-      "url": "https://www.reuters.com/world/french-mayor-caught-viral-video-clash-says-student-protesters-could-be-my-2026-10-07/",
-      "publishedAt": "2026-10-08T02:49:57.726000+00:00",
-      "image": "https://www.reuters.com/resizer/v2/ICD5D26ENBMVHMSWAJ7BYFDALM.jpg?auth=8860367fa76e99519709d1fc0082299d84d6e8118969789873fdc362ea0bafbc&smart=true&width=1920",
-      "category": "world",
       "topics": []
     },
     {
@@ -1077,26 +1199,6 @@
       "publishedAt": "2026-10-08T01:48:25+00:00",
       "image": "https://asset.kompas.com/crops/2CuBeaZxggKte70V0st4GByiluU=/25x0:1256x821/750x500/data/photo/2026/01/14/69672e8cde085.png",
       "category": "other",
-      "topics": []
-    },
-    {
-      "id": "d78bcfb683071fb26490",
-      "source": "cnbc",
-      "title": "Oil gains as Middle East hostilities stoke supply worries",
-      "url": "https://www.cnbc.com/2026/10/08/oil-prices-today-brent-wti-hormuz.html",
-      "publishedAt": "2026-10-08T01:46:56+00:00",
-      "image": "https://image.cnbcfm.com/api/v1/image/108364361-1789650277260-gettyimages-2294896140-AA_15092026_2952186.jpeg?v=1789667988&w=1920&h=1080",
-      "category": "markets",
-      "topics": []
-    },
-    {
-      "id": "04958ad6ffc0f6ea12f5",
-      "source": "reuters",
-      "title": "Thai household debt trap tests growth ambitions as Bangkok hosts IMF",
-      "url": "https://www.reuters.com/world/asia-pacific/thai-household-debt-trap-tests-growth-ambitions-bangkok-hosts-imf-2026-10-08/",
-      "publishedAt": "2026-10-08T01:46:47.727000+00:00",
-      "image": "https://www.reuters.com/resizer/v2/ZF45ZGBQOFJMRBZ5MSRKWQWW7E.jpg?auth=bae3c1d3e059ced9af928ca9beb2b8faab550ec6e0c86482877160b18d3c1c28&smart=true&width=1920",
-      "category": "world",
       "topics": []
     },
     {
@@ -10895,7 +10997,7 @@
       "title": "Mengapa saham Greentown China melonjak hari ini?",
       "url": "https://id.investing.com/news/stock-market-news/mengapa-saham-greentown-china-melonjak-hari-ini-93CH-3089956",
       "publishedAt": null,
-      "image": "https://content-media.investing.com/news/LYNXMPEBBR0PM_M.jpg",
+      "image": "https://content-media.investing.com/news/LYNXMPEBBR0PM_L.jpg",
       "category": "markets",
       "topics": []
     },
@@ -11057,6 +11159,220 @@
       "publishedAt": null,
       "image": "https://foto.kontan.co.id/F8PxPYoV2h3UQodqnjOb8MyVV08=/smart/2026/10/08/1465534911t.jpg",
       "category": "other",
+      "topics": []
+    },
+    {
+      "id": "81a938a204e246f7af58",
+      "source": "investing",
+      "title": "Encroaching energy, mine concessions threaten protected ecosystems, research shows",
+      "url": "https://www.investing.com/news/commodities-news/encroaching-energy-mine-concessions-threaten-protected-ecosystems-research-shows-4937868",
+      "publishedAt": null,
+      "image": "https://content-media.investing.com/trkd-images/LYNXMPEM9707L_L.jpg",
+      "category": "other",
+      "topics": []
+    },
+    {
+      "id": "25fa2555542b0f141a98",
+      "source": "investing",
+      "title": "HPE CEO Antonio Neri sells $17.1m in company stock",
+      "url": "https://www.investing.com/news/insider-trading-news/hpe-ceo-antonio-neri-sells-171m-in-company-stock-93CH-4937866",
+      "publishedAt": null,
+      "image": "https://content-media.investing.com/news/moved_LYNXMPEM3S10Z_1200_L.jpg",
+      "category": "markets",
+      "topics": []
+    },
+    {
+      "id": "2eb54248a93cceabcc4c",
+      "source": "investing",
+      "title": "Asia stocks fall as surging oil, yields weigh; Samsung slips despite record profit",
+      "url": "https://www.investing.com/news/stock-market-news/asia-stocks-fall-as-surging-oil-yields-weigh-samsung-slips-despite-record-profit-4937861",
+      "publishedAt": null,
+      "image": "https://content-media.investing.com/news/LYNXMPEB5F0CM_M.jpg",
+      "category": "markets",
+      "topics": []
+    },
+    {
+      "id": "ea2c9628d05cb1799c22",
+      "source": "investing",
+      "title": "US NHC says Isaias has become a hurricane",
+      "url": "https://www.investing.com/news/commodities-news/us-nhc-says-isaias-has-become-a-hurricane-4937857",
+      "publishedAt": null,
+      "image": "https://content-media.investing.com/trkd-images/LYNXMPEM97073_L.jpg",
+      "category": "other",
+      "topics": []
+    },
+    {
+      "id": "bba4909fb6d873e92d04",
+      "source": "investing",
+      "title": "Why is SK Hynix stock gaining today?",
+      "url": "https://www.investing.com/news/stock-market-news/why-is-sk-hynix-stock-gaining-today-93CH-4937860",
+      "publishedAt": null,
+      "image": "https://content-media.investing.com/news/LYNXNPEB6J0AJ_M.jpg",
+      "category": "markets",
+      "topics": []
+    },
+    {
+      "id": "0b6193b135412a995ea1",
+      "source": "investing",
+      "title": "Gift Nifty 50 trapped in downtrend below 22875: Live levels",
+      "url": "https://www.investing.com/news/stock-market-news/gift-nifty-50-downtrend-intact-near-key-resistance-live-levels-93CH-4930996",
+      "publishedAt": null,
+      "image": "https://content-media.investing.com/news/LYNXNPEB6U08A_M.jpg",
+      "category": "markets",
+      "topics": []
+    },
+    {
+      "id": "c40388851be54d210a38",
+      "source": "investing",
+      "title": "Asian currencies rangebound as dollar holds near 18-month high, yen slips",
+      "url": "https://www.investing.com/news/forex-news/asian-currencies-rangebound-as-dollar-holds-near-18month-high-yen-slips-4937859",
+      "publishedAt": null,
+      "image": "https://content-media.investing.com/news/LYNXMPEM4S0T5_1200_L.jpg",
+      "category": "markets",
+      "topics": []
+    },
+    {
+      "id": "84c960171ac79bcdab13",
+      "source": "kontan",
+      "title": "Perpres Ojol Resmi Terbit, Atur Tarif hingga Barang dan Makanan",
+      "url": "https://nasional.kontan.co.id/news/perpres-ojol-resmi-terbit-atur-tarif-hingga-barang-dan-makanan?source=home_headline",
+      "publishedAt": null,
+      "image": "https://foto.kontan.co.id/7HSCmM1oGoO_wLrLCJdJ94NrgEQ=/smart/2026/10/06/935524866p.jpg",
+      "category": "other",
+      "topics": [
+        "politics"
+      ]
+    },
+    {
+      "id": "7dae4cb098d409cb7244",
+      "source": "kontan",
+      "title": "BPKH Siapkan Rp 8,83 Triliun untuk Nilai Manfaat Haji 2027",
+      "url": "https://nasional.kontan.co.id/news/bpkh-siapkan-rp-883-triliun-untuk-nilai-manfaat-haji-2027?source=home_terbaru",
+      "publishedAt": null,
+      "image": "https://foto.kontan.co.id/XowhUOcw5Ub2GM_h7mhjb24gpxc=/smart/2026/10/08/597419200t.jpg",
+      "category": "other",
+      "topics": []
+    },
+    {
+      "id": "cad3e40be0fef716a06a",
+      "source": "kontan",
+      "title": "MUFG dan Bank Danamon Incar Potensi Besar Indonesia Lewat Integrasi",
+      "url": "https://insight.kontan.co.id/news/mufg-dan-bank-danamon-incar-potensi-besar-indonesia-lewat-integrasi?source=home_terbaru",
+      "publishedAt": null,
+      "image": "https://foto.kontan.co.id/ZUnG74ekiCdK0JhuXSNVZ1rHMZY=/smart/2026/10/06/1170176589t.jpg",
+      "category": "local",
+      "topics": []
+    },
+    {
+      "id": "5dc163b6da88c5322e3e",
+      "source": "kontan",
+      "title": "Perpres Ojol Terbit, Aturan Turunan Wajib Rampung 31 Desember 2026",
+      "url": "https://nasional.kontan.co.id/news/perpres-ojol-terbit-aturan-turunan-wajib-rampung-31-desember-2026?source=home_terbaru",
+      "publishedAt": null,
+      "image": "https://foto.kontan.co.id/KrMxG4PgRSs87tDGtMTGd3f9Vpc=/smart/2026/08/31/1344512118t.jpg",
+      "category": "other",
+      "topics": []
+    },
+    {
+      "id": "d6fccb3e67da93753479",
+      "source": "kontan",
+      "title": "Perpres Ojol Resmi Terbit, Atur Tarif hingga Barang dan Makanan",
+      "url": "https://nasional.kontan.co.id/news/perpres-ojol-resmi-terbit-atur-tarif-hingga-barang-dan-makanan?source=home_terbaru",
+      "publishedAt": null,
+      "image": "https://foto.kontan.co.id/eU_UcXmqgG5Ccj1CR6KWLVx9nSg=/smart/2026/10/06/935524866t.jpg",
+      "category": "other",
+      "topics": [
+        "politics"
+      ]
+    },
+    {
+      "id": "61f468b11838628cd77a",
+      "source": "kontan",
+      "title": "Intip Biaya Admin dan Transaksi untuk blu by BCA Digital sesuai bluLoyalty",
+      "url": "https://finansial.kontan.co.id/news/intip-biaya-admin-dan-transaksi-untuk-blu-by-bca-digital-sesuai-bluloyalty?source=home_terbaru",
+      "publishedAt": null,
+      "image": "https://foto.kontan.co.id/Y4Cy15cIN_l7kM-oTfEdj7EdkWQ=/smart/2023/02/06/10835623t.jpg",
+      "category": "other",
+      "topics": []
+    },
+    {
+      "id": "2ab4ed45a5b31191ae16",
+      "source": "kontan",
+      "title": "Resmi Diterbitkan, Cek Poin-poin Penting Perpres Nomor 27 Tahun 2026 Tentang Ojol",
+      "url": "https://nasional.kontan.co.id/news/resmi-diterbitkan-cek-poin-poin-penting-perpres-nomor-27-tahun-2026-tentang-ojol?source=home_terbaru",
+      "publishedAt": null,
+      "image": "https://foto.kontan.co.id/6jUKhBQYkBFh5jT9l6R8PYsATDo=/smart/2026/10/06/1644470107t.jpg",
+      "category": "other",
+      "topics": []
+    },
+    {
+      "id": "ba113688d6df3cb5ab8b",
+      "source": "kontan",
+      "title": "Korea Selatan Mau Ubah Aturan Bebas Wajib Militer Atlet, Ini Sebabnya",
+      "url": "https://internasional.kontan.co.id/news/korea-selatan-mau-ubah-aturan-bebas-wajib-militer-atlet-ini-sebabnya?source=home_terbaru",
+      "publishedAt": null,
+      "image": "https://foto.kontan.co.id/yptr0JBXZuf_8SWKfH1721ofrDA=/smart/2022/09/05/432253309t.jpg",
+      "category": "other",
+      "topics": []
+    },
+    {
+      "id": "cd2f3246b6e53b778951",
+      "source": "kontan",
+      "title": "MUFG dan Bank Danamon Incar Potensi Besar Indonesia Lewat Integrasi",
+      "url": "https://insight.kontan.co.id/news/mufg-dan-bank-danamon-incar-potensi-besar-indonesia-lewat-integrasi?source=home_insight",
+      "publishedAt": null,
+      "image": "https://foto.kontan.co.id/PSAiIyybY6v1CUSV4Q0eZhdbSTY=/smart/2026/10/06/1170176589p.jpg",
+      "category": "local",
+      "topics": []
+    },
+    {
+      "id": "b595408d499a60339b20",
+      "source": "investing_id",
+      "title": "CEO HPE Antonio Neri jual saham senilai $17,1 juta",
+      "url": "https://id.investing.com/news/insider-trading-news/ceo-hpe-antonio-neri-jual-saham-senilai-171-juta-93CH-3089967",
+      "publishedAt": null,
+      "image": null,
+      "category": "markets",
+      "topics": []
+    },
+    {
+      "id": "89ecfb1ba9942bf53da7",
+      "source": "investing_id",
+      "title": "Saham Asia Melemah Akibat Lonjakan Minyak dan Imbal Hasil; Samsung Turun Meski Cetak Rekor Laba",
+      "url": "https://id.investing.com/news/stock-market-news/saham-asia-melemah-akibat-lonjakan-minyak-dan-imbal-hasil-samsung-turun-meski-cetak-rekor-laba-3089966",
+      "publishedAt": null,
+      "image": "https://content-media.investing.com/news/LYNXNPEB970WT_S.jpg",
+      "category": "markets",
+      "topics": []
+    },
+    {
+      "id": "774600be52b216a59029",
+      "source": "investing_id",
+      "title": "Mengapa saham SK Hynix naik hari ini?",
+      "url": "https://id.investing.com/news/stock-market-news/mengapa-saham-sk-hynix-naik-hari-ini-93CH-3089963",
+      "publishedAt": null,
+      "image": "https://content-media.investing.com/news/LYNXNPEB6J0AJ_M.jpg",
+      "category": "markets",
+      "topics": []
+    },
+    {
+      "id": "b958025e2b63a4fb0457",
+      "source": "investing_id",
+      "title": "Mata Uang Asia Stagnan saat Dolar Bertahan di Dekat Tertinggi 18 Bulan, Yen Melemah",
+      "url": "https://id.investing.com/news/forex-news/mata-uang-asia-stagnan-saat-dolar-bertahan-di-dekat-tertinggi-18-bulan-yen-melemah-3089964",
+      "publishedAt": null,
+      "image": "https://content-media.investing.com/news/LYNXMPEM4S0T5_1200_L.jpg",
+      "category": "markets",
+      "topics": []
+    },
+    {
+      "id": "f95a3fe4e781b50b2b40",
+      "source": "investing_id",
+      "title": "Enam saham pilihan AI naik 50%+; saham IT teratas melonjak 33%",
+      "url": "https://id.investing.com/news/stock-market-news/enam-saham-pilihan-ai-naik-50-saham-it-teratas-melonjak-33-3089960",
+      "publishedAt": null,
+      "image": "https://content-media.investing.com/news/LYNXMPEB13022_M.jpg",
+      "category": "technology",
       "topics": []
     }
   ]
