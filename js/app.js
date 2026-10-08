@@ -3232,7 +3232,7 @@
       let publisherNewsFailed = false;
       const publisherDomains = { investing: 'investing.com', cnbc: 'cnbc.com', kontan: 'kontan.co.id', reuters: 'reuters.com', aljazeera: 'aljazeera.com', bloomberg: 'bloomberg.com', fnc: 'tradewithfnc.com', investing_id: 'investing.com', pluang: 'pluang.com', kompas: 'kompas.com', detik: 'detik.com', kemenkeu: 'kemenkeu.go.id', cnn_id: 'cnnindonesia.com', bisnis: 'bisnis.com', sindo: 'sindonews.com', ap:'apnews.com', bbc:['bbc.com','bbc.co.uk'], afp:'afp.com', wsj:'wsj.com', guardian:'theguardian.com', ft:'ft.com', dw:'dw.com', fedwatch: 'cmegroup.com', cme: 'cmegroup.com' };
       const newsText = (id, en) => language === 'en' ? en : id;
-      const REGIONAL_NEWS_SOURCES = {};
+      const NEWS_REGIONS = {};
       const publisherCountries = {cnbc:'US', ap:'US', wsj:'US', bbc:'GB', guardian:'GB', ft:'GB', dw:'DE', kontan:'ID', fnc:'ID', investing_id:'ID', pluang:'ID', kompas:'ID', detik:'ID', kemenkeu:'ID', cnn_id:'ID', bisnis:'ID', sindo:'ID'};
       const newsTimeZoneCountries = {
         'Europe/Oslo':'NO', 'Europe/Copenhagen':'DK', 'Europe/Helsinki':'FI', 'Europe/Prague':'CZ',
@@ -3249,22 +3249,36 @@
       let newsCountry = newsTimeZoneCountries[Intl.DateTimeFormat().resolvedOptions().timeZone] || '';
       let newsLocationMethod = newsCountry ? 'timezone' : '';
       let newsLocationPending = false, newsLocationChecked = false, newsRegion = '', newsFounderMode = false;
+      const newsRegionKey = 'fncjt_news_region';
+      let newsRegionMode = 'auto';
+      try {
+        const saved = JSON.parse(localStorage.getItem(newsRegionKey) || 'null');
+        if (saved && ['auto','manual'].includes(saved.mode) && (kalCountryCodes.includes(saved.region) || ['DEFAULT','global_founder','ASIA',''].includes(saved.region))) {
+          newsRegion = saved.region; newsRegionMode = saved.mode;
+          if (saved.mode === 'auto' && kalCountryCodes.includes(saved.region) && !newsCountry) { newsCountry = saved.region; newsLocationMethod = 'saved'; }
+        }
+      } catch {}
+      function saveNewsRegionPreference() {
+        try { localStorage.setItem(newsRegionKey, JSON.stringify({region:newsRegionMode === 'auto' ? newsCountry || 'DEFAULT' : newsRegion, mode:newsRegionMode})); } catch {}
+      }
       let regionalSourcesPromise = null;
       function registerRegionalSources(data) {
         for (const [country, portals] of Object.entries(data)) {
-          if (!kalCountryCodes.includes(country) || !Array.isArray(portals)) throw new Error('Invalid region registry');
+          if ((!kalCountryCodes.includes(country) && !['DEFAULT','global_founder'].includes(country)) || !Array.isArray(portals)) throw new Error('Invalid region registry');
           for (const portal of portals) {
             const url = new URL(portal.url);
-            if (!new RegExp('^' + country.toLowerCase() + '_[a-z0-9]+$').test(portal.id) || typeof portal.name !== 'string' || url.protocol !== 'https:' || url.username || url.password) throw new Error('Invalid regional publisher');
+            const domains = [].concat(publisherDomains[portal.id] || []);
+            if (!/^[a-z][a-z0-9_]{0,63}$/.test(portal.id) || typeof portal.name !== 'string' || url.protocol !== 'https:' || url.username || url.password || (domains.length && !domains.some(domain => url.hostname === domain || url.hostname.endsWith('.' + domain)))) throw new Error('Invalid regional publisher');
           }
         }
         for (const [country, portals] of Object.entries(data)) {
-          REGIONAL_NEWS_SOURCES[country] = portals;
+          NEWS_REGIONS[country] = portals;
           for (const portal of portals) {
-            publisherCountries[portal.id] = country;
-            publisherDomains[portal.id] = new URL(portal.url).hostname.replace(/^www\./, '');
+            if (!publisherDomains[portal.id]) publisherDomains[portal.id] = new URL(portal.url).hostname.replace(/^www\./, '');
+            if (kalCountryCodes.includes(country) && !publisherCountries[portal.id]) publisherCountries[portal.id] = country;
           }
         }
+        NEWS_REGIONS.UK = NEWS_REGIONS.GB;
       }
       async function loadRegionalSources() {
         if (!regionalSourcesPromise) regionalSourcesPromise = (async () => {
@@ -3275,21 +3289,28 @@
         return regionalSourcesPromise;
       }
       function newsSourceInRegion(sourceId) {
-        const region = isNewsFounder() ? newsRegion : newsCountry || 'GLOBAL';
-        const country = publisherCountries[sourceId] || 'GLOBAL';
-        return !region || region === country || (region === 'ASIA' && ['ID','JP','CN','HK','IN','SG','MY','KR','TH'].includes(country));
+        const region = activeNewsRegion();
+        if (isNewsFounder() && !region) return true;
+        if (region === 'ASIA' && isNewsFounder()) return ['ID','MY','SG'].some(code => NEWS_REGIONS[code]?.some(portal => portal.id === sourceId) || publisherCountries[sourceId] === code);
+        const list = NEWS_REGIONS[region] || NEWS_REGIONS.DEFAULT || [];
+        return list.some(portal => portal.id === sourceId) || (kalCountryCodes.includes(region) && !!NEWS_REGIONS[region] && publisherCountries[sourceId] === region);
+      }
+      function activeNewsRegion() {
+        if (newsRegionMode === 'manual' && (isNewsFounder() || !['global_founder','ASIA',''].includes(newsRegion))) return newsRegion;
+        return isNewsFounder() ? 'global_founder' : newsCountry || 'DEFAULT';
       }
       function defaultCalendarRegion() {
         try {
-          if (!isNewsFounder() && newsCountry && kalCountryCodes.includes(newsCountry) && localStorage.getItem(kalCountriesKey) === null) {
+          const country = activeNewsRegion();
+          if (!isNewsFounder() && kalCountryCodes.includes(country) && localStorage.getItem(kalCountriesKey) === null) {
             // Do not persist automatic defaults; a later IP result can refine the timezone estimate.
-            kalCountries = [newsCountry];
+            kalCountries = [country];
             if ($('sub-berita-kalender') && !$('sub-berita-kalender').hidden) renderEconomicCalendar();
           }
         } catch {}
       }
       function resetNewsRegion() {
-        newsRegion = ''; newsFounderMode = false; newsSelectedSource = ''; newsVisibleCount = 12;
+        newsFounderMode = false; newsSelectedSource = ''; newsVisibleCount = 12;
         if ($('news-source')) $('news-source').value = '';
         renderNewsRegionControls();
       }
@@ -3298,22 +3319,26 @@
         if (!select) return;
         const founder = isNewsFounder();
         if (founder !== newsFounderMode) {
-          newsRegion = ''; newsFounderMode = founder; newsSelectedSource = ''; newsVisibleCount = 12;
+          newsFounderMode = founder; newsSelectedSource = ''; newsVisibleCount = 12;
           $('news-source').value = '';
         }
         $('news-founder-badge').hidden = !founder;
         $('news-region-label').textContent = newsText('Region berita','News region');
         const names = new Intl.DisplayNames([language === 'en' ? 'en' : 'id'], {type:'region'});
-        const name = code => code === 'GLOBAL' ? newsText('Global','Global') : code === 'ASIA' ? newsText('Asia','Asia') : names.of(code) + ' (' + code + ')';
-        const regions = founder ? ['', 'GLOBAL', 'ASIA', ...new Set([...Object.keys(REGIONAL_NEWS_SOURCES), ...Object.values(publisherCountries)])] : [newsCountry || 'GLOBAL'];
-        select.innerHTML = regions.map(code => '<option value="' + esc(code) + '">' + esc(code ? name(code) : newsText('Semua region','All regions')) + '</option>').join('');
-        select.value = founder ? newsRegion : newsCountry || 'GLOBAL';
-        select.disabled = !founder;
+        const name = code => code === 'DEFAULT' ? newsText('Global / Default','Global / Default') : code === 'global_founder' ? 'Global / Tier 1' : code === 'ASIA' ? newsText('Asia','Asia') : code ? names.of(code) + ' (' + code + ')' : newsText('Semua region','All regions');
+        const regions = [...(founder ? ['global_founder','','ASIA'] : []), 'DEFAULT', ...kalCountryCodes];
+        select.innerHTML = '<option value="AUTO">' + newsText('Deteksi otomatis','Detect automatically') + '</option>' + regions.map(code => '<option value="' + esc(code) + '">' + esc(name(code)) + '</option>').join('');
+        const region = activeNewsRegion();
+        const manual = newsRegionMode === 'manual' && region === newsRegion;
+        select.value = region;
+        select.disabled = false;
         $('news-region-flag').innerHTML = /^[A-Z]{2}$/.test(select.value) ? kalCountryFlag(select.value) : '';
-        $('news-region-status').textContent = founder ? newsText('Akses seluruh region. Negara kalender dapat dipilih terpisah.','Access all regions. Calendar countries can be selected separately.') : newsLocationPending ? newsText('Memeriksa negara melalui IP…','Checking country using IP…') : newsLocationMethod === 'ip' ? newsText('Region sesuai negara IP Anda.','Region follows your IP country.') : newsCountry ? newsText('Perkiraan negara dari zona waktu perangkat; geolokasi IP tidak tersedia.','Country estimated from your device timezone; IP geolocation unavailable.') : newsText('Lokasi tidak terdeteksi; menampilkan sumber global.','Location unavailable; showing global sources.');
+        $('news-region-indicator').textContent = 'Region: ' + (region || newsText('Semua','All')) + ' (' + (manual ? newsText('Manual','Manual') : newsText('Otomatis','Automatic')) + ')';
+        $('news-region-status').textContent = manual ? newsText('Pilihan manual tersimpan di browser ini.','Manual selection saved in this browser.') : founder ? newsText('Kurasi Global / Tier 1. Anda bebas memilih region lain.','Global / Tier 1 curation. You can select any other region.') : newsLocationPending ? newsText('Memeriksa negara melalui IP…','Checking country using IP…') : newsLocationMethod === 'ip' ? newsText('Region sesuai negara IP Anda.','Region follows your IP country.') : newsLocationMethod === 'saved' ? newsText('Region tersimpan; lokasi saat ini belum dapat diverifikasi.','Saved region; current location could not be verified.') : newsCountry ? newsText('Perkiraan negara dari zona waktu perangkat; geolokasi IP tidak tersedia.','Country estimated from your device timezone; IP geolocation unavailable.') : newsText('Lokasi tidak terdeteksi; menampilkan sumber global.','Location unavailable; showing global sources.');
+        if (region && !NEWS_REGIONS[region] && region !== 'ASIA') $('news-region-status').textContent += newsText(' Negara ini memakai kurasi Global / Default.',' This country uses Global / Default curation.');
       }
       async function detectNewsRegion() {
-        if (isNewsFounder() || newsLocationChecked || newsLocationPending || !canReadNews()) return;
+        if (isNewsFounder() || (newsRegionMode === 'manual' && activeNewsRegion() === newsRegion) || newsLocationChecked || newsLocationPending || !canReadNews()) return;
         newsLocationPending = true;
         defaultCalendarRegion(); renderNewsRegionControls();
         try {
@@ -3325,12 +3350,18 @@
         } catch {}
         finally {
           newsLocationChecked = true; newsLocationPending = false;
+          if (newsRegionMode === 'auto') saveNewsRegionPreference();
           defaultCalendarRegion(); renderNewsRegionControls(); renderPublisherNews();
         }
       }
       window.changeNewsRegion = function () {
-        if (!isNewsFounder()) { renderNewsRegionControls(); return; }
-        newsRegion = $('news-region').value;
+        const value = $('news-region').value;
+        if (value === 'AUTO') { newsRegionMode = 'auto'; newsLocationChecked = false; }
+        else {
+          if (!kalCountryCodes.includes(value) && value !== 'DEFAULT' && !(isNewsFounder() && ['global_founder','ASIA',''].includes(value))) { renderNewsRegionControls(); return; }
+          newsRegion = value; newsRegionMode = 'manual';
+        }
+        saveNewsRegionPreference(); defaultCalendarRegion();
         newsSelectedSource = ''; newsVisibleCount = 12; $('news-source').value = '';
         renderPublisherNews();
       };
@@ -3386,10 +3417,14 @@
         const aged = Date.now() - new Date(publisherNews.checkedAt).getTime() > 90 * 60000;
         status.textContent = (publisherNewsFailed ? newsText('Pembaruan gagal; menampilkan data tersimpan. ', 'Refresh failed; showing the saved feed. ') : '') + (aged ? newsText('Data belum diperbarui. ', 'The feed has not been updated recently. ') : '') + newsText('Terakhir diperiksa: ', 'Last checked: ') + (checked || newsText('Tidak tersedia', 'Unavailable'));
         const select = $('news-source');
-        const availableSources = publisherNews.sources.filter(source => source.kind !== 'tool' && newsSourceInRegion(source.id));
+        const curated = new Map((NEWS_REGIONS[activeNewsRegion()] || NEWS_REGIONS.DEFAULT || []).map(portal => [portal.id, portal]));
+        const availableSources = publisherNews.sources.filter(source => source.kind !== 'tool' && newsSourceInRegion(source.id)).map(source => {
+          const portal = curated.get(source.id);
+          return portal ? {...source, name:portal.name, url:portal.url, tag:portal.tag} : source;
+        });
         const selected = availableSources.some(source => source.id === select.value) ? select.value : '';
         if (selected !== newsSelectedSource) { newsVisibleCount = 12; newsSelectedSource = selected; }
-        select.innerHTML = '<option value="">' + newsText('Semua sumber', 'All sources') + '</option>' + availableSources.map(source => '<option value="' + esc(source.id) + '">' + esc(source.name) + '</option>').join('');
+        select.innerHTML = '<option value="">' + newsText('Semua sumber', 'All sources') + '</option>' + availableSources.map(source => '<option value="' + esc(source.id) + '">' + esc(source.name + (source.tag ? ' · ' + source.tag : '')) + '</option>').join('');
         select.value = selected;
         $('publisher-source-status').innerHTML = availableSources.map(source => {
           const url = publisherUrl(source.url, source.id);
@@ -3435,7 +3470,7 @@
           const data = await response.json();
           if (data.version !== 1 || !Array.isArray(data.sources) || !Array.isArray(data.items) || !publisherTime(data.checkedAt)) throw new Error('Invalid news feed');
           data.sources = data.sources.filter(source => source && publisherDomains[source.id] && typeof source.name === 'string' && publisherUrl(source.url, source.id));
-          for (const portals of Object.values(REGIONAL_NEWS_SOURCES)) for (const portal of portals) {
+          for (const portals of Object.values(NEWS_REGIONS)) for (const portal of portals) {
             if (!data.sources.some(source => source.id === portal.id)) data.sources.push({...portal, kind:portal.feed ? 'rss' : 'external', status:'unavailable'});
           }
           data.items = data.items.filter(item => item && typeof item.title === 'string' && publisherUrl(item.url, item.source));

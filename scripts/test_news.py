@@ -151,7 +151,7 @@ assert all(row['category'] == 'sport' for row in ap_rows)
 assert len(news.merge_items([ap_rows[0]], [{**ap_rows[0], 'title':'Updated headline for the same AP article', 'url':link.replace('tennis-champion-', 'updated-title-')}])) == 1
 print('New publishers: official domains, RSS taxonomy, AP headline/date/photo isolation and partial feed failures passed')
 
-regional = [row for row in news.SOURCES if row.get('country')]
+regional = [row for row in news.SOURCES if row.get('country') in ('NO','DK','FI','CZ','RO','HU','IE','AT')]
 assert len(regional) == 64 and len({row['id'] for row in regional}) == 64
 assert all(sum(row['country'] == code for row in regional) == 8 for code in ('NO','DK','FI','CZ','RO','HU','IE','AT'))
 orf = next(row for row in regional if row['id'] == 'at_orf')
@@ -159,3 +159,6 @@ rdf = f'''<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns
 <item><title>Austrian central bank publishes economic growth figures</title><link>https://orf.at/stories/12345/</link><dc:date>{now.isoformat()}</dc:date></item></rdf:RDF>'''.encode()
 assert len(news.parse(rdf, orf)) == 1 and news.parse(rdf, orf)[0]['publishedAt'] == now.isoformat()
 print('Regional registry and ORF namespaced RSS checks passed')
+assert len({row['id'] for row in news.SOURCES}) == len(news.SOURCES), 'Shared publishers duplicated in feeds'
+for code in ('ID','US','GB','MY','SG','DEFAULT','global_founder'):
+    assert len(news.REGIONAL_NEWS_SOURCES[code]) == 8

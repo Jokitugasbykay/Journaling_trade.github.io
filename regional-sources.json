@@ -1,4 +1,74 @@
 {
+  "global_founder": [
+    {"id":"reuters","name":"Reuters","url":"https://www.reuters.com","tag":"Global"},
+    {"id":"ap","name":"Associated Press","url":"https://apnews.com","tag":"Global"},
+    {"id":"bloomberg","name":"Bloomberg","url":"https://www.bloomberg.com","tag":"Finance"},
+    {"id":"ft","name":"Financial Times","url":"https://www.ft.com","tag":"Finance"},
+    {"id":"wsj","name":"Wall Street Journal","url":"https://www.wsj.com","tag":"Finance"},
+    {"id":"bbc","name":"BBC News","url":"https://www.bbc.com/news","tag":"Global"},
+    {"id":"cnbc","name":"CNBC","url":"https://www.cnbc.com","tag":"Markets"},
+    {"id":"marketwatch","name":"MarketWatch","url":"https://www.marketwatch.com","tag":"Markets","feed":"https://feeds.content.dowjones.io/public/rss/mw_topstories"}
+  ],
+  "ID": [
+    {"id":"bisnis","name":"Bisnis Indonesia","url":"https://bisnis.com","tag":"Ekonomi"},
+    {"id":"kontan","name":"Kontan","url":"https://www.kontan.co.id","tag":"Pasar Uang"},
+    {"id":"id_katadata","name":"Katadata","url":"https://katadata.co.id","tag":"Data & Makro"},
+    {"id":"id_antara","name":"Antara News","url":"https://www.antaranews.com","tag":"Nasional","feed":"https://www.antaranews.com/rss/terkini.xml"},
+    {"id":"kompas","name":"Kompas","url":"https://www.kompas.com","tag":"Umum"},
+    {"id":"id_jakartapost","name":"The Jakarta Post","url":"https://www.thejakartapost.com","tag":"Nasional"},
+    {"id":"id_tempo","name":"Koran Tempo","url":"https://koran.tempo.co","tag":"Investigasi"},
+    {"id":"id_tirto","name":"Tirto","url":"https://tirto.id","tag":"Analisis"}
+  ],
+  "US": [
+    {"id":"ap","name":"AP News","url":"https://apnews.com","tag":"General"},
+    {"id":"wsj","name":"The Wall Street Journal","url":"https://www.wsj.com","tag":"Markets"},
+    {"id":"bloomberg","name":"Bloomberg US","url":"https://www.bloomberg.com","tag":"Finance"},
+    {"id":"us_nyt","name":"The New York Times","url":"https://www.nytimes.com","tag":"General"},
+    {"id":"us_washingtonpost","name":"The Washington Post","url":"https://www.washingtonpost.com","tag":"Politics"},
+    {"id":"us_npr","name":"NPR","url":"https://www.npr.org","tag":"National","feed":"https://feeds.npr.org/1001/rss.xml"},
+    {"id":"us_cbs","name":"CBS News","url":"https://www.cbsnews.com","tag":"General"},
+    {"id":"marketwatch","name":"MarketWatch","url":"https://www.marketwatch.com","tag":"Finance"}
+  ],
+  "GB": [
+    {"id":"bbc","name":"BBC News","url":"https://www.bbc.com/news","tag":"General"},
+    {"id":"ft","name":"Financial Times","url":"https://www.ft.com","tag":"Markets"},
+    {"id":"reuters","name":"Reuters UK","url":"https://www.reuters.com","tag":"Global"},
+    {"id":"guardian","name":"The Guardian","url":"https://www.theguardian.com","tag":"General"},
+    {"id":"gb_telegraph","name":"The Telegraph","url":"https://www.telegraph.co.uk","tag":"Business"},
+    {"id":"gb_times","name":"The Times UK","url":"https://www.thetimes.com","tag":"National"},
+    {"id":"gb_sky","name":"Sky News","url":"https://news.sky.com","tag":"Breaking","feed":"https://feeds.skynews.com/feeds/rss/home.xml"},
+    {"id":"gb_independent","name":"The Independent","url":"https://www.independent.co.uk","tag":"General"}
+  ],
+  "MY": [
+    {"id":"my_bernama","name":"Bernama","url":"https://www.bernama.com","tag":"National"},
+    {"id":"my_edge","name":"The Edge Markets","url":"https://theedgemalaysia.com","tag":"Finance"},
+    {"id":"my_star","name":"The Star","url":"https://www.thestar.com.my","tag":"General"},
+    {"id":"my_nst","name":"New Straits Times","url":"https://www.nst.com.my","tag":"National"},
+    {"id":"my_bharian","name":"Berita Harian","url":"https://www.bharian.com.my","tag":"National"},
+    {"id":"my_malaysiakini","name":"Malaysiakini","url":"https://www.malaysiakini.com","tag":"Independent"},
+    {"id":"my_fmt","name":"Free Malaysia Today","url":"https://www.freemalaysiatoday.com","tag":"General","feed":"https://www.freemalaysiatoday.com/feed/"},
+    {"id":"my_sinar","name":"Sinar Harian","url":"https://www.sinarharian.com.my","tag":"Local"}
+  ],
+  "SG": [
+    {"id":"sg_straits","name":"The Straits Times","url":"https://www.straitstimes.com","tag":"National"},
+    {"id":"sg_cna","name":"CNA (Channel NewsAsia)","url":"https://www.channelnewsasia.com","tag":"Regional","feed":"https://www.channelnewsasia.com/api/v1/rss-outbound-feed?_format=xml"},
+    {"id":"sg_business","name":"The Business Times","url":"https://www.businesstimes.com.sg","tag":"Finance"},
+    {"id":"sg_today","name":"Today Online","url":"https://www.todayonline.com","tag":"National"},
+    {"id":"sg_zaobao","name":"Lianhe Zaobao","url":"https://www.zaobao.com.sg","tag":"Chinese"},
+    {"id":"sg_bharian","name":"Berita Harian SG","url":"https://www.beritaharian.sg","tag":"Malay"},
+    {"id":"sg_mothership","name":"Mothership","url":"https://mothership.sg","tag":"Digital"},
+    {"id":"sg_edge","name":"The Edge Singapore","url":"https://theedgesingapore.com","tag":"Markets"}
+  ],
+  "DEFAULT": [
+    {"id":"reuters","name":"Reuters","url":"https://www.reuters.com","tag":"Global"},
+    {"id":"ap","name":"AP News","url":"https://apnews.com","tag":"Global"},
+    {"id":"bbc","name":"BBC News","url":"https://www.bbc.com/news","tag":"World"},
+    {"id":"dw","name":"Deutsche Welle","url":"https://www.dw.com","tag":"World"},
+    {"id":"france24","name":"France 24","url":"https://www.france24.com","tag":"World"},
+    {"id":"aljazeera","name":"Al Jazeera","url":"https://www.aljazeera.com","tag":"World"},
+    {"id":"bloomberg","name":"Bloomberg","url":"https://www.bloomberg.com","tag":"Markets"},
+    {"id":"ft","name":"Financial Times","url":"https://www.ft.com","tag":"Finance"}
+  ],
   "NO": [
     {"id":"no_nrk","name":"NRK","url":"https://www.nrk.no","feed":"https://www.nrk.no/toppsaker.rss"},
     {"id":"no_aftenposten","name":"Aftenposten","url":"https://www.aftenposten.no"},

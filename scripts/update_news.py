@@ -59,6 +59,8 @@ SOURCES = [
 REGIONAL_NEWS_SOURCES = json.loads((ROOT / 'regional-sources.json').read_text(encoding='utf-8'))
 for country, portals in REGIONAL_NEWS_SOURCES.items():
     for portal in portals:
+        if any(source['id'] == portal['id'] for source in SOURCES):
+            continue
         domain = urllib.parse.urlsplit(portal['url']).hostname.removeprefix('www.')
         SOURCES.append({**portal, 'country': country, 'domain': domain, 'kind': 'rss' if portal.get('feed') else 'external'})
 SIGNALS = re.compile(r"\b(?:buy on (?:dip|pullback)|sell on (?:rally|bounce)|stocks? to buy|stock picks?|trading signals?|price targets?|target harga|sinyal trading|rekomendasi (?:beli|jual)|buy now|sell now|support (?:dan |and )?resistance|rekomendasi saham)\b", re.I)
