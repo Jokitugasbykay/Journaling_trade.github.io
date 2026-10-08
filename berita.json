@@ -1,7 +1,7 @@
 {
   "version": 1,
-  "checkedAt": "2026-10-08T02:54:16.328129+00:00",
-  "intervalMinutes": 30,
+  "checkedAt": "2026-10-08T03:00:12.027693+00:00",
+  "intervalMinutes": 5,
   "sources": [
     {
       "id": "investing",
@@ -9,7 +9,7 @@
       "url": "https://www.investing.com/",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-08T02:54:03.371582+00:00"
+      "checkedAt": "2026-10-08T03:00:07.600501+00:00"
     },
     {
       "id": "cnbc",
@@ -17,7 +17,7 @@
       "url": "https://www.cnbc.com/markets/",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-08T02:54:03.354150+00:00"
+      "checkedAt": "2026-10-08T03:00:07.545211+00:00"
     },
     {
       "id": "kontan",
@@ -25,7 +25,7 @@
       "url": "https://www.kontan.co.id/",
       "kind": "html",
       "status": "ok",
-      "checkedAt": "2026-10-08T02:54:03.856750+00:00"
+      "checkedAt": "2026-10-08T03:00:08.496264+00:00"
     },
     {
       "id": "reuters",
@@ -33,7 +33,7 @@
       "url": "https://www.reuters.com/",
       "kind": "sitemap",
       "status": "ok",
-      "checkedAt": "2026-10-08T02:54:03.666554+00:00"
+      "checkedAt": "2026-10-08T03:00:07.859190+00:00"
     },
     {
       "id": "aljazeera",
@@ -41,7 +41,7 @@
       "url": "https://www.aljazeera.com/",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-08T02:54:03.422499+00:00"
+      "checkedAt": "2026-10-08T03:00:07.436291+00:00"
     },
     {
       "id": "bloomberg",
@@ -49,7 +49,7 @@
       "url": "https://www.bloomberg.com/asia",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-08T02:54:03.697110+00:00"
+      "checkedAt": "2026-10-08T03:00:07.876295+00:00"
     },
     {
       "id": "fnc",
@@ -57,7 +57,7 @@
       "url": "https://tradewithfnc.com/",
       "kind": "json",
       "status": "ok",
-      "checkedAt": "2026-10-08T02:54:04.209600+00:00"
+      "checkedAt": "2026-10-08T03:00:08.604748+00:00"
     },
     {
       "id": "investing_id",
@@ -65,7 +65,7 @@
       "url": "https://id.investing.com/news",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-08T02:54:03.497412+00:00"
+      "checkedAt": "2026-10-08T03:00:07.723403+00:00"
     },
     {
       "id": "pluang",
@@ -73,15 +73,15 @@
       "url": "https://pluang.com/news-feed",
       "kind": "html",
       "status": "ok",
-      "checkedAt": "2026-10-08T02:54:04.403924+00:00"
+      "checkedAt": "2026-10-08T03:00:08.661721+00:00"
     },
     {
       "id": "kompas",
       "name": "Kompas Money",
       "url": "https://money.kompas.com/",
       "kind": "html",
-      "status": "stale",
-      "checkedAt": "2026-10-08T02:25:58.300991+00:00"
+      "status": "ok",
+      "checkedAt": "2026-10-08T03:00:08.639472+00:00"
     },
     {
       "id": "detik",
@@ -89,7 +89,7 @@
       "url": "https://finance.detik.com/",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-08T02:54:06.562671+00:00"
+      "checkedAt": "2026-10-08T03:00:09.219216+00:00"
     },
     {
       "id": "kemenkeu",
@@ -121,7 +121,7 @@
       "url": "https://ekbis.sindonews.com/",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-08T02:54:03.984462+00:00"
+      "checkedAt": "2026-10-08T03:00:08.764326+00:00"
     },
     {
       "id": "fedwatch",
@@ -140,6 +140,46 @@
   ],
   "items": [
     {
+      "id": "bded92132fc2488e2a0f",
+      "source": "cnbc",
+      "title": "Elon Musk blames Indian 'oligarchs' for stalling Starlink launch",
+      "url": "https://www.cnbc.com/2026/10/08/elon-musk-starlink-spacex-jio-airtel-india.html",
+      "publishedAt": "2026-10-08T02:55:34+00:00",
+      "image": "https://image.cnbcfm.com/api/v1/image/108315896-1780491649482-gettyimages-1175168392-AFP_1LB3WB.jpeg?v=1781036537&w=1920&h=1080",
+      "category": "other",
+      "topics": []
+    },
+    {
+      "id": "8909ccc2af6576eada6a",
+      "source": "kompas",
+      "title": "IHSG Berbalik Turun, Sempat Sentuh 6.179 pada Awal Perdagangan",
+      "url": "https://money.kompas.com/read/2026/10/08/095531226/ihsg-berbalik-turun-sempat-sentuh-6179-pada-awal-perdagangan",
+      "publishedAt": "2026-10-08T02:55:31+00:00",
+      "image": "https://asset.kompas.com/crops/AYz2HCUn1cNkmV4ZhtugImGZeoM=/0x0:4992x3328/750x500/data/photo/2026/04/28/69f0259428060.jpg",
+      "category": "local",
+      "topics": []
+    },
+    {
+      "id": "004b830856f01bd631c1",
+      "source": "reuters",
+      "title": "Britain's BBC, Channel 4 discuss broader tie-up to cut costs, sources say",
+      "url": "https://www.reuters.com/world/britains-bbc-channel-4-discuss-broader-tie-up-cut-costs-sources-say-2026-10-07/",
+      "publishedAt": "2026-10-08T02:54:17.654000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/7YOJALLZZFOLJMUKZ6BRMR2RJ4.jpg?auth=5dc2e4b87c89add0f5f5376d7200a354bbc1ca1fa8131ac2a4ff314f27ebb675&smart=true&width=1920",
+      "category": "world",
+      "topics": []
+    },
+    {
+      "id": "69814bd9eac8c5e03127",
+      "source": "reuters",
+      "title": "Priceline to face FTC action over deceptive hotel ads, sources say",
+      "url": "https://www.reuters.com/world/priceline-owner-face-ftc-action-over-affiliates-hotel-ads-sources-say-2026-10-07/",
+      "publishedAt": "2026-10-08T02:53:30.017000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/BGI6ZTJRONL2NCWCD7WGXW2GAE.jpg?auth=cbf290238f6cb6a7cae56fabbbeed2f48c98ef91a2e35817b9ea20c031dd2e73&smart=true&width=1920",
+      "category": "world",
+      "topics": []
+    },
+    {
       "id": "9360e4849fd1bf01bb2e",
       "source": "reuters",
       "title": "Shaky $4 bln neocloud IPO pricks AI bubble",
@@ -147,6 +187,16 @@
       "publishedAt": "2026-10-08T02:50:40.847000+00:00",
       "image": null,
       "category": "commentary",
+      "topics": []
+    },
+    {
+      "id": "6ca1721ea0c87ea1e308",
+      "source": "aljazeera",
+      "title": "US bars Fiji-based man over corruption tied to China",
+      "url": "https://www.aljazeera.com/news/2026/10/8/us-bars-fiji-based-man-over-corruption-tied-to-china?traffic_source=rss",
+      "publishedAt": "2026-10-08T02:50:17+00:00",
+      "image": "https://www.aljazeera.com/wp-content/uploads/2026/10/getty_6ac6f66c78-1791424108.jpg?resize=1920%2C1440",
+      "category": "other",
       "topics": []
     },
     {
@@ -167,6 +217,16 @@
       "publishedAt": "2026-10-08T02:48:43.281000+00:00",
       "image": "https://www.reuters.com/resizer/v2/6YWGXLZPHVMWZMHWOCYEOGTGO4.jpg?auth=3160a54e8dc9b986150b5f17ccd404d9ac0672e029f7e10fc2b3369532f50784&smart=true&width=1920",
       "category": "world",
+      "topics": []
+    },
+    {
+      "id": "7755f4ca8fcd06e5cda4",
+      "source": "aljazeera",
+      "title": "Tanker hit by multiple projectiles off north coast of Qatar, UKMTO says",
+      "url": "https://www.aljazeera.com/news/2026/10/8/tanker-hit-by-multiple-projectiles-off-north-coast-of-qatar-ukmto-says?traffic_source=rss",
+      "publishedAt": "2026-10-08T02:48:25+00:00",
+      "image": "https://www.aljazeera.com/wp-content/uploads/2026/10/GettyImages-2293771658-1791423375.jpg?resize=1920%2C1440",
+      "category": "other",
       "topics": []
     },
     {
@@ -222,6 +282,16 @@
       "topics": [
         "politics"
       ]
+    },
+    {
+      "id": "26c1547215976a8e68cf",
+      "source": "kompas",
+      "title": "Ekonom Ungkap Risiko APBN Indonesia di Tengah Gejolak Ekonomi Global",
+      "url": "https://money.kompas.com/read/2026/10/08/094000926/ekonom-ungkap-risiko-apbn-indonesia-di-tengah-gejolak-ekonomi-global",
+      "publishedAt": "2026-10-08T02:40:00+00:00",
+      "image": "https://asset.kompas.com/crops/xVh1bvebyPAxWIGl0aZWm3I65Rk=/0x57:1280x910/750x500/data/photo/2026/06/08/6a2689fc830bf.jpg",
+      "category": "local",
+      "topics": []
     },
     {
       "id": "10b73971c52e9bc5a4fe",
@@ -380,26 +450,6 @@
       "url": "https://www.reuters.com/world/middle-east/lebanons-hezbollah-gets-200-million-iran-help-displaced-sources-say-2026-10-07/",
       "publishedAt": "2026-10-08T02:12:51.692000+00:00",
       "image": "https://www.reuters.com/resizer/v2/BNDLYQMLCBORHNPQESHAFABLCM.jpg?auth=663825fd438ff1f311d53a28390acc1d89a7da33224148b98986916464cd12a5&smart=true&width=1920",
-      "category": "world",
-      "topics": []
-    },
-    {
-      "id": "f0bdaab4773f889d6244",
-      "source": "reuters",
-      "title": "Tokyo Financial Exchange launches new BOJ rate futures as policy shifts accelerate",
-      "url": "https://www.reuters.com/world/asia-pacific/tokyo-financial-exchange-launches-new-boj-rate-futures-policy-shifts-accelerate-2026-10-08/",
-      "publishedAt": "2026-10-08T02:12:27.532000+00:00",
-      "image": "https://www.reuters.com/resizer/v2/2LCNUC3FJRNTJMXP54MCQJXYII.jpg?auth=d6a4966c3d17b0d52a5a6a419cde63786caf8de901272b7683b8525e2f805b27&smart=true&width=1920",
-      "category": "world",
-      "topics": []
-    },
-    {
-      "id": "f6147c0e7e1ccd7948be",
-      "source": "reuters",
-      "title": "Attacks on tankers in Hormuz hit highest of any week since start of Iran war, sources say",
-      "url": "https://www.reuters.com/world/middle-east/attacks-tankers-hormuz-hit-highest-any-week-since-start-iran-war-sources-say-2026-10-07/",
-      "publishedAt": "2026-10-08T02:11:13.393000+00:00",
-      "image": "https://www.reuters.com/resizer/v2/3JVBKPRE5VOBZDDRHYNN2COVRY.jpg?auth=24a17c8e44bc4fc3f92de463cb76f7343a6d3dff9b2c48ee7547a094f8c7c479&smart=true&width=1920",
       "category": "world",
       "topics": []
     },
@@ -730,16 +780,6 @@
       "topics": []
     },
     {
-      "id": "8862680ff28504dda1a4",
-      "source": "kompas",
-      "title": "Apa yang Terjadi Jika Masyarakat Tak Lagi Percaya Simpan Uang di Bank?",
-      "url": "https://money.kompas.com/read/2026/10/08/074600026/apa-yang-terjadi-jika-masyarakat-tak-lagi-percaya-simpan-uang-di-bank-",
-      "publishedAt": "2026-10-08T00:46:00+00:00",
-      "image": "https://asset.kompas.com/crops/ugb63Eto7YmOUhbiKumTGBXr4tQ=/100x67:900x600/750x500/data/photo/2024/02/22/65d722729bc11.jpg",
-      "category": "business",
-      "topics": []
-    },
-    {
       "id": "205d2f4ded12f844f251",
       "source": "detik",
       "title": "Harga Minyak Masih Betah di US$ 100 per Barel",
@@ -994,16 +1034,6 @@
       "topics": []
     },
     {
-      "id": "2da8115222272e8ff888",
-      "source": "kompas",
-      "title": "Finlandia Minta Google Hentikan Pembangunan Dua Data Center AI, Ada Apa?",
-      "url": "https://money.kompas.com/read/2026/10/08/054100726/finlandia-minta-google-hentikan-pembangunan-dua-data-center-ai-ada-apa",
-      "publishedAt": "2026-10-07T22:41:00+00:00",
-      "image": "https://asset.kompas.com/crops/AC3MXd4-lDgO6fborpzeP6EZMWs=/0x0:1080x720/514x319/data/photo/2026/10/04/6ac1d6af3002d.jpeg",
-      "category": "technology",
-      "topics": []
-    },
-    {
       "id": "4011f7f6f6405fe8bde6",
       "source": "cnn_id",
       "title": "Hashim Ungkap Teknologi Carbon Capture Bisa Pangkas Emisi hingga 95%",
@@ -1088,7 +1118,7 @@
     {
       "id": "4594e7f7d2f1de1a06e9",
       "source": "bloomberg",
-      "title": "Stocks Fall as Oil’s Rise Stokes Inflation Worries: Markets Wrap",
+      "title": "Stocks Fall on Inflation Worries, Brent Tops $102: Markets Wrap",
       "url": "https://www.bloomberg.com/news/articles/2026-10-07/stock-market-today-dow-s-p-live-updates",
       "publishedAt": "2026-10-07T22:03:17+00:00",
       "image": null,
@@ -1234,26 +1264,6 @@
       "topics": []
     },
     {
-      "id": "afa23306f4147da675f4",
-      "source": "aljazeera",
-      "title": "Gaza child’s autoimmune condition triggered amid Israel’s war",
-      "url": "https://www.aljazeera.com/video/newsfeed/2026/10/7/gaza-childs-autoimmune-condition-triggered-amid-israels-war?traffic_source=rss",
-      "publishedAt": "2026-10-07T21:06:46+00:00",
-      "image": "https://www.aljazeera.com/wp-content/uploads/2026/10/Gaza-child-autoimmune-Horizontal-thumb-1791407164.jpg?resize=1920%2C1080&quality=80",
-      "category": "world",
-      "topics": []
-    },
-    {
-      "id": "eb0db9c3deb116882013",
-      "source": "aljazeera",
-      "title": "Inside SpaceX’s new look for AI data centres in orbit",
-      "url": "https://www.aljazeera.com/video/newsfeed/2026/10/7/inside-spacexs-new-look-for-ai-data-centres-in-orbit?traffic_source=rss",
-      "publishedAt": "2026-10-07T20:54:43+00:00",
-      "image": "https://www.aljazeera.com/wp-content/uploads/2026/10/FULL-THUMBNAIL-Templates3_2-Website-1791406396.jpg?resize=1920%2C1080&quality=80",
-      "category": "technology",
-      "topics": []
-    },
-    {
       "id": "c74476bd4d4f8fac2896",
       "source": "cnbc",
       "title": "Supertanker chartered from Gulf Coast to China for $76 million, 10 times higher than pre-war level",
@@ -1331,16 +1341,6 @@
       "publishedAt": "2026-10-07T19:17:01+00:00",
       "image": "https://image.cnbcfm.com/api/v1/image/108359880-1788886357349-gettyimages-2293680927-AA_08092026_2943632.jpeg?v=1788886580&w=1920&h=1080",
       "category": "markets",
-      "topics": []
-    },
-    {
-      "id": "4de5de2ff3d642a0a2e8",
-      "source": "cnbc",
-      "title": "Modelo owner Constellation is getting creative to bring back beer drinkers as overall demand weakens",
-      "url": "https://www.cnbc.com/2026/10/07/constellation-brands-earnings-beer-demand.html",
-      "publishedAt": "2026-10-07T19:14:03+00:00",
-      "image": "https://image.cnbcfm.com/api/v1/image/108104289-17399715182025-02-18t160441z_1704028396_rc2uwcacnx1r_rtrmadp_0_usa-trump-tariffs-mexico.jpeg?v=1739971599&w=1920&h=1080",
-      "category": "business",
       "topics": []
     },
     {
@@ -2382,23 +2382,43 @@
       "topics": []
     },
     {
-      "id": "8a09a4a6242186445965",
+      "id": "29ebc9382c60d0c9dabd",
       "source": "pluang",
-      "title": "Trader Peter Brandt lebih memilih Monero daripada XRP karena tekanan jual lebih rendah meski target XRP di $2,16.",
-      "url": "https://pluang.com/news-feed/peter-brandt-mendukung-monero-daripada-xrp-meski-target-harga-bullish",
+      "title": "Monarch Casino akan umumkan hasil kuartal 3 2026 setelah pasar tutup 27 Oktober",
+      "url": "https://pluang.com/news-feed/monarch-casino-resort-laporkan-hasil-kuartal-iii-2026",
       "publishedAt": null,
-      "image": "https://image-cdn.pluang.com/web/news-cards/v2/CRYPTO/cf74879c6953e73daab6847f1b95be10aa79d09f196b0aab667bfcc32cc3f105-id.webp",
-      "category": "business",
+      "image": "https://image-cdn.pluang.com/web/news-cards/v2/GSS/aec136ae7350c33bbfb16af1acc7b235570c924ca9d8ae22ea5319acc0985428-id.webp",
+      "category": "other",
       "topics": []
     },
     {
-      "id": "adde9baacb7a2be3bcb4",
+      "id": "2ce4d5b72105f3c607c9",
       "source": "pluang",
-      "title": "Opsi Bitcoin dan Ether senilai $2,16 miliar akan kedaluwarsa 9 Okt, momen penting pasar kripto.",
-      "url": "https://pluang.com/news-feed/bitcoin-ether-options-nilai-2-miliar-expire-9-oktober",
+      "title": "Paus kripto pindahkan 9.618 ETH senilai $24,6 juta ke Kraken setelah 9 tahun, penjualan belum jelas",
+      "url": "https://pluang.com/news-feed/pinosaureth-pindahkan-9618-eth-ke-kraken-setelah-9-tahun",
       "publishedAt": null,
-      "image": "https://image-cdn.pluang.com/web/news-cards/v2/CRYPTO/66c1c0aea2375e7f66883ec3b0e513535a6f6acc4b5014deadb7b461535113de-id.webp",
-      "category": "markets",
+      "image": "https://image-cdn.pluang.com/web/news-cards/v2/CRYPTO/b702cb3ce0a5d8ab5b6b847c8ffa0fc7cd4e4fa8824403a01197f8d8d5274943-id.webp",
+      "category": "other",
+      "topics": []
+    },
+    {
+      "id": "3a364a63c1080f1d6432",
+      "source": "pluang",
+      "title": "Dompet kripto lama pindahkan Ether senilai $24,58 juta ke Kraken setelah 9 tahun",
+      "url": "https://pluang.com/news-feed/dompet-dormant-pindahkan-9618-ether-senilai-2458-juta-ke-kraken",
+      "publishedAt": null,
+      "image": "https://image-cdn.pluang.com/web/news-cards/v2/CRYPTO/70011af7dfce54ce75d36ed6106fb1fa39559a31f908fda0ddb57717b4dc1164-id.webp",
+      "category": "other",
+      "topics": []
+    },
+    {
+      "id": "e644b27de9de0023d3b8",
+      "source": "pluang",
+      "title": "Sui Network capai rekor 40 juta TPS, tapi token SUI turun 5,3% di hari yang sama",
+      "url": "https://pluang.com/news-feed/sui-mencapai-rekor-40-juta-tps-tapi-ada-satu-kendala",
+      "publishedAt": null,
+      "image": "https://image-cdn.pluang.com/web/news-cards/v2/CRYPTO/52458c9ed69a08c8a69ef8660d3a757534a71fb0eeba08079b5943ab074afa41-id.webp",
+      "category": "other",
       "topics": []
     }
   ]
