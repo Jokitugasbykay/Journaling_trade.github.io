@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "checkedAt": "2026-10-08T05:10:03.975698+00:00",
+  "checkedAt": "2026-10-08T05:30:06.654456+00:00",
   "intervalMinutes": 5,
   "sources": [
     {
@@ -9,7 +9,7 @@
       "url": "https://www.investing.com/",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-08T05:09:55.059007+00:00"
+      "checkedAt": "2026-10-08T05:29:56.025113+00:00"
     },
     {
       "id": "cnbc",
@@ -17,7 +17,7 @@
       "url": "https://www.cnbc.com/markets/",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-08T05:09:55.224003+00:00"
+      "checkedAt": "2026-10-08T05:29:55.989227+00:00"
     },
     {
       "id": "kontan",
@@ -25,7 +25,7 @@
       "url": "https://www.kontan.co.id/",
       "kind": "html",
       "status": "ok",
-      "checkedAt": "2026-10-08T05:09:55.759698+00:00"
+      "checkedAt": "2026-10-08T05:29:57.042056+00:00"
     },
     {
       "id": "reuters",
@@ -33,7 +33,7 @@
       "url": "https://www.reuters.com/",
       "kind": "sitemap",
       "status": "ok",
-      "checkedAt": "2026-10-08T05:09:55.273183+00:00"
+      "checkedAt": "2026-10-08T05:29:56.191393+00:00"
     },
     {
       "id": "aljazeera",
@@ -41,7 +41,7 @@
       "url": "https://www.aljazeera.com/",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-08T05:09:54.989769+00:00"
+      "checkedAt": "2026-10-08T05:29:56.046984+00:00"
     },
     {
       "id": "bloomberg",
@@ -49,7 +49,7 @@
       "url": "https://www.bloomberg.com/asia",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-08T05:09:55.783238+00:00"
+      "checkedAt": "2026-10-08T05:29:56.151421+00:00"
     },
     {
       "id": "fnc",
@@ -57,7 +57,7 @@
       "url": "https://tradewithfnc.com/",
       "kind": "json",
       "status": "ok",
-      "checkedAt": "2026-10-08T05:09:55.935314+00:00"
+      "checkedAt": "2026-10-08T05:29:56.490013+00:00"
     },
     {
       "id": "investing_id",
@@ -65,7 +65,7 @@
       "url": "https://id.investing.com/news",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-08T05:09:55.366159+00:00"
+      "checkedAt": "2026-10-08T05:29:56.094809+00:00"
     },
     {
       "id": "pluang",
@@ -73,7 +73,7 @@
       "url": "https://pluang.com/news-feed",
       "kind": "html",
       "status": "ok",
-      "checkedAt": "2026-10-08T05:09:56.554569+00:00"
+      "checkedAt": "2026-10-08T05:29:56.502212+00:00"
     },
     {
       "id": "kompas",
@@ -81,7 +81,7 @@
       "url": "https://money.kompas.com/",
       "kind": "html",
       "status": "ok",
-      "checkedAt": "2026-10-08T05:09:56.296412+00:00"
+      "checkedAt": "2026-10-08T05:29:56.723589+00:00"
     },
     {
       "id": "detik",
@@ -89,7 +89,7 @@
       "url": "https://finance.detik.com/",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-08T05:09:56.943522+00:00"
+      "checkedAt": "2026-10-08T05:29:57.684155+00:00"
     },
     {
       "id": "kemenkeu",
@@ -121,7 +121,7 @@
       "url": "https://ekbis.sindonews.com/",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-08T05:09:56.249988+00:00"
+      "checkedAt": "2026-10-08T05:29:56.593913+00:00"
     },
     {
       "id": "fedwatch",
@@ -140,6 +140,256 @@
   ],
   "items": [
     {
+      "id": "bc6e59e1cd9be69dc743",
+      "source": "kompas",
+      "title": "Batas Kredit Macet Pinjol Mau Diubah Jadi 180 Hari, Ini Alasannya",
+      "url": "https://money.kompas.com/read/2026/10/08/122915726/batas-kredit-macet-pinjol-mau-diubah-jadi-180-hari-ini-alasannya",
+      "publishedAt": "2026-10-08T05:29:15+00:00",
+      "image": "https://asset.kompas.com/crops/--HWitpzOarf6-JZjvelS-oT46g=/0x0:750x500/750x500/data/photo/2022/04/16/625af1b458dfa.jpg",
+      "category": "other",
+      "topics": []
+    },
+    {
+      "id": "bded92132fc2488e2a0f",
+      "source": "cnbc",
+      "title": "Elon Musk blames Indian 'oligarchs' for stalling Starlink launch",
+      "url": "https://www.cnbc.com/2026/10/08/elon-musk-starlink-spacex-jio-airtel-india.html",
+      "publishedAt": "2026-10-08T05:28:40+00:00",
+      "image": "https://image.cnbcfm.com/api/v1/image/108315896-1780491649482-gettyimages-1175168392-AFP_1LB3WB.jpeg?v=1781036537&w=1920&h=1080",
+      "category": "other",
+      "topics": []
+    },
+    {
+      "id": "a7ac0eb60d59f8a8d5b0",
+      "source": "kompas",
+      "title": "Pikat Perusahaan Global, PLN Gandeng The Climate Group Perkuat Investasi Hijau di Indonesia",
+      "url": "https://money.kompas.com/read/2026/10/08/122805426/pikat-perusahaan-global-pln-gandeng-the-climate-group-perkuat-investasi-hijau",
+      "publishedAt": "2026-10-08T05:28:05+00:00",
+      "image": "https://asset.kompas.com/crops/UmsrNgi1dyRZXIjsRy0dB3UTn10=/0x0:1280x853/750x500/data/photo/2026/10/08/6ac71ad7159e5.jpeg",
+      "category": "local",
+      "topics": []
+    },
+    {
+      "id": "568888abc475e9e4424e",
+      "source": "reuters",
+      "title": "Vietnam police arrest 12 over theft of 2,700 cats for slaughter",
+      "url": "https://www.reuters.com/world/asia-pacific/vietnam-police-arrest-12-over-theft-2700-cats-slaughter-2026-10-08/",
+      "publishedAt": "2026-10-08T05:26:41.098000+00:00",
+      "image": null,
+      "category": "world",
+      "topics": []
+    },
+    {
+      "id": "7faa536dcf1998f2315a",
+      "source": "reuters",
+      "title": "Andy Pages' clutch hit sends Dodgers past Braves, into NLCS",
+      "url": "https://www.reuters.com/sports/baseball/andy-pages-clutch-hit-sends-dodgers-past-braves-into-nlcs--flm-2026-10-08/",
+      "publishedAt": "2026-10-08T05:25:59.207000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/OZW5ORNAQRKS5LEX5H3PV4CQTY.jpg?auth=37630d489a132105802bdf64fb7e21fffa6bd589d4787a669eeefb693758584e&smart=true&width=1920",
+      "category": "sport",
+      "topics": []
+    },
+    {
+      "id": "f0dace92d0f590dcc448",
+      "source": "reuters",
+      "title": "US, Russia explore gas sale to Europe amid Ukraine war, say sources",
+      "url": "https://www.reuters.com/business/energy/us-russia-explore-gas-sale-europe-amid-ukraine-war-say-sources-2026-10-08/",
+      "publishedAt": "2026-10-08T05:25:28.028000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/DBTTPICFRRMA7FIG6KMFDNNJGY.jpg?auth=2434d0661f9f8521c4d25b80586d8d8a31aad5a1d362199ba1e8f793f2929221&smart=true&width=1920",
+      "category": "business",
+      "topics": []
+    },
+    {
+      "id": "cfb88607f89116d5d37d",
+      "source": "reuters",
+      "title": "US opens direct talks with Myanmar's generals, reversing years of isolation",
+      "url": "https://www.reuters.com/world/asia-pacific/us-opens-direct-talks-with-myanmars-generals-reversing-years-isolation-2026-10-08/",
+      "publishedAt": "2026-10-08T05:24:48.782000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/2QGOWEYLRBNEDAYP2XOICFKSXU.jpg?auth=7b2a30e475c3c6142c0da0bf517cd6cfb688701e3a023de843f74fe352d6dc67&smart=true&width=1920",
+      "category": "world",
+      "topics": []
+    },
+    {
+      "id": "ef608d607c23610f1eb0",
+      "source": "reuters",
+      "title": "Südzucker reports broadly stable first-half revenue",
+      "url": "https://www.reuters.com/business/retail-consumer/sdzucker-reports-broadly-stable-first-half-revenue-2026-10-08/",
+      "publishedAt": "2026-10-08T05:19:46.054000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/YQEAPIX7KZKCNOOY3OYXLSJJZM.jpg?auth=38c25adfb0b7343b5d18a67abfc692d47a5330c886b83bc544a745295bbb7bf3&smart=true&width=1920",
+      "category": "business",
+      "topics": []
+    },
+    {
+      "id": "c728ff99845029cf44c4",
+      "source": "kompas",
+      "title": "Analis Cermati 4 Saham Energi, GEMS Bullish sementara BREN Masih Bearish",
+      "url": "https://money.kompas.com/read/2026/10/08/121941626/analis-cermati-4-saham-energi-gems-bullish-sementara-bren-masih-bearish",
+      "publishedAt": "2026-10-08T05:19:41+00:00",
+      "image": "https://asset.kompas.com/crops/FDm8CWCUEUgwgTeYDiAZqBwveYE=/192x128:1728x1152/750x500/data/photo/2025/01/03/6777b5098d67f.jpg",
+      "category": "markets",
+      "topics": []
+    },
+    {
+      "id": "2924f0ea8699c3217a2c",
+      "source": "reuters",
+      "title": "World Bank appoints David Vaillant as managing director, CFO",
+      "url": "https://www.reuters.com/world/world-bank-appoints-david-vaillant-managing-director-cfo-2026-10-08/",
+      "publishedAt": "2026-10-08T05:18:09.832000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/IA4F5V5BOBKMZGXUYZUHEWQQVQ.jpg?auth=0a54cb285409ad17d32e73ec48dbcc055037c4ed8cdde8d0c749431d342c40c4&smart=true&width=1920",
+      "category": "business",
+      "topics": []
+    },
+    {
+      "id": "9ad62c020024f0b55a05",
+      "source": "kompas",
+      "title": "Ekonomi Biru Indonesia Butuh Pembiayaan, Hilirisasi Jadi Kunci",
+      "url": "https://money.kompas.com/read/2026/10/08/121705726/ekonomi-biru-indonesia-butuh-pembiayaan-hilirisasi-jadi-kunci",
+      "publishedAt": "2026-10-08T05:17:05+00:00",
+      "image": "https://asset.kompas.com/crops/x7_u05FUq-h9kNxTB6ufeOPObQo=/164x0:3527x2242/750x500/data/photo/2023/07/03/64a27d97720f2.jpg",
+      "category": "local",
+      "topics": []
+    },
+    {
+      "id": "1ff9a37e3f1e286d6f50",
+      "source": "bloomberg",
+      "title": "AI Squeezes Tech Grads at India’s Banking Hubs",
+      "url": "https://www.bloomberg.com/news/videos/2026-10-08/ai-squeezes-tech-grads-at-india-s-banking-hubs-video",
+      "publishedAt": "2026-10-08T05:15:57+00:00",
+      "image": null,
+      "category": "technology",
+      "topics": []
+    },
+    {
+      "id": "72baede325b1cfe467de",
+      "source": "reuters",
+      "title": "Japanese PM Takaichi's campaign to shed reflationist image needs substance behind the speeches",
+      "url": "https://www.reuters.com/world/asia-pacific/japanese-pm-takaichis-campaign-shed-reflationist-image-needs-substance-behind-2026-10-08/",
+      "publishedAt": "2026-10-08T05:15:44.200000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/O27GOGDZYFPVPDQRT7W5TW3PTM.jpg?auth=ef6d374c8d14774fde54c46fcebd7ac4210b28a2ab0b57e231223d9c85359d99&smart=true&width=1920",
+      "category": "world",
+      "topics": []
+    },
+    {
+      "id": "b44354b62ebb2bf560b5",
+      "source": "reuters",
+      "title": "Oil rises as Middle East supply concerns persist amid shipping attacks",
+      "url": "https://www.reuters.com/business/energy/oil-rises-middle-east-supply-concerns-persist-amid-shipping-attacks-2026-10-08/",
+      "publishedAt": "2026-10-08T05:14:59.417000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/3MA2ADNGIRKMBOKQMCZO5TRY3U.jpg?auth=ede0483b7519f56b9bea9303855509843d7e1f0beaf7b816f3556c8874afbc44&smart=true&width=1920",
+      "category": "markets",
+      "topics": []
+    },
+    {
+      "id": "0cd1ba5b356ecd803f45",
+      "source": "reuters",
+      "title": "Britain removes East Jerusalem consulate signage as Israeli shutdown deadline expires",
+      "url": "https://www.reuters.com/world/middle-east/britain-removes-east-jerusalem-consulate-signage-israeli-shutdown-order-expires-2026-10-08/",
+      "publishedAt": "2026-10-08T05:14:56.103000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/QI4UDDQJEZI45AQK7BTSYZTGBY.jpg?auth=f183e4ed3ea08709e08ec132530f42934ba0f63ea990de1854bf1dd1ad3b672f&smart=true&width=1920",
+      "category": "world",
+      "topics": []
+    },
+    {
+      "id": "d5d4fc1a063993c4068c",
+      "source": "reuters",
+      "title": "UK PM Burnham's Labour Party faces challenge from Greens in Starmer's old seat",
+      "url": "https://www.reuters.com/world/uk/uk-pm-burnhams-labour-party-faces-challenge-greens-starmers-old-seat-2026-10-07/",
+      "publishedAt": "2026-10-08T05:12:49.955000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/A5VFUD76WJLMLMLZ4GCYN5MFCI.jpg?auth=4908cdd6c8fcea4ae9008731ca678747a841ea053e36105e650ed606f9faa5e7&smart=true&width=1920",
+      "category": "world",
+      "topics": []
+    },
+    {
+      "id": "4014e418a07975400afe",
+      "source": "reuters",
+      "title": "At least 32 killed in Ukraine, Zelenskiy condemns one of Russia's most 'vile strikes'",
+      "url": "https://www.reuters.com/world/europe/russia-strikes-ukraines-kyiv-fresh-wave-attacks-2026-10-07/",
+      "publishedAt": "2026-10-08T05:12:13.764000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/BG73HF2H3RMPVNS3YZS3I5XLSA.jpg?auth=21e23ecba4652e7b09067e1c20ef558119b7777e882bf55e3ab6e5a4471cd79b&smart=true&width=1920",
+      "category": "world",
+      "topics": []
+    },
+    {
+      "id": "c14fe3b5019e9ba90c3d",
+      "source": "reuters",
+      "title": "India inflation likely accelerated in September on food and energy pressures - Reuters poll",
+      "url": "https://www.reuters.com/world/india/india-inflation-likely-accelerated-september-food-energy-pressures-2026-10-08/",
+      "publishedAt": "2026-10-08T05:11:53.516000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/EQGRE7SVEVLU3DD5NXZRSY2DA4.jpg?auth=a4914743cac5704db904c406ae4b766f392e874b9dfea7431c271ba2134eb632&smart=true&width=1920",
+      "category": "markets",
+      "topics": []
+    },
+    {
+      "id": "aed6f320b62d2b93f552",
+      "source": "reuters",
+      "title": "Oilers erase early deficit with 5-goal second period, down Ducks",
+      "url": "https://www.reuters.com/sports/nhl/oilers-erase-early-deficit-with-5-goal-second-period-down-ducks--flm-2026-10-08/",
+      "publishedAt": "2026-10-08T05:11:36.527000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/IJEUZT4FFFKLZC6SWODPQX737U.jpg?auth=f47cff359799c25afc7fe1c3f9ac433b86e7e84d262fa22e2ab2ee08a25b2407&smart=true&width=1920",
+      "category": "sport",
+      "topics": []
+    },
+    {
+      "id": "a463f0bf9b6db7eed209",
+      "source": "kompas",
+      "title": "Booming Data Center Bikin Saham DMAS Dilirik, Simak Rekomendasinya",
+      "url": "https://money.kompas.com/read/2026/10/08/121000626/booming-data-center-bikin-saham-dmas-dilirik-simak-rekomendasinya",
+      "publishedAt": "2026-10-08T05:10:00+00:00",
+      "image": "https://asset.kompas.com/crops/e__49AweLTqNfdajdsVXDk7QCmE=/65x0:722x438/750x500/data/photo/2026/02/18/699528368e458.webp",
+      "category": "technology",
+      "topics": []
+    },
+    {
+      "id": "1fca8160443510387c0c",
+      "source": "detik",
+      "title": "Agrinas Siapkan 1 Juta Hektare Lahan buat Produksi Bioetanol",
+      "url": "https://finance.detik.com/energi/d-8697714/agrinas-siapkan-1-juta-hektare-lahan-buat-produksi-bioetanol",
+      "publishedAt": "2026-10-08T05:09:52+00:00",
+      "image": "https://akcdn.detik.net.id/community/media/visual/2026/10/08/direktur-utama-agrinas-palma-mohammad-abdul-ghani-1791436045406_169.jpeg?w=360&q=90",
+      "category": "other",
+      "topics": []
+    },
+    {
+      "id": "9aba07d835d0c3dfe4fc",
+      "source": "reuters",
+      "title": "India denies bias in satellite internet approvals after Musk's 'oligarchs' jab",
+      "url": "https://www.reuters.com/business/media-telecom/india-denies-bias-satellite-internet-approvals-after-musks-oligarchs-jab-2026-10-08/",
+      "publishedAt": "2026-10-08T05:09:39.996000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/MLIRFABIAZKMZN25VFSEG3JPWE.jpg?auth=e898325f9839a89727757e8c0a22f48b11528f2080a5a5ab54d14a2d724caadd&smart=true&width=1920",
+      "category": "business",
+      "topics": []
+    },
+    {
+      "id": "6d250d59ce0209464a08",
+      "source": "aljazeera",
+      "title": "Protesters in Colombia rally against ties with Israel",
+      "url": "https://www.aljazeera.com/news/2026/10/8/protesters-in-colombia-rally-against-ties-with-israel?traffic_source=rss",
+      "publishedAt": "2026-10-08T05:09:13+00:00",
+      "image": "https://www.aljazeera.com/wp-content/uploads/2026/10/afp_6ac71e247ba8-1791434276.jpg?resize=1920%2C1440",
+      "category": "other",
+      "topics": []
+    },
+    {
+      "id": "59fed06307ab54cf74f1",
+      "source": "reuters",
+      "title": "Morning Bid: Sovereign bonds shouldered aside as AI takes their turf",
+      "url": "https://www.reuters.com/world/china/global-markets-view-europe-2026-10-08/",
+      "publishedAt": "2026-10-08T05:08:09.205000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/3GFJ422VYFM57ITJ3ITNOMKR5M.jpg?auth=0848b32097ef35a1df49aa1d8f5a8173cafc6080b02e74a83ecc66b47b3fb36a&smart=true&width=1920",
+      "category": "technology",
+      "topics": []
+    },
+    {
+      "id": "17dbc5c46dd8387581e3",
+      "source": "aljazeera",
+      "title": "Signage at UK consulate in East Jerusalem removed as Israel’s deadline over",
+      "url": "https://www.aljazeera.com/news/2026/10/8/signage-at-uk-consulate-in-east-jerusalem-removed-as-israels-deadline-over?traffic_source=rss",
+      "publishedAt": "2026-10-08T05:06:25+00:00",
+      "image": "https://www.aljazeera.com/wp-content/uploads/2026/10/reuters_6ac71dfa-1791434234.jpg?resize=1920%2C1440",
+      "category": "other",
+      "topics": []
+    },
+    {
       "id": "11e31c0b1f0a56f70d09",
       "source": "kompas",
       "title": "1,9 Juta Ton E-Waste di Indonesia, Lintasarta Dorong Edukasi Ekonomi Sirkular",
@@ -150,14 +400,16 @@
       "topics": []
     },
     {
-      "id": "0cd1ba5b356ecd803f45",
+      "id": "c1ec2bd1cd6df6ef6b13",
       "source": "reuters",
-      "title": "Britain removes East Jerusalem consulate signage as Israeli shutdown order expires",
-      "url": "https://www.reuters.com/world/middle-east/britain-removes-east-jerusalem-consulate-signage-israeli-shutdown-order-expires-2026-10-08/",
-      "publishedAt": "2026-10-08T05:02:09.582000+00:00",
-      "image": "https://www.reuters.com/resizer/v2/DW4ROZG72FI65E6TIHXSSXHU74.jpg?auth=f0f8cc77eb11d2386f54168e756bfd914e53aabea177e692523ea2251ca0a30b&smart=true&width=1920",
+      "title": "Trump rallies for Paxton in third Texas trip in a month as Republicans defend stronghold",
+      "url": "https://www.reuters.com/world/us/trump-makes-third-texas-trip-month-republicans-defend-longtime-stronghold-2026-10-07/",
+      "publishedAt": "2026-10-08T05:02:36.550000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/NEILZ2UA7ZOANIREOQQKQX5MVU.jpg?auth=e34d480cbc790edf6d43eb71238ce95112ddb219d08e5b91c25faacdfabf46e3&smart=true&width=1920",
       "category": "world",
-      "topics": []
+      "topics": [
+        "politics"
+      ]
     },
     {
       "id": "2935ec994f6160cc456e",
@@ -167,16 +419,6 @@
       "publishedAt": "2026-10-08T05:00:52.155000+00:00",
       "image": "https://www.reuters.com/resizer/v2/CWKTLRLSQJK3VGPPEF5ONLTSQY.jpg?auth=0450289cbd9d58a931cb9b84368f3e945bafe50294625b5878f04addd94dcd97&smart=true&width=1920",
       "category": "commentary",
-      "topics": []
-    },
-    {
-      "id": "d5d4fc1a063993c4068c",
-      "source": "reuters",
-      "title": "UK PM Burnham's Labour Party faces challenge from Greens in Starmer's old seat",
-      "url": "https://www.reuters.com/world/uk/uk-pm-burnhams-labour-party-faces-challenge-greens-starmers-old-seat-2026-10-07/",
-      "publishedAt": "2026-10-08T05:00:17.677000+00:00",
-      "image": "https://www.reuters.com/resizer/v2/A5VFUD76WJLMLMLZ4GCYN5MFCI.jpg?auth=4908cdd6c8fcea4ae9008731ca678747a841ea053e36105e650ed606f9faa5e7&smart=true&width=1920",
-      "category": "world",
       "topics": []
     },
     {
@@ -282,18 +524,6 @@
       "topics": []
     },
     {
-      "id": "c1ec2bd1cd6df6ef6b13",
-      "source": "reuters",
-      "title": "Trump rallies for Paxton in third Texas trip in a month as Republicans defend stronghold",
-      "url": "https://www.reuters.com/world/us/trump-makes-third-texas-trip-month-republicans-defend-longtime-stronghold-2026-10-07/",
-      "publishedAt": "2026-10-08T04:49:29.688000+00:00",
-      "image": "https://www.reuters.com/resizer/v2/NEILZ2UA7ZOANIREOQQKQX5MVU.jpg?auth=e34d480cbc790edf6d43eb71238ce95112ddb219d08e5b91c25faacdfabf46e3&smart=true&width=1920",
-      "category": "world",
-      "topics": [
-        "politics"
-      ]
-    },
-    {
       "id": "8b027115d6ab5dcfc536",
       "source": "reuters",
       "title": "Samsung's AI riches lag Nvidia's money machine",
@@ -356,16 +586,6 @@
       "topics": []
     },
     {
-      "id": "4014e418a07975400afe",
-      "source": "reuters",
-      "title": "At least 32 killed in Ukraine, Zelenskiy condemns one of Russia's most 'vile strikes'",
-      "url": "https://www.reuters.com/world/europe/russia-strikes-ukraines-kyiv-fresh-wave-attacks-2026-10-07/",
-      "publishedAt": "2026-10-08T04:43:10.200000+00:00",
-      "image": "https://www.reuters.com/resizer/v2/BG73HF2H3RMPVNS3YZS3I5XLSA.jpg?auth=21e23ecba4652e7b09067e1c20ef558119b7777e882bf55e3ab6e5a4471cd79b&smart=true&width=1920",
-      "category": "world",
-      "topics": []
-    },
-    {
       "id": "e514b66013e7efc7173e",
       "source": "kompas",
       "title": "Menkeu Suahasil Bicara Tax Ratio: Bukan Sekadar Kumpulkan Pajak",
@@ -403,16 +623,6 @@
       "publishedAt": "2026-10-08T04:39:43.656000+00:00",
       "image": "https://www.reuters.com/resizer/v2/3YRYEOUJ4NIWTHT5KFKVQADFZQ.jpg?auth=d9424e44e50277541bb6f43e59e96bf3d8443ee201bb90882b77956d4f03d58a&smart=true&width=1920",
       "category": "local",
-      "topics": []
-    },
-    {
-      "id": "59fed06307ab54cf74f1",
-      "source": "reuters",
-      "title": "Sovereign bonds shouldered aside as AI takes their turf",
-      "url": "https://www.reuters.com/world/china/global-markets-view-europe-2026-10-08/",
-      "publishedAt": "2026-10-08T04:38:11.992000+00:00",
-      "image": "https://www.reuters.com/resizer/v2/3GFJ422VYFM57ITJ3ITNOMKR5M.jpg?auth=0848b32097ef35a1df49aa1d8f5a8173cafc6080b02e74a83ecc66b47b3fb36a&smart=true&width=1920",
-      "category": "technology",
       "topics": []
     },
     {
@@ -590,16 +800,6 @@
       "topics": []
     },
     {
-      "id": "cfb88607f89116d5d37d",
-      "source": "reuters",
-      "title": "US opens direct talks with Myanmar's generals, reversing years of isolation",
-      "url": "https://www.reuters.com/world/asia-pacific/us-opens-direct-talks-with-myanmars-generals-reversing-years-isolation-2026-10-08/",
-      "publishedAt": "2026-10-08T04:17:05.923000+00:00",
-      "image": "https://www.reuters.com/resizer/v2/2QGOWEYLRBNEDAYP2XOICFKSXU.jpg?auth=7b2a30e475c3c6142c0da0bf517cd6cfb688701e3a023de843f74fe352d6dc67&smart=true&width=1920",
-      "category": "world",
-      "topics": []
-    },
-    {
       "id": "d98930cc236cdb8646a7",
       "source": "reuters",
       "title": "Malaysia PM says he will do whatever possible to ensure Myanmar's acceptance in regional community",
@@ -626,16 +826,6 @@
       "url": "https://www.aljazeera.com/news/2026/10/8/south-korea-pledges-legal-action-over-alleged-fuel-exports-to-russia?traffic_source=rss",
       "publishedAt": "2026-10-08T04:14:11+00:00",
       "image": "https://www.aljazeera.com/wp-content/uploads/2026/09/2026-05-08T070131Z_1905822413_RC2S4LADQ929_RTRMADP_3_IRAN-CRISIS-SOUTHKOREA-TANKER-1788401778.jpg?resize=1920%2C1440",
-      "category": "other",
-      "topics": []
-    },
-    {
-      "id": "bded92132fc2488e2a0f",
-      "source": "cnbc",
-      "title": "Elon Musk blames Indian 'oligarchs' for stalling Starlink launch",
-      "url": "https://www.cnbc.com/2026/10/08/elon-musk-starlink-spacex-jio-airtel-india.html",
-      "publishedAt": "2026-10-08T04:12:57+00:00",
-      "image": "https://image.cnbcfm.com/api/v1/image/108315896-1780491649482-gettyimages-1175168392-AFP_1LB3WB.jpeg?v=1781036537&w=1920&h=1080",
       "category": "other",
       "topics": []
     },
@@ -921,16 +1111,6 @@
       "publishedAt": "2026-10-08T03:32:25+00:00",
       "image": "https://akcdn.detik.net.id/community/media/visual/2018/06/08/990c90c5-3147-4281-b293-405d23f854fb_169.jpeg?w=360&q=90",
       "category": "local",
-      "topics": []
-    },
-    {
-      "id": "c14fe3b5019e9ba90c3d",
-      "source": "reuters",
-      "title": "India inflation likely accelerated in September on food and energy pressures - Reuters poll",
-      "url": "https://www.reuters.com/world/india/india-inflation-likely-accelerated-september-food-energy-pressures-2026-10-08/",
-      "publishedAt": "2026-10-08T03:32:11.192000+00:00",
-      "image": null,
-      "category": "markets",
       "topics": []
     },
     {
@@ -1304,16 +1484,6 @@
       "topics": []
     },
     {
-      "id": "7faa536dcf1998f2315a",
-      "source": "reuters",
-      "title": "Andy Pages' clutch hit sends Dodgers past Braves, into NLCS",
-      "url": "https://www.reuters.com/sports/baseball/andy-pages-clutch-hit-sends-dodgers-past-braves-into-nlcs--flm-2026-10-08/",
-      "publishedAt": "2026-10-08T02:29:55.658000+00:00",
-      "image": "https://www.reuters.com/resizer/v2/OZW5ORNAQRKS5LEX5H3PV4CQTY.jpg?auth=37630d489a132105802bdf64fb7e21fffa6bd589d4787a669eeefb693758584e&smart=true&width=1920",
-      "category": "sport",
-      "topics": []
-    },
-    {
       "id": "eba2567551492605592c",
       "source": "reuters",
       "title": "Musk welcomes German backing for Tesla driver assistance tech as group chases EU approval",
@@ -1635,16 +1805,6 @@
       "publishedAt": "2026-10-08T01:27:54+00:00",
       "image": "https://akcdn.detik.net.id/community/media/visual/2026/10/02/sarmuji-resmi-jadi-menperin-1790915956975_169.jpeg?w=360&q=90",
       "category": "business",
-      "topics": []
-    },
-    {
-      "id": "b44354b62ebb2bf560b5",
-      "source": "reuters",
-      "title": "Oil rises as Middle East supply concerns persist amid shipping attacks",
-      "url": "https://www.reuters.com/business/energy/oil-rises-middle-east-supply-concerns-persist-amid-shipping-attacks-2026-10-08/",
-      "publishedAt": "2026-10-08T01:25:53.028000+00:00",
-      "image": "https://www.reuters.com/resizer/v2/3MA2ADNGIRKMBOKQMCZO5TRY3U.jpg?auth=ede0483b7519f56b9bea9303855509843d7e1f0beaf7b816f3556c8874afbc44&smart=true&width=1920",
-      "category": "markets",
       "topics": []
     },
     {
@@ -2104,7 +2264,7 @@
     {
       "id": "90fbb07903e8b3ef1784",
       "source": "aljazeera",
-      "title": "Yemen war live: Yemeni forces claim key heights as Houthi attacks go on",
+      "title": "Yemen war live: Gov’t forces claim key heights, Houthi attacks continue",
       "url": "https://www.aljazeera.com/news/liveblog/2026/10/8/yemen-war-live-yemeni-forces-claim-key-heights-as-houthi-attacks-go-on?traffic_source=rss",
       "publishedAt": "2026-10-08T00:00:00+00:00",
       "image": "https://www.aljazeera.com/wp-content/uploads/2026/10/14345924-1791410605.jpg?resize=1920%2C1440",
@@ -10158,7 +10318,7 @@
     {
       "id": "26a2f93c59009667a627",
       "source": "investing",
-      "title": "Nikkei 225 squeezed between SuperTrend and 20 SMA: Live levels",
+      "title": "Nikkei 225 stalls in chop zone below resistance: Live levels",
       "url": "https://www.investing.com/news/stock-market-news/nikkei-225-hits-70037-overbought-high-pullback-risk-live-93CH-4930979",
       "publishedAt": null,
       "image": "https://content-media.investing.com/news/LYNXNPEC3B0CQ_M.jpg",
@@ -10168,7 +10328,7 @@
     {
       "id": "6fc3db62ea71d1075049",
       "source": "investing",
-      "title": "SK Hynix breaks below Ichimoku cloud: Live levels",
+      "title": "SK Hynix engulfing candle at ₩1,713,000 vs H&S: Live levels",
       "url": "https://www.investing.com/news/stock-market-news/sk-hynix-trapped-below-sma20-in-tight-range-live-levels-93CH-4933195",
       "publishedAt": null,
       "image": "https://content-media.investing.com/news/LYNXNPEC0E0NG_M.jpg",
@@ -10524,7 +10684,7 @@
     {
       "id": "3de668aead86bfbcc5fa",
       "source": "investing",
-      "title": "Gold holds near nine-week low as Hormuz tensions raise Fed hike bets",
+      "title": "Gold steadies after nine-week low as Hormuz tensions lift Fed hike bets",
       "url": "https://www.investing.com/news/stock-market-news/gold-holds-near-nineweek-low-as-hormuz-tensions-raise-fed-hike-bets-4937808",
       "publishedAt": null,
       "image": "https://content-media.investing.com/news/LYNXNPEC140H9_M.jpg",
@@ -11983,7 +12143,7 @@
       "title": "Mengapa saham Shanghai Biren Technology turun hari ini?",
       "url": "https://id.investing.com/news/stock-market-news/mengapa-saham-shanghai-biren-technology-turun-hari-ini-93CH-3089979",
       "publishedAt": null,
-      "image": "https://content-media.investing.com/news/LYNXNPEC0E0NI_M.jpg",
+      "image": "https://content-media.investing.com/news/LYNXNPEC0E0NG_M.jpg",
       "category": "technology",
       "topics": []
     },
@@ -11993,7 +12153,7 @@
       "title": "Mengapa saham Samsung Electronics turun hari ini?",
       "url": "https://id.investing.com/news/stock-market-news/mengapa-saham-samsung-electronics-turun-hari-ini-93CH-3089978",
       "publishedAt": null,
-      "image": "https://content-media.investing.com/news/LYNXMPED0C0KP_M.jpg",
+      "image": "https://content-media.investing.com/news/LYNXMPED0C0KP_L.jpg",
       "category": "markets",
       "topics": []
     },
@@ -12044,6 +12204,190 @@
       "url": "https://id.investing.com/news/stock-market-news/firmus-yang-didukung-nvidia-tutup-bookbuilding-ipo-di-tengah-kekhawatiran-investor-3089972",
       "publishedAt": null,
       "image": "https://content-media.investing.com/news/LYNXNPEB6208D_M.jpg",
+      "category": "markets",
+      "topics": []
+    },
+    {
+      "id": "240314281df1526eb1a9",
+      "source": "investing",
+      "title": "Universal Quantum raises $100 million for computer development",
+      "url": "https://www.investing.com/news/stock-market-news/universal-quantum-raises-100-million-for-computer-development-93CH-4937904",
+      "publishedAt": null,
+      "image": "https://content-media.investing.com/news/Microsoft_2_M_1440048702.jpg",
+      "category": "markets",
+      "topics": []
+    },
+    {
+      "id": "94eaed46f5f78afd01af",
+      "source": "investing",
+      "title": "Analysis-Japanese PM Takaichi’s campaign to shed reflationist image needs substance behind the speeches",
+      "url": "https://www.investing.com/news/economy-news/analysisjapanese-pmtakaichis-campaign-to-shed-reflationist-image-needs-substance-behind-the-speeches-4937899",
+      "publishedAt": null,
+      "image": "https://content-media.investing.com/trkd-images/LYNXMPEM9709D_L.jpg",
+      "category": "business",
+      "topics": []
+    },
+    {
+      "id": "dc22fb250ff4c397273c",
+      "source": "investing",
+      "title": "World Bank appoints David Vaillant as managing director, CFO",
+      "url": "https://www.investing.com/news/economy-news/world-bank-appoints-david-vaillant-as-managing-director-cfo-4937902",
+      "publishedAt": null,
+      "image": "https://content-media.investing.com/trkd-images/LYNXMPEM9709Y_L.jpg",
+      "category": "business",
+      "topics": []
+    },
+    {
+      "id": "a56f39f5596a10b0d174",
+      "source": "investing",
+      "title": "India denies bias in satellite internet approvals after Musk’s ’oligarchs’ jab",
+      "url": "https://www.investing.com/news/stock-market-news/india-denies-bias-in-satellite-internet-approvals-after-musks-oligarchs-jab-4937901",
+      "publishedAt": null,
+      "image": "https://content-media.investing.com/trkd-images/LYNXMPEM9709I_L.jpg",
+      "category": "markets",
+      "topics": []
+    },
+    {
+      "id": "5e9217bee8c78975711d",
+      "source": "investing",
+      "title": "Shanghai Allist shares slide after U.S. partner’s lung cancer drug trial fails",
+      "url": "https://www.investing.com/news/stock-market-news/shanghai-allist-shares-slide-after-us-partners-lung-cancer-drug-trial-fails-4937900",
+      "publishedAt": null,
+      "image": "https://content-media.investing.com/news/LYNXMPEA7D0QX_M.jpg",
+      "category": "markets",
+      "topics": []
+    },
+    {
+      "id": "1e4a63f8b54bae3ecae6",
+      "source": "investing",
+      "title": "Exclusive-US, Russia explore gas sale to Europe amid Ukraine war, say sources",
+      "url": "https://www.investing.com/news/commodities-news/exclusiveus-russia-explore-gas-sale-to-europe-amid-ukraine-war-say-sources-4937898",
+      "publishedAt": null,
+      "image": "https://content-media.investing.com/trkd-images/LYNXMPEM9709C_L.jpg",
+      "category": "world",
+      "topics": []
+    },
+    {
+      "id": "9ab0cd1ba9af1f0aab53",
+      "source": "kontan",
+      "title": "Kepercayaan Konsumen Thailand Turun, Banjir dan Biaya Hidup Jadi Beban",
+      "url": "https://internasional.kontan.co.id/news/kepercayaan-konsumen-thailand-turun-banjir-dan-biaya-hidup-jadi-beban?source=home_headline",
+      "publishedAt": null,
+      "image": "https://foto.kontan.co.id/N1kRjKA5PWzRjLASvCwBxzhwgpQ=/smart/2026/10/08/884320157p.jpg",
+      "category": "other",
+      "topics": []
+    },
+    {
+      "id": "2646aa78f4f27d75a780",
+      "source": "kontan",
+      "title": "Pemerintah Siapkan BSU Rp900.000 untuk 13,3 Juta Pekerja, Ini Syarat Penerimanya",
+      "url": "https://nasional.kontan.co.id/news/pemerintah-siapkan-bsu-rp900000-untuk-133-juta-pekerja-ini-syarat-penerimanya?source=home_terbaru",
+      "publishedAt": null,
+      "image": "https://foto.kontan.co.id/Gb12LSvTG0vD6Vl4xhM9WvTffns=/smart/2026/03/19/948530565t.jpg",
+      "category": "other",
+      "topics": [
+        "politics"
+      ]
+    },
+    {
+      "id": "c281ce4f8fb76c7faf1c",
+      "source": "kontan",
+      "title": "Kepercayaan Konsumen Thailand Turun, Banjir dan Biaya Hidup Jadi Beban",
+      "url": "https://internasional.kontan.co.id/news/kepercayaan-konsumen-thailand-turun-banjir-dan-biaya-hidup-jadi-beban?source=home_terbaru",
+      "publishedAt": null,
+      "image": "https://foto.kontan.co.id/2E3WFzqM1vbTtnzi3GSIcaEM2h0=/smart/2026/10/08/884320157t.jpg",
+      "category": "other",
+      "topics": []
+    },
+    {
+      "id": "1d269152f173b0344b25",
+      "source": "kontan",
+      "title": "Kontribusi Asuransi Syariah Turun Tipis 0,12%, Sinyal Pemulihan Mulai Terlihat",
+      "url": "https://keuangan.kontan.co.id/news/kontribusi-asuransi-syariah-turun-tipis-012-sinyal-pemulihan-mulai-terlihat?source=home_terbaru",
+      "publishedAt": null,
+      "image": "https://foto.kontan.co.id/Tdzi1RInsszS59MBMwwh9zthPjY=/smart/2024/07/18/837568808t.jpg",
+      "category": "other",
+      "topics": []
+    },
+    {
+      "id": "69619c2c12741f571852",
+      "source": "kontan",
+      "title": "IHSG Turun 0,80% ke 6.097 Sesi I, Top Losers LQ45: GOTO, CUAN, WIFI, Kamis (8/10)",
+      "url": "https://investasi.kontan.co.id/news/ihsg-turun-080-ke-6097-sesi-i-top-losers-lq45-goto-cuan-wifi-kamis-810?source=home_terbaru",
+      "publishedAt": null,
+      "image": "https://foto.kontan.co.id/zt9Y6Pj0XV6SoZ93eJ4ihynhZE8=/smart/2026/09/15/128947954t.jpg",
+      "category": "local",
+      "topics": []
+    },
+    {
+      "id": "5e62c5d31119a47658e3",
+      "source": "kontan",
+      "title": "Risalah The Fed Bernada Hawkish, Dolar AS Dekati Level Tertinggi 18 Bulan",
+      "url": "https://internasional.kontan.co.id/news/risalah-the-fed-bernada-hawkish-dolar-as-dekati-level-tertinggi-18-bulan?source=home_terbaru",
+      "publishedAt": null,
+      "image": "https://foto.kontan.co.id/ta8pLImu8mjmMeBEiQypxLjILuQ=/smart/2026/09/24/613537725t.jpg",
+      "category": "markets",
+      "topics": [
+        "fed"
+      ]
+    },
+    {
+      "id": "04fa75b42ab68fe1ac0a",
+      "source": "kontan",
+      "title": "Soal Ijazah Gibran, Wamensesneg: Bedakan Tidak Ada dan Tidak Ditemukan",
+      "url": "https://nasional.kontan.co.id/news/soal-ijazah-gibran-wamensesneg-bedakan-tidak-ada-dan-tidak-ditemukan?source=home_terbaru",
+      "publishedAt": null,
+      "image": "https://foto.kontan.co.id/EDMpJAwtZbIynKBPjIVXwFMxF3s=/smart/2025/03/11/1563389182t.jpg",
+      "category": "other",
+      "topics": []
+    },
+    {
+      "id": "781e4ae42767e6927a8f",
+      "source": "investing_id",
+      "title": "Saham Shanghai Allist anjlok setelah uji coba obat kanker paru gagal",
+      "url": "https://id.investing.com/news/stock-market-news/saham-shanghai-allist-anjlok-setelah-uji-coba-obat-kanker-paru-gagal-3089985",
+      "publishedAt": null,
+      "image": "https://content-media.investing.com/news/LYNXMPEA7D0QX_M.jpg",
+      "category": "markets",
+      "topics": []
+    },
+    {
+      "id": "88e2c579a2161f207391",
+      "source": "investing_id",
+      "title": "argenx hentikan uji coba fase 3 untuk obat penyakit Sjögren",
+      "url": "https://id.investing.com/news/company-news/argenx-hentikan-uji-coba-fase-3-untuk-obat-penyakit-sjogren-93CH-3089983",
+      "publishedAt": null,
+      "image": "https://content-media.investing.com/news/LYNXMPEM1P0ZM_1200_L.jpg",
+      "category": "business",
+      "topics": []
+    },
+    {
+      "id": "6741a7343bbd8ce8d433",
+      "source": "investing_id",
+      "title": "Hershey Trust Co. jual saham Hershey (NYSE:HSY) senilai $4,8 juta",
+      "url": "https://id.investing.com/news/insider-trading-news/hershey-trust-co-jual-saham-hershey-nysehsy-senilai-48-juta-93CH-3089982",
+      "publishedAt": null,
+      "image": "https://content-media.investing.com/news/moved_LYNXMPEM3T1AG_1200_L.jpg",
+      "category": "markets",
+      "topics": []
+    },
+    {
+      "id": "fb136ecfbe5d7e36c3af",
+      "source": "investing_id",
+      "title": "CFO Analog Devices Richard Puccio Jr. jual saham senilai $631.620",
+      "url": "https://id.investing.com/news/insider-trading-news/cfo-analog-devices-richard-puccio-jr-jual-saham-senilai-631620-93CH-3089981",
+      "publishedAt": null,
+      "image": "https://content-media.investing.com/news/moved_LYNXMPEM3Q0WG_1200_L.jpg",
+      "category": "markets",
+      "topics": []
+    },
+    {
+      "id": "6807725058eac2e5ec7a",
+      "source": "investing_id",
+      "title": "CTO QuantumScape Timothy Holme menjual saham senilai $544.812",
+      "url": "https://id.investing.com/news/insider-trading-news/cto-quantumscape-timothy-holme-menjual-saham-senilai-544812-93CH-3089980",
+      "publishedAt": null,
+      "image": "https://content-media.investing.com/news/moved_LYNXMPEM4510G_1200_L.jpg",
       "category": "markets",
       "topics": []
     }
