@@ -25,7 +25,7 @@ def download(url):
     return data.decode('utf-8', errors='replace')
 
 def plain(value):
-    return ' '.join(html.unescape(re.sub('<[^>]+>', ' ', value)).split())
+    return ' '.join(html.unescape(re.sub('<[^>]+>', ' ', '' if value is None else str(value))).split())
 
 def meetings(data):
     found = []
@@ -85,7 +85,7 @@ def calendar_rows(data):
         state = json.loads(structured[1]).get('props', {}).get('pageProps', {}).get('state', {})
         events = state.get('economicCalendarStore', {}).get('calendarEventsByDate', {})
         for day in events.values():
-            for event in day:
+            for event in day if isinstance(day, list) else []:
                 try:
                     moment = dt.datetime.fromisoformat(event.get('time', '').replace('Z', '+00:00'))
                     impact = int(event.get('importance', 0))
@@ -94,8 +94,8 @@ def calendar_rows(data):
                     if not moment.tzinfo or impact not in (1, 2, 3) or not re.fullmatch('[A-Z]{3}', currency) or not name:
                         continue
                     moment = moment.astimezone(ZoneInfo('Asia/Jakarta'))
-                    rows.append({'id': str(event['occurrenceId']), 'tgl': moment.date().isoformat(), 'jam': moment.strftime('%H:%M'), 'neg': currency, 'countryCode': event.get('currencyFlag', ''), 'nama': name + (' ' + event['period'] if event.get('period') else ''), 'dmp': impact, 'akt': str(event.get('actual') or ''), 'prk': str(event.get('forecast') or ''), 'sbl': str(event.get('previous') or ''), 'cat': ''})
-                except (ValueError, TypeError, KeyError):
+                    rows.append({'id': str(event['occurrenceId']), 'tgl': moment.date().isoformat(), 'jam': moment.strftime('%H:%M'), 'neg': currency, 'countryCode': event.get('currencyFlag', ''), 'nama': name + (' ' + event['period'] if event.get('period') else ''), 'dmp': impact, 'akt': plain(event.get('actual')), 'prk': plain(event.get('forecast')), 'sbl': plain(event.get('previous')), 'cat': ''})
+                except (ValueError, TypeError, KeyError, AttributeError):
                     continue
         if rows:
             return rows
@@ -122,16 +122,19 @@ def monthly_rows(data):
     days = json.JSONDecoder().raw_decode(data[match.start(1):])[0]
     rows = []
     for day in days:
-        for event in day.get('events', []):
-            impact = {'low': 1, 'medium': 2, 'high': 3}.get(event.get('impactName'))
-            if not impact or not re.fullmatch('[A-Z]{3}', event.get('currency', '')):
+        for event in (day.get('events') or []) if isinstance(day, dict) else []:
+            try:
+                impact = {'low': 1, 'medium': 2, 'high': 3}.get(event.get('impactName'))
+                if not impact or not re.fullmatch('[A-Z]{3}', event.get('currency', '')) or not plain(event.get('name')):
+                    continue
+                moment = dt.datetime.fromtimestamp(int(event['dateline']), dt.timezone.utc).astimezone(ZoneInfo('Asia/Jakarta'))
+                country = {'UK': 'GB', 'CH': 'CN', 'EZ': 'EU', 'JN': 'JP', 'SZ': 'CH'}.get(event.get('country'), event.get('country', ''))
+                rows.append({'id': 'ff-' + str(event['id']), 'tgl': moment.date().isoformat(), 'jam': '' if event.get('timeMasked') else moment.strftime('%H:%M'),
+                             'neg': event['currency'], 'countryCode': country, 'nama': plain(event['name']), 'dmp': impact,
+                             'akt': plain(event.get('actual')), 'prk': plain(event.get('forecast')), 'sbl': plain(event.get('previous')),
+                             'cat': '', 'source': 'https://www.forexfactory.com' + (event.get('url') or '/calendar')})
+            except (ValueError, TypeError, KeyError, AttributeError, OverflowError, OSError):
                 continue
-            moment = dt.datetime.fromtimestamp(int(event['dateline']), dt.timezone.utc).astimezone(ZoneInfo('Asia/Jakarta'))
-            country = {'UK': 'GB', 'CH': 'CN', 'EZ': 'EU', 'JN': 'JP', 'SZ': 'CH'}.get(event.get('country'), event.get('country', ''))
-            rows.append({'id': 'ff-' + str(event['id']), 'tgl': moment.date().isoformat(), 'jam': '' if event.get('timeMasked') else moment.strftime('%H:%M'),
-                         'neg': event['currency'], 'countryCode': country, 'nama': plain(event['name']), 'dmp': impact,
-                         'akt': plain(str(event.get('actual') or '')), 'prk': plain(str(event.get('forecast') or '')), 'sbl': plain(str(event.get('previous') or '')),
-                         'cat': '', 'source': 'https://www.forexfactory.com' + event.get('url', '/calendar')})
     if not rows:
         raise ValueError('No monthly events parsed')
     return rows

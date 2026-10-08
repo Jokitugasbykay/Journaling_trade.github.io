@@ -31,7 +31,16 @@ assert len(rows) == 1 and rows[0]['jam'] == '01:00' and rows[0]['tgl'] == '2026-
 assert rows[0]['akt'] == '2.1%' and rows[0]['prk'] == '2.0%' and rows[0]['sbl'] == '2.2%'
 print('Modern calendar timestamps and release values passed')
 
+modern_events = modern['props']['pageProps']['state']['economicCalendarStore']['calendarEventsByDate']['2026-10-08']
+modern_events[0].update(actual=0, forecast=0, previous=None)
+modern_events.extend([None, {**modern_events[0], 'time': None}])
+zero_rows = calendar_rows('<script id="__NEXT_DATA__">' + json.dumps(modern) + '</script>')
+assert len(zero_rows) == 1 and zero_rows[0]['akt'] == '0' and zero_rows[0]['prk'] == '0' and zero_rows[0]['sbl'] == ''
+
 event = {'id': 1, 'dateline': epoch, 'name': 'CPI m/m', 'country': 'US', 'currency': 'USD', 'impactName': 'high', 'actual': '0', 'url': '/calendar'}
+zero_month = monthly_rows('days: ' + json.dumps([{'events': [None, {**event, 'dateline': None}, {**event, 'actual': 0, 'forecast': 0, 'previous': None}]}]))
+assert len(zero_month) == 1 and zero_month[0]['akt'] == '0' and zero_month[0]['prk'] == '0' and zero_month[0]['sbl'] == ''
+print('Numeric zero values retained; malformed calendar siblings skipped')
 month = monthly_rows('days: ' + json.dumps([{'events': [event, {**event, 'id': 2, 'name': 'CPI y/y'}, {**event, 'id': 3, 'name': 'Bank holiday', 'impactName': 'holiday'}]}]))
 assert len(month) == 2 and month[0]['jam'] == '01:00' and month[0]['countryCode'] == 'US'
 merged = merge_calendar(month, [{**month[0], 'nama': 'CPI (MoM) (Sep)', 'akt': '2.1%'}])

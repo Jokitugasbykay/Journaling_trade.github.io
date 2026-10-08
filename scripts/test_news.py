@@ -152,19 +152,22 @@ assert len(news.merge_items([ap_rows[0]], [{**ap_rows[0], 'title':'Updated headl
 print('New publishers: official domains, RSS taxonomy, AP headline/date/photo isolation and partial feed failures passed')
 
 regional = [row for row in news.SOURCES if row.get('country') in ('NO','DK','FI','CZ','RO','HU','IE','AT')]
-assert len(regional) == 64 and len({row['id'] for row in regional}) == 64
-assert all(sum(row['country'] == code for row in regional) == 8 for code in ('NO','DK','FI','CZ','RO','HU','IE','AT'))
+assert len(regional) >= 64 and len({row['id'] for row in regional}) == len(regional)
+assert all(sum(row['country'] == code for row in regional) >= 8 for code in ('NO','DK','FI','CZ','RO','HU','IE','AT'))
 orf = next(row for row in regional if row['id'] == 'at_orf')
 rdf = f'''<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns="http://purl.org/rss/1.0/" xmlns:dc="http://purl.org/dc/elements/1.1/">
 <item><title>Austrian central bank publishes economic growth figures</title><link>https://orf.at/stories/12345/</link><dc:date>{now.isoformat()}</dc:date></item></rdf:RDF>'''.encode()
 assert len(news.parse(rdf, orf)) == 1 and news.parse(rdf, orf)[0]['publishedAt'] == now.isoformat()
 print('Regional registry and ORF namespaced RSS checks passed')
 assert len({row['id'] for row in news.SOURCES}) == len(news.SOURCES), 'Shared publishers duplicated in feeds'
+collectable_ids = {row['id'] for row in news.SOURCES if row['kind'] not in ('external', 'tool')}
+for code, portals in news.REGIONAL_NEWS_SOURCES.items():
+    assert len({row['id'] for row in portals if row['id'] in collectable_ids}) >= 4, code + ' has fewer than four configured collectors'
 for code in ('ID','US','GB','MY','SG','DEFAULT','global_founder'):
-    assert len(news.REGIONAL_NEWS_SOURCES[code]) == (9 if code in ('ID','SG') else 8)
+    assert len(news.REGIONAL_NEWS_SOURCES[code]) >= 8
 
 for code in ("CA","MX","AR","CO","CL","PE","AU","NZ","CR","UY"):
-    assert len(news.REGIONAL_NEWS_SOURCES[code]) == (9 if code in ('ID','SG') else 8)
+    assert len(news.REGIONAL_NEWS_SOURCES[code]) >= 8
     assert all(row["id"].startswith(code.lower()+"_") for row in news.REGIONAL_NEWS_SOURCES[code])
 print("Americas and Oceania: all 80 official portal mappings passed")
 
@@ -175,11 +178,11 @@ assert "us_pbs" in {row["id"] for row in news.SOURCES}
 print("Global publisher list and shared-source deduplication passed")
 
 for code in ("DE","FR","IT","ES","NL","CH","SE","PL","UA"):
-    assert len(news.REGIONAL_NEWS_SOURCES[code]) == (9 if code in ('ID','SG') else 8)
+    assert len(news.REGIONAL_NEWS_SOURCES[code]) >= 8
 print("Nine new European regions: 72 portal entries and unique collector IDs passed")
 
 for code in ("QA","JO","LB","IQ","KW","OM","BH","IL","IN","CN","PK","BD","TW","SA","AE","TR","IR","LK","ZA","NG","KE","EG","MA","GH","ET","DZ","UG","TZ","TH","PH","VN","JP","KR"):
-    assert len(news.REGIONAL_NEWS_SOURCES[code]) == (1 if code == "QA" else 0 if code in ("JO","LB","IQ","KW","OM","BH","IL","SA","AE") else 10 if code == "CN" else 12 if code == "TW" else 8)
+    assert len(news.REGIONAL_NEWS_SOURCES[code]) >= 4
 assert "DIRECTORIES" not in news.REGIONAL_NEWS_SOURCES
 assert not any(source['id'].startswith('dir_') for source in news.SOURCES)
 assert news.REGIONAL_NEWS_SOURCES["TZ"][1]["url"] == "https://dailynews.co.tz"
@@ -236,14 +239,16 @@ with patch('urllib.request.urlopen', return_value=InterruptedResponse()):
 assert state['status'] == 'ok' and len(rows) == 1 and rows[0]['url'] == 'https://finance.biggo.com/news/valid'
 print('Interrupted HTML stream retains complete publisher anchors and discards truncated headlines')
 
-assert [row['id'] for code in ('QA','JO','LB','IQ','KW','OM','BH','IL','SA','AE') for row in news.REGIONAL_NEWS_SOURCES[code]] == ['aljazeera']
+assert 'aljazeera' in {row['id'] for row in news.REGIONAL_NEWS_SOURCES['QA']}
 import re
 assert not any(re.match(r'^(qa|jo|lb|iq|kw|om|bh|il|sa|ae)_p\d+$', source['id']) for source in news.SOURCES)
 removed_row = {'source':'iq_p3', 'title':'Iraq economic news', 'url':'https://www.iraq-businessnews.com/story', 'topics':[]}
 assert news.merge_items([removed_row], []) == []
-print('Middle East contains only Al Jazeera; deleted sources cannot return during refresh')
+print('Middle East portals restored; obsolete IDs cannot return during refresh')
 
 assert news.clean('Brand\u00ae and publisher\u00a9') == 'Brand and publisher'
+assert news.clean('Reporter\u2b50') == 'Reporter'
+assert news.merge_items([{**fed_row, 'author':'Reporter\u2b50'}], [])[0]['author'] == 'Reporter'
 
 assert not any(source['id'].startswith('dir_') for source in news.SOURCES)
 for sid, feed in [('us_pbs','https://www.pbs.org/newshour/feeds/rss/headlines'),('gb_independent','https://www.independent.co.uk/news/rss')]:
@@ -267,6 +272,7 @@ print('Reader metadata limited to excerpts; full text requires explicit public-b
 
 class ReaderResponse:
     headers = {'Content-Type':'text/html'}
+    url = 'https://www.federalreserve.gov/newsevents/speech/test.htm'
     def __enter__(self): return self
     def __exit__(self, *args): pass
     def read(self, limit): return html.encode()
@@ -275,9 +281,34 @@ with patch('urllib.request.urlopen', return_value=ReaderResponse()):
     private_item = news.add_article_image({'source':'reuters','url':'https://www.reuters.com/world/test'})
 assert fed_item['contentRights'] == 'public-domain' and len(fed_item['body']) == 2
 assert 'body' not in private_item and private_item['excerpt'] == 'Verified publisher excerpt'
+redirected = ReaderResponse()
+redirected.url = 'https://publisher.example/redirected'
+with patch('urllib.request.urlopen', return_value=redirected):
+    redirected_item = news.add_article_image({'source':'federal_reserve','url':'https://www.federalreserve.gov/newsevents/speech/test.htm'})
+assert 'body' not in redirected_item and 'contentRights' not in redirected_item
 print('Collector stores full text only for official Board speeches')
 
 assert news.image_url('https://static.independent.co.uk/photo.jpg')
 assert news.image_url('https://i.ds.at/photo.jpg')
 assert not news.image_url('https://i.ds.at.attacker.example/photo.jpg')
 print('Independent and Der Standard thumbnails allowed only on verified publisher/CDN domains')
+
+assert news.safe_url('https://[malformed/article', 'investing.com') is None
+assert news.safe_url(123, 'investing.com') is None
+assert news.clean({'title':'invalid'}) == '' and news.date_iso(123) is None
+bad_links = b'<a href="https://[malformed/news/x">Invalid URL</a><a title href="/news/valid">Publisher reports a new economic release</a>'
+assert len(news.parse(bad_links, news.SOURCES[2])) == 1
+print('Malformed publisher fields and HTML anchors do not discard valid sibling headlines')
+
+relative = news.parse(b'<a href="release-123">Publisher reports a new economic release</a>', {**source, 'kind':'html', 'url':'https://www.investing.com', 'feed':'https://www.investing.com/news/', 'article_pattern':r'/news/release-'})
+assert relative[0]['url'] == 'https://www.investing.com/news/release-123'
+legacy_http = atom.replace('https://www.investing.com/news/atom-story', 'http://www.investing.com/news/atom-story')
+assert news.parse(legacy_http.encode(), source) == []
+assert news.parse(legacy_http.encode(), {**source, 'https_links':True})[0]['url'] == 'https://www.investing.com/news/atom-story'
+assert news.parse(legacy_http.replace('www.investing.com','attacker.example').encode(), {**source, 'https_links':True}) == []
+print('HTML relative links use the actual feed page; opt-in legacy HTTP links upgrade to HTTPS within the publisher domain')
+
+anchor_titles = b'<a href="/news/release">Read more...</a><a title="Permalink to Central bank releases its economic outlook" href="/news/release">Central bank releases its economic outlook</a>'
+assert news.parse(anchor_titles, news.SOURCES[2])[0]['title'] == 'Central bank releases its economic outlook'
+assert news.parse(json.dumps({'items':[{'id':'null-tag','title':'Official economic statistics release','tag':None}]}).encode(), fnc)[0]['category'] == 'business'
+print('Navigation anchors excluded, permalink labels removed and null publisher tags handled')

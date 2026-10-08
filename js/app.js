@@ -181,8 +181,7 @@
         'Hasil Analisis Ukuran Posisi': 'Position size calculation',
         'Wawasan Berita & Kalender Ekonomi Makro': 'News & economic calendar',
         'Kalender Ekonomi Global (WIB)': 'Global economic calendar (WIB)',
-        'Analisa Market Institusional': 'Market analysis', 'Muat Ulang': 'Reload',
-        'Semua Ringkasan': 'All summaries', 'Analisa Market': 'Market analysis', 'Kalender Ekonomi': 'Economic calendar',
+        'Muat Ulang': 'Reload', 'Kalender Ekonomi': 'Economic calendar',
         'Tambah Akun': 'Add account', 'Tambah Akun Broker': 'Add broker account', 'Nama Akun': 'Account name',
         'Saldo Awal': 'Starting balance', 'Mata Uang': 'Currency', 'Simpan Akun': 'Save account', 'Batal': 'Cancel',
         'Tutup': 'Close', 'Simpan': 'Save', 'Simpan Trade': 'Save trade', 'Simpan Jurnal': 'Save trade',
@@ -234,11 +233,8 @@
   "Profit Terbaik": "Best profit",
   "Kerugian Terburuk": "Largest loss",
   "KLIK MARKET UNTUK BUKA POP-UP CHART": "SELECT AN INSTRUMENT TO OPEN ITS CHART",
-  "Semua Ringkasan": "All summaries",
-  "Analisa Market": "Market analysis",
   "Kalender Ekonomi": "Economic calendar",
   "Dasar forex dan jurnal trading yang membantu Anda berkembang": "Forex fundamentals and journaling for better trading habits",
-  "Cari pair (XAUUSD, EURUSD...), judul analisa, atau kata kunci...": "Search instruments, analysis titles, or keywords...",
   "Cari rilis data atau mata uang (Core CPI, NFP, USD, EUR, AUD...)": "Search releases or currencies (CPI, NFP, USD, EUR...)",
   "Nama Anda": "Your name",
   "Terapkan Setup Ini ke Form Jurnal": "Use this setup in the journal"
@@ -3498,14 +3494,14 @@
         const publisherNames = new Set('bbc npr cnn cbs abc cnbc reuters'.split(' '));
         const entities = new Set((item.title.match(/\b(?:[A-Z]{2,}|[A-Z][a-z]{3,})\b/g) || []).map(word => normalize(word)).filter(word => target.has(word)));
         const known = new Set(sources.filter(source => source.kind !== 'tool').map(source => source.id));
-        const candidates = items.filter(row => row.id !== item.id && row.url !== item.url && headlineKey(row.title) !== title && known.has(row.source) && allowed(row.source) && publisherUrl(row.url, row.source)).map(row => ({row, words:words(row.title)}));
+        const candidates = items.filter(row => (!item.topics?.includes('fed') || row.topics?.includes('fed')) && row.id !== item.id && row.url !== item.url && headlineKey(row.title) !== title && known.has(row.source) && allowed(row.source) && publisherUrl(row.url, row.source)).map(row => ({row, words:words(row.title)}));
         const frequency = new Map();
         for (const candidate of candidates) for (const word of target) if (candidate.words.has(word)) frequency.set(word, (frequency.get(word) || 0) + 1);
         const ranked = candidates.map(candidate => {
           const shared = [...target].filter(word => candidate.words.has(word));
           const weights = shared.map(word => Math.log((candidates.length + 1) / ((frequency.get(word) || 0) + 1)));
           const fed = item.topics?.includes('fed') && candidate.row.topics?.includes('fed');
-          const relevant = shared.length >= 2 || candidate.row.category === item.category && shared.some((word,index) => !publisherNames.has(word) && (acronyms.has(word) || entities.has(word) && weights[index] >= 3)) || fed;
+          const relevant = item.topics?.includes('fed') ? fed : shared.length >= 2 || candidate.row.category === item.category && shared.some((word,index) => !publisherNames.has(word) && (acronyms.has(word) || entities.has(word) && weights[index] >= 3));
           return {row:candidate.row, score:relevant ? weights.reduce((sum, weight) => sum + weight, 0) + (fed ? 3 : 0) + (item.category === candidate.row.category ? .5 : 0) : 0};
         }).filter(candidate => candidate.score > 0).sort((a,b) => b.score - a.score || (Date.parse(b.row.publishedAt) || 0) - (Date.parse(a.row.publishedAt) || 0));
         const seen = new Set();

@@ -155,8 +155,10 @@ class ArticleImage(HTMLParser):
 
 
 def clean(value):
+    if not isinstance(value, str):
+        return ''
     text = re.sub(r"<[^>]*>", "", html.unescape(value or ""))
-    text = re.sub(r"[\U0001F000-\U0001FAFF\u2600-\u27BF\u00A9\u00AE\u2122\uFE0F\u200D]", "", text)
+    text = re.sub(r"[\U0001F000-\U0001FAFF\u2600-\u27BF\u2B00-\u2BFF\u00A9\u00AE\u2122\uFE0F\u200D]", "", text)
     return " ".join(text.replace("—", "-").replace("–", "-").split())
 
 
@@ -165,7 +167,12 @@ def excerpt_text(value):
 
 
 def safe_url(value, domain):
-    url = urllib.parse.urlsplit(value)
+    if not isinstance(value, str):
+        return None
+    try:
+        url = urllib.parse.urlsplit(value)
+    except ValueError:
+        return None
     host = (url.hostname or "").lower()
     domains = (domain,) if isinstance(domain, str) else domain
     if url.scheme != "https" or url.username or url.password or not any(host == allowed or host.endswith('.' + allowed) for allowed in domains):
@@ -176,7 +183,7 @@ def safe_url(value, domain):
 
 
 def date_iso(value, timezone=None):
-    if not value:
+    if not isinstance(value, str) or not value:
         return None
     try:
         value = value.strip()
@@ -200,8 +207,11 @@ class PublisherHeadlines(HTMLParser):
     def handle_starttag(self, tag, attrs):
         if tag == "a":
             attrs = dict(attrs)
-            link = urllib.parse.urljoin(self.source["url"], attrs.get("href", ""))
-            self.current = {"url": link, "title": attrs.get("title", ""), "parts": []} if re.search(self.source["article_pattern"], link) else None
+            try:
+                link = safe_url(urllib.parse.urljoin(self.source.get('feed') or self.source['url'], attrs.get("href") or ''), self.source.get('domains', self.source['domain']))
+            except ValueError:
+                link = None
+            self.current = {"url": link, "title": attrs.get("title") or '', "parts": []} if link and re.search(self.source["article_pattern"], link) else None
         elif tag == 'img' and self.current is not None:
             attrs = dict(attrs)
             self.current['image'] = image_url(attrs.get('data-src') or attrs.get('src'))
@@ -214,7 +224,10 @@ class PublisherHeadlines(HTMLParser):
     def handle_endtag(self, tag):
         if tag == "a" and self.current is not None:
             row = self.current
-            row["title"] = row["title"] or " ".join(row["parts"])
+            row["title"] = re.sub(r'^Permalink to\s+', '', row["title"] or " ".join(row["parts"]), flags=re.I)
+            if clean(row['title']).lower().rstrip('.…') in ('read more', 'continue reading', 'learn more', 'view article', 'selengkapnya'):
+                self.current = None
+                return
             if self.source['id'] == 'kompas':
                 match = re.search(r'/read/(\d{4})/(\d{2})/(\d{2})/(\d{2})(\d{2})(\d{2})', row['url'])
                 if match:
@@ -231,15 +244,15 @@ class APHeadlines(PublisherHeadlines):
 
     def handle_starttag(self, tag, attrs):
         values = dict(attrs)
-        if 'PagePromo' in values.get('class', '').split():
+        if 'PagePromo' in (values.get('class') or '').split():
             self.card = {}
-            stamp = values.get('data-posted-date-timestamp', '')
+            stamp = values.get('data-posted-date-timestamp') or ''
             if stamp.isdigit():
                 try:
                     self.card['publishedAt'] = dt.datetime.fromtimestamp(int(stamp) / 1000, dt.timezone.utc).isoformat()
                 except (ValueError, OverflowError, OSError):
                     pass
-        if tag in ('h2', 'h3') and 'PagePromo-title' in values.get('class', '').split():
+        if tag in ('h2', 'h3') and 'PagePromo-title' in (values.get('class') or '').split():
             self.headline_tag = tag
         if tag == 'img':
             self.card['image'] = image_url(values.get('src') or values.get('data-src'))
@@ -290,7 +303,10 @@ def parse(data, source):
     now = dt.datetime.now(dt.timezone.utc)
     for row in rows:
         title = clean(row.get("title"))
-        link = safe_url(row.get("url") or "", source.get('domains', source['domain']))
+        raw_link = row.get('url') or ''
+        if source.get('https_links') and isinstance(raw_link, str) and raw_link.startswith('http://'):
+            raw_link = 'https://' + raw_link[7:]
+        link = safe_url(raw_link, source.get('domains', source['domain']))
         if source['id'] == 'reuters' and link and re.match(r'^/(?!en/)[a-z]{2}/', urllib.parse.urlsplit(link).path):
             continue
         published = date_iso(row.get("publishedAt"), source.get("timezone"))
@@ -302,8 +318,9 @@ def parse(data, source):
         if not link or identity in seen or len(title) < 8 or len(title) > 250 or SIGNALS.search(title):
             continue
         seen.add(identity)
-        category = source.get('category') or category_for(link, title, row.get('tag', ''))
-        topics = topics_for(title + ' ' + row.get('tag', ''), link, source.get('topics', ()))
+        tag = clean(row.get('tag'))
+        category = source.get('category') or category_for(link, title, tag)
+        topics = topics_for(title + ' ' + tag, link, source.get('topics', ()))
         if category == 'politics' and 'politics' not in topics:
             topics.append('politics')
         items.append({"id": hashlib.sha256((source['id'] + str(identity)).encode()).hexdigest()[:20], "source": source["id"], "title": title, "url": link, "publishedAt": published, 'image': image_url(row.get('image')), 'excerpt': excerpt_text(row.get('excerpt')), 'author': clean(row.get('author'))[:160], 'category': category, 'topics':topics})
@@ -319,6 +336,7 @@ def add_article_image(item):
         with urllib.request.urlopen(request, timeout=8) as response:
             if 'text/html' not in response.headers.get('Content-Type', ''):
                 return item
+            public_body = public_body and safe_url(response.url, 'federalreserve.gov') is not None
             data = response.read(1_000_000)
         parser = ArticleImage(public_body=public_body)
         parser.feed(data.decode('utf-8', errors='replace'))
@@ -413,6 +431,9 @@ def merge_items(previous, incoming):
         for field in ('image', 'publishedAt', 'excerpt', 'author', 'body', 'contentRights', 'excerptCheckedAt'):
             if not row.get(field) and old.get(field):
                 row[field] = old[field]
+        for field in ('title', 'excerpt', 'author'):
+            if field in row:
+                row[field] = clean(row[field])
         merged[key] = row
     return sorted(merged.values(), key=lambda item: item.get('publishedAt') or '', reverse=True)
 

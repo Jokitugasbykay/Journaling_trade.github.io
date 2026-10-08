@@ -13,8 +13,9 @@ Journaling trade/
 │   └── style.css            # Stylesheet tema gelap modern (OpenAI Astra & Minimalist Glassmorphism)
 ├── js/
 │   └── app.js               # Logika kalkulasi, penyimpanan lokal (localStorage), dan manajemen UI
-├── backup/
-│   └── index.html.bak       # Arsip data backup sebelum pembaruan arsitektur
+├── scripts/                # Kolektor berita, data makro, dan audit feed
+├── supabase/               # SQL ownership, paket, kuota, dan pengujian rollback
+├── regional-sources.json   # Registry portal berita per negara
 ├── index.html               # Halaman antarmuka utama (Entry point)
 ├── .gitignore               # Konfigurasi pengabaian berkas sistem & backup
 └── README.md                # Dokumentasi proyek
@@ -26,12 +27,11 @@ Journaling trade/
 
 Aplikasi ini dibangun menggunakan arsitektur **Client-Side Open Source**. Jurnal tamu tersimpan lokal; login dan sinkronisasi memakai Supabase.
 
-1. **Buka Langsung di Browser**:
-   - Cukup klik dua kali (*double-click*) berkas `index.html` pada File Explorer Anda, atau klik kanan lalu pilih **Open with Google Chrome / Edge / Firefox**.
-2. **Atau Melalui Local Server**:
+1. **Jalankan server lokal** agar file JSON, auth, dan modul dapat dimuat:
    ```bash
    npx serve .
    ```
+2. Buka alamat HTTP yang ditampilkan server. Membuka `index.html` langsung melalui `file://` tidak mendukung seluruh fitur.
 
 ---
 
@@ -61,7 +61,8 @@ Aplikasi ini dibangun menggunakan arsitektur **Client-Side Open Source**. Jurnal
    - Kalender rilis data makro ekonomi (CPI, NFP, Suku Bunga) dengan filter dampak pasar.
    - Berita dari Investing.com, CNBC, Kontan, Reuters, Al Jazeera, Bloomberg, dan berita publik Trade With FNC. Filter kategori berdasarkan bagian artikel, judul, dan tag penerbit; filter sumber dapat digabung dengan kategori.
    - Kurs jual/beli USD dan BI-Rate berasal dari halaman resmi Bank Indonesia. Konversi jurnal memakai titik tengah kurs transaksi USD BI, dihitung sebagai (jual + beli) / 2. Tanggal publikasi BI ditampilkan; data tersimpan diberi status saat pengambilan gagal.
-   - GitHub Actions mengambil dan menerbitkan berita setiap 30 menit setiap hari; jadwal GitHub dapat tertunda. Browser memeriksa pembaruan setiap 5 menit. Waktu pemeriksaan dan status sumber ditampilkan.
+   - GitHub Actions menjadwalkan pengambilan dan penerbitan berita setiap 5 menit; jadwal GitHub dapat tertunda. Browser memeriksa pembaruan setiap 5 menit saat terlihat. Waktu pemeriksaan ditampilkan.
+   - Registry, feed resmi, dan jumlah portal yang berhasil memuat judul per negara diperiksa melalui `python scripts/audit_news.py`. Bukti tersedia di `docs/news-source-audit.json` dan `docs/news-source-audit.md`; ketersediaan penerbit dapat berubah.
    - CME FedWatch dan CME Markets tersedia melalui halaman resmi yang diperbarui oleh CME. Judul artikel mengikuti bahasa penerbit.
    - Modul Market Analysis dan dataset sinyal trading telah dihapus.
 6. **Profil & Multi-Akun Broker**:

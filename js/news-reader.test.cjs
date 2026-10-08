@@ -35,6 +35,11 @@ const many=Array.from({length:12},(_,i)=>({...articles[1],id:'many'+i,title:'Wal
 assert.equal(ctx.relatedNews(current,many,known,()=>true).length,5);
 console.log('Related stories: topic relevance, ranking, self/duplicate exclusion, region guards, URL safety and five-result limit passed');
 
+const projection={...current,title:'Waller, The Signaling Value of the Summary of Economic Projections'};
+const unrelatedEducation={id:'education',source:'reuters',title:'From degrees to economic value: Rethinking educated youth',url:'https://news.example/education',category:'markets',topics:[]};
+assert.ok(ctx.relatedNews(projection,[...articles,unrelatedEducation],known,()=>true).every(row=>row.topics?.includes('fed')));
+console.log('Fed recommendations require a Fed topic; generic economic-value matches are excluded');
+
 const bbc={id:'bbc1',source:'reuters',title:"Britain's BBC, Channel 4 discuss broader tie-up to cut costs, sources say",url:'https://news.example/bbc'};
 const bbcRows=[bbc,
  {id:'duplicate',source:'reuters',title:'Exclusive-Britain’s BBC, Channel 4 discuss broader tie-up to cut costs, sources say',url:'https://news.example/copy'},

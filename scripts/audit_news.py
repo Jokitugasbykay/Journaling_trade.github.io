@@ -69,10 +69,13 @@ class FeedLinks(HTMLParser):
 
     def handle_starttag(self, tag, attrs):
         attrs = dict(attrs)
-        link = urllib.parse.urljoin(self.base, attrs.get('href', ''))
-        if '/comments/' in link or attrs.get('title', '').lower().startswith('comments'):
+        try:
+            link = urllib.parse.urljoin(self.base, attrs.get('href') or '')
+        except ValueError:
             return
-        if tag == 'link' and attrs.get('type', '').lower() in ('application/rss+xml', 'application/atom+xml'):
+        if not public_url(link) or '/comments/' in link or (attrs.get('title') or '').lower().startswith('comments'):
+            return
+        if tag == 'link' and (attrs.get('type') or '').lower() in ('application/rss+xml', 'application/atom+xml'):
             self.feeds.append(link)
         elif tag == 'a' and re.search(r'(?:/rss(?:/|$)|/feeds?(?:/|$)|\.rss$|\.xml$)', urllib.parse.urlsplit(link).path, re.I):
             (self.indexes if urllib.parse.urlsplit(link).path.rstrip('/') in ('/rss', '/feeds') else self.feeds).append(link)
@@ -103,9 +106,11 @@ def feed_result(url, source, kind=None):
 
 
 def official_link(url, source):
+    if not public_url(url):
+        return False
     host = (urllib.parse.urlsplit(url).hostname or '').removeprefix('www.')
     domains = source.get('domains', (source['domain'],))
-    return public_url(url) and any(host == domain or host.endswith('.' + domain) for domain in domains)
+    return any(host == domain or host.endswith('.' + domain) for domain in domains)
 
 
 def discover(source, portal, data):
@@ -156,11 +161,17 @@ def write_report(rows, started, output):
     portals = dict(Counter(row['portal']['status'] for row in rows))
     dns_failures = sum('getaddrinfo failed' in row['portal'].get('error', '') for row in rows)
     candidates = [{'id': row['id'], 'name': row['name'], **feed} for row in rows for feed in row['discoveredFeeds'] if feed['status'] == 'working']
+    working_ids = {row['id'] for row in rows if row['status'] == 'working'}
+    coverage = {code: {'configured': len(portals), 'working': sum(portal['id'] in working_ids for portal in portals)} for code, portals in news.REGIONAL_NEWS_SOURCES.items()}
     report = {'startedAt': started, 'finishedAt': dt.datetime.now(dt.timezone.utc).isoformat(), 'sourceCount': len(rows), 'statusCounts': counts, 'portalStatusCounts': portals, 'candidateFeedUpdates': candidates, 'method': 'Every unique configured source ID: GET publisher URL and every configured endpoint, maximum 24 concurrent source workers, 10-second socket timeout, 5 MB per response. Optional discovery follows advertised official RSS/Atom links, one linked RSS index, and news sitemap links in robots.txt; maximum three candidates per source. No paywall or bot protection bypass. Parsed headline counts use production validation/freshness rules and are not total publisher output.', 'sources': rows}
+    report['regionalCoverage'] = coverage
+    report['regionsBelowMinimum'] = [code for code, state in coverage.items() if state['working'] < 4]
     output.parent.mkdir(parents=True, exist_ok=True)
     output.write_text(json.dumps(report, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
     lines = ['# News source audit', '', f'Audit finished: {report["finishedAt"]}. Checked **{len(rows)}** unique source IDs.', '', '## Results', '', '| Collector state | Sources |', '| --- | ---: |', *[f'| {state} | {count} |' for state, count in sorted(counts.items())], '', f'Portal reachability: {portals}.', '', f'**Audit network limitation:** {dns_failures} portal requests failed DNS resolution in this environment. These results do not establish that those publishers are globally offline.', '', 'An external source is a directory/portal link without a configured automatic collector. A reachable portal does not imply its feed is collectable. Blocked/unavailable results describe this audit location and time. XML entries with no parsed headlines may be old, unsupported Atom, off-domain, or rejected by headline validation; production currently keeps headlines dated within seven days.', '', '## Validated official feed candidates', '', '| Source | Endpoint | Publisher evidence | Current parsed headlines |', '| --- | --- | --- | ---: |']
     lines.extend(f'| {row["name"]} | [Feed]({row["url"]}) | [Publisher page]({row["advertisedBy"]}) | {row["parsedHeadlines"]} |' for row in candidates)
+    lines.extend(['', '## Regional coverage', '', 'Target: at least four distinct working publisher IDs in each configured dataset. A working endpoint produced validated headlines during this audit; availability can change.', '', '| Region | Configured portals | Working portals |', '| --- | ---: | ---: |'])
+    lines.extend(f'| {code} | {state["configured"]} | {state["working"]} |' for code, state in sorted(coverage.items()))
     lines.extend(['', '## Endpoint details', '', '| Source | State | Portal | Configured feeds |', '| --- | --- | --- | --- |'])
     lines.extend(f'| {row["name"]} | {row["status"]} | [Publisher]({row["portal"]["url"]}) ({row["portal"]["status"]}) | '+('; '.join(f'[{feed["status"]}]({feed["url"]})' for feed in row['endpoints']) or 'No collector configured')+' |' for row in rows)
     output.with_suffix('.md').write_text('\n'.join(lines) + '\n', encoding='utf-8')
@@ -182,8 +193,16 @@ def main():
         links = FeedLinks('https://example.com')
         links.feed('<link rel="alternate" type="application/atom+xml" href="/atom.xml"><a href="/rss">RSS</a><link type="application/rss+xml" href="/comments/feed/">')
         assert links.feeds == ['https://example.com/atom.xml'] and links.indexes == ['https://example.com/rss']
+        links.feed('<a title href="/other">News</a><link type><link type="application/rss+xml" href="https://[broken/feed"><link type="application/rss+xml" href="http://localhost/feed">')
+        assert links.feeds == ['https://example.com/atom.xml'] and links.indexes == ['https://example.com/rss']
         assert official_link('https://rss.example.com/feed', {'domain': 'example.com'})
         assert not official_link('https://evil-example.com/feed', {'domain': 'example.com'})
+        assert not official_link('https://[broken/feed', {'domain': 'example.com'})
+        import tempfile
+        with tempfile.TemporaryDirectory() as directory:
+            sample = {'id':'ap','name':'AP News','kind':'rss','status':'working','portal':{'status':'reachable','url':'https://apnews.com'},'endpoints':[],'discoveredFeeds':[]}
+            report = write_report([sample], 'self-test', Path(directory) / 'audit.json')
+            assert report['regionalCoverage']['GLOBAL']['working'] == 1 and 'GLOBAL' in report['regionsBelowMinimum']
         print('Audit URL validation/discovery checks passed')
         return
     sources = [source for source in news.SOURCES if not args.source or source['id'] in args.source]

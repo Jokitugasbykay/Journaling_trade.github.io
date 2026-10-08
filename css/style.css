@@ -14,7 +14,6 @@
       --text-sub: #546076;
 
       --accent: #ffffff;
-      --accent-hover: #e4e4e7;
       --accent-glow: rgba(255, 255, 255, 0.08);
 
       --green: #10b981;
@@ -209,15 +208,6 @@
       background: #e5e5e5;
       border-color: #e5e5e5;
     }
-    .nav-arrow {
-      font-size: 14px;
-      font-weight: 500;
-      line-height: 1;
-      transition: transform 0.15s ease;
-    }
-    .nav-btn-coba:hover .nav-arrow {
-      transform: translate(1px, -1px);
-    }
 
     /* Account / Masuk Dropdown Menu */
     .nav-dropdown-menu {
@@ -276,38 +266,6 @@
     .nav-dd-item:hover {
       background: rgba(255, 255, 255, 0.08);
       color: #ffffff;
-    }
-    .account-pill {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      background: var(--bg-surface);
-      border: 1px solid var(--line);
-      padding: 5px 12px;
-      border-radius: var(--radius-full);
-      cursor: pointer;
-      transition: var(--transition);
-    }
-    .account-pill:hover {
-      border-color: var(--line-light);
-      background: var(--bg-subtle);
-    }
-    .account-dot {
-      width: 7px;
-      height: 7px;
-      border-radius: 50%;
-      background: var(--green);
-      box-shadow: 0 0 6px var(--green);
-    }
-    .account-title {
-      font-size: 12px;
-      font-weight: 600;
-      color: var(--text-main);
-    }
-    .account-broker {
-      font-size: 11px;
-      color: var(--text-muted);
-      font-family: var(--mono);
     }
 
     /* Main Container */
@@ -401,11 +359,6 @@
       padding: 6px 12px;
       border-radius: 6px;
     }
-    .btn-pill {
-      border-radius: var(--radius-full);
-    }
-
-
 
     .journal-header {
       display: flex;
@@ -640,7 +593,6 @@
       color: var(--text-main);
     }
 
-
     .kpi-row {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
@@ -715,12 +667,6 @@
     }
 
     /* Charts Layout */
-    .charts-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
-      gap: 20px;
-      margin-bottom: 24px;
-    }
     .chart-panel {
       background: var(--bg-surface);
       border: 1px solid var(--line);
@@ -777,12 +723,6 @@
       font-weight: 600;
     }
 
-
-    .calc-container {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-      gap: 20px;
-    }
     .calc-card {
       background: var(--bg-surface);
       border: 1px solid var(--line);
@@ -799,94 +739,8 @@
       color: var(--text-muted);
       margin-bottom: 18px;
     }
-    .calc-result-box {
-      margin-top: 18px;
-      background: var(--bg-card);
-      border: 1px solid var(--line);
-      border-radius: var(--radius-sm);
-      padding: 14px 16px;
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-    }
-    .calc-res-item {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      font-size: 13px;
-    }
-    .calc-res-item span {
-      color: var(--text-muted);
-    }
-    .calc-res-item b {
-      font-family: var(--mono);
-      font-size: 15px;
-    }
-    .calc-res-highlight {
-      font-size: 22px !important;
-      color: var(--green);
-    }
-
-
-    .news-grid {
-      display: grid;
-      grid-template-columns: 2fr 1fr;
-      gap: 24px;
-    }
-    @media (max-width: 900px) {
-      .news-grid {
-        grid-template-columns: 1fr;
-      }
-    }
-    .news-card-item {
-      background: var(--bg-surface);
-      border: 1px solid var(--line);
-      border-radius: var(--radius-md);
-      padding: 18px;
-      margin-bottom: 14px;
-      transition: var(--transition);
-    }
-    .news-card-item:hover {
-      border-color: var(--line-light);
-      background: var(--bg-card);
-    }
-    .news-badge {
-      display: inline-block;
-      font-size: 11px;
-      font-weight: 700;
-      padding: 2px 8px;
-      border-radius: 4px;
-      margin-bottom: 8px;
-    }
-    .news-badge.macro { background: rgba(255, 255, 255, 0.08); color: #ffffff; border: 1px solid rgba(255, 255, 255, 0.15); }
-    .news-badge.gold { background: rgba(245, 158, 11, 0.15); color: #fbbf24; border: 1px solid rgba(245, 158, 11, 0.25); }
-    .news-badge.crypto { background: rgba(255, 255, 255, 0.08); color: #e4e4e7; border: 1px solid rgba(255, 255, 255, 0.15); }
-    .news-card-title {
-      font-size: 16px;
-      font-weight: 700;
-      margin-bottom: 8px;
-    }
-    .news-card-body {
-      font-size: 13px;
-      color: var(--text-body);
-      line-height: 1.6;
-      margin-bottom: 12px;
-    }
-    .news-card-foot {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      font-size: 11.5px;
-      color: var(--text-muted);
-    }
 
     /* Economic Calendar List */
-    .econ-calendar-box {
-      background: var(--bg-surface);
-      border: 1px solid var(--line);
-      border-radius: var(--radius-md);
-      padding: 20px;
-    }
     .cal-row {
       display: flex;
       align-items: center;
@@ -907,11 +761,6 @@
       font-weight: 700;
       width: 45px;
     }
-    .cal-event {
-      flex: 1;
-      font-weight: 500;
-      padding: 0 8px;
-    }
     .cal-impact {
       font-size: 10px;
       font-weight: 700;
@@ -922,7 +771,6 @@
     .cal-impact.high { background: var(--red-bg); color: var(--red); }
     .cal-impact.med { background: var(--orange-bg); color: var(--orange); }
     .cal-impact.low { background: rgba(148, 163, 184, 0.15); color: var(--text-muted); }
-
 
     .profile-grid {
       display: grid;
@@ -965,7 +813,6 @@
       color: #ffffff;
       text-align: right;
     }
-
 
     .modal-overlay {
       position: fixed;
@@ -1201,19 +1048,6 @@
       font-weight: 600;
       color: var(--text-muted);
     }
-    .file-badge {
-      font-size: 11px;
-      font-family: var(--mono);
-      font-weight: 700;
-      padding: 3px 8px;
-      border-radius: 4px;
-      color: #ffffff;
-      border: 1px solid var(--line);
-    }
-    .file-badge.pdf { background: #27272a; border-color: #3f3f46; }
-    .file-badge.txt { background: #27272a; border-color: #3f3f46; }
-    .file-badge.excel { background: #27272a; border-color: #3f3f46; }
-    .file-badge.png { background: #27272a; border-color: #3f3f46; }
 
     .upload-preview-area {
       max-height: 220px;
@@ -1223,7 +1057,6 @@
       margin-bottom: 16px;
       display: none;
     }
-
 
     .badge-pill {
       font-size: 11px;
@@ -1695,10 +1528,6 @@
       margin-bottom: 4px;
       font-size: 13px;
     }
-    .cgc-icon {
-      font-size: 20px;
-      flex-shrink: 0;
-    }
 
     /* 4. Berita Makro Ribbon & Components */
 
@@ -1731,7 +1560,6 @@
       background: rgba(255, 255, 255, 0.08);
       border-color: rgba(255, 255, 255, 0.2);
     }
-
 
     .modal-card.tv-modal-card {
       max-width: 1200px;
@@ -1877,146 +1705,6 @@
     }
 
     /* Central Bank & Macro Indicators Matrix */
-    .cb-rates-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
-      gap: 14px;
-      margin-bottom: 24px;
-    }
-    .cb-rate-card {
-      background: var(--bg-surface);
-      border: 1px solid var(--line);
-      border-radius: var(--radius-md);
-      padding: 16px 18px;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      transition: var(--transition);
-    }
-    .cb-rate-card:hover {
-      border-color: var(--line-light);
-      background: var(--bg-card);
-    }
-    .cbr-bank {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 6px;
-    }
-    .cbr-name {
-      font-size: 11px;
-      font-family: var(--mono);
-      font-weight: 700;
-      color: var(--text-muted);
-      text-transform: uppercase;
-      letter-spacing: 0.06em;
-    }
-    .cbr-bias {
-      font-size: 10px;
-      font-family: var(--mono);
-      padding: 2px 6px;
-      border-radius: 4px;
-      border: 1px solid var(--line);
-      background: rgba(255, 255, 255, 0.04);
-      color: var(--text-body);
-    }
-    .cbr-val {
-      font-size: 22px;
-      font-weight: 800;
-      font-family: var(--mono);
-      color: #ffffff;
-      margin-bottom: 4px;
-    }
-    .cbr-outlook {
-      font-size: 11.5px;
-      color: var(--text-muted);
-      display: flex;
-      justify-content: space-between;
-    }
-
-    .sentiment-pill {
-      font-size: 10px;
-      font-weight: 700;
-      font-family: var(--mono);
-      padding: 2px 7px;
-      border-radius: 4px;
-    }
-    .sentiment-pill.bullish {
-      background: var(--green-bg);
-      color: var(--green);
-      border: 1px solid var(--green-border);
-    }
-    .sentiment-pill.neutral {
-      background: rgba(148, 163, 184, 0.15);
-      color: #cbd5e1;
-      border: 1px solid var(--line-light);
-    }
-    .sentiment-pill.pro {
-      background: rgba(168, 85, 247, 0.15);
-      color: #c084fc;
-      border: 1px solid rgba(168, 85, 247, 0.3);
-    }
-
-    .pro-locked-card {
-      border: 1px solid var(--line-light);
-      background: linear-gradient(180deg, var(--bg-surface), #14151b);
-    }
-    .blurred-text {
-      filter: blur(3.5px);
-      user-select: none;
-      opacity: 0.6;
-    }
-    .pro-locked-banner {
-      background: var(--bg-card);
-      border: 1px solid var(--line);
-      border-radius: 8px;
-      padding: 14px 16px;
-      margin-top: 8px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 12px;
-      flex-wrap: wrap;
-    }
-    .pro-locked-banner b {
-      font-size: 13px;
-      color: #ffffff;
-      display: block;
-      margin-bottom: 2px;
-    }
-    .pro-locked-banner p {
-      font-size: 11.5px;
-      color: var(--text-muted);
-      margin-bottom: 0;
-    }
-
-    .cal-countdown-card {
-      background: linear-gradient(135deg, rgba(244, 63, 94, 0.08), var(--bg-surface));
-      border: 1px solid rgba(244, 63, 94, 0.2);
-      border-radius: var(--radius-md);
-      padding: 16px 18px;
-      margin-bottom: 16px;
-    }
-    .ccc-label {
-      font-size: 11px;
-      font-weight: 700;
-      color: var(--red);
-      text-transform: uppercase;
-      letter-spacing: 0.06em;
-      display: block;
-      margin-bottom: 4px;
-    }
-    .ccc-event {
-      font-size: 14px;
-      font-weight: 700;
-      color: #ffffff;
-      margin-bottom: 4px;
-    }
-    .ccc-timer {
-      font-size: 12px;
-      font-family: var(--mono);
-      color: var(--text-muted);
-    }
 
     .cal-event-box {
       flex: 1;
@@ -2032,69 +1720,6 @@
       font-size: 11px;
       color: var(--text-sub);
       font-family: var(--mono);
-    }
-
-    .market-sessions-card {
-      margin-top: 24px;
-      background: var(--bg-surface);
-      border: 1px solid var(--line);
-      border-radius: var(--radius-md);
-      padding: 20px;
-    }
-    .msc-head {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 16px;
-      font-size: 14px;
-      font-weight: 700;
-    }
-    .msc-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-      gap: 16px;
-    }
-    .msc-item {
-      background: var(--bg-card);
-      border: 1px solid var(--line);
-      border-radius: var(--radius-sm);
-      padding: 14px 16px;
-    }
-    .msc-top {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 4px;
-    }
-    .msc-top b {
-      font-size: 13px;
-    }
-    .msc-tag {
-      font-size: 10px;
-      font-family: var(--mono);
-      font-weight: 700;
-      padding: 2px 6px;
-      border-radius: 4px;
-      text-transform: uppercase;
-    }
-    .msc-tag.active {
-      background: var(--green-bg);
-      color: var(--green);
-    }
-    .msc-tag.closed {
-      background: rgba(148, 163, 184, 0.1);
-      color: var(--text-sub);
-    }
-    .msc-time {
-      font-size: 12px;
-      font-family: var(--mono);
-      color: var(--accent);
-      margin-bottom: 6px;
-    }
-    .msc-desc {
-      font-size: 11.5px;
-      color: var(--text-muted);
-      line-height: 1.45;
     }
 
     /* 5. Profil View: Trader Passport & Vault */
@@ -2266,7 +1891,6 @@
       }
     }
 
-
     .seg {
       display: inline-flex;
       align-items: center;
@@ -2300,7 +1924,6 @@
       color: #ffffff;
       font-weight: 600;
     }
-
 
     .cari {
       position: relative;
@@ -2364,37 +1987,6 @@
     }
 
     /* Saring Chips for Analisa */
-    .saring {
-      display: flex;
-      gap: 7px;
-      flex-wrap: wrap;
-      align-items: center;
-      margin: 0 0 16px;
-    }
-    .saring .chip {
-      border: 1px solid var(--line);
-      background: var(--bg-card);
-      color: var(--text-muted);
-      border-radius: var(--radius-full);
-      padding: 5px 14px;
-      font-size: 12px;
-      font-weight: 500;
-      cursor: pointer;
-      font-family: inherit;
-      white-space: nowrap;
-      transition: var(--transition);
-    }
-    .saring .chip:hover {
-      border-color: var(--line-light);
-      color: #ffffff;
-    }
-    .saring .chip.on {
-      background: #202430;
-      border-color: rgba(255, 255, 255, 0.2);
-      color: #ffffff;
-      font-weight: 600;
-    }
-
 
     .kal-tgl {
       display: flex;
@@ -2550,7 +2142,6 @@
       color: var(--text-muted);
     }
 
-
     .utama {
       position: relative;
       border-radius: var(--radius-md);
@@ -2566,266 +2157,8 @@
       border-color: rgba(255, 255, 255, 0.2);
       transform: translateY(-2px);
     }
-    .utama-gbr {
-      position: relative;
-      width: 100%;
-      aspect-ratio: 21/9;
-      max-height: 280px;
-      overflow: hidden;
-      background: #11141c;
-    }
-    .utama-gbr img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
-      transition: transform 0.4s ease;
-    }
-    .utama:hover .utama-gbr img {
-      transform: scale(1.02);
-    }
-    .utama-pita {
-      position: absolute;
-      left: 14px;
-      top: 14px;
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      padding: 4px 10px;
-      border-radius: var(--radius-full);
-      background: rgba(0, 0, 0, 0.75);
-      backdrop-filter: blur(8px);
-      border: 1px solid rgba(255, 255, 255, 0.15);
-      color: #ffffff;
-      font-size: 10px;
-      font-weight: 700;
-      letter-spacing: .08em;
-      text-transform: uppercase;
-    }
-    .utama-isi {
-      padding: 18px 20px 20px;
-    }
-    .utama-isi h3 {
-      margin: 0 0 8px;
-      font-size: 18px;
-      line-height: 1.35;
-      color: #ffffff;
-      font-weight: 700;
-      letter-spacing: -0.02em;
-    }
-    .utama-isi p {
-      margin: 0 0 14px;
-      font-size: 13px;
-      line-height: 1.6;
-      color: var(--text-body);
-    }
-    .utama-kaki {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 10px;
-      flex-wrap: wrap;
-    }
-    .utama-baca {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      padding: 6px 14px;
-      border-radius: var(--radius-full);
-      background: #202430;
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      color: #ffffff;
-      font-size: 12px;
-      font-weight: 600;
-      transition: var(--transition);
-    }
-    .utama:hover .utama-baca {
-      background: #2b3142;
-      border-color: rgba(255, 255, 255, 0.25);
-    }
-    .utama.buka .utama-full {
-      display: block;
-    }
-    .utama.buka .utama-isi p {
-      display: none;
-    }
-    .utama-full {
-      display: none;
-      margin-top: 14px;
-      padding-top: 14px;
-      border-top: 1px solid var(--line);
-    }
 
     /* Feed item accordions */
-    .feed-item {
-      border: 1px solid var(--line);
-      border-radius: var(--radius-md);
-      overflow: hidden;
-      margin-bottom: 12px;
-      background: var(--bg-card);
-      transition: var(--transition);
-    }
-    .feed-item:hover {
-      border-color: rgba(255, 255, 255, 0.18);
-    }
-    .feed-item.buka {
-      border-color: rgba(255, 255, 255, 0.22);
-    }
-    .fi-head {
-      display: flex;
-      gap: 14px;
-      align-items: center;
-      padding: 14px 16px;
-      cursor: pointer;
-      user-select: none;
-      transition: background 0.15s ease;
-    }
-    .fi-head:hover {
-      background: var(--bg-card-hover);
-    }
-    .fi-thumb {
-      flex: 0 0 96px;
-      width: 96px;
-      aspect-ratio: 16/10;
-      border-radius: var(--radius-sm);
-      overflow: hidden;
-      background: var(--bg-surface);
-      position: relative;
-    }
-    .fi-thumb img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
-    }
-    .fi-thumb .ph {
-      width: 100%;
-      height: 100%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 20px;
-      color: var(--text-muted);
-    }
-    .fi-info {
-      flex: 1;
-      min-width: 0;
-    }
-    .fi-info h4 {
-      margin: 0 0 6px;
-      font-size: 14.5px;
-      line-height: 1.4;
-      color: var(--text-main);
-      font-weight: 600;
-    }
-    .fi-meta {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      flex-wrap: wrap;
-    }
-    .feed-tag {
-      font-size: 10px;
-      letter-spacing: .06em;
-      text-transform: uppercase;
-      font-weight: 700;
-      padding: 2.5px 8px;
-      border-radius: var(--radius-full);
-      background: var(--bg-surface);
-      color: var(--text-muted);
-      border: 1px solid var(--line);
-    }
-    .feed-tag.bull {
-      background: var(--green-bg);
-      border-color: var(--green-border);
-      color: var(--green);
-    }
-    .feed-tag.bear {
-      background: var(--red-bg);
-      border-color: var(--red-border);
-      color: var(--red);
-    }
-    .feed-tag.neu {
-      background: rgba(255, 255, 255, 0.05);
-      color: var(--text-body);
-    }
-    .feed-date {
-      font-size: 11px;
-      color: var(--text-sub);
-      font-family: var(--mono);
-    }
-    .fi-chev {
-      flex: 0 0 auto;
-      color: var(--text-muted);
-      font-size: 11px;
-      transition: transform .22s ease;
-    }
-    .feed-item.buka .fi-chev {
-      transform: rotate(180deg);
-    }
-    .fi-isi {
-      display: none;
-      border-top: 1px solid var(--line);
-      background: var(--bg-surface);
-    }
-    .feed-item.buka .fi-isi {
-      display: block;
-    }
-    .feed-pad {
-      padding: 16px 18px;
-    }
-    .feed-body {
-      font-size: 13.5px;
-      line-height: 1.75;
-      color: var(--text-body);
-      word-break: break-word;
-    }
-    .feed-body b {
-      color: #ffffff;
-    }
-    .feed-body p {
-      margin-bottom: 10px;
-    }
-    .feed-body ul, .feed-body ol {
-      margin: 8px 0 12px 20px;
-    }
-    .feed-body li {
-      margin-bottom: 4px;
-    }
-    .feed-body blockquote {
-      margin: 10px 0;
-      padding: 8px 14px;
-      border-left: 3px solid #ffffff;
-      background: rgba(255, 255, 255, 0.03);
-      border-radius: 0 6px 6px 0;
-      color: var(--text-muted);
-    }
-    .feed-body code {
-      background: rgba(255, 255, 255, 0.06);
-      padding: 2px 6px;
-      border-radius: 4px;
-      font-family: var(--mono);
-      font-size: 12px;
-    }
-    .ext-btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      margin-top: 12px;
-      padding: 6px 14px;
-      border-radius: var(--radius-sm);
-      background: #202430;
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      color: #ffffff;
-      font-size: 12px;
-      font-weight: 600;
-      cursor: pointer;
-      transition: var(--transition);
-    }
-    .ext-btn:hover {
-      background: #282e3f;
-      border-color: rgba(255, 255, 255, 0.2);
-    }
     .feed-empty {
       text-align: center;
       padding: 40px 20px;
@@ -2897,17 +2230,14 @@
     .btn-outline:hover { background: #1d1e20; }
     .landing-hint { margin-top: 22px; font-size: 13px; color: #aaaab0; }
     .learning-guide { padding: 64px 0; }
-    .learning-guide > header, .learning-chapter, .learning-sources { max-width: 76ch; margin: 0 auto; }
+    .learning-guide > header { max-width: 76ch; margin: 0 auto; }
     .learning-guide h2 { font-family: inherit; font-size: clamp(28px, 3.5vw, 38px); font-weight: 650; line-height: 1.3; letter-spacing: -.03em; color: #f5f5f5; }
     .learning-guide p, .learning-guide li { font-size: 16px; line-height: 1.95; color: #c5c5cb; }
     .learning-guide p { margin-top: 22px; }
     .learning-guide a { color: #dddde3; text-decoration: underline; text-underline-offset: 4px; }
     .learning-guide a:hover { color: #fff; }
-    .learning-chapter { padding: 12px 0 48px; scroll-margin-top: 108px; }
-    .learning-chapter + .learning-chapter { border-top: 1px solid #303135; padding-top: 48px; }
     .learning-guide h3 { font-size: 20px; line-height: 1.5; margin-top: 30px; }
     .learning-guide strong { color: #f2f2f5; font-weight: 600; }
-    .learning-sources { border-top: 1px solid #303135; padding-top: 32px; }
     .text-action { display: inline-block; border: 0; border-bottom: 1px solid #8c8c91; background: none; padding: 10px 0; min-height: 44px; color: #f5f5f5; font-size: 14px; cursor: pointer; }
     .text-action:hover { border-color: #fff; }
     .landing-pricing { padding: 56px 0 20px; scroll-margin-top: 100px; }
@@ -2991,7 +2321,6 @@
       .landing-lead { font-size: 17px; margin-top: 20px; }
       .landing-hero { min-height: 440px; }
       .learning-guide { padding: 44px 0; }
-      .learning-chapter { scroll-margin-top: 142px; }
       .learning-guide p, .learning-guide li { font-size: 15px; line-height: 1.9; }
       .paid-plan-grid { grid-template-columns: 1fr; gap: 20px; max-width: 480px; margin: auto; }
       .plan-card-heading { flex-wrap: nowrap; min-height: 48px; }
@@ -3142,7 +2471,6 @@ body.auth-page .main-wrap { max-width:none; width:100%; margin:0; padding:0; }
 
 #market-ticker { height: 56px; overflow: hidden; color-scheme: dark; }
 
-
 #market-ticker tv-ticker-tape { display: block; height: 88px; --tv-widget-border-color: transparent; }
 
 .fomc-panel { margin: 0 0 32px; }
@@ -3262,7 +2590,6 @@ a, button, summary, input, select, label { -webkit-tap-highlight-color: transpar
   .navbar-right { grid-column:2; grid-row:1; height:44px; margin-left:0; }
   .nav-tabs { grid-column:1 / -1; grid-row:2; height:44px; gap:24px; padding:0; }
 }
-
 
 #view-berita.reading-article #news-content > .publisher-heading,
 #view-berita.reading-article #news-content > .news-region-toolbar,
