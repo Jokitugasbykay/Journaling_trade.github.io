@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "checkedAt": "2026-10-08T07:05:15.039818+00:00",
+  "checkedAt": "2026-10-08T07:09:57.582648+00:00",
   "intervalMinutes": 5,
   "sources": [
     {
@@ -9,7 +9,7 @@
       "url": "https://www.investing.com/",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-08T07:05:04.688121+00:00"
+      "checkedAt": "2026-10-08T07:09:44.893041+00:00"
     },
     {
       "id": "cnbc",
@@ -17,7 +17,7 @@
       "url": "https://www.cnbc.com/markets/",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-08T07:05:04.685792+00:00"
+      "checkedAt": "2026-10-08T07:09:44.856054+00:00"
     },
     {
       "id": "kontan",
@@ -25,7 +25,7 @@
       "url": "https://www.kontan.co.id/",
       "kind": "html",
       "status": "ok",
-      "checkedAt": "2026-10-08T07:05:06.090143+00:00"
+      "checkedAt": "2026-10-08T07:09:46.102645+00:00"
     },
     {
       "id": "reuters",
@@ -33,7 +33,7 @@
       "url": "https://www.reuters.com/",
       "kind": "sitemap",
       "status": "ok",
-      "checkedAt": "2026-10-08T07:05:05.001178+00:00"
+      "checkedAt": "2026-10-08T07:09:44.908316+00:00"
     },
     {
       "id": "aljazeera",
@@ -41,7 +41,7 @@
       "url": "https://www.aljazeera.com/",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-08T07:05:04.669540+00:00"
+      "checkedAt": "2026-10-08T07:09:44.881412+00:00"
     },
     {
       "id": "bloomberg",
@@ -49,7 +49,7 @@
       "url": "https://www.bloomberg.com/asia",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-08T07:05:04.824520+00:00"
+      "checkedAt": "2026-10-08T07:09:50.235816+00:00"
     },
     {
       "id": "fnc",
@@ -57,7 +57,7 @@
       "url": "https://tradewithfnc.com/",
       "kind": "json",
       "status": "ok",
-      "checkedAt": "2026-10-08T07:05:05.509995+00:00"
+      "checkedAt": "2026-10-08T07:09:45.645482+00:00"
     },
     {
       "id": "investing_id",
@@ -65,7 +65,7 @@
       "url": "https://id.investing.com/news",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-08T07:05:04.786938+00:00"
+      "checkedAt": "2026-10-08T07:09:45.183411+00:00"
     },
     {
       "id": "pluang",
@@ -73,7 +73,7 @@
       "url": "https://pluang.com/news-feed",
       "kind": "html",
       "status": "ok",
-      "checkedAt": "2026-10-08T07:05:05.017542+00:00"
+      "checkedAt": "2026-10-08T07:09:45.263382+00:00"
     },
     {
       "id": "kompas",
@@ -81,7 +81,7 @@
       "url": "https://money.kompas.com/",
       "kind": "html",
       "status": "ok",
-      "checkedAt": "2026-10-08T07:05:05.049782+00:00"
+      "checkedAt": "2026-10-08T07:09:46.067196+00:00"
     },
     {
       "id": "detik",
@@ -89,7 +89,7 @@
       "url": "https://finance.detik.com/",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-08T07:05:06.386015+00:00"
+      "checkedAt": "2026-10-08T07:09:47.095634+00:00"
     },
     {
       "id": "kemenkeu",
@@ -121,7 +121,7 @@
       "url": "https://ekbis.sindonews.com/",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-08T07:05:05.377362+00:00"
+      "checkedAt": "2026-10-08T07:09:46.017984+00:00"
     },
     {
       "id": "fedwatch",
@@ -140,12 +140,72 @@
   ],
   "items": [
     {
+      "id": "720adbdba0b3ee46eb7a",
+      "source": "kompas",
+      "title": "Dony Oskaria: Dividen Danantara Diinvestasikan, Bukan Disetor ke Kas Negara",
+      "url": "https://money.kompas.com/read/2026/10/08/140434426/dony-oskaria-dividen-danantara-diinvestasikan-bukan-disetor-ke-kas-negara",
+      "publishedAt": "2026-10-08T07:04:34+00:00",
+      "image": "https://asset.kompas.com/crops/8v-TVFQUoZx45HpleM-oaDExZFE=/0x0:0x0/750x500/data/photo/2026/10/08/6ac73fc216bfe.jpg",
+      "category": "other",
+      "topics": []
+    },
+    {
+      "id": "10b73971c52e9bc5a4fe",
+      "source": "reuters",
+      "title": "Spanish woman whose eviction ignited housing protests dies at 87",
+      "url": "https://www.reuters.com/world/evicted-spanish-octogenarian-maricarmen-abascal-heart-spains-housing-protests-2026-10-07/",
+      "publishedAt": "2026-10-08T07:04:25.632000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/ORWZUTGM3BPNHAT6UZZ5T2PDHE.jpg?auth=3c50039e27cf7260035fb6ee99b2de77a39b04c60857ea579e7122227abe36d4&smart=true&width=1920",
+      "category": "world",
+      "topics": []
+    },
+    {
+      "id": "4355bf8971a6b0e7e30c",
+      "source": "reuters",
+      "title": "UK police charge member of Royal Navy under National Security Act",
+      "url": "https://www.reuters.com/world/uk/uk-police-charge-member-royal-navy-under-national-security-act-2026-10-08/",
+      "publishedAt": "2026-10-08T07:03:07.678000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/J2OT46IMSVO2LHG3HHCW3T5WGM.jpg?auth=1bb42dc711388997fd45b2f1aac58ca16ebd233c55b315fd77faa5f6343d7aff&smart=true&width=1920",
+      "category": "world",
+      "topics": []
+    },
+    {
+      "id": "d98930cc236cdb8646a7",
+      "source": "reuters",
+      "title": "Malaysia to work towards Myanmar's full reintegration into ASEAN, PM says",
+      "url": "https://www.reuters.com/world/asia-pacific/malaysia-pm-says-he-will-do-whatever-possible-ensure-myanmars-acceptance-2026-10-08/",
+      "publishedAt": "2026-10-08T07:01:53.847000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/G7M6FFYUABKIXBKKZVZ24KC7RM.jpg?auth=ed37b90016e5d2a72363fc0ad6894d86c475a7a6972a6466091f4300102e6028&smart=true&width=1920",
+      "category": "world",
+      "topics": []
+    },
+    {
+      "id": "1280969e1c2dcd711b7e",
+      "source": "reuters",
+      "title": "MLB roundup: Rays, Dodgers, Brewers wrap up division series",
+      "url": "https://www.reuters.com/sports/mlb-roundup-rays-dodgers-brewers-wrap-up-division-series--flm-2026-10-08/",
+      "publishedAt": "2026-10-08T07:01:43.700000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/VHC72UOMBVMYHC7RWEDDVFUPNE.jpg?auth=029d4131fbdb5154539fc853e60f221cc0968e763664ec53c11f1993ccbb66ae&smart=true&width=1920",
+      "category": "sport",
+      "topics": []
+    },
+    {
       "id": "19d9c725e3283c429938",
       "source": "kompas",
       "title": "Harga Batu Bara Kokas Diprediksi Tinggi, Jadi Katalis Saham ADMR?",
       "url": "https://money.kompas.com/read/2026/10/08/140126226/harga-batu-bara-kokas-diprediksi-tinggi-jadi-katalis-saham-admr",
       "publishedAt": "2026-10-08T07:01:26+00:00",
       "image": "https://asset.kompas.com/crops/1GwznD2XYSwlw4J3lHJs0GJEH_w=/150x100:1350x900/750x500/data/photo/2026/09/08/6aa02314b2a4d.jpg",
+      "category": "markets",
+      "topics": []
+    },
+    {
+      "id": "556a65b7b9f6a669069d",
+      "source": "detik",
+      "title": "Aksi Tolak Batu Bara Captive yang Picu Pemanasan Global",
+      "url": "https://finance.detik.com/foto-bisnis/d-8697904/aksi-tolak-batu-bara-captive-yang-picu-pemanasan-global",
+      "publishedAt": "2026-10-08T07:00:35+00:00",
+      "image": "https://akcdn.detik.net.id/community/media/visual/2026/10/08/aktivis-serukan-penghentian-pembiayaan-pltu-batu-bara-captive-1791441083701_169.jpeg?w=360&q=90",
       "category": "markets",
       "topics": []
     },
@@ -160,22 +220,24 @@
       "topics": []
     },
     {
+      "id": "018e2eba7f21be4f6597",
+      "source": "detik",
+      "title": "RI Perdana Ekspor Baterai, Prabowo: Bukti Hilirisasi Kita Benar!",
+      "url": "https://finance.detik.com/energi/d-8697984/ri-perdana-ekspor-baterai-prabowo-bukti-hilirisasi-kita-benar",
+      "publishedAt": "2026-10-08T06:59:21+00:00",
+      "image": "https://akcdn.detik.net.id/community/media/visual/2026/10/08/presiden-prabowo-subianto-dok-youtube-setpres-1791440438852_169.jpeg?w=360&q=90",
+      "category": "local",
+      "topics": [
+        "politics"
+      ]
+    },
+    {
       "id": "da55a4b6cf45e6830afd",
       "source": "reuters",
       "title": "People in Russian-occupied Ukrainian town risk 'road of death' to get food",
       "url": "https://www.reuters.com/world/europe/people-russian-occupied-ukrainian-town-risk-road-death-get-food-2026-10-08/",
       "publishedAt": "2026-10-08T06:59:03.344000+00:00",
       "image": "https://www.reuters.com/resizer/v2/55D6HDLEURK7TGCHPQKFG66AEE.jpg?auth=991131908713a7144518c18276207cbda9985a693dd044b1553dcbd6d1a3c03b&smart=true&width=1920",
-      "category": "world",
-      "topics": []
-    },
-    {
-      "id": "4355bf8971a6b0e7e30c",
-      "source": "reuters",
-      "title": "UK police charge member of Royal Navy under National Security Act",
-      "url": "https://www.reuters.com/world/uk/uk-police-charge-member-royal-navy-under-national-security-act-2026-10-08/",
-      "publishedAt": "2026-10-08T06:58:44.629000+00:00",
-      "image": "https://www.reuters.com/resizer/v2/J2OT46IMSVO2LHG3HHCW3T5WGM.jpg?auth=1bb42dc711388997fd45b2f1aac58ca16ebd233c55b315fd77faa5f6343d7aff&smart=true&width=1920",
       "category": "world",
       "topics": []
     },
@@ -356,6 +418,16 @@
       ]
     },
     {
+      "id": "5e2d2130c48b579fcd29",
+      "source": "bloomberg",
+      "title": "Oil Spoils the Global Stock Rally as Brent Tops $102",
+      "url": "https://www.bloomberg.com/news/videos/2026-10-08/insight-with-haslinda-amin-10-8-2026-video",
+      "publishedAt": "2026-10-08T06:49:24+00:00",
+      "image": null,
+      "category": "markets",
+      "topics": []
+    },
+    {
       "id": "504f715f1831cf6539f5",
       "source": "reuters",
       "title": "Christa Pike hearing, October 7, Mortgage rates spike (Updated)",
@@ -416,6 +488,16 @@
       "topics": []
     },
     {
+      "id": "2dc024c09f7aba68dce7",
+      "source": "bloomberg",
+      "title": "India Shuns Costly Russian Crude as Middle East Flows Recover",
+      "url": "https://www.bloomberg.com/news/articles/2026-10-08/india-shuns-costly-russian-crude-as-middle-east-flows-recover",
+      "publishedAt": "2026-10-08T06:45:33+00:00",
+      "image": null,
+      "category": "other",
+      "topics": []
+    },
+    {
       "id": "5c0c01c4fad098bce8d7",
       "source": "kompas",
       "title": "Keyakinan Konsumen Turun Tipis Jadi 118,1 tapi Porsi Konsumsi Naik",
@@ -462,6 +544,16 @@
       "url": "https://www.reuters.com/world/asia-pacific/south-korea-may-ban-foreign-banks-arranging-global-bond-deals-bloomberg-news-2026-10-08/",
       "publishedAt": "2026-10-08T06:39:20.708000+00:00",
       "image": "https://www.reuters.com/resizer/v2/N4GXWOMHBNNEXMLKXKLY5SSDGE.jpg?auth=5ba95c059981ff417f8d9728ffbb4f4ba9748403b260e0feed57b9e338629c21&smart=true&width=1920",
+      "category": "markets",
+      "topics": []
+    },
+    {
+      "id": "317b8a1ebf009409088b",
+      "source": "bloomberg",
+      "title": "China Stocks Dip As Soft Travel Data Drags on Sentiment",
+      "url": "https://www.bloomberg.com/news/videos/2026-10-08/the-china-show-10-8-2026-video",
+      "publishedAt": "2026-10-08T06:38:29+00:00",
+      "image": null,
       "category": "markets",
       "topics": []
     },
@@ -918,16 +1010,6 @@
       "topics": []
     },
     {
-      "id": "d98930cc236cdb8646a7",
-      "source": "reuters",
-      "title": "Malaysia to work towards Myanmar's full reintegration into ASEAN, PM says",
-      "url": "https://www.reuters.com/world/asia-pacific/malaysia-pm-says-he-will-do-whatever-possible-ensure-myanmars-acceptance-2026-10-08/",
-      "publishedAt": "2026-10-08T05:48:04.641000+00:00",
-      "image": "https://www.reuters.com/resizer/v2/G7M6FFYUABKIXBKKZVZ24KC7RM.jpg?auth=ed37b90016e5d2a72363fc0ad6894d86c475a7a6972a6466091f4300102e6028&smart=true&width=1920",
-      "category": "world",
-      "topics": []
-    },
-    {
       "id": "84b98ba72b5465482641",
       "source": "kompas",
       "title": "Harga Emas di Pegadaian Siang Ini Kompak Turun, Antam Susut Rp 15.000",
@@ -940,7 +1022,7 @@
     {
       "id": "ab0d2a2f4ff706e6ccdd",
       "source": "bloomberg",
-      "title": "FTSE 100 Live: UK Assets Show Few Signs of Recovery",
+      "title": "FTSE 100 Live: Gilts, UK Stocks Fall as Oil Prices Climb",
       "url": "https://www.bloomberg.com/news/live-blog/2026-10-08/ftse-100-uk-jobs-data-house-prices-pound-houthis-oil-prices-hormuz-ai-stocks-what-s-moving-uk-markets-right-now-markets-today",
       "publishedAt": "2026-10-08T05:46:37+00:00",
       "image": null,
@@ -2279,16 +2361,6 @@
       "publishedAt": "2026-10-08T02:40:00+00:00",
       "image": "https://asset.kompas.com/crops/xVh1bvebyPAxWIGl0aZWm3I65Rk=/0x57:1280x910/750x500/data/photo/2026/06/08/6a2689fc830bf.jpg",
       "category": "local",
-      "topics": []
-    },
-    {
-      "id": "10b73971c52e9bc5a4fe",
-      "source": "reuters",
-      "title": "Spanish woman whose eviction ignited housing protests dies at 87",
-      "url": "https://www.reuters.com/world/evicted-spanish-octogenarian-maricarmen-abascal-heart-spains-housing-protests-2026-10-07/",
-      "publishedAt": "2026-10-08T02:39:19.600000+00:00",
-      "image": "https://www.reuters.com/resizer/v2/ORWZUTGM3BPNHAT6UZZ5T2PDHE.jpg?auth=3c50039e27cf7260035fb6ee99b2de77a39b04c60857ea579e7122227abe36d4&smart=true&width=1920",
-      "category": "world",
       "topics": []
     },
     {
@@ -13905,6 +13977,26 @@
       "publishedAt": null,
       "image": "https://foto.kontan.co.id/bwGkGShmFtfjqtyH1hDudW6qBAw=/smart/2026/06/18/1410531752t.jpg",
       "category": "other",
+      "topics": []
+    },
+    {
+      "id": "71733b2fef8874f04418",
+      "source": "kontan",
+      "title": "Menperin Minta Hari Pelayanan Publik Ditambah Jadi Dua Kali Sepekan, Kejar Daya Saing",
+      "url": "https://nasional.kontan.co.id/news/menperin-minta-hari-pelayanan-publik-ditambah-jadi-dua-kali-sepekan-kejar-daya-saing?source=home_terbaru",
+      "publishedAt": null,
+      "image": "https://foto.kontan.co.id/KEJWh2Tsvght9Mkop66g6vyrJiQ=/smart/2026/10/08/978758079t.jpg",
+      "category": "other",
+      "topics": []
+    },
+    {
+      "id": "adcb6bbf73513017790a",
+      "source": "kontan",
+      "title": "Perpres Ojol Rampung, Modantara Soroti Dampak Aturan Bagi Industri",
+      "url": "https://industri.kontan.co.id/news/perpres-ojol-rampung-modantara-soroti-dampak-aturan-bagi-industri?source=home_terbaru",
+      "publishedAt": null,
+      "image": "https://foto.kontan.co.id/z6Bby9gncwrRtnzJ3-Vto6PrtC8=/smart/2026/06/24/2088557564t.jpg",
+      "category": "business",
       "topics": []
     }
   ]
