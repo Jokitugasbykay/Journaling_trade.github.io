@@ -3488,7 +3488,12 @@
         // ponytail: local headline/topic matching; use an editorial index if multilingual recall needs improvement.
         const stop = new Set('the and for with from that this have has its are was were will would says said say new more after before into over amid about could their they who what when where why how than not but all out off his her our your also news update latest read article sources source report reports exclusive tie tieup channel cut cuts cost costs discuss discusses talks plan plans broader company companies group groups business britain british global world europe america national pada dari yang untuk dengan dalam oleh dan atau ini itu akan telah saat usai serta berita baru kata hasil'.split(' '));
         const normalize = value => String(value || '').normalize('NFKD').replace(/\p{M}/gu, '').toLowerCase();
-        const words = title => new Set((normalize(title).replace(/\b([a-z]+)\s+(\d{1,2})\b/g, '$1$2').match(/[\p{L}\p{N}]+/gu) || []).filter(word => word.length > 2 && !stop.has(word) && !/^\d+$/.test(word)));
+        const segmenter = typeof Intl.Segmenter === 'function' ? new Intl.Segmenter(undefined, {granularity:'word'}) : null;
+        const words = title => {
+          const value = normalize(title).replace(/\b([a-z]+)\s+(\d{1,2})\b/g, '$1$2');
+          const tokens = segmenter && /\p{Script=Han}/u.test(value) ? [...segmenter.segment(value)].filter(part => part.isWordLike).map(part => part.segment) : value.match(/[\p{L}\p{N}]+/gu) || [];
+          return new Set(tokens.filter(word => (word.length > 2 || word.length >= 2 && /\p{Script=Han}/u.test(word)) && !stop.has(word) && !/^\d+$/.test(word)));
+        };
         const headlineKey = value => normalize(value).replace(/^exclusive[\s:-]+/, '').replace(/[^\p{L}\p{N}]+/gu, ' ').trim();
         const title = headlineKey(item.title);
         const target = words(item.title);

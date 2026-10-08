@@ -47,3 +47,8 @@ const media={...bbc,category:'world'};
 const reported={id:'reporting',source:'reuters',title:'Syrian general accused of atrocities, BBC finds',url:'https://news.example/reporting',category:'world'};
 assert.deepEqual(Array.from(ctx.relatedNews(media,[...bbcRows,reported],known,()=>true),row=>row.id),['broadcast']);
 console.log('A publisher mentioned in an unrelated reporting topic does not count as the article subject');
+
+const taiwan={id:'tw1',source:'cn',title:'台灣半導體投資增長',url:'https://cn.example/one'};
+const twRows=[taiwan,{id:'tw2',source:'cn',title:'台灣半導體產業投資計畫',url:'https://cn.example/two'},{id:'tw3',source:'cn',title:'足球球隊贏得冠軍',url:'https://cn.example/sport'}];
+assert.deepEqual(Array.from(ctx.relatedNews(taiwan,twRows,known,()=>true),row=>row.id),['tw2']);
+console.log('Native word segmentation matches Chinese/Taiwan headlines without whitespace');
