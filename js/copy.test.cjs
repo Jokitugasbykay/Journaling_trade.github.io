@@ -39,3 +39,31 @@ console.log('English guide coverage passed');
   assert.ok(nodes.get('exchange-status').textContent.includes('unavailable'));
   console.log('BI midpoint conversion and invalid quote rejection passed');
 })().catch(error => { console.error(error); process.exitCode = 1; });
+
+// News navigation mounts one real market widget and rejects removed social views.
+{
+  const ticker = { script: null, querySelector() { return this.script; }, appendChild(script) { this.script = script; } };
+  const nodes = new Map([['market-ticker', ticker], ['sub-berita-ringkasan', {}], ['sub-berita-kalender', {}]]);
+  const buttons = ['ringkasan', 'kalender'].map(sub => ({ dataset: { sub }, classList: { toggle() {} } }));
+  let newsAllowed = true;
+  const context = { canReadNews: () => newsAllowed, $: id => nodes.get(id),
+    document: { querySelectorAll: () => buttons, createElement: () => ({}) },
+    renderPublisherNews() {}, renderEconomicCalendar() {}, pagePath: route => '/' + route + '/',
+    location: { pathname: '/economic-news/' }, history: { pushState() {} } };
+  context.window = context;
+  vm.runInNewContext(source.slice(source.indexOf('      window.switchBeritaSub ='), source.indexOf('      function restoreRoute()')), context);
+  context.switchBeritaSub('ringkasan');
+  const script = ticker.script;
+  assert.ok(script.src.startsWith('https://s3.tradingview.com/'));
+  assert.equal(JSON.parse(script.textContent).colorTheme, 'dark');
+  context.switchBeritaSub('kalender');
+  assert.equal(ticker.script, script, 'Navigation duplicated the ticker');
+  assert.equal(nodes.get('sub-berita-ringkasan').hidden, true);
+  context.switchBeritaSub('sosial');
+  assert.equal(nodes.get('sub-berita-kalender').hidden, false);
+  newsAllowed = false;
+  context.switchBeritaSub('ringkasan');
+  assert.equal(nodes.get('sub-berita-kalender').hidden, false);
+  assert.ok(!html.includes('sub-berita-sosial'));
+  console.log('News tabs, access guard and ticker mounting passed');
+}

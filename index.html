@@ -20,7 +20,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
 
-  <link rel="stylesheet" href="css/style.css?v=20261008-plans-auth">
+  <link rel="stylesheet" href="css/style.css?v=20261008-ticker">
 </head>
 
 <body>
@@ -128,8 +128,7 @@
 
               <button class="btn plan-unavailable" type="button" disabled data-i18n="plusSoon">Plus segera tersedia</button>
               <p class="plan-action-note" data-i18n="paidNote">Langganan belum dibuka</p>
-              <ul class="free-features"><li data-i18n="plusFeature1">Semua fitur Free</li><li data-i18n="plusFeature2">Upload tanpa batas</li><li data-i18n="plusFeature3">Akses berita dan kalender ekonomi</li></ul>
-              <details><summary data-i18n="priceDetails">Lihat rincian harga</summary><dl class="plan-details"><div><dt data-i18n="monthly">Bulanan</dt><dd>$10 <span data-i18n="perMonth">USD / bulan</span></dd></div><div><dt data-i18n="annual">Tahunan</dt><dd>$100 <span data-i18n="perYear">USD / tahun</span></dd></div></dl><p data-i18n="plusSavings">Hemat $20 dibanding 12 pembayaran bulanan. Diskon dibulatkan menjadi 17%.</p><p data-i18n="paidHint">Pembayaran akan tersedia setelah checkout diaktifkan.</p></details>
+              <details><summary data-i18n="featureDetails">Tampilkan semua fitur</summary><ul class="free-features"><li data-i18n="plusFeature1">Semua fitur Free</li><li data-i18n="plusFeature2">Upload tanpa batas</li><li data-i18n="plusFeature3">Akses berita dan kalender ekonomi</li></ul><dl class="plan-details"><div><dt data-i18n="monthly">Bulanan</dt><dd>$10 <span data-i18n="perMonth">USD / bulan</span></dd></div><div><dt data-i18n="annual">Tahunan</dt><dd>$100 <span data-i18n="perYear">USD / tahun</span></dd></div></dl><p data-i18n="plusSavings">Hemat $20 dibanding 12 pembayaran bulanan. Diskon dibulatkan menjadi 17%.</p><p data-i18n="paidHint">Pembayaran akan tersedia setelah checkout diaktifkan.</p></details>
             </article>
             <article class="plan-card">
               <div class="plan-card-heading"><h3>Pro</h3><div class="billing-toggle" role="group" aria-label="Periode Pro"><button data-cycle="monthly" type="button" class="active" onclick="setBillingCycle(false)" aria-pressed="true" data-i18n="monthly">Bulanan</button><button data-cycle="annual" type="button" onclick="setBillingCycle(true)" aria-pressed="false"><span data-i18n="annual">Tahunan</span><span class="annual-saving" data-i18n="save17">Hemat 17%</span></button></div></div>
@@ -818,7 +817,7 @@
     <section class="view-content" id="view-berita">
       <div id="news-paywall" class="news-paywall">
         <p class="plan-eyebrow">Plus</p><h2 data-i18n="newsLockedTitle">Berita ekonomi untuk pelanggan Plus</h2>
-        <p data-i18n="newsLockedLead">Buka berita lokal dan global, kalender ekonomi, dan sumber sosial media dengan paket Plus.</p>
+        <p data-i18n="newsLockedLead">Buka berita lokal dan global serta kalender ekonomi dengan paket Plus.</p>
         <button class="btn btn-primary" type="button" onclick="switchTab('beranda'); scrollToPricing();" data-i18n="newsViewPlans">Lihat paket</button>
         <a href="login/" target="_blank" rel="noopener" data-i18n="newsSignIn">Sudah berlangganan? Masuk</a>
       </div><div id="news-content" hidden>
@@ -831,8 +830,13 @@
       <div class="seg" id="berita-seg" style="margin:18px 0 22px;">
         <button class="seg-btn active" type="button" data-sub="ringkasan" onclick="switchBeritaSub('ringkasan')" data-i18n="newsHeadlines">Berita terbaru</button>
         <button class="seg-btn" type="button" data-sub="kalender" onclick="switchBeritaSub('kalender')" data-i18n="newsCalendar">Kalender ekonomi</button>
-        <button class="seg-btn" type="button" data-sub="sosial" onclick="switchBeritaSub('sosial')" data-i18n="newsSocial">Sosial media</button>
       </div>
+      <section class="mqs-05" aria-label="Market prices">
+        <div class="mqs-05__terminal">
+          <div class="mqs-05__bar"><span>Markets</span><a href="https://www.tradingview.com/markets/" target="_blank" rel="noopener noreferrer">TradingView</a></div>
+          <div id="market-ticker" class="tradingview-widget-container"><div class="tradingview-widget-container__widget"></div></div>
+        </div>
+      </section>
       <div id="bi-indicators" class="bi-indicators" role="status"></div>
       <div id="sub-berita-ringkasan">
         <nav class="news-categories" id="news-categories" aria-label="News categories">
@@ -872,16 +876,6 @@
           <a href="https://www.cmegroup.com/markets/interest-rates/cme-fedwatch-tool.html" target="_blank" rel="noopener noreferrer">CME FedWatch</a>
           <a href="https://www.cmegroup.com/markets.html?redirect=/markets/" target="_blank" rel="noopener noreferrer">CME Markets</a>
           <p data-i18n="newsCmeHint">Lihat probabilitas suku bunga dan data pasar terbaru langsung di CME Group.</p>
-        </div>
-      </div>
-
-      <div id="sub-berita-sosial" hidden>
-        <h3 class="publisher-grid-heading" data-i18n="newsSocial">Sosial media</h3>
-        <p class="publisher-news-note" data-i18n="socialLead">Buka unggahan terbaru langsung di Instagram. Instagram dapat meminta Anda untuk masuk.</p>
-        <div class="social-sources">
-          <a href="https://www.instagram.com/tradewithfnc/" target="_blank" rel="noopener noreferrer"><span>Instagram</span><h3>@tradewithfnc</h3><p data-i18n="socialOpen">Lihat unggahan di Instagram</p></a>
-          <a href="https://www.instagram.com/akademicryptocom/" target="_blank" rel="noopener noreferrer"><span>Instagram</span><h3>@akademicryptocom</h3><p data-i18n="socialOpen">Lihat unggahan di Instagram</p></a>
-          <a href="https://www.instagram.com/tradewithsuli/" target="_blank" rel="noopener noreferrer"><span>Instagram</span><h3>@tradewithsuli</h3><p data-i18n="socialOpen">Lihat unggahan di Instagram</p></a>
         </div>
       </div>
 
@@ -1277,7 +1271,7 @@
        ==================================================================== -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.86.0"></script>
   <script src="js/scan.js?v=20261007"></script>
-  <script src="js/app.js?v=20261008-plans-auth2"></script>
+  <script src="js/app.js?v=20261008-ticker"></script>
 
  </body>
 

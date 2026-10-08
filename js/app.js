@@ -109,7 +109,7 @@
 });
       Object.assign(englishCopy, {"newsPageTitle":"News & economic calendar","newsPageLead":"Headlines from your selected publishers, publication times, and the economic calendar.","newsHeadlines":"Latest news","newsCalendar":"Economic calendar","newsSourceLabel":"News source","newsAllSources":"All sources","newsRefresh":"Refresh news","newsOriginalLanguage":"Headlines remain in the publisher’s original language. Read the full story on the source website.","newsCmeHint":"View current interest-rate probabilities and market data directly on CME Group."});
       Object.assign(englishCopy, {"newsLatestStories": "Latest stories", "newsShowMore": "Show more stories", "newsFeedDetails": "Sources & update schedule", "newsSchedule": "News is collected every 30 minutes daily. This page checks for updates every 5 minutes."});
-      Object.assign(englishCopy, {"newsSocial": "Social media", "socialLead": "Open the latest posts directly on Instagram. Instagram may ask you to sign in.", "socialOpen": "View posts on Instagram", "categoryAll": "All", "categoryWorld": "World", "categoryBusiness": "Business", "categoryMarkets": "Markets", "categorySustainability": "Sustainability", "categoryLegal": "Legal", "categoryCommentary": "Commentary", "categoryTechnology": "Technology", "categoryInvestigations": "Investigations", "categoryMore": "More", "categoryLocal": "Local news", "categoryScience": "Science", "categorySport": "Sport", "categoryOther": "Other news", "biSource": "Bank Indonesia transaction rates", "biBasis": "Journal conversion uses the midpoint of BI USD sell and buy rates. BI publishes rates once per business day."});
+      Object.assign(englishCopy, {"categoryAll": "All", "categoryWorld": "World", "categoryBusiness": "Business", "categoryMarkets": "Markets", "categorySustainability": "Sustainability", "categoryLegal": "Legal", "categoryCommentary": "Commentary", "categoryTechnology": "Technology", "categoryInvestigations": "Investigations", "categoryMore": "More", "categoryLocal": "Local news", "categoryScience": "Science", "categorySport": "Sport", "categoryOther": "Other news", "biSource": "Bank Indonesia transaction rates", "biBasis": "Journal conversion uses the midpoint of BI USD sell and buy rates. BI publishes rates once per business day."});
       Object.assign(englishCopy, {
         signupTitle: 'Create your journalingtrade account', signupLead: 'Start with Free and track your trading journey.',
         authEmailDivider: 'or use email', confirmPassword: 'Confirm password',
@@ -117,7 +117,7 @@
         nicknameTitle: 'What should we call you?', nicknameLead: 'Choose a nickname for your journal profile.',
         authSwitchAccount: 'Use another account', nicknameLabel: 'Nickname', nicknameSave: 'Save and open journal', authBack: 'Back to Home',
         plusFeature1: 'All Free features', plusFeature2: 'Unlimited uploads', plusFeature3: 'Economic news and calendar access',
-        newsLockedTitle: 'Economic news for Plus members', newsLockedLead: 'Unlock local and global news, the economic calendar, and social media sources with Plus.',
+        newsLockedTitle: 'Economic news for Plus members', newsLockedLead: 'Unlock local and global news and the economic calendar with Plus.',
         newsViewPlans: 'View plans', newsSignIn: 'Already subscribed? Sign in'
       });
       document.querySelectorAll('[data-i18n]').forEach(element => {
@@ -542,6 +542,7 @@
         $('upload-quota-note').textContent = uploadAllowanceText();
         $('news-content').hidden = !canReadNews();
         $('news-paywall').hidden = canReadNews();
+        if (canReadNews() && $('view-berita').classList.contains('active')) switchBeritaSub(location.pathname === pagePath('economic-news/calendar') ? 'kalender' : document.querySelector('#berita-seg .active').dataset.sub, false);
       }
 
       function disciplineMetrics(rows) {
@@ -3149,7 +3150,7 @@
       /* Sub-view Switcher */
       window.switchBeritaSub = function (sub, updateUrl = true) {
         if (!canReadNews()) return;
-        if (!['ringkasan', 'kalender', 'sosial'].includes(sub)) return;
+        if (!['ringkasan', 'kalender'].includes(sub)) return;
         document.querySelectorAll('#berita-seg .seg-btn').forEach(b => {
           b.classList.toggle('active', b.dataset.sub === sub);
         });
@@ -3158,14 +3159,25 @@
 
         if (rEl) rEl.hidden = sub !== 'ringkasan';
         if (kEl) kEl.hidden = sub !== 'kalender';
-        $('sub-berita-sosial').hidden = sub !== 'sosial';
+        const ticker = $('market-ticker');
+        if (!ticker.querySelector('script')) {
+          const script = document.createElement('script');
+          script.src = 'https://s3.tradingview.com/external-embedding/embed-widget-ticker-tape.js';
+          script.async = true;
+          script.textContent = JSON.stringify({
+            symbols: ['FOREXCOM:SPXUSD', 'FOREXCOM:NSXUSD', 'FX:EURUSD', 'FX:GBPUSD', 'CMCMARKETS:GOLD', 'BITSTAMP:BTCUSD', 'BITSTAMP:ETHUSD'].map(proName => ({ proName })),
+            colorTheme: 'dark', locale: 'en', isTransparent: false, showSymbolLogo: false, displayMode: 'regular'
+          });
+          script.onerror = () => { ticker.querySelector('.tradingview-widget-container__widget').textContent = 'Prices unavailable. Open TradingView to view market prices.'; script.remove(); };
+          ticker.appendChild(script);
+        }
 
         if (sub === 'ringkasan') {
           renderPublisherNews();
         } else if (sub === 'kalender') {
           renderEconomicCalendar();
         }
-        const route = 'economic-news' + (sub === 'ringkasan' ? '' : '/' + (sub === 'kalender' ? 'calendar' : 'social'));
+        const route = 'economic-news' + (sub === 'ringkasan' ? '' : '/calendar');
         if (updateUrl && location.pathname !== pagePath(route)) history.pushState(null, '', pagePath(route));
       };
 
@@ -3186,7 +3198,8 @@
           updateAccess();
         }
         switchTab(tabId, false);
-        if (tabId === 'berita') switchBeritaSub(parts[1] === 'calendar' ? 'kalender' : parts[1] === 'social' ? 'sosial' : 'ringkasan', false);
+        if (tabId === 'berita') switchBeritaSub(parts[1] === 'calendar' ? 'kalender' : 'ringkasan', false);
+        if (tabId === 'berita' && parts[1] === 'social') history.replaceState(null, '', pagePath('economic-news'));
         if (!parts.length || !pageRoutes[tabId] || parts[0] !== pageRoutes[tabId]) history.replaceState(null, '', pagePath(pageRoutes[tabId]));
       }
 
