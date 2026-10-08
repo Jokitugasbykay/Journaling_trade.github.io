@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "checkedAt": "2026-10-08T09:06:24.769272+00:00",
+  "checkedAt": "2026-10-08T09:08:11.492040+00:00",
   "intervalMinutes": 5,
   "sources": [
     {
@@ -9,7 +9,7 @@
       "url": "https://www.investing.com/",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-08T09:06:07.218799+00:00"
+      "checkedAt": "2026-10-08T09:07:59.901642+00:00"
     },
     {
       "id": "cnbc",
@@ -17,7 +17,7 @@
       "url": "https://www.cnbc.com/markets/",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-08T09:06:07.153620+00:00"
+      "checkedAt": "2026-10-08T09:07:59.914144+00:00"
     },
     {
       "id": "kontan",
@@ -25,7 +25,7 @@
       "url": "https://www.kontan.co.id/",
       "kind": "html",
       "status": "ok",
-      "checkedAt": "2026-10-08T09:06:08.386454+00:00"
+      "checkedAt": "2026-10-08T09:08:01.247112+00:00"
     },
     {
       "id": "reuters",
@@ -33,7 +33,7 @@
       "url": "https://www.reuters.com/",
       "kind": "sitemap",
       "status": "ok",
-      "checkedAt": "2026-10-08T09:06:07.203611+00:00"
+      "checkedAt": "2026-10-08T09:08:00.167704+00:00"
     },
     {
       "id": "aljazeera",
@@ -41,7 +41,7 @@
       "url": "https://www.aljazeera.com/",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-08T09:06:07.161482+00:00"
+      "checkedAt": "2026-10-08T09:07:59.954405+00:00"
     },
     {
       "id": "bloomberg",
@@ -49,7 +49,7 @@
       "url": "https://www.bloomberg.com/asia",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-08T09:06:07.423001+00:00"
+      "checkedAt": "2026-10-08T09:08:00.069318+00:00"
     },
     {
       "id": "fnc",
@@ -57,7 +57,7 @@
       "url": "https://tradewithfnc.com/",
       "kind": "json",
       "status": "ok",
-      "checkedAt": "2026-10-08T09:06:08.017351+00:00"
+      "checkedAt": "2026-10-08T09:08:00.591898+00:00"
     },
     {
       "id": "investing_id",
@@ -65,7 +65,7 @@
       "url": "https://id.investing.com/news",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-08T09:06:07.513573+00:00"
+      "checkedAt": "2026-10-08T09:08:00.071794+00:00"
     },
     {
       "id": "pluang",
@@ -73,7 +73,7 @@
       "url": "https://pluang.com/news-feed",
       "kind": "html",
       "status": "ok",
-      "checkedAt": "2026-10-08T09:06:07.706786+00:00"
+      "checkedAt": "2026-10-08T09:08:00.369593+00:00"
     },
     {
       "id": "kompas",
@@ -81,7 +81,7 @@
       "url": "https://money.kompas.com/",
       "kind": "html",
       "status": "ok",
-      "checkedAt": "2026-10-08T09:06:08.708009+00:00"
+      "checkedAt": "2026-10-08T09:08:00.709898+00:00"
     },
     {
       "id": "detik",
@@ -89,7 +89,7 @@
       "url": "https://finance.detik.com/",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-08T09:06:08.985004+00:00"
+      "checkedAt": "2026-10-08T09:08:01.765229+00:00"
     },
     {
       "id": "kemenkeu",
@@ -121,7 +121,7 @@
       "url": "https://ekbis.sindonews.com/",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-08T09:06:08.058646+00:00"
+      "checkedAt": "2026-10-08T09:08:00.713292+00:00"
     },
     {
       "id": "ap",
@@ -137,7 +137,7 @@
       "url": "https://www.bbc.com/news",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-08T09:06:09.011753+00:00"
+      "checkedAt": "2026-10-08T09:08:01.315235+00:00"
     },
     {
       "id": "afp",
@@ -152,7 +152,7 @@
       "url": "https://www.wsj.com/",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-08T09:06:09.090156+00:00"
+      "checkedAt": "2026-10-08T09:08:02.127241+00:00"
     },
     {
       "id": "guardian",
@@ -160,7 +160,7 @@
       "url": "https://www.theguardian.com/",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-08T09:06:09.363775+00:00"
+      "checkedAt": "2026-10-08T09:08:01.516716+00:00"
     },
     {
       "id": "ft",
@@ -168,7 +168,7 @@
       "url": "https://www.ft.com/",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-08T09:06:10.340917+00:00"
+      "checkedAt": "2026-10-08T09:08:02.480175+00:00"
     },
     {
       "id": "dw",
@@ -176,7 +176,7 @@
       "url": "https://www.dw.com/en/top-stories/s-9097",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-08T09:06:10.798838+00:00"
+      "checkedAt": "2026-10-08T09:08:02.620123+00:00"
     },
     {
       "id": "fedwatch",
@@ -198,7 +198,7 @@
       "url": "https://www.marketwatch.com",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-08T09:06:09.083245+00:00"
+      "checkedAt": "2026-10-08T09:08:01.598200+00:00"
     },
     {
       "id": "id_katadata",
@@ -213,7 +213,7 @@
       "url": "https://www.antaranews.com",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-08T09:06:10.046532+00:00"
+      "checkedAt": "2026-10-08T09:08:02.821646+00:00"
     },
     {
       "id": "id_jakartapost",
@@ -256,7 +256,7 @@
       "url": "https://www.npr.org",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-08T09:06:09.374351+00:00"
+      "checkedAt": "2026-10-08T09:08:01.915262+00:00"
     },
     {
       "id": "us_cbs",
@@ -285,7 +285,7 @@
       "url": "https://news.sky.com",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-08T09:06:09.409923+00:00"
+      "checkedAt": "2026-10-08T09:08:02.029675+00:00"
     },
     {
       "id": "gb_independent",
@@ -342,7 +342,7 @@
       "url": "https://www.freemalaysiatoday.com",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-08T09:06:09.591114+00:00"
+      "checkedAt": "2026-10-08T09:08:02.283101+00:00"
     },
     {
       "id": "my_sinar",
@@ -364,7 +364,7 @@
       "url": "https://www.channelnewsasia.com",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-08T09:06:09.617273+00:00"
+      "checkedAt": "2026-10-08T09:08:02.295787+00:00"
     },
     {
       "id": "sg_business",
@@ -421,7 +421,7 @@
       "url": "https://www.nrk.no",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-08T09:06:09.920398+00:00"
+      "checkedAt": "2026-10-08T09:08:02.602972+00:00"
     },
     {
       "id": "no_aftenposten",
@@ -478,7 +478,7 @@
       "url": "https://www.dr.dk",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-08T09:06:09.888123+00:00"
+      "checkedAt": "2026-10-08T09:08:02.543314+00:00"
     },
     {
       "id": "dk_politiken",
@@ -535,7 +535,7 @@
       "url": "https://yle.fi",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-08T09:06:10.323440+00:00"
+      "checkedAt": "2026-10-08T09:08:02.784198+00:00"
     },
     {
       "id": "fi_hs",
@@ -599,7 +599,7 @@
       "url": "https://www.irozhlas.cz",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-08T09:06:10.157459+00:00"
+      "checkedAt": "2026-10-08T09:08:02.903679+00:00"
     },
     {
       "id": "cz_idnes",
@@ -670,7 +670,7 @@
       "url": "https://hotnews.ro",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-08T09:06:10.647064+00:00"
+      "checkedAt": "2026-10-08T09:08:03.117588+00:00"
     },
     {
       "id": "ro_europa",
@@ -763,7 +763,7 @@
       "url": "https://www.rte.ie/news",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-08T09:06:10.286443+00:00"
+      "checkedAt": "2026-10-08T09:08:02.864786+00:00"
     },
     {
       "id": "ie_times",
@@ -820,7 +820,7 @@
       "url": "https://orf.at",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-08T09:06:11.977706+00:00"
+      "checkedAt": "2026-10-08T09:08:03.998808+00:00"
     },
     {
       "id": "at_standard",
@@ -874,6 +874,76 @@
   ],
   "items": [
     {
+      "id": "046817cca85b21f59565",
+      "source": "ro_hotnews",
+      "title": "Ce au în comun Ryan Reynolds, David Popovici și Horia Tecău când vorbesc despre succes la Impact SEE",
+      "url": "https://hotnews.ro/ce-au-in-comun-ryan-reynolds-david-popovici-si-horia-tecau-cand-vorbesc-despre-succes-la-impact-see-2370340",
+      "publishedAt": "2026-10-08T09:07:13+00:00",
+      "image": "https://hotnews.ro/wp-content/uploads/2026/10/unnamed.png",
+      "category": "other",
+      "topics": []
+    },
+    {
+      "id": "c21bd68a2d9a805366a4",
+      "source": "id_antara",
+      "title": "KPK panggil Direktur Sungai Danau Jaya dan Binuang Mitra Bersama Prima",
+      "url": "https://www.antaranews.com/berita/5776988/kpk-panggil-direktur-sungai-danau-jaya-dan-binuang-mitra-bersama-prima",
+      "publishedAt": "2026-10-08T09:06:58+00:00",
+      "image": null,
+      "category": "other",
+      "topics": []
+    },
+    {
+      "id": "c976367506fc22f7e880",
+      "source": "reuters",
+      "title": "Russia says reports of second case linked to Siberian plague lab are false",
+      "url": "https://www.reuters.com/business/healthcare-pharmaceuticals/russia-says-reports-second-case-linked-siberian-plague-lab-are-false-2026-10-08/",
+      "publishedAt": "2026-10-08T09:06:04.130000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/AXRJGBXYM5MANMWXIR45TWRKWM.jpg?auth=7d2c19e1a580d66bd39ffcc0d735d9c143507612fae48b6900da7ebde2706040&smart=true&width=1920",
+      "category": "business",
+      "topics": []
+    },
+    {
+      "id": "20423eefb98536d9439a",
+      "source": "reuters",
+      "title": "Dutch firm uses AI to help drone systems 'talk' on Ukraine's battlefield",
+      "url": "https://www.reuters.com/business/autos-transportation/dutch-firm-uses-ai-help-drone-systems-talk-ukraines-battlefield-2026-10-08/",
+      "publishedAt": "2026-10-08T09:05:44.578000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/SXF7UL6EYZMU7PFT2TTYIGVD44.jpg?auth=053543e228824038865d2b8784e85f077c142d9223e1969585141e808113dbe9&smart=true&width=1920",
+      "category": "technology",
+      "topics": []
+    },
+    {
+      "id": "cb47ca0570364b1c36f4",
+      "source": "reuters",
+      "title": "What do we know so far about plague institute lab worker's death in Russia?",
+      "url": "https://www.reuters.com/business/healthcare-pharmaceuticals/what-do-we-know-about-plague-institute-lab-workers-death-russia-2026-10-06/",
+      "publishedAt": "2026-10-08T09:05:05.872000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/GQHC2I3VIZKPBNH4CODCXOAPV4.jpg?auth=2b216d4188ed941b318cbf6d0f634deaaa77545557ff4f3127e77cd704436773&smart=true&width=1920",
+      "category": "business",
+      "topics": []
+    },
+    {
+      "id": "41042ed0ec2ac4320e41",
+      "source": "wsj",
+      "title": "Israel Orders U.K. Consulate in Jerusalem Closed Over West Bank Trade Ban",
+      "url": "https://www.wsj.com/world/middle-east/israel-orders-u-k-consulate-in-jerusalem-closed-over-west-bank-trade-ban-aec88b46?mod=rss_worldnews",
+      "publishedAt": "2026-10-08T09:05:00+00:00",
+      "image": "https://images.wsj.net/im-01541601",
+      "category": "world",
+      "topics": []
+    },
+    {
+      "id": "2f98ef0e146718fffb1a",
+      "source": "reuters",
+      "title": "Italian prosecutors seek trial for Campari chairman over alleged tax evasion",
+      "url": "https://www.reuters.com/world/exclusive-italian-prosecutors-seek-trial-campari-chairman-over-alleged-tax-2026-10-08/",
+      "publishedAt": "2026-10-08T09:04:09.214000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/JLWSALAFLFLELAJPI5CBHND2SQ.jpg?auth=9ed9752aac6954a3c30b5429caae1297bc46466d8d3bbc82659f4040fd42ba74&smart=true&width=1920",
+      "category": "world",
+      "topics": []
+    },
+    {
       "id": "d3291391772d0fa9c180",
       "source": "cz_irozhlas",
       "title": "‚Musí být poslední obětí tohoto systému.‘ Zemřela Maricarmen, kvůli které Španělsko protestuje",
@@ -881,6 +951,26 @@
       "publishedAt": "2026-10-08T09:04:00+00:00",
       "image": "https://www.irozhlas.cz/sites/default/files/styles/zpravy_maly_nahled/public/uploader/2026-10-08t070358z_2_261008-104443_raf.JPG?itok=ZXFbfei0",
       "category": "other",
+      "topics": []
+    },
+    {
+      "id": "1697daa0337cc530198b",
+      "source": "reuters",
+      "title": "China pushes for equal dialogue in resolving trade differences with EU",
+      "url": "https://www.reuters.com/world/china/china-pushes-equal-dialogue-resolving-trade-differences-with-eu-2026-10-08/",
+      "publishedAt": "2026-10-08T09:03:45.626000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/H47FCUKIOVO3RLMNVSYUNOMKM4.jpg?auth=d2de4bca1c92b014eb5a4e2d824da58cda67b4de0d56cd130a8075289da1969c&smart=true&width=1920",
+      "category": "business",
+      "topics": []
+    },
+    {
+      "id": "c741c83b712b432cee65",
+      "source": "reuters",
+      "title": "US ocean container imports set new record for September, Descartes says",
+      "url": "https://www.reuters.com/world/china/us-ocean-container-imports-set-new-record-september-descartes-says-2026-10-08/",
+      "publishedAt": "2026-10-08T09:03:44.316000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/SGK4U4KCTZJYPJ4DNG53H4W7KA.jpg?auth=02cd1d70ff1d3aac417cf76359dbd34c920a4987fcdd7dc50db4ffc560379377&smart=true&width=1920",
+      "category": "world",
       "topics": []
     },
     {
@@ -901,6 +991,26 @@
       "publishedAt": "2026-10-08T09:03:30+00:00",
       "image": null,
       "category": "local",
+      "topics": []
+    },
+    {
+      "id": "8b4a3d0ee581dd4982e5",
+      "source": "reuters",
+      "title": "One dead, two injured in Poland's second school attack in two days",
+      "url": "https://www.reuters.com/world/two-people-injured-attack-polish-school-15-year-old-detained-minister-says-2026-10-08/",
+      "publishedAt": "2026-10-08T09:03:29.380000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/J2OT46IMSVO2LHG3HHCW3T5WGM.jpg?auth=1bb42dc711388997fd45b2f1aac58ca16ebd233c55b315fd77faa5f6343d7aff&smart=true&width=1920",
+      "category": "world",
+      "topics": []
+    },
+    {
+      "id": "0cd1ba5b356ecd803f45",
+      "source": "reuters",
+      "title": "British diplomats to remain at scaled-down mission in Jerusalem",
+      "url": "https://www.reuters.com/world/middle-east/britain-removes-east-jerusalem-consulate-signage-israeli-shutdown-order-expires-2026-10-08/",
+      "publishedAt": "2026-10-08T09:03:04.324000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/QI4UDDQJEZI45AQK7BTSYZTGBY.jpg?auth=f183e4ed3ea08709e08ec132530f42934ba0f63ea990de1854bf1dd1ad3b672f&smart=true&width=1920",
+      "category": "world",
       "topics": []
     },
     {
@@ -926,6 +1036,16 @@
       ]
     },
     {
+      "id": "2c7ab1bddbe2130048b7",
+      "source": "reuters",
+      "title": "Ryanair's O'Leary says jet fuel cost will stay high into 2028",
+      "url": "https://www.reuters.com/business/energy/ryanairs-oleary-says-jet-fuel-cost-will-stay-high-into-2028-2026-10-08/",
+      "publishedAt": "2026-10-08T09:01:43.898000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/432E7TRSXNJWROH4SXI63RIK2Y.jpg?auth=3f6db3e3d447d3d66789a2da91f322bcee0d2359d20bb15512111e3449fb2e05&smart=true&width=1920",
+      "category": "business",
+      "topics": []
+    },
+    {
       "id": "e29f764102d2b8bc16d7",
       "source": "id_antara",
       "title": "BNI sediakan pembaruan fitur wondr bagi nasabah prioritas",
@@ -933,16 +1053,6 @@
       "publishedAt": "2026-10-08T09:01:34+00:00",
       "image": null,
       "category": "other",
-      "topics": []
-    },
-    {
-      "id": "cb47ca0570364b1c36f4",
-      "source": "reuters",
-      "title": "What do we know so far about plague institute lab worker's death in Russia?",
-      "url": "https://www.reuters.com/business/healthcare-pharmaceuticals/what-do-we-know-about-plague-institute-lab-workers-death-russia-2026-10-06/",
-      "publishedAt": "2026-10-08T09:01:00.771000+00:00",
-      "image": "https://www.reuters.com/resizer/v2/SCK6KN42XVPWNAFIS7UCJ2RLHA.jpg?auth=f4900c32c9bf314fb9dd58c73c5da6f9a08416ecf129abc05f1f7c2ee812f331&smart=true&width=1920",
-      "category": "business",
       "topics": []
     },
     {
@@ -956,13 +1066,13 @@
       "topics": []
     },
     {
-      "id": "8b4a3d0ee581dd4982e5",
-      "source": "reuters",
-      "title": "One dead, two injured in Poland's second school attack in two days",
-      "url": "https://www.reuters.com/world/two-people-injured-attack-polish-school-15-year-old-detained-minister-says-2026-10-08/",
-      "publishedAt": "2026-10-08T09:00:50.379000+00:00",
-      "image": "https://www.reuters.com/resizer/v2/J2OT46IMSVO2LHG3HHCW3T5WGM.jpg?auth=1bb42dc711388997fd45b2f1aac58ca16ebd233c55b315fd77faa5f6343d7aff&smart=true&width=1920",
-      "category": "world",
+      "id": "4318686904164d721290",
+      "source": "aljazeera",
+      "title": "Jon Rahm to quit LIV Golf tour over ‘unacceptable’ terms",
+      "url": "https://www.aljazeera.com/sports/2026/10/8/jon-rahm-to-quit-liv-golf-tour-over-unacceptable-terms?traffic_source=rss",
+      "publishedAt": "2026-10-08T09:00:30+00:00",
+      "image": "https://www.aljazeera.com/wp-content/uploads/2026/10/2026-08-20T214446Z_836053663_MT1USATODAY29628805_RTRMADP_3_GOLF-LIV-GOLF-INDIANAPOLIS-FIRST-ROUND-1791448820.jpg?resize=1920%2C1440",
+      "category": "sport",
       "topics": []
     },
     {
@@ -1038,6 +1148,16 @@
       "topics": []
     },
     {
+      "id": "65f11634b603dd420885",
+      "source": "guardian",
+      "title": "London Broncos graded below Barrow but still set for Super League place",
+      "url": "https://www.theguardian.com/sport/2026/oct/08/london-broncos-graded-below-barrow-but-still-set-for-super-league-place",
+      "publishedAt": "2026-10-08T09:00:15+00:00",
+      "image": "https://i.guim.co.uk/img/media/ecb759c2a5e3ddba915cd9736fb423b08ce40015/953_0_6278_5022/master/6278.jpg?width=140&quality=85&auto=format&fit=max&s=312fccc452821d4a6ac63a4f0004e27b",
+      "category": "sport",
+      "topics": []
+    },
+    {
       "id": "0d905f3a9077465b47e6",
       "source": "bbc",
       "title": "England to host 2031 Netball World Cup",
@@ -1078,6 +1198,26 @@
       "topics": []
     },
     {
+      "id": "c0281471c52fff1982e7",
+      "source": "us_npr",
+      "title": "Flock is catching flak. Experts say other police surveillance tools are more worrisome",
+      "url": "https://www.npr.org/2026/10/08/nx-s1-5981343/beyond-flock-police-ai-surveillance-tools",
+      "publishedAt": "2026-10-08T09:00:00+00:00",
+      "image": null,
+      "category": "technology",
+      "topics": []
+    },
+    {
+      "id": "22f5163542b2bf7ff7b2",
+      "source": "us_npr",
+      "title": "As crypto and prediction markets expand, their regulator shrinks",
+      "url": "https://www.npr.org/2026/10/08/nx-s1-5903204/crypto-prediction-markets-cftc-weakens",
+      "publishedAt": "2026-10-08T09:00:00+00:00",
+      "image": null,
+      "category": "markets",
+      "topics": []
+    },
+    {
       "id": "8ce48cb051d9d6ecda37",
       "source": "id_antara",
       "title": "DKI targetkan penataan kawasan kumuh di Jakpus dengan AI rampung 2028",
@@ -1105,16 +1245,6 @@
       "publishedAt": "2026-10-08T08:59:24+00:00",
       "image": "https://akcdn.detik.net.id/community/media/visual/2021/11/19/ihsg-ditutup-menguat-1_169.jpeg?w=360&q=90",
       "category": "local",
-      "topics": []
-    },
-    {
-      "id": "2f98ef0e146718fffb1a",
-      "source": "reuters",
-      "title": "EXCLUSIVE-Italian prosecutors seek trial for Campari chairman over alleged tax evasion",
-      "url": "https://www.reuters.com/world/exclusive-italian-prosecutors-seek-trial-campari-chairman-over-alleged-tax-2026-10-08/",
-      "publishedAt": "2026-10-08T08:59:02.315000+00:00",
-      "image": "https://www.reuters.com/resizer/v2/JLWSALAFLFLELAJPI5CBHND2SQ.jpg?auth=9ed9752aac6954a3c30b5429caae1297bc46466d8d3bbc82659f4040fd42ba74&smart=true&width=1920",
-      "category": "world",
       "topics": []
     },
     {
@@ -1409,16 +1539,6 @@
       "publishedAt": "2026-10-08T08:50:50.130000+00:00",
       "image": "https://www.reuters.com/resizer/v2/LPX3PLBRMVIKXDLD23XFUPM3TI.jpg?auth=0be8ceae14a8476282973d736511a3c41a3e469f439e769ca6ee720f006a8e96&smart=true&width=1920",
       "category": "markets",
-      "topics": []
-    },
-    {
-      "id": "0cd1ba5b356ecd803f45",
-      "source": "reuters",
-      "title": "British diplomats to remain at scaled-down mission in Jerusalem",
-      "url": "https://www.reuters.com/world/middle-east/britain-removes-east-jerusalem-consulate-signage-israeli-shutdown-order-expires-2026-10-08/",
-      "publishedAt": "2026-10-08T08:50:43.659000+00:00",
-      "image": "https://www.reuters.com/resizer/v2/QI4UDDQJEZI45AQK7BTSYZTGBY.jpg?auth=f183e4ed3ea08709e08ec132530f42934ba0f63ea990de1854bf1dd1ad3b672f&smart=true&width=1920",
-      "category": "world",
       "topics": []
     },
     {
@@ -2100,6 +2220,16 @@
       "source": "gb_sky",
       "title": "Girl, 9, killed in crash between car and pick-up truck",
       "url": "https://news.sky.com/story/girl-9-killed-in-crash-between-car-and-pick-up-truck-in-the-scottish-highlands-13596382",
+      "publishedAt": "2026-10-08T08:18:00+00:00",
+      "image": null,
+      "category": "other",
+      "topics": []
+    },
+    {
+      "id": "441880a53dbe22c8df1a",
+      "source": "my_fmt",
+      "title": "3 siblings killed in motorcycle-lorry crash in Johor",
+      "url": "https://www.freemalaysiatoday.com/category/nation/2026/10/08/3-siblings-killed-in-motorcycle-lorry-crash-in-johor",
       "publishedAt": "2026-10-08T08:18:00+00:00",
       "image": null,
       "category": "other",
@@ -3368,7 +3498,7 @@
     {
       "id": "c40117fd852943e4b9fb",
       "source": "ro_hotnews",
-      "title": "Negocieri pentru guvern. Luca Niculescu, declarații acum, după întâlnirea cu liderii PSD",
+      "title": "Luca Niculescu, declarații acum, după întâlnirea cu liderii PSD: Se vorbește mult despre linii roșii. Voi prezenta un guvern competent",
       "url": "https://hotnews.ro/luca-niculescu-primii-pasi-ca-sa-obtina-sprijinul-psd-pnl-si-udmr-programul-negocierilor-de-astazi-2370101",
       "publishedAt": "2026-10-08T07:25:00+00:00",
       "image": "https://hotnews.ro/wp-content/uploads/2026/10/agerpres_18542026.jpeg",
@@ -24127,6 +24257,46 @@
       "publishedAt": null,
       "image": "https://foto.kontan.co.id/tDuZqhqdQ3emSkH0c0z3Eupdfp8=/smart/2025/05/06/1029687350t.jpg",
       "category": "business",
+      "topics": []
+    },
+    {
+      "id": "3dcc9d14a1cd86af5c7b",
+      "source": "kontan",
+      "title": "Investasi P2P Lending Masih Menarik, tetapi Risiko Gagal Bayar Perlu Diwaspadai",
+      "url": "https://keuangan.kontan.co.id/news/investasi-p2p-lending-masih-menarik-tetapi-risiko-gagal-bayar-perlu-diwaspadai?source=home_terbaru",
+      "publishedAt": null,
+      "image": "https://foto.kontan.co.id/MRXvJ4sUPqP5Ic653k6KVz95lj8=/smart/2024/02/15/1316917173t.jpg",
+      "category": "other",
+      "topics": []
+    },
+    {
+      "id": "ea4e66b645d5e4ad0506",
+      "source": "kontan",
+      "title": "Pembiayaan Multifinance ke Sektor Produktif Rp 241,88 Triliun per Agustus 2026",
+      "url": "https://keuangan.kontan.co.id/news/pembiayaan-multifinance-ke-sektor-produktif-rp-24188-triliun-per-agustus-2026?source=home_terbaru",
+      "publishedAt": null,
+      "image": "https://foto.kontan.co.id/IKGRYrGEay5g3fbldlFzHmLFZNc=/smart/2023/02/01/1320096487t.jpg",
+      "category": "other",
+      "topics": []
+    },
+    {
+      "id": "81e967f7acbd281d4622",
+      "source": "kontan",
+      "title": "Mirae Asset Sekuritas Perkuat Keamanan Digital dan Perlindungan Nasabah",
+      "url": "https://adv.kontan.co.id/news/mirae-asset-sekuritas-perkuat-keamanan-digital-dan-perlindungan-nasabah?source=home_terbaru",
+      "publishedAt": null,
+      "image": "https://foto.kontan.co.id/DUGgFDRgjszPPF8ujCPYe9Wtr18=/smart/2026/10/08/1183063823t.jpg",
+      "category": "other",
+      "topics": []
+    },
+    {
+      "id": "7b6fce32689b82bb5205",
+      "source": "kontan",
+      "title": "Apexindo (APEX) Terbitkan 218,09 Juta Saham Lewat Private Placement",
+      "url": "https://investasi.kontan.co.id/news/apexindo-apex-terbitkan-21809-juta-saham-lewat-private-placement?source=home_terbaru",
+      "publishedAt": null,
+      "image": "https://foto.kontan.co.id/V-pcnNzJmpVrSeNHbTX7gmAu5sQ=/smart/2024/02/29/1353739273t.jpg",
+      "category": "markets",
       "topics": []
     }
   ]
