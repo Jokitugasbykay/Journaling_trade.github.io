@@ -1714,18 +1714,6 @@
       background: #0d0e12;
       overflow: hidden;
     }
-    .mqs-05__bar {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      font-size: 10.5px;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--text-muted);
-      padding: 8px 18px;
-      border-bottom: 1px solid var(--line);
-      background: rgba(255, 255, 255, 0.02);
-    }
     .btn-market-link {
       background: transparent;
       border: 1px solid transparent;
@@ -3200,7 +3188,9 @@ body.auth-page .main-wrap { max-width:none; width:100%; margin:0; padding:0; }
 .news-paywall a { display:block; margin-top:20px; color:var(--text-muted); font-size:13px; }
 @media(max-width:540px) { .auth-shell { padding:32px 16px; } .auth-card { padding:24px; } .upload-quota-note { text-align:left; } .news-paywall { padding:48px 20px; } }
 
-#market-ticker { min-height: 88px; color-scheme: dark; }
-.mqs-05__bar a { color: var(--text-muted); text-decoration: none; }
+#market-ticker { height: 56px; overflow: hidden; color-scheme: dark; }
+
 
 #market-ticker tv-ticker-tape { display: block; height: 88px; }
+
+#fedwatch-link { margin: 0 0 20px; }

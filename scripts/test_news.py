@@ -73,3 +73,10 @@ for title, category in [
 assert news.SIGNALS.search('IHSG Masih Diuji, Analis Ungkap Level Support dan Resistance Hari Ini')
 assert not news.SIGNALS.search('The Fed signals a possible interest rate hike')
 print('Local topic classification and technical trade recommendation exclusions passed')
+
+assert news.topics_for('Trump announces new tariffs') == ['politics']
+assert news.topics_for('Rupiah tertekan keputusan The Fed') == ['fed']
+assert news.topics_for('Federal Reserve FOMC interest rate decision') == ['fed']
+assert news.topics_for('Government responds to Powell and The Fed') == ['fed', 'politics']
+assert news.topics_for('Gold prices rise today') == []
+print('Politics and Fed topic filters passed')

@@ -111,7 +111,7 @@
 });
       Object.assign(englishCopy, {"newsPageTitle":"News & economic calendar","newsPageLead":"Headlines from your selected publishers, publication times, and the economic calendar.","newsHeadlines":"Latest news","newsCalendar":"Economic calendar","newsSourceLabel":"News source","newsAllSources":"All sources","newsRefresh":"Refresh news","newsOriginalLanguage":"Headlines remain in the publisher’s original language. Read the full story on the source website.","newsCmeHint":"View current interest-rate probabilities and market data directly on CME Group."});
       Object.assign(englishCopy, {"newsLatestStories": "Latest stories", "newsShowMore": "Show more stories", "newsFeedDetails": "Sources & update schedule", "newsSchedule": "News is collected every 30 minutes daily. This page checks for updates every 5 minutes."});
-      Object.assign(englishCopy, {"categoryAll": "All", "categoryWorld": "World", "categoryBusiness": "Business", "categoryMarkets": "Markets", "categorySustainability": "Sustainability", "categoryLegal": "Legal", "categoryCommentary": "Commentary", "categoryTechnology": "Technology", "categoryInvestigations": "Investigations", "categoryMore": "More", "categoryLocal": "Local news", "categoryScience": "Science", "categorySport": "Sport", "categoryOther": "Other news", "biSource": "Bank Indonesia transaction rates", "biBasis": "Journal conversion uses the midpoint of BI USD sell and buy rates. BI publishes rates once per business day."});
+      Object.assign(englishCopy, {"categoryAll": "All", "categoryWorld": "World", "categoryPolitics": "Politics", "categoryBusiness": "Business", "categoryMarkets": "Markets", "categorySustainability": "Sustainability", "categoryLegal": "Legal", "categoryCommentary": "Commentary", "categoryTechnology": "Technology", "categoryInvestigations": "Investigations", "categoryMore": "More", "categoryLocal": "Local news", "categoryScience": "Science", "categorySport": "Sport", "categoryOther": "Other news", "biSource": "Bank Indonesia transaction rates", "biBasis": "Journal conversion uses the midpoint of BI USD sell and buy rates. BI publishes rates once per business day."});
       Object.assign(englishCopy, {
         signupTitle: 'Create your journalingtrade account', signupLead: 'Start with Free and track your trading journey.',
         authEmailDivider: 'or use email', confirmPassword: 'Confirm password',
@@ -3041,7 +3041,7 @@
       let newsVisibleCount = 12;
       let newsSelectedSource = '';
       let newsCategory = '';
-      const newsCategoryNames = {world:['Dunia','World'], business:['Bisnis','Business'], markets:['Pasar','Markets'], sustainability:['Keberlanjutan','Sustainability'], legal:['Hukum','Legal'], commentary:['Komentar','Commentary'], technology:['Teknologi','Technology'], investigations:['Investigasi','Investigations'], local:['Berita lokal','Local news'], science:['Sains','Science'], sport:['Olahraga','Sport'], other:['Berita lainnya','Other news']};
+      const newsCategoryNames = {politics:['Politik','Politics'], fed:['The Fed','The Fed'], world:['Dunia','World'], business:['Bisnis','Business'], markets:['Pasar','Markets'], sustainability:['Keberlanjutan','Sustainability'], legal:['Hukum','Legal'], commentary:['Komentar','Commentary'], technology:['Teknologi','Technology'], investigations:['Investigasi','Investigations'], local:['Berita lokal','Local news'], science:['Sains','Science'], sport:['Olahraga','Sport'], other:['Berita lainnya','Other news']};
       let publisherNewsBusy = false;
       let publisherNewsFailed = false;
       const publisherDomains = { investing: 'investing.com', cnbc: 'cnbc.com', kontan: 'kontan.co.id', reuters: 'reuters.com', aljazeera: 'aljazeera.com', bloomberg: 'bloomberg.com', fnc: 'tradewithfnc.com', investing_id: 'investing.com', pluang: 'pluang.com', kompas: 'kompas.com', detik: 'detik.com', kemenkeu: 'kemenkeu.go.id', cnn_id: 'cnnindonesia.com', bisnis: 'bisnis.com', sindo: 'sindonews.com', fedwatch: 'cmegroup.com', cme: 'cmegroup.com' };
@@ -3066,6 +3066,7 @@
       }
       window.renderPublisherNews = function () {
         if (!canReadNews()) { $('publisher-news-list').innerHTML = ''; return; }
+        $('fedwatch-link').hidden = newsCategory !== 'fed';
         const status = $('publisher-news-status');
         if (!status) return;
         if (!publisherNews) {
@@ -3087,7 +3088,7 @@
           return '<a href="' + esc(url) + '" target="_blank" rel="noopener noreferrer">' + esc(source.name) + '<small>' + esc(state) + '</small></a>';
         }).join('');
         const sources = new Map(publisherNews.sources.map(source => [source.id, source]));
-        const rows = publisherNews.items.filter(item => (!selected || item.source === selected) && (!newsCategory || (item.category || 'other') === newsCategory));
+        const rows = publisherNews.items.filter(item => (!selected || item.source === selected) && (!newsCategory || ((item.category || 'other') === newsCategory || item.topics?.includes(newsCategory))));
         document.querySelectorAll('#news-categories [data-category]').forEach(button => button.setAttribute('aria-pressed', String(button.dataset.category === newsCategory)));
         $('news-more-category').value = ['local','science','sport','other'].includes(newsCategory) ? newsCategory : '';
         document.querySelector('.publisher-grid-heading').textContent = newsCategory ? newsCategoryNames[newsCategory][language === 'en' ? 1 : 0] : newsText('Berita terbaru', 'Latest stories');

@@ -59,6 +59,13 @@ def category_for(url, title, tag=''):
     return 'other'
 
 
+def topics_for(title):
+    return [topic for topic, pattern in [
+        ('fed', r'\b(?:the fed|federal reserve|fomc|fedwatch|fed funds|powell|bank sentral (?:as|amerika))\b'),
+        ('politics', r'\b(?:trump|biden|prabowo|presiden(?:t)?|politic\w*|politik|pemilu|election\w*|parliament|parlemen|kongres|congress|senat\w*|pemerintah|government|dpr|tariff\w*|tarif)\b'),
+    ] if re.search(pattern, title, re.I)]
+
+
 def image_url(value):
     try:
         url = urllib.parse.urlsplit(value or '')
@@ -246,6 +253,7 @@ def main():
     missing = []
     for item in items:
         item['category'] = category_for(item['url'], item['title'])
+        item['topics'] = topics_for(item['title'])
         if item['source'] == 'fnc':
             continue
         old = previous_items.get(item['url'], {})

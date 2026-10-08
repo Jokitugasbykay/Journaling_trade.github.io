@@ -22,7 +22,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
 
-  <link rel="stylesheet" href="css/style.css?v=20261008-news-interactions">
+  <link rel="stylesheet" href="css/style.css?v=20261008-fed-politics">
 </head>
 
 <body>
@@ -826,7 +826,6 @@
       <div id="bi-indicators" class="bi-indicators" role="status"></div>
       <section class="mqs-05" aria-label="Market prices">
         <div class="mqs-05__terminal">
-          <div class="mqs-05__bar"><span>Markets</span><a href="https://www.tradingview.com/markets/" target="_blank" rel="noopener noreferrer">TradingView</a></div>
           <div id="market-ticker"></div>
         </div>
       </section>
@@ -834,6 +833,8 @@
         <nav class="news-categories" id="news-categories" aria-label="News categories">
           <button type="button" data-category="" aria-pressed="true" onclick="selectNewsCategory('')" data-i18n="categoryAll">Semua</button>
           <button type="button" data-category="world" aria-pressed="false" onclick="selectNewsCategory('world')" data-i18n="categoryWorld">Dunia</button>
+          <button type="button" data-category="politics" aria-pressed="false" onclick="selectNewsCategory('politics')" data-i18n="categoryPolitics">Politik</button>
+          <button type="button" data-category="fed" aria-pressed="false" onclick="selectNewsCategory('fed')">The Fed</button>
           <button type="button" data-category="business" aria-pressed="false" onclick="selectNewsCategory('business')" data-i18n="categoryBusiness">Bisnis</button>
           <button type="button" data-category="markets" aria-pressed="false" onclick="selectNewsCategory('markets')" data-i18n="categoryMarkets">Pasar</button>
           <button type="button" data-category="sustainability" aria-pressed="false" onclick="selectNewsCategory('sustainability')" data-i18n="categorySustainability">Keberlanjutan</button>
@@ -856,6 +857,7 @@
         </div>
         <p id="publisher-news-status" role="status" class="publisher-news-status"></p>
         <h3 class="publisher-grid-heading" data-i18n="newsLatestStories">Berita terbaru</h3>
+        <p id="fedwatch-link" hidden><a href="https://www.cmegroup.com/markets/interest-rates/cme-fedwatch-tool.html" target="_blank" rel="noopener noreferrer" class="btn btn-secondary">CME FedWatch</a></p>
         <div id="publisher-news-list" class="publisher-news-list"></div>
         <button id="news-more" type="button" class="btn btn-secondary publisher-more" onclick="showMoreNews()" data-i18n="newsShowMore" hidden>Lihat lebih banyak</button>
         <details class="publisher-feed-details">
@@ -1253,7 +1255,7 @@
 
   <script src="js/vendor/supabase-2.86.0.js" integrity="sha384-3Sgm1bFlHa+gvzgZCHY6SyQwlKZpsgWl0qwxcwsypsSZQvo1vV1miPkn7n1lU1/L"></script>
   <script src="js/scan.js?v=20261007"></script>
-  <script src="js/app.js?v=20261008-news-interactions"></script>
+  <script src="js/app.js?v=20261008-fed-politics"></script>
 
  </body>
 
