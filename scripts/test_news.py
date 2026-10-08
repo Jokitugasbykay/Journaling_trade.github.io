@@ -252,3 +252,26 @@ for sid, feed in [('us_pbs','https://www.pbs.org/newshour/feeds/rss/headlines'),
     sample = f'<rss><channel><item><title>Publisher releases the latest world news</title><link>{article}</link><pubDate>{now.strftime("%a, %d %b %Y %H:%M:%S +0000")}</pubDate></item></channel></rss>'
     assert news.parse(sample.encode(), publisher)[0]['source'] == sid
 print('PBS/Independent official RSS enabled; non-news directories removed from collector')
+
+html = '<header><p>Navigation</p></header><meta name="description" content="Verified publisher excerpt"><meta name="author" content="Board"><div class="col-xs-12 col-sm-8 col-md-8"><p>First <strong>complete</strong> paragraph.</p><div><p>Second paragraph.</p></div></div><footer><p>Footer</p></footer>'
+parser = news.ArticleImage(public_body=True)
+parser.feed(html)
+assert parser.body == ['First complete paragraph.', 'Second paragraph.']
+assert parser.excerpt == 'Verified publisher excerpt' and parser.author == 'Board'
+private = news.ArticleImage()
+private.feed(html)
+assert private.body == []
+assert len(news.excerpt_text('word ' * 100).split()) == 40
+print('Reader metadata limited to excerpts; full text requires explicit public-body parsing')
+
+class ReaderResponse:
+    headers = {'Content-Type':'text/html'}
+    def __enter__(self): return self
+    def __exit__(self, *args): pass
+    def read(self, limit): return html.encode()
+with patch('urllib.request.urlopen', return_value=ReaderResponse()):
+    fed_item = news.add_article_image({'source':'federal_reserve','url':'https://www.federalreserve.gov/newsevents/speech/test.htm'})
+    private_item = news.add_article_image({'source':'reuters','url':'https://www.reuters.com/world/test'})
+assert fed_item['contentRights'] == 'public-domain' and len(fed_item['body']) == 2
+assert 'body' not in private_item and private_item['excerpt'] == 'Verified publisher excerpt'
+print('Collector stores full text only for official Board speeches')

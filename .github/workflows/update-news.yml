@@ -30,6 +30,7 @@ jobs:
       - run: node js/copy.test.cjs
       - run: node js/security.test.cjs
       - run: node js/news-region.test.cjs
+      - run: node js/news-reader.test.cjs
       - run: node js/discipline.test.cjs
       - run: node js/fed.test.cjs
       - run: python scripts/update_news.py

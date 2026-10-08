@@ -112,20 +112,56 @@ def image_url(value):
 
 
 class ArticleImage(HTMLParser):
-    def __init__(self):
+    def __init__(self, public_body=False):
         super().__init__()
         self.image = None
+        self.excerpt = None
+        self.author = None
+        self.public_body = public_body
+        self.body_depth = 0
+        self.paragraph = None
+        self.body = []
 
     def handle_starttag(self, tag, attrs):
         attrs = dict(attrs)
         if tag == 'meta' and attrs.get('property', attrs.get('name')) in ('og:image', 'twitter:image', 'twitter:image:src') and not self.image:
             self.image = image_url(attrs.get('content'))
+        if tag == 'meta' and attrs.get('property', attrs.get('name')) in ('og:description', 'description') and not self.excerpt:
+            self.excerpt = excerpt_text(attrs.get('content'))
+        if tag == 'meta' and attrs.get('name') == 'author':
+            self.author = clean(attrs.get('content'))[:160]
+        if self.public_body and tag == 'div':
+            if self.body_depth:
+                self.body_depth += 1
+            elif attrs.get('class') == 'col-xs-12 col-sm-8 col-md-8':
+                self.body_depth = 1
+        if self.body_depth and tag == 'p':
+            self.paragraph = []
+
+    def handle_data(self, data):
+        if self.paragraph is not None:
+            self.paragraph.append(data)
+
+    def handle_endtag(self, tag):
+        if tag == 'p' and self.paragraph is not None:
+            paragraph = clean(''.join(self.paragraph)).removesuffix('Return to text').strip()
+            if paragraph:
+                self.body.append(paragraph)
+            self.paragraph = None
+        if tag == 'div' and self.body_depth:
+            self.body_depth -= 1
+            if not self.body_depth:
+                self.paragraph = None
 
 
 def clean(value):
     text = re.sub(r"<[^>]*>", "", html.unescape(value or ""))
     text = re.sub(r"[\U0001F000-\U0001FAFF\u2600-\u27BF\u00A9\u00AE\u2122\uFE0F\u200D]", "", text)
     return " ".join(text.replace("—", "-").replace("–", "-").split())
+
+
+def excerpt_text(value):
+    return ' '.join(clean(value).split()[:40])[:500]
 
 
 def safe_url(value, domain):
@@ -241,7 +277,7 @@ def parse(data, source):
             rows = []
             for row in root.findall('.//{*}item'):
                 photo = next((image_url(el.get('url')) for el in row.iter() if el.tag.split('}')[-1] in ('enclosure', 'thumbnail', 'content') and image_url(el.get('url'))), None)
-                rows.append({'title': row.findtext('{*}title'), 'url': row.findtext('{*}link'), 'publishedAt': row.findtext('{*}pubDate') or row.findtext('{http://purl.org/dc/elements/1.1/}date'), 'image': photo, 'tag':' '.join(''.join(category.itertext()) for category in row.findall('{*}category'))})
+                rows.append({'title': row.findtext('{*}title'), 'url': row.findtext('{*}link'), 'publishedAt': row.findtext('{*}pubDate') or row.findtext('{http://purl.org/dc/elements/1.1/}date'), 'image': photo, 'excerpt': row.findtext('{*}description'), 'author': row.findtext('{http://purl.org/dc/elements/1.1/}creator') or row.findtext('{*}author'), 'tag':' '.join(''.join(category.itertext()) for category in row.findall('{*}category'))})
             for row in root.findall('.//{http://www.w3.org/2005/Atom}entry'):
                 link = next((el.get('href') for el in row.findall('{*}link') if el.get('rel', 'alternate') == 'alternate'), '')
                 rows.append({'title': ''.join(row.find('{*}title').itertext()) if row.find('{*}title') is not None else '', 'url': link,
@@ -270,12 +306,13 @@ def parse(data, source):
         topics = topics_for(title + ' ' + row.get('tag', ''), link, source.get('topics', ()))
         if category == 'politics' and 'politics' not in topics:
             topics.append('politics')
-        items.append({"id": hashlib.sha256((source['id'] + str(identity)).encode()).hexdigest()[:20], "source": source["id"], "title": title, "url": link, "publishedAt": published, 'image': image_url(row.get('image')), 'category': category, 'topics':topics})
+        items.append({"id": hashlib.sha256((source['id'] + str(identity)).encode()).hexdigest()[:20], "source": source["id"], "title": title, "url": link, "publishedAt": published, 'image': image_url(row.get('image')), 'excerpt': excerpt_text(row.get('excerpt')), 'author': clean(row.get('author'))[:160], 'category': category, 'topics':topics})
     return merge_items([], items)[:500]
 
 
 def add_article_image(item):
-    if item.get('image'):
+    public_body = item['source'] == 'federal_reserve' and bool(re.match(r'https://www\.federalreserve\.gov/newsevents/speech/[^/]+\.htm$', item['url']))
+    if item.get('image') and item.get('excerpt') and (not public_body or item.get('body')):
         return item
     try:
         request = urllib.request.Request(item['url'], headers={'User-Agent': 'JournalingTrade/1.0 (public headline reader)'})
@@ -283,9 +320,16 @@ def add_article_image(item):
             if 'text/html' not in response.headers.get('Content-Type', ''):
                 return item
             data = response.read(1_000_000)
-        parser = ArticleImage()
+        parser = ArticleImage(public_body=public_body)
         parser.feed(data.decode('utf-8', errors='replace'))
-        item['image'] = parser.image
+        item['image'] = item.get('image') or parser.image
+        item['excerpt'] = item.get('excerpt') or parser.excerpt
+        item['author'] = item.get('author') or parser.author
+        item['excerptCheckedAt'] = dt.datetime.now(dt.timezone.utc).isoformat()
+        # Board-authored speech text is public domain: federalreserve.gov/disclaimer.htm.
+        if public_body and len(parser.body) >= 2 and sum(map(len, parser.body)) <= 200_000:
+            item['body'] = parser.body
+            item['contentRights'] = 'public-domain'
     except Exception:
         pass
     return item
@@ -366,7 +410,7 @@ def merge_items(previous, incoming):
         old = merged.get(key, {})
         row = {**old, **item}
         row['topics'] = topics_for(row['title'], row['url'], [*old.get('topics', []), *item.get('topics', []), *source_topics[item['source']]])
-        for field in ('image', 'publishedAt'):
+        for field in ('image', 'publishedAt', 'excerpt', 'author', 'body', 'contentRights', 'excerptCheckedAt'):
             if not row.get(field) and old.get(field):
                 row[field] = old[field]
         merged[key] = row
@@ -402,12 +446,16 @@ def main():
         if item['source'] == 'fnc':
             continue
         old = previous_items.get(item['url'], {})
+        for field in ('excerpt', 'author', 'body', 'contentRights', 'excerptCheckedAt'):
+            if not item.get(field) and old.get(field):
+                item[field] = old[field]
         if not item.get('image') and 'image' in old:
             item['image'] = image_url(old['image'])
-        elif not item.get('image'):
+        if 'image' not in old or (not item.get('excerpt') and not item.get('excerptCheckedAt')) or (item['source'] == 'federal_reserve' and '/speech/' in item['url'] and not item.get('body')):
             missing.append(item)
     with concurrent.futures.ThreadPoolExecutor(max_workers=8) as pool:
-        # ponytail: enrich 96 new thumbnails per refresh; remaining headlines keep the photo-unavailable state.
+        # ponytail: read at most 96 publisher pages per refresh; retain unavailable metadata honestly.
+        missing.sort(key=lambda item: (item['source'] != 'federal_reserve', item['source'] != 'reuters'))
         list(pool.map(add_article_image, missing[:96]))
     items = merge_items(previous.get('items', []), items)
     output = {"version": 1, "checkedAt": dt.datetime.now(dt.timezone.utc).isoformat(), "intervalMinutes": 5, "sources": sources, "items": items}

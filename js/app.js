@@ -3370,6 +3370,7 @@
         newsFounderMode = false; newsSelectedSource = ''; newsVisibleCount = 12;
         if ($('news-source')) $('news-source').value = '';
         renderNewsRegionControls();
+        renderNewsReader();
       }
       function renderNewsRegionControls() {
         const select = $('news-region');
@@ -3480,8 +3481,48 @@
           return url.protocol === 'https:' && !url.username && !url.password && domains.some(domain => url.hostname === domain || url.hostname.endsWith('.' + domain)) ? url.href : null;
         } catch { return null; }
       }
+      function newsArticlePath(id) {
+        return pagePath('economic-news') + '?article=' + encodeURIComponent(id);
+      }
+      function renderNewsReader() {
+        const reader = $('publisher-news-reader');
+        const id = new URLSearchParams(location.search).get('article');
+        const open = !!id && canReadNews();
+        reader.hidden = !open;
+        $('publisher-news-browse').hidden = open;
+        reader.innerHTML = '';
+        if (!open) return;
+        const item = publisherNews?.items.find(row => row.id === id && newsSourceInRegion(row.source));
+        const source = item && publisherNews.sources.find(row => row.id === item.source);
+        const url = item && publisherUrl(item.url, item.source);
+        const back = '<button type="button" class="btn btn-secondary" onclick="closeNewsArticle()">' + newsText('Kembali ke berita', 'Back to news') + '</button>';
+        if (!item || !source || !url) {
+          reader.innerHTML = back + '<h2 id="news-reader-title" tabindex="-1">' + newsText('Berita belum tersedia', 'Story unavailable') + '</h2><p>' + newsText('Coba muat ulang berita atau kembali ke daftar.', 'Refresh the news or return to the list.') + '</p>';
+          return;
+        }
+        const full = item.source === 'federal_reserve' && /^https:\/\/www\.federalreserve\.gov\/newsevents\/speech\/[^/]+\.htm$/.test(url) && item.contentRights === 'public-domain' && Array.isArray(item.body) && item.body.length > 1;
+        const paragraphs = full ? item.body.filter(text => typeof text === 'string') : [item.excerpt || newsText('Cuplikan belum tersedia dari penerbit.', 'The publisher has not provided an excerpt yet.')];
+        const image = publisherImageUrl(item.image);
+        reader.innerHTML = back + '<header><p class="news-reader-meta">' + esc(source.name) + '</p><h2 id="news-reader-title" tabindex="-1">' + esc(item.title) + '</h2><p class="news-reader-meta">' + (item.author ? esc(item.author) + ' · ' : '') + esc(publisherTime(item.publishedAt) || newsText('Waktu terbit tidak tersedia', 'Publication time unavailable')) + '</p></header>' + (image ? '<img class="news-reader-image" src="' + esc(image) + '" alt="" referrerpolicy="no-referrer">' : '') + '<p class="news-reader-meta">' + (full ? newsText('Teks lengkap · Federal Reserve Board · Domain publik', 'Full text · Federal Reserve Board · Public domain') : newsText('Cuplikan dari penerbit', 'Publisher excerpt')) + '</p><div class="news-reader-body">' + paragraphs.map(text => '<p>' + esc(text) + '</p>').join('') + '</div><footer><a href="' + esc(url) + '" target="_blank" rel="noopener noreferrer">' + newsText('Baca di sumber asli', 'Read on the original source') + '</a>' + (full ? '' : '<p class="news-reader-meta">' + newsText('Artikel lengkap tersedia di situs penerbit.', 'The complete article is available on the publisher website.') + '</p>') + '</footer>';
+        reader.querySelector('img')?.addEventListener('error', event => event.target.remove(), {once:true});
+      }
+      window.closeNewsArticle = function () {
+        history.pushState(null, '', pagePath('economic-news'));
+        renderNewsReader();
+        $('news-search').focus({preventScroll:true});
+      };
+      $('publisher-news-list').addEventListener('click', event => {
+        const link = event.target.closest('.publisher-story-link');
+        if (!link || event.button !== 0 || event.ctrlKey || event.metaKey || event.shiftKey || event.altKey) return;
+        event.preventDefault();
+        history.pushState(null, '', link.href);
+        renderNewsReader();
+        $('news-reader-title')?.focus({preventScroll:true});
+        $('publisher-news-reader').scrollIntoView({block:'start'});
+      });
       window.renderPublisherNews = function () {
         renderNewsRegionControls();
+        renderNewsReader();
         if (!canReadNews()) { $('publisher-news-list').innerHTML = ''; return; }
         detectNewsRegion();
         $('fomc-panel').hidden = newsCategory !== 'fed';
@@ -3530,7 +3571,7 @@
           const time = publisherTime(item.publishedAt) || newsText('Waktu terbit tidak disediakan penerbit', 'Publication time not provided by the publisher');
           const image = publisherImageUrl(item.image);
           const media = '<span class="publisher-photo"><span class="publisher-photo-fallback" aria-hidden="true"><small>' + newsText('Foto tidak tersedia', 'Photo unavailable') + '</small></span>' + (image ? '<img src="' + esc(image) + '" alt="" width="640" height="360" loading="lazy" decoding="async" referrerpolicy="no-referrer">' : '') + '</span>';
-          return '<article class="publisher-news-item"><a class="publisher-story-link" href="' + esc(url) + '" target="_blank" rel="noopener noreferrer">' + media + '<h3>' + esc(item.title) + '</h3></a><p class="publisher-news-meta"><span>' + esc(source.name) + '</span><time' + (publisherTime(item.publishedAt) ? ' datetime="' + esc(item.publishedAt) + '"' : '') + '>' + esc(time) + '</time></p></article>';
+          return '<article class="publisher-news-item"><a class="publisher-story-link" href="' + esc(newsArticlePath(item.id)) + '">' + media + '<h3>' + esc(item.title) + '</h3></a><p class="publisher-news-meta"><span>' + esc(source.name) + '</span><time' + (publisherTime(item.publishedAt) ? ' datetime="' + esc(item.publishedAt) + '"' : '') + '>' + esc(time) + '</time></p></article>';
         }).join('') : '<p>' + (selected === 'ANTARCTICA' || activeNewsRegion() === 'ANTARCTICA' ? newsText('Belum ada portal berita Antarktika yang dikonfigurasi.','No Antarctic news publishers are configured yet.') : portal?.kind === 'external' ? newsText('Portal ini belum menyediakan feed otomatis yang terverifikasi. Gunakan tautan penerbit di atas.','This portal has no verified automatic feed yet. Use the publisher link above.') : portal?.status === 'unavailable' || portal?.status === 'stale' ? newsText('Feed penerbit belum dapat diperbarui. Buka sumber atau coba lagi nanti.','The publisher feed could not be refreshed. Visit the source or try again later.') : !availableSources.length ? newsText('Belum ada portal yang dikonfigurasi untuk negara ini.', 'No publisher portals are configured for this country yet.') : newsQuery.trim() ? newsText('Tidak ada berita yang cocok. Coba kata kunci lain atau hapus filter kategori dan sumber.', 'No stories match your search. Try different keywords or clear the category and source filters.') : newsText('Belum ada berita yang sesuai filter ini. Pilih kategori atau sumber lain.', 'No stories match these filters. Choose another category or source.')) + '</p>';
         $('publisher-news-list').querySelectorAll('img').forEach(img => { img.addEventListener('error', () => img.remove(), { once: true }); });
       };
@@ -3601,7 +3642,7 @@
           renderEconomicCalendar();
         }
         const route = 'economic-news' + (sub === 'ringkasan' ? '' : '/calendar');
-        if (updateUrl && location.pathname !== pagePath(route)) history.pushState(null, '', pagePath(route));
+        if (updateUrl && (location.pathname !== pagePath(route) || location.search)) { history.pushState(null, '', pagePath(route)); renderNewsReader(); }
       };
 
       function restoreRoute() {

@@ -57,7 +57,7 @@ console.log('English guide coverage passed');
   let chartSymbol;
   const context = { canReadNews: () => newsAllowed, renderNewsRegionControls() {}, detectNewsRegion() {}, $: id => nodes.get(id),
     document: { querySelectorAll: () => buttons, createElement: () => ({attributes: {}, setAttribute(key, value) { this.attributes[key] = value; }, addEventListener(type, listener) { this.listener = listener; }}) },
-    openTradingView(symbol) { chartSymbol = symbol; }, renderPublisherNews() {}, renderEconomicCalendar() {}, pagePath: route => '/' + route + '/',
+    openTradingView(symbol) { chartSymbol = symbol; }, renderPublisherNews() {}, renderNewsReader() {}, renderEconomicCalendar() {}, pagePath: route => '/' + route + '/',
     location: { pathname: '/economic-news/' }, history: { pushState() {} } };
   context.window = context;
   vm.runInNewContext(source.slice(source.indexOf('      window.switchBeritaSub ='), source.indexOf('      function restoreRoute()')), context);

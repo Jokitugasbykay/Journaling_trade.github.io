@@ -22,7 +22,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
 
-  <link rel="stylesheet" href="css/style.css?v=20261008-news-feed-repairs">
+  <link rel="stylesheet" href="css/style.css?v=20261008-news-reader">
 </head>
 
 <body>
@@ -827,6 +827,7 @@
         </div>
       </section>
       <div id="sub-berita-ringkasan">
+        <div id="publisher-news-browse">
         <nav class="news-categories" id="news-categories" aria-label="News categories">
           <button type="button" data-category="" aria-pressed="true" onclick="selectNewsCategory('')" data-i18n="categoryAll">Semua</button>
           <button type="button" data-category="world" aria-pressed="false" onclick="selectNewsCategory('world')" data-i18n="categoryWorld">Dunia</button>
@@ -876,6 +877,8 @@
           <a href="https://www.cmegroup.com/markets.html?redirect=/markets/" target="_blank" rel="noopener noreferrer">CME Markets</a>
           <p data-i18n="newsCmeHint">Lihat probabilitas suku bunga dan data pasar terbaru langsung di CME Group.</p>
         </div>
+        </div>
+        <article id="publisher-news-reader" class="news-reader" hidden aria-labelledby="news-reader-title"></article>
       </div>
 
       <!-- 3. SUB-VIEW: KALENDER EKONOMI WORKSTATION -->
@@ -1287,7 +1290,7 @@
 
   <script src="js/vendor/supabase-2.86.0.js" integrity="sha384-3Sgm1bFlHa+gvzgZCHY6SyQwlKZpsgWl0qwxcwsypsSZQvo1vV1miPkn7n1lU1/L"></script>
   <script src="js/scan.js?v=20261007"></script>
-  <script src="js/app.js?v=20261008-news-feed-repairs"></script>
+  <script src="js/app.js?v=20261008-news-reader"></script>
   <script src="js/fed.js?v=20261008-fomc"></script>
 
  </body>
