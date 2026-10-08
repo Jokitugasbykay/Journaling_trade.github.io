@@ -7,7 +7,7 @@ const storage = new Map();
 const ctx = {
   cloudUser:{id:'a', email:'kaylafisika24@gmail.com'}, cloudReady:true, nicknameReady:true, accountAccess:{plan:'free'},
   publisherDomains:{reuters:'reuters.com'}, newsSelectedSource:'', newsVisibleCount:12,
-  kalCountryCodes:'US GB ID DE NO DK FI CZ RO HU IE AT JP CN HK IN SG MY KR TH'.split(' '), kalCountries:['US'], kalCountriesKey:'countries',
+  kalCountryCodes:'US GB ID DE NO DK FI CZ RO HU IE AT JP CN HK IN SG MY KR TH CA MX AR CO CL PE AU NZ CR UY'.split(' '), kalCountries:['US'], kalCountriesKey:'countries',
   URL, Intl, AbortSignal, console, language:'en',
   esc:String, kalCountryFlag:code => code, renderEconomicCalendar() {}, updateAccess() {}, renderPublisherNews() {},
   localStorage:{getItem:key=>storage.get(key) ?? null, setItem:(key,value)=>storage.set(key,value)},
@@ -26,13 +26,18 @@ const set = code => vm.runInContext(code, ctx);
   assert.equal(ctx.isNewsFounder(), false, 'Cached/local founder email granted access');
   assert.equal(ctx.canReadNews(), false);
   ctx.registerRegionalSources(registry);
-  assert.equal(Object.values(registry).flat().length, 120);
+  assert.equal(Object.values(registry).flat().length, 200);
   for (const [country, portals] of Object.entries(registry)) {
     assert.equal(portals.length, 8);
     if (['global_founder','DEFAULT'].includes(country)) continue;
     set(`newsCountry = '${country}'`);
     assert.ok(portals.every(portal => ctx.newsSourceInRegion(portal.id)));
     if (['NO','DK','FI','CZ','RO','HU','IE','AT'].includes(country)) assert.equal(ctx.newsSourceInRegion('cnbc'), false);
+  }
+  for (const [zone, country] of Object.entries({'America/Toronto':'CA','America/Mexico_City':'MX','America/Argentina/Buenos_Aires':'AR','America/Bogota':'CO','America/Santiago':'CL','America/Lima':'PE','Australia/Sydney':'AU','Pacific/Auckland':'NZ','America/Costa_Rica':'CR','America/Montevideo':'UY'})) {
+    const timezoneContext={...ctx,window:{},localStorage:{getItem:()=>null},Intl:{DateTimeFormat:()=>({resolvedOptions:()=>({timeZone:zone})})},isNewsFounder:()=>false};
+    vm.runInNewContext(extract('      const newsText =','      function newsMatchesSearch(')+'\nwindow.country = activeNewsRegion();',timezoneContext);
+    assert.equal(timezoneContext.window.country,country, 'Timezone fallback: '+zone);
   }
   assert.throws(() => ctx.registerRegionalSources({NO:[{id:'no_fake',name:'Fake',url:'https://user@evil.test'}]}));
   set("newsCountry = 'NO'; newsLocationChecked = false");
@@ -50,23 +55,18 @@ const set = code => vm.runInContext(code, ctx);
   assert.ok(registry.DEFAULT.every(portal=>ctx.newsSourceInRegion(portal.id)), 'Unconfigured country did not fall back to DEFAULT');
   assert.equal(ctx.newsSourceInRegion('no_nrk'),false);
   nodes.get('news-region').value='SG'; ctx.changeNewsRegion();
-  assert.equal(set('activeNewsRegion()'),'SG');
-  assert.equal(JSON.parse(storage.get('fncjt_news_region')).region,'SG');
+  assert.equal(set('activeNewsRegion()'),'JP', 'Regular user bypassed detected region');
+  storage.set('fncjt_news_region',JSON.stringify({region:'SG',mode:'manual'}));
   const reopened={...ctx,window:{},isNewsFounder:()=>false};
   vm.runInNewContext(extract('      const newsText =','      function newsMatchesSearch(')+'\nwindow.restored = activeNewsRegion();',reopened);
-  assert.equal(reopened.window.restored,'SG', 'Manual region lost on reopen');
-  let locationResolve;
-  const locationText = new Promise(resolve=>locationResolve=resolve);
-  set("newsRegionMode = 'auto'; newsLocationChecked = false");
-  ctx.fetch=async()=>({ok:true,text:()=>locationText});
-  const locationPending=ctx.detectNewsRegion();
-  await Promise.resolve();
-  nodes.get('news-region').value='MY'; ctx.changeNewsRegion();
-  locationResolve('US'); await locationPending;
-  assert.equal(set('activeNewsRegion()'),'MY', 'Late IP response replaced manual choice');
-  assert.equal(JSON.parse(storage.get('fncjt_news_region')).region,'MY');
+  assert.notEqual(reopened.window.restored,'SG', 'Old manual preference bypassed regular region lock');
+  set("newsRegionMode = 'manual'; newsRegion = 'SG'; newsLocationChecked = false");
+  ctx.fetch=async()=>({ok:true,text:async()=> 'CA'});
+  await ctx.detectNewsRegion();
+  assert.equal(set('activeNewsRegion()'),'CA');
+  assert.equal(JSON.parse(storage.get('fncjt_news_region')).mode,'auto');
   set("newsRegionMode = 'auto'");
-  ctx.cloudClient.auth.getUser = async()=>({data:{user:{id:'a', email:'KAYLAFISIKA24@GMAIL.COM', email_confirmed_at:'2026-10-01'}}});
+  ctx.cloudClient.auth.getUser = async()=>({data:{user:{id:'a', email:'  KAYLAFISIKA24@GMAIL.COM  ', email_confirmed_at:'2026-10-01'}}});
   await ctx.verifyNewsIdentity('a'); assert.equal(ctx.isNewsFounder(), true); assert.equal(ctx.canReadNews(), true);
   assert.equal(nodes.get('news-founder-badge').hidden, false);
   assert.equal(nodes.get('news-region').disabled, false);
@@ -75,6 +75,15 @@ const set = code => vm.runInContext(code, ctx);
   assert.equal(ctx.newsSourceInRegion('no_nrk'),false);
   set("newsRegionMode = 'manual'; newsRegion = ''");
   assert.ok(Object.values(registry).flat().every(portal => ctx.newsSourceInRegion(portal.id)));
+  for (const country of ['CA','MX','AR','CO','CL','PE','AU','NZ','CR','UY']) {
+    nodes.get('news-region').value=country; ctx.changeNewsRegion();
+    assert.equal(set('activeNewsRegion()'),country);
+    assert.ok(registry[country].every(portal=>ctx.newsSourceInRegion(portal.id)));
+    assert.equal(ctx.newsSourceInRegion('no_nrk'),false);
+  }
+  const restoredFounder={...ctx,window:{},isNewsFounder:()=>true};
+  vm.runInNewContext(extract('      const newsText =','      function newsMatchesSearch(')+'\nwindow.restored = activeNewsRegion();',restoredFounder);
+  assert.equal(restoredFounder.window.restored,'UY');
   set("newsRegion = 'CZ'"); assert.equal(ctx.newsSourceInRegion('cz_ct24'), true); assert.equal(ctx.newsSourceInRegion('no_nrk'), false);
   set("newsRegion = 'ASIA'"); assert.equal(ctx.newsSourceInRegion('kompas'), true); assert.equal(ctx.newsSourceInRegion('cnbc'), false);
   set("newsRegion = 'DEFAULT'"); assert.equal(ctx.newsSourceInRegion('reuters'), true); assert.equal(ctx.newsSourceInRegion('bbc'), true);
@@ -92,8 +101,8 @@ const set = code => vm.runInContext(code, ctx);
   ctx.cloudUser = {id:'b',email:'regular@example.com'};
   ctx.cloudClient.auth.getUser = async()=>({data:{user:{id:'b',email:'regular@example.com',email_confirmed_at:'2026-10-01'}}});
   await ctx.verifyNewsIdentity('b'); assert.equal(ctx.isNewsFounder(), false);
-  assert.equal(nodes.get('news-region').disabled, false);
+  assert.equal(nodes.get('news-region').disabled, true);
   nodes.get('news-region').value='global_founder';ctx.changeNewsRegion();
   assert.notEqual(set('activeNewsRegion()'),'global_founder');
-  console.log('Region lists, manual persistence, DEFAULT/Tier 1 scopes, late IP protection, verified founder and logout checks passed');
+  console.log('200 regional entries, founder persistence, DEFAULT/Tier 1 scopes, regular region lock, verified founder and logout checks passed');
 })().catch(error=>{console.error(error);process.exitCode=1});

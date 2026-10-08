@@ -148,5 +148,105 @@
     {"id":"at_zeitung","name":"Wiener Zeitung","url":"https://www.wienerzeitung.at"},
     {"id":"at_profil","name":"Profil","url":"https://profil.at"},
     {"id":"at_krone","name":"Kronen Zeitung","url":"https://www.krone.at"}
+  ],
+  "CA": [
+    {"id":"ca_cbc","name":"CBC News","url":"https://www.cbc.ca/news","feed":"https://www.cbc.ca/webfeed/rss/rss-topstories"},
+    {"id":"ca_globe","name":"The Globe and Mail","url":"https://www.theglobeandmail.com"},
+    {"id":"ca_nationalpost","name":"National Post","url":"https://nationalpost.com"},
+    {"id":"ca_star","name":"Toronto Star","url":"https://www.thestar.com"},
+    {"id":"ca_globalnews","name":"Global News","url":"https://globalnews.ca"},
+    {"id":"ca_ctv","name":"CTV News","url":"https://www.ctvnews.ca"},
+    {"id":"ca_cp24","name":"CP24","url":"https://www.cp24.com"},
+    {"id":"ca_financialpost","name":"Financial Post","url":"https://financialpost.com"}
+  ],
+  "MX": [
+    {"id":"mx_universal","name":"El Universal","url":"https://www.eluniversal.com.mx"},
+    {"id":"mx_reforma","name":"Reforma","url":"https://www.reforma.com"},
+    {"id":"mx_jornada","name":"La Jornada","url":"https://www.jornada.com.mx"},
+    {"id":"mx_aristegui","name":"Aristegui Noticias","url":"https://aristeguinoticias.com"},
+    {"id":"mx_milenio","name":"Milenio","url":"https://www.milenio.com"},
+    {"id":"mx_financiero","name":"El Financiero","url":"https://www.elfinanciero.com.mx"},
+    {"id":"mx_proceso","name":"Proceso","url":"https://www.proceso.com.mx"},
+    {"id":"mx_expansion","name":"Expansión","url":"https://expansion.mx"}
+  ],
+  "AR": [
+    {"id":"ar_clarin","name":"Clarín","url":"https://www.clarin.com","feed":"https://www.clarin.com/rss/lo-ultimo/"},
+    {"id":"ar_nacion","name":"La Nación","url":"https://www.lanacion.com.ar"},
+    {"id":"ar_pagina12","name":"Página 12","url":"https://www.pagina12.com.ar"},
+    {"id":"ar_infobae","name":"Infobae","url":"https://www.infobae.com"},
+    {"id":"ar_perfil","name":"Perfil","url":"https://www.perfil.com"},
+    {"id":"ar_ambito","name":"Ámbito Financiero","url":"https://www.ambito.com"},
+    {"id":"ar_cronista","name":"El Cronista","url":"https://www.cronista.com"},
+    {"id":"ar_telam","name":"Télam","url":"https://www.telam.com.ar"}
+  ],
+  "CO": [
+    {"id":"co_tiempo","name":"El Tiempo","url":"https://www.eltiempo.com"},
+    {"id":"co_espectador","name":"El Espectador","url":"https://www.elespectador.com"},
+    {"id":"co_semana","name":"Semana","url":"https://www.semana.com"},
+    {"id":"co_republica","name":"La República","url":"https://www.larepublica.co"},
+    {"id":"co_portafolio","name":"Portafolio","url":"https://www.portafolio.co"},
+    {"id":"co_caracol","name":"Caracol Radio","url":"https://caracol.com.co"},
+    {"id":"co_rcn","name":"RCN Radio","url":"https://www.rcnradio.com"},
+    {"id":"co_noticiascaracol","name":"Noticias Caracol","url":"https://noticias.caracoltv.com"}
+  ],
+  "CL": [
+    {"id":"cl_emol","name":"EMOL","url":"https://www.emol.com"},
+    {"id":"cl_tercera","name":"La Tercera","url":"https://www.latercera.com"},
+    {"id":"cl_biobio","name":"BioBioChile","url":"https://www.biobiochile.cl"},
+    {"id":"cl_mostrador","name":"El Mostrador","url":"https://www.elmostrador.cl"},
+    {"id":"cl_cooperativa","name":"Cooperativa","url":"https://www.cooperativa.cl"},
+    {"id":"cl_df","name":"Diario Financiero","url":"https://www.df.cl"},
+    {"id":"cl_t13","name":"T13","url":"https://www.t13.cl"},
+    {"id":"cl_24horas","name":"24 Horas","url":"https://www.24horas.cl"}
+  ],
+  "PE": [
+    {"id":"pe_comercio","name":"El Comercio","url":"https://elcomercio.pe"},
+    {"id":"pe_republica","name":"La República","url":"https://larepublica.pe"},
+    {"id":"pe_gestion","name":"Gestión","url":"https://gestion.pe"},
+    {"id":"pe_rpp","name":"RPP Noticias","url":"https://rpp.pe"},
+    {"id":"pe_andina","name":"Andina","url":"https://andina.pe"},
+    {"id":"pe_peru21","name":"Perú 21","url":"https://peru21.pe"},
+    {"id":"pe_ojo","name":"OjoPúblico","url":"https://ojo-publico.com"},
+    {"id":"pe_idl","name":"IDL-Reporteros","url":"https://www.idl-reporteros.pe"}
+  ],
+  "AU": [
+    {"id":"au_abc","name":"ABC News Australia","url":"https://www.abc.net.au/news","feed":"https://www.abc.net.au/news/feed/51120/rss.xml"},
+    {"id":"au_smh","name":"The Sydney Morning Herald","url":"https://www.smh.com.au"},
+    {"id":"au_age","name":"The Age","url":"https://www.theage.com.au"},
+    {"id":"au_australian","name":"The Australian","url":"https://www.theaustralian.com.au"},
+    {"id":"au_afr","name":"The Australian Financial Review","url":"https://www.afr.com"},
+    {"id":"au_sbs","name":"SBS News","url":"https://www.sbs.com.au/news"},
+    {"id":"au_guardian","name":"The Guardian Australia","url":"https://www.theguardian.com/australia-news","feed":"https://www.theguardian.com/australia-news/rss"},
+    {"id":"au_news","name":"News.com.au","url":"https://www.news.com.au"}
+  ],
+  "NZ": [
+    {"id":"nz_rnz","name":"RNZ News","url":"https://www.rnz.co.nz","feed":"https://www.rnz.co.nz/rss/national.xml"},
+    {"id":"nz_stuff","name":"Stuff","url":"https://www.stuff.co.nz"},
+    {"id":"nz_herald","name":"The New Zealand Herald","url":"https://www.nzherald.co.nz"},
+    {"id":"nz_spinoff","name":"The Spinoff","url":"https://thespinoff.co.nz"},
+    {"id":"nz_newsroom","name":"Newsroom","url":"https://www.newsroom.co.nz"},
+    {"id":"nz_1news","name":"1News","url":"https://www.1news.co.nz"},
+    {"id":"nz_newshub","name":"Newshub","url":"https://www.newshub.co.nz"},
+    {"id":"nz_nbr","name":"NBR","url":"https://www.nbr.co.nz"}
+  ],
+  "CR": [
+    {"id":"cr_nacion","name":"La Nación","url":"https://www.nacion.com"},
+    {"id":"cr_tico","name":"The Tico Times","url":"https://ticotimes.net"},
+    {"id":"cr_crhoy","name":"CRHoy","url":"https://www.crhoy.com"},
+    {"id":"cr_republica","name":"La República CR","url":"https://www.larepublica.net"},
+    {"id":"cr_universidad","name":"Semanario Universidad","url":"https://semanariouniversidad.com"},
+    {"id":"cr_teletica","name":"Teletica","url":"https://www.teletica.com"},
+    {"id":"cr_monumental","name":"Radio Monumental","url":"https://www.monumental.co.cr"},
+    {"id":"cr_delfino","name":"Delfino","url":"https://delfino.cr"}
+  ],
+  "UY": [
+    {"id":"uy_pais","name":"El País","url":"https://www.elpais.com.uy"},
+    {"id":"uy_observador","name":"El Observador","url":"https://www.elobservador.com.uy"},
+    {"id":"uy_diaria","name":"la diaria","url":"https://ladiaria.com.uy","feed":"https://ladiaria.com.uy/feeds/articulos/"},
+    {"id":"uy_montevideo","name":"Montevideo Portal","url":"https://www.montevideo.com.uy"},
+    {"id":"uy_busqueda","name":"Búsqueda","url":"https://www.busqueda.com.uy"},
+    {"id":"uy_subrayado","name":"Subrayado","url":"https://subrayado.com.uy"},
+    {"id":"uy_perspectiva","name":"En Perspectiva","url":"https://enperspectiva.uy"},
+    {"id":"uy_publicos","name":"Medios Públicos","url":"https://mediospublicos.uy"}
   ]
 }

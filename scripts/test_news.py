@@ -162,3 +162,8 @@ print('Regional registry and ORF namespaced RSS checks passed')
 assert len({row['id'] for row in news.SOURCES}) == len(news.SOURCES), 'Shared publishers duplicated in feeds'
 for code in ('ID','US','GB','MY','SG','DEFAULT','global_founder'):
     assert len(news.REGIONAL_NEWS_SOURCES[code]) == 8
+
+for code in ("CA","MX","AR","CO","CL","PE","AU","NZ","CR","UY"):
+    assert len(news.REGIONAL_NEWS_SOURCES[code]) == 8
+    assert all(row["id"].startswith(code.lower()+"_") for row in news.REGIONAL_NEWS_SOURCES[code])
+print("Americas and Oceania: all 80 official portal mappings passed")
