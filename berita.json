@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "checkedAt": "2026-10-08T06:56:11.881561+00:00",
+  "checkedAt": "2026-10-08T07:03:10.613452+00:00",
   "intervalMinutes": 5,
   "sources": [
     {
@@ -9,7 +9,7 @@
       "url": "https://www.investing.com/",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-08T06:55:50.619095+00:00"
+      "checkedAt": "2026-10-08T07:02:58.017499+00:00"
     },
     {
       "id": "cnbc",
@@ -17,7 +17,7 @@
       "url": "https://www.cnbc.com/markets/",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-08T06:55:50.638396+00:00"
+      "checkedAt": "2026-10-08T07:02:58.101931+00:00"
     },
     {
       "id": "kontan",
@@ -25,7 +25,7 @@
       "url": "https://www.kontan.co.id/",
       "kind": "html",
       "status": "ok",
-      "checkedAt": "2026-10-08T06:55:51.452381+00:00"
+      "checkedAt": "2026-10-08T07:02:59.084506+00:00"
     },
     {
       "id": "reuters",
@@ -33,7 +33,7 @@
       "url": "https://www.reuters.com/",
       "kind": "sitemap",
       "status": "ok",
-      "checkedAt": "2026-10-08T06:55:50.725797+00:00"
+      "checkedAt": "2026-10-08T07:02:58.386021+00:00"
     },
     {
       "id": "aljazeera",
@@ -41,7 +41,7 @@
       "url": "https://www.aljazeera.com/",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-08T06:55:50.668880+00:00"
+      "checkedAt": "2026-10-08T07:02:58.104860+00:00"
     },
     {
       "id": "bloomberg",
@@ -49,7 +49,7 @@
       "url": "https://www.bloomberg.com/asia",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-08T06:55:50.916751+00:00"
+      "checkedAt": "2026-10-08T07:02:58.271691+00:00"
     },
     {
       "id": "fnc",
@@ -57,7 +57,7 @@
       "url": "https://tradewithfnc.com/",
       "kind": "json",
       "status": "ok",
-      "checkedAt": "2026-10-08T06:55:51.553268+00:00"
+      "checkedAt": "2026-10-08T07:02:59.931412+00:00"
     },
     {
       "id": "investing_id",
@@ -65,7 +65,7 @@
       "url": "https://id.investing.com/news",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-08T06:55:50.923634+00:00"
+      "checkedAt": "2026-10-08T07:02:58.248188+00:00"
     },
     {
       "id": "pluang",
@@ -73,7 +73,7 @@
       "url": "https://pluang.com/news-feed",
       "kind": "html",
       "status": "ok",
-      "checkedAt": "2026-10-08T06:55:51.611021+00:00"
+      "checkedAt": "2026-10-08T07:02:58.637153+00:00"
     },
     {
       "id": "kompas",
@@ -81,15 +81,15 @@
       "url": "https://money.kompas.com/",
       "kind": "html",
       "status": "ok",
-      "checkedAt": "2026-10-08T06:55:52.041094+00:00"
+      "checkedAt": "2026-10-08T07:02:59.286762+00:00"
     },
     {
       "id": "detik",
       "name": "detikFinance",
       "url": "https://finance.detik.com/",
       "kind": "rss",
-      "status": "stale",
-      "checkedAt": "2026-10-08T06:42:13.549541+00:00"
+      "status": "ok",
+      "checkedAt": "2026-10-08T07:02:59.945653+00:00"
     },
     {
       "id": "kemenkeu",
@@ -121,7 +121,7 @@
       "url": "https://ekbis.sindonews.com/",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-08T06:55:51.743185+00:00"
+      "checkedAt": "2026-10-08T07:02:59.189054+00:00"
     },
     {
       "id": "fedwatch",
@@ -140,13 +140,197 @@
   ],
   "items": [
     {
+      "id": "19d9c725e3283c429938",
+      "source": "kompas",
+      "title": "Harga Batu Bara Kokas Diprediksi Tinggi, Jadi Katalis Saham ADMR?",
+      "url": "https://money.kompas.com/read/2026/10/08/140126226/harga-batu-bara-kokas-diprediksi-tinggi-jadi-katalis-saham-admr",
+      "publishedAt": "2026-10-08T07:01:26+00:00",
+      "image": "https://asset.kompas.com/crops/1GwznD2XYSwlw4J3lHJs0GJEH_w=/150x100:1350x900/750x500/data/photo/2026/09/08/6aa02314b2a4d.jpg",
+      "category": "markets",
+      "topics": []
+    },
+    {
+      "id": "67767aca196d7145afe4",
+      "source": "cnbc",
+      "title": "AI startup Manus raises $500 million in first funding round since Meta breakup",
+      "url": "https://www.cnbc.com/2026/10/08/manus-fund-raise-meta-muse-tencent.html",
+      "publishedAt": "2026-10-08T06:59:59+00:00",
+      "image": "https://image.cnbcfm.com/api/v1/image/108375190-1791437632622-gettyimages-2254446954-CHINA_MANUS.jpeg?v=1791437646&w=1920&h=1080",
+      "category": "technology",
+      "topics": []
+    },
+    {
+      "id": "da55a4b6cf45e6830afd",
+      "source": "reuters",
+      "title": "People in Russian-occupied Ukrainian town risk 'road of death' to get food",
+      "url": "https://www.reuters.com/world/europe/people-russian-occupied-ukrainian-town-risk-road-death-get-food-2026-10-08/",
+      "publishedAt": "2026-10-08T06:59:03.344000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/55D6HDLEURK7TGCHPQKFG66AEE.jpg?auth=991131908713a7144518c18276207cbda9985a693dd044b1553dcbd6d1a3c03b&smart=true&width=1920",
+      "category": "world",
+      "topics": []
+    },
+    {
+      "id": "4355bf8971a6b0e7e30c",
+      "source": "reuters",
+      "title": "UK police charge member of Royal Navy under National Security Act",
+      "url": "https://www.reuters.com/world/uk/uk-police-charge-member-royal-navy-under-national-security-act-2026-10-08/",
+      "publishedAt": "2026-10-08T06:58:44.629000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/J2OT46IMSVO2LHG3HHCW3T5WGM.jpg?auth=1bb42dc711388997fd45b2f1aac58ca16ebd233c55b315fd77faa5f6343d7aff&smart=true&width=1920",
+      "category": "world",
+      "topics": []
+    },
+    {
+      "id": "1c376c783e1af2955d0c",
+      "source": "reuters",
+      "title": "Syria weighs military aid for Saudi Arabia amid Yemen war, sources say",
+      "url": "https://www.reuters.com/world/middle-east/syria-weighs-military-aid-saudi-arabia-amid-yemen-war-sources-say-2026-10-07/",
+      "publishedAt": "2026-10-08T06:58:15.098000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/SXDWNICTJZKS5CNUARVS7MNZNY.jpg?auth=ced9e84f0d646259c3e06a79ccbd2832f445ff470b64696f7a7aeec42ca4a292&smart=true&width=1920",
+      "category": "world",
+      "topics": []
+    },
+    {
+      "id": "d7c219493d76d1967bd5",
+      "source": "reuters",
+      "title": "Lebanon's Hezbollah gets $200 million from Iran to help displaced, sources say",
+      "url": "https://www.reuters.com/world/middle-east/lebanons-hezbollah-gets-200-million-iran-help-displaced-sources-say-2026-10-07/",
+      "publishedAt": "2026-10-08T06:57:43.993000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/BNDLYQMLCBORHNPQESHAFABLCM.jpg?auth=663825fd438ff1f311d53a28390acc1d89a7da33224148b98986916464cd12a5&smart=true&width=1920",
+      "category": "world",
+      "topics": []
+    },
+    {
+      "id": "67e194f0441e1bf08de0",
+      "source": "detik",
+      "title": "Resmikan Proyek Hilirisasi Weda Bay, Prabowo Titip Jaga Lingkungan",
+      "url": "https://finance.detik.com/industri/d-8697971/resmikan-proyek-hilirisasi-weda-bay-prabowo-titip-jaga-lingkungan",
+      "publishedAt": "2026-10-08T06:57:14+00:00",
+      "image": "https://akcdn.detik.net.id/community/media/visual/2026/10/08/presiden-prabowo-subianto-dok-youtube-setpres-1791440438930_169.jpeg?w=360&q=90",
+      "category": "local",
+      "topics": [
+        "politics"
+      ]
+    },
+    {
+      "id": "d9b76636fc9f2d74b197",
+      "source": "kompas",
+      "title": "Asing Net Sell Rp 194 Miliar, 20 Saham Ini Paling Banyak Dijual",
+      "url": "https://money.kompas.com/read/2026/10/08/135620226/asing-net-sell-rp-194-miliar-20-saham-ini-paling-banyak-dijual",
+      "publishedAt": "2026-10-08T06:56:20+00:00",
+      "image": "https://asset.kompas.com/crops/Ylf7PIPT2vJTaUcr1U8-dpfH6kM=/104x35:856x537/750x500/data/photo/2020/05/03/5eaebe4153980.jpg",
+      "category": "markets",
+      "topics": []
+    },
+    {
+      "id": "f01b6b3a1e8419c2f938",
+      "source": "bloomberg",
+      "title": "MCB CEO: Growth Fueled by Current Oil Market Demand (Video)",
+      "url": "https://www.bloomberg.com/news/videos/2026-10-08/mcb-ceo-growth-fueled-by-current-oil-market-demand-video",
+      "publishedAt": "2026-10-08T06:56:02+00:00",
+      "image": null,
+      "category": "markets",
+      "topics": []
+    },
+    {
+      "id": "0cd1ba5b356ecd803f45",
+      "source": "reuters",
+      "title": "British diplomats to remain at renamed consulate in Jerusalem",
+      "url": "https://www.reuters.com/world/middle-east/britain-removes-east-jerusalem-consulate-signage-israeli-shutdown-order-expires-2026-10-08/",
+      "publishedAt": "2026-10-08T06:55:30.568000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/QI4UDDQJEZI45AQK7BTSYZTGBY.jpg?auth=f183e4ed3ea08709e08ec132530f42934ba0f63ea990de1854bf1dd1ad3b672f&smart=true&width=1920",
+      "category": "world",
+      "topics": []
+    },
+    {
+      "id": "74f4f57d441d96e2c8eb",
+      "source": "reuters",
+      "title": "NHL roundup: Leon Draisaitl logs 4 assists as Oilers storm past Ducks",
+      "url": "https://www.reuters.com/sports/nhl-roundup-leon-draisaitl-logs-4-assists-oilers-storm-past-ducks--flm-2026-10-08/",
+      "publishedAt": "2026-10-08T06:55:21.786000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/DDMWVBUO2BN4BEB2B5F7XGMAFY.jpg?auth=6c886529024887de32a7a93e15de4224c8a3ffa1851e45c4008a7b190bbffa49&smart=true&width=1920",
+      "category": "sport",
+      "topics": []
+    },
+    {
+      "id": "f0dace92d0f590dcc448",
+      "source": "reuters",
+      "title": "US, Russia explore gas sale to Europe amid Ukraine war, say sources",
+      "url": "https://www.reuters.com/business/energy/us-russia-explore-gas-sale-europe-amid-ukraine-war-say-sources-2026-10-08/",
+      "publishedAt": "2026-10-08T06:54:50.496000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/DBTTPICFRRMA7FIG6KMFDNNJGY.jpg?auth=2434d0661f9f8521c4d25b80586d8d8a31aad5a1d362199ba1e8f793f2929221&smart=true&width=1920",
+      "category": "business",
+      "topics": []
+    },
+    {
       "id": "c295044275652b9acacc",
       "source": "bloomberg",
-      "title": "Kennerly: Ultra Wealthy See Long-Term Mideast Gains (Video)",
+      "title": "Kennerly: Ultra Wealthy See Long-Term Mideast Gains",
       "url": "https://www.bloomberg.com/news/videos/2026-10-08/kennerly-ultra-wealthy-see-long-term-mideast-gains-video",
       "publishedAt": "2026-10-08T06:54:27+00:00",
       "image": null,
       "category": "other",
+      "topics": []
+    },
+    {
+      "id": "72e114fa1d44c43bec55",
+      "source": "reuters",
+      "title": "Equinor makes gas discovery in North Sea",
+      "url": "https://www.reuters.com/business/energy/equinor-makes-gas-discovery-north-sea-2026-10-08/",
+      "publishedAt": "2026-10-08T06:53:41.560000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/DATZP7ZR6BJMHF7TE5LOMRNL7U.jpg?auth=0ec2e311509d331a28ad0e3d0aaa61a7686ccd020aa10f994907660bc11d9215&smart=true&width=1920",
+      "category": "business",
+      "topics": []
+    },
+    {
+      "id": "b77e754e85c635c78261",
+      "source": "reuters",
+      "title": "UK's Imperial Brands affirms annual outlook, launches $2 billion share buyback",
+      "url": "https://www.reuters.com/business/uks-imperial-brands-affirms-annual-outlook-launches-2-billion-share-buyback-2026-10-08/",
+      "publishedAt": "2026-10-08T06:53:34.206000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/KCUNFNVOVNKGPA2EKV7XGRL424.jpg?auth=01f5745a1236ad15585a0a5d04c0e14fb6a799408476b6cbb80b53188ec8f8d8&smart=true&width=1920",
+      "category": "markets",
+      "topics": []
+    },
+    {
+      "id": "9a0dbafc50df9425112c",
+      "source": "reuters",
+      "title": "Indian firms seen posting faster profit growth despite global headwinds",
+      "url": "https://www.reuters.com/world/india/indian-firms-seen-posting-faster-profit-growth-despite-global-headwinds-2026-10-08/",
+      "publishedAt": "2026-10-08T06:53:06.196000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/PY33Q25WYBNTBBOKZNLO3COZNA.jpg?auth=b7960d987532ed668fb9db44fb2cc2d6f3ef6fdceecde295d30d1c7061a7481c&smart=true&width=1920",
+      "category": "world",
+      "topics": []
+    },
+    {
+      "id": "c6b88a744bf693144797",
+      "source": "detik",
+      "title": "Rosan Lapor Prabowo Realisasi Investasi Semester I-2026 Rp 1.010 T",
+      "url": "https://finance.detik.com/berita-ekonomi-bisnis/d-8697948/rosan-lapor-prabowo-realisasi-investasi-semester-i-2026-rp-1-010-t",
+      "publishedAt": "2026-10-08T06:52:14+00:00",
+      "image": "https://akcdn.detik.net.id/community/media/visual/2026/04/13/raker-komisi-xii-dpr-dengan-menteri-investasi-dan-hilirisasi-1776070429780_169.jpeg?w=360&q=90",
+      "category": "local",
+      "topics": [
+        "politics"
+      ]
+    },
+    {
+      "id": "9acdc4d0aace9a65e67f",
+      "source": "reuters",
+      "title": "Uniqlo operator Fast Retailing posts 32% rise in profit, beats forecasts",
+      "url": "https://www.reuters.com/business/retail-consumer/uniqlo-operator-fast-retailing-posts-32-rise-full-year-profit-2026-10-08/",
+      "publishedAt": "2026-10-08T06:52:03.924000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/CMTLZMCI6JL45ABHJKBRZNJNIE.jpg?auth=9d58a4c985bd812c55161990a833b5c4544f03fd29ddfedd19e69342947cff1d&smart=true&width=1920",
+      "category": "business",
+      "topics": []
+    },
+    {
+      "id": "39f46b3ff338da1147c8",
+      "source": "reuters",
+      "title": "Brewers KO Padres in Game 4, set up NLCS rematch vs. Dodgers",
+      "url": "https://www.reuters.com/sports/brewers-ko-padres-game-4-set-up-nlcs-rematch-vs-dodgers--flm-2026-10-08/",
+      "publishedAt": "2026-10-08T06:51:44.860000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/XJJCPRRBAJOQFDKZ5IHQCXAUZI.jpg?auth=dea4189a23150269ec4beb61845c96ba8ea74b057d9b600c3d807b3b384a946e&smart=true&width=1920",
+      "category": "sport",
       "topics": []
     },
     {
@@ -160,34 +344,16 @@
       "topics": []
     },
     {
-      "id": "da55a4b6cf45e6830afd",
-      "source": "reuters",
-      "title": "People in Russian-occupied Ukrainian town risk 'road of death' to get food",
-      "url": "https://www.reuters.com/world/europe/people-russian-occupied-ukrainian-town-risk-road-death-get-food-2026-10-08/",
-      "publishedAt": "2026-10-08T06:49:17.889000+00:00",
-      "image": "https://www.reuters.com/resizer/v2/55D6HDLEURK7TGCHPQKFG66AEE.jpg?auth=991131908713a7144518c18276207cbda9985a693dd044b1553dcbd6d1a3c03b&smart=true&width=1920",
-      "category": "world",
-      "topics": []
-    },
-    {
-      "id": "9acdc4d0aace9a65e67f",
-      "source": "reuters",
-      "title": "Uniqlo operator Fast Retailing posts 32% rise in full-year profit",
-      "url": "https://www.reuters.com/business/retail-consumer/uniqlo-operator-fast-retailing-posts-32-rise-full-year-profit-2026-10-08/",
-      "publishedAt": "2026-10-08T06:49:11.280000+00:00",
-      "image": "https://www.reuters.com/resizer/v2/GHHVZCY7ONK33HBEWVOEVAGDGY.jpg?auth=951223b7133496633189ac6d610fb8449447d4728e076d06b9802e4d44c1c92a&smart=true&width=1920",
-      "category": "business",
-      "topics": []
-    },
-    {
-      "id": "9a0dbafc50df9425112c",
-      "source": "reuters",
-      "title": "Indian firms seen posting faster profit growth despite global headwinds",
-      "url": "https://www.reuters.com/world/india/indian-firms-seen-posting-faster-profit-growth-despite-global-headwinds-2026-10-08/",
-      "publishedAt": "2026-10-08T06:49:07.714000+00:00",
-      "image": "https://www.reuters.com/resizer/v2/PY33Q25WYBNTBBOKZNLO3COZNA.jpg?auth=b7960d987532ed668fb9db44fb2cc2d6f3ef6fdceecde295d30d1c7061a7481c&smart=true&width=1920",
-      "category": "world",
-      "topics": []
+      "id": "403ab8d6267f49864207",
+      "source": "aljazeera",
+      "title": "Yemen’s government needs tribes to defeat the Houthis. Will they join?",
+      "url": "https://www.aljazeera.com/news/2026/10/8/yemens-government-needs-tribes-to-defeat-the-houthis-will-they-join?traffic_source=rss",
+      "publishedAt": "2026-10-08T06:50:08+00:00",
+      "image": "https://www.aljazeera.com/wp-content/uploads/2026/10/ap_6ac6a2bbbc74b-1791402683.jpg?resize=1920%2C1440",
+      "category": "other",
+      "topics": [
+        "politics"
+      ]
     },
     {
       "id": "504f715f1831cf6539f5",
@@ -217,16 +383,6 @@
       "publishedAt": "2026-10-08T06:48:18+00:00",
       "image": null,
       "category": "other",
-      "topics": []
-    },
-    {
-      "id": "72e114fa1d44c43bec55",
-      "source": "reuters",
-      "title": "Equinor makes gas discovery in North Sea",
-      "url": "https://www.reuters.com/business/energy/equinor-makes-gas-discovery-north-sea-2026-10-08/",
-      "publishedAt": "2026-10-08T06:47:43.866000+00:00",
-      "image": "https://www.reuters.com/resizer/v2/DATZP7ZR6BJMHF7TE5LOMRNL7U.jpg?auth=0ec2e311509d331a28ad0e3d0aaa61a7686ccd020aa10f994907660bc11d9215&smart=true&width=1920",
-      "category": "business",
       "topics": []
     },
     {
@@ -287,6 +443,16 @@
       "publishedAt": "2026-10-08T06:40:51.872000+00:00",
       "image": "https://www.reuters.com/resizer/v2/GV5E2ZCNLBMD5AW2PI6CTIY4HY.jpg?auth=7e2d7f40543ba6ffc7491a644a3adcd8387b6e7f31be6e7d50fb6cb341594d44&smart=true&width=1920",
       "category": "markets",
+      "topics": []
+    },
+    {
+      "id": "1f8e3c2d5c64f175c981",
+      "source": "detik",
+      "title": "KAI Mau Impor KRL dari Jepang, Danantara: Kami Dukung!",
+      "url": "https://finance.detik.com/infrastruktur/d-8697926/kai-mau-impor-krl-dari-jepang-danantara-kami-dukung",
+      "publishedAt": "2026-10-08T06:40:17+00:00",
+      "image": "https://akcdn.detik.net.id/community/media/visual/2018/12/14/d95637d0-4b01-4219-b36e-4e6aaa2935a9_169.jpeg?w=360&q=90",
+      "category": "other",
       "topics": []
     },
     {
@@ -380,16 +546,6 @@
       "topics": []
     },
     {
-      "id": "f0dace92d0f590dcc448",
-      "source": "reuters",
-      "title": "US, Russia explore gas sale to Europe amid Ukraine war, say sources",
-      "url": "https://www.reuters.com/business/energy/us-russia-explore-gas-sale-europe-amid-ukraine-war-say-sources-2026-10-08/",
-      "publishedAt": "2026-10-08T06:33:22.331000+00:00",
-      "image": "https://www.reuters.com/resizer/v2/DBTTPICFRRMA7FIG6KMFDNNJGY.jpg?auth=2434d0661f9f8521c4d25b80586d8d8a31aad5a1d362199ba1e8f793f2929221&smart=true&width=1920",
-      "category": "business",
-      "topics": []
-    },
-    {
       "id": "c0fe145a18ca2db44978",
       "source": "detik",
       "title": "Danantara Lebur 23 Kawasan Industri, Tanah Tak Lagi Jadi Sumber Pendapatan",
@@ -397,16 +553,6 @@
       "publishedAt": "2026-10-08T06:33:06+00:00",
       "image": "https://akcdn.detik.net.id/community/media/visual/2025/07/01/wisma-danantara-indonesia-1751345662327_169.jpeg?w=360&q=90",
       "category": "business",
-      "topics": []
-    },
-    {
-      "id": "67767aca196d7145afe4",
-      "source": "cnbc",
-      "title": "AI startup Manus raises $500 million in first funding round since Meta breakup",
-      "url": "https://www.cnbc.com/2026/10/08/manus-fund-raise-meta-muse-tencent.html",
-      "publishedAt": "2026-10-08T06:32:57+00:00",
-      "image": "https://image.cnbcfm.com/api/v1/image/108375190-1791437632622-gettyimages-2254446954-CHINA_MANUS.jpeg?v=1791437646&w=1920&h=1080",
-      "category": "technology",
       "topics": []
     },
     {
@@ -549,16 +695,6 @@
       "publishedAt": "2026-10-08T06:16:22+00:00",
       "image": "https://asset.kompas.com/crops/LfyPM4CnnVfDphxCPUBkhGUYI04=/0x9:1716x1153/750x500/data/photo/2026/08/30/6a93f6db0c0d1.png",
       "category": "local",
-      "topics": []
-    },
-    {
-      "id": "b77e754e85c635c78261",
-      "source": "reuters",
-      "title": "UK's Imperial Brands affirms annual outlook, launches $2 billion share buyback",
-      "url": "https://www.reuters.com/business/uks-imperial-brands-affirms-annual-outlook-launches-2-billion-share-buyback-2026-10-08/",
-      "publishedAt": "2026-10-08T06:12:16.423000+00:00",
-      "image": "https://www.reuters.com/resizer/v2/KCUNFNVOVNKGPA2EKV7XGRL424.jpg?auth=01f5745a1236ad15585a0a5d04c0e14fb6a799408476b6cbb80b53188ec8f8d8&smart=true&width=1920",
-      "category": "markets",
       "topics": []
     },
     {
@@ -1082,16 +1218,6 @@
       "topics": []
     },
     {
-      "id": "0cd1ba5b356ecd803f45",
-      "source": "reuters",
-      "title": "Britain removes East Jerusalem consulate signage as Israeli shutdown deadline expires",
-      "url": "https://www.reuters.com/world/middle-east/britain-removes-east-jerusalem-consulate-signage-israeli-shutdown-order-expires-2026-10-08/",
-      "publishedAt": "2026-10-08T05:14:56.103000+00:00",
-      "image": "https://www.reuters.com/resizer/v2/QI4UDDQJEZI45AQK7BTSYZTGBY.jpg?auth=f183e4ed3ea08709e08ec132530f42934ba0f63ea990de1854bf1dd1ad3b672f&smart=true&width=1920",
-      "category": "world",
-      "topics": []
-    },
-    {
       "id": "d5d4fc1a063993c4068c",
       "source": "reuters",
       "title": "UK PM Burnham's Labour Party faces challenge from Greens in Starmer's old seat",
@@ -1174,7 +1300,7 @@
     {
       "id": "17dbc5c46dd8387581e3",
       "source": "aljazeera",
-      "title": "Signage at UK consulate in East Jerusalem removed as Israel’s deadline over",
+      "title": "UK says East Jerusalem consulate building to remain open as a mission",
       "url": "https://www.aljazeera.com/news/2026/10/8/signage-at-uk-consulate-in-east-jerusalem-removed-as-israels-deadline-over?traffic_source=rss",
       "publishedAt": "2026-10-08T05:06:25+00:00",
       "image": "https://www.aljazeera.com/wp-content/uploads/2026/10/reuters_6ac71dfa-1791434234.jpg?resize=1920%2C1440",
@@ -2273,16 +2399,6 @@
       "publishedAt": "2026-10-08T02:16:03+00:00",
       "image": "https://asset.kompas.com/crops/9wmuhO75rseMJyjstdXC7xfaGbs=/0x0:1200x800/750x500/data/photo/2026/10/01/6abe2a1d55ff9.png",
       "category": "other",
-      "topics": []
-    },
-    {
-      "id": "d7c219493d76d1967bd5",
-      "source": "reuters",
-      "title": "Lebanon's Hezbollah gets $200 million from Iran to help displaced, sources say",
-      "url": "https://www.reuters.com/world/middle-east/lebanons-hezbollah-gets-200-million-iran-help-displaced-sources-say-2026-10-07/",
-      "publishedAt": "2026-10-08T02:12:51.692000+00:00",
-      "image": "https://www.reuters.com/resizer/v2/BNDLYQMLCBORHNPQESHAFABLCM.jpg?auth=663825fd438ff1f311d53a28390acc1d89a7da33224148b98986916464cd12a5&smart=true&width=1920",
-      "category": "world",
       "topics": []
     },
     {
@@ -4773,16 +4889,6 @@
       "publishedAt": "2026-10-07T18:26:07+00:00",
       "image": "https://www.aljazeera.com/wp-content/uploads/2026/10/getty_6ac67492ba-1791390866.jpg?resize=1920%2C1440",
       "category": "other",
-      "topics": []
-    },
-    {
-      "id": "1c376c783e1af2955d0c",
-      "source": "reuters",
-      "title": "Syria weighs military aid for Saudi Arabia amid Yemen war, sources say",
-      "url": "https://www.reuters.com/world/middle-east/syria-weighs-military-aid-saudi-arabia-amid-yemen-war-sources-say-2026-10-07/",
-      "publishedAt": "2026-10-07T18:21:27.732000+00:00",
-      "image": "https://www.reuters.com/resizer/v2/SXDWNICTJZKS5CNUARVS7MNZNY.jpg?auth=ced9e84f0d646259c3e06a79ccbd2832f445ff470b64696f7a7aeec42ca4a292&smart=true&width=1920",
-      "category": "world",
       "topics": []
     },
     {
@@ -13320,7 +13426,7 @@
     {
       "id": "08a92e74d243edb7ee24",
       "source": "investing",
-      "title": "German exports unexpectedly fall in August",
+      "title": "German exports fall unexpectedly in August",
       "url": "https://www.investing.com/news/economy-news/german-exports-unexpectedly-fall-in-august-4937941",
       "publishedAt": null,
       "image": "https://content-media.investing.com/trkd-images/LYNXMPEM970BZ_L.jpg",
@@ -13415,7 +13521,7 @@
       "title": "Imperial Brands luncurkan program buyback saham senilai £750 juta",
       "url": "https://id.investing.com/news/company-news/imperial-brands-luncurkan-program-buyback-saham-senilai-750-juta-93CH-3090033",
       "publishedAt": null,
-      "image": null,
+      "image": "https://content-media.investing.com/news/LYNXMPEM4P18K_1200_L.jpg",
       "category": "markets",
       "topics": []
     },
@@ -13425,7 +13531,7 @@
       "title": "Morgan Stanley pertahankan rating Equalweight untuk saham LVMH di tengah perdebatan valuasi",
       "url": "https://id.investing.com/news/analyst-ratings/morgan-stanley-pertahankan-rating-equalweight-untuk-saham-lvmh-di-tengah-perdebatan-valuasi-93CH-3090032",
       "publishedAt": null,
-      "image": "https://content-media.investing.com/news/moved_small-LYNXMPEM40318_1200_L.jpg",
+      "image": "https://content-media.investing.com/news/moved_LYNXMPEM40318_1200_L.jpg",
       "category": "markets",
       "topics": []
     },
@@ -13596,6 +13702,198 @@
       "url": "https://pluang.com/news-feed/perkiraan-harga-emas-dan-perak-menunggu-menit-fed",
       "publishedAt": null,
       "image": "https://image-cdn.pluang.com/web/news-cards/v2/GSS/003c53e8b8f26140481230fe668ff3bd3e4bcaa20dd792208fc0006bb29ce707-id.webp",
+      "category": "markets",
+      "topics": []
+    },
+    {
+      "id": "c80c7a323a8840ac01dd",
+      "source": "investing",
+      "title": "Uniqlo owner Fast Retailing logs 32% jump in FY profit, forecasts slowing growth",
+      "url": "https://www.investing.com/news/earnings/uniqlo-owner-fast-retailing-logs-32-jump-in-fy-profit-forecasts-slowing-growth-4937976",
+      "publishedAt": null,
+      "image": "https://content-media.investing.com/news/LYNXMPEA8G0YH_M.jpg",
+      "category": "business",
+      "topics": []
+    },
+    {
+      "id": "759a2530c58a4e4159cc",
+      "source": "investing",
+      "title": "Bavarian Nordic lifts revenue, margin outlook on U.S. rabies vaccine demand",
+      "url": "https://www.investing.com/news/earnings/bavarian-nordic-lifts-revenue-margin-outlook-on-us-rabies-vaccine-demand-4937975",
+      "publishedAt": null,
+      "image": "https://content-media.investing.com/news/LYNXMPEB380A9_M.jpg",
+      "category": "business",
+      "topics": []
+    },
+    {
+      "id": "3683b5fd0c35a3038b1e",
+      "source": "investing",
+      "title": "Stifel resumes Halma stock coverage with buy rating on margin gains",
+      "url": "https://www.investing.com/news/analyst-ratings/stifel-resumes-halma-stock-coverage-with-buy-rating-on-margin-gains-93CH-4937974",
+      "publishedAt": null,
+      "image": "https://content-media.investing.com/news/moved_LYNXMPEM3T1AG_1200_L.jpg",
+      "category": "markets",
+      "topics": []
+    },
+    {
+      "id": "e532b347050e4a520f5d",
+      "source": "investing",
+      "title": "Uniqlo operator Fast Retailing posts 32% rise in profit, beats forecasts",
+      "url": "https://www.investing.com/news/stock-market-news/uniqlo-operator-fast-retailing-posts-32-rise-in-fullyear-profit-4937970",
+      "publishedAt": null,
+      "image": "https://content-media.investing.com/trkd-images/LYNXMPEM970DZ_L.jpg",
+      "category": "markets",
+      "topics": []
+    },
+    {
+      "id": "f19c993f89a64a1b4401",
+      "source": "investing",
+      "title": "Yandex data center hit by drone strike in Ryazan region",
+      "url": "https://www.investing.com/news/stock-market-news/yandex-data-center-hit-by-drone-strike-in-ryazan-region-93CH-4937973",
+      "publishedAt": null,
+      "image": "https://content-media.investing.com/news/LYNXNPEB6R0AQ_M.jpg",
+      "category": "technology",
+      "topics": []
+    },
+    {
+      "id": "c0d3f9a098f29499a77b",
+      "source": "investing",
+      "title": "Tencent shares fall as company weighs up to $5 billion bond sale, Bloomberg says",
+      "url": "https://www.investing.com/news/stock-market-news/tencent-shares-fall-as-company-weighs-up-to-5-billion-bond-sale-bloomberg-says-4937972",
+      "publishedAt": null,
+      "image": "https://content-media.investing.com/news/LYNXNPED4H22G_M.jpg",
+      "category": "markets",
+      "topics": []
+    },
+    {
+      "id": "3924c469a6c8f4ef9d57",
+      "source": "investing",
+      "title": "Tesco lifts low end of profit guidance as first-half profit rises 6.5%",
+      "url": "https://www.investing.com/news/earnings/tesco-lifts-low-end-of-profit-guidance-as-firsthalf-profit-rises-65-4937971",
+      "publishedAt": null,
+      "image": "https://content-media.investing.com/news/LYNXMPEB4K0E2_M.jpg",
+      "category": "business",
+      "topics": []
+    },
+    {
+      "id": "be86cb100ad1f29fb67c",
+      "source": "investing",
+      "title": "Forvia receives €500 million in orders for EnergyCore solutions",
+      "url": "https://www.investing.com/news/stock-market-news/forvia-receives-500-million-in-orders-for-energycore-solutions-93CH-4937969",
+      "publishedAt": null,
+      "image": "https://content-media.investing.com/news/LYNXNPEB9606Q_M.jpg",
+      "category": "markets",
+      "topics": []
+    },
+    {
+      "id": "b8d1716ca415c266d6d4",
+      "source": "investing",
+      "title": "Sesterce plans €10 billion data center in Finland",
+      "url": "https://www.investing.com/news/stock-market-news/sesterce-plans-10-billion-data-center-in-finland-93CH-4937968",
+      "publishedAt": null,
+      "image": "https://content-media.investing.com/news/LYNXNPEC0K08U_M.jpg",
+      "category": "technology",
+      "topics": []
+    },
+    {
+      "id": "44ad43bec77342b667dc",
+      "source": "kontan",
+      "title": "JEC Eye Hospitals Ekspansi di KEK Sanur, Sasar Pasar Medical Tourism",
+      "url": "https://industri.kontan.co.id/news/jec-eye-hospitals-ekspansi-di-kek-sanur-sasar-pasar-medical-tourism?source=home_terbaru",
+      "publishedAt": null,
+      "image": "https://foto.kontan.co.id/I4BQ_dZ5G0O7zF2mB5G7nME0Rqk=/smart/2026/06/17/1522008675t.jpg",
+      "category": "other",
+      "topics": []
+    },
+    {
+      "id": "d8bb8493d4b9a1b8cd1a",
+      "source": "kontan",
+      "title": "Kategori Pendanaan Macet di Fintech Lending Akan Diubah Jadi Lebih dari 180 Hari",
+      "url": "https://keuangan.kontan.co.id/news/kategori-pendanaan-macet-di-fintech-lending-akan-diubah-jadi-lebih-dari-180-hari?source=home_terbaru",
+      "publishedAt": null,
+      "image": "https://foto.kontan.co.id/4KTnNlfNo9vAO_HwsTFvK3-YTHU=/smart/2022/05/12/1870511257t.jpg",
+      "category": "other",
+      "topics": []
+    },
+    {
+      "id": "7d560d7ba80313db5e35",
+      "source": "kontan",
+      "title": "Impor Mobil CBU Turun 47,8%, Produksi Lokal Mulai Menguat",
+      "url": "https://industri.kontan.co.id/news/impor-mobil-cbu-turun-478-produksi-lokal-mulai-menguat?source=home_terbaru",
+      "publishedAt": null,
+      "image": "https://foto.kontan.co.id/jcGugACFzc2xI99klfZDe3Hq0Wo=/smart/2025/09/12/1280643423t.jpg",
+      "category": "other",
+      "topics": []
+    },
+    {
+      "id": "e157cbaef101accdd2ba",
+      "source": "kontan",
+      "title": "Penerimaan Cukai Melemah, Pemerintah Diminta Evaluasi Kebijakan Fiskal Tembakau",
+      "url": "https://nasional.kontan.co.id/news/penerimaan-cukai-melemah-pemerintah-diminta-evaluasi-kebijakan-fiskal-tembakau?source=home_terbaru",
+      "publishedAt": null,
+      "image": "https://foto.kontan.co.id/n_7eD7vFXpdIsrm8IpKtp9IBvBc=/smart/2025/10/10/1600957655t.jpg",
+      "category": "other",
+      "topics": [
+        "politics"
+      ]
+    },
+    {
+      "id": "fab41bc38f1034532115",
+      "source": "investing_id",
+      "title": "Pusat data Yandex di wilayah Ryazan diserang drone",
+      "url": "https://id.investing.com/news/stock-market-news/pusat-data-yandex-di-wilayah-ryazan-diserang-drone-93CH-3090047",
+      "publishedAt": null,
+      "image": "https://content-media.investing.com/news/LYNXNPEC0E0NI_M.jpg",
+      "category": "markets",
+      "topics": []
+    },
+    {
+      "id": "6200cbf65fa6711d65b5",
+      "source": "investing_id",
+      "title": "Saham Tencent turun saat perusahaan pertimbangkan penjualan obligasi hingga $5 miliar",
+      "url": "https://id.investing.com/news/stock-market-news/saham-tencent-turun-saat-perusahaan-pertimbangkan-penjualan-obligasi-hingga-5-miliar-3090042",
+      "publishedAt": null,
+      "image": "https://content-media.investing.com/news/LYNXNPEB820J9_M.jpg",
+      "category": "markets",
+      "topics": []
+    },
+    {
+      "id": "2690026511e7275c91da",
+      "source": "investing_id",
+      "title": "Tesco naikkan batas bawah panduan laba setelah laba semester pertama naik 6,5%",
+      "url": "https://id.investing.com/news/earnings/tesco-naikkan-batas-bawah-panduan-laba-setelah-laba-semester-pertama-naik-65-3090039",
+      "publishedAt": null,
+      "image": "https://content-media.investing.com/news/LYNXMPEB4K0E2_M.jpg",
+      "category": "business",
+      "topics": []
+    },
+    {
+      "id": "4d0db4e9cb2b7aced176",
+      "source": "investing_id",
+      "title": "Forvia terima pesanan senilai €500 juta untuk solusi EnergyCore",
+      "url": "https://id.investing.com/news/stock-market-news/forvia-terima-pesanan-senilai-500-juta-untuk-solusi-energycore-93CH-3090038",
+      "publishedAt": null,
+      "image": "https://content-media.investing.com/news/LYNXNPEB9606Q_M.jpg",
+      "category": "markets",
+      "topics": []
+    },
+    {
+      "id": "6cb768ebd39f3f2a9b8f",
+      "source": "investing_id",
+      "title": "Sesterce rencanakan pusat data €10 miliar di Finlandia",
+      "url": "https://id.investing.com/news/stock-market-news/sesterce-rencanakan-pusat-data-10-miliar-di-finlandia-93CH-3090036",
+      "publishedAt": null,
+      "image": "https://content-media.investing.com/news/LYNXNPEC0K08U_M.jpg",
+      "category": "markets",
+      "topics": []
+    },
+    {
+      "id": "e1ba41fa7513ba3cb0b3",
+      "source": "investing_id",
+      "title": "Bitcoin Turun di Bawah $83 Ribu Akibat Ketegangan Timur Tengah",
+      "url": "https://id.investing.com/news/cryptocurrency-news/bitcoin-turun-di-bawah-83-ribu-akibat-ketegangan-timur-tengah-3090037",
+      "publishedAt": null,
+      "image": "https://content-media.investing.com/news/LYNXMPED09124_M.jpg",
       "category": "markets",
       "topics": []
     }
