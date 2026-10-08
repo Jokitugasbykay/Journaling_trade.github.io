@@ -30,7 +30,7 @@ html = b'<a href="https://investasi.kontan.co.id/news/market-update"><img src="h
 assert news.parse(html, news.SOURCES[2])[0]['image'] == 'https://foto.kontan.co.id/photo.jpg'
 kompas = next(source for source in news.SOURCES if source['id'] == 'kompas')
 local_date = (now + dt.timedelta(hours=7, days=-1)).strftime('%Y/%m/%d')
-local = news.parse(f'<a href="https://money.kompas.com/read/{local_date}/120000123/market-news"><img src="https://asset.kompas.com/photo.jpg" alt="New economic policy announced today"></a>'.encode(), kompas)
+local = news.parse(f'<a href="https://money.kompas.com/read/{local_date}/120000123/market-news"><img src="https://asset.kompas.com/photo.jpg" alt="Indonesia announces new economic policy today"></a>'.encode(), kompas)
 assert len(local) == 1 and local[0]['category'] == 'local' and local[0]['image'] == 'https://asset.kompas.com/photo.jpg'
 sitemap = f'''<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:n="http://www.google.com/schemas/sitemap-news/0.9"><url><loc>https://www.reuters.com/world/news</loc><n:news><n:title>New economic data released by the government</n:title><n:publication_date>{now.isoformat()}</n:publication_date></n:news></url></urlset>'''
 assert len(news.parse(sitemap.encode(), news.SOURCES[3])) == 1
@@ -60,3 +60,16 @@ try:
 except ValueError:
     pass
 print('News categories, FNC and BI number/date parsing passed')
+
+# Global stories stay global even when an Indonesian publisher reports them.
+for title, category in [
+    ('Trump Beri Penghargaan Para Bos Perusahaan Teknologi, Ada Elon Musk hingga Jensen Huang', 'technology'),
+    ('Inflasi Masih Tinggi, The Fed Beri Sinyal Naikkan Suku Bunga Lagi', 'markets'),
+    ('Wall Street Tertekan, Yield US Treasury 10 Tahun Tembus Level Tertinggi sejak 2002', 'markets'),
+    ('Rupiah Defensif, Tekanan The Fed dan Harga Minyak Jadi Beban', 'local'),
+    ('Hitungan Buruh Minta Upah Minimum 2027 Naik 9,5%', 'local'),
+]:
+    assert news.category_for('https://money.kompas.com/read/2026/10/08/news', title) == category, title
+assert news.SIGNALS.search('IHSG Masih Diuji, Analis Ungkap Level Support dan Resistance Hari Ini')
+assert not news.SIGNALS.search('The Fed signals a possible interest rate hike')
+print('Local topic classification and technical trade recommendation exclusions passed')

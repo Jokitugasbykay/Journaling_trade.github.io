@@ -2980,8 +2980,7 @@
     .pricing-heading { text-align: center; margin-bottom: 36px; }
     .pricing-heading h2 { font-family: Georgia, 'Times New Roman', serif; font-weight: 400; font-size: clamp(26px, 3vw, 34px); line-height: 1.3; }
     .pricing-heading p { color: #b0b0b5; margin-top: 12px; font-size: 14px; }
-    /* Three equal cards compare the three plans explicitly requested in the latest reference. */
-    .paid-plan-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); align-items: stretch; gap: 20px; }
+    .paid-plan-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); align-items: start; gap: 20px; }
     .plan-card { display: flex; flex-direction: column; border: 1px solid #363638; border-radius: 16px; background: #202021; padding: 24px 24px 0; overflow: hidden; }
     .plan-card-heading { display: flex; align-items: center; justify-content: space-between; gap: 8px; min-height: 44px; margin-bottom: 8px; }
     .plan-card h3 { font-size: 28px; line-height: 1.2; font-weight: 500; letter-spacing: -.02em; }
@@ -2999,7 +2998,7 @@
     .billing-toggle button { background: transparent; border: 0; border-radius: 999px; padding: 4px 7px; min-height: 44px; font-size: 10px; color: #bfc0c6; cursor: pointer; white-space: nowrap; }
     .billing-toggle button.active { background: #303032; color: #fff; }
     .annual-saving { color: #7cb9ff; margin-left: 3px; }
-    .plan-card details { border-top: 1px solid #363638; margin: auto -24px 0; padding: 0 24px; }
+    .plan-card details { border-top: 1px solid #363638; margin: 0 -24px; padding: 0 24px; }
     .plan-card summary { cursor: pointer; min-height: 70px; display: flex; align-items: center; gap: 10px; font-size: 13px; color: #dddde1; list-style: none; }
     .plan-card summary::-webkit-details-marker { display: none; }
     .plan-card summary::before { content: '›'; font-size: 20px; transition: transform .15s; }
@@ -3201,5 +3200,7 @@ body.auth-page .main-wrap { max-width:none; width:100%; margin:0; padding:0; }
 .news-paywall a { display:block; margin-top:20px; color:var(--text-muted); font-size:13px; }
 @media(max-width:540px) { .auth-shell { padding:32px 16px; } .auth-card { padding:24px; } .upload-quota-note { text-align:left; } .news-paywall { padding:48px 20px; } }
 
-#market-ticker { min-height: 78px; }
+#market-ticker { min-height: 88px; color-scheme: dark; }
 .mqs-05__bar a { color: var(--text-muted); text-decoration: none; }
+
+#market-ticker tv-ticker-tape { display: block; height: 88px; }

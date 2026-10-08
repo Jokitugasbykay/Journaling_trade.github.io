@@ -922,8 +922,14 @@
           if (!$('nav-account-dropdown').hidden) { closeNavAccountDropdown(); $('btn-nav-masuk').focus(); }
           if ($('upload-modal').classList.contains('open')) closeUploadModal();
         }
-        const modal = $('upload-modal');
-        if (event.key === 'Tab' && modal.classList.contains('open')) {
+        const modal = document.querySelector('.modal-overlay.open');
+        if (event.key === 'Tab' && modal && modal.id === 'tv-modal') {
+          const controls = [...modal.querySelectorAll('button, a[href], iframe')].filter(element => element.getClientRects().length);
+          const first = controls[0], last = controls[controls.length - 1];
+          if (event.shiftKey && document.activeElement === first) { event.preventDefault(); last.focus(); }
+          else if (!event.shiftKey && document.activeElement === last) { event.preventDefault(); first.focus(); }
+        }
+        if (event.key === 'Tab' && modal && modal.id === 'upload-modal' && modal.classList.contains('open')) {
           const controls = [...modal.querySelectorAll('button:not(:disabled), input, textarea, summary, [tabindex="0"]')].filter(element => element.getClientRects().length);
           const first = controls[0], last = controls[controls.length - 1];
           if (event.shiftKey && (document.activeElement === first || document.activeElement === modal)) { event.preventDefault(); last.focus(); }
@@ -2472,6 +2478,7 @@
 
       /* Tradingview in-domain pop-up chart router */
       let currentTvSymbol = 'XAUUSD';
+      let tvOpener = null;
       let currentTvInterval = '60';
 
       const TV_META = {
@@ -2502,7 +2509,7 @@
       window.openTradingView = function (sym, interval) {
         if (!sym) sym = 'XAUUSD';
         const clean = sym.toUpperCase().replace(/[^A-Z0-9]/g, '');
-        currentTvSymbol = clean;
+        currentTvSymbol = sym;
         if (interval) currentTvInterval = interval;
 
         const info = TV_META[clean] || TV_META[sym] || {
@@ -2512,7 +2519,11 @@
         };
 
         const modal = $('tv-modal');
-        if (modal) modal.classList.add('open');
+        if (modal && !modal.classList.contains('open')) {
+          tvOpener = document.activeElement;
+          modal.classList.add('open');
+          modal.querySelector('.modal-close').focus();
+        }
 
         // Update header information
         const pill = $('tv-symbol-pill');
@@ -2537,7 +2548,7 @@
         // Load interactive chart iframe directly inside the pop-up modal
         const box = $('tv-iframe-box');
         if (box) {
-          box.innerHTML = `<iframe src="https://s.tradingview.com/widgetembed/?symbol=${encodeURIComponent(info.target)}&interval=${encodeURIComponent(currentTvInterval)}&theme=dark&style=1&timezone=Asia%2FJakarta&locale=id" allowtransparency="true" scrolling="no" frameborder="0"></iframe>`;
+          box.innerHTML = `<iframe src="https://s.tradingview.com/widgetembed/?symbol=${encodeURIComponent(info.target)}&interval=${encodeURIComponent(currentTvInterval)}&theme=dark&style=1&timezone=Asia%2FJakarta&locale=id" allowtransparency="true" scrolling="no" frameborder="0" title="${esc(info.label)} price chart"></iframe>`;
         }
       };
 
@@ -2551,6 +2562,7 @@
         if (modal) modal.classList.remove('open');
         const box = $('tv-iframe-box');
         if (box) box.innerHTML = '';
+        if (tvOpener?.isConnected) tvOpener.focus();
       };
 
       window.handleTvModalBackdrop = function (e) {
@@ -3128,14 +3140,22 @@
         if (kEl) kEl.hidden = sub !== 'kalender';
         const ticker = $('market-ticker');
         if (!ticker.querySelector('script')) {
-          const script = document.createElement('script');
-          script.src = 'https://s3.tradingview.com/external-embedding/embed-widget-ticker-tape.js';
-          script.async = true;
-          script.textContent = JSON.stringify({
-            symbols: ['FOREXCOM:SPXUSD', 'FOREXCOM:NSXUSD', 'FX:EURUSD', 'FX:GBPUSD', 'CMCMARKETS:GOLD', 'BITSTAMP:BTCUSD', 'BITSTAMP:ETHUSD'].map(proName => ({ proName })),
-            colorTheme: 'dark', locale: 'en', isTransparent: false, showSymbolLogo: false, displayMode: 'regular'
+          const widget = document.createElement('tv-ticker-tape');
+          widget.setAttribute('symbols', 'FOREXCOM:SPXUSD,FOREXCOM:NSXUSD,FX:EURUSD,FX:GBPUSD,CMCMARKETS:GOLD,BITSTAMP:BTCUSD,BITSTAMP:ETHUSD');
+          widget.setAttribute('theme', 'dark');
+          widget.setAttribute('hide-chart', '');
+          widget.setAttribute('hide-logo', '');
+          widget.setAttribute('item-size', 'compact');
+          widget.addEventListener('tv-link-open', event => {
+            event.preventDefault();
+            const symbol = event.detail?.context?.symbol;
+            if (typeof symbol === 'string' && /^[A-Z0-9_]+:[A-Z0-9_.]+$/i.test(symbol)) openTradingView(symbol);
           });
-          script.onerror = () => { ticker.querySelector('.tradingview-widget-container__widget').textContent = 'Prices unavailable. Open TradingView to view market prices.'; script.remove(); };
+          ticker.replaceChildren(widget);
+          const script = document.createElement('script');
+          script.type = 'module';
+          script.src = 'https://widgets.tradingview-widget.com/w/en/tv-ticker-tape.js';
+          script.onerror = () => { ticker.textContent = 'Prices unavailable. Please refresh to retry.'; };
           ticker.appendChild(script);
         }
 

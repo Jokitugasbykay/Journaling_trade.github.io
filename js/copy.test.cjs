@@ -42,20 +42,29 @@ console.log('English guide coverage passed');
 
 // News navigation mounts one real market widget and rejects removed social views.
 {
-  const ticker = { script: null, querySelector() { return this.script; }, appendChild(script) { this.script = script; } };
+  const ticker = { script: null, querySelector() { return this.script; }, replaceChildren(widget) { this.widget = widget; }, appendChild(script) { this.script = script; } };
   const nodes = new Map([['market-ticker', ticker], ['sub-berita-ringkasan', {}], ['sub-berita-kalender', {}]]);
   const buttons = ['ringkasan', 'kalender'].map(sub => ({ dataset: { sub }, classList: { toggle() {} } }));
   let newsAllowed = true;
+  let chartSymbol;
   const context = { canReadNews: () => newsAllowed, $: id => nodes.get(id),
-    document: { querySelectorAll: () => buttons, createElement: () => ({}) },
-    renderPublisherNews() {}, renderEconomicCalendar() {}, pagePath: route => '/' + route + '/',
+    document: { querySelectorAll: () => buttons, createElement: () => ({attributes: {}, setAttribute(key, value) { this.attributes[key] = value; }, addEventListener(type, listener) { this.listener = listener; }}) },
+    openTradingView(symbol) { chartSymbol = symbol; }, renderPublisherNews() {}, renderEconomicCalendar() {}, pagePath: route => '/' + route + '/',
     location: { pathname: '/economic-news/' }, history: { pushState() {} } };
   context.window = context;
   vm.runInNewContext(source.slice(source.indexOf('      window.switchBeritaSub ='), source.indexOf('      function restoreRoute()')), context);
   context.switchBeritaSub('ringkasan');
   const script = ticker.script;
-  assert.ok(script.src.startsWith('https://s3.tradingview.com/'));
-  assert.equal(JSON.parse(script.textContent).colorTheme, 'dark');
+  assert.equal(script.type, 'module');
+  assert.equal(script.src, 'https://widgets.tradingview-widget.com/w/en/tv-ticker-tape.js');
+  assert.equal(ticker.widget.attributes.theme, 'dark');
+  let prevented = false;
+  ticker.widget.listener({preventDefault() { prevented = true; }, detail: {context: {symbol: 'FX:GBPUSD'}}});
+  assert.ok(prevented);
+  assert.equal(chartSymbol, 'FX:GBPUSD');
+  ticker.widget.listener({preventDefault() {}, detail: {context: {symbol: 'javascript:alert(1)'}}});
+  assert.equal(chartSymbol, 'FX:GBPUSD');
+  assert.ok(html.indexOf('id="bi-indicators"') < html.indexOf('id="market-ticker"'));
   context.switchBeritaSub('kalender');
   assert.equal(ticker.script, script, 'Navigation duplicated the ticker');
   assert.equal(nodes.get('sub-berita-ringkasan').hidden, true);

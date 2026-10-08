@@ -12,7 +12,7 @@
       document.getElementById('site-base').href = '/' + (prefix.length ? prefix.join('/') + '/' : '');
     })();
   </script>
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; object-src 'none'; form-action 'self'; script-src 'self' 'unsafe-inline' 'wasm-unsafe-eval' https://cdn.jsdelivr.net https://s3.tradingview.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: blob: https:; connect-src 'self' https://nmddjuqkdyhcobddinkc.supabase.co https://cdn.jsdelivr.net https://tessdata.projectnaptha.com https://tradewithfnc.com; worker-src 'self' blob: https://cdn.jsdelivr.net; frame-src https://s.tradingview.com https://www.tradingview-widget.com;">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; object-src 'none'; form-action 'self'; script-src 'self' 'unsafe-inline' 'wasm-unsafe-eval' https://cdn.jsdelivr.net https://s3.tradingview.com https://widgets.tradingview-widget.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: blob: https:; connect-src 'self' https://nmddjuqkdyhcobddinkc.supabase.co https://cdn.jsdelivr.net https://tessdata.projectnaptha.com https://tradewithfnc.com https://widgets.tradingview-widget.com; worker-src 'self' blob: https://cdn.jsdelivr.net; frame-src https://s.tradingview.com https://www.tradingview-widget.com https://widgets.tradingview-widget.com;">
   <meta name="referrer" content="strict-origin-when-cross-origin">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>journalingtrade · Professional Trading Journal & Analytics</title>
@@ -22,7 +22,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
 
-  <link rel="stylesheet" href="css/style.css?v=20261008-security2">
+  <link rel="stylesheet" href="css/style.css?v=20261008-news-interactions">
 </head>
 
 <body>
@@ -823,13 +823,13 @@
         <button class="seg-btn active" type="button" data-sub="ringkasan" onclick="switchBeritaSub('ringkasan')" data-i18n="newsHeadlines">Berita terbaru</button>
         <button class="seg-btn" type="button" data-sub="kalender" onclick="switchBeritaSub('kalender')" data-i18n="newsCalendar">Kalender ekonomi</button>
       </div>
+      <div id="bi-indicators" class="bi-indicators" role="status"></div>
       <section class="mqs-05" aria-label="Market prices">
         <div class="mqs-05__terminal">
           <div class="mqs-05__bar"><span>Markets</span><a href="https://www.tradingview.com/markets/" target="_blank" rel="noopener noreferrer">TradingView</a></div>
-          <div id="market-ticker" class="tradingview-widget-container"><div class="tradingview-widget-container__widget"></div></div>
+          <div id="market-ticker"></div>
         </div>
       </section>
-      <div id="bi-indicators" class="bi-indicators" role="status"></div>
       <div id="sub-berita-ringkasan">
         <nav class="news-categories" id="news-categories" aria-label="News categories">
           <button type="button" data-category="" aria-pressed="true" onclick="selectNewsCategory('')" data-i18n="categoryAll">Semua</button>
@@ -1167,7 +1167,7 @@
   </div>
 
 
-  <div class="modal-overlay" id="tv-modal" onclick="handleTvModalBackdrop(event)">
+  <div class="modal-overlay" id="tv-modal" role="dialog" aria-modal="true" aria-labelledby="tv-symbol-pill" tabindex="-1" onclick="handleTvModalBackdrop(event)">
     <div class="modal-card tv-modal-card">
       <div class="tv-modal-head">
         <div class="tv-head-left">
@@ -1198,7 +1198,7 @@
 
         <div class="tv-head-right">
           <a id="tv-external-link" href="https://www.tradingview.com" target="_blank" rel="noopener noreferrer" class="btn btn-secondary" style="font-size:11px; padding:4px 9px;" title="Buka di tab TradingView terpisah jika perlu">Tab Baru </a>
-          <button class="modal-close" onclick="closeTradingView()" title="Tutup Pop-up">&times;</button>
+          <button class="modal-close" onclick="closeTradingView()" aria-label="Close chart" title="Close chart">&times;</button>
         </div>
       </div>
 
@@ -1253,7 +1253,7 @@
 
   <script src="js/vendor/supabase-2.86.0.js" integrity="sha384-3Sgm1bFlHa+gvzgZCHY6SyQwlKZpsgWl0qwxcwsypsSZQvo1vV1miPkn7n1lU1/L"></script>
   <script src="js/scan.js?v=20261007"></script>
-  <script src="js/app.js?v=20261008-security2"></script>
+  <script src="js/app.js?v=20261008-news-interactions"></script>
 
  </body>
 

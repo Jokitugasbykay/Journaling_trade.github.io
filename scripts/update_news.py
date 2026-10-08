@@ -17,28 +17,30 @@ ROOT = Path(__file__).resolve().parents[1]
 SOURCES = [
     {"id": "investing", "name": "Investing.com", "url": "https://www.investing.com/", "feed": "https://www.investing.com/rss/news.rss", "kind": "rss", "domain": "investing.com"},
     {"id": "cnbc", "name": "CNBC", "url": "https://www.cnbc.com/markets/", "feed": "https://www.cnbc.com/id/100003114/device/rss/rss.html", "kind": "rss", "domain": "cnbc.com"},
-    {"id": "kontan", "name": "Kontan", "url": "https://www.kontan.co.id/", "feed": "https://www.kontan.co.id/", "kind": "html", "domain": "kontan.co.id", "article_pattern": r"/news/", "category": "local"},
+    {"id": "kontan", "name": "Kontan", "url": "https://www.kontan.co.id/", "feed": "https://www.kontan.co.id/", "kind": "html", "domain": "kontan.co.id", "article_pattern": r"/news/"},
     {"id": "reuters", "name": "Reuters", "url": "https://www.reuters.com/", "feed": "https://www.reuters.com/arc/outboundfeeds/news-sitemap/?outputType=xml", "kind": "sitemap", "domain": "reuters.com"},
     {"id": "aljazeera", "name": "Al Jazeera", "url": "https://www.aljazeera.com/", "feed": "https://www.aljazeera.com/xml/rss/all.xml", "kind": "rss", "domain": "aljazeera.com"},
     {"id": "bloomberg", "name": "Bloomberg", "url": "https://www.bloomberg.com/asia", "feed": "https://feeds.bloomberg.com/markets/news.rss", "kind": "rss", "domain": "bloomberg.com"},
-    {'id': 'fnc', 'name': 'Trade With FNC', 'url': 'https://tradewithfnc.com/', 'feed': 'https://tradewithfnc.com/berita.json', 'kind': 'json', 'domain': 'tradewithfnc.com', 'category': 'local'},
-    {"id": "investing_id", "name": "Investing Indonesia", "url": "https://id.investing.com/news", "feed": "https://id.investing.com/rss/news.rss", "kind": "rss", "domain": "investing.com", "category": "local"},
-    {"id": "pluang", "name": "Pluang", "url": "https://pluang.com/news-feed", "feed": "https://pluang.com/news-feed", "kind": "html", "domain": "pluang.com", "article_pattern": r"/news-feed/", "category": "local"},
-    {"id": "kompas", "name": "Kompas Money", "url": "https://money.kompas.com/", "feed": "https://money.kompas.com/", "kind": "html", "domain": "kompas.com", "article_pattern": r"/read/\d{4}/\d{2}/\d{2}/", "category": "local"},
-    {"id": "detik", "name": "detikFinance", "url": "https://finance.detik.com/", "feed": "https://finance.detik.com/rss", "kind": "rss", "domain": "detik.com", "category": "local"},
-    {"id": "kemenkeu", "name": "Kementerian Keuangan", "url": "https://www.kemenkeu.go.id/informasi-publik/publikasi/berita-utama", "feed": "https://www.kemenkeu.go.id/informasi-publik/publikasi/berita-utama", "kind": "html", "domain": "kemenkeu.go.id", "article_pattern": r"/informasi-publik/publikasi/berita-utama/", "category": "local"},
-    {"id": "cnn_id", "name": "CNN Indonesia Ekonomi", "url": "https://www.cnnindonesia.com/ekonomi", "feed": "https://www.cnnindonesia.com/ekonomi/rss", "kind": "rss", "domain": "cnnindonesia.com", "category": "local"},
-    {"id": "bisnis", "name": "Bisnis Ekonomi", "url": "https://ekonomi.bisnis.com/", "feed": "https://ekonomi.bisnis.com/", "kind": "html", "domain": "bisnis.com", "article_pattern": r"/read/\d{8}/", "category": "local"},
-    {"id": "sindo", "name": "SINDOnews Ekbis", "url": "https://ekbis.sindonews.com/", "feed": "https://ekbis.sindonews.com/rss", "kind": "rss", "domain": "sindonews.com", "category": "local"},
+    {'id': 'fnc', 'name': 'Trade With FNC', 'url': 'https://tradewithfnc.com/', 'feed': 'https://tradewithfnc.com/berita.json', 'kind': 'json', 'domain': 'tradewithfnc.com'},
+    {"id": "investing_id", "name": "Investing Indonesia", "url": "https://id.investing.com/news", "feed": "https://id.investing.com/rss/news.rss", "kind": "rss", "domain": "investing.com"},
+    {"id": "pluang", "name": "Pluang", "url": "https://pluang.com/news-feed", "feed": "https://pluang.com/news-feed", "kind": "html", "domain": "pluang.com", "article_pattern": r"/news-feed/"},
+    {"id": "kompas", "name": "Kompas Money", "url": "https://money.kompas.com/", "feed": "https://money.kompas.com/", "kind": "html", "domain": "kompas.com", "article_pattern": r"/read/\d{4}/\d{2}/\d{2}/"},
+    {"id": "detik", "name": "detikFinance", "url": "https://finance.detik.com/", "feed": "https://finance.detik.com/rss", "kind": "rss", "domain": "detik.com"},
+    {"id": "kemenkeu", "name": "Kementerian Keuangan", "url": "https://www.kemenkeu.go.id/informasi-publik/publikasi/berita-utama", "feed": "https://www.kemenkeu.go.id/informasi-publik/publikasi/berita-utama", "kind": "html", "domain": "kemenkeu.go.id", "article_pattern": r"/informasi-publik/publikasi/berita-utama/"},
+    {"id": "cnn_id", "name": "CNN Indonesia Ekonomi", "url": "https://www.cnnindonesia.com/ekonomi", "feed": "https://www.cnnindonesia.com/ekonomi/rss", "kind": "rss", "domain": "cnnindonesia.com"},
+    {"id": "bisnis", "name": "Bisnis Ekonomi", "url": "https://ekonomi.bisnis.com/", "feed": "https://ekonomi.bisnis.com/", "kind": "html", "domain": "bisnis.com", "article_pattern": r"/read/\d{8}/"},
+    {"id": "sindo", "name": "SINDOnews Ekbis", "url": "https://ekbis.sindonews.com/", "feed": "https://ekbis.sindonews.com/rss", "kind": "rss", "domain": "sindonews.com"},
     {"id": "fedwatch", "name": "CME FedWatch", "url": "https://www.cmegroup.com/markets/interest-rates/cme-fedwatch-tool.html", "kind": "tool", "domain": "cmegroup.com"},
     {"id": "cme", "name": "CME Markets", "url": "https://www.cmegroup.com/markets.html?redirect=/markets/", "kind": "tool", "domain": "cmegroup.com"},
 ]
-SIGNALS = re.compile(r"\b(?:buy on (?:dip|pullback)|sell on (?:rally|bounce)|stocks? to buy|stock picks?|trading signals?|price targets?|target harga|sinyal trading|rekomendasi (?:beli|jual)|buy now|sell now)\b", re.I)
+SIGNALS = re.compile(r"\b(?:buy on (?:dip|pullback)|sell on (?:rally|bounce)|stocks? to buy|stock picks?|trading signals?|price targets?|target harga|sinyal trading|rekomendasi (?:beli|jual)|buy now|sell now|support (?:dan |and )?resistance|rekomendasi saham)\b", re.I)
 IMAGE_DOMAINS = ('investing.com', 'cnbcfm.com', 'kontan.co.id', 'reuters.com', 'aljazeera.com', 'bloomberg.com', 'bwbx.io', 'pluang.com', 'kompas.com', 'detik.net.id', 'kemenkeu.go.id', 'cnnindonesia.com', 'bisnis.com', 'sindonews.com')
 
 
 def category_for(url, title, tag=''):
     # ponytail: URL/title rules; use publisher taxonomy if editorial tagging needs refinement.
+    if re.search(r'\b(?:indonesia|indonesian|ihsg|idx|rupiah|idr|bank indonesia|bi[ -]rate|ojk|lps|apbn|kemenkeu|bumn|prabowo|purbaya|sri mulyani|jakarta|nusantara|pns|umkm|upah minimum|timnas|pertamina|antam)\b', title, re.I):
+        return 'local'
     text = (urllib.parse.urlsplit(url).path + ' ' + title + ' ' + tag).lower()
     for category, pattern in [
         ('investigations', r'investigat|investigasi|special-report'),
@@ -48,7 +50,7 @@ def category_for(url, title, tag=''):
         ('sustainability', r'sustainab|climate|iklim|environment|lingkungan|carbon|renewable'),
         ('science', r'science|scientist|nobel|sains'),
         ('sport', r'/sport|football|soccer|olahraga|fifa|uefa'),
-        ('markets', r'/markets/|market|forex|currency|currencies|yield|bonds?|stocks?|shares?|oil|gold|crypto|bitcoin|inflation|interest rate|central bank|suku bunga|rupiah|emas|minyak|batu bara|saham|inflasi'),
+        ('markets', r'/markets/|market|forex|currency|currencies|yield|treasury|the fed|bonds?|stocks?|shares?|oil|gold|crypto|bitcoin|inflation|interest rate|central bank|suku bunga|rupiah|emas|minyak|batu bara|saham|inflasi'),
         ('business', r'/business/|econom|bisnis|ekonomi|company|companies|earnings|corporat|bank|industr|trade|perdagangan'),
         ('world', r'/world/|politic|politik|war\b|election|pemilu|president|military|conflict|gaza|lebanon'),
     ]:
@@ -177,7 +179,7 @@ def parse(data, source):
         if not link or identity in seen or len(title) < 20 or len(title) > 250 or SIGNALS.search(title):
             continue
         seen.add(identity)
-        items.append({"id": hashlib.sha256((source['id'] + str(identity)).encode()).hexdigest()[:20], "source": source["id"], "title": title, "url": link, "publishedAt": published, 'image': image_url(row.get('image')), 'category': source.get('category') or category_for(link, title, row.get('tag', ''))})
+        items.append({"id": hashlib.sha256((source['id'] + str(identity)).encode()).hexdigest()[:20], "source": source["id"], "title": title, "url": link, "publishedAt": published, 'image': image_url(row.get('image')), 'category': category_for(link, title, row.get('tag', ''))})
     items.sort(key=lambda item: item["publishedAt"] or "", reverse=True)
     return items[:20]
 
@@ -243,8 +245,7 @@ def main():
     previous_items = {row.get('url'): row for row in previous.get('items', [])}
     missing = []
     for item in items:
-        source_config = next((source for source in SOURCES if source['id'] == item['source']), {})
-        item['category'] = source_config.get('category') or item.get('category') or category_for(item['url'], item['title'])
+        item['category'] = category_for(item['url'], item['title'])
         if item['source'] == 'fnc':
             continue
         old = previous_items.get(item['url'], {})
@@ -254,6 +255,7 @@ def main():
             missing.append(item)
     with concurrent.futures.ThreadPoolExecutor(max_workers=8) as pool:
         list(pool.map(add_article_image, missing))
+    items = [item for item in items if not SIGNALS.search(item['title'])]
     items.sort(key=lambda item: item.get("publishedAt") or "", reverse=True)
     output = {"version": 1, "checkedAt": dt.datetime.now(dt.timezone.utc).isoformat(), "intervalMinutes": 30, "sources": sources, "items": items[:400]}
     temporary = path.with_suffix(".json.tmp")
