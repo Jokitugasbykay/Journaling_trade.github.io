@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "checkedAt": "2026-10-08T03:48:09.230535+00:00",
+  "checkedAt": "2026-10-08T03:50:02.227722+00:00",
   "intervalMinutes": 5,
   "sources": [
     {
@@ -9,7 +9,7 @@
       "url": "https://www.investing.com/",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-08T03:48:02.701986+00:00"
+      "checkedAt": "2026-10-08T03:49:49.012666+00:00"
     },
     {
       "id": "cnbc",
@@ -17,7 +17,7 @@
       "url": "https://www.cnbc.com/markets/",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-08T03:48:02.763300+00:00"
+      "checkedAt": "2026-10-08T03:49:49.010943+00:00"
     },
     {
       "id": "kontan",
@@ -25,7 +25,7 @@
       "url": "https://www.kontan.co.id/",
       "kind": "html",
       "status": "ok",
-      "checkedAt": "2026-10-08T03:48:03.699574+00:00"
+      "checkedAt": "2026-10-08T03:49:50.038458+00:00"
     },
     {
       "id": "reuters",
@@ -33,7 +33,7 @@
       "url": "https://www.reuters.com/",
       "kind": "sitemap",
       "status": "ok",
-      "checkedAt": "2026-10-08T03:48:03.070944+00:00"
+      "checkedAt": "2026-10-08T03:49:49.255254+00:00"
     },
     {
       "id": "aljazeera",
@@ -41,7 +41,7 @@
       "url": "https://www.aljazeera.com/",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-08T03:48:02.662870+00:00"
+      "checkedAt": "2026-10-08T03:49:49.038895+00:00"
     },
     {
       "id": "bloomberg",
@@ -49,7 +49,7 @@
       "url": "https://www.bloomberg.com/asia",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-08T03:48:03.111529+00:00"
+      "checkedAt": "2026-10-08T03:49:49.272970+00:00"
     },
     {
       "id": "fnc",
@@ -57,7 +57,7 @@
       "url": "https://tradewithfnc.com/",
       "kind": "json",
       "status": "ok",
-      "checkedAt": "2026-10-08T03:48:05.255382+00:00"
+      "checkedAt": "2026-10-08T03:49:49.416850+00:00"
     },
     {
       "id": "investing_id",
@@ -65,7 +65,7 @@
       "url": "https://id.investing.com/news",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-08T03:48:02.854293+00:00"
+      "checkedAt": "2026-10-08T03:49:49.093085+00:00"
     },
     {
       "id": "pluang",
@@ -73,7 +73,7 @@
       "url": "https://pluang.com/news-feed",
       "kind": "html",
       "status": "ok",
-      "checkedAt": "2026-10-08T03:48:03.167902+00:00"
+      "checkedAt": "2026-10-08T03:49:49.435380+00:00"
     },
     {
       "id": "kompas",
@@ -81,7 +81,7 @@
       "url": "https://money.kompas.com/",
       "kind": "html",
       "status": "ok",
-      "checkedAt": "2026-10-08T03:48:03.768028+00:00"
+      "checkedAt": "2026-10-08T03:49:49.777721+00:00"
     },
     {
       "id": "detik",
@@ -89,7 +89,7 @@
       "url": "https://finance.detik.com/",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-08T03:48:09.069589+00:00"
+      "checkedAt": "2026-10-08T03:50:01.676180+00:00"
     },
     {
       "id": "kemenkeu",
@@ -121,7 +121,7 @@
       "url": "https://ekbis.sindonews.com/",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-08T03:48:03.535105+00:00"
+      "checkedAt": "2026-10-08T03:49:49.534716+00:00"
     },
     {
       "id": "fedwatch",
@@ -139,6 +139,28 @@
     }
   ],
   "items": [
+    {
+      "id": "f45dc0bdc2d71d987d44",
+      "source": "kompas",
+      "title": "Syarat Penerima BSU 2026 Rp 900.000, Apakah Anda Termasuk?",
+      "url": "https://money.kompas.com/read/2026/10/08/104935626/syarat-penerima-bsu-2026-rp-900000-apakah-anda-termasuk",
+      "publishedAt": "2026-10-08T03:49:35+00:00",
+      "image": "https://asset.kompas.com/crops/okw0io5RnCfi8l2KLr-vd-CIHiE=/0x0:750x500/750x500/data/photo/2022/04/16/625a7bf37e4c2.jpg",
+      "category": "other",
+      "topics": []
+    },
+    {
+      "id": "cb0a328e73ea358083a0",
+      "source": "detik",
+      "title": "Pemerintah Siapkan 1 Juta Ton Beras bagi 33,2 Juta Warga Desil 1-4",
+      "url": "https://finance.detik.com/berita-ekonomi-bisnis/d-8697551/pemerintah-siapkan-1-juta-ton-beras-bagi-33-2-juta-warga-desil-1-4",
+      "publishedAt": "2026-10-08T03:46:13+00:00",
+      "image": "https://akcdn.detik.net.id/community/media/visual/2026/10/08/pemerintah-siapkan-1-juta-ton-beras-bagi-332-juta-warga-desil-1-4-1791431057935.jpeg?w=360&q=90",
+      "category": "business",
+      "topics": [
+        "politics"
+      ]
+    },
     {
       "id": "74d89ab0841fb3c29554",
       "source": "kompas",
@@ -362,6 +384,16 @@
       "topics": [
         "politics"
       ]
+    },
+    {
+      "id": "8b81d56cbe75bafda4f8",
+      "source": "sindo",
+      "title": "IHSG Tiba-tiba Balik Arah, Melemah ke Level 6.141 Pagi Ini",
+      "url": "https://ekbis.sindonews.com/read/1758165/178/ihsg-tiba-tiba-balik-arah-melemah-ke-level-6141-pagi-ini-1791429011",
+      "publishedAt": "2026-10-08T03:16:28+00:00",
+      "image": "https://pict.sindonews.com/dyn/850/pena/news/2026/10/08/178/1758165/ihsg-tibatiba-balik-arah-melemah-ke-level-6141-pagi-ini-lhw.jpeg",
+      "category": "local",
+      "topics": []
     },
     {
       "id": "9360e4849fd1bf01bb2e",
@@ -10832,6 +10864,76 @@
       "url": "https://pluang.com/news-feed/binance-catatan-likuidasi-posisi-panjang-bitcoin-252-juta-di-82589",
       "publishedAt": null,
       "image": "https://image-cdn.pluang.com/web/news-cards/v2/CRYPTO/d5d6bec36f2b4974cff0d552ead94ff34bda66115633f070876e5111de12a06b-id.webp",
+      "category": "markets",
+      "topics": []
+    },
+    {
+      "id": "76f49549d46d5e5a3e24",
+      "source": "investing",
+      "title": "Hormuz transits at lowest in over two months after attacks, data shows",
+      "url": "https://www.investing.com/news/commodities-news/hormuz-transits-at-lowest-in-over-two-months-after-attacks-data-shows-4937851",
+      "publishedAt": null,
+      "image": "https://content-media.investing.com/trkd-images/LYNXMPEM9706S_L.jpg",
+      "category": "other",
+      "topics": []
+    },
+    {
+      "id": "8a23cf1aa96457fab994",
+      "source": "investing",
+      "title": "Six AI-picked stocks are up 50%+; the top IT name has gained 33%",
+      "url": "https://www.investing.com/news/stock-market-news/six-aipicked-stocks-are-up-50-the-top-it-name-has-gained-33-4937850",
+      "publishedAt": null,
+      "image": "https://content-media.investing.com/news/moved_LYNXMPEM6N0VQ_L.jpg",
+      "category": "technology",
+      "topics": []
+    },
+    {
+      "id": "99727cd8a70b1e6e9075",
+      "source": "investing",
+      "title": "Why is Standard Chartered stock sliding today?",
+      "url": "https://www.investing.com/news/stock-market-news/why-is-standard-chartered-stock-sliding-today-93CH-4937847",
+      "publishedAt": null,
+      "image": "https://content-media.investing.com/news/HSBC_2_M_1440048631.jpg",
+      "category": "markets",
+      "topics": []
+    },
+    {
+      "id": "ad207601c5e26d468e7b",
+      "source": "investing",
+      "title": "Why is HSBC stock sliding today?",
+      "url": "https://www.investing.com/news/stock-market-news/why-is-hsbc-stock-sliding-today-93CH-4937845",
+      "publishedAt": null,
+      "image": "https://content-media.investing.com/news/HSBC_2_M_1440048631.jpg",
+      "category": "markets",
+      "topics": []
+    },
+    {
+      "id": "cfd326b7f804b25d3436",
+      "source": "investing",
+      "title": "4D molecular therapeutics CEO David Kirn sells $753k in company stock",
+      "url": "https://www.investing.com/news/insider-trading-news/4d-molecular-therapeutics-ceo-david-kirn-sells-753k-in-company-stock-93CH-4937848",
+      "publishedAt": null,
+      "image": "https://content-media.investing.com/news/moved_LYNXMPEM40318_1200_L.jpg",
+      "category": "markets",
+      "topics": []
+    },
+    {
+      "id": "311d98362986eaba9d09",
+      "source": "investing",
+      "title": "Qualcomm and Arm kick off trial, potential for huge damages in focus",
+      "url": "https://www.investing.com/news/stock-market-news/qualcomm-and-arm-kick-off-trial-potential-for-huge-damages-in-focus-4937614",
+      "publishedAt": null,
+      "image": "https://content-media.investing.com/trkd-images/LYNXMPEM940SM_L.jpg",
+      "category": "markets",
+      "topics": []
+    },
+    {
+      "id": "9842c62ebced54f64b20",
+      "source": "investing",
+      "title": "Why is Greentown China stock rallying today?",
+      "url": "https://www.investing.com/news/stock-market-news/why-is-greentown-china-stock-rallying-today-93CH-4937844",
+      "publishedAt": null,
+      "image": "https://content-media.investing.com/news/LYNXMPEBBR0PM_M.jpg",
       "category": "markets",
       "topics": []
     }
