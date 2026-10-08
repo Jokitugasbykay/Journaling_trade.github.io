@@ -22,7 +22,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
 
-  <link rel="stylesheet" href="css/style.css?v=20261008-calendar-all-countries">
+  <link rel="stylesheet" href="css/style.css?v=20261008-google-profile-equity">
 </head>
 
 <body>
@@ -452,10 +452,7 @@
             <span class="kpi-delta pos" id="kpi-winrate-delta">Konsisten</span>
           </div>
           <div class="kpi-value" id="kpi-winrate">0.0%</div>
-          <svg class="kpi-sparkline" viewBox="0 0 120 36" preserveAspectRatio="none">
-            <path d="M0,30 L20,28 L40,20 L60,22 L80,14 L100,10 L120,4 L120,36 L0,36 Z" fill="rgba(16, 185, 129, 0.1)"/>
-            <path d="M0,30 L20,28 L40,20 L60,22 L80,14 L100,10 L120,4" fill="none" stroke="#10b981" stroke-width="2"/>
-          </svg>
+          <svg class="kpi-sparkline" data-equity-spark="winrate" aria-hidden="true" viewBox="0 0 120 36" preserveAspectRatio="none"></svg>
           <div class="kpi-footer">
             <span>Rasio Hasil</span>
             <span id="kpi-win-count">0 Win · 0 Loss · 0 BE</span>
@@ -469,10 +466,7 @@
             <span class="kpi-delta pos" id="kpi-netpl-delta">+0.0%</span>
           </div>
           <div class="kpi-value" id="kpi-netpl">$0.00</div>
-          <svg class="kpi-sparkline" id="spark-netpl" viewBox="0 0 120 36" preserveAspectRatio="none">
-            <path d="M0,28 L25,25 L50,18 L75,20 L100,8 L120,4 L120,36 L0,36 Z" fill="rgba(255, 255, 255, 0.08)"/>
-            <path d="M0,28 L25,25 L50,18 L75,20 L100,8 L120,4" fill="none" stroke="#ffffff" stroke-width="2"/>
-          </svg>
+          <svg class="kpi-sparkline" data-equity-spark="netpl" aria-hidden="true" viewBox="0 0 120 36" preserveAspectRatio="none"></svg>
           <div class="kpi-footer">
             <span>Setara Rupiah</span>
             <span id="kpi-netpl-idr">Rp0</span>
@@ -486,10 +480,7 @@
             <span class="kpi-delta pos">Target > 1.5</span>
           </div>
           <div class="kpi-value" id="kpi-pf">0.00</div>
-          <svg class="kpi-sparkline" viewBox="0 0 120 36" preserveAspectRatio="none">
-            <path d="M0,32 L20,30 L40,26 L60,20 L80,18 L100,10 L120,6 L120,36 L0,36 Z" fill="rgba(16, 185, 129, 0.1)"/>
-            <path d="M0,32 L20,30 L40,26 L60,20 L80,18 L100,10 L120,6" fill="none" stroke="#10b981" stroke-width="2"/>
-          </svg>
+          <svg class="kpi-sparkline" data-equity-spark="profitFactor" aria-hidden="true" viewBox="0 0 120 36" preserveAspectRatio="none"></svg>
           <div class="kpi-footer">
             <span>Total Eksekusi</span>
             <span id="kpi-total-trades">0 Trades</span>
@@ -503,10 +494,7 @@
             <span class="kpi-delta pos">Target Positif</span>
           </div>
           <div class="kpi-value" id="kpi-avg-rr">0.00R</div>
-          <svg class="kpi-sparkline" viewBox="0 0 120 36" preserveAspectRatio="none">
-            <path d="M0,26 L30,20 L60,22 L90,14 L120,8 L120,36 L0,36 Z" fill="rgba(255, 255, 255, 0.08)"/>
-            <path d="M0,26 L30,20 L60,22 L90,14 L120,8" fill="none" stroke="#ffffff" stroke-width="2"/>
-          </svg>
+          <svg class="kpi-sparkline" data-equity-spark="averageRR" aria-hidden="true" viewBox="0 0 120 36" preserveAspectRatio="none"></svg>
           <div class="kpi-footer">
             <span id="kpi-expectancy">Exp: $0.00</span>
             <span id="kpi-max-dd" style="color:var(--red);">DD: $0.00</span>
@@ -938,13 +926,18 @@
       <!-- Trader Identity Passport Card -->
       <div class="trader-passport-card">
         <div class="tpc-left">
-          <div class="tpc-avatar" id="tpc-avatar-initials">RD</div>
+          <div class="tpc-avatar" id="tpc-avatar">
+            <span id="tpc-avatar-initials">TR</span>
+            <img id="tpc-google-avatar" alt="" hidden referrerpolicy="no-referrer">
+          </div>
           <div class="tpc-info">
             <div class="tpc-title-row">
               <h2 id="tpc-display-name">Trader</h2>
+              <span id="tpc-profile-alias" class="badge-pill" hidden></span>
               <span class="badge-pill" style="color:var(--green); border-color:var(--green-border);">Rapor dari jurnal</span>
-              <span class="badge-pill" style="color:var(--accent); border-color:var(--line-light);">Open Source Offline</span>
+              <span id="tpc-account-provider" class="badge-pill" style="color:var(--accent); border-color:var(--line-light);"></span>
             </div>
+            <p class="tpc-sub" id="tpc-google-email" hidden></p>
             <p class="tpc-sub" id="tpc-sub-status">Trader Mandiri · Akun Utama: EXNESS Standard (demo_acc)</p>
           </div>
         </div>
@@ -1270,7 +1263,7 @@
 
   <script src="js/vendor/supabase-2.86.0.js" integrity="sha384-3Sgm1bFlHa+gvzgZCHY6SyQwlKZpsgWl0qwxcwsypsSZQvo1vV1miPkn7n1lU1/L"></script>
   <script src="js/scan.js?v=20261007"></script>
-  <script src="js/app.js?v=20261008-calendar-all-countries"></script>
+  <script src="js/app.js?v=20261008-google-profile-equity"></script>
   <script src="js/fed.js?v=20261008-fomc"></script>
 
  </body>

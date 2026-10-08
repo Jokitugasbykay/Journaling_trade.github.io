@@ -2118,6 +2118,8 @@
     .tpc-avatar {
       width: 58px;
       height: 58px;
+      position: relative;
+      overflow: hidden;
       border-radius: 50%;
       background: linear-gradient(135deg, #27272a, #18181b);
       color: #ffffff;
@@ -2130,6 +2132,11 @@
       box-shadow: 0 4px 14px rgba(0, 0, 0, 0.4);
       flex-shrink: 0;
     }
+    .tpc-avatar img { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; }
+    .tpc-avatar img[hidden] { display:none; }
+    #tpc-google-email { margin:0 0 3px; color:var(--text-body); }
+    #tpc-profile-alias { color:var(--text-muted); border-color:var(--line); }
+    #tpc-profile-alias[hidden] { display:none; }
     .tpc-title-row {
       display: flex;
       align-items: center;

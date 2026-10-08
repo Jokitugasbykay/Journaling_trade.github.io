@@ -547,7 +547,11 @@
           await refreshAccountAccess();
           updateAccess(); renderJournalTable(); renderStatistics(); renderProfileView(); runAllCalculators();
           scheduleCloudSave();
-          if (!nicknameReady) { switchTab('login'); setAuthMode('nickname'); }
+          if (!nicknameReady) {
+            const google = googleAccountProfile();
+            if (google?.name) $('nickname-input').value = google.name.slice(0, 40);
+            switchTab('login'); setAuthMode('nickname');
+          }
           else if ($('view-login').classList.contains('active')) switchTab('jurnal');
         } catch (error) {
           if (cloudUser?.id !== user.id) return;
@@ -1910,6 +1914,7 @@
         let peakBalance = startBal;
         let maxDrawdownUSD = 0;
         const equityCurve = [startBal];
+        const kpiCurves = { winrate:[0], netpl:[0], profitFactor:[0], averageRR:[0] };
 
         // Sort trades chronologically for stats
         const chronological = trades.filter(t => t.accountId === profile.currentAccount).sort((a, b) => (a.date || '').localeCompare(b.date || ''));
@@ -1945,6 +1950,11 @@
           if (currentBalance > peakBalance) {
             peakBalance = currentBalance;
           }
+          const countedTrades = wins + losses + bes;
+          kpiCurves.winrate.push(countedTrades ? wins / countedTrades * 100 : 0);
+          kpiCurves.netpl.push(sumWinUSD - sumLossUSD);
+          kpiCurves.profitFactor.push(sumLossUSD ? sumWinUSD / sumLossUSD : sumWinUSD ? 99 : 0);
+          kpiCurves.averageRR.push(rrCount ? totalRR / rrCount : 0);
           const dd = peakBalance - currentBalance;
           if (dd > maxDrawdownUSD) {
             maxDrawdownUSD = dd;
@@ -1998,9 +2008,29 @@
         $('discipline-summary').textContent = report.total ? 'Dihitung dari jurnal akun aktif. SL tercatat tidak memastikan pemasangan di broker; kondisi psikologi belum dicatat.' : 'Tambahkan transaksi untuk melihat rapor akun ini.';
 
         // Draw SVG Charts
+        drawKpiSparklines(kpiCurves);
         drawEquityCurveSVG(equityCurve);
         drawDonutChartSVG(wins, losses, bes, totalTrades);
         drawBreakdownBars();
+      }
+
+      function drawKpiSparklines(curve) {
+        document.querySelectorAll('[data-equity-spark]').forEach(svg => {
+          const values = curve[svg.dataset.equitySpark] || [];
+          if (!values.length) { svg.replaceChildren(); return; }
+          const w = 120, h = 36, pad = 2;
+          let min = Math.min(...values), max = Math.max(...values);
+          if (min === max) { const padValue = Math.abs(min) * 0.03 || 1; min -= padValue; max += padValue; }
+          const points = values.map((value, index) => {
+            const x = values.length === 1 ? w / 2 : pad + index * (w - pad * 2) / (values.length - 1);
+            const y = h - pad - (value - min) / (max - min) * (h - pad * 2);
+            return [x, y];
+          });
+          const path = values.length === 1 ? 'M0,18 L120,18' : points.map((point, index) => (index ? 'L' : 'M') + point[0].toFixed(1) + ',' + point[1].toFixed(1)).join(' ');
+          const stroke = values[values.length - 1] < values[0] ? 'var(--red)' : 'var(--green)';
+          const fill = values.length > 1 && max !== min ? `<path d="${path} L${points.at(-1)[0]},${h} L${points[0][0]},${h} Z" fill="${stroke}" opacity=".10"/>` : '';
+          svg.innerHTML = fill + `<path d="${path}" fill="none" stroke="${stroke}" stroke-width="2"/>`;
+        });
       }
 
       function drawEquityCurveSVG(curve) {
@@ -2274,13 +2304,31 @@
       };
 
       /* Profil & multi-account management */
+      function googleAccountProfile() {
+        const user = cloudUser;
+        if (!user || (user.app_metadata?.provider !== 'google' && !user.identities?.some(identity => identity.provider === 'google'))) return null;
+        const metadata = user.user_metadata || {};
+        let avatar = metadata.avatar_url || metadata.picture || '';
+        try {
+          const url = new URL(avatar);
+          if (url.protocol !== 'https:' || !url.hostname.endsWith('googleusercontent.com')) avatar = '';
+        } catch { avatar = ''; }
+        return { name: String(metadata.full_name || metadata.name || '').trim(), email: user.email || '', avatar };
+      }
+
       window.renderProfileView = function () {
         $('p-trader-name').value = profile.name || 'Trader';
         $('p-kurs-input').value = settings.kurs || 17000;
 
         // Trader Passport Card updates
-        const traderName = profile.name || 'Trader';
-        if ($('tpc-display-name')) $('tpc-display-name').textContent = traderName;
+        const google = googleAccountProfile();
+        const traderName = google?.name || profile.name || 'Trader';
+        if ($('tpc-display-name')) $('tpc-display-name').textContent = google?.name || traderName;
+        if ($('tpc-google-email')) { $('tpc-google-email').hidden = !google?.email; $('tpc-google-email').textContent = google?.email || ''; }
+        if ($('tpc-account-provider')) $('tpc-account-provider').textContent = google ? (language === 'en' ? 'Google account' : 'Akun Google') : cloudUser ? (language === 'en' ? 'Server account' : 'Akun server') : (language === 'en' ? 'Local profile' : 'Profil lokal');
+        if ($('tpc-profile-alias')) { $('tpc-profile-alias').hidden = !google || !profile.name || profile.name === google.name; $('tpc-profile-alias').textContent = google && profile.name && profile.name !== google.name ? (language === 'en' ? 'Nickname: ' : 'Nama panggilan: ') + profile.name : ''; }
+        const avatar = $('tpc-google-avatar');
+        if (avatar) { avatar.hidden = !google?.avatar; avatar.onerror = () => { avatar.hidden = true; }; if (google?.avatar && avatar.src !== google.avatar) avatar.src = google.avatar; if (!google?.avatar) avatar.removeAttribute('src'); }
         if ($('tpc-avatar-initials')) {
           const initials = traderName.split(' ').map(s => s[0]).join('').slice(0, 2).toUpperCase() || 'TR';
           $('tpc-avatar-initials').textContent = initials;
