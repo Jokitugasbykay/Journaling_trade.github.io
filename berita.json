@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "checkedAt": "2026-10-08T01:55:57.862590+00:00",
+  "checkedAt": "2026-10-08T02:10:48.752788+00:00",
   "intervalMinutes": 30,
   "sources": [
     {
@@ -9,7 +9,7 @@
       "url": "https://www.investing.com/",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-08T01:55:49.071485+00:00"
+      "checkedAt": "2026-10-08T02:10:44.095067+00:00"
     },
     {
       "id": "cnbc",
@@ -17,7 +17,7 @@
       "url": "https://www.cnbc.com/markets/",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-08T01:55:49.069083+00:00"
+      "checkedAt": "2026-10-08T02:10:44.277214+00:00"
     },
     {
       "id": "kontan",
@@ -25,7 +25,7 @@
       "url": "https://www.kontan.co.id/",
       "kind": "html",
       "status": "ok",
-      "checkedAt": "2026-10-08T01:55:50.119075+00:00"
+      "checkedAt": "2026-10-08T02:10:45.247496+00:00"
     },
     {
       "id": "reuters",
@@ -33,7 +33,7 @@
       "url": "https://www.reuters.com/",
       "kind": "sitemap",
       "status": "ok",
-      "checkedAt": "2026-10-08T01:55:49.305375+00:00"
+      "checkedAt": "2026-10-08T02:10:44.482657+00:00"
     },
     {
       "id": "aljazeera",
@@ -41,7 +41,7 @@
       "url": "https://www.aljazeera.com/",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-08T01:55:49.141285+00:00"
+      "checkedAt": "2026-10-08T02:10:44.232212+00:00"
     },
     {
       "id": "bloomberg",
@@ -49,7 +49,7 @@
       "url": "https://www.bloomberg.com/asia",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-08T01:55:49.378986+00:00"
+      "checkedAt": "2026-10-08T02:10:44.363254+00:00"
     },
     {
       "id": "fnc",
@@ -57,7 +57,7 @@
       "url": "https://tradewithfnc.com/",
       "kind": "json",
       "status": "ok",
-      "checkedAt": "2026-10-08T01:55:49.852655+00:00"
+      "checkedAt": "2026-10-08T02:10:45.083219+00:00"
     },
     {
       "id": "investing_id",
@@ -65,7 +65,7 @@
       "url": "https://id.investing.com/news",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-08T01:55:49.435732+00:00"
+      "checkedAt": "2026-10-08T02:10:44.546946+00:00"
     },
     {
       "id": "pluang",
@@ -73,15 +73,15 @@
       "url": "https://pluang.com/news-feed",
       "kind": "html",
       "status": "ok",
-      "checkedAt": "2026-10-08T01:55:49.538633+00:00"
+      "checkedAt": "2026-10-08T02:10:44.776407+00:00"
     },
     {
       "id": "kompas",
       "name": "Kompas Money",
       "url": "https://money.kompas.com/",
       "kind": "html",
-      "status": "stale",
-      "checkedAt": "2026-10-08T01:36:10.561880+00:00"
+      "status": "ok",
+      "checkedAt": "2026-10-08T02:10:45.532712+00:00"
     },
     {
       "id": "detik",
@@ -89,7 +89,7 @@
       "url": "https://finance.detik.com/",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-08T01:55:50.777219+00:00"
+      "checkedAt": "2026-10-08T02:10:46.057263+00:00"
     },
     {
       "id": "kemenkeu",
@@ -121,7 +121,7 @@
       "url": "https://ekbis.sindonews.com/",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-08T01:55:49.857417+00:00"
+      "checkedAt": "2026-10-08T02:10:45.171985+00:00"
     },
     {
       "id": "fedwatch",
@@ -140,6 +140,56 @@
   ],
   "items": [
     {
+      "id": "16a9f14825bd2c9f1a81",
+      "source": "kompas",
+      "title": "Pekerja Outsourcing Kini Wajib Dapat Pesangon jika Terkena PHK",
+      "url": "https://money.kompas.com/read/2026/10/08/091000626/pekerja-outsourcing-kini-wajib-dapat-pesangon-jika-terkena-phk-",
+      "publishedAt": "2026-10-08T02:10:00+00:00",
+      "image": "https://asset.kompas.com/crops/VchtDOKpJu2JopbqBFIX2N0mZ44=/0x0:1492x995/750x500/data/photo/2026/01/13/69664fc9835c7.jpg",
+      "category": "other",
+      "topics": []
+    },
+    {
+      "id": "7faa536dcf1998f2315a",
+      "source": "reuters",
+      "title": "Andy Pages' clutch hit sends Dodgers past Braves, into NLCS",
+      "url": "https://www.reuters.com/sports/baseball/andy-pages-clutch-hit-sends-dodgers-past-braves-into-nlcs--flm-2026-10-08/",
+      "publishedAt": "2026-10-08T02:05:41.241000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/OZW5ORNAQRKS5LEX5H3PV4CQTY.jpg?auth=37630d489a132105802bdf64fb7e21fffa6bd589d4787a669eeefb693758584e&smart=true&width=1920",
+      "category": "sport",
+      "topics": []
+    },
+    {
+      "id": "c467a60425d945da8190",
+      "source": "reuters",
+      "title": "Gold prices recover from two-month low as dollar rally stalls",
+      "url": "https://www.reuters.com/world/india/gold-edges-higher-after-hitting-two-month-low-2026-10-08/",
+      "publishedAt": "2026-10-08T02:05:09.059000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/GV5E2ZCNLBMD5AW2PI6CTIY4HY.jpg?auth=7e2d7f40543ba6ffc7491a644a3adcd8387b6e7f31be6e7d50fb6cb341594d44&smart=true&width=1920",
+      "category": "markets",
+      "topics": []
+    },
+    {
+      "id": "d830e30f3fba12760a20",
+      "source": "reuters",
+      "title": "Attacks on Saudi airports kill three people, as fighting escalates in Yemen",
+      "url": "https://www.reuters.com/world/middle-east/houthis-launch-missiles-yemens-aden-airport-fighting-intensifies-2026-10-07/",
+      "publishedAt": "2026-10-08T02:05:02.311000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/EDCEF3KM6ZMYHOT2QFBCW32XA4.jpg?auth=4616ae75f15a048b2d7b0b747bf764f06ae0b164d18586df51f55575819ab59b&smart=true&width=1920",
+      "category": "world",
+      "topics": []
+    },
+    {
+      "id": "b861f3e09eab669cbc58",
+      "source": "reuters",
+      "title": "CrowdStrike says China-based suspect used AI tools in South Korean bank hacks",
+      "url": "https://www.reuters.com/world/suspect-behind-south-korea-bank-hacks-may-be-26-year-old-china-cybersecurity-2026-10-08/",
+      "publishedAt": "2026-10-08T02:03:22.067000+00:00",
+      "image": null,
+      "category": "technology",
+      "topics": []
+    },
+    {
       "id": "01d460d49f355ec8e933",
       "source": "fnc",
       "title": "Harga Batu Bara Tembus US$153, Reli Didukung Ketatnya Pasokan dan Permintaan India",
@@ -150,13 +200,87 @@
       "topics": []
     },
     {
+      "id": "b96c217ba454a4ad0b38",
+      "source": "detik",
+      "title": "Prabowo Luncurkan Proyek Hilirisasi Rp 180 T di Weda Bay Hari Ini",
+      "url": "https://finance.detik.com/energi/d-8697367/prabowo-luncurkan-proyek-hilirisasi-rp-180-t-di-weda-bay-hari-ini",
+      "publishedAt": "2026-10-08T02:01:45+00:00",
+      "image": "https://akcdn.detik.net.id/community/media/visual/2026/10/06/presiden-prabowo-subianto-dokyoutube-setpres-1791283142152_169.jpeg?w=360&q=90",
+      "category": "local",
+      "topics": [
+        "politics"
+      ]
+    },
+    {
+      "id": "be68abbc3b250b8fc3c2",
+      "source": "kompas",
+      "title": "Jadwal KRL Jogja-Solo Hari Ini 8 Oktober 2026 dari Tugu ke Palur",
+      "url": "https://money.kompas.com/read/2026/10/08/090101726/jadwal-krl-jogja-solo-hari-ini-8-oktober-2026-dari-tugu-ke-palur",
+      "publishedAt": "2026-10-08T02:01:01+00:00",
+      "image": "https://asset.kompas.com/crops/JKsA_eEiPQ218P4obMBO0vE6E8A=/0x73:1200x873/750x500/data/photo/2025/08/16/68a01befe1a3b.jpeg",
+      "category": "other",
+      "topics": []
+    },
+    {
+      "id": "60925da35ac8ef7f2e00",
+      "source": "reuters",
+      "title": "Trump awarding former baseball star Clemens the Presidential Medal of Freedom",
+      "url": "https://www.reuters.com/sports/trump-awarding-former-baseball-star-clemens-presidential-medal-freedom-2026-10-08/",
+      "publishedAt": "2026-10-08T01:59:44.064000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/BSMMLRULEZML3MZNNKQOVRELQ4.jpg?auth=777f325301eff49e56c9100ee5dd6efd0727dff5aeabd8b6860753aaf9f7dc58&smart=true&width=1920",
+      "category": "sport",
+      "topics": [
+        "politics"
+      ]
+    },
+    {
+      "id": "140a59e4694845ba3cc2",
+      "source": "kompas",
+      "title": "Disandera sejak April, 4 ABK WNI Akhirnya Pulang ke Indonesia",
+      "url": "https://money.kompas.com/read/2026/10/08/085838226/disandera-sejak-april-4-abk-wni-akhirnya-pulang-ke-indonesia",
+      "publishedAt": "2026-10-08T01:58:38+00:00",
+      "image": "https://asset.kompas.com/crops/oj5ONPXLNIEHpIxqQqlchC2J5eI=/249x443:3839x2837/750x500/data/photo/2026/10/08/6ac6ee12aa1b8.jpeg",
+      "category": "local",
+      "topics": []
+    },
+    {
+      "id": "8174b29d973bf5b429b3",
+      "source": "reuters",
+      "title": "Samsung flags $80 billion profit on AI boom, highest quarterly for any tech company",
+      "url": "https://www.reuters.com/business/samsung-q3-profit-jumps-783-ai-memory-boom-lifts-chip-earnings-2026-10-07/",
+      "publishedAt": "2026-10-08T01:55:43.933000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/4JWZRVJJ2ZLE3D3MVGWUT6QEXM.jpg?auth=eff9c913b8628105a8ef7800558de7938eb08f6bfecad0feaae1ec471782f4df&smart=true&width=1920",
+      "category": "technology",
+      "topics": []
+    },
+    {
       "id": "0253e89ecbf7f26a85fe",
       "source": "reuters",
       "title": "Jose Ramirez stars as Guardians force Game 4 against White Sox",
       "url": "https://www.reuters.com/sports/baseball/jose-ramirez-stars-guardians-force-game-4-against-white-sox--flm-2026-10-07/",
-      "publishedAt": "2026-10-08T01:51:48.356000+00:00",
+      "publishedAt": "2026-10-08T01:55:08.670000+00:00",
       "image": "https://www.reuters.com/resizer/v2/JLZ3XBCAMJNYJNYYQO34EUGCRE.jpg?auth=b6b6750d2c21c79e00665ee5e776bd8ca0b9f24c07426803155f0362fe83ff40&smart=true&width=1920",
       "category": "sport",
+      "topics": []
+    },
+    {
+      "id": "22c3a9d4134c09cbff1f",
+      "source": "kompas",
+      "title": "Cek Harga Pertamax Hari Ini 8 Oktober 2026 di SPBU Seluruh Indonesia",
+      "url": "https://money.kompas.com/read/2026/10/08/085304426/cek-harga-pertamax-hari-ini-8-oktober-2026-di-spbu-seluruh-indonesia",
+      "publishedAt": "2026-10-08T01:53:04+00:00",
+      "image": "https://asset.kompas.com/crops/t7r6QW7wyh7yVoAjolmF9SRRNng=/2x0:1280x852/750x500/data/photo/2025/09/18/68cbe65202ce8.jpeg",
+      "category": "local",
+      "topics": []
+    },
+    {
+      "id": "2ae42f5c6505c570aca7",
+      "source": "kompas",
+      "title": "Harga Emas Dunia Turun ke Level Terendah 2 Bulan",
+      "url": "https://money.kompas.com/read/2026/10/08/085300726/harga-emas-dunia-turun-ke-level-terendah-2-bulan-",
+      "publishedAt": "2026-10-08T01:53:00+00:00",
+      "image": "https://asset.kompas.com/crops/7R5wi6fMJTypARJs3109Uc6GirI=/50x0:1150x734/750x500/data/photo/2026/06/11/6a2a362c8ae88.jpeg",
+      "category": "markets",
       "topics": []
     },
     {
@@ -180,13 +304,13 @@
       "topics": []
     },
     {
-      "id": "7faa536dcf1998f2315a",
-      "source": "reuters",
-      "title": "Andy Pages' clutch hit sends Dodgers past Braves, into NLCS",
-      "url": "https://www.reuters.com/sports/baseball/andy-pages-clutch-hit-sends-dodgers-past-braves-into-nlcs--flm-2026-10-08/",
-      "publishedAt": "2026-10-08T01:47:38.353000+00:00",
-      "image": "https://www.reuters.com/resizer/v2/OZW5ORNAQRKS5LEX5H3PV4CQTY.jpg?auth=37630d489a132105802bdf64fb7e21fffa6bd589d4787a669eeefb693758584e&smart=true&width=1920",
-      "category": "sport",
+      "id": "3e1b393b6f9ac99fa85a",
+      "source": "kompas",
+      "title": "Lowongan Kerja PAMA untuk Lulusan D3 dan S1, Cek Persyaratannya",
+      "url": "https://money.kompas.com/read/2026/10/08/084825626/lowongan-kerja-pama-untuk-lulusan-d3-dan-s1-cek-persyaratannya",
+      "publishedAt": "2026-10-08T01:48:25+00:00",
+      "image": "https://asset.kompas.com/crops/2CuBeaZxggKte70V0st4GByiluU=/25x0:1256x821/750x500/data/photo/2026/01/14/69672e8cde085.png",
+      "category": "other",
       "topics": []
     },
     {
@@ -210,6 +334,26 @@
       "topics": []
     },
     {
+      "id": "d0bfb69018205c62bca6",
+      "source": "kompas",
+      "title": "Jadwal KRL Solo-Jogja Hari Ini 8 Oktober 2026 dari Palur ke Tugu",
+      "url": "https://money.kompas.com/read/2026/10/08/084401226/jadwal-krl-solo-jogja-hari-ini-8-oktober-2026-dari-palur-ke-tugu",
+      "publishedAt": "2026-10-08T01:44:01+00:00",
+      "image": "https://asset.kompas.com/crops/a_ZdGk_LEleXGt_EMhfxg8rO5XQ=/765x0:3290x1683/750x500/data/photo/2025/05/13/68233aa87eaa4.jpg",
+      "category": "other",
+      "topics": []
+    },
+    {
+      "id": "f7e963a1febcad86c9a1",
+      "source": "kompas",
+      "title": "UU Ketenagakerjaan Baru Buka Celah Anak Magang Gantikan Outsourcing?",
+      "url": "https://money.kompas.com/read/2026/10/08/084100226/uu-ketenagakerjaan-baru-buka-celah-anak-magang-gantikan-outsourcing",
+      "publishedAt": "2026-10-08T01:41:00+00:00",
+      "image": "https://asset.kompas.com/crops/Pc5RlgVqcXHxal9_-nnDpazL8zE=/0x0:1426x950/750x500/data/photo/2022/04/18/625cf5860bc54.jpg",
+      "category": "other",
+      "topics": []
+    },
+    {
       "id": "f28c8751859a383bc618",
       "source": "reuters",
       "title": "US grants Aurora exemption for self-driving trucks safety feature",
@@ -217,6 +361,26 @@
       "publishedAt": "2026-10-08T01:39:59.440000+00:00",
       "image": "https://www.reuters.com/resizer/v2/PXQZOEOPEJLGZNCL5KDX7OOHBI.jpg?auth=4fa3bd07dc1f6f07bc8185271b524a7323ac06558d91bb952dea657e06a05461&smart=true&width=1920",
       "category": "business",
+      "topics": []
+    },
+    {
+      "id": "8c072c21e876efdc1a25",
+      "source": "kompas",
+      "title": "Danantara Dorong Investasi Data Center, Siapkan Skema Co-Investment",
+      "url": "https://money.kompas.com/read/2026/10/08/083708226/danantara-dorong-investasi-data-center-siapkan-skema-co-investment",
+      "publishedAt": "2026-10-08T01:37:08+00:00",
+      "image": "https://asset.kompas.com/crops/TNkadKyLy_DAwU7DvHbbQnaPQ1Q=/0x0:1224x816/750x500/data/photo/2026/07/26/6a65a3c0af94a.png",
+      "category": "technology",
+      "topics": []
+    },
+    {
+      "id": "c9c8a3d24438df9de042",
+      "source": "kompas",
+      "title": "Harga Minyak Dunia Turun, Cadangan Strategis Mulai Dilepas",
+      "url": "https://money.kompas.com/read/2026/10/08/083635426/harga-minyak-dunia-turun-cadangan-strategis-mulai-dilepas",
+      "publishedAt": "2026-10-08T01:36:35+00:00",
+      "image": "https://asset.kompas.com/crops/YMRLX__eW1euuNacuPoLLKq6XNg=/0x0:1125x750/750x500/data/photo/2022/04/05/624c1400de7de.png",
+      "category": "markets",
       "topics": []
     },
     {
@@ -260,6 +424,16 @@
       "topics": []
     },
     {
+      "id": "b1da12e68e994451ef50",
+      "source": "detik",
+      "title": "Menperin Mau Genjot Ekspor IKM, Pakai Cara Ini",
+      "url": "https://finance.detik.com/industri/d-8697360/menperin-mau-genjot-ekspor-ikm-pakai-cara-ini",
+      "publishedAt": "2026-10-08T01:27:54+00:00",
+      "image": "https://akcdn.detik.net.id/community/media/visual/2026/10/02/sarmuji-resmi-jadi-menperin-1790915956975_169.jpeg?w=360&q=90",
+      "category": "business",
+      "topics": []
+    },
+    {
       "id": "b44354b62ebb2bf560b5",
       "source": "reuters",
       "title": "Oil rises as Middle East supply concerns persist amid shipping attacks",
@@ -277,16 +451,6 @@
       "publishedAt": "2026-10-08T01:22:57+00:00",
       "image": "https://asset.kompas.com/crops/5aup2fLQgDjuDrvpiI7Zpv7YuJQ=/0x0:4991x3327/750x500/data/photo/2026/02/03/69816b175a354.jpg",
       "category": "local",
-      "topics": []
-    },
-    {
-      "id": "c467a60425d945da8190",
-      "source": "reuters",
-      "title": "Gold edges higher after hitting a two-month low",
-      "url": "https://www.reuters.com/world/india/gold-edges-higher-after-hitting-two-month-low-2026-10-08/",
-      "publishedAt": "2026-10-08T01:22:10.204000+00:00",
-      "image": "https://www.reuters.com/resizer/v2/GV5E2ZCNLBMD5AW2PI6CTIY4HY.jpg?auth=7e2d7f40543ba6ffc7491a644a3adcd8387b6e7f31be6e7d50fb6cb341594d44&smart=true&width=1920",
-      "category": "markets",
       "topics": []
     },
     {
@@ -364,16 +528,6 @@
       "topics": []
     },
     {
-      "id": "47e702dc114351a94f5f",
-      "source": "sindo",
-      "title": "IMF Wanti-wanti, AI, Krisis Energi dan Lonjakan Utang Ancam Ekonomi Global",
-      "url": "https://ekbis.sindonews.com/read/1758125/33/imf-wanti-wanti-ai-krisis-energi-dan-lonjakan-utang-ancam-ekonomi-global-1791421820",
-      "publishedAt": "2026-10-08T01:12:50+00:00",
-      "image": "https://pict.sindonews.com/dyn/850/pena/news/2026/10/08/33/1758125/imf-wantiwanti-ai-krisis-energi-dan-lonjakan-utang-ancam-ekonomi-global-gug.jpeg",
-      "category": "technology",
-      "topics": []
-    },
-    {
       "id": "60bfe4ef4eec74aa3293",
       "source": "cnn_id",
       "title": "UU Ketenagakerjaan Bary: Sesuai Kebutuhan Buruh atau Sekadar Kompromi?",
@@ -391,16 +545,6 @@
       "publishedAt": "2026-10-08T01:10:00+00:00",
       "image": "https://asset.kompas.com/crops/tF6CuqP8By6WZZK_aHF3x5cGu0I=/0x0:5000x3333/750x500/data/photo/2026/10/06/6ac4a2b68bfc3.jpg",
       "category": "other",
-      "topics": []
-    },
-    {
-      "id": "d830e30f3fba12760a20",
-      "source": "reuters",
-      "title": "Attacks on Saudi airports kill three people, as fighting escalates in Yemen",
-      "url": "https://www.reuters.com/world/middle-east/houthis-launch-missiles-yemens-aden-airport-fighting-intensifies-2026-10-07/",
-      "publishedAt": "2026-10-08T01:09:56.546000+00:00",
-      "image": "https://www.reuters.com/resizer/v2/EDCEF3KM6ZMYHOT2QFBCW32XA4.jpg?auth=4616ae75f15a048b2d7b0b747bf764f06ae0b164d18586df51f55575819ab59b&smart=true&width=1920",
-      "category": "world",
       "topics": []
     },
     {
@@ -470,26 +614,6 @@
       ]
     },
     {
-      "id": "098ad90262fa74b2dfb9",
-      "source": "reuters",
-      "title": "Tin rides the AI investment wave to a new price dimension",
-      "url": "https://www.reuters.com/commentary/reuters-open-interest/tin-rides-ai-investment-wave-new-price-dimension-2026-10-07/",
-      "publishedAt": "2026-10-08T01:00:18.556000+00:00",
-      "image": "https://www.reuters.com/resizer/v2/UVVIBNPUEVLI5OJMOAARS3V77A.jpg?auth=646a0c6062f1cdd1162cd3c708fd57d32a45f720ea6fb416cc30fe2657f74912&smart=true&width=1920",
-      "category": "commentary",
-      "topics": []
-    },
-    {
-      "id": "b1ae7a2649ec654b900d",
-      "source": "reuters",
-      "title": "Asia shares subdued, bonds swamped by AI debt wave",
-      "url": "https://www.reuters.com/world/china/global-markets-global-markets-2026-10-08/",
-      "publishedAt": "2026-10-08T00:59:03.194000+00:00",
-      "image": "https://www.reuters.com/resizer/v2/4GTPNAX7Z5LYNCIC5KVFOG4MUQ.jpg?auth=6e57564dc68f026a26b8f9b5d71cd5968172ebbe2a445a2b62e738de7a15b89b&smart=true&width=1920",
-      "category": "technology",
-      "topics": []
-    },
-    {
       "id": "ce85684a091474cb1fb2",
       "source": "kompas",
       "title": "Harga Emas Hari Ini di Pegadaian 8 Oktober 2026: Galeri 24-UBS",
@@ -497,16 +621,6 @@
       "publishedAt": "2026-10-08T00:57:40+00:00",
       "image": "https://asset.kompas.com/crops/t9JcUPLz6maZR_TN6YfL2R6NsMM=/0x0:1200x800/750x500/data/photo/2025/12/13/693cc3572e475.jpeg",
       "category": "markets",
-      "topics": []
-    },
-    {
-      "id": "4a618121d82250ec6018",
-      "source": "reuters",
-      "title": "Valkyries first WNBA franchise to hit $100M in annual revenue",
-      "url": "https://www.reuters.com/sports/valkyries-first-wnba-franchise-hit-100m-annual-revenue--flm-2026-10-08/",
-      "publishedAt": "2026-10-08T00:56:52.239000+00:00",
-      "image": "https://www.reuters.com/resizer/v2/OTDBGW3C4FMK3OFY2AAT3X4IQU.jpg?auth=53dcc329fdd3a11d52e133fdd9834801e6d1f1e58ce703a901a3fbdea85b942a&smart=true&width=1920",
-      "category": "sport",
       "topics": []
     },
     {
@@ -654,26 +768,6 @@
       ]
     },
     {
-      "id": "9cf99b7d91aeb16b17d9",
-      "source": "kompas",
-      "title": "Promo Beli 1 Gratis 1 di Lawson 1-31 Oktober 2026, Cek Juga Diskon Kopi, Camilan dll",
-      "url": "https://money.kompas.com/read/2026/10/08/070700226/promo-beli-1-gratis-1-di-lawson-1-31-oktober-2026-cek-juga-diskon-kopi-camilan",
-      "publishedAt": "2026-10-08T00:07:00+00:00",
-      "image": null,
-      "category": "other",
-      "topics": []
-    },
-    {
-      "id": "df7d49371f0a48e2040e",
-      "source": "kompas",
-      "title": "Wall Street Tertekan, Yield US Treasury 10 Tahun Tembus Level Tertinggi sejak 2002",
-      "url": "https://money.kompas.com/read/2026/10/08/070520526/wall-street-tertekan-yield-us-treasury-10-tahun-tembus-level-tertinggi-sejak",
-      "publishedAt": "2026-10-08T00:05:20+00:00",
-      "image": "https://asset.kompas.com/crops/ak2k9z5BaiWWXC3AVRVaA-aQ4AY=/518x346:4666x3110/750x500/data/photo/2025/06/14/684d817947263.jpg",
-      "category": "markets",
-      "topics": []
-    },
-    {
       "id": "a6fa161e29803733dc75",
       "source": "detik",
       "title": "Hitungan Buruh Minta Upah Minimum 2027 Naik 9,5%",
@@ -744,18 +838,6 @@
       "topics": []
     },
     {
-      "id": "1b0ae39a01b4ba637ea5",
-      "source": "kompas",
-      "title": "Trump Beri Penghargaan Para Bos Perusahaan Teknologi, Ada Elon Musk hingga Jensen Huang",
-      "url": "https://money.kompas.com/read/2026/10/08/063340926/trump-beri-penghargaan-para-bos-perusahaan-teknologi-ada-elon-musk-hingga",
-      "publishedAt": "2026-10-07T23:33:40+00:00",
-      "image": "https://asset.kompas.com/crops/4rtvRLiz6L4ejTtxMV5jvzvlT9U=/134x0:1573x959/750x500/data/photo/2026/09/16/6aaa06bfbadad.png",
-      "category": "technology",
-      "topics": [
-        "politics"
-      ]
-    },
-    {
       "id": "c3bda0878ecec46fe6c8",
       "source": "aljazeera",
       "title": "UN peacekeeping force in Lebanon says shots fired at Israeli border post",
@@ -796,16 +878,6 @@
       "topics": []
     },
     {
-      "id": "0461349df8d4580dc2d4",
-      "source": "kompas",
-      "title": "Promo Menu Sarapan dan Camilan di Alfamart 1-15 Oktober 2026, Ada Diskon hingga 40 Persen",
-      "url": "https://money.kompas.com/read/2026/10/08/061600226/promo-menu-sarapan-dan-camilan-di-alfamart-1-15-oktober-2026-ada-diskon-hingga",
-      "publishedAt": "2026-10-07T23:16:00+00:00",
-      "image": "https://asset.kompas.com/crops/oDeGukybtgy3cac3MVpv8_-7sZI=/162x0:1372x605/750x500/data/photo/2026/07/14/6a55fa68b0803.png",
-      "category": "other",
-      "topics": []
-    },
-    {
       "id": "08af4356d27522aa1f5c",
       "source": "cnbc",
       "title": "Trump trade chief Greer reports higher cash holdings as law firm pay topped $650K",
@@ -816,26 +888,6 @@
       "topics": [
         "politics"
       ]
-    },
-    {
-      "id": "c8f3c4ee36b0abf18323",
-      "source": "kompas",
-      "title": "Harga Emas Antam Hari Ini 8 Oktober 2026, Wajib Tahu Sebelum Beli",
-      "url": "https://money.kompas.com/read/2026/10/08/060656726/harga-emas-antam-hari-ini-8-oktober-2026-wajib-tahu-sebelum-beli",
-      "publishedAt": "2026-10-07T23:06:56+00:00",
-      "image": "https://asset.kompas.com/crops/zE19HEb11DJyUQpkQgvvKl3K11g=/0x0:1000x667/750x500/data/photo/2026/02/05/6983ffd467dda.jpeg",
-      "category": "local",
-      "topics": []
-    },
-    {
-      "id": "36e409d4b32ce7082920",
-      "source": "kompas",
-      "title": "LPS Ubah Sistem Anggaran Jadi Berbasis Output, Ini Alasannya",
-      "url": "https://money.kompas.com/read/2026/10/08/060605826/lps-ubah-sistem-anggaran-jadi-berbasis-output-ini-alasannya",
-      "publishedAt": "2026-10-07T23:06:05+00:00",
-      "image": "https://asset.kompas.com/crops/EKMaFXwpu01KwnaodWrLv-R2s00=/0x0:3888x2592/750x500/data/photo/2026/09/30/6abcd75a55e9e.jpg",
-      "category": "local",
-      "topics": []
     },
     {
       "id": "096b75248108665ce0c0",
@@ -950,16 +1002,6 @@
       "topics": []
     },
     {
-      "id": "2aa290b3541c513f9cd6",
-      "source": "kompas",
-      "title": "Pesan Luhut ke Investor: Indonesia Tidak Akan Kolaps!",
-      "url": "https://money.kompas.com/read/2026/10/08/050600726/pesan-luhut-ke-investor--indonesia-tidak-akan-kolaps-",
-      "publishedAt": "2026-10-07T22:06:00+00:00",
-      "image": "https://asset.kompas.com/crops/Rb9Sx-riZ8c974IyT9smFEU-fGQ=/0x0:0x0/750x500/data/photo/2026/09/10/6aa24c5831499.jpg",
-      "category": "local",
-      "topics": []
-    },
-    {
       "id": "2801bb66effda58fd264",
       "source": "aljazeera",
       "title": "Judge orders officials to preserve Pike execution evidence",
@@ -972,7 +1014,7 @@
     {
       "id": "4594e7f7d2f1de1a06e9",
       "source": "bloomberg",
-      "title": "Asian Stocks Drop as Oil Stokes Inflation Worries: Markets Wrap",
+      "title": "Stocks Fall as Oil’s Rise Stokes Inflation Worries: Markets Wrap",
       "url": "https://www.bloomberg.com/news/articles/2026-10-07/stock-market-today-dow-s-p-live-updates",
       "publishedAt": "2026-10-07T22:03:17+00:00",
       "image": null,
@@ -982,7 +1024,7 @@
     {
       "id": "1cd29888710a2a4d8190",
       "source": "bloomberg",
-      "title": "Latest Oil Market News and Analysis for DATE",
+      "title": "Latest Oil Market News and Analysis for Oct. 8",
       "url": "https://www.bloomberg.com/news/articles/2026-10-07/latest-oil-market-news-and-analysis-for-date",
       "publishedAt": "2026-10-07T22:02:55+00:00",
       "image": null,
@@ -1278,16 +1320,6 @@
       "topics": []
     },
     {
-      "id": "093182da809f7df45fae",
-      "source": "kompas",
-      "title": "KEK Industropolis Batang Bidik Gelombang Ekspansi Perusahaan China",
-      "url": "https://money.kompas.com/read/2026/10/07/231936026/kek-industropolis-batang-bidik-gelombang-ekspansi-perusahaan-china",
-      "publishedAt": "2026-10-07T16:19:36+00:00",
-      "image": "https://asset.kompas.com/crops/Ib7X8R19bOL6MzzNTbCxJ8XgRVk=/400x267:3600x2399/750x500/data/photo/2026/10/07/6ac66fb5f3453.jpg",
-      "category": "business",
-      "topics": []
-    },
-    {
       "id": "406ebcc2ced3955e0860",
       "source": "fnc",
       "title": "BOJ Sinyalkan Inflasi Dekati Target 2%, Peluang Kenaikan Suku Bunga Desember Menguat",
@@ -1315,16 +1347,6 @@
       "publishedAt": "2026-10-07T15:34:26+00:00",
       "image": "https://pict.sindonews.com/dyn/850/pena/news/2026/10/07/34/1758059/kementerian-pu-kebut-pemulihan-infrastruktur-pascabencana-sumatera-sxh.jpg",
       "category": "other",
-      "topics": []
-    },
-    {
-      "id": "771d3001f816b245177e",
-      "source": "kompas",
-      "title": "Bank BSN Bidik Potensi Bisnis di Ekosistem Sepak Bola",
-      "url": "https://money.kompas.com/read/2026/10/07/223125926/bank-bsn-bidik-potensi-bisnis-di-ekosistem-sepak-bola",
-      "publishedAt": "2026-10-07T15:31:25+00:00",
-      "image": "https://asset.kompas.com/crops/uJHXtnufx9JcivB7jjCIBx5RiEA=/179x77:1101x691/750x500/data/photo/2026/10/07/6ac664891857e.jpg",
-      "category": "business",
       "topics": []
     },
     {
@@ -1714,16 +1736,6 @@
       "topics": []
     },
     {
-      "id": "8792a87f3fb70df3abf6",
-      "source": "detik",
-      "title": "KemenUMKM Puji Kalkulator Biaya Shopee, Seller Kini Bisa Simulasi Margin",
-      "url": "https://finance.detik.com/berita-ekonomi-bisnis/d-8696866/kemenumkm-puji-kalkulator-biaya-shopee-seller-kini-bisa-simulasi-margin",
-      "publishedAt": "2026-10-07T11:05:15+00:00",
-      "image": "https://akcdn.detik.net.id/community/media/visual/2026/10/07/sea-group-1791371093464_169.png?w=360&q=90",
-      "category": "business",
-      "topics": []
-    },
-    {
       "id": "0433cb5eecc652d60409",
       "source": "cnn_id",
       "title": "Airlangga Jembreng Alasan Ekonomi Vietnam Lebih Maju dari Indonesia",
@@ -1741,16 +1753,6 @@
       "publishedAt": "2026-10-07T10:59:31+00:00",
       "image": "https://pict.sindonews.com/dyn/850/pena/news/2026/10/07/34/1757963/menteri-ferry-ungkap-3-fungsi-utama-koperasi-desa-merah-putih-kgo.jpeg",
       "category": "other",
-      "topics": []
-    },
-    {
-      "id": "97fc934a5c3889963c91",
-      "source": "detik",
-      "title": "bank bjb Perkuat Dukungan bagi Komunitas PERSIB Lewat Kartu ATM Edisi PERSIB",
-      "url": "https://finance.detik.com/moneter/d-8696838/bank-bjb-perkuat-dukungan-bagi-komunitas-persib-lewat-kartu-atm-edisi-persib",
-      "publishedAt": "2026-10-07T10:53:34+00:00",
-      "image": "https://akcdn.detik.net.id/community/media/visual/2026/10/07/bank-bjb-1791370394240_169.jpeg?w=360&q=90",
-      "category": "business",
       "topics": []
     },
     {
@@ -1794,6 +1796,16 @@
       "topics": []
     },
     {
+      "id": "428cb097e17a1fd27543",
+      "source": "sindo",
+      "title": "IHSG Hari Ini Berbalik Jatuh ke 6.146, Transaksi Sentuh Rp36,1 Triliun",
+      "url": "https://ekbis.sindonews.com/read/1757941/178/ihsg-hari-ini-berbalik-jatuh-ke-6146-transaksi-sentuh-rp361-triliun-1791364202",
+      "publishedAt": "2026-10-07T09:51:03+00:00",
+      "image": "https://pict.sindonews.com/dyn/850/pena/news/2026/10/07/178/1757941/ihsg-hari-ini-ditutup-jatuh-ke-6146-diwarnai-pelemahan-390-saham-gol.jpg",
+      "category": "local",
+      "topics": []
+    },
+    {
       "id": "9e663747b3acab941de4",
       "source": "bloomberg",
       "title": "Kioxia Shares Lifted by $13 Billion Inflow Hope After JPX Review",
@@ -1814,16 +1826,6 @@
       "topics": [
         "politics"
       ]
-    },
-    {
-      "id": "29ee5df5e6038e9f3df9",
-      "source": "kompas",
-      "title": "2 Berebut Gaji ASN, dari Himbara ke Koperasi Ekbis",
-      "url": "https://money.kompas.com/read/2026/10/07/152843226/berebut-gaji-asn-dari-himbara-ke-koperasi",
-      "publishedAt": "2026-10-07T08:28:43+00:00",
-      "image": "https://asset.kompas.com/crops/170pTtQurGrEZxBswpGF7tItkPc=/120x80:1080x720/1200x675/filters:watermark(data/photo/2026/01/30/697c815e7ef28.png,0,-0,1)/data/photo/2025/03/10/67ce59954e222.jpeg",
-      "category": "other",
-      "topics": []
     },
     {
       "id": "87f8f619d1056a83edd5",
@@ -1968,103 +1970,105 @@
       "topics": []
     },
     {
-      "id": "d0f0551880a129a33fc2",
+      "id": "3ecd82384a12bd8a3476",
       "source": "investing",
-      "title": "US grants Aurora exemption for self-driving trucks safety feature",
-      "url": "https://www.investing.com/news/stock-market-news/us-grants-aurora-exemption-for-selfdriving-trucks-safety-feature-4937803",
+      "title": "Hang Seng tests 23,734 support amid bearish bias: Live levels",
+      "url": "https://www.investing.com/news/stock-market-news/hang-seng-oversold-at-23876-with-rsi-2796-live-levels-93CH-4930985",
       "publishedAt": null,
-      "image": "https://content-media.investing.com/trkd-images/LYNXMPEM9703Q_L.jpg",
+      "image": "https://content-media.investing.com/news/LYNXNPEB8506G_M.jpg",
       "category": "markets",
       "topics": []
     },
     {
-      "id": "d3a268e17bf72639f673",
+      "id": "42fa243082dbf7134064",
       "source": "investing",
-      "title": "TikTok gave teens, children placebo safety feature in experiment, New York alleges",
-      "url": "https://www.investing.com/news/stock-market-news/tiktok-gave-teens-children-placebo-safety-feature-in-experiment-new-york-alleges-4937622",
+      "title": "Streamex CFO Christine Plummer sells $7,175 in company stock",
+      "url": "https://www.investing.com/news/insider-trading-news/streamex-cfo-christine-plummer-sells-7175-in-company-stock-93CH-4937820",
       "publishedAt": null,
-      "image": "https://content-media.investing.com/trkd-images/LYNXMPEM9623H_L.jpg",
+      "image": "https://content-media.investing.com/news/moved_LYNXMPEM3S10Z_1200_L.jpg",
       "category": "markets",
       "topics": []
     },
     {
-      "id": "cfa2a12e551fbbf4789e",
+      "id": "7da0695d5bc8604b3c60",
       "source": "investing",
-      "title": "Wealthy investors view rates and yields as the biggest growth risk, says Deutsche Bank",
-      "url": "https://www.investing.com/news/stock-market-news/wealthy-investors-view-rates-and-yields-as-the-biggest-growth-risk-says-deutsche-bank-4935844",
+      "title": "Streamex CIO Mitchell Williams sells $35,239 in company stock",
+      "url": "https://www.investing.com/news/insider-trading-news/streamex-cio-mitchell-williams-sells-35239-in-company-stock-93CH-4937819",
       "publishedAt": null,
-      "image": "https://content-media.investing.com/trkd-images/LYNXMPEM960MD_L.jpg",
+      "image": "https://content-media.investing.com/news/gold_2_M_1440047838.jpg",
       "category": "markets",
       "topics": []
     },
     {
-      "id": "5bb8ac4281ffc9a59f7e",
+      "id": "97809b8745fb075e0405",
       "source": "investing",
-      "title": "Oil rises as Middle East supply concerns persist amid shipping attacks",
-      "url": "https://www.investing.com/news/commodities-news/oil-rises-as-middle-east-supply-concerns-persist-amid-shipping-attacks-4937802",
+      "title": "Samsung flags $80 billion profit on AI boom, highest quarterly for any tech company",
+      "url": "https://www.investing.com/news/stock-market-news/samsung-q3-profit-jumps-nearly-ninefold-as-ai-memory-boom-lifts-chip-earnings-4937684",
       "publishedAt": null,
-      "image": "https://content-media.investing.com/trkd-images/LYNXMPEM9703E_L.jpg",
+      "image": "https://content-media.investing.com/trkd-images/LYNXMPEM9624Y_L.jpg",
+      "category": "technology",
+      "topics": []
+    },
+    {
+      "id": "52f531bd1dc014edc430",
+      "source": "investing",
+      "title": "BillionToOne SVP sells $297,995 in stock",
+      "url": "https://www.investing.com/news/insider-trading-news/billiontoone-svp-sells-297995-in-stock-93CH-4937815",
+      "publishedAt": null,
+      "image": "https://content-media.investing.com/news/moved_LYNXMPEM3T1AG_1200_L.jpg",
       "category": "markets",
       "topics": []
     },
     {
-      "id": "e99acf188c598ccdf800",
+      "id": "3de668aead86bfbcc5fa",
       "source": "investing",
-      "title": "Attacks on tankers in Hormuz hit highest of any week since start of Iran war, sources say",
-      "url": "https://www.investing.com/news/commodities-news/attacks-on-tankers-in-hormuz-hit-highest-of-any-week-since-start-of-iran-war-sources-say-4937056",
+      "title": "Gold holds near nine-week low as Hormuz tensions raise Fed hike bets",
+      "url": "https://www.investing.com/news/stock-market-news/gold-holds-near-nineweek-low-as-hormuz-tensions-raise-fed-hike-bets-4937808",
       "publishedAt": null,
-      "image": "https://content-media.investing.com/trkd-images/LYNXMPEM961E7_L.jpg",
-      "category": "world",
-      "topics": []
-    },
-    {
-      "id": "56e08ee07ad95cbfcbe9",
-      "source": "investing",
-      "title": "Hashi Mainnet to Launch With $500M in Capital Backing, Adds Anchorage Digital to Coalition",
-      "url": "https://www.investing.com/news/cryptocurrency-news/hashi-mainnet-to-launch-with-500m-in-capital-backing-adds-anchorage-digital-to-coalition-4937792",
-      "publishedAt": null,
-      "image": "https://content-media.investing.com/news/CryptoBitcoindigital_800x533_L_1641975060.jpg",
+      "image": "https://content-media.investing.com/news/LYNXNPEC140H9_M.jpg",
       "category": "markets",
       "topics": []
     },
     {
-      "id": "2fea3bb92d3b9720022d",
+      "id": "738eaa2183408d280d77",
       "source": "investing",
-      "title": "Amazon makes fresh job cuts, mainly in retail division",
-      "url": "https://www.investing.com/news/stock-market-news/amazon-makes-fresh-job-cuts-mainly-in-retail-division-4937790",
+      "title": "Procore director O’Connor sells $830,914 in shares",
+      "url": "https://www.investing.com/news/insider-trading-news/procore-director-oconnor-sells-830914-in-shares-93CH-4937807",
       "publishedAt": null,
-      "image": "https://content-media.investing.com/trkd-images/LYNXMPEM9702T_L.jpg",
+      "image": "https://content-media.investing.com/news/moved_LYNXMPEM3S10Z_1200_L.jpg",
       "category": "markets",
       "topics": []
     },
     {
-      "id": "32e2a612b6ced0a706f5",
+      "id": "5f4014054c7138013cbe",
       "source": "investing",
-      "title": "Tropical Storm Isaias forecast to hit US Gulf coast as hurricane early Saturday",
-      "url": "https://www.investing.com/news/commodities-news/tropical-stormisaias-forecast-to-hit-us-gulf-coast-as-hurricane-early-saturday-4937254",
+      "title": "Symbotic director Todd Krasnow sells $85,435 in SYM class A stock",
+      "url": "https://www.investing.com/news/insider-trading-news/symbotic-director-todd-krasnow-sells-85435-in-sym-class-a-stock-93CH-4937806",
       "publishedAt": null,
-      "image": "https://content-media.investing.com/news/oil_2_M_1440047844.jpg",
-      "category": "other",
-      "topics": []
-    },
-    {
-      "id": "328d998407de0e810726",
-      "source": "investing",
-      "title": "U.S. stock futures steady after Wall St retreats from records; yields climb",
-      "url": "https://www.investing.com/news/stock-market-news/us-stock-futures-steady-after-wall-st-retreats-from-records-yields-climb-4937789",
-      "publishedAt": null,
-      "image": "https://content-media.investing.com/news/LYNXMPEM5F17R_1200_L.jpg",
+      "image": "https://content-media.investing.com/news/moved_LYNXMPEM40318_1200_L.jpg",
       "category": "markets",
       "topics": []
     },
     {
-      "id": "386ecf4395973eeeba45",
+      "id": "fcd4df24fa70b7167074",
       "source": "investing",
-      "title": "US SEC will not charge top funds over climate concerns but warns of disclosure obligations",
-      "url": "https://www.investing.com/news/stock-market-news/us-sec-will-not-pursue-charges-against-climate-group-warns-of-disclosure-obligations-4937029",
+      "title": "Cloudflare president Michelle Zatlyn sells $35.2 million in stock",
+      "url": "https://www.investing.com/news/insider-trading-news/cloudflare-president-michelle-zatlyn-sells-352-million-in-stock-93CH-4937805",
       "publishedAt": null,
-      "image": "https://content-media.investing.com/trkd-images/LYNXMPEM961AN_L.jpg",
-      "category": "sustainability",
+      "image": "https://content-media.investing.com/news/moved_LYNXMPEM3T1AG_1200_L.jpg",
+      "category": "markets",
+      "topics": [
+        "politics"
+      ]
+    },
+    {
+      "id": "70247007c65ef3e84985",
+      "source": "investing",
+      "title": "Charles River Labs CEO Shannon Parisotto sells $302k in stock",
+      "url": "https://www.investing.com/news/insider-trading-news/charles-river-labs-ceo-shannon-parisotto-sells-302k-in-stock-93CH-4937804",
+      "publishedAt": null,
+      "image": "https://content-media.investing.com/news/moved_LYNXMPEM3Q0WG_1200_L.jpg",
+      "category": "markets",
       "topics": []
     },
     {
@@ -2100,6 +2104,56 @@
       "topics": []
     },
     {
+      "id": "d6bdb11d42812e2f0124",
+      "source": "kontan",
+      "title": "Restitusi Pajak Anjlok 38,7%, Ditjen Pajak Baru Kembalikan Rp 198,71 Triliun",
+      "url": "https://nasional.kontan.co.id/news/restitusi-pajak-anjlok-387-djp-baru-kembalikan-rp-19871-triliun?source=home_terbaru",
+      "publishedAt": null,
+      "image": "https://foto.kontan.co.id/0eZlb7pZZoZ36lNwI4xwmbYREdk=/smart/2026/08/02/2010882439t.jpg",
+      "category": "other",
+      "topics": []
+    },
+    {
+      "id": "44f68ef61da56ff7ee12",
+      "source": "kontan",
+      "title": "Yield JGB Jepang Turun Jelang Lelang Obligasi 30 Tahun Senilai ¥600 Miliar",
+      "url": "https://internasional.kontan.co.id/news/yield-jgb-jepang-turun-jelang-lelang-obligasi-30-tahun-senilai-600-miliar?source=home_terbaru",
+      "publishedAt": null,
+      "image": "https://foto.kontan.co.id/9xCz2IQoQDSfRioQl0DucXfIPQk=/smart/2026/09/21/2018632380t.jpg",
+      "category": "markets",
+      "topics": []
+    },
+    {
+      "id": "433e19c45efbe07a51be",
+      "source": "kontan",
+      "title": "Prospek Harga SUN Bervariasi, Yield 10 Tahun Diprediksi 7,10%-7,25%",
+      "url": "https://investasi.kontan.co.id/news/prospek-harga-sun-bervariasi-yield-10-tahun-diprediksi-710725?source=home_terbaru",
+      "publishedAt": null,
+      "image": "https://foto.kontan.co.id/oCzoL1CrIypHWNWNWNZtGN11VQc=/smart/2025/11/27/2121710867t.jpg",
+      "category": "markets",
+      "topics": []
+    },
+    {
+      "id": "60ffa905bc7a40f5d9e2",
+      "source": "kontan",
+      "title": "Jelajahi Blok M Hub Bareng BRIZZI ARKIV, Ada Promo Kuliner dan Merchandise Eksklusif",
+      "url": "https://keuangan.kontan.co.id/news/jelajahi-blok-m-hub-bareng-brizzi-arkiv-ada-promo-kuliner-dan-merchandise-eksklusif?utm_source=internalsite&utm_medium=sticky&utm_campaign=pos-3&source=home_terbaru",
+      "publishedAt": null,
+      "image": "https://foto.kontan.co.id/VSnkenGquzPvWy5RxG85bFF5fj8=/smart/2026/09/19/662045840t.jpg",
+      "category": "other",
+      "topics": []
+    },
+    {
+      "id": "f13090be68016e55eb26",
+      "source": "kontan",
+      "title": "KOSPI Korea Selatan Turun 0,87% Kamis (8/10), Saham Chip Tertekan Harga Minyak",
+      "url": "https://internasional.kontan.co.id/news/kospi-korea-selatan-turun-087-kamis-810-saham-chip-tertekan-harga-minyak?source=home_terbaru",
+      "publishedAt": null,
+      "image": "https://foto.kontan.co.id/FwXgoUi6JcQtIaGPZ-jUODTcHnM=/smart/2026/05/06/839123978t.jpg",
+      "category": "markets",
+      "topics": []
+    },
+    {
       "id": "db842f8c0f536f62cf61",
       "source": "kontan",
       "title": "Bursa Australia Melemah Kamis (8/10), Saham Tambang Anjlok Dipimpin Fortescue",
@@ -2129,16 +2183,6 @@
       "publishedAt": null,
       "image": "https://foto.kontan.co.id/pgxqYEhNAX6X4ZoBQj7W6qMGXTk=/smart/2026/09/10/454387487t.jpg",
       "category": "markets",
-      "topics": []
-    },
-    {
-      "id": "60ffa905bc7a40f5d9e2",
-      "source": "kontan",
-      "title": "Jelajahi Blok M Hub Bareng BRIZZI ARKIV, Ada Promo Kuliner dan Merchandise Eksklusif",
-      "url": "https://keuangan.kontan.co.id/news/jelajahi-blok-m-hub-bareng-brizzi-arkiv-ada-promo-kuliner-dan-merchandise-eksklusif?utm_source=internalsite&utm_medium=sticky&utm_campaign=pos-3&source=home_terbaru",
-      "publishedAt": null,
-      "image": "https://foto.kontan.co.id/VSnkenGquzPvWy5RxG85bFF5fj8=/smart/2026/09/19/662045840t.jpg",
-      "category": "other",
       "topics": []
     },
     {
@@ -2212,48 +2256,6 @@
       "topics": []
     },
     {
-      "id": "45715e260156be893c61",
-      "source": "kontan",
-      "title": "Dolar AS Bertahan di Level Tertinggi 18 Bulan Kamis (8/10) Usai Risalah The Fed",
-      "url": "https://internasional.kontan.co.id/news/dolar-as-bertahan-di-level-tertinggi-18-bulan-kamis-810-usai-risalah-the-fed?source=home_terbaru",
-      "publishedAt": null,
-      "image": "https://foto.kontan.co.id/pcLrX9P9G8G16SviVnm_uJHL_tw=/smart/2026/10/07/32413935t.jpg",
-      "category": "markets",
-      "topics": [
-        "fed"
-      ]
-    },
-    {
-      "id": "d3248bca98dca4bd6b0d",
-      "source": "kontan",
-      "title": "Garuda Sediakan eSIM, Bisa Digunakan di Luar Negeri",
-      "url": "https://insight.kontan.co.id/news/garuda-sediakan-esim-bisa-digunakan-di-luar-negeri?source=home_terbaru",
-      "publishedAt": null,
-      "image": "https://foto.kontan.co.id/TgIZqyIWx66B5kUhVudEvhHz0lM=/smart/2025/12/07/391958137t.jpg",
-      "category": "other",
-      "topics": []
-    },
-    {
-      "id": "d9f46be68f582e165a0a",
-      "source": "kontan",
-      "title": "EXCL Mengebut Perluasan Jaringan 5G",
-      "url": "https://insight.kontan.co.id/news/excl-mengebut-perluasan-jaringan-5g?source=home_terbaru",
-      "publishedAt": null,
-      "image": "https://foto.kontan.co.id/HrKuBBB1xZdZqpv1nzI_XfZG0-8=/smart/2026/08/03/964798811t.jpg",
-      "category": "other",
-      "topics": []
-    },
-    {
-      "id": "2f824e8da0dc8d984dfb",
-      "source": "kontan",
-      "title": "Menakar Prospek Saham GZCO, Fundamental Membaik tapi Risiko Produksi Masih Membayangi",
-      "url": "https://insight.kontan.co.id/news/menakar-prospek-saham-gzco-fundamental-membaik-tapi-risiko-produksi-masih-membayangi?source=home_terbaru",
-      "publishedAt": null,
-      "image": "https://foto.kontan.co.id/eJHbkTzdBrotMAPK4xBVUXDbOEM=/smart/2017/08/03/1064662448t.jpg",
-      "category": "markets",
-      "topics": []
-    },
-    {
       "id": "f2772f8f0007f41ffbb1",
       "source": "kontan",
       "title": "Valuasi Sudah Premium, Saham AMRT Terus Merosot",
@@ -2271,6 +2273,58 @@
       "publishedAt": null,
       "image": "https://foto.kontan.co.id/cNJ6yY2MzAXT3VfiqTEVdumps3E=/smart/2016/09/02/1831774395p.jpg",
       "category": "other",
+      "topics": []
+    },
+    {
+      "id": "3df2fadc1b8178a3e161",
+      "source": "investing_id",
+      "title": "SVP BillionToOne jual saham senilai $297.995",
+      "url": "https://id.investing.com/news/insider-trading-news/svp-billiontoone-jual-saham-senilai-297995-93CH-3089934",
+      "publishedAt": null,
+      "image": "https://content-media.investing.com/news/moved_LYNXMPEM3T1AG_1200_L.jpg",
+      "category": "markets",
+      "topics": []
+    },
+    {
+      "id": "5817f3e6acec25ba7ab4",
+      "source": "investing_id",
+      "title": "Direktur Symbotic Todd Krasnow jual saham SYM senilai $85.435",
+      "url": "https://id.investing.com/news/insider-trading-news/direktur-symbotic-todd-krasnow-jual-saham-sym-senilai-85435-93CH-3089929",
+      "publishedAt": null,
+      "image": "https://content-media.investing.com/news/moved_LYNXMPEM40318_1200_L.jpg",
+      "category": "markets",
+      "topics": []
+    },
+    {
+      "id": "ced102ccba993d72199e",
+      "source": "investing_id",
+      "title": "Presiden Cloudflare Michelle Zatlyn jual saham senilai $35,2 juta",
+      "url": "https://id.investing.com/news/insider-trading-news/presiden-cloudflare-michelle-zatlyn-jual-saham-senilai-352-juta-93CH-3089930",
+      "publishedAt": null,
+      "image": "https://content-media.investing.com/news/moved_LYNXMPEM3T1AG_1200_L.jpg",
+      "category": "markets",
+      "topics": [
+        "politics"
+      ]
+    },
+    {
+      "id": "4d7502d7c7f62a374d98",
+      "source": "investing_id",
+      "title": "Direktur Procore O’Connor jual saham senilai $830.914",
+      "url": "https://id.investing.com/news/insider-trading-news/direktur-procore-oconnor-jual-saham-senilai-830914-93CH-3089928",
+      "publishedAt": null,
+      "image": "https://content-media.investing.com/news/moved_LYNXMPEM3S10Z_1200_L.jpg",
+      "category": "markets",
+      "topics": []
+    },
+    {
+      "id": "6c8bf1bfd96de9e04e99",
+      "source": "investing_id",
+      "title": "CEO Charles River Labs Shannon Parisotto jual saham senilai $302 ribu",
+      "url": "https://id.investing.com/news/insider-trading-news/ceo-charles-river-labs-shannon-parisotto-jual-saham-senilai-302-ribu-93CH-3089927",
+      "publishedAt": null,
+      "image": "https://content-media.investing.com/news/moved_LYNXMPEM3Q0WG_1200_L.jpg",
+      "category": "markets",
       "topics": []
     },
     {
@@ -2324,62 +2378,22 @@
       "topics": []
     },
     {
-      "id": "f65ff16fc84ec82ba04d",
-      "source": "investing_id",
-      "title": "Harga minyak naik saat pasar bersiap hadapi gangguan pasokan di Teluk AS",
-      "url": "https://id.investing.com/news/commodities-news/harga-minyak-naik-saat-pasar-bersiap-hadapi-gangguan-pasokan-di-teluk-as-3089910",
-      "publishedAt": null,
-      "image": "https://content-media.investing.com/news/LYNXMPEA5T0D5_M.jpg",
-      "category": "markets",
-      "topics": []
-    },
-    {
-      "id": "ea77cacb2a84939178e4",
-      "source": "investing_id",
-      "title": "Saham LG Energy Solution capai tertinggi hampir 4 bulan usai laba Q3 lebih dari dua kali lipat",
-      "url": "https://id.investing.com/news/earnings/laba-operasional-lg-energy-solution-q3-melampaui-estimasi-lebih-dari-dua-kali-lipat-3089908",
-      "publishedAt": null,
-      "image": "https://content-media.investing.com/news/moved_LYNXMPEM431A2_1200_L.jpg",
-      "category": "markets",
-      "topics": []
-    },
-    {
-      "id": "fb7ea291fc2afca07938",
-      "source": "investing_id",
-      "title": "COO Meta Platforms Javier Olivan jual saham senilai $1,15 juta",
-      "url": "https://id.investing.com/news/insider-trading-news/coo-meta-platforms-javier-olivan-jual-saham-senilai-115-juta-93CH-3089907",
-      "publishedAt": null,
-      "image": "https://content-media.investing.com/news/facebook_2_M_1440049069.jpg",
-      "category": "markets",
-      "topics": []
-    },
-    {
-      "id": "a9d4c67b00d204a724b7",
-      "source": "investing_id",
-      "title": "Direktur Recursion Pharmaceuticals Blake Borgeson jual saham senilai $242.000",
-      "url": "https://id.investing.com/news/insider-trading-news/direktur-recursion-pharmaceuticals-blake-borgeson-jual-saham-senilai-242000-93CH-3089905",
-      "publishedAt": null,
-      "image": "https://content-media.investing.com/news/moved_LYNXMPEM3S10Z_1200_L.jpg",
-      "category": "markets",
-      "topics": []
-    },
-    {
-      "id": "ccaadb36955c93edcae3",
-      "source": "investing_id",
-      "title": "ARK milik Cathie Wood jual saham Robinhood, beli CoreWeave dan Kratos",
-      "url": "https://id.investing.com/news/company-news/ark-milik-cathie-wood-jual-saham-robinhood-beli-coreweave-dan-kratos-93CH-3089903",
-      "publishedAt": null,
-      "image": "https://content-media.investing.com/news/Robinhood_800x533_L_1595405475.jpg",
-      "category": "markets",
-      "topics": []
-    },
-    {
       "id": "29ebc9382c60d0c9dabd",
       "source": "pluang",
       "title": "Monarch Casino akan umumkan hasil kuartal 3 2026 setelah pasar tutup 27 Oktober",
       "url": "https://pluang.com/news-feed/monarch-casino-resort-laporkan-hasil-kuartal-iii-2026",
       "publishedAt": null,
       "image": "https://image-cdn.pluang.com/web/news-cards/v2/GSS/aec136ae7350c33bbfb16af1acc7b235570c924ca9d8ae22ea5319acc0985428-id.webp",
+      "category": "other",
+      "topics": []
+    },
+    {
+      "id": "2ce4d5b72105f3c607c9",
+      "source": "pluang",
+      "title": "Paus kripto pindahkan 9.618 ETH senilai $24,6 juta ke Kraken setelah 9 tahun, penjualan belum jelas",
+      "url": "https://pluang.com/news-feed/pinosaureth-pindahkan-9618-eth-ke-kraken-setelah-9-tahun",
+      "publishedAt": null,
+      "image": "https://image-cdn.pluang.com/web/news-cards/v2/CRYPTO/b702cb3ce0a5d8ab5b6b847c8ffa0fc7cd4e4fa8824403a01197f8d8d5274943-id.webp",
       "category": "other",
       "topics": []
     },
@@ -2400,16 +2414,6 @@
       "url": "https://pluang.com/news-feed/sui-mencapai-rekor-40-juta-tps-tapi-ada-satu-kendala",
       "publishedAt": null,
       "image": "https://image-cdn.pluang.com/web/news-cards/v2/CRYPTO/52458c9ed69a08c8a69ef8660d3a757534a71fb0eeba08079b5943ab074afa41-id.webp",
-      "category": "other",
-      "topics": []
-    },
-    {
-      "id": "1f9f51fa7daaefb6ae0f",
-      "source": "pluang",
-      "title": "Hyperliquid Strategies DAT bantah beli 3,75 juta HYPE senilai $320 juta lewat OTC",
-      "url": "https://pluang.com/news-feed/ceo-purr-bantah-terima-3-75-juta-hype-dari-hyperliquid",
-      "publishedAt": null,
-      "image": "https://image-cdn.pluang.com/web/news-cards/v2/CRYPTO/948376168ffb632bf3b7530c0f05136caad6231d7b2b1de92169c1cc42de66cf-id.webp",
       "category": "other",
       "topics": []
     }
