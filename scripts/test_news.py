@@ -179,7 +179,7 @@ for code in ("DE","FR","IT","ES","NL","CH","SE","PL","UA"):
 print("Nine new European regions: 72 portal entries and unique collector IDs passed")
 
 for code in ("QA","JO","LB","IQ","KW","OM","BH","IL","IN","CN","PK","BD","TW","SA","AE","TR","IR","LK","ZA","NG","KE","EG","MA","GH","ET","DZ","UG","TZ","TH","PH","VN","JP","KR"):
-    assert len(news.REGIONAL_NEWS_SOURCES[code]) == (10 if code == "CN" else 8)
+    assert len(news.REGIONAL_NEWS_SOURCES[code]) == (10 if code == "CN" else 12 if code == "TW" else 8)
 assert len(news.REGIONAL_NEWS_SOURCES["DIRECTORIES"]) == 5
 assert news.REGIONAL_NEWS_SOURCES["TZ"][1]["url"] == "https://dailynews.co.tz"
 assert news.REGIONAL_NEWS_SOURCES["TH"][5]["url"] == "https://www.dailynews.co.th"
