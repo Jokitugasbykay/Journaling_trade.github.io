@@ -97,3 +97,19 @@ assert len(news.merge_items(archive, [latest])) == 451
 fnc_rows = [{**latest, 'source':'fnc', 'id':str(n), 'url':'https://tradewithfnc.com/'} for n in (1,2)]
 assert len(news.merge_items([], fnc_rows)) == 2
 print('News archive survives successful/failed refreshes, duplicates and the former 400-story limit')
+
+story = {**latest, 'source':'kompas', 'url':'https://money.kompas.com/read/2026/10/08/063340926/original-title', 'image':old[0]['image']}
+revision = {**story, 'id':'revision', 'title':'Updated technology headline from the same publisher',
+            'url':story['url'].replace('original-title', 'updated-title'), 'image':None}
+merged = news.merge_items([story], [revision])
+assert len(merged) == 1 and merged[0]['title'] == revision['title'] and merged[0]['image'] == story['image']
+tracked = {**latest, 'url':latest['url'] + '?utm_source=homepage&source=home_headline'}
+assert len(news.merge_items([latest], [tracked])) == 1
+republished = {**latest, 'id':'alternate', 'url':'https://www.reuters.com/business/alternate/', 'title':'  ' + latest['title'].upper() + '  '}
+assert len(news.merge_items([latest], [republished])) == 1
+assert len(news.merge_items([latest], [{**republished, 'publishedAt':'2026-09-01T00:00:00+00:00'}])) == 2
+assert len(news.merge_items([latest], [{**latest, 'source':'cnbc', 'url':'https://www.cnbc.com/news/article.html'}])) == 2
+assert len(news.merge_items([], [{**latest, 'url':latest['url']+'?id=1'}, {**latest, 'url':latest['url']+'?id=2', 'title':'Another distinct economic story from Reuters'}])) == 2
+html = f'<a href="{story["url"]}">{story["title"]}</a><a href="{revision["url"]}">{revision["title"]}</a>'
+assert len(news.parse(html.encode(), kompas)) == 1
+print('Article IDs, tracking URLs and same-publisher headlines deduplicate without merging different days or publishers')

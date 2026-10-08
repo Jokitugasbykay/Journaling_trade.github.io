@@ -187,8 +187,7 @@ def parse(data, source):
             continue
         seen.add(identity)
         items.append({"id": hashlib.sha256((source['id'] + str(identity)).encode()).hexdigest()[:20], "source": source["id"], "title": title, "url": link, "publishedAt": published, 'image': image_url(row.get('image')), 'category': category_for(link, title, row.get('tag', ''))})
-    items.sort(key=lambda item: item["publishedAt"] or "", reverse=True)
-    return items[:20]
+    return merge_items([], items)[:20]
 
 
 def add_article_image(item):
@@ -228,16 +227,34 @@ def collect(source):
         return {**public, "status": "unavailable"}, []
 
 
+def article_identity(item):
+    source = item['source']
+    if source == 'fnc':
+        return source, item.get('id') or item['title']
+    url = urllib.parse.urlsplit(item['url'])
+    if source == 'kompas':
+        article = re.match(r'/read/(\d{4}/\d{2}/\d{2}/\d+)(?:/|$)', url.path)
+        if article:
+            return source, article[1]
+    query = [(key, value) for key, value in urllib.parse.parse_qsl(url.query, keep_blank_values=True)
+             if not key.lower().startswith('utm_') and key.lower() not in ('source', 'fbclid', 'gclid')]
+    return source, urllib.parse.urlunsplit((url.scheme, url.netloc.lower(), url.path.rstrip('/'), urllib.parse.urlencode(sorted(query)), ''))
+
+
 def merge_items(previous, incoming):
     domains = {source['id']: source['domain'] for source in SOURCES}
-    merged = {}
+    merged, headlines = {}, {}
     # ponytail: keep the complete headline archive in one feed; split by month if download size becomes a problem.
     for item in [*previous, *incoming]:
         if not isinstance(item, dict) or item.get('source') not in domains or not isinstance(item.get('title'), str):
             continue
         if not safe_url(item.get('url', ''), domains[item['source']]) or SIGNALS.search(item['title']):
             continue
-        key = (item['source'], item.get('id') or item['title']) if item['source'] == 'fnc' else (item['source'], item['url'])
+        key = article_identity(item)
+        headline = (item['source'], clean(item['title']).casefold(), (item.get('publishedAt') or '')[:10])
+        if item['source'] != 'fnc':
+            key = headlines.get(headline, key)
+            headlines[headline] = key
         old = merged.get(key, {})
         row = {**old, **item}
         for field in ('image', 'publishedAt'):
