@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "checkedAt": "2026-10-08T07:09:57.582648+00:00",
+  "checkedAt": "2026-10-08T07:17:01.585513+00:00",
   "intervalMinutes": 5,
   "sources": [
     {
@@ -9,7 +9,7 @@
       "url": "https://www.investing.com/",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-08T07:09:44.893041+00:00"
+      "checkedAt": "2026-10-08T07:16:50.373041+00:00"
     },
     {
       "id": "cnbc",
@@ -17,7 +17,7 @@
       "url": "https://www.cnbc.com/markets/",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-08T07:09:44.856054+00:00"
+      "checkedAt": "2026-10-08T07:16:50.377189+00:00"
     },
     {
       "id": "kontan",
@@ -25,7 +25,7 @@
       "url": "https://www.kontan.co.id/",
       "kind": "html",
       "status": "ok",
-      "checkedAt": "2026-10-08T07:09:46.102645+00:00"
+      "checkedAt": "2026-10-08T07:16:51.733981+00:00"
     },
     {
       "id": "reuters",
@@ -33,7 +33,7 @@
       "url": "https://www.reuters.com/",
       "kind": "sitemap",
       "status": "ok",
-      "checkedAt": "2026-10-08T07:09:44.908316+00:00"
+      "checkedAt": "2026-10-08T07:16:50.716444+00:00"
     },
     {
       "id": "aljazeera",
@@ -41,7 +41,7 @@
       "url": "https://www.aljazeera.com/",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-08T07:09:44.881412+00:00"
+      "checkedAt": "2026-10-08T07:16:50.401697+00:00"
     },
     {
       "id": "bloomberg",
@@ -49,7 +49,7 @@
       "url": "https://www.bloomberg.com/asia",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-08T07:09:50.235816+00:00"
+      "checkedAt": "2026-10-08T07:16:50.660375+00:00"
     },
     {
       "id": "fnc",
@@ -57,7 +57,7 @@
       "url": "https://tradewithfnc.com/",
       "kind": "json",
       "status": "ok",
-      "checkedAt": "2026-10-08T07:09:45.645482+00:00"
+      "checkedAt": "2026-10-08T07:16:50.712215+00:00"
     },
     {
       "id": "investing_id",
@@ -65,7 +65,7 @@
       "url": "https://id.investing.com/news",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-08T07:09:45.183411+00:00"
+      "checkedAt": "2026-10-08T07:16:50.605307+00:00"
     },
     {
       "id": "pluang",
@@ -73,14 +73,14 @@
       "url": "https://pluang.com/news-feed",
       "kind": "html",
       "status": "ok",
-      "checkedAt": "2026-10-08T07:09:45.263382+00:00"
+      "checkedAt": "2026-10-08T07:16:50.593490+00:00"
     },
     {
       "id": "kompas",
       "name": "Kompas Money",
       "url": "https://money.kompas.com/",
       "kind": "html",
-      "status": "ok",
+      "status": "stale",
       "checkedAt": "2026-10-08T07:09:46.067196+00:00"
     },
     {
@@ -89,7 +89,7 @@
       "url": "https://finance.detik.com/",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-08T07:09:47.095634+00:00"
+      "checkedAt": "2026-10-08T07:16:52.081088+00:00"
     },
     {
       "id": "kemenkeu",
@@ -121,7 +121,7 @@
       "url": "https://ekbis.sindonews.com/",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-08T07:09:46.017984+00:00"
+      "checkedAt": "2026-10-08T07:16:51.046022+00:00"
     },
     {
       "id": "fedwatch",
@@ -139,6 +139,116 @@
     }
   ],
   "items": [
+    {
+      "id": "0af9ff33bdc16977f244",
+      "source": "reuters",
+      "title": "Rays, benefiting from fan-interference call, complete sweep of Yankees",
+      "url": "https://www.reuters.com/sports/baseball/rays-benefiting-fan-interference-call-complete-sweep-yankees--flm-2026-10-08/",
+      "publishedAt": "2026-10-08T07:14:14.087000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/LL6Z4H6MFNNZLCRAPG5MZOBYUY.jpg?auth=cd9c28a01be3013c5fded774ed536eeda80120933a60decc2627de24f37a23e9&smart=true&width=1920",
+      "category": "sport",
+      "topics": []
+    },
+    {
+      "id": "0cd1ba5b356ecd803f45",
+      "source": "reuters",
+      "title": "British diplomats to remain at renamed consulate in Jerusalem",
+      "url": "https://www.reuters.com/world/middle-east/britain-removes-east-jerusalem-consulate-signage-israeli-shutdown-order-expires-2026-10-08/",
+      "publishedAt": "2026-10-08T07:14:02.047000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/QI4UDDQJEZI45AQK7BTSYZTGBY.jpg?auth=f183e4ed3ea08709e08ec132530f42934ba0f63ea990de1854bf1dd1ad3b672f&smart=true&width=1920",
+      "category": "world",
+      "topics": []
+    },
+    {
+      "id": "8f1257146f5e91c24382",
+      "source": "reuters",
+      "title": "UN weather body says El Niño set to intensify and last until February 2027",
+      "url": "https://www.reuters.com/business/environment/un-weather-body-says-el-nio-set-intensify-last-until-february-2027-2026-10-08/",
+      "publishedAt": "2026-10-08T07:13:03.327000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/2K7J6AGPX5JLNECFZEY7UM7BCM.jpg?auth=f9656c86560aa3e3d0aeb3859ba8cb020a35a26e6c92045d01888637b6cf4044&smart=true&width=1920",
+      "category": "sustainability",
+      "topics": []
+    },
+    {
+      "id": "c84ef87c5bcb6a71c89b",
+      "source": "reuters",
+      "title": "Deloitte fined £6.05 million in UK over audits of transport operator Go-Ahead Group",
+      "url": "https://www.reuters.com/world/uk/deloitte-fined-605-million-uk-over-audits-transport-operator-go-ahead-group-2026-10-08/",
+      "publishedAt": "2026-10-08T07:12:54.335000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/Z2RKY26NAFPGDKNDROUJAQF6BE.jpg?auth=dfb2530f9a356e1454990c8f6fdfcde2ef7d274adaa1e5932683c0aa89f3e9b0&smart=true&width=1920",
+      "category": "world",
+      "topics": []
+    },
+    {
+      "id": "3a9c454433ecec8b4092",
+      "source": "reuters",
+      "title": "Rays, benefiting from fan-interference call, complete sweep of Yankees",
+      "url": "https://www.reuters.com/sports/rays-benefiting-fan-interference-call-complete-sweep-yankees--fldm-2026-10-08/",
+      "publishedAt": "2026-10-08T07:11:13.287000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/RDLIOIDBTBK37KG34WMAEMYZTA.jpg?auth=3a7b6365ac3dbf6e69f12f8f46b1f8da503bd28474b4b4a74598e922ef4e4469&smart=true&width=1920",
+      "category": "sport",
+      "topics": []
+    },
+    {
+      "id": "27ff3e7f53958d3340bd",
+      "source": "reuters",
+      "title": "US will rescind policy targeting oil and gas industry methane leaks",
+      "url": "https://www.reuters.com/legal/government/epa-says-will-soon-act-rescind-biden-policy-targeting-methane-leaks-2026-10-07/",
+      "publishedAt": "2026-10-08T07:10:35.500000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/VPLMLRWSRBN37HRNXMEK5GCRC4.jpg?auth=04137f69d4ba86d8689adc50ebf5b2d353ed3c0510f9421ecc9859780b6b09b4&smart=true&width=1920",
+      "category": "legal",
+      "topics": []
+    },
+    {
+      "id": "50313e674335da56997c",
+      "source": "reuters",
+      "title": "Man City own goal upsets sport’s money-go-round",
+      "url": "https://www.reuters.com/podcasts/man-city-own-goal-upsets-sports-money-go-round-2026-10-08/",
+      "publishedAt": "2026-10-08T07:09:37.770000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/IMBTCDAOIZFQNFCKCDMDQ3SGTY.jpg?auth=b0ee63c743ac9f4be0b43b73c820caad533fd108c8ec8ce01178b286944a37a6&smart=true&width=1920",
+      "category": "other",
+      "topics": []
+    },
+    {
+      "id": "7fce429c79764d95972c",
+      "source": "reuters",
+      "title": "Ethiopia names Fitsum as new finance minister",
+      "url": "https://www.reuters.com/world/africa/ethiopia-names-fitsum-new-finance-minister-2026-10-08/",
+      "publishedAt": "2026-10-08T07:07:29.944000+00:00",
+      "image": null,
+      "category": "world",
+      "topics": []
+    },
+    {
+      "id": "c6ec1d90182a6fce175b",
+      "source": "reuters",
+      "title": "What's happening with Britain's Jerusalem consulate?",
+      "url": "https://www.reuters.com/world/middle-east/whats-happening-with-britains-jerusalem-consulate-2026-10-08/",
+      "publishedAt": "2026-10-08T07:07:21.743000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/JT4SMSN6WBNY3MXCOCAUWL5BUM.jpg?auth=681eaadde941940a28dbc670fcce9943e001caf038a2062e8cc107a0351b9f37&smart=true&width=1920",
+      "category": "world",
+      "topics": []
+    },
+    {
+      "id": "2fb4e41847bb1604818c",
+      "source": "reuters",
+      "title": "Battle for Mideast oil market share has already begun",
+      "url": "https://www.reuters.com/commentary/reuters-open-interest/battle-mideast-oil-market-share-has-already-begun-2026-10-08/",
+      "publishedAt": "2026-10-08T07:07:06.688000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/3JVBKPRE5VOBZDDRHYNN2COVRY.jpg?auth=24a17c8e44bc4fc3f92de463cb76f7343a6d3dff9b2c48ee7547a094f8c7c479&smart=true&width=1920",
+      "category": "commentary",
+      "topics": []
+    },
+    {
+      "id": "da55a4b6cf45e6830afd",
+      "source": "reuters",
+      "title": "People in Russian-occupied Ukrainian town risk 'road of death' to get food",
+      "url": "https://www.reuters.com/world/europe/people-russian-occupied-ukrainian-town-risk-road-death-get-food-2026-10-08/",
+      "publishedAt": "2026-10-08T07:04:59.703000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/55D6HDLEURK7TGCHPQKFG66AEE.jpg?auth=991131908713a7144518c18276207cbda9985a693dd044b1553dcbd6d1a3c03b&smart=true&width=1920",
+      "category": "world",
+      "topics": []
+    },
     {
       "id": "720adbdba0b3ee46eb7a",
       "source": "kompas",
@@ -232,16 +342,6 @@
       ]
     },
     {
-      "id": "da55a4b6cf45e6830afd",
-      "source": "reuters",
-      "title": "People in Russian-occupied Ukrainian town risk 'road of death' to get food",
-      "url": "https://www.reuters.com/world/europe/people-russian-occupied-ukrainian-town-risk-road-death-get-food-2026-10-08/",
-      "publishedAt": "2026-10-08T06:59:03.344000+00:00",
-      "image": "https://www.reuters.com/resizer/v2/55D6HDLEURK7TGCHPQKFG66AEE.jpg?auth=991131908713a7144518c18276207cbda9985a693dd044b1553dcbd6d1a3c03b&smart=true&width=1920",
-      "category": "world",
-      "topics": []
-    },
-    {
       "id": "1c376c783e1af2955d0c",
       "source": "reuters",
       "title": "Syria weighs military aid for Saudi Arabia amid Yemen war, sources say",
@@ -291,16 +391,6 @@
       "publishedAt": "2026-10-08T06:56:02+00:00",
       "image": null,
       "category": "markets",
-      "topics": []
-    },
-    {
-      "id": "0cd1ba5b356ecd803f45",
-      "source": "reuters",
-      "title": "British diplomats to remain at renamed consulate in Jerusalem",
-      "url": "https://www.reuters.com/world/middle-east/britain-removes-east-jerusalem-consulate-signage-israeli-shutdown-order-expires-2026-10-08/",
-      "publishedAt": "2026-10-08T06:55:30.568000+00:00",
-      "image": "https://www.reuters.com/resizer/v2/QI4UDDQJEZI45AQK7BTSYZTGBY.jpg?auth=f183e4ed3ea08709e08ec132530f42934ba0f63ea990de1854bf1dd1ad3b672f&smart=true&width=1920",
-      "category": "world",
       "topics": []
     },
     {
@@ -722,7 +812,7 @@
     {
       "id": "5fe52f190508575bbde1",
       "source": "bloomberg",
-      "title": "Imperial Brands Plans £1.5 Billion Buyback After Shares Decline",
+      "title": "Imperial Brands Plans £1.5 Billion Buyback After Stock Fall",
       "url": "https://www.bloomberg.com/news/articles/2026-10-08/imperial-brands-plans-1-5-billion-buyback-after-shares-decline",
       "publishedAt": "2026-10-08T06:21:21+00:00",
       "image": null,
@@ -800,16 +890,6 @@
       "topics": []
     },
     {
-      "id": "50313e674335da56997c",
-      "source": "reuters",
-      "title": "Man City own goal upsets sport’s money-go-round",
-      "url": "https://www.reuters.com/podcasts/man-city-own-goal-upsets-sports-money-go-round-2026-10-08/",
-      "publishedAt": "2026-10-08T06:11:13.239000+00:00",
-      "image": "https://www.reuters.com/resizer/v2/IMBTCDAOIZFQNFCKCDMDQ3SGTY.jpg?auth=b0ee63c743ac9f4be0b43b73c820caad533fd108c8ec8ce01178b286944a37a6&smart=true&width=1920",
-      "category": "other",
-      "topics": []
-    },
-    {
       "id": "d0cac94d0a823106da51",
       "source": "reuters",
       "title": "Microsoft brings more AI to PCs as it challenges Apple",
@@ -837,16 +917,6 @@
       "publishedAt": "2026-10-08T06:08:05+00:00",
       "image": "https://www.aljazeera.com/wp-content/uploads/2026/10/Untitled-1-copy-1791357506.jpg?resize=1920%2C1440",
       "category": "other",
-      "topics": []
-    },
-    {
-      "id": "2fb4e41847bb1604818c",
-      "source": "reuters",
-      "title": "Battle for Mideast oil market share has already begun",
-      "url": "https://www.reuters.com/commentary/reuters-open-interest/battle-mideast-oil-market-share-has-already-begun-2026-10-08/",
-      "publishedAt": "2026-10-08T06:08:02.511000+00:00",
-      "image": "https://www.reuters.com/resizer/v2/3JVBKPRE5VOBZDDRHYNN2COVRY.jpg?auth=24a17c8e44bc4fc3f92de463cb76f7343a6d3dff9b2c48ee7547a094f8c7c479&smart=true&width=1920",
-      "category": "commentary",
       "topics": []
     },
     {
@@ -1452,16 +1522,6 @@
       "topics": []
     },
     {
-      "id": "0af9ff33bdc16977f244",
-      "source": "reuters",
-      "title": "Rays, benefiting from fan-interference call, complete sweep of Yankees",
-      "url": "https://www.reuters.com/sports/baseball/rays-benefiting-fan-interference-call-complete-sweep-yankees--flm-2026-10-08/",
-      "publishedAt": "2026-10-08T04:55:45.668000+00:00",
-      "image": "https://www.reuters.com/resizer/v2/LL6Z4H6MFNNZLCRAPG5MZOBYUY.jpg?auth=cd9c28a01be3013c5fded774ed536eeda80120933a60decc2627de24f37a23e9&smart=true&width=1920",
-      "category": "sport",
-      "topics": []
-    },
-    {
       "id": "f6c6b19b32d21760707d",
       "source": "bloomberg",
       "title": "Tikehau: Private Markets Entering a More Selective Phase",
@@ -1491,16 +1551,6 @@
       "publishedAt": "2026-10-08T04:52:52.487000+00:00",
       "image": "https://www.reuters.com/resizer/v2/G5JAJ7O7XRM7VNJT7OIT4DV4OM.jpg?auth=a72174bfd7a6814953dd2c484d6e7ad42140a35e36e99514060b738c18608aa6&smart=true&width=1920",
       "category": "markets",
-      "topics": []
-    },
-    {
-      "id": "3a9c454433ecec8b4092",
-      "source": "reuters",
-      "title": "Rays, benefiting from fan-interference call, complete sweep of Yankees",
-      "url": "https://www.reuters.com/sports/rays-benefiting-fan-interference-call-complete-sweep-yankees--fldm-2026-10-08/",
-      "publishedAt": "2026-10-08T04:52:07.476000+00:00",
-      "image": "https://www.reuters.com/resizer/v2/RDLIOIDBTBK37KG34WMAEMYZTA.jpg?auth=3a7b6365ac3dbf6e69f12f8f46b1f8da503bd28474b4b4a74598e922ef4e4469&smart=true&width=1920",
-      "category": "sport",
       "topics": []
     },
     {
@@ -3010,7 +3060,7 @@
     {
       "id": "840bc12673ac70d293dd",
       "source": "bloomberg",
-      "title": "Japanese Equities Decline as Topix Weighting Announcement Weighs",
+      "title": "Japanese Stocks Fall as Topix Weighting Announcement Sours Mood",
       "url": "https://www.bloomberg.com/news/articles/2026-10-08/japanese-stocks-fall-as-inflation-fears-hit-cyclical-shares",
       "publishedAt": "2026-10-08T00:27:54+00:00",
       "image": null,
@@ -4001,16 +4051,6 @@
       "publishedAt": "2026-10-07T21:16:24+00:00",
       "image": "https://image.cnbcfm.com/api/v1/image/108321428-17812944792026-06-12t161555z_305406967_rc2gsla0exkf_rtrmadp_0_spacex-ipo-california.jpeg?v=1784319677&w=1920&h=1080",
       "category": "business",
-      "topics": []
-    },
-    {
-      "id": "27ff3e7f53958d3340bd",
-      "source": "reuters",
-      "title": "US will rescind policy targeting oil and gas industry methane leaks",
-      "url": "https://www.reuters.com/legal/government/epa-says-will-soon-act-rescind-biden-policy-targeting-methane-leaks-2026-10-07/",
-      "publishedAt": "2026-10-07T21:10:27.202000+00:00",
-      "image": "https://www.reuters.com/resizer/v2/VPLMLRWSRBN37HRNXMEK5GCRC4.jpg?auth=04137f69d4ba86d8689adc50ebf5b2d353ed3c0510f9421ecc9859780b6b09b4&smart=true&width=1920",
-      "category": "legal",
       "topics": []
     },
     {
@@ -13998,6 +14038,18 @@
       "image": "https://foto.kontan.co.id/z6Bby9gncwrRtnzJ3-Vto6PrtC8=/smart/2026/06/24/2088557564t.jpg",
       "category": "business",
       "topics": []
+    },
+    {
+      "id": "6e8ab2a0892762c8e71e",
+      "source": "kontan",
+      "title": "Indonesia Committed to Safeguarding All Investments, President Says",
+      "url": "https://english.kontan.co.id/news/indonesia-committed-to-safeguarding-all-investments-president-says?source=home_terbaru",
+      "publishedAt": null,
+      "image": "https://foto.kontan.co.id/sRC8Syauxg3nlOGtQ0Shx5GcBbM=/smart/2026/10/01/1834156115t.jpg",
+      "category": "local",
+      "topics": [
+        "politics"
+      ]
     }
   ]
 }
