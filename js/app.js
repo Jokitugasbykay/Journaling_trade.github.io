@@ -134,7 +134,7 @@
   "guideReviewText": "Open Statistics to review profit and loss, win rate, and drawdown. Compare your setups and entry reasons, then choose one habit to improve in your next session."
 });
       Object.assign(englishCopy, {"newsPageTitle":"News & economic calendar","newsPageLead":"Headlines from your selected publishers, publication times, and the economic calendar.","newsHeadlines":"Latest news","newsCalendar":"Economic calendar","newsSourceLabel":"News source","newsAllSources":"All sources","newsRefresh":"Refresh news","newsOriginalLanguage":"Headlines remain in the publisher’s original language. Read the full story on the source website.","newsCmeHint":"View current interest-rate probabilities and market data directly on CME Group."});
-      Object.assign(englishCopy, {"newsLatestStories": "Latest stories", "newsShowMore": "Show more stories", "newsFeedDetails": "Sources & update schedule", "newsSchedule": "News collection is scheduled every 5 minutes. This page checks for updates every 5 minutes; source timestamps show freshness."});
+      Object.assign(englishCopy, {"newsLatestStories": "Latest stories", "newsShowMore": "Show more stories"});
       Object.assign(englishCopy, {"categoryAll": "All", "categoryWorld": "World", "categoryPolitics": "Politics", "categoryBusiness": "Business", "categoryMarkets": "Markets", "categorySustainability": "Sustainability", "categoryLegal": "Legal", "categoryCommentary": "Commentary", "categoryTechnology": "Technology", "categoryInvestigations": "Investigations", "categoryMore": "More", "categoryLocal": "Local news", "categoryScience": "Science", "categorySport": "Sport", "categoryOther": "Other news", "biSource": "Bank Indonesia transaction rates", "biBasis": "Journal conversion uses the midpoint of BI USD sell and buy rates. BI publishes rates once per business day."});
       Object.assign(englishCopy, {
         signupTitle: 'Create your journalingtrade account', signupLead: 'Start with Free and track your trading journey.',
@@ -3588,12 +3588,6 @@
         if (selected !== newsSelectedSource) { newsVisibleCount = 12; newsSelectedSource = selected; }
         select.innerHTML = newsSourceOptions(availableSources);
         select.value = selected;
-        $('publisher-source-status').innerHTML = availableSources.map(source => {
-          const url = publisherUrl(source.url, source.id);
-          if (!url) return '';
-          const state = source.kind === 'external' ? newsText('Buka portal penerbit; feed otomatis belum tersedia', 'Visit publisher portal; automatic feed not available') : source.status === 'ok' ? newsText('Tersedia', 'Available') : source.status === 'stale' ? newsText('Data tersimpan; sumber gagal diperbarui', 'Saved headlines; source refresh failed') : newsText('Feed tidak tersedia; buka sumber', 'Feed unavailable; visit source');
-          return '<a href="' + esc(url) + '" target="_blank" rel="noopener noreferrer">' + esc(source.name) + '<small>' + esc(state) + '</small></a>';
-        }).join('');
         const sources = new Map(availableSources.map(source => [source.id, source]));
         const rows = publisherNews.items.filter(item => sources.has(item.source) && newsSourceMatchesSelection(item.source, selected) && (!newsCategory || ((item.category || 'other') === newsCategory || item.topics?.includes(newsCategory))) && newsMatchesSearch(item, sources.get(item.source)?.name, newsQuery));
         const portal = sources.get(selected);
