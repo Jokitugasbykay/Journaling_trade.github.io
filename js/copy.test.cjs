@@ -55,7 +55,7 @@ console.log('English guide coverage passed');
   const buttons = ['ringkasan', 'kalender'].map(sub => ({ dataset: { sub }, classList: { toggle() {} } }));
   let newsAllowed = true;
   let chartSymbol;
-  const context = { canReadNews: () => newsAllowed, $: id => nodes.get(id),
+  const context = { canReadNews: () => newsAllowed, renderNewsRegionControls() {}, detectNewsRegion() {}, $: id => nodes.get(id),
     document: { querySelectorAll: () => buttons, createElement: () => ({attributes: {}, setAttribute(key, value) { this.attributes[key] = value; }, addEventListener(type, listener) { this.listener = listener; }}) },
     openTradingView(symbol) { chartSymbol = symbol; }, renderPublisherNews() {}, renderEconomicCalendar() {}, pagePath: route => '/' + route + '/',
     location: { pathname: '/economic-news/' }, history: { pushState() {} } };

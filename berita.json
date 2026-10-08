@@ -191,29 +191,465 @@
       "url": "https://www.cmegroup.com/markets.html?redirect=/markets/",
       "kind": "tool",
       "status": "external"
+    },
+    {
+      "id": "no_nrk",
+      "name": "NRK",
+      "url": "https://www.nrk.no",
+      "kind": "rss",
+      "status": "ok",
+      "checkedAt": "2026-10-08T08:09:08.759404+00:00"
+    },
+    {
+      "id": "no_aftenposten",
+      "name": "Aftenposten",
+      "url": "https://www.aftenposten.no",
+      "kind": "external",
+      "status": "external"
+    },
+    {
+      "id": "no_vg",
+      "name": "VG",
+      "url": "https://www.vg.no",
+      "kind": "external",
+      "status": "external"
+    },
+    {
+      "id": "no_dagbladet",
+      "name": "Dagbladet",
+      "url": "https://www.dagbladet.no",
+      "kind": "external",
+      "status": "external"
+    },
+    {
+      "id": "no_e24",
+      "name": "E24",
+      "url": "https://e24.no",
+      "kind": "external",
+      "status": "external"
+    },
+    {
+      "id": "no_dn",
+      "name": "Dagens Næringsliv",
+      "url": "https://www.dn.no",
+      "kind": "external",
+      "status": "external"
+    },
+    {
+      "id": "no_klassekampen",
+      "name": "Klassekampen",
+      "url": "https://klassekampen.no",
+      "kind": "external",
+      "status": "external"
+    },
+    {
+      "id": "no_local",
+      "name": "The Local Norway",
+      "url": "https://www.thelocal.no",
+      "kind": "external",
+      "status": "external"
+    },
+    {
+      "id": "dk_dr",
+      "name": "DR",
+      "url": "https://www.dr.dk",
+      "kind": "rss",
+      "status": "ok",
+      "checkedAt": "2026-10-08T08:09:08.804409+00:00"
+    },
+    {
+      "id": "dk_politiken",
+      "name": "Politiken",
+      "url": "https://politiken.dk",
+      "kind": "external",
+      "status": "external"
+    },
+    {
+      "id": "dk_berlingske",
+      "name": "Berlingske",
+      "url": "https://berlingske.dk",
+      "kind": "external",
+      "status": "external"
+    },
+    {
+      "id": "dk_jyllands",
+      "name": "Jyllands-Posten",
+      "url": "https://jyllands-posten.dk",
+      "kind": "external",
+      "status": "external"
+    },
+    {
+      "id": "dk_borsen",
+      "name": "Børsen",
+      "url": "https://borsen.dk",
+      "kind": "external",
+      "status": "external"
+    },
+    {
+      "id": "dk_information",
+      "name": "Information",
+      "url": "https://information.dk",
+      "kind": "external",
+      "status": "external"
+    },
+    {
+      "id": "dk_tv2",
+      "name": "TV 2 Nyheder",
+      "url": "https://nyheder.tv2.dk",
+      "kind": "external",
+      "status": "external"
+    },
+    {
+      "id": "dk_cphpost",
+      "name": "The Copenhagen Post",
+      "url": "https://cphpost.dk",
+      "kind": "external",
+      "status": "external"
+    },
+    {
+      "id": "fi_yle",
+      "name": "Yle",
+      "url": "https://yle.fi",
+      "kind": "rss",
+      "status": "ok",
+      "checkedAt": "2026-10-08T08:09:09.845108+00:00"
+    },
+    {
+      "id": "fi_hs",
+      "name": "Helsingin Sanomat",
+      "url": "https://www.hs.fi",
+      "kind": "external",
+      "status": "external"
+    },
+    {
+      "id": "fi_iltalehti",
+      "name": "Iltalehti",
+      "url": "https://www.iltalehti.fi",
+      "kind": "external",
+      "status": "external"
+    },
+    {
+      "id": "fi_is",
+      "name": "Ilta-Sanomat",
+      "url": "https://www.is.fi",
+      "kind": "external",
+      "status": "external"
+    },
+    {
+      "id": "fi_kauppalehti",
+      "name": "Kauppalehti",
+      "url": "https://www.kauppalehti.fi",
+      "kind": "external",
+      "status": "external"
+    },
+    {
+      "id": "fi_kuvalehti",
+      "name": "Suomen Kuvalehti",
+      "url": "https://suomenkuvalehti.fi",
+      "kind": "external",
+      "status": "external"
+    },
+    {
+      "id": "fi_hbl",
+      "name": "Hufvudstadsbladet",
+      "url": "https://hbl.fi",
+      "kind": "external",
+      "status": "external"
+    },
+    {
+      "id": "fi_times",
+      "name": "Helsinki Times",
+      "url": "https://www.helsinkitimes.fi",
+      "kind": "external",
+      "status": "external"
+    },
+    {
+      "id": "cz_ct24",
+      "name": "ČT24",
+      "url": "https://ct24.ceskatelevize.cz",
+      "kind": "external",
+      "status": "external"
+    },
+    {
+      "id": "cz_irozhlas",
+      "name": "iROZHLAS",
+      "url": "https://www.irozhlas.cz",
+      "kind": "rss",
+      "status": "ok",
+      "checkedAt": "2026-10-08T08:09:09.262622+00:00"
+    },
+    {
+      "id": "cz_idnes",
+      "name": "iDNES",
+      "url": "https://www.idnes.cz",
+      "kind": "external",
+      "status": "external"
+    },
+    {
+      "id": "cz_novinky",
+      "name": "Novinky",
+      "url": "https://www.novinky.cz",
+      "kind": "external",
+      "status": "external"
+    },
+    {
+      "id": "cz_seznam",
+      "name": "Seznam Zprávy",
+      "url": "https://www.seznamzpravy.cz",
+      "kind": "external",
+      "status": "external"
+    },
+    {
+      "id": "cz_denikn",
+      "name": "Deník N",
+      "url": "https://denikn.cz",
+      "kind": "external",
+      "status": "external"
+    },
+    {
+      "id": "cz_ihned",
+      "name": "iHNed",
+      "url": "https://ihned.cz",
+      "kind": "external",
+      "status": "external"
+    },
+    {
+      "id": "cz_radio",
+      "name": "Radio Prague International",
+      "url": "https://english.radio.cz",
+      "kind": "external",
+      "status": "external"
+    },
+    {
+      "id": "ro_agerpres",
+      "name": "Agerpres",
+      "url": "https://www.agerpres.ro",
+      "kind": "external",
+      "status": "external"
+    },
+    {
+      "id": "ro_digi24",
+      "name": "Digi24",
+      "url": "https://www.digi24.ro",
+      "kind": "external",
+      "status": "external"
+    },
+    {
+      "id": "ro_adevarul",
+      "name": "Adevărul",
+      "url": "https://adevarul.ro",
+      "kind": "external",
+      "status": "external"
+    },
+    {
+      "id": "ro_hotnews",
+      "name": "HotNews",
+      "url": "https://hotnews.ro",
+      "kind": "rss",
+      "status": "ok",
+      "checkedAt": "2026-10-08T08:09:09.084406+00:00"
+    },
+    {
+      "id": "ro_europa",
+      "name": "Radio Europa Liberă",
+      "url": "https://romania.europalibera.org",
+      "kind": "external",
+      "status": "external"
+    },
+    {
+      "id": "ro_g4media",
+      "name": "G4Media",
+      "url": "https://www.g4media.ro",
+      "kind": "external",
+      "status": "external"
+    },
+    {
+      "id": "ro_protv",
+      "name": "Știrile Pro TV",
+      "url": "https://stirileprotv.ro",
+      "kind": "external",
+      "status": "external"
+    },
+    {
+      "id": "ro_insider",
+      "name": "Romania Insider",
+      "url": "https://www.romania-insider.com",
+      "kind": "external",
+      "status": "external"
+    },
+    {
+      "id": "hu_telex",
+      "name": "Telex",
+      "url": "https://telex.hu",
+      "kind": "rss",
+      "status": "ok",
+      "checkedAt": "2026-10-08T08:09:10.147901+00:00"
+    },
+    {
+      "id": "hu_444",
+      "name": "444",
+      "url": "https://444.hu",
+      "kind": "external",
+      "status": "external"
+    },
+    {
+      "id": "hu_hvg",
+      "name": "HVG",
+      "url": "https://hvg.hu",
+      "kind": "external",
+      "status": "external"
+    },
+    {
+      "id": "hu_index",
+      "name": "Index",
+      "url": "https://index.hu",
+      "kind": "external",
+      "status": "external"
+    },
+    {
+      "id": "hu_24",
+      "name": "24.hu",
+      "url": "https://24.hu",
+      "kind": "external",
+      "status": "external"
+    },
+    {
+      "id": "hu_portfolio",
+      "name": "Portfolio",
+      "url": "https://www.portfolio.hu",
+      "kind": "external",
+      "status": "external"
+    },
+    {
+      "id": "hu_hang",
+      "name": "Magyar Hang",
+      "url": "https://hang.hu",
+      "kind": "external",
+      "status": "external"
+    },
+    {
+      "id": "hu_daily",
+      "name": "Daily News Hungary",
+      "url": "https://dailynewshungary.com",
+      "kind": "external",
+      "status": "external"
+    },
+    {
+      "id": "ie_rte",
+      "name": "RTÉ News",
+      "url": "https://www.rte.ie/news",
+      "kind": "rss",
+      "status": "ok",
+      "checkedAt": "2026-10-08T08:09:09.566831+00:00"
+    },
+    {
+      "id": "ie_times",
+      "name": "The Irish Times",
+      "url": "https://www.irishtimes.com",
+      "kind": "external",
+      "status": "external"
+    },
+    {
+      "id": "ie_independent",
+      "name": "Irish Independent",
+      "url": "https://www.independent.ie",
+      "kind": "external",
+      "status": "external"
+    },
+    {
+      "id": "ie_journal",
+      "name": "TheJournal.ie",
+      "url": "https://www.thejournal.ie",
+      "kind": "external",
+      "status": "external"
+    },
+    {
+      "id": "ie_examiner",
+      "name": "Irish Examiner",
+      "url": "https://www.irishexaminer.com",
+      "kind": "external",
+      "status": "external"
+    },
+    {
+      "id": "ie_business",
+      "name": "Business Plus",
+      "url": "https://businessplus.ie",
+      "kind": "external",
+      "status": "external"
+    },
+    {
+      "id": "ie_breaking",
+      "name": "BreakingNews.ie",
+      "url": "https://www.breakingnews.ie",
+      "kind": "external",
+      "status": "external"
+    },
+    {
+      "id": "ie_currency",
+      "name": "The Currency",
+      "url": "https://www.thecurrency.news",
+      "kind": "external",
+      "status": "external"
+    },
+    {
+      "id": "at_orf",
+      "name": "ORF",
+      "url": "https://orf.at",
+      "kind": "rss",
+      "status": "ok",
+      "checkedAt": "2026-10-08T08:09:10.490143+00:00"
+    },
+    {
+      "id": "at_standard",
+      "name": "Der Standard",
+      "url": "https://www.derstandard.at",
+      "kind": "external",
+      "status": "external"
+    },
+    {
+      "id": "at_presse",
+      "name": "Die Presse",
+      "url": "https://www.diepresse.com",
+      "kind": "external",
+      "status": "external"
+    },
+    {
+      "id": "at_kurier",
+      "name": "Kurier",
+      "url": "https://kurier.at",
+      "kind": "external",
+      "status": "external"
+    },
+    {
+      "id": "at_sn",
+      "name": "Salzburger Nachrichten",
+      "url": "https://www.sn.at",
+      "kind": "external",
+      "status": "external"
+    },
+    {
+      "id": "at_zeitung",
+      "name": "Wiener Zeitung",
+      "url": "https://www.wienerzeitung.at",
+      "kind": "external",
+      "status": "external"
+    },
+    {
+      "id": "at_profil",
+      "name": "Profil",
+      "url": "https://profil.at",
+      "kind": "external",
+      "status": "external"
+    },
+    {
+      "id": "at_krone",
+      "name": "Kronen Zeitung",
+      "url": "https://www.krone.at",
+      "kind": "external",
+      "status": "external"
     }
   ],
   "items": [
-    {
-      "id": "90aae761f484f6776498",
-      "source": "reuters",
-      "title": "Dollar holds near 18-month high, euro lags as bond yields rise",
-      "url": "https://www.reuters.com/world/africa/dollar-edges-back-18-month-high-after-fomc-minutes-2026-10-08/",
-      "publishedAt": "2026-10-08T08:10:22.157000+00:00",
-      "image": "https://www.reuters.com/resizer/v2/G5JAJ7O7XRM7VNJT7OIT4DV4OM.jpg?auth=a72174bfd7a6814953dd2c484d6e7ad42140a35e36e99514060b738c18608aa6&smart=true&width=1920",
-      "category": "markets",
-      "topics": []
-    },
-    {
-      "id": "b8734d0efa3b4c84d81d",
-      "source": "reuters",
-      "title": "Drones, explosions and soldiers in bulldozers: surrounded by Israelis in Lebanon's 'model town'",
-      "url": "https://www.reuters.com/world/middle-east/drones-explosions-soldiers-bulldozers-surrounded-by-israelis-lebanons-model-town-2026-10-08/",
-      "publishedAt": "2026-10-08T08:10:09.787000+00:00",
-      "image": "https://www.reuters.com/resizer/v2/PJJHOFM4QZMNFJN5B2YR5QVVK4.jpg?auth=6cea8d4c1a90c9fce300e25952346b7dc9be2f9d4795e6d6d20d360829c4645f&smart=true&width=1920",
-      "category": "world",
-      "topics": []
-    },
     {
       "id": "dc8db32aa7fdbb8c0eab",
       "source": "reuters",
@@ -232,6 +668,16 @@
       "publishedAt": "2026-10-08T08:09:00+00:00",
       "image": "https://images.wsj.net/im-40380723",
       "category": "business",
+      "topics": []
+    },
+    {
+      "id": "52302909e9f7eb16c032",
+      "source": "hu_telex",
+      "title": "A Revolut elkezdett tömegesen sztornózni kártyás vásárlásokat",
+      "url": "https://telex.hu/gazdasag/2026/10/08/revolut-tomegesen-sztornoztak-vasarlasokat",
+      "publishedAt": "2026-10-08T08:08:48+00:00",
+      "image": "https://assets.telex.hu/images/20261008/1791446901-temp-pci5glci6gkodpbpdll_cimlap-normal.jpg",
+      "category": "other",
       "topics": []
     },
     {
@@ -267,11 +713,21 @@
       ]
     },
     {
+      "id": "b1ec3122c1db6c72b8a0",
+      "source": "cnn_id",
+      "title": "Danantara Buka Opsi Refund Proyek LRT City yang Mangkrak",
+      "url": "https://www.cnnindonesia.com/ekonomi/20261008131622-92-1413093/danantara-buka-opsi-refund-proyek-lrt-city-yang-mangkrak",
+      "publishedAt": "2026-10-08T08:05:27+00:00",
+      "image": "https://akcdn.detik.net.id/visual/2026/10/08/danantara-beri-lampu-hijau-kai-impor-krl-bekas-dari-jepang-1791434605245_169.jpeg?w=360&q=90",
+      "category": "business",
+      "topics": []
+    },
+    {
       "id": "d7abfabcde33565b40fb",
       "source": "reuters",
       "title": "Swiss pension fund hit by data leak after cyber attack on software provider",
       "url": "https://www.reuters.com/technology/swiss-pension-fund-hit-by-data-leak-after-cyber-attack-software-provider-2026-10-08/",
-      "publishedAt": "2026-10-08T08:05:44.865000+00:00",
+      "publishedAt": "2026-10-08T08:05:00.305000+00:00",
       "image": "https://www.reuters.com/resizer/v2/B6RHQGQ32NNRXN32LX4KIMILXE.jpg?auth=75a3893d0d9010a47a85aea2e67e856a7d6bc882fef9cf00ef709846c9c96a41&smart=true&width=1920",
       "category": "technology",
       "topics": []
@@ -284,6 +740,16 @@
       "publishedAt": "2026-10-08T08:05:00+00:00",
       "image": null,
       "category": "markets",
+      "topics": []
+    },
+    {
+      "id": "b8734d0efa3b4c84d81d",
+      "source": "reuters",
+      "title": "Drones, explosions and soldiers in bulldozers: surrounded by Israelis in Lebanon's 'model town'",
+      "url": "https://www.reuters.com/world/middle-east/drones-explosions-soldiers-bulldozers-surrounded-by-israelis-lebanons-model-town-2026-10-08/",
+      "publishedAt": "2026-10-08T08:04:09.722000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/Q5PUWBA3OVI57AKJAK536UPZ5U.jpg?auth=28c28c866b85eef744e69fb47f8f660e0729e141e384c6ce1d145eb77f404b16&smart=true&width=1920",
+      "category": "world",
       "topics": []
     },
     {
@@ -409,6 +875,36 @@
       ]
     },
     {
+      "id": "97fff9a354cf9c544c27",
+      "source": "guardian",
+      "title": "Oil prices climb amid supply fears and shipping attacks; prospect of rate rise weighs on UK housing market - business live",
+      "url": "https://www.theguardian.com/business/live/2026/oct/08/oil-prices-rise-shipping-attacks-rate-rise-uk-housing-market-bank-england-latest-live-updates",
+      "publishedAt": "2026-10-08T07:57:22+00:00",
+      "image": "https://i.guim.co.uk/img/media/ec4e2ec3379d3cb324ba90bebaeb2356cf4bfd98/2107_308_2318_1855/master/2318.jpg?width=140&quality=85&auto=format&fit=max&s=a495ae2643aab5d239dfb6983be423ba",
+      "category": "business",
+      "topics": []
+    },
+    {
+      "id": "da954215e3fc58036da3",
+      "source": "hu_telex",
+      "title": "Dróntámadás érte Oroszország legnagyobb Yandex-adatközpontját",
+      "url": "https://telex.hu/kulfold/2026/10/08/drontamadas-erte-oroszorszag-legnagyobb-yandex-adatkozpontjat",
+      "publishedAt": "2026-10-08T07:55:58+00:00",
+      "image": "https://assets.telex.hu/images/20261008/1791446000-temp-2sfb6qckb9aj0bnoclp_cimlap-normal.jpg",
+      "category": "other",
+      "topics": []
+    },
+    {
+      "id": "bfbd7d4c79a2d195c7ad",
+      "source": "at_orf",
+      "title": "Literaturnobelpreis wird verkündet",
+      "url": "https://orf.at/stories/3444447/",
+      "publishedAt": "2026-10-08T07:55:54+00:00",
+      "image": "https://orf.at/mojo/1_4_1/storyserver//news/common/images/og-fallback-news.png",
+      "category": "science",
+      "topics": []
+    },
+    {
       "id": "cf490a72f60b8ddce857",
       "source": "wsj",
       "title": "Porsche AG Increases Stake in Manthey Racing to 67%",
@@ -426,6 +922,16 @@
       "publishedAt": "2026-10-08T07:54:40.501000+00:00",
       "image": "https://www.reuters.com/resizer/v2/BHNNVCYSGRLKPD45PJRNXOP7JE.jpg?auth=b31047f2ef57d30b36231a334619db1d6eed62fe03de20cece4051e6eab64333&smart=true&width=1920",
       "category": "business",
+      "topics": []
+    },
+    {
+      "id": "4485488b395e83d97d94",
+      "source": "ap",
+      "title": "FIA to ‘strengthen’ software testing after F1 cars stopped on track in Malaysia",
+      "url": "https://apnews.com/article/f1-singapore-fia-software-d03aa3c4b56190e75f719023ef968bbf",
+      "publishedAt": "2026-10-08T07:54:35+00:00",
+      "image": "https://dims.apnews.com/dims4/default/e86816a/2147483647/strip/true/crop/3454x2302+0+0/resize/240x160!/quality/90/?url=https%3A%2F%2Fassets.apnews.com%2F3b%2F85%2F20c2e00848a4af0f3deab277ad00%2F46b715019a7640e595b8ad7f1feedc95",
+      "category": "sport",
       "topics": []
     },
     {
@@ -456,6 +962,16 @@
       "publishedAt": "2026-10-08T07:53:43.836000+00:00",
       "image": "https://www.reuters.com/resizer/v2/7UD6DORZYJLUJD4Z6ZBV4O7IZ4.jpg?auth=b7c3853379f37674667b8baac20c8d17902e5cdb66f8f940666b7d3effa4306d&smart=true&width=1920",
       "category": "sport",
+      "topics": []
+    },
+    {
+      "id": "09d9e5c462f7a0f99eba",
+      "source": "no_nrk",
+      "title": "Kriminelle nettverk utnytter turistveksten: - Turistguider delaktige",
+      "url": "https://www.nrk.no/tromsogfinnmark/trusselvurderingen_-kriminelle-nettverk-utnytter-turistveksten-1.18049160",
+      "publishedAt": "2026-10-08T07:53:24+00:00",
+      "image": "https://gfx.nrk.no/Ss_Q2XXPKKsgGhforeCsrgD3vkghxuX-WZdy1zabYLyA.jpg",
+      "category": "other",
       "topics": []
     },
     {
@@ -519,6 +1035,18 @@
       "topics": []
     },
     {
+      "id": "d918a43fffd18b2797fd",
+      "source": "hu_telex",
+      "title": "Paris Prosecutor's Office willing to extradite antifa activist to Hungary, citing significant improvements in justice system after election",
+      "url": "https://telex.hu/english/2026/10/08/paris-prosecutor-s-office-willing-to-extradite-an-anti-fascists-to-hungary-citing-significant-improvements-in-hungarian-justice-system-following-election",
+      "publishedAt": "2026-10-08T07:49:29+00:00",
+      "image": "https://assets.telex.hu/images/20261008/1791445686-temp-ie3huftaeahk5njkpam_cimlap-normal.jpg",
+      "category": "world",
+      "topics": [
+        "politics"
+      ]
+    },
+    {
       "id": "548a978ce579ea06c32e",
       "source": "detik",
       "title": "Strategi Menguatkan Rupiah: Bukan Sekadar Menaikkan Suku Bunga",
@@ -559,6 +1087,36 @@
       "topics": []
     },
     {
+      "id": "391d0d91b206946a03b7",
+      "source": "cnn_id",
+      "title": "Danantara soal Dividen Tak Disetor ke APBN: Seharusnya Memang Enggak",
+      "url": "https://www.cnnindonesia.com/ekonomi/20261008134320-92-1413110/danantara-soal-dividen-tak-disetor-ke-apbn-seharusnya-memang-enggak",
+      "publishedAt": "2026-10-08T07:45:13+00:00",
+      "image": "https://akcdn.detik.net.id/visual/2026/10/08/danantara-beri-lampu-hijau-kai-impor-krl-bekas-dari-jepang-1791434605245_169.jpeg?w=360&q=90",
+      "category": "local",
+      "topics": []
+    },
+    {
+      "id": "28b60a6476e194254b0b",
+      "source": "ro_hotnews",
+      "title": "Elon Musk acuză „anumiți oligarhi” că îi blochează afacerea cu internet în cea mai mare țară din lume",
+      "url": "https://hotnews.ro/elon-musk-acuza-anumiti-oligarhi-ca-ii-blocheaza-afacerea-cu-internet-in-cea-mai-mare-tara-din-lume-2370295",
+      "publishedAt": "2026-10-08T07:43:42+00:00",
+      "image": "https://hotnews.ro/wp-content/uploads/2026/10/profimedia-1139702198.jpg",
+      "category": "other",
+      "topics": []
+    },
+    {
+      "id": "59b7fc5e2bcb4d6048b9",
+      "source": "at_orf",
+      "title": "Puma-Verdacht bei München: Suche fortgesetzt",
+      "url": "https://orf.at/stories/3444449/",
+      "publishedAt": "2026-10-08T07:43:36+00:00",
+      "image": "https://orf.at/mojo/1_4_1/storyserver//news/common/images/og-fallback-news.png",
+      "category": "other",
+      "topics": []
+    },
+    {
       "id": "d7a21d0a02eb5343ac51",
       "source": "detik",
       "title": "Rincian 11 Proyek Rp 180 Triliun yang Diresmikan Prabowo",
@@ -569,6 +1127,16 @@
       "topics": [
         "politics"
       ]
+    },
+    {
+      "id": "a311bed91ec8baaebe24",
+      "source": "cz_irozhlas",
+      "title": "Opravy Metternichova kočáru trvaly několik let. Kynžvartský zámek ho představí už příští rok",
+      "url": "https://www.irozhlas.cz/zpravy-domov/opravy-metternichova-kocaru-trvaly-nekolik-let-kynzvartsky-zamek-ho-predstavi-uz_2610080942_jos",
+      "publishedAt": "2026-10-08T07:42:00+00:00",
+      "image": "https://www.irozhlas.cz/sites/default/files/styles/zpravy_maly_nahled/public/uploader/metter3_261008-082233_jos.jpeg?itok=VpFjgR5J",
+      "category": "other",
+      "topics": []
     },
     {
       "id": "825c7d5662ad61d57d27",
@@ -593,6 +1161,16 @@
       "topics": []
     },
     {
+      "id": "37e2bd206f61596471eb",
+      "source": "fi_yle",
+      "title": "Google halts work on data centres as Finnish police probe suspected illegal logging",
+      "url": "https://yle.fi/a/74-20250446?origin=rss",
+      "publishedAt": "2026-10-08T07:41:06+00:00",
+      "image": "https://img.img-cdn.yle.fi/crop_extract,w_5278,h_2970,x_0,y_0/crop_fill,w_1200,h_628/f_auto/39-17047376aa14e9f82f6d/1788956793",
+      "category": "other",
+      "topics": []
+    },
+    {
       "id": "b1dffae37d60bf25aff8",
       "source": "reuters",
       "title": "UK labour market shows more recovery signs in September, KPMG/REC survey shows",
@@ -609,6 +1187,36 @@
       "url": "https://www.bbc.co.uk/news/articles/cw203n6emde8o?at_medium=RSS&at_campaign=rss",
       "publishedAt": "2026-10-08T07:40:30+00:00",
       "image": "https://ichef.bbci.co.uk/ace/standard/240/cpsprodpb/1162/live/6f452970-c2ec-11f1-89a3-9b445bfcfe23.jpg",
+      "category": "other",
+      "topics": []
+    },
+    {
+      "id": "a4f1c0a578bd3cb04410",
+      "source": "ft",
+      "title": "Royal Navy serviceman charged with spying for foreign power",
+      "url": "https://www.ft.com/content/12c60e75-48be-45f8-a763-02ad0b2c0f8c?syn-25a6b1a6=1",
+      "publishedAt": "2026-10-08T07:40:07+00:00",
+      "image": null,
+      "category": "world",
+      "topics": []
+    },
+    {
+      "id": "32e7d39f888f17cd14cd",
+      "source": "hu_telex",
+      "title": "Christa Pike meghiúsult méreginjekciózása után Texasban hajtottak végre először kivégzést",
+      "url": "https://telex.hu/kulfold/2026/10/08/texas-mereginjekcio-kivegzes",
+      "publishedAt": "2026-10-08T07:40:07+00:00",
+      "image": "https://assets.telex.hu/images/20261008/1791445017-temp-0eb3eeqif3109oghecl_cimlap-normal.jpg",
+      "category": "other",
+      "topics": []
+    },
+    {
+      "id": "f98e4c93e40a91ca0d0f",
+      "source": "at_orf",
+      "title": "Berlin: Weg für rot-grün-rote Sondierungen offenbar frei",
+      "url": "https://orf.at/stories/3444448/",
+      "publishedAt": "2026-10-08T07:39:24+00:00",
+      "image": "https://orf.at/mojo/1_4_1/storyserver//news/common/images/og-fallback-news.png",
       "category": "other",
       "topics": []
     },
@@ -653,6 +1261,16 @@
       "topics": []
     },
     {
+      "id": "18dde3d96eee82c325c2",
+      "source": "sindo",
+      "title": "MNC Sekuritas dan Panin AM Tingkatkan Literasi Reksa Dana untuk Mahasiswa MNC University Jakarta melalui Having Fund 2026",
+      "url": "https://ekbis.sindonews.com/read/1758295/178/mnc-sekuritas-dan-panin-am-tingkatkan-literasi-reksa-dana-untuk-mahasiswa-mnc-university-jakarta-melalui-having-fund-2026-1791443408",
+      "publishedAt": "2026-10-08T07:36:54+00:00",
+      "image": "https://pict.sindonews.com/dyn/850/pena/news/2026/10/08/178/1758295/mnc-sekuritas-dan-panin-am-tingkatkan-literasi-reksa-dana-untuk-mahasiswa-mnc-university-jakarta-melalui-having-fund-2026-hgg.jpeg",
+      "category": "local",
+      "topics": []
+    },
+    {
       "id": "42d40d0f5c51bcfe2dcd",
       "source": "kompas",
       "title": "Potongan Ojol 8 Persen Ditetapkan Pemerintah, Gojek Pastikan Patuh",
@@ -663,6 +1281,16 @@
       "topics": [
         "politics"
       ]
+    },
+    {
+      "id": "e01c92b07795a3f255d1",
+      "source": "ft",
+      "title": "Deloitte fined £6mn for audit failures at Southeastern rail operator",
+      "url": "https://www.ft.com/content/f21b32f5-011f-4716-a206-9382fd335fa6?syn-25a6b1a6=1",
+      "publishedAt": "2026-10-08T07:36:15+00:00",
+      "image": null,
+      "category": "world",
+      "topics": []
     },
     {
       "id": "4eab56e8b75e3e696f2d",
@@ -735,6 +1363,16 @@
       "topics": []
     },
     {
+      "id": "b3d81e6c10f56818943a",
+      "source": "ie_rte",
+      "title": "UK withdraws staff and families from Jerusalem consulate",
+      "url": "https://www.rte.ie/news/middle-east/2026/1008/1594507-israel-gaza/",
+      "publishedAt": "2026-10-08T07:31:45+00:00",
+      "image": "https://www.rte.ie/images/0025235e-800.jpg",
+      "category": "world",
+      "topics": []
+    },
+    {
       "id": "ba00a5a38ce96cec0f29",
       "source": "cnn_id",
       "title": "Penghargaan Energi Subroto Tokoh Muda Inspiratif, Daftar di Sini",
@@ -752,6 +1390,16 @@
       "publishedAt": "2026-10-08T07:31:00+00:00",
       "image": null,
       "category": "markets",
+      "topics": []
+    },
+    {
+      "id": "691e8dd6f9108512c0ef",
+      "source": "ro_hotnews",
+      "title": "„Dragă, te rog!”. Ambasadoarea SUA în Grecia, într-un nou scandal: acuzată că a cerut bani în contul personal de la un donator. Ce îi promitea în schimb",
+      "url": "https://hotnews.ro/draga-te-rog-ambasadoarea-sua-in-grecia-intr-un-nou-scandal-acuzata-ca-a-cerut-bani-in-contul-personal-de-la-un-donator-ce-ii-promitea-in-schimb-2370286",
+      "publishedAt": "2026-10-08T07:30:57+00:00",
+      "image": "https://hotnews.ro/wp-content/uploads/2026/09/profimedia-1050262366.jpg",
+      "category": "other",
       "topics": []
     },
     {
@@ -785,13 +1433,13 @@
       "topics": []
     },
     {
-      "id": "97fff9a354cf9c544c27",
-      "source": "guardian",
-      "title": "Oil prices climb amid supply fears and shipping attacks; prospect of rate rise weighs on UK housing market - business live",
-      "url": "https://www.theguardian.com/business/live/2026/oct/08/oil-prices-rise-shipping-attacks-rate-rise-uk-housing-market-bank-england-latest-live-updates",
-      "publishedAt": "2026-10-08T07:29:08+00:00",
-      "image": "https://i.guim.co.uk/img/media/ec4e2ec3379d3cb324ba90bebaeb2356cf4bfd98/816_0_3867_3095/master/3867.jpg?width=140&quality=85&auto=format&fit=max&s=e067d3bc2908e060cd4fecdea5aa481a",
-      "category": "business",
+      "id": "aad1a0fa7b322c6a0e68",
+      "source": "at_orf",
+      "title": "NEOS-Mitgliederversammlung am Samstag in Linz",
+      "url": "https://orf.at/stories/3444446/",
+      "publishedAt": "2026-10-08T07:28:30+00:00",
+      "image": "https://orf.at/mojo/1_4_1/storyserver//news/common/images/og-fallback-news.png",
+      "category": "other",
       "topics": []
     },
     {
@@ -802,6 +1450,16 @@
       "publishedAt": "2026-10-08T07:28:27.746000+00:00",
       "image": "https://www.reuters.com/resizer/v2/MM7DFMYR2VMGLEQI7CEXKTW34A.jpg?auth=9b39e2eb809ddeb10b32cc566610b1f14aa7cc3f9a7ec25637cfe0f1d65c37d3&smart=true&width=1920",
       "category": "markets",
+      "topics": []
+    },
+    {
+      "id": "1c491a1a6de0d0014acf",
+      "source": "cz_irozhlas",
+      "title": "‚Pokud je zjištěn střet, dotace nemůže být poskytnuta.‘ Úřad odpověděl na dopis k Babišovu možnému střetu",
+      "url": "https://www.irozhlas.cz/zpravy-domov/andrej-babis-evropska-komise-agrofert-stret-zajmu-dopis-odpoved_2610080928_tec",
+      "publishedAt": "2026-10-08T07:28:00+00:00",
+      "image": "https://www.irozhlas.cz/sites/default/files/styles/zpravy_maly_nahled/public/uploader/a_zuj1177_260930-072439_mda.jpg?itok=CoLXX7lK",
+      "category": "other",
       "topics": []
     },
     {
@@ -825,6 +1483,26 @@
       "topics": []
     },
     {
+      "id": "5bf154bfff78820f1948",
+      "source": "sindo",
+      "title": "Pertamina EP Perkuat Komitmen SDGs Melalui Pemberdayaan Masyarakat",
+      "url": "https://ekbis.sindonews.com/read/1758285/34/pertamina-ep-perkuat-komitmen-sdgs-melalui-pemberdayaan-masyarakat-1791443413",
+      "publishedAt": "2026-10-08T07:26:57+00:00",
+      "image": "https://pict.sindonews.com/dyn/850/pena/news/2026/10/08/34/1758285/pertamina-ep-perkuat-komitmen-sdgs-melalui-pemberdayaan-masyarakat-jmx.jpeg",
+      "category": "local",
+      "topics": []
+    },
+    {
+      "id": "6f7112add68267756891",
+      "source": "hu_telex",
+      "title": "Kisrendőröket is meggyanúsítottak az aranykonvoj-ügyben",
+      "url": "https://telex.hu/belfold/2026/10/08/hajdu-janos-es-az-ah-s-volt-foosztalyvezeto-mellett-harom-rendor-az-aranykonvoj-ugy-gyanusitottja",
+      "publishedAt": "2026-10-08T07:26:11+00:00",
+      "image": "https://assets.telex.hu/images/20261008/1791443252-temp-2aglf8sre7ckblplobf_cimlap-normal.jpg",
+      "category": "other",
+      "topics": []
+    },
+    {
       "id": "1430695a62fa52fef2a9",
       "source": "reuters",
       "title": "Seven & i operating profit falls 11% in second quarter",
@@ -832,6 +1510,36 @@
       "publishedAt": "2026-10-08T07:25:44.314000+00:00",
       "image": "https://www.reuters.com/resizer/v2/IVNPZBWTANLJ7NGPQNRLRDPKWA.jpg?auth=e2c96f5b89628c8a9536adf8b6bd2408e05df25aaa01d1b55bd59a9b9ec1ad5f&smart=true&width=1920",
       "category": "world",
+      "topics": []
+    },
+    {
+      "id": "b9640115f736f4ae3fbd",
+      "source": "hu_telex",
+      "title": "Az ügyészség szerint adószakértő is segíthette a milliárdos adócsalással vádolt szombathelyi kereskedőt",
+      "url": "https://telex.hu/belfold/2026/10/08/adocsalas-adoszakerto-vademeles-bacs-kiskun-megyei-fougyeszseg",
+      "publishedAt": "2026-10-08T07:25:33+00:00",
+      "image": "https://telex.hu/telex_logo_fb_share.png",
+      "category": "other",
+      "topics": []
+    },
+    {
+      "id": "7192597a32f6001efbd3",
+      "source": "ro_hotnews",
+      "title": "Pedeapsa primită de o croitoreasă din Letonia care a făcut o contribuție modică pentru trupele Moscovei",
+      "url": "https://hotnews.ro/pedeapsa-primita-de-o-croitoreasca-din-letonia-care-a-facut-o-contributie-modica-pentru-trupele-moscovei-2370271",
+      "publishedAt": "2026-10-08T07:25:22+00:00",
+      "image": "https://hotnews.ro/wp-content/uploads/2025/08/profimedia-1009243701.jpg",
+      "category": "other",
+      "topics": []
+    },
+    {
+      "id": "c40117fd852943e4b9fb",
+      "source": "ro_hotnews",
+      "title": "Luca Niculescu a început negocierile cu partidele. Cu cine a venit Grindeanu la discuțiile cu premierul desemnat",
+      "url": "https://hotnews.ro/luca-niculescu-primii-pasi-ca-sa-obtina-sprijinul-psd-pnl-si-udmr-programul-negocierilor-de-astazi-2370101",
+      "publishedAt": "2026-10-08T07:25:00+00:00",
+      "image": "https://hotnews.ro/wp-content/uploads/2026/10/agerpres_18542026.jpeg",
+      "category": "other",
       "topics": []
     },
     {
@@ -867,6 +1575,16 @@
       "topics": []
     },
     {
+      "id": "cfb3aff1acfcda39dbd5",
+      "source": "ro_hotnews",
+      "title": "Număr record de designeri la Romanian Fashion Week. Irina Schrotter: „Moda are nevoie de circulație între generații. RFW este scena pe care designerii debutează, revin și cresc”",
+      "url": "https://hotnews.ro/numar-record-de-designeri-la-romanian-fashion-week-irina-schrotter-moda-are-nevoie-de-circulatie-intre-generatii-rfw-este-scena-pe-care-designerii-debuteaza-revin-si-cresc-2370281",
+      "publishedAt": "2026-10-08T07:20:48+00:00",
+      "image": "https://hotnews.ro/wp-content/uploads/2026/10/8a3b513d-2db1-4533-9c24-1e25341a1e47.jpeg",
+      "category": "other",
+      "topics": []
+    },
+    {
       "id": "580bf3d4df3165829da4",
       "source": "cnn_id",
       "title": "Momen Prabowo Resmikan 11 Proyek Hilirisasi Rp180 T di Maluku Utara",
@@ -879,6 +1597,16 @@
       ]
     },
     {
+      "id": "7dd84de5a35ac1d9a303",
+      "source": "sindo",
+      "title": "Harga Cabai Mahal Tembus Rp102.250 per Kg, Mendag Ungkap Biang Keroknya",
+      "url": "https://ekbis.sindonews.com/read/1758283/34/harga-cabai-mahal-tembus-rp102250-per-kg-mendag-ungkap-biang-keroknya-1791443432",
+      "publishedAt": "2026-10-08T07:20:35+00:00",
+      "image": "https://pict.sindonews.com/dyn/850/pena/news/2026/10/08/34/1758283/harga-cabai-mahal-tembus-rp102250-per-kg-mendag-ungkap-biang-keroknya-rtd.jpeg",
+      "category": "business",
+      "topics": []
+    },
+    {
       "id": "d12191f4a5f0352aae6f",
       "source": "reuters",
       "title": "Greece plans 10% cryptocurrency capital gains tax",
@@ -886,6 +1614,36 @@
       "publishedAt": "2026-10-08T07:19:34.152000+00:00",
       "image": "https://www.reuters.com/resizer/v2/WPFUDHGQGZMHZNVHDWEK3CYV2Y.jpg?auth=5f07bcf87960d83ba7dca2633640e72260cfb7cd34aba4cf8bc9d2225146c652&smart=true&width=1920",
       "category": "markets",
+      "topics": []
+    },
+    {
+      "id": "c04411ab65706c623130",
+      "source": "hu_telex",
+      "title": "Vitézy: Ha minden terv szerint halad, októberben elindulhat a személyforgalom a Budapest-Belgrádon",
+      "url": "https://telex.hu/belfold/2026/10/08/budapest-belgrad-vasutvonal-etcs-szemelyforgalom",
+      "publishedAt": "2026-10-08T07:19:34+00:00",
+      "image": "https://assets.telex.hu/images/20261008/1791443953-temp-gt5f8mvaos8g4macffo_cimlap-normal.jpg",
+      "category": "other",
+      "topics": []
+    },
+    {
+      "id": "9d3979ff01c9263b5e35",
+      "source": "ro_hotnews",
+      "title": "Satul în care tot mai multe femei trăiesc peste 100 de ani",
+      "url": "https://hotnews.ro/satul-in-care-tot-mai-multe-femei-traiesc-peste-100-de-ani-2370256",
+      "publishedAt": "2026-10-08T07:18:59+00:00",
+      "image": "https://hotnews.ro/wp-content/uploads/2026/10/profimedia-0043464009.jpg",
+      "category": "other",
+      "topics": []
+    },
+    {
+      "id": "77ee18600c55f38c98c6",
+      "source": "at_orf",
+      "title": "U-Ausschuss: Chef des Bundeskriminalamts wird befragt",
+      "url": "https://orf.at/stories/3444445/",
+      "publishedAt": "2026-10-08T07:18:55+00:00",
+      "image": "https://orf.at/mojo/1_4_1/storyserver//news/common/images/og-fallback-news.png",
+      "category": "other",
       "topics": []
     },
     {
@@ -899,6 +1657,16 @@
       "topics": [
         "fed"
       ]
+    },
+    {
+      "id": "d30e00e856aa4c9143d8",
+      "source": "ie_rte",
+      "title": "Houthis claim new strike on Saudi airport after 3 killed",
+      "url": "https://www.rte.ie/news/world/2026/1008/1594501-saudi-houthis/",
+      "publishedAt": "2026-10-08T07:18:24+00:00",
+      "image": "https://www.rte.ie/images/0025235a-800.jpg",
+      "category": "world",
+      "topics": []
     },
     {
       "id": "0ff077f1d8977051e492",
@@ -960,6 +1728,16 @@
       "publishedAt": "2026-10-08T07:17:03.476000+00:00",
       "image": null,
       "category": "sport",
+      "topics": []
+    },
+    {
+      "id": "e4dfe9225ba197b7ef32",
+      "source": "no_nrk",
+      "title": "Refser satsingen på sivil beredskap: - Tomme ord",
+      "url": "https://www.nrk.no/tromsogfinnmark/regjeringen-har-vedtatt-a-bruke-80-milliarder-pa-sivil-beredskap_-i-finnmark-ser-man-lite-til-dette-1.18045467",
+      "publishedAt": "2026-10-08T07:16:37+00:00",
+      "image": "https://gfx.nrk.no/j5myItisUaGDuZnSYCvCYQEk2b-C50-h_pnrleACnSxg.jpg",
+      "category": "other",
       "topics": []
     },
     {
@@ -1053,6 +1831,16 @@
       "topics": []
     },
     {
+      "id": "8d935d37ea30c970a9b0",
+      "source": "ro_hotnews",
+      "title": "Premiul Nobel pentru Literatură 2026. Cine sunt favoriții, conform regulii din ultimii 8 ani",
+      "url": "https://hotnews.ro/premiul-nobel-pentru-literatura-2026-cine-sunt-favoritii-conform-regulii-din-ultimii-8-ani-2370250",
+      "publishedAt": "2026-10-08T07:10:09+00:00",
+      "image": "https://hotnews.ro/wp-content/uploads/2026/10/Statuie-a-lui-Alfred-Nobel-din-Stockholm.jpg",
+      "category": "science",
+      "topics": []
+    },
+    {
       "id": "50313e674335da56997c",
       "source": "reuters",
       "title": "Man City own goal upsets sport’s money-go-round",
@@ -1070,6 +1858,36 @@
       "publishedAt": "2026-10-08T07:09:09+00:00",
       "image": null,
       "category": "world",
+      "topics": []
+    },
+    {
+      "id": "8c02bb5f52a87fa420a1",
+      "source": "cz_irozhlas",
+      "title": "Konec britského konzulátu v Jeruzalémě. Důvodem jsou sankce na izraelské osady na Západním břehu",
+      "url": "https://www.irozhlas.cz/zpravy-svet/konec-britskeho-konzulatu-v-jeruzaleme-izrael-opusti-dvacet-diplomatu-vcetne_2610080909_raf",
+      "publishedAt": "2026-10-08T07:09:00+00:00",
+      "image": "https://www.irozhlas.cz/sites/default/files/styles/zpravy_maly_nahled/public/uploader/2026-09-08t160908z_1_261008-082822_raf.JPG?itok=lDmnB1_I",
+      "category": "other",
+      "topics": []
+    },
+    {
+      "id": "f4f3bfd00bcb0dc2da59",
+      "source": "cz_irozhlas",
+      "title": "Trestní oznámení zvažuje Špindlerův Mlýn. Těsně před volbami se k trvalému pobytu přihlásilo 40 lidí",
+      "url": "https://www.irozhlas.cz/volby/trestni-oznameni-zvazuje-spindleruv-mlyn-tesne-pred-volbami-se-k-trvalemu-pobytu_2610080908_dci",
+      "publishedAt": "2026-10-08T07:08:00+00:00",
+      "image": "https://www.irozhlas.cz/sites/default/files/styles/zpravy_maly_nahled/public/uploader/dsc_8651_240915-204658_zuj.jpg?itok=k5E3uEMH",
+      "category": "other",
+      "topics": []
+    },
+    {
+      "id": "46b600b1957a6b8a44ac",
+      "source": "no_nrk",
+      "title": "Økokrim: Kriminelle nettverk har etablert seg i norske næringer",
+      "url": "https://www.nrk.no/nyheter/okokrim_-kriminelle-nettverk-har-etablert-seg-i-norske-naeringer-1.18049084",
+      "publishedAt": "2026-10-08T07:07:58+00:00",
+      "image": "https://static.nrk.no/nrkno/serum/2.0.532/common/img/default.jpg",
+      "category": "other",
       "topics": []
     },
     {
@@ -1113,6 +1931,16 @@
       "topics": []
     },
     {
+      "id": "a5dd35e9d1f1520587c1",
+      "source": "ro_hotnews",
+      "title": "Ironia OpenAI: Un robot a spart serverele guvernamentale în Australia, un altul a scris e-mailul de scuze",
+      "url": "https://hotnews.ro/ironia-openai-un-robot-a-spart-serverele-guvernamentale-in-australia-un-altul-a-scris-e-mailul-de-scuze-2370185",
+      "publishedAt": "2026-10-08T07:05:46+00:00",
+      "image": "https://hotnews.ro/wp-content/uploads/2024/04/image-2023-11-20-26696970-41-chatgpt-openai.jpg",
+      "category": "other",
+      "topics": []
+    },
+    {
       "id": "da55a4b6cf45e6830afd",
       "source": "reuters",
       "title": "People in Russian-occupied Ukrainian town risk 'road of death' to get food",
@@ -1143,6 +1971,16 @@
       "topics": []
     },
     {
+      "id": "49fedf1a1d56e9a1f2af",
+      "source": "at_orf",
+      "title": "Foltervorwürfe: USA prüfen Anklage gegen Maduro",
+      "url": "https://orf.at/stories/3444443/",
+      "publishedAt": "2026-10-08T07:03:47+00:00",
+      "image": "https://orf.at/mojo/1_4_1/storyserver//news/common/images/og-fallback-news.png",
+      "category": "other",
+      "topics": []
+    },
+    {
       "id": "4355bf8971a6b0e7e30c",
       "source": "reuters",
       "title": "UK police charge member of Royal Navy under National Security Act",
@@ -1160,6 +1998,16 @@
       "publishedAt": "2026-10-08T07:03:00+00:00",
       "image": "https://images.wsj.net/im-88064947",
       "category": "business",
+      "topics": []
+    },
+    {
+      "id": "a7ee70bda8888ce81603",
+      "source": "cz_irozhlas",
+      "title": "Husinecká přehrada je prázdná, nemůže dál udržovat tok Blanice. Na vině je extrémní nedostatek srážek",
+      "url": "https://www.irozhlas.cz/zpravy-domov/husinec-uz-nemuze-udrzovat-tok-reky-blanice-v-zasobnim-prostoru-prehrady-dosla_2610080903_dci",
+      "publishedAt": "2026-10-08T07:03:00+00:00",
+      "image": "https://www.irozhlas.cz/sites/default/files/styles/zpravy_maly_nahled/public/uploader/profimedia-114121703_261008-092354_mkm.jpg?itok=b4qgEqr6",
+      "category": "other",
       "topics": []
     },
     {
@@ -1208,7 +2056,7 @@
       "title": "How can home nations reach Women's World Cup?",
       "url": "https://www.bbc.co.uk/sport/football/articles/cqzrdmjp5162o?at_medium=RSS&at_campaign=rss",
       "publishedAt": "2026-10-08T07:01:10+00:00",
-      "image": "https://ichef.bbci.co.uk/ace/standard/240/cpsprodpb/0909/live/5c1b6eb0-c2ef-11f1-babe-4199b0e7ccea.png",
+      "image": "https://ichef.bbci.co.uk/ace/standard/240/cpsprodpb/6a04/live/acc60470-c2df-11f1-b16a-35bd7e82ae06.jpg",
       "category": "sport",
       "topics": []
     },
@@ -1305,6 +2153,28 @@
       ]
     },
     {
+      "id": "711007812005784d6eee",
+      "source": "ro_hotnews",
+      "title": "Vor fi înlocuite vechile autobuze Mercedes-Benz din București. Primăria Capitalei, anunț major despre transportul public",
+      "url": "https://hotnews.ro/vor-fi-inlocuite-vechile-autobuze-mercedes-benz-din-bucuresti-primaria-capitalei-anunt-major-despre-transportul-public-2370253",
+      "publishedAt": "2026-10-08T06:59:14+00:00",
+      "image": "https://hotnews.ro/wp-content/uploads/2026/10/dreamstime_m_157616048.jpg",
+      "category": "other",
+      "topics": []
+    },
+    {
+      "id": "2abd1ce79d2c79a42a47",
+      "source": "hu_telex",
+      "title": "Camp Donald: Trump új elnöki rezidenciát szeretne a saját golfklubjában",
+      "url": "https://telex.hu/kulfold/2026/10/08/donald-trump-elnoki-udulo-golfklub",
+      "publishedAt": "2026-10-08T06:58:26+00:00",
+      "image": "https://assets.telex.hu/images/20261008/1791442549-temp-vtpuemfm1k5l1bgkjci_cimlap-normal.jpg",
+      "category": "other",
+      "topics": [
+        "politics"
+      ]
+    },
+    {
       "id": "1c376c783e1af2955d0c",
       "source": "reuters",
       "title": "Syria weighs military aid for Saudi Arabia amid Yemen war, sources say",
@@ -1322,6 +2192,16 @@
       "publishedAt": "2026-10-08T06:57:43.993000+00:00",
       "image": "https://www.reuters.com/resizer/v2/BNDLYQMLCBORHNPQESHAFABLCM.jpg?auth=663825fd438ff1f311d53a28390acc1d89a7da33224148b98986916464cd12a5&smart=true&width=1920",
       "category": "world",
+      "topics": []
+    },
+    {
+      "id": "3f6ae8707a4d1711d089",
+      "source": "ro_hotnews",
+      "title": "Deloitte România a asistat OMV Petrom în implementarea prin PNRR a unor proiecte strategice de producere a hidrogenului verde la rafinăria Petrobrazi",
+      "url": "https://hotnews.ro/deloitte-romania-a-asistat-omv-petrom-in-implementarea-prin-pnrr-a-unor-proiecte-strategice-de-producere-a-hidrogenului-verde-la-rafinaria-petrobrazi-2370259",
+      "publishedAt": "2026-10-08T06:57:25+00:00",
+      "image": "https://hotnews.ro/wp-content/uploads/2026/10/Screenshot-2026-10-08-at-09.57.08.png",
+      "category": "commentary",
       "topics": []
     },
     {
@@ -1427,6 +2307,16 @@
       "topics": []
     },
     {
+      "id": "5e510bff263d3417cf28",
+      "source": "hu_telex",
+      "title": "Ukrainian FM thanks Hungary for green light on previously blocked steps in EU accession talks",
+      "url": "https://telex.hu/english/2026/10/08/ukrainian-fm-thanks-hungary-for-green-light-on-previously-blocked-clusters-of-eu-accession-talks",
+      "publishedAt": "2026-10-08T06:53:37+00:00",
+      "image": "https://assets.telex.hu/images/20261008/1791442202-temp-qsbhang4ji370afmogp_cimlap-normal.jpg",
+      "category": "other",
+      "topics": []
+    },
+    {
       "id": "b77e754e85c635c78261",
       "source": "reuters",
       "title": "UK's Imperial Brands affirms annual outlook, launches $2 billion share buyback",
@@ -1454,6 +2344,16 @@
       "publishedAt": "2026-10-08T06:52:49+00:00",
       "image": "https://ichef.bbci.co.uk/ace/standard/240/cpsprodpb/7a2f/live/da2da400-c25c-11f1-bc2e-018d645d8d21.png",
       "category": "sport",
+      "topics": []
+    },
+    {
+      "id": "5b20c9d1119ec2e14ddd",
+      "source": "ro_hotnews",
+      "title": "VIDEO Dronele Ucrainei au lovit, pentru prima dată, un simbol al economiei Rusiei: incendiu uriaș la fața locului",
+      "url": "https://hotnews.ro/video-dronele-ucrainei-au-lovit-pentru-prima-data-un-simbol-al-economiei-rusiei-incendiu-urias-la-fata-locului-2370232",
+      "publishedAt": "2026-10-08T06:52:46+00:00",
+      "image": "https://hotnews.ro/wp-content/uploads/2026/10/yandex.jpg",
+      "category": "business",
       "topics": []
     },
     {
@@ -1486,6 +2386,16 @@
       "publishedAt": "2026-10-08T06:52:03.924000+00:00",
       "image": "https://www.reuters.com/resizer/v2/CMTLZMCI6JL45ABHJKBRZNJNIE.jpg?auth=9d58a4c985bd812c55161990a833b5c4544f03fd29ddfedd19e69342947cff1d&smart=true&width=1920",
       "category": "business",
+      "topics": []
+    },
+    {
+      "id": "1434475910980aca53b8",
+      "source": "ie_rte",
+      "title": "El Niño to intensify before December peak - UN",
+      "url": "https://www.rte.ie/news/world/2026/1008/1594492-el-nino-un/",
+      "publishedAt": "2026-10-08T06:50:43+00:00",
+      "image": "https://www.rte.ie/images/00252355-800.jpg",
+      "category": "sustainability",
       "topics": []
     },
     {
@@ -1551,6 +2461,16 @@
       "topics": []
     },
     {
+      "id": "350cb9386516739cc90d",
+      "source": "hu_telex",
+      "title": "Reuters: Jared Kushner arról tárgyal az oroszokkal, hogy az amerikaiak is beszállhassanak az Északi Áramlatba",
+      "url": "https://telex.hu/gazdasag/2026/10/08/eszaki-aramlat-jared-kushner",
+      "publishedAt": "2026-10-08T06:47:59+00:00",
+      "image": "https://assets.telex.hu/images/20261008/1791442027-temp-fgc5sjqbfrc7floipfh_cimlap-normal.jpg",
+      "category": "other",
+      "topics": []
+    },
+    {
       "id": "1ff2cf9ecd35f363853c",
       "source": "bloomberg",
       "title": "Fidelity: Tokenized Markets Need to Put Assets to Work",
@@ -1611,6 +2531,16 @@
       "topics": []
     },
     {
+      "id": "366b0fb90a9701cd728f",
+      "source": "cz_irozhlas",
+      "title": "Černé skládky stojí Svitavy ročně asi 500 tisíc korun. Bojuje s nimi rozšiřováním kontejnerů",
+      "url": "https://www.irozhlas.cz/zpravy-domov/cerne-skladky-stoji-svitavy-rocne-asi-500-tisic-korun-bojuje-s-nimi-rozsirovanim_2610080844_dci",
+      "publishedAt": "2026-10-08T06:44:00+00:00",
+      "image": "https://www.irozhlas.cz/sites/default/files/styles/zpravy_maly_nahled/public/images/d5578e2cc1863b18d05e3e25478008b8.jpeg?itok=6XVVdXGZ",
+      "category": "other",
+      "topics": []
+    },
+    {
       "id": "e83a54fa21f1b5344220",
       "source": "ap",
       "title": "Eritrean soldiers entered northern Ethiopian towns, government-allied commander says",
@@ -1621,6 +2551,16 @@
       "topics": [
         "politics"
       ]
+    },
+    {
+      "id": "16208dc6645bed0b22fe",
+      "source": "ie_rte",
+      "title": "Andrew Scott on 'very special' role in new film Elsinore",
+      "url": "https://www.rte.ie/entertainment/2026/1008/1594491-andrew-scott-on-very-special-role-in-new-film-elsinore/",
+      "publishedAt": "2026-10-08T06:43:10+00:00",
+      "image": "https://www.rte.ie/images/00252351-800.jpg",
+      "category": "other",
+      "topics": []
     },
     {
       "id": "5c0c01c4fad098bce8d7",
@@ -1693,6 +2633,16 @@
       "topics": []
     },
     {
+      "id": "949cdeb67814d9c0cbbb",
+      "source": "at_orf",
+      "title": "Zahl der Toten in Ukraine stieg auf über 30",
+      "url": "https://orf.at/stories/3444435/",
+      "publishedAt": "2026-10-08T06:38:48+00:00",
+      "image": "https://ibs.orf.at/news?image=https%3A%2F%2Fassets.orf.at%2Fmims%2F2026%2F41%2F05%2Fcrops%2Fw%3D1200%2Ch%3D630%2Cq%3D75%2F3209051_master_1245105_ukraine_krieg_russische_angriffe_nachzieher_r.jpg%3Fs%3D1d8516e5b66ed6b61c2658a73aa7142c11050f8d",
+      "category": "other",
+      "topics": []
+    },
+    {
       "id": "317b8a1ebf009409088b",
       "source": "bloomberg",
       "title": "China Stocks Dip As Soft Travel Data Drags on Sentiment",
@@ -1750,6 +2700,16 @@
       "publishedAt": "2026-10-08T06:35:07.339000+00:00",
       "image": "https://www.reuters.com/resizer/v2/EGP7DURCV5N4LCFTE4ZVPPSEQQ.jpg?auth=9287d6bd76de6622deb38bbbb24e5c1d728ceb269ccd0bd88f75c38c0c3e355a&smart=true&width=1920",
       "category": "markets",
+      "topics": []
+    },
+    {
+      "id": "b539634015f3fc264aca",
+      "source": "cz_irozhlas",
+      "title": "ONLINE: Ukrajinci zasáhli giganta Yandex. Ten hlásí výpadky internetových služeb",
+      "url": "https://www.irozhlas.cz/zpravy-svet/online-ukrajinci-zasahli-giganta-yandex-ten-hlasi-vypadky-internetovych-sluzeb_2610080835_ako",
+      "publishedAt": "2026-10-08T06:35:00+00:00",
+      "image": "https://www.irozhlas.cz/sites/default/files/styles/zpravy_maly_nahled/public/uploader/2026-10-07t145925z_1_261008-081819_ako.JPG?itok=YFISfvOu",
+      "category": "other",
       "topics": []
     },
     {
@@ -1855,6 +2815,18 @@
       "topics": []
     },
     {
+      "id": "98968b03cb6c8a2e8bb2",
+      "source": "ro_hotnews",
+      "title": "Plăți întârziate, proiecte publice și private amânate - principalele efecte ale incertitudinii politice în construcții",
+      "url": "https://hotnews.ro/plati-intarziate-proiecte-publice-intarziate-si-amanarea-celor-private-principalele-efecte-ale-incertitudinii-politice-in-constructii-2370234",
+      "publishedAt": "2026-10-08T06:27:51+00:00",
+      "image": "https://hotnews.ro/wp-content/uploads/2025/09/Constructii-in-Bucuresti.jpg",
+      "category": "business",
+      "topics": [
+        "politics"
+      ]
+    },
+    {
       "id": "74219253a3c52d433cfe",
       "source": "reuters",
       "title": "Forvia Hella wins orders for EnergyCore solutions from two automakers",
@@ -1887,12 +2859,54 @@
       ]
     },
     {
+      "id": "43e596e93a71f8bb3549",
+      "source": "ie_rte",
+      "title": "Polls open in north London by-election to replace Starmer",
+      "url": "https://www.rte.ie/news/uk/2026/1008/1594494-uk-by-election/",
+      "publishedAt": "2026-10-08T06:26:13+00:00",
+      "image": "https://www.rte.ie/images/0025234d-800.jpg",
+      "category": "world",
+      "topics": [
+        "politics"
+      ]
+    },
+    {
       "id": "4e1ea6c41541dec85570",
       "source": "ap",
       "title": "Rubio refuses to comment on Guilfoyle allegations",
       "url": "https://apnews.com/article/greece-rubio-guilfoyle-wall-street-journal-ec31c487c41f60147e0d413aedbd92f4",
       "publishedAt": "2026-10-08T06:25:27+00:00",
       "image": "https://dims.apnews.com/dims4/default/faf0125/2147483647/strip/true/crop/8640x5757+0+1/resize/980x653!/quality/90/?url=https%3A%2F%2Fassets.apnews.com%2F53%2F4f%2Ff10335703941ac578a23793debbf%2F30a528358f614f008db8b0e2a586f6dc",
+      "category": "other",
+      "topics": []
+    },
+    {
+      "id": "8bdf3a1a697d3e9799d7",
+      "source": "cz_irozhlas",
+      "title": "V europarlamentu vyrostl ‚Oranžový mor‘. Sochu amerického prezidenta přizval dánský europoslanec",
+      "url": "https://www.irozhlas.cz/zpravy-svet/v-europarlamentu-vyrostl-oranzovy-mor-sochu-americkeho-prezidenta-prizval-dansky_2610080825_raf",
+      "publishedAt": "2026-10-08T06:25:00+00:00",
+      "image": "https://www.irozhlas.cz/sites/default/files/styles/zpravy_maly_nahled/public/uploader/profimedia-114122773_261008-075804_raf.jpg?itok=f1ryNwAI",
+      "category": "other",
+      "topics": []
+    },
+    {
+      "id": "f9d3faf5fcd699e4250f",
+      "source": "hu_telex",
+      "title": "HVG: Egy tervezet szerint 184 milliárdot fizetne az állam a 2036-os budapesti olimpia szervezésére",
+      "url": "https://telex.hu/sport/2026/10/08/budapest-olimpia-penzugyi-terv-kiadasok-bevetelek",
+      "publishedAt": "2026-10-08T06:24:23+00:00",
+      "image": "https://assets.telex.hu/images/20261007/1791380846-temp-7ua9qbssd2e79iadbip_cimlap-normal.jpg",
+      "category": "sport",
+      "topics": []
+    },
+    {
+      "id": "6f86a4ef1b3440721740",
+      "source": "hu_telex",
+      "title": "GKI: Évente 70 ezer kollégiumi igénylést utasítanak el, miközben Budapesten 120 ezer lakás üresen áll",
+      "url": "https://telex.hu/gazdasag/2026/10/08/berlakasok-gki-elemzes",
+      "publishedAt": "2026-10-08T06:22:00+00:00",
+      "image": "https://assets.telex.hu/images/20261008/1791440479-temp-j82k0upvanaiakgeagp_cimlap-normal.jpg",
       "category": "other",
       "topics": []
     },
@@ -1987,13 +3001,43 @@
       "topics": []
     },
     {
+      "id": "8bcce2e12a1762c4fbbc",
+      "source": "ro_hotnews",
+      "title": "Cristian Mungiu critică „orbirea progresismului” chiar dacă artistul este liberal",
+      "url": "https://hotnews.ro/fjord-al-lui-mungiu-critica-orbirea-progresismului-chiar-daca-artistul-este-liberal-2370189",
+      "publishedAt": "2026-10-08T06:15:47+00:00",
+      "image": "https://hotnews.ro/wp-content/uploads/2026/08/profimedia-1106279218.jpg",
+      "category": "other",
+      "topics": []
+    },
+    {
+      "id": "d0f9f817e8df8c47009a",
+      "source": "no_nrk",
+      "title": "Felles øvelse for nødetatene i Oslo - bevæpnet politi synlig i gatene",
+      "url": "https://www.nrk.no/stor-oslo/felles-ovelse-for-nodetatene-i-oslo-_-bevaepnet-politi-synlig-i-gatene-1.18049036",
+      "publishedAt": "2026-10-08T06:14:10+00:00",
+      "image": "https://static.nrk.no/nrkno/serum/2.0.532/common/img/default.jpg",
+      "category": "other",
+      "topics": []
+    },
+    {
       "id": "c5e1bdf47f1ba2a3b7a1",
       "source": "ap",
       "title": "Stefanos Tsitsipas advances to the second round at the Shanghai Masters",
       "url": "https://apnews.com/article/shanghai-masters-tennis-9195e35a03ceffc8d6b716693e9abc6f",
       "publishedAt": "2026-10-08T06:13:09+00:00",
-      "image": "https://dims.apnews.com/dims4/default/74b899c/2147483647/strip/true/crop/1281x854+0+0/resize/980x653!/quality/90/?url=https%3A%2F%2Fassets.apnews.com%2F0c%2F94%2Fcbc970464ba8bfbc6042dd7cdd78%2Fthe-ap-default-image-2026.png",
+      "image": "https://dims.apnews.com/dims4/default/f7e73bc/2147483647/strip/true/crop/6554x4369+0+0/resize/240x160!/quality/90/?url=https%3A%2F%2Fassets.apnews.com%2Fe8%2Fd2%2Fe998050eb664057f00383cb5d459%2F8d2ce6b3713d4ab881816ebf68f7a1e6",
       "category": "sport",
+      "topics": []
+    },
+    {
+      "id": "6e6e43897d6d454f02e1",
+      "source": "cz_irozhlas",
+      "title": "Šluknov schválil odkup sídliště Slunečnice. Majitelem domů by se měl stát na podzim",
+      "url": "https://www.irozhlas.cz/zpravy-domov/sluknov-schvalil-odkup-sidliste-slunecnice-majitelem-domu-se-mel-stat-na-podzim_2610080812_jor",
+      "publishedAt": "2026-10-08T06:12:00+00:00",
+      "image": "https://www.irozhlas.cz/sites/default/files/styles/zpravy_maly_nahled/public/uploader/luknov_261007-225242_jor.jpg?itok=YSUXlcb-",
+      "category": "other",
       "topics": []
     },
     {
@@ -2003,6 +3047,16 @@
       "url": "https://www.aljazeera.com/news/2026/10/8/how-october-7-redrew-the-map-of-the-middle-east?traffic_source=rss",
       "publishedAt": "2026-10-08T06:11:24+00:00",
       "image": "https://www.aljazeera.com/wp-content/uploads/2026/02/reuters_699af09c-1771761820.jpg?resize=1920%2C1440",
+      "category": "other",
+      "topics": []
+    },
+    {
+      "id": "1cd1ebaf83304295aee7",
+      "source": "no_nrk",
+      "title": "TV 2: Tidligere fotballspiller dømt til ni år og åtte måneders fengsel",
+      "url": "https://www.nrk.no/nyheter/tv-2_-tidligere-fotballspiller-domt-til-ni-ar-og-atte-maneders-fengsel-1.18048962",
+      "publishedAt": "2026-10-08T06:10:49+00:00",
+      "image": "https://static.nrk.no/nrkno/serum/2.0.532/common/img/default.jpg",
       "category": "other",
       "topics": []
     },
@@ -2211,6 +3265,16 @@
       "topics": []
     },
     {
+      "id": "9c685b74bc72b02f1291",
+      "source": "cz_irozhlas",
+      "title": "S Kubíkem nemůžeme plánovat budoucnost, ale jen pár kroků dopředu, říká rodina se synem s postižením",
+      "url": "https://www.irozhlas.cz/zivotni-styl/spolecnost/s-kubikem-nemuzeme-planovat-budoucnost-ale-jen-par-kroku-dopredu-rika-rodina-se_2610080800_ako",
+      "publishedAt": "2026-10-08T06:00:00+00:00",
+      "image": "https://www.irozhlas.cz/sites/default/files/styles/zpravy_maly_nahled/public/uploader/1_titulka_jakub_s_ma_261005-121046_ako.jpg?itok=xTOJyDTi",
+      "category": "other",
+      "topics": []
+    },
+    {
       "id": "afba6afe973dfe3aa5b9",
       "source": "detik",
       "title": "Ramai Seruan Boikot Produk RI di Malaysia, Mendag: Nggak Ada Masalah",
@@ -2231,6 +3295,16 @@
       "topics": []
     },
     {
+      "id": "d8305337af673fd12cf4",
+      "source": "hu_telex",
+      "title": "Bús Balázs is kapott diplomata-útlevelet, mégpedig háromszor",
+      "url": "https://telex.hu/belfold/2026/10/08/24-hu-bus-balazs-is-kapott-diplomata-utlevelet-megpedig-haromszor",
+      "publishedAt": "2026-10-08T05:57:44+00:00",
+      "image": "https://assets.telex.hu/images/20261008/1791436440-temp-ohband7m85qmaindjak_cimlap-normal.jpg",
+      "category": "other",
+      "topics": []
+    },
+    {
       "id": "fc5fffae9dc048c871e2",
       "source": "cnn_id",
       "title": "Hidupkan Semangat Tenis, Bring Back Tennis Tourney Digelar",
@@ -2238,6 +3312,16 @@
       "publishedAt": "2026-10-08T05:56:28+00:00",
       "image": "https://akcdn.detik.net.id/visual/2026/10/08/komunitas-meet-on-court-moc-tennis-club-menggelar-bring-back-tennis-tourney-2026-turnamen-tenis-komunitas-yang-mengusung-seman-1791438218125_169.jpeg?w=360&q=90",
       "category": "sport",
+      "topics": []
+    },
+    {
+      "id": "0e5cfeafd613aaf80fdb",
+      "source": "hu_telex",
+      "title": "Olyan szorgalmasan fizetik a magyarok a hiteleiket, mint még soha",
+      "url": "https://telex.hu/gazdasag/2026/10/08/annyira-jo-adosok-a-magyarok-mint-meg-soha",
+      "publishedAt": "2026-10-08T05:55:46+00:00",
+      "image": "https://assets.telex.hu/images/20261008/1791438922-temp-53egh0cesnq90gnjakb_cimlap-normal.jpg",
+      "category": "other",
       "topics": []
     },
     {
@@ -2287,6 +3371,26 @@
       "url": "https://www.dw.com/en/germany-news-uk-s-burnham-merz-to-talk-security-in-berlin/live-79587637?maca=en-rss-en-all-1573-xml-mrss",
       "publishedAt": "2026-10-08T05:50:00+00:00",
       "image": "https://static.dw.com/image/79364723_6.jpg",
+      "category": "other",
+      "topics": []
+    },
+    {
+      "id": "f962541157fd5f126193",
+      "source": "ro_hotnews",
+      "title": "Soții Georgescu, la DIICOT pentru a treia zi consecutivă. Imagini cu fostul candidat la alegerile prezidențiale",
+      "url": "https://hotnews.ro/cristela-georgescu-la-diicot-pentru-a-treia-zi-consecutiva-2370209",
+      "publishedAt": "2026-10-08T05:49:34+00:00",
+      "image": "https://hotnews.ro/wp-content/uploads/2026/10/cristela-georgescu.jpg",
+      "category": "other",
+      "topics": []
+    },
+    {
+      "id": "5a470ddf92cc9f5e4f4d",
+      "source": "cz_irozhlas",
+      "title": "Tisíce zkontrolovaných lidí. Na hlavním vlakovém nádraží v Plzni přibývá policejních hlídek",
+      "url": "https://www.irozhlas.cz/zpravy-domov/tisice-zkontrolovanych-lidi-na-hlavnim-vlakovem-nadrazi-v-plzni-pribyva_2610080749_jor",
+      "publishedAt": "2026-10-08T05:49:00+00:00",
+      "image": "https://www.irozhlas.cz/sites/default/files/styles/zpravy_maly_nahled/public/uploader/profimedia-101810156_261007-214854_jor.jpg?itok=mCsoWUkh",
       "category": "other",
       "topics": []
     },
@@ -2348,6 +3452,16 @@
       "publishedAt": "2026-10-08T05:45:02+00:00",
       "image": "https://ichef.bbci.co.uk/ace/standard/240/cpsprodpb/4ee9/live/49c38110-be4b-11f1-a73b-295bdc9b9b7f.jpg",
       "category": "other",
+      "topics": []
+    },
+    {
+      "id": "4cabc00e504c0b809bcf",
+      "source": "cz_irozhlas",
+      "title": "Medaile je krásná, těší bronzovou judistku Zachovou. Cenný kov převzala od fotbalového mistra světa",
+      "url": "https://www.irozhlas.cz/sport/ostatni-sporty/medaile-je-krasna-tesi-bronzovou-judistku-zachovou-cenny-kov-prevzala-od_2610080745_mim",
+      "publishedAt": "2026-10-08T05:45:00+00:00",
+      "image": "https://www.irozhlas.cz/sites/default/files/styles/zpravy_maly_nahled/public/uploader/profimedia-114125313_261008-073041_mim.jpg?itok=yleXIuv2",
+      "category": "sport",
       "topics": []
     },
     {
@@ -2441,6 +3555,16 @@
       "topics": []
     },
     {
+      "id": "80a33f451aac94513e14",
+      "source": "cz_irozhlas",
+      "title": "O víkendu se teploty sníží na deset až patnáct stupňů. Lidé mohou očekávat i déšť",
+      "url": "https://www.irozhlas.cz/zpravy-domov/o-vikendu-se-teploty-snizi-na-deset-az-15-stupnu-lide-mohou-ocekavat-i-dest_2610080739_raf",
+      "publishedAt": "2026-10-08T05:39:00+00:00",
+      "image": "https://www.irozhlas.cz/sites/default/files/styles/zpravy_maly_nahled/public/uploader/dsc_6396-enhanced-nr_260611-030321_jar.jpg?itok=jcFZYlMs",
+      "category": "other",
+      "topics": []
+    },
+    {
       "id": "20cf42b189a7d4c90708",
       "source": "kompas",
       "title": "4 Saham BUMN Karya Disuspensi BEI",
@@ -2507,6 +3631,16 @@
       "url": "https://www.aljazeera.com/news/2026/10/8/why-single-ebola-death-in-kenya-has-sparked-fears-of-wider-african-spread?traffic_source=rss",
       "publishedAt": "2026-10-08T05:34:34+00:00",
       "image": "https://www.aljazeera.com/wp-content/uploads/2026/10/afp_6ac66094d7af-1791385748.jpg?resize=1920%2C1440",
+      "category": "other",
+      "topics": []
+    },
+    {
+      "id": "e487bed2f8a0b2bd7dea",
+      "source": "dk_dr",
+      "title": "Stort projekt vedtaget i Herning",
+      "url": "https://www.dr.dk/nyheder/seneste/stort-projekt-vedtaget-i-herning",
+      "publishedAt": "2026-10-08T05:33:46+00:00",
+      "image": "https://asset.dr.dk/drdk/umbraco-images/oujpen2a/317.png?im=SmartCrop%2Csize%3D%28700%2C394%29",
       "category": "other",
       "topics": []
     },
@@ -2621,6 +3755,18 @@
       "topics": []
     },
     {
+      "id": "b5eda7385acc71e64bb4",
+      "source": "ro_hotnews",
+      "title": "Trump, sfidat într-un bastion republican: „Sunt plătiți de dușmanii națiunii”. Ce a spus despre mama unui protestatar care s-a apropiat",
+      "url": "https://hotnews.ro/trump-sfidat-intr-un-bastion-republican-sunt-platiti-de-dusmanii-natiunii-ce-a-spus-despre-mama-unui-protestatar-care-s-a-apropiat-2370195",
+      "publishedAt": "2026-10-08T05:22:58+00:00",
+      "image": "https://hotnews.ro/wp-content/uploads/2026/10/donald-trump-discurs-texas.jpg",
+      "category": "other",
+      "topics": [
+        "politics"
+      ]
+    },
+    {
       "id": "772c9ed205f5d30a0f29",
       "source": "dw",
       "title": "Yemen's Houthis claim strike on Riyadh airport, three killed",
@@ -2688,6 +3834,16 @@
       "publishedAt": "2026-10-08T05:18:09.832000+00:00",
       "image": "https://www.reuters.com/resizer/v2/IA4F5V5BOBKMZGXUYZUHEWQQVQ.jpg?auth=0a54cb285409ad17d32e73ec48dbcc055037c4ed8cdde8d0c749431d342c40c4&smart=true&width=1920",
       "category": "business",
+      "topics": []
+    },
+    {
+      "id": "26d7cfdc6fb79a04e152",
+      "source": "cz_irozhlas",
+      "title": ",Bude se tady pracovat s citlivými situacemi.‘ Vzniká nové Centrum duševního zdraví pro děti a mládež",
+      "url": "https://www.irozhlas.cz/zivotni-styl/zdravi/bude-se-tady-pracovat-s-citlivymi-situacemi-vznika-nove-centrum-dusevniho-zdravi_2610080718_aha",
+      "publishedAt": "2026-10-08T05:18:00+00:00",
+      "image": "https://www.irozhlas.cz/sites/default/files/styles/zpravy_maly_nahled/public/uploader/whatsapp_image_2026-_261007-215407_aha.jpeg?itok=mPT4CYLI",
+      "category": "other",
       "topics": []
     },
     {
@@ -2781,6 +3937,16 @@
       "topics": []
     },
     {
+      "id": "bdb34d9cf4dce10637a2",
+      "source": "ro_hotnews",
+      "title": "Inteligența artificială în sistemul judiciar: între eficiență tehnologică și pericolele automatizării justiției",
+      "url": "https://hotnews.ro/inteligenta-artificiala-in-sistemul-judiciar-intre-eficienta-tehnologica-si-pericolele-automatizarii-justitiei-2370194",
+      "publishedAt": "2026-10-08T05:10:41+00:00",
+      "image": "https://hotnews.ro/wp-content/uploads/2026/10/Screenshot-2026-10-08-at-08.09.09.png",
+      "category": "commentary",
+      "topics": []
+    },
+    {
       "id": "0ae5dc2b7078aa9821b9",
       "source": "bbc",
       "title": "Margaret Hamilton, whose software helped land Apollo 11 on the Moon, dies at 90",
@@ -2851,6 +4017,16 @@
       "topics": []
     },
     {
+      "id": "1d33c1cd1b0e0e2d5de5",
+      "source": "hu_telex",
+      "title": "Az USA szerint nem biológiai fegyverhez kapcsolódik az orosz pestisfertőzés",
+      "url": "https://telex.hu/kulfold/2026/10/08/donald-trump-oroszorszag-pestis-laboratorium-fertozes-biologiai-fegyver",
+      "publishedAt": "2026-10-08T05:08:42+00:00",
+      "image": "https://assets.telex.hu/images/20261008/1791436087-temp-aotkgdjqb36r2paphgl_cimlap-normal.jpg",
+      "category": "other",
+      "topics": []
+    },
+    {
       "id": "59fed06307ab54cf74f1",
       "source": "reuters",
       "title": "Morning Bid: Sovereign bonds shouldered aside as AI takes their turf",
@@ -2861,9 +4037,21 @@
       "topics": []
     },
     {
+      "id": "6ebeeb93b5e291afd282",
+      "source": "fi_yle",
+      "title": "Finns Party pulls ahead of NCP in new Yle poll",
+      "url": "https://yle.fi/a/74-20250396?origin=rss",
+      "publishedAt": "2026-10-08T05:06:55+00:00",
+      "image": "https://img.img-cdn.yle.fi/crop_extract,w_1919,h_1080,x_0,y_0/crop_fill,w_1200,h_628/f_auto/39-17186736ac5fa982b459/1791360309",
+      "category": "world",
+      "topics": [
+        "politics"
+      ]
+    },
+    {
       "id": "17dbc5c46dd8387581e3",
       "source": "aljazeera",
-      "title": "UK renames East Jerusalem consulate as a mission; some diplomats to remain",
+      "title": "UK renames East Jerusalem consulate as a mission, some diplomats to remain",
       "url": "https://www.aljazeera.com/news/2026/10/8/signage-at-uk-consulate-in-east-jerusalem-removed-as-israels-deadline-over?traffic_source=rss",
       "publishedAt": "2026-10-08T05:06:25+00:00",
       "image": "https://www.aljazeera.com/wp-content/uploads/2026/10/reuters_6ac71dfa-1791434234.jpg?resize=1920%2C1440",
@@ -2953,6 +4141,18 @@
       "topics": []
     },
     {
+      "id": "ab77563b6ec10fb5085e",
+      "source": "cz_irozhlas",
+      "title": "‚Asi by to nedali někomu, jako jsem já.‘ Trump si nemyslí, že dostane Nobelovu cenu za mír",
+      "url": "https://www.irozhlas.cz/zpravy-svet/asi-nedali-nekomu-jako-jsem-ja-trump-si-nemysli-ze-dostane-nobelovu-cenu-za-mir_2610080701_raf",
+      "publishedAt": "2026-10-08T05:01:00+00:00",
+      "image": "https://www.irozhlas.cz/sites/default/files/styles/zpravy_maly_nahled/public/uploader/2026-09-16t234522z_1_260918-132745_kro.JPG?itok=iabuwAg1",
+      "category": "science",
+      "topics": [
+        "politics"
+      ]
+    },
+    {
       "id": "2935ec994f6160cc456e",
       "source": "reuters",
       "title": "Proteinmaxxing is puny remedy for consumer giants",
@@ -2970,6 +4170,16 @@
       "publishedAt": "2026-10-08T05:00:44+00:00",
       "image": "https://ichef.bbci.co.uk/ace/standard/240/cpsprodpb/6350/live/ef6a77a0-c1a6-11f1-a64c-550be9e3c66b.jpg",
       "category": "world",
+      "topics": []
+    },
+    {
+      "id": "4a9c30b12c4a1fed096d",
+      "source": "hu_telex",
+      "title": "Magyar csoda: a termelőktől a nagy láncokig mindenki szenved az élelmiszerpiacon",
+      "url": "https://telex.hu/gazdasag/2026/10/08/elelmiszer-aldi-lidl-tesco-spar-auchan-penny-market-kisbolt-zoldseg-gyumolcs",
+      "publishedAt": "2026-10-08T05:00:36+00:00",
+      "image": "https://assets.telex.hu/images/20261005/1791210278-temp-fd39q82rno871joaamd_cimlap-normal.jpg",
+      "category": "markets",
       "topics": []
     },
     {
@@ -2991,7 +4201,7 @@
       "url": "https://www.theguardian.com/money/2026/oct/08/uk-drivers-live-petrol-diesel-prices-google-maps-pump-pricing",
       "publishedAt": "2026-10-08T05:00:11+00:00",
       "image": "https://i.guim.co.uk/img/media/f3773eb249c385e9fb1ae557f371e226117849ea/500_0_5000_4000/master/5000.jpg?width=140&quality=85&auto=format&fit=max&s=df426a9b920af7bdd38ea97ac4efec1f",
-      "category": "technology",
+      "category": "business",
       "topics": []
     },
     {
@@ -3077,6 +4287,26 @@
       "topics": []
     },
     {
+      "id": "9bd7ac9c21cda02676df",
+      "source": "cz_irozhlas",
+      "title": ",Ozdobná kytička to dostala od autobusu potřetí.‘ Meteorologickou budku musí opravit umělecký kovář",
+      "url": "https://www.irozhlas.cz/zpravy-domov/ozdobna-kyticka-dostala-od-autobusu-potreti-meteorologickou-budku-musi-opravit_2610080700_aha",
+      "publishedAt": "2026-10-08T05:00:00+00:00",
+      "image": "https://www.irozhlas.cz/sites/default/files/styles/zpravy_maly_nahled/public/uploader/whatsapp_image_2026-_261007-200130_aha_2.jpeg?itok=coITClAY",
+      "category": "other",
+      "topics": []
+    },
+    {
+      "id": "6c1d1950b1d0097e6509",
+      "source": "ie_rte",
+      "title": "Doctor calls for better endometriosis care after surgery abroad",
+      "url": "https://www.rte.ie/news/investigations-unit/2026/1008/1594280-endometriosis-care-ireland/",
+      "publishedAt": "2026-10-08T05:00:00+00:00",
+      "image": "https://www.rte.ie/images/00252107-800.jpg",
+      "category": "investigations",
+      "topics": []
+    },
+    {
       "id": "80d797a57dc7a445744b",
       "source": "reuters",
       "title": "Thai consumer confidence drops in September, survey shows",
@@ -3139,6 +4369,16 @@
       "topics": []
     },
     {
+      "id": "90aae761f484f6776498",
+      "source": "reuters",
+      "title": "Dollar steady near 18-month high after Fed minutes flag inflation risks",
+      "url": "https://www.reuters.com/world/africa/dollar-edges-back-18-month-high-after-fomc-minutes-2026-10-08/",
+      "publishedAt": "2026-10-08T04:52:52.487000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/G5JAJ7O7XRM7VNJT7OIT4DV4OM.jpg?auth=a72174bfd7a6814953dd2c484d6e7ad42140a35e36e99514060b738c18608aa6&smart=true&width=1920",
+      "category": "markets",
+      "topics": []
+    },
+    {
       "id": "8174b29d973bf5b429b3",
       "source": "reuters",
       "title": "Samsung flags $80 billion profit on AI boom, highest quarterly for any tech company",
@@ -3146,6 +4386,16 @@
       "publishedAt": "2026-10-08T04:49:53.210000+00:00",
       "image": "https://www.reuters.com/resizer/v2/4JWZRVJJ2ZLE3D3MVGWUT6QEXM.jpg?auth=eff9c913b8628105a8ef7800558de7938eb08f6bfecad0feaae1ec471782f4df&smart=true&width=1920",
       "category": "technology",
+      "topics": []
+    },
+    {
+      "id": "cf8b595bb914fd04da09",
+      "source": "at_orf",
+      "title": "Samsung stellt dank KI-Boom Rekordgewinn in Aussicht",
+      "url": "https://orf.at/stories/3444434/",
+      "publishedAt": "2026-10-08T04:48:51+00:00",
+      "image": "https://orf.at/mojo/1_4_1/storyserver//news/common/images/og-fallback-news.png",
+      "category": "other",
       "topics": []
     },
     {
@@ -3221,6 +4471,16 @@
       "topics": []
     },
     {
+      "id": "35b268d61a59096fdb9c",
+      "source": "cz_irozhlas",
+      "title": ",Musíme jet v digitálním i analogovém spektru.‘ Libavá hostí armádní cvičení Moravian Lance 2026",
+      "url": "https://www.irozhlas.cz/zpravy-domov/musime-jet-v-digitalnim-i-analogovem-spektru-libava-hosti-armadni-cviceni_2610080644_aha",
+      "publishedAt": "2026-10-08T04:44:00+00:00",
+      "image": "https://www.irozhlas.cz/sites/default/files/styles/zpravy_maly_nahled/public/uploader/whatsapp_image_2026-_261007-205917_aha_2.jpeg?itok=fSFZ3nTJ",
+      "category": "other",
+      "topics": []
+    },
+    {
       "id": "4d7098e44b347800728d",
       "source": "reuters",
       "title": "Tom Wilson produces 3 points as Capitals get past Penguins",
@@ -3291,6 +4551,16 @@
       "topics": []
     },
     {
+      "id": "64e056d2266074f6b3f6",
+      "source": "ro_hotnews",
+      "title": "Verdictul în procesul Înalta Curte-Guvern pentru restanțele salariale de 1 miliard de euro ale magistraților, așteptat azi",
+      "url": "https://hotnews.ro/iccj-guvern-proces-restante-salarii-magistrati-ilie-bolojan-2370181",
+      "publishedAt": "2026-10-08T04:38:42+00:00",
+      "image": "https://hotnews.ro/wp-content/uploads/2026/06/Lia-Savonea-la-CSM.jpg",
+      "category": "other",
+      "topics": []
+    },
+    {
       "id": "d7b4e60464f2ab3a74b2",
       "source": "ft",
       "title": "EU envoy lands in China for last-ditch talks over car exports",
@@ -3307,6 +4577,16 @@
       "url": "https://apnews.com/article/india-nana-patekar-dead-bollywood-a1f8495501327d5c7949173c7a14b55c",
       "publishedAt": "2026-10-08T04:37:04+00:00",
       "image": "https://dims.apnews.com/dims4/default/fccc363/2147483647/strip/true/crop/5000x3332+0+1/resize/980x653!/quality/90/?url=https%3A%2F%2Fassets.apnews.com%2Ff5%2F38%2F4ba4da2578182128db1df79ad2fe%2F2aa28d5ce1f443d9ab9b73bd1e00dce6",
+      "category": "other",
+      "topics": []
+    },
+    {
+      "id": "c1c5b0f165a29f20fc54",
+      "source": "at_orf",
+      "title": "EU-RH: Hohe Fehlerquote bei Ausgabe von EU-Geldern",
+      "url": "https://orf.at/stories/3444430/",
+      "publishedAt": "2026-10-08T04:36:09+00:00",
+      "image": "https://orf.at/mojo/1_4_1/storyserver//news/common/images/og-fallback-news.png",
       "category": "other",
       "topics": []
     },
@@ -3383,6 +4663,36 @@
       "topics": []
     },
     {
+      "id": "d874703db1cc1fa5e89e",
+      "source": "ro_hotnews",
+      "title": "Cum ne organizăm și protejăm proviziile",
+      "url": "https://hotnews.ro/cum-ne-organizam-si-protejam-proviziile-2363902",
+      "publishedAt": "2026-10-08T04:30:00+00:00",
+      "image": "https://hotnews.ro/wp-content/uploads/2026/10/dreamstime_l_176475041.jpg",
+      "category": "other",
+      "topics": []
+    },
+    {
+      "id": "456c081948c8874e8512",
+      "source": "cz_irozhlas",
+      "title": "Zlato, uran a ruští vojáci. O co jde Moskvě v Sahelu?",
+      "url": "https://www.irozhlas.cz/komentare/zlato-uran-a-rusti-vojaci-o-co-jde-moskve-v-sahelu_2610080629_lar",
+      "publishedAt": "2026-10-08T04:29:00+00:00",
+      "image": "https://www.irozhlas.cz/sites/default/files/styles/zpravy_maly_nahled/public/images/60b21575c0ab6fa65b056a76d5068969.jpg?itok=mJ1z4KRo",
+      "category": "other",
+      "topics": []
+    },
+    {
+      "id": "111b4be61e8292ee4f58",
+      "source": "at_orf",
+      "title": "Bericht: Angriff auf Schiff im Persischen Golf",
+      "url": "https://orf.at/stories/3444429/",
+      "publishedAt": "2026-10-08T04:28:36+00:00",
+      "image": "https://orf.at/mojo/1_4_1/storyserver//news/common/images/og-fallback-news.png",
+      "category": "sport",
+      "topics": []
+    },
+    {
       "id": "60f81c8031162f056058",
       "source": "bloomberg",
       "title": "Houthi Attacks Heighten Saudi Escalation Concerns",
@@ -3403,6 +4713,16 @@
       "topics": []
     },
     {
+      "id": "052fd1d9a146ca27a3be",
+      "source": "cz_irozhlas",
+      "title": "Nečasovi se na ledě Winnipegu nedařilo a Colorado padlo. Výhru Jets řídil dvěma góly Connor",
+      "url": "https://www.irozhlas.cz/sport/hokej/necasovi-se-na-lede-winnipegu-nedarilo-a-colorado-padlo-vyhru-jet-ridil-dvema_2610080628_mim",
+      "publishedAt": "2026-10-08T04:28:00+00:00",
+      "image": "https://www.irozhlas.cz/sites/default/files/styles/zpravy_maly_nahled/public/uploader/profimedia-114130266_261008-062805_mim.jpg?itok=8yL8kRtf",
+      "category": "sport",
+      "topics": []
+    },
+    {
       "id": "c1cbc0620f6133be5e6e",
       "source": "reuters",
       "title": "North Korea's Kim Yo Jong rejects South Korean medical aid, calls it a provocation",
@@ -3410,6 +4730,16 @@
       "publishedAt": "2026-10-08T04:27:23.594000+00:00",
       "image": "https://www.reuters.com/resizer/v2/QBPXUABQHVNGHCSGPUBUTCLZOM.jpg?auth=0a3f8373b901f97d5621f1c671c238e5edf2490409e892528426b5cf4cb7b900&smart=true&width=1920",
       "category": "world",
+      "topics": []
+    },
+    {
+      "id": "93360895d4af75a7e54a",
+      "source": "cz_irozhlas",
+      "title": "Pro uvázlý kamion v Praze vyjede vyprošťovací tank. Předchozí pokusy o vyproštění byly neúspěšné",
+      "url": "https://www.irozhlas.cz/zpravy-domov/pro-uvazly-kamion-v-praze-vyjede-vyprostovaci-tank-predchozi-pokusy-o-vyprosteni_2610080625_jos",
+      "publishedAt": "2026-10-08T04:25:00+00:00",
+      "image": "https://www.irozhlas.cz/sites/default/files/styles/zpravy_maly_nahled/public/uploader/hudng8cwsaa339m_261008-062006_jos.png?itok=JMbgnZY5",
+      "category": "other",
       "topics": []
     },
     {
@@ -3440,6 +4770,16 @@
       "publishedAt": "2026-10-08T04:23:44.911000+00:00",
       "image": "https://www.reuters.com/resizer/v2/ZJ7JINMLEJMEDP2QCJUWZ2KT4E.jpg?auth=8a293dddc0ad20679379e23ec0a9971c683ca0fce85ec75384d99ea25b6ab879&smart=true&width=1920",
       "category": "business",
+      "topics": []
+    },
+    {
+      "id": "1acbc361d5cb66f295ba",
+      "source": "at_orf",
+      "title": "Zahl der Lehrlinge sinkt weiter",
+      "url": "https://orf.at/stories/3444428/",
+      "publishedAt": "2026-10-08T04:22:19+00:00",
+      "image": "https://orf.at/mojo/1_4_1/storyserver//news/common/images/og-fallback-news.png",
+      "category": "other",
       "topics": []
     },
     {
@@ -3539,6 +4879,26 @@
       "topics": []
     },
     {
+      "id": "d12cebe79bc094dd73b0",
+      "source": "at_orf",
+      "title": "Tropensturm „Isaias“ bedroht US-Golfküste",
+      "url": "https://orf.at/stories/3444426/",
+      "publishedAt": "2026-10-08T04:13:22+00:00",
+      "image": "https://orf.at/mojo/1_4_1/storyserver//news/common/images/og-fallback-news.png",
+      "category": "other",
+      "topics": []
+    },
+    {
+      "id": "a508c95b9d5753f73e1b",
+      "source": "ro_hotnews",
+      "title": "Rusia a cerut unei mici țări asiatice să-i închirieze avioane cu tot cu echipaje, după refuzul Etiopiei. Dar problema poartă două nume: Boeing și Airbus",
+      "url": "https://hotnews.ro/rusia-cere-vietnamului-avioane-cu-tot-cu-echipaje-pe-masura-ce-flota-occidentala-confiscata-se-degradeaza-2370044",
+      "publishedAt": "2026-10-08T04:13:00+00:00",
+      "image": "https://hotnews.ro/wp-content/uploads/2026/10/profimedia-1124699729.jpg",
+      "category": "other",
+      "topics": []
+    },
+    {
       "id": "98c3fde98a95f5460f1b",
       "source": "detik",
       "title": "Perpres Ojol Resmi Diluncurkan, Ini Isinya",
@@ -3559,12 +4919,42 @@
       "topics": []
     },
     {
+      "id": "eb29fbc7d841284310f7",
+      "source": "no_nrk",
+      "title": "Lotteritilsynet blokkerer ulovlige pengespill: Nye funn viser langt større omfang",
+      "url": "https://www.nrk.no/trondelag/xl/lotteritilsynet-blokkerer-ulovlige-pengespill_-nye-funn-viser-langt-storre-omfang-1.18033656",
+      "publishedAt": "2026-10-08T04:12:10+00:00",
+      "image": "https://gfx.nrk.no/YZSm2K-L6QCPGHO5IAjZfQjWtXottAxrlMCDYNcRHibQ.jpg",
+      "category": "other",
+      "topics": []
+    },
+    {
       "id": "a8da8068913b31fc2788",
       "source": "ap",
       "title": "Deported to Central African Republic, a transgender woman who lived openly in Miami is hiding again",
       "url": "https://apnews.com/article/third-country-deportations-transgender-central-african-republic-1409867a074f4e8ce660d757a05d88b4",
       "publishedAt": "2026-10-08T04:11:22+00:00",
       "image": null,
+      "category": "other",
+      "topics": []
+    },
+    {
+      "id": "a426c24e7067d601cf3f",
+      "source": "ro_hotnews",
+      "title": "De ce spune Michael Douglas că i s-a făcut rușine când a văzut un film al său cu prințesa Diana",
+      "url": "https://hotnews.ro/de-ce-spune-michael-douglas-ca-i-s-a-facut-rusine-cand-a-vazut-un-film-al-sau-cu-printesa-diana-2369881",
+      "publishedAt": "2026-10-08T04:11:00+00:00",
+      "image": "https://hotnews.ro/wp-content/uploads/2026/10/profimedia-1141112038.jpg",
+      "category": "other",
+      "topics": []
+    },
+    {
+      "id": "1bc4cede5c4d0c6795b0",
+      "source": "at_orf",
+      "title": "Huthis attackieren erneut Flughafen in Riad",
+      "url": "https://orf.at/stories/3444425/",
+      "publishedAt": "2026-10-08T04:08:46+00:00",
+      "image": "https://orf.at/mojo/1_4_1/storyserver//news/common/images/og-fallback-news.png",
       "category": "other",
       "topics": []
     },
@@ -3608,6 +4998,16 @@
       "publishedAt": "2026-10-08T04:07:51+00:00",
       "image": "https://image.cnbcfm.com/api/v1/image/108364361-1789650277260-gettyimages-2294896140-AA_15092026_2952186.jpeg?v=1789667988&w=1920&h=1080",
       "category": "markets",
+      "topics": []
+    },
+    {
+      "id": "98b7d473ed3ad43ee45d",
+      "source": "dk_dr",
+      "title": "Efterårsferien giver risiko for tæt trafik og forsinkelser",
+      "url": "https://www.dr.dk/nyheder/seneste/efteraarsferien-giver-risiko-taet-trafik-og-forsinkelser",
+      "publishedAt": "2026-10-08T04:05:04+00:00",
+      "image": "https://asset.dr.dk/drdk/umbraco-images/oujpen2a/317.png?im=SmartCrop%2Csize%3D%28700%2C394%29",
+      "category": "other",
       "topics": []
     },
     {
@@ -3811,7 +5211,7 @@
       "url": "https://www.ft.com/content/70b7333c-f746-462f-a973-30a999403b15?syn-25a6b1a6=1",
       "publishedAt": "2026-10-08T04:00:16+00:00",
       "image": "https://images.ft.com/v3/image/raw/https%3A%2F%2Fd1e00ek4ebabms.cloudfront.net%2Fproduction%2F9c4bf82f-99f0-4af2-ae42-ce7e9025d095.jpg?source=next-barrier-page&fit=scale-down&quality=highest&width=700&dpr=1",
-      "category": "world",
+      "category": "markets",
       "topics": []
     },
     {
@@ -3881,7 +5281,17 @@
       "url": "https://www.theguardian.com/business/2026/oct/08/uk-banknotes-new-design-barn-owl-bumblebee-puffin-hedgehog",
       "publishedAt": "2026-10-08T04:00:11+00:00",
       "image": "https://i.guim.co.uk/img/media/1975ca3bc874ed3182fad31527d9a002428b8d52/0_0_2890_2312/master/2890.jpg?width=140&quality=85&auto=format&fit=max&s=28a475460ea3881a6db0f926de41b8ac",
-      "category": "sustainability",
+      "category": "business",
+      "topics": []
+    },
+    {
+      "id": "a08ed3703226f8cad8c7",
+      "source": "at_orf",
+      "title": "Melonis Wahlrechtsreform vor letzter Hürde",
+      "url": "https://orf.at/stories/3444344/",
+      "publishedAt": "2026-10-08T04:00:11+00:00",
+      "image": "https://ibs.orf.at/news?image=https%3A%2F%2Fassets.orf.at%2Fmims%2F2026%2F41%2F65%2Fcrops%2Fw%3D1200%2Ch%3D630%2Cq%3D75%2F3208258_master_1244765_italien_wahlrecht_schlussabstimmung_afp.jpg%3Fs%3D6faf74aa489f31d818082c92813ccbb43428e085",
+      "category": "other",
       "topics": []
     },
     {
@@ -3922,6 +5332,16 @@
       "publishedAt": "2026-10-08T04:00:00+00:00",
       "image": null,
       "category": "markets",
+      "topics": []
+    },
+    {
+      "id": "3d420f2aea69757dc2a9",
+      "source": "hu_telex",
+      "title": "Kartellgyanú miatt közétkeztető cégeket vizsgál a versenyhivatal",
+      "url": "https://telex.hu/gazdasag/2026/10/08/kozetkezteto-cegeket-vizsgal-a-versenyhivatal",
+      "publishedAt": "2026-10-08T03:59:59+00:00",
+      "image": "https://assets.telex.hu/images/20261008/1791431935-temp-epu6ursma1l01giabga_cimlap-normal.jpg",
+      "category": "other",
       "topics": []
     },
     {
@@ -4151,6 +5571,16 @@
       "topics": []
     },
     {
+      "id": "38265d83fd3e15c71d32",
+      "source": "hu_telex",
+      "title": "A párizsi ügyészség szerint a választás óta annyit javult a magyar igazságszolgáltatás, hogy hajlandóak kiadni Magyarországnak az egyik antifát",
+      "url": "https://telex.hu/belfold/2026/10/08/a-parizsi-ugyeszseg-szerint-a-valasztas-ota-annyit-javult-a-magyar-igazsagszolgaltatas-hogy-hajlandoak-kiadni-magyarorszagnak-az-egyik-antifat",
+      "publishedAt": "2026-10-08T03:30:24+00:00",
+      "image": "https://assets.telex.hu/images/20261008/1791430045-temp-bsnno4aqvu272odcmop_cimlap-normal.jpg",
+      "category": "other",
+      "topics": []
+    },
+    {
       "id": "5d8b3b47f6cf7f3c5d85",
       "source": "cnbc",
       "title": "Trump says he is not keen on a deal with Iran as U.S. reportedly prepares for 'massive bombing'",
@@ -4313,6 +5743,16 @@
       "topics": []
     },
     {
+      "id": "95e4f52df48e3e816949",
+      "source": "hu_telex",
+      "title": "A húsleves tényleg gyógyszer?",
+      "url": "https://telex.hu/eszkombajn/2026/10/08/a-husleves-tenyleg-gyogyszer",
+      "publishedAt": "2026-10-08T03:06:05+00:00",
+      "image": "https://assets.telex.hu/images/20261002/1790955692-temp-2rjk4kj4e9r65omnghl_cimlap-normal.jpg",
+      "category": "other",
+      "topics": []
+    },
+    {
       "id": "5dce3dba0b21add478d2",
       "source": "kompas",
       "title": "Menkeu Suahasil Tegaskan APBN 2026-2027 Tak Pakai Dividen Danantara",
@@ -4320,6 +5760,16 @@
       "publishedAt": "2026-10-08T03:06:03+00:00",
       "image": "https://asset.kompas.com/crops/_SFCPxF-3Jd5qWskJsqObIU_vxI=/0x0:0x0/750x500/data/photo/2026/10/08/6ac70740969ba.jpg",
       "category": "local",
+      "topics": []
+    },
+    {
+      "id": "306e36b1a0aa38162cb0",
+      "source": "hu_telex",
+      "title": "Miért építjük kifelé Budapestet, ha a városon belül 2700 hektár vár megújulásra?",
+      "url": "https://telex.hu/nevertek/2026/10/08/rozsdaovezetek-hasznositasa-varosok-ipari-teruletek",
+      "publishedAt": "2026-10-08T03:05:26+00:00",
+      "image": "https://assets.telex.hu/images/20261006/1791299226-temp-t5tmc99hm12eclenilh_cimlap-normal.jpg",
+      "category": "other",
       "topics": []
     },
     {
@@ -4711,6 +6161,16 @@
       "topics": []
     },
     {
+      "id": "9cde9961d6b0121a9fbb",
+      "source": "dk_dr",
+      "title": "Belgisk storby indfører udgangsforbud efter voldsomme skoleprotester",
+      "url": "https://www.dr.dk/nyheder/seneste/belgisk-storby-indfoerer-udgangsforbud-efter-voldsomme-skoleprotester",
+      "publishedAt": "2026-10-08T02:14:09+00:00",
+      "image": "https://asset.dr.dk/drdk/umbraco-images/wpwd5viq/20261007-200127-7.jpg?im=AspectCrop=(1200,675),xPosition=.5,yPosition=.5;Resize=(1200,675)&impolicy=medium",
+      "category": "other",
+      "topics": []
+    },
+    {
       "id": "718fdbeef9d3e2f45615",
       "source": "ap",
       "title": "Australian Open’s 1 Point Slam has Alcaraz, Osaka and Sinner signed up for January’s event",
@@ -4751,6 +6211,16 @@
       "topics": [
         "politics"
       ]
+    },
+    {
+      "id": "36f7bdfa77a2628109be",
+      "source": "ie_rte",
+      "title": "TikTok gave children 'placebo' safety tools, says lawsuit",
+      "url": "https://www.rte.ie/news/2026/1008/1594489-tiktok-lawsuit/",
+      "publishedAt": "2026-10-08T02:05:51+00:00",
+      "image": "https://www.rte.ie/images/0018eff9-800.jpg",
+      "category": "legal",
+      "topics": []
     },
     {
       "id": "d830e30f3fba12760a20",
@@ -4884,6 +6354,16 @@
       "publishedAt": "2026-10-08T01:53:00+00:00",
       "image": "https://asset.kompas.com/crops/7R5wi6fMJTypARJs3109Uc6GirI=/50x0:1150x734/750x500/data/photo/2026/06/11/6a2a362c8ae88.jpeg",
       "category": "markets",
+      "topics": []
+    },
+    {
+      "id": "df6007db4f4f19c379ae",
+      "source": "at_orf",
+      "title": "WWF: Wildtierbestände nehmen weiter stark ab",
+      "url": "https://orf.at/stories/3444424/",
+      "publishedAt": "2026-10-08T01:49:38+00:00",
+      "image": "https://orf.at/mojo/1_4_1/storyserver//news/common/images/og-fallback-news.png",
+      "category": "other",
       "topics": []
     },
     {
@@ -5369,6 +6849,16 @@
       "topics": []
     },
     {
+      "id": "d75ab83cab85616d923e",
+      "source": "no_nrk",
+      "title": "Bevæpnet politi i Kautokeino etter melding om skudd",
+      "url": "https://www.nrk.no/nyheter/bevaepnet-politi-i-kautokeino-etter-melding-om-skudd-1.18048924",
+      "publishedAt": "2026-10-08T00:30:52+00:00",
+      "image": "https://static.nrk.no/nrkno/serum/2.0.532/common/img/default.jpg",
+      "category": "other",
+      "topics": []
+    },
+    {
       "id": "840bc12673ac70d293dd",
       "source": "bloomberg",
       "title": "Japanese Stocks Fall as Topix Weighting Announcement Sours Mood",
@@ -5458,6 +6948,16 @@
       "publishedAt": "2026-10-08T00:14:40+00:00",
       "image": "https://image.cnbcfm.com/api/v1/image/108373746-1791343268341-gettyimages-2291600521-roy-notitle260826_npPdY.jpeg?v=1791343290&w=1920&h=1080",
       "category": "business",
+      "topics": []
+    },
+    {
+      "id": "1873ddbdf2df999e1a3f",
+      "source": "ie_rte",
+      "title": "US considers new torture charges against Maduro",
+      "url": "https://www.rte.ie/news/2026/1008/1594488-nicolas-maduro-us/",
+      "publishedAt": "2026-10-08T00:13:47+00:00",
+      "image": "https://www.rte.ie/images/0023b2e4-800.jpg",
+      "category": "other",
       "topics": []
     },
     {
@@ -5715,6 +7215,16 @@
       "topics": []
     },
     {
+      "id": "997e75f009dabbfbfeec",
+      "source": "ie_rte",
+      "title": "Thousands attend anti-Bolsonaro protest in Rio",
+      "url": "https://www.rte.ie/news/2026/1008/1594487-brazil-politics/",
+      "publishedAt": "2026-10-07T23:27:50+00:00",
+      "image": "https://www.rte.ie/images/00252348-800.jpg",
+      "category": "world",
+      "topics": []
+    },
+    {
       "id": "c893a215e38b5969161a",
       "source": "reuters",
       "title": "Australia's ASIC halts fundraising by three ASCF private credit funds",
@@ -5887,6 +7397,16 @@
       "topics": []
     },
     {
+      "id": "82e67936d81d5249b09f",
+      "source": "ie_rte",
+      "title": "Principals want changes to free schoolbooks scheme",
+      "url": "https://www.rte.ie/news/education/2026/1008/1594457-napd-conference-galway/",
+      "publishedAt": "2026-10-07T23:01:00+00:00",
+      "image": "https://www.rte.ie/images/001c8a8d-800.jpg",
+      "category": "other",
+      "topics": []
+    },
+    {
       "id": "f3c6bd580dc59372dd8e",
       "source": "bbc",
       "title": "'Stop throwing shade' - the woman trying to stop firms leaving the UK",
@@ -5909,6 +7429,26 @@
       ]
     },
     {
+      "id": "b1a7e7b495ea46066b7e",
+      "source": "ie_rte",
+      "title": "Nurses and midwives to protest at hospitals over pay",
+      "url": "https://www.rte.ie/news/ireland/2026/1008/1594481-inmo-protests/",
+      "publishedAt": "2026-10-07T23:00:01+00:00",
+      "image": "https://www.rte.ie/images/002453de-800.jpg",
+      "category": "other",
+      "topics": []
+    },
+    {
+      "id": "912203c4d0e2c1d77dc1",
+      "source": "ie_rte",
+      "title": "'Bendy Tree' in Co Down wins Tree of the Year competition",
+      "url": "https://www.rte.ie/news/ireland/2026/1008/1594484-down-tree-of-the-year/",
+      "publishedAt": "2026-10-07T23:00:01+00:00",
+      "image": "https://www.rte.ie/images/00252341-800.jpg",
+      "category": "other",
+      "topics": []
+    },
+    {
       "id": "cef7860a864256212a40",
       "source": "wsj",
       "title": "The Spy Crisis That Threatens to Defang Germany’s Top Intelligence Agency",
@@ -5917,6 +7457,18 @@
       "image": "https://images.wsj.net/im-90966908",
       "category": "world",
       "topics": []
+    },
+    {
+      "id": "082a6081e861794de9dd",
+      "source": "ie_rte",
+      "title": "€20m extra needed by An Garda Síochána last year",
+      "url": "https://www.rte.ie/news/politics/2026/1008/1594471-garda-costs-pac/",
+      "publishedAt": "2026-10-07T23:00:00+00:00",
+      "image": "https://www.rte.ie/images/00252312-800.jpg",
+      "category": "world",
+      "topics": [
+        "politics"
+      ]
     },
     {
       "id": "15dbcdf2c7d335ecc894",
@@ -6183,6 +7735,16 @@
       ]
     },
     {
+      "id": "cc5873d5839410fc391d",
+      "source": "at_orf",
+      "title": "Möglicher Pesttod wird zum Politikum",
+      "url": "https://orf.at/stories/3444367/",
+      "publishedAt": "2026-10-07T22:08:02+00:00",
+      "image": "https://ibs.orf.at/news?image=https%3A%2F%2Fassets.orf.at%2Fmims%2F2026%2F41%2F87%2Fcrops%2Fw%3D1200%2Ch%3D630%2Cq%3D75%2F3208315_master_1244787_russland_moeglicher_pestfall_reax_1_ap.jpg%3Fs%3D007637e0010fc35aa8e0b02e63a6d74d242f1643",
+      "category": "world",
+      "topics": []
+    },
+    {
       "id": "2aa290b3541c513f9cd6",
       "source": "kompas",
       "title": "Pesan Luhut ke Investor: Indonesia Tidak Akan Kolaps!",
@@ -6199,6 +7761,16 @@
       "url": "https://www.aljazeera.com/video/newsfeed/2026/10/7/judge-orders-officials-to-preserve-pike-execution-evidence?traffic_source=rss",
       "publishedAt": "2026-10-07T22:05:49+00:00",
       "image": "https://www.aljazeera.com/wp-content/uploads/2026/10/image-1791410741.jpg?resize=1920%2C1080&quality=80",
+      "category": "other",
+      "topics": []
+    },
+    {
+      "id": "64379fc9258bfd8cb99c",
+      "source": "at_orf",
+      "title": "Pilnacek-U-Ausschuss befragt Innenminister Karner",
+      "url": "https://orf.at/stories/3444397/",
+      "publishedAt": "2026-10-07T22:05:41+00:00",
+      "image": "https://orf.at/mojo/1_4_1/storyserver//news/common/images/og-fallback-news.png",
       "category": "other",
       "topics": []
     },
@@ -6272,6 +7844,16 @@
       "publishedAt": "2026-10-07T21:53:55.191000+00:00",
       "image": "https://www.reuters.com/resizer/v2/GQHC2I3VIZKPBNH4CODCXOAPV4.jpg?auth=2b216d4188ed941b318cbf6d0f634deaaa77545557ff4f3127e77cd704436773&smart=true&width=1920",
       "category": "business",
+      "topics": []
+    },
+    {
+      "id": "0c71c65988e6e637d73c",
+      "source": "at_orf",
+      "title": "Gescheiterte Hinrichtung: Pike „verwirrt“",
+      "url": "https://orf.at/stories/3444422/",
+      "publishedAt": "2026-10-07T21:53:24+00:00",
+      "image": "https://orf.at/mojo/1_4_1/storyserver//news/common/images/og-fallback-news.png",
+      "category": "other",
       "topics": []
     },
     {
@@ -6385,6 +7967,18 @@
       "image": "https://www.aljazeera.com/wp-content/uploads/2026/10/PTCs.MP4.23_05_41_01.Still003-1791408781.jpg?resize=1920%2C1440",
       "category": "other",
       "topics": []
+    },
+    {
+      "id": "0f1b70011eff683ab425",
+      "source": "ie_rte",
+      "title": "Govt must 'put hands in pockets' for Culture Card",
+      "url": "https://www.rte.ie/news/politics/2026/1007/1594486-culture-card-minister/",
+      "publishedAt": "2026-10-07T21:32:50+00:00",
+      "image": "https://www.rte.ie/images/002509e7-800.jpg",
+      "category": "world",
+      "topics": [
+        "politics"
+      ]
     },
     {
       "id": "a65e46b6fa01deea6ba4",
@@ -6557,6 +8151,18 @@
       "topics": []
     },
     {
+      "id": "0e787f17ef091f5d1ebb",
+      "source": "ie_rte",
+      "title": "Trump says he deserves peace prize ahead of announcement",
+      "url": "https://www.rte.ie/news/world/2026/1007/1594485-nobel-peace-prize/",
+      "publishedAt": "2026-10-07T21:15:20+00:00",
+      "image": "https://www.rte.ie/images/00252344-800.jpg",
+      "category": "science",
+      "topics": [
+        "politics"
+      ]
+    },
+    {
       "id": "e6e6be82eb086361c403",
       "source": "wsj",
       "title": "Rising Rates Are Eroding the Value of Even the Most High-Flying Tech Stocks",
@@ -6679,6 +8285,16 @@
       ]
     },
     {
+      "id": "d23f8007f498078bdae5",
+      "source": "dk_dr",
+      "title": "Tankskib meldes ramt ad flere projektiler i Den Persiske Golf",
+      "url": "https://www.dr.dk/nyheder/seneste/tankskib-meldes-ramt-ad-flere-projektiler-i-den-persiske-golf",
+      "publishedAt": "2026-10-07T20:59:36+00:00",
+      "image": "https://asset.dr.dk/drdk/umbraco-images/oujpen2a/317.png?im=SmartCrop%2Csize%3D%28700%2C394%29",
+      "category": "sport",
+      "topics": []
+    },
+    {
       "id": "4891530a86a73c4000fb",
       "source": "ap",
       "title": "Brazilian students in Rio de Janeiro march against the prospect of another Bolsonaro presidency",
@@ -6706,6 +8322,16 @@
       "publishedAt": "2026-10-07T20:56:00+00:00",
       "image": "https://ichef.bbci.co.uk/ace/standard/240/cpsprodpb/c9cc/live/a0208870-c268-11f1-b278-615cdfb74f16.jpg",
       "category": "sport",
+      "topics": []
+    },
+    {
+      "id": "0a2f3819d3e926a84274",
+      "source": "at_orf",
+      "title": "Frankreich: Vorerst keine Zusatzgelder für Schulen",
+      "url": "https://orf.at/stories/3444419/",
+      "publishedAt": "2026-10-07T20:55:44+00:00",
+      "image": "https://orf.at/mojo/1_4_1/storyserver//news/common/images/og-fallback-news.png",
+      "category": "other",
       "topics": []
     },
     {
@@ -6823,6 +8449,16 @@
       "topics": [
         "politics"
       ]
+    },
+    {
+      "id": "70b7a51381ca9e226ba6",
+      "source": "at_orf",
+      "title": "Zwangsgeräumte 87-jährige Spanierin ist tot",
+      "url": "https://orf.at/stories/3444415/",
+      "publishedAt": "2026-10-07T20:46:46+00:00",
+      "image": "https://ibs.orf.at/news?image=https%3A%2F%2Fassets.orf.at%2Fmims%2F2026%2F41%2F85%2Fcrops%2Fw%3D1200%2Ch%3D630%2Cq%3D75%2F3208988_master_1245085_spanien_wohnungsnot_delogierte_gestorben_afp.jpg%3Fs%3D77079f3107cdca4a0d9606a479a67108f36a20e2",
+      "category": "other",
+      "topics": []
     },
     {
       "id": "c40036ae867dad344ff5",
@@ -7163,6 +8799,16 @@
       "topics": []
     },
     {
+      "id": "83721cdfe33d73bc95ab",
+      "source": "no_nrk",
+      "title": "Storhamar-helten Eirik Skadsdammen er død",
+      "url": "https://www.nrk.no/sport/ishockeyspiller-og-storhamar-helt-eirik-skadsdammen-er-dod-1.18048891",
+      "publishedAt": "2026-10-07T20:04:13+00:00",
+      "image": "https://gfx.nrk.no/HDneXuIXUET0butcFDE9PAm-_6NNhV5IEF-kZXr173Tw.jpg",
+      "category": "sport",
+      "topics": []
+    },
+    {
       "id": "d3ba69b67918a403b92e",
       "source": "cnbc",
       "title": "FCC to vote on auctioning 25MHz of 'prime spectrum' in move that could benefit Amazon, SpaceX",
@@ -7247,6 +8893,16 @@
       ]
     },
     {
+      "id": "dfa1892c29e1259befec",
+      "source": "no_nrk",
+      "title": "Nekter å sende barna alene til skolen: - Jeg frykter de ikke kommer hjem igjen",
+      "url": "https://www.nrk.no/buskerud/fortviler-over-trafikkfarlig-skolevei_-_-jeg-vil-at-pappa-skal-holde-meg-i-handa-1.18029822",
+      "publishedAt": "2026-10-07T19:57:39+00:00",
+      "image": "https://gfx.nrk.no/EVss9wlC7rxzc_TypGcgqw0qLGMnR63pKk3yxAs3y5Uw.jpg",
+      "category": "other",
+      "topics": []
+    },
+    {
       "id": "8ef00dc4d51f7e410337",
       "source": "aljazeera",
       "title": "Former Catholic bishop sentenced for abusing indigenous men in Australia",
@@ -7264,6 +8920,16 @@
       "publishedAt": "2026-10-07T19:55:08.547000+00:00",
       "image": null,
       "category": "other",
+      "topics": []
+    },
+    {
+      "id": "89543675c47c14d1ffd1",
+      "source": "ie_rte",
+      "title": "Shots fired at UNIFIL post on Israel-Lebanon border",
+      "url": "https://www.rte.ie/news/world/2026/1007/1594480-unifil-shots-lebanon/",
+      "publishedAt": "2026-10-07T19:54:18+00:00",
+      "image": "https://www.rte.ie/images/00252331-800.jpg",
+      "category": "world",
       "topics": []
     },
     {
@@ -7319,6 +8985,16 @@
       "topics": [
         "politics"
       ]
+    },
+    {
+      "id": "d9fe88f9ed0b5e356395",
+      "source": "no_nrk",
+      "title": "Kvinnelig Oslo-advokat pågrepet for vold i nære relasjoner",
+      "url": "https://www.nrk.no/nyheter/kvinnelig-oslo-advokat-pagrepet-for-vold-i-naere-relasjoner--1.18048846",
+      "publishedAt": "2026-10-07T19:46:45+00:00",
+      "image": "https://static.nrk.no/nrkno/serum/2.0.532/common/img/default.jpg",
+      "category": "other",
+      "topics": []
     },
     {
       "id": "14bb1297b135c7a8f835",
@@ -7405,6 +9081,16 @@
       "topics": []
     },
     {
+      "id": "564332e40d0a1ddd929a",
+      "source": "no_nrk",
+      "title": "Stortinget ba om avvikling - regjeringen foreslår videre drift",
+      "url": "https://www.nrk.no/nordland/stortinget-ba-om-avvikling-_-regjeringen-foreslar-videre-drift-1.18048383",
+      "publishedAt": "2026-10-07T19:36:05+00:00",
+      "image": "https://gfx.nrk.no/cyeWVsv9D20WYnWbGDsEWQH0D47DEmDFbipvGnTRqOpw.jpg",
+      "category": "other",
+      "topics": []
+    },
+    {
       "id": "0e0b55c24be83b1b361c",
       "source": "wsj",
       "title": "U.S. Natural Gas Futures Gain Ahead of Storage Data",
@@ -7467,6 +9153,16 @@
       "topics": [
         "politics"
       ]
+    },
+    {
+      "id": "e529a3995fd2dea15535",
+      "source": "ie_rte",
+      "title": "Murder trial hears victim thought he was going to be shot",
+      "url": "https://www.rte.ie/news/courts/2026/1007/1594478-kurt-ryan-trial/",
+      "publishedAt": "2026-10-07T19:25:22+00:00",
+      "image": "https://www.rte.ie/images/00232f38-800.jpg",
+      "category": "legal",
+      "topics": []
     },
     {
       "id": "0c4d9ccc165837fdec5a",
@@ -7535,6 +9231,16 @@
       "topics": []
     },
     {
+      "id": "8613823e19919aa30d7c",
+      "source": "ie_rte",
+      "title": "Man pleads not guilty to murder of brother and parents",
+      "url": "https://www.rte.ie/news/ireland/2026/1007/1594477-robert-oconnor-court/",
+      "publishedAt": "2026-10-07T19:16:35+00:00",
+      "image": "https://www.rte.ie/images/00233ee6-800.jpg",
+      "category": "legal",
+      "topics": []
+    },
+    {
       "id": "c7ecbfd92e0dce1e44fd",
       "source": "reuters",
       "title": "Euro drops toward 17-month lows, dollar holds gains after Fed minutes",
@@ -7562,6 +9268,16 @@
       "publishedAt": "2026-10-07T19:14:03+00:00",
       "image": "https://image.cnbcfm.com/api/v1/image/108104289-17399715182025-02-18t160441z_1704028396_rc2uwcacnx1r_rtrmadp_0_usa-trump-tariffs-mexico.jpeg?v=1739971599&w=1920&h=1080",
       "category": "business",
+      "topics": []
+    },
+    {
+      "id": "902a195b1efd3f209786",
+      "source": "ie_rte",
+      "title": "Pensioner whose eviction sparked Spain protests dies",
+      "url": "https://www.rte.ie/news/europe/2026/1007/1594479-spain-madrid-elderly-woman/",
+      "publishedAt": "2026-10-07T19:12:13+00:00",
+      "image": "https://www.rte.ie/images/0025232a-800.jpg",
+      "category": "other",
       "topics": []
     },
     {
@@ -7869,6 +9585,26 @@
       "topics": []
     },
     {
+      "id": "da00ed4655ec6ffb6007",
+      "source": "no_nrk",
+      "title": "Maricarmen (87) som utløste spanske boligprotester er død",
+      "url": "https://www.nrk.no/nyheter/maricarmen-_87_-som-utloste-spanske-boligprotester-er-dod-1.18048830",
+      "publishedAt": "2026-10-07T18:37:14+00:00",
+      "image": "https://gfx.nrk.no/Xn87gWPO4LVgCKNOQtCzvQsgwZCRCOKoZzvSJkMZOw2g.jpg",
+      "category": "other",
+      "topics": []
+    },
+    {
+      "id": "43f3ac93788774f7bf13",
+      "source": "ie_rte",
+      "title": "Zuckerberg bought Waterford castle for more than €51m",
+      "url": "https://www.rte.ie/news/munster/2026/1007/1594475-strancally-castle-waterford/",
+      "publishedAt": "2026-10-07T18:37:04+00:00",
+      "image": "https://www.rte.ie/images/00252315-800.jpg",
+      "category": "other",
+      "topics": []
+    },
+    {
       "id": "f2457248c13a7784d13b",
       "source": "reuters",
       "title": "Russell’s title hopes on the line as F1 heads to Singapore",
@@ -7971,6 +9707,16 @@
       "topics": []
     },
     {
+      "id": "1db5adabb23391dfa368",
+      "source": "no_nrk",
+      "title": "Svarar på sponsorkritikken: - Blir litt smalt",
+      "url": "https://www.nrk.no/sport/alpinistane-svarer-pa-red-bull-kritikken_-_-blir-litt-smalt-1.18048431",
+      "publishedAt": "2026-10-07T18:23:58+00:00",
+      "image": "https://gfx.nrk.no/ZJ8NrPLQwg-5zGilarwFLwz8PiQhbDCR44QLUzp3UDzQ.jpg",
+      "category": "sport",
+      "topics": []
+    },
+    {
       "id": "b393e0b7258c765832fb",
       "source": "cnbc",
       "title": "Here comes third-quarter earnings season. Booming profits could propel the S&P 500 to new heights",
@@ -8028,6 +9774,16 @@
       "publishedAt": "2026-10-07T18:16:07+00:00",
       "image": "https://www.aljazeera.com/wp-content/uploads/2026/10/2020-09-01T154136Z_765960337_RC2RPI92CN3D_RTRMADP_3_USA-CHINA-BOMBERS-1791393544.jpg?resize=1920%2C1440",
       "category": "legal",
+      "topics": []
+    },
+    {
+      "id": "8046b4d7caf920e1fa16",
+      "source": "no_nrk",
+      "title": "Tre drept og 36 skadd i flyplass-angrep i Saudi-Arabia",
+      "url": "https://www.nrk.no/nyheter/tre-drept-og-36-skadd-i-flyplass-angrep-i-saudi-arabia-1.18048816",
+      "publishedAt": "2026-10-07T18:14:33+00:00",
+      "image": "https://gfx.nrk.no/hbE2-qLSNQjsjXP18rwX-gKVZRfG-AyxM7lNDIttQcnA.jpg",
+      "category": "other",
       "topics": []
     },
     {
@@ -8423,6 +10179,16 @@
       "topics": []
     },
     {
+      "id": "a8e09a3b1a7f726e3de9",
+      "source": "no_nrk",
+      "title": "Advarer om mer togkaos: - Kaster bensin på bålet",
+      "url": "https://www.nrk.no/stor-oslo/advarer-om-mer-togkaos_-_-kaster-bensin-pa-balet-1.18048505",
+      "publishedAt": "2026-10-07T17:43:33+00:00",
+      "image": "https://gfx.nrk.no/RW0l8fRF28puLz0KXICZxg51xPYQhHk390Uvj0mObH9g.jpg",
+      "category": "other",
+      "topics": []
+    },
+    {
       "id": "4daacbbaa8f5cace4041",
       "source": "bbc",
       "title": "Barry-Murphy and Bellamy 'so similar' - Lawlor",
@@ -8535,6 +10301,16 @@
       "topics": []
     },
     {
+      "id": "864af060dbf9420b6cd8",
+      "source": "dk_dr",
+      "title": "WHO kan ikke lave fuld risikovurdering af mistænkt pestdød i Rusland",
+      "url": "https://www.dr.dk/nyheder/seneste/who-kan-ikke-lave-fuld-risikovurdering-af-mistaenkt-pestdoed-i-rusland",
+      "publishedAt": "2026-10-07T17:30:26+00:00",
+      "image": "https://asset.dr.dk/drdk/umbraco-images/oujpen2a/317.png?im=SmartCrop%2Csize%3D%28700%2C394%29",
+      "category": "other",
+      "topics": []
+    },
+    {
       "id": "49d5848884955b75bd3a",
       "source": "guardian",
       "title": "Saracens’ Brendan Venter takes aim at ‘autocratic’ Prem over media duties",
@@ -8572,6 +10348,16 @@
       "publishedAt": "2026-10-07T17:27:16.440000+00:00",
       "image": null,
       "category": "sport",
+      "topics": []
+    },
+    {
+      "id": "9bf09b95861b69a7801a",
+      "source": "no_nrk",
+      "title": "Sensitive opplysninger lekket: Stenger postjournalen",
+      "url": "https://www.nrk.no/nordland/sensitive-personopplysninger-lekket-pa-nett-_-nordland-fylkeskommune-stenger-postjournalen-1.18048042",
+      "publishedAt": "2026-10-07T17:22:45+00:00",
+      "image": "https://gfx.nrk.no/HoGVcJbdojHtaZsHHkYPcwqMWeiuLwEYaBkC_oP0RCNg.jpg",
+      "category": "other",
       "topics": []
     },
     {
@@ -8771,6 +10557,16 @@
       "topics": []
     },
     {
+      "id": "eaac70fb91faac7bb14d",
+      "source": "no_nrk",
+      "title": "Vil ha erstatning etter covid-vaksine: - Det offentlige som skal ta ansvar",
+      "url": "https://www.nrk.no/trondelag/vil-ha-erstatning-etter-covid-vaksine_-_-er-det-tvil_-sa-er-det-det-offentlige-som-skal-ta-ansvar-1.18047620",
+      "publishedAt": "2026-10-07T17:03:58+00:00",
+      "image": "https://gfx.nrk.no/GvbIPNPFfBjydJ3Edds58AmHt8deZrZ-5vwNJJ-e4jyA.jpg",
+      "category": "other",
+      "topics": []
+    },
+    {
       "id": "1bc7eb9f3e5783ff4424",
       "source": "guardian",
       "title": "Lionel Messi’s Argentina career turned football into a sacred mystery",
@@ -8904,6 +10700,16 @@
       "topics": [
         "politics"
       ]
+    },
+    {
+      "id": "268b6c6c1cab8fb35727",
+      "source": "no_nrk",
+      "title": "Halvparten av unge bruker KI til netthandel: - Litt skummelt",
+      "url": "https://www.nrk.no/ostfold/halvparten-av-unge-bruker-ki-til-netthandel_-_-litt-skummelt-1.18034243",
+      "publishedAt": "2026-10-07T16:47:56+00:00",
+      "image": "https://gfx.nrk.no/EtZqcUn_k5VLAjB-HhXb_A_2JcEGDEbG0u-2QMLFqkHw.jpg",
+      "category": "business",
+      "topics": []
     },
     {
       "id": "663d6119b62dbb935577",
@@ -9256,6 +11062,16 @@
       "topics": []
     },
     {
+      "id": "229f43eb36c258aed5c7",
+      "source": "no_nrk",
+      "title": "Beslagla elsparkesykkel med toppfart på 140 km/t",
+      "url": "https://www.nrk.no/stor-oslo/beslagla-elsparkesykkel-med-toppfart-pa-140-km_t-1.18048696",
+      "publishedAt": "2026-10-07T16:07:06+00:00",
+      "image": "https://static.nrk.no/nrkno/serum/2.0.532/common/img/default.jpg",
+      "category": "other",
+      "topics": []
+    },
+    {
       "id": "eb6e734ff188f1d60da8",
       "source": "dw",
       "title": "German politicians warn of antisemitism on October 7 anniversary",
@@ -9344,6 +11160,16 @@
       "url": "https://www.bloomberg.com/news/videos/2026-10-07/new-york-s-record-profits-hidden-risks-video",
       "publishedAt": "2026-10-07T15:44:09+00:00",
       "image": null,
+      "category": "other",
+      "topics": []
+    },
+    {
+      "id": "93433b4ec317b503119c",
+      "source": "dk_dr",
+      "title": "Energiagentur vil fremskynde frigivelse af 100 millioner tønder olie",
+      "url": "https://www.dr.dk/nyheder/seneste/energiagentur-vil-fremskynde-frigivelse-af-100-millioner-toender-olie",
+      "publishedAt": "2026-10-07T15:43:19+00:00",
+      "image": "https://asset.dr.dk/drdk/umbraco-images/oujpen2a/317.png?im=SmartCrop%2Csize%3D%28700%2C394%29",
       "category": "other",
       "topics": []
     },
@@ -9756,6 +11582,16 @@
       ]
     },
     {
+      "id": "6f54132e95dff033279d",
+      "source": "dk_dr",
+      "title": "Makreltuber tilbagekaldes på grund af risiko for metalstykker",
+      "url": "https://www.dr.dk/nyheder/seneste/makreltuber-tilbagekaldes-paa-grund-af-risiko-metalstykker",
+      "publishedAt": "2026-10-07T14:47:17+00:00",
+      "image": "https://asset.dr.dk/drdk/umbraco-images/oujpen2a/317.png?im=SmartCrop%2Csize%3D%28700%2C394%29",
+      "category": "other",
+      "topics": []
+    },
+    {
       "id": "0772a793bc29b83ee484",
       "source": "ap",
       "title": "FCC considers allowing more political robocalls before midterms, including those created with AI",
@@ -9766,6 +11602,16 @@
       "topics": [
         "politics"
       ]
+    },
+    {
+      "id": "4d824181ac107e79ad1c",
+      "source": "no_nrk",
+      "title": "No skal kong Haakon ut i landet - hit går den fyrste reisa",
+      "url": "https://www.nrk.no/norge/no-skal-kong-haakon-ut-i-landet-_-hit-gar-den-fyrste-reisa-1.18047002",
+      "publishedAt": "2026-10-07T14:39:41+00:00",
+      "image": "https://gfx.nrk.no/LdihZe86UEFkcaqyJH6Dygfe7UCOvVaCCgijjnsctNwQ.jpg",
+      "category": "other",
+      "topics": []
     },
     {
       "id": "804b0f1821c2c403cf03",
@@ -9852,6 +11698,16 @@
       "topics": []
     },
     {
+      "id": "27ee447641e7e52d58d9",
+      "source": "dk_dr",
+      "title": "43-årig mand varetægtsfængslet i drabssag fra Hammerum",
+      "url": "https://www.dr.dk/nyheder/seneste/43-aarig-mand-varetaegtsfaengslet-i-drabssag-fra-hammerum",
+      "publishedAt": "2026-10-07T14:27:32+00:00",
+      "image": "https://asset.dr.dk/drdk/umbraco-images/oujpen2a/317.png?im=SmartCrop%2Csize%3D%28700%2C394%29",
+      "category": "other",
+      "topics": []
+    },
+    {
       "id": "8418eefb4b2166627722",
       "source": "bbc",
       "title": "The big test facing Badenoch after her conference speech",
@@ -9904,6 +11760,16 @@
       "topics": []
     },
     {
+      "id": "4e1124d6d6fae0da5d98",
+      "source": "dk_dr",
+      "title": "Underskriftsindsamling mod datacenter når målet på en uge",
+      "url": "https://www.dr.dk/nyheder/seneste/underskriftsindsamling-mod-datacenter-naar-maalet-paa-en-uge",
+      "publishedAt": "2026-10-07T14:07:25+00:00",
+      "image": "https://asset.dr.dk/drdk/umbraco-images/oujpen2a/317.png?im=SmartCrop%2Csize%3D%28700%2C394%29",
+      "category": "other",
+      "topics": []
+    },
+    {
       "id": "2f9b85891a4f3253ec2c",
       "source": "sindo",
       "title": "Dorong Inklusi Keuangan, JULO dan Bank DBS Indonesia Salurkan Kredit Rp640 Miliar",
@@ -9911,6 +11777,16 @@
       "publishedAt": "2026-10-07T14:04:21+00:00",
       "image": "https://pict.sindonews.com/dyn/850/pena/news/2026/10/07/178/1758025/dorong-inklusi-keuangan-julo-dan-bank-dbs-indonesia-salurkan-kredit-rp640-miliar-cpg.jpeg",
       "category": "local",
+      "topics": []
+    },
+    {
+      "id": "4ce2923042df33df6468",
+      "source": "dk_dr",
+      "title": "Æbler tilbagekaldes efter risiko for skadedyrsangreb",
+      "url": "https://www.dr.dk/nyheder/seneste/aebler-tilbagekaldes-efter-risiko-skadedyrsangreb",
+      "publishedAt": "2026-10-07T14:04:08+00:00",
+      "image": "https://asset.dr.dk/drdk/umbraco-images/oujpen2a/317.png?im=SmartCrop%2Csize%3D%28700%2C394%29",
+      "category": "other",
       "topics": []
     },
     {
@@ -9998,6 +11874,16 @@
       "topics": []
     },
     {
+      "id": "1cea599fce2d58b820a7",
+      "source": "dk_dr",
+      "title": "10 anholdt i sag om hvidvask",
+      "url": "https://www.dr.dk/nyheder/seneste/10-anholdt-i-sag-om-hvidvask",
+      "publishedAt": "2026-10-07T13:55:10+00:00",
+      "image": "https://asset.dr.dk/drdk/umbraco-images/oujpen2a/317.png?im=SmartCrop%2Csize%3D%28700%2C394%29",
+      "category": "other",
+      "topics": []
+    },
+    {
       "id": "f8d22fcc28dc425e0e6a",
       "source": "bbc",
       "title": "Ex-bankers jailed for rigging rates have convictions quashed",
@@ -10015,6 +11901,16 @@
       "publishedAt": "2026-10-07T13:46:28+00:00",
       "image": "https://image.cnbcfm.com/api/v1/image/108373977-1791377484586-gettyimages-1231989873-BC_ChineseFlag2021_4322.jpeg?v=1791377538&w=1920&h=1080",
       "category": "markets",
+      "topics": []
+    },
+    {
+      "id": "a675628278e15061570d",
+      "source": "fi_yle",
+      "title": "HS: Nokia plans more than 200 job cuts in Finland",
+      "url": "https://yle.fi/a/74-20250343?origin=rss",
+      "publishedAt": "2026-10-07T13:43:50+00:00",
+      "image": "https://img.img-cdn.yle.fi/crop_extract,w_5472,h_3078,x_0,y_570/crop_fill,w_1200,h_628/f_auto/39-1188578653114f4efbf8/1724951284",
+      "category": "technology",
       "topics": []
     },
     {
@@ -10067,6 +11963,16 @@
       "publishedAt": "2026-10-07T13:38:14+00:00",
       "image": "https://www.aljazeera.com/wp-content/uploads/2026/10/2026-10-03T142237Z_296345539_UP1EMA30YPL65_RTRMADP_3_GAMES-ASIA-1791376596.jpg?resize=1920%2C1440",
       "category": "sport",
+      "topics": []
+    },
+    {
+      "id": "06b0af2755d98478eb30",
+      "source": "dk_dr",
+      "title": "Fejlalarm udløste massiv udrykning til skole i Odense",
+      "url": "https://www.dr.dk/nyheder/seneste/politiet-massivt-til-stede-ved-skole-i-odense",
+      "publishedAt": "2026-10-07T13:37:19+00:00",
+      "image": "https://asset.dr.dk/drdk/umbraco-images/oujpen2a/317.png?im=SmartCrop%2Csize%3D%28700%2C394%29",
+      "category": "other",
       "topics": []
     },
     {
@@ -10179,6 +12085,16 @@
       "publishedAt": "2026-10-07T13:18:00+00:00",
       "image": "https://static.dw.com/image/79571493_6.jpg",
       "category": "world",
+      "topics": []
+    },
+    {
+      "id": "f41b140f1d39a6744d8d",
+      "source": "fi_yle",
+      "title": "Finnish public broadcaster's teletext service turns 45",
+      "url": "https://yle.fi/a/74-20250332?origin=rss",
+      "publishedAt": "2026-10-07T13:16:47+00:00",
+      "image": "https://img.img-cdn.yle.fi/crop_extract,w_1919,h_1080,x_0,y_0/crop_fill,w_1200,h_628/f_auto/39-163249869eb21fcef149/1777017646",
+      "category": "technology",
       "topics": []
     },
     {
@@ -10588,6 +12504,18 @@
       "topics": []
     },
     {
+      "id": "32e0af4a089e9f725385",
+      "source": "fi_yle",
+      "title": "Retire at 70, rethink services to save welfare state, ministry officials suggest",
+      "url": "https://yle.fi/a/74-20250305?origin=rss",
+      "publishedAt": "2026-10-07T12:02:34+00:00",
+      "image": "https://img.img-cdn.yle.fi/crop_extract,w_7989,h_4484,x_0,y_166/crop_fill,w_1200,h_628/f_auto/39-1116682646885f1a3574/1684573673",
+      "category": "business",
+      "topics": [
+        "politics"
+      ]
+    },
+    {
       "id": "b18198667c658d189287",
       "source": "sindo",
       "title": "Sambut MotoGP Mandalika, Pertamina Retail Buka Booth Merchandise Resmi di Bandara Lombok",
@@ -10692,6 +12620,16 @@
       ]
     },
     {
+      "id": "63f563758a9099a2adef",
+      "source": "dk_dr",
+      "title": "To voldssigtede fængselsbetjente fra Kosovo er blevet løsladt",
+      "url": "https://www.dr.dk/nyheder/seneste/voldssigtede-faengselsbetjente-fra-kosovo-er-blevet-loesladt",
+      "publishedAt": "2026-10-07T11:51:16+00:00",
+      "image": "https://asset.dr.dk/drdk/umbraco-images/oujpen2a/317.png?im=SmartCrop%2Csize%3D%28700%2C394%29",
+      "category": "other",
+      "topics": []
+    },
+    {
       "id": "e7b445e74c962dbb5ada",
       "source": "aljazeera",
       "title": "Arsenal boss Mikel Arteta signs new contract with Premier League champions",
@@ -10769,6 +12707,16 @@
       "publishedAt": "2026-10-07T11:39:07+00:00",
       "image": "https://i.guim.co.uk/img/media/32837da828691e459d5a862c387cb899e7ed401d/224_0_2238_1791/master/2238.jpg?width=140&quality=85&auto=format&fit=max&s=adfcf9ee4ec7c533cd55d03b639610c8",
       "category": "sport",
+      "topics": []
+    },
+    {
+      "id": "c009daafb084c7a79698",
+      "source": "dk_dr",
+      "title": "Rigshospitalet får hjælp fra Norge til sjældne transplantationer",
+      "url": "https://www.dr.dk/nyheder/seneste/rigshospitalet-faar-hjaelp-fra-norge-til-sjaeldne-transplantationer",
+      "publishedAt": "2026-10-07T11:39:03+00:00",
+      "image": "https://asset.dr.dk/drdk/umbraco-images/oujpen2a/317.png?im=SmartCrop%2Csize%3D%28700%2C394%29",
+      "category": "other",
       "topics": []
     },
     {
@@ -11060,6 +13008,16 @@
       "topics": []
     },
     {
+      "id": "83cd936b069d78869d9f",
+      "source": "dk_dr",
+      "title": "Flere såret efter knivangreb på skole i Polen",
+      "url": "https://www.dr.dk/nyheder/seneste/flere-saaret-efter-knivangreb-paa-skole-i-polen",
+      "publishedAt": "2026-10-07T10:56:46+00:00",
+      "image": "https://asset.dr.dk/drdk/umbraco-images/oujpen2a/317.png?im=SmartCrop%2Csize%3D%28700%2C394%29",
+      "category": "other",
+      "topics": []
+    },
+    {
       "id": "ad379639d1c828e86579",
       "source": "kompas",
       "title": "Samator Kantongi Akreditasi ISO, Specialty Gas Dipakai untuk Kalibrasi Industri",
@@ -11106,6 +13064,16 @@
       "url": "https://www.cnnindonesia.com/ekonomi/20261007161948-85-1412745/tentang-penghargaan-energi-subroto-tahun-2026",
       "publishedAt": "2026-10-07T10:44:20+00:00",
       "image": "https://akcdn.detik.net.id/visual/2026/10/07/penghargaan-energi-subroto-tahun-2026-1791369613916_169.jpeg?w=360&q=90",
+      "category": "business",
+      "topics": []
+    },
+    {
+      "id": "3432f67c87a114f373d5",
+      "source": "fi_yle",
+      "title": "Video: Finland's data centre boom is accelerating",
+      "url": "https://yle.fi/a/74-20250264?origin=rss",
+      "publishedAt": "2026-10-07T10:35:18+00:00",
+      "image": "https://img.img-cdn.yle.fi/crop_extract,w_4593,h_2583,x_0,y_1093/crop_fill,w_1200,h_628/f_auto/39-84986961321a625a720/1660121634",
       "category": "business",
       "topics": []
     },
@@ -11367,6 +13335,16 @@
       "topics": []
     },
     {
+      "id": "5107a8004536bcd9d8b9",
+      "source": "dk_dr",
+      "title": "Dansk promotor optages i boksesportens Hall of Fame",
+      "url": "https://www.dr.dk/sporten/seneste-sport/dansk-promoter-optages-i-boksesportens-hall-fame",
+      "publishedAt": "2026-10-07T08:55:58+00:00",
+      "image": "https://asset.dr.dk/drdk/umbraco-images/vzafwqjm/20011014-223045-1_crop001.jpg?im=AspectCrop=(1200,675),xPosition=.5,yPosition=.5;Resize=(1200,675)&impolicy=medium",
+      "category": "sport",
+      "topics": []
+    },
+    {
       "id": "7b7f317d6ae5e155da80",
       "source": "fnc",
       "title": "Prabowo Sinyalkan Bonus untuk Timnas Indonesia, Pengaturan Diserahkan ke PSSI",
@@ -11451,6 +13429,16 @@
       "topics": [
         "politics"
       ]
+    },
+    {
+      "id": "c849c84b52f612643ac1",
+      "source": "dk_dr",
+      "title": "Bulgarien indstiller eftersøgning af skibsbesætning efter droneangreb",
+      "url": "https://www.dr.dk/nyheder/seneste/bulgarien-indstiller-eftersoegning-af-skibsbesaetning-efter-droneangreb",
+      "publishedAt": "2026-10-07T08:08:21+00:00",
+      "image": "https://asset.dr.dk/drdk/umbraco-images/oujpen2a/317.png?im=SmartCrop%2Csize%3D%28700%2C394%29",
+      "category": "other",
+      "topics": []
     },
     {
       "id": "e4d4f345fca620fd953b",
@@ -11544,6 +13532,16 @@
       "topics": []
     },
     {
+      "id": "b89bd8a62418fefa9d9c",
+      "source": "fi_yle",
+      "title": "Hasta la vista: US firm melts humanoid robots Terminator-style in Imatra",
+      "url": "https://yle.fi/a/74-20250198?origin=rss",
+      "publishedAt": "2026-10-07T06:14:11+00:00",
+      "image": "https://img.img-cdn.yle.fi/crop_extract,w_1920,h_1080,x_0,y_234/crop_fill,w_1200,h_628/f_auto/39-17180996ac4c4cb28e51/1791280438",
+      "category": "technology",
+      "topics": []
+    },
+    {
       "id": "c83e603325110f721afa",
       "source": "ap",
       "title": "IMF chief urges countries to do more to curb debt and regulate AI",
@@ -11551,6 +13549,16 @@
       "publishedAt": "2026-10-07T06:10:45+00:00",
       "image": "https://dims.apnews.com/dims4/default/64c113e/2147483647/strip/true/crop/5607x3738+0+0/resize/599x399!/quality/90/?url=https%3A%2F%2Fassets.apnews.com%2F9b%2F3b%2F3d6b80b9f40a2b608e97804bb5d5%2Fb51d246e68564e37ba739248b64246e3",
       "category": "business",
+      "topics": []
+    },
+    {
+      "id": "18b68b46c93adc21a9ef",
+      "source": "dk_dr",
+      "title": "Tidligere australsk biskop fængslet for overgreb på unge mænd",
+      "url": "https://www.dr.dk/nyheder/seneste/tidligere-australsk-biskop-faengslet-overgreb-paa-unge-maend",
+      "publishedAt": "2026-10-07T05:30:28+00:00",
+      "image": "https://asset.dr.dk/drdk/umbraco-images/oujpen2a/317.png?im=SmartCrop%2Csize%3D%28700%2C394%29",
+      "category": "other",
       "topics": []
     },
     {
@@ -11620,6 +13628,26 @@
       "topics": [
         "politics"
       ]
+    },
+    {
+      "id": "daac0ebf685053f1fc79",
+      "source": "dk_dr",
+      "title": "Amerikaner anholdt for have hjulpet til canadisk skoleskyderi",
+      "url": "https://www.dr.dk/nyheder/seneste/amerikaner-anholdt-have-hjulpet-til-canadisk-skoleskyderi",
+      "publishedAt": "2026-10-07T03:59:14+00:00",
+      "image": "https://asset.dr.dk/drdk/umbraco-images/oujpen2a/317.png?im=SmartCrop%2Csize%3D%28700%2C394%29",
+      "category": "other",
+      "topics": []
+    },
+    {
+      "id": "18ef6a9a995168964847",
+      "source": "dk_dr",
+      "title": "Færre har gæld til det offentlige",
+      "url": "https://www.dr.dk/nyheder/seneste/faerre-har-gaeld-til-det-offentlige",
+      "publishedAt": "2026-10-07T03:26:42+00:00",
+      "image": "https://asset.dr.dk/drdk/umbraco-images/oujpen2a/317.png?im=SmartCrop%2Csize%3D%28700%2C394%29",
+      "category": "other",
+      "topics": []
     },
     {
       "id": "57867083d61895768873",
@@ -11954,6 +13982,28 @@
       "topics": []
     },
     {
+      "id": "9ecbd14f90e56e6000fc",
+      "source": "fi_yle",
+      "title": "Video: Should Finland ban homeschooling?",
+      "url": "https://yle.fi/a/74-20249882?origin=rss",
+      "publishedAt": "2026-10-06T12:44:17+00:00",
+      "image": "https://img.img-cdn.yle.fi/crop_extract,w_6000,h_3375,x_0,y_328/crop_fill,w_1200,h_628/f_auto/39-17084776aaa7a65c97f7/1789564551",
+      "category": "other",
+      "topics": []
+    },
+    {
+      "id": "b086be65c1cd31d52559",
+      "source": "fi_yle",
+      "title": "'Populist theatre' - Finns Party members tour East Helsinki, but stay on bus",
+      "url": "https://yle.fi/a/74-20250107?origin=rss",
+      "publishedAt": "2026-10-06T12:33:41+00:00",
+      "image": "https://img.img-cdn.yle.fi/crop_extract,w_5472,h_3078,x_0,y_120/crop_fill,w_1200,h_628/f_auto/39-17176696ac3a50044bb7/1791206836",
+      "category": "world",
+      "topics": [
+        "politics"
+      ]
+    },
+    {
       "id": "21dcf68b56f3a58b9890",
       "source": "fnc",
       "title": "Kemenko Bahlil Diusulkan Naungi Kemendag dan Kemenperin untuk Percepat Hilirisasi",
@@ -12008,6 +14058,18 @@
       ]
     },
     {
+      "id": "ded3686ffeabf1abfa6e",
+      "source": "fi_yle",
+      "title": "First Spanish royal visit in nearly 40 years focuses on security, trade",
+      "url": "https://yle.fi/a/74-20250087?origin=rss",
+      "publishedAt": "2026-10-06T10:46:21+00:00",
+      "image": "https://img.img-cdn.yle.fi/crop_extract,w_6144,h_3456,x_0,y_407/crop_fill,w_1200,h_628/f_auto/39-6ac4a557ee8d6/1791272400",
+      "category": "business",
+      "topics": [
+        "politics"
+      ]
+    },
+    {
       "id": "8309dbb4d714e83e4322",
       "source": "dw",
       "title": "AI models keep hacking real systems during tests. What does this mean?",
@@ -12015,6 +14077,16 @@
       "publishedAt": "2026-10-06T10:05:00+00:00",
       "image": null,
       "category": "science",
+      "topics": []
+    },
+    {
+      "id": "46fa59395488404857fb",
+      "source": "fi_yle",
+      "title": "Over 15% of kids in Finland take neurological medication",
+      "url": "https://yle.fi/a/74-20250063?origin=rss",
+      "publishedAt": "2026-10-06T09:09:12+00:00",
+      "image": "https://img.img-cdn.yle.fi/crop_extract,w_3864,h_2173,x_0,y_538/crop_fill,w_1200,h_628/f_auto/39-17171706ac30d8359126/1791167953",
+      "category": "other",
       "topics": []
     },
     {
@@ -12035,6 +14107,16 @@
       "publishedAt": "2026-10-06T06:43:00+00:00",
       "image": null,
       "category": "markets",
+      "topics": []
+    },
+    {
+      "id": "c19b6c1a83e66c842963",
+      "source": "fi_yle",
+      "title": "Strong winds sweep Finland on Tuesday",
+      "url": "https://yle.fi/a/74-20250015?origin=rss",
+      "publishedAt": "2026-10-06T06:07:26+00:00",
+      "image": "https://img.img-cdn.yle.fi/crop_extract,w_5609,h_3143,x_0,y_0/crop_fill,w_1200,h_628/f_auto/39-17178846ac483d77273f/1791263967",
+      "category": "other",
       "topics": []
     },
     {
@@ -12142,6 +14224,16 @@
       "topics": []
     },
     {
+      "id": "a6a9247a3530836109bf",
+      "source": "fi_yle",
+      "title": "Parents in Finland turn to AI for free school pictures",
+      "url": "https://yle.fi/a/74-20249883?origin=rss",
+      "publishedAt": "2026-10-05T12:14:04+00:00",
+      "image": "https://img.img-cdn.yle.fi/crop_extract,w_6240,h_3510,x_0,y_341/crop_fill,w_1200,h_628/f_auto/39-6186705de655d65d9a9/1575376621",
+      "category": "technology",
+      "topics": []
+    },
+    {
       "id": "e0dca67423772183b626",
       "source": "wsj",
       "title": "Michigan Football Is Wobbling, and Wolverine Claws Are Out",
@@ -12172,6 +14264,16 @@
       "topics": []
     },
     {
+      "id": "24d3e93c25bff737184b",
+      "source": "fi_yle",
+      "title": "Unidentified object found in sea off Helsinki turns out to be from old shipwreck",
+      "url": "https://yle.fi/a/74-20249841?origin=rss",
+      "publishedAt": "2026-10-05T10:08:53+00:00",
+      "image": "https://img.img-cdn.yle.fi/crop_extract,w_768,h_432,x_0,y_191/crop_fill,w_1200,h_628/f_auto/39-17170756ac2187c0ebf8/1791105259",
+      "category": "other",
+      "topics": []
+    },
+    {
       "id": "f4e5452faa1014128d4b",
       "source": "guardian",
       "title": "Trump’s recent statements on the economy are even more bonkers than usual | Steven Greenhouse",
@@ -12191,6 +14293,36 @@
       "publishedAt": "2026-10-05T09:30:00+00:00",
       "image": "https://images.wsj.net/im-03243214",
       "category": "sport",
+      "topics": []
+    },
+    {
+      "id": "9b379de8c885cb5ef468",
+      "source": "fi_yle",
+      "title": "Finnish photographer reaches Comedy Wildlife Photography Awards final",
+      "url": "https://yle.fi/a/74-20249779?origin=rss",
+      "publishedAt": "2026-10-05T07:35:49+00:00",
+      "image": "https://img.img-cdn.yle.fi/crop_extract,w_5014,h_2820,x_0,y_522/crop_fill,w_1200,h_628/f_auto/39-17170016ac127f6477cf/1791045157",
+      "category": "other",
+      "topics": []
+    },
+    {
+      "id": "0912ec329121132123b9",
+      "source": "fi_yle",
+      "title": "\"Define core work and cut unnecessary tasks\" - Burnout risk remains high for workers in Finland",
+      "url": "https://yle.fi/a/74-20249781?origin=rss",
+      "publishedAt": "2026-10-05T07:18:06+00:00",
+      "image": "https://img.img-cdn.yle.fi/crop_extract,w_6016,h_3384,x_0,y_630/crop_fill,w_1200,h_628/f_auto/39-762816600184f9b9251/1728024378",
+      "category": "other",
+      "topics": []
+    },
+    {
+      "id": "01f15a473d0950c81968",
+      "source": "fi_yle",
+      "title": "More young boys starting ADHD medication",
+      "url": "https://yle.fi/a/74-20249752?origin=rss",
+      "publishedAt": "2026-10-05T05:38:18+00:00",
+      "image": "https://img.img-cdn.yle.fi/crop_extract,w_4923,h_2769,x_0,y_0/crop_fill,w_1200,h_628/f_auto/39-10149246336a97488518/1664528035",
+      "category": "other",
       "topics": []
     },
     {
@@ -12348,6 +14480,16 @@
       "topics": []
     },
     {
+      "id": "29051c84adcc0b0d8e12",
+      "source": "fi_yle",
+      "title": "Video: This week in Finland, 2 October 2026",
+      "url": "https://yle.fi/a/74-20249592?origin=rss",
+      "publishedAt": "2026-10-02T12:40:44+00:00",
+      "image": "https://img.img-cdn.yle.fi/crop_extract,w_5483,h_3084,x_0,y_0/crop_fill,w_1200,h_628/f_auto/39-17154436abd189ac2695/1790777596",
+      "category": "other",
+      "topics": []
+    },
+    {
       "id": "38506f47d9b3655664f9",
       "source": "dw",
       "title": "Manchester City Premier League charges: What do they mean?",
@@ -12356,6 +14498,28 @@
       "image": null,
       "category": "sport",
       "topics": []
+    },
+    {
+      "id": "fccba4e85a4ccf0251e5",
+      "source": "fi_yle",
+      "title": "From nightclub to library: Vantaa gets a new library at Jumbo",
+      "url": "https://yle.fi/a/74-20249570?origin=rss",
+      "publishedAt": "2026-10-02T11:53:31+00:00",
+      "image": "https://img.img-cdn.yle.fi/crop_extract,w_5472,h_3078,x_0,y_216/crop_fill,w_1200,h_628/f_auto/39-17150906abcad1951f43/1790750356",
+      "category": "other",
+      "topics": []
+    },
+    {
+      "id": "e34f09d2989609ed132d",
+      "source": "fi_yle",
+      "title": "Government, defence minister survive confidence vote called over Middle East policy",
+      "url": "https://yle.fi/a/74-20249557?origin=rss",
+      "publishedAt": "2026-10-02T11:23:54+00:00",
+      "image": "https://img.img-cdn.yle.fi/crop_extract,w_6144,h_3456,x_0,y_0/crop_fill,w_1200,h_628/f_auto/39-6abf8586a6a57/1790936486",
+      "category": "world",
+      "topics": [
+        "politics"
+      ]
     },
     {
       "id": "2116e64af0a04b7b21b2",
@@ -18029,7 +20193,7 @@
     {
       "id": "08a92e74d243edb7ee24",
       "source": "investing",
-      "title": "German exports fall unexpectedly in August",
+      "title": "German exports fall in August, pointing to weak third quarter",
       "url": "https://www.investing.com/news/economy-news/german-exports-unexpectedly-fall-in-august-4937941",
       "publishedAt": null,
       "image": "https://content-media.investing.com/trkd-images/LYNXMPEM970BZ_L.jpg",
@@ -19211,6 +21375,66 @@
       "url": "https://id.investing.com/news/forex-news/imbal-hasil-prancis-naik-dalam-kerugian-mingguan-keenam-berturutturut-3090083",
       "publishedAt": null,
       "image": "https://content-media.investing.com/news/LYNXMPEB4C0GZ_M.jpg",
+      "category": "markets",
+      "topics": []
+    },
+    {
+      "id": "b5d317aa236e2a95cc1b",
+      "source": "investing",
+      "title": "BYD exec says biggest challenge to expansion is geopolitics",
+      "url": "https://www.investing.com/news/stock-market-news/byd-exec-says-biggest-challenge-to-expansion-is-geopolitics-4938048",
+      "publishedAt": null,
+      "image": "https://content-media.investing.com/news/external-images-thumbnails/LYNXMPEM970HZ_L.jpg",
+      "category": "markets",
+      "topics": []
+    },
+    {
+      "id": "fd5e360c619eea8f6394",
+      "source": "investing",
+      "title": "Earnings call transcript: Admicom Q3 2026 profit jump lifts shares 10.6%",
+      "url": "https://www.investing.com/news/transcripts/earnings-call-transcript-admicom-q3-2026-profit-jump-lifts-shares-106-93CH-4938046",
+      "publishedAt": null,
+      "image": "https://content-media.investing.com/news/LYNXMPECBE0OL_M.jpg",
+      "category": "markets",
+      "topics": []
+    },
+    {
+      "id": "d26118367b47d07f5f9e",
+      "source": "investing",
+      "title": "JPMorgan initiates Marriott Vacations stock with overweight rating",
+      "url": "https://www.investing.com/news/analyst-ratings/jpmorgan-initiates-marriott-vacations-stock-with-overweight-rating-93CH-4938045",
+      "publishedAt": null,
+      "image": "https://content-media.investing.com/news/moved_LYNXMPEM3T1AG_1200_L.jpg",
+      "category": "markets",
+      "topics": []
+    },
+    {
+      "id": "01117b06ea5b6ea55e17",
+      "source": "investing",
+      "title": "JPMorgan initiates Hilton Grand Vacations stock at neutral",
+      "url": "https://www.investing.com/news/analyst-ratings/jpmorgan-initiates-hilton-grand-vacations-stock-at-neutral-93CH-4938044",
+      "publishedAt": null,
+      "image": "https://content-media.investing.com/news/moved_LYNXMPEM3T1K3_1200_L.jpg",
+      "category": "markets",
+      "topics": []
+    },
+    {
+      "id": "e5d6f75e107dd9bed429",
+      "source": "investing",
+      "title": "Why is Valneva stock falling today?",
+      "url": "https://www.investing.com/news/stock-market-news/why-is-valneva-stock-falling-today-93CH-4938042",
+      "publishedAt": null,
+      "image": "https://content-media.investing.com/news/OilwellinColorado_800x533_L_1645345712.jpg",
+      "category": "markets",
+      "topics": []
+    },
+    {
+      "id": "e6bacaa70b376d360b56",
+      "source": "investing",
+      "title": "Next 15 shares drop 10% after half-year revenue falls, pre-tax loss",
+      "url": "https://www.investing.com/news/stock-market-news/next-15-shares-drop-10-after-halfyear-revenue-falls-pretax-loss-93CH-4938041",
+      "publishedAt": null,
+      "image": "https://content-media.investing.com/news/LYNXNPEB8506G_M.jpg",
       "category": "markets",
       "topics": []
     }

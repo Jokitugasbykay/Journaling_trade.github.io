@@ -12,7 +12,7 @@
       document.getElementById('site-base').href = '/' + (prefix.length ? prefix.join('/') + '/' : '');
     })();
   </script>
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; object-src 'none'; form-action 'self'; script-src 'self' 'unsafe-inline' 'wasm-unsafe-eval' https://cdn.jsdelivr.net https://s3.tradingview.com https://widgets.tradingview-widget.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: blob: https:; connect-src 'self' https://nmddjuqkdyhcobddinkc.supabase.co https://cdn.jsdelivr.net https://tessdata.projectnaptha.com https://tradewithfnc.com https://widgets.tradingview-widget.com; worker-src 'self' blob: https://cdn.jsdelivr.net; frame-src https://s.tradingview.com https://www.tradingview-widget.com https://widgets.tradingview-widget.com;">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; object-src 'none'; form-action 'self'; script-src 'self' 'unsafe-inline' 'wasm-unsafe-eval' https://cdn.jsdelivr.net https://s3.tradingview.com https://widgets.tradingview-widget.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: blob: https:; connect-src 'self' https://ipapi.co https://nmddjuqkdyhcobddinkc.supabase.co https://cdn.jsdelivr.net https://tessdata.projectnaptha.com https://tradewithfnc.com https://widgets.tradingview-widget.com; worker-src 'self' blob: https://cdn.jsdelivr.net; frame-src https://s.tradingview.com https://www.tradingview-widget.com https://widgets.tradingview-widget.com;">
   <meta name="referrer" content="strict-origin-when-cross-origin">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>journalingtrade · Professional Trading Journal & Analytics</title>
@@ -22,7 +22,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
 
-  <link rel="stylesheet" href="css/style.css?v=20261008-borderless-ticker">
+  <link rel="stylesheet" href="css/style.css?v=20261008-regional-news">
 </head>
 
 <body>
@@ -807,6 +807,13 @@
         <p data-i18n="newsPageLead">Berita dari penerbit pilihan Anda, waktu publikasi, dan kalender ekonomi.</p>
       </div>
 
+      <div class="news-region-toolbar">
+        <label id="news-region-label" for="news-region">Region berita</label>
+        <span id="news-region-flag" aria-hidden="true"></span>
+        <select id="news-region" onchange="changeNewsRegion()" aria-describedby="news-region-status"></select>
+        <span id="news-founder-badge" class="news-founder-badge" hidden>Founder / Global Access</span>
+        <p id="news-region-status" role="status" aria-live="polite"></p>
+      </div>
       <div class="seg" id="berita-seg" style="margin:18px 0 22px;">
         <button class="seg-btn active" type="button" data-sub="ringkasan" onclick="switchBeritaSub('ringkasan')" data-i18n="newsHeadlines">Berita terbaru</button>
         <button class="seg-btn" type="button" data-sub="kalender" onclick="switchBeritaSub('kalender')" data-i18n="newsCalendar">Kalender ekonomi</button>
@@ -851,6 +858,7 @@
           <button id="news-refresh" type="button" class="btn btn-secondary" onclick="reloadPublisherNews()" data-i18n="newsRefresh">Perbarui berita</button>
         </div>
         <p id="publisher-news-status" role="status" class="publisher-news-status"></p>
+        <p id="news-publisher-link" class="publisher-news-status" hidden></p>
         <h3 class="publisher-grid-heading" data-i18n="newsLatestStories">Berita terbaru</h3>
         <section id="fomc-panel" class="fomc-panel" aria-label="FOMC decision and probabilities" hidden></section>
         <div id="publisher-news-list" class="publisher-news-list"></div>
@@ -1277,7 +1285,7 @@
 
   <script src="js/vendor/supabase-2.86.0.js" integrity="sha384-3Sgm1bFlHa+gvzgZCHY6SyQwlKZpsgWl0qwxcwsypsSZQvo1vV1miPkn7n1lU1/L"></script>
   <script src="js/scan.js?v=20261007"></script>
-  <script src="js/app.js?v=20261008-global-publishers"></script>
+  <script src="js/app.js?v=20261008-regional-news"></script>
   <script src="js/fed.js?v=20261008-fomc"></script>
 
  </body>

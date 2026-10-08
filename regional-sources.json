@@ -1,0 +1,82 @@
+{
+  "NO": [
+    {"id":"no_nrk","name":"NRK","url":"https://www.nrk.no","feed":"https://www.nrk.no/toppsaker.rss"},
+    {"id":"no_aftenposten","name":"Aftenposten","url":"https://www.aftenposten.no"},
+    {"id":"no_vg","name":"VG","url":"https://www.vg.no"},
+    {"id":"no_dagbladet","name":"Dagbladet","url":"https://www.dagbladet.no"},
+    {"id":"no_e24","name":"E24","url":"https://e24.no"},
+    {"id":"no_dn","name":"Dagens Næringsliv","url":"https://www.dn.no"},
+    {"id":"no_klassekampen","name":"Klassekampen","url":"https://klassekampen.no"},
+    {"id":"no_local","name":"The Local Norway","url":"https://www.thelocal.no"}
+  ],
+  "DK": [
+    {"id":"dk_dr","name":"DR","url":"https://www.dr.dk","feed":"https://www.dr.dk/nyheder/service/feeds/allenyheder"},
+    {"id":"dk_politiken","name":"Politiken","url":"https://politiken.dk"},
+    {"id":"dk_berlingske","name":"Berlingske","url":"https://berlingske.dk"},
+    {"id":"dk_jyllands","name":"Jyllands-Posten","url":"https://jyllands-posten.dk"},
+    {"id":"dk_borsen","name":"Børsen","url":"https://borsen.dk"},
+    {"id":"dk_information","name":"Information","url":"https://information.dk"},
+    {"id":"dk_tv2","name":"TV 2 Nyheder","url":"https://nyheder.tv2.dk"},
+    {"id":"dk_cphpost","name":"The Copenhagen Post","url":"https://cphpost.dk"}
+  ],
+  "FI": [
+    {"id":"fi_yle","name":"Yle","url":"https://yle.fi","feed":"https://feeds.yle.fi/uutiset/v1/recent.rss?publisherIds=YLE_NEWS"},
+    {"id":"fi_hs","name":"Helsingin Sanomat","url":"https://www.hs.fi"},
+    {"id":"fi_iltalehti","name":"Iltalehti","url":"https://www.iltalehti.fi"},
+    {"id":"fi_is","name":"Ilta-Sanomat","url":"https://www.is.fi"},
+    {"id":"fi_kauppalehti","name":"Kauppalehti","url":"https://www.kauppalehti.fi"},
+    {"id":"fi_kuvalehti","name":"Suomen Kuvalehti","url":"https://suomenkuvalehti.fi"},
+    {"id":"fi_hbl","name":"Hufvudstadsbladet","url":"https://hbl.fi"},
+    {"id":"fi_times","name":"Helsinki Times","url":"https://www.helsinkitimes.fi"}
+  ],
+  "CZ": [
+    {"id":"cz_ct24","name":"ČT24","url":"https://ct24.ceskatelevize.cz"},
+    {"id":"cz_irozhlas","name":"iROZHLAS","url":"https://www.irozhlas.cz","feed":"https://www.irozhlas.cz/rss/irozhlas"},
+    {"id":"cz_idnes","name":"iDNES","url":"https://www.idnes.cz"},
+    {"id":"cz_novinky","name":"Novinky","url":"https://www.novinky.cz"},
+    {"id":"cz_seznam","name":"Seznam Zprávy","url":"https://www.seznamzpravy.cz"},
+    {"id":"cz_denikn","name":"Deník N","url":"https://denikn.cz"},
+    {"id":"cz_ihned","name":"iHNed","url":"https://ihned.cz"},
+    {"id":"cz_radio","name":"Radio Prague International","url":"https://english.radio.cz"}
+  ],
+  "RO": [
+    {"id":"ro_agerpres","name":"Agerpres","url":"https://www.agerpres.ro"},
+    {"id":"ro_digi24","name":"Digi24","url":"https://www.digi24.ro"},
+    {"id":"ro_adevarul","name":"Adevărul","url":"https://adevarul.ro"},
+    {"id":"ro_hotnews","name":"HotNews","url":"https://hotnews.ro","feed":"https://hotnews.ro/feed"},
+    {"id":"ro_europa","name":"Radio Europa Liberă","url":"https://romania.europalibera.org"},
+    {"id":"ro_g4media","name":"G4Media","url":"https://www.g4media.ro"},
+    {"id":"ro_protv","name":"Știrile Pro TV","url":"https://stirileprotv.ro"},
+    {"id":"ro_insider","name":"Romania Insider","url":"https://www.romania-insider.com"}
+  ],
+  "HU": [
+    {"id":"hu_telex","name":"Telex","url":"https://telex.hu","feed":"https://telex.hu/rss"},
+    {"id":"hu_444","name":"444","url":"https://444.hu"},
+    {"id":"hu_hvg","name":"HVG","url":"https://hvg.hu"},
+    {"id":"hu_index","name":"Index","url":"https://index.hu"},
+    {"id":"hu_24","name":"24.hu","url":"https://24.hu"},
+    {"id":"hu_portfolio","name":"Portfolio","url":"https://www.portfolio.hu"},
+    {"id":"hu_hang","name":"Magyar Hang","url":"https://hang.hu"},
+    {"id":"hu_daily","name":"Daily News Hungary","url":"https://dailynewshungary.com"}
+  ],
+  "IE": [
+    {"id":"ie_rte","name":"RTÉ News","url":"https://www.rte.ie/news","feed":"https://www.rte.ie/feeds/rss/?index=/news/"},
+    {"id":"ie_times","name":"The Irish Times","url":"https://www.irishtimes.com"},
+    {"id":"ie_independent","name":"Irish Independent","url":"https://www.independent.ie"},
+    {"id":"ie_journal","name":"TheJournal.ie","url":"https://www.thejournal.ie"},
+    {"id":"ie_examiner","name":"Irish Examiner","url":"https://www.irishexaminer.com"},
+    {"id":"ie_business","name":"Business Plus","url":"https://businessplus.ie"},
+    {"id":"ie_breaking","name":"BreakingNews.ie","url":"https://www.breakingnews.ie"},
+    {"id":"ie_currency","name":"The Currency","url":"https://www.thecurrency.news"}
+  ],
+  "AT": [
+    {"id":"at_orf","name":"ORF","url":"https://orf.at","feed":"https://rss.orf.at/news.xml"},
+    {"id":"at_standard","name":"Der Standard","url":"https://www.derstandard.at"},
+    {"id":"at_presse","name":"Die Presse","url":"https://www.diepresse.com"},
+    {"id":"at_kurier","name":"Kurier","url":"https://kurier.at"},
+    {"id":"at_sn","name":"Salzburger Nachrichten","url":"https://www.sn.at"},
+    {"id":"at_zeitung","name":"Wiener Zeitung","url":"https://www.wienerzeitung.at"},
+    {"id":"at_profil","name":"Profil","url":"https://profil.at"},
+    {"id":"at_krone","name":"Kronen Zeitung","url":"https://www.krone.at"}
+  ]
+}

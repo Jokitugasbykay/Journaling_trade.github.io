@@ -1,6 +1,6 @@
 const assert = require('node:assert/strict'), fs = require('node:fs'), vm = require('node:vm');
 const source = fs.readFileSync('js/app.js','utf8');
-const scope = {kalCache:{items:[]},language:'en',kalCari:'',kalDmp:[1,2,3],kalCountries:null,kalCategory:'',kalTh:'',kalBl:'',kalTg:'',kalLihatLalu:true,kalHariIni:()=> '2026-10-08'};
+const scope = {localStorage:{getItem:()=> 'null'},kalCache:{items:[]},language:'en',kalCari:'',kalDmp:[1,2,3],kalCountries:null,kalCategory:'',kalTh:'',kalBl:'',kalTg:'',kalLihatLalu:true,kalHariIni:()=> '2026-10-08'};
 vm.runInNewContext(source.slice(source.indexOf('      function kalUrut('),source.indexOf('      function renderKalTgl(')),scope);
 vm.runInNewContext(source.slice(source.indexOf('      function kalCountryCode('),source.indexOf('      function renderKalFilters(')),scope);
 const rows=[{tgl:'2026-10-08',nama:'Initial Jobless Claims',neg:'USD',countryCode:'US',dmp:3},{tgl:'2026-10-08',nama:'CPI',neg:'EUR',countryCode:'DE',dmp:2},{tgl:'2026-10-08',nama:'Interest Rate Decision',neg:'EUR',countryCode:'FR',dmp:3}];

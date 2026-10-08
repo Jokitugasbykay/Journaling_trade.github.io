@@ -11,3 +11,13 @@ assert.ok(Math.abs(report.slPct - 100 / 3) < 1e-10);
 assert.equal(report.avgRisk, 1.5);
 assert.equal(report.riskCount, 2);
 console.log('Discipline checks passed');
+const nodes = new Map();
+const ctx = {currentAccount:()=>({startBalance:0}),trades:[],profile:{currentAccount:'local'},settings:{kurs:17000},language:'en',disciplineMetrics:metrics,
+  $:id=>{ if (!nodes.has(id)) nodes.set(id,{style:{}}); return nodes.get(id); },
+  fmtPLUSD:String,fmtPLIDR:String,fmtUSD:String,drawKpiSparklines(){},drawEquityCurveSVG(){},drawDonutChartSVG(){},drawBreakdownBars(){}};
+ctx.window=ctx;
+vm.runInNewContext(source.slice(source.indexOf('      window.renderStatistics ='),source.indexOf('      function drawKpiSparklines(')),ctx);
+ctx.renderStatistics();
+assert.equal(nodes.get('kpi-netpl-delta').textContent,'Add a starting balance');
+assert.equal(nodes.get('kpi-netpl').textContent,'0');
+console.log('Empty account does not display NaN balance return');

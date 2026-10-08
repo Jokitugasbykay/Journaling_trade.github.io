@@ -56,8 +56,13 @@ SOURCES = [
     {"id": "fedwatch", "name": "CME FedWatch", "url": "https://www.cmegroup.com/markets/interest-rates/cme-fedwatch-tool.html", "kind": "tool", "domain": "cmegroup.com"},
     {"id": "cme", "name": "CME Markets", "url": "https://www.cmegroup.com/markets.html?redirect=/markets/", "kind": "tool", "domain": "cmegroup.com"},
 ]
+REGIONAL_NEWS_SOURCES = json.loads((ROOT / 'regional-sources.json').read_text(encoding='utf-8'))
+for country, portals in REGIONAL_NEWS_SOURCES.items():
+    for portal in portals:
+        domain = urllib.parse.urlsplit(portal['url']).hostname.removeprefix('www.')
+        SOURCES.append({**portal, 'country': country, 'domain': domain, 'kind': 'rss' if portal.get('feed') else 'external'})
 SIGNALS = re.compile(r"\b(?:buy on (?:dip|pullback)|sell on (?:rally|bounce)|stocks? to buy|stock picks?|trading signals?|price targets?|target harga|sinyal trading|rekomendasi (?:beli|jual)|buy now|sell now|support (?:dan |and )?resistance|rekomendasi saham)\b", re.I)
-IMAGE_DOMAINS = ('investing.com', 'cnbcfm.com', 'kontan.co.id', 'reuters.com', 'aljazeera.com', 'bloomberg.com', 'bwbx.io', 'pluang.com', 'kompas.com', 'detik.net.id', 'kemenkeu.go.id', 'cnnindonesia.com', 'bisnis.com', 'sindonews.com', 'apnews.com', 'bbc.co.uk', 'bbci.co.uk', 'wsj.net', 'guim.co.uk', 'ft.com', 'dw.com')
+IMAGE_DOMAINS = ('investing.com', 'cnbcfm.com', 'kontan.co.id', 'reuters.com', 'aljazeera.com', 'bloomberg.com', 'bwbx.io', 'pluang.com', 'kompas.com', 'detik.net.id', 'kemenkeu.go.id', 'cnnindonesia.com', 'bisnis.com', 'sindonews.com', 'apnews.com', 'bbc.co.uk', 'bbci.co.uk', 'wsj.net', 'guim.co.uk', 'ft.com', 'dw.com', 'nrk.no', 'dr.dk', 'yle.fi', 'yleisradio.fi', 'irozhlas.cz', 'hotnews.ro', 'telex.hu', 'rte.ie', 'orf.at')
 
 
 def category_for(url, title, tag=''):
@@ -221,9 +226,9 @@ def parse(data, source):
         root = ET.fromstring(data)
         if source["kind"] == "rss":
             rows = []
-            for row in root.findall('.//item'):
+            for row in root.findall('.//{*}item'):
                 photo = next((image_url(el.get('url')) for el in row.iter() if el.tag.split('}')[-1] in ('enclosure', 'thumbnail', 'content') and image_url(el.get('url'))), None)
-                rows.append({'title': row.findtext('title'), 'url': row.findtext('link'), 'publishedAt': row.findtext('pubDate'), 'image': photo, 'tag':' '.join(''.join(category.itertext()) for category in row.findall('category'))})
+                rows.append({'title': row.findtext('{*}title'), 'url': row.findtext('{*}link'), 'publishedAt': row.findtext('{*}pubDate') or row.findtext('{http://purl.org/dc/elements/1.1/}date'), 'image': photo, 'tag':' '.join(''.join(category.itertext()) for category in row.findall('{*}category'))})
         else:
             ns = {"s": "http://www.sitemaps.org/schemas/sitemap/0.9", "n": "http://www.google.com/schemas/sitemap-news/0.9", 'i': 'http://www.google.com/schemas/sitemap-image/1.1'}
             rows = [{"title": row.findtext("n:news/n:title", namespaces=ns), "url": row.findtext("s:loc", namespaces=ns), "publishedAt": row.findtext("n:news/n:publication_date", namespaces=ns), 'image': row.findtext('i:image/i:loc', namespaces=ns)} for row in root.findall("s:url", ns) if row.findtext('n:news/n:publication/n:language', default='en', namespaces=ns) == 'en']

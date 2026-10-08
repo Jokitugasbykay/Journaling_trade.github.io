@@ -28,6 +28,7 @@ jobs:
       - run: python scripts/test_macro.py
       - run: node js/copy.test.cjs
       - run: node js/security.test.cjs
+      - run: node js/news-region.test.cjs
       - run: node js/discipline.test.cjs
       - run: node js/fed.test.cjs
       - run: python scripts/update_news.py
@@ -46,7 +47,7 @@ jobs:
       - name: Prepare website
         run: |
           mkdir _site
-          cp index.html berita.json kalender.json bi.json fomc.json _site/
+          cp index.html berita.json kalender.json bi.json fomc.json regional-sources.json _site/
           cp -r css js _site/
           for route in home journal statistics calculator economic-news economic-news/calendar economic-news/social login profile; do
             mkdir -p "_site/$route"
