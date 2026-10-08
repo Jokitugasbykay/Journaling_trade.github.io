@@ -2666,7 +2666,7 @@
       /* Economic calendar engine & dataset (wib gmt+7)
          matches reference system schema, filters & impact calculations */
       let kalCache = null, kalCari = '', kalDmp = [1,2,3], kalTh = '', kalBl = '', kalTg = '', kalLihatLalu = true;
-      let kalCountries = null, kalCategory = '';
+      let kalCountries = ['US'], kalCategory = '';
       let kalPollingTimer = null, kalCountdownTimer = null;
 
       const kalText = (id, en) => language === 'en' ? en : id;
@@ -2762,6 +2762,23 @@
       function kalAvailableCountries() {
         return [...new Set([...kalCountryCodes, ...(kalCache?.items || []).map(kalCountryCode).filter(code => /^[A-Z]{2}$/.test(code))])];
       }
+      const kalCountriesKey = 'fncjt_calendar_countries';
+      function readKalCountries() {
+        try {
+          const raw = localStorage.getItem(kalCountriesKey);
+          if (raw !== null) {
+            const saved = JSON.parse(raw);
+            if (saved === null) return null;
+            if (Array.isArray(saved) && saved.every(code => kalAvailableCountries().includes(code))) return [...new Set(saved)];
+          }
+        } catch {}
+        return ['US'];
+      }
+      function setKalCountries(countries) {
+        kalCountries = countries;
+        try { localStorage.setItem(kalCountriesKey, JSON.stringify(countries)); } catch {}
+      }
+      kalCountries = readKalCountries();
       const kalCategories = [
         ['inflation','Inflasi','Inflation',/inflation|\bcpi\b|\bppi\b|price index|deflator/i],
         ['employment','Ketenagakerjaan','Employment',/employment|unemployment|jobless|payroll|job openings|labor|labour|earnings/i],
@@ -2968,7 +2985,7 @@
       }
 
       window.__kalReset = function () {
-        kalCari = ''; kalDmp = [1,2,3]; kalCountries = null; kalCategory = ''; $('kal-country-search').value = ''; kalTh = ''; kalBl = ''; kalTg = '';
+        kalCari = ''; kalDmp = [1,2,3]; setKalCountries(['US']); kalCategory = ''; $('kal-country-search').value = ''; kalTh = ''; kalBl = ''; kalTg = '';
         if ($('cari-kal')) { $('cari-kal').value = ''; $('cari-kal-box').classList.remove('isi'); }
         gambarKalUlang();
       };
@@ -3114,8 +3131,8 @@
         $('kal-category').addEventListener('change', () => { kalCategory = $('kal-category').value; gambarKalUlang(); });
         $('calendar-filters').addEventListener('change', event => {
           if (event.target.name === 'calendar-country') {
-            if (kalCountries === null) kalCountries = kalAvailableCountries();
-            kalCountries = event.target.checked ? [...new Set([...kalCountries,event.target.value])] : kalCountries.filter(code => code !== event.target.value);
+            const countries = kalCountries || kalAvailableCountries();
+            setKalCountries(event.target.checked ? [...new Set([...countries,event.target.value])] : countries.filter(code => code !== event.target.value));
           } else if (event.target.name === 'calendar-importance') {
             const value = +event.target.value;
             kalDmp = event.target.checked ? [...new Set([...kalDmp,value])] : kalDmp.filter(impact => impact !== value);
@@ -3127,8 +3144,8 @@
         $('calendar-filters').addEventListener('click', event => {
           const button = event.target.closest('button');
           if (!button) return;
-          if (button.dataset.countryAction) kalCountries = button.dataset.countryAction === 'none' ? [] : null;
-          else if (button.dataset.removeCountry) kalCountries = (kalCountries || kalAvailableCountries()).filter(code => code !== button.dataset.removeCountry);
+          if (button.dataset.countryAction) setKalCountries(button.dataset.countryAction === 'reset' ? ['US'] : button.dataset.countryAction === 'none' ? [] : null);
+          else if (button.dataset.removeCountry) setKalCountries((kalCountries || kalAvailableCountries()).filter(code => code !== button.dataset.removeCountry));
           else return;
           gambarKalUlang();
         });
