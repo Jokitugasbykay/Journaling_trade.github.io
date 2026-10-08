@@ -275,3 +275,8 @@ with patch('urllib.request.urlopen', return_value=ReaderResponse()):
 assert fed_item['contentRights'] == 'public-domain' and len(fed_item['body']) == 2
 assert 'body' not in private_item and private_item['excerpt'] == 'Verified publisher excerpt'
 print('Collector stores full text only for official Board speeches')
+
+assert news.image_url('https://static.independent.co.uk/photo.jpg')
+assert news.image_url('https://i.ds.at/photo.jpg')
+assert not news.image_url('https://i.ds.at.attacker.example/photo.jpg')
+print('Independent and Der Standard thumbnails allowed only on verified publisher/CDN domains')

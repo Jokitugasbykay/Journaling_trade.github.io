@@ -3477,17 +3477,43 @@
       function publisherImageUrl(value) {
         try {
           const url = new URL(value);
-          const domains = ['investing.com', 'cnbcfm.com', 'kontan.co.id', 'reuters.com', 'aljazeera.com', 'bloomberg.com', 'bwbx.io', 'pluang.com', 'kompas.com', 'detik.net.id', 'kemenkeu.go.id', 'cnnindonesia.com', 'bisnis.com', 'sindonews.com', 'apnews.com', 'bbc.co.uk', 'bbci.co.uk', 'wsj.net', 'guim.co.uk', 'ft.com', 'dw.com', 'nrk.no', 'dr.dk', 'yle.fi', 'yleisradio.fi', 'irozhlas.cz', 'hotnews.ro', 'telex.hu', 'rte.ie', 'orf.at'];
+          const domains = ['investing.com', 'cnbcfm.com', 'kontan.co.id', 'reuters.com', 'aljazeera.com', 'bloomberg.com', 'bwbx.io', 'pluang.com', 'kompas.com', 'detik.net.id', 'kemenkeu.go.id', 'cnnindonesia.com', 'bisnis.com', 'sindonews.com', 'apnews.com', 'bbc.co.uk', 'bbci.co.uk', 'wsj.net', 'guim.co.uk', 'ft.com', 'dw.com', 'nrk.no', 'dr.dk', 'yle.fi', 'yleisradio.fi', 'irozhlas.cz', 'hotnews.ro', 'telex.hu', 'rte.ie', 'orf.at', 'independent.co.uk', 'ds.at'];
           return url.protocol === 'https:' && !url.username && !url.password && domains.some(domain => url.hostname === domain || url.hostname.endsWith('.' + domain)) ? url.href : null;
         } catch { return null; }
       }
       function newsArticlePath(id) {
         return pagePath('economic-news') + '?article=' + encodeURIComponent(id);
       }
+      function relatedNews(item, items, sources, allowed) {
+        // ponytail: local headline/topic matching; use an editorial index if multilingual recall needs improvement.
+        const stop = new Set('the and for with from that this have has its are was were will would says said say new more after before into over amid about could their they who what when where why how than not but all out off his her our your also news update latest read article sources source report reports exclusive tie tieup channel cut cuts cost costs discuss discusses talks plan plans broader company companies group groups business britain british global world europe america national pada dari yang untuk dengan dalam oleh dan atau ini itu akan telah saat usai serta berita baru kata hasil'.split(' '));
+        const normalize = value => String(value || '').normalize('NFKD').replace(/\p{M}/gu, '').toLowerCase();
+        const words = title => new Set((normalize(title).replace(/\b([a-z]+)\s+(\d{1,2})\b/g, '$1$2').match(/[\p{L}\p{N}]+/gu) || []).filter(word => word.length > 2 && !stop.has(word) && !/^\d+$/.test(word)));
+        const headlineKey = value => normalize(value).replace(/^exclusive[\s:-]+/, '').replace(/[^\p{L}\p{N}]+/gu, ' ').trim();
+        const title = headlineKey(item.title);
+        const target = words(item.title);
+        const acronyms = new Set((item.title.match(/\b[A-Z]{3,}\b/g) || []).map(word => normalize(word)));
+        const publisherNames = new Set('bbc npr cnn cbs abc cnbc reuters'.split(' '));
+        const entities = new Set((item.title.match(/\b(?:[A-Z]{2,}|[A-Z][a-z]{3,})\b/g) || []).map(word => normalize(word)).filter(word => target.has(word)));
+        const known = new Set(sources.filter(source => source.kind !== 'tool').map(source => source.id));
+        const candidates = items.filter(row => row.id !== item.id && row.url !== item.url && headlineKey(row.title) !== title && known.has(row.source) && allowed(row.source) && publisherUrl(row.url, row.source)).map(row => ({row, words:words(row.title)}));
+        const frequency = new Map();
+        for (const candidate of candidates) for (const word of target) if (candidate.words.has(word)) frequency.set(word, (frequency.get(word) || 0) + 1);
+        const ranked = candidates.map(candidate => {
+          const shared = [...target].filter(word => candidate.words.has(word));
+          const weights = shared.map(word => Math.log((candidates.length + 1) / ((frequency.get(word) || 0) + 1)));
+          const fed = item.topics?.includes('fed') && candidate.row.topics?.includes('fed');
+          const relevant = shared.length >= 2 || candidate.row.category === item.category && shared.some((word,index) => !publisherNames.has(word) && (acronyms.has(word) || entities.has(word) && weights[index] >= 3)) || fed;
+          return {row:candidate.row, score:relevant ? weights.reduce((sum, weight) => sum + weight, 0) + (fed ? 3 : 0) + (item.category === candidate.row.category ? .5 : 0) : 0};
+        }).filter(candidate => candidate.score > 0).sort((a,b) => b.score - a.score || (Date.parse(b.row.publishedAt) || 0) - (Date.parse(a.row.publishedAt) || 0));
+        const seen = new Set();
+        return ranked.filter(({row}) => { const key = headlineKey(row.title); if (seen.has(key)) return false; seen.add(key); return true; }).slice(0,5).map(candidate => candidate.row);
+      }
       function renderNewsReader() {
         const reader = $('publisher-news-reader');
         const id = new URLSearchParams(location.search).get('article');
         const open = !!id && canReadNews();
+        $('view-berita').classList.toggle('reading-article', open);
         reader.hidden = !open;
         $('publisher-news-browse').hidden = open;
         reader.innerHTML = '';
@@ -3495,24 +3521,35 @@
         const item = publisherNews?.items.find(row => row.id === id && newsSourceInRegion(row.source));
         const source = item && publisherNews.sources.find(row => row.id === item.source);
         const url = item && publisherUrl(item.url, item.source);
-        const back = '<button type="button" class="btn btn-secondary" onclick="closeNewsArticle()">' + newsText('Kembali ke berita', 'Back to news') + '</button>';
+        const back = '<button type="button" class="news-reader-back" onclick="closeNewsArticle()"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M19 12H5m6-6-6 6 6 6"/></svg> ' + newsText('Kembali ke berita', 'Back to news') + '</button>';
         if (!item || !source || !url) {
           reader.innerHTML = back + '<h2 id="news-reader-title" tabindex="-1">' + newsText('Berita belum tersedia', 'Story unavailable') + '</h2><p>' + newsText('Coba muat ulang berita atau kembali ke daftar.', 'Refresh the news or return to the list.') + '</p>';
           return;
         }
         const full = item.source === 'federal_reserve' && /^https:\/\/www\.federalreserve\.gov\/newsevents\/speech\/[^/]+\.htm$/.test(url) && item.contentRights === 'public-domain' && Array.isArray(item.body) && item.body.length > 1;
-        const paragraphs = full ? item.body.filter(text => typeof text === 'string') : [item.excerpt || newsText('Cuplikan belum tersedia dari penerbit.', 'The publisher has not provided an excerpt yet.')];
+        const paragraphs = full ? item.body.filter(text => typeof text === 'string') : item.excerpt ? [item.excerpt] : [];
         const image = publisherImageUrl(item.image);
-        reader.innerHTML = back + '<header><p class="news-reader-meta">' + esc(source.name) + '</p><h2 id="news-reader-title" tabindex="-1">' + esc(item.title) + '</h2><p class="news-reader-meta">' + (item.author ? esc(item.author) + ' · ' : '') + esc(publisherTime(item.publishedAt) || newsText('Waktu terbit tidak tersedia', 'Publication time unavailable')) + '</p></header>' + (image ? '<img class="news-reader-image" src="' + esc(image) + '" alt="" referrerpolicy="no-referrer">' : '') + '<p class="news-reader-meta">' + (full ? newsText('Teks lengkap · Federal Reserve Board · Domain publik', 'Full text · Federal Reserve Board · Public domain') : newsText('Cuplikan dari penerbit', 'Publisher excerpt')) + '</p><div class="news-reader-body">' + paragraphs.map(text => '<p>' + esc(text) + '</p>').join('') + '</div><footer><a href="' + esc(url) + '" target="_blank" rel="noopener noreferrer">' + newsText('Baca di sumber asli', 'Read on the original source') + '</a>' + (full ? '' : '<p class="news-reader-meta">' + newsText('Artikel lengkap tersedia di situs penerbit.', 'The complete article is available on the publisher website.') + '</p>') + '</footer>';
-        reader.querySelector('img')?.addEventListener('error', event => event.target.remove(), {once:true});
+        const related = relatedNews(item, publisherNews.items, publisherNews.sources, newsSourceInRegion);
+        const relatedRows = related.map(row => {
+          const publisher = publisherNews.sources.find(source => source.id === row.source);
+          const photo = publisherImageUrl(row.image);
+          return '<li><a class="news-related-link' + (photo ? '' : ' news-related-text-only') + '" href="' + esc(newsArticlePath(row.id)) + '"><span class="news-related-photo" aria-hidden="true">' + (photo ? '<img src="' + esc(photo) + '" alt="" loading="lazy" decoding="async" referrerpolicy="no-referrer">' : '') + '</span><span><h4>' + esc(row.title) + '</h4><span class="news-related-meta">' + esc(publisher.name) + '</span><time class="news-related-meta">' + esc(publisherTime(row.publishedAt) || newsText('Waktu tidak tersedia', 'Time unavailable')) + '</time></span></a></li>';
+        }).join('');
+        const sidebar = '<aside class="news-related" aria-labelledby="news-related-title"><h3 id="news-related-title">' + newsText('Berita terkait', 'Related stories') + '</h3>' + (related.length ? '<ol>' + relatedRows + '</ol>' : '<p class="news-reader-meta">' + newsText('Belum ada berita terkait yang tersedia.', 'No related stories are available yet.') + '</p>') + '</aside>';
+        reader.innerHTML = back + '<div class="news-reader-layout"><div class="news-reader-main"><header><p class="news-reader-publisher">' + esc(source.name) + '</p><h2 id="news-reader-title" tabindex="-1">' + esc(item.title) + '</h2><p class="news-reader-meta">' + (item.author ? '<span>' + esc(item.author) + '</span>' : '') + '<time>' + esc(publisherTime(item.publishedAt) || newsText('Waktu terbit tidak tersedia', 'Publication time unavailable')) + '</time></p></header>' + (image ? '<figure class="news-reader-media"><img class="news-reader-image" src="' + esc(image) + '" alt="" referrerpolicy="no-referrer"></figure>' : '') + (paragraphs.length ? '<p class="news-reader-format">' + (full ? newsText('Teks lengkap · Federal Reserve Board · Domain publik', 'Full text · Federal Reserve Board · Public domain') : newsText('Cuplikan dari penerbit', 'Publisher excerpt')) + '</p><div class="news-reader-body">' + paragraphs.map(text => '<p>' + esc(text) + '</p>').join('') + '</div>' : '') + '<footer><p class="news-reader-source-note">' + (full ? newsText('Teks resmi dari Federal Reserve Board.', 'Official text from the Federal Reserve Board.') : paragraphs.length ? newsText('Artikel lengkap tersedia di situs penerbit.', 'The complete article is available on the publisher website.') : newsText('Penerbit belum menyediakan cuplikan. Artikel lengkap dapat dibaca di sumber asli.', 'The publisher has not provided an excerpt. Read the complete article on the original source.')) + '</p><a class="news-reader-original" href="' + esc(url) + '" target="_blank" rel="noopener noreferrer">' + newsText('Baca artikel asli', 'Read original article') + '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="m7 17 10-10M7 7h10v10"/></svg></a></footer></div>' + sidebar + '</div>';
+        reader.querySelectorAll('img').forEach(image => image.addEventListener('error', event => {
+          const photo = event.target.closest('.news-related-photo');
+          if (photo) { photo.hidden = true; photo.closest('a').classList.add('news-related-text-only'); }
+          event.target.remove();
+        }, {once:true}));
       }
       window.closeNewsArticle = function () {
         history.pushState(null, '', pagePath('economic-news'));
         renderNewsReader();
         $('news-search').focus({preventScroll:true});
       };
-      $('publisher-news-list').addEventListener('click', event => {
-        const link = event.target.closest('.publisher-story-link');
+      for (const container of ['publisher-news-list', 'publisher-news-reader']) $(container).addEventListener('click', event => {
+        const link = event.target.closest('.publisher-story-link, .news-related-link');
         if (!link || event.button !== 0 || event.ctrlKey || event.metaKey || event.shiftKey || event.altKey) return;
         event.preventDefault();
         history.pushState(null, '', link.href);
