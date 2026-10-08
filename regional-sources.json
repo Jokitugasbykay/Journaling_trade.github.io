@@ -516,85 +516,15 @@
     {"id":"kr_p8","name":"KBS News","url":"https://kbs.co.kr"}
   ],
   "QA": [
-    {"id":"aljazeera","name":"Al Jazeera","url":"https://www.aljazeera.com"},
-    {"id":"qa_p2","name":"The Peninsula Qatar","url":"https://www.thepeninsulaqatar.com"},
-    {"id":"qa_p3","name":"Gulf Times","url":"https://www.gulf-times.com"},
-    {"id":"qa_p4","name":"QNA","url":"https://www.qna.org.qa"},
-    {"id":"qa_p5","name":"Al Watan","url":"https://www.al-watan.com"},
-    {"id":"qa_p6","name":"Al Raya","url":"https://www.raya.com"},
-    {"id":"qa_p7","name":"Al Sharq","url":"https://www.al-sharq.com"},
-    {"id":"qa_p8","name":"Doha News","url":"https://dohanews.co","feed":"https://dohanews.co/feed/"}
+    {"id":"aljazeera","name":"Al Jazeera","url":"https://www.aljazeera.com"}
   ],
-  "JO": [
-    {"id":"jo_p1","name":"The Jordan Times","url":"https://www.jordantimes.com"},
-    {"id":"jo_p2","name":"Petra News Agency","url":"https://petra.gov.jo"},
-    {"id":"jo_p3","name":"Roya News","url":"https://en.royanews.tv"},
-    {"id":"jo_p4","name":"Al Ghad","url":"https://alghad.com"},
-    {"id":"jo_p5","name":"Al Rai","url":"https://www.alrai.com"},
-    {"id":"jo_p6","name":"Addustour","url":"https://addustour.com"},
-    {"id":"jo_p7","name":"Ammon News","url":"https://www.ammonnews.net"},
-    {"id":"jo_p8","name":"Saraya News","url":"https://sarayanews.com"}
-  ],
-  "LB": [
-    {"id":"lb_p1","name":"L'Orient Today","url":"https://today.lorientlejour.com"},
-    {"id":"lb_p2","name":"The Daily Star Lebanon","url":"https://www.dailystar.com.lb"},
-    {"id":"lb_p3","name":"NNA Lebanon","url":"https://www.nna-leb.gov.lb"},
-    {"id":"lb_p4","name":"An-Nahar","url":"https://www.annahar.com"},
-    {"id":"lb_p5","name":"Al Akhbar","url":"https://al-akhbar.com"},
-    {"id":"lb_p6","name":"LBCI News","url":"https://www.lbcgroup.tv/news"},
-    {"id":"lb_p7","name":"MTV Lebanon","url":"https://www.mtv.com.lb/news"},
-    {"id":"lb_p8","name":"L'Orient-Le Jour","url":"https://www.lorientlejour.com"}
-  ],
-  "IQ": [
-    {"id":"iq_p1","name":"Iraqi News Agency","url":"https://ina.iq/eng"},
-    {"id":"iq_p2","name":"Rudaw","url":"https://www.rudaw.net"},
-    {"id":"iq_p3","name":"Iraq Business News","url":"https://www.iraq-businessnews.com","feed":"https://www.iraq-businessnews.com/feed/"},
-    {"id":"iq_p4","name":"Alsumaria TV","url":"https://alsumaria.tv"},
-    {"id":"iq_p5","name":"Shafaq News","url":"https://www.shafaq.com"},
-    {"id":"iq_p6","name":"Baghdad Today","url":"https://baghdadtoday.news"},
-    {"id":"iq_p7","name":"Al Masalah","url":"https://almasalah.com"},
-    {"id":"iq_p8","name":"NINA News","url":"https://ninanews.com"}
-  ],
-  "KW": [
-    {"id":"kw_p1","name":"KUNA","url":"https://www.kuna.net.kw"},
-    {"id":"kw_p2","name":"Kuwait Times","url":"https://news.kuwaittimes.net"},
-    {"id":"kw_p3","name":"Arab Times Kuwait","url":"https://www.arabtimesonline.com"},
-    {"id":"kw_p4","name":"Al Rai Media","url":"https://www.alraimedia.com"},
-    {"id":"kw_p5","name":"Al Qabas","url":"https://www.alqabas.com"},
-    {"id":"kw_p6","name":"Al Anba","url":"https://www.alanba.com.kw"},
-    {"id":"kw_p7","name":"Al Jarida","url":"https://aljarida.com"},
-    {"id":"kw_p8","name":"The Times Kuwait","url":"https://timeskuwait.com"}
-  ],
-  "OM": [
-    {"id":"om_p1","name":"Oman News Agency","url":"https://omannews.gov.om"},
-    {"id":"om_p2","name":"Times of Oman","url":"https://timesofoman.com"},
-    {"id":"om_p3","name":"Oman Daily Observer","url":"https://www.omanobserver.om"},
-    {"id":"om_p4","name":"Muscat Daily","url":"https://muscatdaily.com"},
-    {"id":"om_p5","name":"Oman Daily","url":"https://www.omandaily.om"},
-    {"id":"om_p6","name":"Al Watan Oman","url":"https://alwatan.com"},
-    {"id":"om_p7","name":"Al Shabiba","url":"https://shabiba.com"},
-    {"id":"om_p8","name":"Atheer","url":"https://atheer.om"}
-  ],
-  "BH": [
-    {"id":"bh_p1","name":"Bahrain News Agency","url":"https://www.bna.bh/en"},
-    {"id":"bh_p2","name":"News of Bahrain","url":"https://www.newsofbahrain.com"},
-    {"id":"bh_p3","name":"Gulf Daily News","url":"https://www.gdnonline.com"},
-    {"id":"bh_p4","name":"Al Ayam","url":"https://www.alayam.com"},
-    {"id":"bh_p5","name":"Al Watan Bahrain","url":"https://alwatannews.net"},
-    {"id":"bh_p6","name":"Akhbar Al Khaleej","url":"https://www.akhbar-alkhaleej.com"},
-    {"id":"bh_p7","name":"Al Bilad Press","url":"https://www.albiladpress.com"},
-    {"id":"bh_p8","name":"Bahrain Mirror","url":"https://bahrainmirror.com"}
-  ],
-  "IL": [
-    {"id":"il_p1","name":"Haaretz","url":"https://www.haaretz.com"},
-    {"id":"il_p2","name":"The Jerusalem Post","url":"https://www.jpost.com"},
-    {"id":"il_p3","name":"The Times of Israel","url":"https://www.timesofisrael.com"},
-    {"id":"il_p4","name":"Ynetnews","url":"https://www.ynetnews.com"},
-    {"id":"il_p5","name":"Calcalist Tech","url":"https://www.calcalistech.com"},
-    {"id":"il_p6","name":"Israel Hayom","url":"https://www.israelhayom.com"},
-    {"id":"il_p7","name":"Globes","url":"https://www.globes.co.il/en"},
-    {"id":"il_p8","name":"i24NEWS","url":"https://www.i24news.tv"}
-  ],
+  "JO": [],
+  "LB": [],
+  "IQ": [],
+  "KW": [],
+  "OM": [],
+  "BH": [],
+  "IL": [],
   "IN": [
     {"id":"in_p1","name":"The Hindu","url":"https://www.thehindu.com","feed":"https://www.thehindu.com/news/feeder/default.rss"},
     {"id":"in_p2","name":"The Times of India","url":"https://timesofindia.indiatimes.com"},
@@ -651,26 +581,8 @@
     {"id":"tw_p11","name":"TVBS News","url":"https://news.tvbs.com.tw"},
     {"id":"tw_p12","name":"FTV News","url":"https://www.ftvnews.com.tw"}
   ],
-  "SA": [
-    {"id":"sa_p1","name":"Arab News","url":"https://www.arabnews.com"},
-    {"id":"sa_p2","name":"Al Arabiya English","url":"https://english.alarabiya.net"},
-    {"id":"sa_p3","name":"Saudi Press Agency","url":"https://www.spa.gov.sa"},
-    {"id":"sa_p4","name":"Saudi Gazette","url":"https://saudigazette.com.sa"},
-    {"id":"sa_p5","name":"Al Riyadh","url":"https://www.alriyadh.com"},
-    {"id":"sa_p6","name":"Okaz","url":"https://www.okaz.com.sa"},
-    {"id":"sa_p7","name":"Asharq News","url":"https://www.asharq.com"},
-    {"id":"sa_p8","name":"Asharq Al-Awsat","url":"https://aawsat.com"}
-  ],
-  "AE": [
-    {"id":"ae_p1","name":"The National","url":"https://www.thenationalnews.com"},
-    {"id":"ae_p2","name":"Gulf News","url":"https://gulfnews.com"},
-    {"id":"ae_p3","name":"Khaleej Times","url":"https://www.khaleejtimes.com"},
-    {"id":"ae_p4","name":"WAM","url":"https://wam.ae"},
-    {"id":"ae_p5","name":"Emarat Al Youm","url":"https://www.emaratalyoum.com"},
-    {"id":"ae_p6","name":"Al Ittihad","url":"https://www.alittihad.ae"},
-    {"id":"ae_p7","name":"Arabian Business","url":"https://www.arabianbusiness.com"},
-    {"id":"ae_p8","name":"Roya News English","url":"https://en.royanews.tv"}
-  ],
+  "SA": [],
+  "AE": [],
   "TR": [
     {"id":"tr_p1","name":"Anadolu Agency","url":"https://www.aa.com.tr"},
     {"id":"tr_p2","name":"Hürriyet Daily News","url":"https://www.hurriyetdailynews.com"},

@@ -2901,449 +2901,6 @@
       "status": "external"
     },
     {
-      "id": "qa_p2",
-      "name": "The Peninsula Qatar",
-      "url": "https://www.thepeninsulaqatar.com",
-      "kind": "external",
-      "status": "external"
-    },
-    {
-      "id": "qa_p3",
-      "name": "Gulf Times",
-      "url": "https://www.gulf-times.com",
-      "kind": "external",
-      "status": "external"
-    },
-    {
-      "id": "qa_p4",
-      "name": "QNA",
-      "url": "https://www.qna.org.qa",
-      "kind": "external",
-      "status": "external"
-    },
-    {
-      "id": "qa_p5",
-      "name": "Al Watan",
-      "url": "https://www.al-watan.com",
-      "kind": "external",
-      "status": "external"
-    },
-    {
-      "id": "qa_p6",
-      "name": "Al Raya",
-      "url": "https://www.raya.com",
-      "kind": "external",
-      "status": "external"
-    },
-    {
-      "id": "qa_p7",
-      "name": "Al Sharq",
-      "url": "https://www.al-sharq.com",
-      "kind": "external",
-      "status": "external"
-    },
-    {
-      "id": "qa_p8",
-      "name": "Doha News",
-      "url": "https://dohanews.co",
-      "kind": "rss",
-      "status": "ok",
-      "checkedAt": "2026-10-08T12:38:47.226558+00:00"
-    },
-    {
-      "id": "jo_p1",
-      "name": "The Jordan Times",
-      "url": "https://www.jordantimes.com",
-      "kind": "external",
-      "status": "external"
-    },
-    {
-      "id": "jo_p2",
-      "name": "Petra News Agency",
-      "url": "https://petra.gov.jo",
-      "kind": "external",
-      "status": "external"
-    },
-    {
-      "id": "jo_p3",
-      "name": "Roya News",
-      "url": "https://en.royanews.tv",
-      "kind": "external",
-      "status": "external"
-    },
-    {
-      "id": "jo_p4",
-      "name": "Al Ghad",
-      "url": "https://alghad.com",
-      "kind": "external",
-      "status": "external"
-    },
-    {
-      "id": "jo_p5",
-      "name": "Al Rai",
-      "url": "https://www.alrai.com",
-      "kind": "external",
-      "status": "external"
-    },
-    {
-      "id": "jo_p6",
-      "name": "Addustour",
-      "url": "https://addustour.com",
-      "kind": "external",
-      "status": "external"
-    },
-    {
-      "id": "jo_p7",
-      "name": "Ammon News",
-      "url": "https://www.ammonnews.net",
-      "kind": "external",
-      "status": "external"
-    },
-    {
-      "id": "jo_p8",
-      "name": "Saraya News",
-      "url": "https://sarayanews.com",
-      "kind": "external",
-      "status": "external"
-    },
-    {
-      "id": "lb_p1",
-      "name": "L'Orient Today",
-      "url": "https://today.lorientlejour.com",
-      "kind": "external",
-      "status": "external"
-    },
-    {
-      "id": "lb_p2",
-      "name": "The Daily Star Lebanon",
-      "url": "https://www.dailystar.com.lb",
-      "kind": "external",
-      "status": "external"
-    },
-    {
-      "id": "lb_p3",
-      "name": "NNA Lebanon",
-      "url": "https://www.nna-leb.gov.lb",
-      "kind": "external",
-      "status": "external"
-    },
-    {
-      "id": "lb_p4",
-      "name": "An-Nahar",
-      "url": "https://www.annahar.com",
-      "kind": "external",
-      "status": "external"
-    },
-    {
-      "id": "lb_p5",
-      "name": "Al Akhbar",
-      "url": "https://al-akhbar.com",
-      "kind": "external",
-      "status": "external"
-    },
-    {
-      "id": "lb_p6",
-      "name": "LBCI News",
-      "url": "https://www.lbcgroup.tv/news",
-      "kind": "external",
-      "status": "external"
-    },
-    {
-      "id": "lb_p7",
-      "name": "MTV Lebanon",
-      "url": "https://www.mtv.com.lb/news",
-      "kind": "external",
-      "status": "external"
-    },
-    {
-      "id": "lb_p8",
-      "name": "L'Orient-Le Jour",
-      "url": "https://www.lorientlejour.com",
-      "kind": "external",
-      "status": "external"
-    },
-    {
-      "id": "iq_p1",
-      "name": "Iraqi News Agency",
-      "url": "https://ina.iq/eng",
-      "kind": "external",
-      "status": "external"
-    },
-    {
-      "id": "iq_p2",
-      "name": "Rudaw",
-      "url": "https://www.rudaw.net",
-      "kind": "external",
-      "status": "external"
-    },
-    {
-      "id": "iq_p3",
-      "name": "Iraq Business News",
-      "url": "https://www.iraq-businessnews.com",
-      "kind": "rss",
-      "status": "ok",
-      "checkedAt": "2026-10-08T12:38:47.934966+00:00"
-    },
-    {
-      "id": "iq_p4",
-      "name": "Alsumaria TV",
-      "url": "https://alsumaria.tv",
-      "kind": "external",
-      "status": "external"
-    },
-    {
-      "id": "iq_p5",
-      "name": "Shafaq News",
-      "url": "https://www.shafaq.com",
-      "kind": "external",
-      "status": "external"
-    },
-    {
-      "id": "iq_p6",
-      "name": "Baghdad Today",
-      "url": "https://baghdadtoday.news",
-      "kind": "external",
-      "status": "external"
-    },
-    {
-      "id": "iq_p7",
-      "name": "Al Masalah",
-      "url": "https://almasalah.com",
-      "kind": "external",
-      "status": "external"
-    },
-    {
-      "id": "iq_p8",
-      "name": "NINA News",
-      "url": "https://ninanews.com",
-      "kind": "external",
-      "status": "external"
-    },
-    {
-      "id": "kw_p1",
-      "name": "KUNA",
-      "url": "https://www.kuna.net.kw",
-      "kind": "external",
-      "status": "external"
-    },
-    {
-      "id": "kw_p2",
-      "name": "Kuwait Times",
-      "url": "https://news.kuwaittimes.net",
-      "kind": "external",
-      "status": "external"
-    },
-    {
-      "id": "kw_p3",
-      "name": "Arab Times Kuwait",
-      "url": "https://www.arabtimesonline.com",
-      "kind": "external",
-      "status": "external"
-    },
-    {
-      "id": "kw_p4",
-      "name": "Al Rai Media",
-      "url": "https://www.alraimedia.com",
-      "kind": "external",
-      "status": "external"
-    },
-    {
-      "id": "kw_p5",
-      "name": "Al Qabas",
-      "url": "https://www.alqabas.com",
-      "kind": "external",
-      "status": "external"
-    },
-    {
-      "id": "kw_p6",
-      "name": "Al Anba",
-      "url": "https://www.alanba.com.kw",
-      "kind": "external",
-      "status": "external"
-    },
-    {
-      "id": "kw_p7",
-      "name": "Al Jarida",
-      "url": "https://aljarida.com",
-      "kind": "external",
-      "status": "external"
-    },
-    {
-      "id": "kw_p8",
-      "name": "The Times Kuwait",
-      "url": "https://timeskuwait.com",
-      "kind": "external",
-      "status": "external"
-    },
-    {
-      "id": "om_p1",
-      "name": "Oman News Agency",
-      "url": "https://omannews.gov.om",
-      "kind": "external",
-      "status": "external"
-    },
-    {
-      "id": "om_p2",
-      "name": "Times of Oman",
-      "url": "https://timesofoman.com",
-      "kind": "external",
-      "status": "external"
-    },
-    {
-      "id": "om_p3",
-      "name": "Oman Daily Observer",
-      "url": "https://www.omanobserver.om",
-      "kind": "external",
-      "status": "external"
-    },
-    {
-      "id": "om_p4",
-      "name": "Muscat Daily",
-      "url": "https://muscatdaily.com",
-      "kind": "external",
-      "status": "external"
-    },
-    {
-      "id": "om_p5",
-      "name": "Oman Daily",
-      "url": "https://www.omandaily.om",
-      "kind": "external",
-      "status": "external"
-    },
-    {
-      "id": "om_p6",
-      "name": "Al Watan Oman",
-      "url": "https://alwatan.com",
-      "kind": "external",
-      "status": "external"
-    },
-    {
-      "id": "om_p7",
-      "name": "Al Shabiba",
-      "url": "https://shabiba.com",
-      "kind": "external",
-      "status": "external"
-    },
-    {
-      "id": "om_p8",
-      "name": "Atheer",
-      "url": "https://atheer.om",
-      "kind": "external",
-      "status": "external"
-    },
-    {
-      "id": "bh_p1",
-      "name": "Bahrain News Agency",
-      "url": "https://www.bna.bh/en",
-      "kind": "external",
-      "status": "external"
-    },
-    {
-      "id": "bh_p2",
-      "name": "News of Bahrain",
-      "url": "https://www.newsofbahrain.com",
-      "kind": "external",
-      "status": "external"
-    },
-    {
-      "id": "bh_p3",
-      "name": "Gulf Daily News",
-      "url": "https://www.gdnonline.com",
-      "kind": "external",
-      "status": "external"
-    },
-    {
-      "id": "bh_p4",
-      "name": "Al Ayam",
-      "url": "https://www.alayam.com",
-      "kind": "external",
-      "status": "external"
-    },
-    {
-      "id": "bh_p5",
-      "name": "Al Watan Bahrain",
-      "url": "https://alwatannews.net",
-      "kind": "external",
-      "status": "external"
-    },
-    {
-      "id": "bh_p6",
-      "name": "Akhbar Al Khaleej",
-      "url": "https://www.akhbar-alkhaleej.com",
-      "kind": "external",
-      "status": "external"
-    },
-    {
-      "id": "bh_p7",
-      "name": "Al Bilad Press",
-      "url": "https://www.albiladpress.com",
-      "kind": "external",
-      "status": "external"
-    },
-    {
-      "id": "bh_p8",
-      "name": "Bahrain Mirror",
-      "url": "https://bahrainmirror.com",
-      "kind": "external",
-      "status": "external"
-    },
-    {
-      "id": "il_p1",
-      "name": "Haaretz",
-      "url": "https://www.haaretz.com",
-      "kind": "external",
-      "status": "external"
-    },
-    {
-      "id": "il_p2",
-      "name": "The Jerusalem Post",
-      "url": "https://www.jpost.com",
-      "kind": "external",
-      "status": "external"
-    },
-    {
-      "id": "il_p3",
-      "name": "The Times of Israel",
-      "url": "https://www.timesofisrael.com",
-      "kind": "external",
-      "status": "external"
-    },
-    {
-      "id": "il_p4",
-      "name": "Ynetnews",
-      "url": "https://www.ynetnews.com",
-      "kind": "external",
-      "status": "external"
-    },
-    {
-      "id": "il_p5",
-      "name": "Calcalist Tech",
-      "url": "https://www.calcalistech.com",
-      "kind": "external",
-      "status": "external"
-    },
-    {
-      "id": "il_p6",
-      "name": "Israel Hayom",
-      "url": "https://www.israelhayom.com",
-      "kind": "external",
-      "status": "external"
-    },
-    {
-      "id": "il_p7",
-      "name": "Globes",
-      "url": "https://www.globes.co.il/en",
-      "kind": "external",
-      "status": "external"
-    },
-    {
-      "id": "il_p8",
-      "name": "i24NEWS",
-      "url": "https://www.i24news.tv",
-      "kind": "external",
-      "status": "external"
-    },
-    {
       "id": "in_p1",
       "name": "The Hindu",
       "url": "https://www.thehindu.com",
@@ -3664,118 +3221,6 @@
       "id": "tw_p12",
       "name": "FTV News",
       "url": "https://www.ftvnews.com.tw",
-      "kind": "external",
-      "status": "external"
-    },
-    {
-      "id": "sa_p1",
-      "name": "Arab News",
-      "url": "https://www.arabnews.com",
-      "kind": "external",
-      "status": "external"
-    },
-    {
-      "id": "sa_p2",
-      "name": "Al Arabiya English",
-      "url": "https://english.alarabiya.net",
-      "kind": "external",
-      "status": "external"
-    },
-    {
-      "id": "sa_p3",
-      "name": "Saudi Press Agency",
-      "url": "https://www.spa.gov.sa",
-      "kind": "external",
-      "status": "external"
-    },
-    {
-      "id": "sa_p4",
-      "name": "Saudi Gazette",
-      "url": "https://saudigazette.com.sa",
-      "kind": "external",
-      "status": "external"
-    },
-    {
-      "id": "sa_p5",
-      "name": "Al Riyadh",
-      "url": "https://www.alriyadh.com",
-      "kind": "external",
-      "status": "external"
-    },
-    {
-      "id": "sa_p6",
-      "name": "Okaz",
-      "url": "https://www.okaz.com.sa",
-      "kind": "external",
-      "status": "external"
-    },
-    {
-      "id": "sa_p7",
-      "name": "Asharq News",
-      "url": "https://www.asharq.com",
-      "kind": "external",
-      "status": "external"
-    },
-    {
-      "id": "sa_p8",
-      "name": "Asharq Al-Awsat",
-      "url": "https://aawsat.com",
-      "kind": "external",
-      "status": "external"
-    },
-    {
-      "id": "ae_p1",
-      "name": "The National",
-      "url": "https://www.thenationalnews.com",
-      "kind": "external",
-      "status": "external"
-    },
-    {
-      "id": "ae_p2",
-      "name": "Gulf News",
-      "url": "https://gulfnews.com",
-      "kind": "external",
-      "status": "external"
-    },
-    {
-      "id": "ae_p3",
-      "name": "Khaleej Times",
-      "url": "https://www.khaleejtimes.com",
-      "kind": "external",
-      "status": "external"
-    },
-    {
-      "id": "ae_p4",
-      "name": "WAM",
-      "url": "https://wam.ae",
-      "kind": "external",
-      "status": "external"
-    },
-    {
-      "id": "ae_p5",
-      "name": "Emarat Al Youm",
-      "url": "https://www.emaratalyoum.com",
-      "kind": "external",
-      "status": "external"
-    },
-    {
-      "id": "ae_p6",
-      "name": "Al Ittihad",
-      "url": "https://www.alittihad.ae",
-      "kind": "external",
-      "status": "external"
-    },
-    {
-      "id": "ae_p7",
-      "name": "Arabian Business",
-      "url": "https://www.arabianbusiness.com",
-      "kind": "external",
-      "status": "external"
-    },
-    {
-      "id": "ae_p8",
-      "name": "Roya News English",
-      "url": "https://en.royanews.tv",
       "kind": "external",
       "status": "external"
     },
@@ -5158,7 +4603,7 @@
     {
       "id": "ef1fa3174486b143c679",
       "source": "ca_financialpost",
-      "title": "The LYCRA Company to Spotlight Renewable LYCRA® Fiber and Textile-to-Textile Circularity at Textile Exchange Conference 2026",
+      "title": "The LYCRA Company to Spotlight Renewable LYCRA Fiber and Textile-to-Textile Circularity at Textile Exchange Conference 2026",
       "url": "https://financialpost.com/pmn/business-wire-news-releases-pmn/the-lycra-company-to-spotlight-renewable-lycra-fiber-and-textile-to-textile-circularity-at-textile-exchange-conference-2026",
       "publishedAt": "2026-10-08T12:30:46+00:00",
       "image": null,
@@ -31197,16 +30642,6 @@
       "title": "PM Lawrence Wong bertemu rakan sejawat Thailand",
       "url": "https://www.beritaharian.sg/singapura/pm-lawrence-wong-bertemu-rakan-sejawat-thailand?ai-allowed=1",
       "publishedAt": "2026-10-08T09:21:50+00:00",
-      "image": null,
-      "category": "other",
-      "topics": []
-    },
-    {
-      "id": "4b7d05fcd302eca07ee9",
-      "source": "qa_p8",
-      "title": "QatarEnergy wins seven Brazil offshore exploration licenses",
-      "url": "https://dohanews.co/qatarenergy-wins-seven-brazil-offshore-exploration-licenses/",
-      "publishedAt": "2026-10-08T09:21:42+00:00",
       "image": null,
       "category": "other",
       "topics": []
@@ -59580,78 +59015,6 @@
       "topics": []
     },
     {
-      "id": "fd9318da1a12ed029067",
-      "source": "iq_p3",
-      "title": "Iraqi Dinar Devaluation: How Does It Affect You?",
-      "url": "https://www.iraq-businessnews.com/2026/10/08/iraqi-dinar-devaluation-how-does-it-affect-you/",
-      "publishedAt": "2026-10-07T23:36:10+00:00",
-      "image": null,
-      "category": "business",
-      "topics": []
-    },
-    {
-      "id": "c30454b2934a34c57fa1",
-      "source": "iq_p3",
-      "title": "CBI Confirms Devaluation of Iraqi Dinar",
-      "url": "https://www.iraq-businessnews.com/2026/10/08/cbi-confirms-devaluation-of-iraqi-dinar/",
-      "publishedAt": "2026-10-07T23:35:30+00:00",
-      "image": null,
-      "category": "markets",
-      "topics": []
-    },
-    {
-      "id": "eb5350b391b3c24fe1fb",
-      "source": "iq_p3",
-      "title": "New Fibre Route to Link Gulf and Europe via Iraq",
-      "url": "https://www.iraq-businessnews.com/2026/10/08/new-fibre-route-to-link-gulf-and-europe-via-iraq/",
-      "publishedAt": "2026-10-07T23:35:18+00:00",
-      "image": null,
-      "category": "business",
-      "topics": []
-    },
-    {
-      "id": "fa3ffbeebb07bcffe652",
-      "source": "iq_p3",
-      "title": "Qatar-Iraq Business Council Established",
-      "url": "https://www.iraq-businessnews.com/2026/10/08/qatar-iraq-business-council-established/",
-      "publishedAt": "2026-10-07T23:35:10+00:00",
-      "image": null,
-      "category": "business",
-      "topics": []
-    },
-    {
-      "id": "f07ac63ea301498dbac3",
-      "source": "iq_p3",
-      "title": "Iraqi Airways to Resume Direct Flights to Iran",
-      "url": "https://www.iraq-businessnews.com/2026/10/08/iraqi-airways-to-resume-direct-flights-to-iran/",
-      "publishedAt": "2026-10-07T23:35:07+00:00",
-      "image": null,
-      "category": "other",
-      "topics": []
-    },
-    {
-      "id": "15f2537217a0985cd0d1",
-      "source": "iq_p3",
-      "title": "Al-Salam and ZTE Sign Technology and Manufacturing MoU",
-      "url": "https://www.iraq-businessnews.com/2026/10/08/al-salam-and-zte-sign-technology-and-manufacturing-mou/",
-      "publishedAt": "2026-10-07T23:35:03+00:00",
-      "image": null,
-      "category": "technology",
-      "topics": []
-    },
-    {
-      "id": "d2fc57799ecd635b96b9",
-      "source": "iq_p3",
-      "title": "Iraq and World Bank Discuss National Partnership Strategy",
-      "url": "https://www.iraq-businessnews.com/2026/10/08/iraq-and-world-bank-discuss-national-partnership-strategy/",
-      "publishedAt": "2026-10-07T23:35:00+00:00",
-      "image": null,
-      "category": "business",
-      "topics": [
-        "politics"
-      ]
-    },
-    {
       "id": "91ea1340741c063e68cc",
       "source": "sg_straits",
       "title": "Wells Fargo faces potential probe over black home ownership commitments: Report",
@@ -78024,18 +77387,6 @@
       "topics": []
     },
     {
-      "id": "7296acf854aab995786d",
-      "source": "iq_p3",
-      "title": "Iraqi Dinar Revalues",
-      "url": "https://www.iraq-businessnews.com/2026/10/07/iraqi-dinar-revalues/",
-      "publishedAt": "2026-10-07T13:40:58+00:00",
-      "image": null,
-      "category": "markets",
-      "topics": [
-        "politics"
-      ]
-    },
-    {
       "id": "b1775c8b31f8760500db",
       "source": "id_tirto",
       "title": "9 Hakim Konstitusi Diadukan ke MKMK soal Perkara Ijazah Gibran",
@@ -78094,18 +77445,6 @@
       "image": "https://www.aljazeera.com/wp-content/uploads/2026/10/2026-10-03T142237Z_296345539_UP1EMA30YPL65_RTRMADP_3_GAMES-ASIA-1791376596.jpg?resize=1920%2C1440",
       "category": "sport",
       "topics": []
-    },
-    {
-      "id": "85d4d2162a8799fe871a",
-      "source": "qa_p8",
-      "title": "Teachers’ Day: Qatar PM-FM honours 80 government school teachers",
-      "url": "https://dohanews.co/teachers-day-qatar-pm-fm-honours-80-government-school-teachers/",
-      "publishedAt": "2026-10-07T13:37:42+00:00",
-      "image": null,
-      "category": "other",
-      "topics": [
-        "politics"
-      ]
     },
     {
       "id": "06b0af2755d98478eb30",
@@ -92330,16 +91669,6 @@
       "topics": []
     },
     {
-      "id": "70b78464213e5623e4ea",
-      "source": "qa_p8",
-      "title": "Three years after October 7, Israeli expansionism continues unabated",
-      "url": "https://dohanews.co/three-years-after-october-7-israeli-expansionism-continues-unabated/",
-      "publishedAt": "2026-10-07T06:00:00+00:00",
-      "image": null,
-      "category": "commentary",
-      "topics": []
-    },
-    {
       "id": "63debb1da279b6b0a9fb",
       "source": "id_tirto",
       "title": "52 Persen BUMN Merugi, Mengapa Aset Besar Tak Jadi Mesin Uang?",
@@ -96711,46 +96040,6 @@
       "publishedAt": "2026-10-06T23:52:38+00:00",
       "image": null,
       "category": "markets",
-      "topics": []
-    },
-    {
-      "id": "5befed21394cb6019d92",
-      "source": "iq_p3",
-      "title": "1,120 TIR Transit Journeys Cross Iraq in September",
-      "url": "https://www.iraq-businessnews.com/2026/10/07/1120-tir-transit-journeys-cross-iraq-in-september/",
-      "publishedAt": "2026-10-06T23:52:01+00:00",
-      "image": null,
-      "category": "business",
-      "topics": []
-    },
-    {
-      "id": "7a02fa7df737416b8a61",
-      "source": "iq_p3",
-      "title": "Iraq and UN Launch Sustainable Development Cooperation Framework",
-      "url": "https://www.iraq-businessnews.com/2026/10/07/iraq-and-un-launch-sustainable-development-cooperation-framework/",
-      "publishedAt": "2026-10-06T23:51:58+00:00",
-      "image": null,
-      "category": "sustainability",
-      "topics": []
-    },
-    {
-      "id": "187bf63751874ab8129a",
-      "source": "iq_p3",
-      "title": "Iraq-Huawei Data Centre Partnership",
-      "url": "https://www.iraq-businessnews.com/2026/10/07/iraq-huawei-data-centre-partnership/",
-      "publishedAt": "2026-10-06T23:51:55+00:00",
-      "image": null,
-      "category": "technology",
-      "topics": []
-    },
-    {
-      "id": "00d0b29d2103a32b9d34",
-      "source": "iq_p3",
-      "title": "Iraqi Line to Resume Gulf Operations After 50-Year Halt",
-      "url": "https://www.iraq-businessnews.com/2026/10/07/iraqi-line-to-resume-gulf-operations-after-50-year-halt/",
-      "publishedAt": "2026-10-06T23:51:53+00:00",
-      "image": null,
-      "category": "business",
       "topics": []
     },
     {
@@ -105302,16 +104591,6 @@
       "topics": []
     },
     {
-      "id": "0226316bce56cbc999f2",
-      "source": "qa_p8",
-      "title": "Qatar confirmed among seven in 2036 Olympics race",
-      "url": "https://dohanews.co/qatar-confirmed-among-seven-in-2036-olympics-race/",
-      "publishedAt": "2026-10-06T13:20:32+00:00",
-      "image": null,
-      "category": "sport",
-      "topics": []
-    },
-    {
       "id": "1dbf6f46cc685fe3e633",
       "source": "id_tirto",
       "title": "Prabowo Beri Promosi & Bintang Anggota Satgas PKH Berprestasi",
@@ -106793,16 +106072,6 @@
       "title": "Alcool, drogue, sédatifs et mauvaise santé à l'origine du décès de Loana",
       "url": "https://www.france24.com/fr/info-en-continu/20261006-alcool-drogue-s%C3%A9datifs-et-mauvaise-sant%C3%A9-%C3%A0-l-origine-du-d%C3%A9c%C3%A8s-de-loana",
       "publishedAt": "2026-10-06T12:12:48+00:00",
-      "image": null,
-      "category": "other",
-      "topics": []
-    },
-    {
-      "id": "8cf5f97ef6a1b5f885a9",
-      "source": "qa_p8",
-      "title": "Qatar confirms U.S.-Iran talks continue, as Iran’s Interior Minister meets Amir in Doha",
-      "url": "https://dohanews.co/qatar-confirms-u-s-iran-talks-continue-as-irans-interior-minister-meets-amir-in-doha/",
-      "publishedAt": "2026-10-06T12:12:47+00:00",
       "image": null,
       "category": "other",
       "topics": []
@@ -109118,16 +108387,6 @@
       "topics": []
     },
     {
-      "id": "5f9e2c1284d745fe93d5",
-      "source": "qa_p8",
-      "title": "Iran interior minister arrives in Doha for talks on bilateral ties, security",
-      "url": "https://dohanews.co/iran-interior-minister-arrives-in-doha-for-talks-on-bilateral-ties-security/",
-      "publishedAt": "2026-10-06T07:40:17+00:00",
-      "image": null,
-      "category": "world",
-      "topics": []
-    },
-    {
       "id": "250c6ecaa362d725834e",
       "source": "id_tirto",
       "title": "Siaran Langsung Matchday 1 ASEAN Club 2026 di RCTI & GTV",
@@ -110734,92 +109993,6 @@
       "topics": []
     },
     {
-      "id": "14c650d42dde277095d4",
-      "source": "iq_p3",
-      "title": "Iraq Launches $2.7bn Economic Stimulus Package",
-      "url": "https://www.iraq-businessnews.com/2026/10/06/iraq-launches-2-7bn-economic-stimulus-package/",
-      "publishedAt": "2026-10-06T00:19:16+00:00",
-      "image": null,
-      "category": "markets",
-      "topics": [
-        "politics"
-      ]
-    },
-    {
-      "id": "dcf32ef6bf4b460ba5e1",
-      "source": "iq_p3",
-      "title": "Qs and As Regarding the Al-Zaidi Govt's Views on Petroleum Issues",
-      "url": "https://www.iraq-businessnews.com/2026/10/06/qs-and-as-regarding-the-al-zaidi-govts-views-on-petroleum-issues/",
-      "publishedAt": "2026-10-06T00:19:07+00:00",
-      "image": null,
-      "category": "legal",
-      "topics": [
-        "politics"
-      ]
-    },
-    {
-      "id": "f71325d0fcd82cb6afcc",
-      "source": "iq_p3",
-      "title": "EU-Iraq Trade and WTO Accession Talks",
-      "url": "https://www.iraq-businessnews.com/2026/10/06/eu-iraq-trade-and-wto-accession-talks/",
-      "publishedAt": "2026-10-06T00:19:00+00:00",
-      "image": null,
-      "category": "business",
-      "topics": []
-    },
-    {
-      "id": "eea498504a3f5496afb3",
-      "source": "iq_p3",
-      "title": "Iraq Launches Digital Tax Assessment System",
-      "url": "https://www.iraq-businessnews.com/2026/10/06/iraq-launches-digital-tax-assessment-system/",
-      "publishedAt": "2026-10-06T00:18:56+00:00",
-      "image": null,
-      "category": "business",
-      "topics": []
-    },
-    {
-      "id": "f74dac198b52fb8ade39",
-      "source": "iq_p3",
-      "title": "Russia-Iraq Business Mission Signs First Deals in Kurdistan",
-      "url": "https://www.iraq-businessnews.com/2026/10/06/russia-iraq-business-mission-signs-first-deals-in-kurdistan/",
-      "publishedAt": "2026-10-06T00:18:49+00:00",
-      "image": null,
-      "category": "business",
-      "topics": []
-    },
-    {
-      "id": "c79852ec62776c4a6af4",
-      "source": "iq_p3",
-      "title": "Iraqi Finance Ministry \"Sets New Dinar Rate for Selected Projects\"",
-      "url": "https://www.iraq-businessnews.com/2026/10/06/iraqi-finance-ministry-sets-new-dinar-rate-for-selected-projects/",
-      "publishedAt": "2026-10-06T00:18:48+00:00",
-      "image": null,
-      "category": "markets",
-      "topics": [
-        "politics"
-      ]
-    },
-    {
-      "id": "e312a8fd22131e7046af",
-      "source": "iq_p3",
-      "title": "Lufthansa Group Returns to Baghdad after 40-Year Absence",
-      "url": "https://www.iraq-businessnews.com/2026/10/06/lufthansa-group-returns-to-baghdad-after-40-year-absence/",
-      "publishedAt": "2026-10-06T00:18:45+00:00",
-      "image": null,
-      "category": "other",
-      "topics": []
-    },
-    {
-      "id": "af426e2226681abbdc9a",
-      "source": "iq_p3",
-      "title": "Iraq and Germany in Talks Over Trade Office Registration",
-      "url": "https://www.iraq-businessnews.com/2026/10/06/iraq-and-germany-in-talks-over-trade-office-registration/",
-      "publishedAt": "2026-10-06T00:18:42+00:00",
-      "image": null,
-      "category": "business",
-      "topics": []
-    },
-    {
       "id": "6e482ae712c680065887",
       "source": "sg_business",
       "title": "Singapore data centre operator DayOne opts for US IPO at likely US$20 billion valuation",
@@ -111200,16 +110373,6 @@
       "topics": []
     },
     {
-      "id": "dfc742f1295f82ad4d45",
-      "source": "qa_p8",
-      "title": "‘This is not the crisis of the Gulf, it is the crisis of the world’: Al Ansari calls for regional dialogue",
-      "url": "https://dohanews.co/this-is-not-the-crisis-of-the-gulf-it-is-the-crisis-of-the-world-al-ansari-calls-for-regional-dialogue/",
-      "publishedAt": "2026-10-05T20:15:34+00:00",
-      "image": null,
-      "category": "world",
-      "topics": []
-    },
-    {
       "id": "ff9c98e2ecfc77377f63",
       "source": "wsj",
       "title": "The U.S. moved a dozen B-1 bomber aircraft from a U.K. military base because of urgent concerns about a potentially complex drone attack ordered by Iran’s IRGC",
@@ -111339,18 +110502,6 @@
       "publishedAt": "2026-10-05T18:22:20+00:00",
       "image": null,
       "category": "world",
-      "topics": [
-        "politics"
-      ]
-    },
-    {
-      "id": "94e8b6553c8c6fc1d88e",
-      "source": "qa_p8",
-      "title": "QCB, Euroclear expand global access to Qatar government bonds",
-      "url": "https://dohanews.co/qcb-euroclear-expand-global-access-to-qatar-government-bonds/",
-      "publishedAt": "2026-10-05T18:21:54+00:00",
-      "image": null,
-      "category": "markets",
       "topics": [
         "politics"
       ]
@@ -111700,16 +110851,6 @@
       "topics": [
         "politics"
       ]
-    },
-    {
-      "id": "c650b77f575c6ac1164b",
-      "source": "qa_p8",
-      "title": "More Qatari LNG cargoes transit Strait of Hormuz despite ongoing risks: Reuters",
-      "url": "https://dohanews.co/more-qatari-lng-cargoes-transit-strait-of-hormuz-despite-ongoing-risks-reuters/",
-      "publishedAt": "2026-10-05T14:53:05+00:00",
-      "image": null,
-      "category": "other",
-      "topics": []
     },
     {
       "id": "dc2494d8af5989fed257",
@@ -113730,26 +112871,6 @@
       "topics": []
     },
     {
-      "id": "a1554837b1b08b254ad6",
-      "source": "iq_p3",
-      "title": "Tabaqchali: \"Market Takes a Breather, While Oil Exports Continue to Recover\"",
-      "url": "https://www.iraq-businessnews.com/2026/10/05/tabaqchali-market-takes-a-breather-while-oil-exports-continue-to-recover/",
-      "publishedAt": "2026-10-05T00:52:36+00:00",
-      "image": null,
-      "category": "markets",
-      "topics": []
-    },
-    {
-      "id": "654eb5ea2f4837ac3fba",
-      "source": "iq_p3",
-      "title": "New CEO at Lafarge Iraq",
-      "url": "https://www.iraq-businessnews.com/2026/10/05/new-ceo-at-lafarge-iraq/",
-      "publishedAt": "2026-10-05T00:51:51+00:00",
-      "image": null,
-      "category": "other",
-      "topics": []
-    },
-    {
       "id": "4220cc7d17fe4030d9e3",
       "source": "uy_diaria",
       "title": "Peñarol le ganó a Racing con gol en la hora de Matías Arezo",
@@ -114592,16 +113713,6 @@
       "topics": []
     },
     {
-      "id": "a7803e8c60825ab34c77",
-      "source": "iq_p3",
-      "title": "Construction Contract for Ali Al-Wardi Residential City",
-      "url": "https://www.iraq-businessnews.com/2026/10/04/construction-contract-for-ali-al-wardi-residential-city/",
-      "publishedAt": "2026-10-04T00:51:35+00:00",
-      "image": null,
-      "category": "other",
-      "topics": []
-    },
-    {
       "id": "f275ab5092fc60e4b25e",
       "source": "fnc",
       "title": "Regulator Eropa Pertanyakan Operasi Binance Tanpa Lisensi MiCA",
@@ -115112,16 +114223,6 @@
       "topics": []
     },
     {
-      "id": "d57c8e558092b1124a7c",
-      "source": "iq_p3",
-      "title": "Iraq Vehicle Sales Outlook Deteriorates",
-      "url": "https://www.iraq-businessnews.com/2026/10/03/iraq-vehicle-sales-outlook-deteriorates/",
-      "publishedAt": "2026-10-03T00:51:35+00:00",
-      "image": null,
-      "category": "markets",
-      "topics": []
-    },
-    {
       "id": "36786aa0ebcaf3fecbc0",
       "source": "pe_idl",
       "title": "El ataque contra Hildebrandt",
@@ -115432,16 +114533,6 @@
       "topics": [
         "politics"
       ]
-    },
-    {
-      "id": "bef61e6314669475adcc",
-      "source": "iq_p3",
-      "title": "CBI Governor Named Deputy Head of Arab Monetary Body",
-      "url": "https://www.iraq-businessnews.com/2026/10/02/cbi-governor-named-deputy-head-of-arab-monetary-body/",
-      "publishedAt": "2026-10-02T14:02:41+00:00",
-      "image": null,
-      "category": "markets",
-      "topics": []
     },
     {
       "id": "bd8e36b2864df5614c36",
@@ -115826,38 +114917,6 @@
       "topics": []
     },
     {
-      "id": "67a6b9be2197a1fddb36",
-      "source": "iq_p3",
-      "title": "Housing Rehabilitation Project in Sinjar District",
-      "url": "https://www.iraq-businessnews.com/2026/10/02/housing-rehabilitation-project-in-sinjar-district/",
-      "publishedAt": "2026-10-02T00:53:21+00:00",
-      "image": null,
-      "category": "other",
-      "topics": []
-    },
-    {
-      "id": "c0eb5d2ba06157e3ad01",
-      "source": "iq_p3",
-      "title": "Iraq \"Caught in Middle as Trump Pursues 'Air Blockade' of Iran\"",
-      "url": "https://www.iraq-businessnews.com/2026/10/02/iraq-caught-in-middle-as-trump-pursues-air-blockade-of-iran/",
-      "publishedAt": "2026-10-02T00:52:19+00:00",
-      "image": null,
-      "category": "legal",
-      "topics": [
-        "politics"
-      ]
-    },
-    {
-      "id": "6431014f6405d0013f8b",
-      "source": "iq_p3",
-      "title": "Iraq Stock Market Report",
-      "url": "https://www.iraq-businessnews.com/2026/10/02/iraq-stock-market-report-571/",
-      "publishedAt": "2026-10-02T00:51:18+00:00",
-      "image": null,
-      "category": "markets",
-      "topics": []
-    },
-    {
       "id": "2f8cdc5fa147b84d0b3a",
       "source": "uy_diaria",
       "title": "Barretto sobre conflicto en TCP: postura del MTSS “fue la adecuada” y permitió alcanzar “una solución que parecía complicada”",
@@ -116143,16 +115202,6 @@
       "publishedAt": "2026-10-01T15:10:12+00:00",
       "image": null,
       "category": "other",
-      "topics": []
-    },
-    {
-      "id": "138eb47c36031469ffc9",
-      "source": "iq_p3",
-      "title": "Top 10 Dinar Articles from September",
-      "url": "https://www.iraq-businessnews.com/2026/10/01/top-10-dinar-articles-from-september-2/",
-      "publishedAt": "2026-10-01T14:50:07+00:00",
-      "image": null,
-      "category": "markets",
       "topics": []
     },
     {

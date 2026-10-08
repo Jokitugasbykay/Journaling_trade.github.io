@@ -124,7 +124,7 @@ class ArticleImage(HTMLParser):
 
 def clean(value):
     text = re.sub(r"<[^>]*>", "", html.unescape(value or ""))
-    text = re.sub(r"[\U0001F000-\U0001FAFF\u2600-\u27BF\u2122\uFE0F\u200D]", "", text)
+    text = re.sub(r"[\U0001F000-\U0001FAFF\u2600-\u27BF\u00A9\u00AE\u2122\uFE0F\u200D]", "", text)
     return " ".join(text.replace("—", "-").replace("–", "-").split())
 
 

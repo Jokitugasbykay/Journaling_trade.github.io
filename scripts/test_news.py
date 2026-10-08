@@ -179,7 +179,7 @@ for code in ("DE","FR","IT","ES","NL","CH","SE","PL","UA"):
 print("Nine new European regions: 72 portal entries and unique collector IDs passed")
 
 for code in ("QA","JO","LB","IQ","KW","OM","BH","IL","IN","CN","PK","BD","TW","SA","AE","TR","IR","LK","ZA","NG","KE","EG","MA","GH","ET","DZ","UG","TZ","TH","PH","VN","JP","KR"):
-    assert len(news.REGIONAL_NEWS_SOURCES[code]) == (10 if code == "CN" else 12 if code == "TW" else 8)
+    assert len(news.REGIONAL_NEWS_SOURCES[code]) == (1 if code == "QA" else 0 if code in ("JO","LB","IQ","KW","OM","BH","IL","SA","AE") else 10 if code == "CN" else 12 if code == "TW" else 8)
 assert len(news.REGIONAL_NEWS_SOURCES["DIRECTORIES"]) == 5
 assert news.REGIONAL_NEWS_SOURCES["TZ"][1]["url"] == "https://dailynews.co.tz"
 assert news.REGIONAL_NEWS_SOURCES["TH"][5]["url"] == "https://www.dailynews.co.th"
@@ -234,3 +234,12 @@ with patch('urllib.request.urlopen', return_value=InterruptedResponse()):
     state, rows = news.collect(biggo)
 assert state['status'] == 'ok' and len(rows) == 1 and rows[0]['url'] == 'https://finance.biggo.com/news/valid'
 print('Interrupted HTML stream retains complete publisher anchors and discards truncated headlines')
+
+assert [row['id'] for code in ('QA','JO','LB','IQ','KW','OM','BH','IL','SA','AE') for row in news.REGIONAL_NEWS_SOURCES[code]] == ['aljazeera']
+import re
+assert not any(re.match(r'^(qa|jo|lb|iq|kw|om|bh|il|sa|ae)_p\d+$', source['id']) for source in news.SOURCES)
+removed_row = {'source':'iq_p3', 'title':'Iraq economic news', 'url':'https://www.iraq-businessnews.com/story', 'topics':[]}
+assert news.merge_items([removed_row], []) == []
+print('Middle East contains only Al Jazeera; deleted sources cannot return during refresh')
+
+assert news.clean('Brand\u00ae and publisher\u00a9') == 'Brand and publisher'
