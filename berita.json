@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "checkedAt": "2026-10-08T06:11:18.154920+00:00",
+  "checkedAt": "2026-10-08T06:14:01.767632+00:00",
   "intervalMinutes": 5,
   "sources": [
     {
@@ -9,7 +9,7 @@
       "url": "https://www.investing.com/",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-08T06:11:12.656654+00:00"
+      "checkedAt": "2026-10-08T06:13:57.739863+00:00"
     },
     {
       "id": "cnbc",
@@ -17,7 +17,7 @@
       "url": "https://www.cnbc.com/markets/",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-08T06:11:12.620268+00:00"
+      "checkedAt": "2026-10-08T06:13:57.549056+00:00"
     },
     {
       "id": "kontan",
@@ -25,7 +25,7 @@
       "url": "https://www.kontan.co.id/",
       "kind": "html",
       "status": "ok",
-      "checkedAt": "2026-10-08T06:11:13.349612+00:00"
+      "checkedAt": "2026-10-08T06:13:58.607240+00:00"
     },
     {
       "id": "reuters",
@@ -33,7 +33,7 @@
       "url": "https://www.reuters.com/",
       "kind": "sitemap",
       "status": "ok",
-      "checkedAt": "2026-10-08T06:11:12.680144+00:00"
+      "checkedAt": "2026-10-08T06:13:57.589009+00:00"
     },
     {
       "id": "aljazeera",
@@ -41,7 +41,7 @@
       "url": "https://www.aljazeera.com/",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-08T06:11:12.615468+00:00"
+      "checkedAt": "2026-10-08T06:13:57.541818+00:00"
     },
     {
       "id": "bloomberg",
@@ -49,7 +49,7 @@
       "url": "https://www.bloomberg.com/asia",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-08T06:11:12.918365+00:00"
+      "checkedAt": "2026-10-08T06:13:57.935210+00:00"
     },
     {
       "id": "fnc",
@@ -57,7 +57,7 @@
       "url": "https://tradewithfnc.com/",
       "kind": "json",
       "status": "ok",
-      "checkedAt": "2026-10-08T06:11:13.664323+00:00"
+      "checkedAt": "2026-10-08T06:13:58.183098+00:00"
     },
     {
       "id": "investing_id",
@@ -65,7 +65,7 @@
       "url": "https://id.investing.com/news",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-08T06:11:12.883225+00:00"
+      "checkedAt": "2026-10-08T06:13:57.791039+00:00"
     },
     {
       "id": "pluang",
@@ -73,7 +73,7 @@
       "url": "https://pluang.com/news-feed",
       "kind": "html",
       "status": "ok",
-      "checkedAt": "2026-10-08T06:11:13.000415+00:00"
+      "checkedAt": "2026-10-08T06:13:57.780720+00:00"
     },
     {
       "id": "kompas",
@@ -81,7 +81,7 @@
       "url": "https://money.kompas.com/",
       "kind": "html",
       "status": "ok",
-      "checkedAt": "2026-10-08T06:11:13.846880+00:00"
+      "checkedAt": "2026-10-08T06:13:57.828535+00:00"
     },
     {
       "id": "detik",
@@ -89,7 +89,7 @@
       "url": "https://finance.detik.com/",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-08T06:11:14.061703+00:00"
+      "checkedAt": "2026-10-08T06:13:59.195219+00:00"
     },
     {
       "id": "kemenkeu",
@@ -121,7 +121,7 @@
       "url": "https://ekbis.sindonews.com/",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-08T06:11:13.210446+00:00"
+      "checkedAt": "2026-10-08T06:13:58.016710+00:00"
     },
     {
       "id": "fedwatch",
@@ -139,6 +139,16 @@
     }
   ],
   "items": [
+    {
+      "id": "1edb223775c814cd6c05",
+      "source": "cnbc",
+      "title": "TSMC's September sales jump more than 50% year over year",
+      "url": "https://www.cnbc.com/2026/10/08/tsmc-september-sales-hit-another-record-as-ai-boom-rolls-on.html",
+      "publishedAt": "2026-10-08T06:12:16+00:00",
+      "image": "https://image.cnbcfm.com/api/v1/image/108373707-1791333068896-gettyimages-2296986094-logos.jpeg?v=1791333111&w=1920&h=1080",
+      "category": "technology",
+      "topics": []
+    },
     {
       "id": "39a8dd6592b2cae9aa3e",
       "source": "kompas",
@@ -287,16 +297,6 @@
       "publishedAt": "2026-10-08T06:02:52.445000+00:00",
       "image": "https://www.reuters.com/resizer/v2/HDCJQPNPSFLUBDCGSI4N2ACMPM.jpg?auth=edd8b7db281df2da76afc3444c459997d23ac81a3836b38913e3500c054b2a81&smart=true&width=1920",
       "category": "world",
-      "topics": []
-    },
-    {
-      "id": "1edb223775c814cd6c05",
-      "source": "cnbc",
-      "title": "TSMC's September sales jump more than 50% year over year",
-      "url": "https://www.cnbc.com/2026/10/08/tsmc-september-sales-hit-another-record-as-ai-boom-rolls-on.html",
-      "publishedAt": "2026-10-08T06:02:48+00:00",
-      "image": "https://image.cnbcfm.com/api/v1/image/108373707-1791333068896-gettyimages-2296986094-logos.jpeg?v=1791333111&w=1920&h=1080",
-      "category": "technology",
       "topics": []
     },
     {
@@ -526,6 +526,16 @@
       "url": "https://money.kompas.com/read/2026/10/08/123554326/laba-samsung-diprediksi-tembus-rp-1400-triliun-pada-kuartal-iii-2026",
       "publishedAt": "2026-10-08T05:35:54+00:00",
       "image": "https://asset.kompas.com/crops/FFMUcFeHsnF_gDzh0_DbWNfaHnc=/228x222:2057x1440/750x500/data/photo/2026/07/08/6a4df43e16f7a.png",
+      "category": "other",
+      "topics": []
+    },
+    {
+      "id": "98f43840118cb3129627",
+      "source": "aljazeera",
+      "title": "Why single Ebola death in Kenya has sparked fears of wider African spread",
+      "url": "https://www.aljazeera.com/news/2026/10/8/why-single-ebola-death-in-kenya-has-sparked-fears-of-wider-african-spread?traffic_source=rss",
+      "publishedAt": "2026-10-08T05:34:34+00:00",
+      "image": "https://www.aljazeera.com/wp-content/uploads/2026/10/afp_6ac66094d7af-1791385748.jpg?resize=1920%2C1440",
       "category": "other",
       "topics": []
     },
@@ -12892,6 +12902,26 @@
       "url": "https://pluang.com/news-feed/magy-eksekusi-buruk-beli-indeks",
       "publishedAt": null,
       "image": "https://image-cdn.pluang.com/web/news-cards/v2/GSS/7bc243a43335f65a4bcac67bca9a2046fb1a2fd0c96156330ffa0db86a5c5c46-id.webp",
+      "category": "other",
+      "topics": []
+    },
+    {
+      "id": "f00293f3fed95f689898",
+      "source": "kontan",
+      "title": "Opsi Moratorium Smelter Nikel Mencuat, Begini Kata Menteri Bahlil",
+      "url": "https://industri.kontan.co.id/news/opsi-moratorium-smelter-nikel-mencuat-begini-kata-menteri-bahlil?source=home_headline",
+      "publishedAt": null,
+      "image": "https://foto.kontan.co.id/-bNGmMPKm9yenUnZGx8dcl3TQuY=/smart/2025/08/07/737618233p.jpg",
+      "category": "other",
+      "topics": []
+    },
+    {
+      "id": "5d424784236cac3d84ec",
+      "source": "kontan",
+      "title": "Opsi Moratorium Smelter Nikel Mencuat, Begini Kata Menteri Bahlil",
+      "url": "https://industri.kontan.co.id/news/opsi-moratorium-smelter-nikel-mencuat-begini-kata-menteri-bahlil?source=home_terbaru",
+      "publishedAt": null,
+      "image": "https://foto.kontan.co.id/1ZGX7nS5zFfI_oGGTWgZn4D_BdE=/smart/2025/08/07/737618233t.jpg",
       "category": "other",
       "topics": []
     }
