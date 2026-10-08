@@ -26,10 +26,10 @@ const set = code => vm.runInContext(code, ctx);
   assert.equal(ctx.isNewsFounder(), false, 'Cached/local founder email granted access');
   assert.equal(ctx.canReadNews(), false);
   ctx.registerRegionalSources(registry);
-  assert.equal(Object.values(registry).flat().length, 200);
+  assert.equal(Object.values(registry).flat().length, 216);
   for (const [country, portals] of Object.entries(registry)) {
-    assert.equal(portals.length, 8);
-    if (['global_founder','DEFAULT'].includes(country)) continue;
+    assert.equal(portals.length, country === 'GLOBAL' ? 16 : 8);
+    if (['global_founder','DEFAULT','GLOBAL'].includes(country)) continue;
     set(`newsCountry = '${country}'`);
     assert.ok(portals.every(portal => ctx.newsSourceInRegion(portal.id)));
     if (['NO','DK','FI','CZ','RO','HU','IE','AT'].includes(country)) assert.equal(ctx.newsSourceInRegion('cnbc'), false);
@@ -39,6 +39,16 @@ const set = code => vm.runInContext(code, ctx);
     vm.runInNewContext(extract('      const newsText =','      function newsMatchesSearch(')+'\nwindow.country = activeNewsRegion();',timezoneContext);
     assert.equal(timezoneContext.window.country,country, 'Timezone fallback: '+zone);
   }
+  for (const country of ['ID','NO','CA','JP','']) {
+    set(`newsCountry = '${country}'`);
+    assert.ok(registry.GLOBAL.every(portal => ctx.newsSourceInRegion(portal.id)), 'Global source locked in '+country);
+    assert.equal(ctx.newsSourceInRegion('mx_reforma'),false, 'Foreign local source leaked');
+  }
+  const dropdown=ctx.newsSourceOptions([...registry.GLOBAL,...registry.NO]);
+  assert.equal((dropdown.match(/<optgroup /g)||[]).length,2);
+  assert.ok(dropdown.includes('label="Global News"'));
+  assert.match(dropdown, /label="Local News[^"]*Norway"/);
+  assert.equal((dropdown.match(/value="ap"/g)||[]).length,1);
   assert.throws(() => ctx.registerRegionalSources({NO:[{id:'no_fake',name:'Fake',url:'https://user@evil.test'}]}));
   set("newsCountry = 'NO'; newsLocationChecked = false");
   ctx.accountAccess = {plan:'plus'};
@@ -104,5 +114,5 @@ const set = code => vm.runInContext(code, ctx);
   assert.equal(nodes.get('news-region').disabled, true);
   nodes.get('news-region').value='global_founder';ctx.changeNewsRegion();
   assert.notEqual(set('activeNewsRegion()'),'global_founder');
-  console.log('200 regional entries, founder persistence, DEFAULT/Tier 1 scopes, regular region lock, verified founder and logout checks passed');
+  console.log('216 regional/global entries, founder persistence, DEFAULT/Tier 1 scopes, regular region lock, verified founder and logout checks passed');
 })().catch(error=>{console.error(error);process.exitCode=1});

@@ -248,5 +248,23 @@
     {"id":"uy_subrayado","name":"Subrayado","url":"https://subrayado.com.uy"},
     {"id":"uy_perspectiva","name":"En Perspectiva","url":"https://enperspectiva.uy"},
     {"id":"uy_publicos","name":"Medios Públicos","url":"https://mediospublicos.uy"}
+  ],
+  "GLOBAL": [
+    {"id":"ap","name":"AP News","url":"https://apnews.com","tag":"Global","region":"Global/US"},
+    {"id":"wsj","name":"The Wall Street Journal","url":"https://www.wsj.com","tag":"Global","region":"Global/US"},
+    {"id":"us_nyt","name":"The New York Times","url":"https://www.nytimes.com","tag":"Global","region":"Global/US"},
+    {"id":"us_washingtonpost","name":"The Washington Post","url":"https://www.washingtonpost.com","tag":"Global","region":"Global/US"},
+    {"id":"us_npr","name":"NPR","url":"https://www.npr.org","tag":"Global","feed":"https://feeds.npr.org/1001/rss.xml","region":"Global/US"},
+    {"id":"bloomberg","name":"Bloomberg","url":"https://www.bloomberg.com","tag":"Global","region":"Global/US"},
+    {"id":"us_cbs","name":"CBS News","url":"https://www.cbsnews.com","tag":"Global","region":"Global/US"},
+    {"id":"us_pbs","url":"https://www.pbs.org/newshour","name":"PBS NewsHour","region":"Global/US","tag":"Global"},
+    {"id":"bbc","name":"BBC News","url":"https://www.bbc.com/news","tag":"Global","region":"Global/UK"},
+    {"id":"guardian","name":"The Guardian","url":"https://www.theguardian.com","tag":"Global","region":"Global/UK"},
+    {"id":"reuters","name":"Reuters","url":"https://www.reuters.com","tag":"Global","region":"Global/UK"},
+    {"id":"ft","name":"Financial Times","url":"https://www.ft.com","tag":"Global","region":"Global/UK"},
+    {"id":"gb_telegraph","name":"The Telegraph","url":"https://www.telegraph.co.uk","tag":"Global","region":"Global/UK"},
+    {"id":"gb_times","name":"The Times UK","url":"https://www.thetimes.com","tag":"Global","region":"Global/UK"},
+    {"id":"gb_sky","name":"Sky News","url":"https://news.sky.com","tag":"Global","feed":"https://feeds.skynews.com/feeds/rss/home.xml","region":"Global/UK"},
+    {"id":"gb_independent","name":"The Independent","url":"https://www.independent.co.uk","tag":"Global","region":"Global/UK"}
   ]
 }

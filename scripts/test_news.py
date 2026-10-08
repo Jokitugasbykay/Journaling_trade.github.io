@@ -167,3 +167,9 @@ for code in ("CA","MX","AR","CO","CL","PE","AU","NZ","CR","UY"):
     assert len(news.REGIONAL_NEWS_SOURCES[code]) == 8
     assert all(row["id"].startswith(code.lower()+"_") for row in news.REGIONAL_NEWS_SOURCES[code])
 print("Americas and Oceania: all 80 official portal mappings passed")
+
+assert len(news.REGIONAL_NEWS_SOURCES["GLOBAL"]) == 16
+assert len({row["id"] for row in news.REGIONAL_NEWS_SOURCES["GLOBAL"]}) == 16
+assert {row["region"] for row in news.REGIONAL_NEWS_SOURCES["GLOBAL"]} == {"Global/US","Global/UK"}
+assert "us_pbs" in {row["id"] for row in news.SOURCES}
+print("Global publisher list and shared-source deduplication passed")
