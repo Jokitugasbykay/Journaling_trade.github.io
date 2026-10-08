@@ -180,10 +180,11 @@ print("Nine new European regions: 72 portal entries and unique collector IDs pas
 
 for code in ("QA","JO","LB","IQ","KW","OM","BH","IL","IN","CN","PK","BD","TW","SA","AE","TR","IR","LK","ZA","NG","KE","EG","MA","GH","ET","DZ","UG","TZ","TH","PH","VN","JP","KR"):
     assert len(news.REGIONAL_NEWS_SOURCES[code]) == (1 if code == "QA" else 0 if code in ("JO","LB","IQ","KW","OM","BH","IL","SA","AE") else 10 if code == "CN" else 12 if code == "TW" else 8)
-assert len(news.REGIONAL_NEWS_SOURCES["DIRECTORIES"]) == 0
+assert "DIRECTORIES" not in news.REGIONAL_NEWS_SOURCES
+assert not any(source['id'].startswith('dir_') for source in news.SOURCES)
 assert news.REGIONAL_NEWS_SOURCES["TZ"][1]["url"] == "https://dailynews.co.tz"
 assert news.REGIONAL_NEWS_SOURCES["TH"][5]["url"] == "https://www.dailynews.co.th"
-print("Middle East, Asia, Africa, ASEAN, directories and corrected publisher domains passed")
+print("Middle East, Asia, Africa, ASEAN, removed directories and corrected publisher domains passed")
 
 atom = f'<feed xmlns="http://www.w3.org/2005/Atom"><entry><title>News from the official publisher</title><link href="https://www.investing.com/news/atom-story"/><published>{now.isoformat()}</published></entry></feed>'
 assert len(news.parse(atom.encode(), source)) == 1

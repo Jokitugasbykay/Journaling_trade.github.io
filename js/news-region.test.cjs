@@ -32,8 +32,8 @@ const set = code => vm.runInContext(code, ctx);
   }
   assert.equal(vm.runInContext('publisherCountries.economic_times', ctx), 'IN');
   for (const [country, portals] of Object.entries(registry)) {
-    assert.equal(portals.length, country === 'QA' ? 1 : ['JO','LB','IQ','KW','OM','BH','IL','SA','AE'].includes(country) ? 0 : country === 'GLOBAL' ? 22 : country === 'DIRECTORIES' ? 0 : country === 'CN' ? 10 : country === 'TW' ? 12 : ['ID','SG'].includes(country) ? 9 : 8);
-    if (['global_founder','DEFAULT','GLOBAL','DIRECTORIES'].includes(country)) continue;
+    assert.equal(portals.length, country === 'QA' ? 1 : ['JO','LB','IQ','KW','OM','BH','IL','SA','AE'].includes(country) ? 0 : country === 'GLOBAL' ? 22 : country === 'CN' ? 10 : country === 'TW' ? 12 : ['ID','SG'].includes(country) ? 9 : 8);
+    if (['global_founder','DEFAULT','GLOBAL'].includes(country)) continue;
     set(`newsCountry = '${country}'`);
     assert.ok(portals.every(portal => ctx.newsSourceInRegion(portal.id)));
     if (['NO','DK','FI','CZ','RO','HU','IE','AT'].includes(country)) assert.equal(ctx.newsSourceInRegion('cnbc'), false);
@@ -82,7 +82,6 @@ const set = code => vm.runInContext(code, ctx);
     set(`newsCountry = '${country}'; newsRegionMode = 'auto'`);
     assert.ok(registry[country].every(portal=>ctx.newsSourceInRegion(portal.id)));
     for (const other of ['IN','CN','TW','SA','AE','ZA','NG']) if (other!==country) assert.ok(registry[other].every(portal=>!ctx.newsSourceInRegion(portal.id)), country+' leaked '+other);
-    assert.ok(registry.DIRECTORIES.every(portal=>ctx.newsSourceInRegion(portal.id)));
   }
   set("newsCountry = 'ID'; newsRegionMode = 'auto'");
   assert.equal(registry.CN.length,10);
@@ -99,7 +98,9 @@ const set = code => vm.runInContext(code, ctx);
     assert.equal(set('activeNewsRegion()')===region,country===region,'Manual '+region+' bypass from '+country);
   }
   set("newsCountry = 'ID'; newsRegionMode = 'auto'");
-  const directoryOptions=ctx.newsSourceOptions([...registry.GLOBAL,...registry.ID,...registry.DIRECTORIES]);
+  assert.ok(!('DIRECTORIES' in registry));
+  assert.throws(()=>ctx.registerRegionalSources({DIRECTORIES:[]}), /Invalid region registry/);
+  const directoryOptions=ctx.newsSourceOptions([...registry.GLOBAL,...registry.ID]);
   assert.ok(!directoryOptions.includes('International Directories'));
   assert.ok(!directoryOptions.includes('dir_worldpress'));
   assert.equal(registry.GLOBAL.find(portal=>portal.id==='us_pbs').feed,'https://www.pbs.org/newshour/feeds/rss/headlines');
@@ -202,5 +203,5 @@ const set = code => vm.runInContext(code, ctx);
   assert.equal(nodes.get('news-region').disabled, true);
   nodes.get('news-region').value='global_founder';ctx.changeNewsRegion();
   assert.notEqual(set('activeNewsRegion()'),'global_founder');
-  console.log('487 regional/global/directory entries, founder persistence, DEFAULT/Tier 1 scopes, regular region lock, verified founder and logout checks passed');
+  console.log('487 regional/global entries, founder persistence, DEFAULT/Tier 1 scopes, regular region lock, verified founder and logout checks passed');
 })().catch(error=>{console.error(error);process.exitCode=1});

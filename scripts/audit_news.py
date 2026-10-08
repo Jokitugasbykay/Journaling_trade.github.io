@@ -145,7 +145,7 @@ def audit(source, discovery):
     feeds = source.get('feeds') or ([{'url': source['feed']}] if source.get('feed') else [])
     endpoints = [feed_result(row['url'], {**source, **{key: value for key, value in row.items() if key != 'url'}}) for row in feeds]
     candidates, evidence = ([], [])
-    if discovery and source['kind'] != 'tool' and source.get('country') != 'DIRECTORIES' and not any(row['status'] == 'working' for row in endpoints):
+    if discovery and source['kind'] != 'tool' and not any(row['status'] == 'working' for row in endpoints):
         candidates, evidence = discover(source, portal, data)
     status = 'working' if any(row['status'] == 'working' for row in endpoints) else 'external' if not feeds else 'blocked' if all(row['status'] == 'blocked' for row in endpoints) else 'no_parsed_headlines' if any(row['status'] == 'no_parsed_headlines' for row in endpoints) else 'unavailable'
     return {'id': source['id'], 'name': source['name'], 'kind': source['kind'], 'country': source.get('country'), 'status': status, 'portal': portal, 'endpoints': endpoints, 'discoveredFeeds': candidates, 'discoveryPages': evidence}
