@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "checkedAt": "2026-10-08T05:36:50.196805+00:00",
+  "checkedAt": "2026-10-08T05:39:13.934214+00:00",
   "intervalMinutes": 5,
   "sources": [
     {
@@ -9,7 +9,7 @@
       "url": "https://www.investing.com/",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-08T05:36:45.415298+00:00"
+      "checkedAt": "2026-10-08T05:39:06.028574+00:00"
     },
     {
       "id": "cnbc",
@@ -17,7 +17,7 @@
       "url": "https://www.cnbc.com/markets/",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-08T05:36:45.389535+00:00"
+      "checkedAt": "2026-10-08T05:39:06.110027+00:00"
     },
     {
       "id": "kontan",
@@ -25,7 +25,7 @@
       "url": "https://www.kontan.co.id/",
       "kind": "html",
       "status": "ok",
-      "checkedAt": "2026-10-08T05:36:46.813818+00:00"
+      "checkedAt": "2026-10-08T05:39:07.341154+00:00"
     },
     {
       "id": "reuters",
@@ -33,7 +33,7 @@
       "url": "https://www.reuters.com/",
       "kind": "sitemap",
       "status": "ok",
-      "checkedAt": "2026-10-08T05:36:45.429319+00:00"
+      "checkedAt": "2026-10-08T05:39:06.212097+00:00"
     },
     {
       "id": "aljazeera",
@@ -41,7 +41,7 @@
       "url": "https://www.aljazeera.com/",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-08T05:36:45.449173+00:00"
+      "checkedAt": "2026-10-08T05:39:06.015107+00:00"
     },
     {
       "id": "bloomberg",
@@ -49,7 +49,7 @@
       "url": "https://www.bloomberg.com/asia",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-08T05:36:45.508640+00:00"
+      "checkedAt": "2026-10-08T05:39:06.229135+00:00"
     },
     {
       "id": "fnc",
@@ -57,7 +57,7 @@
       "url": "https://tradewithfnc.com/",
       "kind": "json",
       "status": "ok",
-      "checkedAt": "2026-10-08T05:36:45.646048+00:00"
+      "checkedAt": "2026-10-08T05:39:06.203737+00:00"
     },
     {
       "id": "investing_id",
@@ -65,7 +65,7 @@
       "url": "https://id.investing.com/news",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-08T05:36:45.648216+00:00"
+      "checkedAt": "2026-10-08T05:39:06.096677+00:00"
     },
     {
       "id": "pluang",
@@ -73,7 +73,7 @@
       "url": "https://pluang.com/news-feed",
       "kind": "html",
       "status": "ok",
-      "checkedAt": "2026-10-08T05:36:46.563160+00:00"
+      "checkedAt": "2026-10-08T05:39:06.225025+00:00"
     },
     {
       "id": "kompas",
@@ -81,7 +81,7 @@
       "url": "https://money.kompas.com/",
       "kind": "html",
       "status": "ok",
-      "checkedAt": "2026-10-08T05:36:45.689734+00:00"
+      "checkedAt": "2026-10-08T05:39:06.831482+00:00"
     },
     {
       "id": "detik",
@@ -89,7 +89,7 @@
       "url": "https://finance.detik.com/",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-08T05:36:47.228989+00:00"
+      "checkedAt": "2026-10-08T05:39:07.846135+00:00"
     },
     {
       "id": "kemenkeu",
@@ -121,7 +121,7 @@
       "url": "https://ekbis.sindonews.com/",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-08T05:36:45.815201+00:00"
+      "checkedAt": "2026-10-08T05:39:06.400833+00:00"
     },
     {
       "id": "fedwatch",
@@ -139,6 +139,26 @@
     }
   ],
   "items": [
+    {
+      "id": "20cf42b189a7d4c90708",
+      "source": "kompas",
+      "title": "4 Saham BUMN Karya Disuspensi BEI",
+      "url": "https://money.kompas.com/read/2026/10/08/123844326/4-saham-bumn-karya-disuspensi-bei",
+      "publishedAt": "2026-10-08T05:38:44+00:00",
+      "image": "https://asset.kompas.com/crops/lpEYqDAPLYGpJYJgTAXlvxmmtOg=/0x0:4500x3000/750x500/data/photo/2019/07/01/4196213879.jpg",
+      "category": "local",
+      "topics": []
+    },
+    {
+      "id": "45383060d59a51184319",
+      "source": "kompas",
+      "title": "Laba Samsung Diprediksi Tembus Rp 1.400 Triliun pada Kuartal III 2026",
+      "url": "https://money.kompas.com/read/2026/10/08/123554326/laba-samsung-diprediksi-tembus-rp-1400-triliun-pada-kuartal-iii-2026",
+      "publishedAt": "2026-10-08T05:35:54+00:00",
+      "image": "https://asset.kompas.com/crops/FFMUcFeHsnF_gDzh0_DbWNfaHnc=/228x222:2057x1440/750x500/data/photo/2026/07/08/6a4df43e16f7a.png",
+      "category": "other",
+      "topics": []
+    },
     {
       "id": "5f88cef99d45287b6e8f",
       "source": "cnbc",
