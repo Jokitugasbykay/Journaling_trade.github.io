@@ -2728,9 +2728,11 @@
         return '<span class="kal-dmp d' + n + '"><i></i><i></i><i></i></span>';
       }
       function kalUrut(a) {
-        return (a || []).slice().sort((x, y) =>
-          x.tgl === y.tgl ? String(x.jam || '').localeCompare(String(y.jam || ''))
-            : String(x.tgl || '').localeCompare(String(y.tgl || '')));
+        const today = kalHariIni();
+        const rank = date => date === today ? 0 : date > today ? 1 : 2;
+        return (a || []).slice().sort((x, y) => rank(x.tgl) - rank(y.tgl) ||
+          (x.tgl === y.tgl ? String(x.jam || '').localeCompare(String(y.jam || '')) :
+            rank(x.tgl) === 2 ? String(y.tgl || '').localeCompare(String(x.tgl || '')) : String(x.tgl || '').localeCompare(String(y.tgl || ''))));
       }
       function kalDmpNorm(v) { return Math.max(1, Math.min(3, +v || 1)); }
 
@@ -2786,7 +2788,7 @@
         return /^[A-Z]{2}$/.test(code) ? '<img class="country-flag" src="https://flagcdn.com/' + code.toLowerCase() + '.svg" alt="" width="20" height="14" loading="lazy" onerror="this.hidden=true">' : '';
       }
       // Full calendar country catalogue from Investing.com; independent of today's releases.
-      const kalCountryCodes = 'ZA AO BW GH KE MW MA MU MZ NA NG CI RW TZ TN UG ZM ZW AL AT NL BE BA BG DK EE FI HU GB IE IS IT DE HR LV LT LU MT ME NO FR PL PT CZ RO RU RS CY SI SK ES SE CH TR UA GR EU US AR BM BR CL EC JM CA KY CO CR MX PY PE UY VE SA BH IQ IL KW LB EG OM QA PS AE JO AU AZ BD CN PH HK IN ID JP KZ KR KG MY MN PK NZ SG LK TW TH UZ VN'.split(' ');
+      const kalCountryCodes = 'ET DZ IR ZA AO BW GH KE MW MA MU MZ NA NG CI RW TZ TN UG ZM ZW AL AT NL BE BA BG DK EE FI HU GB IE IS IT DE HR LV LT LU MT ME NO FR PL PT CZ RO RU RS CY SI SK ES SE CH TR UA GR EU US AR BM BR CL EC JM CA KY CO CR MX PY PE UY VE SA BH IQ IL KW LB EG OM QA PS AE JO AU AZ BD CN PH HK IN ID JP KZ KR KG MY MN PK NZ SG LK TW TH UZ VN'.split(' ');
       function kalAvailableCountries() {
         return [...new Set([...kalCountryCodes, ...(kalCache?.items || []).map(kalCountryCode).filter(code => /^[A-Z]{2}$/.test(code))])];
       }
@@ -3234,14 +3236,25 @@
       const newsText = (id, en) => language === 'en' ? en : id;
       const NEWS_REGIONS = {};
       const GLOBAL_NEWS_SOURCES = [];
+      const GLOBAL_MEDIA_DIRECTORIES = [];
+      const EUROPE_COUNTRY_CODES = ['GB','DE','FR','IT','ES','NL','CH','SE','PL','UA','NO','DK','FI','CZ','RO','HU','IE','AT'];
+      const MIDDLE_EAST_COUNTRY_CODES = ['QA','JO','LB','IQ','KW','OM','BH','IL','SA','AE'];
+      const STRICT_NEWS_COUNTRY_CODES = ['IN','CN','PK','BD','TW','SA','AE','TR','IR','LK','ID','MY','SG','TH','PH','VN','JP','KR','ZA','NG','KE','EG','MA','GH','ET','DZ','UG','TZ'];
       const publisherCountries = {cnbc:'US', ap:'US', wsj:'US', bbc:'GB', guardian:'GB', ft:'GB', dw:'DE', kontan:'ID', fnc:'ID', investing_id:'ID', pluang:'ID', kompas:'ID', detik:'ID', kemenkeu:'ID', cnn_id:'ID', bisnis:'ID', sindo:'ID'};
       const newsTimeZoneCountries = {
         'Europe/Oslo':'NO', 'Europe/Copenhagen':'DK', 'Europe/Helsinki':'FI', 'Europe/Prague':'CZ',
         'Europe/Bucharest':'RO', 'Europe/Budapest':'HU', 'Europe/Dublin':'IE', 'Europe/Vienna':'AT',
+        'Europe/Amsterdam':'NL', 'Europe/Kyiv':'UA', 'Europe/Kiev':'UA', 'Europe/Uzhgorod':'UA', 'Europe/Zaporozhye':'UA',
         'Europe/London':'GB', 'Europe/Berlin':'DE', 'Europe/Paris':'FR', 'Europe/Warsaw':'PL',
         'Europe/Stockholm':'SE', 'Europe/Zurich':'CH', 'Europe/Rome':'IT', 'Europe/Madrid':'ES',
         'Asia/Jakarta':'ID', 'Asia/Makassar':'ID', 'Asia/Jayapura':'ID', 'Asia/Tokyo':'JP',
         'Asia/Singapore':'SG', 'Asia/Kuala_Lumpur':'MY', 'Asia/Shanghai':'CN', 'Asia/Hong_Kong':'HK',
+        'Asia/Qatar':'QA', 'Asia/Amman':'JO', 'Asia/Beirut':'LB', 'Asia/Baghdad':'IQ', 'Asia/Kuwait':'KW',
+        'Asia/Muscat':'OM', 'Asia/Bahrain':'BH', 'Asia/Jerusalem':'IL', 'Asia/Tel_Aviv':'IL', 'Asia/Riyadh':'SA', 'Asia/Dubai':'AE',
+        'Asia/Karachi':'PK', 'Asia/Dhaka':'BD', 'Asia/Taipei':'TW', 'Europe/Istanbul':'TR', 'Asia/Istanbul':'TR', 'Asia/Tehran':'IR',
+        'Asia/Colombo':'LK', 'Asia/Manila':'PH', 'Asia/Ho_Chi_Minh':'VN', 'Asia/Saigon':'VN', 'Asia/Kuching':'MY',
+        'Africa/Johannesburg':'ZA', 'Africa/Lagos':'NG', 'Africa/Nairobi':'KE', 'Africa/Cairo':'EG', 'Africa/Casablanca':'MA',
+        'Africa/Accra':'GH', 'Africa/Addis_Ababa':'ET', 'Africa/Algiers':'DZ', 'Africa/Kampala':'UG', 'Africa/Dar_es_Salaam':'TZ',
         'Asia/Kolkata':'IN', 'Asia/Calcutta':'IN', 'Asia/Seoul':'KR', 'Asia/Bangkok':'TH',
         'America/New_York':'US', 'America/Chicago':'US', 'America/Denver':'US', 'America/Los_Angeles':'US',
         'America/Anchorage':'US', 'America/Phoenix':'US', 'Pacific/Honolulu':'US',
@@ -3262,18 +3275,20 @@
       let newsRegionMode = 'auto';
       try {
         const saved = JSON.parse(localStorage.getItem(newsRegionKey) || 'null');
-        if (saved && ['auto','manual'].includes(saved.mode) && (kalCountryCodes.includes(saved.region) || ['DEFAULT','global_founder','ASIA',''].includes(saved.region))) {
+        if (saved && ['auto','manual'].includes(saved.mode) && (kalCountryCodes.includes(saved.region) || ['DEFAULT','global_founder','ASIA','EUROPE','MIDDLE_EAST',''].includes(saved.region))) {
           newsRegion = saved.region; newsRegionMode = saved.mode;
-          if (saved.mode === 'auto' && kalCountryCodes.includes(saved.region) && !newsCountry) { newsCountry = saved.region; newsLocationMethod = 'saved'; }
+          const detected = saved.detectedCountry || (saved.mode === 'auto' ? saved.region : '');
+          if (kalCountryCodes.includes(detected) && !newsCountry) { newsCountry = detected; newsLocationMethod = 'saved'; }
         }
       } catch {}
       function saveNewsRegionPreference() {
-        try { localStorage.setItem(newsRegionKey, JSON.stringify({region:!isNewsFounder() || newsRegionMode === 'auto' ? newsCountry || 'DEFAULT' : newsRegion, mode:isNewsFounder() ? newsRegionMode : 'auto'})); } catch {}
+        const manual = newsRegionMode === 'manual' && (isNewsFounder() || (hasUnlockedNewsAccess() && (newsRegion === unlockedNewsRegion() || unlockedNewsCountries().includes(newsRegion))));
+        try { localStorage.setItem(newsRegionKey, JSON.stringify({region:manual ? newsRegion : newsCountry || 'DEFAULT', mode:manual ? 'manual' : 'auto', detectedCountry:newsCountry})); } catch {}
       }
       let regionalSourcesPromise = null;
       function registerRegionalSources(data) {
         for (const [country, portals] of Object.entries(data)) {
-          if ((!kalCountryCodes.includes(country) && !['DEFAULT','global_founder','GLOBAL'].includes(country)) || !Array.isArray(portals)) throw new Error('Invalid region registry');
+          if ((!kalCountryCodes.includes(country) && !['DEFAULT','global_founder','GLOBAL','DIRECTORIES'].includes(country)) || !Array.isArray(portals)) throw new Error('Invalid region registry');
           for (const portal of portals) {
             const url = new URL(portal.url);
             const domains = [].concat(publisherDomains[portal.id] || []);
@@ -3289,6 +3304,7 @@
         }
         NEWS_REGIONS.UK = NEWS_REGIONS.GB;
         GLOBAL_NEWS_SOURCES.splice(0, GLOBAL_NEWS_SOURCES.length, ...(NEWS_REGIONS.GLOBAL || []));
+        GLOBAL_MEDIA_DIRECTORIES.splice(0, GLOBAL_MEDIA_DIRECTORIES.length, ...(NEWS_REGIONS.DIRECTORIES || []));
       }
       async function loadRegionalSources() {
         if (!regionalSourcesPromise) regionalSourcesPromise = (async () => {
@@ -3298,21 +3314,36 @@
         })().catch(error => { regionalSourcesPromise = null; throw error; });
         return regionalSourcesPromise;
       }
+      function hasEuropeNewsAccess() { return isNewsFounder() || EUROPE_COUNTRY_CODES.includes(newsCountry); }
+      function hasMiddleEastNewsAccess() { return isNewsFounder() || MIDDLE_EAST_COUNTRY_CODES.includes(newsCountry); }
+      function unlockedNewsCountries() { return EUROPE_COUNTRY_CODES.includes(newsCountry) ? EUROPE_COUNTRY_CODES : MIDDLE_EAST_COUNTRY_CODES.includes(newsCountry) ? MIDDLE_EAST_COUNTRY_CODES : []; }
+      function unlockedNewsRegion() { return EUROPE_COUNTRY_CODES.includes(newsCountry) ? 'EUROPE' : MIDDLE_EAST_COUNTRY_CODES.includes(newsCountry) ? 'MIDDLE_EAST' : ''; }
+      function hasUnlockedNewsAccess() { return isNewsFounder() || !!unlockedNewsRegion(); }
+      function isMiddleEastNewsSource(sourceId) { return MIDDLE_EAST_COUNTRY_CODES.includes(publisherCountries[sourceId]); }
+      function isEuropeNewsSource(sourceId) { return EUROPE_COUNTRY_CODES.includes(publisherCountries[sourceId]); }
       function newsSourceInRegion(sourceId) {
-        if (GLOBAL_NEWS_SOURCES.some(portal => portal.id === sourceId)) return true;
+        if ([...GLOBAL_NEWS_SOURCES, ...GLOBAL_MEDIA_DIRECTORIES].some(portal => portal.id === sourceId)) return true;
         const region = activeNewsRegion();
+        const country = publisherCountries[sourceId];
+        if (!isNewsFounder() && STRICT_NEWS_COUNTRY_CODES.includes(country)) return country === newsCountry;
         if (isNewsFounder() && !region) return true;
-        if (region === 'ASIA' && isNewsFounder()) return ['ID','MY','SG'].some(code => NEWS_REGIONS[code]?.some(portal => portal.id === sourceId) || publisherCountries[sourceId] === code);
+        if (region === 'EUROPE' || ($('news-source')?.value === 'EUROPE' && hasEuropeNewsAccess())) return isEuropeNewsSource(sourceId);
+        if (region === 'MIDDLE_EAST' || ($('news-source')?.value === 'MIDDLE_EAST' && hasMiddleEastNewsAccess())) return isMiddleEastNewsSource(sourceId);
+        if ((!hasEuropeNewsAccess() && isEuropeNewsSource(sourceId)) || (!hasMiddleEastNewsAccess() && isMiddleEastNewsSource(sourceId))) return false;
+        if (region === 'ASIA' && isNewsFounder()) return ['ID','MY','SG','TH','PH','VN','JP','KR','IN','CN','PK','BD','TW','TR','IR','LK',...MIDDLE_EAST_COUNTRY_CODES].some(code => NEWS_REGIONS[code]?.some(portal => portal.id === sourceId) || publisherCountries[sourceId] === code);
         const list = NEWS_REGIONS[region] || NEWS_REGIONS.DEFAULT || [];
         return list.some(portal => portal.id === sourceId) || (kalCountryCodes.includes(region) && !!NEWS_REGIONS[region] && publisherCountries[sourceId] === region);
       }
       function activeNewsRegion() {
-        if (newsRegionMode === 'manual' && isNewsFounder()) return newsRegion;
-        return isNewsFounder() ? 'global_founder' : newsCountry || 'DEFAULT';
+        if (newsRegionMode === 'manual' && (isNewsFounder() || (hasUnlockedNewsAccess() && (newsRegion === unlockedNewsRegion() || unlockedNewsCountries().includes(newsRegion))))) return newsRegion;
+        return isNewsFounder() ? '' : unlockedNewsRegion() || newsCountry || 'DEFAULT';
+      }
+      function newsSourceMatchesSelection(sourceId, selected) {
+        return !selected || (selected === 'EUROPE' ? hasEuropeNewsAccess() && isEuropeNewsSource(sourceId) : selected === 'MIDDLE_EAST' ? hasMiddleEastNewsAccess() && isMiddleEastNewsSource(sourceId) : sourceId === selected);
       }
       function defaultCalendarRegion() {
         try {
-          const country = activeNewsRegion();
+          const country = newsCountry;
           if (!isNewsFounder() && kalCountryCodes.includes(country) && localStorage.getItem(kalCountriesKey) === null) {
             // Do not persist automatic defaults; a later IP result can refine the timezone estimate.
             kalCountries = [country];
@@ -3336,17 +3367,17 @@
         $('news-founder-badge').hidden = !founder;
         $('news-region-label').textContent = newsText('Region berita','News region');
         const names = new Intl.DisplayNames([language === 'en' ? 'en' : 'id'], {type:'region'});
-        const name = code => code === 'DEFAULT' ? newsText('Global / Default','Global / Default') : code === 'global_founder' ? 'Global / Tier 1' : code === 'ASIA' ? newsText('Asia','Asia') : code ? names.of(code) + ' (' + code + ')' : newsText('Semua region','All regions');
-        const regions = founder ? ['global_founder','','ASIA','DEFAULT', ...kalCountryCodes] : [activeNewsRegion()];
+        const name = code => code === 'DEFAULT' ? newsText('Global / Default','Global / Default') : code === 'global_founder' ? 'Global / Tier 1' : code === 'MIDDLE_EAST' ? newsText('Semua Timur Tengah','All Middle East') : code === 'EUROPE' ? newsText('Semua Eropa','All Europe') : code === 'ASIA' ? newsText('Asia','Asia') : code ? names.of(code) + ' (' + code + ')' : newsText('Semua region','All regions');
+        const regions = founder ? ['global_founder','','EUROPE','MIDDLE_EAST','ASIA','DEFAULT', ...kalCountryCodes] : hasUnlockedNewsAccess() ? [unlockedNewsRegion(), ...unlockedNewsCountries()] : [activeNewsRegion()];
         select.innerHTML = '<option value="AUTO">' + newsText('Deteksi otomatis','Detect automatically') + '</option>' + regions.map(code => '<option value="' + esc(code) + '">' + esc(name(code)) + '</option>').join('');
         const region = activeNewsRegion();
-        const manual = founder && newsRegionMode === 'manual' && region === newsRegion;
+        const manual = hasUnlockedNewsAccess() && newsRegionMode === 'manual' && region === newsRegion;
         select.value = region;
-        select.disabled = !founder;
+        select.disabled = !hasUnlockedNewsAccess();
         $('news-region-flag').innerHTML = /^[A-Z]{2}$/.test(select.value) ? kalCountryFlag(select.value) : '';
-        $('news-region-indicator').textContent = 'Region: ' + (region === 'global_founder' ? 'Global / Tier 1' : region === 'DEFAULT' ? 'Global / Default' : region || newsText('Semua','All')) + ' (' + (manual ? newsText('Manual','Manual') : newsText('Otomatis','Automatic')) + ')';
-        $('news-region-status').textContent = manual ? newsText('Pilihan manual tersimpan di browser ini.','Manual selection saved in this browser.') : founder ? newsText('Kurasi Global / Tier 1. Anda bebas memilih region lain.','Global / Tier 1 curation. You can select any other region.') : newsLocationPending ? newsText('Memeriksa negara melalui IP…','Checking country using IP…') : newsLocationMethod === 'ip' ? newsText('Sumber lokal sesuai negara IP Anda; Berita Global selalu tersedia.','Local sources follow your IP country; Global News is always available.') : newsLocationMethod === 'saved' ? newsText('Region tersimpan; lokasi saat ini belum dapat diverifikasi.','Saved region; current location could not be verified.') : newsCountry ? newsText('Perkiraan negara dari zona waktu perangkat; geolokasi IP tidak tersedia.','Country estimated from your device timezone; IP geolocation unavailable.') : newsText('Lokasi tidak terdeteksi; menampilkan sumber global.','Location unavailable; showing global sources.');
-        if (region && !NEWS_REGIONS[region] && region !== 'ASIA') $('news-region-status').textContent += newsText(' Negara ini memakai kurasi Global / Default.',' This country uses Global / Default curation.');
+        $('news-region-indicator').textContent = founder ? newsText('Mode: Founder','Mode: Founder') : hasEuropeNewsAccess() ? newsText('Region: Eropa (All Unlocked)','Region: Europe (All Unlocked)') : hasMiddleEastNewsAccess() ? newsText('Region: Timur Tengah (Unlocked)','Region: Middle East (Unlocked)') : 'Region: ' + (region === 'global_founder' ? 'Global / Tier 1' : region === 'DEFAULT' ? 'Global / Default' : region || newsText('Semua','All')) + ' (' + (manual ? newsText('Manual','Manual') : newsText('Otomatis','Automatic')) + ')';
+        $('news-region-status').textContent = manual ? newsText('Pilihan manual tersimpan di browser ini.','Manual selection saved in this browser.') : founder ? newsText('Anda bebas memilih semua negara dan benua.','You can select all countries and continents.') : newsLocationPending ? newsText('Memeriksa negara melalui IP…','Checking country using IP…') : hasEuropeNewsAccess() ? newsText('Seluruh sumber Eropa dan Berita Global tersedia.','All European sources and Global News are available.') : hasMiddleEastNewsAccess() ? newsText('Sumber kawasan Timur Tengah dan Berita Global tersedia.','Regional Middle East sources and Global News are available.') : newsLocationMethod === 'ip' ? newsText('Sumber lokal sesuai negara IP Anda; Berita Global selalu tersedia.','Local sources follow your IP country; Global News is always available.') : newsLocationMethod === 'saved' ? newsText('Region tersimpan; lokasi saat ini belum dapat diverifikasi.','Saved region; current location could not be verified.') : newsCountry ? newsText('Perkiraan negara dari zona waktu perangkat; geolokasi IP tidak tersedia.','Country estimated from your device timezone; IP geolocation unavailable.') : newsText('Lokasi tidak terdeteksi; menampilkan sumber global.','Location unavailable; showing global sources.');
+        if (region && !NEWS_REGIONS[region] && !['ASIA','EUROPE','MIDDLE_EAST'].includes(region)) $('news-region-status').textContent += newsText(' Negara ini memakai kurasi Global / Default.',' This country uses Global / Default curation.');
       }
       async function detectNewsRegion() {
         if (isNewsFounder() || newsLocationChecked || newsLocationPending || !canReadNews()) return;
@@ -3366,11 +3397,11 @@
         }
       }
       window.changeNewsRegion = function () {
-        if (!isNewsFounder()) { renderNewsRegionControls(); return; }
+        if (!hasUnlockedNewsAccess()) { renderNewsRegionControls(); return; }
         const value = $('news-region').value;
         if (value === 'AUTO') { newsRegionMode = 'auto'; newsLocationChecked = false; }
         else {
-          if (!kalCountryCodes.includes(value) && value !== 'DEFAULT' && !(isNewsFounder() && ['global_founder','ASIA',''].includes(value))) { renderNewsRegionControls(); return; }
+          if (isNewsFounder() ? !kalCountryCodes.includes(value) && !['DEFAULT','global_founder','ASIA','EUROPE','MIDDLE_EAST',''].includes(value) : value !== unlockedNewsRegion() && !unlockedNewsCountries().includes(value)) { renderNewsRegionControls(); return; }
           newsRegion = value; newsRegionMode = 'manual';
         }
         saveNewsRegionPreference(); defaultCalendarRegion();
@@ -3380,14 +3411,15 @@
       function newsSourceOptions(sources) {
         const globalIds = new Set(GLOBAL_NEWS_SOURCES.map(portal => portal.id));
         const names = new Intl.DisplayNames([language === 'en' ? 'en' : 'id'], {type:'region'});
-        const groups = new Map([[newsText('Berita Global','Global News'), []]]);
+        const directoryIds = new Set(GLOBAL_MEDIA_DIRECTORIES.map(portal => portal.id));
+        const groups = new Map([[newsText('Global Sources / Direktori Internasional','Global Sources / International Directories'), []], [newsText('Berita Global','Global News'), []]]);
         for (const source of sources) {
           const country = publisherCountries[source.id];
-          const label = globalIds.has(source.id) ? newsText('Berita Global','Global News') : newsText('Berita Lokal','Local News') + ' — ' + (country ? names.of(country) : newsText('Sumber lainnya','Other sources'));
+          const label = directoryIds.has(source.id) ? newsText('Global Sources / Direktori Internasional','Global Sources / International Directories') : isMiddleEastNewsSource(source.id) ? newsText('Timur Tengah','Middle East') : globalIds.has(source.id) ? newsText('Berita Global','Global News') : newsText('Berita Lokal','Local News') + ' — ' + (country ? names.of(country) : newsText('Sumber lainnya','Other sources'));
           if (!groups.has(label)) groups.set(label, []);
           groups.get(label).push(source);
         }
-        return '<option value="">' + newsText('Semua sumber','All sources') + '</option>' + [...groups].filter(([,rows]) => rows.length).map(([label, rows]) => '<optgroup label="' + esc(label) + '">' + rows.map(source => '<option value="' + esc(source.id) + '">' + esc(source.name + (source.tag ? ' · ' + source.tag : '')) + '</option>').join('') + '</optgroup>').join('');
+        return '<option value="">' + newsText('Semua sumber','All sources') + '</option>' + (hasEuropeNewsAccess() ? '<option value="EUROPE">' + newsText('Semua Eropa','All Europe') + '</option>' : '') + (hasMiddleEastNewsAccess() ? '<option value="MIDDLE_EAST">' + newsText('Semua Timur Tengah','All Middle East') + '</option>' : '') + [...groups].filter(([,rows]) => rows.length).map(([label, rows]) => '<optgroup label="' + esc(label) + '">' + rows.map(source => '<option value="' + esc(source.id) + '">' + esc(source.name + (source.tag ? ' · ' + source.tag : '')) + '</option>').join('') + '</optgroup>').join('');
       }
       function newsMatchesSearch(item, sourceName, query) {
         const normalize = value => String(value || '').normalize('NFKD').replace(/\p{M}/gu, '').toLowerCase();
@@ -3441,12 +3473,12 @@
         const aged = Date.now() - new Date(publisherNews.checkedAt).getTime() > 90 * 60000;
         status.textContent = (publisherNewsFailed ? newsText('Pembaruan gagal; menampilkan data tersimpan. ', 'Refresh failed; showing the saved feed. ') : '') + (aged ? newsText('Data belum diperbarui. ', 'The feed has not been updated recently. ') : '') + newsText('Terakhir diperiksa: ', 'Last checked: ') + (checked || newsText('Tidak tersedia', 'Unavailable'));
         const select = $('news-source');
-        const curated = new Map([...(NEWS_REGIONS[activeNewsRegion()] || NEWS_REGIONS.DEFAULT || []), ...GLOBAL_NEWS_SOURCES].map(portal => [portal.id, portal]));
+        const curated = new Map([...(NEWS_REGIONS[activeNewsRegion()] || NEWS_REGIONS.DEFAULT || []), ...GLOBAL_NEWS_SOURCES, ...GLOBAL_MEDIA_DIRECTORIES].map(portal => [portal.id, portal]));
         const availableSources = publisherNews.sources.filter(source => source.kind !== 'tool' && newsSourceInRegion(source.id)).map(source => {
           const portal = curated.get(source.id);
           return portal ? {...source, name:portal.name, url:portal.url, tag:portal.tag} : source;
         });
-        const selected = availableSources.some(source => source.id === select.value) ? select.value : '';
+        const selected = (select.value === 'EUROPE' && hasEuropeNewsAccess()) || (select.value === 'MIDDLE_EAST' && hasMiddleEastNewsAccess()) || availableSources.some(source => source.id === select.value) ? select.value : '';
         if (selected !== newsSelectedSource) { newsVisibleCount = 12; newsSelectedSource = selected; }
         select.innerHTML = newsSourceOptions(availableSources);
         select.value = selected;
@@ -3457,7 +3489,7 @@
           return '<a href="' + esc(url) + '" target="_blank" rel="noopener noreferrer">' + esc(source.name) + '<small>' + esc(state) + '</small></a>';
         }).join('');
         const sources = new Map(availableSources.map(source => [source.id, source]));
-        const rows = publisherNews.items.filter(item => sources.has(item.source) && (!selected || item.source === selected) && (!newsCategory || ((item.category || 'other') === newsCategory || item.topics?.includes(newsCategory))) && newsMatchesSearch(item, sources.get(item.source)?.name, newsQuery));
+        const rows = publisherNews.items.filter(item => sources.has(item.source) && newsSourceMatchesSelection(item.source, selected) && (!newsCategory || ((item.category || 'other') === newsCategory || item.topics?.includes(newsCategory))) && newsMatchesSearch(item, sources.get(item.source)?.name, newsQuery));
         const portal = sources.get(selected);
         const portalLink = $('news-publisher-link');
         portalLink.hidden = !portal;

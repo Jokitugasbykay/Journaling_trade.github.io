@@ -7,7 +7,7 @@ const storage = new Map();
 const ctx = {
   cloudUser:{id:'a', email:'kaylafisika24@gmail.com'}, cloudReady:true, nicknameReady:true, accountAccess:{plan:'free'},
   publisherDomains:{reuters:'reuters.com'}, newsSelectedSource:'', newsVisibleCount:12,
-  kalCountryCodes:'US GB ID DE NO DK FI CZ RO HU IE AT JP CN HK IN SG MY KR TH CA MX AR CO CL PE AU NZ CR UY'.split(' '), kalCountries:['US'], kalCountriesKey:'countries',
+  kalCountryCodes:'US GB ID DE NO DK FI CZ RO HU IE AT JP CN HK IN SG MY KR TH QA JO LB IQ KW OM BH IL SA AE PK BD TW TR IR LK ZA NG KE EG MA GH ET DZ UG TZ PH VN FR IT ES NL CH SE PL UA CA MX AR CO CL PE AU NZ CR UY'.split(' '), kalCountries:['US'], kalCountriesKey:'countries',
   URL, Intl, AbortSignal, console, language:'en',
   esc:String, kalCountryFlag:code => code, renderEconomicCalendar() {}, updateAccess() {}, renderPublisherNews() {},
   localStorage:{getItem:key=>storage.get(key) ?? null, setItem:(key,value)=>storage.set(key,value)},
@@ -26,10 +26,10 @@ const set = code => vm.runInContext(code, ctx);
   assert.equal(ctx.isNewsFounder(), false, 'Cached/local founder email granted access');
   assert.equal(ctx.canReadNews(), false);
   ctx.registerRegionalSources(registry);
-  assert.equal(Object.values(registry).flat().length, 216);
+  assert.equal(Object.values(registry).flat().length, 559);
   for (const [country, portals] of Object.entries(registry)) {
-    assert.equal(portals.length, country === 'GLOBAL' ? 16 : 8);
-    if (['global_founder','DEFAULT','GLOBAL'].includes(country)) continue;
+    assert.equal(portals.length, country === 'GLOBAL' ? 16 : country === 'DIRECTORIES' ? 5 : ['ID','SG'].includes(country) ? 9 : 8);
+    if (['global_founder','DEFAULT','GLOBAL','DIRECTORIES'].includes(country)) continue;
     set(`newsCountry = '${country}'`);
     assert.ok(portals.every(portal => ctx.newsSourceInRegion(portal.id)));
     if (['NO','DK','FI','CZ','RO','HU','IE','AT'].includes(country)) assert.equal(ctx.newsSourceInRegion('cnbc'), false);
@@ -44,6 +44,44 @@ const set = code => vm.runInContext(code, ctx);
     assert.ok(registry.GLOBAL.every(portal => ctx.newsSourceInRegion(portal.id)), 'Global source locked in '+country);
     assert.equal(ctx.newsSourceInRegion('mx_reforma'),false, 'Foreign local source leaked');
   }
+  for (const country of ['GB','DE','FR','IT','ES','NL','CH','SE','PL','UA','NO','DK','FI','CZ','RO','HU','IE','AT']) {
+    set(`newsCountry = '${country}'; newsRegionMode = 'auto'`);
+    assert.equal(set('activeNewsRegion()'),'EUROPE');
+    for (const region of ['GB','DE','FR','IT','ES','NL','CH','SE','PL','UA','NO','DK','FI','CZ','RO','HU','IE','AT']) assert.ok(registry[region].every(portal=>ctx.newsSourceInRegion(portal.id)), country+' cannot access '+region);
+    assert.equal(ctx.newsSourceInRegion('ca_cbc'),false);
+  }
+  ctx.renderNewsRegionControls(); assert.equal(nodes.get('news-region').disabled,false);
+  nodes.get('news-region').value='FR';ctx.changeNewsRegion();
+  assert.equal(set('activeNewsRegion()'),'FR');
+  assert.equal(ctx.newsSourceInRegion('fr_1'),true);assert.equal(ctx.newsSourceInRegion('no_nrk'),false);
+  nodes.get('news-source').value='EUROPE';
+  assert.equal(ctx.newsSourceInRegion('no_nrk'),true);
+  assert.equal(ctx.newsSourceMatchesSelection('bbc','EUROPE'),true);
+  assert.equal(ctx.newsSourceMatchesSelection('us_npr','EUROPE'),false);
+  assert.equal(ctx.newsSourceMatchesSelection('ca_cbc','EUROPE'),false);
+  nodes.get('news-source').value='';
+  nodes.get('news-region').value='CA';ctx.changeNewsRegion();assert.equal(set('activeNewsRegion()'),'FR');
+  set("newsCountry = 'ID'; newsRegionMode = 'auto'");
+  assert.equal(ctx.newsSourceInRegion('fr_1'),false);
+  for (const country of ['QA','JO','LB','IQ','KW','OM','BH','IL','SA','AE']) {
+    set(`newsCountry = '${country}'; newsRegionMode = 'auto'`);
+    assert.equal(set('activeNewsRegion()'),'MIDDLE_EAST');
+    for (const region of ['QA','JO','LB','IQ','KW','OM','BH','IL']) assert.ok(registry[region].every(portal=>ctx.newsSourceInRegion(portal.id)));
+    assert.equal(ctx.newsSourceInRegion('sa_p1'),country==='SA');
+    assert.equal(ctx.newsSourceInRegion('ae_p1'),country==='AE');
+    assert.equal(ctx.newsSourceInRegion('de_2'),false);
+  }
+  ctx.renderNewsRegionControls();nodes.get('news-region').value='JO';ctx.changeNewsRegion();assert.equal(set('activeNewsRegion()'),'JO');
+  for (const country of ['IN','CN','PK','BD','TW','SA','AE','TR','IR','LK','ID','MY','SG','TH','PH','VN','JP','KR','ZA','NG','KE','EG','MA','GH','ET','DZ','UG','TZ']) {
+    set(`newsCountry = '${country}'; newsRegionMode = 'auto'`);
+    assert.ok(registry[country].every(portal=>ctx.newsSourceInRegion(portal.id)));
+    for (const other of ['IN','CN','SA','AE','ZA','NG']) if (other!==country) assert.ok(registry[other].every(portal=>!ctx.newsSourceInRegion(portal.id)), country+' leaked '+other);
+    assert.ok(registry.DIRECTORIES.every(portal=>ctx.newsSourceInRegion(portal.id)));
+  }
+  set("newsCountry = 'ID'; newsRegionMode = 'auto'");
+  const directoryOptions=ctx.newsSourceOptions([...registry.GLOBAL,...registry.ID,...registry.DIRECTORIES]);
+  assert.ok(directoryOptions.indexOf('International Directories') < directoryOptions.indexOf('label="Global News"'));
+  assert.equal(ctx.newsSourceInRegion('aljazeera'),false);
   const dropdown=ctx.newsSourceOptions([...registry.GLOBAL,...registry.NO]);
   assert.equal((dropdown.match(/<optgroup /g)||[]).length,2);
   assert.ok(dropdown.includes('label="Global News"'));
@@ -62,7 +100,8 @@ const set = code => vm.runInContext(code, ctx);
   set('newsLocationChecked = false'); ctx.fetch = async()=>{throw Error('offline')};
   await ctx.detectNewsRegion(); assert.equal(set('newsCountry'), 'NO');
   set("newsCountry = 'JP'");
-  assert.ok(registry.DEFAULT.every(portal=>ctx.newsSourceInRegion(portal.id)), 'Unconfigured country did not fall back to DEFAULT');
+  assert.ok(registry.DEFAULT.filter(portal=>!['dw','france24','aljazeera'].includes(portal.id)).every(portal=>ctx.newsSourceInRegion(portal.id)), 'Unconfigured country did not fall back to DEFAULT');
+  assert.equal(ctx.newsSourceInRegion('dw'),false); assert.equal(ctx.newsSourceInRegion('france24'),false);
   assert.equal(ctx.newsSourceInRegion('no_nrk'),false);
   nodes.get('news-region').value='SG'; ctx.changeNewsRegion();
   assert.equal(set('activeNewsRegion()'),'JP', 'Regular user bypassed detected region');
@@ -80,9 +119,9 @@ const set = code => vm.runInContext(code, ctx);
   await ctx.verifyNewsIdentity('a'); assert.equal(ctx.isNewsFounder(), true); assert.equal(ctx.canReadNews(), true);
   assert.equal(nodes.get('news-founder-badge').hidden, false);
   assert.equal(nodes.get('news-region').disabled, false);
-  assert.equal(set('activeNewsRegion()'),'global_founder');
+  assert.equal(set('activeNewsRegion()'),'');
   assert.ok(registry.global_founder.every(portal => ctx.newsSourceInRegion(portal.id)));
-  assert.equal(ctx.newsSourceInRegion('no_nrk'),false);
+  assert.equal(ctx.newsSourceInRegion('no_nrk'),true);
   set("newsRegionMode = 'manual'; newsRegion = ''");
   assert.ok(Object.values(registry).flat().every(portal => ctx.newsSourceInRegion(portal.id)));
   for (const country of ['CA','MX','AR','CO','CL','PE','AU','NZ','CR','UY']) {
@@ -114,5 +153,5 @@ const set = code => vm.runInContext(code, ctx);
   assert.equal(nodes.get('news-region').disabled, true);
   nodes.get('news-region').value='global_founder';ctx.changeNewsRegion();
   assert.notEqual(set('activeNewsRegion()'),'global_founder');
-  console.log('216 regional/global entries, founder persistence, DEFAULT/Tier 1 scopes, regular region lock, verified founder and logout checks passed');
+  console.log('559 regional/global/directory entries, founder persistence, DEFAULT/Tier 1 scopes, regular region lock, verified founder and logout checks passed');
 })().catch(error=>{console.error(error);process.exitCode=1});

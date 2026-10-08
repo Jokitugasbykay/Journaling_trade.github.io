@@ -17,7 +17,8 @@
     {"id":"kompas","name":"Kompas","url":"https://www.kompas.com","tag":"Umum"},
     {"id":"id_jakartapost","name":"The Jakarta Post","url":"https://www.thejakartapost.com","tag":"Nasional"},
     {"id":"id_tempo","name":"Koran Tempo","url":"https://koran.tempo.co","tag":"Investigasi"},
-    {"id":"id_tirto","name":"Tirto","url":"https://tirto.id","tag":"Analisis"}
+    {"id":"id_tirto","name":"Tirto","url":"https://tirto.id","tag":"Analisis"},
+    {"id":"id_p6","name":"Republika","url":"https://republika.co.id"}
   ],
   "US": [
     {"id":"ap","name":"AP News","url":"https://apnews.com","tag":"General"},
@@ -51,13 +52,14 @@
   ],
   "SG": [
     {"id":"sg_straits","name":"The Straits Times","url":"https://www.straitstimes.com","tag":"National"},
-    {"id":"sg_cna","name":"CNA (Channel NewsAsia)","url":"https://www.channelnewsasia.com","tag":"Regional","feed":"https://www.channelnewsasia.com/api/v1/rss-outbound-feed?_format=xml"},
+    {"id":"sg_cna","name":"CNA","url":"https://www.channelnewsasia.com","tag":"Regional","feed":"https://www.channelnewsasia.com/api/v1/rss-outbound-feed?_format=xml"},
     {"id":"sg_business","name":"The Business Times","url":"https://www.businesstimes.com.sg","tag":"Finance"},
     {"id":"sg_today","name":"Today Online","url":"https://www.todayonline.com","tag":"National"},
     {"id":"sg_zaobao","name":"Lianhe Zaobao","url":"https://www.zaobao.com.sg","tag":"Chinese"},
     {"id":"sg_bharian","name":"Berita Harian SG","url":"https://www.beritaharian.sg","tag":"Malay"},
     {"id":"sg_mothership","name":"Mothership","url":"https://mothership.sg","tag":"Digital"},
-    {"id":"sg_edge","name":"The Edge Singapore","url":"https://theedgesingapore.com","tag":"Markets"}
+    {"id":"sg_edge","name":"The Edge Singapore","url":"https://theedgesingapore.com","tag":"Markets"},
+    {"id":"sg_p7","name":"Tamil Murasu","url":"https://tamilmurasu.com.sg"}
   ],
   "DEFAULT": [
     {"id":"reuters","name":"Reuters","url":"https://www.reuters.com","tag":"Global"},
@@ -266,5 +268,432 @@
     {"id":"gb_times","name":"The Times UK","url":"https://www.thetimes.com","tag":"Global","region":"Global/UK"},
     {"id":"gb_sky","name":"Sky News","url":"https://news.sky.com","tag":"Global","feed":"https://feeds.skynews.com/feeds/rss/home.xml","region":"Global/UK"},
     {"id":"gb_independent","name":"The Independent","url":"https://www.independent.co.uk","tag":"Global","region":"Global/UK"}
+  ],
+  "DE": [
+    {"id":"dw","name":"Deutsche Welle (DW)","url":"https://www.dw.com"},
+    {"id":"de_2","name":"Tagesschau","url":"https://www.tagesschau.de","feed":"https://www.tagesschau.de/infoservices/alle-meldungen-100~rss2.xml"},
+    {"id":"de_3","name":"Der Spiegel","url":"https://www.spiegel.de"},
+    {"id":"de_4","name":"FAZ","url":"https://www.faz.net"},
+    {"id":"de_5","name":"Süddeutsche Zeitung","url":"https://www.sueddeutsche.de"},
+    {"id":"de_6","name":"Die Zeit","url":"https://www.zeit.de"},
+    {"id":"de_7","name":"Handelsblatt","url":"https://www.handelsblatt.com"},
+    {"id":"de_8","name":"Die Welt","url":"https://www.welt.de"}
+  ],
+  "FR": [
+    {"id":"fr_1","name":"Le Monde","url":"https://www.lemonde.fr","feed":"https://www.lemonde.fr/rss/une.xml"},
+    {"id":"afp","name":"AFP","url":"https://www.afp.com"},
+    {"id":"fr_3","name":"Le Figaro","url":"https://www.lefigaro.fr"},
+    {"id":"france24","name":"France 24","url":"https://www.france24.com"},
+    {"id":"fr_5","name":"Libération","url":"https://www.liberation.fr"},
+    {"id":"fr_6","name":"Les Echos","url":"https://www.lesechos.fr"},
+    {"id":"fr_7","name":"L'Express","url":"https://www.lexpress.fr"},
+    {"id":"fr_8","name":"Mediapart","url":"https://www.mediapart.fr"}
+  ],
+  "IT": [
+    {"id":"it_1","name":"ANSA","url":"https://www.ansa.it","feed":"https://www.ansa.it/sito/notizie/topnews/topnews_rss.xml"},
+    {"id":"it_2","name":"Corriere della Sera","url":"https://www.corriere.it"},
+    {"id":"it_3","name":"La Repubblica","url":"https://www.repubblica.it"},
+    {"id":"it_4","name":"Il Sole 24 Ore","url":"https://www.ilsole24ore.com"},
+    {"id":"it_5","name":"La Stampa","url":"https://www.lastampa.it"},
+    {"id":"it_6","name":"Il Post","url":"https://www.ilpost.it"},
+    {"id":"it_7","name":"Il Giornale","url":"https://www.ilgiornale.it"},
+    {"id":"it_8","name":"RaiNews","url":"https://www.rainews.it"}
+  ],
+  "ES": [
+    {"id":"es_1","name":"El País","url":"https://elpais.com","feed":"https://feeds.elpais.com/mrss-s/pages/ep/site/elpais.com/portada"},
+    {"id":"es_2","name":"El Mundo","url":"https://www.elmundo.es"},
+    {"id":"es_3","name":"ABC","url":"https://www.abc.es"},
+    {"id":"es_4","name":"La Vanguardia","url":"https://www.lavanguardia.com"},
+    {"id":"es_5","name":"elDiario.es","url":"https://www.eldiario.es"},
+    {"id":"es_6","name":"El Confidencial","url":"https://www.elconfidencial.com"},
+    {"id":"es_7","name":"RTVE Noticias","url":"https://www.rtve.es/noticias"},
+    {"id":"es_8","name":"Agencia EFE","url":"https://www.efe.com"}
+  ],
+  "NL": [
+    {"id":"nl_1","name":"NOS","url":"https://nos.nl","feed":"https://feeds.nos.nl/nosnieuwsalgemeen"},
+    {"id":"nl_2","name":"de Volkskrant","url":"https://www.volkskrant.nl"},
+    {"id":"nl_3","name":"NRC","url":"https://www.nrc.nl"},
+    {"id":"nl_4","name":"Trouw","url":"https://www.trouw.nl"},
+    {"id":"nl_5","name":"De Telegraaf","url":"https://www.telegraaf.nl"},
+    {"id":"nl_6","name":"FD (Het Financieele Dagblad)","url":"https://fd.nl"},
+    {"id":"nl_7","name":"NU.nl","url":"https://www.nu.nl"},
+    {"id":"nl_8","name":"Dutch News","url":"https://www.dutchnews.nl"}
+  ],
+  "CH": [
+    {"id":"ch_1","name":"SWI swissinfo","url":"https://www.swissinfo.ch"},
+    {"id":"ch_2","name":"NZZ (Neue Zürcher Zeitung)","url":"https://www.nzz.ch"},
+    {"id":"ch_3","name":"Tages-Anzeiger","url":"https://www.tagesanzeiger.ch"},
+    {"id":"ch_4","name":"Le Temps","url":"https://www.letemps.ch"},
+    {"id":"ch_5","name":"SRF News","url":"https://www.srf.ch/news"},
+    {"id":"ch_6","name":"RTS Info","url":"https://www.rts.ch/info"},
+    {"id":"ch_7","name":"Le Matin","url":"https://www.lematin.ch"},
+    {"id":"ch_8","name":"Corriere del Ticino","url":"https://www.cdt.ch"}
+  ],
+  "SE": [
+    {"id":"se_1","name":"Dagens Nyheter","url":"https://www.dn.se"},
+    {"id":"se_2","name":"Svenska Dagbladet","url":"https://www.svd.se"},
+    {"id":"se_3","name":"SVT Nyheter","url":"https://www.svt.se/nyheter","feed":"https://www.svt.se/nyheter/rss.xml"},
+    {"id":"se_4","name":"Sveriges Radio","url":"https://sverigesradio.se"},
+    {"id":"se_5","name":"Aftonbladet","url":"https://www.aftonbladet.se"},
+    {"id":"se_6","name":"Expressen","url":"https://www.expressen.se"},
+    {"id":"se_7","name":"The Local Sweden","url":"https://www.thelocal.se"},
+    {"id":"se_8","name":"TT Nyhetsbyrån","url":"https://tt.se"}
+  ],
+  "PL": [
+    {"id":"pl_1","name":"Gazeta Wyborcza","url":"https://wyborcza.pl"},
+    {"id":"pl_2","name":"Rzeczpospolita","url":"https://www.rp.pl"},
+    {"id":"pl_3","name":"TVN24","url":"https://tvn24.pl"},
+    {"id":"pl_4","name":"PAP","url":"https://www.pap.pl"},
+    {"id":"pl_5","name":"Onet","url":"https://www.onet.pl"},
+    {"id":"pl_6","name":"Polityka","url":"https://www.polityka.pl"},
+    {"id":"pl_7","name":"Dziennik Gazeta Prawna","url":"https://www.gazetaprawna.pl"},
+    {"id":"pl_8","name":"Notes From Poland","url":"https://notesfrompoland.com","feed":"https://notesfrompoland.com/feed/"}
+  ],
+  "UA": [
+    {"id":"ua_1","name":"The Kyiv Independent","url":"https://kyivindependent.com"},
+    {"id":"ua_2","name":"Ukrayinska Pravda","url":"https://www.pravda.com.ua"},
+    {"id":"ua_3","name":"Ukrinform","url":"https://www.ukrinform.net"},
+    {"id":"ua_4","name":"Interfax-Ukraine","url":"https://en.interfax.com.ua"},
+    {"id":"ua_5","name":"NV","url":"https://nv.ua/en"},
+    {"id":"ua_6","name":"Dzerkalo Tyzhnia (ZN.UA)","url":"https://zn.ua"},
+    {"id":"ua_7","name":"Suspilne News","url":"https://suspilne.media"},
+    {"id":"ua_8","name":"Hromadske","url":"https://hromadske.ua"}
+  ],
+  "ZA": [
+    {"id":"za_p1","name":"News24","url":"https://www.news24.com"},
+    {"id":"za_p2","name":"Daily Maverick","url":"https://www.dailymaverick.co.za"},
+    {"id":"za_p3","name":"Mail & Guardian","url":"https://mg.co.za"},
+    {"id":"za_p4","name":"IOL","url":"https://www.iol.co.za"},
+    {"id":"za_p5","name":"SowetanLIVE","url":"https://www.sowetanlive.co.za"},
+    {"id":"za_p6","name":"BusinessLIVE","url":"https://www.businesslive.co.za"},
+    {"id":"za_p7","name":"TimesLIVE","url":"https://www.timeslive.co.za"},
+    {"id":"za_p8","name":"EWN","url":"https://ewn.co.za"}
+  ],
+  "NG": [
+    {"id":"ng_p1","name":"Punch Newspapers","url":"https://punchng.com","feed":"https://punchng.com/feed/"},
+    {"id":"ng_p2","name":"Premium Times","url":"https://www.premiumtimesng.com"},
+    {"id":"ng_p3","name":"The Guardian Nigeria","url":"https://guardian.ng"},
+    {"id":"ng_p4","name":"Vanguard","url":"https://www.vanguardngr.com"},
+    {"id":"ng_p5","name":"The Nation","url":"https://thenationonlineng.net"},
+    {"id":"ng_p6","name":"Daily Trust","url":"https://dailytrust.com"},
+    {"id":"ng_p7","name":"THISDAYLIVE","url":"https://www.thisdaylive.com"},
+    {"id":"ng_p8","name":"Businessday NG","url":"https://businessday.ng"}
+  ],
+  "KE": [
+    {"id":"ke_p1","name":"Daily Nation","url":"https://nation.africa/kenya"},
+    {"id":"ke_p2","name":"The Standard","url":"https://www.standardmedia.co.ke"},
+    {"id":"ke_p3","name":"The Star Kenya","url":"https://www.the-star.co.ke"},
+    {"id":"ke_p4","name":"Capital FM News","url":"https://www.capitalfm.co.ke/news"},
+    {"id":"ke_p5","name":"Business Daily Africa","url":"https://www.businessdailyafrica.com"},
+    {"id":"ke_p6","name":"KBC","url":"https://www.kbc.co.ke"},
+    {"id":"ke_p7","name":"Citizen Digital","url":"https://citizen.digital"},
+    {"id":"ke_p8","name":"The EastAfrican","url":"https://www.theeastafrican.co.ke"}
+  ],
+  "EG": [
+    {"id":"eg_p1","name":"Al-Ahram","url":"https://english.ahram.org.eg"},
+    {"id":"eg_p2","name":"Egypt Independent","url":"https://www.egyptindependent.com"},
+    {"id":"eg_p3","name":"Al-Masry Al-Youm","url":"https://www.almasryalyoum.com"},
+    {"id":"eg_p4","name":"Youm7","url":"https://www.youm7.com"},
+    {"id":"eg_p5","name":"Daily News Egypt","url":"https://www.dailynewsegypt.com"},
+    {"id":"eg_p6","name":"Shorouk News","url":"https://www.shorouknews.com"},
+    {"id":"eg_p7","name":"Mubasher Egypt","url":"https://mubasher.info/countries/eg"},
+    {"id":"eg_p8","name":"State Information Service","url":"https://www.sis.gov.eg"}
+  ],
+  "MA": [
+    {"id":"ma_p1","name":"MAP News","url":"https://www.mapnews.ma"},
+    {"id":"ma_p2","name":"Morocco World News","url":"https://www.moroccoworldnews.com"},
+    {"id":"ma_p3","name":"Hespress","url":"https://hespress.com"},
+    {"id":"ma_p4","name":"Le Matin","url":"https://lematin.ma"},
+    {"id":"ma_p5","name":"TelQuel","url":"https://telquel.ma"},
+    {"id":"ma_p6","name":"Médias24","url":"https://medias24.com"},
+    {"id":"ma_p7","name":"Le360","url":"https://le360.ma"},
+    {"id":"ma_p8","name":"Yabiladi","url":"https://en.yabiladi.com"}
+  ],
+  "GH": [
+    {"id":"gh_p1","name":"Graphic Online","url":"https://www.graphic.com.gh"},
+    {"id":"gh_p2","name":"MyJoyOnline","url":"https://www.myjoyonline.com","feed":"https://www.myjoyonline.com/feed/"},
+    {"id":"gh_p3","name":"Citinewsroom","url":"https://citinewsroom.com"},
+    {"id":"gh_p4","name":"GhanaWeb","url":"https://www.ghanaweb.com"},
+    {"id":"gh_p5","name":"B&FT Online","url":"https://thebftonline.com"},
+    {"id":"gh_p6","name":"Ghana News Agency","url":"https://gna.org.gh"},
+    {"id":"gh_p7","name":"Pulse Ghana","url":"https://www.pulse.com.gh"},
+    {"id":"gh_p8","name":"Daily Guide Network","url":"https://dailyguidenetwork.com"}
+  ],
+  "ET": [
+    {"id":"et_p1","name":"Ethiopian News Agency","url":"https://www.ena.et"},
+    {"id":"et_p2","name":"Addis Standard","url":"https://addisstandard.com"},
+    {"id":"et_p3","name":"The Reporter Ethiopia","url":"https://www.thereporterethiopia.com"},
+    {"id":"et_p4","name":"Capital Ethiopia","url":"https://www.capitalethiopia.com"},
+    {"id":"et_p5","name":"Fana Broadcasting","url":"https://fanabc.com"},
+    {"id":"et_p6","name":"Ethiopian Monitor","url":"https://ethiopianmonitor.com"},
+    {"id":"et_p7","name":"Borkena","url":"https://borkena.com"},
+    {"id":"et_p8","name":"Walta TV","url":"https://waltainfo.com"}
+  ],
+  "DZ": [
+    {"id":"dz_p1","name":"APS","url":"https://www.aps.dz"},
+    {"id":"dz_p2","name":"TSA Algérie","url":"https://www.tsa-algerie.com"},
+    {"id":"dz_p3","name":"El Watan","url":"https://www.elwatan-dz.com"},
+    {"id":"dz_p4","name":"Liberté","url":"https://www.liberte-algerie.com"},
+    {"id":"dz_p5","name":"Echorouk Online","url":"https://www.echoroukonline.com"},
+    {"id":"dz_p6","name":"El Khabar","url":"https://www.elkhabar.com"},
+    {"id":"dz_p7","name":"L'Expression","url":"https://www.lexpressiondz.com"},
+    {"id":"dz_p8","name":"Algérie 360","url":"https://algerie360.com"}
+  ],
+  "UG": [
+    {"id":"ug_p1","name":"Daily Monitor","url":"https://www.monitor.co.ug"},
+    {"id":"ug_p2","name":"New Vision","url":"https://www.newvision.co.ug"},
+    {"id":"ug_p3","name":"The Observer","url":"https://observer.ug"},
+    {"id":"ug_p4","name":"The Independent Uganda","url":"https://independent.co.ug"},
+    {"id":"ug_p5","name":"ChimpReports","url":"https://chimpreports.com"},
+    {"id":"ug_p6","name":"KFM Uganda","url":"https://www.kfm.co.ug"},
+    {"id":"ug_p7","name":"Uganda Radio Network","url":"https://ugandaradionetwork.net"},
+    {"id":"ug_p8","name":"Nile Post","url":"https://nilepost.co.ug"}
+  ],
+  "TZ": [
+    {"id":"tz_p1","name":"The Citizen","url":"https://www.thecitizen.co.tz"},
+    {"id":"tz_p2","name":"Daily News Tanzania","url":"https://dailynews.co.tz","feed":"https://dailynews.co.tz/feed/"},
+    {"id":"tz_p3","name":"Mwananchi","url":"https://www.mwananchi.co.tz"},
+    {"id":"tz_p4","name":"HabariLeo","url":"https://habarileo.co.tz"},
+    {"id":"tz_p5","name":"IPP Media","url":"https://ippmedia.com"},
+    {"id":"tz_p6","name":"TBC","url":"https://www.tbc.go.tz"},
+    {"id":"tz_p7","name":"Mtanzania","url":"https://mtanzania.co.tz"},
+    {"id":"tz_p8","name":"Millard Ayo","url":"https://millardayo.com"}
+  ],
+  "TH": [
+    {"id":"th_p1","name":"Bangkok Post","url":"https://www.bangkokpost.com"},
+    {"id":"th_p2","name":"The Nation Thailand","url":"https://www.nationthailand.com"},
+    {"id":"th_p3","name":"Thairath","url":"https://www.thairath.co.th"},
+    {"id":"th_p4","name":"Matichon","url":"https://www.matichon.co.th"},
+    {"id":"th_p5","name":"Khaosod","url":"https://www.khaosod.co.th"},
+    {"id":"th_p6","name":"Daily News Thailand","url":"https://www.dailynews.co.th"},
+    {"id":"th_p7","name":"THE STANDARD","url":"https://thestandard.co","feed":"https://thestandard.co/feed/"},
+    {"id":"th_p8","name":"Thai PBS","url":"https://www.thaipbs.or.th"}
+  ],
+  "PH": [
+    {"id":"ph_p1","name":"Philippine Daily Inquirer","url":"https://www.inquirer.net"},
+    {"id":"ph_p2","name":"The Philippine Star","url":"https://www.philstar.com"},
+    {"id":"ph_p3","name":"Manila Bulletin","url":"https://mb.com.ph"},
+    {"id":"ph_p4","name":"Rappler","url":"https://www.rappler.com"},
+    {"id":"ph_p5","name":"GMA News Online","url":"https://www.gmanetwork.com/news"},
+    {"id":"ph_p6","name":"ABS-CBN News","url":"https://news.abs-cbn.com"},
+    {"id":"ph_p7","name":"BusinessWorld","url":"https://www.bworldonline.com"},
+    {"id":"ph_p8","name":"The Manila Times","url":"https://www.manilatimes.net"}
+  ],
+  "VN": [
+    {"id":"vn_p1","name":"VietnamPlus","url":"https://en.vietnamplus.vn"},
+    {"id":"vn_p2","name":"VnExpress","url":"https://vnexpress.net","feed":"https://vnexpress.net/rss/tin-moi-nhat.rss"},
+    {"id":"vn_p3","name":"Tuổi Trẻ","url":"https://tuoitre.vn"},
+    {"id":"vn_p4","name":"Thanh Niên","url":"https://thanhnien.vn"},
+    {"id":"vn_p5","name":"VietNamNet","url":"https://vietnamnet.vn"},
+    {"id":"vn_p6","name":"Nhân Dân","url":"https://nhandan.vn"},
+    {"id":"vn_p7","name":"Lao Động","url":"https://laodong.vn"},
+    {"id":"vn_p8","name":"Dân trí","url":"https://dantri.com.vn"}
+  ],
+  "JP": [
+    {"id":"jp_p1","name":"NHK News","url":"https://www.nhk.or.jp"},
+    {"id":"jp_p2","name":"Nikkei","url":"https://www.nikkei.com"},
+    {"id":"jp_p3","name":"The Asahi Shimbun","url":"https://www.asahi.com"},
+    {"id":"jp_p4","name":"The Yomiuri Shimbun","url":"https://www.yomiuri.co.jp"},
+    {"id":"jp_p5","name":"Mainichi Shimbun","url":"https://mainichi.jp"},
+    {"id":"jp_p6","name":"Kyodo News","url":"https://english.kyodonews.net"},
+    {"id":"jp_p7","name":"The Japan Times","url":"https://www.japantimes.co.jp","feed":"https://www.japantimes.co.jp/feed/"},
+    {"id":"jp_p8","name":"Sankei Shimbun","url":"https://www.sankei.com"}
+  ],
+  "KR": [
+    {"id":"kr_p1","name":"Yonhap News Agency","url":"https://en.yna.co.kr"},
+    {"id":"kr_p2","name":"The Korea Herald","url":"https://www.koreaherald.com"},
+    {"id":"kr_p3","name":"The Korea Times","url":"https://www.koreatimes.co.kr","feed":"https://www.koreatimes.co.kr/www/rss/nation.xml"},
+    {"id":"kr_p4","name":"The Chosun Ilbo","url":"https://www.chosun.com"},
+    {"id":"kr_p5","name":"JoongAng Ilbo","url":"https://joongang.co.kr"},
+    {"id":"kr_p6","name":"The Dong-A Ilbo","url":"https://www.donga.com"},
+    {"id":"kr_p7","name":"The Hankyoreh","url":"https://www.hani.co.kr"},
+    {"id":"kr_p8","name":"KBS News","url":"https://kbs.co.kr"}
+  ],
+  "QA": [
+    {"id":"aljazeera","name":"Al Jazeera","url":"https://www.aljazeera.com"},
+    {"id":"qa_p2","name":"The Peninsula Qatar","url":"https://www.thepeninsulaqatar.com"},
+    {"id":"qa_p3","name":"Gulf Times","url":"https://www.gulf-times.com"},
+    {"id":"qa_p4","name":"QNA","url":"https://www.qna.org.qa"},
+    {"id":"qa_p5","name":"Al Watan","url":"https://www.al-watan.com"},
+    {"id":"qa_p6","name":"Al Raya","url":"https://www.raya.com"},
+    {"id":"qa_p7","name":"Al Sharq","url":"https://www.al-sharq.com"},
+    {"id":"qa_p8","name":"Doha News","url":"https://dohanews.co","feed":"https://dohanews.co/feed/"}
+  ],
+  "JO": [
+    {"id":"jo_p1","name":"The Jordan Times","url":"https://www.jordantimes.com"},
+    {"id":"jo_p2","name":"Petra News Agency","url":"https://petra.gov.jo"},
+    {"id":"jo_p3","name":"Roya News","url":"https://en.royanews.tv"},
+    {"id":"jo_p4","name":"Al Ghad","url":"https://alghad.com"},
+    {"id":"jo_p5","name":"Al Rai","url":"https://www.alrai.com"},
+    {"id":"jo_p6","name":"Addustour","url":"https://addustour.com"},
+    {"id":"jo_p7","name":"Ammon News","url":"https://www.ammonnews.net"},
+    {"id":"jo_p8","name":"Saraya News","url":"https://sarayanews.com"}
+  ],
+  "LB": [
+    {"id":"lb_p1","name":"L'Orient Today","url":"https://today.lorientlejour.com"},
+    {"id":"lb_p2","name":"The Daily Star Lebanon","url":"https://www.dailystar.com.lb"},
+    {"id":"lb_p3","name":"NNA Lebanon","url":"https://www.nna-leb.gov.lb"},
+    {"id":"lb_p4","name":"An-Nahar","url":"https://www.annahar.com"},
+    {"id":"lb_p5","name":"Al Akhbar","url":"https://al-akhbar.com"},
+    {"id":"lb_p6","name":"LBCI News","url":"https://www.lbcgroup.tv/news"},
+    {"id":"lb_p7","name":"MTV Lebanon","url":"https://www.mtv.com.lb/news"},
+    {"id":"lb_p8","name":"L'Orient-Le Jour","url":"https://www.lorientlejour.com"}
+  ],
+  "IQ": [
+    {"id":"iq_p1","name":"Iraqi News Agency","url":"https://ina.iq/eng"},
+    {"id":"iq_p2","name":"Rudaw","url":"https://www.rudaw.net"},
+    {"id":"iq_p3","name":"Iraq Business News","url":"https://www.iraq-businessnews.com","feed":"https://www.iraq-businessnews.com/feed/"},
+    {"id":"iq_p4","name":"Alsumaria TV","url":"https://alsumaria.tv"},
+    {"id":"iq_p5","name":"Shafaq News","url":"https://www.shafaq.com"},
+    {"id":"iq_p6","name":"Baghdad Today","url":"https://baghdadtoday.news"},
+    {"id":"iq_p7","name":"Al Masalah","url":"https://almasalah.com"},
+    {"id":"iq_p8","name":"NINA News","url":"https://ninanews.com"}
+  ],
+  "KW": [
+    {"id":"kw_p1","name":"KUNA","url":"https://www.kuna.net.kw"},
+    {"id":"kw_p2","name":"Kuwait Times","url":"https://news.kuwaittimes.net"},
+    {"id":"kw_p3","name":"Arab Times Kuwait","url":"https://www.arabtimesonline.com"},
+    {"id":"kw_p4","name":"Al Rai Media","url":"https://www.alraimedia.com"},
+    {"id":"kw_p5","name":"Al Qabas","url":"https://www.alqabas.com"},
+    {"id":"kw_p6","name":"Al Anba","url":"https://www.alanba.com.kw"},
+    {"id":"kw_p7","name":"Al Jarida","url":"https://aljarida.com"},
+    {"id":"kw_p8","name":"The Times Kuwait","url":"https://timeskuwait.com"}
+  ],
+  "OM": [
+    {"id":"om_p1","name":"Oman News Agency","url":"https://omannews.gov.om"},
+    {"id":"om_p2","name":"Times of Oman","url":"https://timesofoman.com"},
+    {"id":"om_p3","name":"Oman Daily Observer","url":"https://www.omanobserver.om"},
+    {"id":"om_p4","name":"Muscat Daily","url":"https://muscatdaily.com"},
+    {"id":"om_p5","name":"Oman Daily","url":"https://www.omandaily.om"},
+    {"id":"om_p6","name":"Al Watan Oman","url":"https://alwatan.com"},
+    {"id":"om_p7","name":"Al Shabiba","url":"https://shabiba.com"},
+    {"id":"om_p8","name":"Atheer","url":"https://atheer.om"}
+  ],
+  "BH": [
+    {"id":"bh_p1","name":"Bahrain News Agency","url":"https://www.bna.bh/en"},
+    {"id":"bh_p2","name":"News of Bahrain","url":"https://www.newsofbahrain.com"},
+    {"id":"bh_p3","name":"Gulf Daily News","url":"https://www.gdnonline.com"},
+    {"id":"bh_p4","name":"Al Ayam","url":"https://www.alayam.com"},
+    {"id":"bh_p5","name":"Al Watan Bahrain","url":"https://alwatannews.net"},
+    {"id":"bh_p6","name":"Akhbar Al Khaleej","url":"https://www.akhbar-alkhaleej.com"},
+    {"id":"bh_p7","name":"Al Bilad Press","url":"https://www.albiladpress.com"},
+    {"id":"bh_p8","name":"Bahrain Mirror","url":"https://bahrainmirror.com"}
+  ],
+  "IL": [
+    {"id":"il_p1","name":"Haaretz","url":"https://www.haaretz.com"},
+    {"id":"il_p2","name":"The Jerusalem Post","url":"https://www.jpost.com"},
+    {"id":"il_p3","name":"The Times of Israel","url":"https://www.timesofisrael.com"},
+    {"id":"il_p4","name":"Ynetnews","url":"https://www.ynetnews.com"},
+    {"id":"il_p5","name":"Calcalist Tech","url":"https://www.calcalistech.com"},
+    {"id":"il_p6","name":"Israel Hayom","url":"https://www.israelhayom.com"},
+    {"id":"il_p7","name":"Globes","url":"https://www.globes.co.il/en"},
+    {"id":"il_p8","name":"i24NEWS","url":"https://www.i24news.tv"}
+  ],
+  "IN": [
+    {"id":"in_p1","name":"The Hindu","url":"https://www.thehindu.com","feed":"https://www.thehindu.com/news/feeder/default.rss"},
+    {"id":"in_p2","name":"The Times of India","url":"https://timesofindia.indiatimes.com"},
+    {"id":"in_p3","name":"The Indian Express","url":"https://indianexpress.com"},
+    {"id":"in_p4","name":"NDTV","url":"https://www.ndtv.com"},
+    {"id":"in_p5","name":"Hindustan Times","url":"https://www.hindustantimes.com"},
+    {"id":"in_p6","name":"Livemint","url":"https://www.livemint.com"},
+    {"id":"in_p7","name":"The Wire","url":"https://thewire.in"},
+    {"id":"in_p8","name":"Scroll.in","url":"https://scroll.in"}
+  ],
+  "CN": [
+    {"id":"cn_p1","name":"Xinhua News","url":"https://www.xinhuanet.com"},
+    {"id":"cn_p2","name":"China Daily","url":"https://www.chinadaily.com.cn"},
+    {"id":"cn_p3","name":"Global Times","url":"https://www.globaltimes.cn"},
+    {"id":"cn_p4","name":"Caixin Global","url":"https://www.caixinglobal.com"},
+    {"id":"cn_p5","name":"South China Morning Post","url":"https://www.scmp.com"},
+    {"id":"cn_p6","name":"CCTV","url":"https://www.cctv.com"},
+    {"id":"cn_p7","name":"English News CN","url":"https://english.news.cn"},
+    {"id":"cn_p8","name":"The Paper","url":"https://www.thepaper.cn"}
+  ],
+  "PK": [
+    {"id":"pk_p1","name":"Dawn","url":"https://www.dawn.com","feed":"https://www.dawn.com/feeds/home"},
+    {"id":"pk_p2","name":"The News International","url":"https://www.thenews.com.pk"},
+    {"id":"pk_p3","name":"The Express Tribune","url":"https://tribune.com.pk"},
+    {"id":"pk_p4","name":"Geo News","url":"https://www.geo.tv"},
+    {"id":"pk_p5","name":"Daily Times","url":"https://dailytimes.com.pk"},
+    {"id":"pk_p6","name":"The Nation","url":"https://nation.com.pk"},
+    {"id":"pk_p7","name":"Business Recorder","url":"https://www.brecorder.com"},
+    {"id":"pk_p8","name":"Dunya News","url":"https://dunyanews.tv"}
+  ],
+  "BD": [
+    {"id":"bd_p1","name":"The Daily Star","url":"https://www.thedailystar.net"},
+    {"id":"bd_p2","name":"Prothom Alo","url":"https://www.prothomalo.com"},
+    {"id":"bd_p3","name":"Dhaka Tribune","url":"https://www.dhakatribune.com"},
+    {"id":"bd_p4","name":"bdnews24","url":"https://bdnews24.com"},
+    {"id":"bd_p5","name":"The Financial Express","url":"https://thefinancialexpress.com.bd"},
+    {"id":"bd_p6","name":"New Age","url":"https://www.newagebd.net"},
+    {"id":"bd_p7","name":"Somoy News","url":"https://en.somoynews.tv"},
+    {"id":"bd_p8","name":"The Daily Ittefaq","url":"https://www.ittefaq.com.bd"}
+  ],
+  "TW": [
+    {"id":"tw_p1","name":"Focus Taiwan","url":"https://focustaiwan.tw"},
+    {"id":"tw_p2","name":"Taipei Times","url":"https://www.taipeitimes.com"},
+    {"id":"tw_p3","name":"China Times","url":"https://www.chinatimes.com"},
+    {"id":"tw_p4","name":"United Daily News","url":"https://udn.com"},
+    {"id":"tw_p5","name":"Liberty Times Net","url":"https://news.ltn.com.tw"},
+    {"id":"tw_p6","name":"CNA","url":"https://www.cna.com.tw"},
+    {"id":"tw_p7","name":"Storm Media","url":"https://www.storm.mg"},
+    {"id":"tw_p8","name":"PTS News","url":"https://news.pts.org.tw"}
+  ],
+  "SA": [
+    {"id":"sa_p1","name":"Arab News","url":"https://www.arabnews.com"},
+    {"id":"sa_p2","name":"Al Arabiya English","url":"https://english.alarabiya.net"},
+    {"id":"sa_p3","name":"Saudi Press Agency","url":"https://www.spa.gov.sa"},
+    {"id":"sa_p4","name":"Saudi Gazette","url":"https://saudigazette.com.sa"},
+    {"id":"sa_p5","name":"Al Riyadh","url":"https://www.alriyadh.com"},
+    {"id":"sa_p6","name":"Okaz","url":"https://www.okaz.com.sa"},
+    {"id":"sa_p7","name":"Asharq News","url":"https://www.asharq.com"},
+    {"id":"sa_p8","name":"Asharq Al-Awsat","url":"https://aawsat.com"}
+  ],
+  "AE": [
+    {"id":"ae_p1","name":"The National","url":"https://www.thenationalnews.com"},
+    {"id":"ae_p2","name":"Gulf News","url":"https://gulfnews.com"},
+    {"id":"ae_p3","name":"Khaleej Times","url":"https://www.khaleejtimes.com"},
+    {"id":"ae_p4","name":"WAM","url":"https://wam.ae"},
+    {"id":"ae_p5","name":"Emarat Al Youm","url":"https://www.emaratalyoum.com"},
+    {"id":"ae_p6","name":"Al Ittihad","url":"https://www.alittihad.ae"},
+    {"id":"ae_p7","name":"Arabian Business","url":"https://www.arabianbusiness.com"},
+    {"id":"ae_p8","name":"Roya News English","url":"https://en.royanews.tv"}
+  ],
+  "TR": [
+    {"id":"tr_p1","name":"Anadolu Agency","url":"https://www.aa.com.tr"},
+    {"id":"tr_p2","name":"Hürriyet Daily News","url":"https://www.hurriyetdailynews.com"},
+    {"id":"tr_p3","name":"Daily Sabah","url":"https://www.dailysabah.com","feed":"https://www.dailysabah.com/rssFeed/12/13"},
+    {"id":"tr_p4","name":"Sözcü","url":"https://www.sozcu.com.tr"},
+    {"id":"tr_p5","name":"Cumhuriyet","url":"https://www.cumhuriyet.com.tr"},
+    {"id":"tr_p6","name":"T24","url":"https://t24.com.tr"},
+    {"id":"tr_p7","name":"TRT Haber","url":"https://www.trthaber.com"},
+    {"id":"tr_p8","name":"NTV","url":"https://www.ntv.com.tr"}
+  ],
+  "IR": [
+    {"id":"ir_p1","name":"IRNA","url":"https://en.irna.ir"},
+    {"id":"ir_p2","name":"Tehran Times","url":"https://www.tehrantimes.com","feed":"https://www.tehrantimes.com/rss"},
+    {"id":"ir_p3","name":"ISNA","url":"https://en.isna.ir"},
+    {"id":"ir_p4","name":"Press TV","url":"https://www.presstv.ir"},
+    {"id":"ir_p5","name":"Mehr News Agency","url":"https://en.mehrnews.com"},
+    {"id":"ir_p6","name":"Tasnim News Agency","url":"https://www.tasnimnews.com"},
+    {"id":"ir_p7","name":"Financial Tribune","url":"https://financialtribune.com"},
+    {"id":"ir_p8","name":"Hamshahri Online","url":"https://www.hamshahrionline.ir"}
+  ],
+  "LK": [
+    {"id":"lk_p1","name":"Daily Mirror Sri Lanka","url":"https://www.dailymirror.lk"},
+    {"id":"lk_p2","name":"The Island","url":"https://island.lk"},
+    {"id":"lk_p3","name":"The Sunday Times Sri Lanka","url":"https://www.sundaytimes.lk"},
+    {"id":"lk_p4","name":"Ada Derana","url":"https://www.adaderana.lk"},
+    {"id":"lk_p5","name":"Ceylon Today","url":"https://ceylontoday.lk"},
+    {"id":"lk_p6","name":"Daily FT","url":"https://www.ft.lk"},
+    {"id":"lk_p7","name":"The Morning","url":"https://www.themorning.lk"},
+    {"id":"lk_p8","name":"News First","url":"https://www.newsfirst.lk"}
+  ],
+  "DIRECTORIES": [
+    {"id":"dir_worldpress","name":"Worldpress","url":"https://worldpress.org","category":"Direktori Media Dunia","description":"Direktori media terkurasi berdasarkan negara dan kawasan global"},
+    {"id":"dir_abyz","name":"ABYZ News Links","url":"https://www.abyznewslinks.com","category":"Indeks Surat Kabar","description":"Indeks ribuan surat kabar dan portal berita resmi dari seluruh negara"},
+    {"id":"dir_newspapers","name":"Online Newspapers","url":"https://onlinenewspapers.com","category":"Katalog Media Daring","description":"Katalog portal berita daring dari setiap negara di dunia"},
+    {"id":"dir_reuters_institute","name":"Reuters Institute","url":"https://reutersinstitute.politics.ox.ac.uk","category":"Riset Kepercayaan Media","description":"Laporan riset independen mengenai tingkat kepercayaan publik terhadap media"},
+    {"id":"dir_rsf","name":"Reporters Without Borders (RSF)","url":"https://rsf.org","category":"Indeks Kebebasan Pers","description":"Evaluasi kredibilitas dan kebebasan iklim pers dunia"}
   ]
 }

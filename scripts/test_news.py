@@ -161,10 +161,10 @@ assert len(news.parse(rdf, orf)) == 1 and news.parse(rdf, orf)[0]['publishedAt']
 print('Regional registry and ORF namespaced RSS checks passed')
 assert len({row['id'] for row in news.SOURCES}) == len(news.SOURCES), 'Shared publishers duplicated in feeds'
 for code in ('ID','US','GB','MY','SG','DEFAULT','global_founder'):
-    assert len(news.REGIONAL_NEWS_SOURCES[code]) == 8
+    assert len(news.REGIONAL_NEWS_SOURCES[code]) == (9 if code in ('ID','SG') else 8)
 
 for code in ("CA","MX","AR","CO","CL","PE","AU","NZ","CR","UY"):
-    assert len(news.REGIONAL_NEWS_SOURCES[code]) == 8
+    assert len(news.REGIONAL_NEWS_SOURCES[code]) == (9 if code in ('ID','SG') else 8)
     assert all(row["id"].startswith(code.lower()+"_") for row in news.REGIONAL_NEWS_SOURCES[code])
 print("Americas and Oceania: all 80 official portal mappings passed")
 
@@ -173,3 +173,14 @@ assert len({row["id"] for row in news.REGIONAL_NEWS_SOURCES["GLOBAL"]}) == 16
 assert {row["region"] for row in news.REGIONAL_NEWS_SOURCES["GLOBAL"]} == {"Global/US","Global/UK"}
 assert "us_pbs" in {row["id"] for row in news.SOURCES}
 print("Global publisher list and shared-source deduplication passed")
+
+for code in ("DE","FR","IT","ES","NL","CH","SE","PL","UA"):
+    assert len(news.REGIONAL_NEWS_SOURCES[code]) == (9 if code in ('ID','SG') else 8)
+print("Nine new European regions: 72 portal entries and unique collector IDs passed")
+
+for code in ("QA","JO","LB","IQ","KW","OM","BH","IL","IN","CN","PK","BD","TW","SA","AE","TR","IR","LK","ZA","NG","KE","EG","MA","GH","ET","DZ","UG","TZ","TH","PH","VN","JP","KR"):
+    assert len(news.REGIONAL_NEWS_SOURCES[code]) == 8
+assert len(news.REGIONAL_NEWS_SOURCES["DIRECTORIES"]) == 5
+assert news.REGIONAL_NEWS_SOURCES["TZ"][1]["url"] == "https://dailynews.co.tz"
+assert news.REGIONAL_NEWS_SOURCES["TH"][5]["url"] == "https://www.dailynews.co.th"
+print("Middle East, Asia, Africa, ASEAN, directories and corrected publisher domains passed")

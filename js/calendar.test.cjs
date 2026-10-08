@@ -12,9 +12,14 @@ scope.kalDmp=[1,2];assert.equal(scope.kalSaring(rows).length,0);
 scope.kalCategory='';scope.kalDmp=[];assert.equal(scope.kalSaring(rows).length,0);
 scope.kalDmp=[1,2,3];scope.kalCari='rate';assert.equal(scope.kalSaring(rows)[0].countryCode,'FR');
 assert.equal(scope.kalCountryCode({countryCode:'UK'}),'GB');
-assert.equal(scope.kalAvailableCountries().length,107);
+assert.equal(scope.kalAvailableCountries().length,110);
 for(const country of ['ID','CA','CN','FR','IT','ES','TW','TH','VN','BA']) assert.ok(scope.kalAvailableCountries().includes(country));
-scope.kalCache.items=[{countryCode:'US'}];assert.equal(scope.kalAvailableCountries().length,107);
+scope.kalCache.items=[{countryCode:'US'}];assert.equal(scope.kalAvailableCountries().length,110);
 assert.ok(scope.kalCountryFlag('US').includes('https://flagcdn.com/us.svg'));
 assert.equal(scope.kalCountryFlag('../invalid'), '');
 console.log('Calendar country/category/importance intersection and empty selections passed');
+
+const unsorted=[{tgl:"2026-10-01",jam:"12:00"},{tgl:"2026-10-09",jam:"08:00"},{tgl:"2026-10-08",jam:"18:00"},{tgl:"2026-10-08",jam:"07:00"}];
+assert.deepEqual(Array.from(scope.kalUrut(unsorted),row=>row.tgl+" "+row.jam),["2026-10-08 07:00","2026-10-08 18:00","2026-10-09 08:00","2026-10-01 12:00"]);
+assert.equal(unsorted[0].tgl,"2026-10-01");
+console.log("Today first, upcoming next, past last; intraday order and original data preserved");
