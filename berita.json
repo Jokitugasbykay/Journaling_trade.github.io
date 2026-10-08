@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "checkedAt": "2026-10-08T04:27:15.206489+00:00",
+  "checkedAt": "2026-10-08T04:50:06.450585+00:00",
   "intervalMinutes": 5,
   "sources": [
     {
@@ -9,7 +9,7 @@
       "url": "https://www.investing.com/",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-08T04:26:52.654209+00:00"
+      "checkedAt": "2026-10-08T04:49:53.762659+00:00"
     },
     {
       "id": "cnbc",
@@ -17,7 +17,7 @@
       "url": "https://www.cnbc.com/markets/",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-08T04:26:52.701404+00:00"
+      "checkedAt": "2026-10-08T04:49:53.786618+00:00"
     },
     {
       "id": "kontan",
@@ -25,7 +25,7 @@
       "url": "https://www.kontan.co.id/",
       "kind": "html",
       "status": "ok",
-      "checkedAt": "2026-10-08T04:26:53.921283+00:00"
+      "checkedAt": "2026-10-08T04:49:55.129317+00:00"
     },
     {
       "id": "reuters",
@@ -33,7 +33,7 @@
       "url": "https://www.reuters.com/",
       "kind": "sitemap",
       "status": "ok",
-      "checkedAt": "2026-10-08T04:26:53.007235+00:00"
+      "checkedAt": "2026-10-08T04:49:54.281667+00:00"
     },
     {
       "id": "aljazeera",
@@ -41,7 +41,7 @@
       "url": "https://www.aljazeera.com/",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-08T04:26:52.688206+00:00"
+      "checkedAt": "2026-10-08T04:49:53.924213+00:00"
     },
     {
       "id": "bloomberg",
@@ -49,7 +49,7 @@
       "url": "https://www.bloomberg.com/asia",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-08T04:26:53.091236+00:00"
+      "checkedAt": "2026-10-08T04:49:54.118211+00:00"
     },
     {
       "id": "fnc",
@@ -57,7 +57,7 @@
       "url": "https://tradewithfnc.com/",
       "kind": "json",
       "status": "ok",
-      "checkedAt": "2026-10-08T04:26:53.710074+00:00"
+      "checkedAt": "2026-10-08T04:49:54.539055+00:00"
     },
     {
       "id": "investing_id",
@@ -65,7 +65,7 @@
       "url": "https://id.investing.com/news",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-08T04:26:52.992404+00:00"
+      "checkedAt": "2026-10-08T04:49:53.956925+00:00"
     },
     {
       "id": "pluang",
@@ -73,14 +73,14 @@
       "url": "https://pluang.com/news-feed",
       "kind": "html",
       "status": "ok",
-      "checkedAt": "2026-10-08T04:26:53.895817+00:00"
+      "checkedAt": "2026-10-08T04:49:55.127056+00:00"
     },
     {
       "id": "kompas",
       "name": "Kompas Money",
       "url": "https://money.kompas.com/",
       "kind": "html",
-      "status": "ok",
+      "status": "stale",
       "checkedAt": "2026-10-08T04:26:53.516427+00:00"
     },
     {
@@ -88,8 +88,8 @@
       "name": "detikFinance",
       "url": "https://finance.detik.com/",
       "kind": "rss",
-      "status": "stale",
-      "checkedAt": "2026-10-08T04:03:18.863682+00:00"
+      "status": "ok",
+      "checkedAt": "2026-10-08T04:49:55.995593+00:00"
     },
     {
       "id": "kemenkeu",
@@ -121,7 +121,7 @@
       "url": "https://ekbis.sindonews.com/",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-08T04:26:53.865198+00:00"
+      "checkedAt": "2026-10-08T04:49:54.626125+00:00"
     },
     {
       "id": "fedwatch",
@@ -140,6 +140,196 @@
   ],
   "items": [
     {
+      "id": "b1ae7a2649ec654b900d",
+      "source": "reuters",
+      "title": "Asia shares slip, bonds submerged in tide of AI debt",
+      "url": "https://www.reuters.com/world/china/global-markets-global-markets-2026-10-08/",
+      "publishedAt": "2026-10-08T04:46:44.980000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/4GTPNAX7Z5LYNCIC5KVFOG4MUQ.jpg?auth=6e57564dc68f026a26b8f9b5d71cd5968172ebbe2a445a2b62e738de7a15b89b&smart=true&width=1920",
+      "category": "technology",
+      "topics": []
+    },
+    {
+      "id": "3a9c454433ecec8b4092",
+      "source": "reuters",
+      "title": "Rays, benefiting from fan-interference call, complete sweep of Yankees",
+      "url": "https://www.reuters.com/sports/rays-benefiting-fan-interference-call-complete-sweep-yankees--fldm-2026-10-08/",
+      "publishedAt": "2026-10-08T04:45:09.600000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/RDLIOIDBTBK37KG34WMAEMYZTA.jpg?auth=3a7b6365ac3dbf6e69f12f8f46b1f8da503bd28474b4b4a74598e922ef4e4469&smart=true&width=1920",
+      "category": "sport",
+      "topics": []
+    },
+    {
+      "id": "4d7098e44b347800728d",
+      "source": "reuters",
+      "title": "Tom Wilson produces 3 points as Capitals get past Penguins",
+      "url": "https://www.reuters.com/sports/nhl/tom-wilson-produces-3-points-capitals-get-past-penguins--flm-2026-10-08/",
+      "publishedAt": "2026-10-08T04:43:32.566000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/HXBQMZY5TRLUXEA7BWDO7MYEKU.jpg?auth=e9120e617cf3370416acd02b00731d10f722d9afad95bbd32e825ed7ed441173&smart=true&width=1920",
+      "category": "sport",
+      "topics": []
+    },
+    {
+      "id": "4014e418a07975400afe",
+      "source": "reuters",
+      "title": "At least 32 killed in Ukraine, Zelenskiy condemns one of Russia's most 'vile strikes'",
+      "url": "https://www.reuters.com/world/europe/russia-strikes-ukraines-kyiv-fresh-wave-attacks-2026-10-07/",
+      "publishedAt": "2026-10-08T04:43:10.200000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/BG73HF2H3RMPVNS3YZS3I5XLSA.jpg?auth=21e23ecba4652e7b09067e1c20ef558119b7777e882bf55e3ab6e5a4471cd79b&smart=true&width=1920",
+      "category": "world",
+      "topics": []
+    },
+    {
+      "id": "8dfc5a1f988e14657ab5",
+      "source": "reuters",
+      "title": "Vietnam says its trade deal negotiations with US are largely completed",
+      "url": "https://www.reuters.com/world/asia-pacific/vietnam-says-its-trade-deal-negotiations-with-us-are-largely-completed-2026-10-08/",
+      "publishedAt": "2026-10-08T04:39:57.344000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/5KQK4MKOSVJZXJTXJ7VZIMFQIE.jpg?auth=3c69c8631ac61624266e75e72a068705634d52eee1c3c9c9638b559f5fc20a28&smart=true&width=1920",
+      "category": "business",
+      "topics": []
+    },
+    {
+      "id": "ebd4f51199620ade8596",
+      "source": "reuters",
+      "title": "Indonesia industrial parks to waive land rental fees to attract investment, Danantara says",
+      "url": "https://www.reuters.com/world/asia-pacific/indonesia-industrial-parks-waive-land-rental-fees-attract-investment-danantara-2026-10-08/",
+      "publishedAt": "2026-10-08T04:39:43.656000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/3YRYEOUJ4NIWTHT5KFKVQADFZQ.jpg?auth=d9424e44e50277541bb6f43e59e96bf3d8443ee201bb90882b77956d4f03d58a&smart=true&width=1920",
+      "category": "local",
+      "topics": []
+    },
+    {
+      "id": "59fed06307ab54cf74f1",
+      "source": "reuters",
+      "title": "Sovereign bonds shouldered aside as AI takes their turf",
+      "url": "https://www.reuters.com/world/china/global-markets-view-europe-2026-10-08/",
+      "publishedAt": "2026-10-08T04:38:11.992000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/3GFJ422VYFM57ITJ3ITNOMKR5M.jpg?auth=0848b32097ef35a1df49aa1d8f5a8173cafc6080b02e74a83ecc66b47b3fb36a&smart=true&width=1920",
+      "category": "technology",
+      "topics": []
+    },
+    {
+      "id": "13410de14e619232f5eb",
+      "source": "reuters",
+      "title": "India FX forward premiums extend post-RBI policy surge; 1-year up 64 bps this week",
+      "url": "https://www.reuters.com/world/india/india-fx-forward-premiums-extend-post-rbi-policy-surge-1-year-up-64-bps-this-2026-10-08/",
+      "publishedAt": "2026-10-08T04:36:09.519000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/MM7DFMYR2VMGLEQI7CEXKTW34A.jpg?auth=9b39e2eb809ddeb10b32cc566610b1f14aa7cc3f9a7ec25637cfe0f1d65c37d3&smart=true&width=1920",
+      "category": "world",
+      "topics": []
+    },
+    {
+      "id": "1fee4e6f1e43c3baee5f",
+      "source": "reuters",
+      "title": "Indian shares extend losses as RBI rate hike, rising oil weigh",
+      "url": "https://www.reuters.com/world/india/indian-shares-poised-muted-start-tcs-kicks-off-earnings-season-2026-10-08/",
+      "publishedAt": "2026-10-08T04:33:07.847000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/HHYESEPKURLKNBUBRY6Y5P3HIY.jpg?auth=a820259c6f043e9e032203fc913ce5d65ee4ac08318cb0309b4bda108eb89e8c&smart=true&width=1920",
+      "category": "markets",
+      "topics": []
+    },
+    {
+      "id": "3ded213a0c59cb37ad5e",
+      "source": "detik",
+      "title": "Suahasil & Dony Oskaria Tegaskan Dividen Danantara Tak Akan Masuk APBN",
+      "url": "https://finance.detik.com/berita-ekonomi-bisnis/d-8697646/suahasil-dony-oskaria-tegaskan-dividen-danantara-tak-akan-masuk-apbn",
+      "publishedAt": "2026-10-08T04:31:43+00:00",
+      "image": "https://akcdn.detik.net.id/community/media/visual/2026/10/08/menteri-keuangan-suahasil-1791428499911_169.jpeg?w=360&q=90",
+      "category": "local",
+      "topics": []
+    },
+    {
+      "id": "ff376ef3523f8b4a44b4",
+      "source": "reuters",
+      "title": "Hormuz transits at lowest in over two months after attacks, data shows",
+      "url": "https://www.reuters.com/business/energy/hormuz-transits-lowest-over-two-months-after-attacks-data-shows-2026-10-08/",
+      "publishedAt": "2026-10-08T04:30:17.818000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/P2AJAGQVKZNLTIUO2UNWQ5D3LE.jpg?auth=7329e941b63fa8e10c05f71d03abadc46e692eed3aced32948653797499a82b8&smart=true&width=1920",
+      "category": "business",
+      "topics": []
+    },
+    {
+      "id": "60f81c8031162f056058",
+      "source": "bloomberg",
+      "title": "Houthi Attacks Heighten Saudi Escalation Concerns",
+      "url": "https://www.bloomberg.com/news/videos/2026-10-08/houthi-attacks-heighten-saudi-escalation-concerns-video",
+      "publishedAt": "2026-10-08T04:28:28+00:00",
+      "image": null,
+      "category": "other",
+      "topics": []
+    },
+    {
+      "id": "8b67efdeaf45841cab9c",
+      "source": "reuters",
+      "title": "South Korea may ban foreign banks arranging global bond deals, Bloomberg News reports",
+      "url": "https://www.reuters.com/world/asia-pacific/south-korea-may-ban-foreign-banks-arranging-global-bond-deals-bloomberg-news-2026-10-08/",
+      "publishedAt": "2026-10-08T04:28:09.510000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/N4GXWOMHBNNEXMLKXKLY5SSDGE.jpg?auth=5ba95c059981ff417f8d9728ffbb4f4ba9748403b260e0feed57b9e338629c21&smart=true&width=1920",
+      "category": "markets",
+      "topics": []
+    },
+    {
+      "id": "c1cbc0620f6133be5e6e",
+      "source": "reuters",
+      "title": "North Korea's Kim Yo Jong rejects South Korean medical aid, calls it a provocation",
+      "url": "https://www.reuters.com/world/asia-pacific/north-koreas-kim-yo-jong-says-seouls-plan-send-medical-aid-is-political-2026-10-08/",
+      "publishedAt": "2026-10-08T04:27:23.594000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/QBPXUABQHVNGHCSGPUBUTCLZOM.jpg?auth=0a3f8373b901f97d5621f1c671c238e5edf2490409e892528426b5cf4cb7b900&smart=true&width=1920",
+      "category": "world",
+      "topics": []
+    },
+    {
+      "id": "379430de4c9f6f002a01",
+      "source": "reuters",
+      "title": "French mayor caught in viral video clash says student protesters 'could be my children'",
+      "url": "https://www.reuters.com/world/french-mayor-caught-viral-video-clash-says-student-protesters-could-be-my-2026-10-07/",
+      "publishedAt": "2026-10-08T04:24:46.420000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/ICD5D26ENBMVHMSWAJ7BYFDALM.jpg?auth=8860367fa76e99519709d1fc0082299d84d6e8118969789873fdc362ea0bafbc&smart=true&width=1920",
+      "category": "world",
+      "topics": []
+    },
+    {
+      "id": "e1fd684ba987b5ab3bbc",
+      "source": "reuters",
+      "title": "Indian payment stocks slide after report on UPI MDR rollout delay,",
+      "url": "https://www.reuters.com/world/india/indian-payment-stocks-slide-after-report-upi-mdr-rollout-delay-2026-10-08/",
+      "publishedAt": "2026-10-08T04:24:09.689000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/JDL2HILN2VMBJFEAO5HCWLYWZU.jpg?auth=554fec5f37386c12ac30e14ce41dbd67a532f621ae0346a26ebcc9f26ebe6159&smart=true&width=1920",
+      "category": "markets",
+      "topics": []
+    },
+    {
+      "id": "8910dfb81282e0cd8591",
+      "source": "reuters",
+      "title": "Bollywood actor Nana Patekar dies at 75",
+      "url": "https://www.reuters.com/business/media-telecom/bollywood-actor-nana-patekar-dies-75-2026-10-08/",
+      "publishedAt": "2026-10-08T04:23:44.911000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/ZJ7JINMLEJMEDP2QCJUWZ2KT4E.jpg?auth=8a293dddc0ad20679379e23ec0a9971c683ca0fce85ec75384d99ea25b6ab879&smart=true&width=1920",
+      "category": "business",
+      "topics": []
+    },
+    {
+      "id": "0cd1ba5b356ecd803f45",
+      "source": "reuters",
+      "title": "Britain removes East Jerusalem consulate signage as Israeli shutdown order expires",
+      "url": "https://www.reuters.com/world/middle-east/britain-removes-east-jerusalem-consulate-signage-israeli-shutdown-order-expires-2026-10-08/",
+      "publishedAt": "2026-10-08T04:22:30.283000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/2LWDTYLEABMBXAS7SAZOLUUMVY.jpg?auth=4c72b27b5730f16d12173314d5005ef112df965b08e89b236bbf5d5605b03696&smart=true&width=1920",
+      "category": "world",
+      "topics": []
+    },
+    {
+      "id": "c467a60425d945da8190",
+      "source": "reuters",
+      "title": "Gold prices recover from two-month low as dollar rally stalls",
+      "url": "https://www.reuters.com/world/india/gold-edges-higher-after-hitting-two-month-low-2026-10-08/",
+      "publishedAt": "2026-10-08T04:22:01.072000+00:00",
+      "image": "https://www.reuters.com/resizer/v2/GV5E2ZCNLBMD5AW2PI6CTIY4HY.jpg?auth=7e2d7f40543ba6ffc7491a644a3adcd8387b6e7f31be6e7d50fb6cb341594d44&smart=true&width=1920",
+      "category": "markets",
+      "topics": []
+    },
+    {
       "id": "14d855b566df8df0c09d",
       "source": "kompas",
       "title": "The Fed Masih Pertimbangkan Kenaikan Suku Bunga hingga Akhir 2026",
@@ -150,16 +340,6 @@
       "topics": [
         "fed"
       ]
-    },
-    {
-      "id": "379430de4c9f6f002a01",
-      "source": "reuters",
-      "title": "French mayor caught in viral video clash says student protesters 'could be my children'",
-      "url": "https://www.reuters.com/world/french-mayor-caught-viral-video-clash-says-student-protesters-could-be-my-2026-10-07/",
-      "publishedAt": "2026-10-08T04:19:08.884000+00:00",
-      "image": "https://www.reuters.com/resizer/v2/ICD5D26ENBMVHMSWAJ7BYFDALM.jpg?auth=8860367fa76e99519709d1fc0082299d84d6e8118969789873fdc362ea0bafbc&smart=true&width=1920",
-      "category": "world",
-      "topics": []
     },
     {
       "id": "04958ad6ffc0f6ea12f5",
@@ -212,13 +392,13 @@
       "topics": []
     },
     {
-      "id": "0cd1ba5b356ecd803f45",
-      "source": "reuters",
-      "title": "Britain removes East Jerusalem consulate signage as Israeli shutdown order expires",
-      "url": "https://www.reuters.com/world/middle-east/britain-removes-east-jerusalem-consulate-signage-israeli-shutdown-order-expires-2026-10-08/",
-      "publishedAt": "2026-10-08T04:14:17.557000+00:00",
-      "image": "https://www.reuters.com/resizer/v2/2LWDTYLEABMBXAS7SAZOLUUMVY.jpg?auth=4c72b27b5730f16d12173314d5005ef112df965b08e89b236bbf5d5605b03696&smart=true&width=1920",
-      "category": "world",
+      "id": "179fb064888f788e172e",
+      "source": "aljazeera",
+      "title": "South Korea pledges legal action over alleged fuel exports to Russia",
+      "url": "https://www.aljazeera.com/news/2026/10/8/south-korea-pledges-legal-action-over-alleged-fuel-exports-to-russia?traffic_source=rss",
+      "publishedAt": "2026-10-08T04:14:11+00:00",
+      "image": "https://www.aljazeera.com/wp-content/uploads/2026/09/2026-05-08T070131Z_1905822413_RC2S4LADQ929_RTRMADP_3_IRAN-CRISIS-SOUTHKOREA-TANKER-1788401778.jpg?resize=1920%2C1440",
+      "category": "other",
       "topics": []
     },
     {
@@ -239,6 +419,16 @@
       "publishedAt": "2026-10-08T04:12:46.580000+00:00",
       "image": "https://www.reuters.com/resizer/v2/CXKLRLN77NJXFLBC2O5RXZLEJE.jpg?auth=b5b0a75d1dd966d3f9f4c050c39c54c34e0dab62a2f3bc8b6051ed869397329d&smart=true&width=1920",
       "category": "commentary",
+      "topics": []
+    },
+    {
+      "id": "98c3fde98a95f5460f1b",
+      "source": "detik",
+      "title": "Perpres Ojol Resmi Diluncurkan, Ini Isinya",
+      "url": "https://finance.detik.com/berita-ekonomi-bisnis/d-8697603/perpres-ojol-resmi-diluncurkan-ini-isinya",
+      "publishedAt": "2026-10-08T04:12:29+00:00",
+      "image": "https://akcdn.detik.net.id/community/media/visual/2026/10/08/dpr-ri-bersama-pemerintah-telah-merampungkan-penyusunan-peraturan-presiden-perpres-yang-mengatur-ekosistem-ojek-online-ojol-an-1791428867738_169.jpeg?w=360&q=90",
+      "category": "business",
       "topics": []
     },
     {
@@ -342,6 +532,16 @@
       "topics": []
     },
     {
+      "id": "b4a4276a4a7f5bdf0193",
+      "source": "detik",
+      "title": "Target Produksi Kopra Indonesia Tembus 2,86 Juta Ton pada 2028",
+      "url": "https://finance.detik.com/foto-bisnis/d-8695963/target-produksi-kopra-indonesia-tembus-2-86-juta-ton-pada-2028",
+      "publishedAt": "2026-10-08T04:00:10+00:00",
+      "image": "https://akcdn.detik.net.id/community/media/visual/2026/10/07/target-produksi-kopra-indonesia-tembus-286-juta-ton-pada-2028-1791343214151_169.jpeg?w=360&q=90",
+      "category": "local",
+      "topics": []
+    },
+    {
       "id": "8258b2c2976671f82e9d",
       "source": "kompas",
       "title": "Pengamat Dorong Bajaj Modern dan Becak Listrik Jadi Angkutan Pengumpan",
@@ -362,13 +562,13 @@
       "topics": []
     },
     {
-      "id": "1fee4e6f1e43c3baee5f",
-      "source": "reuters",
-      "title": "Indian shares open lower as hawkish RBI rate hike, rising oil dent sentiment",
-      "url": "https://www.reuters.com/world/india/indian-shares-poised-muted-start-tcs-kicks-off-earnings-season-2026-10-08/",
-      "publishedAt": "2026-10-08T03:56:24.851000+00:00",
-      "image": "https://www.reuters.com/resizer/v2/HHYESEPKURLKNBUBRY6Y5P3HIY.jpg?auth=a820259c6f043e9e032203fc913ce5d65ee4ac08318cb0309b4bda108eb89e8c&smart=true&width=1920",
-      "category": "markets",
+      "id": "64b0c05cbd59b1f815e8",
+      "source": "bloomberg",
+      "title": "Samsung Posts Record Profit but Investors Question Sustainability of AI Spending",
+      "url": "https://www.bloomberg.com/news/videos/2026-10-08/the-asia-trade-10-8-2026-video",
+      "publishedAt": "2026-10-08T03:56:07+00:00",
+      "image": null,
+      "category": "technology",
       "topics": []
     },
     {
@@ -453,26 +653,6 @@
       "publishedAt": "2026-10-08T03:41:51+00:00",
       "image": "https://asset.kompas.com/crops/EfAuRL_yklnUyNws7BoCq2JMoII=/0x0:4974x3316/750x500/data/photo/2025/07/07/686b48e653ae5.jpg",
       "category": "local",
-      "topics": []
-    },
-    {
-      "id": "4d7098e44b347800728d",
-      "source": "reuters",
-      "title": "Tom Wilson produces 3 points as Capitals get past Penguins",
-      "url": "https://www.reuters.com/sports/nhl/tom-wilson-produces-3-points-capitals-get-past-penguins--flm-2026-10-08/",
-      "publishedAt": "2026-10-08T03:40:21.923000+00:00",
-      "image": "https://www.reuters.com/resizer/v2/HXBQMZY5TRLUXEA7BWDO7MYEKU.jpg?auth=e9120e617cf3370416acd02b00731d10f722d9afad95bbd32e825ed7ed441173&smart=true&width=1920",
-      "category": "sport",
-      "topics": []
-    },
-    {
-      "id": "ff376ef3523f8b4a44b4",
-      "source": "reuters",
-      "title": "Hormuz transits at lowest in over two months after attacks, data shows",
-      "url": "https://www.reuters.com/business/energy/hormuz-transits-lowest-over-two-months-after-attacks-data-shows-2026-10-08/",
-      "publishedAt": "2026-10-08T03:39:43.973000+00:00",
-      "image": "https://www.reuters.com/resizer/v2/P2AJAGQVKZNLTIUO2UNWQ5D3LE.jpg?auth=7329e941b63fa8e10c05f71d03abadc46e692eed3aced32948653797499a82b8&smart=true&width=1920",
-      "category": "business",
       "topics": []
     },
     {
@@ -596,18 +776,6 @@
       "image": "https://akcdn.detik.net.id/community/media/visual/2025/09/08/kantor-bpkh-1757311028489_169.jpeg?w=360&q=90",
       "category": "business",
       "topics": []
-    },
-    {
-      "id": "c1cbc0620f6133be5e6e",
-      "source": "reuters",
-      "title": "North Korea's Kim Yo Jong says Seoul's plan to send medical aid is a political provocation",
-      "url": "https://www.reuters.com/world/asia-pacific/north-koreas-kim-yo-jong-says-seouls-plan-send-medical-aid-is-political-2026-10-08/",
-      "publishedAt": "2026-10-08T03:17:50.942000+00:00",
-      "image": "https://www.reuters.com/resizer/v2/QBPXUABQHVNGHCSGPUBUTCLZOM.jpg?auth=0a3f8373b901f97d5621f1c671c238e5edf2490409e892528426b5cf4cb7b900&smart=true&width=1920",
-      "category": "world",
-      "topics": [
-        "politics"
-      ]
     },
     {
       "id": "8b81d56cbe75bafda4f8",
@@ -831,16 +999,6 @@
       "publishedAt": "2026-10-08T02:46:15+00:00",
       "image": "https://akcdn.detik.net.id/community/media/visual/2026/10/08/menteri-keuangan-suahasil-1791428499832_169.jpeg?w=360&q=90",
       "category": "business",
-      "topics": []
-    },
-    {
-      "id": "4014e418a07975400afe",
-      "source": "reuters",
-      "title": "At least 28 killed in Ukraine, Zelenskiy condemns one of Russia's most 'vile strikes'",
-      "url": "https://www.reuters.com/world/europe/russia-strikes-ukraines-kyiv-fresh-wave-attacks-2026-10-07/",
-      "publishedAt": "2026-10-08T02:46:09.281000+00:00",
-      "image": "https://www.reuters.com/resizer/v2/IOWYDM7O2JJ23KEGLKILJRJOWI.jpg?auth=6bed7f6c87c97582fc0f062d3cd5b60d5c2d303d3f191d260bfa3eb6d835a52a&smart=true&width=1920",
-      "category": "world",
       "topics": []
     },
     {
@@ -1068,16 +1226,6 @@
       "topics": [
         "politics"
       ]
-    },
-    {
-      "id": "c467a60425d945da8190",
-      "source": "reuters",
-      "title": "Gold prices recover from two-month low as dollar rally stalls",
-      "url": "https://www.reuters.com/world/india/gold-edges-higher-after-hitting-two-month-low-2026-10-08/",
-      "publishedAt": "2026-10-08T02:05:09.059000+00:00",
-      "image": "https://www.reuters.com/resizer/v2/GV5E2ZCNLBMD5AW2PI6CTIY4HY.jpg?auth=7e2d7f40543ba6ffc7491a644a3adcd8387b6e7f31be6e7d50fb6cb341594d44&smart=true&width=1920",
-      "category": "markets",
-      "topics": []
     },
     {
       "id": "d830e30f3fba12760a20",
@@ -1479,16 +1627,6 @@
       "publishedAt": "2026-10-08T01:00:18.556000+00:00",
       "image": "https://www.reuters.com/resizer/v2/UVVIBNPUEVLI5OJMOAARS3V77A.jpg?auth=646a0c6062f1cdd1162cd3c708fd57d32a45f720ea6fb416cc30fe2657f74912&smart=true&width=1920",
       "category": "commentary",
-      "topics": []
-    },
-    {
-      "id": "b1ae7a2649ec654b900d",
-      "source": "reuters",
-      "title": "Asia shares subdued, bonds swamped by AI debt wave",
-      "url": "https://www.reuters.com/world/china/global-markets-global-markets-2026-10-08/",
-      "publishedAt": "2026-10-08T00:59:03.194000+00:00",
-      "image": "https://www.reuters.com/resizer/v2/4GTPNAX7Z5LYNCIC5KVFOG4MUQ.jpg?auth=6e57564dc68f026a26b8f9b5d71cd5968172ebbe2a445a2b62e738de7a15b89b&smart=true&width=1920",
-      "category": "technology",
       "topics": []
     },
     {
@@ -5647,7 +5785,7 @@
     {
       "id": "990e6010629184e8de44",
       "source": "bloomberg",
-      "title": "Oasis Urges Nidec to Seek a Buyout, Warns of Delisting Risk",
+      "title": "Oasis Urges Nidec to Consider Sale, Warns of Delisting Risk",
       "url": "https://www.bloomberg.com/news/articles/2026-10-07/oasis-urges-nidec-to-explore-privatization-on-delisting-risk",
       "publishedAt": "2026-10-07T10:22:59+00:00",
       "image": null,
@@ -11331,7 +11469,7 @@
       "title": "CEO HPE Antonio Neri jual saham senilai $17,1 juta",
       "url": "https://id.investing.com/news/insider-trading-news/ceo-hpe-antonio-neri-jual-saham-senilai-171-juta-93CH-3089967",
       "publishedAt": null,
-      "image": null,
+      "image": "https://content-media.investing.com/news/moved_LYNXMPEM3S10Z_1200_L.jpg",
       "category": "markets",
       "topics": []
     },
@@ -11341,7 +11479,7 @@
       "title": "Saham Asia Melemah Akibat Lonjakan Minyak dan Imbal Hasil; Samsung Turun Meski Cetak Rekor Laba",
       "url": "https://id.investing.com/news/stock-market-news/saham-asia-melemah-akibat-lonjakan-minyak-dan-imbal-hasil-samsung-turun-meski-cetak-rekor-laba-3089966",
       "publishedAt": null,
-      "image": "https://content-media.investing.com/news/LYNXNPEB970WT_S.jpg",
+      "image": "https://content-media.investing.com/news/LYNXMPEB5F0CM_M.jpg",
       "category": "markets",
       "topics": []
     },
@@ -11373,6 +11511,126 @@
       "publishedAt": null,
       "image": "https://content-media.investing.com/news/LYNXMPEB13022_M.jpg",
       "category": "technology",
+      "topics": []
+    },
+    {
+      "id": "4d42f1f44bf692cfa4d4",
+      "source": "investing",
+      "title": "Nvidia-backed Firmus closes IPO bookbuilding as investor support falter -Bloomberg",
+      "url": "https://www.investing.com/news/stock-market-news/nvidiabacked-firmus-closes-ipo-bookbuilding-as-investor-support-falter-bloomberg-4937873",
+      "publishedAt": null,
+      "image": "https://content-media.investing.com/news/moved_LYNXMPEM2B0V5_1200_L.jpg",
+      "category": "markets",
+      "topics": []
+    },
+    {
+      "id": "6aa2c446cd07085f8586",
+      "source": "investing",
+      "title": "Morning Bid: Sovereign bonds shouldered aside as AI takes their turf",
+      "url": "https://www.investing.com/news/economy-news/morning-bid-sovereign-bonds-shouldered-aside-as-ai-takes-their-turf-4937872",
+      "publishedAt": null,
+      "image": "https://content-media.investing.com/trkd-images/LYNXMPEM97086_L.jpg",
+      "category": "technology",
+      "topics": []
+    },
+    {
+      "id": "67ddb2b30551144d865f",
+      "source": "investing",
+      "title": "Musk accuses ’certain oligarchs’ of blocking Starlink launch in India",
+      "url": "https://www.investing.com/news/stock-market-news/musk-accuses-certain-oligarchs-of-blocking-starlink-launch-in-india-4937871",
+      "publishedAt": null,
+      "image": "https://content-media.investing.com/news/moved_LYNXMPEM6M02C_L.jpg",
+      "category": "markets",
+      "topics": []
+    },
+    {
+      "id": "0be7b7c5e6bb6a00fe8f",
+      "source": "investing",
+      "title": "Why is CIG ShangHai stock sliding today?",
+      "url": "https://www.investing.com/news/stock-market-news/why-is-cig-shanghai-stock-sliding-today-93CH-4937870",
+      "publishedAt": null,
+      "image": "https://content-media.investing.com/news/LYNXNPEC0E0NG_M.jpg",
+      "category": "markets",
+      "topics": []
+    },
+    {
+      "id": "adae9498f155b555cabd",
+      "source": "kontan",
+      "title": "Kementerian ESDM Berburu Sumber Minyak Baru Setelah RI Kehilangan 25% Impor",
+      "url": "https://industri.kontan.co.id/news/kementerian-esdm-berburu-sumber-minyak-baru-setelah-ri-kehilangan-25-impor?source=home_headline",
+      "publishedAt": null,
+      "image": "https://foto.kontan.co.id/nI4mX1kStiaSr8uXyuRFxXKb1Vc=/smart/2026/10/07/1357683567p.jpg",
+      "category": "markets",
+      "topics": []
+    },
+    {
+      "id": "d2da54f3d463fc89e089",
+      "source": "kontan",
+      "title": "Kementerian ESDM Berburu Sumber Minyak Baru Setelah RI Kehilangan 25% Impor",
+      "url": "https://industri.kontan.co.id/news/kementerian-esdm-berburu-sumber-minyak-baru-setelah-ri-kehilangan-25-impor?source=home_terbaru",
+      "publishedAt": null,
+      "image": "https://foto.kontan.co.id/xZ0VJkk3fXolkzSvHlYzZ3NNRvo=/smart/2026/10/07/1357683567t.jpg",
+      "category": "markets",
+      "topics": []
+    },
+    {
+      "id": "e0a3299a939df0f7a005",
+      "source": "investing_id",
+      "title": "Musk tuduh ’oligarki tertentu’ halangi peluncuran Starlink di India",
+      "url": "https://id.investing.com/news/stock-market-news/musk-tuduh-oligarki-tertentu-halangi-peluncuran-starlink-di-india-3089970",
+      "publishedAt": null,
+      "image": "https://content-media.investing.com/news/LYNXMPEB380HB_M.jpg",
+      "category": "markets",
+      "topics": []
+    },
+    {
+      "id": "bc1f3083026394465514",
+      "source": "investing_id",
+      "title": "Mengapa Saham CIG ShangHai Turun Hari Ini?",
+      "url": "https://id.investing.com/news/stock-market-news/mengapa-saham-cig-shanghai-turun-hari-ini-93CH-3089968",
+      "publishedAt": null,
+      "image": "https://content-media.investing.com/news/LYNXNPEC0E0NG_M.jpg",
+      "category": "markets",
+      "topics": []
+    },
+    {
+      "id": "352c953073d1ccfc6bac",
+      "source": "pluang",
+      "title": "Panduan Michelin Dubai 2026 hampir menggandakan pilihan restoran, Orfali Bros naik ke dua bintang.",
+      "url": "https://pluang.com/news-feed/guia-michelin-dubai-rayakan-edisi-ke-5-dengan-seleksi-lebih-besar",
+      "publishedAt": null,
+      "image": "https://image-cdn.pluang.com/web/news-cards/v2/GSS/66f301ad3ea2ff328ad77b067d2de8b0a473fa64d2d70d22eb42579d9963a143-id.webp",
+      "category": "other",
+      "topics": []
+    },
+    {
+      "id": "fd31d05a67e961e5e53c",
+      "source": "pluang",
+      "title": "Panduan MICHELIN Dubai 2026 hampir menggandakan jumlah restoran dengan bintang baru dan Bib Gourmand.",
+      "url": "https://pluang.com/news-feed/panduan-michelin-dubai-edisi-ke-5-jumlah-restoran-terpilih-hampir-dobel",
+      "publishedAt": null,
+      "image": "https://image-cdn.pluang.com/web/news-cards/v2/GSS/fb86762e0eaf14e207cddfc568b3cae69aa0f2007e404bc7527b48fe1243682e-id.webp",
+      "category": "other",
+      "topics": []
+    },
+    {
+      "id": "481238da7c09691e71df",
+      "source": "pluang",
+      "title": "Panduan Michelin Dubai 2026 gandakan restoran terpilih, tambah bintang dan penghargaan Bib Gourmand",
+      "url": "https://pluang.com/news-feed/panduan-michelin-dubai-raih-edisi-ke-5-dengan-pilihan-restoran-meningkat",
+      "publishedAt": null,
+      "image": "https://image-cdn.pluang.com/web/news-cards/v2/GSS/20c82a221c0db5e6122dcea33efc984c4d09d3913b257fd4fd4e9662c301cd31-id.webp",
+      "category": "other",
+      "topics": []
+    },
+    {
+      "id": "90f58b894b9666d6fb64",
+      "source": "pluang",
+      "title": "Panduan MICHELIN Dubai 2026 gandakan pilihan restoran dengan bintang baru dan penghargaan Bib Gourmand",
+      "url": "https://pluang.com/news-feed/panduan-michelin-dubai-edisi-ke-5-pemilihan-restoran-meningkat",
+      "publishedAt": null,
+      "image": "https://image-cdn.pluang.com/web/news-cards/v2/GSS/cbf3e96b647147bab5437720752c1e6640658152aa0bb85fca2ed97b101836e7-id.webp",
+      "category": "other",
       "topics": []
     }
   ]
