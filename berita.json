@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "checkedAt": "2026-10-08T09:24:54.941582+00:00",
+  "checkedAt": "2026-10-08T09:27:26.597450+00:00",
   "intervalMinutes": 5,
   "sources": [
     {
@@ -9,7 +9,7 @@
       "url": "https://www.investing.com/",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-08T09:24:31.267425+00:00"
+      "checkedAt": "2026-10-08T09:27:01.349243+00:00"
     },
     {
       "id": "cnbc",
@@ -17,7 +17,7 @@
       "url": "https://www.cnbc.com/markets/",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-08T09:24:31.365530+00:00"
+      "checkedAt": "2026-10-08T09:27:01.427259+00:00"
     },
     {
       "id": "kontan",
@@ -25,7 +25,7 @@
       "url": "https://www.kontan.co.id/",
       "kind": "html",
       "status": "ok",
-      "checkedAt": "2026-10-08T09:24:32.219002+00:00"
+      "checkedAt": "2026-10-08T09:27:02.699989+00:00"
     },
     {
       "id": "reuters",
@@ -33,7 +33,7 @@
       "url": "https://www.reuters.com/",
       "kind": "sitemap",
       "status": "ok",
-      "checkedAt": "2026-10-08T09:24:31.672302+00:00"
+      "checkedAt": "2026-10-08T09:27:01.441982+00:00"
     },
     {
       "id": "aljazeera",
@@ -41,7 +41,7 @@
       "url": "https://www.aljazeera.com/",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-08T09:24:31.312761+00:00"
+      "checkedAt": "2026-10-08T09:27:01.356261+00:00"
     },
     {
       "id": "bloomberg",
@@ -49,7 +49,7 @@
       "url": "https://www.bloomberg.com/asia",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-08T09:24:31.608229+00:00"
+      "checkedAt": "2026-10-08T09:27:01.518049+00:00"
     },
     {
       "id": "fnc",
@@ -57,7 +57,7 @@
       "url": "https://tradewithfnc.com/",
       "kind": "json",
       "status": "ok",
-      "checkedAt": "2026-10-08T09:24:32.900956+00:00"
+      "checkedAt": "2026-10-08T09:27:01.691100+00:00"
     },
     {
       "id": "investing_id",
@@ -65,7 +65,7 @@
       "url": "https://id.investing.com/news",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-08T09:24:31.658917+00:00"
+      "checkedAt": "2026-10-08T09:27:01.430296+00:00"
     },
     {
       "id": "pluang",
@@ -73,7 +73,7 @@
       "url": "https://pluang.com/news-feed",
       "kind": "html",
       "status": "ok",
-      "checkedAt": "2026-10-08T09:24:31.801033+00:00"
+      "checkedAt": "2026-10-08T09:27:02.049063+00:00"
     },
     {
       "id": "kompas",
@@ -81,7 +81,7 @@
       "url": "https://money.kompas.com/",
       "kind": "html",
       "status": "ok",
-      "checkedAt": "2026-10-08T09:24:32.831305+00:00"
+      "checkedAt": "2026-10-08T09:27:02.785819+00:00"
     },
     {
       "id": "detik",
@@ -89,7 +89,7 @@
       "url": "https://finance.detik.com/",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-08T09:24:32.914069+00:00"
+      "checkedAt": "2026-10-08T09:27:03.178575+00:00"
     },
     {
       "id": "kemenkeu",
@@ -121,7 +121,7 @@
       "url": "https://ekbis.sindonews.com/",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-08T09:24:32.198560+00:00"
+      "checkedAt": "2026-10-08T09:27:01.839604+00:00"
     },
     {
       "id": "ap",
@@ -137,7 +137,7 @@
       "url": "https://www.bbc.com/news",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-08T09:24:33.186662+00:00"
+      "checkedAt": "2026-10-08T09:27:02.252931+00:00"
     },
     {
       "id": "afp",
@@ -152,7 +152,7 @@
       "url": "https://www.wsj.com/",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-08T09:24:32.799626+00:00"
+      "checkedAt": "2026-10-08T09:27:02.273117+00:00"
     },
     {
       "id": "guardian",
@@ -160,7 +160,7 @@
       "url": "https://www.theguardian.com/",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-08T09:24:34.362954+00:00"
+      "checkedAt": "2026-10-08T09:27:02.884495+00:00"
     },
     {
       "id": "ft",
@@ -168,7 +168,7 @@
       "url": "https://www.ft.com/",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-08T09:24:34.268967+00:00"
+      "checkedAt": "2026-10-08T09:27:03.328181+00:00"
     },
     {
       "id": "dw",
@@ -176,7 +176,7 @@
       "url": "https://www.dw.com/en/top-stories/s-9097",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-08T09:24:34.395728+00:00"
+      "checkedAt": "2026-10-08T09:27:05.735969+00:00"
     },
     {
       "id": "fedwatch",
@@ -198,7 +198,7 @@
       "url": "https://www.marketwatch.com",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-08T09:24:32.935864+00:00"
+      "checkedAt": "2026-10-08T09:27:02.809577+00:00"
     },
     {
       "id": "id_katadata",
@@ -256,7 +256,7 @@
       "url": "https://www.npr.org",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-08T09:24:33.523405+00:00"
+      "checkedAt": "2026-10-08T09:27:03.135887+00:00"
     },
     {
       "id": "us_cbs",
@@ -285,7 +285,7 @@
       "url": "https://news.sky.com",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-08T09:24:34.032225+00:00"
+      "checkedAt": "2026-10-08T09:27:03.234935+00:00"
     },
     {
       "id": "gb_independent",
@@ -342,7 +342,7 @@
       "url": "https://www.freemalaysiatoday.com",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-08T09:24:34.295941+00:00"
+      "checkedAt": "2026-10-08T09:27:03.275616+00:00"
     },
     {
       "id": "my_sinar",
@@ -364,7 +364,7 @@
       "url": "https://www.channelnewsasia.com",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-08T09:24:34.473819+00:00"
+      "checkedAt": "2026-10-08T09:27:03.343015+00:00"
     },
     {
       "id": "sg_business",
@@ -421,7 +421,7 @@
       "url": "https://www.nrk.no",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-08T09:24:34.777182+00:00"
+      "checkedAt": "2026-10-08T09:27:03.429579+00:00"
     },
     {
       "id": "no_aftenposten",
@@ -478,7 +478,7 @@
       "url": "https://www.dr.dk",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-08T09:24:34.614087+00:00"
+      "checkedAt": "2026-10-08T09:27:03.493434+00:00"
     },
     {
       "id": "dk_politiken",
@@ -535,7 +535,7 @@
       "url": "https://yle.fi",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-08T09:24:34.548972+00:00"
+      "checkedAt": "2026-10-08T09:27:03.816617+00:00"
     },
     {
       "id": "fi_hs",
@@ -599,7 +599,7 @@
       "url": "https://www.irozhlas.cz",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-08T09:24:34.878230+00:00"
+      "checkedAt": "2026-10-08T09:27:03.663753+00:00"
     },
     {
       "id": "cz_idnes",
@@ -670,7 +670,7 @@
       "url": "https://hotnews.ro",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-08T09:24:35.349277+00:00"
+      "checkedAt": "2026-10-08T09:27:04.012630+00:00"
     },
     {
       "id": "ro_europa",
@@ -763,7 +763,7 @@
       "url": "https://www.rte.ie/news",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-08T09:24:34.841876+00:00"
+      "checkedAt": "2026-10-08T09:27:03.946751+00:00"
     },
     {
       "id": "ie_times",
@@ -820,7 +820,7 @@
       "url": "https://orf.at",
       "kind": "rss",
       "status": "ok",
-      "checkedAt": "2026-10-08T09:24:36.286764+00:00"
+      "checkedAt": "2026-10-08T09:27:04.989426+00:00"
     },
     {
       "id": "at_standard",
@@ -870,9 +870,595 @@
       "url": "https://www.krone.at",
       "kind": "external",
       "status": "external"
+    },
+    {
+      "id": "ca_cbc",
+      "name": "CBC News",
+      "url": "https://www.cbc.ca/news",
+      "kind": "rss",
+      "status": "ok",
+      "checkedAt": "2026-10-08T09:27:04.015779+00:00"
+    },
+    {
+      "id": "ca_globe",
+      "name": "The Globe and Mail",
+      "url": "https://www.theglobeandmail.com",
+      "kind": "external",
+      "status": "external"
+    },
+    {
+      "id": "ca_nationalpost",
+      "name": "National Post",
+      "url": "https://nationalpost.com",
+      "kind": "external",
+      "status": "external"
+    },
+    {
+      "id": "ca_star",
+      "name": "Toronto Star",
+      "url": "https://www.thestar.com",
+      "kind": "external",
+      "status": "external"
+    },
+    {
+      "id": "ca_globalnews",
+      "name": "Global News",
+      "url": "https://globalnews.ca",
+      "kind": "external",
+      "status": "external"
+    },
+    {
+      "id": "ca_ctv",
+      "name": "CTV News",
+      "url": "https://www.ctvnews.ca",
+      "kind": "external",
+      "status": "external"
+    },
+    {
+      "id": "ca_cp24",
+      "name": "CP24",
+      "url": "https://www.cp24.com",
+      "kind": "external",
+      "status": "external"
+    },
+    {
+      "id": "ca_financialpost",
+      "name": "Financial Post",
+      "url": "https://financialpost.com",
+      "kind": "external",
+      "status": "external"
+    },
+    {
+      "id": "mx_universal",
+      "name": "El Universal",
+      "url": "https://www.eluniversal.com.mx",
+      "kind": "external",
+      "status": "external"
+    },
+    {
+      "id": "mx_reforma",
+      "name": "Reforma",
+      "url": "https://www.reforma.com",
+      "kind": "external",
+      "status": "external"
+    },
+    {
+      "id": "mx_jornada",
+      "name": "La Jornada",
+      "url": "https://www.jornada.com.mx",
+      "kind": "external",
+      "status": "external"
+    },
+    {
+      "id": "mx_aristegui",
+      "name": "Aristegui Noticias",
+      "url": "https://aristeguinoticias.com",
+      "kind": "external",
+      "status": "external"
+    },
+    {
+      "id": "mx_milenio",
+      "name": "Milenio",
+      "url": "https://www.milenio.com",
+      "kind": "external",
+      "status": "external"
+    },
+    {
+      "id": "mx_financiero",
+      "name": "El Financiero",
+      "url": "https://www.elfinanciero.com.mx",
+      "kind": "external",
+      "status": "external"
+    },
+    {
+      "id": "mx_proceso",
+      "name": "Proceso",
+      "url": "https://www.proceso.com.mx",
+      "kind": "external",
+      "status": "external"
+    },
+    {
+      "id": "mx_expansion",
+      "name": "Expansión",
+      "url": "https://expansion.mx",
+      "kind": "external",
+      "status": "external"
+    },
+    {
+      "id": "ar_clarin",
+      "name": "Clarín",
+      "url": "https://www.clarin.com",
+      "kind": "rss",
+      "status": "ok",
+      "checkedAt": "2026-10-08T09:27:04.076622+00:00"
+    },
+    {
+      "id": "ar_nacion",
+      "name": "La Nación",
+      "url": "https://www.lanacion.com.ar",
+      "kind": "external",
+      "status": "external"
+    },
+    {
+      "id": "ar_pagina12",
+      "name": "Página 12",
+      "url": "https://www.pagina12.com.ar",
+      "kind": "external",
+      "status": "external"
+    },
+    {
+      "id": "ar_infobae",
+      "name": "Infobae",
+      "url": "https://www.infobae.com",
+      "kind": "external",
+      "status": "external"
+    },
+    {
+      "id": "ar_perfil",
+      "name": "Perfil",
+      "url": "https://www.perfil.com",
+      "kind": "external",
+      "status": "external"
+    },
+    {
+      "id": "ar_ambito",
+      "name": "Ámbito Financiero",
+      "url": "https://www.ambito.com",
+      "kind": "external",
+      "status": "external"
+    },
+    {
+      "id": "ar_cronista",
+      "name": "El Cronista",
+      "url": "https://www.cronista.com",
+      "kind": "external",
+      "status": "external"
+    },
+    {
+      "id": "ar_telam",
+      "name": "Télam",
+      "url": "https://www.telam.com.ar",
+      "kind": "external",
+      "status": "external"
+    },
+    {
+      "id": "co_tiempo",
+      "name": "El Tiempo",
+      "url": "https://www.eltiempo.com",
+      "kind": "external",
+      "status": "external"
+    },
+    {
+      "id": "co_espectador",
+      "name": "El Espectador",
+      "url": "https://www.elespectador.com",
+      "kind": "external",
+      "status": "external"
+    },
+    {
+      "id": "co_semana",
+      "name": "Semana",
+      "url": "https://www.semana.com",
+      "kind": "external",
+      "status": "external"
+    },
+    {
+      "id": "co_republica",
+      "name": "La República",
+      "url": "https://www.larepublica.co",
+      "kind": "external",
+      "status": "external"
+    },
+    {
+      "id": "co_portafolio",
+      "name": "Portafolio",
+      "url": "https://www.portafolio.co",
+      "kind": "external",
+      "status": "external"
+    },
+    {
+      "id": "co_caracol",
+      "name": "Caracol Radio",
+      "url": "https://caracol.com.co",
+      "kind": "external",
+      "status": "external"
+    },
+    {
+      "id": "co_rcn",
+      "name": "RCN Radio",
+      "url": "https://www.rcnradio.com",
+      "kind": "external",
+      "status": "external"
+    },
+    {
+      "id": "co_noticiascaracol",
+      "name": "Noticias Caracol",
+      "url": "https://noticias.caracoltv.com",
+      "kind": "external",
+      "status": "external"
+    },
+    {
+      "id": "cl_emol",
+      "name": "EMOL",
+      "url": "https://www.emol.com",
+      "kind": "external",
+      "status": "external"
+    },
+    {
+      "id": "cl_tercera",
+      "name": "La Tercera",
+      "url": "https://www.latercera.com",
+      "kind": "external",
+      "status": "external"
+    },
+    {
+      "id": "cl_biobio",
+      "name": "BioBioChile",
+      "url": "https://www.biobiochile.cl",
+      "kind": "external",
+      "status": "external"
+    },
+    {
+      "id": "cl_mostrador",
+      "name": "El Mostrador",
+      "url": "https://www.elmostrador.cl",
+      "kind": "external",
+      "status": "external"
+    },
+    {
+      "id": "cl_cooperativa",
+      "name": "Cooperativa",
+      "url": "https://www.cooperativa.cl",
+      "kind": "external",
+      "status": "external"
+    },
+    {
+      "id": "cl_df",
+      "name": "Diario Financiero",
+      "url": "https://www.df.cl",
+      "kind": "external",
+      "status": "external"
+    },
+    {
+      "id": "cl_t13",
+      "name": "T13",
+      "url": "https://www.t13.cl",
+      "kind": "external",
+      "status": "external"
+    },
+    {
+      "id": "cl_24horas",
+      "name": "24 Horas",
+      "url": "https://www.24horas.cl",
+      "kind": "external",
+      "status": "external"
+    },
+    {
+      "id": "pe_comercio",
+      "name": "El Comercio",
+      "url": "https://elcomercio.pe",
+      "kind": "external",
+      "status": "external"
+    },
+    {
+      "id": "pe_republica",
+      "name": "La República",
+      "url": "https://larepublica.pe",
+      "kind": "external",
+      "status": "external"
+    },
+    {
+      "id": "pe_gestion",
+      "name": "Gestión",
+      "url": "https://gestion.pe",
+      "kind": "external",
+      "status": "external"
+    },
+    {
+      "id": "pe_rpp",
+      "name": "RPP Noticias",
+      "url": "https://rpp.pe",
+      "kind": "external",
+      "status": "external"
+    },
+    {
+      "id": "pe_andina",
+      "name": "Andina",
+      "url": "https://andina.pe",
+      "kind": "external",
+      "status": "external"
+    },
+    {
+      "id": "pe_peru21",
+      "name": "Perú 21",
+      "url": "https://peru21.pe",
+      "kind": "external",
+      "status": "external"
+    },
+    {
+      "id": "pe_ojo",
+      "name": "OjoPúblico",
+      "url": "https://ojo-publico.com",
+      "kind": "external",
+      "status": "external"
+    },
+    {
+      "id": "pe_idl",
+      "name": "IDL-Reporteros",
+      "url": "https://www.idl-reporteros.pe",
+      "kind": "external",
+      "status": "external"
+    },
+    {
+      "id": "au_abc",
+      "name": "ABC News Australia",
+      "url": "https://www.abc.net.au/news",
+      "kind": "rss",
+      "status": "ok",
+      "checkedAt": "2026-10-08T09:27:04.160209+00:00"
+    },
+    {
+      "id": "au_smh",
+      "name": "The Sydney Morning Herald",
+      "url": "https://www.smh.com.au",
+      "kind": "external",
+      "status": "external"
+    },
+    {
+      "id": "au_age",
+      "name": "The Age",
+      "url": "https://www.theage.com.au",
+      "kind": "external",
+      "status": "external"
+    },
+    {
+      "id": "au_australian",
+      "name": "The Australian",
+      "url": "https://www.theaustralian.com.au",
+      "kind": "external",
+      "status": "external"
+    },
+    {
+      "id": "au_afr",
+      "name": "The Australian Financial Review",
+      "url": "https://www.afr.com",
+      "kind": "external",
+      "status": "external"
+    },
+    {
+      "id": "au_sbs",
+      "name": "SBS News",
+      "url": "https://www.sbs.com.au/news",
+      "kind": "external",
+      "status": "external"
+    },
+    {
+      "id": "au_guardian",
+      "name": "The Guardian Australia",
+      "url": "https://www.theguardian.com/australia-news",
+      "kind": "rss",
+      "status": "ok",
+      "checkedAt": "2026-10-08T09:27:04.093241+00:00"
+    },
+    {
+      "id": "au_news",
+      "name": "News.com.au",
+      "url": "https://www.news.com.au",
+      "kind": "external",
+      "status": "external"
+    },
+    {
+      "id": "nz_rnz",
+      "name": "RNZ News",
+      "url": "https://www.rnz.co.nz",
+      "kind": "rss",
+      "status": "ok",
+      "checkedAt": "2026-10-08T09:27:04.148039+00:00"
+    },
+    {
+      "id": "nz_stuff",
+      "name": "Stuff",
+      "url": "https://www.stuff.co.nz",
+      "kind": "external",
+      "status": "external"
+    },
+    {
+      "id": "nz_herald",
+      "name": "The New Zealand Herald",
+      "url": "https://www.nzherald.co.nz",
+      "kind": "external",
+      "status": "external"
+    },
+    {
+      "id": "nz_spinoff",
+      "name": "The Spinoff",
+      "url": "https://thespinoff.co.nz",
+      "kind": "external",
+      "status": "external"
+    },
+    {
+      "id": "nz_newsroom",
+      "name": "Newsroom",
+      "url": "https://www.newsroom.co.nz",
+      "kind": "external",
+      "status": "external"
+    },
+    {
+      "id": "nz_1news",
+      "name": "1News",
+      "url": "https://www.1news.co.nz",
+      "kind": "external",
+      "status": "external"
+    },
+    {
+      "id": "nz_newshub",
+      "name": "Newshub",
+      "url": "https://www.newshub.co.nz",
+      "kind": "external",
+      "status": "external"
+    },
+    {
+      "id": "nz_nbr",
+      "name": "NBR",
+      "url": "https://www.nbr.co.nz",
+      "kind": "external",
+      "status": "external"
+    },
+    {
+      "id": "cr_nacion",
+      "name": "La Nación",
+      "url": "https://www.nacion.com",
+      "kind": "external",
+      "status": "external"
+    },
+    {
+      "id": "cr_tico",
+      "name": "The Tico Times",
+      "url": "https://ticotimes.net",
+      "kind": "external",
+      "status": "external"
+    },
+    {
+      "id": "cr_crhoy",
+      "name": "CRHoy",
+      "url": "https://www.crhoy.com",
+      "kind": "external",
+      "status": "external"
+    },
+    {
+      "id": "cr_republica",
+      "name": "La República CR",
+      "url": "https://www.larepublica.net",
+      "kind": "external",
+      "status": "external"
+    },
+    {
+      "id": "cr_universidad",
+      "name": "Semanario Universidad",
+      "url": "https://semanariouniversidad.com",
+      "kind": "external",
+      "status": "external"
+    },
+    {
+      "id": "cr_teletica",
+      "name": "Teletica",
+      "url": "https://www.teletica.com",
+      "kind": "external",
+      "status": "external"
+    },
+    {
+      "id": "cr_monumental",
+      "name": "Radio Monumental",
+      "url": "https://www.monumental.co.cr",
+      "kind": "external",
+      "status": "external"
+    },
+    {
+      "id": "cr_delfino",
+      "name": "Delfino",
+      "url": "https://delfino.cr",
+      "kind": "external",
+      "status": "external"
+    },
+    {
+      "id": "uy_pais",
+      "name": "El País",
+      "url": "https://www.elpais.com.uy",
+      "kind": "external",
+      "status": "external"
+    },
+    {
+      "id": "uy_observador",
+      "name": "El Observador",
+      "url": "https://www.elobservador.com.uy",
+      "kind": "external",
+      "status": "external"
+    },
+    {
+      "id": "uy_diaria",
+      "name": "la diaria",
+      "url": "https://ladiaria.com.uy",
+      "kind": "rss",
+      "status": "ok",
+      "checkedAt": "2026-10-08T09:27:04.442770+00:00"
+    },
+    {
+      "id": "uy_montevideo",
+      "name": "Montevideo Portal",
+      "url": "https://www.montevideo.com.uy",
+      "kind": "external",
+      "status": "external"
+    },
+    {
+      "id": "uy_busqueda",
+      "name": "Búsqueda",
+      "url": "https://www.busqueda.com.uy",
+      "kind": "external",
+      "status": "external"
+    },
+    {
+      "id": "uy_subrayado",
+      "name": "Subrayado",
+      "url": "https://subrayado.com.uy",
+      "kind": "external",
+      "status": "external"
+    },
+    {
+      "id": "uy_perspectiva",
+      "name": "En Perspectiva",
+      "url": "https://enperspectiva.uy",
+      "kind": "external",
+      "status": "external"
+    },
+    {
+      "id": "uy_publicos",
+      "name": "Medios Públicos",
+      "url": "https://mediospublicos.uy",
+      "kind": "external",
+      "status": "external"
     }
   ],
   "items": [
+    {
+      "id": "a40d681c2505df5313a9",
+      "source": "at_orf",
+      "title": "Südkorea zieht Botschafter aus Kiew ab",
+      "url": "https://orf.at/stories/3444465/",
+      "publishedAt": "2026-10-08T09:25:49+00:00",
+      "image": "https://orf.at/mojo/1_4_1/storyserver//news/common/images/og-fallback-news.png",
+      "category": "other",
+      "topics": []
+    },
+    {
+      "id": "bbf615c1a943845ff35d",
+      "source": "kompas",
+      "title": "Update Harga Emas Antam Hari Ini (8/10) Turun Rp 15.000, Cek Daftar Terbarunya",
+      "url": "https://money.kompas.com/read/2026/10/08/162504926/update-harga-emas-antam-hari-ini-8-10-turun-rp-15000-cek-daftar-terbarunya",
+      "publishedAt": "2026-10-08T09:25:04+00:00",
+      "image": "https://asset.kompas.com/crops/WoWQMyK0uwv5QRrKbXuMLTQIuVY=/0x83:1000x750/750x500/data/photo/2026/03/07/69ab913061520.jpeg",
+      "category": "local",
+      "topics": []
+    },
     {
       "id": "5a49c029ba44e49da26f",
       "source": "reuters",
@@ -904,6 +1490,40 @@
       "topics": []
     },
     {
+      "id": "b1341526da16f48da65b",
+      "source": "guardian",
+      "title": "British consulate in East Jerusalem will stay open as UK mission, says Ed Miliband",
+      "url": "https://www.theguardian.com/politics/2026/oct/08/uk-consulate-east-jerusalem-remain-open-uk-mission-ed-miliband",
+      "publishedAt": "2026-10-08T09:20:59+00:00",
+      "image": "https://i.guim.co.uk/img/media/1125317cf6dab6dcaaa9ea4fe64db6815e209442/458_0_4583_3667/master/4583.jpg?width=140&quality=85&auto=format&fit=max&s=a5b51c75f3c1caefdbc495fe5d51d953",
+      "category": "politics",
+      "topics": [
+        "politics"
+      ]
+    },
+    {
+      "id": "b89ce47e53d5daf949bb",
+      "source": "sg_cna",
+      "title": "South Korea says to recall ambassador from Ukraine",
+      "url": "https://www.channelnewsasia.com/east-asia/south-korea-recall-ambassador-ukraine-6442176",
+      "publishedAt": "2026-10-08T09:20:54+00:00",
+      "image": null,
+      "category": "other",
+      "topics": []
+    },
+    {
+      "id": "004bfd089e6cc6a2c60f",
+      "source": "detik",
+      "title": "DPR Dorong Hilirisasi Nikel Jangan Berhenti di Produk Setengah Jadi",
+      "url": "https://finance.detik.com/energi/d-8698265/dpr-dorong-hilirisasi-nikel-jangan-berhenti-di-produk-setengah-jadi",
+      "publishedAt": "2026-10-08T09:20:25+00:00",
+      "image": "https://akcdn.detik.net.id/community/media/visual/2023/07/29/pt-vale-garap-3-proyek-smelter-senilai-1343-triliun-1_169.mpo?w=360&q=90",
+      "category": "other",
+      "topics": [
+        "politics"
+      ]
+    },
+    {
       "id": "50313e674335da56997c",
       "source": "reuters",
       "title": "Man City own goal upsets sport’s money-go-round",
@@ -911,6 +1531,16 @@
       "publishedAt": "2026-10-08T09:20:08.562000+00:00",
       "image": "https://www.reuters.com/resizer/v2/IMBTCDAOIZFQNFCKCDMDQ3SGTY.jpg?auth=b0ee63c743ac9f4be0b43b73c820caad533fd108c8ec8ce01178b286944a37a6&smart=true&width=1920",
       "category": "sport",
+      "topics": []
+    },
+    {
+      "id": "d800a6f7faa715f9928a",
+      "source": "detik",
+      "title": "Tak Cuma PNS Merokok, Mentan Temukan Banyak Ruang Kerja 'Berhantu' Saat Sidak",
+      "url": "https://finance.detik.com/berita-ekonomi-bisnis/d-8698263/tak-cuma-pns-merokok-mentan-temukan-banyak-ruang-kerja-berhantu-saat-sidak",
+      "publishedAt": "2026-10-08T09:20:02+00:00",
+      "image": "https://akcdn.detik.net.id/community/media/visual/2026/10/08/menteri-pertanian-mentan-andi-amran-sulaiman-melakukan-inspeksi-dadakan-sidak-1791448706025_169.jpeg?w=360&q=90",
+      "category": "local",
       "topics": []
     },
     {
@@ -1021,6 +1651,26 @@
       "publishedAt": "2026-10-08T09:16:41+00:00",
       "image": "https://image.cnbcfm.com/api/v1/image/108375373-1791441131113-gettyimages-2298533998-HL_GBEDRIGNANS_3327380.jpeg?v=1791441159&w=1920&h=1080",
       "category": "other",
+      "topics": []
+    },
+    {
+      "id": "fdcd897a81850855da37",
+      "source": "my_fmt",
+      "title": "MMA wants breakdown on doctors reporting for duty in East Malaysia",
+      "url": "https://www.freemalaysiatoday.com/category/nation/2026/10/08/mma-wants-breakdown-on-doctors-reporting-for-duty-in-east-malaysia",
+      "publishedAt": "2026-10-08T09:15:49+00:00",
+      "image": null,
+      "category": "other",
+      "topics": []
+    },
+    {
+      "id": "ae923d3a43bbba2fa162",
+      "source": "au_abc",
+      "title": "Matildas coach backs Mary Fowler's absence from friendlies",
+      "url": "https://www.abc.net.au/news/2026-10-08/matildas-coach-backs-mary-fowler-absence-from-friendlies/107245238",
+      "publishedAt": "2026-10-08T09:15:17+00:00",
+      "image": null,
+      "category": "sport",
       "topics": []
     },
     {
@@ -1212,6 +1862,16 @@
       "url": "https://www.reuters.com/business/healthcare-pharmaceuticals/russia-says-reports-second-case-linked-siberian-plague-lab-are-false-2026-10-08/",
       "publishedAt": "2026-10-08T09:06:04.130000+00:00",
       "image": "https://www.reuters.com/resizer/v2/AXRJGBXYM5MANMWXIR45TWRKWM.jpg?auth=7d2c19e1a580d66bd39ffcc0d735d9c143507612fae48b6900da7ebde2706040&smart=true&width=1920",
+      "category": "business",
+      "topics": []
+    },
+    {
+      "id": "d99ce643edc3860ec600",
+      "source": "nz_rnz",
+      "title": "RSA audit finds 'significant governance mistakes, failures', but no evidence of fraud",
+      "url": "https://www.rnz.co.nz/news/business/1796350/rsa-audit-finds-significant-governance-mistakes-failures-but-no-evidence-of-fraud",
+      "publishedAt": "2026-10-08T09:05:42+00:00",
+      "image": null,
       "category": "business",
       "topics": []
     },
@@ -1475,7 +2135,7 @@
       "title": "England to host 2031 Netball World Cup",
       "url": "https://www.bbc.co.uk/sport/netball/articles/ckrey7v24zr8o?at_medium=RSS&at_campaign=rss",
       "publishedAt": "2026-10-08T09:00:09+00:00",
-      "image": "https://ichef.bbci.co.uk/ace/standard/240/cpsprodpb/9730/live/763b9ea0-c2f9-11f1-b8c6-6d610e41a5d9.jpg",
+      "image": "https://ichef.bbci.co.uk/ace/standard/240/cpsprodpb/cb5d/live/0900b590-c2fa-11f1-b8c6-6d610e41a5d9.jpg",
       "category": "sport",
       "topics": []
     },
@@ -1986,7 +2646,7 @@
     {
       "id": "369c91a245096af336f7",
       "source": "my_fmt",
-      "title": "Lack of NS exco members won’t jeopardise state budget, says MB",
+      "title": "Absence of NS exco members won’t jeopardise state budget, says MB",
       "url": "https://www.freemalaysiatoday.com/category/nation/2026/10/08/lack-of-ns-exco-members-won-t-jeopardise-state-budget-says-mb",
       "publishedAt": "2026-10-08T08:48:00+00:00",
       "image": null,
@@ -2216,6 +2876,28 @@
       "topics": []
     },
     {
+      "id": "3a43ae50a041af0daa85",
+      "source": "au_abc",
+      "title": "UK to continue 'vital services' after Jerusalem consulate ends functions",
+      "url": "https://www.abc.net.au/news/2026-10-08/british-diplomats-to-remain-at-renamed-jerusalem-consulate/107244832",
+      "publishedAt": "2026-10-08T08:34:22+00:00",
+      "image": null,
+      "category": "world",
+      "topics": [
+        "politics"
+      ]
+    },
+    {
+      "id": "b03fe57cd043278c0df2",
+      "source": "nz_rnz",
+      "title": "One dead after two-vehicle crash on Temuka-Orari Highway",
+      "url": "https://www.rnz.co.nz/news/emergencies_local/1796210/one-dead-after-two-vehicle-crash-on-temuka-orari-highway",
+      "publishedAt": "2026-10-08T08:34:19+00:00",
+      "image": null,
+      "category": "other",
+      "topics": []
+    },
+    {
       "id": "3e61aabda83a27ed66f7",
       "source": "kompas",
       "title": "Inflasi Vietnam Naik ke 5,08 Persen, Target Pertumbuhan 10 Persen Ikut Tertekan",
@@ -2306,6 +2988,16 @@
       "topics": []
     },
     {
+      "id": "f3097074f1524600257d",
+      "source": "ar_clarin",
+      "title": "Un cuarto de siglo después, perdura el legado de la invasión de Afganistán liderada por EEUU",
+      "url": "https://www.clarin.com/estados-unidos/un-cuarto-de-siglo-despues-perdura-el-legado-de-la-invasion-de-afganistan-liderada-por-eeuu_0_tHJlFLbEpP.html",
+      "publishedAt": "2026-10-08T08:30:10+00:00",
+      "image": null,
+      "category": "other",
+      "topics": []
+    },
+    {
       "id": "6f6f5a9a5c7cbd941ba0",
       "source": "ft",
       "title": "British consulate in Jerusalem becomes ‘UK Mission’ after Israel orders closure",
@@ -2333,6 +3025,16 @@
       "publishedAt": "2026-10-08T08:29:25.351000+00:00",
       "image": "https://www.reuters.com/resizer/v2/J2OT46IMSVO2LHG3HHCW3T5WGM.jpg?auth=1bb42dc711388997fd45b2f1aac58ca16ebd233c55b315fd77faa5f6343d7aff&smart=true&width=1920",
       "category": "world",
+      "topics": []
+    },
+    {
+      "id": "f935171a0e8a465f97f8",
+      "source": "ar_clarin",
+      "title": "J. R. R. Tolkien, sobre \"el momento más trágico\" de El Señor de los Anillos: \"El bien a menudo hace el mal\"",
+      "url": "https://www.clarin.com/internacional/j-r-r-tolkien-momento-tragico-senor-anillos-bien-menudo-hace-mal_0_25Fqh2dUfR.html",
+      "publishedAt": "2026-10-08T08:29:22+00:00",
+      "image": null,
+      "category": "other",
       "topics": []
     },
     {
@@ -2510,7 +3212,7 @@
     {
       "id": "ad3e062cdb7fc6fcbb3c",
       "source": "wsj",
-      "title": "Stock Market Today: Oil Rises, Bonds Fall Again",
+      "title": "Stock Market Today: Oil Rises on Mideast Jitters, Pushing Yields Higher",
       "url": "https://www.wsj.com/livecoverage/stock-market-today-dow-sp-500-nasdaq-10-08-2026?mod=rss_markets_main",
       "publishedAt": "2026-10-08T08:21:45+00:00",
       "image": "https://images.wsj.net/im-925351",
@@ -2589,6 +3291,16 @@
       "publishedAt": "2026-10-08T08:20:37.272000+00:00",
       "image": "https://www.reuters.com/resizer/v2/O62I5TYA5ZNVPPJLJMRN3UCUSU.jpg?auth=40c324ac5b71772d8e5465e42c8772c56bd8be6d01d2611210c0c6a54aa8d3f5&smart=true&width=1920",
       "category": "world",
+      "topics": []
+    },
+    {
+      "id": "b3792e20db1630465ab1",
+      "source": "au_abc",
+      "title": "Lethal injections are 'nothing like we think', expert warns",
+      "url": "https://www.abc.net.au/news/2026-10-08/christa-pike-botched-execution-danger-lethal-injection/107243248",
+      "publishedAt": "2026-10-08T08:20:27+00:00",
+      "image": null,
+      "category": "other",
       "topics": []
     },
     {
@@ -2960,6 +3672,16 @@
       "topics": []
     },
     {
+      "id": "1b8c0af8f2957b165384",
+      "source": "nz_rnz",
+      "title": "Parliamentary committee echoes calls for greater oversight of animal welfare system",
+      "url": "https://www.rnz.co.nz/news/country/1796007/parliamentary-committee-echoes-calls-for-greater-oversight-of-animal-welfare-system",
+      "publishedAt": "2026-10-08T08:08:05+00:00",
+      "image": null,
+      "category": "other",
+      "topics": []
+    },
+    {
       "id": "472efeffe652e4c24db3",
       "source": "ie_rte",
       "title": "Flooding possible amid rain warnings for five counties",
@@ -3060,6 +3782,26 @@
       "topics": []
     },
     {
+      "id": "915544cab6a7464a89ec",
+      "source": "ar_clarin",
+      "title": "Paula y Álex dejaron la vida urbana para vivir en una masía en el monte: \"Verduras apenas compramos porque todo lo que consumimos es de huerto\"",
+      "url": "https://www.clarin.com/internacional/paula-alex-dejaron-vida-urbana-vivir-masia-monte-verduras-apenas-compramos-consumimos-huerto_0_U5J78zBDG3.html",
+      "publishedAt": "2026-10-08T08:01:22+00:00",
+      "image": null,
+      "category": "other",
+      "topics": []
+    },
+    {
+      "id": "1da709942ef5b5ff5f92",
+      "source": "ar_clarin",
+      "title": "Longevidad: la nueva forma de medir la salud que busca anticiparse al deterioro físico y mental",
+      "url": "https://www.clarin.com/buena-vida/longevidad-nueva-forma-medir-salud-busca-anticiparse-deterioro-fisico-mental_0_LIjRwC7rqC.html",
+      "publishedAt": "2026-10-08T08:01:21+00:00",
+      "image": null,
+      "category": "other",
+      "topics": []
+    },
+    {
       "id": "74eb615cf4b9217a6d2c",
       "source": "sindo",
       "title": "Prabowo Luncurkan 11 Proyek Hilirisasi Senilai Rp180 Triliun, Ekspor Perdana Baterai Kendaraan Listrik",
@@ -3116,6 +3858,26 @@
       "source": "bloomberg",
       "title": "Odd Lots: Understanding Europe’s Economic Problems(Podcast)",
       "url": "https://www.bloomberg.com/news/audio/2026-10-08/odd-lots-understanding-europe-s-economic-problems-podcast",
+      "publishedAt": "2026-10-08T08:00:00+00:00",
+      "image": null,
+      "category": "business",
+      "topics": []
+    },
+    {
+      "id": "c61e4438a7e70c82277f",
+      "source": "ca_cbc",
+      "title": "Dolly Parton's estate has filed a lawsuit against her nephew. Here's what's happened so far",
+      "url": "https://www.cbc.ca/news/entertainment/dolly-parton-estate-bryan-seaver-legal-feud-9.7372854?cmp=rss",
+      "publishedAt": "2026-10-08T08:00:00+00:00",
+      "image": null,
+      "category": "legal",
+      "topics": []
+    },
+    {
+      "id": "e9f63a636d98b0877916",
+      "source": "ca_cbc",
+      "title": "Is it better to buy or rent?",
+      "url": "https://www.cbc.ca/news/business/rent-or-buy-calculator-canada-9.7370950?cmp=rss",
       "publishedAt": "2026-10-08T08:00:00+00:00",
       "image": null,
       "category": "business",
@@ -3800,6 +4562,26 @@
       "topics": []
     },
     {
+      "id": "2c2daf086b46b114f274",
+      "source": "ar_clarin",
+      "title": "Ignacio Obeso, neurocientífico: “Si el cerebro está siempre en un estado previsible, se activa menos; hay que crear hábitos nuevos de forma frecuente”",
+      "url": "https://www.clarin.com/internacional/ignacio-obeso-neurocientifico-cerebro-siempre-estado-previsible-activa-crear-habitos-nuevos-forma-frecuente_0_vkKXwTLbT3.html",
+      "publishedAt": "2026-10-08T07:29:21+00:00",
+      "image": null,
+      "category": "other",
+      "topics": []
+    },
+    {
+      "id": "14c49b412292946946a5",
+      "source": "nz_rnz",
+      "title": "Scrub fire near Queenstown fully contained, firefighters stand down",
+      "url": "https://www.rnz.co.nz/news/emergencies_local/1794571/scrub-fire-near-queenstown-fully-contained-firefighters-stand-down",
+      "publishedAt": "2026-10-08T07:28:33+00:00",
+      "image": null,
+      "category": "other",
+      "topics": []
+    },
+    {
       "id": "aad1a0fa7b322c6a0e68",
       "source": "at_orf",
       "title": "NEOS-Mitgliederversammlung am Samstag in Linz",
@@ -3826,6 +4608,16 @@
       "url": "https://www.irozhlas.cz/zpravy-domov/andrej-babis-evropska-komise-agrofert-stret-zajmu-dopis-odpoved_2610080928_tec",
       "publishedAt": "2026-10-08T07:28:00+00:00",
       "image": "https://www.irozhlas.cz/sites/default/files/styles/zpravy_maly_nahled/public/uploader/a_zuj1177_260930-072439_mda.jpg?itok=CoLXX7lK",
+      "category": "other",
+      "topics": []
+    },
+    {
+      "id": "c9d18cd43130ab96b4bf",
+      "source": "nz_rnz",
+      "title": "Southland District Council seeks to revoke resource consent for slink skin factory",
+      "url": "https://www.rnz.co.nz/news/regional/1795290/southland-district-council-seeks-to-revoke-resource-consent-for-slink-skin-factory",
+      "publishedAt": "2026-10-08T07:27:42+00:00",
+      "image": null,
       "category": "other",
       "topics": []
     },
@@ -4006,6 +4798,16 @@
       "topics": []
     },
     {
+      "id": "1a4718a9bd24e5d34c70",
+      "source": "ar_clarin",
+      "title": "Alerta climática de la ONU: El Niño se intensificará en las próximas semanas y anticiparon cuando será su máximo pico",
+      "url": "https://www.clarin.com/sociedad/alerta-climatica-onu-nino-intensificara-proximas-semanas-anticiparon-maximo-pico_0_a7S7el9mOU.html",
+      "publishedAt": "2026-10-08T07:19:43+00:00",
+      "image": null,
+      "category": "other",
+      "topics": []
+    },
+    {
       "id": "d12191f4a5f0352aae6f",
       "source": "reuters",
       "title": "Greece plans 10% cryptocurrency capital gains tax",
@@ -4076,18 +4878,6 @@
       "image": "https://akcdn.detik.net.id/community/media/visual/2020/07/02/logo-baru-kementerian-bumn-1_169.jpeg?w=360&q=90",
       "category": "local",
       "topics": []
-    },
-    {
-      "id": "b1341526da16f48da65b",
-      "source": "guardian",
-      "title": "British consulate in East Jerusalem will stay open as UK mission, says Ed Miliband",
-      "url": "https://www.theguardian.com/politics/2026/oct/08/uk-consulate-east-jerusalem-remain-open-uk-mission-ed-miliband",
-      "publishedAt": "2026-10-08T07:17:51+00:00",
-      "image": "https://i.guim.co.uk/img/media/1125317cf6dab6dcaaa9ea4fe64db6815e209442/458_0_4583_3667/master/4583.jpg?width=140&quality=85&auto=format&fit=max&s=a5b51c75f3c1caefdbc495fe5d51d953",
-      "category": "politics",
-      "topics": [
-        "politics"
-      ]
     },
     {
       "id": "a8905f624b7c8ec4170d",
@@ -4200,6 +4990,18 @@
       "topics": []
     },
     {
+      "id": "8d1854f5e174fcda896d",
+      "source": "au_abc",
+      "title": "Mine backed by US, Australia and Gina Rinehart moves towards construction",
+      "url": "https://www.abc.net.au/news/2026-10-08/arafura-nolans-rare-earths-mine-alice-springs-nt-ground-broken/107240942",
+      "publishedAt": "2026-10-08T07:10:55+00:00",
+      "image": null,
+      "category": "business",
+      "topics": [
+        "politics"
+      ]
+    },
+    {
       "id": "27ff3e7f53958d3340bd",
       "source": "reuters",
       "title": "US will rescind policy targeting oil and gas industry methane leaks",
@@ -4207,6 +5009,16 @@
       "publishedAt": "2026-10-08T07:10:35.500000+00:00",
       "image": "https://www.reuters.com/resizer/v2/VPLMLRWSRBN37HRNXMEK5GCRC4.jpg?auth=04137f69d4ba86d8689adc50ebf5b2d353ed3c0510f9421ecc9859780b6b09b4&smart=true&width=1920",
       "category": "legal",
+      "topics": []
+    },
+    {
+      "id": "ded53d9dc5fba73d7e4e",
+      "source": "ar_clarin",
+      "title": "Tres empleados despedidos piden a OpenAI no crear una IA cuyo razonamiento sea ilegible",
+      "url": "https://www.clarin.com/estados-unidos/tres-empleados-despedidos-piden-a-openai-no-crear-una-ia-cuyo-razonamiento-sea-ilegible_0_KgEAfP2Ln3.html",
+      "publishedAt": "2026-10-08T07:10:18+00:00",
+      "image": null,
+      "category": "other",
       "topics": []
     },
     {
@@ -4324,7 +5136,7 @@
       "source": "sg_cna",
       "title": "Britain says consulate in Jerusalem to remain open as a UK Mission",
       "url": "https://www.channelnewsasia.com/world/britain-consulate-jerusalem-open-sanctions-west-bank-6441541",
-      "publishedAt": "2026-10-08T07:05:18+00:00",
+      "publishedAt": "2026-10-08T07:05:00+00:00",
       "image": null,
       "category": "business",
       "topics": []
@@ -4410,6 +5222,16 @@
       "topics": []
     },
     {
+      "id": "893ec32551876862fbb2",
+      "source": "au_abc",
+      "title": "NT environmental regulator has 'low confidence' in plan for outback data centre",
+      "url": "https://www.abc.net.au/news/2026-10-08/nt-environment-regulator-data-centre-low-level-of-confidence/107242664",
+      "publishedAt": "2026-10-08T07:01:47+00:00",
+      "image": null,
+      "category": "technology",
+      "topics": []
+    },
+    {
       "id": "1280969e1c2dcd711b7e",
       "source": "reuters",
       "title": "MLB roundup: Rays, Dodgers, Brewers wrap up division series",
@@ -4437,6 +5259,16 @@
       "publishedAt": "2026-10-08T07:01:26+00:00",
       "image": "https://asset.kompas.com/crops/1GwznD2XYSwlw4J3lHJs0GJEH_w=/150x100:1350x900/750x500/data/photo/2026/09/08/6aa02314b2a4d.jpg",
       "category": "markets",
+      "topics": []
+    },
+    {
+      "id": "70a3e0ae1eb08f0e5b6a",
+      "source": "ar_clarin",
+      "title": "Confucio, filósofo chino: \"A los 15 años me dediqué a aprender, a los 30 me establecí, a los 40 no tenía dudas y a los 70 sigo todos mis deseos sin quebrantar ninguna ley\"",
+      "url": "https://www.clarin.com/internacional/confucio-filosofo-chino-15-anos-dedique-aprender-30-estableci-40-dudas-70-sigo-deseos-quebrantar-ley_0_6kNmzJ4B13.html",
+      "publishedAt": "2026-10-08T07:01:21+00:00",
+      "image": null,
+      "category": "other",
       "topics": []
     },
     {
@@ -4510,6 +5342,16 @@
       "topics": []
     },
     {
+      "id": "02c1ff23b78cf823cb07",
+      "source": "ar_clarin",
+      "title": "Dólar blue hoy: a cuánto cotiza este jueves 08 de octubre",
+      "url": "https://www.clarin.com/economia/dolar-blue-hoy-cotiza-jueves-08-octubre_0_4rqKllLfMv.html",
+      "publishedAt": "2026-10-08T07:00:08+00:00",
+      "image": null,
+      "category": "business",
+      "topics": []
+    },
+    {
       "id": "a3cc5e4a654fb34e4a70",
       "source": "wsj",
       "title": "Uniqlo Owner Posts Record Annual Profit, Expects Further Growth",
@@ -4548,6 +5390,16 @@
       "url": "https://hotnews.ro/vor-fi-inlocuite-vechile-autobuze-mercedes-benz-din-bucuresti-primaria-capitalei-anunt-major-despre-transportul-public-2370253",
       "publishedAt": "2026-10-08T06:59:14+00:00",
       "image": "https://hotnews.ro/wp-content/uploads/2026/10/dreamstime_m_157616048.jpg",
+      "category": "other",
+      "topics": []
+    },
+    {
+      "id": "232ed1ddfbbfaaba08a4",
+      "source": "au_abc",
+      "title": "Two more charged with murder over fatal house party attack",
+      "url": "https://www.abc.net.au/news/2026-10-08/qld-two-charged-with-murder-bahrs-scrub/107244732",
+      "publishedAt": "2026-10-08T06:58:28+00:00",
+      "image": null,
       "category": "other",
       "topics": []
     },
@@ -4591,6 +5443,16 @@
       "publishedAt": "2026-10-08T06:57:25+00:00",
       "image": "https://hotnews.ro/wp-content/uploads/2026/10/Screenshot-2026-10-08-at-09.57.08.png",
       "category": "commentary",
+      "topics": []
+    },
+    {
+      "id": "8fffad92649d6d908e47",
+      "source": "au_abc",
+      "title": "Apple's age-verification feature welcomed by Pornhub owners",
+      "url": "https://www.abc.net.au/news/2026-10-08/age-verified-apple-users-welcomed-back-to-porn-hub/107240740",
+      "publishedAt": "2026-10-08T06:57:21+00:00",
+      "image": null,
+      "category": "other",
       "topics": []
     },
     {
@@ -5082,6 +5944,16 @@
       "topics": []
     },
     {
+      "id": "04e6c17775aba3dd667c",
+      "source": "au_abc",
+      "title": "Another NASA crew is coming home. Here's what to expect from their splashdown",
+      "url": "https://www.abc.net.au/news/2026-10-08/nasa-spacex-crew-12-return-to-earth-explained/107239878",
+      "publishedAt": "2026-10-08T06:36:29+00:00",
+      "image": null,
+      "category": "other",
+      "topics": []
+    },
+    {
       "id": "b861f3e09eab669cbc58",
       "source": "reuters",
       "title": "CrowdStrike says China-based suspect used AI tools in South Korean bank hacks",
@@ -5089,6 +5961,16 @@
       "publishedAt": "2026-10-08T06:35:53.806000+00:00",
       "image": "https://www.reuters.com/resizer/v2/DAIR7LFZO5NI5HB63HE23ZEZZU.jpg?auth=cce50667d2a6f8815d897fc57ae317fcf86e8261309fe0230511249c7ffd3da3&smart=true&width=1920",
       "category": "technology",
+      "topics": []
+    },
+    {
+      "id": "991c072c9451de5296fb",
+      "source": "au_abc",
+      "title": "Kai Allen shines as Ford gets engine change for Bathurst",
+      "url": "https://www.abc.net.au/news/2026-10-08/bathurst-1000-supercars-kai-allen-fastest-practice-thursday/107244458",
+      "publishedAt": "2026-10-08T06:35:17+00:00",
+      "image": null,
+      "category": "sport",
       "topics": []
     },
     {
@@ -5154,6 +6036,16 @@
       "topics": []
     },
     {
+      "id": "052694c917813e0140dd",
+      "source": "au_abc",
+      "title": "Melbourne man accused of spreading Islamic State material granted bail",
+      "url": "https://www.abc.net.au/news/2026-10-08/alleged-isis-propagandist-mohamed-bakit-granted-bail/107244368",
+      "publishedAt": "2026-10-08T06:32:47+00:00",
+      "image": null,
+      "category": "legal",
+      "topics": []
+    },
+    {
       "id": "d0b7b6b00bc63b23d6b4",
       "source": "sindo",
       "title": "23 Kawasan Industri Bakal Digabung Jadi Satu Perusahaan, Diumumkan 5 November",
@@ -5182,6 +6074,18 @@
       "image": null,
       "category": "business",
       "topics": []
+    },
+    {
+      "id": "e52455775ba93f6b56aa",
+      "source": "au_abc",
+      "title": "Angus Taylor tries to find his place on the migration middle road",
+      "url": "https://www.abc.net.au/news/2026-10-08/angus-taylor-migration-policy-official-costing/107234706",
+      "publishedAt": "2026-10-08T06:30:17+00:00",
+      "image": null,
+      "category": "other",
+      "topics": [
+        "politics"
+      ]
     },
     {
       "id": "e9554427d2110b3a0afe",
@@ -5222,6 +6126,18 @@
       "image": "https://www.reuters.com/resizer/v2/JSD4YIBCJFL55O2MBNRYBDVFII.jpg?auth=20e5e9bbebaaf52f0a86fec89fafb4157ad45c915c25fc8c6ec636026dea29e5&smart=true&width=1920",
       "category": "world",
       "topics": []
+    },
+    {
+      "id": "08bd9f5cd188b811f6ff",
+      "source": "au_guardian",
+      "title": "Ministers urge ATO to reverse credit card ban amid growing backlash from small businesses",
+      "url": "https://www.theguardian.com/australia-news/2026/oct/08/calls-ato-to-reverse-credit-card-surcharge-ban-small-business-backlash",
+      "publishedAt": "2026-10-08T06:28:06+00:00",
+      "image": "https://i.guim.co.uk/img/media/3bb4ed0b1eb3f487c653058a7847d93a3ec5bd57/628_0_6282_5026/master/6282.jpg?width=140&quality=85&auto=format&fit=max&s=ca15ae25ca376fa93808ac062303782f",
+      "category": "business",
+      "topics": [
+        "politics"
+      ]
     },
     {
       "id": "98968b03cb6c8a2e8bb2",
@@ -5369,6 +6285,26 @@
       "publishedAt": "2026-10-08T06:21:15.896000+00:00",
       "image": "https://www.reuters.com/resizer/v2/Z7OUSBHECZMJVEHQT7G2AZVSQU.jpg?auth=d744de1dff56ce6253e434596633c13e1393904d3c027ad8da01a504cfbeaa64&smart=true&width=1920",
       "category": "world",
+      "topics": []
+    },
+    {
+      "id": "a3669875c513d850c922",
+      "source": "nz_rnz",
+      "title": "Loafers Lodge fire trial: Survivor recounts rescue from burning building",
+      "url": "https://www.rnz.co.nz/news/crime-and-justice/1795424/loafers-lodge-fire-trial-survivor-recounts-rescue-from-burning-building",
+      "publishedAt": "2026-10-08T06:21:14+00:00",
+      "image": null,
+      "category": "other",
+      "topics": []
+    },
+    {
+      "id": "7be038917256332d149e",
+      "source": "au_abc",
+      "title": "Charges dropped against 12yo after alleged bashing of Sunshine shopkeeper",
+      "url": "https://www.abc.net.au/news/2026-10-08/sunshine-assault-charges-dropped-12-year-old-boy/107244378",
+      "publishedAt": "2026-10-08T06:19:15+00:00",
+      "image": null,
+      "category": "legal",
       "topics": []
     },
     {
@@ -5622,6 +6558,16 @@
       "topics": []
     },
     {
+      "id": "b2c3955846cf4b2ad389",
+      "source": "au_abc",
+      "title": "Sam Wood denied bail on DV charges after allegedly choking wife",
+      "url": "https://www.abc.net.au/news/2026-10-08/qld-sam-wood-domestic-violence-court/107239306",
+      "publishedAt": "2026-10-08T06:03:13+00:00",
+      "image": null,
+      "category": "legal",
+      "topics": []
+    },
+    {
       "id": "4b1b8fe3d995d5aa83cf",
       "source": "sg_cna",
       "title": "Woman found dead was stressed over workplace injury claim, discharged against advice, coroner's court hears",
@@ -5716,6 +6662,18 @@
       "topics": []
     },
     {
+      "id": "693c96876dc8dd8b351f",
+      "source": "au_abc",
+      "title": "Aged care waitlist deaths jump amid funding backlog for 100,000",
+      "url": "https://www.abc.net.au/news/2026-10-08/more-australians-died-on-aged-care-waitlist-figures-reveal/107243522",
+      "publishedAt": "2026-10-08T05:59:43+00:00",
+      "image": null,
+      "category": "legal",
+      "topics": [
+        "politics"
+      ]
+    },
+    {
       "id": "afba6afe973dfe3aa5b9",
       "source": "detik",
       "title": "Ramai Seruan Boikot Produk RI di Malaysia, Mendag: Nggak Ada Masalah",
@@ -5723,6 +6681,16 @@
       "publishedAt": "2026-10-08T05:59:27+00:00",
       "image": "https://akcdn.detik.net.id/community/media/visual/2026/10/08/menteri-perdagangan-budi-santoso-1791435231230_169.jpeg?w=360&q=90",
       "category": "business",
+      "topics": []
+    },
+    {
+      "id": "eb8dfd63b5b71b649a86",
+      "source": "au_guardian",
+      "title": "Bachelor star Sam Wood denied bail as police allege he choked woman until she ‘thought she would die’",
+      "url": "https://www.theguardian.com/australia-news/2026/oct/08/sam-wood-bachelor-bail-court-custody-domestic-violence-ntwnfb",
+      "publishedAt": "2026-10-08T05:58:53+00:00",
+      "image": "https://i.guim.co.uk/img/media/1d82fb024ed7d912bb4fc5f2d3293dc1ca863ebc/0_0_1333_1065/master/1333.jpg?width=140&quality=85&auto=format&fit=max&s=8a763c9c758960a86a5c958e048f1254",
+      "category": "legal",
       "topics": []
     },
     {
@@ -5956,6 +6924,16 @@
       "topics": []
     },
     {
+      "id": "7a3791ae962e1be9ab8f",
+      "source": "nz_rnz",
+      "title": "Man took his own life after paying money to ‘sextortion’ blackmail involving AI-generated woman",
+      "url": "https://www.rnz.co.nz/news/crime-and-justice/1787553/man-took-his-own-life-after-paying-money-to-sextortion-blackmail-involving-ai-generated-woman",
+      "publishedAt": "2026-10-08T05:42:54+00:00",
+      "image": null,
+      "category": "technology",
+      "topics": []
+    },
+    {
       "id": "ec3e6791f11e8fbdc61c",
       "source": "bbc",
       "title": "'I was blamed for my baby's death, now NHS needs to change'",
@@ -6013,6 +6991,16 @@
       "publishedAt": "2026-10-08T05:40:00+00:00",
       "image": "https://asset.kompas.com/crops/y5TUQD6Q7sFH4yc9azyFiLwukIc=/66x0:1146x720/750x500/data/photo/2026/08/24/6a8b6ad1342f6.jpeg",
       "category": "business",
+      "topics": []
+    },
+    {
+      "id": "ceca98d705308a6b1cce",
+      "source": "nz_rnz",
+      "title": "Are you feeling wealthier?",
+      "url": "https://www.rnz.co.nz/news/personal-finance/1794216/are-you-feeling-wealthier",
+      "publishedAt": "2026-10-08T05:39:26+00:00",
+      "image": null,
+      "category": "other",
       "topics": []
     },
     {
@@ -6146,6 +7134,16 @@
       "topics": []
     },
     {
+      "id": "1f9dc8631dd6b0d9dda0",
+      "source": "au_guardian",
+      "title": "NSW police commissioner made last-minute bid to hold closed-door hearings into Sydney anti-Herzog protest",
+      "url": "https://www.theguardian.com/australia-news/2026/oct/08/nsw-police-commissioner-lanyon-bid-stop-public-inquiry-sydney-anti-herzog-protest-ntwnfb",
+      "publishedAt": "2026-10-08T05:30:47+00:00",
+      "image": "https://i.guim.co.uk/img/media/ef605120f597681a144b4d74f85467f6b85fe5c4/447_99_2376_1901/master/2376.jpg?width=140&quality=85&auto=format&fit=max&s=f9de79cab8772884f4f01a8b69bd29cd",
+      "category": "other",
+      "topics": []
+    },
+    {
       "id": "e483c3ad5065b03ce8da",
       "source": "ap",
       "title": "Tatis, Padres eliminated from postseason by top-seeded Brewers in 4 games",
@@ -6186,6 +7184,16 @@
       "topics": []
     },
     {
+      "id": "85b45c81e5b85d4178c9",
+      "source": "au_abc",
+      "title": "High Court's coalmine emissions ruling says 'the quiet part out loud'",
+      "url": "https://www.abc.net.au/news/2026-10-08/government-experts-respond-mt-pleasant-high-court-ruling/107242132",
+      "publishedAt": "2026-10-08T05:26:30+00:00",
+      "image": null,
+      "category": "legal",
+      "topics": []
+    },
+    {
       "id": "d87b36bef0b29c8f8978",
       "source": "bbc",
       "title": "Watch: The extreme motorsport where women keep winning",
@@ -6206,6 +7214,26 @@
       "topics": []
     },
     {
+      "id": "977cb39be22dfe796fbd",
+      "source": "nz_rnz",
+      "title": "Serial rapist, convicted murderer Malcolm Rewa appeals for earlier release",
+      "url": "https://www.rnz.co.nz/news/crime-and-justice/1795055/serial-rapist-convicted-murderer-malcolm-rewa-appeals-for-earlier-release",
+      "publishedAt": "2026-10-08T05:24:27+00:00",
+      "image": null,
+      "category": "other",
+      "topics": []
+    },
+    {
+      "id": "7c5d31e5aebf70ab9f3c",
+      "source": "au_abc",
+      "title": "Farmer devastated after dog attack leaves 40 lambs dead",
+      "url": "https://www.abc.net.au/news/2026-10-08/forty-lambs-killed-dog-attack-porongorup-farm-wa/107242156",
+      "publishedAt": "2026-10-08T05:23:41+00:00",
+      "image": null,
+      "category": "markets",
+      "topics": []
+    },
+    {
       "id": "b5eda7385acc71e64bb4",
       "source": "ro_hotnews",
       "title": "Trump, sfidat într-un bastion republican: „Sunt plătiți de dușmanii națiunii”. Ce a spus despre mama unui protestatar care s-a apropiat",
@@ -6223,6 +7251,16 @@
       "title": "Isaias strengthens into the first hurricane of the Atlantic season",
       "url": "https://www.npr.org/2026/10/08/g-s1-147095/weather-hurricane-season",
       "publishedAt": "2026-10-08T05:22:15+00:00",
+      "image": null,
+      "category": "other",
+      "topics": []
+    },
+    {
+      "id": "da81c0182036eb342527",
+      "source": "nz_rnz",
+      "title": "Whangārei rough sleepers braced for eviction as deadline arrives",
+      "url": "https://www.rnz.co.nz/news/regional/1794344/whangarei-rough-sleepers-braced-for-eviction-as-deadline-arrives",
+      "publishedAt": "2026-10-08T05:22:13+00:00",
       "image": null,
       "category": "other",
       "topics": []
@@ -6398,6 +7436,16 @@
       "topics": []
     },
     {
+      "id": "978132bdf5938de3294f",
+      "source": "au_abc",
+      "title": "Biggest coal-producing state fears impact of High Court emissions decision",
+      "url": "https://www.abc.net.au/news/2026-10-08/qld-mining-sector-concerns-nsw-high-court-emissions-decision/107242190",
+      "publishedAt": "2026-10-08T05:11:43+00:00",
+      "image": null,
+      "category": "legal",
+      "topics": []
+    },
+    {
       "id": "bdb34d9cf4dce10637a2",
       "source": "ro_hotnews",
       "title": "Inteligența artificială în sistemul judiciar: între eficiență tehnologică și pericolele automatizării justiției",
@@ -6540,6 +7588,16 @@
       "topics": []
     },
     {
+      "id": "0b5e6fb53f817a29f921",
+      "source": "au_guardian",
+      "title": "Chris Minns says activists shouldn’t get ‘overexcited’ about ‘technical’ landmark coalmine decision",
+      "url": "https://www.theguardian.com/australia-news/2026/oct/08/chris-minns-responds-landmark-high-court-decision-mount-pleasant-coalmine",
+      "publishedAt": "2026-10-08T05:04:49+00:00",
+      "image": "https://i.guim.co.uk/img/media/65536272cceb65233f8751399e5159a93882558b/177_0_2500_2000/master/2500.jpg?width=140&quality=85&auto=format&fit=max&s=c5286ece2ad1654e8a9a6dbb281c9b16",
+      "category": "legal",
+      "topics": []
+    },
+    {
       "id": "c2b92ff762d4cde868fc",
       "source": "ap",
       "title": "Gruesome injuries throw spotlight on France’s policing of high school protests",
@@ -6602,6 +7660,16 @@
       "topics": []
     },
     {
+      "id": "de6967370aedf15fd231",
+      "source": "au_abc",
+      "title": "'Group of individuals' impacted by data breach at SA hospital",
+      "url": "https://www.abc.net.au/news/2026-10-08/group-of-individuals-impacted-by-st-andrews-hospital-data-breach/107243514",
+      "publishedAt": "2026-10-08T05:01:42+00:00",
+      "image": null,
+      "category": "other",
+      "topics": []
+    },
+    {
       "id": "ab77563b6ec10fb5085e",
       "source": "cz_irozhlas",
       "title": "‚Asi by to nedali někomu, jako jsem já.‘ Trump si nemyslí, že dostane Nobelovu cenu za mír",
@@ -6641,6 +7709,16 @@
       "publishedAt": "2026-10-08T05:00:36+00:00",
       "image": "https://assets.telex.hu/images/20261005/1791210278-temp-fd39q82rno871joaamd_cimlap-normal.jpg",
       "category": "markets",
+      "topics": []
+    },
+    {
+      "id": "b2d009b5ccd5a8cc0546",
+      "source": "au_abc",
+      "title": "Dropped Aussie opener out of Sheffield Shield match with concussion",
+      "url": "https://www.abc.net.au/news/2026-10-08/jake-weatherald-out-of-sheffield-shield-match-with-concussion/107244118",
+      "publishedAt": "2026-10-08T05:00:12+00:00",
+      "image": null,
+      "category": "sport",
       "topics": []
     },
     {
@@ -6735,6 +7813,16 @@
       "publishedAt": "2026-10-08T05:00:06+00:00",
       "image": null,
       "category": "world",
+      "topics": []
+    },
+    {
+      "id": "4582bb5c1ccca23c07f0",
+      "source": "au_abc",
+      "title": "Drivers 'sitting ducks' on deadly Western Highway stretch, resident says",
+      "url": "https://www.abc.net.au/news/2026-10-08/12-deaths-in-six-years-on-stretch-of-western-highway/107241850",
+      "publishedAt": "2026-10-08T05:00:06+00:00",
+      "image": null,
+      "category": "other",
       "topics": []
     },
     {
@@ -6857,6 +7945,16 @@
       "publishedAt": "2026-10-08T04:48:44.071000+00:00",
       "image": "https://www.reuters.com/resizer/v2/CXKLRLN77NJXFLBC2O5RXZLEJE.jpg?auth=b5b0a75d1dd966d3f9f4c050c39c54c34e0dab62a2f3bc8b6051ed869397329d&smart=true&width=1920",
       "category": "commentary",
+      "topics": []
+    },
+    {
+      "id": "a9aaffa6295ca9ecf772",
+      "source": "au_guardian",
+      "title": "‘That is a lie’: alleged Alan Jones victim denies family tried to get money out of broadcaster, court hears",
+      "url": "https://www.theguardian.com/australia-news/2026/oct/08/that-is-a-lie-alleged-alan-jones-victim-denies-family-tried-to-get-money-out-of-broadcaster-court-hears-ntwnfb",
+      "publishedAt": "2026-10-08T04:48:00+00:00",
+      "image": "https://i.guim.co.uk/img/media/8e5933abd32e341c657d6f2408dded78d499a0da/208_0_2500_2000/master/2500.jpg?width=140&quality=85&auto=format&fit=max&s=95f3d40e784456af199d3e22f3821675",
+      "category": "legal",
       "topics": []
     },
     {
@@ -7032,6 +8130,16 @@
       "topics": []
     },
     {
+      "id": "c40cc1dd912e41d7e70a",
+      "source": "nz_rnz",
+      "title": "Indefinite ban on taking sea life from large parts of Auckland and Coromandel coastlines",
+      "url": "https://www.rnz.co.nz/news/environment/1788937/indefinite-ban-on-taking-sea-life-from-large-parts-of-auckland-and-coromandel-coastlines",
+      "publishedAt": "2026-10-08T04:34:58+00:00",
+      "image": null,
+      "category": "sustainability",
+      "topics": []
+    },
+    {
       "id": "1fee4e6f1e43c3baee5f",
       "source": "reuters",
       "title": "Indian shares extend losses as RBI rate hike, rising oil weigh",
@@ -7161,6 +8269,16 @@
       "publishedAt": "2026-10-08T04:27:23.594000+00:00",
       "image": "https://www.reuters.com/resizer/v2/QBPXUABQHVNGHCSGPUBUTCLZOM.jpg?auth=0a3f8373b901f97d5621f1c671c238e5edf2490409e892528426b5cf4cb7b900&smart=true&width=1920",
       "category": "world",
+      "topics": []
+    },
+    {
+      "id": "4fe07ce7f0dc7b9e497f",
+      "source": "au_guardian",
+      "title": "Jurors in Beau Lamarre-Condon murder trial shown photo of alleged ‘execution-style’ gunshot wound",
+      "url": "https://www.theguardian.com/australia-news/2026/oct/08/jurors-in-beau-lamarre-condon-case-shown-photos-of-decomposed-bodies-ntwnfb",
+      "publishedAt": "2026-10-08T04:26:32+00:00",
+      "image": "https://i.guim.co.uk/img/media/83556f77433668ba8656e3e68bdde36d96c3d05c/204_0_3099_2480/master/3099.jpg?width=140&quality=85&auto=format&fit=max&s=9c671c388d920851d20299834e65a6b2",
+      "category": "other",
       "topics": []
     },
     {
@@ -8114,6 +9232,16 @@
       "topics": []
     },
     {
+      "id": "e0a7cb586ed4095c848f",
+      "source": "uy_diaria",
+      "title": "Fonasa sin “déficit”",
+      "url": "https://ladiaria.com.uy/economia/articulo/2026/10/fonasa-sin-deficit/",
+      "publishedAt": "2026-10-08T03:13:59+00:00",
+      "image": null,
+      "category": "business",
+      "topics": []
+    },
+    {
       "id": "844109031798937ff21e",
       "source": "ap",
       "title": "Garrison Rippa makes field goal with 51 seconds left as Jacksonville State tops Kennesaw State 27-26",
@@ -8141,6 +9269,76 @@
       "publishedAt": "2026-10-08T03:11:43.916000+00:00",
       "image": "https://www.reuters.com/resizer/v2/6ATBBMYG35IDXPCRIQ6EVJ2YBE.jpg?auth=bb844bd31029d5032262205f9264c37f73d193bb380bb8ecbfbf30d57fba9dd3&smart=true&width=1920",
       "category": "sustainability",
+      "topics": []
+    },
+    {
+      "id": "d93c218d18f5f08d97f0",
+      "source": "uy_diaria",
+      "title": "Preparan revitalización de la Peatonal del Candombe",
+      "url": "https://ladiaria.com.uy/cotidiana/articulo/2026/10/preparan-revitalizacion-de-la-peatonal-del-candombe/",
+      "publishedAt": "2026-10-08T03:11:37+00:00",
+      "image": null,
+      "category": "other",
+      "topics": []
+    },
+    {
+      "id": "e529da4754fe51e4cc0b",
+      "source": "uy_diaria",
+      "title": "“Tenemos plata, pero no nos animamos a usarla”: el diagnóstico de AEBU sobre el sistema financiero y su impacto en el desarrollo",
+      "url": "https://ladiaria.com.uy/economia/articulo/2026/10/tenemos-plata-pero-no-nos-animamos-a-usarla-el-diagnostico-de-aebu-sobre-el-sistema-financiero-y-su-impacto-en-el-desarrollo/",
+      "publishedAt": "2026-10-08T03:11:37+00:00",
+      "image": null,
+      "category": "business",
+      "topics": []
+    },
+    {
+      "id": "683cc9b7b0541259cf94",
+      "source": "uy_diaria",
+      "title": "Gráfico de la semana | La actividad económica retoma el crecimiento al inicio del tercer trimestre",
+      "url": "https://ladiaria.com.uy/economia/articulo/2026/10/grafico-de-la-semana-la-actividad-economica-retoma-el-crecimiento-al-inicio-del-tercer-trimestre/",
+      "publishedAt": "2026-10-08T03:11:36+00:00",
+      "image": null,
+      "category": "business",
+      "topics": []
+    },
+    {
+      "id": "367bc635bcde0bcf3138",
+      "source": "uy_diaria",
+      "title": "Botana se consiguió un cargo de asesor de edil porque su sueldo no le da para llegar a fin de mes",
+      "url": "https://ladiaria.com.uy/humor/articulo/2026/10/botana-se-consiguio-un-cargo-de-asesor-de-edil-porque-su-sueldo-no-le-da-para-llegar-a-fin-de-mes/",
+      "publishedAt": "2026-10-08T03:11:35+00:00",
+      "image": null,
+      "category": "other",
+      "topics": []
+    },
+    {
+      "id": "4e4fce273b1fbd29c491",
+      "source": "uy_diaria",
+      "title": "Telescopio del Vaticano registra por primera vez al dios de un planeta de fuera del Sistema Solar",
+      "url": "https://ladiaria.com.uy/humor/articulo/2026/10/telescopio-del-vaticano-registra-por-primera-vez-al-dios-de-un-planeta-de-fuera-del-sistema-solar/",
+      "publishedAt": "2026-10-08T03:11:35+00:00",
+      "image": null,
+      "category": "other",
+      "topics": []
+    },
+    {
+      "id": "07e00b2ca1bea3919b63",
+      "source": "uy_diaria",
+      "title": "El comité noruego pretende darle el premio Nobel de la Paz a alguien que sepa cuidarlo",
+      "url": "https://ladiaria.com.uy/humor/articulo/2026/10/el-comite-noruego-pretende-darle-el-premio-nobel-de-la-paz-a-alguien-que-sepa-cuidarlo/",
+      "publishedAt": "2026-10-08T03:11:35+00:00",
+      "image": null,
+      "category": "science",
+      "topics": []
+    },
+    {
+      "id": "5d84318726197c88b41e",
+      "source": "uy_diaria",
+      "title": "“Son excelentes noticias”",
+      "url": "https://ladiaria.com.uy/articulo/2026/10/son-excelentes-noticias/",
+      "publishedAt": "2026-10-08T03:11:34+00:00",
+      "image": null,
+      "category": "other",
       "topics": []
     },
     {
@@ -8398,6 +9596,16 @@
       "topics": []
     },
     {
+      "id": "a38e33a6558dd62cec98",
+      "source": "nz_rnz",
+      "title": "New measles case in Wellington",
+      "url": "https://www.rnz.co.nz/news/health/1794081/new-measles-case-in-wellington",
+      "publishedAt": "2026-10-08T02:43:26+00:00",
+      "image": null,
+      "category": "other",
+      "topics": []
+    },
+    {
       "id": "65ac0828e50d9a03860b",
       "source": "reuters",
       "title": "Democrats sue Trump to halt taxpayer-funded TV ads that praised him",
@@ -8439,6 +9647,16 @@
       "publishedAt": "2026-10-08T02:40:00+00:00",
       "image": "https://asset.kompas.com/crops/xVh1bvebyPAxWIGl0aZWm3I65Rk=/0x57:1280x910/750x500/data/photo/2026/06/08/6a2689fc830bf.jpg",
       "category": "local",
+      "topics": []
+    },
+    {
+      "id": "14664de9458f2673253a",
+      "source": "nz_rnz",
+      "title": "Body found at Christchurch property believed to be missing man Braydon Hepworth",
+      "url": "https://www.rnz.co.nz/news/crime-and-justice/1789259/body-found-at-christchurch-property-believed-to-be-missing-man-braydon-hepworth",
+      "publishedAt": "2026-10-08T02:34:42+00:00",
+      "image": null,
+      "category": "other",
       "topics": []
     },
     {
@@ -8634,6 +9852,16 @@
       "topics": []
     },
     {
+      "id": "c1668a3f8a1fd2a38e44",
+      "source": "ca_cbc",
+      "title": "Kids flip out over dad's Nobel Prize | The Moment",
+      "url": "https://www.cbc.ca/player/play/9.7373610?cmp=rss",
+      "publishedAt": "2026-10-08T02:04:16+00:00",
+      "image": null,
+      "category": "science",
+      "topics": []
+    },
+    {
       "id": "073b8d4ce8b7577b2195",
       "source": "bloomberg",
       "title": "Singapore Bank Shares Tumble as Yield Surge Threatens Earnings",
@@ -8728,6 +9956,16 @@
       "topics": []
     },
     {
+      "id": "e99424c8c434ad7acca4",
+      "source": "uy_diaria",
+      "title": "Copa AUF Uruguay: Wanderers, Juventud y Libertad de San Carlos se metieron en octavos",
+      "url": "https://ladiaria.com.uy/deporte/articulo/2026/10/copa-auf-uruguay-wanderers-juventud-y-libertad-de-san-carlos-se-metieron-en-octavos/",
+      "publishedAt": "2026-10-08T01:59:20+00:00",
+      "image": null,
+      "category": "other",
+      "topics": []
+    },
+    {
       "id": "140a59e4694845ba3cc2",
       "source": "kompas",
       "title": "Disandera sejak April, 4 ABK WNI Akhirnya Pulang ke Indonesia",
@@ -8748,6 +9986,36 @@
       "topics": []
     },
     {
+      "id": "ababfa7ae977ef1f49e2",
+      "source": "ca_cbc",
+      "title": "Woman at centre of Cornell gang-rape case was 'misled' about investigation, lawyer says",
+      "url": "https://www.cbc.ca/news/world/cornell-gang-rape-victim-lawyer-9.7373568?cmp=rss",
+      "publishedAt": "2026-10-08T01:56:35+00:00",
+      "image": null,
+      "category": "investigations",
+      "topics": []
+    },
+    {
+      "id": "edfbc5690b03aa28fc71",
+      "source": "nz_rnz",
+      "title": "Major surf competition's Piha future in question as campground remains closed",
+      "url": "https://www.rnz.co.nz/news/sport/1786959/major-surf-competition-s-piha-future-in-question-as-campground-remains-closed",
+      "publishedAt": "2026-10-08T01:54:50+00:00",
+      "image": null,
+      "category": "sport",
+      "topics": []
+    },
+    {
+      "id": "baf5d0830e669ea5b3f6",
+      "source": "nz_rnz",
+      "title": "Pacific women's squads packed with NRL experience for Rugby League World Cup",
+      "url": "https://www.rnz.co.nz/news/pacific/1793479/pacific-women-s-squads-packed-with-nrl-experience-for-rugby-league-world-cup",
+      "publishedAt": "2026-10-08T01:54:19+00:00",
+      "image": null,
+      "category": "sport",
+      "topics": []
+    },
+    {
       "id": "22c3a9d4134c09cbff1f",
       "source": "kompas",
       "title": "Cek Harga Pertamax Hari Ini 8 Oktober 2026 di SPBU Seluruh Indonesia",
@@ -8765,6 +10033,16 @@
       "publishedAt": "2026-10-08T01:53:00+00:00",
       "image": "https://asset.kompas.com/crops/7R5wi6fMJTypARJs3109Uc6GirI=/50x0:1150x734/750x500/data/photo/2026/06/11/6a2a362c8ae88.jpeg",
       "category": "markets",
+      "topics": []
+    },
+    {
+      "id": "2d4f2f406284e7af339f",
+      "source": "uy_diaria",
+      "title": "La FUS busca junto al MI nuevas formas de protección ante la violencia contra los equipos de salud en zonas “de complejidad”",
+      "url": "https://ladiaria.com.uy/salud/articulo/2026/10/la-fus-busca-junto-al-mi-nuevas-formas-de-proteccion-ante-la-violencia-contra-los-equipos-de-salud-en-zonas-de-complejidad/",
+      "publishedAt": "2026-10-08T01:51:01+00:00",
+      "image": null,
+      "category": "other",
       "topics": []
     },
     {
@@ -8803,6 +10081,16 @@
       "title": "‘He grew up wealthy’: My husband inherited $3 million. He wants a vacation home. I want to save for retirement. Who’s right?",
       "url": "https://www.marketwatch.com/story/he-grew-up-wealthy-my-husband-inherited-3-million-he-wants-a-vacation-home-i-want-to-save-for-retirement-a240f0d8?mod=mw_rss_topstories",
       "publishedAt": "2026-10-08T01:45:00+00:00",
+      "image": null,
+      "category": "other",
+      "topics": []
+    },
+    {
+      "id": "2a9a48cf621bc5d61dad",
+      "source": "uy_diaria",
+      "title": "Rita Segato en Uruguay: la educación, los derechos humanos y la necesidad de hacer frente a la normalización de la crueldad",
+      "url": "https://ladiaria.com.uy/educacion/articulo/2026/10/rita-segato-en-uruguay-la-educacion-los-derechos-humanos-y-la-necesidad-de-hacer-frente-a-la-normalizacion-de-la-crueldad/",
+      "publishedAt": "2026-10-08T01:44:20+00:00",
       "image": null,
       "category": "other",
       "topics": []
@@ -8890,6 +10178,16 @@
       "topics": []
     },
     {
+      "id": "904a05beda20edb49e98",
+      "source": "nz_rnz",
+      "title": "PD Mart faces court over alleged unsafe goods",
+      "url": "https://www.rnz.co.nz/news/business/1793191/pd-mart-faces-court-over-alleged-unsafe-goods",
+      "publishedAt": "2026-10-08T01:32:13+00:00",
+      "image": null,
+      "category": "legal",
+      "topics": []
+    },
+    {
       "id": "7f4c52de88ec31075229",
       "source": "reuters",
       "title": "TikTok gave teens, children placebo safety feature in experiment, New York alleges",
@@ -8949,6 +10247,16 @@
       "publishedAt": "2026-10-08T01:19:44.198000+00:00",
       "image": "https://www.reuters.com/resizer/v2/WP3B7LD6YVJU7A6WJRVQD7T3EM.jpg?auth=f6fdbaeb0a06a59bd45924d60fc8c064b8e642b87b52093a530570b8c7153b2c&smart=true&width=1920",
       "category": "business",
+      "topics": []
+    },
+    {
+      "id": "f4a754f75ff777656f53",
+      "source": "nz_rnz",
+      "title": "US designates prominent Fiji businessman for advancing 'China-based interests'",
+      "url": "https://www.rnz.co.nz/news/pacific/1791678/us-designates-prominent-fiji-businessman-for-advancing-china-based-interests",
+      "publishedAt": "2026-10-08T01:19:12+00:00",
+      "image": null,
+      "category": "other",
       "topics": []
     },
     {
@@ -9116,6 +10424,16 @@
       ]
     },
     {
+      "id": "29d38882f82ef0a79fec",
+      "source": "nz_rnz",
+      "title": "National promises random drug testing for jobseeker beneficiaries",
+      "url": "https://www.rnz.co.nz/news/politics_election-2026/1789337/national-promises-random-drug-testing-for-jobseeker-beneficiaries",
+      "publishedAt": "2026-10-08T01:03:52+00:00",
+      "image": null,
+      "category": "world",
+      "topics": []
+    },
+    {
       "id": "2aa205c7c5d58d9792bc",
       "source": "aljazeera",
       "title": "Yemeni government forces claim 1,860 Houthis ‘neutralised’",
@@ -9135,6 +10453,16 @@
       "publishedAt": "2026-10-08T01:00:18.556000+00:00",
       "image": "https://www.reuters.com/resizer/v2/UVVIBNPUEVLI5OJMOAARS3V77A.jpg?auth=646a0c6062f1cdd1162cd3c708fd57d32a45f720ea6fb416cc30fe2657f74912&smart=true&width=1920",
       "category": "commentary",
+      "topics": []
+    },
+    {
+      "id": "36ff4ee33b39a182e8f1",
+      "source": "nz_rnz",
+      "title": "Copper thieves strip Canterbury irrigation systems",
+      "url": "https://www.rnz.co.nz/news/crime-and-justice/1792836/copper-thieves-strip-canterbury-irrigation-systems",
+      "publishedAt": "2026-10-08T00:58:20+00:00",
+      "image": null,
+      "category": "other",
       "topics": []
     },
     {
@@ -9220,6 +10548,16 @@
       "topics": []
     },
     {
+      "id": "15c7c22b6a3876c0c0d3",
+      "source": "nz_rnz",
+      "title": "NZ Rugby seeks High Court injunction to block PNG Chiefs name",
+      "url": "https://www.rnz.co.nz/news/sport/1792677/nz-rugby-seeks-high-court-injunction-to-block-png-chiefs-name",
+      "publishedAt": "2026-10-08T00:42:54+00:00",
+      "image": null,
+      "category": "legal",
+      "topics": []
+    },
+    {
       "id": "205d2f4ded12f844f251",
       "source": "detik",
       "title": "Harga Minyak Masih Betah di US$ 100 per Barel",
@@ -9247,6 +10585,26 @@
       "publishedAt": "2026-10-08T00:39:38.414000+00:00",
       "image": "https://www.reuters.com/resizer/v2/QF6O7VTBY5LUVG5ADQEMSS25KI.jpg?auth=41b016543cc482b296053e19abced7712f773bdc5c2531c8e490adf062e0a7cf&smart=true&width=1920",
       "category": "sport",
+      "topics": []
+    },
+    {
+      "id": "9ae178ec5c0f8b8ab3af",
+      "source": "uy_diaria",
+      "title": "Corte Electoral presentará propuestas de mejora de la ley de financiamiento de los partidos “sobre la base de la experiencia”",
+      "url": "https://ladiaria.com.uy/politica/articulo/2026/10/corte-electoral-presentara-propuestas-de-mejora-de-la-ley-de-financiamiento-de-los-partidos-sobre-la-base-de-la-experiencia/",
+      "publishedAt": "2026-10-08T00:38:39+00:00",
+      "image": null,
+      "category": "world",
+      "topics": []
+    },
+    {
+      "id": "4b407c11d7b80977e363",
+      "source": "ca_cbc",
+      "title": "Winnipeg sex offender who flew under family's radar by changing name gets 15 years for abusing child",
+      "url": "https://www.cbc.ca/news/canada/manitoba/ryan-knight-gabourie-sentencing-9.7372402?cmp=rss",
+      "publishedAt": "2026-10-08T00:38:24+00:00",
+      "image": null,
+      "category": "other",
       "topics": []
     },
     {
@@ -9444,6 +10802,16 @@
       "topics": []
     },
     {
+      "id": "e826b7d6e1bd5cacbb1b",
+      "source": "uy_diaria",
+      "title": "Terminal Cuenca del Plata y el sindicato portuario firmaron convenio a cinco años que mejora jornales mensuales asegurados",
+      "url": "https://ladiaria.com.uy/trabajo/articulo/2026/10/terminal-cuenca-del-plata-y-el-sindicato-portuario-firmaron-convenio-a-cinco-anos-que-mejora-jornales-mensuales-asegurados/",
+      "publishedAt": "2026-10-08T00:04:33+00:00",
+      "image": null,
+      "category": "other",
+      "topics": []
+    },
+    {
       "id": "50fbec722c5afbc54695",
       "source": "reuters",
       "title": "Award-winning Kashmiri filmmaker Arfat Sheikh detained by US immigration authorities",
@@ -9451,6 +10819,16 @@
       "publishedAt": "2026-10-08T00:04:04.411000+00:00",
       "image": null,
       "category": "legal",
+      "topics": []
+    },
+    {
+      "id": "3da1d730502162902a98",
+      "source": "uy_diaria",
+      "title": "Blancos apoyan interpelación a Castillo impulsada por el diputado colorado Juri y se votará el próximo martes",
+      "url": "https://ladiaria.com.uy/politica/articulo/2026/10/blancos-apoyan-interpelacion-a-castillo-impulsada-por-el-diputado-colorado-juri-y-se-votara-el-proximo-martes/",
+      "publishedAt": "2026-10-08T00:03:08+00:00",
+      "image": null,
+      "category": "world",
       "topics": []
     },
     {
@@ -9481,6 +10859,16 @@
       "publishedAt": "2026-10-08T00:00:00+00:00",
       "image": null,
       "category": "markets",
+      "topics": []
+    },
+    {
+      "id": "ec8bfa514be5294e7dc0",
+      "source": "ca_cbc",
+      "title": "Alberta premier says ‘ridiculous’ for separatists to offer royalties, water to Americans",
+      "url": "https://www.cbc.ca/news/canada/edmonton/danielle-smith-reaction-alberta-separatists-american-meeting-9.7373472?cmp=rss",
+      "publishedAt": "2026-10-07T23:59:33+00:00",
+      "image": null,
+      "category": "other",
       "topics": []
     },
     {
@@ -9524,6 +10912,16 @@
       "topics": []
     },
     {
+      "id": "b989d4d7af28e6403b45",
+      "source": "ca_cbc",
+      "title": "U.S. army moves to execute man convicted in 2009 deadly Fort Hood rampage by firing squad",
+      "url": "https://www.cbc.ca/news/world/us-army-execution-hasan-firing-squad-9.7373390?cmp=rss",
+      "publishedAt": "2026-10-07T23:48:00+00:00",
+      "image": null,
+      "category": "world",
+      "topics": []
+    },
+    {
       "id": "f050a8106a2ff40bbceb",
       "source": "aljazeera",
       "title": "EU-China trade talks begin in Beijing amid escalating pressure",
@@ -9531,6 +10929,16 @@
       "publishedAt": "2026-10-07T23:45:03+00:00",
       "image": "https://www.aljazeera.com/wp-content/uploads/2026/10/epa_6ac6c9b2a1c6-1791412658.jpg?resize=1920%2C1440",
       "category": "business",
+      "topics": []
+    },
+    {
+      "id": "9af56697900cd80a80fa",
+      "source": "uy_diaria",
+      "title": "Flávio Bolsonaro recibió el apoyo del partido Republicanos de Tarcísio de Freitas para la segunda vuelta del 25 de octubre",
+      "url": "https://ladiaria.com.uy/mundo/articulo/2026/10/flavio-bolsonaro-recibio-el-apoyo-del-partido-republicanos-de-tarcisio-de-freitas-para-la-segunda-vuelta-del-25-de-octubre/",
+      "publishedAt": "2026-10-07T23:42:40+00:00",
+      "image": null,
+      "category": "other",
       "topics": []
     },
     {
@@ -9574,6 +10982,16 @@
       "topics": []
     },
     {
+      "id": "c3ad879488a2046b5609",
+      "source": "uy_diaria",
+      "title": "Policía incautó celulares a dos militares, investigados por el ingreso de cocaína y pasta base al Comcar",
+      "url": "https://ladiaria.com.uy/justicia/articulo/2026/10/policia-incauto-celulares-a-dos-militares-investigados-por-el-ingreso-de-cocaina-y-pasta-base-al-comcar/",
+      "publishedAt": "2026-10-07T23:36:59+00:00",
+      "image": null,
+      "category": "other",
+      "topics": []
+    },
+    {
       "id": "40cc5aaccb855abce1e1",
       "source": "reuters",
       "title": "Gavin McKenna, Leafs get first road test vs. Pacific-leading Knights",
@@ -9602,6 +11020,16 @@
       "url": "https://www.aljazeera.com/news/2026/10/7/un-peacekeeping-force-in-lebanon-says-shots-fired-at-israeli-border-post?traffic_source=rss",
       "publishedAt": "2026-10-07T23:33:29+00:00",
       "image": "https://www.aljazeera.com/wp-content/uploads/2026/10/2026-09-19T123110Z_1656068629_RC29MNADTC5C_RTRMADP_3_IRAN-CRISIS-LEBANON-UN-1791412332.jpg?resize=1920%2C1440",
+      "category": "world",
+      "topics": []
+    },
+    {
+      "id": "1995dc402a1ecd089c80",
+      "source": "uy_diaria",
+      "title": "Orsi se reunió con el vicepresidente de El Salvador, que afirmó que no discutieron sobre el método Bukele en seguridad",
+      "url": "https://ladiaria.com.uy/politica/articulo/2026/10/orsi-se-reunio-con-el-vicepresidente-de-el-salvador-que-afirmo-que-no-discutieron-sobre-el-metodo-bukele-en-seguridad/",
+      "publishedAt": "2026-10-07T23:32:35+00:00",
+      "image": null,
       "category": "world",
       "topics": []
     },
@@ -9663,6 +11091,16 @@
       "publishedAt": "2026-10-07T23:27:50+00:00",
       "image": "https://www.rte.ie/images/00252348-800.jpg",
       "category": "world",
+      "topics": []
+    },
+    {
+      "id": "4b8384d065bc82002385",
+      "source": "uy_diaria",
+      "title": "En la conmemoración de los ataques del 7 de octubre, el partido de Netanyahu negó conocer las advertencias previas",
+      "url": "https://ladiaria.com.uy/mundo/articulo/2026/10/en-la-conmemoracion-de-los-ataques-del-7-de-octubre-el-partido-de-netanyahu-nego-conocer-las-advertencias-previas/",
+      "publishedAt": "2026-10-07T23:27:21+00:00",
+      "image": null,
+      "category": "other",
       "topics": []
     },
     {
@@ -9932,6 +11370,16 @@
       "topics": []
     },
     {
+      "id": "3fcddd7e61dd5a4b2707",
+      "source": "ca_cbc",
+      "title": "Average asking rent down 2.9% in B.C. in September, marking 2 years of decreases: report",
+      "url": "https://www.cbc.ca/news/canada/british-columbia/canada-average-rents-fall-2-years-9.7373338?cmp=rss",
+      "publishedAt": "2026-10-07T22:50:56+00:00",
+      "image": null,
+      "category": "other",
+      "topics": []
+    },
+    {
       "id": "587bc53f6b83d7e5d938",
       "source": "reuters",
       "title": "Medical device maker Centinel Spine discloses revenue rise in US IPO filing",
@@ -9974,6 +11422,26 @@
       "topics": []
     },
     {
+      "id": "b637b89570c3ea325dca",
+      "source": "uy_diaria",
+      "title": "Aumentó 4,5% el egreso de bachillerato en UTU y también se registraron mejoras en la asistencia a centros de educación media",
+      "url": "https://ladiaria.com.uy/educacion/articulo/2026/10/aumento-45-el-egreso-de-bachillerato-en-utu-y-tambien-se-registraron-mejoras-en-la-asistencia-a-centros-de-educacion-media/",
+      "publishedAt": "2026-10-07T22:45:25+00:00",
+      "image": null,
+      "category": "other",
+      "topics": []
+    },
+    {
+      "id": "e8b1127cd9ede2f02642",
+      "source": "ca_cbc",
+      "title": "Lawyer accused of fraud says bad cheque didn't hurt the bank",
+      "url": "https://www.cbc.ca/news/canada/toronto/nicholas-cartel-lawyer-fraud-trial-td-bank-9.7373082?cmp=rss",
+      "publishedAt": "2026-10-07T22:44:25+00:00",
+      "image": null,
+      "category": "business",
+      "topics": []
+    },
+    {
       "id": "2da8115222272e8ff888",
       "source": "kompas",
       "title": "Finlandia Minta Google Hentikan Pembangunan Dua Data Center AI, Ada Apa?",
@@ -10004,6 +11472,28 @@
       "image": "https://akcdn.detik.net.id/visual/2026/07/09/hashim-djojohadikusumo-1783598462003_169.jpeg?w=360&q=90",
       "category": "technology",
       "topics": []
+    },
+    {
+      "id": "ceb8c05847713ad7863d",
+      "source": "uy_diaria",
+      "title": "Varias facultades evacuaron a los estudiantes ante supuestas amenazas de bomba",
+      "url": "https://ladiaria.com.uy/justicia/articulo/2026/10/varias-facultades-evacuaron-a-los-estudiantes-ante-supuestas-amenazas-de-bomba/",
+      "publishedAt": "2026-10-07T22:38:38+00:00",
+      "image": null,
+      "category": "other",
+      "topics": []
+    },
+    {
+      "id": "29f7722b97a6d5e20414",
+      "source": "ca_cbc",
+      "title": "Liberal MP calls for more safeguards in new bill to fast-track development projects",
+      "url": "https://www.cbc.ca/news/politics/building-canada-strong-c39-liberal-mp-environmental-safeguards-patrick-weiler-9.7373088?cmp=rss",
+      "publishedAt": "2026-10-07T22:35:17+00:00",
+      "image": null,
+      "category": "sustainability",
+      "topics": [
+        "politics"
+      ]
     },
     {
       "id": "826955d09c573d4c3a80",
@@ -10047,6 +11537,16 @@
       "publishedAt": "2026-10-07T22:32:00+00:00",
       "image": null,
       "category": "markets",
+      "topics": []
+    },
+    {
+      "id": "fe6f1b0ca3cdb09864ae",
+      "source": "ca_cbc",
+      "title": "'Unimaginable loss': Horses killed on B.C. highway while travelling to championship",
+      "url": "https://www.cbc.ca/news/canada/british-columbia/dressage-horses-killed-in-b-c-9.7373257?cmp=rss",
+      "publishedAt": "2026-10-07T22:31:59+00:00",
+      "image": null,
+      "category": "other",
       "topics": []
     },
     {
@@ -10117,6 +11617,16 @@
       "publishedAt": "2026-10-07T22:19:43.955000+00:00",
       "image": "https://www.reuters.com/resizer/v2/AN6M2RX5RRIKPHHCGWDNO2RNYQ.jpg?auth=aa198c6079abe1f373b4f971764c212d06916e918d8fe7c51ee26dbfbd9bae79&smart=true&width=1920",
       "category": "business",
+      "topics": []
+    },
+    {
+      "id": "bbc2b9dd97a8a5b5f4f3",
+      "source": "ca_cbc",
+      "title": "Teen accused in school sword attack praised Nazis, talked about mass murder plans, court hears",
+      "url": "https://www.cbc.ca/news/canada/manitoba/brandon-sword-attack-court-hearing-9.7373048?cmp=rss",
+      "publishedAt": "2026-10-07T22:18:03+00:00",
+      "image": null,
+      "category": "legal",
       "topics": []
     },
     {
@@ -10505,6 +12015,16 @@
       "publishedAt": "2026-10-07T21:23:22.401000+00:00",
       "image": null,
       "category": "technology",
+      "topics": []
+    },
+    {
+      "id": "536817f509181de045f6",
+      "source": "ca_cbc",
+      "title": "Student-led protests have thrown France into chaos. Here's what's happening",
+      "url": "https://www.cbc.ca/news/world/french-student-protests-whats-happening-explainer-9.7371998?cmp=rss",
+      "publishedAt": "2026-10-07T21:23:06+00:00",
+      "image": null,
+      "category": "world",
       "topics": []
     },
     {
@@ -10898,6 +12418,18 @@
       "image": "https://www.reuters.com/resizer/v2/AXDCOPAZ4FOGVNQC6LWHPZSTGQ.jpg?auth=9c43938361241658caf06ec9eaedcd9d7db8f78211c8ca6e8a0138687541366b&smart=true&width=1920",
       "category": "business",
       "topics": []
+    },
+    {
+      "id": "de3160940f99cf8605ad",
+      "source": "ca_cbc",
+      "title": "Canada yanks sponsorship of disinformation conference discussing U.S. as a threat",
+      "url": "https://www.cbc.ca/news/politics/gac-disinformation-united-states-lithuania-9.7187116?cmp=rss",
+      "publishedAt": "2026-10-07T20:50:03+00:00",
+      "image": null,
+      "category": "world",
+      "topics": [
+        "politics"
+      ]
     },
     {
       "id": "e5d90e0d2c676c5fb9f3",
@@ -11674,6 +13206,16 @@
       "topics": [
         "politics"
       ]
+    },
+    {
+      "id": "8d2efbcffb5b514abb1f",
+      "source": "ca_cbc",
+      "title": "NASA's Curiosity rover takes striking image of dawn on Mars",
+      "url": "https://www.cbc.ca/news/science/nasa-curiosity-rover-mars-dawn-9.7372971?cmp=rss",
+      "publishedAt": "2026-10-07T19:25:39+00:00",
+      "image": null,
+      "category": "science",
+      "topics": []
     },
     {
       "id": "e529a3995fd2dea15535",
@@ -14407,6 +15949,50 @@
       "topics": []
     },
     {
+      "id": "c3adbfb75c6f4be6d21a",
+      "source": "au_guardian",
+      "title": "The Coalition’s race to the bottom on migration - podcast",
+      "url": "https://www.theguardian.com/australia-news/audio/2026/oct/07/coalition-immigration-policy-angus-taylor-one-nation-full-story-podcast-ntwnfb",
+      "publishedAt": "2026-10-07T14:00:55+00:00",
+      "image": "https://i.guim.co.uk/img/media/f29386ef7f880b5b93a361254f7bf06353c5ba34/313_0_1875_1500/master/1875.jpg?width=140&quality=85&auto=format&fit=max&s=a81ccb8ec61594a5d1872cda0e825807",
+      "category": "world",
+      "topics": [
+        "politics"
+      ]
+    },
+    {
+      "id": "7123606c620c3c693552",
+      "source": "au_guardian",
+      "title": "How do major parties’ migration policies compare - and are any actually achievable for Australia?",
+      "url": "https://www.theguardian.com/australia-news/2026/oct/08/net-overseas-migration-how-do-policies-compare-labor-coalition-one-nation-ntwnfb",
+      "publishedAt": "2026-10-07T14:00:55+00:00",
+      "image": "https://i.guim.co.uk/img/media/420b30cad8672bc01ca69f621435831e16812140/0_0_5000_4000/master/5000.jpg?width=140&quality=85&auto=format&fit=max&s=3fc82ae5ac3a6de5e5201cb45cc17f6a",
+      "category": "world",
+      "topics": [
+        "politics"
+      ]
+    },
+    {
+      "id": "91a1a48c1ecbf547c3e6",
+      "source": "au_guardian",
+      "title": "Australia is building a lot of new homes. But is the datacentre boom holding us back? | Greg Jericho",
+      "url": "https://www.theguardian.com/business/grogonomics/2026/oct/08/australia-is-building-a-lot-of-new-homes-but-is-the-datacentre-boom-holding-us-back",
+      "publishedAt": "2026-10-07T14:00:54+00:00",
+      "image": "https://i.guim.co.uk/img/media/556aec462339e00212203d8f2112197da15d7639/736_0_6880_5504/master/6880.jpg?width=140&quality=85&auto=format&fit=max&s=762e8fd4fca3ce1fffe1fc8bc07eca47",
+      "category": "technology",
+      "topics": []
+    },
+    {
+      "id": "940baeee5cd3cb25335a",
+      "source": "au_guardian",
+      "title": "Overseas, Albanese sees ‘the very definition of climate injustice’ - but at home, he still wants coal",
+      "url": "https://www.theguardian.com/environment/2026/oct/08/overseas-albanese-sees-the-very-definition-of-climate-injustice-but-at-home-he-still-wants-coal",
+      "publishedAt": "2026-10-07T14:00:52+00:00",
+      "image": "https://i.guim.co.uk/img/media/f456838ffd5699ae8b23de1f812dbf8a58a290ae/540_0_4174_3341/master/4174.jpg?width=140&quality=85&auto=format&fit=max&s=7b061851c9b927f7710b37935008353a",
+      "category": "sustainability",
+      "topics": []
+    },
+    {
       "id": "f3f05c666c4753b7bdc9",
       "source": "cnn_id",
       "title": "Luhut Sebut Subsidi Barang Bakal Diganti Tunai Bertahap",
@@ -15593,6 +17179,18 @@
       "topics": []
     },
     {
+      "id": "5c2a1337136cb180bf95",
+      "source": "au_guardian",
+      "title": "Constitutional expert labels Albanese government’s golf club grant ‘grey corruption’",
+      "url": "https://www.theguardian.com/australia-news/2026/oct/07/constitutional-expert-labels-albanese-governments-golf-club-grant-grey-corruption-ntwnfb",
+      "publishedAt": "2026-10-07T10:59:47+00:00",
+      "image": "https://i.guim.co.uk/img/media/7d228ae32e6296451ca8c65d49faa0a290574794/101_0_3015_2413/master/3015.jpg?width=140&quality=85&auto=format&fit=max&s=54c1f15ec869451a8af352d04a243a0d",
+      "category": "sport",
+      "topics": [
+        "politics"
+      ]
+    },
+    {
       "id": "05ebefdd02a0db0c8f6a",
       "source": "sindo",
       "title": "Menteri Ferry Ungkap 3 Fungsi Utama Koperasi Desa Merah Putih",
@@ -16096,6 +17694,18 @@
       "topics": []
     },
     {
+      "id": "51262807145edeb6d43f",
+      "source": "au_guardian",
+      "title": "Coalition MPs concede immigration pledge not fully costed by independent watchdog",
+      "url": "https://www.theguardian.com/australia-news/2026/oct/07/angus-taylor-coalition-immigration-policy-not-fully-costed-ntwnfb",
+      "publishedAt": "2026-10-07T06:52:45+00:00",
+      "image": "https://i.guim.co.uk/img/media/76012739292e0cbbcd819789b36c53316a15c0d7/706_72_7569_6057/master/7569.jpg?width=140&quality=85&auto=format&fit=max&s=dafe91f059a65b1bca0e1959498d7fe5",
+      "category": "world",
+      "topics": [
+        "politics"
+      ]
+    },
+    {
       "id": "4ba904887fa72d801c15",
       "source": "dw",
       "title": "Yemen's Houthis claim strikes on Aden, Riyadh airports",
@@ -16177,6 +17787,16 @@
       "topics": [
         "politics"
       ]
+    },
+    {
+      "id": "4a0b56de9ce4158a6ac3",
+      "source": "au_guardian",
+      "title": "Why this Sidney Nolan painting was a breakthrough moment for Australian modern art - video",
+      "url": "https://www.theguardian.com/artanddesign/video/2026/oct/07/sidney-nolan-agnsw-painting-australian-modern-art-video",
+      "publishedAt": "2026-10-07T04:25:32+00:00",
+      "image": "https://i.guim.co.uk/img/media/6784c1be1488054ad3995400e4aa8103cb8c1d02/431_0_4556_3647/master/4556.png?width=140&quality=85&auto=format&fit=max&s=8a2bdb2003f3bd9681cd54d329eeaae1",
+      "category": "other",
+      "topics": []
     },
     {
       "id": "1a22c6acd5506f2a183d",
@@ -16359,6 +17979,28 @@
       "image": null,
       "category": "markets",
       "topics": []
+    },
+    {
+      "id": "a24edb9c58894d32f4d7",
+      "source": "au_guardian",
+      "title": "Evidence and testimony in week two of Beau Lamarre-Condon's trial - video",
+      "url": "https://www.theguardian.com/australia-news/video/2026/oct/07/beau-lamarre-condon-murder-trial-week-2-evidence-testimony-video-ntwnfb",
+      "publishedAt": "2026-10-06T22:59:11+00:00",
+      "image": "https://i.guim.co.uk/img/media/b7e638058f80b1e08c4d86977f853902b1f699a0/0_506_1080_863/master/1080.jpg?width=140&quality=85&auto=format&fit=max&s=112dbd174f747cefc5719a738aae9bec",
+      "category": "other",
+      "topics": []
+    },
+    {
+      "id": "ec36b68936618fdba991",
+      "source": "au_guardian",
+      "title": "Angus Taylor’s immigration plan misses the target - on politics and on policy | Abul Rizvi",
+      "url": "https://www.theguardian.com/commentisfree/2026/oct/07/angus-taylor-coalition-immigration-plan-misses-target-politics-policy-ntwnfb",
+      "publishedAt": "2026-10-06T22:47:13+00:00",
+      "image": "https://i.guim.co.uk/img/media/af96f63af790fc7d5e3ca57521ce63d8db35aec1/602_0_7660_6129/master/7660.jpg?width=140&quality=85&auto=format&fit=max&s=c4af8e979897fd520fca5974a73b06d8",
+      "category": "world",
+      "topics": [
+        "politics"
+      ]
     },
     {
       "id": "f3b85fee4545f88dcefd",
@@ -16695,6 +18337,30 @@
       "topics": []
     },
     {
+      "id": "82b9cd7a1849e3e53dc5",
+      "source": "au_guardian",
+      "title": "OpenAI admits misstep in handling AI agent interactions with Australian government sites - video",
+      "url": "https://www.theguardian.com/australia-news/video/2026/oct/06/openai-australia-parliamentary-inquiry-jason-kwon-video",
+      "publishedAt": "2026-10-06T07:32:25+00:00",
+      "image": "https://i.guim.co.uk/img/media/9f3c49ed886fe6452020bb458ef7a0bd5b62a8fe/1131_926_2152_1722/master/2152.jpg?width=140&quality=85&auto=format&fit=max&s=39b9635d09a6896fdefd8b22d7cf726b",
+      "category": "technology",
+      "topics": [
+        "politics"
+      ]
+    },
+    {
+      "id": "10f7bb39e165ef0a414b",
+      "source": "au_guardian",
+      "title": "Taylor’s hardline immigration plan drags Australian politics further to the right - and it’s all upside for One Nation",
+      "url": "https://www.theguardian.com/australia-news/2026/oct/06/taylors-hardline-immigration-plan-drags-australian-politics-further-to-the-right-and-its-all-upside-for-one-nation-ntwnfb",
+      "publishedAt": "2026-10-06T07:26:48+00:00",
+      "image": "https://i.guim.co.uk/img/media/2bb1869a4cadba38420b8256a35cb46c78101997/766_0_7660_6129/master/7660.jpg?width=140&quality=85&auto=format&fit=max&s=d44ec1bb98b18781da143a1c9233769b",
+      "category": "world",
+      "topics": [
+        "politics"
+      ]
+    },
+    {
       "id": "ab8ee57911a5a19e4ad7",
       "source": "fnc",
       "title": "Astra Otoparts Bagikan Dividen Interim Rp72,52 per Saham, Cair 26 Oktober 2026",
@@ -16999,6 +18665,16 @@
       "topics": []
     },
     {
+      "id": "afe521b6b4b4f023a4dd",
+      "source": "au_guardian",
+      "title": "High winds sweep away tables and chairs outside New South Wales cafe - video",
+      "url": "https://www.theguardian.com/australia-news/video/2026/oct/03/high-winds-sweep-away-tables-and-chairs-outside-new-south-wales-cafe-video",
+      "publishedAt": "2026-10-03T15:37:28+00:00",
+      "image": "https://i.guim.co.uk/img/media/16c593c9269a662f8940dd7f1532b934b3bd5cac/837_126_1072_858/master/1072.jpg?width=140&quality=85&auto=format&fit=max&s=992cfa19982a32cfa05abaad10b4651d",
+      "category": "other",
+      "topics": []
+    },
+    {
       "id": "17151e2ba37a69ca0dad",
       "source": "wsj",
       "title": "The Latest Battlefield Essential for U.S. Soldiers: Smartphones",
@@ -17038,6 +18714,18 @@
       "publishedAt": "2026-10-03T09:00:54+00:00",
       "image": "https://i.guim.co.uk/img/media/ed62391476cf888240cd6a1f638bde36baf9fcc9/0_17_2957_2365/master/2957.jpg?width=140&quality=85&auto=format&fit=max&s=38d56bc6b4416e1cf78914232882263b",
       "category": "business",
+      "topics": [
+        "politics"
+      ]
+    },
+    {
+      "id": "c87d1d36aca318504976",
+      "source": "au_guardian",
+      "title": "Can the Greens beat Labor? - Back to Back Barries podcast",
+      "url": "https://www.theguardian.com/australia-news/video/2026/oct/03/can-the-greens-beat-labor-back-to-back-barries-podcast",
+      "publishedAt": "2026-10-02T19:00:37+00:00",
+      "image": "https://i.guim.co.uk/img/media/d2f96a9d6c266503cafeca34c59983ffa2323dd8/285_0_1350_1080/master/1350.jpg?width=140&quality=85&auto=format&fit=max&s=776ecfa48420c08a73daf814084289ce",
+      "category": "world",
       "topics": [
         "politics"
       ]
@@ -24486,12 +26174,12 @@
       "topics": []
     },
     {
-      "id": "ff6fab3495f0aeabb36a",
+      "id": "51f240689e7f5177c530",
       "source": "kontan",
       "title": "Biaya Logistik Berpotensi Naik, Perusahaan Pelayaran Maersk Berlakukan Surcharge 20%",
-      "url": "https://internasional.kontan.co.id/news/biaya-logistik-berpotensi-naik-perusahaan-pelayaran-maersk-berlakukan-surcharge-20?source=home_terbaru",
+      "url": "https://internasional.kontan.co.id/news/biaya-logistik-berpotensi-naik-perusahaan-pelayaran-maersk-berlakukan-surcharge-20?source=home_headline",
       "publishedAt": null,
-      "image": "https://foto.kontan.co.id/KtTR7LXJuWQNVGMn6hPPNk1lxr0=/smart/2026/10/08/151691272t.jpg",
+      "image": "https://foto.kontan.co.id/RjrQcFvW5cmZiqdpGMAiZ7QnjRU=/smart/2026/10/08/151691272p.jpg",
       "category": "other",
       "topics": []
     },
@@ -24786,6 +26474,96 @@
       "url": "https://pluang.com/news-feed/bitcoin-ether-dan-xrp-tanda-kelelahan-jangka-pendek",
       "publishedAt": null,
       "image": "https://image-cdn.pluang.com/web/news-cards/v2/CRYPTO/fb1a9f6cc43bb75009d766a4dddfc02afc87c9dcf6a2b8858e0d7284676bf6e0-id.webp",
+      "category": "markets",
+      "topics": []
+    },
+    {
+      "id": "b5d6f5bc13b476f6c363",
+      "source": "kontan",
+      "title": "Moratorium Smelter Nikel Dinilai Bisa Jaga Harga, Kapasitas Eksisting Perlu Ditata",
+      "url": "https://industri.kontan.co.id/news/moratorium-smelter-nikel-dinilai-bisa-jaga-harga-kapasitas-eksisting-perlu-ditata?source=home_terbaru",
+      "publishedAt": null,
+      "image": "https://foto.kontan.co.id/nCE3wS6I-RrNy_AIa2Xbka0cgQQ=/smart/2017/01/20/1509762729t.jpg",
+      "category": "other",
+      "topics": []
+    },
+    {
+      "id": "5cecf49ed707622c4da6",
+      "source": "kontan",
+      "title": "Impor Kontainer AS Tembus Rekor September 2026, Kiriman dari China Melonjak",
+      "url": "https://internasional.kontan.co.id/news/impor-kontainer-as-tembus-rekor-september-2026-kiriman-dari-china-melonjak?source=home_terbaru",
+      "publishedAt": null,
+      "image": "https://foto.kontan.co.id/xLvXyb3BQfFe88Kfidu9UBMDD3A=/smart/2025/07/09/1185630082t.jpg",
+      "category": "other",
+      "topics": []
+    },
+    {
+      "id": "0debb175c698e27b7e02",
+      "source": "investing_id",
+      "title": "Brink’s mendapat persetujuan prinsip dari UK untuk kesepakatan NCR Atleos",
+      "url": "https://id.investing.com/news/company-news/brinks-mendapat-persetujuan-prinsip-dari-uk-untuk-kesepakatan-ncr-atleos-93CH-3090183",
+      "publishedAt": null,
+      "image": "https://content-media.investing.com/news/LYNXMPEM50182_1200_L.jpg",
+      "category": "business",
+      "topics": []
+    },
+    {
+      "id": "0d90bd11a96a06b906bc",
+      "source": "investing_id",
+      "title": "Truist melihat tantangan industri marine di pameran perahu",
+      "url": "https://id.investing.com/news/stock-market-news/truist-melihat-tantangan-industri-marine-di-pameran-perahu-93CH-3090182",
+      "publishedAt": null,
+      "image": "https://content-media.investing.com/news/LYNXMPEDAF0IH_M.jpg",
+      "category": "markets",
+      "topics": []
+    },
+    {
+      "id": "b893dfcddb2d25e2c912",
+      "source": "investing_id",
+      "title": "Truist pertahankan rating Hold untuk saham Costco, didukung penjualan September yang kuat",
+      "url": "https://id.investing.com/news/analyst-ratings/truist-pertahankan-rating-hold-untuk-saham-costco-didukung-penjualan-september-yang-kuat-93CH-3090181",
+      "publishedAt": null,
+      "image": "https://content-media.investing.com/news/moved_LYNXMPEM3Q0WG_1200_L.jpg",
+      "category": "markets",
+      "topics": []
+    },
+    {
+      "id": "4bc729cefde717af4d53",
+      "source": "investing_id",
+      "title": "B.Riley pertahankan peringkat Buy untuk saham Semtech, target $210 jelang acara",
+      "url": "https://id.investing.com/news/analyst-ratings/briley-pertahankan-peringkat-buy-untuk-saham-semtech-target-210-jelang-acara-93CH-3090180",
+      "publishedAt": null,
+      "image": "https://content-media.investing.com/news/moved_LYNXMPEM3T1AG_1200_L.jpg",
+      "category": "markets",
+      "topics": []
+    },
+    {
+      "id": "299a1181a4e4b8f68e31",
+      "source": "investing_id",
+      "title": "Citizens Pertahankan Rating Market Perform untuk Saham Builders FirstSource",
+      "url": "https://id.investing.com/news/analyst-ratings/citizens-pertahankan-rating-market-perform-untuk-saham-builders-firstsource-93CH-3090179",
+      "publishedAt": null,
+      "image": "https://content-media.investing.com/news/moved_LYNXMPEM450ND_1200_L.jpg",
+      "category": "markets",
+      "topics": []
+    },
+    {
+      "id": "6b8ebb886559d0967546",
+      "source": "investing_id",
+      "title": "Truist pertahankan rating Hold untuk saham Hims and Hers, target $32",
+      "url": "https://id.investing.com/news/analyst-ratings/truist-pertahankan-rating-hold-untuk-saham-hims-and-hers-target-32-93CH-3090178",
+      "publishedAt": null,
+      "image": "https://content-media.investing.com/news/moved_LYNXMPEM3S10Z_1200_L.jpg",
+      "category": "markets",
+      "topics": []
+    },
+    {
+      "id": "7eecb419bbfed169f0c5",
+      "source": "investing_id",
+      "title": "BTIG pertahankan rating saham Levi Strauss di tengah pertumbuhan yang terdiversifikasi",
+      "url": "https://id.investing.com/news/analyst-ratings/btig-pertahankan-rating-saham-levi-strauss-di-tengah-pertumbuhan-yang-terdiversifikasi-93CH-3090176",
+      "publishedAt": null,
+      "image": "https://content-media.investing.com/news/LeviStrauss_800x533_L_1602144996.jpg",
       "category": "markets",
       "topics": []
     }
