@@ -12,7 +12,7 @@
       document.getElementById('site-base').href = '/' + (prefix.length ? prefix.join('/') + '/' : '');
     })();
   </script>
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; object-src 'none'; form-action 'self'; script-src 'self' 'unsafe-inline' 'wasm-unsafe-eval' https://cdn.jsdelivr.net https://s3.tradingview.com https://widgets.tradingview-widget.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: blob: https:; connect-src 'self' https://nmddjuqkdyhcobddinkc.supabase.co https://cdn.jsdelivr.net https://tessdata.projectnaptha.com https://tradewithfnc.com https://widgets.tradingview-widget.com; worker-src 'self' blob: https://cdn.jsdelivr.net; frame-src https://sslecal2.investing.com https://s.tradingview.com https://www.tradingview-widget.com https://widgets.tradingview-widget.com;">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; object-src 'none'; form-action 'self'; script-src 'self' 'unsafe-inline' 'wasm-unsafe-eval' https://cdn.jsdelivr.net https://s3.tradingview.com https://widgets.tradingview-widget.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: blob: https:; connect-src 'self' https://nmddjuqkdyhcobddinkc.supabase.co https://cdn.jsdelivr.net https://tessdata.projectnaptha.com https://tradewithfnc.com https://widgets.tradingview-widget.com; worker-src 'self' blob: https://cdn.jsdelivr.net; frame-src https://s.tradingview.com https://www.tradingview-widget.com https://widgets.tradingview-widget.com;">
   <meta name="referrer" content="strict-origin-when-cross-origin">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>journalingtrade · Professional Trading Journal & Analytics</title>
@@ -22,7 +22,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
 
-  <link rel="stylesheet" href="css/style.css?v=20261008-news-search">
+  <link rel="stylesheet" href="css/style.css?v=20261008-server-save">
 </head>
 
 <body>
@@ -140,7 +140,7 @@
               <details><summary data-i18n="priceDetails">Lihat rincian harga</summary><dl class="plan-details"><div><dt data-i18n="monthly">Bulanan</dt><dd>$20 <span data-i18n="perMonth">USD / bulan</span></dd></div><div><dt data-i18n="annual">Tahunan</dt><dd>$200 <span data-i18n="perYear">USD / tahun</span></dd></div></dl><p data-i18n="proSavings">Hemat $40 dibanding 12 pembayaran bulanan. Diskon dibulatkan menjadi 17%.</p><p data-i18n="paidHint">Pembayaran akan tersedia setelah checkout diaktifkan.</p></details>
             </article>
           </div>
-          <p class="pricing-footnote" data-i18n="localDataHint">Catatan tersimpan di browser perangkat ini. Ekspor backup untuk menyimpan salinannya.</p>
+          <p class="pricing-footnote" data-i18n="localDataHint">Saat login, jurnal otomatis tersimpan ke server. Tanpa login, jurnal tersimpan di browser perangkat ini. Ekspor backup untuk menyimpan salinannya.</p>
         </section>
       </div>
     </section>
@@ -920,12 +920,6 @@
         </div>
 
         <!-- Economic Calendar Feed Table -->
-        <details id="calendar-live" class="calendar-live">
-          <summary data-i18n="calendarLive">Buka kalender live Investing.com</summary>
-          <p data-i18n="calendarLiveHint">Kalender resmi memperbarui hasil rilis secara otomatis. Jika widget tidak dapat dimuat, buka sumber langsung.</p>
-          <a href="https://www.investing.com/economic-calendar" target="_blank" rel="noopener noreferrer" data-i18n="calendarSource">Buka Investing.com</a>
-          <div id="calendar-live-frame"></div>
-        </details>
         <div id="kal-list"></div>
       </div>
       </div>
@@ -983,8 +977,8 @@
           <div style="margin-top:16px;">
             <button class="btn btn-accent btn-sm" onclick="saveProfileSettings()">Simpan Profil & Kurs</button>
           </div>
-          <div style="margin-top:18px; padding-top:14px; border-top:1px solid var(--line); font-size:12px; color:var(--text-muted);">
-            Sistem journalingtrade berjalan 100% di browser Anda (Open Source). Data jurnal Anda tersimpan aman secara offline di penyimpanan lokal perangkat ini tanpa server pihak ketiga.
+          <div data-i18n="localDataHint" style="margin-top:18px; padding-top:14px; border-top:1px solid var(--line); font-size:12px; color:var(--text-muted);">
+            Saat login, jurnal otomatis tersimpan ke server. Tanpa login, jurnal tersimpan di browser perangkat ini. Ekspor backup untuk menyimpan salinannya.
           </div>
         </div>
 
@@ -1268,7 +1262,7 @@
 
   <script src="js/vendor/supabase-2.86.0.js" integrity="sha384-3Sgm1bFlHa+gvzgZCHY6SyQwlKZpsgWl0qwxcwsypsSZQvo1vV1miPkn7n1lU1/L"></script>
   <script src="js/scan.js?v=20261007"></script>
-  <script src="js/app.js?v=20261008-news-search"></script>
+  <script src="js/app.js?v=20261008-server-save"></script>
   <script src="js/fed.js?v=20261008-fomc"></script>
 
  </body>

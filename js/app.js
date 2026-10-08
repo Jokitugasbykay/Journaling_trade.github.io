@@ -44,7 +44,7 @@
       const stateCopy = {
         accessReady: 'Jurnal siap digunakan. Pilih tab yang ingin Anda buka.',
         localProfile: 'Profil lokal', localProfileStatus: 'Data tersimpan di perangkat ini.',
-        changeProfile: 'Ganti profil lokal', cloudConnected: 'Akun cloud', cloudStatus: 'Jurnal tersinkron ke akun Anda.',
+        changeProfile: 'Ganti profil lokal', cloudConnected: 'Akun server', cloudStatus: 'Jurnal otomatis disimpan ke server.',
         cloudManage: 'Kelola akun cloud', cloudSignOut: 'Keluar dari akun cloud'
       };
       const englishCopy = {
@@ -85,11 +85,11 @@
         plusSavings: 'Save $20 compared with 12 monthly payments. The discount rounds to 17%.',
         proSavings: 'Save $40 compared with 12 monthly payments. The discount rounds to 17%.',
         paidHint: 'Payments will be available once checkout launches.',
-        localDataHint: 'Notes are stored in this browser on this device. Export a backup to keep a copy.',
+        localDataHint: 'When signed in, your journal saves automatically to the server. Without signing in, it stays in this browser on this device. Export a backup to keep a copy.',
         loginTitle: 'Sign in to your journal', loginDescription: 'Sign in with email to save your journal in the cloud and access it on other devices.',
         googleLogin: 'Sign in with Google', googleSoon: 'Google sign-in is not available yet.', localName: 'Local profile name',
         localLoginHint: 'Local profiles share the same browser data. They are not cloud accounts. On your first visit, click Try on Home to open the other tabs.',
-        localLogin: 'Use local profile', tryWithoutAccount: 'Try without an account', cloudEmail: 'Email', cloudPassword: 'Password', cloudHint: 'New accounts may require email verification. Local journal data will be uploaded after your first successful sign-in.', cloudSignIn: 'Sign in and sync', cloudSignUp: 'Create account', cloudConnected: 'Cloud account', cloudStatus: 'Journal synced to your account.',
+        localLogin: 'Use local profile', tryWithoutAccount: 'Try without an account', cloudEmail: 'Email', cloudPassword: 'Password', cloudHint: 'New accounts may require email verification. Your journal saves automatically to the server after sign-in. Importing a guest journal requires your confirmation.', cloudSignIn: 'Sign in and sync', cloudSignUp: 'Create account', cloudConnected: 'Server account', cloudStatus: 'Your journal saves automatically to the server.',
         uploadLabel: 'Scan PDF/PNG · Import CSV/TXT', uploadTitle: 'Scan documents & import trades',
         uploadDescription: 'PDF/PNG/JPG scans recognize position history and chart setups. Review CSV/TXT records before importing them into the journal.',
         dropFile: 'Drop your file here', scanReviewHint: 'Trade history and chart setups are detected automatically. Check the detected values; missing information stays blank. No trades are added automatically.',
@@ -127,9 +127,7 @@
       });
       Object.assign(englishCopy, {
         calendarLead: 'Macroeconomic, employment, inflation and interest-rate releases. Table times are in WIB.',
-        calendarImpact: 'Impact', calendarLive: 'Open the live Investing.com calendar',
-        calendarLiveHint: 'The official calendar updates release results automatically. If the widget cannot load, open the source directly.',
-        calendarSource: 'Open Investing.com'
+        calendarImpact: 'Impact'
       });
       Object.assign(englishCopy, {newsSearchLabel:'Search news', newsSearchClear:'Clear'});
       const translatedText = new WeakMap();
@@ -355,7 +353,7 @@
           'User already registered': 'Email ini sudah terdaftar. Silakan masuk.',
           'Password should be at least 6 characters': 'Kata sandi terlalu pendek.'
         };
-        return messages[error?.message] || error?.message || 'Koneksi cloud gagal. Data lokal tetap tersimpan.';
+        return messages[error?.message] || error?.message || 'Koneksi server gagal. Data lokal tetap tersimpan.';
       }
 
       function uuidFor(map, value) {
@@ -431,7 +429,7 @@
           if (cloudUser?.id !== userId || !cloudReady) return false;
           cloudSnapshot = snapshot;
           persistCloudMaps();
-          if ($('cloud-status')) $('cloud-status').textContent = language === 'en' ? 'Cloud sync is up to date.' : 'Sinkronisasi cloud sudah terbaru.';
+          if ($('cloud-status')) $('cloud-status').textContent = language === 'en' ? 'Journal saved to the server.' : 'Jurnal tersimpan ke server.';
         } catch (error) {
           console.error('Supabase sync error:', error);
           if ($('cloud-status')) $('cloud-status').textContent = cloudMessage(error);
@@ -453,6 +451,7 @@
       function scheduleCloudSave() {
         if (!cloudUser || !cloudReady || !nicknameReady) return;
         clearTimeout(cloudTimer);
+        if ($('cloud-status')) $('cloud-status').textContent = language === 'en' ? 'Saving journal to the server...' : 'Menyimpan jurnal ke server...';
         cloudTimer = setTimeout(syncCloud, 700);
       }
 
@@ -523,7 +522,7 @@
             const hasLocalJournal = trades.length > 0 || accounts.some(a => a.id !== 'local_acc');
             const localChangedSinceSync = cloudSnapshot ? cloudSnapshot !== journalFingerprint() : hasLocalJournal;
             if (localChangedSinceSync && hasLocalJournal) {
-              if (!confirm(language === 'en' ? 'This account already has cloud data. Replace local data on this device with cloud data?' : 'Akun ini sudah memiliki data cloud. Ganti data lokal di perangkat ini dengan data cloud?')) {
+              if (!confirm(language === 'en' ? 'This account already has server data. Replace local data on this device with server data?' : 'Akun ini sudah memiliki data server. Ganti data lokal di perangkat ini dengan data server?')) {
                 cloudUser = null; cloudReady = false;
                 await cloudClient.auth.signOut();
                 return;
@@ -570,7 +569,7 @@
       }
 
       async function initCloudAuth() {
-        if (!cloudClient) { if ($('cloud-status')) $('cloud-status').textContent = 'Koneksi Supabase tidak tersedia. Data lokal tetap tersimpan.'; return; }
+        if (!cloudClient) { if ($('cloud-status')) $('cloud-status').textContent = 'Koneksi server tidak tersedia. Data lokal tetap tersimpan.'; return; }
         cloudClient.auth.onAuthStateChange((event, session) => {
           if (event === 'SIGNED_IN' && session?.user && (!cloudReady || cloudUser?.id !== session.user.id)) setTimeout(() => hydrateCloud(session.user), 0);
           if (event === 'SIGNED_OUT') handleCloudSignedOut();
@@ -2964,14 +2963,6 @@
           (stale ? kalText('Kalender tersimpan; pembaruan live belum tersedia. Data per: ', 'Saved calendar; live refresh unavailable. Data as of: ') : kalText('Sumber diperbarui: ', 'Source updated: ')) +
           (kalCache.rawUpdated ? new Date(kalCache.rawUpdated).toLocaleString(language === 'en' ? 'en-GB' : 'id-ID', {timeZone:'Asia/Jakarta'}) + ' WIB' : kalText('Tidak diketahui', 'Unknown'));
       }
-      $('calendar-live').addEventListener('toggle', () => {
-        if (!$('calendar-live').open || $('calendar-live-frame').firstChild) return;
-        const frame = document.createElement('iframe');
-        frame.title = 'Investing.com live economic calendar';
-        frame.src = 'https://sslecal2.investing.com/?columns=exc_flags,exc_currency,exc_importance,exc_actual,exc_forecast,exc_previous&features=datepicker,timezone,timeselector,filters&calType=week&lang=1&ecoDayBackground=%230c0d10&defaultFont=%23eeeeee&innerBorderColor=%23262a32&borderColor=%23262a32&ecoDayFontColor=%23eeeeee';
-        frame.loading = 'lazy';
-        $('calendar-live-frame').appendChild(frame);
-      });
 
       function renderEconomicCalendar(force) {
         if (!kalCache || force) {
@@ -3233,6 +3224,7 @@
       refreshExchangeRate();
       setInterval(() => { if (!document.hidden) refreshExchangeRate(); }, 3600000);
       document.addEventListener('visibilitychange', () => { if (!document.hidden && Date.now() - exchangeCheckedAt >= 3600000) refreshExchangeRate(); });
+      window.addEventListener('online', scheduleCloudSave);
       window.addEventListener('storage', event => {
         if ([K_ACCOUNTS, K_TRADES, K_SETTINGS, K_PROFILE].includes(event.key) || event.key === null) {
           loadData(); renderJournalTable(); renderStatistics(); renderProfileView(); runAllCalculators();

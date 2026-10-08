@@ -78,6 +78,25 @@ def investing_probability(data):
 def calendar_rows(data):
     # Only accept absolute event epochs. Site display times alone are ambiguous.
     rows=[]
+    structured = re.search(r'<script[^>]*id="__NEXT_DATA__"[^>]*>(.*?)</script>', data, re.S)
+    if structured:
+        state = json.loads(structured[1]).get('props', {}).get('pageProps', {}).get('state', {})
+        events = state.get('economicCalendarStore', {}).get('calendarEventsByDate', {})
+        for day in events.values():
+            for event in day:
+                try:
+                    moment = dt.datetime.fromisoformat(event.get('time', '').replace('Z', '+00:00'))
+                    impact = int(event.get('importance', 0))
+                    currency = event.get('currency', '')
+                    name = event.get('event', '')
+                    if not moment.tzinfo or impact not in (1, 2, 3) or not re.fullmatch('[A-Z]{3}', currency) or not name:
+                        continue
+                    moment = moment.astimezone(ZoneInfo('Asia/Jakarta'))
+                    rows.append({'id': str(event['occurrenceId']), 'tgl': moment.date().isoformat(), 'jam': moment.strftime('%H:%M'), 'neg': currency, 'nama': name + (' ' + event['period'] if event.get('period') else ''), 'dmp': impact, 'akt': str(event.get('actual') or ''), 'prk': str(event.get('forecast') or ''), 'sbl': str(event.get('previous') or ''), 'cat': ''})
+                except (ValueError, TypeError, KeyError):
+                    continue
+        if rows:
+            return rows
     for attrs,body in re.findall(r'<tr\b([^>]*data-event-timestamp[^>]*)>(.*?)</tr>',data,re.S):
         stamp=re.search(r'data-event-timestamp=["\'](\d+)',attrs)
         if not stamp:continue

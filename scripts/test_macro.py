@@ -20,3 +20,13 @@ rows = calendar_rows(f'<tr data-event-timestamp="{epoch}"><td class="flagCur">US
 assert rows[0]['tgl'] == '2026-10-09' and rows[0]['jam'] == '01:00'
 assert rows[0]['dmp'] == 3 and rows[0]['akt'] == '2.1%'
 print('Macro checks passed')
+
+import json
+modern = {'props': {'pageProps': {'state': {'economicCalendarStore': {'calendarEventsByDate': {'2026-10-08': [
+    {'occurrenceId': 1, 'time': '2026-10-08T18:00:00Z', 'currency': 'USD', 'importance': '3', 'event': 'CPI', 'actual': '2.1%', 'forecast': '2.0%', 'previous': '2.2%'},
+    {'occurrenceId': 2, 'time': '2026-10-08T18:00:00', 'currency': 'USD', 'importance': '3', 'event': 'Ambiguous time'}
+]}}}}}}
+rows = calendar_rows('<script id="__NEXT_DATA__" type="application/json">' + json.dumps(modern) + '</script>')
+assert len(rows) == 1 and rows[0]['jam'] == '01:00' and rows[0]['tgl'] == '2026-10-09'
+assert rows[0]['akt'] == '2.1%' and rows[0]['prk'] == '2.0%' and rows[0]['sbl'] == '2.2%'
+print('Modern calendar timestamps and release values passed')

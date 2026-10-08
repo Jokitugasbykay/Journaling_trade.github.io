@@ -30,5 +30,14 @@ for(const name of ['toggleBillingCycle','openQuickTrade','openProfileModal']) as
   const restore={journalOwner:'user-a',accounts:['B'],FileReader:class{constructor(){reader=this}readAsText(){}},window:{}};
   vm.runInNewContext(source.slice(source.indexOf('      window.handleRestoreFile ='),source.indexOf('      window.exportCSV')),restore);
   restore.window.handleRestoreFile({files:[{size:1}]});restore.journalOwner='user-b';reader.onload({target:{result:'{"accounts":[],"trades":[]}'}});assert.equal(restore.accounts[0],'B');
+  let queued = 0, saved = {};
+  const autosave = {localRevision:0, accounts:[{id:'a'}], trades:[{id:'t'}], settings:{}, profile:{name:'Alice'}, K_ACCOUNTS:'accounts',K_TRADES:'trades',K_SETTINGS:'settings',K_PROFILE:'profile', localStorage:{setItem:(key,value)=>saved[key]=value}, scheduleCloudSave:()=>queued++, window:{}, console};
+  vm.runInNewContext(source.slice(source.indexOf('      function saveData()'),source.indexOf('      function cloudMessage(')),autosave);
+  autosave.saveData(); assert.equal(JSON.parse(saved.trades)[0].id,'t'); assert.equal(queued,1);
+  const schedule = {cloudUser:null, cloudReady:true, nicknameReady:true, cloudTimer:null, clearTimeout(){}, setTimeout:()=>++queued, syncCloud(){}, $:()=>({}),language:'en'};
+  vm.runInNewContext(source.slice(source.indexOf('      function scheduleCloudSave()'),source.indexOf('      function migrateLegacyJournal()')),schedule);
+  schedule.scheduleCloudSave(); assert.equal(queued,1);
+  schedule.cloudUser={id:'a'}; schedule.scheduleCloudSave(); assert.equal(queued,2);
+  assert(source.includes("window.addEventListener('online', scheduleCloudSave)"));
   console.log('Account ownership, stale sync/restore/nickname, vendor integrity and calendar checks passed');
 })().catch(e=>{console.error(e);process.exitCode=1});
