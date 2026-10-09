@@ -662,7 +662,18 @@
         const reset = accountAccess.resetAt ? new Date(accountAccess.resetAt).toLocaleString(language === 'en' ? 'en-GB' : 'id-ID', { hour: '2-digit', minute: '2-digit', day: 'numeric', month: 'short' }) : '';
         return language === 'en' ? `Free · ${accountAccess.remaining}/10 uploads remaining${reset ? '. Resets ' + reset : ' every 12 hours'}.` : `Free · Sisa ${accountAccess.remaining}/10 upload${reset ? '. Reset ' + reset : ' setiap 12 jam'}.`;
       }
+      // Pro destinations remain hidden until real pages and server authorization exist.
+      function renderProNavigation() {
+        const hook = $('nav-ai-trading');
+        if (!hook) return;
+        const verified = !!cloudUser && cloudReady && nicknameReady && accountAccess;
+        hook.hidden = !verified || accountAccess.plan === 'pro';
+        hook.disabled = true;
+        hook.setAttribute('aria-disabled', 'true');
+      }
+
       function renderAccountAccess() {
+        renderProNavigation();
         $('upload-quota-note').textContent = uploadAllowanceText();
         $('news-content').hidden = !canReadNews();
         $('news-paywall').hidden = canReadNews();
