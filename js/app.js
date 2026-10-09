@@ -955,7 +955,7 @@
           clearTimeout(cloudTimer);
           (async () => {
             while (cloudBusy) await new Promise(resolve => setTimeout(resolve, 50));
-            if (nicknameReady && !await syncCloud()) return;
+            if (cloudReady && nicknameReady && !await syncCloud()) return;
             const { error } = await cloudClient.auth.signOut();
             if (error) { $('cloud-status').textContent = cloudMessage(error); return; }
             handleCloudSignedOut();

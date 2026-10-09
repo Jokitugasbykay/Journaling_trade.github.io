@@ -115,6 +115,24 @@ function routeHarness() {
   assert.equal(stale.get('verifiedNewsUserId'),'');
   console.log('Logout rejects a late identity response and clears visible saved news');
 
+  for (const ready of [false,true]) {
+    const logout = authHarness();await logout.ctx.hydrateCloud(founder);
+    const saved = new Map([['fncjt_trades_a','[{"id":"unsaved-local-copy"}]']]);
+    logout.ctx.localStorage = {getItem:key=>saved.get(key) ?? null,setItem:(key,value)=>saved.set(key,value)};
+    logout.ctx.cloudReady = ready;logout.ctx.cloudBusy = false;logout.ctx.cloudTimer = null;logout.ctx.clearTimeout = clearTimeout;
+    let syncCalls=0,signOutCalls=0;
+    logout.ctx.syncCloud = async()=>{syncCalls++;return false};
+    logout.ctx.cloudClient.auth.signOut = async()=>{signOutCalls++;return {error:null}};
+    logout.ctx.window = logout.ctx;
+    vm.runInContext(extract('      window.signOutLocal =','      /* Header Account Dropdown Menu */'),logout.ctx);
+    logout.ctx.signOutLocal();await new Promise(resolve=>setImmediate(resolve));
+    assert.equal(syncCalls,ready?1:0,'Incomplete journal hydration attempted a cloud overwrite before logout');
+    assert.equal(signOutCalls,ready?0:1,'Logout was blocked by incomplete hydration or ignored an actual sync failure');
+    assert.equal(logout.ctx.cloudUser?.id,ready?'a':undefined);
+    assert.equal(saved.get('fncjt_trades_a'),'[{"id":"unsaved-local-copy"}]','Logout erased the account-scoped local journal');
+  }
+  console.log('Incomplete hydration allows explicit logout; failed ready-state sync protects the local journal');
+
   const route = routeHarness();
   route.restoreRoute();
   assert.equal(route.location.search,'?article=00000000000000000001','Cold route restoration cleared the bookmarked story');
