@@ -3,6 +3,7 @@ const app = fs.readFileSync(__dirname + '/app.js', 'utf8');
 const reader = {innerHTML:'', querySelectorAll:()=>[]};
 const browse = {classList:{toggle(){}}};
 const ctx = {URLSearchParams, location:{search:'?article=a'}, pagePath:()=>'/economic-news/', canReadNews:()=>true,
+  newsArticleDetail:null, newsArticleLoading:'', publisherNewsFailed:false, loadNewsArticle() {}, newsCurrentItems:()=>ctx.publisherNews.items,
   $:id=>id==='publisher-news-reader'?reader:browse, newsSourceInRegion:()=>true,
   publisherUrl:(url)=>url.startsWith('https://www.federalreserve.gov/')?url:null,
   publisherImageUrl:()=>null,publisherTime:()=> '8 Oct 2026 WIB',newsText:(id,en)=>en,

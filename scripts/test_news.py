@@ -102,11 +102,13 @@ story = {**latest, 'source':'kompas', 'url':f'https://money.kompas.com/read/{loc
 revision = {**story, 'id':'revision', 'title':'Updated technology headline from the same publisher',
             'url':story['url'].replace('original-title', 'updated-title'), 'image':None}
 merged = news.merge_items([story], [revision])
-assert len(merged) == 1 and merged[0]['title'] == revision['title'] and merged[0]['image'] == story['image']
-tracked = {**latest, 'url':latest['url'] + '?utm_source=homepage&source=home_headline'}
-assert len(news.merge_items([latest], [tracked])) == 1
+assert len(merged) == 1 and merged[0]['id'] == story['id'] and merged[0]['title'] == revision['title'] and merged[0]['image'] == story['image']
+tracked = {**latest, 'id':'tracked-hash', 'url':latest['url'] + '?utm_source=homepage&source=home_headline'}
+merged = news.merge_items([latest], [tracked])
+assert len(merged) == 1 and merged[0]['id'] == latest['id'] and merged[0]['url'] == tracked['url']
 republished = {**latest, 'id':'alternate', 'url':'https://www.reuters.com/business/alternate/', 'title':'  ' + latest['title'].upper() + '  '}
 assert len(news.merge_items([latest], [republished])) == 1
+assert news.merge_items([latest], [republished])[0]['id'] == latest['id']
 assert len(news.merge_items([latest], [{**republished, 'publishedAt':'2026-09-01T00:00:00+00:00'}])) == 2
 assert len(news.merge_items([latest], [{**latest, 'source':'cnbc', 'url':'https://www.cnbc.com/news/article.html'}])) == 2
 assert len(news.merge_items([], [{**latest, 'url':latest['url']+'?id=1'}, {**latest, 'url':latest['url']+'?id=2', 'title':'Another distinct economic story from Reuters'}])) == 2

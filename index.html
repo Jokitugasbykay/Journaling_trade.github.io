@@ -22,7 +22,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
 
-  <link rel="stylesheet" href="css/style.css?v=20261009-production-audit">
+  <link rel="stylesheet" href="css/style.css?v=20261009-news-delivery">
 </head>
 
 <body>
@@ -70,6 +70,7 @@
       <div class="home-shell">
         <section class="landing-hero" aria-labelledby="home-title">
           <div class="landing-intro">
+            <p class="landing-eyebrow" data-i18n="homeEyebrow">Ruang kerja untuk trader</p>
             <h1 id="home-title" data-i18n="heroTitle">Discipline in Every Execution.<br>Clarity in Every Trade.</h1>
             <p class="landing-lead" data-i18n="heroLead">Transform your trading journey with a disciplined journaling practice.</p>
             <div class="landing-actions">
@@ -78,6 +79,21 @@
             </div>
             <p class="landing-hint" id="home-access-hint" data-i18n="accessHint">Tab jurnal terbuka setelah Anda klik Coba.</p>
           </div>
+          <figure class="landing-preview" aria-labelledby="home-preview-title">
+            <div class="landing-preview-top"><span class="landing-preview-brand">journalingtrade</span><span class="landing-preview-label" data-i18n="homePreview">Pratinjau</span></div>
+            <div class="landing-preview-tabs" aria-hidden="true"><span class="active" data-i18n="journal">Jurnal</span><span data-i18n="statistics">Statistik</span><span data-i18n="calculator">Kalkulator</span></div>
+            <div class="landing-preview-note">
+              <div class="landing-preview-heading"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M8 3H5v18h14V3h-3M8 2h8v4H8zM8 11h8M8 15h5"/></svg><h2 id="home-preview-title" data-i18n="exampleTitle">Contoh catatan jurnal</h2></div>
+              <dl class="landing-preview-fields">
+                <div><dt data-i18n="market">Market</dt><dd data-i18n="exampleMarket">Tulis instrumen yang dipilih</dd></div>
+                <div><dt data-i18n="riskLimit">Batas risiko</dt><dd data-i18n="exampleRisk">Tentukan risiko sebelum entry</dd></div>
+                <div class="landing-preview-wide"><dt data-i18n="entryReason">Alasan entry</dt><dd data-i18n="exampleReason">Mengapa Anda mengambil trade ini?</dd></div>
+                <div class="landing-preview-wide"><dt data-i18n="evaluation">Evaluasi</dt><dd data-i18n="exampleReview">Apakah rencana sudah dijalankan?</dd></div>
+              </dl>
+              <div class="landing-preview-process" aria-hidden="true"><span data-i18n="homePlan">Rencanakan</span><svg width="30" height="12" viewBox="0 0 30 12" fill="none" stroke="currentColor"><path d="M0 6h28m-5-5 5 5-5 5"/></svg><span data-i18n="homeRecord">Catat</span><svg width="30" height="12" viewBox="0 0 30 12" fill="none" stroke="currentColor"><path d="M0 6h28m-5-5 5 5-5 5"/></svg><span data-i18n="evaluation">Evaluasi</span></div>
+            </div>
+            <figcaption data-i18n="exampleHint">Template catatan, bukan data akun Anda.</figcaption>
+          </figure>
         </section>
 
         <section class="learning-guide" id="panduan-forex" aria-labelledby="learning-title">
@@ -87,18 +103,22 @@
           </header>
           <div class="learning-grid">
             <section class="learning-topic">
+              <span class="learning-step" aria-hidden="true">01</span>
               <h3 data-i18n="guideMarketTitle">Kenali market yang Anda trade</h3>
               <p data-i18n="guideMarketText">Forex memperdagangkan pasangan mata uang, seperti EUR/USD. Perhatikan spread, ukuran lot, dan jadwal berita sebelum masuk posisi.</p>
             </section>
             <section class="learning-topic">
+              <span class="learning-step" aria-hidden="true">02</span>
               <h3 data-i18n="guideRiskTitle">Tentukan risiko sebelum entry</h3>
               <p data-i18n="guideRiskText">Tulis harga entry, stop loss, dan target. Gunakan Kalkulator untuk menyesuaikan ukuran posisi dengan batas risiko Anda.</p>
             </section>
             <section class="learning-topic">
+              <span class="learning-step" aria-hidden="true">03</span>
               <h3 data-i18n="guideJournalTitle">Catat atau impor transaksi</h3>
               <p data-i18n="guideJournalText">Klik Coba, lalu buka Jurnal. Isi trade secara manual atau unggah PDF, gambar, dan CSV. Periksa hasil scan sebelum mengimpor; data yang tidak terbaca tetap kosong.</p>
             </section>
             <section class="learning-topic">
+              <span class="learning-step" aria-hidden="true">04</span>
               <h3 data-i18n="guideReviewTitle">Lihat pola di balik hasil Anda</h3>
               <p data-i18n="guideReviewText">Buka Statistik untuk melihat profit/loss, win rate, dan drawdown. Bandingkan setup serta alasan entry, lalu pilih satu kebiasaan untuk diperbaiki pada sesi berikutnya.</p>
             </section>
@@ -1274,17 +1294,26 @@
   </div>
 
   <!-- Footer -->
-  <footer>
-    <div style="max-width:1200px; margin:0 auto; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px;">
-      <span><b>journalingtrade</b> · Professional Trading Journal & Analytics · Open Source Engine</span>
-      <span>Disiplin · Data · Eksekusi</span>
+  <footer class="site-footer">
+    <div class="site-footer-inner">
+      <div class="site-footer-main">
+        <div class="site-footer-brand">
+          <button type="button" onclick="switchTab('beranda')">journalingtrade<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M6 18 18 6M6 6h12v12"/></svg></button>
+          <p data-i18n="footerLead">Catat keputusan. Pahami kebiasaan.<br>Bangun proses trading Anda.</p>
+        </div>
+        <nav class="site-footer-links" aria-label="Footer">
+          <div><h2 data-i18n="footerWorkspace">Ruang kerja</h2><button type="button" onclick="startTrial()" data-i18n="openJournal">Buka jurnal trade</button><button type="button" onclick="switchTab('berita')" data-i18n="news">Berita Ekonomi</button><button type="button" onclick="switchTab('berita'); switchBeritaSub('kalender')" data-i18n="newsCalendar">Kalender ekonomi</button></div>
+          <div><h2 data-i18n="footerExplore">Jelajahi</h2><button type="button" onclick="switchTab('beranda'); scrollToPricing()" data-i18n="footerPlans">Paket langganan</button><a href="home/#panduan-forex" data-i18n="footerGuide">Panduan trading</a><a href="login/" data-i18n="signIn">Masuk</a></div>
+        </nav>
+      </div>
+      <div class="site-footer-bottom"><span data-i18n="footerDescriptor">Professional Trading Journal & Analytics</span><span data-i18n="footerPrinciples">Disiplin · Data · Eksekusi</span></div>
     </div>
   </footer>
 
 
   <script src="js/vendor/supabase-2.86.0.js" integrity="sha384-3Sgm1bFlHa+gvzgZCHY6SyQwlKZpsgWl0qwxcwsypsSZQvo1vV1miPkn7n1lU1/L"></script>
   <script src="js/scan.js?v=20261007"></script>
-  <script src="js/app.js?v=20261009-production-audit"></script>
+  <script src="js/app.js?v=20261009-news-delivery"></script>
   <script src="js/fed.js?v=20261008-fomc"></script>
 
  </body>

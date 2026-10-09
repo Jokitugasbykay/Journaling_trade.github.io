@@ -25,12 +25,14 @@ jobs:
         with:
           python-version: '3.12'
       - run: python scripts/test_news.py
+      - run: python scripts/test_news_delivery.py
       - run: python scripts/audit_news.py --self-test
       - run: python scripts/test_macro.py
       - run: node js/copy.test.cjs
       - run: node js/security.test.cjs
       - run: node js/news-region.test.cjs
       - run: node js/news-reader.test.cjs
+      - run: node js/news-loading.test.cjs
       - run: node js/discipline.test.cjs
       - run: node js/fed.test.cjs
       - run: python scripts/update_news.py
@@ -46,11 +48,15 @@ jobs:
             git pull --rebase origin main
             git push origin HEAD:main
           fi
+      - run: python scripts/build_news.py
       - name: Prepare website
         run: |
           mkdir _site
           cp index.html berita.json kalender.json bi.json fomc.json regional-sources.json _site/
           cp -r css js _site/
+          mkdir _site/news
+          cp news/index.json _site/news/
+          cp -r news/sources news/archive _site/news/
           for route in home journal statistics calculator economic-news economic-news/calendar economic-news/social login profile; do
             mkdir -p "_site/$route"
             cp index.html "_site/$route/index.html"

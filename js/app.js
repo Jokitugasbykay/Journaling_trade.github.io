@@ -137,6 +137,10 @@
       Object.assign(englishCopy, {"newsLatestStories": "Latest stories", "newsShowMore": "Show more stories"});
       Object.assign(englishCopy, {"categoryAll": "All", "categoryWorld": "World", "categoryPolitics": "Politics", "categoryBusiness": "Business", "categoryMarkets": "Markets", "categorySustainability": "Sustainability", "categoryLegal": "Legal", "categoryCommentary": "Commentary", "categoryTechnology": "Technology", "categoryInvestigations": "Investigations", "categoryMore": "More", "categoryLocal": "Local news", "categoryScience": "Science", "categorySport": "Sport", "categoryOther": "Other news", "biSource": "Bank Indonesia transaction rates", "biBasis": "Journal conversion uses the midpoint of BI USD sell and buy rates. BI publishes rates once per business day."});
       Object.assign(englishCopy, {
+        homeEyebrow: 'A workspace for traders', homePreview: 'Preview', homePlan: 'Plan', homeRecord: 'Record',
+        footerLead: 'Record decisions. Understand habits.<br>Build your trading process.',
+        footerWorkspace: 'Workspace', footerExplore: 'Explore', footerPlans: 'Subscription plans', footerGuide: 'Trading guide',
+        footerDescriptor: 'Professional Trading Journal & Analytics', footerPrinciples: 'Discipline · Data · Execution',
         signupTitle: 'Create your journalingtrade account', signupLead: 'Start with Free and track your trading journey.',
         authEmailDivider: 'or use email', confirmPassword: 'Confirm password',
         authShowSignup: 'New here? Create an account', authShowSignin: 'Already have an account? Sign in',
@@ -511,6 +515,7 @@
         cloudAuthRevision++; founderUserId = '';
         hydratingUserId = '';
         cloudUser = null; cloudReady = false; nicknameReady = false; accountAccess = null;
+        resetNewsData();
         resetNewsRegion();
         selectJournalOwner();
       }
@@ -521,6 +526,7 @@
         const authRevision = ++cloudAuthRevision;
         founderUserId = '';
         const guestJournal = !journalOwner && trades.length ? { accounts: structuredClone(accounts), trades: structuredClone(trades) } : null;
+        if (cloudUser?.id !== user.id) resetNewsData();
         cloudUser = user;
         cloudReady = false; nicknameReady = false; accountAccess = null;
         try {
@@ -3228,6 +3234,83 @@
       const newsCategoryNames = {politics:['Politik','Politics'], fed:['The Fed','The Fed'], world:['Dunia','World'], business:['Bisnis','Business'], markets:['Pasar','Markets'], sustainability:['Keberlanjutan','Sustainability'], legal:['Hukum','Legal'], commentary:['Komentar','Commentary'], technology:['Teknologi','Technology'], investigations:['Investigasi','Investigations'], local:['Berita lokal','Local news'], science:['Sains','Science'], sport:['Olahraga','Sport'], other:['Berita lainnya','Other news']};
       let publisherNewsBusy = false;
       let publisherNewsFailed = false;
+      let newsDataRevision = 0, newsSourceFeed = null, newsSourceAttempt = '', newsSourceLoading = '', newsSourceFailed = false;
+      let newsArticleDetail = null, newsArticleAttempt = '', newsArticleLoading = '';
+      let newsSourceRequest = 0, newsArticleRequest = 0;
+      function resetNewsData() {
+        newsDataRevision++;
+        publisherNews = null; publisherNewsBusy = false; publisherNewsFailed = false;
+        newsSourceFeed = null; newsSourceAttempt = ''; newsSourceLoading = ''; newsSourceFailed = false;
+        newsArticleDetail = null; newsArticleAttempt = ''; newsArticleLoading = '';
+      }
+      async function loadNewsFile(path, normalize, onSaved, current = () => true) {
+        let cache, saved;
+        const url = new URL(path, document.baseURI).href;
+        try {
+          cache = await globalThis.caches?.open('journalingtrade-news-v1');
+          const response = await cache?.match(url);
+          if (response) { saved = normalize(await response.json()); onSaved?.(saved); }
+        } catch {}
+        try {
+          const response = await fetch(url, {cache:'no-cache', signal:AbortSignal.timeout(30000)});
+          if (!response.ok) throw new Error('News request failed');
+          const copy = cache && response.clone();
+          const data = normalize(await response.json());
+          if (copy && current()) try { await cache.put(url, copy); } catch {}
+          return {data, saved:false};
+        } catch (error) {
+          if (saved) return {data:saved, saved:true};
+          throw error;
+        }
+      }
+      function normalizeNewsFeed(data) {
+        if (data?.version !== 1 || !Array.isArray(data.sources) || !Array.isArray(data.items) || !publisherTime(data.checkedAt)) throw new Error('Invalid news feed');
+        const sources = data.sources.filter(source => source && publisherDomains[source.id] && typeof source.name === 'string' && publisherUrl(source.url, source.id));
+        const ids = new Set(sources.map(source => source.id));
+        const items = newsItemsForDisplay(data.items.filter(item => item && /^[a-f0-9]{20}$/.test(item.id) && typeof item.title === 'string' && ids.has(item.source) && publisherUrl(item.url, item.source)));
+        return {...data, sources, items};
+      }
+      function newsCurrentItems() {
+        if (!publisherNews) return [];
+        const source = newsSourceFeed?.sources[0]?.id;
+        return source === newsSelectedSource ? newsItemsForDisplay([...publisherNews.items.filter(item => item.source !== source), ...newsSourceFeed.items]) : publisherNews.items;
+      }
+      async function loadNewsSource(sourceId, force = false) {
+        if (!canReadNews() || !/^[a-z][a-z0-9_]{0,63}$/.test(sourceId) || !publisherNews?.sources.some(source => source.id === sourceId) || !newsSourceInRegion(sourceId)) return;
+        if (!force && newsSourceAttempt === sourceId) return;
+        newsSourceAttempt = sourceId; newsSourceLoading = sourceId; newsSourceFailed = false;
+        const revision = newsDataRevision, userId = cloudUser.id, request = ++newsSourceRequest;
+        const current = () => request === newsSourceRequest && revision === newsDataRevision && cloudUser?.id === userId && canReadNews() && $('news-source').value === sourceId && newsSourceInRegion(sourceId);
+        const accept = data => {
+          if (current() && (!newsSourceFeed || newsSourceFeed.sources[0]?.id !== sourceId || Date.parse(data.checkedAt) >= Date.parse(newsSourceFeed.checkedAt))) { newsSourceFeed = data; renderPublisherNews(); }
+        };
+        try {
+          const normalize = data => {
+            const feed = normalizeNewsFeed(data);
+            if (feed.sources.length !== 1 || feed.sources[0].id !== sourceId || feed.items.some(item => item.source !== sourceId)) throw new Error('Invalid source feed');
+            return feed;
+          };
+          const result = await loadNewsFile('news/sources/' + sourceId + '.json', normalize, accept, current);
+          if (current()) { newsSourceFailed = result.saved; accept(result.data); }
+        } catch { if (current()) newsSourceFailed = true; }
+        finally { if (request === newsSourceRequest && revision === newsDataRevision) { newsSourceLoading = ''; if (current()) renderPublisherNews(); } }
+      }
+      async function loadNewsArticle(id) {
+        if (!canReadNews() || !publisherNews || !/^[a-f0-9]{20}$/.test(id) || newsArticleAttempt === id) return;
+        newsArticleAttempt = id; newsArticleLoading = id;
+        const revision = newsDataRevision, userId = cloudUser.id, request = ++newsArticleRequest;
+        const current = () => request === newsArticleRequest && revision === newsDataRevision && cloudUser?.id === userId && canReadNews() && new URLSearchParams(location.search).get('article') === id;
+        const normalize = data => {
+          if (data?.version !== 1 || !Array.isArray(data.items) || !publisherTime(data.checkedAt)) throw new Error('Invalid article archive');
+          return data.items.find(item => item?.id === id && typeof item.title === 'string' && publisherNews.sources.some(source => source.id === item.source) && publisherUrl(item.url, item.source)) || null;
+        };
+        const accept = item => { if (current() && item && newsSourceInRegion(item.source)) { newsArticleDetail = item; renderNewsReader(); } };
+        try {
+          const result = await loadNewsFile('news/archive/' + id.slice(0,2) + '.json', normalize, accept, current);
+          accept(result.data);
+        } catch {}
+        finally { if (request === newsArticleRequest && revision === newsDataRevision) { newsArticleLoading = ''; if (current()) renderNewsReader(); } }
+      }
       const publisherDomains = { investing: 'investing.com', cnbc: 'cnbc.com', kontan: 'kontan.co.id', reuters: 'reuters.com', aljazeera: 'aljazeera.com', bloomberg: 'bloomberg.com', fnc: 'tradewithfnc.com', investing_id: 'investing.com', pluang: 'pluang.com', kompas: 'kompas.com', detik: 'detik.com', kemenkeu: 'kemenkeu.go.id', cnn_id: 'cnnindonesia.com', bisnis: 'bisnis.com', sindo: 'sindonews.com', ap:'apnews.com', bbc:['bbc.com','bbc.co.uk'], afp:'afp.com', wsj:'wsj.com', guardian:'theguardian.com', ft:'ft.com', dw:'dw.com', fedwatch: 'cmegroup.com', cme: 'cmegroup.com' };
       const newsText = (id, en) => language === 'en' ? en : id;
       const NEWS_REGIONS = {};
@@ -3312,11 +3395,9 @@
         GLOBAL_NEWS_SOURCES.splice(0, GLOBAL_NEWS_SOURCES.length, ...(NEWS_REGIONS.GLOBAL || []));
       }
       async function loadRegionalSources() {
-        if (!regionalSourcesPromise) regionalSourcesPromise = (async () => {
-          const response = await fetch('regional-sources.json', {cache:'no-store', signal:AbortSignal.timeout(15000)});
-          if (!response.ok) throw new Error('Regional sources unavailable');
-          registerRegionalSources(await response.json());
-        })().catch(error => { regionalSourcesPromise = null; throw error; });
+        if (!regionalSourcesPromise) regionalSourcesPromise = new Promise((resolve, reject) => {
+          loadNewsFile('regional-sources.json', data => { registerRegionalSources(data); return data; }, resolve).then(resolve, reject);
+        }).catch(error => { regionalSourcesPromise = null; throw error; });
         return regionalSourcesPromise;
       }
       function hasEuropeNewsAccess() { return isNewsFounder() || EUROPE_COUNTRY_CODES.includes(newsCountry); }
@@ -3516,18 +3597,21 @@
         $('publisher-news-browse').hidden = open;
         reader.innerHTML = '';
         if (!open) return;
-        const item = publisherNews?.items.find(row => row.id === id && newsSourceInRegion(row.source));
-        const source = item && publisherNews.sources.find(row => row.id === item.source);
+        if (publisherNews) loadNewsArticle(id);
+        const candidate = newsArticleDetail?.id === id ? newsArticleDetail : newsCurrentItems().find(row => row.id === id);
+        const item = candidate && newsSourceInRegion(candidate.source) ? candidate : null;
+        const source = item && publisherNews?.sources.find(row => row.id === item.source);
         const url = item && publisherUrl(item.url, item.source);
         const back = '<button type="button" class="news-reader-back" onclick="closeNewsArticle()"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M19 12H5m6-6-6 6 6 6"/></svg> ' + newsText('Kembali ke berita', 'Back to news') + '</button>';
         if (!item || !source || !url) {
-          reader.innerHTML = back + '<h2 id="news-reader-title" tabindex="-1">' + newsText('Berita belum tersedia', 'Story unavailable') + '</h2><p>' + newsText('Coba muat ulang berita atau kembali ke daftar.', 'Refresh the news or return to the list.') + '</p>';
+          const loading = !publisherNews && !publisherNewsFailed || newsArticleLoading === id;
+          reader.innerHTML = back + '<h2 id="news-reader-title" tabindex="-1">' + (loading ? newsText('Memuat artikel…', 'Loading story…') : newsText('Berita belum tersedia', 'Story unavailable')) + '</h2><p>' + (loading ? newsText('Mengambil artikel dari arsip berita.', 'Retrieving the story from the news archive.') : newsText('Coba muat ulang berita atau kembali ke daftar.', 'Refresh the news or return to the list.')) + '</p>';
           return;
         }
         const full = item.source === 'federal_reserve' && /^https:\/\/www\.federalreserve\.gov\/newsevents\/speech\/[^/]+\.htm$/.test(url) && item.contentRights === 'public-domain' && Array.isArray(item.body) && item.body.length > 1;
         const paragraphs = full ? item.body.filter(text => typeof text === 'string') : item.excerpt ? [item.excerpt] : [];
         const image = publisherImageUrl(item.image);
-        const related = relatedNews(item, publisherNews.items, publisherNews.sources, newsSourceInRegion);
+        const related = relatedNews(item, newsCurrentItems(), publisherNews.sources, newsSourceInRegion);
         const relatedRows = related.map(row => {
           const publisher = publisherNews.sources.find(source => source.id === row.source);
           const photo = publisherImageUrl(row.image);
@@ -3538,6 +3622,7 @@
         reader.querySelectorAll('img').forEach(image => image.addEventListener('error', event => {
           const photo = event.target.closest('.news-related-photo');
           if (photo) { photo.hidden = true; photo.closest('a').classList.add('news-related-text-only'); }
+          event.target.closest('.news-reader-media')?.remove();
           event.target.remove();
         }, {once:true}));
       }
@@ -3568,8 +3653,9 @@
           status.textContent = publisherNewsFailed ? newsText('Berita belum dapat dimuat. Buka situs penerbit atau coba lagi.', 'News could not be loaded. Visit a publisher or try again.') : newsText('Memuat berita terbaru...', 'Loading the latest headlines...');
           return;
         }
-        const checked = publisherTime(publisherNews.checkedAt);
-        const aged = Date.now() - new Date(publisherNews.checkedAt).getTime() > 90 * 60000;
+        const checkedAt = newsSourceFeed?.sources[0]?.id === $('news-source').value ? newsSourceFeed.checkedAt : publisherNews.checkedAt;
+        const checked = publisherTime(checkedAt);
+        const aged = Date.now() - new Date(checkedAt).getTime() > 90 * 60000;
         status.textContent = (publisherNewsFailed ? newsText('Pembaruan gagal; menampilkan data tersimpan. ', 'Refresh failed; showing the saved feed. ') : '') + (aged ? newsText('Data belum diperbarui. ', 'The feed has not been updated recently. ') : '') + newsText('Terakhir diperiksa: ', 'Last checked: ') + (checked || newsText('Tidak tersedia', 'Unavailable'));
         const select = $('news-source');
         const curated = new Map([...(NEWS_REGIONS[activeNewsRegion()] || NEWS_REGIONS.DEFAULT || []), ...GLOBAL_NEWS_SOURCES].map(portal => [portal.id, portal]));
@@ -3578,11 +3664,14 @@
           return portal ? {...source, name:portal.name, url:portal.url, tag:portal.tag} : source;
         });
         const selected = canSelectNewsArea(select.value) || availableSources.some(source => source.id === select.value) ? select.value : '';
-        if (selected !== newsSelectedSource) { newsVisibleCount = 12; newsSelectedSource = selected; }
+        if (selected !== newsSelectedSource) { newsVisibleCount = 12; newsSelectedSource = selected; newsSourceAttempt = ''; }
         select.innerHTML = newsSourceOptions(availableSources);
         select.value = selected;
+        if (selected && !newsAreaCodes.includes(selected)) loadNewsSource(selected);
+        if (newsSourceLoading === selected && selected) status.textContent += newsText(' · Memuat sumber…', ' · Loading source…');
+        else if (newsSourceFailed && newsSourceAttempt === selected) status.textContent += newsText(' · Pembaruan sumber gagal; menampilkan berita tersimpan.', ' · Source refresh failed; showing saved stories.');
         const sources = new Map(availableSources.map(source => [source.id, source]));
-        const rows = publisherNews.items.filter(item => sources.has(item.source) && newsSourceMatchesSelection(item.source, selected) && (!newsCategory || ((item.category || 'other') === newsCategory || item.topics?.includes(newsCategory))) && newsMatchesSearch(item, sources.get(item.source)?.name, newsQuery));
+        const rows = newsCurrentItems().filter(item => sources.has(item.source) && newsSourceMatchesSelection(item.source, selected) && (!newsCategory || ((item.category || 'other') === newsCategory || item.topics?.includes(newsCategory))) && newsMatchesSearch(item, sources.get(item.source)?.name, newsQuery));
         const portal = sources.get(selected);
         const portalLink = $('news-publisher-link');
         portalLink.hidden = !portal;
@@ -3601,33 +3690,53 @@
           const image = publisherImageUrl(item.image);
           const media = '<span class="publisher-photo"><span class="publisher-photo-fallback" aria-hidden="true"><small>' + newsText('Foto tidak tersedia', 'Photo unavailable') + '</small></span>' + (image ? '<img src="' + esc(image) + '" alt="" width="640" height="360" loading="lazy" decoding="async" referrerpolicy="no-referrer">' : '') + '</span>';
           return '<article class="publisher-news-item"><a class="publisher-story-link" href="' + esc(newsArticlePath(item.id)) + '">' + media + '<h3>' + esc(item.title) + '</h3></a><p class="publisher-news-meta"><span>' + esc(source.name) + '</span><time' + (publisherTime(item.publishedAt) ? ' datetime="' + esc(item.publishedAt) + '"' : '') + '>' + esc(time) + '</time></p></article>';
-        }).join('') : '<p>' + (selected === 'ANTARCTICA' || activeNewsRegion() === 'ANTARCTICA' ? newsText('Belum ada portal berita Antarktika yang dikonfigurasi.','No Antarctic news publishers are configured yet.') : portal?.kind === 'external' ? newsText('Portal ini belum menyediakan feed otomatis yang terverifikasi. Gunakan tautan penerbit di atas.','This portal has no verified automatic feed yet. Use the publisher link above.') : portal?.status === 'unavailable' || portal?.status === 'stale' ? newsText('Feed penerbit belum dapat diperbarui. Buka sumber atau coba lagi nanti.','The publisher feed could not be refreshed. Visit the source or try again later.') : !availableSources.length ? newsText('Belum ada portal yang dikonfigurasi untuk negara ini.', 'No publisher portals are configured for this country yet.') : newsQuery.trim() ? newsText('Tidak ada berita yang cocok. Coba kata kunci lain atau hapus filter kategori dan sumber.', 'No stories match your search. Try different keywords or clear the category and source filters.') : newsText('Belum ada berita yang sesuai filter ini. Pilih kategori atau sumber lain.', 'No stories match these filters. Choose another category or source.')) + '</p>';
+        }).join('') : '<p>' + (newsSourceLoading === selected && selected ? newsText('Memuat berita dari sumber ini…','Loading stories from this source…') : selected === 'ANTARCTICA' || activeNewsRegion() === 'ANTARCTICA' ? newsText('Belum ada portal berita Antarktika yang dikonfigurasi.','No Antarctic news publishers are configured yet.') : portal?.kind === 'external' ? newsText('Portal ini belum menyediakan feed otomatis yang terverifikasi. Gunakan tautan penerbit di atas.','This portal has no verified automatic feed yet. Use the publisher link above.') : portal?.status === 'unavailable' || portal?.status === 'stale' ? newsText('Feed penerbit belum dapat diperbarui. Buka sumber atau coba lagi nanti.','The publisher feed could not be refreshed. Visit the source or try again later.') : !availableSources.length ? newsText('Belum ada portal yang dikonfigurasi untuk negara ini.', 'No publisher portals are configured for this country yet.') : newsQuery.trim() ? newsText('Tidak ada berita yang cocok. Coba kata kunci lain atau hapus filter kategori dan sumber.', 'No stories match your search. Try different keywords or clear the category and source filters.') : newsText('Belum ada berita yang sesuai filter ini. Pilih kategori atau sumber lain.', 'No stories match these filters. Choose another category or source.')) + '</p>';
         $('publisher-news-list').querySelectorAll('img').forEach(img => { img.addEventListener('error', () => img.remove(), { once: true }); });
       };
       window.selectNewsCategory = function (value) { newsCategory = newsCategoryNames[value] ? value : ''; newsVisibleCount = 12; renderPublisherNews(); };
       window.showMoreNews = function () { newsVisibleCount += 12; renderPublisherNews(); };
       window.reloadPublisherNews = async function () {
-        if (!canReadNews()) { publisherNews = null; return; }
+        if (!canReadNews()) return;
         if (publisherNewsBusy) return;
         publisherNewsBusy = true;
+        const revision = newsDataRevision, userId = cloudUser.id;
+        const current = () => revision === newsDataRevision && cloudUser?.id === userId && canReadNews();
+        const accept = data => {
+          if (!current() || publisherNews && Date.parse(data.checkedAt) < Date.parse(publisherNews.checkedAt)) return;
+          publisherNews = data;
+          for (const portals of Object.values(NEWS_REGIONS)) for (const portal of portals) {
+            if (!publisherNews.sources.some(source => source.id === portal.id)) publisherNews.sources.push({...portal, kind:portal.kind || (portal.feed ? 'rss' : 'external'), status:'unavailable'});
+          }
+          renderPublisherNews();
+        };
         $('news-refresh').disabled = true;
         $('publisher-news-list').setAttribute('aria-busy', 'true');
         try {
           await loadRegionalSources();
-          const response = await fetch('berita.json?t=' + Date.now(), { cache: 'no-store', signal: AbortSignal.timeout(15000) });
-          if (!response.ok) throw new Error('News request failed');
-          const data = await response.json();
-          if (data.version !== 1 || !Array.isArray(data.sources) || !Array.isArray(data.items) || !publisherTime(data.checkedAt)) throw new Error('Invalid news feed');
-          data.sources = data.sources.filter(source => source && publisherDomains[source.id] && typeof source.name === 'string' && publisherUrl(source.url, source.id));
-          for (const portals of Object.values(NEWS_REGIONS)) for (const portal of portals) {
-            if (!data.sources.some(source => source.id === portal.id)) data.sources.push({...portal, kind:portal.kind || (portal.feed ? 'rss' : 'external'), status:'unavailable'});
-          }
-          data.items = newsItemsForDisplay(data.items.filter(item => item && typeof item.title === 'string' && publisherUrl(item.url, item.source)));
-          publisherNews = data;
-          publisherNewsFailed = false;
-        } catch (error) { publisherNewsFailed = true; }
-        finally { publisherNewsBusy = false; $('news-refresh').disabled = false; $('publisher-news-list').setAttribute('aria-busy', 'false'); renderPublisherNews(); }
+          if (!current()) return;
+          const result = await loadNewsFile('news/index.json', normalizeNewsFeed, accept, current);
+          if (!current()) return;
+          publisherNewsFailed = result.saved;
+          accept(result.data);
+          const source = $('news-source').value;
+          if (source && !newsAreaCodes.includes(source) && newsSourceLoading !== source) await loadNewsSource(source, true);
+          if (!newsArticleLoading) newsArticleAttempt = '';
+          renderNewsReader();
+        } catch { if (current()) publisherNewsFailed = true; }
+        finally { if (revision === newsDataRevision) { publisherNewsBusy = false; $('news-refresh').disabled = false; $('publisher-news-list').setAttribute('aria-busy', 'false'); renderPublisherNews(); } }
       };
+      async function retryNewsConnection() {
+        if (canReadNews()) return reloadPublisherNews();
+        if (!cloudClient) return;
+        const revision = cloudAuthRevision;
+        try {
+          const {data, error} = await cloudClient.auth.getSession();
+          if (error || revision !== cloudAuthRevision || !data?.session?.user) return;
+          const user = data.session.user;
+          if (!cloudReady || cloudUser?.id !== user.id) await hydrateCloud(user);
+          else await verifyNewsIdentity(user.id, revision);
+        } catch {}
+      }
       setInterval(() => { if (!document.hidden) reloadPublisherNews(); }, 300000);
       document.addEventListener('visibilitychange', () => { if (!document.hidden) reloadPublisherNews(); });
 
@@ -3718,6 +3827,7 @@
       setInterval(() => { if (!document.hidden) refreshExchangeRate(); }, 3600000);
       document.addEventListener('visibilitychange', () => { if (!document.hidden && Date.now() - exchangeCheckedAt >= 3600000) refreshExchangeRate(); });
       window.addEventListener('online', scheduleCloudSave);
+      window.addEventListener('online', () => { if (!document.hidden) retryNewsConnection(); });
       window.addEventListener('storage', event => {
         if ([K_ACCOUNTS, K_TRADES, K_SETTINGS, K_PROFILE].includes(event.key) || event.key === null) {
           loadData(); renderJournalTable(); renderStatistics(); renderProfileView(); runAllCalculators();

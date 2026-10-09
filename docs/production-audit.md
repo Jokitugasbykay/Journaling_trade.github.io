@@ -8,25 +8,41 @@ Tanggal: 9 Oktober 2026 WIB. Project: Journaling Trade. Database: **journaltradi
 - **529 ID sumber unik** diperiksa. Audit endpoint menghasilkan **324 sumber working**. Refresh awal kolektor produksi menghasilkan **322 sumber ok** dan **33.776 artikel tersimpan**. Angka berbeda karena request dilakukan pada waktu berbeda, sebagian sumber memiliki beberapa endpoint, dan batas respons audit adalah 5 MB sedangkan kolektor JSON mendukung 32 MB.
 - **674 baris CSS dihapus**, mencakup 120 cabang selector yang tidak lagi dirujuk HTML/JavaScript. Terjemahan modul analisa market yang sudah dihapus dan variabel CSS yang tidak digunakan ikut dibersihkan.
 - Bug parser, nilai nol kalender, dan rekomendasi The Fed diperbaiki. Gates aplikasi, parser, serta dua pengujian database dalam transaksi rollback lolos.
-- **Verdict: perlu perbaikan sebelum produksi berbayar penuh.** Penegakan akses berita masih berada di browser, dan ukuran arsip berita membutuhkan perbaikan distribusi data.
+- Pengiriman berita dipisahkan menjadi daftar terbaru, daftar per sumber, dan 256 bucket arsip. Pembukaan halaman normal tidak lagi meminta seluruh `berita.json`; cache browser mempertahankan berita tersimpan ketika pembaruan jaringan gagal.
+- **Verdict: perlu perbaikan sebelum produksi berbayar penuh.** Penegakan akses berita masih berada di browser. Distribusi data sudah diperkecil; batasan otorisasi file publik tetap terbuka.
 
 ## Temuan kritis yang masih terbuka
 
 ### [P1] Konten berita belum dilindungi oleh backend
 
-`berita.json` diterbitkan sebagai file publik di GitHub Pages. Pengunjung yang memodifikasi client dapat mengambil file tersebut tanpa mengikuti gate Plus atau region. Verifikasi founder memakai email terkonfirmasi dari `auth.getUser()`, tetapi filter frontend tidak memberikan otorisasi server pada file publik.
+`berita.json` dan berkas `news/` diterbitkan sebagai file publik di GitHub Pages. Pengunjung yang memodifikasi client dapat mengambil file tersebut tanpa mengikuti gate Plus atau region. Verifikasi founder memakai email terkonfirmasi dari `auth.getUser()`, tetapi filter frontend tidak memberikan otorisasi server pada file publik.
 
 Paket dan counter upload di Supabase dilindungi server. OCR tetap berjalan pada perangkat sehingga modifikasi client dapat melewati pemanggilan counter sebelum melakukan OCR lokal.
 
 **Tindakan sebelum penjualan dengan pembatasan konten:** sajikan konten melalui endpoint yang memverifikasi token, entitlement, dan aturan region di server. Bila kuota harus membatasi pemrosesan OCR itu sendiri, pemrosesan harus dilaksanakan oleh server. Endpoint Supabase dan publishable key memang publik; menyamarkannya tidak menyelesaikan masalah ini. [Dokumentasi API keys Supabase](https://supabase.com/docs/guides/api/api-keys).
 
-### [P1] Seluruh arsip diunduh untuk membuka berita
+## Distribusi berita setelah perbaikan
 
-Snapshot setelah refresh berukuran **18.604.083 byte**; hasil gzip lokal sekitar **5.433.236 byte**. Browser meminta seluruh arsip dengan timeout 15 detik, lalu membatasi tampilan menjadi 500 artikel per saluran. Arsip terus bertambah dan diminta kembali setiap lima menit ketika halaman terlihat.
+Temuan awal: browser meminta seluruh arsip dengan timeout 15 detik sebelum membatasi tampilan menjadi 500 artikel per saluran. Distribusi sekarang dibangun dari arsip yang tetap utuh:
 
-Ini berisiko menyebabkan timeout dan penggunaan memori tinggi pada koneksi/perangkat terbatas. Pengujian desktop/mobile lokal tidak mensimulasikan seluruh kondisi jaringan pengguna.
+- `news/index.json`: metadata seluruh sumber dan maksimum 10 judul terbaru per sumber, tanpa body lengkap.
+- `news/sources/<id>.json`: maksimum 500 judul terbaru dari sumber yang dipilih, tanpa body lengkap.
+- `news/archive/<prefix>.json`: artikel dalam 256 bucket berdasarkan dua karakter pertama ID. Tautan artikel lama tetap dapat diambil; body hanya disimpan jika hak konten tercatat `public-domain` atau `licensed`.
+- Browser menyimpan respons melalui Cache API bila tersedia, menampilkan data tersimpan sebelum pembaruan, dan mempertahankannya ketika jaringan gagal. Timeout pembaruan menjadi 30 detik. Pemeriksaan tetap setiap lima menit saat halaman terlihat.
+- `berita.json` tetap diterbitkan untuk kompatibilitas, tetapi tidak dibutuhkan oleh jalur normal daftar/pembaca yang baru.
 
-**Tindakan sebelum trafik produksi besar:** pisahkan respons daftar terbaru dari arsip dan muat artikel/region yang dibutuhkan melalui endpoint atau berkas terpisah. Tetap simpan arsip untuk mempertahankan riwayat; jangan menghapus riwayat sebagai cara mengurangi ukuran respons.
+Benchmark lokal pada snapshot **35.647 artikel dan 529 sumber**:
+
+| Berkas | Byte JSON | Byte gzip lokal |
+| --- | ---: | ---: |
+| Arsip penuh `berita.json` | 19.712.776 | 5.765.661 |
+| Daftar awal `news/index.json` | 1.689.478 | 596.096 |
+| Daftar sumber terbesar | 335.739 | 58.284 |
+| Bucket arsip terbesar | 89.067 | 34.109 |
+
+Build selesai dalam **4,26 detik**. SHA-256 arsip sebelum/sesudah sama. Daftar awal berisi 3.255 judul; ukurannya sekitar 91% lebih kecil daripada JSON arsip penuh. Angka gzip berasal dari kompresi lokal, bukan pengukuran header atau waktu transfer GitHub Pages.
+
+Workflow menguji builder, membangun berkas setelah refresh/rebase, lalu memasukkan hanya `index.json`, `sources/`, dan `archive/` ke artifact Pages. Folder generated `news/` diabaikan Git. Regresi mencakup koneksi lambat, kegagalan refresh, cache tidak tersedia/penuh, respons terlambat, serta pergantian sumber/akun. Browser nyata memeriksa 500 judul per sumber, tautan arsip lama, pemulihan cache saat request feed offline, dan viewport 375px. Cache tidak menegakkan hak akses server dan tidak menjamin seluruh halaman dapat dibuka tanpa jaringan.
 
 ## Perbaikan yang selesai
 
@@ -43,6 +59,7 @@ Ini berisiko menyebabkan timeout dan penggunaan memori tinggi pada koneksi/peran
 | Angka rilis `0` hilang menjadi kosong | Parser kalender menjaga angka nol, membedakannya dari null, dan melewati baris rusak secara individual. |
 | Halaman redirect penerbit dapat diberi hak teks public-domain | Hak public-domain diperiksa kembali terhadap domain respons final. Tes redirect menuju domain lain menolak body lengkap. |
 | Artikel pendidikan masuk rekomendasi The Fed karena kata “economic value” | Target bertopik Fed hanya mengambil kandidat bertopik Fed. Penyaringan dilakukan sebelum tokenisasi, kemudian ranking, deduplikasi, dan guard region tetap berlaku. |
+| Arsip besar menyebabkan daftar berita timeout atau hilang ketika pembaruan gagal | Daftar awal/per sumber dipisahkan dari arsip, artikel dimuat dari bucket sesuai kebutuhan, dan cache browser digunakan sebagai fallback. Builder menguji kuota 10/500, urutan/deduplikasi, ID/path traversal, hak body, alias artikel lama, serta integritas arsip. |
 | Dokumentasi jadwal/server tidak sesuai implementasi | README mencatat cron lima menit dan penggunaan server HTTP lokal. Struktur backup yang tidak ada dihapus dari dokumentasi. |
 
 Pembersihan tidak memangkas library vendor berdasarkan jumlah pemanggil lokal. Index database relasi juga tidak dihapus hanya karena advisor belum mencatat pemakaiannya.
@@ -95,10 +112,12 @@ node js/security.test.cjs
 node js/discipline.test.cjs
 node js/news-region.test.cjs
 node js/news-reader.test.cjs
+node js/news-loading.test.cjs
 node js/calendar.test.cjs
 node js/calendar-countries.test.cjs
 node js/fed.test.cjs
 python scripts/test_news.py
+python scripts/test_news_delivery.py
 python scripts/test_macro.py
 python scripts/audit_news.py --self-test
 ```
@@ -108,7 +127,7 @@ Browser Chrome dengan mock session: viewport 1366×900 dan 390×900. Home, jurna
 ## Prioritas berikutnya
 
 1. Penegakan paket/region berita melalui backend sebelum menjanjikan konten eksklusif berbayar.
-2. Respons daftar terbaru yang lebih kecil, pemuatan konten sesuai kebutuhan, serta pengujian koneksi lambat.
+2. Pantau ukuran bootstrap dan status feed penerbit; kegagalan koneksi, cache tidak tersedia/penuh, dan pergantian sumber/akun sudah memiliki pemeriksaan regresi.
 3. Aktifkan perlindungan password sesuai paket dan verifikasi konfigurasi login/provider produksi.
 
 Tidak ada keputusan upgrade berbayar atau perubahan kredensial dalam audit ini.

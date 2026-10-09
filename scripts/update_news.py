@@ -414,7 +414,7 @@ def merge_items(previous, incoming):
     domains = {source['id']: source.get('domains', source['domain']) for source in SOURCES}
     source_topics = {source['id']: source.get('topics', []) for source in SOURCES}
     merged, headlines = {}, {}
-    # ponytail: keep the complete headline archive in one feed; split by month if download size becomes a problem.
+    # Keep the collector archive complete; the website build separates lists from archive buckets.
     for item in [*previous, *incoming]:
         if not isinstance(item, dict) or item.get('source') not in domains or not isinstance(item.get('title'), str):
             continue
@@ -427,6 +427,8 @@ def merge_items(previous, incoming):
             headlines[headline] = key
         old = merged.get(key, {})
         row = {**old, **item}
+        if old.get('id'):
+            row['id'] = old['id']
         row['topics'] = topics_for(row['title'], row['url'], [*old.get('topics', []), *item.get('topics', []), *source_topics[item['source']]])
         for field in ('image', 'publishedAt', 'excerpt', 'author', 'body', 'contentRights', 'excerptCheckedAt'):
             if not row.get(field) and old.get(field):
