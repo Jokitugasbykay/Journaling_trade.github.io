@@ -4,7 +4,7 @@ const fs = require('node:fs');
 const source = fs.readFileSync(__dirname + '/home.js', 'utf8');
 function run({seen = false, active = true, reduced = false, blocked = false} = {}) {
   const classes = new Set(active ? ['active'] : []), observers = [];
-  const home = {classList:{contains:k=>classes.has(k), toggle(k, force) { const enabled = force ?? !classes.has(k); enabled ? classes.add(k) : classes.delete(k); return enabled; }}, querySelectorAll:()=>[]};
+  const home = {events:{},addEventListener(k,cb){this.events[k]=cb;},classList:{contains:k=>classes.has(k), toggle(k, force) { const enabled = force ?? !classes.has(k); enabled ? classes.add(k) : classes.delete(k); return enabled; }}, querySelectorAll:()=>[]};
   const toggle = {events:{}, attributes:{}, addEventListener(k,cb){this.events[k]=cb;}, setAttribute(k,v){this.attributes[k]=v;}};
   const motion = {matches:reduced,addEventListener(k,cb){this.changed=cb;}};
   const document = {hidden:false,documentElement:{lang:'en'},getElementById:id=>id==='view-beranda'?home:toggle, addEventListener(k,cb){this[k]=cb;}};
@@ -16,6 +16,8 @@ function run({seen = false, active = true, reduced = false, blocked = false} = {
 const first = run();
 assert.equal(first.storage.get('jt_seen_intro'),'1');
 assert.ok(first.home.classList.contains('home-play-intro'));
+first.home.events.animationend({animationName:'home-candle-grow',target:{style:{getPropertyValue:()=> '17'}}});
+assert.ok(!first.home.classList.contains('home-play-intro'),'A completed intro must not restart on in-page navigation');
 assert.ok(!run({seen:true}).home.classList.contains('home-play-intro'));
 const away = run({active:false});
 assert.equal(away.storage.size,0,'Opening another route must not consume the Home intro');

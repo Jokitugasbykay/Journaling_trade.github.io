@@ -9,6 +9,7 @@
   function update() {
     const active = home.classList.contains('active');
     home.classList.toggle('home-motion-paused', document.hidden || !active || reduced.matches);
+    if (!active || reduced.matches) home.classList.toggle('home-play-intro', false);
     toggle.hidden = reduced.matches;
     if (active && !document.hidden && !visited) {
       visited = true;
@@ -16,6 +17,9 @@
       try { localStorage.setItem('jt_seen_intro', '1'); } catch {}
     }
   }
+  home.addEventListener('animationend', event => {
+    if (event.animationName === 'home-candle-grow' && event.target.style.getPropertyValue('--i') === '17') home.classList.toggle('home-play-intro', false);
+  });
   toggle.addEventListener('click', () => {
     const paused = home.classList.toggle('home-user-paused');
     toggle.setAttribute('aria-pressed', String(paused));
