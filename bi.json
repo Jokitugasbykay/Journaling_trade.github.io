@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "checkedAt": "2026-10-09T14:59:19.408075+00:00",
+  "checkedAt": "2026-10-09T15:14:04.057937+00:00",
   "fx": {
     "date": "2026-10-09",
     "currency": "USD",
@@ -9,7 +9,7 @@
     "buy": 17800.55,
     "mid": 17890.0,
     "source": "https://www.bi.go.id/id/statistik/informasi-kurs/transaksi-bi/default.aspx",
-    "status": "ok",
+    "status": "stale",
     "checkedAt": "2026-10-09T14:59:19.408075+00:00"
   },
   "rate": {
@@ -17,6 +17,6 @@
     "percent": 5.75,
     "source": "https://www.bi.go.id/id/statistik/indikator/bi-rate.aspx",
     "status": "ok",
-    "checkedAt": "2026-10-09T14:59:19.408075+00:00"
+    "checkedAt": "2026-10-09T15:14:04.057937+00:00"
   }
 }
