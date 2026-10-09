@@ -38,6 +38,11 @@
         <button class="nav-tab" data-tab="kalkulator" onclick="switchTab('kalkulator')" disabled data-i18n="calculator">Kalkulator</button>
         <button class="nav-tab" data-tab="berita" onclick="switchTab('berita')" disabled data-i18n="news">Berita Ekonomi</button>
         <button class="nav-tab" id="nav-ai-trading" type="button" disabled aria-disabled="true" hidden>AI Trading</button>
+        <button class="nav-tab" type="button" data-pro-tab="0" onclick="openProAnalytics(0)" hidden>Advanced Analytics</button>
+        <button class="nav-tab" type="button" data-pro-tab="1" onclick="openProAnalytics(1)" hidden>Performance Heatmap</button>
+        <button class="nav-tab" type="button" data-pro-tab="2" onclick="openProAnalytics(2)" hidden>Strategy Comparison</button>
+        <button class="nav-tab" type="button" data-pro-tab="3" onclick="openProAnalytics(3)" hidden>Risk Intelligence</button>
+        <button class="nav-tab" type="button" data-pro-tab="4" onclick="openProAnalytics(4)" hidden>Weekly & Monthly Review</button>
       </nav>
     </div>
     <div class="navbar-right">
@@ -66,6 +71,12 @@
 
   <!-- Main Content Wrap -->
   <main class="main-wrap">
+    <section class="view-content" id="view-pro-analytics" aria-labelledby="pro-analytics-title">
+      <h1 id="pro-analytics-title">Advanced Analytics</h1>
+      <p id="pro-analytics-status" role="status" aria-live="polite"></p>
+      <div id="pro-analytics-content"></div>
+    </section>
+
 
 
     <section class="view-content active" id="view-beranda">
