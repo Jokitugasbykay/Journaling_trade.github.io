@@ -36,6 +36,7 @@ jobs:
       - run: node js/news-reader.test.cjs
       - run: node js/news-loading.test.cjs
       - run: node js/news-auth.test.cjs
+      - run: node js/news-select.test.cjs
       - run: node js/discipline.test.cjs
       - run: node js/fed.test.cjs
       - run: python scripts/update_news.py

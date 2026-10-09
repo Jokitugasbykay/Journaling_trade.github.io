@@ -665,6 +665,7 @@
         $('upload-quota-note').textContent = uploadAllowanceText();
         $('news-content').hidden = !canReadNews();
         $('news-paywall').hidden = canReadNews();
+        window.syncNewsSelects?.();
         if (canReadNews() && $('view-berita').classList.contains('active')) switchBeritaSub(location.pathname === pagePath('economic-news/calendar') ? 'kalender' : document.querySelector('#berita-seg .active').dataset.sub, false);
       }
 
@@ -3509,7 +3510,13 @@
         const names = new Intl.DisplayNames([language === 'en' ? 'en' : 'id'], {type:'region'});
         const name = code => code === 'DEFAULT' ? newsText('Global / Default','Global / Default') : code === 'global_founder' ? 'Global / Tier 1' : newsAreaCodes.includes(code) ? newsAreaName(code) : code ? names.of(code) + ' (' + code + ')' : newsText('Semua region','All regions');
         const regions = founder ? ['global_founder','',...newsAreaCodes.sort((a,b) => newsAlphabetical(newsAreaName(a), newsAreaName(b))), 'DEFAULT', ...[...kalCountryCodes].sort((a,b) => newsAlphabetical(names.of(a), names.of(b)))] : hasUnlockedNewsAccess() ? [unlockedNewsRegion(), ...[...unlockedNewsCountries()].sort((a,b) => newsAlphabetical(names.of(a), names.of(b)))] : [activeNewsRegion()];
-        select.innerHTML = '<option value="AUTO">' + newsText('Deteksi otomatis','Detect automatically') + '</option>' + regions.map(code => '<option value="' + esc(code) + '">' + esc(name(code)) + '</option>').join('');
+        const regionOptions = codes => codes.map(code => '<option value="' + esc(code) + '">' + esc(name(code)) + '</option>').join('');
+        const groupedRegions = [
+          [newsText('Akses cepat','Quick access'), regions.filter(code => ['global_founder','','DEFAULT'].includes(code))],
+          [newsText('Benua & kawasan','Continents & regions'), regions.filter(code => newsAreaCodes.includes(code))],
+          [newsText('Negara','Countries'), regions.filter(code => /^[A-Z]{2}$/.test(code))]
+        ];
+        select.innerHTML = '<option value="AUTO">' + newsText('Deteksi otomatis','Detect automatically') + '</option>' + groupedRegions.filter(([,codes]) => codes.length).map(([label,codes]) => '<optgroup label="' + esc(label) + '">' + regionOptions(codes) + '</optgroup>').join('');
         const region = activeNewsRegion();
         const manual = hasUnlockedNewsAccess() && newsRegionMode === 'manual' && region === newsRegion;
         select.value = region;
@@ -3518,6 +3525,7 @@
         $('news-region-indicator').textContent = founder ? newsText('Mode: Founder','Mode: Founder') : hasEuropeNewsAccess() ? newsText('Region: Eropa (All Unlocked)','Region: Europe (All Unlocked)') : hasMiddleEastNewsAccess() ? newsText('Region: Timur Tengah (Unlocked)','Region: Middle East (Unlocked)') : 'Region: ' + (region === 'global_founder' ? 'Global / Tier 1' : region === 'DEFAULT' ? 'Global / Default' : region || newsText('Semua','All')) + ' (' + (manual ? newsText('Manual','Manual') : newsText('Otomatis','Automatic')) + ')';
         $('news-region-status').textContent = manual ? newsText('Pilihan manual tersimpan di browser ini.','Manual selection saved in this browser.') : founder ? newsText('Anda bebas memilih semua negara dan benua.','You can select all countries and continents.') : newsLocationPending ? newsText('Memeriksa negara melalui IP…','Checking country using IP…') : hasEuropeNewsAccess() ? newsText('Seluruh sumber Eropa dan Berita Global tersedia.','All European sources and Global News are available.') : hasMiddleEastNewsAccess() ? newsText('Sumber kawasan Timur Tengah dan Berita Global tersedia.','Regional Middle East sources and Global News are available.') : newsLocationMethod === 'ip' ? newsText('Sumber lokal sesuai negara IP Anda; Berita Global selalu tersedia.','Local sources follow your IP country; Global News is always available.') : newsLocationMethod === 'saved' ? newsText('Region tersimpan; lokasi saat ini belum dapat diverifikasi.','Saved region; current location could not be verified.') : newsCountry ? newsText('Perkiraan negara dari zona waktu perangkat; geolokasi IP tidak tersedia.','Country estimated from your device timezone; IP geolocation unavailable.') : newsText('Lokasi tidak terdeteksi; menampilkan sumber global.','Location unavailable; showing global sources.');
         if (region && !NEWS_REGIONS[region] && !newsAreaCodes.includes(region)) $('news-region-status').textContent += newsText(' Negara ini memakai kurasi Global / Default.',' This country uses Global / Default curation.');
+        window.syncNewsSelects?.();
       }
       async function detectNewsRegion() {
         if (isNewsFounder() || newsLocationChecked || newsLocationPending || !canReadNews()) return;
@@ -3718,6 +3726,7 @@
         if (selected !== newsSelectedSource) { newsVisibleCount = 12; newsSelectedSource = selected; newsSourceAttempt = ''; }
         select.innerHTML = newsSourceOptions(availableSources);
         select.value = selected;
+        window.syncNewsSelects?.();
         const categoryKey = newsCategoryKey();
         if (categoryKey) loadNewsCategory(categoryKey);
         else if (selected && !newsAreaCodes.includes(selected)) loadNewsSource(selected);
