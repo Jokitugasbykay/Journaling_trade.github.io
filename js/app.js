@@ -701,7 +701,7 @@
             rows.forEach(t => { const k = key(t); if (!k) return; const a=groups.get(k)||{count:0,pnl:0,wins:0}; a.count++;a.pnl+=t.pnl;if(t.pnl>0)a.wins++;groups.set(k,a); });
             return [...groups].sort((a,b)=>b[1].pnl-a[1].pnl);
           };
-          const day = t => /^\\d{4}-\\d{2}-\\d{2}/.exec(t.opened_at||'')?.[0]||'';
+          const day = t => /^\d{4}-\d{2}-\d{2}/.exec(t.opened_at||'')?.[0]||'';
           let groups, headers;
           if (index===0) { groups=by(t=>t.symbol||'Unknown');headers=['Symbol','Trades','Net P/L','Win rate']; }
           else if(index===1) { groups=by(day);headers=['Date','Trades','Net P/L','Win rate']; }
