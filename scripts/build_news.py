@@ -30,6 +30,7 @@ def build(archive=ROOT / 'berita.json', output=ROOT / 'news'):
             raise ValueError('Invalid article ID or unknown source')
 
     output.mkdir(parents=True, exist_ok=True)
+    (output / 'images').mkdir(exist_ok=True)
     (output / 'sources').mkdir(exist_ok=True)
     (output / 'archive').mkdir(exist_ok=True)
     (output / 'categories').mkdir(exist_ok=True)

@@ -1,4 +1,7 @@
 import datetime as dt
+import base64
+import tempfile
+from pathlib import Path
 import update_news as news
 
 
@@ -58,6 +61,15 @@ fnc = next(source for source in news.SOURCES if source['id'] == 'fnc')
 import json
 items = news.parse(json.dumps({'items':[{'id':'1','title':'Government publishes new inflation data','pub':now.isoformat()}, {'id':'2','title':'Central bank publishes its interest rate decision','pub':now.isoformat()}]}).encode(), fnc)
 assert len(items) == 2 and items[0]['id'] != items[1]['id']
+with tempfile.TemporaryDirectory() as directory:
+    news.IMAGE_ROOT = Path(directory)
+    image = b'RIFF\x04\x00\x00\x00WEBP'
+    data_uri = 'data:image/webp;base64,' + base64.b64encode(image).decode()
+    items = news.parse(json.dumps({'items':[{'id':'photo','title':'Central bank publishes its interest rate decision','pub':now.isoformat(),'image':data_uri}]}).encode(), fnc)
+    assert items[0]['image'].startswith('news/images/')
+    assert (Path(directory) / items[0]['image'].rsplit('/', 1)[-1]).read_bytes() == image
+    assert news.stored_image_url(items[0]['image']) == items[0]['image']
+    assert news.publisher_image_url('data:image/svg+xml;base64,' + base64.b64encode(b'<svg/>').decode()) is None
 
 import update_bi as bi
 data = '<p>Update Terakhir 7 Oktober 2026</p><table><tr><td>USD</td><td>1</td><td>17.999,55</td><td>17.820,45</td></tr></table>'

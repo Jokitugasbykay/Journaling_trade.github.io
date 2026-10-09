@@ -47,7 +47,7 @@ jobs:
         run: |
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add berita.json bi.json kalender.json fomc.json
+          git add berita.json bi.json kalender.json fomc.json news/images
           if ! git diff --cached --quiet; then
             git commit -m 'Refresh publisher headlines'
             git pull --rebase origin main
@@ -61,7 +61,7 @@ jobs:
           cp -r css js _site/
           mkdir _site/news
           cp news/index.json _site/news/
-          cp -r news/sources news/archive news/categories _site/news/
+          cp -r news/sources news/archive news/categories news/images _site/news/
           for route in home journal statistics calculator economic-news economic-news/calendar economic-news/social login profile; do
             mkdir -p "_site/$route"
             cp index.html "_site/$route/index.html"

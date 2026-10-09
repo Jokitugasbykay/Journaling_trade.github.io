@@ -1,5 +1,6 @@
 """Collect public publisher headlines for GitHub Pages. Python standard library only."""
 import concurrent.futures
+import base64
 import datetime as dt
 import email.utils
 import hashlib
@@ -18,6 +19,7 @@ import xml.etree.ElementTree as ET
 from zoneinfo import ZoneInfo
 
 ROOT = Path(__file__).resolve().parents[1]
+IMAGE_ROOT = ROOT / 'news' / 'images'
 SOURCES = [
     {"id": "investing", "name": "Investing.com", "url": "https://www.investing.com/", "feed": "https://www.investing.com/rss/news.rss", "kind": "rss", "domain": "investing.com"},
     {"id": "cnbc", "name": "CNBC", "url": "https://www.cnbc.com/markets/", "feed": "https://www.cnbc.com/id/100003114/device/rss/rss.html", "kind": "rss", "domain": "cnbc.com"},
@@ -115,6 +117,35 @@ def image_url(value):
     except ValueError:
         pass
     return None
+
+
+def stored_image_url(value):
+    if isinstance(value, str) and re.fullmatch(r'news/images/[a-f0-9]{64}\.(?:webp|png|jpg)', value):
+        return value
+    return image_url(value)
+
+
+def publisher_image_url(value):
+    match = re.fullmatch(r'data:image/(webp|png|jpeg);base64,([A-Za-z0-9+/]*={0,2})', value or '') if isinstance(value, str) else None
+    if not match or len(match[2]) > 700_000:
+        return image_url(value)
+    try:
+        data = base64.b64decode(match[2], validate=True)
+    except ValueError:
+        return None
+    if len(data) > 512_000:
+        return None
+    kind = match[1]
+    valid = (kind == 'webp' and data.startswith(b'RIFF') and data[8:12] == b'WEBP') or (kind == 'png' and data.startswith(b'\x89PNG\r\n\x1a\n')) or (kind == 'jpeg' and data.startswith(b'\xff\xd8\xff'))
+    if not valid:
+        return None
+    extension = 'jpg' if kind == 'jpeg' else kind
+    name = hashlib.sha256(data).hexdigest() + '.' + extension
+    IMAGE_ROOT.mkdir(parents=True, exist_ok=True)
+    path = IMAGE_ROOT / name
+    if not path.exists():
+        path.write_bytes(data)
+    return 'news/images/' + name
 
 
 class ArticleImage(HTMLParser):
@@ -283,7 +314,7 @@ def parse(data, source):
             raise ValueError('Decompressed feed too large')
     if source['kind'] == 'json':
         raw = json.loads(data)
-        rows = [{'title': row.get('title'), 'url': source['url'], 'publishedAt': row.get('pub'), 'tag': row.get('tag', ''), 'id': row.get('id')} for row in raw.get('items', []) if isinstance(row, dict)]
+        rows = [{'title': row.get('title'), 'url': source['url'], 'publishedAt': row.get('pub'), 'tag': row.get('tag', ''), 'id': row.get('id'), 'image': row.get('image')} for row in raw.get('items', []) if isinstance(row, dict)]
     elif source["kind"] == "html":
         parser = APHeadlines(source) if source['id'] == 'ap' else PublisherHeadlines(source)
         parser.feed(data.decode("utf-8", errors="replace"))
@@ -329,7 +360,8 @@ def parse(data, source):
         topics = topics_for(title + ' ' + tag, link, source.get('topics', ()))
         if category == 'politics' and 'politics' not in topics:
             topics.append('politics')
-        items.append({"id": hashlib.sha256((source['id'] + str(identity)).encode()).hexdigest()[:20], "source": source["id"], "title": title, "url": link, "publishedAt": published, 'image': image_url(row.get('image')), 'excerpt': excerpt_text(row.get('excerpt')), 'author': clean(row.get('author'))[:160], 'category': category, 'topics':topics})
+        image = publisher_image_url(row.get('image')) if source['id'] == 'fnc' else image_url(row.get('image'))
+        items.append({"id": hashlib.sha256((source['id'] + str(identity)).encode()).hexdigest()[:20], "source": source["id"], "title": title, "url": link, "publishedAt": published, 'image': image, 'excerpt': excerpt_text(row.get('excerpt')), 'author': clean(row.get('author'))[:160], 'category': category, 'topics':topics})
     return merge_items([], items)[:500]
 
 
@@ -446,12 +478,13 @@ def merge_items(previous, incoming):
             if field in row:
                 row[field] = clean(row[field])
         if row.get('image'):
-            row['image'] = image_url(row['image'])
+            row['image'] = stored_image_url(row['image'])
         merged[key] = row
     return sorted(merged.values(), key=lambda item: item.get('publishedAt') or '', reverse=True)
 
 
 def main():
+    IMAGE_ROOT.mkdir(parents=True, exist_ok=True)
     path = ROOT / "berita.json"
     previous = {}
     if path.exists():

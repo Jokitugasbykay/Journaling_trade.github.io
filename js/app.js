@@ -3609,6 +3609,11 @@
       }
       function publisherImageUrl(value) {
         try {
+          if (typeof document !== 'undefined') {
+            const localUrl = new URL(value, document.baseURI);
+            const localPath = pagePath('news/images');
+            if (localUrl.protocol === 'https:' && localUrl.origin === document.location.origin && localUrl.pathname.startsWith(localPath) && /^[a-f0-9]{64}\.(?:webp|png|jpg)$/.test(localUrl.pathname.slice(localPath.length))) return localUrl.href;
+          }
           const url = new URL(value);
           const domains = ['investing.com', 'cnbcfm.com', 'kontan.co.id', 'reuters.com', 'aljazeera.com', 'bloomberg.com', 'bwbx.io', 'pluang.com', 'kompas.com', 'detik.net.id', 'kemenkeu.go.id', 'cnnindonesia.com', 'bisnis.com', 'sindonews.com', 'apnews.com', 'bbc.co.uk', 'bbci.co.uk', 'wsj.net', 'guim.co.uk', 'ft.com', 'dw.com', 'nrk.no', 'dr.dk', 'yle.fi', 'yleisradio.fi', 'irozhlas.cz', 'hotnews.ro', 'telex.hu', 'rte.ie', 'orf.at', 'independent.co.uk', 'ds.at', 'abc-cdn.net.au', 'ffx.io', ...Object.values(publisherDomains).flat()];
           return url.protocol === 'https:' && !url.username && !url.password && domains.some(domain => url.hostname === domain || url.hostname.endsWith('.' + domain)) ? url.href : null;

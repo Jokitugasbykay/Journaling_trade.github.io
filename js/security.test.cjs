@@ -11,8 +11,11 @@ const root=path.join(__dirname,'..'),source=fs.readFileSync(path.join(__dirname,
   assert.equal(urlFor('https://bbc.co.uk.evil.test/news','bbc'), null);
   assert.equal(urlFor('https://bbc.com@evil.test/news','bbc'), null);
   assert.equal(urlFor('https://apnews.com/article/example','unknown'), null);
-  const imageFor = vm.runInNewContext(helpers + "\npublisherDomains.china='chinadaily.com.cn';\n" + source.slice(source.indexOf('      function publisherImageUrl('), source.indexOf('      function newsArticlePath(')) + '\npublisherImageUrl', {URL});
+  const imageFor = vm.runInNewContext(helpers + "\npublisherDomains.china='chinadaily.com.cn';\n" + source.slice(source.indexOf('      function publisherImageUrl('), source.indexOf('      function newsArticlePath(')) + '\npublisherImageUrl', {URL, document:{baseURI:'https://example.com/Journaling_trade.github.io/', location:{origin:'https://example.com'}}, pagePath:route=>'/Journaling_trade.github.io/'+route+'/'});
   for (const url of ['https://live-production.wcms.abc-cdn.net.au/photo.jpg','https://static.ffx.io/photo.jpg','https://www.chinadaily.com.cn/photo.jpg']) assert.equal(imageFor(url),url);
+  const localImage = 'news/images/' + 'a'.repeat(64) + '.webp';
+  assert.equal(imageFor(localImage), 'https://example.com/Journaling_trade.github.io/' + localImage);
+  assert.equal(imageFor('../news/images/' + 'a'.repeat(64) + '.webp'), null);
   for (const url of ['http://static.ffx.io/photo.jpg','https://ffx.io.evil.test/photo.jpg','https://user:password@static.ffx.io/photo.jpg','https://unknown.test/photo.jpg','javascript:alert(1)']) assert.equal(imageFor(url),null);
 }
 {

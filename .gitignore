@@ -1,2 +1,3 @@
 __pycache__/
-/news/
+/news/*
+!/news/images/
