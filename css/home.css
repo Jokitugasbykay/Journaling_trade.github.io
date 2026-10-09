@@ -23,9 +23,6 @@ body:has(#view-beranda.active) .main-wrap { padding-top:0; padding-bottom:0; }
 .home-hero-visual { min-width:0; width:100%; }
 .home-chart { display:block; width:100%; overflow:visible; }
 .home-hero-chart { max-width:640px; }
-.home-chart-caption { display:flex; flex-wrap:wrap; align-items:center; justify-content:flex-end; gap:8px; margin-top:8px; font:10px var(--mono); color:#9a9a9a; }
-#home-motion-toggle { background:transparent; color:#9a9a9a; border:0; padding:10px 0 10px 12px; min-height:44px; cursor:pointer; font:inherit; }
-#home-motion-toggle:hover { color:#fff; }
 .home-section { padding:140px 0 40px; scroll-margin-top:100px; }
 .home-section header .home-label { margin-bottom:26px; }
 .home-section-lead { max-width:620px; font-size:19px; line-height:1.7; margin-top:30px; }
@@ -115,7 +112,6 @@ body:has(#view-beranda.active) .site-footer a { color:#bdbdbd; }
 .home-reveal-fallback .home-reveal { transition:opacity .6s ease,transform .6s ease; }
 .home-reveal-fallback .home-reveal:not(.home-visible) { opacity:0; transform:translateY(28px); }
 .home-motion-paused *, .home-demo-paused * { animation-play-state:paused!important; }
-.home-user-paused .home-candle,.home-user-paused .home-calendar-day i,.home-user-paused .home-track i,.home-user-paused .home-typed,.home-user-paused .home-equity path,.home-user-paused .home-session-bars i { animation-play-state:paused!important; }
 @media (max-width:1100px) and (min-width:900px) {
   .home-hero h1 { font-size:72px; }
   .home-process-row { gap:32px; }
