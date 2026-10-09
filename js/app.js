@@ -852,7 +852,7 @@
       }
 
       function updateAccess() {
-        document.querySelectorAll('.nav-tab, [data-workspace-action]').forEach(button => {
+        document.querySelectorAll('.nav-tab:not(#nav-ai-trading), [data-workspace-action]').forEach(button => {
           const locked = !['beranda', 'berita'].includes(button.dataset.tab) && !onboarding.started;
           button.disabled = locked;
           button.setAttribute('aria-disabled', String(locked));
