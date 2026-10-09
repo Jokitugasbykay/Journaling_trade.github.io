@@ -74,6 +74,8 @@ for (const id of ['news-region', 'news-source']) {
   assert.equal(c.select.hidden, true);
   assert.equal(c.trigger.getAttribute('aria-describedby'), id + '-help');
   c.open(); assert.equal(h.document.activeElement, c.input);
+  c.list.scrollTop = 200; c.panel.hidePopover(); c.open();
+  assert.equal(c.list.scrollTop, 0, 'Opening the menu must show Quick access instead of retaining an old scroll position');
   assert.equal(c.trigger.getAttribute('aria-expanded'), 'true');
   assert.deepEqual(c.rows().map(row=>row.dataset.value), ['all', 'cafe', 'bbc', 'html'], 'Hidden and locked options must not be selectable');
   // During mouse focus transfer activeElement may temporarily be body before the option receives focus.
@@ -114,7 +116,9 @@ for (const id of ['news-region', 'news-source']) {
   c.select.disabled = false; h.context.syncNewsSelects(); assert.equal(c.trigger.disabled, false);
   c.open(); const raw = c.rows().find(row=>row.dataset.value === 'html');
   assert.equal(raw.textContent, '<img src=x onerror=alert(1)>'); assert.equal(raw.html, undefined, 'Publisher text must never be inserted as HTML');
-  assert.equal(raw.children.length, 0);
+  assert.equal(raw.children.length, 1);
+  assert.equal(raw.children[0].className, 'news-select-option-icon');
+  assert.ok(raw.children[0].style.backgroundImage.startsWith('url("data:image/svg+xml,'));
   c.select.value = 'html'; c.select.dispatchEvent(new Event('change'));
   assert.equal(c.trigger.querySelector('span').textContent, raw.textContent);
   h.document.documentElement.lang = 'id'; h.context.syncNewsSelects(); c.search('missing');

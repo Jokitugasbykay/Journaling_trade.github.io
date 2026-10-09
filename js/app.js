@@ -3506,17 +3506,18 @@
           $('news-source').value = '';
         }
         $('news-founder-badge').hidden = !founder;
+        $('news-region-indicator').hidden = founder;
         $('news-region-label').textContent = newsText('Region berita','News region');
         const names = new Intl.DisplayNames([language === 'en' ? 'en' : 'id'], {type:'region'});
-        const name = code => code === 'DEFAULT' ? newsText('Global / Default','Global / Default') : code === 'global_founder' ? 'Global / Tier 1' : newsAreaCodes.includes(code) ? newsAreaName(code) : code ? names.of(code) + ' (' + code + ')' : newsText('Semua region','All regions');
+        const name = code => code === 'AUTO' ? newsText('Deteksi otomatis','Detect automatically') : code === 'DEFAULT' ? newsText('Global / Default','Global / Default') : code === 'global_founder' ? 'Global / Tier 1' : newsAreaCodes.includes(code) ? newsAreaName(code) : code ? names.of(code) + ' (' + code + ')' : newsText('Semua region','All regions');
         const regions = founder ? ['global_founder','',...newsAreaCodes.sort((a,b) => newsAlphabetical(newsAreaName(a), newsAreaName(b))), 'DEFAULT', ...[...kalCountryCodes].sort((a,b) => newsAlphabetical(names.of(a), names.of(b)))] : hasUnlockedNewsAccess() ? [unlockedNewsRegion(), ...[...unlockedNewsCountries()].sort((a,b) => newsAlphabetical(names.of(a), names.of(b)))] : [activeNewsRegion()];
         const regionOptions = codes => codes.map(code => '<option value="' + esc(code) + '">' + esc(name(code)) + '</option>').join('');
         const groupedRegions = [
-          [newsText('Akses cepat','Quick access'), regions.filter(code => ['global_founder','','DEFAULT'].includes(code))],
+          [newsText('Akses cepat','Quick access'), ['AUTO', ...regions.filter(code => ['global_founder','','DEFAULT'].includes(code))]],
           [newsText('Benua & kawasan','Continents & regions'), regions.filter(code => newsAreaCodes.includes(code))],
           [newsText('Negara','Countries'), regions.filter(code => /^[A-Z]{2}$/.test(code))]
         ];
-        select.innerHTML = '<option value="AUTO">' + newsText('Deteksi otomatis','Detect automatically') + '</option>' + groupedRegions.filter(([,codes]) => codes.length).map(([label,codes]) => '<optgroup label="' + esc(label) + '">' + regionOptions(codes) + '</optgroup>').join('');
+        select.innerHTML = groupedRegions.filter(([,codes]) => codes.length).map(([label,codes]) => '<optgroup label="' + esc(label) + '">' + regionOptions(codes) + '</optgroup>').join('');
         const region = activeNewsRegion();
         const manual = hasUnlockedNewsAccess() && newsRegionMode === 'manual' && region === newsRegion;
         select.value = region;

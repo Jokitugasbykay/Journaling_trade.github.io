@@ -22,7 +22,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
 
-  <link rel="stylesheet" href="css/style.css?v=20261009-news-dropdown">
+  <link rel="stylesheet" href="css/style.css?v=20261009-dropdown-reference">
 </head>
 
 <body>
@@ -848,6 +848,7 @@
         <p data-i18n="newsPageLead">Berita dari penerbit pilihan Anda, waktu publikasi, dan kalender ekonomi.</p>
       </div>
 
+      <div class="news-filter-header">
       <div class="news-region-toolbar">
         <label id="news-region-label" for="news-region">Region berita</label>
         <span id="news-region-flag" aria-hidden="true"></span>
@@ -855,6 +856,11 @@
         <span id="news-founder-badge" class="news-founder-badge" hidden>Founder Access</span>
         <span id="news-region-indicator" class="news-founder-badge" role="status"></span>
         <p id="news-region-status" role="status" aria-live="polite"></p>
+      </div>
+      <div class="news-source-field">
+        <label for="news-source" data-i18n="newsSourceLabel">Sumber berita</label>
+        <select id="news-source" onchange="renderPublisherNews()"><option value="" data-i18n="newsAllSources">Semua sumber</option></select>
+      </div>
       </div>
       <div class="seg" id="berita-seg" style="margin:18px 0 22px;">
         <button class="seg-btn active" type="button" data-sub="ringkasan" onclick="switchBeritaSub('ringkasan')" data-i18n="newsHeadlines">Berita terbaru</button>
@@ -896,8 +902,6 @@
         </div>
         <p class="cari-info" id="news-search-info" role="status" aria-live="polite" hidden></p>
         <div class="publisher-news-toolbar">
-          <label for="news-source" data-i18n="newsSourceLabel">Sumber berita</label>
-          <select id="news-source" onchange="renderPublisherNews()"><option value="" data-i18n="newsAllSources">Semua sumber</option></select>
           <button id="news-refresh" type="button" class="btn btn-secondary" onclick="reloadPublisherNews()" data-i18n="newsRefresh">Perbarui berita</button>
         </div>
         <p id="publisher-news-status" role="status" class="publisher-news-status"></p>
@@ -1334,8 +1338,8 @@
 
   <script src="js/vendor/supabase-2.86.0.js" integrity="sha384-3Sgm1bFlHa+gvzgZCHY6SyQwlKZpsgWl0qwxcwsypsSZQvo1vV1miPkn7n1lU1/L"></script>
   <script src="js/scan.js?v=20261007"></script>
-  <script src="js/news-select.js?v=20261009-news-dropdown"></script>
-  <script src="js/app.js?v=20261009-news-dropdown"></script>
+  <script src="js/news-select.js?v=20261009-dropdown-reference"></script>
+  <script src="js/app.js?v=20261009-dropdown-reference"></script>
   <script src="js/fed.js?v=20261008-fomc"></script>
 
  </body>
