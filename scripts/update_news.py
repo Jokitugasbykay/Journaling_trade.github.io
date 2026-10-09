@@ -108,7 +108,7 @@ def image_url(value):
     if not isinstance(value, str):
         return None
     try:
-        url = urllib.parse.urlsplit(value or '')
+        url = urllib.parse.urlsplit(value.strip())
         host = (url.hostname or '').lower()
         if url.scheme == 'https' and not url.username and not url.password and any(host == domain or host.endswith('.' + domain) for domain in IMAGE_DOMAINS):
             return urllib.parse.quote(urllib.parse.urlunsplit((url.scheme, url.netloc, url.path, url.query, '')), safe=":/?[]@!$&'()*+,;=%")
@@ -176,7 +176,7 @@ def safe_url(value, domain):
     if not isinstance(value, str):
         return None
     try:
-        url = urllib.parse.urlsplit(value)
+        url = urllib.parse.urlsplit(value.strip())
     except ValueError:
         return None
     host = (url.hostname or "").lower()

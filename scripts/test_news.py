@@ -22,6 +22,8 @@ unicode_image = 'https://media.prothomalo.com/news/not-ready-\U0001f62d-\U0001f1
 encoded_image = news.image_url(unicode_image)
 assert encoded_image.isascii() and news.urllib.parse.unquote(encoded_image) == unicode_image
 assert news.image_url(encoded_image) == encoded_image
+assert news.image_url('  ' + unicode_image + '  ') == encoded_image
+assert news.safe_url(' https://www.reuters.com/world/\U0001f600  ', 'reuters.com') == 'https://www.reuters.com/world/%F0%9F%98%80'
 assert news.image_url({'url': unicode_image}) is None
 stored_image = {'id':'00000000000000000001', 'source':'reuters', 'title':'Example headline for URL encoding', 'url':'https://www.reuters.com/world/\U0001f600', 'image':unicode_image, 'publishedAt':now.isoformat()}
 restored_image = news.merge_items([stored_image], [])[0]
