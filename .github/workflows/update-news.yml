@@ -30,6 +30,7 @@ jobs:
       - run: python scripts/test_news_delivery.py
       - run: python scripts/audit_news.py --self-test
       - run: python scripts/test_macro.py
+      - run: node js/home.test.cjs
       - run: node js/copy.test.cjs
       - run: node js/security.test.cjs
       - run: node js/news-region.test.cjs

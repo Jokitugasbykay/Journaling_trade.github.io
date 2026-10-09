@@ -14,7 +14,7 @@
       /* Global State */
       let accounts = [];
       let trades = [];
-      let settings = { kurs: 17000, billingAnnual: false };
+      let settings = { kurs: 17000, billingAnnual: true };
       let profile = { name: 'Trader', currentAccount: 'demo_acc' };
       let currentEditingTradeId = null;
       let parsedTradesToImport = [];
@@ -162,6 +162,7 @@
         newsLockedTitle: 'Economic news for Plus members', newsLockedLead: 'Unlock local and global news and the economic calendar with Plus.',
         newsViewPlans: 'View plans', newsSignIn: 'Already subscribed? Sign in'
       });
+      Object.assign(englishCopy, {"homeEyebrow": "A workspace for traders", "homeHeroLead": "Plan your risk, document your decisions and review your trading performance in one workspace.", "homeScroll": "Scroll to explore", "homeWorkflow": "A process you can repeat", "guideLead": "Market preparation, risk planning, recording and review. Four steps for every trading session.", "homeContextPreview": "Session preparation", "homeCalendarFocus": "Economic calendar", "homeCalendarDetail": "Check scheduled releases before entering.", "homeContextReminder": "Review high-impact releases.", "homeRiskPlan": "Risk plan", "homeRiskLimit": "Risk per trade", "homeYourLimit": "Your limit", "homeEntry": "Entry", "homeDefined": "Defined", "homeStop": "Stop loss", "homeTarget": "Target", "homeReasonLabel": "Entry reason", "homeReasonSample": "Support retest within the trading plan.", "homeImportPreview": "CSV import preview", "homeReviewPreview": "Performance review", "guideMarketTitle": "Understand the market context.", "guideMarketText": "Review your instrument, liquidity, spreads and the economic calendar before opening a position. Record the conditions behind your decision.", "homeContextTip": "Include news context in your notes so you can compare it during review.", "guideRiskTitle": "Define your risk before entry.", "guideRiskText": "Document your entry, stop loss and target. Use the calculator to align position size with your account risk limit.", "homePlanTip": "Define the loss limit and exit criteria before opening a position.", "guideJournalTitle": "Document every trade.", "guideJournalText": "Record trades manually or import PDFs, images and CSV files. Review scan results before saving; unreadable values stay blank.", "homeRecordTip": "Record your entry reason when you make the decision, before seeing the result.", "guideReviewTitle": "Review your decision patterns.", "guideReviewText": "Review profit and loss, win rate and drawdown in Statistics. Compare setups and entry reasons, then choose a change to test in your next session.", "homeReviewTip": "Evaluate one change consistently before introducing another.", "homeEveryMarket": "Every market", "homeMarketsLead": "Keep forex, stocks, crypto and gold records in one journal. Compare your experience across instruments.", "homeForex": "Forex", "homeStocks": "Stocks", "homeCrypto": "Crypto", "homeGold": "Gold", "homeHabits": "Review your habits", "homeSessionLead": "Compare results by trading session, setup and entry reason. Use your records to retain consistent decisions and identify habits that need improvement.", "homeSessionNote": "Illustrative session comparison. Actual results use your journal data.", "homeNextReview": "From review to action", "homeImproveLead": "Finish each review with a plan you can check in the next session.", "homeImproveObserve": "Identify the conditions.", "homeImproveObserveText": "Compare setup notes, entry timing and market context. Mark the conditions you want to examine further.", "homeImprovePlan": "Define one change.", "homeImprovePlanText": "Write down an adjustment to your risk plan or entry criteria. Use this note as a reference for the next session.", "homeImproveCheck": "Review the execution.", "homeImproveCheckText": "Check whether you followed the change consistently. Export a journal backup to keep your review history available.", "homeHeroTitle": "Every trade.<br><span>A clearer decision.</span>", "homeViewPlans": "View plans", "homeChartNote": "Illustrative price movement", "homePauseMotion": "Pause animation", "homeMarketsTitle": "One journal for every<br><span>market you trade.</span>", "homeSessionTitle": "Find your<br><span>best session.</span>", "homeImproveTitle": "Make your review<br><span>actionable.</span>", "homeClosingTitle": "Document your decisions.<br><span>Review every session.</span>"});
       document.querySelectorAll('[data-i18n]').forEach(element => {
         originalCopy.set(element.dataset.i18n, element.innerHTML);
       });
@@ -330,7 +331,7 @@
 
       /* Storage Load & Save */
       function loadData() {
-        accounts = []; trades = []; settings = { kurs: 17000, billingAnnual: false }; profile = { name: 'Trader', currentAccount: 'local_acc' };
+        accounts = []; trades = []; settings = { kurs: 17000, billingAnnual: true }; profile = { name: 'Trader', currentAccount: 'local_acc' };
         try {
           const accRaw = localStorage.getItem(K_ACCOUNTS);
           const trRaw = localStorage.getItem(K_TRADES);
@@ -339,7 +340,7 @@
 
           if (accRaw) { const value = JSON.parse(accRaw); if (Array.isArray(value) && value.every(a => a && typeof a === 'object')) accounts = value; }
           if (trRaw) { const value = JSON.parse(trRaw); if (Array.isArray(value) && value.every(t => t && typeof t === 'object')) trades = value; }
-          if (setRaw) { const value = JSON.parse(setRaw); if (value && typeof value === 'object' && !Array.isArray(value)) settings = { kurs: Number(value.kurs) || 17000, billingAnnual: !!value.billingAnnual, exchangeUpdatedAt: Number(value.exchangeUpdatedAt) || null }; }
+          if (setRaw) { const value = JSON.parse(setRaw); if (value && typeof value === 'object' && !Array.isArray(value)) settings = { kurs: Number(value.kurs) || 17000, billingAnnual: value.billingAnnual !== false, exchangeUpdatedAt: Number(value.exchangeUpdatedAt) || null }; }
           if (profRaw) { const value = JSON.parse(profRaw); if (value && typeof value === 'object' && !Array.isArray(value)) profile = { name: String(value.name || 'Trader').slice(0, 80), currentAccount: safeId(value.currentAccount) }; }
 
           if (/^(radit|ratib)$/i.test(profile.name.trim())) {
@@ -1038,7 +1039,7 @@
 
       window.scrollToPricing = function () {
         const el = $('pricing-section');
-        if (el) el.scrollIntoView({ behavior: 'smooth' });
+        if (el) el.scrollIntoView({ behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' });
       };
 
       /* Journal engine & table */
@@ -2555,7 +2556,7 @@
             if (confirm(`Pulihkan ${data.accounts.length} akun & ${data.trades.length} trade? Data lokal akan diperbarui.`)) {
               accounts = data.accounts;
               trades = data.trades;
-              if (data.settings && typeof data.settings === 'object' && !Array.isArray(data.settings)) settings = { kurs: Number(data.settings.kurs) || 17000, billingAnnual: !!data.settings.billingAnnual, exchangeUpdatedAt: Number(data.settings.exchangeUpdatedAt) || null };
+              if (data.settings && typeof data.settings === 'object' && !Array.isArray(data.settings)) settings = { kurs: Number(data.settings.kurs) || 17000, billingAnnual: data.settings.billingAnnual !== false, exchangeUpdatedAt: Number(data.settings.exchangeUpdatedAt) || null };
               if (data.profile && typeof data.profile === 'object' && !Array.isArray(data.profile)) profile = { name: String(data.profile.name || 'Trader').slice(0, 80), currentAccount: safeId(data.profile.currentAccount) };
               saveData();
               renderJournalTable();

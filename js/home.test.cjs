@@ -1,0 +1,38 @@
+const assert = require('node:assert/strict');
+const vm = require('node:vm');
+const fs = require('node:fs');
+const source = fs.readFileSync(__dirname + '/home.js', 'utf8');
+function run({seen = false, active = true, reduced = false, blocked = false} = {}) {
+  const classes = new Set(active ? ['active'] : []), observers = [];
+  const home = {classList:{contains:k=>classes.has(k), toggle(k, force) { const enabled = force ?? !classes.has(k); enabled ? classes.add(k) : classes.delete(k); return enabled; }}, querySelectorAll:()=>[]};
+  const toggle = {events:{}, attributes:{}, addEventListener(k,cb){this.events[k]=cb;}, setAttribute(k,v){this.attributes[k]=v;}};
+  const motion = {matches:reduced,addEventListener(k,cb){this.changed=cb;}};
+  const document = {hidden:false,documentElement:{lang:'en'},getElementById:id=>id==='view-beranda'?home:toggle, addEventListener(k,cb){this[k]=cb;}};
+  const storage = new Map(seen ? [['jt_seen_intro','1']] : []);
+  const context = {document,window:{},matchMedia:()=>motion,localStorage:{getItem(k){if(blocked)throw Error('blocked');return storage.get(k);},setItem(k,v){if(blocked)throw Error('blocked');storage.set(k,v);}},MutationObserver:class{constructor(cb){observers.push(cb);}observe(){}}};
+  vm.runInNewContext(source, context);
+  return {home,toggle,motion,document,storage,update:observers[1],updateLabel:observers[0]};
+}
+const first = run();
+assert.equal(first.storage.get('jt_seen_intro'),'1');
+assert.ok(first.home.classList.contains('home-play-intro'));
+assert.ok(!run({seen:true}).home.classList.contains('home-play-intro'));
+const away = run({active:false});
+assert.equal(away.storage.size,0,'Opening another route must not consume the Home intro');
+away.home.classList.toggle('active',true); away.update();
+assert.equal(away.storage.get('jt_seen_intro'),'1');
+first.document.hidden=true; first.document.visibilitychange();
+assert.ok(first.home.classList.contains('home-motion-paused'));
+first.document.hidden=false; first.document.visibilitychange();
+assert.ok(!first.home.classList.contains('home-motion-paused'));
+first.toggle.events.click();
+assert.equal(first.toggle.attributes['aria-pressed'],'true');
+assert.equal(first.toggle.textContent,'Resume animation');
+first.document.documentElement.lang='id';first.updateLabel();
+assert.equal(first.toggle.textContent,'Lanjutkan animasi');
+const staticHome=run({reduced:true});
+assert.ok(staticHome.home.classList.contains('home-motion-paused'));
+assert.equal(staticHome.toggle.hidden,true);
+assert.ok(!staticHome.home.classList.contains('home-play-intro'));
+assert.doesNotThrow(()=>run({blocked:true}));
+console.log('Home first-visit, route, hidden-tab, motion preference, pause and storage fallback checks passed');
