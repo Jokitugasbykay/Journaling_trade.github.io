@@ -6,16 +6,10 @@
   const searchIcon = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 5 5"/></svg>';
   const regionShapes = {
     AUTO:'M12 2v4m0 12v4M2 12h4m12 0h4M18 12a6 6 0 1 1-12 0 6 6 0 0 1 12 0Z',
-    ALL:'m12 3 9 5-9 5-9-5 9-5Zm-9 9 9 5 9-5M3 16l9 5 9-5',
-    AFRICA:'m7 3 7-1 4 4 2 5-4 1-2 7-3 3-3-7-4-1-2-5 3-4 2-2Z',
-    ANTARCTICA:'m3 10 4-2 2-3 4 1 2-2 3 4 3 3-1 5-4 2-3-2-4 2-3-3-4-1 1-4Z',
-    ASIA:'m2 7 5-4 5 1 3-2 7 4-2 4-4 1-1 5-3-2-2 6-3-7-4-1-1-5Z',
-    EUROPE:'m5 4 4 1 2-3 3 3-1 4 4-2 3 3-4 3-1 4-4-1-3 5-2-3 2-4-4-2 2-4Z',
-    MIDDLE_EAST:'m5 4 7 1 3-2 4 4-2 4 3 3-4 5-3-3-3 4-2-6-4-2 1-5Z',
-    NORTH_AMERICA:'m3 4 5-2 4 3 7-2 3 4-5 3-3 5-4 1 3 4-3 2-2-5-4-3 1-5-2-3Z',
-    OCEANIA:'m3 12 4-4 4 1 4-3 4 4 1 5-5 2-5-1-4 2-4-3 1-3Zm17 6 2 3',
-    SOUTH_AMERICA:'m5 2 8 2 5 5-3 5-3 4-2 5-3-4-1-6-3-4 2-7Z'
+    ALL:'m12 3 9 5-9 5-9-5 9-5Zm-9 9 9 5 9-5M3 16l9 5 9-5'
+
   };
+  const mapRegions = ['AFRICA','ANTARCTICA','ASIA','EUROPE','MIDDLE_EAST','NORTH_AMERICA','OCEANIA','SOUTH_AMERICA'];
   const normalize = text => text.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
   const words = (id, en) => id === 'news-region' ? en ? 'Search regions…' : 'Cari region…' : en ? 'Search publishers…' : 'Cari penerbit…';
 
@@ -72,11 +66,12 @@
         row.id = id + '-option-' + rows.length; row.dataset.value = option.value;
         row.setAttribute('role', 'option'); row.setAttribute('aria-selected', String(option.value === select.value));
         row.setAttribute('aria-label', (heading ? heading + ': ' : '') + option.textContent);
-        row.textContent = id === 'news-region' && regionShapes[option.value] && option.value !== 'AUTO' ? option.textContent.replace(/^(All|Semua)\s/, '') : option.textContent;
+        row.textContent = id === 'news-region' && (mapRegions.includes(option.value) || option.value === 'ALL') ? option.textContent.replace(/^(All|Semua)\s/, '') : option.textContent;
         const marker = document.createElement('span'); marker.className = 'news-select-option-icon'; marker.setAttribute('aria-hidden', 'true');
         const shape = regionShapes[option.value || 'ALL'];
         const drawing = shape ? '<path d="' + shape + '"/>' : '<circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c5 5 5 13 0 18-5-5-5-13 0-18Z"/>';
         marker.style.backgroundImage = 'url("data:image/svg+xml,' + encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#cbd5e1" stroke-width="1.4" stroke-linejoin="round" stroke-linecap="round">' + drawing + '</svg>') + '")';
+        if (id === 'news-region' && mapRegions.includes(option.value)) marker.style.backgroundImage = 'url("css/maps/' + option.value.toLowerCase() + '.svg")';
         row.append(marker);
         row.addEventListener('click', () => choose(row));
         row.addEventListener('pointermove', () => highlight(rows.indexOf(row), false));
