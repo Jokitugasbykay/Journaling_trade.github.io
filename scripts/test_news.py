@@ -18,6 +18,15 @@ assert items[0]['image'] == 'https://content-media.investing.com/news/photo.jpg'
 assert news.image_url('https://reuters.com.evil.test/photo.jpg') is None
 assert news.image_url('https://reuters.com@evil.test/photo.jpg') is None
 assert news.image_url('javascript:alert(1)') is None
+unicode_image = 'https://media.prothomalo.com/news/not-ready-\U0001f62d-\U0001f1e6\U0001f1f7.jpg?caption=\U0001f600'
+encoded_image = news.image_url(unicode_image)
+assert encoded_image.isascii() and news.urllib.parse.unquote(encoded_image) == unicode_image
+assert news.image_url(encoded_image) == encoded_image
+assert news.image_url({'url': unicode_image}) is None
+stored_image = {'id':'00000000000000000001', 'source':'reuters', 'title':'Example headline for URL encoding', 'url':'https://www.reuters.com/world/\U0001f600', 'image':unicode_image, 'publishedAt':now.isoformat()}
+restored_image = news.merge_items([stored_image], [])[0]
+assert restored_image['id'] == stored_image['id'] and restored_image['url'].isascii() and restored_image['image'] == encoded_image
+assert stored_image['image'] == unicode_image
 metadata = news.ArticleImage()
 metadata.feed('<meta property="og:image" content="https://www.aljazeera.com/news/photo.jpg">')
 assert metadata.image == 'https://www.aljazeera.com/news/photo.jpg'

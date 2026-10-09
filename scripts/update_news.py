@@ -105,11 +105,13 @@ def topics_for(title, url='', source_topics=()):
 
 
 def image_url(value):
+    if not isinstance(value, str):
+        return None
     try:
         url = urllib.parse.urlsplit(value or '')
         host = (url.hostname or '').lower()
         if url.scheme == 'https' and not url.username and not url.password and any(host == domain or host.endswith('.' + domain) for domain in IMAGE_DOMAINS):
-            return urllib.parse.urlunsplit((url.scheme, url.netloc, url.path, url.query, ''))
+            return urllib.parse.quote(urllib.parse.urlunsplit((url.scheme, url.netloc, url.path, url.query, '')), safe=":/?[]@!$&'()*+,;=%")
     except ValueError:
         pass
     return None
@@ -183,7 +185,7 @@ def safe_url(value, domain):
         return None
     if re.search(r"/(?:analysis|opinion|stocksetup)/", url.path, re.I):
         return None
-    return urllib.parse.urlunsplit((url.scheme, url.netloc, url.path, url.query, ""))
+    return urllib.parse.quote(urllib.parse.urlunsplit((url.scheme, url.netloc, url.path, url.query, "")), safe=":/?[]@!$&'()*+,;=%")
 
 
 def date_iso(value, timezone=None):
@@ -422,8 +424,10 @@ def merge_items(previous, incoming):
     for item in [*previous, *incoming]:
         if not isinstance(item, dict) or item.get('source') not in domains or not isinstance(item.get('title'), str):
             continue
-        if not safe_url(item.get('url', ''), domains[item['source']]) or SIGNALS.search(item['title']):
+        link = safe_url(item.get('url', ''), domains[item['source']])
+        if not link or SIGNALS.search(item['title']):
             continue
+        item = {**item, 'url':link}
         key = article_identity(item)
         headline = (item['source'], clean(item['title']).casefold(), (item.get('publishedAt') or '')[:10])
         if item['source'] != 'fnc':
@@ -441,6 +445,8 @@ def merge_items(previous, incoming):
         for field in ('title', 'excerpt', 'author'):
             if field in row:
                 row[field] = clean(row[field])
+        if row.get('image'):
+            row['image'] = image_url(row['image'])
         merged[key] = row
     return sorted(merged.values(), key=lambda item: item.get('publishedAt') or '', reverse=True)
 
