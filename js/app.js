@@ -670,7 +670,54 @@
         hook.hidden = !verified || accountAccess.plan === 'pro';
         hook.disabled = true;
         hook.setAttribute('aria-disabled', 'true');
+        const pro = verified && accountAccess.plan === 'pro';
+        document.querySelectorAll('[data-pro-tab]').forEach(button => { button.hidden = !pro; button.disabled = !pro; });
+        if (!pro && $('view-pro-analytics')?.classList.contains('active')) switchTab('beranda');
       }
+
+      const proAnalyticsNames = ['Advanced Analytics', 'Performance Heatmap', 'Strategy Comparison', 'Risk Intelligence', 'Weekly & Monthly Review'];
+      let proAnalyticsRequest = 0;
+      window.openProAnalytics = async function (index) {
+        if (!Number.isInteger(index) || index < 0 || index >= proAnalyticsNames.length) return;
+        if (!cloudUser || !cloudReady || !nicknameReady || accountAccess?.plan !== 'pro') return;
+        const revision = ++proAnalyticsRequest, userId = cloudUser.id;
+        const valid = () => revision === proAnalyticsRequest && cloudUser?.id === userId && cloudReady && accountAccess?.plan === 'pro';
+        const status = $('pro-analytics-status'), content = $('pro-analytics-content');
+        const title = proAnalyticsNames[index];
+        $('pro-analytics-title').textContent = title;
+        status.textContent = 'Loading authenticated analytics…';
+        content.replaceChildren();
+        document.querySelectorAll('.nav-tab').forEach(b => b.classList.toggle('active', b.dataset.proTab === String(index)));
+        document.querySelectorAll('.view-content').forEach(v => v.classList.toggle('active', v.id === 'view-pro-analytics'));
+        try {
+          // Server RPC checks auth.uid(), effective Pro plan, and trade ownership.
+          const {data, error} = await cloudClient.rpc('journal_pro_analytics');
+          if (!valid()) return;
+          if (error || !Array.isArray(data)) throw error || new Error('Invalid analytics response');
+          const rows = data.map(t => ({...t, pnl:Number(t.pnl), risk_percent:Number(t.risk_percent)})).filter(t => Number.isFinite(t.pnl));
+          status.textContent = rows.length + ' closed trades · server verified';
+          const by = (key) => {
+            const groups = new Map();
+            rows.forEach(t => { const k = key(t); if (!k) return; const a=groups.get(k)||{count:0,pnl:0,wins:0}; a.count++;a.pnl+=t.pnl;if(t.pnl>0)a.wins++;groups.set(k,a); });
+            return [...groups].sort((a,b)=>b[1].pnl-a[1].pnl);
+          };
+          const day = t => /^\\d{4}-\\d{2}-\\d{2}/.exec(t.opened_at||'')?.[0]||'';
+          let groups, headers;
+          if (index===0) { groups=by(t=>t.symbol||'Unknown');headers=['Symbol','Trades','Net P/L','Win rate']; }
+          else if(index===1) { groups=by(day);headers=['Date','Trades','Net P/L','Win rate']; }
+          else if(index===2) { groups=by(t=>t.strategy||'Unassigned');headers=['Strategy','Trades','Net P/L','Win rate']; }
+          else if(index===3) { groups=by(t=>Number.isFinite(t.risk_percent)&&t.risk_percent>0?(t.risk_percent<=1?'≤1%':t.risk_percent<=2?'1–2%':'>2%'):'Unspecified');headers=['Risk band','Trades','Net P/L','Win rate']; }
+          else { groups=by(t=>(day(t)||'').slice(0,7));headers=['Month','Trades','Net P/L','Win rate']; }
+          const table=document.createElement('table');table.className='data-table';
+          const thead=document.createElement('thead'),tr=document.createElement('tr');
+          headers.forEach(h=>{const th=document.createElement('th');th.textContent=h;tr.append(th);});thead.append(tr);table.append(thead);
+          const tbody=document.createElement('tbody');
+          groups.forEach(([key,v])=>{const tr=document.createElement('tr');[key,String(v.count),v.pnl.toFixed(2),(100*v.wins/v.count).toFixed(1)+'%'].forEach(value=>{const td=document.createElement('td');td.textContent=value;tr.append(td);});tbody.append(tr);});
+          table.append(tbody);
+          if (!groups.length) status.textContent='No closed trades available for this report.';
+          content.append(table);
+        } catch(error) { if(valid()){status.textContent='Pro analytics unavailable. Verify your subscription and try again.';content.replaceChildren();} }
+      };
 
       function renderAccountAccess() {
         renderProNavigation();
@@ -852,7 +899,7 @@
       }
 
       function updateAccess() {
-        document.querySelectorAll('.nav-tab:not(#nav-ai-trading), [data-workspace-action]').forEach(button => {
+        document.querySelectorAll('.nav-tab:not(#nav-ai-trading):not([data-pro-tab]), [data-workspace-action]').forEach(button => {
           const locked = !['beranda', 'berita'].includes(button.dataset.tab) && !onboarding.started;
           button.disabled = locked;
           button.setAttribute('aria-disabled', String(locked));
