@@ -18,7 +18,7 @@ function harness() {
     newsSourceInRegion:()=>true,NEWS_REGIONS:{},newsAreaCodes:[],loadRegionalSources:async()=>{},
     renderPublisherNews() {},renderNewsReader() {},fetch:async()=>{throw Error('offline')},
     caches:{open:async()=>({match:async url=>cache.get(url)?.clone(),put:async(url,value)=>cache.set(url,value.clone())})},
-    $:id=>{if (!nodes.has(id)) nodes.set(id,{value:'',disabled:false,setAttribute(){}});return nodes.get(id);}};
+    $:id=>{if (!nodes.has(id)) nodes.set(id,{value:'',disabled:false,setAttribute(){},querySelectorAll:()=>[]});return nodes.get(id);}};
   ctx.window=ctx;
   vm.createContext(ctx);
   vm.runInContext(extract('      let publisherNews =','      const publisherDomains =')+
@@ -118,6 +118,74 @@ function harness() {
   assert.equal(savedSource.items[0].id,a.id,'A late obsolete request overwrote the newest offline cache');
   console.log('Late source responses cannot overwrite the newest offline snapshot');
 
+  const category=harness(), olderFed={...item('alpha',900,'Older Waller inflation story'),category:'markets',topics:['fed']};
+  category.set('publisherNews',feed([a,b]));category.set('newsCategory','fed');
+  let categoryPath='';
+  category.ctx.fetch=async url=>{categoryPath=url;return response(feed([olderFed]))};
+  await category.ctx.loadNewsCategory('fed');
+  assert.equal(categoryPath,'https://journal.example/news/categories/fed.json');
+  assert.ok(!category.get('publisherNews.items').some(row=>row.id===olderFed.id));
+  assert.equal(category.get('newsCurrentItems()[0].id'),olderFed.id,'The Fed tab still searched only bootstrap headlines');
+  category.cache.clear();category.ctx.fetch=async()=>{throw Error('503')};
+  await category.ctx.loadNewsCategory('fed',true);
+  assert.equal(category.get('newsCategoryFailed'),true);
+  assert.equal(category.get('newsCurrentItems()[0].id'),olderFed.id,'Failed category refresh discarded saved stories');
+  category.set('newsCategory','');category.set('newsQuery','Waller');
+  assert.equal(category.get('newsCategoryKey()'),'all');
+  category.ctx.fetch=async()=>response(feed([a,olderFed]));
+  await category.ctx.loadNewsCategory('all');
+  assert.ok(category.get('newsCurrentItems()').some(row=>row.id===olderFed.id),'All-source search could not access an older headline');
+  category.set('newsQuery','');category.set('newsVisibleCount',24);
+  assert.equal(category.get('newsCategoryKey()'),'all','Show-more used only bootstrap headlines');
+  category.set('newsVisibleCount',12);
+  assert.equal(category.get('newsCategoryKey()'),'');
+  assert.equal(category.get('newsCurrentItems()[0].id'),a.id,'A category archive leaked into the unfiltered latest view');
+  console.log('Fed/search/show-more load older archive rows; a failed refresh preserves results');
+
+  const categoryRace=harness(), categoryRequests=[];
+  categoryRace.set('publisherNews',feed([a,b]));
+  categoryRace.ctx.fetch=()=>{const request=deferred();categoryRequests.push(request);return request.promise};
+  categoryRace.set('newsCategory','fed');const firstFed=categoryRace.ctx.loadNewsCategory('fed');
+  categoryRace.set('newsCategory','markets');const marketLoad=categoryRace.ctx.loadNewsCategory('markets');
+  categoryRace.set('newsCategory','fed');const latestFed=categoryRace.ctx.loadNewsCategory('fed');
+  await tick();assert.equal(categoryRequests.length,3);
+  categoryRequests[0].resolve(response(feed([{...olderFed,title:'Obsolete Fed response'}])));await firstFed;
+  categoryRequests[1].resolve(response(feed([{...b,category:'markets'}])));await marketLoad;
+  assert.equal(categoryRace.get('newsCategoryFeed'),null,'An obsolete category response replaced the current selection');
+  categoryRequests[2].resolve(response(feed([olderFed])));await latestFed;
+  assert.equal(categoryRace.get('newsCategoryFeed.items[0].title'),olderFed.title);
+  const abandoned=deferred();categoryRace.ctx.fetch=()=>abandoned.promise;
+  const abandonedLoad=categoryRace.ctx.loadNewsCategory('fed',true);
+  categoryRace.set('newsCategory','');
+  abandoned.resolve(response(feed([{...olderFed,title:'Abandoned category'}])));await abandonedLoad;
+  assert.equal(categoryRace.get('newsCategoryFeed.items[0].title'),olderFed.title,'An unchanged request number bypassed the current category guard');
+  console.log('Category A→B→A and leaving a category reject late responses');
+
+  for (const operation of ['category','article']) {
+    const returned=harness(), abandonedRequest=deferred();let fetches=0;
+    returned.set('publisherNews',feed([]));
+    const payload=operation==='category'?feed([olderFed]):{version:1,checkedAt:stamp,items:[olderFed]};
+    if (operation==='category') returned.set('newsCategory','fed');
+    else returned.ctx.location.search='?article='+olderFed.id;
+    returned.ctx.fetch=()=>{fetches++;return abandonedRequest.promise};
+    const pendingLoad=operation==='category'?returned.ctx.loadNewsCategory('fed'):returned.ctx.loadNewsArticle(olderFed.id);
+    await tick();
+    if (operation==='category') returned.set('newsCategory','');else returned.ctx.location.search='';
+    abandonedRequest.resolve(response(payload));await pendingLoad;
+    assert.equal(returned.get(operation==='category'?'newsCategoryFeed':'newsArticleDetail'),null);
+    if (operation==='category') returned.set('newsCategory','fed');else returned.ctx.location.search='?article='+olderFed.id;
+    returned.ctx.fetch=async()=>{fetches++;return response(payload)};
+    await (operation==='category'?returned.ctx.loadNewsCategory('fed'):returned.ctx.loadNewsArticle(olderFed.id));
+    assert.equal(fetches,2,'Returning to an abandoned '+operation+' never retried');
+    assert.equal(returned.get(operation==='category'?'newsCategoryFeed.items[0].id':'newsArticleDetail.id'),olderFed.id);
+  }
+  console.log('Returning to a category or article after an abandoned request completes starts a new request');
+
+  const malformed=harness();malformed.set('publisherNews',feed([a]));malformed.set('newsCategory','fed');
+  malformed.ctx.fetch=async()=>response(feed([a]));await malformed.ctx.loadNewsCategory('fed');
+  assert.equal(malformed.get('newsCategoryFeed'),null,'An unrelated headline entered a category archive');
+  assert.equal(malformed.get('newsCategoryFailed'),true);
+
   const archive=harness(), old=item('alpha',501,'Old bookmarked story');
   archive.set('publisherNews',feed(Array.from({length:500},(_,n)=>item('alpha',n+1000))));
   archive.ctx.location.search='?article='+old.id;
@@ -145,30 +213,49 @@ function harness() {
   assert.equal(articles.get('newsArticleLoading'),'');
   console.log('Article A→B→A ignores stale history/navigation responses');
 
-  for (const operation of ['index','source','article']) {
+  for (const operation of ['index','source','article','category']) {
     const session=harness(), request=deferred();
     session.set('publisherNews',feed([a]));session.select('alpha');session.ctx.location.search='?article='+a.id;
     session.ctx.fetch=()=>request.promise;
-    const loading=operation==='index'?session.ctx.reloadPublisherNews():operation==='source'?session.ctx.loadNewsSource('alpha'):session.ctx.loadNewsArticle(a.id);
+    session.set('newsCategory','all');
+    if (operation==='category') session.ctx.location.search='';
+    const loading=operation==='index'?session.ctx.reloadPublisherNews():operation==='source'?session.ctx.loadNewsSource('alpha'):operation==='category'?session.ctx.loadNewsCategory('all'):session.ctx.loadNewsArticle(a.id);
     await tick();session.ctx.cloudUser=null;session.ctx.resetNewsData();
     request.resolve(response(operation==='article'?{version:1,checkedAt:stamp,items:[a]}:feed([a],operation==='source'?sources.slice(0,1):sources)));
     await loading;
     assert.equal(session.get('publisherNews'),null,operation+' restored feed after logout');
     assert.equal(session.get('newsSourceFeed'),null,operation+' restored source after logout');
     assert.equal(session.get('newsArticleDetail'),null,operation+' restored article after logout');
+    assert.equal(session.get('newsCategoryFeed'),null,operation+' restored category after logout');
   }
-  for (const operation of ['index','source','article']) {
+  for (const operation of ['index','source','article','category']) {
     const changed=harness(), changedRequest=deferred();
     changed.set('publisherNews',feed([a]));changed.select('alpha');changed.ctx.location.search='?article='+a.id;
     changed.ctx.fetch=()=>changedRequest.promise;
-    const oldUser=operation==='index'?changed.ctx.reloadPublisherNews():operation==='source'?changed.ctx.loadNewsSource('alpha'):changed.ctx.loadNewsArticle(a.id);
+    changed.set('newsCategory','all');
+    if (operation==='category') changed.ctx.location.search='';
+    const oldUser=operation==='index'?changed.ctx.reloadPublisherNews():operation==='source'?changed.ctx.loadNewsSource('alpha'):operation==='category'?changed.ctx.loadNewsCategory('all'):changed.ctx.loadNewsArticle(a.id);
     await tick();changed.ctx.cloudUser={id:'second'};
     changedRequest.resolve(response(operation==='article'?{version:1,checkedAt:stamp,items:[a]}:feed([b],operation==='source'?sources.slice(0,1):sources)));await oldUser;
     assert.equal(changed.get('publisherNews.items[0].id'),a.id,operation+' applied a feed to a different user');
     assert.equal(changed.get('newsSourceFeed'),null,operation+' applied source data to a different user');
     assert.equal(changed.get('newsArticleDetail'),null,operation+' applied article data to a different user');
+    assert.equal(changed.get('newsCategoryFeed'),null,operation+' applied category data to a different user');
   }
-  console.log('Pending index/source/article responses cannot restore data after logout or an account change');
+  console.log('Pending index/source/article/category responses cannot restore data after logout or an account change');
+
+  const channels=harness();channels.set('publisherNews',feed([a],[{...sources[0],status:'stale'},{...sources[1],kind:'external'}]));
+  channels.ctx.renderNewsRegionControls=()=>{};channels.ctx.detectNewsRegion=()=>{};
+  channels.ctx.activeNewsRegion=()=>'';channels.ctx.GLOBAL_NEWS_SOURCES=[];channels.ctx.canSelectNewsArea=()=>false;
+  channels.ctx.newsSourceOptions=rows=>{channels.options=rows.map(row=>row.id);return ''};
+  channels.ctx.newsSourceMatchesSelection=()=>true;channels.ctx.newsMatchesSearch=()=>true;
+  channels.ctx.newsText=(_id,en)=>en;channels.ctx.publisherImageUrl=()=>null;channels.ctx.esc=String;
+  channels.ctx.newsArticlePath=id=>'/economic-news/?article='+id;
+  channels.ctx.document.querySelectorAll=()=>[];channels.ctx.document.querySelector=()=>({});
+  vm.runInContext(extract('      window.renderPublisherNews =','      window.selectNewsCategory ='),channels.ctx);
+  channels.ctx.renderPublisherNews();
+  assert.deepEqual(Array.from(channels.options),['alpha'],'Empty channels remained selectable or saved stale headlines were hidden');
+  console.log('The real source dropdown hides empty channels while preserving saved stale publishers');
 
   const reconnect=harness(), sessionRead=deferred(), recovery=[];
   reconnect.ctx.cloudAuthRevision=1;reconnect.ctx.cloudReady=false;reconnect.ctx.permitted=false;

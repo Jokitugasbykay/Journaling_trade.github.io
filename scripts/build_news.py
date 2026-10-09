@@ -7,6 +7,7 @@ import update_news as news
 
 
 ROOT = Path(__file__).resolve().parents[1]
+CATEGORIES = ('all', 'politics', 'fed', 'world', 'business', 'markets', 'sustainability', 'legal', 'commentary', 'technology', 'investigations', 'local', 'science', 'sport', 'other')
 
 
 def write_json(path, value):
@@ -31,6 +32,7 @@ def build(archive=ROOT / 'berita.json', output=ROOT / 'news'):
     output.mkdir(parents=True, exist_ok=True)
     (output / 'sources').mkdir(exist_ok=True)
     (output / 'archive').mkdir(exist_ok=True)
+    (output / 'categories').mkdir(exist_ok=True)
     metadata = {key: data.get(key) for key in ('version', 'checkedAt', 'intervalMinutes')}
     by_source = {source_id: [] for source_id in sources}
     for item in news.merge_items([], data['items']):
@@ -42,6 +44,13 @@ def build(archive=ROOT / 'berita.json', output=ROOT / 'news'):
     bootstrap.sort(key=lambda item: item.get('publishedAt') or '', reverse=True)
     write_json(output / 'index.json', {**metadata, 'sources': data['sources'], 'items': bootstrap})
 
+    for category in CATEGORIES:
+        items = []
+        for source_items in by_source.values():
+            items.extend([item for item in source_items if category == 'all' or item.get('category', 'other') == category or category in item.get('topics', [])][:500])
+        items.sort(key=lambda item: item.get('publishedAt') or '', reverse=True)
+        write_json(output / 'categories' / f'{category}.json', {**metadata, 'sources': data['sources'], 'items': items})
+
     # Keep every archived ID addressable, including aliases removed from deduplicated lists.
     articles = {item['id']: item for item in data['items']}
     buckets = {f'{index:02x}': [] for index in range(256)}
@@ -51,7 +60,7 @@ def build(archive=ROOT / 'berita.json', output=ROOT / 'news'):
         buckets[article_id[:2]].append(item)
     for prefix, items in buckets.items():
         write_json(output / 'archive' / f'{prefix}.json', {'version': 1, 'checkedAt': data.get('checkedAt'), 'items': items})
-    print(f"Published {len(bootstrap)} bootstrap headlines, {len(sources)} source feeds and {len(articles)} articles in 256 archive buckets; archive unchanged")
+    print(f"Published {len(bootstrap)} bootstrap headlines, {len(sources)} source feeds, {len(CATEGORIES)} category feeds and {len(articles)} articles in 256 archive buckets; archive unchanged")
 
 
 if __name__ == '__main__':

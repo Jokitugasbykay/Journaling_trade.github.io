@@ -3,7 +3,7 @@ const app = fs.readFileSync(__dirname + '/app.js', 'utf8');
 const reader = {innerHTML:'', querySelectorAll:()=>[]};
 const browse = {classList:{toggle(){}}};
 const ctx = {URLSearchParams, location:{search:'?article=a'}, pagePath:()=>'/economic-news/', canReadNews:()=>true,
-  newsArticleDetail:null, newsArticleLoading:'', publisherNewsFailed:false, loadNewsArticle() {}, newsCurrentItems:()=>ctx.publisherNews.items,
+  newsArticleDetail:null, newsArticleLoading:'', publisherNewsFailed:false, loadNewsArticle() {}, loadNewsCategory() {}, newsCategoryKey:()=>'', newsCurrentItems:()=>ctx.publisherNews.items,
   $:id=>id==='publisher-news-reader'?reader:browse, newsSourceInRegion:()=>true,
   publisherUrl:(url)=>url.startsWith('https://www.federalreserve.gov/')?url:null,
   publisherImageUrl:()=>null,publisherTime:()=> '8 Oct 2026 WIB',newsText:(id,en)=>en,
@@ -17,6 +17,18 @@ ctx.newsSourceInRegion=()=>false;ctx.renderNewsReader();assert.match(reader.inne
 ctx.canReadNews=()=>false;ctx.renderNewsReader();assert.equal(reader.innerHTML,'');assert.equal(reader.hidden,true);
 assert.equal(ctx.newsArticlePath('a&b'),'/economic-news/?article=a%26b');
 console.log('Reader routes, escaping, region access, logout clearing and public-domain gate passed');
+
+{
+  let listRenders=0, path='';
+  const close={pagePath:()=>'/economic-news/',history:{pushState:(_state,_title,url)=>path=url},
+    renderNewsReader(){},renderPublisherNews:()=>listRenders++, $:()=>({focus(){}})};
+  close.window=close;
+  vm.runInNewContext(app.slice(app.indexOf('      window.closeNewsArticle ='),app.indexOf("      for (const container of ['publisher-news-list'")),close);
+  close.closeNewsArticle();
+  assert.equal(path,'/economic-news/');
+  assert.equal(listRenders,1,'Closing an article revealed the stale hidden list from the article category');
+  console.log('Closing an article rebuilds the browse list after removing the reader route');
+}
 
 ctx.canReadNews=()=>true;
 ctx.publisherUrl=url=>url.startsWith('https://')?url:null;

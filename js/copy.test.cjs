@@ -26,9 +26,9 @@ const guideStart = source.indexOf('      Object.assign(englishCopy,');
 const guideEnd = source.indexOf("      document.querySelectorAll('[data-i18n]')", guideStart);
 const guideCopy = vm.runInNewContext('const englishCopy = {};\n' + source.slice(guideStart, guideEnd) + '\nenglishCopy');
 const html = fs.readFileSync(path.join(__dirname, '..', 'index.html'), 'utf8');
-for (const match of html.matchAll(/data-i18n="(guide[^"]+)"/g)) assert.ok(guideCopy[match[1]], match[1]);
+for (const match of html.matchAll(/data-i18n="((?:guide|home|footer)[A-Z][^"]*)"/g)) assert.ok(guideCopy[match[1]], match[1]);
 assert.ok(!html.includes('class="learning-sources"'));
-console.log('English guide coverage passed');
+console.log('English guide, Home preview and footer coverage passed');
 
 (async () => {
   const nodes = new Map();

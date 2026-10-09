@@ -27,18 +27,22 @@
       const cloudClient = window.supabase?.createClient(SUPABASE_URL, SUPABASE_KEY, { auth: { storageKey: 'journalingtrade_nmddjuqkdyhcobddinkc_auth', flowType: 'pkce' } });
       let cloudUser = null, cloudReady = false, cloudBusy = false, cloudTimer = null, localRevision = 0;
       const FOUNDER_EMAILS = ['kaylafisika24@gmail.com', 'gamingyoga14@gmail.com'];
-      let founderUserId = '', cloudAuthRevision = 0;
+      let founderUserId = '', verifiedNewsUserId = '', cloudAuthRevision = 0;
       function isNewsFounder() { return !!cloudUser && founderUserId === cloudUser.id; }
       async function verifyNewsIdentity(userId, revision = cloudAuthRevision) {
-        const {data, error} = await cloudClient.auth.getUser();
+        let result;
+        try { result = await cloudClient.auth.getUser(); } catch (error) { result = {error}; }
+        const {data, error} = result;
         if (revision !== cloudAuthRevision || cloudUser?.id !== userId) return false;
-        founderUserId = '';
+        if (error && verifiedNewsUserId === userId && (error.name === 'AuthRetryableFetchError' || error.status >= 500)) return true;
+        founderUserId = ''; verifiedNewsUserId = '';
         if (!error && data?.user?.id === userId) {
           cloudUser = data.user;
+          verifiedNewsUserId = userId;
           if (data.user.email_confirmed_at && FOUNDER_EMAILS.includes(data.user.email?.trim().toLowerCase())) founderUserId = userId;
         }
         renderNewsRegionControls();
-        if (cloudReady) updateAccess();
+        updateAccess();
         return !error && data?.user?.id === userId;
       }
       let accountAccess = null, nicknameReady = false, hydratingUserId = '', authMode = 'signin';
@@ -60,7 +64,7 @@
         accessReady: 'Jurnal siap digunakan. Pilih tab yang ingin Anda buka.',
         localProfile: 'Profil lokal', localProfileStatus: 'Data tersimpan di perangkat ini.',
         changeProfile: 'Ganti profil lokal', cloudConnected: 'Akun server', cloudStatus: 'Jurnal otomatis disimpan ke server.',
-        cloudManage: 'Kelola akun cloud', cloudSignOut: 'Keluar dari akun cloud'
+        cloudManage: 'Kelola akun cloud', cloudSignOut: 'Keluar dari akun cloud', cloudPending: 'Sinkronisasi jurnal belum selesai. Data lokal tetap tersimpan.'
       };
       const englishCopy = {
         home: 'Home', journal: 'Journal', statistics: 'Statistics', calculator: 'Calculator', news: 'Economic news',
@@ -113,6 +117,14 @@
         scanEmpty: 'No scans have been saved on this device.', uploadLimit: 'Max. 10 MB · Excel: export as CSV'
       };
       Object.assign(englishCopy, {
+        cloudPending: 'Journal sync is incomplete. Local data remains saved.',
+        homeHeroTitle:'Every trade.<br><span>A clearer decision.</span>',
+        homeHeroLead:'Turn every trade into a process you can review. Plan your risk, record decisions and understand your habits in one workspace.',
+        homeDemoTabs:'Choose a feature preview', homeRiskPlan:'Risk plan', homeDemoHint:'Choose a tab. Try writing a note.',
+        homePreTrade:'Before opening a position', homeRiskSet:'Risk limit defined', homeSetupSet:'Entry reason recorded',
+        homeReviewTitle:'Review your decision', homeReviewPrompt:'What will you improve in your next session?',
+        homeDemoCaption:'Interactive preview. Notes here are not saved.', homeNextSession:'For your next session',
+        homeProcessNote:'Plan first. Execute second.', homeWorkflow:'A process you can repeat',
         profileHeading: 'Profile & account', profileLead: 'Manage your identity, trading accounts, and journal storage.',
         profileTotalTrades: 'Total trades', profileNetPL: 'Total P/L', profileAverageRR: 'Average R:R',
         profileSettings: 'Profile settings', profileSettingsLead: 'Set your nickname and journal preferences.', profileSave: 'Save changes',
@@ -512,7 +524,7 @@
       }
 
       function handleCloudSignedOut() {
-        cloudAuthRevision++; founderUserId = '';
+        cloudAuthRevision++; founderUserId = ''; verifiedNewsUserId = '';
         hydratingUserId = '';
         cloudUser = null; cloudReady = false; nicknameReady = false; accountAccess = null;
         resetNewsData();
@@ -524,11 +536,10 @@
         if (hydratingUserId === user.id) return;
         hydratingUserId = user.id;
         const authRevision = ++cloudAuthRevision;
-        founderUserId = '';
         const guestJournal = !journalOwner && trades.length ? { accounts: structuredClone(accounts), trades: structuredClone(trades) } : null;
-        if (cloudUser?.id !== user.id) resetNewsData();
+        if (cloudUser?.id !== user.id) { founderUserId = ''; verifiedNewsUserId = ''; nicknameReady = false; resetNewsData(); }
         cloudUser = user;
-        cloudReady = false; nicknameReady = false; accountAccess = null;
+        cloudReady = false; accountAccess = null;
         try {
           if (!await verifyNewsIdentity(user.id, authRevision)) {
             if (authRevision !== cloudAuthRevision) return;
@@ -543,14 +554,26 @@
             for (const [a, b] of saved.strategies || []) cloudStrategyIds.set(a, b);
             cloudSnapshot = saved.snapshot || '';
           } catch {}
-          const [profileResult, accountResult, strategyResult, tradeResult] = await Promise.all([
-            cloudClient.from('profiles').select('display_name,nickname_set').eq('id', user.id).maybeSingle(),
+          const profileRequest = cloudClient.from('profiles').select('display_name,nickname_set').eq('id', user.id).maybeSingle();
+          const journalRequest = Promise.allSettled([
             cloudClient.from('trading_accounts').select('*').eq('user_id', user.id),
             cloudClient.from('strategies').select('*').eq('user_id', user.id),
             cloudClient.from('trades').select('*').eq('user_id', user.id)
           ]);
+          const profileResult = await profileRequest;
           if (cloudUser?.id !== user.id || authRevision !== cloudAuthRevision) return;
-          for (const result of [profileResult, accountResult, strategyResult, tradeResult]) if (result.error) throw result.error;
+          if (profileResult.error) throw profileResult.error;
+          nicknameReady = profileResult.data?.nickname_set === true && !!profileResult.data.display_name?.trim();
+          profile.name = nicknameReady ? profileResult.data.display_name : '';
+          onboarding.name = profile.name; onboarding.started = true;
+          persistOnboarding();
+          await refreshAccountAccess();
+          if (authRevision !== cloudAuthRevision || cloudUser?.id !== user.id) return;
+          updateAccess();
+          const results = await journalRequest;
+          if (cloudUser?.id !== user.id || authRevision !== cloudAuthRevision) return;
+          const [accountResult, strategyResult, tradeResult] = results.map(result => result.status === 'fulfilled' ? result.value : {error:result.reason});
+          for (const result of [accountResult, strategyResult, tradeResult]) if (result.error) throw result.error;
           const remoteAccounts = accountResult.data || [], remoteTrades = tradeResult.data || [];
           if (!remoteAccounts.length && !remoteTrades.length && !trades.length && guestJournal && confirm(language === 'en' ? 'Import the local guest journal into this account?' : 'Impor jurnal lokal tamu ke akun ini?')) { accounts = guestJournal.accounts; trades = guestJournal.trades; saveLocalData(); }
           if (remoteAccounts.length || remoteTrades.length) {
@@ -573,13 +596,7 @@
             persistOnboarding(); persistCloudMaps();
             saveLocalData();
           }
-          nicknameReady = profileResult.data?.nickname_set === true && !!profileResult.data.display_name?.trim();
-          profile.name = nicknameReady ? profileResult.data.display_name : '';
-          onboarding.name = profile.name;
-          onboarding.started = true;
-          persistOnboarding();
           cloudReady = true;
-          await refreshAccountAccess();
           if (authRevision !== cloudAuthRevision || cloudUser?.id !== user.id) return;
           updateAccess(); renderJournalTable(); renderStatistics(); renderProfileView(); runAllCalculators();
           scheduleCloudSave();
@@ -593,7 +610,8 @@
           if (cloudUser?.id !== user.id || authRevision !== cloudAuthRevision) return;
           console.error('Supabase load error:', error);
           if ($('cloud-status')) $('cloud-status').textContent = cloudMessage(error);
-          handleCloudSignedOut();
+          if (verifiedNewsUserId !== user.id) handleCloudSignedOut();
+          else { cloudReady = false; updateAccess(); }
         } finally {
           if (hydratingUserId === user.id && authRevision === cloudAuthRevision) hydratingUserId = '';
         }
@@ -613,7 +631,7 @@
         cloudClient.auth.onAuthStateChange((event, session) => {
           if (session?.user && ['SIGNED_IN', 'TOKEN_REFRESHED', 'USER_UPDATED'].includes(event)) {
             if (!cloudReady || cloudUser?.id !== session.user.id) setTimeout(() => hydrateCloud(session.user), 0);
-            else setTimeout(() => verifyNewsIdentity(session.user.id).catch(() => { founderUserId = ''; updateAccess(); }), 0);
+            else setTimeout(() => verifyNewsIdentity(session.user.id).catch(() => { founderUserId = ''; verifiedNewsUserId = ''; updateAccess(); }), 0);
           }
           if (event === 'SIGNED_OUT') handleCloudSignedOut();
         });
@@ -622,13 +640,13 @@
         if (data.session?.user) await hydrateCloud(data.session.user);
       }
 
-      function canReadNews() { return !!cloudUser && cloudReady && nicknameReady && (isNewsFounder() || ['plus', 'pro'].includes(accountAccess?.plan)); }
+      function canReadNews() { return !!cloudUser && verifiedNewsUserId === cloudUser.id && nicknameReady && (isNewsFounder() || ['plus', 'pro'].includes(accountAccess?.plan)); }
       async function refreshAccountAccess(consumeUpload = false) {
         if (!cloudUser) throw new Error(language === 'en' ? 'Sign in to use your Free upload allowance.' : 'Masuk untuk menggunakan jatah upload Free.');
-        const userId = cloudUser.id;
+        const userId = cloudUser.id, authRevision = cloudAuthRevision;
         if (!nicknameReady && consumeUpload) throw new Error(language === 'en' ? 'Complete your nickname first.' : 'Isi nama panggilan Anda terlebih dahulu.');
         const { data, error } = await cloudClient.rpc('journal_access', { consume_upload: consumeUpload });
-        if (cloudUser?.id !== userId) throw new Error(language === 'en' ? 'Account changed. Try again.' : 'Akun berubah. Coba lagi.');
+        if (cloudUser?.id !== userId || authRevision !== cloudAuthRevision) throw new Error(language === 'en' ? 'Account changed. Try again.' : 'Akun berubah. Coba lagi.');
         if (error) throw error;
         if (!data || !['free', 'plus', 'pro'].includes(data.plan) || typeof data.allowed !== 'boolean') throw new Error('Invalid account access response');
         accountAccess = data;
@@ -807,7 +825,10 @@
           renderEconomicCalendar();
           reloadPublisherNews();
         }
-        if (updateUrl && pageRoutes[tabId] && location.pathname !== pagePath(pageRoutes[tabId])) history.pushState(null, '', pagePath(pageRoutes[tabId]));
+        if (updateUrl && pageRoutes[tabId] && (location.pathname !== pagePath(pageRoutes[tabId]) || location.search)) {
+          history.pushState(null, '', pagePath(pageRoutes[tabId]));
+          if (tabId === 'berita') renderPublisherNews();
+        }
         applyLanguage();
         window.scrollTo({ top: 0, behavior: 'smooth' });
       };
@@ -828,7 +849,7 @@
         $('nav-login-label').dataset.i18n = cloudUser ? 'cloudConnected' : (onboarding.name ? 'localProfile' : 'signIn');
         $('nav-dd-username').textContent = onboarding.name || (language === 'en' ? 'Welcome' : 'Selamat datang');
         $('nav-dd-username').removeAttribute('data-i18n');
-        $('nav-dd-status').dataset.i18n = cloudUser ? 'cloudStatus' : (onboarding.name ? 'localProfileStatus' : 'guestStatus');
+        $('nav-dd-status').dataset.i18n = cloudUser ? (cloudReady ? 'cloudStatus' : 'cloudPending') : (onboarding.name ? 'localProfileStatus' : 'guestStatus');
         $('menu-login').dataset.i18n = cloudUser ? 'cloudManage' : (onboarding.name ? 'changeProfile' : 'loginMenu');
         $('menu-logout').hidden = !cloudUser && !onboarding.name;
         $('menu-logout').dataset.i18n = cloudUser ? 'cloudSignOut' : 'signOut';
@@ -3237,11 +3258,13 @@
       let newsDataRevision = 0, newsSourceFeed = null, newsSourceAttempt = '', newsSourceLoading = '', newsSourceFailed = false;
       let newsArticleDetail = null, newsArticleAttempt = '', newsArticleLoading = '';
       let newsSourceRequest = 0, newsArticleRequest = 0;
+      let newsCategoryFeed = null, newsCategoryAttempt = '', newsCategoryLoading = '', newsCategoryFailed = false, newsCategoryRequest = 0;
       function resetNewsData() {
         newsDataRevision++;
         publisherNews = null; publisherNewsBusy = false; publisherNewsFailed = false;
         newsSourceFeed = null; newsSourceAttempt = ''; newsSourceLoading = ''; newsSourceFailed = false;
         newsArticleDetail = null; newsArticleAttempt = ''; newsArticleLoading = '';
+        newsCategoryFeed = null; newsCategoryAttempt = ''; newsCategoryLoading = ''; newsCategoryFailed = false;
       }
       async function loadNewsFile(path, normalize, onSaved, current = () => true) {
         let cache, saved;
@@ -3272,8 +3295,34 @@
       }
       function newsCurrentItems() {
         if (!publisherNews) return [];
+        if (newsCategoryFeed?.key === newsCategoryKey()) return newsCategoryFeed.items;
         const source = newsSourceFeed?.sources[0]?.id;
         return source === newsSelectedSource ? newsItemsForDisplay([...publisherNews.items.filter(item => item.source !== source), ...newsSourceFeed.items]) : publisherNews.items;
+      }
+      function newsCategoryKey() {
+        const id = new URLSearchParams(location.search).get('article');
+        const article = newsArticleDetail?.id === id ? newsArticleDetail : publisherNews?.items.find(item => item.id === id);
+        if (article) return article.topics?.includes('fed') ? 'fed' : newsCategoryNames[article.category] ? article.category : 'other';
+        if (newsCategory) return newsCategory;
+        return (!newsSelectedSource || newsAreaCodes.includes(newsSelectedSource)) && (newsQuery.trim() || newsVisibleCount > 12) ? 'all' : '';
+      }
+      async function loadNewsCategory(key, force = false) {
+        if (!canReadNews() || !publisherNews || key !== 'all' && !newsCategoryNames[key] || !force && newsCategoryAttempt === key) return;
+        newsCategoryAttempt = key; newsCategoryLoading = key; newsCategoryFailed = false;
+        const revision = newsDataRevision, userId = cloudUser.id, request = ++newsCategoryRequest;
+        const current = () => request === newsCategoryRequest && revision === newsDataRevision && cloudUser?.id === userId && canReadNews() && newsCategoryKey() === key;
+        const accept = data => {
+          if (current() && (!newsCategoryFeed || newsCategoryFeed.key !== key || Date.parse(data.checkedAt) >= Date.parse(newsCategoryFeed.checkedAt))) { newsCategoryFeed = {...data, key}; renderPublisherNews(); }
+        };
+        try {
+          const result = await loadNewsFile('news/categories/' + key + '.json', data => {
+            const feed = normalizeNewsFeed(data);
+            if (key !== 'all' && feed.items.some(item => (item.category || 'other') !== key && !item.topics?.includes(key))) throw new Error('Invalid category feed');
+            return feed;
+          }, accept, current);
+          if (current()) { newsCategoryFailed = result.saved; accept(result.data); }
+        } catch { if (current()) newsCategoryFailed = true; }
+        finally { if (request === newsCategoryRequest && revision === newsDataRevision) { newsCategoryLoading = ''; if (current()) renderPublisherNews(); else newsCategoryAttempt = ''; } }
       }
       async function loadNewsSource(sourceId, force = false) {
         if (!canReadNews() || !/^[a-z][a-z0-9_]{0,63}$/.test(sourceId) || !publisherNews?.sources.some(source => source.id === sourceId) || !newsSourceInRegion(sourceId)) return;
@@ -3309,7 +3358,7 @@
           const result = await loadNewsFile('news/archive/' + id.slice(0,2) + '.json', normalize, accept, current);
           accept(result.data);
         } catch {}
-        finally { if (request === newsArticleRequest && revision === newsDataRevision) { newsArticleLoading = ''; if (current()) renderNewsReader(); } }
+        finally { if (request === newsArticleRequest && revision === newsDataRevision) { newsArticleLoading = ''; if (current()) renderNewsReader(); else newsArticleAttempt = ''; } }
       }
       const publisherDomains = { investing: 'investing.com', cnbc: 'cnbc.com', kontan: 'kontan.co.id', reuters: 'reuters.com', aljazeera: 'aljazeera.com', bloomberg: 'bloomberg.com', fnc: 'tradewithfnc.com', investing_id: 'investing.com', pluang: 'pluang.com', kompas: 'kompas.com', detik: 'detik.com', kemenkeu: 'kemenkeu.go.id', cnn_id: 'cnnindonesia.com', bisnis: 'bisnis.com', sindo: 'sindonews.com', ap:'apnews.com', bbc:['bbc.com','bbc.co.uk'], afp:'afp.com', wsj:'wsj.com', guardian:'theguardian.com', ft:'ft.com', dw:'dw.com', fedwatch: 'cmegroup.com', cme: 'cmegroup.com' };
       const newsText = (id, en) => language === 'en' ? en : id;
@@ -3551,7 +3600,7 @@
       function publisherImageUrl(value) {
         try {
           const url = new URL(value);
-          const domains = ['investing.com', 'cnbcfm.com', 'kontan.co.id', 'reuters.com', 'aljazeera.com', 'bloomberg.com', 'bwbx.io', 'pluang.com', 'kompas.com', 'detik.net.id', 'kemenkeu.go.id', 'cnnindonesia.com', 'bisnis.com', 'sindonews.com', 'apnews.com', 'bbc.co.uk', 'bbci.co.uk', 'wsj.net', 'guim.co.uk', 'ft.com', 'dw.com', 'nrk.no', 'dr.dk', 'yle.fi', 'yleisradio.fi', 'irozhlas.cz', 'hotnews.ro', 'telex.hu', 'rte.ie', 'orf.at', 'independent.co.uk', 'ds.at'];
+          const domains = ['investing.com', 'cnbcfm.com', 'kontan.co.id', 'reuters.com', 'aljazeera.com', 'bloomberg.com', 'bwbx.io', 'pluang.com', 'kompas.com', 'detik.net.id', 'kemenkeu.go.id', 'cnnindonesia.com', 'bisnis.com', 'sindonews.com', 'apnews.com', 'bbc.co.uk', 'bbci.co.uk', 'wsj.net', 'guim.co.uk', 'ft.com', 'dw.com', 'nrk.no', 'dr.dk', 'yle.fi', 'yleisradio.fi', 'irozhlas.cz', 'hotnews.ro', 'telex.hu', 'rte.ie', 'orf.at', 'independent.co.uk', 'ds.at', 'abc-cdn.net.au', 'ffx.io', ...Object.values(publisherDomains).flat()];
           return url.protocol === 'https:' && !url.username && !url.password && domains.some(domain => url.hostname === domain || url.hostname.endsWith('.' + domain)) ? url.href : null;
         } catch { return null; }
       }
@@ -3611,6 +3660,7 @@
         const full = item.source === 'federal_reserve' && /^https:\/\/www\.federalreserve\.gov\/newsevents\/speech\/[^/]+\.htm$/.test(url) && item.contentRights === 'public-domain' && Array.isArray(item.body) && item.body.length > 1;
         const paragraphs = full ? item.body.filter(text => typeof text === 'string') : item.excerpt ? [item.excerpt] : [];
         const image = publisherImageUrl(item.image);
+        loadNewsCategory(newsCategoryKey());
         const related = relatedNews(item, newsCurrentItems(), publisherNews.sources, newsSourceInRegion);
         const relatedRows = related.map(row => {
           const publisher = publisherNews.sources.find(source => source.id === row.source);
@@ -3628,7 +3678,7 @@
       }
       window.closeNewsArticle = function () {
         history.pushState(null, '', pagePath('economic-news'));
-        renderNewsReader();
+        renderPublisherNews();
         $('news-search').focus({preventScroll:true});
       };
       for (const container of ['publisher-news-list', 'publisher-news-reader']) $(container).addEventListener('click', event => {
@@ -3653,13 +3703,14 @@
           status.textContent = publisherNewsFailed ? newsText('Berita belum dapat dimuat. Buka situs penerbit atau coba lagi.', 'News could not be loaded. Visit a publisher or try again.') : newsText('Memuat berita terbaru...', 'Loading the latest headlines...');
           return;
         }
-        const checkedAt = newsSourceFeed?.sources[0]?.id === $('news-source').value ? newsSourceFeed.checkedAt : publisherNews.checkedAt;
+        const checkedAt = newsCategoryFeed?.key === newsCategoryKey() ? newsCategoryFeed.checkedAt : newsSourceFeed?.sources[0]?.id === $('news-source').value ? newsSourceFeed.checkedAt : publisherNews.checkedAt;
         const checked = publisherTime(checkedAt);
         const aged = Date.now() - new Date(checkedAt).getTime() > 90 * 60000;
         status.textContent = (publisherNewsFailed ? newsText('Pembaruan gagal; menampilkan data tersimpan. ', 'Refresh failed; showing the saved feed. ') : '') + (aged ? newsText('Data belum diperbarui. ', 'The feed has not been updated recently. ') : '') + newsText('Terakhir diperiksa: ', 'Last checked: ') + (checked || newsText('Tidak tersedia', 'Unavailable'));
         const select = $('news-source');
         const curated = new Map([...(NEWS_REGIONS[activeNewsRegion()] || NEWS_REGIONS.DEFAULT || []), ...GLOBAL_NEWS_SOURCES].map(portal => [portal.id, portal]));
-        const availableSources = publisherNews.sources.filter(source => source.kind !== 'tool' && newsSourceInRegion(source.id)).map(source => {
+        const populatedSources = new Set(publisherNews.items.map(item => item.source));
+        const availableSources = publisherNews.sources.filter(source => source.kind !== 'tool' && populatedSources.has(source.id) && newsSourceInRegion(source.id)).map(source => {
           const portal = curated.get(source.id);
           return portal ? {...source, name:portal.name, url:portal.url, tag:portal.tag} : source;
         });
@@ -3667,7 +3718,11 @@
         if (selected !== newsSelectedSource) { newsVisibleCount = 12; newsSelectedSource = selected; newsSourceAttempt = ''; }
         select.innerHTML = newsSourceOptions(availableSources);
         select.value = selected;
-        if (selected && !newsAreaCodes.includes(selected)) loadNewsSource(selected);
+        const categoryKey = newsCategoryKey();
+        if (categoryKey) loadNewsCategory(categoryKey);
+        else if (selected && !newsAreaCodes.includes(selected)) loadNewsSource(selected);
+        if (categoryKey && newsCategoryLoading === categoryKey) status.textContent += newsText(' · Memuat arsip kategori…', ' · Loading category archive…');
+        else if (categoryKey && newsCategoryFailed && newsCategoryAttempt === categoryKey) status.textContent += newsText(' · Arsip belum dapat diperbarui; hasil tersimpan mungkin terbatas.', ' · Archive refresh failed; saved results may be limited.');
         if (newsSourceLoading === selected && selected) status.textContent += newsText(' · Memuat sumber…', ' · Loading source…');
         else if (newsSourceFailed && newsSourceAttempt === selected) status.textContent += newsText(' · Pembaruan sumber gagal; menampilkan berita tersimpan.', ' · Source refresh failed; showing saved stories.');
         const sources = new Map(availableSources.map(source => [source.id, source]));
@@ -3677,7 +3732,7 @@
         portalLink.hidden = !portal;
         portalLink.innerHTML = portal ? '<a href="' + esc(publisherUrl(portal.url, portal.id)) + '" target="_blank" rel="noopener noreferrer">' + esc(newsText('Buka ', 'Visit ') + portal.name) + '</a>' : '';
         $('news-search-info').hidden = !newsQuery.trim();
-        $('news-search-info').textContent = newsQuery.trim() ? rows.length.toLocaleString(language === 'en' ? 'en-GB' : 'id-ID') + newsText(' berita cocok', ' matching stories') : '';
+        $('news-search-info').textContent = newsQuery.trim() ? rows.length.toLocaleString(language === 'en' ? 'en-GB' : 'id-ID') + newsText(' berita cocok', ' matching stories') + (newsCategoryLoading === categoryKey && categoryKey ? newsText(' · pencarian arsip berlangsung…', ' · searching archive…') : '') : '';
         document.querySelectorAll('#news-categories [data-category]').forEach(button => button.setAttribute('aria-pressed', String(button.dataset.category === newsCategory)));
         $('news-more-category').value = ['local','science','sport','other'].includes(newsCategory) ? newsCategory : '';
         document.querySelector('.publisher-grid-heading').textContent = newsCategory ? newsCategoryNames[newsCategory][language === 'en' ? 1 : 0] : newsText('Berita terbaru', 'Latest stories');
@@ -3719,14 +3774,16 @@
           publisherNewsFailed = result.saved;
           accept(result.data);
           const source = $('news-source').value;
-          if (source && !newsAreaCodes.includes(source) && newsSourceLoading !== source) await loadNewsSource(source, true);
+          const category = newsCategoryKey();
+          if (category && newsCategoryLoading !== category) await loadNewsCategory(category, true);
+          else if (!category && source && !newsAreaCodes.includes(source) && newsSourceLoading !== source) await loadNewsSource(source, true);
           if (!newsArticleLoading) newsArticleAttempt = '';
           renderNewsReader();
         } catch { if (current()) publisherNewsFailed = true; }
         finally { if (revision === newsDataRevision) { publisherNewsBusy = false; $('news-refresh').disabled = false; $('publisher-news-list').setAttribute('aria-busy', 'false'); renderPublisherNews(); } }
       };
       async function retryNewsConnection() {
-        if (canReadNews()) return reloadPublisherNews();
+        if (canReadNews() && cloudReady) return reloadPublisherNews();
         if (!cloudClient) return;
         const revision = cloudAuthRevision;
         try {

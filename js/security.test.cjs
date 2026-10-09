@@ -11,6 +11,9 @@ const root=path.join(__dirname,'..'),source=fs.readFileSync(path.join(__dirname,
   assert.equal(urlFor('https://bbc.co.uk.evil.test/news','bbc'), null);
   assert.equal(urlFor('https://bbc.com@evil.test/news','bbc'), null);
   assert.equal(urlFor('https://apnews.com/article/example','unknown'), null);
+  const imageFor = vm.runInNewContext(helpers + "\npublisherDomains.china='chinadaily.com.cn';\n" + source.slice(source.indexOf('      function publisherImageUrl('), source.indexOf('      function newsArticlePath(')) + '\npublisherImageUrl', {URL});
+  for (const url of ['https://live-production.wcms.abc-cdn.net.au/photo.jpg','https://static.ffx.io/photo.jpg','https://www.chinadaily.com.cn/photo.jpg']) assert.equal(imageFor(url),url);
+  for (const url of ['http://static.ffx.io/photo.jpg','https://ffx.io.evil.test/photo.jpg','https://user:password@static.ffx.io/photo.jpg','https://unknown.test/photo.jpg','javascript:alert(1)']) assert.equal(imageFor(url),null);
 }
 {
   const context = {cloudUser:null, URL};
@@ -28,7 +31,7 @@ const vendor=fs.readFileSync(path.join(__dirname,'vendor/supabase-2.86.0.js'));
 assert.ok(html.includes('sha384-'+crypto.createHash('sha384').update(vendor).digest('base64')));
 assert.ok(html.includes("object-src 'none'"));assert.ok(!html.includes('src="https://cdn.jsdelivr.net/npm/@supabase'));
 assert.ok(!source.includes('buildDefaultCalendarEvents'));assert.ok(!source.includes('(Live)'));
-const readNews=vm.runInNewContext(source.slice(source.indexOf('      function canReadNews()'),source.indexOf('      async function refreshAccountAccess('))+'\ncanReadNews', {cloudUser:{id:'a'},cloudReady:false,nicknameReady:true,accountAccess:{plan:'pro'}});assert.equal(readNews(),false);
+const readNews=vm.runInNewContext(source.slice(source.indexOf('      function canReadNews()'),source.indexOf('      async function refreshAccountAccess('))+'\ncanReadNews', {cloudUser:{id:'a'},cloudReady:false,verifiedNewsUserId:'',nicknameReady:true,accountAccess:{plan:'pro'}});assert.equal(readNews(),false);
 for(const name of ['toggleBillingCycle','openQuickTrade','openProfileModal']) assert.ok(!source.includes('window.'+name+' ='));
 (async()=>{
   const calls=[];

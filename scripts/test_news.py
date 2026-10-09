@@ -220,6 +220,12 @@ for headline in ["Fed's Waller sees additional rate hikes", "Fed’s Waller anti
 assert 'fed' in news.topics_for('Economic outlook', 'https://stocktwits.com/news-articles/fed-s-waller-speaks/abc')
 for headline in ['FedEx reports earnings', 'Federer wins tennis match', 'Waller paints a portrait']:
     assert 'fed' not in news.topics_for(headline), headline
+for headline in ['Jerome Powell speaks at a conference', 'Powell signals further rate cuts', 'US inflation keeps Powell cautious']:
+    assert 'fed' in news.topics_for(headline), headline
+housing = {**latest, 'source':'ng_p7', 'title':'Mbah Hails Powell Homes MD as Youth Entrepreneurship Reference Point, Commends Housing Investment', 'url':'https://www.thisdaylive.com/2026/10/09/mbah-hails-powell-homes-md-as-youth-entrepreneurship-reference-point-commends-housing-investment/', 'topics':['fed', 'politics', 'housing']}
+assert 'fed' not in news.topics_for(housing['title'], housing['url'])
+assert news.merge_items([housing], [])[0]['topics'] == ['housing']
+assert news.merge_items([housing], [{**housing, 'title':'Updated housing investment announcement'}])[0]['topics'] == ['housing']
 fed_source = next(source for source in news.SOURCES if source['id'] == 'federal_reserve')
 assert fed_source['topics'] == ['fed'] and len(fed_source['feeds']) == 2
 fed_row = {'source':'federal_reserve', 'title':'The Signaling Value of Economic Projections', 'url':'https://www.federalreserve.gov/newsevents/speech/waller20261008a.htm', 'topics':[], 'publishedAt':now.isoformat()}
@@ -293,7 +299,20 @@ print('Collector stores full text only for official Board speeches')
 assert news.image_url('https://static.independent.co.uk/photo.jpg')
 assert news.image_url('https://i.ds.at/photo.jpg')
 assert not news.image_url('https://i.ds.at.attacker.example/photo.jpg')
+for host in ('live-production.wcms.abc-cdn.net.au', 'static.ffx.io'):
+    assert news.image_url(f'https://{host}/photo.jpg')
+    assert not news.image_url(f'https://{host}.attacker.example/photo.jpg')
 print('Independent and Der Standard thumbnails allowed only on verified publisher/CDN domains')
+
+for publisher in news.SOURCES:
+    for domain in publisher.get('domains', (publisher['domain'],)):
+        image = f'https://images.{domain}/photo.jpg'
+        assert news.image_url(image + '#caption') == image, publisher['id']
+        assert news.image_url(f'https://images.{domain}.attacker.example/photo.jpg') is None
+        assert news.image_url(f'https://{domain}@attacker.example/photo.jpg') is None
+for image in ('https://unregistered.example/photo.jpg', 'data:image/png;base64,AAAA', 'javascript:alert(1)', 'http://www.thestar.com.my/photo.jpg'):
+    assert news.image_url(image) is None
+print('All registered publisher image hosts supported; spoofed, unregistered and non-HTTPS images rejected')
 
 assert news.safe_url('https://[malformed/article', 'investing.com') is None
 assert news.safe_url(123, 'investing.com') is None

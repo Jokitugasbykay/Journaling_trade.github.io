@@ -27,6 +27,7 @@ Temuan awal: browser meminta seluruh arsip dengan timeout 15 detik sebelum memba
 
 - `news/index.json`: metadata seluruh sumber dan maksimum 10 judul terbaru per sumber, tanpa body lengkap.
 - `news/sources/<id>.json`: maksimum 500 judul terbaru dari sumber yang dipilih, tanpa body lengkap.
+- `news/categories/<kategori>.json`: arsip kategori lengkap, maksimum 500 judul per sumber setelah penyaringan kategori/topik. The Fed, pencarian lintas sumber, dan berita terkait mengambil berkas ini sesuai kebutuhan; halaman awal tetap memakai daftar kecil.
 - `news/archive/<prefix>.json`: artikel dalam 256 bucket berdasarkan dua karakter pertama ID. Tautan artikel lama tetap dapat diambil; body hanya disimpan jika hak konten tercatat `public-domain` atau `licensed`.
 - Browser menyimpan respons melalui Cache API bila tersedia, menampilkan data tersimpan sebelum pembaruan, dan mempertahankannya ketika jaringan gagal. Timeout pembaruan menjadi 30 detik. Pemeriksaan tetap setiap lima menit saat halaman terlihat.
 - `berita.json` tetap diterbitkan untuk kompatibilitas, tetapi tidak dibutuhkan oleh jalur normal daftar/pembaca yang baru.
@@ -42,7 +43,9 @@ Benchmark lokal pada snapshot **35.647 artikel dan 529 sumber**:
 
 Build selesai dalam **4,26 detik**. SHA-256 arsip sebelum/sesudah sama. Daftar awal berisi 3.255 judul; ukurannya sekitar 91% lebih kecil daripada JSON arsip penuh. Angka gzip berasal dari kompresi lokal, bukan pengukuran header atau waktu transfer GitHub Pages.
 
-Workflow menguji builder, membangun berkas setelah refresh/rebase, lalu memasukkan hanya `index.json`, `sources/`, dan `archive/` ke artifact Pages. Folder generated `news/` diabaikan Git. Regresi mencakup koneksi lambat, kegagalan refresh, cache tidak tersedia/penuh, respons terlambat, serta pergantian sumber/akun. Browser nyata memeriksa 500 judul per sumber, tautan arsip lama, pemulihan cache saat request feed offline, dan viewport 375px. Cache tidak menegakkan hak akses server dan tidak menjamin seluruh halaman dapat dibuka tanpa jaringan.
+Workflow menguji builder, membangun berkas setelah refresh/rebase, lalu memasukkan `index.json`, `sources/`, `categories/`, dan `archive/` ke artifact Pages. Folder generated `news/` diabaikan Git. Regresi mencakup koneksi lambat, kegagalan refresh, cache tidak tersedia/penuh, respons terlambat, serta pergantian sumber/akun. Browser nyata memeriksa 500 judul per sumber, tautan arsip lama, pemulihan cache saat request feed offline, dan viewport 375px. Cache tidak menegakkan hak akses server dan tidak menjamin seluruh halaman dapat dibuka tanpa jaringan.
+
+Perbaikan lanjutan memisahkan akses berita terverifikasi dari kesiapan sinkronisasi jurnal. Error atau request tabel jurnal yang lambat tidak lagi menutup akses founder/Plus/Pro yang telah diverifikasi; penulisan jurnal cloud tetap menunggu sinkronisasi lengkap. Token tidak valid dan logout tetap mencabut akses. Dropdown hanya menawarkan sumber yang mempunyai judul tersimpan; sumber stale dengan judul tetap tersedia. Pratinjau Home memakai tiga panel native, input yang dapat dicoba, animasi CSS, dan dukungan reduced motion.
 
 ## Perbaikan yang selesai
 
@@ -113,6 +116,7 @@ node js/discipline.test.cjs
 node js/news-region.test.cjs
 node js/news-reader.test.cjs
 node js/news-loading.test.cjs
+node js/news-auth.test.cjs
 node js/calendar.test.cjs
 node js/calendar-countries.test.cjs
 node js/fed.test.cjs

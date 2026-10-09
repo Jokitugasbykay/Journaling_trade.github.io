@@ -69,6 +69,7 @@ for country, portals in REGIONAL_NEWS_SOURCES.items():
         SOURCES.append({**portal, 'country': portal.get('country', country), 'domain': domain, 'kind': portal.get('kind', 'rss' if portal.get('feed') else 'external')})
 SIGNALS = re.compile(r"\b(?:buy on (?:dip|pullback)|sell on (?:rally|bounce)|stocks? to buy|stock picks?|trading signals?|price targets?|target harga|sinyal trading|rekomendasi (?:beli|jual)|buy now|sell now|support (?:dan |and )?resistance|rekomendasi saham)\b", re.I)
 IMAGE_DOMAINS = ('investing.com', 'cnbcfm.com', 'kontan.co.id', 'reuters.com', 'aljazeera.com', 'bloomberg.com', 'bwbx.io', 'pluang.com', 'kompas.com', 'detik.net.id', 'kemenkeu.go.id', 'cnnindonesia.com', 'bisnis.com', 'sindonews.com', 'apnews.com', 'bbc.co.uk', 'bbci.co.uk', 'wsj.net', 'guim.co.uk', 'ft.com', 'dw.com', 'nrk.no', 'dr.dk', 'yle.fi', 'yleisradio.fi', 'irozhlas.cz', 'hotnews.ro', 'telex.hu', 'rte.ie', 'orf.at', 'independent.co.uk', 'ds.at')
+IMAGE_DOMAINS = set(IMAGE_DOMAINS).union(('abc-cdn.net.au', 'ffx.io'), (domain for source in SOURCES for domain in source.get('domains', (source['domain'],))))
 
 
 def category_for(url, title, tag=''):
@@ -94,10 +95,13 @@ def category_for(url, title, tag=''):
 
 
 def topics_for(title, url='', source_topics=()):
+    text = title + ' ' + urllib.parse.unquote(urllib.parse.urlsplit(url).path).replace('-', ' ')
+    if re.search(r'\bpowell\b', text, re.I) and re.search(r'\b(?:monetary|rates?|inflation|central banks?|economy|economic outlook|suku bunga|inflasi|bank sentral)\b', text, re.I):
+        source_topics = (*source_topics, 'fed')
     return list(dict.fromkeys([*source_topics, *[topic for topic, pattern in [
-        ('fed', r"\b(?:the fed|federal reserve|fomc|fedwatch|fed funds|fed(?:['’]s|[- ]s)?[- ]+(?:waller|powell|bowman|governor|officials?|chair|signals?|rate|hikes?|cuts?)|powell|bank sentral (?:as|amerika))\b"),
+        ('fed', r"\b(?:the fed|federal reserve|fomc|fedwatch|fed funds|fed(?:['’]s|[- ]s)?[- ]+(?:waller|powell|bowman|governor|officials?|chair|signals?|rate|hikes?|cuts?)|jerome powell|bank sentral (?:as|amerika))\b"),
         ('politics', r'\b(?:trump|biden|prabowo|presiden(?:t)?|politic\w*|politik|pemilu|election\w*|parliament|parlemen|kongres|congress|senat\w*|pemerintah|government|dpr|tariff\w*|tarif)\b'),
-    ] if re.search(pattern, title + ' ' + urllib.parse.unquote(urllib.parse.urlsplit(url).path).replace('-', ' '), re.I)]]))
+    ] if re.search(pattern, text, re.I)]]))
 
 
 def image_url(value):
@@ -429,7 +433,8 @@ def merge_items(previous, incoming):
         row = {**old, **item}
         if old.get('id'):
             row['id'] = old['id']
-        row['topics'] = topics_for(row['title'], row['url'], [*old.get('topics', []), *item.get('topics', []), *source_topics[item['source']]])
+        retained_topics = [topic for topic in [*old.get('topics', []), *item.get('topics', [])] if topic not in ('fed', 'politics')]
+        row['topics'] = topics_for(row['title'], row['url'], [*retained_topics, *source_topics[item['source']], *(['politics'] if row.get('category') == 'politics' else [])])
         for field in ('image', 'publishedAt', 'excerpt', 'author', 'body', 'contentRights', 'excerptCheckedAt'):
             if not row.get(field) and old.get(field):
                 row[field] = old[field]

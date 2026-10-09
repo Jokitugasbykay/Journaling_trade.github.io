@@ -33,6 +33,7 @@ jobs:
       - run: node js/news-region.test.cjs
       - run: node js/news-reader.test.cjs
       - run: node js/news-loading.test.cjs
+      - run: node js/news-auth.test.cjs
       - run: node js/discipline.test.cjs
       - run: node js/fed.test.cjs
       - run: python scripts/update_news.py
@@ -56,7 +57,7 @@ jobs:
           cp -r css js _site/
           mkdir _site/news
           cp news/index.json _site/news/
-          cp -r news/sources news/archive _site/news/
+          cp -r news/sources news/archive news/categories _site/news/
           for route in home journal statistics calculator economic-news economic-news/calendar economic-news/social login profile; do
             mkdir -p "_site/$route"
             cp index.html "_site/$route/index.html"
