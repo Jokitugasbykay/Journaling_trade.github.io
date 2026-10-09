@@ -2,6 +2,11 @@ const assert = require('node:assert/strict');
 const vm = require('node:vm');
 const fs = require('node:fs');
 const source = fs.readFileSync(__dirname + '/home.js', 'utf8');
+const html = fs.readFileSync(__dirname + '/../index.html', 'utf8');
+assert.equal((html.match(/class="plan-card-heading"/g) || []).length,3);
+assert.ok(!html.includes('home-reveal-heading'), 'Pricing headings must retain their original class');
+assert.ok(!html.includes('home-market-strip'));
+assert.equal((html.match(/style="--day:\d+"/g) || []).length,21);
 function run({seen = false, active = true, reduced = false, blocked = false} = {}) {
   const classes = new Set(active ? ['active'] : []), observers = [];
   const home = {events:{},addEventListener(k,cb){this.events[k]=cb;},classList:{contains:k=>classes.has(k), toggle(k, force) { const enabled = force ?? !classes.has(k); enabled ? classes.add(k) : classes.delete(k); return enabled; }}, querySelectorAll:()=>[]};

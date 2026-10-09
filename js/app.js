@@ -14,7 +14,7 @@
       /* Global State */
       let accounts = [];
       let trades = [];
-      let settings = { kurs: 17000, billingAnnual: true };
+      let settings = { kurs: 17000, billingAnnual: false };
       let profile = { name: 'Trader', currentAccount: 'demo_acc' };
       let currentEditingTradeId = null;
       let parsedTradesToImport = [];
@@ -331,7 +331,7 @@
 
       /* Storage Load & Save */
       function loadData() {
-        accounts = []; trades = []; settings = { kurs: 17000, billingAnnual: true }; profile = { name: 'Trader', currentAccount: 'local_acc' };
+        accounts = []; trades = []; settings = { kurs: 17000, billingAnnual: false }; profile = { name: 'Trader', currentAccount: 'local_acc' };
         try {
           const accRaw = localStorage.getItem(K_ACCOUNTS);
           const trRaw = localStorage.getItem(K_TRADES);
@@ -340,7 +340,7 @@
 
           if (accRaw) { const value = JSON.parse(accRaw); if (Array.isArray(value) && value.every(a => a && typeof a === 'object')) accounts = value; }
           if (trRaw) { const value = JSON.parse(trRaw); if (Array.isArray(value) && value.every(t => t && typeof t === 'object')) trades = value; }
-          if (setRaw) { const value = JSON.parse(setRaw); if (value && typeof value === 'object' && !Array.isArray(value)) settings = { kurs: Number(value.kurs) || 17000, billingAnnual: value.billingAnnual !== false, exchangeUpdatedAt: Number(value.exchangeUpdatedAt) || null }; }
+          if (setRaw) { const value = JSON.parse(setRaw); if (value && typeof value === 'object' && !Array.isArray(value)) settings = { kurs: Number(value.kurs) || 17000, billingAnnual: !!value.billingAnnual, exchangeUpdatedAt: Number(value.exchangeUpdatedAt) || null }; }
           if (profRaw) { const value = JSON.parse(profRaw); if (value && typeof value === 'object' && !Array.isArray(value)) profile = { name: String(value.name || 'Trader').slice(0, 80), currentAccount: safeId(value.currentAccount) }; }
 
           if (/^(radit|ratib)$/i.test(profile.name.trim())) {
@@ -2556,7 +2556,7 @@
             if (confirm(`Pulihkan ${data.accounts.length} akun & ${data.trades.length} trade? Data lokal akan diperbarui.`)) {
               accounts = data.accounts;
               trades = data.trades;
-              if (data.settings && typeof data.settings === 'object' && !Array.isArray(data.settings)) settings = { kurs: Number(data.settings.kurs) || 17000, billingAnnual: data.settings.billingAnnual !== false, exchangeUpdatedAt: Number(data.settings.exchangeUpdatedAt) || null };
+              if (data.settings && typeof data.settings === 'object' && !Array.isArray(data.settings)) settings = { kurs: Number(data.settings.kurs) || 17000, billingAnnual: !!data.settings.billingAnnual, exchangeUpdatedAt: Number(data.settings.exchangeUpdatedAt) || null };
               if (data.profile && typeof data.profile === 'object' && !Array.isArray(data.profile)) profile = { name: String(data.profile.name || 'Trader').slice(0, 80), currentAccount: safeId(data.profile.currentAccount) };
               saveData();
               renderJournalTable();

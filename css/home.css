@@ -26,7 +26,6 @@ body:has(#view-beranda.active) .main-wrap { padding-top:0; padding-bottom:0; }
 .home-chart-caption { display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:8px; margin-top:8px; font:10px var(--mono); color:#9a9a9a; }
 #home-motion-toggle { background:transparent; color:#9a9a9a; border:0; padding:10px 0 10px 12px; min-height:44px; cursor:pointer; font:inherit; }
 #home-motion-toggle:hover { color:#fff; }
-.home-market-strip { display:flex; justify-content:space-between; flex-wrap:wrap; gap:20px; padding:26px 0; border-block:1px solid #ffffff1a; font:700 28px 'Bricolage Grotesque',sans-serif; color:#6b6b6b; }
 .home-section { padding:140px 0 40px; scroll-margin-top:100px; }
 .home-section header .home-label { margin-bottom:26px; }
 .home-section-lead { max-width:620px; font-size:19px; line-height:1.7; margin-top:30px; }
@@ -39,8 +38,7 @@ body:has(#view-beranda.active) .main-wrap { padding-top:0; padding-bottom:0; }
 .home-demo { min-width:0; height:260px; padding:28px; overflow:hidden; border-radius:24px; background:#0b0b0b; border:1px solid #ffffff1a; }
 .home-context-calendar { display:flex; gap:28px; align-items:center; margin-top:28px; }
 .home-calendar-day { display:grid; grid-template-columns:repeat(7,1fr); gap:8px; width:112px; flex-shrink:0; }
-.home-calendar-day i { height:12px; border-radius:2px; background:#ffffff1a; }
-.home-calendar-day i:nth-child(11),.home-calendar-day i:nth-child(16) { background:#fff; animation:home-calendar-pulse 3s ease-in-out infinite alternate; }
+.home-calendar-day i { height:12px; border-radius:2px; background:#fff; opacity:.16; animation:home-calendar-scan 4.2s ease-in-out infinite; animation-delay:calc(var(--day) * .2s); }
 .home-context-calendar h4 { font-size:20px; font-weight:500; line-height:1.35; }
 .home-context-calendar p { font-size:13px; line-height:1.6; margin-top:10px; }
 .home-context-note { display:flex; align-items:center; gap:12px; margin-top:26px; font-size:13px; color:#c5c5c5; }
@@ -77,33 +75,20 @@ body:has(#view-beranda.active) .main-wrap { padding-top:0; padding-bottom:0; }
 .home-improve-grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:40px; margin-top:56px; }
 .home-improve-grid h3 { font-size:28px; margin-top:20px; }
 .home-improve-grid p { font-size:15px; line-height:1.8; margin-top:18px; }
-.home-rolling .landing-pricing { padding:160px 0 40px; }
-.home-rolling .pricing-heading { margin-bottom:56px; }
-.home-rolling .pricing-heading h2 { font-size:72px; }
-.home-rolling .pricing-heading p { font-size:17px; color:#9a9a9a; margin-top:18px; }
-.home-rolling .paid-plan-grid { gap:18px; }
-.home-rolling .plan-card { padding:30px 30px 0; background:#0b0b0b; border-color:#ffffff1a; border-radius:24px; }
-.home-rolling .plan-card-heading { flex-wrap:wrap; align-content:start; min-height:100px; }
-.home-rolling .plan-card h3 { font-size:30px; }
-.home-rolling .plan-price { font:700 56px 'Bricolage Grotesque',sans-serif; letter-spacing:-.04em; }
-.home-rolling .plan-description,.home-rolling .plan-billing,.home-rolling .plan-period,.home-rolling .plan-action-note,.home-rolling .plan-card details p,.home-rolling .free-features,.home-rolling .pricing-footnote { color:#9a9a9a; }
-.home-rolling .plan-card details { border-color:#ffffff1a; margin:0 -30px; padding:0 30px; }
-.home-rolling .plan-unavailable { background:#ffffff14; color:#bdbdbd; border:1px solid #ffffff1a; opacity:1; }
-.home-rolling .billing-toggle { background:#ffffff08; }
-.home-rolling .billing-toggle button { color:#9a9a9a; }
-.home-rolling .billing-toggle button.active { background:#ffffff1a; color:#fff; }
-.home-rolling .annual-saving { color:inherit; }
-.home-rolling .free-plan { background:#fff; color:#000; }
-.home-rolling .free-plan .plan-description,.home-rolling .free-plan .plan-billing,.home-rolling .free-plan .plan-action-note,.home-rolling .free-plan .free-features,.home-rolling .free-plan summary { color:#444; }
-.home-rolling .free-plan .btn-primary { color:#fff; background:#000; border-color:#000; }
-.home-rolling .free-plan .btn-primary:hover { background:#292929; }
-.home-rolling .free-plan details { border-color:#0002; }
-.home-rolling .pricing-footnote { max-width:780px; margin:30px auto 0; line-height:1.8; }
+ .home-rolling .landing-pricing { font-family:var(--sans); padding:100px 0 40px; }
+.home-rolling .pricing-heading h2 { font-family:Georgia,'Times New Roman',serif; font-size:clamp(26px,3vw,34px); font-weight:400; line-height:1.3; letter-spacing:normal; }
+.home-rolling .pricing-heading p { font-size:14px; color:#b0b0b5; }
+.home-rolling .plan-card h3 { font-family:var(--sans); font-size:28px; line-height:1.2; font-weight:500; letter-spacing:-.02em; }
+.home-rolling .plan-card .btn { min-height:44px; padding:10px 20px; border-radius:8px; font-size:13px; font-weight:500; border:0; }
+.home-rolling .free-plan > .btn { background:#363637; color:#fff; }
+.home-rolling .free-plan > .btn:hover { background:#454546; }
+.home-rolling .plan-description { color:#d4d4d7; }
+.home-rolling .plan-billing { color:#b9b9be; }
+.home-rolling .plan-action-note { color:#aeafb5; }
 .home-closing { padding:170px 0 130px; text-align:center; }
 .home-closing h2 { font-size:104px; }
 .home-closing .btn { margin-top:46px; }
 .home-rolling :focus-visible { outline:2px solid #fff; outline-offset:5px; }
-.home-rolling .free-plan :focus-visible { outline-color:#000; }
 body:has(#view-beranda.active) .site-footer { background:#000; color:#fff; border-color:#ffffff1a; }
 body:has(#view-beranda.active) .site-footer p,body:has(#view-beranda.active) .site-footer-bottom { color:#9a9a9a; }
 body:has(#view-beranda.active) .site-footer a { color:#bdbdbd; }
@@ -117,7 +102,7 @@ body:has(#view-beranda.active) .site-footer a { color:#bdbdbd; }
 .home-play-intro .home-intro > :nth-child(6) { animation-delay:1.5s; }
 @keyframes home-candle-grow { from { opacity:0; transform:scaleY(0); } to { opacity:1; transform:scaleY(1); } }
 @keyframes home-candle-move { 0%,100% { transform:scaleY(1); } 50% { transform:scaleY(.7) translateY(-3px); } }
-@keyframes home-calendar-pulse { to { opacity:.35; } }
+@keyframes home-calendar-scan { 0%,30%,100% { opacity:.16; transform:scale(.85); } 12%,18% { opacity:1; transform:translateY(-3px) scale(1.1); } }
 @keyframes home-risk { from { width:5%; } to { width:30%; } }
 @keyframes home-import { 0% { transform:scaleX(0); } 70%,100% { transform:scaleX(1); } }
 @keyframes home-type { 0%,15% { width:0; } 65%,100% { width:100%; } }
@@ -134,8 +119,6 @@ body:has(#view-beranda.active) .site-footer a { color:#bdbdbd; }
 @media (max-width:1100px) and (min-width:900px) {
   .home-hero h1 { font-size:72px; }
   .home-process-row { gap:32px; }
-  .home-rolling .plan-card { padding:24px 24px 0; }
-  .home-rolling .plan-card details { margin:0 -24px; padding:0 24px; }
 }
 @media (max-width:899px) {
   .home-hero { grid-template-columns:1fr; min-height:100svh; padding:64px 0 48px; gap:30px; }
@@ -143,9 +126,8 @@ body:has(#view-beranda.active) .site-footer a { color:#bdbdbd; }
   .home-hero-visual { max-width:600px; margin:auto; }
   .home-lead { font-size:16px; max-width:560px; }
   .home-scroll { margin-top:26px; }
-  .home-market-strip { font-size:20px; justify-content:start; gap:16px 28px; }
   .home-section { padding:88px 0 24px; }
-  .home-rolling h2,.home-process h2,.home-sessions h2,.home-improve h2,.home-rolling .pricing-heading h2,.home-closing h2 { font-size:40px; }
+  .home-rolling h2,.home-process h2,.home-sessions h2,.home-improve h2,.home-closing h2 { font-size:40px; }
   .home-section-lead { font-size:17px; margin-top:24px; }
   .home-process-row { grid-template-columns:1fr; gap:28px; padding:40px 0; }
   .home-process-row h3 { font-size:36px; }
@@ -158,12 +140,10 @@ body:has(#view-beranda.active) .site-footer a { color:#bdbdbd; }
   .home-improve-grid p { max-width:600px; }
   .home-rolling .landing-pricing { padding:100px 0 24px; }
   .home-rolling .paid-plan-grid { grid-template-columns:1fr; max-width:540px; margin:auto; }
-  .home-rolling .plan-card-heading { min-height:80px; }
   .home-closing { padding:100px 0 90px; }
 }
 @media (max-width:480px) {
   .home-hero { padding-top:44px; }
-  .home-market-strip { font-size:17px; gap:16px; }
   .home-market-card { padding:18px; }
   .home-market-card h3 { font-size:25px; }
   .home-demo { padding:22px; }
