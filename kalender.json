@@ -1765,20 +1765,6 @@
    "source": "https://www.forexfactory.com/calendar?day=oct9.2026#detail=154098"
   },
   {
-   "id": "ff-151199",
-   "tgl": "2026-10-12",
-   "jam": "",
-   "neg": "EUR",
-   "countryCode": "GE",
-   "nama": "German WPI m/m",
-   "dmp": 1,
-   "akt": "",
-   "prk": "",
-   "sbl": "",
-   "cat": "",
-   "source": "https://www.forexfactory.com/calendar?day=oct11.2026#detail=151199"
-  },
-  {
    "id": "ff-154974",
    "tgl": "2026-10-12",
    "jam": "16:30",
@@ -2211,6 +2197,20 @@
    "sbl": "",
    "cat": "",
    "source": "https://www.forexfactory.com/calendar?day=oct13.2026#detail=154992"
+  },
+  {
+   "id": "ff-151199",
+   "tgl": "2026-10-14",
+   "jam": "13:00",
+   "neg": "EUR",
+   "countryCode": "GE",
+   "nama": "German WPI m/m",
+   "dmp": 1,
+   "akt": "",
+   "prk": "",
+   "sbl": "0.9%",
+   "cat": "",
+   "source": "https://www.forexfactory.com/calendar?day=oct13.2026#detail=151199"
   },
   {
    "id": "ff-154983",
@@ -5531,10 +5531,10 @@
    "source": "https://www.forexfactory.com/calendar?day=oct30.2026#detail=150083"
   }
  ],
- "updated": "2026-10-09T09:22:45.076214+00:00",
+ "updated": "2026-10-09T09:45:35.191635+00:00",
  "source": "https://www.forexfactory.com/calendar?month=oct.2026",
  "status": "ok",
- "checkedAt": "2026-10-09T09:22:45.076214+00:00",
+ "checkedAt": "2026-10-09T09:45:35.191635+00:00",
  "coverageStart": "2026-10-01",
  "coverageEnd": "2026-10-31",
  "agenda": [
