@@ -108,6 +108,9 @@
       cursor: pointer;
       user-select: none;
     }
+    .brand-logo { gap:9px; }
+    .brand-icon { display:block; flex-shrink:0; }
+    .site-footer-brand button { align-items:center; }
     .brand-name {
       font-size: 15.5px;
       font-weight: 700;
