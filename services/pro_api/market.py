@@ -8,7 +8,7 @@ from statistics import mean
 from urllib.parse import urlparse
 
 from fastapi import HTTPException
-from pydantic import BaseModel, ConfigDict, Field, field_validator, model_validator
+from pydantic import BaseModel, ConfigDict, Field, model_validator
 
 from .analytics import number, timestamp, wire
 from .statistical import forecast

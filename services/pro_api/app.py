@@ -3,7 +3,6 @@ import hashlib
 import json
 import logging
 import re
-import struct
 from io import BytesIO
 from contextlib import asynccontextmanager
 from dataclasses import dataclass
@@ -560,19 +559,23 @@ def create_app(settings=None, transport=None):
     @app.get("/api/v1/economic-calendar")
     async def calendar(user: PlusDep, start: date | None = None, end: date | None = None,
                        country: str = Query(default="", pattern=r"^(|[A-Z]{2})$"), impact: int | None = Query(default=None, ge=1, le=3), tz: str = "UTC"):
-        zone = ZoneInfo(Filters(tz=tz).tz)
+        zone = ZoneInfo(Filters(start=start, end=end, tz=tz).tz)
         data = await data_file(settings, "kalender.json")
         items = []
         for item in data.get("items", []):
             if country and item.get("countryCode") != country or impact and item.get("dmp") != impact:
                 continue
-            if start and date.fromisoformat(item["tgl"]) < start or end and date.fromisoformat(item["tgl"]) > end:
-                continue
-            event = {**item, "previous": item.get("sbl") or None, "forecast": item.get("prk") or None, "actual": item.get("akt") or None,
+            values = {target: None if item.get(source) in (None, "") else item[source]
+                      for target, source in (("previous", "sbl"), ("forecast", "prk"), ("actual", "akt"))}
+            event = {**item, **values,
                      "time": None, "timezone": tz, "source_timezone": settings.calendar_timezone}
+            day = date.fromisoformat(item["tgl"])
             if re.fullmatch(r"\d{2}:\d{2}", item.get("jam", "")):
                 moment = datetime.fromisoformat(item["tgl"] + "T" + item["jam"]).replace(tzinfo=ZoneInfo(settings.calendar_timezone))
                 event["time"] = moment.astimezone(zone).isoformat()
+                day = moment.astimezone(zone).date()
+            if start and day < start or end and day > end:
+                continue
             items.append(event)
         return {"items": items, "checked_at": data.get("checkedAt"), "updated": data.get("updated"), "agenda": data.get("agenda", []),
                 "coverageStart": data.get("coverageStart"), "coverageEnd": data.get("coverageEnd"),

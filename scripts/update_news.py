@@ -306,6 +306,15 @@ class APHeadlines(PublisherHeadlines):
             self.headline_tag = None
 
 
+class FeedTreeBuilder(ET.TreeBuilder):
+    def doctype(self, name, pubid, system):
+        raise ValueError("XML declarations not supported")
+
+
+def parse_xml(data):
+    return ET.fromstring(data, parser=ET.XMLParser(target=FeedTreeBuilder()))
+
+
 def parse(data, source):
     if data.startswith(b'\x1f\x8b'):
         with gzip.GzipFile(fileobj=io.BytesIO(data)) as compressed:
@@ -320,9 +329,7 @@ def parse(data, source):
         parser.feed(data.decode("utf-8", errors="replace"))
         rows = parser.rows
     else:
-        if b"<!DOCTYPE" in data.upper() or b"<!ENTITY" in data.upper():
-            raise ValueError("XML declarations not supported")
-        root = ET.fromstring(data)
+        root = parse_xml(data)
         if source["kind"] == "rss":
             rows = []
             for row in root.findall('.//{*}item'):

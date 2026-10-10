@@ -14,6 +14,15 @@ xml = f'''<rss><channel>
 <item><title>Foreign exchange outlook and recommended entries</title><link>https://www.investing.com/analysis/123</link></item>
 <item><title>Unexpected inflation data prompts central bank statement</title><link>https://www.investing.com.evil.test/123</link></item>
 </channel></rss>'''
+assert news.parse(xml.encode('utf-16'), source)[0]['title'] == 'Central bank releases its latest inflation figures'
+malicious = '<!DOCTYPE rss [<!ENTITY injected "headline">]><rss><channel><item><title>&injected;</title></item></channel></rss>'
+for encoding in ('utf-8', 'utf-16'):
+    try:
+        news.parse(malicious.encode(encoding), source)
+    except ValueError:
+        pass
+    else:
+        raise AssertionError(f'DTD accepted in {encoding}')
 items = news.parse(xml.encode(), source)
 assert len(items) == 1
 assert items[0]['publishedAt'] is not None

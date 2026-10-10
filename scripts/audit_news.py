@@ -11,7 +11,6 @@ import re
 import urllib.error
 import urllib.parse
 import urllib.request
-import xml.etree.ElementTree as ET
 
 import update_news as news
 
@@ -88,9 +87,7 @@ def feed_result(url, source, kind=None):
     effective = {**source, 'kind': kind or source['kind'], 'feed': url}
     try:
         if effective['kind'] in ('rss', 'sitemap'):
-            if b'<!DOCTYPE' in data.upper() or b'<!ENTITY' in data.upper():
-                raise ValueError('XML declarations not supported')
-            root = ET.fromstring(data)
+            root = news.parse_xml(data)
             if (root.findtext('.//{*}channel/{*}title') or '').lower().startswith('comments'):
                 raise ValueError('Comment feed is not a news headline feed')
             result['format'] = root.tag.split('}')[-1]

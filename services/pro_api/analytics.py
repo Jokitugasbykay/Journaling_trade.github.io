@@ -257,10 +257,14 @@ def open_exposure(trades, tz="UTC", now=None):
 
 
 def risk_analysis(rows, rules):
-    day_rows, week_rows = defaultdict(list), defaultdict(list)
+    daily, weekly, counts, observed_at = defaultdict(Decimal), defaultdict(Decimal), defaultdict(int), {}
     for row in rows:
-        day_rows[row["date"]].append(row)
-        week_rows[row["date"] - timedelta(days=row["date"].weekday())].append(row)
+        day = row["date"]
+        week = day - timedelta(days=day.weekday())
+        daily[day] += row["net_pnl"]
+        weekly[week] += row["net_pnl"]
+        counts[day] += 1
+        observed_at[row["id"]] = (counts[day], max(Decimal(0), -daily[day]), max(Decimal(0), -weekly[week]))
     violations, checks = [], defaultdict(lambda: {"checked": 0, "violations": 0})
     for rule in rules:
         if not rule.get("enabled", True):
@@ -268,23 +272,24 @@ def risk_analysis(rows, rules):
         threshold = number(rule["threshold"])
         kind = rule["kind"]
         for row in rows:
-            checks[row["date"]]["checked"] += 1
             if kind == "max_risk_percent":
                 observed = number(row.get("risk_percent"))
             elif kind == "max_trades_per_day":
-                observed = Decimal(len(day_rows[row["date"]]))
+                observed = Decimal(observed_at[row["id"]][0])
             elif kind == "max_daily_loss":
-                observed = max(Decimal(0), -sum(item["net_pnl"] for item in day_rows[row["date"]]))
+                observed = observed_at[row["id"]][1]
             elif kind == "max_weekly_loss":
-                observed = max(Decimal(0), -sum(item["net_pnl"] for item in week_rows[row["date"] - timedelta(days=row["date"].weekday())]))
+                observed = observed_at[row["id"]][2]
             else:
                 raise ValueError("Unsupported risk rule")
-            if observed is not None and observed > threshold:
+            if observed is None:
+                continue
+            checks[row["date"]]["checked"] += 1
+            if observed > threshold:
                 violations.append({"trade_id": row["id"], "rule_id": rule["id"], "date": row["date"],
                                    "observed": observed, "threshold": threshold, "kind": kind})
                 checks[row["date"]]["violations"] += 1
     recorded_risks = [number(row.get("risk_percent")) for row in rows if number(row.get("risk_percent")) is not None]
-    latest = rows[-1]["date"] if rows else None
     return wire({"overview": {"risk_per_trade": sum(recorded_risks) / len(recorded_risks) if recorded_risks else None,
                                "daily_exposure": None, "weekly_exposure": None},
                  "rules": rules, "violations": violations,
@@ -292,9 +297,9 @@ def risk_analysis(rows, rules):
                  "warnings": ["Closed trades do not establish current open exposure. Exposure requires open positions with complete risk specifications."]})
 
 
-def review(rows, previous_rows, initial_balance, strategies, rules):
+def review(rows, previous_rows, initial_balance, strategies, rules, previous_balance=None):
     current = overview(rows, initial_balance, strategies)
-    previous = overview(previous_rows, initial_balance, strategies)
+    previous = overview(previous_rows, initial_balance if previous_balance is None else previous_balance, strategies)
     risk = risk_analysis(rows, rules)
     priorities = []
     if risk["violations"]:

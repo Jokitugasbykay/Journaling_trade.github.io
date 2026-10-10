@@ -15,7 +15,7 @@ from pydantic import ValidationError
 from pypdf import PdfReader
 
 from services.pro_api.ai import validate_explanation
-from services.pro_api.analytics import heatmap, open_exposure, overview, position_size, realized, records
+from services.pro_api.analytics import heatmap, open_exposure, overview, position_size, realized, records, review, risk_analysis
 from services.pro_api.app import create_app
 from services.pro_api.market import load_market
 from services.pro_api.models import ImportTrade, RiskRule
@@ -35,6 +35,20 @@ TRADES = [{"id": str(uuid4()), "account_id": ACCOUNT, "symbol": "EURUSD", "side"
 
 
 class Engines(unittest.TestCase):
+    def test_risk_breaches_are_not_erased_by_later_wins(self):
+        trades = [{**TRADES[0], "id": "loss", "opened_at": "2026-10-01T10:00:00Z", "pnl": "-200"},
+                  {**TRADES[1], "id": "win", "opened_at": "2026-10-01T11:00:00Z", "pnl": "250"}]
+        rows, _ = records(trades, ACCOUNTS)
+        rules = [{"id": kind, "kind": kind, "threshold": "100"} for kind in ("max_daily_loss", "max_weekly_loss")]
+        result = risk_analysis(rows, rules)
+        self.assertEqual([(item["trade_id"], item["kind"]) for item in result["violations"]],
+                         [("loss", "max_daily_loss"), ("loss", "max_weekly_loss")])
+
+    def test_review_uses_each_period_opening_balance(self):
+        rows, _ = records([{**TRADES[0], "pnl": "-100"}], ACCOUNTS)
+        result = review([], rows, Decimal(1200), [], [], Decimal(1000))
+        self.assertEqual(result["previous_period"]["metrics"]["maximum_drawdown_percent"], "10.0")
+
     def test_exact_metrics_timezone_and_heatmap(self):
         rows, warnings = records(TRADES, ACCOUNTS, tz="Asia/Jakarta")
         result = overview(rows, Decimal(1000))
@@ -220,6 +234,17 @@ class ApiContracts(unittest.TestCase):
         self.assertTrue(first.json()["storage_path"].startswith(UID + "/"))
         oversized = self.client.post("/api/v1/reports", headers=self.headers, content=iter([b"x" * 1_100_000, b"x" * 1_100_000]))
         self.assertEqual(oversized.status_code, 413)
+
+    def test_calendar_filters_local_dates_and_preserves_zero(self):
+        source = self.app.state.settings.data_root / "kalender.json"
+        source.write_text(json.dumps({"items": [{"tgl": "2026-10-02", "jam": "00:30", "countryCode": "ID",
+                                               "dmp": 3, "sbl": 0, "prk": 0, "akt": 0}]}), encoding="utf-8")
+        result = self.client.get("/api/v1/economic-calendar?start=2026-10-01&end=2026-10-01&tz=America/New_York", headers=self.headers)
+        self.assertEqual(result.status_code, 200, result.text)
+        self.assertEqual(len(result.json()["items"]), 1)
+        event = result.json()["items"][0]
+        self.assertEqual((event["previous"], event["forecast"], event["actual"]), (0, 0, 0))
+        self.assertTrue(event["time"].startswith("2026-10-01"))
 
 
 if __name__ == "__main__":

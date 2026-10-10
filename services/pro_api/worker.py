@@ -61,9 +61,9 @@ async def process_job(store, settings, job):
         current_filter = config.model_copy(update={"start": start, "end": end})
         previous_filter = config.model_copy(update={"start": previous_start, "end": previous_end})
         rows, initial, strategies, warnings = await dataset(store, uid, current_filter)
-        previous, _, _, _ = await dataset(store, uid, previous_filter)
+        previous, previous_initial, _, _ = await dataset(store, uid, previous_filter)
         rules = await store.rows("risk_rules", {"user_id": f"eq.{uid}"})
-        result = review(rows, previous, initial, strategies, rules)
+        result = review(rows, previous, initial, strategies, rules, previous_initial)
         result["warnings"] = warnings
         entry = {"user_id": uid, "account_id": str(config.account_id) if config.account_id else None,
                  "period": config.period, "period_start": start.isoformat(), "timezone": config.tz, "summary": result}
