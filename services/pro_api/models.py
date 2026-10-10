@@ -87,7 +87,7 @@ class Report(Filters):
 
 class Analysis(Filters):
     instrument: str | None = Field(default=None, pattern=r"^[A-Z0-9_]{1,30}$")
-    timeframe: Literal["1m", "5m", "15m", "1h", "4h", "1d"] | None = None
+    timeframe: Literal["1m", "5m", "15m", "30m", "1h", "4h", "1d"] | None = None
     analysis_type: Literal["performance", "strategy", "risk", "consistency", "review"] = "performance"
 
 
@@ -140,3 +140,32 @@ class Explanation(Input):
     alternative_scenarios: list[Observation] = Field(default_factory=list, max_length=10)
     invalidation_conditions: list[Observation] = Field(default_factory=list, max_length=10)
     risk_considerations: list[Observation] = Field(default_factory=list, max_length=10)
+
+
+class MarketSignal(Input):
+    direction: Literal["BUY", "SELL", "NEUTRAL", "NO TRADE"]
+    bias: Literal["BUY", "SELL", "NEUTRAL"]
+    status: Literal["INSUFFICIENT DATA", "WAITING FOR CONFIRMATION", "CONDITIONAL SETUP"]
+    entry: Decimal | None = Field(default=None, gt=0, allow_inf_nan=False)
+    stop_loss: Decimal | None = Field(default=None, gt=0, allow_inf_nan=False)
+    take_profit: Decimal | None = Field(default=None, gt=0, allow_inf_nan=False)
+    risk_reward: Decimal | None = Field(default=None, gt=0, allow_inf_nan=False)
+    analysis_horizon: str
+    confirmations: list[str]
+    invalidation_conditions: list[str]
+    timestamp: datetime
+
+    @model_validator(mode="after")
+    def valid_levels(self):
+        values = (self.entry, self.stop_loss, self.take_profit, self.risk_reward)
+        if self.timestamp.tzinfo is None:
+            raise ValueError("Signal timestamp needs timezone")
+        if self.direction in ("BUY", "SELL"):
+            if any(value is None for value in values) or len(self.confirmations) < 3 or self.status != "CONDITIONAL SETUP":
+                raise ValueError("Trade signal needs levels and three confirmations")
+            ordered = self.stop_loss < self.entry < self.take_profit if self.direction == "BUY" else self.take_profit < self.entry < self.stop_loss
+            if not ordered or self.risk_reward != abs(self.take_profit - self.entry) / abs(self.entry - self.stop_loss):
+                raise ValueError("Invalid trade levels or risk reward")
+        elif any(value is not None for value in values):
+            raise ValueError("No-trade assessment cannot carry trade levels")
+        return self

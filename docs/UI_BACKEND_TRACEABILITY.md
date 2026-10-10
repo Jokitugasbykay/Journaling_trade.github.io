@@ -24,6 +24,15 @@ Buttons expose `data-component-id`; explicit IDs below remain stable. Generated 
 
 ## Shell, routes and shared filters
 
+The rows named `PRO-NAV-*` below now refer to **internal Pro section navigation**, not top-level header links. The header has one `nav-pro` entry after Economic news. `/pro/` defaults to AI Market Intelligence; other sections use `/pro/?section=<section>`. Historical Pro routes replace their history entry with this canonical workspace route. Free/Plus retain a disabled noninteractive AI Trading hook; Founder identity alone is not entitlement proof.
+
+| Component ID | Page / label | Frontend handler | API endpoint | Authentication / subscription | Loading / success / error | Test / status |
+|---|---|---|---|---|---|---|
+| nav-pro | Header / Pro | `openProWorkspace` | GET entitlements before feature requests | Auth + effective Pro | Hidden until verified; opens default market section; failure does not grant access | security test; Implemented but Not Fully Tested |
+| pro-section-<section> | Internal navigation / ten sections | `open(section)` / configured `onRoute` | Corresponding section endpoints below | Auth + effective Pro, independently verified backend | Clears prior section work, opens real section in same shell; guarded error | browser ten-section test; Implemented but Not Fully Tested |
+| pro-section-selector | Mobile internal selector | `open(selectedSection)` | Same section endpoints | Auth + effective Pro | Native keyboard/touch selector; no page overflow | browser 375px; Implemented but Not Fully Tested |
+| pro-section-retry | Retry section | `open(currentFeature)` | Fresh entitlements + current section endpoints | Auth + Pro | Bounded session/token/fetch/body reads; replaces loading with error or real data | pro timeout unit + browser; Implemented but Not Fully Tested |
+
 | Component ID | Page / label | Frontend handler | API endpoint | Authentication / subscription | Success and error behavior | Test reference |
 |---|---|---|---|---|---|---|
 | PRO-NAV-ANALYTICS | Advanced Analytics | `JTPRO.open('analytics')` | GET entitlements, accounts, strategies, analytics/overview | Auth + effective Pro | Existing shell displays real data or guarded error | pro unit + browser analytics |
@@ -104,9 +113,13 @@ Buttons expose `data-component-id`; explicit IDs below remain stable. Generated 
 | ai-evidence-trade | View supporting trade | `evidence` + `journal` | Existing owner-scoped journal | Auth + Pro + owner | Evidence IDs supplied by validated analysis | browser evidence rendering |
 | ai-source-reference | View source | Safe HTTPS anchor | Authorized source URL, no inference | Existing authorized result | Timestamped attribution when evidence is available; rejects unsafe URLs | pro URL unit |
 | pro-market-instrument | Instrument | Chart update + context request | GET market/context?instrument | Auth + Pro | Explicit allowlist mapped to TradingView symbol; no scraped chart data | browser EURUSD selection |
-| pro-market-timeframe | Timeframe | Chart update + context request | GET market/context?timeframe | Auth + Pro | Allowlisted 15m/1h/4h/1d/1w with mapped chart interval | browser 4h selection |
-| market-tradingview-chart | Embedded chart | `updateChart` | Authorized TradingView widget iframe | Pro page; independent machine-readable feed required | Loading/error labels; iframe never serves Python OHLC data | browser iframe transport |
+| pro-timeframe-1m, 5m, 15m, 30m, 1h, 4h, 1d | M1/M5/M15/M30/H1/H4/D1 | `choose` / `draw` / `contextLoad` | GET market/context?timeframe | Auth + Pro | Provider manifest determines availability; changing frame updates chart/context and marks previous analysis; late completions cannot reenable an unsupported frame | browser selection/race regressions |
+| market-tradingview-chart | Embedded chart | `draw` | TradingView widget iframe | Pro page; independent machine-readable feed required | 15-second loading confirmation limit; iframe load is transport confirmation only, never proof of backend data | browser iframe transport |
 | pro-market-refresh | Refresh market data | Context refresh callback | POST market/refresh | Auth + Pro | No AI quota; freshness/evidence rendered or unavailable | browser refresh + backend data gates |
+| pro-market-evidence | View evidence | Open disclosure + scroll | Existing authorized context; no new inference | Auth + Pro | Closed-bar calculations/source timestamps or missing-evidence state | browser rendering + methodology tests |
+| pro-market-history | View analysis history | `loadHistory` + scroll | GET ai/history?kind=market | Auth + Pro + owner | Existing saved jobs; opening/re-reading consumes no credit | browser history + worker contract tests |
+| pro-market-instrument / initial catalog | Provider instruments | `marketIntelligence` | GET market/instruments | Auth + Pro | No invented symbols; missing manifest gives explicit unavailable state; only catalog symbols/timeframes appear | API catalog authorization + browser |
+| ai-engine-status | Engine/model status | `loadEngine` | GET ai/engine | Auth + Pro | Actual installed name/digest + valid benchmark, otherwise unavailable detail | API engine + pipeline tests; real inference Blocked |
 | pro-news-q, country, region, category, start, end | News filters | Native filters | GET news with query | Auth + Pro global access; backend country policy remains authoritative | Filters applied server-side, publication date validation | browser query |
 | pro-news-search | Search | Search callback | GET news?q… | Auth + Pro | First page of actual authorized results; empty/error state | browser search |
 | global-news-reset | Reset | Clear filters + load | GET news | Auth + Pro | Returns authorized unfiltered first page | browser reset |

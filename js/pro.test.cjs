@@ -37,5 +37,7 @@ const setup=(extra={})=>api.configure({apiBase:'https://gateway.test',getToken:a
   const points=[{date:'2026-01-01',equity:'100',drawdown:'0'},{date:'2026-01-02',equity:'98',drawdown:'2'},{date:'2026-02-02',equity:'110',drawdown:'0'}];
   assert.equal(api.aggregateSeries(points,'day').length,3);assert.equal(api.aggregateSeries(points,'month').length,2);assert.equal(api.aggregateSeries(points,'month')[0].equity,'98');assert.equal(api.aggregateSeries(points,'week')[0].date,'2025-12-29');
   assert.ok(!source.includes('innerHTML'));assert.ok(!source.includes('localStorage'));assert.ok(source.includes("'Idempotency-Key':crypto.randomUUID()"));
+  setup({requestTimeout:10,getToken:()=>new Promise(()=>{})});
+  const keepAlive=setTimeout(()=>{},100);await assert.rejects(()=>api.request('/entitlements'),error=>error.name==='TimeoutError');clearTimeout(keepAlive);
   api.reset();assert.equal(api.access,null);console.log('Pro frontend entitlement, owner isolation, API validation and chart aggregation checks passed.');
 })().catch(error=>{console.error(error);process.exitCode=1;});

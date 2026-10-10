@@ -87,7 +87,7 @@
         renderProfileView();
         updateAccess();
         const proTab = document.querySelector('[data-pro-tab].active');
-        if (proTab && $('view-pro-workspace').classList.contains('active')) openProAnalytics(Number(proTab.dataset.proTab));
+        if (proTab && $('view-pro-workspace').classList.contains('active')) window.JTPRO?.open(window.JTPRO.current || 'ai-market');
       };
 
       /* Initialization Demo Data if clean */
@@ -524,10 +524,11 @@
         const index = proFeatures.indexOf(feature);
         if (index < 0) return;
         pendingProRoute = feature;
-        document.querySelectorAll('.nav-tab').forEach(button => button.classList.toggle('active', button.dataset.proTab === String(index)));
+        document.querySelectorAll('.nav-tab').forEach(button => button.classList.toggle('active', button.dataset.proTab === 'workspace'));
         document.querySelectorAll('.view-content').forEach(view => view.classList.toggle('active', view.id === 'view-pro-workspace'));
         document.body.classList.remove('auth-page');
-        if (updateUrl && location.pathname !== pagePath(proPaths[index])) history.pushState(null, '', pagePath(proPaths[index]));
+        const target = pagePath('pro') + (feature === 'ai-market' ? '' : '?section=' + encodeURIComponent(feature));
+        if (updateUrl && location.pathname + location.search !== target) history.pushState(null, '', target);
         window.scrollTo({top:0, behavior:'smooth'});
       }
       window.openProAnalytics = async function (index, updateUrl = true) {
@@ -535,6 +536,7 @@
         activateProRoute(proFeatures[index], updateUrl);
         await window.JTPRO?.open(proFeatures[index]);
       };
+      window.openProWorkspace = () => openProAnalytics(7);
       async function verifyProAccess() {
         if (!window.JTPRO || !cloudUser || verifiedNewsUserId !== cloudUser.id || !nicknameReady) return;
         try {
@@ -3888,8 +3890,19 @@
           if (error) $('cloud-status').textContent = error;
           return;
         }
+        if (parts[0] === 'pro') {
+          const section = new URLSearchParams(location.search).get('section') || 'ai-market';
+          const feature = proFeatures.includes(section) ? section : 'ai-market';
+          const target = pagePath('pro') + (feature === 'ai-market' ? '' : '?section=' + encodeURIComponent(feature));
+          if (location.pathname + location.search !== target) history.replaceState(null, '', target);
+          openProAnalytics(proFeatures.indexOf(feature), false);
+          return;
+        }
         const proIndex = proPaths.indexOf(parts.join('/'));
-        if (proIndex >= 0) { openProAnalytics(proIndex, false); return; }
+        if (proIndex >= 0) {
+          history.replaceState(null, '', pagePath('pro') + (proFeatures[proIndex] === 'ai-market' ? '' : '?section=' + encodeURIComponent(proFeatures[proIndex])));
+          openProAnalytics(proIndex, false); return;
+        }
         const tabId = Object.keys(pageRoutes).find(key => pageRoutes[key] === parts[0]) || 'beranda';
         if (tabId !== 'beranda' && !onboarding.started) {
           onboarding.started = true;

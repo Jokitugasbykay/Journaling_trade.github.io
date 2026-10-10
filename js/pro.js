@@ -6,8 +6,7 @@
     'ai-behaviour':'AI Behaviour Analysis', 'ai-market':'AI Market Intelligence',
     'ai-journal':'AI Journal Analyst', 'global-news':'Global News'
   };
-  const symbols = {'XAUUSD':'OANDA:XAUUSD','EURUSD':'OANDA:EURUSD','GBPUSD':'OANDA:GBPUSD','USDJPY':'OANDA:USDJPY','BTCUSD':'COINBASE:BTCUSD','ETHUSD':'COINBASE:ETHUSD','SPX':'SP:SPX','NDX':'NASDAQ:NDX'};
-  const timeframes = {'15m':'15','1h':'60','4h':'240','1d':'D'};
+  const timeframes = {'1m':'1','5m':'5','15m':'15','30m':'30','1h':'60','4h':'240','1d':'D'};
   let options={}, revision=0, controller=new AbortController(), access=null, current='', root=null, status=null, content=null, filters={}, preset={}, accounts=[], strategies=[];
   const latestReads=new Map();
   const text = (key,fallback) => options.labels?.(key,fallback) ?? global.JTI18n?.key('pro'+key,fallback) ?? fallback;
@@ -24,6 +23,12 @@
     if(url.username || url.password || url.search || url.hash || !(url.protocol==='https:' || url.protocol==='http:' && ['localhost','127.0.0.1','[::1]'].includes(url.hostname))) throw new Error('Invalid Pro API URL.');
     return url.href.replace(/\/$/,'').replace(/(?:\/api\/v1)?$/,'/api/v1');
   }
+  async function abortable(promise,signal) {
+    if(signal.aborted) throw signal.reason;
+    let cancel;
+    try { return await Promise.race([promise,new Promise((_,reject)=>{cancel=()=>reject(signal.reason);signal.addEventListener('abort',cancel,{once:true});})]); }
+    finally { if(cancel) signal.removeEventListener('abort',cancel); }
+  }
   async function request(path,settings={}) {
     if(!/^\/[a-z0-9/?=&_%.,:-]+$/i.test(path) || path.includes('..')) throw new Error('Invalid API path.');
     const owner=options.getUserId?.(), epoch=revision;
@@ -31,16 +36,16 @@
     if(latestKey) latestReads.set(latestKey,sequence);
     const stale=()=>epoch!==revision || owner!==options.getUserId?.() || latestKey && latestReads.get(latestKey)!==sequence;
     if(!owner) throw new Error(text('SignIn','Sign in to use this feature.'));
-    const base=apiBase(options.apiBase), token=await options.getToken?.();
+    const signal=AbortSignal.any([controller.signal,AbortSignal.timeout(options.requestTimeout || 30000)]);
+    const base=apiBase(options.apiBase), token=await abortable(Promise.resolve(options.getToken?.()),signal);
     if(!token) throw new Error(text('SignIn','Sign in to use this feature.'));
     if(stale()) throw new DOMException('Selection changed','AbortError');
-    const signal=AbortSignal.any([controller.signal,AbortSignal.timeout(30000)]);
     if(settings.rawBody && (!(settings.body instanceof Blob) || settings.body.size>10*1024*1024 || !['application/pdf','image/png','image/jpeg','text/plain','text/csv'].includes(settings.contentType))) throw new Error('Invalid import upload.');
     const response=await fetch(base+path,{method:settings.method || 'GET',headers:{...settings.headers,'Content-Type':settings.rawBody?settings.contentType:'application/json',Authorization:'Bearer '+token},body:settings.body===undefined?undefined:settings.rawBody?settings.body:JSON.stringify(settings.body),signal,credentials:'omit',cache:'no-store'});
     if(stale()) throw new DOMException('Selection changed','AbortError');
     if(response.status===401 || response.status===403) { clearAccess(); content?.replaceChildren(); }
     if(response.status===204) return null;
-    const data=await response.json().catch(()=>null);
+    const data=await abortable(response.json().catch(()=>null),signal);
     if(!response.ok) throw new Error(typeof data?.detail==='string'?data.detail:typeof data?.error==='string'?data.error:text('RequestFailed','The request could not be completed. Try again.'));
     if(data===null || typeof data!=='object') throw new Error(text('InvalidResponse','The service returned an invalid response.'));
     if(stale()) throw new DOMException('Selection changed','AbortError');
@@ -54,13 +59,13 @@
     }
     access=result; options.onAccessChange?.(result); return result;
   }
-  function showError(error) { if(error.name!=='AbortError' && status) { status.textContent=error.message; status.setAttribute('role','alert'); } }
+  function showError(error) { if(error.name!=='AbortError' && status) { status.textContent=error.name==='TimeoutError' ? text('Timeout','The service did not respond in time. Retry the section.') : error.message; status.setAttribute('role','alert'); } }
   async function action(button,fn) {
     if(button.disabled) return;
-    const epoch=revision; button.disabled=true; status.textContent=text('Working','Working…'); status.setAttribute('role','status');
+    const epoch=revision; button.disabled=true;button.dataset.running='true'; status.textContent=text('Working','Working…'); status.setAttribute('role','status');
     try { await fn(); if(epoch===revision) status.textContent=''; }
     catch(error) { if(epoch===revision) showError(error); }
-    finally { if(epoch===revision) button.disabled=false; }
+    finally { if(epoch===revision) {button.disabled=button.dataset.unavailable==='true';delete button.dataset.running;} }
   }
   function button(label,fn,id) {
     const element=node('button',label,'btn btn-ghost'); element.type='button'; if(id) element.id=id;
@@ -236,9 +241,11 @@
   function evidence(parent,ids) {if(!Array.isArray(ids))return;const bar=node('div',null,'pro-evidence');for(const id of ids.slice(0,100))if(/^[a-f0-9]{8}-[a-f0-9-]{27}$/i.test(String(id)))bar.append(button('View trade '+String(id).slice(0,8),()=>journal({trade_id:id})));else bar.append(node('span','Evidence: '+id));parent.append(bar);}
   function sourceReferences(parent,context) {
     if(!context)return;const section=node('section'),seen=new Set();section.append(node('h3','Source references'));
-    for(const group of ['macro','news','geopolitics'])for(const item of context[group] || []) {const url=safeLink(item.source_url || item.url);if(!url || seen.has(url))continue;seen.add(url);const link=node('a',item.title || item.name || group+' · '+(item.timestamp || ''));link.href=url;link.target='_blank';link.rel='noopener noreferrer';section.append(link,node('br'));}
-    if(!seen.size)section.append(node('p','No additional source references were provided.'));parent.append(section);
+    const items=Array.isArray(context)?context:[...(context.macro || []),...(context.news || []),...(context.geopolitics || []),...(context.kaystrade?.technicals || [])];
+    for(const item of items) {const url=safeLink(item?.source_url || item?.url),key=url+'|'+item?.timestamp;if(!url || seen.has(key))continue;seen.add(key);const link=node('a',item.title || item.name || item.timeframe || 'View source');link.href=url;link.target='_blank';link.rel='noopener noreferrer';section.append(link,node('span',' · '+format(item.timestamp),'pro-muted'),node('br'));}
+    if(seen.size)parent.append(section);
   }
+
   function aiResult(parent,result) {
     parent.replaceChildren();if(!result){parent.append(node('p','No validated result is available.'));return;}
     sourceReferences(parent,result.quantitative?.market);
@@ -248,11 +255,11 @@
       else if(typeof value==='object')details(section,value);else section.append(node('p',format(value)));
     }
   }
-  async function watchJob(kind,first,parent) {
+  async function watchJob(kind,first,parent,render=aiResult) {
     let job=first, epoch=revision;const owner=options.getUserId?.();
     for(let attempt=0;attempt<90 && epoch===revision && owner===options.getUserId?.();attempt++) {
       parent.replaceChildren();details(parent,{id:job.id,state:job.state,error:job.error});
-      if(job.state==='succeeded'){if(kind==='ai')aiResult(parent,job.result);return job;}
+      if(job.state==='succeeded'){if(kind==='ai')render(parent,job.result);return job;}
       if(['failed','cancelled','expired'].includes(job.state))return job;
       if(kind==='ai')parent.append(button('Cancel analysis',async()=>{await request('/ai/jobs/'+job.id+'/cancel',{method:'POST',body:{}});},'pro-ai-cancel'));
       await new Promise((resolve,reject)=>{const timer=setTimeout(resolve,2000);const cancel=()=>{clearTimeout(timer);reject(new DOMException('Account changed','AbortError'));};controller.signal.addEventListener('abort',cancel,{once:true});setTimeout(()=>controller.signal.removeEventListener('abort',cancel),2100);});
@@ -264,17 +271,8 @@
   async function ai(kind) {
     const toolbar=commonFilters(content,()=>loadHistory());const quota=node('p',null,'pro-muted');content.append(quota);
     const showQuota=()=>{quota.textContent=text('Quota','Remaining AI analyses')+': '+format(access?.ai?.remaining)+' / '+format(access?.ai?.limit || 30);};showQuota();
-    const config={},grid=node('div',null,'pro-grid');content.append(grid);let result,marketContext;
-    if(kind==='market') {
-      const instrument=select('Instrument',Object.keys(symbols).map(key=>[key,key]),'XAUUSD','pro-market-instrument'),timeframe=select('Timeframe',Object.keys(timeframes).map(key=>[key,key]),'1h','pro-market-timeframe');config.instrument=instrument.input;config.timeframe=timeframe.input;toolbar.append(instrument.wrap,timeframe.wrap);
-      const chartPanel=panel('TradingView chart',grid),iframe=node('iframe');iframe.title='TradingView market chart';iframe.referrerPolicy='no-referrer';chartPanel.append(iframe);const chartStatus=node('p','Loading chart…','pro-muted');chartPanel.append(chartStatus);
-      let contextRequest=0;
-      const updateChart=(mappedSymbol)=>{const symbol=mappedSymbol || symbols[instrument.input.value],interval=timeframes[timeframe.input.value];if(!/^[A-Z0-9_.:-]{1,100}$/i.test(symbol || '') || !interval)throw new Error('Unsupported chart selection.');iframe.src='https://s.tradingview.com/widgetembed/?'+query({symbol,interval,theme:'dark',style:1,locale:'en',hidesidetoolbar:1,allow_symbol_change:0,saveimage:0});chartStatus.textContent='Loading chart…';};
-      iframe.addEventListener('load',()=>chartStatus.textContent='TradingView chart. Analysis uses a separate authorized data feed.');iframe.addEventListener('error',()=>chartStatus.textContent='The chart could not be loaded.');
-      result=panel('AI Market Intelligence',grid);marketContext=panel('Technical and market evidence');
-      const context=async(refresh=false)=>{const sequence=++contextRequest,selection={instrument:instrument.input.value,timeframe:timeframe.input.value};const data=await request('/market/'+(refresh?'refresh':'context?'+query(selection)),refresh?{method:'POST',body:selection}:{});if(sequence!==contextRequest || selection.instrument!==instrument.input.value || selection.timeframe!==timeframe.input.value)return;marketContext.replaceChildren();details(marketContext,data);sourceReferences(marketContext,data);if(data.tradingview_symbol)updateChart(data.tradingview_symbol);};
-      for(const input of [instrument.input,timeframe.input])input.addEventListener('change',()=>action(input,async()=>{updateChart();await context();}));toolbar.append(button('Refresh market data',()=>context(true),'pro-market-refresh'));updateChart();await context().catch(showError);
-    } else {result=panel('Analysis result',grid);if(kind==='journal'){const analysisType=select('Analysis type',[['performance','Performance'],['strategy','Strategy'],['risk','Risk'],['consistency','Consistency'],['review','Review commentary']],preset.analysis_type || 'performance','pro-analysis-type');toolbar.append(analysisType.wrap);config.analysis_type=analysisType.input;}}
+    const config={},grid=node('div',null,'pro-grid');content.append(grid);let result;
+    result=panel('Analysis result',grid);if(kind==='journal'){const analysisType=select('Analysis type',[['performance','Performance'],['strategy','Strategy'],['risk','Risk'],['consistency','Consistency'],['review','Review commentary']],preset.analysis_type || 'performance','pro-analysis-type');toolbar.append(analysisType.wrap);config.analysis_type=analysisType.input;}
     const history=panel('Analysis history');
     const loadHistory=async()=>{const data=await request('/ai/history?'+query({kind,...filterValues()}),{latest:true});history.replaceChildren();history.append(node('h2','Analysis history'));table(history,data.items,[['created_at','Created'],['state','Status'],['kind','Analysis']],(cell,row)=>{cell.append(button('Open analysis',async()=>{const job=await request('/ai/jobs/'+row.id);if(job.state==='succeeded')aiResult(result,job.result);else details(result,job);}));if(['failed','cancelled','expired'].includes(row.state))cell.append(button('Retry',async()=>{if(!global.confirm('Start a new AI analysis? A successful result uses one shared monthly allowance.'))return;await verifyAccess();showQuota();const job=await request('/ai/jobs/'+row.id+'/retry',{method:'POST',body:{},headers:{'Idempotency-Key':crypto.randomUUID()}});await watchJob('ai',job,result);await verifyAccess();showQuota();await loadHistory();}));});};
     toolbar.append(button(kind==='market'?'Analyze market':kind==='behaviour'?'Analyze behaviour':'Generate analysis',async()=>{
@@ -284,6 +282,56 @@
       if(kind==='market')await request('/market/context?'+query({instrument:values.instrument,timeframe:values.timeframe}));
       const job=await request('/ai/'+kind+'-analysis',{method:'POST',body:values,headers:{'Idempotency-Key':crypto.randomUUID()}});await watchJob('ai',job,result);await verifyAccess();showQuota();await loadHistory();
     },'pro-ai-generate'));await loadHistory();
+  }
+  function disclosure(parent,title,value) {
+    const section=node('details',null,'pro-disclosure');section.append(node('summary',title));parent.append(section);
+    if(value===undefined || value===null || Array.isArray(value) && !value.length) section.append(node('p','No verified evidence supplied.','pro-muted'));
+    else if(Array.isArray(value)) {for(const item of value) {if(item && typeof item==='object' && (item.text || item.title || item.summary)){section.append(node('p',item.text || item.title || item.summary));evidence(section,item.evidence_ids);if(item.timestamp)section.append(node('p',item.timestamp,'pro-muted'));}else if(item && typeof item==='object')details(section,item);else section.append(node('p',format(item)));}sourceReferences(section,value);}
+    else {details(section,value);sourceReferences(section,value);}
+    return section;
+  }
+  function marketResult(parent,result) {
+    parent.replaceChildren();const context=result?.quantitative?.market,signal=result?.signal;
+    if(!context || !signal || !['BUY','SELL','NEUTRAL','NO TRADE'].includes(signal.direction)) throw new Error('The saved analysis has no validated Kaystrade signal. Generate a new analysis.');
+    parent.append(node('h2','AI entry signal'),node('p',context.instrument+' · '+context.timeframe+' · '+signal.timestamp,'pro-muted'));
+    const cells=node('div',null,'pro-signal-cells');parent.append(cells);
+    for(const [label,value] of [['Market direction',signal.direction],['Entry signal status',signal.status],['Proposed entry',signal.entry],['Stop loss',signal.stop_loss],['Take profit',signal.take_profit],['Risk reward ratio',signal.risk_reward],['Analysis horizon',signal.analysis_horizon]]) {const cell=node('div');cell.append(node('span',label,'pro-muted'),node('p',format(value)));cells.append(cell);}
+    disclosure(parent,'Technical confirmations',signal.confirmations);disclosure(parent,'Invalidation conditions',signal.invalidation_conditions);
+    parent.append(node('p','Conditional analysis only. No trade is placed automatically.','pro-muted'));
+    const reasoning=node('section',null,'pro-panel');parent.append(reasoning);reasoning.append(node('h2','AI reasoning and intelligence'));details(reasoning,{engine:'Local explanation completed',model_name:result.model_version?.name,model_version:result.model_version?.digest,methodology:context.kaystrade?.methodology,analysis_timestamp:result.generated_at,market_data_timestamp:context.as_of,provider:context.provider,delayed:context.delayed});
+    for(const [title,value] of [['Technical analysis and observations',result.observations],['Interpretations',result.interpretations],['Market structure, trend, momentum and volatility',context.kaystrade?.frames],['Support, resistance and Technicals',context.kaystrade?.technicals],['Macroeconomic context',context.macro],['Federal Reserve and FOMC context',(context.macro || []).filter(item=>/fed|fomc|federal reserve/i.test(JSON.stringify(item)))],['Geopolitical context',context.geopolitics],['Relevant financial news',context.news],['Cross-market correlations',context.correlations],['Bullish, bearish and no-trade scenarios',context.kaystrade?.scenarios],['Alternative scenarios',result.alternative_scenarios],['Data quality warnings',context.kaystrade?.warnings]]) disclosure(reasoning,title,value);
+    const sources=disclosure(reasoning,'Supporting sources',{provider:context.provider,license_reference:context.license_reference,as_of:context.as_of});sourceReferences(sources,context);
+  }
+  async function marketIntelligence() {
+    filters={};let mapped=[],selectedFrame='15m',context=null,stored=null,chartTimer,contextSequence=0;
+    const toolbar=node('div',null,'pro-toolbar'),instrument=select('Instrument',[],'','pro-market-instrument');content.append(toolbar);toolbar.append(instrument.wrap);
+    const identity=node('p',null,'pro-muted'),freshness=node('p','Market data not loaded.','pro-muted'),quota=node('p',null,'pro-muted');content.append(identity,freshness,quota);
+    const showQuota=()=>quota.textContent='AI analyses remaining this month: '+format(access?.ai?.remaining)+' / '+format(access?.ai?.limit || 30);showQuota();
+    const framebar=node('div',null,'pro-timeframes');framebar.setAttribute('role','group');framebar.setAttribute('aria-label','Analysis timeframe');content.append(framebar);
+    const frameSelect=select('Timeframe',Object.keys(timeframes).map(key=>[key,key]),selectedFrame,'pro-market-timeframe');frameSelect.wrap.classList.add('pro-timeframe-select');content.append(frameSelect.wrap);
+    const chartPanel=panel('Market chart'),iframe=node('iframe'),chartStatus=node('p','Select an authorized instrument to load the chart.','pro-muted');iframe.title='TradingView market chart';iframe.referrerPolicy='no-referrer';chartPanel.append(iframe,chartStatus);
+    const engine=panel('AI engine status'),result=panel('AI entry signal'),evidencePanel=panel('Technical evidence'),history=panel('Analysis history');
+    result.append(node('p','No analysis yet. Entry, stop loss and target remain unavailable until validated rules support them.'));
+    const selected=()=>({instrument:instrument.input.value,timeframe:selectedFrame});
+    const selectionNote=node('p',null,'pro-muted');result.prepend(selectionNote);
+    const notePrevious=()=>{selectionNote.textContent=stored && (stored.quantitative?.market?.instrument!==instrument.input.value || stored.quantitative?.market?.timeframe!==selectedFrame) ? 'Displayed analysis belongs to '+stored.quantitative.market.instrument+' / '+stored.quantitative.market.timeframe+'. Analyze the current selection for a new signal.' : '';};
+    const draw=()=>{const row=mapped.find(row=>row.symbol===instrument.input.value);if(!row)return;clearTimeout(chartTimer);iframe.src='https://s.tradingview.com/widgetembed/?'+query({symbol:row.tradingview_symbol,interval:timeframes[selectedFrame],theme:'dark',style:1,locale:'en',hidesidetoolbar:0,allow_symbol_change:0,saveimage:0});chartStatus.textContent='Loading chart…';chartTimer=setTimeout(()=>{if(iframe.isConnected)chartStatus.textContent='The chart did not confirm loading. Check the chart provider and retry this section.';},15000);controller.signal.addEventListener('abort',()=>clearTimeout(chartTimer),{once:true});identity.textContent=row.name+' · '+row.asset_class;};
+    iframe.addEventListener('load',()=>{clearTimeout(chartTimer);chartStatus.textContent='Embedded TradingView chart loaded. Chart and analysis feeds are separate; verify symbol and data availability in the chart.';});iframe.addEventListener('error',()=>{clearTimeout(chartTimer);chartStatus.textContent='Chart unavailable. Retry the section.';});
+    const contextLoad=async(refresh=false)=>{const sequence=++contextSequence;context=null;generate.dataset.unavailable='true';generate.disabled=true;freshness.textContent='Loading authorized market data…';const selection=selected();try {const data=await request('/market/'+(refresh?'refresh':'context?'+query(selection)),refresh?{method:'POST',body:selection,latest:true}:{latest:true});if(sequence!==contextSequence || selection.instrument!==instrument.input.value || selection.timeframe!==selectedFrame)return;context=data;freshness.textContent=[data.data_freshness,data.delayed?'Delayed '+data.delay_seconds+' seconds':'',data.current_price!==undefined?'Last recorded price: '+data.current_price:'',data.as_of,data.provider].filter(Boolean).join(' · ');evidencePanel.replaceChildren();evidencePanel.append(node('h2','Technical evidence'));disclosure(evidencePanel,'Closed-bar Kaystrade calculations',data.kaystrade);sourceReferences(evidencePanel,data);generate.dataset.unavailable='false';if(!generate.dataset.running)generate.disabled=false;}catch(error){if(sequence!==contextSequence || selection.instrument!==instrument.input.value || selection.timeframe!==selectedFrame)return;if(error.name!=='AbortError'){freshness.textContent='Market data unavailable: '+error.message;generate.disabled=true;}throw error;}};
+    const choose=async(frame)=>{if(!mapped.find(row=>row.symbol===instrument.input.value)?.timeframes.includes(frame))throw new Error('This instrument does not support that timeframe.');selectedFrame=frame;frameSelect.input.value=frame;for(const button of framebar.children)button.setAttribute('aria-pressed',String(button.dataset.frame===frame));notePrevious();draw();await contextLoad();};
+    for(const [frame,label] of Object.entries({'1m':'M1','5m':'M5','15m':'M15','30m':'M30','1h':'H1','4h':'H4','1d':'D1'})) {const item=button(label,()=>choose(frame),'pro-timeframe-'+frame);item.dataset.frame=frame;item.setAttribute('aria-pressed',String(frame===selectedFrame));framebar.append(item);}
+    frameSelect.input.addEventListener('change',()=>action(frameSelect.input,()=>choose(frameSelect.input.value)));
+    instrument.input.addEventListener('change',()=>action(instrument.input,async()=>{const row=mapped.find(item=>item.symbol===instrument.input.value);for(const item of framebar.children){item.dataset.unavailable=String(!row.timeframes.includes(item.dataset.frame));item.disabled=item.dataset.unavailable==='true' || !!item.dataset.running;}for(const item of frameSelect.input.options)item.disabled=!row.timeframes.includes(item.value);await choose(row.timeframes.includes(selectedFrame)?selectedFrame:row.timeframes[0]);}));
+    const display=(parent,value)=>{stored=value;marketResult(parent,value);parent.prepend(selectionNote);notePrevious();};
+    const loadHistory=async()=>{const data=await request('/ai/history?kind=market',{latest:true});history.replaceChildren();history.append(node('h2','Analysis history'));table(history,data.items,[['created_at','Created'],['state','Status']],(cell,row)=>{cell.append(button('Open analysis',async()=>{const job=await request('/ai/jobs/'+row.id);if(job.state==='succeeded')display(result,job.result);else {result.replaceChildren();details(result,job);}}));if(['failed','cancelled','expired'].includes(row.state))cell.append(button('Retry',async()=>{if(!global.confirm('Retry the original analysis? One successful result uses one shared monthly allowance.'))return;await verifyAccess();const job=await request('/ai/jobs/'+row.id+'/retry',{method:'POST',body:{},headers:{'Idempotency-Key':crypto.randomUUID()}});await watchJob('ai',job,result,display);await verifyAccess();showQuota();await loadHistory();}));});};
+    const generate=button('Analyze market',async()=>{const selection=selected();await verifyAccess();showQuota();if(!(Number(access.ai?.remaining)>0))throw new Error('No AI allowance remains this month.');await contextLoad();if(selection.instrument!==instrument.input.value || selection.timeframe!==selectedFrame)throw new DOMException('Selection changed','AbortError');if(!global.confirm('A successful analysis uses one shared monthly AI allowance. Continue?'))return;const job=await request('/ai/market-analysis',{method:'POST',body:selection,headers:{'Idempotency-Key':crypto.randomUUID()}});await watchJob('ai',job,result,display);await verifyAccess();showQuota();await loadHistory();},'pro-ai-generate');generate.disabled=true;generate.dataset.unavailable='true';
+    toolbar.append(generate,button('Refresh market data',()=>contextLoad(true),'pro-market-refresh'),button('View evidence',()=>{const disclosure=evidencePanel.querySelector('details');if(disclosure)disclosure.open=true;evidencePanel.scrollIntoView({behavior:'smooth',block:'start'});},'pro-market-evidence'),button('View analysis history',async()=>{await loadHistory();history.scrollIntoView({behavior:'smooth',block:'start'});},'pro-market-history'));
+    const loadEngine=async()=>{const data=await request('/ai/engine');engine.replaceChildren();engine.append(node('h2','AI engine status'));details(engine,data);};
+    const catalog=await request('/market/instruments');mapped=catalog.items || [];for(const row of mapped){const option=node('option',row.symbol);option.value=row.symbol;instrument.input.append(option);}
+    if(!mapped.length){freshness.textContent='No authorized instruments are configured.';return;}
+    instrument.input.value=mapped.find(row=>row.symbol==='XAUUSD' || row.symbol==='GOLD')?.symbol || mapped[0].symbol;
+    const row=mapped.find(row=>row.symbol===instrument.input.value);for(const item of framebar.children){item.dataset.unavailable=String(!row.timeframes.includes(item.dataset.frame));item.disabled=item.dataset.unavailable==='true' || !!item.dataset.running;}for(const item of frameSelect.input.options)item.disabled=!row.timeframes.includes(item.value);selectedFrame=row.timeframes.includes(selectedFrame)?selectedFrame:row.timeframes[0];frameSelect.input.value=selectedFrame;for(const item of framebar.children)item.setAttribute('aria-pressed',String(item.dataset.frame===selectedFrame));draw();
+    await Promise.all([contextLoad().catch(showError),loadEngine().catch(showError),loadHistory().catch(showError)]);
   }
   async function news() {
     const form=node('form',null,'pro-toolbar');content.append(form);filters={};
@@ -297,15 +345,23 @@
     const search=button('Search',async()=>{validateFilters();offset=0;await load();},'pro-news-search');form.append(search,button('Reset',async()=>{Object.values(filters).forEach(input=>input.value='');offset=0;await load();}));form.addEventListener('submit',event=>{event.preventDefault();search.click();});
     const previous=button('Previous page',async()=>{offset=Math.max(0,offset-24);await load();}),next=button('Next page',async()=>{offset+=24;await load();});pagination.append(previous,next);await load();
   }
-  async function open(feature,selection={}) {
+  async function open(feature='ai-market',selection={}) {
     if(!features[feature])throw new Error('Unknown Pro feature.');
     revision++;controller.abort();controller=new AbortController(); preset={...selection};current=feature;root=document.getElementById('view-pro-workspace');if(!root)throw new Error('Pro workspace container is missing.');
-    root.replaceChildren();const heading=node('header',null,'pro-heading');heading.append(node('h1',text('Title'+feature,features[feature])));root.append(heading);status=node('p',text('Loading','Loading…'),'pro-status');status.setAttribute('role','status');status.setAttribute('aria-live','polite');root.append(status);content=node('div');root.append(content);options.onRoute?.(feature);
+    root.replaceChildren();const heading=node('header',null,'pro-heading');heading.append(node('h1',text('Title'+feature,features[feature])));root.append(heading);
+    const navigation=node('nav',null,'pro-sections');navigation.setAttribute('aria-label','Pro sections');
+    for(const [key,label] of Object.entries(features)) {const item=node('button',label,'btn btn-ghost');item.type='button';item.dataset.section=key;item.dataset.componentId='pro-section-'+key;item.setAttribute('aria-current',key===feature?'page':'false');item.addEventListener('click',()=>open(key));navigation.append(item);}
+    root.append(navigation);
+    const selector=select('Pro section',Object.entries(features),feature,'pro-section-selector');selector.wrap.classList.add('pro-section-mobile');selector.input.addEventListener('change',()=>open(selector.input.value));root.append(selector.wrap);
+    heading.append(button(text('RetrySection','Retry section'),()=>open(feature,selection),'pro-section-retry'));
+    status=node('p',text('Loading','Loading…'),'pro-status');status.setAttribute('role','status');status.setAttribute('aria-live','polite');root.append(status);content=node('div');root.append(content);options.onRoute?.(feature);
     const epoch=revision;
     try {
       await verifyAccess();if(access.plan!=='pro')throw new Error(text('ProRequired','An active Pro subscription is required.'));
-      const [accountData,strategyData]=await Promise.all([request('/accounts'),request('/strategies')]);if(epoch!==revision)return;accounts=accountData.items || [];strategies=strategyData.items || [];
-      await ({analytics,heatmap,strategies:strategyComparison,risk,reviews,reports,'ai-behaviour':()=>ai('behaviour'),'ai-market':()=>ai('market'),'ai-journal':()=>ai('journal'),'global-news':news})[feature]();if(epoch===revision && status.textContent===text('Loading','Loading…'))status.textContent='';
+      if(!['ai-market','global-news'].includes(feature)) {
+        const [accountData,strategyData]=await Promise.all([request('/accounts'),request('/strategies')]);if(epoch!==revision)return;accounts=accountData.items || [];strategies=strategyData.items || [];
+      }
+      await ({analytics,heatmap,strategies:strategyComparison,risk,reviews,reports,'ai-behaviour':()=>ai('behaviour'),'ai-market':marketIntelligence,'ai-journal':()=>ai('journal'),'global-news':news})[feature]();if(epoch===revision && status.textContent===text('Loading','Loading…'))status.textContent='';
     } catch(error) {if(epoch===revision)showError(error);}
   }
   function reset() {revision++;controller.abort();controller=new AbortController();clearAccess();current='';filters={};preset={};accounts=[];strategies=[];root?.replaceChildren();status=null;content=null;}

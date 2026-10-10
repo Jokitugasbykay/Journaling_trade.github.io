@@ -74,7 +74,7 @@ async def process_job(store, settings, job):
     if kind == "market":
         context = await asyncio.to_thread(load_market, settings, config.instrument, config.timeframe)
         evidence = {"market": context}
-        ids = ["technical", "multi_timeframe", "statistical_baseline"]
+        ids = ["technical", "multi_timeframe", "statistical_baseline", "kaystrade"]
         for group in ("macro", "news", "geopolitics"):
             for index, item in enumerate(context[group]):
                 item["evidence_id"] = f"{group}-{index}"
@@ -103,6 +103,10 @@ async def process_job(store, settings, job):
         elif config.analysis_type == "review":
             evidence["reviews"] = await store.rows("performance_reviews", {"user_id": f"eq.{uid}", "limit": 5, "order": "period_start.desc"})
     result = await explain(store.client, settings, kind, evidence, ids)
+    if kind == "market":
+        signal = context["kaystrade"]["signal"]
+        result["signal"] = signal
+        result["market_outcome"] = {"BUY": "Bullish", "SELL": "Bearish", "NEUTRAL": "Neutral", "NO TRADE": "Insufficient Data" if signal["status"] == "INSUFFICIENT DATA" else "No Trade"}[signal["direction"]]
     result["analysis_horizon"] = config.timeframe if kind == "market" else "Selected journal period"
     result["generated_at"] = datetime.now(timezone.utc).isoformat()
     return result

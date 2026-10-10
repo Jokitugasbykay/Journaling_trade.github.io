@@ -53,7 +53,7 @@ for(const name of ['toggleBillingCycle','openQuickTrade','openProfileModal']) as
   {
     const nodes = new Map();
     const get = id => { if(!nodes.has(id)) nodes.set(id,{hidden:false,disabled:false,setAttribute(){},classList:{toggle(){},contains(){return false;}}});return nodes.get(id); };
-    const buttons = Array.from({length:10},(_,index)=>Object.assign(get('pro-'+index),{dataset:{proTab:String(index)}}));
+    const buttons = [Object.assign(get('nav-pro'),{dataset:{proTab:'workspace'}})];
     let bridge, opened = [];
     const pro = {cloudUser:{id:'user-a'},verifiedNewsUserId:'user-a',cloudReady:true,nicknameReady:true,$:get,clearTimeout(){},setTimeout:()=>1,
       JTPRO:{configure(options){bridge=options;},open(feature){opened.push(feature);}},JTPRO_CONFIG:{apiBase:''},
@@ -64,15 +64,40 @@ for(const name of ['toggleBillingCycle','openQuickTrade','openProfileModal']) as
     pro.renderProNavigation();assert.equal(get('nav-ai-trading').hidden,false);assert.ok(buttons.every(b=>b.hidden&&b.disabled));
     bridge.onAccessChange({plan:'pro',effective_until:'2099-01-01T00:00:00Z'});
     assert.equal(get('nav-ai-trading').hidden,true);assert.ok(buttons.every(b=>!b.hidden&&!b.disabled));
-    await pro.openProAnalytics(9);assert.deepEqual(opened,['global-news']);
-    await pro.openProAnalytics(10);assert.equal(opened.length,1);
+    await pro.openProWorkspace();assert.deepEqual(opened,['ai-market']);
+    await pro.openProAnalytics(9);assert.deepEqual(opened,['ai-market','global-news']);
+    await pro.openProAnalytics(10);assert.equal(opened.length,2);
     bridge.onAccessChange({plan:'pro',effective_until:'2000-01-01T00:00:00Z'});
     assert.equal(get('nav-ai-trading').hidden,false);assert.ok(buttons.every(b=>b.hidden&&b.disabled));
     bridge.onAccessChange({plan:'plus'});assert.equal(get('nav-ai-trading').disabled,true);
+    pro.isNewsFounder=()=>true;bridge.onAccessChange({plan:'free'});assert.ok(buttons.every(b=>b.hidden&&b.disabled),'Founder label alone must not unlock Pro');
     bridge.onAccessChange({plan:'pro',effective_until:'2099-01-01T00:00:00Z'});pro.cloudUser={id:'user-b'};pro.renderProNavigation();
     assert.ok(buttons.every(b=>b.hidden&&b.disabled),'Account changes must deny old verified Pro entitlements');
     assert.equal(bridge.getUserId(),'');pro.verifiedNewsUserId='user-b';assert.equal(bridge.getUserId(),'user-b');pro.cloudReady=false;assert.equal(bridge.getUserId(),'user-b');pro.nicknameReady=false;assert.equal(bridge.getUserId(),'');
+    const stack=['/home/','/pro?section=ai-market'];let cursor=1,restored='';
+    const move=path=>{const url=new URL(path,'https://example.test');Object.assign(pro.location,{pathname:url.pathname,search:url.search,hash:url.hash});};
+    Object.assign(pro,{URL,URLSearchParams,pageRoutes:{beranda:'home'},onboarding:{started:true},switchTab:tab=>{restored=tab;}});
+    pro.document.baseURI='https://example.test/';
+    pro.history={pushState(_state,_title,path){stack.splice(cursor+1);stack.push(path);cursor++;move(path);},replaceState(_state,_title,path){stack[cursor]=path;move(path);}};
+    pro.JTPRO.open=feature=>{opened.push(feature);bridge.onRoute(feature);};
+    vm.runInNewContext(source.slice(source.indexOf('      function restoreRoute()'),source.indexOf('      /* Initial Startup */')),pro);
+    move(stack[cursor]);pro.restoreRoute();
+    assert.deepEqual(stack,['/home/','/pro/'],'Restoring an explicit market deep link must replace its URL without adding a history entry');
+    assert.equal(cursor,1);assert.equal(opened.at(-1),'ai-market');
+    move(stack[--cursor]);pro.restoreRoute();
+    assert.equal(restored,'beranda');assert.equal(cursor,0);assert.equal(pro.location.pathname,'/home/');assert.deepEqual(stack,['/home/','/pro/']);
   }
+  const html=require('node:fs').readFileSync(require('node:path').join(__dirname,'../index.html'),'utf8');
+  assert.equal((html.match(/data-pro-tab=/g)||[]).length,1);
+  assert.ok(html.includes('onclick="openProWorkspace()"'));
+  assert.ok(!/<button[^>]*id="nav-ai-trading"[^>]*onclick=/.test(html));
+  const shellNav=html.match(/<nav\b[^>]*\bclass="[^"]*\bshell-nav\b[^"]*"[^>]*>([\s\S]*?)<\/nav>/)?.[1] || '';
+  const topButtons=[...shellNav.matchAll(/<button\b[^>]*>[\s\S]*?<\/button>/g)].map(match=>match[0]).filter(button=>!button.includes('id="nav-ai-trading"'));
+  assert.equal(topButtons.filter(button=>button.includes('id="nav-pro"')).length,1,'The shell must have exactly one Pro navigation button');
+  const proPosition=topButtons.findIndex(button=>button.includes('id="nav-pro"'));
+  assert.ok(topButtons[proPosition].includes('>Pro</button>'));assert.ok(topButtons[proPosition-1].includes('data-tab="berita"'),'Pro must follow Economic news');
+  const appRevision=html.match(/<script src="js\/app\.js\?v=([^"]+)"/)?.[1];
+  assert.ok(appRevision);assert.notEqual(appRevision,'20261010-account-switch','The new Pro handler requires a revised app.js URL for returning clients');
   const calls=[];
   const ctx={accounts:[{id:'a',startBalance:1}],trades:[{id:'t',accountId:'a',strategy:'s'}],profile:{name:'A'},cloudUser:{id:'user-a'},cloudReady:true,nicknameReady:true,cloudBusy:false,localRevision:0,
     cloudAccountIds:new Map([['a','a-id']]),cloudTradeIds:new Map([['t','t-id']]),cloudStrategyIds:new Map([['s','s-id']]),localAccountIds:new Map(),
@@ -118,5 +143,5 @@ for(const name of ['toggleBillingCycle','openQuickTrade','openProfileModal']) as
   schedule.scheduleCloudSave(); assert.equal(queued,1);
   schedule.cloudUser={id:'a'}; schedule.scheduleCloudSave(); assert.equal(queued,2);
   assert(source.includes("window.addEventListener('online', scheduleCloudSave)"));
-  console.log('Account ownership, stale sync/restore/nickname, vendor integrity and calendar checks passed');
+  console.log('Account ownership, Pro navigation/history/cache, stale sync/restore/nickname, vendor integrity and calendar checks passed');
 })().catch(e=>{console.error(e);process.exitCode=1});

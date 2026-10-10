@@ -93,9 +93,13 @@ class Engines(unittest.TestCase):
         output = {"observations": [{"text": "One recorded trade.", "evidence_ids": ["t1"]}]}
         self.assertEqual(validate_explanation(output, ["t1"])["observations"][0]["text"], "One recorded trade.")
         with self.assertRaises(ValueError): validate_explanation(output, ["other-user"])
-        for claim in ("confidence: 90%", "90% confidence", "confidence of 90%", "entry at $100", "stop loss is 90", "clinical depression"):
+        for claim in ("confidence: 90%", "90% confidence", "confidence of 90%", "entry at $100", "stop loss is 90", "clinical depression", "Beli di 99999; SL: 1; TP: 999999", "Probabilitas naik 99%"):
             output["observations"][0]["text"] = claim
             with self.subTest(claim=claim), self.assertRaises(ValueError): validate_explanation(output, ["t1"])
+        market = {"market_outcome": "No Trade", "observations": [{"text": "RSI14 pada H4 belum mengonfirmasi arah.", "evidence_ids": ["kaystrade"]}]}
+        validate_explanation(market, ["kaystrade"], market=True)
+        market["observations"][0]["text"] = "Harga akan bergerak ke 99999."
+        with self.assertRaises(ValueError): validate_explanation(market, ["kaystrade"], market=True)
         with self.assertRaises(ValidationError): RiskRule(name="x", kind="max_trades_per_day", threshold="1.5")
         with self.assertRaises(ValidationError): ImportTrade(account_id=ACCOUNT, symbol="x", side="long", opened_at="2026-10-01T12:00:00", pnl="1")
         start, end, _, _ = period_bounds(Review(period="monthly", start="2024-02-20"))
@@ -134,6 +138,18 @@ class Engines(unittest.TestCase):
             with self.assertRaises(HTTPException) as invalid: load_market(Settings(market_root=root), "XAUUSD", "1h", now=now)
             self.assertEqual(invalid.exception.status_code, 503)
             snapshot["macro"] = []
+            rating = {"timeframe": "4h", "summary": "buy", "moving_averages": "buy", "oscillators": "buy", "timestamp": now.isoformat(), "tradingview_symbol": "NASDAQ:AAPL", "source_url": "https://www.tradingview.com/symbols/NASDAQ-AAPL/technicals/"}
+            snapshot["technicals"] = [rating]
+            path.write_text(json.dumps(snapshot))
+            with self.assertRaises(HTTPException) as wrong_symbol: load_market(Settings(market_root=root), "XAUUSD", "1h", now=now)
+            self.assertEqual(wrong_symbol.exception.status_code, 503)
+            rating.update(tradingview_symbol="OANDA:XAUUSD", source_url="https://www.tradingview.com/symbols/OANDA-XAUUSD/technicals/")
+            path.write_text(json.dumps(snapshot))
+            self.assertEqual(len(load_market(Settings(market_root=root), "XAUUSD", "1h", now=now)["kaystrade"]["technicals"]), 1)
+            rating["source_url"] = "https://www.tradingview.com/symbols/NASDAQ-AAPL/technicals/"
+            path.write_text(json.dumps(snapshot))
+            with self.assertRaises(HTTPException): load_market(Settings(market_root=root), "XAUUSD", "1h", now=now)
+            snapshot["technicals"] = []
             for candle in candles:
                 candle["timestamp"] = (datetime.fromisoformat(candle["timestamp"]) - timedelta(hours=3)).isoformat()
             path.write_text(json.dumps(snapshot))
@@ -234,6 +250,21 @@ class ApiContracts(unittest.TestCase):
         self.assertTrue(first.json()["storage_path"].startswith(UID + "/"))
         oversized = self.client.post("/api/v1/reports", headers=self.headers, content=iter([b"x" * 1_100_000, b"x" * 1_100_000]))
         self.assertEqual(oversized.status_code, 413)
+
+    def test_market_catalog_engine_and_authorization(self):
+        self.assertEqual(self.client.get('/api/v1/market/instruments').status_code, 401)
+        for plan in ('free', 'plus'):
+            self.plan = plan
+            self.assertEqual(self.client.get('/api/v1/market/instruments', headers=self.headers).status_code, 403)
+            self.assertEqual(self.client.get('/api/v1/ai/engine', headers=self.headers).status_code, 403)
+        self.plan = 'pro'
+        self.assertEqual(self.client.get('/api/v1/market/instruments', headers=self.headers).status_code, 503)
+        result = self.client.get('/api/v1/ai/engine', headers=self.headers)
+        self.assertEqual(result.json()['status'], 'unavailable')
+        self.assertEqual(self.job_calls, 0)
+        result = self.client.post('/api/v1/ai/market-analysis', headers=self.headers, json={})
+        self.assertEqual(result.status_code, 422)
+        self.assertEqual(self.job_calls, 0)
 
     def test_calendar_filters_local_dates_and_preserves_zero(self):
         source = self.app.state.settings.data_root / "kalender.json"

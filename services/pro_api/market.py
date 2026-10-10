@@ -12,8 +12,9 @@ from pydantic import BaseModel, ConfigDict, Field, model_validator
 
 from .analytics import number, timestamp, wire
 from .statistical import forecast
+from .kaystrade import analyze
 
-TIMEFRAMES = {"1m": 60, "5m": 300, "15m": 900, "1h": 3600, "4h": 14400, "1d": 86400}
+TIMEFRAMES = {"1m": 60, "5m": 300, "15m": 900, "30m": 1800, "1h": 3600, "4h": 14400, "1d": 86400}
 
 
 class Candle(BaseModel):
@@ -32,6 +33,28 @@ class Candle(BaseModel):
         return self
 
 
+class TechnicalRating(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+    timeframe: str
+    summary: str
+    moving_averages: str
+    oscillators: str
+    timestamp: datetime
+    source_url: str
+    tradingview_symbol: str = Field(pattern=r"^[A-Z0-9_.]+:[A-Z0-9_.]+$")
+
+    @model_validator(mode="after")
+    def valid_rating(self):
+        source = urlparse(self.source_url)
+        if self.timeframe not in ("4h", "1d") or any(getattr(self, key) not in ("buy", "sell", "neutral") for key in ("summary", "moving_averages", "oscillators")):
+            raise ValueError("Invalid Technicals rating")
+        if self.timestamp.tzinfo is None or source.scheme != "https" or source.hostname not in ("www.tradingview.com", "tradingview.com") or source.username or source.password:
+            raise ValueError("Technicals require verified TradingView source and timestamp")
+        if source.path.rstrip("/") != "/symbols/" + self.tradingview_symbol.replace(":", "-") + "/technicals":
+            raise ValueError("Technicals source does not match its instrument")
+        return self
+
+
 class Snapshot(BaseModel):
     model_config = ConfigDict(extra="forbid")
     instrument: str
@@ -41,6 +64,10 @@ class Snapshot(BaseModel):
     as_of: datetime
     market_open: bool
     valid_until: datetime
+    price_tick: Decimal | None = Field(default=None, gt=0, allow_inf_nan=False)
+    delayed: bool = False
+    delay_seconds: int = Field(default=0, ge=0, le=86400)
+    technicals: list[TechnicalRating] = Field(default_factory=list, max_length=2)
     candles: list[Candle] = Field(min_length=51, max_length=10000)
     macro: list[dict] = Field(default_factory=list, max_length=100)
     news: list[dict] = Field(default_factory=list, max_length=100)
@@ -55,12 +82,21 @@ class Snapshot(BaseModel):
         stamps = [c.timestamp for c in self.candles]
         if stamps != sorted(set(stamps)) or stamps[-1] > self.as_of or self.as_of > self.valid_until:
             raise ValueError("Snapshot timestamps are inconsistent")
+        if len({r.timeframe for r in self.technicals}) != len(self.technicals) or any(r.timestamp > self.as_of or self.as_of - r.timestamp > timedelta(seconds=TIMEFRAMES[r.timeframe]) for r in self.technicals):
+            raise ValueError("Technicals timestamps are stale or duplicated")
         for items in (self.macro, self.news, self.geopolitics):
             for item in items:
                 reference = urlparse(item.get("source_url", ""))
                 moment = timestamp(item.get("timestamp"))
                 if reference.scheme != "https" or not reference.hostname or reference.username or reference.password or moment is None or moment > self.as_of:
                     raise ValueError("Context evidence requires HTTPS source and timestamp")
+        for points in self.cross_market.values():
+            if any(not isinstance(row, dict) for row in points):
+                raise ValueError("Invalid cross-market evidence")
+            stamps = [timestamp(row.get("timestamp")) for row in points]
+            prices = [number(row.get("close")) for row in points]
+            if len(points) > 10000 or any(t is None or t > self.as_of for t in stamps) or stamps != sorted(set(stamps)) or any(p is None or not p.is_finite() or p <= 0 for p in prices):
+                raise ValueError("Invalid cross-market evidence")
         return self
 
 
@@ -97,9 +133,13 @@ def technical(candles):
 
 
 def correlation(candles, other):
+    if not candles:
+        return {"correlation": None, "sample_size": 0, "warning": "No closed bars are available"}
     a = {c.timestamp: c.close for c in candles}
     b = {timestamp(row["timestamp"]): number(row["close"]) for row in other}
     common = sorted(a.keys() & b.keys())
+    if not common or common[-1] != candles[-1].timestamp:
+        return {"correlation": None, "sample_size": max(0, len(common) - 1), "warning": "Latest closed-bar timestamps are not aligned"}
     if len(common) < 31:
         return {"correlation": None, "sample_size": max(0, len(common) - 1), "warning": "At least 30 aligned returns are required"}
     x, y = [], []
@@ -114,16 +154,33 @@ def correlation(candles, other):
             "sample_size": len(x), "warning": "Historical correlation is not causation and may change"}
 
 
+def instrument_catalog(settings):
+    path = settings.market_root / "manifest.json"
+    try:
+        if path.stat().st_size > 100000:
+            raise ValueError("Manifest too large")
+        manifest = json.loads(path.read_text(encoding="utf-8"))
+        items = []
+        for symbol, row in manifest["instruments"].items():
+            if not re.fullmatch(r"[A-Z0-9_]{1,30}", symbol) or not re.fullmatch(r"[A-Z0-9_.:-]{1,100}", row["tradingview_symbol"], re.I):
+                raise ValueError("Invalid instrument mapping")
+            frames = row.get("timeframes", [frame for frame in TIMEFRAMES if (settings.market_root / f"{symbol}_{frame}.json").is_file()])
+            if not frames or any(frame not in TIMEFRAMES for frame in frames):
+                raise ValueError("Invalid provider timeframe mapping")
+            items.append({"symbol": symbol, "name": row.get("name", symbol), "asset_class": row.get("asset_class", "Unspecified"),
+                          "tradingview_symbol": row["tradingview_symbol"], "timeframes": frames})
+        return {"items": items, "timeframes": list(TIMEFRAMES)}
+    except (OSError, ValueError, KeyError, TypeError, AttributeError) as exc:
+        raise HTTPException(503, "An authorized provider instrument manifest is unavailable or invalid") from exc
+
+
 def load_market(settings, instrument, timeframe, now=None):
     if not re.fullmatch(r"[A-Z0-9_]{1,30}", instrument) or timeframe not in TIMEFRAMES:
         raise HTTPException(422, "Unsupported instrument or timeframe")
     # Operator configuration is the authorization boundary; users cannot supply a URL or path.
-    manifest_file = settings.market_root / "manifest.json"
-    if not manifest_file.is_file():
-        raise HTTPException(503, "An authorized market provider and instrument manifest have not been configured")
-    manifest = json.loads(manifest_file.read_text(encoding="utf-8"))
-    if instrument not in manifest.get("instruments", {}):
-        raise HTTPException(422, "Instrument is not configured by the authorized provider")
+    mapped = next((row for row in instrument_catalog(settings)["items"] if row["symbol"] == instrument), None)
+    if mapped is None or timeframe not in mapped["timeframes"]:
+        raise HTTPException(422, "Instrument or timeframe is not configured by the authorized provider")
     path = (settings.market_root / f"{instrument}_{timeframe}.json").resolve()
     if path.parent != settings.market_root or not path.is_file() or path.stat().st_size > 5_000_000:
         raise HTTPException(503, "Market snapshot is unavailable")
@@ -132,6 +189,8 @@ def load_market(settings, instrument, timeframe, now=None):
         now = now or datetime.now(timezone.utc)
         if snapshot.instrument != instrument or snapshot.timeframe != timeframe:
             raise ValueError("Snapshot mapping mismatch")
+        if any(r.tradingview_symbol != mapped["tradingview_symbol"] for r in snapshot.technicals):
+            raise ValueError("Technicals belong to another instrument")
         if snapshot.as_of > now + timedelta(seconds=30) or snapshot.valid_until < now:
             raise HTTPException(409, "Market data is stale or its timestamp is invalid")
         if snapshot.market_open and now - snapshot.as_of > timedelta(seconds=TIMEFRAMES[timeframe] * 2):
@@ -144,15 +203,20 @@ def load_market(settings, instrument, timeframe, now=None):
                 raise ValueError("Invalid multi-timeframe evidence")
             if snapshot.market_open and now - candles[-1].timestamp > timedelta(seconds=TIMEFRAMES[frame] * 2):
                 raise HTTPException(409, "Multi-timeframe market data is stale")
-        return {"instrument": instrument, "timeframe": timeframe, "tradingview_symbol": manifest["instruments"][instrument]["tradingview_symbol"],
+        closed = [c for c in snapshot.candles if c.timestamp + timedelta(seconds=TIMEFRAMES[timeframe]) <= snapshot.as_of]
+        closed_frames = {frame: [c for c in candles if c.timestamp + timedelta(seconds=TIMEFRAMES[frame]) <= snapshot.as_of] for frame, candles in snapshot.other_timeframes.items()}
+        return {"instrument": instrument, "timeframe": timeframe, "tradingview_symbol": mapped["tradingview_symbol"],
+                "name": mapped["name"], "asset_class": mapped["asset_class"],
                 "as_of": snapshot.as_of.isoformat(), "provider": snapshot.provider,
                 "license_reference": snapshot.license_reference, "market_open": snapshot.market_open,
-                "technical": technical(snapshot.candles), "macro": snapshot.macro, "news": snapshot.news,
+                "current_price": str(snapshot.candles[-1].close), "delayed": snapshot.delayed, "delay_seconds": snapshot.delay_seconds,
+                "kaystrade": analyze(snapshot, TIMEFRAMES),
+                "technical": technical(closed) if len(closed) >= 51 else {"status": "insufficient_closed_bars"}, "macro": snapshot.macro, "news": snapshot.news,
                 "geopolitics": snapshot.geopolitics,
-                "multi_timeframe": {frame: technical(candles) for frame, candles in snapshot.other_timeframes.items()},
-                "correlations": {symbol: correlation(snapshot.candles, points) for symbol, points in snapshot.cross_market.items()},
-                "statistical_forecast": forecast(snapshot.candles),
-                "data_freshness": "fresh"}
+                "multi_timeframe": {frame: technical(candles) for frame, candles in closed_frames.items() if len(candles) >= 51},
+                "correlations": {symbol: correlation(closed, points) for symbol, points in snapshot.cross_market.items()},
+                "statistical_forecast": forecast(closed),
+                "data_freshness": "delayed" if snapshot.delayed else "fresh"}
     except HTTPException:
         raise
     except (ValueError, KeyError, TypeError) as exc:

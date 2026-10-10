@@ -24,7 +24,7 @@ from fastapi.security import HTTPAuthorizationCredentials, HTTPBearer
 
 from .ai import model_available
 from .analytics import heatmap, number, open_exposure, overview, position_size, records, review, risk_analysis, wire
-from .market import load_market
+from .market import instrument_catalog, load_market
 from .models import Analysis, Filters, Import, Position, Report, Review, RiskRule, Strategy
 from .store import Settings, Store, entitlements
 
@@ -418,7 +418,6 @@ def create_app(settings=None, transport=None):
     async def analyze(kind: str, payload: Analysis, user: ProDep, key: Key, request: Request):
         if kind not in ("behaviour", "journal", "market"):
             raise HTTPException(404, "Analysis type not found")
-        await model_available(request.app.state.client, settings)
         if kind == "market":
             if not payload.instrument or not payload.timeframe:
                 raise HTTPException(422, "Select an instrument and timeframe")
@@ -427,10 +426,23 @@ def create_app(settings=None, transport=None):
             rows, _, _, _ = await dataset(user.store, user.id, payload)
             if not rows:
                 raise HTTPException(422, "No validated closed trades are available for this period")
+        await model_available(request.app.state.client, settings)
         return await create_job(user, kind, payload.model_dump(mode="json"), key)
 
+    @app.get("/api/v1/market/instruments")
+    async def market_instruments(user: ProDep):
+        return await asyncio.to_thread(instrument_catalog, settings)
+
+    @app.get("/api/v1/ai/engine")
+    async def engine_status(user: ProDep, request: Request):
+        try:
+            model = await model_available(request.app.state.client, settings)
+            return {"status": "ready", "name": model["name"], "version": model["digest"], "methodology": "kaystrade-closed-bars-v1", "forecasting_model": None}
+        except HTTPException as exc:
+            return {"status": "unavailable", "detail": exc.detail, "forecasting_model": None}
+
     @app.get("/api/v1/market/context")
-    async def market_context(user: ProDep, instrument: str = Query(pattern=r"^[A-Z0-9_]{1,30}$"), timeframe: str = Query(pattern=r"^(1m|5m|15m|1h|4h|1d)$")):
+    async def market_context(user: ProDep, instrument: str = Query(pattern=r"^[A-Z0-9_]{1,30}$"), timeframe: str = Query(pattern=r"^(1m|5m|15m|30m|1h|4h|1d)$")):
         return await asyncio.to_thread(load_market, settings, instrument, timeframe)
 
     @app.post("/api/v1/market/refresh")

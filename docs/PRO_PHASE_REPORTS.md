@@ -2,6 +2,8 @@
 
 Work branch: `feature/pro-platform`. Baseline: `9456dfd043bf08a5095efdaa10b62b30c0a590f9`. Correct Supabase project: journaltrading `nmddjuqkdyhcobddinkc`. All edits and tests here are local. No migrations, private buckets, paid entitlements, billing activation or production deployment were applied remotely.
 
+The original phase records below are historical. The later unified navigation/Kaystrade revision and current verification results are documented in [Pro workspace revision](pro-workspace-revision.md); that revision replaces ten header links with one Pro entry without removing their functionality.
+
 ## Status by phase
 
 | Phase | Status | Actual result / remaining gate |

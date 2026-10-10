@@ -7,7 +7,7 @@
   <script>
     (() => {
       const parts = location.pathname.split('/').filter(Boolean);
-      const route = parts.findIndex(part => ['home', 'journal', 'statistics', 'calculator', 'economic-news', 'login', 'profile', 'analytics', 'heatmap', 'strategies', 'risk', 'reviews', 'reports', 'ai', 'global-news'].includes(part));
+      const route = parts.findIndex(part => ['home', 'journal', 'statistics', 'calculator', 'economic-news', 'login', 'profile', 'pro', 'analytics', 'heatmap', 'strategies', 'risk', 'reviews', 'reports', 'ai', 'global-news'].includes(part));
       const prefix = route < 0 ? parts.filter(part => part !== 'index.html') : parts.slice(0, route);
       document.getElementById('site-base').href = '/' + (prefix.length ? prefix.join('/') + '/' : '');
     })();
@@ -26,7 +26,7 @@
   <link rel="stylesheet" href="css/home.css?v=20261009-home-brand">
   <link rel="stylesheet" href="css/journal.css?v=20261010-redesign">
   <link rel="stylesheet" href="css/shell.css?v=20261010-spacing">
-  <link rel="stylesheet" href="css/pro.css?v=20261010-pro">
+  <link rel="stylesheet" href="css/pro.css?v=20261010-workspace">
 </head>
 
 <body>
@@ -41,16 +41,7 @@
         <button class="nav-tab" data-tab="kalkulator" onclick="switchTab('kalkulator')" disabled data-i18n="calculator">Calculator</button>
         <button class="nav-tab" data-tab="berita" onclick="switchTab('berita')" disabled data-i18n="news">Economic news</button>
         <button class="nav-tab" id="nav-ai-trading" type="button" disabled aria-disabled="true" hidden data-i18n="proAiTrading">AI Trading</button>
-        <button class="nav-tab" type="button" data-pro-tab="0" onclick="openProAnalytics(0)" hidden data-i18n="proAnalyticsTitle">Advanced Analytics</button>
-        <button class="nav-tab" type="button" data-pro-tab="1" onclick="openProAnalytics(1)" hidden data-i18n="proHeatmapTitle">Performance Heatmap</button>
-        <button class="nav-tab" type="button" data-pro-tab="2" onclick="openProAnalytics(2)" hidden data-i18n="proStrategyComparisonTitle">Strategy Comparison</button>
-        <button class="nav-tab" type="button" data-pro-tab="3" onclick="openProAnalytics(3)" hidden data-i18n="proRiskIntelligenceTitle">Risk Intelligence</button>
-        <button class="nav-tab" type="button" data-pro-tab="4" onclick="openProAnalytics(4)" hidden data-i18n="proReviewTitle">Weekly & Monthly Review</button>
-        <button class="nav-tab" type="button" data-pro-tab="5" onclick="openProAnalytics(5)" hidden>PDF Reports</button>
-        <button class="nav-tab" type="button" data-pro-tab="6" onclick="openProAnalytics(6)" hidden>AI Behaviour Analysis</button>
-        <button class="nav-tab" type="button" data-pro-tab="7" onclick="openProAnalytics(7)" hidden>AI Market Intelligence</button>
-        <button class="nav-tab" type="button" data-pro-tab="8" onclick="openProAnalytics(8)" hidden>AI Journal Analyst</button>
-        <button class="nav-tab" type="button" data-pro-tab="9" onclick="openProAnalytics(9)" hidden>Global News</button>
+        <button class="nav-tab" id="nav-pro" type="button" data-pro-tab="workspace" onclick="openProWorkspace()" hidden>Pro</button>
       </nav>
       <div class="navbar-right shell-actions">
         <span class="shell-guest" id="nav-guest-badge"><span class="shell-guest-icon" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4"><circle cx="8" cy="5.5" r="2.5"></circle><path d="M3 13.5c.6-2.4 2.6-3.5 5-3.5s4.4 1.1 5 3.5" stroke-linecap="round"></path></svg></span><span data-i18n="shellGuest">Guest</span></span>
@@ -1307,8 +1298,8 @@
   <script src="js/i18n.js?v=20261010-locales"></script>
   <script src="js/pro-config.js?v=20261010-pro"></script>
   <script src="js/pro-import.js?v=20261010-pro"></script>
-  <script src="js/pro.js?v=20261010-pro"></script>
-  <script src="js/app.js?v=20261010-account-switch"></script>
+  <script src="js/pro.js?v=20261010-workspace"></script>
+  <script src="js/app.js?v=20261010-pro-workspace"></script>
   <script src="js/home.js?v=20261009-home-brand"></script>
   <script src="js/fed.js?v=20261010-locales"></script>
 
