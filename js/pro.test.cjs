@@ -6,7 +6,10 @@ context.fetch=async(url,options)=>{calls.push({url,options});if(onFetch)await on
 vm.runInNewContext(source,context);const api=context.window.JTPRO;
 const setup=(extra={})=>api.configure({apiBase:'https://gateway.test',getToken:async()=>token,getUserId:()=>owner,...extra});
 (async()=>{
-  assert.equal(Object.keys(api.features).length,10);
+  assert.equal(Object.keys(api.features).length,11);
+  assert.equal(api.features['ai-chat'],'AI Chat');
+  assert.ok(source.includes("request('/ai/chat/history'"));
+  assert.ok(source.includes("request('/ai/chat'"));
   assert.equal(api.safeLink('javascript:alert(1)'),null);
   assert.equal(api.safeLink('https://user:password@example.test/a'),null);
   assert.equal(api.safeLink('http://example.test/a'),null);

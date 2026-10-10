@@ -4,7 +4,7 @@
     analytics:'Advanced Analytics', heatmap:'Performance Heatmap', strategies:'Strategy Comparison',
     risk:'Risk Intelligence', reviews:'Weekly & Monthly Review', reports:'PDF Reports',
     'ai-behaviour':'AI Behaviour Analysis', 'ai-market':'AI Market Intelligence',
-    'ai-journal':'AI Journal Analyst', 'global-news':'Global News'
+    'ai-journal':'AI Journal Analyst', 'ai-chat':'AI Chat', 'global-news':'Global News'
   };
   const timeframes = {'1m':'1','5m':'5','15m':'15','30m':'30','1h':'60','4h':'240','1d':'D'};
   let options={}, revision=0, controller=new AbortController(), access=null, current='', root=null, status=null, content=null, filters={}, preset={}, accounts=[], strategies=[];
@@ -260,9 +260,9 @@
     let job=first, epoch=revision;const owner=options.getUserId?.();
     for(let attempt=0;attempt<90 && epoch===revision && owner===options.getUserId?.();attempt++) {
       parent.replaceChildren();details(parent,{id:job.id,state:job.state,error:job.error});
-      if(job.state==='succeeded'){if(kind==='ai')render(parent,job.result,job.id);return job;}
+      if(job.state==='succeeded'){if(kind==='ai'||kind==='chat')render(parent,job.result,job.id);return job;}
       if(['failed','cancelled','expired'].includes(job.state))return job;
-      if(kind==='ai')parent.append(button('Cancel analysis',async()=>{await request('/ai/jobs/'+job.id+'/cancel',{method:'POST',body:{}});},'pro-ai-cancel'));
+      if(kind==='ai'||kind==='chat')parent.append(button(kind==='chat'?'Cancel response':'Cancel analysis',async()=>{await request('/ai/jobs/'+job.id+'/cancel',{method:'POST',body:{}});},'pro-ai-cancel'));
       await new Promise((resolve,reject)=>{const timer=setTimeout(resolve,2000);const cancel=()=>{clearTimeout(timer);reject(new DOMException('Account changed','AbortError'));};controller.signal.addEventListener('abort',cancel,{once:true});setTimeout(()=>controller.signal.removeEventListener('abort',cancel),2100);});
       job=await request('/'+(kind==='ai'?'ai/jobs':kind==='reviews'?'jobs':'reports')+'/'+job.id);
     }
@@ -283,6 +283,20 @@
       if(kind==='market')await request('/market/context?'+query({instrument:values.instrument,timeframe:values.timeframe}));
       const job=await request('/ai/'+kind+'-analysis',{method:'POST',body:values,headers:{'Idempotency-Key':crypto.randomUUID()}});await watchJob('ai',job,result);await verifyAccess();showQuota();await loadHistory();
     },'pro-ai-generate'));await loadHistory();
+  }
+  async function aiChat() {
+    const quota=node('p',null,'pro-muted');
+    const thread=panel('Conversation'),messages=node('div',null,'pro-chat-messages');messages.setAttribute('role','log');messages.setAttribute('aria-live','polite');messages.setAttribute('aria-label','AI chat conversation');thread.append(messages);
+    const composer=node('div',null,'pro-chat-composer'),input=node('textarea');input.id='pro-ai-chat-message';input.name='message';input.maxLength=4000;input.rows=3;input.required=true;input.setAttribute('aria-label','Message the AI assistant');input.placeholder='Ask about your journal, trading process, or a market concept…';
+    const note=node('p','AI chat uses one shared monthly allowance per successful reply. It does not have live prices or news and does not provide trade signals.','pro-muted');
+    content.append(quota,thread,composer,note);
+    const showQuota=()=>{quota.textContent='AI analyses remaining this month: '+format(access?.ai?.remaining)+' / '+format(access?.ai?.limit || 30);};
+    const bubble=(role,value,time)=>{const item=node('article',null,'pro-chat-message');item.dataset.role=role;item.append(node('h3',role==='user'?'You':'AI assistant'),node('p',value));if(time)item.append(node('time',format(time),'pro-muted'));return item;};
+    const load=async()=>{const data=await request('/ai/chat/history',{latest:true});messages.replaceChildren();for(const item of [...(data.items || [])].reverse()){messages.append(bubble('user',item.message,item.created_at));if(item.reply)messages.append(bubble('assistant',item.reply,item.created_at));else if(item.state==='failed'||item.state==='cancelled')messages.append(bubble('assistant','This reply was not completed. No AI allowance was charged.',item.created_at));else messages.append(bubble('assistant','Response is processing…',item.created_at));}if(!messages.childElementCount)messages.append(node('p','Ask a question to start your private Pro chat.','pro-muted'));};
+    const answer=(parent,result)=>{parent.replaceChildren(bubble('assistant',result.reply,result.generated_at));};
+    const send=button('Send message',async()=>{const message=input.value.trim();if(!message)throw new Error('Enter a message first.');await verifyAccess();showQuota();if(!(Number(access.ai?.remaining)>0))throw new Error('No AI allowance remains this month.');if(!global.confirm('A successful AI reply uses one shared monthly AI allowance. Continue?'))return;const job=await request('/ai/chat',{method:'POST',body:{message},headers:{'Idempotency-Key':crypto.randomUUID()}});input.value='';messages.replaceChildren(bubble('user',message));await watchJob('chat',job,messages,answer);await load();await verifyAccess();showQuota();},'pro-ai-chat-send');
+    input.addEventListener('keydown',event=>{if(event.key==='Enter'&&(event.ctrlKey||event.metaKey)){event.preventDefault();send.click();}});composer.append(input,send);
+    await Promise.all([load(),Promise.resolve(showQuota())]);
   }
   function disclosure(parent,title,value) {
     const section=node('details',null,'pro-disclosure');section.append(node('summary',title));parent.append(section);
@@ -434,10 +448,10 @@
     const epoch=revision;
     try {
       await verifyAccess();if(access.plan!=='pro')throw new Error(text('ProRequired','An active Pro subscription is required.'));
-      if(!['ai-market','global-news'].includes(feature)) {
+      if(!['ai-market','ai-chat','global-news'].includes(feature)) {
         const [accountData,strategyData]=await Promise.all([request('/accounts'),request('/strategies')]);if(epoch!==revision)return;accounts=accountData.items || [];strategies=strategyData.items || [];
       }
-      await ({analytics,heatmap,strategies:strategyComparison,risk,reviews,reports,'ai-behaviour':()=>ai('behaviour'),'ai-market':marketIntelligence,'ai-journal':()=>ai('journal'),'global-news':news})[feature]();if(epoch===revision && status.textContent===text('Loading','Loading…'))status.textContent='';
+      await ({analytics,heatmap,strategies:strategyComparison,risk,reviews,reports,'ai-behaviour':()=>ai('behaviour'),'ai-market':marketIntelligence,'ai-journal':()=>ai('journal'),'ai-chat':aiChat,'global-news':news})[feature]();if(epoch===revision && status.textContent===text('Loading','Loading…'))status.textContent='';
     } catch(error) {if(epoch===revision)showError(error);}
   }
   function reset() {revision++;controller.abort();controller=new AbortController();clearAccess();current='';filters={};preset={};accounts=[];strategies=[];root?.replaceChildren();status=null;content=null;}

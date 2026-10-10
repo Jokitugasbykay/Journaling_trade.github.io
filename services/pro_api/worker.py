@@ -7,7 +7,7 @@ from uuid import uuid4
 
 import httpx
 
-from .ai import explain
+from .ai import chat, explain
 from .analytics import overview, review, risk_analysis
 from .app import dataset, report_preview
 from .market import load_market
@@ -70,6 +70,19 @@ async def process_job(store, settings, job):
         saved = await store.insert("performance_reviews", entry, upsert=True,
                                    conflict="user_id,account_id,period,period_start,timezone")
         return {"review": saved[0]}
+    if kind == "journal" and payload.get("purpose") == "chat":
+        previous = await store.rows("platform_jobs", {"user_id": f"eq.{uid}", "kind": "eq.journal",
+                                  "payload->>purpose": "eq.chat", "status": "eq.succeeded",
+                                  "order": "created_at.desc", "limit": 10})
+        history = []
+        for row in reversed(previous):
+            question = row.get("payload", {}).get("message")
+            answer = (row.get("result") or {}).get("reply")
+            if question and answer:
+                history.extend(({"role": "user", "content": question[:1000]}, {"role": "assistant", "content": answer[:1000]}))
+        result = await chat(store.client, settings, history, payload["message"])
+        result["generated_at"] = datetime.now(timezone.utc).isoformat()
+        return result
     config = Analysis.model_validate(payload)
     if kind == "market":
         if not config.trading_style:

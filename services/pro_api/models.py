@@ -43,6 +43,10 @@ class MarketPreference(Input):
     trading_style: Literal["SCALPING", "INTRADAY", "SWING"]
 
 
+class ChatPrompt(Input):
+    message: str = Field(min_length=1, max_length=4000)
+
+
 class NotificationPreference(Input):
     browser_notifications: bool
 

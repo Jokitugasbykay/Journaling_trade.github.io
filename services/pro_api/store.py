@@ -109,7 +109,7 @@ def entitlements(raw):
         features += ["calendar", "regional_news"]
     if tier == "pro":
         features += ["advanced_analytics", "heatmap", "strategy_comparison", "risk_intelligence", "reviews",
-                     "reports", "ai_behaviour", "ai_market", "ai_journal", "global_news"]
+                     "reports", "ai_behaviour", "ai_market", "ai_journal", "ai_chat", "global_news"]
     return {"plan": tier, "effective_until": raw.get("effectiveUntil"), "entitlements": features,
             "countries": raw.get("countries", []),
             "ai": {"limit": raw.get("aiLimit", 0), "used": raw.get("aiUsed", 0),

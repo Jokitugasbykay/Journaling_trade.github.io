@@ -165,6 +165,15 @@ Every control below is inside AI Market Intelligence, requires owner authenticat
 | browser-notifications / Enable browser notifications | Native permission then PUT market/notification-preference | Open workspace only; permission fixture, no real push proof |
 | analysis-history / Open saved analysis | Existing saved-job loading; GET ai/jobs and ai/jobs/{id} | Original style, no quota; existing browser tests |
 
+## Pro AI chat
+
+| Component ID / label | Handler/action and API | Authentication / behavior / test |
+|---|---|---|
+| pro-section-ai-chat / AI Chat | Internal Pro workspace navigation | Auth + active Pro; default AI Market section remains unchanged; `js/pro.test.cjs` |
+| pro-ai-chat-message / Message the AI assistant | Native textarea; Ctrl/Command+Enter sends | Nonempty, max 4,000 chars; authenticated Pro only; `ChatPrompt` validation test |
+| pro-ai-chat-send / Send message | Confirmation, POST ai/chat, poll GET ai/jobs/{id}, POST ai/jobs/{id}/cancel | Existing durable `journal` job reserves shared AI quota; success consumes one; failure/cancel releases; API contract test |
+| pro-ai-chat-history / Conversation | GET ai/chat/history; load owner-scoped prior jobs | Existing platform_jobs RLS; no new table or browser transcript storage; history and worker owner-filter tests |
+
 ## Founder Pro entitlement follow-up
 
 | Component ID / label | Frontend handler | API operation | Authentication / subscription | State / test |

@@ -1,7 +1,9 @@
 """Deterministic engine and API contract tests; upstream HTTP is simulated explicitly."""
 import json
+import asyncio
 import tempfile
 import unittest
+from unittest.mock import AsyncMock, patch
 from datetime import date, datetime, timedelta, timezone
 from decimal import Decimal
 from io import BytesIO
@@ -18,10 +20,10 @@ from services.pro_api.ai import validate_explanation
 from services.pro_api.analytics import heatmap, open_exposure, overview, position_size, realized, records, review, risk_analysis
 from services.pro_api.app import create_app
 from services.pro_api.market import load_market
-from services.pro_api.models import ImportTrade, RiskRule
+from services.pro_api.models import ChatPrompt, ImportTrade, RiskRule
 from services.pro_api.reports import generate_pdf
 from services.pro_api.store import Settings
-from services.pro_api.worker import period_bounds
+from services.pro_api.worker import period_bounds, process_job
 from services.pro_api.models import Review
 
 UID = "b0b10000-0000-4000-a000-000000000001"
@@ -35,6 +37,31 @@ TRADES = [{"id": str(uuid4()), "account_id": ACCOUNT, "symbol": "EURUSD", "side"
 
 
 class Engines(unittest.TestCase):
+    def test_ai_chat_requires_bounded_message_and_uses_private_model(self):
+        with self.assertRaises(ValidationError): ChatPrompt(message="   ")
+        with self.assertRaises(ValidationError): ChatPrompt(message="x" * 4001)
+
+    def test_chat_worker_uses_only_owner_history_and_local_chat_engine(self):
+        class Store:
+            client = object()
+            async def rpc(self, name, payload):
+                return {"plan": "pro"}
+            async def rows(self, table, filters):
+                self.assertions = (table, filters)
+                return [{"payload": {"message": "Earlier question"}, "result": {"reply": "Earlier answer"}}]
+
+        store = Store()
+        job = {"user_id": UID, "kind": "journal", "payload": {"purpose": "chat", "message": "Next question"}}
+        async def run():
+            with patch("services.pro_api.worker.chat", new=AsyncMock(return_value={"reply": "A useful reply"})) as model:
+                result = await process_job(store, Settings(), job)
+                self.assertEqual(model.await_args.args[2], [{"role": "user", "content": "Earlier question"},
+                                                           {"role": "assistant", "content": "Earlier answer"}])
+                self.assertEqual(model.await_args.args[3], "Next question")
+                self.assertEqual(store.assertions[1]["user_id"], f"eq.{UID}")
+                return result
+        self.assertEqual(asyncio.run(run())["reply"], "A useful reply")
+
     def test_risk_breaches_are_not_erased_by_later_wins(self):
         trades = [{**TRADES[0], "id": "loss", "opened_at": "2026-10-01T10:00:00Z", "pnl": "-200"},
                   {**TRADES[1], "id": "win", "opened_at": "2026-10-01T11:00:00Z", "pnl": "250"}]
@@ -161,7 +188,7 @@ class Engines(unittest.TestCase):
 
 class ApiContracts(unittest.TestCase):
     def setUp(self):
-        self.plan, self.expired, self.job_calls, self.uploads = "pro", False, 0, 0
+        self.plan, self.expired, self.job_calls, self.uploads, self.rest_filters = "pro", False, 0, 0, []
         self.directory = tempfile.TemporaryDirectory()
         root = Path(self.directory.name)
         (root / "regional-sources.json").write_text(json.dumps({"ID": [{"id": "id"}], "US": [{"id": "us"}]}))
@@ -201,6 +228,7 @@ class ApiContracts(unittest.TestCase):
         if path.startswith("/rest/v1/"):
             self.assertEqual(request.url.params.get("user_id"), f"eq.{UID}")
             table = path.rsplit("/", 1)[-1]
+            self.rest_filters.append((table, dict(request.url.params)))
             return httpx.Response(200, json=ACCOUNTS if table == "trading_accounts" else TRADES if table == "trades" else [])
         if path.startswith("/storage/v1/object/authenticated/"): return httpx.Response(200)
         if path.startswith("/storage/v1/object/journal-imports/"):
@@ -235,6 +263,27 @@ class ApiContracts(unittest.TestCase):
         self.assertEqual(result.status_code, 202, result.text)
         self.assertEqual(self.job_calls, 1)
         self.assertEqual(self.client.get(f"/api/v1/reports/{JOB}/download", headers=self.headers).status_code, 404)
+
+    def test_ai_chat_is_pro_gated_bounded_and_queued_on_shared_journal_quota(self):
+        self.plan = "plus"
+        self.assertEqual(self.client.post("/api/v1/ai/chat", headers=self.headers, json={"message": "Hello"}).status_code, 403)
+        self.plan = "pro"
+        self.assertEqual(self.client.post("/api/v1/ai/chat", headers=self.headers, json={"message": "   "}).status_code, 422)
+        self.assertEqual(self.client.post("/api/v1/ai/chat", headers=self.headers, json={"message": "x" * 4001}).status_code, 422)
+        unavailable = HTTPException(503, "Local inference unavailable")
+        with patch("services.pro_api.app.model_available", new=AsyncMock(side_effect=unavailable)):
+            self.assertEqual(self.client.post("/api/v1/ai/chat", headers=self.headers, json={"message": "Explain journaling"}).status_code, 503)
+        self.assertEqual(self.job_calls, 0)
+        with patch("services.pro_api.app.model_available", new=AsyncMock(return_value={"name": "local-test", "digest": "verified"})):
+            response = self.client.post("/api/v1/ai/chat", headers=self.headers, json={"message": "Explain journaling"})
+        self.assertEqual(response.status_code, 202, response.text)
+        self.assertEqual(response.json()["kind"], "journal")
+        self.assertEqual(self.job_calls, 1)
+        self.assertEqual(self.client.get("/api/v1/ai/chat/history", headers=self.headers).json(), {"items": []})
+        self.client.get("/api/v1/ai/history?kind=journal", headers=self.headers)
+        self.assertIn(("platform_jobs", "is.null"), [(table, params.get("payload->>purpose")) for table, params in self.rest_filters])
+        self.plan = "free"
+        self.assertEqual(self.client.get("/api/v1/ai/chat/history", headers=self.headers).status_code, 403)
 
     def test_market_style_and_signal_endpoints_are_owned_and_protected(self):
         self.assertIsNone(self.client.get('/api/v1/market/preference',headers=self.headers).json()['trading_style'])

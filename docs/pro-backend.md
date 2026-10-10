@@ -127,3 +127,7 @@ Run `python -m services.pro_api.signals` privately or the Compose monitor servic
 ## Founder access
 
 Verified addresses in the existing Founder allowlist receive an explicit server-side Pro entitlement through `journal_private.is_founder` and `public.journal_founder_entitlements()`. The helper reads `auth.users.email_confirmed_at` and ignores editable profile metadata. The founder entitlement is non-expiring and scoped to the authenticated account; the legacy upload RPC recognizes it as Pro. The frontend uses this authenticated RPC only when the Pro Python gateway URL is unset. This unlocks entitlement and navigation, but does not supply the missing Python API runtime or make its feature actions operational.
+
+## AI chat
+
+The Pro workspace includes a private chat powered by the existing self-hosted Ollama runtime. Messages are queued as existing `journal` jobs, so they use the same atomic monthly AI allowance and cancellation/failure release behavior. Recent completed exchanges are read from the authenticated user's own job history; no new table or alternate storage is introduced. The model is instructed not to claim live prices/news or invent entry, stop-loss or take-profit levels. Its configured license, digest and runtime benchmark are required. The gateway/model are not deployed/configured on GitHub Pages, so chat replies remain unavailable until the service is hosted and `JTPRO_CONFIG.apiBase` is set.

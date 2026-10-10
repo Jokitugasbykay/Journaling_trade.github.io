@@ -26,7 +26,7 @@ from .ai import model_available
 from .analytics import heatmap, number, open_exposure, overview, position_size, records, review, risk_analysis, wire
 from .kaystrade import VERSION
 from .market import instrument_catalog, load_market
-from .models import AlertChange, Analysis, ExecutionConfirmation, Filters, Import, MarketPreference, NotificationPreference, Position, Report, Review, RiskRule, SignalAction, Strategy
+from .models import AlertChange, Analysis, ChatPrompt, ExecutionConfirmation, Filters, Import, MarketPreference, NotificationPreference, Position, Report, Review, RiskRule, SignalAction, Strategy
 from .store import Settings, Store, entitlements
 
 log = logging.getLogger("journalingtrade.pro")
@@ -418,7 +418,24 @@ def create_app(settings=None, transport=None):
 
     @app.get("/api/v1/ai/history")
     async def ai_history(user: ProDep, kind: str = Query(default="journal", pattern=r"^(journal|behaviour|market)$")):
-        return {"items": [job_shape(item) for item in await user.store.rows("platform_jobs", {"user_id": f"eq.{user.id}", "kind": f"eq.{kind}", "deleted_at": "is.null", "order": "created_at.desc"})]}
+        filters = {"user_id": f"eq.{user.id}", "kind": f"eq.{kind}", "deleted_at": "is.null", "order": "created_at.desc"}
+        if kind == "journal":
+            filters["payload->>purpose"] = "is.null"
+        return {"items": [job_shape(item) for item in await user.store.rows("platform_jobs", filters)]}
+
+    @app.get("/api/v1/ai/chat/history")
+    async def ai_chat_history(user: ProDep):
+        rows = await user.store.rows("platform_jobs", {"user_id": f"eq.{user.id}", "kind": "eq.journal",
+                                  "payload->>purpose": "eq.chat", "deleted_at": "is.null",
+                                  "order": "created_at.desc", "limit": 50})
+        return {"items": [{"id": row["id"], "state": row["status"], "created_at": row["created_at"],
+                           "message": row["payload"]["message"], "reply": (row.get("result") or {}).get("reply"),
+                           "error": row.get("error")} for row in rows]}
+
+    @app.post("/api/v1/ai/chat", status_code=202)
+    async def ai_chat(payload: ChatPrompt, user: ProDep, key: Key, request: Request):
+        await model_available(request.app.state.client, settings)
+        return await create_job(user, "journal", {"purpose": "chat", "message": payload.message}, key)
 
     @app.post("/api/v1/ai/{kind}-analysis", status_code=202)
     async def analyze(kind: str, payload: Analysis, user: ProDep, key: Key, request: Request):
