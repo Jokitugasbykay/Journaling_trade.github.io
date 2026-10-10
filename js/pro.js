@@ -438,13 +438,15 @@
   async function open(feature='ai-market',selection={}) {
     if(!features[feature])throw new Error('Unknown Pro feature.');
     revision++;controller.abort();controller=new AbortController(); preset={...selection};current=feature;root=document.getElementById('view-pro-workspace');if(!root)throw new Error('Pro workspace container is missing.');
-    root.replaceChildren();const heading=node('header',null,'pro-heading');heading.append(node('h1',text('Title'+feature,features[feature])));root.append(heading);
+    root.replaceChildren();const heading=node('header',null,'pro-heading');const title=node('div');title.append(node('h1',text('Title'+feature,features[feature])),node('p',text('WorkspaceDescription','Performance, risk, reports and AI insights from your trading journal.'),'pro-subtitle'));heading.append(title);root.append(heading);
     const navigation=node('nav',null,'pro-sections');navigation.setAttribute('aria-label','Pro sections');
-    for(const [key,label] of Object.entries(features)) {const item=node('button',label,'btn btn-ghost');item.type='button';item.dataset.section=key;item.dataset.componentId='pro-section-'+key;item.setAttribute('aria-current',key===feature?'page':'false');item.addEventListener('click',()=>open(key));navigation.append(item);}
-    root.append(navigation);
-    const selector=select('Pro section',Object.entries(features),feature,'pro-section-selector');selector.wrap.classList.add('pro-section-mobile');selector.input.addEventListener('change',()=>open(selector.input.value));root.append(selector.wrap);
+    const groups=[['Analysis',['analytics','heatmap','strategies','risk']],['Reviews & reports',['reviews','reports']],['AI assistant',['ai-market','ai-behaviour','ai-journal','ai-chat']],['Markets',['global-news']]];
+    for(const [group,keys] of groups) {const section=node('div',null,'pro-nav-group');section.append(node('h2',group));navigation.append(section);
+    for(const key of keys) {const label=features[key];const item=node('button',label,'btn btn-ghost');item.type='button';item.dataset.section=key;item.dataset.componentId='pro-section-'+key;item.setAttribute('aria-current',key===feature?'page':'false');item.addEventListener('click',()=>open(key));if(key.startsWith('ai-'))item.append(node('span','AI','pro-ai-badge'));section.append(item);}}
+    const layout=node('div',null,'pro-layout'),workspace=node('div',null,'pro-content-panel');layout.append(navigation,workspace);root.append(layout);
+    const selector=select('Pro section',Object.entries(features),feature,'pro-section-selector');selector.wrap.classList.add('pro-section-mobile');selector.input.addEventListener('change',()=>open(selector.input.value));workspace.append(selector.wrap);
     heading.append(button(text('RetrySection','Retry section'),()=>open(feature,selection),'pro-section-retry'));
-    status=node('p',text('Loading','Loading…'),'pro-status');status.setAttribute('role','status');status.setAttribute('aria-live','polite');root.append(status);content=node('div');root.append(content);options.onRoute?.(feature);
+    status=node('p',text('Loading','Loading…'),'pro-status');status.setAttribute('role','status');status.setAttribute('aria-live','polite');workspace.append(status);content=node('div');workspace.append(content);options.onRoute?.(feature);
     const epoch=revision;
     try {
       await verifyAccess();if(access.plan!=='pro')throw new Error(text('ProRequired','An active Pro subscription is required.'));
