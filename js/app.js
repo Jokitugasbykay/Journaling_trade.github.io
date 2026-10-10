@@ -878,6 +878,7 @@
           profile.name = name; onboarding.name = name; nicknameReady = true;
           persistOnboarding(); saveData(); updateAccess(); renderProfileView();
           switchTab('jurnal');
+          await verifyProAccess();
         } catch (error) { $('cloud-status').textContent = cloudMessage(error); }
         finally { button.disabled = false; }
       };

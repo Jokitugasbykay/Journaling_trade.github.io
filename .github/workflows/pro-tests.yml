@@ -1,5 +1,8 @@
 name: Pro platform checks
 on:
+  push:
+    branches: [main]
+    paths: ["services/**", "supabase/**", "js/**", "css/pro.css", "index.html", "tests/**", ".github/workflows/pro-tests.yml"]
   pull_request:
     paths: ["services/**", "supabase/**", "js/**", "css/pro.css", "index.html", "tests/**", ".github/workflows/pro-tests.yml"]
   workflow_dispatch:

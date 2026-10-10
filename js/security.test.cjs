@@ -131,6 +131,9 @@ for(const name of ['toggleBillingCycle','openQuickTrade','openProfileModal']) as
   nickname.window=nickname;
   vm.runInNewContext(source.slice(source.indexOf('      window.saveNickname ='),source.indexOf("      $('nickname-input').addEventListener")),nickname);
   await nickname.saveNickname({preventDefault(){}});assert.equal(nickname.profile.name,'Bob');assert.equal(nickname.nicknameReady,false);
+  let nicknameChecks=0;
+  Object.assign(nickname,{cloudUser:{id:'user-a'},journalOwner:'user-a',cloudClient:{from:()=>({upsert:async()=>({})})},persistOnboarding(){},saveData(){},updateAccess(){},renderProfileView(){},switchTab(){},verifyProAccess:async()=>{assert.equal(nickname.nicknameReady,true);nicknameChecks++;}});
+  await nickname.saveNickname({preventDefault(){}});assert.equal(nickname.profile.name,'Alice');assert.equal(nicknameChecks,1,'Saving a new profile did not refresh its server-verified Pro entitlement');
   let reader;
   const restore={journalOwner:'user-a',accounts:['B'],FileReader:class{constructor(){reader=this}readAsText(){}},window:{}};
   vm.runInNewContext(source.slice(source.indexOf('      window.handleRestoreFile ='),source.indexOf('      window.exportCSV')),restore);
