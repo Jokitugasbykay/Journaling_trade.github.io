@@ -12,6 +12,8 @@ const setup=(extra={})=>api.configure({apiBase:'https://gateway.test',getToken:a
   assert.equal(api.safeLink('http://example.test/a'),null);
   assert.equal(api.safeLink('https://publisher.test/article'),'https://publisher.test/article');
   setup();assert.equal((await api.verifyAccess()).plan,'pro');
+  let entitlementReads=0;setup({apiBase:'',getEntitlements:async()=>{entitlementReads++;return {plan:'pro',founder:true,effective_until:'9999-12-31T23:59:59Z',ai:{remaining:30,limit:30}};}});
+  assert.equal((await api.verifyAccess()).founder,true);assert.equal(entitlementReads,1);
   assert.equal(calls[0].url,'https://gateway.test/api/v1/entitlements');assert.equal(calls[0].options.headers.Authorization,'Bearer valid-token');assert.equal(calls[0].options.credentials,'omit');
   setup({apiBase:'https://gateway.test/api/v1/'});await api.request('/usage');assert.equal(calls.at(-1).url,'https://gateway.test/api/v1/usage');
   const file=new Blob(['trade,pnl\nEURUSD,10'],{type:'text/csv'});await api.request('/imports/files',{method:'POST',body:file,rawBody:true,contentType:'text/csv',headers:{Authorization:'Bearer attacker'}});assert.equal(calls.at(-1).options.body,file);assert.equal(calls.at(-1).options.headers.Authorization,'Bearer valid-token');assert.equal(calls.at(-1).options.headers['Content-Type'],'text/csv');

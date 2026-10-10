@@ -52,7 +52,8 @@
     return data;
   }
   async function verifyAccess() {
-    const result=await request('/entitlements');
+    const result=options.apiBase ? await request('/entitlements') : await options.getEntitlements?.();
+    if(!result) { clearAccess(); throw new Error(text('Unavailable','The Pro service is not configured.')); }
     if(!['free','plus','pro'].includes(result.plan)) { clearAccess(); throw new Error('Invalid entitlement response.'); }
     if(result.plan==='pro' && (!result.effective_until || !Number.isFinite(Date.parse(result.effective_until)) || Date.parse(result.effective_until)<=Date.now())) {
       clearAccess(); throw new Error(text('Expired','Your Pro access has expired.'));

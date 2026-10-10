@@ -559,6 +559,16 @@
       window.JTPRO?.configure({
         apiBase: window.JTPRO_CONFIG?.apiBase || '',
         getUserId: () => cloudUser && verifiedNewsUserId === cloudUser.id && nicknameReady ? cloudUser.id : '',
+        getEntitlements: async () => {
+          const userId = cloudUser?.id;
+          if (!userId || verifiedNewsUserId !== userId || !nicknameReady || !cloudClient) return null;
+          const {data, error} = await cloudClient.rpc('journal_founder_entitlements');
+          if (error || cloudUser?.id !== userId || verifiedNewsUserId !== userId) throw error || new Error('Account changed');
+          return {plan:data?.plan, founder:data?.founder === true,
+            effective_until:data?.effectiveUntil, countries:data?.countries || [],
+            ai:{limit:data?.aiLimit || 0,used:data?.aiUsed || 0,reserved:data?.aiReserved || 0,
+              remaining:data?.aiRemaining || 0,period_start:data?.periodStart,period_end:data?.periodEnd}};
+        },
         getToken: async () => {
           const userId = cloudUser?.id;
           if (!userId || verifiedNewsUserId !== userId || !nicknameReady || !cloudClient) return '';

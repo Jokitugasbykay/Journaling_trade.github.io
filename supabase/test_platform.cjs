@@ -8,6 +8,8 @@ async function main(){
   await db.exec(readFileSync(join(__dirname,'access.sql'),'utf8'));
   await db.exec(readFileSync(join(__dirname,'migrations','20261010003143_pro_platform.sql'),'utf8'));
   await db.exec(readFileSync(join(__dirname,'migrations','20261010115426_kaystrade_intelligence.sql'),'utf8'));
+  await db.exec(readFileSync(join(__dirname,'migrations','20261010141712_founder_pro_entitlement.sql'),'utf8'));
+  await db.exec(readFileSync(join(__dirname,'test_founder_access.sql'),'utf8'));
   await db.exec(readFileSync(join(__dirname,'test_platform.sql'),'utf8'));
   await db.exec(readFileSync(join(__dirname,'test_intelligence.sql'),'utf8'));
   console.log('PostgreSQL migration, RLS, shared quota, expiry, webhook and import checks passed.');

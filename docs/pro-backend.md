@@ -123,3 +123,7 @@ The browser test needs Playwright and Chrome; set `PLAYWRIGHT_MODULE` to the ins
 ## Snapshot monitor
 
 Run `python -m services.pro_api.signals` privately or the Compose monitor service. `PRO_SNAPSHOT_POLL_SECONDS` defaults to 60 (10–3600 supported); comply with provider limits. It consumes authorized operator snapshots; no live feed producer is configured. `fundamental_events` use the validated FundamentalEvent schema in intelligence.py, with aware publication/event/expiry times, HTTPS source, verification, severity, affected instruments and supporting evidence. Stale/missing facts do not authorize trades. Service-only persistence deduplicates events and notifications. See [revision report](KAYSTRADE_INTELLIGENCE_REPORT.md); production monitoring has not been verified.
+
+## Founder access
+
+Verified addresses in the existing Founder allowlist receive an explicit server-side Pro entitlement through `journal_private.is_founder` and `public.journal_founder_entitlements()`. The helper reads `auth.users.email_confirmed_at` and ignores editable profile metadata. The founder entitlement is non-expiring and scoped to the authenticated account; the legacy upload RPC recognizes it as Pro. The frontend uses this authenticated RPC only when the Pro Python gateway URL is unset. This unlocks entitlement and navigation, but does not supply the missing Python API runtime or make its feature actions operational.

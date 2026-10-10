@@ -164,3 +164,9 @@ Every control below is inside AI Market Intelligence, requires owner authenticat
 | notification-read / Mark read | Save read status; POST market/notifications/{id}/read | Ownership and read state; browser/SQL |
 | browser-notifications / Enable browser notifications | Native permission then PUT market/notification-preference | Open workspace only; permission fixture, no real push proof |
 | analysis-history / Open saved analysis | Existing saved-job loading; GET ai/jobs and ai/jobs/{id} | Original style, no quota; existing browser tests |
+
+## Founder Pro entitlement follow-up
+
+| Component ID / label | Frontend handler | API operation | Authentication / subscription | State / test |
+|---|---|---|---|---|
+| founder-pro-entitlement / Pro navigation | `verifyProAccess` → `JTPRO.verifyAccess` → `getEntitlements` | Authenticated RPC `journal_founder_entitlements()` when Python gateway is unset; otherwise gateway `/entitlements` | Supabase derives Founder from verified email allowlist server-side; RLS/session owns `auth.uid()`; Pro RPC enforces Pro | Pro nav appears after verified entitlement; unverified/ordinary accounts remain on existing tier; `js/pro.test.cjs`, `supabase/test_founder_access.sql`; gateway-dependent feature actions still unavailable until Python service is deployed |
