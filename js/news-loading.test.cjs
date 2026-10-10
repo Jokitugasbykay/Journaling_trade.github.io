@@ -10,7 +10,7 @@ const deferred = () => { let resolve, reject; const promise = new Promise((yes,n
 const tick = () => new Promise(resolve=>setImmediate(resolve));
 function harness() {
   const nodes = new Map(), cache = new Map();
-  const ctx = {URL,URLSearchParams,AbortSignal,console,document:{baseURI:'https://journal.example/'},location:{search:''},
+  const ctx = {URL,URLSearchParams,AbortSignal,DOMException,console,document:{baseURI:'https://journal.example/'},location:{search:''},
     cloudUser:{id:'first'},permitted:true,canReadNews:()=>!!ctx.cloudUser && ctx.permitted,
     publisherDomains:{alpha:'alpha.example',beta:'beta.example'},
     publisherUrl:(url,id)=>typeof url==='string' && url.startsWith('https://'+id+'.example')?url:null,
@@ -30,6 +30,17 @@ function harness() {
 }
 (async()=>{
   const a=item('alpha',1), b=item('beta',2);
+  const secured=harness();secured.ctx.JTPRO_CONFIG={apiBase:'https://gateway.example'};
+  secured.cache.set('https://journal.example/news/index.json',response(feed([b])));
+  const protectedCalls=[];
+  secured.ctx.JTPRO={request:async path=>{protectedCalls.push(path);return {...feed([a]),total:1};}};
+  await secured.ctx.reloadPublisherNews();
+  assert.equal(secured.get('publisherNews.items[0].id'),a.id,'Protected news used the public cache');
+  assert.ok(protectedCalls[0].startsWith('/news?'));
+  secured.ctx.resetNewsData();secured.ctx.JTPRO.request=async()=>{throw Error('denied');};
+  await secured.ctx.reloadPublisherNews();
+  assert.equal(secured.get('publisherNews'),null,'Failed protected request restored public cached news');
+  console.log('Configured gateway news uses authenticated requests and never falls back to public caches');
   const h=harness(), pending=deferred();
   h.cache.set('https://journal.example/news/index.json',response(feed([a])));
   h.ctx.fetch=()=>pending.promise;

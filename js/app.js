@@ -20,6 +20,7 @@
       let parsedTradesToImport = [];
       let scanJob = 0;
       let currentScan = null;
+      let gatewayImportFile = null, gatewayImportPending = null, gatewayImportBusy = false;
       let ocrLibrary = null;
       let uploadTrigger = null;
       let onboarding = { name: '', started: false };
@@ -86,7 +87,7 @@
         renderProfileView();
         updateAccess();
         const proTab = document.querySelector('[data-pro-tab].active');
-        if (proTab && $('view-pro-analytics').classList.contains('active')) openProAnalytics(Number(proTab.dataset.proTab));
+        if (proTab && $('view-pro-workspace').classList.contains('active')) openProAnalytics(Number(proTab.dataset.proTab));
       };
 
       /* Initialization Demo Data if clean */
@@ -260,6 +261,7 @@
       }
 
       const cloudTradeIds = new Map();
+      function decimalOrNull(value) { if (value === null || value === undefined || value === '') return null; const text = String(value).trim(); if (!/^[+-]?(?:\d+(?:\.\d*)?|\.\d+)$/.test(text)) throw new Error('A financial value is invalid.'); return text; }
       function finiteOrNull(value) { if (value === null || value === undefined || value === '') return null; const number = Number(value); return Number.isFinite(number) ? number : null; }
       function tradeTimestamp(date, time) {
         return /^\d{4}-\d{2}-\d{2}$/.test(date || '') ? `${date}T${/^\d{2}:\d{2}$/.test(time || '') ? time : '00:00'}:00+07:00` : null;
@@ -312,10 +314,24 @@
         cloudAuthRevision++; founderUserId = ''; verifiedNewsUserId = '';
         hydratingUserId = '';
         cloudUser = null; cloudReady = false; nicknameReady = false; accountAccess = null;
+        globalThis.JTPRO?.reset(); journalProFilter = null; gatewayImportFile = null; gatewayImportPending = null;
+        if (globalThis.JTPRO_CONFIG?.apiBase) { kalCache = null; gambarKalender([]); renderTodayOverviewCalendar([]); }
         resetNewsData();
         resetNewsRegion();
         selectJournalOwner();
         persistOnboarding();
+      }
+
+      async function loadCloudTrades(userId, authRevision) {
+        const rows = [];
+        for (let offset = 0; offset < 100000; offset += 1000) {
+          const result = await cloudClient.from('trades').select('*').eq('user_id', userId).order('id').range(offset, offset + 999);
+          if (cloudUser?.id !== userId || cloudAuthRevision !== authRevision) throw new Error('The signed-in account changed.');
+          if (result.error) return result;
+          rows.push(...(result.data || []));
+          if ((result.data || []).length < 1000) return { data: rows };
+        }
+        throw new Error('This journal exceeds the supported 100,000-trade limit.');
       }
 
       async function hydrateCloud(user) {
@@ -326,6 +342,8 @@
         if (cloudUser?.id !== user.id) { founderUserId = ''; verifiedNewsUserId = ''; nicknameReady = false; resetNewsData(); }
         cloudUser = user;
         cloudReady = false; accountAccess = null;
+        globalThis.JTPRO?.reset(); journalProFilter = null; gatewayImportFile = null; gatewayImportPending = null;
+        if (globalThis.JTPRO_CONFIG?.apiBase) { kalCache = null; gambarKalender([]); renderTodayOverviewCalendar([]); }
         try {
           if (!await verifyNewsIdentity(user.id, authRevision)) {
             if (authRevision !== cloudAuthRevision) return;
@@ -344,7 +362,7 @@
           const journalRequest = Promise.allSettled([
             cloudClient.from('trading_accounts').select('*').eq('user_id', user.id),
             cloudClient.from('strategies').select('*').eq('user_id', user.id),
-            cloudClient.from('trades').select('*').eq('user_id', user.id)
+            globalThis.JTPRO_CONFIG?.apiBase ? loadCloudTrades(user.id, authRevision) : cloudClient.from('trades').select('*').eq('user_id', user.id)
           ]);
           const profileResult = await profileRequest;
           if (cloudUser?.id !== user.id || authRevision !== cloudAuthRevision) return;
@@ -375,7 +393,7 @@
             cloudAccountIds.clear(); cloudStrategyIds.clear(); cloudTradeIds.clear(); localAccountIds.clear();
             accounts = remoteAccounts.map(a => { const id = 'cloud_' + a.id; cloudAccountIds.set(id, a.id); localAccountIds.set(a.id, id); return { id, name: a.name, broker: a.broker || '', type: a.account_type || 'Standard', currency: a.currency, startBalance: Number(a.initial_balance), status: a.is_active ? 'Active' : 'Inactive' }; });
             const strategies = new Map((strategyResult.data || []).map(s => { cloudStrategyIds.set(s.name, s.id); return [s.id, s.name]; }));
-            trades = remoteTrades.map(t => { const id = 'cloud_' + t.id; cloudTradeIds.set(id, t.id); return { id, accountId: localAccountIds.get(t.account_id) || '', date: tradeDateJakarta(t.opened_at), jam: t.opened_at ? new Date(t.opened_at).toLocaleTimeString('id-ID', { timeZone: 'Asia/Jakarta', hour: '2-digit', minute: '2-digit', hour12: false }) : '', market: t.market || t.symbol, posisi: t.side === 'short' ? 'Sell' : 'Buy', entry: Number(t.entry_price) || 0, exit: t.exit_price === null ? null : Number(t.exit_price), sl: t.stop_loss === null ? null : Number(t.stop_loss), tp: t.take_profit === null ? null : Number(t.take_profit), vol: t.quantity === null ? null : Number(t.quantity), riskPct: t.risk_percent === null ? null : Number(t.risk_percent), actualPnl: t.pnl === null ? null : Number(t.pnl), result: t.notes?.match(/Result: (Win|Loss|BE)/)?.[1] || 'Win', strategy: strategies.get(t.strategy_id) || '', tf: t.notes?.match(/TF: ([^·]+)/)?.[1]?.trim() || '', reason: t.notes?.split(' · ')[0] || '' }; });
+            trades = remoteTrades.map(t => { const id = 'cloud_' + t.id; cloudTradeIds.set(id, t.id); return { id, accountId: localAccountIds.get(t.account_id) || '', date: tradeDateJakarta(t.opened_at), jam: t.opened_at ? new Date(t.opened_at).toLocaleTimeString('id-ID', { timeZone: 'Asia/Jakarta', hour: '2-digit', minute: '2-digit', hour12: false }) : '', market: t.market || t.symbol, posisi: t.side === 'short' ? 'Sell' : 'Buy', entry: Number(t.entry_price) || 0, exit: t.exit_price === null ? null : Number(t.exit_price), sl: t.stop_loss === null ? null : Number(t.stop_loss), tp: t.take_profit === null ? null : Number(t.take_profit), vol: t.quantity === null ? null : Number(t.quantity), riskPct: t.risk_percent === null ? null : Number(t.risk_percent), actualPnl: t.pnl === null ? null : Number(t.pnl), pnlCurrency: globalThis.JTPRO_CONFIG?.apiBase ? accounts.find(a => a.id === 'cloud_' + t.account_id)?.currency : undefined, result: t.notes?.match(/Result: (Win|Loss|BE)/)?.[1] || (globalThis.JTPRO_CONFIG?.apiBase ? (t.pnl === null || t.pnl === undefined ? '' : Number(t.pnl) > 0 ? 'Win' : Number(t.pnl) < 0 ? 'Loss' : 'BE') : 'Win'), strategy: strategies.get(t.strategy_id) || '', tf: t.notes?.match(/TF: ([^·]+)/)?.[1]?.trim() || '', reason: t.notes?.split(' · ')[0] || '' }; });
             profile.name = profileResult.data?.display_name || '';
             profile.currentAccount = accounts[0]?.id || '';
             onboarding.name = profile.name; onboarding.started = true;
@@ -383,6 +401,7 @@
             saveLocalData();
           }
           cloudReady = true;
+          verifyProAccess();
           if (authRevision !== cloudAuthRevision || cloudUser?.id !== user.id) return;
           updateAccess(); renderJournalTable(); renderStatistics(); renderProfileView(); runAllCalculators();
           scheduleCloudSave();
@@ -414,31 +433,53 @@
 
       async function initCloudAuth() {
         if (!cloudClient) { if ($('cloud-status')) $('cloud-status').textContent = uiText("Koneksi server tidak tersedia. Data lokal tetap tersimpan.", "Server connection unavailable. Your local data is preserved."); return; }
+        let eventRevision = 0;
         cloudClient.auth.onAuthStateChange((event, session) => {
+          if (!['SIGNED_IN', 'TOKEN_REFRESHED', 'USER_UPDATED', 'SIGNED_OUT'].includes(event)) return;
+          const revision = ++eventRevision;
           if (session?.user && ['SIGNED_IN', 'TOKEN_REFRESHED', 'USER_UPDATED'].includes(event)) {
-            if (!cloudReady || cloudUser?.id !== session.user.id) setTimeout(() => hydrateCloud(session.user), 0);
-            else setTimeout(() => verifyNewsIdentity(session.user.id).catch(() => { founderUserId = ''; verifiedNewsUserId = ''; updateAccess(); }), 0);
+            setTimeout(() => {
+              if (revision !== eventRevision) return;
+              if (!cloudReady || cloudUser?.id !== session.user.id) return hydrateCloud(session.user);
+              verifyProAccess();
+              const authRevision = cloudAuthRevision;
+              verifyNewsIdentity(session.user.id).catch(() => {
+                if (authRevision !== cloudAuthRevision || cloudUser?.id !== session.user.id) return;
+                founderUserId = ''; verifiedNewsUserId = ''; updateAccess();
+              });
+            }, 0);
           }
           if (event === 'SIGNED_OUT') handleCloudSignedOut();
         });
+        const revision = eventRevision;
         const { data, error } = await cloudClient.auth.getSession();
+        if (revision !== eventRevision) return;
         if (error) { console.error('Supabase session error:', error); return; }
         if (data.session?.user) await hydrateCloud(data.session.user);
       }
 
-      function canReadNews() { return !!cloudUser && verifiedNewsUserId === cloudUser.id && nicknameReady && (isNewsFounder() || ['plus', 'pro'].includes(accountAccess?.plan)); }
+      function canReadNews() { return !!cloudUser && verifiedNewsUserId === cloudUser.id && nicknameReady && (globalThis.JTPRO_CONFIG?.apiBase ? proVerifiedUser === cloudUser.id && ['plus','pro'].includes(proAccess?.plan) && Date.parse(proAccess?.effective_until) > Date.now() : isNewsFounder() || ['plus', 'pro'].includes(accountAccess?.plan)); }
       async function refreshAccountAccess(consumeUpload = false) {
         if (!cloudUser) throw new Error(uiText('Masuk untuk menggunakan jatah upload Free.', 'Sign in to use your Free upload allowance.'));
         const userId = cloudUser.id, authRevision = cloudAuthRevision;
         if (!nicknameReady && consumeUpload) throw new Error(uiText('Isi nama panggilan Anda terlebih dahulu.', 'Complete your nickname first.'));
+        if (globalThis.JTPRO_CONFIG?.apiBase && nicknameReady && verifiedNewsUserId === userId) {
+          const access = await globalThis.JTPRO.verifyAccess(), usage = await globalThis.JTPRO.request('/usage');
+          if (cloudUser?.id !== userId || authRevision !== cloudAuthRevision) throw new Error('Account changed. Try again.');
+          accountAccess = {plan:access.plan, remaining:usage.imports.remaining, used:usage.imports.used, resetAt:usage.imports.reset_at,
+            allowed:access.plan !== 'free' || usage.imports.remaining > 0};
+          renderAccountAccess();
+          if (consumeUpload && !accountAccess.allowed) throw new Error(uploadAllowanceText());
+          return accountAccess;
+        }
         const { data, error } = await cloudClient.rpc('journal_access', { consume_upload: consumeUpload });
         if (cloudUser?.id !== userId || authRevision !== cloudAuthRevision) throw new Error(uiText('Akun berubah. Coba lagi.', 'Account changed. Try again.'));
         if (error) throw error;
         if (!data || !['free', 'plus', 'pro'].includes(data.plan) || typeof data.allowed !== 'boolean') throw new Error('Invalid account access response');
         accountAccess = data;
         renderAccountAccess();
-        if (!data.allowed) throw new Error(uploadAllowanceText());
-        return data;
+        if (!accountAccess.allowed) throw new Error(uploadAllowanceText());
+        return accountAccess;
       }
       function uploadAllowanceText() {
         if (!cloudUser) return uiText('Masuk untuk 10 upload Free setiap 12 jam.', 'Sign in for 10 Free uploads every 12 hours.');
@@ -447,67 +488,85 @@
         const reset = accountAccess.resetAt ? new Date(accountAccess.resetAt).toLocaleString(language, { hour: '2-digit', minute: '2-digit', day: 'numeric', month: 'short' }) : '';
         return uiText('Free · Sisa {remaining}/10 upload.', 'Free · {remaining}/10 uploads remaining.').replace('{remaining}', accountAccess.remaining) + ' ' + (reset ? uiText('Reset {time}.', 'Resets {time}.').replace('{time}', reset) : uiText('Diperbarui setiap 12 jam.', 'Resets every 12 hours.'));
       }
+      const proFeatures = ['analytics', 'heatmap', 'strategies', 'risk', 'reviews', 'reports', 'ai-behaviour', 'ai-market', 'ai-journal', 'global-news'];
+      const proPaths = ['analytics', 'heatmap', 'strategies', 'risk', 'reviews', 'reports', 'ai/behaviour', 'ai/market', 'ai/journal', 'global-news'];
+      let proAccess = null, proVerifiedUser = '', proExpiryTimer = null, pendingProRoute = null;
+      let journalProFilter = null;
+
+      function effectiveProAccess() {
+        return !!cloudUser && verifiedNewsUserId === cloudUser.id && nicknameReady && proVerifiedUser === cloudUser.id && proAccess?.plan === 'pro'
+          && Number.isFinite(Date.parse(proAccess.effective_until)) && Date.parse(proAccess.effective_until) > Date.now();
+      }
       function renderProNavigation() {
         const hook = $('nav-ai-trading');
         if (!hook) return;
-        const verified = !!cloudUser && cloudReady && nicknameReady && accountAccess;
-        hook.hidden = !verified || accountAccess.plan === 'pro';
+        const pro = effectiveProAccess();
+        hook.hidden = pro;
         hook.disabled = true;
         hook.setAttribute('aria-disabled', 'true');
-        const pro = verified && accountAccess.plan === 'pro';
-        document.querySelectorAll('[data-pro-tab]').forEach(button => { button.hidden = !pro; button.disabled = !pro; });
-        if (!pro) {
-          proAnalyticsRequest++;
-          $('pro-analytics-title').textContent = '';
-          $('pro-analytics-status').textContent = '';
-          $('pro-analytics-content').replaceChildren();
-          if ($('view-pro-analytics').classList.contains('active')) switchTab('beranda');
+        document.querySelectorAll('[data-pro-tab]').forEach(button => { button.hidden = !pro; button.disabled = !pro; button.setAttribute('aria-disabled', String(!pro)); });
+      }
+      function acceptProAccess(data) {
+        clearTimeout(proExpiryTimer);
+        proAccess = data;
+        proVerifiedUser = data && cloudUser && verifiedNewsUserId === cloudUser.id && nicknameReady ? cloudUser.id : '';
+        renderProNavigation();
+        if (globalThis.JTPRO_CONFIG?.apiBase && cloudUser && verifiedNewsUserId === cloudUser.id && nicknameReady) {
+          accountAccess = {...accountAccess, plan:data?.plan || 'free'};
+          renderAccountAccess();
+          if (!canReadNews()) { resetNewsData(); renderPublisherNews(); kalCache = null; gambarKalender([]); renderTodayOverviewCalendar([]); }
+        }
+        if (proVerifiedUser && ['plus','pro'].includes(data?.plan) && Date.parse(data.effective_until) > Date.now()) {
+          proExpiryTimer = setTimeout(() => { globalThis.JTPRO?.reset(); renderProNavigation(); }, Math.min(2147483647, Math.max(1, Date.parse(data.effective_until) - Date.now())));
         }
       }
-
-      const proAnalyticsNames = ['Advanced Analytics', 'Performance Heatmap', 'Strategy Comparison', 'Risk Intelligence', 'Weekly & Monthly Review'];
-      let proAnalyticsRequest = 0;
-      window.openProAnalytics = async function (index) {
-        if (!Number.isInteger(index) || index < 0 || index >= proAnalyticsNames.length) return;
-        if (!cloudUser || !cloudReady || !nicknameReady || accountAccess?.plan !== 'pro') return;
-        const revision = ++proAnalyticsRequest, userId = cloudUser.id;
-        const valid = () => revision === proAnalyticsRequest && cloudUser?.id === userId && cloudReady && nicknameReady && accountAccess?.plan === 'pro';
-        const status = $('pro-analytics-status'), content = $('pro-analytics-content');
-        const title = proAnalyticsNames[index];
-        $('pro-analytics-title').textContent = uiText(title, title);
-        status.textContent = uiText('Loading authenticated analytics…', 'Loading authenticated analytics…');
-        content.replaceChildren();
-        document.querySelectorAll('.nav-tab').forEach(b => b.classList.toggle('active', b.dataset.proTab === String(index)));
-        document.querySelectorAll('.view-content').forEach(v => v.classList.toggle('active', v.id === 'view-pro-analytics'));
-        try {
-          // Server RPC checks auth.uid(), effective Pro plan, and trade ownership.
-          const {data, error} = await cloudClient.rpc('journal_pro_analytics');
-          if (!valid()) return;
-          if (error || !Array.isArray(data)) throw error || new Error('Invalid analytics response');
-          const rows = data.map(t => ({...t, pnl:Number(t.pnl), risk_percent:Number(t.risk_percent)})).filter(t => Number.isFinite(t.pnl));
-          status.textContent = uiText('{total} closed trades · server verified', '{total} closed trades · server verified').replace('{total}', rows.length);
-          const by = (key) => {
-            const groups = new Map();
-            rows.forEach(t => { const k = key(t); if (!k) return; const a=groups.get(k)||{count:0,pnl:0,wins:0}; a.count++;a.pnl+=t.pnl;if(t.pnl>0)a.wins++;groups.set(k,a); });
-            return [...groups].sort((a,b)=>b[1].pnl-a[1].pnl);
-          };
-          const day = t => /^\d{4}-\d{2}-\d{2}/.exec(t.opened_at||'')?.[0]||'';
-          let groups, headers;
-          if (index===0) { groups=by(t=>t.symbol||uiText('Unknown', 'Unknown'));headers=['Symbol','Trades','Net P/L','Win rate']; }
-          else if(index===1) { groups=by(day);headers=['Date','Trades','Net P/L','Win rate']; }
-          else if(index===2) { groups=by(t=>t.strategy||uiText('Unassigned', 'Unassigned'));headers=['Strategy','Trades','Net P/L','Win rate']; }
-          else if(index===3) { groups=by(t=>Number.isFinite(t.risk_percent)&&t.risk_percent>0?(t.risk_percent<=1?'≤1%':t.risk_percent<=2?'1–2%':'>2%'):uiText('Unspecified', 'Unspecified'));headers=['Risk band','Trades','Net P/L','Win rate']; }
-          else { groups=by(t=>(day(t)||'').slice(0,7));headers=['Month','Trades','Net P/L','Win rate']; }
-          const table=document.createElement('table');table.className='data-table';
-          const thead=document.createElement('thead'),tr=document.createElement('tr');
-          headers.forEach(h=>{const th=document.createElement('th');th.textContent=uiText(h,h);tr.append(th);});thead.append(tr);table.append(thead);
-          const tbody=document.createElement('tbody');
-          groups.forEach(([key,v])=>{const tr=document.createElement('tr');[key,String(v.count),v.pnl.toFixed(2),(100*v.wins/v.count).toFixed(1)+'%'].forEach(value=>{const td=document.createElement('td');td.textContent=value;tr.append(td);});tbody.append(tr);});
-          table.append(tbody);
-          if (!groups.length) status.textContent=uiText('No closed trades available for this report.', 'No closed trades available for this report.');
-          content.append(table);
-        } catch(error) { if(valid()){status.textContent=uiText('Pro analytics unavailable. Verify your subscription and try again.', 'Pro analytics unavailable. Verify your subscription and try again.');content.replaceChildren();} }
+      function activateProRoute(feature, updateUrl = true) {
+        const index = proFeatures.indexOf(feature);
+        if (index < 0) return;
+        pendingProRoute = feature;
+        document.querySelectorAll('.nav-tab').forEach(button => button.classList.toggle('active', button.dataset.proTab === String(index)));
+        document.querySelectorAll('.view-content').forEach(view => view.classList.toggle('active', view.id === 'view-pro-workspace'));
+        document.body.classList.remove('auth-page');
+        if (updateUrl && location.pathname !== pagePath(proPaths[index])) history.pushState(null, '', pagePath(proPaths[index]));
+        window.scrollTo({top:0, behavior:'smooth'});
+      }
+      window.openProAnalytics = async function (index, updateUrl = true) {
+        if (!Number.isInteger(index) || !proFeatures[index]) return;
+        activateProRoute(proFeatures[index], updateUrl);
+        await window.JTPRO?.open(proFeatures[index]);
       };
+      async function verifyProAccess() {
+        if (!window.JTPRO || !cloudUser || verifiedNewsUserId !== cloudUser.id || !nicknameReady) return;
+        try {
+          await window.JTPRO.verifyAccess();
+          if (globalThis.JTPRO_CONFIG?.apiBase && canReadNews()) { reloadPublisherNews(); fetchKalenderData(false); }
+          if (pendingProRoute && effectiveProAccess()) await window.JTPRO.open(pendingProRoute);
+        } catch { acceptProAccess(null); }
+      }
+      function openProJournal(filters = {}) {
+        const accountId = localAccountIds.get(filters.account_id);
+        if (accountId) profile.currentAccount = accountId;
+        const ids = Array.isArray(filters.trade_ids) ? filters.trade_ids : Array.isArray(filters.ids) ? filters.ids : filters.trade_id ? [filters.trade_id] : null;
+        switchTab('jurnal');
+        resetJournalFilters();
+        journalProFilter = {ids: ids ? new Set(ids.map(id => [...cloudTradeIds].find(([, cloudId]) => cloudId === id)?.[0] || 'cloud_' + id)) : null, date: ids ? '' : filters.date || '', from:ids ? '' : filters.from || filters.start || '', to:ids ? '' : filters.to || filters.end || ''};
+        if (filters.instrument || filters.symbol) $('filter-market').value = filters.instrument || filters.symbol;
+        if (filters.strategy || filters.strategy_id) $('filter-strategy').value = filters.strategy || [...cloudStrategyIds].find(([, id]) => id === filters.strategy_id)?.[0] || '';
+        renderJournalTable();
+      }
+      window.JTPRO?.configure({
+        apiBase: window.JTPRO_CONFIG?.apiBase || '',
+        getUserId: () => cloudUser && verifiedNewsUserId === cloudUser.id && nicknameReady ? cloudUser.id : '',
+        getToken: async () => {
+          const userId = cloudUser?.id;
+          if (!userId || verifiedNewsUserId !== userId || !nicknameReady || !cloudClient) return '';
+          const {data, error} = await cloudClient.auth.getSession();
+          return !error && cloudUser?.id === userId && data?.session?.user?.id === userId ? data.session.access_token : '';
+        },
+        onAccessChange: acceptProAccess,
+        onRoute: feature => activateProRoute(feature),
+        onJournalFilters: openProJournal
+      });
 
       function renderAccountAccess() {
         renderProNavigation();
@@ -659,6 +718,7 @@
       const pagePath = route => new URL(route + '/', document.baseURI).pathname;
       window.switchTab = function (tabId, updateUrl = true) {
         if (!$('view-' + tabId)) return;
+        pendingProRoute = null;
         if (tabId !== 'login' && cloudUser && cloudReady && !nicknameReady) { tabId = 'login'; showAuthMode('nickname'); }
         if (!['beranda', 'login', 'berita'].includes(tabId) && !onboarding.started) {
           $('home-access-hint').focus();
@@ -812,13 +872,17 @@
       $('nickname-input').addEventListener('input', event => event.target.setCustomValidity(''));
       window.signOutLocal = function () {
         if (cloudClient && cloudUser) {
+          const userId = cloudUser.id, revision = cloudAuthRevision;
           clearTimeout(cloudTimer);
           (async () => {
             while (cloudBusy) await new Promise(resolve => setTimeout(resolve, 50));
+            if (cloudUser?.id !== userId || cloudAuthRevision !== revision) return;
             if (cloudReady && nicknameReady && !await syncCloud()) return;
+            if (cloudUser?.id !== userId || cloudAuthRevision !== revision) return;
             const { error } = await cloudClient.auth.signOut();
+            if (cloudUser && (cloudUser.id !== userId || cloudAuthRevision !== revision)) return;
             if (error) { $('cloud-status').textContent = cloudMessage(error); return; }
-            handleCloudSignedOut();
+            if (cloudUser) handleCloudSignedOut();
             closeNavAccountDropdown();
             switchTab('beranda');
           })();
@@ -1196,6 +1260,7 @@
       }
 
       window.resetJournalFilters = function () {
+        journalProFilter = null;
         if ($('filter-market')) $('filter-market').value = '';
         if ($('filter-result')) $('filter-result').value = '';
         if ($('filter-strategy')) $('filter-strategy').value = '';
@@ -1278,6 +1343,10 @@
         });
 
         const filtered = accountTrades.filter(t => {
+          if (journalProFilter?.ids && !journalProFilter.ids.has(t.id)) return false;
+          if (journalProFilter?.date && t.date !== journalProFilter.date) return false;
+          if (journalProFilter?.from && t.date < journalProFilter.from) return false;
+          if (journalProFilter?.to && t.date > journalProFilter.to) return false;
           const tMarket = (t.market || '').toString().trim().toUpperCase();
           const tResult = (t.result || '').toString().trim().toLowerCase();
           const tStrat = (t.strategy || '').toString().trim().toLowerCase();
@@ -1456,6 +1525,7 @@
       async function processUploadFile(file) {
         const status = $('upload-status-msg');
         const job = ++scanJob;
+        gatewayImportFile = null; gatewayImportPending = null;
         parsedTradesToImport = [];
         currentScan = null;
         $('upload-preview-area').style.display = 'none';
@@ -1478,11 +1548,22 @@
 
         try {
           if (!['pdf', 'png', 'jpg', 'jpeg', 'txt', 'csv'].includes(ext)) throw new Error(uiText('Gunakan PDF, PNG, JPG, TXT, atau CSV.', 'Use PDF, PNG, JPG, TXT, or CSV.'));
-          await refreshAccountAccess(true);
+          if (window.JTPRO_CONFIG?.apiBase) {
+            await refreshAccountAccess(false);
+            const types = {pdf:'application/pdf',png:'image/png',jpg:'image/jpeg',jpeg:'image/jpeg',csv:'text/csv',txt:'text/plain'};
+            const stored = await window.JTPRO.request('/imports/files', {method:'POST',body:file,rawBody:true,contentType:types[ext]});
+            if (job !== scanJob) return;
+            if (!stored?.private || !/^[a-f0-9]{64}$/.test(stored.file_sha256) || typeof stored.storage_path !== 'string') throw new Error('Invalid private upload response.');
+            gatewayImportFile = {...stored, owner:cloudUser?.id};
+          } else await refreshAccountAccess(true);
           if (job !== scanJob) return;
           if (ext === 'txt' || ext === 'csv') {
             const text = await file.text();
-            if (job === scanJob) parseTextOrCSV(text);
+            if (job === scanJob && window.JTPRO_CONFIG?.apiBase) {
+              parsedTradesToImport = window.JTPRO_IMPORT.parse(text, profile.currentAccount);
+              showUploadPreview(parsedTradesToImport);
+              status.textContent = 'Review the recorded values before importing. Date/time columns use Asia/Jakarta; missing prices, position sizes and profit remain unknown.';
+            } else if (job === scanJob) parseTextOrCSV(text);
             return;
           }
           if (!['pdf', 'png', 'jpg', 'jpeg'].includes(ext)) {
@@ -1645,6 +1726,10 @@
         if(!rows.length || !account || !['USD','IDR'].includes(currency))return;
         const button=$('btn-import-scan');button.disabled=true;
         try {
+          if (window.JTPRO_CONFIG?.apiBase && currency !== account.currency) {
+            $('upload-status-msg').textContent = 'Choose a trading account with the same currency as the document’s recorded profit.';
+            return;
+          }
           const digest=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(account.id+'\n'+scan.text));
           const scanSource=Array.from(new Uint8Array(digest),byte=>byte.toString(16).padStart(2,'0')).join('');
           if (scan!==currentScan)return;
@@ -1657,6 +1742,12 @@
             result:row.profit>0?'Win':row.profit<0?'Loss':'BE',actualPnl:row.profit,pnlCurrency:currency,
             strategy:'Impor screenshot',tf:'',scanSource,
             reason:`${scan.name} · Exit ${row.exit} · Profit ${row.profit} ${currency} · SL/TP dan risiko belum diketahui.`}));
+          if (window.JTPRO_CONFIG?.apiBase) {
+            parsedTradesToImport = imported;
+            showUploadPreview(imported);
+            $('upload-status-msg').textContent = 'Review the extracted records, then confirm the private import. Only a successful saved import uses your allowance.';
+            return;
+          }
           const next=[...imported,...trades];
           trades=next;
           saveData();
@@ -1821,14 +1912,63 @@
         btn.textContent = uiText('Impor {total} trade ke jurnal', 'Import {total} trades into journal').replace('{total}', list.length);
       }
 
-      window.confirmParsedImport = function () {
+      window.confirmParsedImport = async function () {
         if (!parsedTradesToImport.length) return;
+        if (window.JTPRO_CONFIG?.apiBase) return confirmGatewayImport();
         trades = [...parsedTradesToImport, ...trades];
         saveData();
         closeUploadModal();
         renderJournalTable();
         alert(uiText('{total} trade ditambahkan ke jurnal.', '{total} trades added to journal.').replace('{total}', parsedTradesToImport.length));
       };
+
+      async function confirmGatewayImport() {
+        if (gatewayImportBusy) return;
+        const owner = cloudUser?.id, job = scanJob, button = $('btn-confirm-import'), status = $('upload-status-msg');
+        const valid = () => owner && cloudUser?.id === owner && cloudReady && job === scanJob;
+        gatewayImportBusy = true; button.disabled = true;
+        try {
+          if (!valid() || gatewayImportFile?.owner !== owner) throw new Error('Upload the source file to your private account before importing.');
+          if (!gatewayImportPending) {
+            if (!await syncCloud() || !valid()) throw new Error('Wait for your journal to finish saving, then try again.');
+            const names = [...new Set(parsedTradesToImport.map(t => String(t.strategy || '').trim()).filter(Boolean))];
+            if (names.length) {
+              const rows = names.map(name => ({id:uuidFor(cloudStrategyIds,name),user_id:owner,name}));
+              const saved = await cloudClient.from('strategies').upsert(rows,{onConflict:'id'});
+              if (!valid()) return;
+              if (saved.error) throw saved.error;
+            }
+            const rows = parsedTradesToImport.map(t => {
+              const accountId = cloudAccountIds.get(t.accountId);
+              if (!accountId) throw new Error('Choose a saved trading account.');
+              return {id:crypto.randomUUID(),account_id:accountId,strategy_id:t.strategy ? cloudStrategyIds.get(String(t.strategy).trim()) || null : null,
+                symbol:t.market,market:t.market,side:/^(sell|short)$/i.test(t.posisi)?'short':'long',opened_at:t.openedAt || tradeTimestamp(t.date,t.jam),
+                entry_price:decimalOrNull(t.entry),exit_price:decimalOrNull(t.exit),stop_loss:decimalOrNull(t.sl),take_profit:decimalOrNull(t.tp),
+                quantity:decimalOrNull(t.vol),pnl:decimalOrNull(t.actualPnl),risk_percent:decimalOrNull(t.riskPct),notes:[t.reason,t.tf ? `TF: ${t.tf}` : '',t.result ? `Result: ${t.result}` : ''].filter(Boolean).join(' · ') || null};
+            });
+            gatewayImportPending = {key:crypto.randomUUID(),body:{trades:rows,confirmed:true,file_sha256:gatewayImportFile.file_sha256,storage_path:gatewayImportFile.storage_path}};
+          }
+          status.textContent = 'Saving confirmed trades to your account…';
+          const created = await window.JTPRO.request('/imports',{method:'POST',headers:{'Idempotency-Key':gatewayImportPending.key},body:gatewayImportPending.body});
+          if (!valid()) return;
+          let result = created;
+          const deadline = Date.now() + 300000;
+          while (['queued','running'].includes(result.status)) {
+            if (Date.now() >= deadline) throw new Error('The import is still processing. Try again to check the same job; duplicate trades will not be submitted.');
+            await new Promise(resolve => setTimeout(resolve,1500));
+            if (!valid()) return;
+            result = await window.JTPRO.request('/jobs/'+encodeURIComponent(created.id));
+            if (!valid()) return;
+          }
+          if (result.status !== 'succeeded') throw new Error(result.error || 'Import could not be completed. No successful-import allowance was charged.');
+          gatewayImportPending = null; gatewayImportFile = null;
+          status.textContent = 'Import saved. Reloading your journal…';
+          await hydrateCloud(cloudUser);
+          if (cloudUser?.id !== owner) return;
+          closeUploadModal(); renderJournalTable();
+        } catch (error) { if (valid()) status.textContent = error.message; }
+        finally { gatewayImportBusy = false; if (valid()) button.disabled = false; }
+      }
 
       /* Statistics & charts (codefronts tailwind dark metric cards) */
       window.renderStatistics = function () {
@@ -2941,14 +3081,16 @@
           stampEl.textContent = kalText('Memperbarui otomatis...', 'Refreshing...');
         }
 
+        const gateway = !!globalThis.JTPRO_CONFIG?.apiBase, owner = cloudUser?.id, authRevision = cloudAuthRevision;
         let items = null;
         let updatedStr = '', sourceStatus = 'stale', agenda = [], coverageStart = '', coverageEnd = '';
 
         // 1. Fetch from local kalender.json
         try {
-          const res = await fetch('kalender.json?t=' + Date.now());
-          if (res.ok) {
-            const data = await res.json();
+          const res = gateway ? null : await fetch('kalender.json?t=' + Date.now());
+          if (gateway || res.ok) {
+            const data = gateway ? await globalThis.JTPRO.request('/economic-calendar?tz=Asia%2FJakarta') : await res.json();
+            if (gateway && (cloudUser?.id !== owner || authRevision !== cloudAuthRevision || !canReadNews())) return;
             if (data && Array.isArray(data.items) && data.items.length) {
               items = data.items;
               updatedStr = data.updated || '';
@@ -2962,7 +3104,7 @@
         }
 
         // 2. Fallback to remote endpoint if needed
-        if (!items) {
+        if (!items && !gateway) {
           try {
             const res = await fetch('https://tradewithfnc.com/kalender.json?t=' + Date.now(), { mode: 'cors' });
             if (res.ok) {
@@ -2978,7 +3120,7 @@
         }
 
         // 3. Fallback to cached localStorage
-        if (!items) {
+        if (!items && !gateway) {
           try {
             const cached = localStorage.getItem('jt_kalender_cache_v2');
             if (cached) {
@@ -2997,8 +3139,9 @@
           updatedStr = '';
         }
 
-        // Save to cache
-        try {
+        if (gateway && (cloudUser?.id !== owner || authRevision !== cloudAuthRevision || !canReadNews())) return;
+        // Public delivery cache is never used for subscription-protected calendar data.
+        if (!gateway) try {
           localStorage.setItem('jt_kalender_cache_v2', JSON.stringify({ items, updated: updatedStr }));
         } catch (e) {}
 
@@ -3132,6 +3275,22 @@
         newsCategoryFeed = null; newsCategoryAttempt = ''; newsCategoryLoading = ''; newsCategoryFailed = false;
       }
       async function loadNewsFile(path, normalize, onSaved, current = () => true) {
+        if (globalThis.JTPRO_CONFIG?.apiBase && path.startsWith('news/')) {
+          const params = new URLSearchParams({limit:'100'}), source = path.match(/^news\/sources\/([a-z0-9_]+)\.json$/), category = path.match(/^news\/categories\/([a-z0-9_]+)\.json$/), archive = path.match(/^news\/archive\/([a-f0-9]{2})\.json$/);
+          if (source) params.set('source_id', source[1]);
+          if (category && category[1] !== 'all') params.set('category', category[1]);
+          if (archive) params.set('archive_prefix', archive[1]);
+          let feed;
+          for (let offset=0; offset<10000; offset+=100) {
+            params.set('offset', String(offset));
+            const data = await globalThis.JTPRO.request('/news?' + params);
+            if (!current()) throw new DOMException('Account or selection changed', 'AbortError');
+            if (!feed) feed = {...data, items:[]};
+            feed.items.push(...data.items);
+            if (data.items.length < 100 || feed.items.length >= data.total) break;
+          }
+          return {data:normalize(feed), saved:false};
+        }
         let cache, saved;
         const url = new URL(path, document.baseURI).href;
         try {
@@ -3729,6 +3888,8 @@
           if (error) $('cloud-status').textContent = error;
           return;
         }
+        const proIndex = proPaths.indexOf(parts.join('/'));
+        if (proIndex >= 0) { openProAnalytics(proIndex, false); return; }
         const tabId = Object.keys(pageRoutes).find(key => pageRoutes[key] === parts[0]) || 'beranda';
         if (tabId !== 'beranda' && !onboarding.started) {
           onboarding.started = true;

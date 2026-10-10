@@ -1,0 +1,42 @@
+.pro-workspace { max-width:1152px; margin:12px auto 0; color:var(--text-main); font-family:'IBM Plex Sans',Manrope,system-ui,sans-serif; }
+.pro-workspace .pro-heading { display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:16px; margin-bottom:24px; }
+.pro-workspace h1 { margin:0; font-size:38px; line-height:1.1; font-family:'Bricolage Grotesque',Manrope,system-ui,sans-serif; }
+.pro-workspace h2 { margin:0 0 16px; font-size:20px; }
+.pro-workspace h3 { margin:0 0 12px; font-size:16px; }
+.pro-workspace p { line-height:1.6; }
+.pro-workspace dd { margin:0 0 16px; overflow-wrap:anywhere; }
+.pro-workspace dt { color:var(--text-muted); margin-bottom:6px; }
+.pro-workspace .pro-toolbar { display:flex; flex-wrap:wrap; gap:12px; align-items:end; margin:20px 0; }
+.pro-workspace .pro-toolbar .field-group { flex:1 1 160px; min-width:0; }
+.pro-workspace .pro-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:20px; margin:20px 0; }
+.pro-workspace .pro-kpis { grid-template-columns:repeat(4,minmax(0,1fr)); }
+.pro-workspace .pro-panel { background:var(--bg-card,#11141a); border:1px solid var(--line,#1d222b); border-radius:14px; padding:20px; min-width:0; }
+.pro-workspace .pro-value { font-size:30px; line-height:1.2; font-weight:600; direction:ltr; unicode-bidi:isolate; }
+.pro-workspace .pro-muted { color:var(--text-muted); font-size:13px; }
+.pro-workspace .pro-status { min-height:24px; white-space:pre-wrap; overflow-wrap:anywhere; }
+.pro-workspace .pro-scroll { overflow-x:auto; max-width:100%; }
+.pro-workspace table { width:100%; border-collapse:collapse; font-size:13px; }
+.pro-workspace th,.pro-workspace td { text-align:start; border-bottom:1px solid var(--line); padding:12px; vertical-align:top; }
+.pro-workspace th { color:var(--text-muted); font-weight:500; }
+.pro-workspace .btn { min-height:44px; }
+.pro-workspace input,.pro-workspace select,.pro-workspace textarea { width:100%; min-height:44px; font:inherit; }
+.pro-workspace .pro-chart { display:block; width:100%; height:auto; min-height:120px; }
+.pro-workspace .pro-chart-line { fill:none; stroke:currentColor; stroke-width:2; }
+.pro-workspace .pro-chart-axis { stroke:var(--line); stroke-width:1; }
+.pro-workspace .pro-chart-label { fill:var(--text-muted); font:11px 'IBM Plex Sans',system-ui,sans-serif; }
+.pro-workspace .pro-heatmap { display:grid; grid-template-columns:repeat(7,minmax(0,1fr)); gap:5px; }
+.pro-workspace .pro-day { min-height:44px; border:1px solid var(--line); border-radius:8px; background:var(--bg-card); color:inherit; cursor:pointer; }
+.pro-workspace .pro-day[data-sign="positive"] { border-style:solid; border-width:2px; }
+.pro-workspace .pro-day[data-sign="negative"] { border-style:dashed; border-width:2px; }
+.pro-workspace .pro-day[data-sign="none"] { opacity:.55; }
+.pro-workspace .pro-day[data-sign="zero"] { background:var(--bg-main); }
+.pro-workspace .pro-check { display:inline-flex; align-items:center; gap:8px; min-height:44px; }
+.pro-workspace .pro-check input { width:20px; min-height:20px; }
+.pro-workspace .pro-evidence { display:flex; flex-wrap:wrap; gap:8px; margin:12px 0; }
+.pro-workspace .pro-news-grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:20px; }
+.pro-workspace .pro-news-grid a { color:inherit; }
+.pro-workspace .pro-news-grid img { width:100%; aspect-ratio:16/9; object-fit:cover; border-radius:8px; }
+.pro-workspace iframe { display:block; width:100%; min-height:480px; border:0; }
+.pro-workspace :focus-visible { outline:2px solid #f5b544; outline-offset:3px; }
+@media(max-width:900px) { .pro-workspace h1 { font-size:30px; } .pro-workspace .pro-kpis { grid-template-columns:repeat(2,minmax(0,1fr)); } .pro-workspace .pro-news-grid { grid-template-columns:repeat(2,minmax(0,1fr)); } }
+@media(max-width:600px) { .pro-workspace .pro-grid,.pro-workspace .pro-news-grid { grid-template-columns:minmax(0,1fr); } .pro-workspace .pro-kpis { grid-template-columns:repeat(2,minmax(0,1fr)); } .pro-workspace .pro-panel { padding:16px; } .pro-workspace .pro-value { font-size:24px; } .pro-workspace .pro-toolbar .field-group { flex-basis:140px; } }

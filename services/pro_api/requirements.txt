@@ -1,0 +1,7 @@
+fastapi==0.143.0
+httpx==0.28.1
+uvicorn==0.54.0
+pydantic==2.13.5
+reportlab==4.4.9
+pillow==12.3.0
+tzdata==2026.4

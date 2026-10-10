@@ -52,40 +52,26 @@ for(const name of ['toggleBillingCycle','openQuickTrade','openProfileModal']) as
 (async()=>{
   {
     const nodes = new Map();
-    const element = id => {
-      const active = new Set();
-      return {id, dataset:{}, children:[], textContent:'', hidden:false,
-        classList:{contains:name=>active.has(name),toggle(name,value){value?active.add(name):active.delete(name);}},
-        setAttribute(){}, append(child){this.children.push(child);}, replaceChildren(){this.children=[];}};
-    };
-    const get = id => { if (!nodes.has(id)) nodes.set(id,element(id)); return nodes.get(id); };
-    const buttons = Array.from({length:5},(_,index)=>Object.assign(element('pro-'+index),{dataset:{proTab:String(index)}}));
-    let complete, rpcCalls = 0;
-    const pro = {cloudUser:{id:'user-a'},cloudReady:true,nicknameReady:true,accountAccess:{plan:'pro'},$:get,
-      uiText:(_id,en)=>en,cloudClient:{rpc:()=>{rpcCalls++;return new Promise(resolve=>{complete=resolve;});}},
-      document:{querySelectorAll:selector=>selector==='.view-content'?[get('view-pro-analytics')]:buttons,createElement:()=>element('')},
-      switchTab(){get('view-pro-analytics').classList.toggle('active',false);}};
-    pro.window = pro;
-    vm.runInNewContext(source.slice(source.indexOf('      function renderProNavigation()'),source.indexOf('      function renderAccountAccess()')),pro);
-    pro.renderProNavigation();
-    assert.equal(get('nav-ai-trading').hidden,true);assert.ok(buttons.every(button=>!button.hidden&&!button.disabled));
-    const pending = pro.openProAnalytics(1);
-    const respond = complete;
-    get('pro-analytics-content').append({textContent:'Previous private report'});
-    pro.accountAccess={plan:'plus'};pro.renderProNavigation();
-    assert.equal(get('pro-analytics-content').children.length,0,'Loss of Pro access must clear private report data');
-    assert.equal(get('pro-analytics-status').textContent,'');assert.equal(get('pro-analytics-title').textContent,'');
-    assert.ok(buttons.every(button=>button.hidden&&button.disabled));assert.equal(get('nav-ai-trading').disabled,true);
-    pro.accountAccess={plan:'pro'};pro.renderProNavigation();
-    respond({data:[{pnl:10,opened_at:'2026-10-10T00:00:00Z'}]});await pending;
-    assert.equal(get('pro-analytics-content').children.length,0,'A response from before access loss must stay rejected after Pro access returns');
-    const current = pro.openProAnalytics(1);
-    complete({data:[{pnl:10,opened_at:'2026-10-10T00:00:00Z'}]});await current;
-    const table=get('pro-analytics-content').children[0];
-    assert.equal(table.children[1].children[0].children[0].textContent,'2026-10-10','Heatmap must group by the full ISO date');
-    pro.cloudUser={id:'user-b'};pro.cloudReady=false;pro.renderProNavigation();
-    assert.equal(get('pro-analytics-content').children.length,0,'Account changes must clear rendered Pro data');
-    await pro.openProAnalytics(0);assert.equal(rpcCalls,2,'Unverified accounts must not request Pro analytics');
+    const get = id => { if(!nodes.has(id)) nodes.set(id,{hidden:false,disabled:false,setAttribute(){},classList:{toggle(){},contains(){return false;}}});return nodes.get(id); };
+    const buttons = Array.from({length:10},(_,index)=>Object.assign(get('pro-'+index),{dataset:{proTab:String(index)}}));
+    let bridge, opened = [];
+    const pro = {cloudUser:{id:'user-a'},verifiedNewsUserId:'user-a',cloudReady:true,nicknameReady:true,$:get,clearTimeout(){},setTimeout:()=>1,
+      JTPRO:{configure(options){bridge=options;},open(feature){opened.push(feature);}},JTPRO_CONFIG:{apiBase:''},
+      document:{querySelectorAll:selector=>selector==='.nav-tab'||selector==='[data-pro-tab]'?buttons:[],body:{classList:{remove(){}}}},
+      location:{pathname:'/analytics/'},history:{pushState(){}},pagePath:path=>'/'+path+'/',scrollTo(){}};
+    pro.window=pro;
+    vm.runInNewContext(source.slice(source.indexOf('      const proFeatures ='),source.indexOf('      function renderAccountAccess()')),pro);
+    pro.renderProNavigation();assert.equal(get('nav-ai-trading').hidden,false);assert.ok(buttons.every(b=>b.hidden&&b.disabled));
+    bridge.onAccessChange({plan:'pro',effective_until:'2099-01-01T00:00:00Z'});
+    assert.equal(get('nav-ai-trading').hidden,true);assert.ok(buttons.every(b=>!b.hidden&&!b.disabled));
+    await pro.openProAnalytics(9);assert.deepEqual(opened,['global-news']);
+    await pro.openProAnalytics(10);assert.equal(opened.length,1);
+    bridge.onAccessChange({plan:'pro',effective_until:'2000-01-01T00:00:00Z'});
+    assert.equal(get('nav-ai-trading').hidden,false);assert.ok(buttons.every(b=>b.hidden&&b.disabled));
+    bridge.onAccessChange({plan:'plus'});assert.equal(get('nav-ai-trading').disabled,true);
+    bridge.onAccessChange({plan:'pro',effective_until:'2099-01-01T00:00:00Z'});pro.cloudUser={id:'user-b'};pro.renderProNavigation();
+    assert.ok(buttons.every(b=>b.hidden&&b.disabled),'Account changes must deny old verified Pro entitlements');
+    assert.equal(bridge.getUserId(),'');pro.verifiedNewsUserId='user-b';assert.equal(bridge.getUserId(),'user-b');pro.cloudReady=false;assert.equal(bridge.getUserId(),'user-b');pro.nicknameReady=false;assert.equal(bridge.getUserId(),'');
   }
   const calls=[];
   const ctx={accounts:[{id:'a',startBalance:1}],trades:[{id:'t',accountId:'a',strategy:'s'}],profile:{name:'A'},cloudUser:{id:'user-a'},cloudReady:true,nicknameReady:true,cloudBusy:false,localRevision:0,

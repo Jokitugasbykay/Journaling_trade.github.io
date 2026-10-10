@@ -1,0 +1,55 @@
+services:
+  api:
+    build:
+      context: ..
+      dockerfile: infra/pro.Dockerfile
+    ports: ["127.0.0.1:8789:8789"]
+    environment: &public_environment
+      SUPABASE_URL: https://nmddjuqkdyhcobddinkc.supabase.co
+      SUPABASE_PUBLISHABLE_KEY: ${SUPABASE_PUBLISHABLE_KEY:?Required}
+      PRO_ALLOWED_ORIGINS: ${PRO_ALLOWED_ORIGINS:?Required exact website origin}
+      PRO_DATA_ROOT: /data
+      PRO_MARKET_ROOT: /market
+      OLLAMA_URL: http://ollama:11434
+      OLLAMA_MODEL: ${OLLAMA_MODEL:-}
+      OLLAMA_MODEL_LICENSE: ${OLLAMA_MODEL_LICENSE:-}
+      OLLAMA_MODEL_DIGEST: ${OLLAMA_MODEL_DIGEST:-}
+      PRO_MODEL_BENCHMARK: ${PRO_MODEL_BENCHMARK:-}
+    volumes:
+      - ${PRO_DATA_DIRECTORY:?Required}:/data:ro
+      - ${PRO_MARKET_DIRECTORY:?Required}:/market:ro
+    read_only: true
+    tmpfs: [/tmp]
+    security_opt: [no-new-privileges:true]
+    cap_drop: [ALL]
+    restart: unless-stopped
+    networks: [external, inference]
+  worker:
+    build:
+      context: ..
+      dockerfile: infra/pro.Dockerfile
+    command: [python, -m, services.pro_api.worker]
+    environment:
+      <<: *public_environment
+      SUPABASE_SERVICE_ROLE_KEY: ${SUPABASE_SERVICE_ROLE_KEY:?Worker secret required}
+    volumes:
+      - ${PRO_DATA_DIRECTORY:?Required}:/data:ro
+      - ${PRO_MARKET_DIRECTORY:?Required}:/market:ro
+    read_only: true
+    tmpfs: [/tmp]
+    security_opt: [no-new-privileges:true]
+    cap_drop: [ALL]
+    restart: unless-stopped
+    networks: [external, inference]
+  ollama:
+    image: ${OLLAMA_IMAGE:?Set reviewed immutable image digest}
+    profiles: [ai]
+    volumes: [ollama-models:/root/.ollama]
+    networks: [inference]
+    restart: unless-stopped
+networks:
+  external: {}
+  inference:
+    internal: true
+volumes:
+  ollama-models: {}

@@ -13,7 +13,7 @@ const node = id => {
 };
 const esc = value => String(value).replace(/[&<>"']/g, char => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[char]));
 const context = {
-  $: node, document: {querySelectorAll: () => []}, language: 'en', console, uiText: (_id,en) => en,
+  journalProFilter:null, $: node, document: {querySelectorAll: () => []}, language: 'en', console, uiText: (_id,en) => en,
   profile: {currentAccount: 'a'}, settings: {kurs: 17000}, esc,
   safeId: value => value.replace(/[^a-z0-9-]/gi, ''),
   computeTradeMetrics: trade => ({pnlUSD: trade.pnl, pnlIDR: trade.pnl * 17000, rr: 2, riskUSD: 10}),
@@ -60,3 +60,28 @@ assert.equal(node('journal-empty-msg').style.display, 'block');
 assert.equal(node('journal-row-count').textContent, 'Showing 0 of 0 positions');
 assert.equal(node('journal-tbody').innerHTML, '');
 console.log('Journal account isolation, metrics, filters, accessibility state and escaped notes passed');
+
+(async () => {
+  const pages = Array.from({length:1001}, (_,id) => ({id}));
+  let fail = false;
+  const scope = {cloudUser:{id:'owner'},cloudAuthRevision:1,
+    cloudClient:{from(table) {
+      assert.equal(table,'trades');
+      const query = {select:()=>query,eq(field,value) { assert.equal(field,'user_id'); assert.equal(value,'owner'); return query; },
+        order:field=>{assert.equal(field,'id');return query;},range:async(start,end)=>fail ? {error:Error('Unavailable')} : {data:pages.slice(start,end+1)}};
+      return query;
+    }}};
+  vm.runInNewContext(source.slice(source.indexOf('      async function loadCloudTrades('),source.indexOf('      async function hydrateCloud(')),scope);
+  assert.equal((await scope.loadCloudTrades('owner',1)).data.length,1001,'Cloud journal silently lost trades past the first page');
+  fail=true;
+  assert.equal((await scope.loadCloudTrades('owner',1)).error.message,'Unavailable');
+  fail=false;scope.cloudUser={id:'another-owner'};
+  await assert.rejects(scope.loadCloudTrades('owner',1),/account changed/);
+  const resultExpression=source.match(/result: (t\.notes\?\.match\(\/Result: .*?), strategy: strategies/)[1];
+  const readResult=vm.runInNewContext('(t)=>'+resultExpression,{JTPRO_CONFIG:{apiBase:'https://gateway.example'}});
+  assert.equal(readResult({pnl:-5}),'Loss');
+  assert.equal(readResult({pnl:0}),'BE');
+  assert.equal(readResult({pnl:5}),'Win');
+  assert.equal(readResult({pnl:null}),'');
+  console.log('Configured Pro journal pagination, account-change protection and recorded outcomes passed');
+})().catch(error=>{console.error(error);process.exitCode=1;});

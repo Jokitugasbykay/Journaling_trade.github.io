@@ -1,0 +1,40 @@
+name: Pro platform checks
+on:
+  pull_request:
+    paths: ["services/**", "supabase/**", "js/**", "css/pro.css", "index.html", "tests/**", ".github/workflows/pro-tests.yml"]
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    services:
+      postgres:
+        image: postgres:17.11
+        env:
+          POSTGRES_USER: jt_test
+          POSTGRES_HOST_AUTH_METHOD: trust
+        ports: ["5432:5432"]
+        options: --health-cmd "pg_isready -U jt_test" --health-interval 5s --health-timeout 5s --health-retries 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - run: pip install -r tests/pro/requirements.txt
+      - run: sudo apt-get update && sudo apt-get install -y postgresql-client
+      - run: psql -h 127.0.0.1 -U jt_test -d postgres -v ON_ERROR_STOP=1 -f supabase/test_platform_base.sql -f supabase/access.sql -f supabase/migrations/20261010003143_pro_platform.sql -f supabase/test_platform.sql -f supabase/test_security.sql
+      - run: python -m unittest discover -s tests/pro -v
+        env:
+          JT_TEST_PSQL: /usr/bin/psql
+          JT_TEST_PGPORT: '5432'
+      - run: node js/pro.test.cjs && node js/pro-import.test.cjs && node js/security.test.cjs && node js/copy.test.cjs && node js/discipline.test.cjs && node js/news-auth.test.cjs
+      - run: npm install --prefix /tmp/jt-browser playwright@1.62.1
+      - run: /tmp/jt-browser/node_modules/.bin/playwright install --with-deps chrome
+      - run: node tests/frontend-pro.cjs
+        env:
+          PLAYWRIGHT_MODULE: /tmp/jt-browser/node_modules/playwright

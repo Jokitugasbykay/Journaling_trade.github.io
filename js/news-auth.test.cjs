@@ -7,7 +7,7 @@ const deferred = () => { let resolve; const promise = new Promise(yes => resolve
 function authHarness(user = founder, plan = 'free') {
   const nodes = new Map();
   const ctx = {
-    cloudUser:user, cloudReady:false, nicknameReady:false, accountAccess:null, hydratingUserId:'',
+    cloudUser:user, cloudReady:false, nicknameReady:false, accountAccess:null, hydratingUserId:'', verifyProAccess(){},
     journalOwner:'a', trades:[], accounts:[], profile:{name:''}, onboarding:{}, language:'en', uiText:(_id,en)=>en,
     cloudAccountIds:new Map(), cloudTradeIds:new Map(), cloudStrategyIds:new Map(), localAccountIds:new Map(), cloudSnapshot:'',
     localStorage:{getItem:()=>null}, structuredClone, confirm:()=>false,
@@ -40,7 +40,7 @@ function routeHarness() {
   const nodes = new Map();
   const ctx = {URL,URLSearchParams,location:new URL('https://journal.example/economic-news/?article=00000000000000000001'),
     document:{baseURI:'https://journal.example/',body:{classList:{toggle(){}}},querySelectorAll:()=>[]},
-    cloudUser:founder,cloudReady:false,nicknameReady:true,onboarding:{started:true},readerId:null,
+    cloudUser:founder,cloudReady:false,nicknameReady:true,onboarding:{started:true},readerId:null,proPaths:[],
     $:id=>{if (!nodes.has(id)) nodes.set(id,{classList:{toggle(){},contains:()=>false},focus(){}});return nodes.get(id);},
     showAuthMode(){},persistOnboarding(){},updateAccess(){},renderStatistics(){},renderJournalTable(){},renderProfileView(){},runAllCalculators(){},renderEconomicCalendar(){},reloadPublisherNews(){},applyLanguage(){},scrollTo(){},
     renderNewsReader:()=>ctx.readerId = new URLSearchParams(ctx.location.search).get('article'),
@@ -56,6 +56,14 @@ function routeHarness() {
 }
 
 (async()=>{
+  for (const email of ['gamingyoga14@gmail.com','kaylafisika24@gmail.com']) {
+    const h = authHarness({...founder,email},'pro');h.ctx.journalError=null;
+    await h.ctx.hydrateCloud(h.ctx.serverUser);
+    assert.equal(h.ctx.cloudReady,true);
+    assert.equal(h.ctx.isNewsFounder(),true,'Verified Founder access differs between the two accounts');
+    assert.equal(h.ctx.accountAccess.plan,'pro');
+  }
+  console.log('Both confirmed Founder emails can hydrate their accounts with equal Pro access');
   for (const [user,plan] of [[founder,'free'],[{id:'a',email:'paid@example.com',email_confirmed_at:'2026-10-01'},'plus']]) {
     const h = authHarness(user,plan);
     await h.ctx.hydrateCloud(user);
@@ -65,6 +73,21 @@ function routeHarness() {
     assert.equal(h.ctx.publisherNews?.items[0],'saved headline','Journal failure discarded saved headlines');
   }
   console.log('A journal 503 preserves verified founder/paid news access while journal writes stay disabled');
+
+  const gateway = authHarness({id:'a',email:'paid@example.com',email_confirmed_at:'2026-10-01'},'plus');
+  gateway.ctx.JTPRO_CONFIG={apiBase:'https://gateway.example'};
+  gateway.ctx.kalCache=null;gateway.ctx.gambarKalender=()=>{};gateway.ctx.renderTodayOverviewCalendar=()=>{};
+  gateway.ctx.JTPRO={reset(){},verifyAccess:async()=>{
+    gateway.ctx.proVerifiedUser='a';gateway.ctx.proAccess={plan:'plus',effective_until:new Date(Date.now()+3600000).toISOString()};
+    return gateway.ctx.proAccess;
+  },request:async()=>({imports:{remaining:null,used:0,reset_at:null}})};
+  const originalFrom=gateway.ctx.cloudClient.from;
+  gateway.ctx.cloudClient.from=table=>{const query=originalFrom(table);query.order=()=>query;query.range=async()=>({data:[]});return query;};
+  await gateway.ctx.hydrateCloud(gateway.ctx.serverUser);
+  assert.equal(gateway.ctx.cloudReady,false);
+  assert.equal(gateway.ctx.canReadNews(),true,'Configured protected news depended on loading unrelated journal rows');
+  assert.equal(gateway.ctx.accountAccess.plan,'plus');
+  console.log('Configured gateway entitlements remain available after unrelated journal failure');
 
   const delayed = authHarness({id:'a',email:'paid@example.com',email_confirmed_at:'2026-10-01'},'plus');
   const journal = deferred();delayed.ctx.journalPromise = journal.promise;
@@ -114,6 +137,34 @@ function routeHarness() {
   assert.equal(stale.ctx.publisherNews,null);
   assert.equal(stale.get('verifiedNewsUserId'),'');
   console.log('Logout rejects a late identity response and clears visible saved news');
+
+  // A queued auth event must not restore the account that was just replaced.
+  const events = [], callbacks = [], startup = deferred();
+  const auth = {cloudClient:{auth:{onAuthStateChange:cb=>events.push(cb),getSession:()=>startup.promise}},
+    cloudUser:null,cloudReady:false,setTimeout:cb=>callbacks.push(cb),$:()=>({}),uiText:(_id,en)=>en,console,
+    hydrateCloud:async user=>{auth.cloudUser=user;},handleCloudSignedOut:()=>{auth.cloudUser=null;},verifyProAccess(){}};
+  vm.runInNewContext(extract('      async function initCloudAuth()', '      function canReadNews()'),auth);
+  const boot = auth.initCloudAuth();
+  events[0]('SIGNED_IN',{user:{id:'gaming'}});
+  events[0]('SIGNED_OUT',null);
+  events[0]('SIGNED_IN',{user:{id:'kayla'}});
+  for (const callback of callbacks) await callback();
+  startup.resolve({data:{session:{user:{id:'gaming'}}}});await boot;
+  assert.equal(auth.cloudUser.id,'kayla','An old auth event/startup session replaced Kayla');
+
+  const switching = authHarness();await switching.ctx.hydrateCloud(founder);
+  const signout = deferred();
+  Object.assign(switching.ctx,{cloudBusy:false,cloudTimer:null,clearTimeout,window:switching.ctx});
+  switching.ctx.cloudClient.auth.signOut=()=>signout.promise;
+  vm.runInContext(extract('      window.signOutLocal =','      /* Header Account Dropdown Menu */'),switching.ctx);
+  switching.ctx.signOutLocal();
+  switching.ctx.handleCloudSignedOut();
+  const next = {id:'kayla',email:'kaylafisika24@gmail.com',email_confirmed_at:'2026-10-01'};
+  switching.ctx.serverUser=next;await switching.ctx.hydrateCloud(next);
+  signout.resolve({error:null});await new Promise(resolve=>setImmediate(resolve));
+  assert.equal(switching.ctx.cloudUser?.id,'kayla','Late logout completion erased the new account');
+  assert.equal(switching.ctx.isNewsFounder(),true);
+  console.log('Account switching rejects queued old events, old startup sessions, and late logout completion');
 
   for (const ready of [false,true]) {
     const logout = authHarness();await logout.ctx.hydrateCloud(founder);

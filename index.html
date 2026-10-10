@@ -7,7 +7,7 @@
   <script>
     (() => {
       const parts = location.pathname.split('/').filter(Boolean);
-      const route = parts.findIndex(part => ['home', 'journal', 'statistics', 'calculator', 'economic-news', 'login', 'profile'].includes(part));
+      const route = parts.findIndex(part => ['home', 'journal', 'statistics', 'calculator', 'economic-news', 'login', 'profile', 'analytics', 'heatmap', 'strategies', 'risk', 'reviews', 'reports', 'ai', 'global-news'].includes(part));
       const prefix = route < 0 ? parts.filter(part => part !== 'index.html') : parts.slice(0, route);
       document.getElementById('site-base').href = '/' + (prefix.length ? prefix.join('/') + '/' : '');
     })();
@@ -25,7 +25,8 @@
   <link rel="stylesheet" href="css/style.css?v=20261009-home-brand">
   <link rel="stylesheet" href="css/home.css?v=20261009-home-brand">
   <link rel="stylesheet" href="css/journal.css?v=20261010-redesign">
-  <link rel="stylesheet" href="css/shell.css?v=20261010-redesign">
+  <link rel="stylesheet" href="css/shell.css?v=20261010-spacing">
+  <link rel="stylesheet" href="css/pro.css?v=20261010-pro">
 </head>
 
 <body>
@@ -45,6 +46,11 @@
         <button class="nav-tab" type="button" data-pro-tab="2" onclick="openProAnalytics(2)" hidden data-i18n="proStrategyComparisonTitle">Strategy Comparison</button>
         <button class="nav-tab" type="button" data-pro-tab="3" onclick="openProAnalytics(3)" hidden data-i18n="proRiskIntelligenceTitle">Risk Intelligence</button>
         <button class="nav-tab" type="button" data-pro-tab="4" onclick="openProAnalytics(4)" hidden data-i18n="proReviewTitle">Weekly & Monthly Review</button>
+        <button class="nav-tab" type="button" data-pro-tab="5" onclick="openProAnalytics(5)" hidden>PDF Reports</button>
+        <button class="nav-tab" type="button" data-pro-tab="6" onclick="openProAnalytics(6)" hidden>AI Behaviour Analysis</button>
+        <button class="nav-tab" type="button" data-pro-tab="7" onclick="openProAnalytics(7)" hidden>AI Market Intelligence</button>
+        <button class="nav-tab" type="button" data-pro-tab="8" onclick="openProAnalytics(8)" hidden>AI Journal Analyst</button>
+        <button class="nav-tab" type="button" data-pro-tab="9" onclick="openProAnalytics(9)" hidden>Global News</button>
       </nav>
       <div class="navbar-right shell-actions">
         <span class="shell-guest" id="nav-guest-badge"><span class="shell-guest-icon" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4"><circle cx="8" cy="5.5" r="2.5"></circle><path d="M3 13.5c.6-2.4 2.6-3.5 5-3.5s4.4 1.1 5 3.5" stroke-linecap="round"></path></svg></span><span data-i18n="shellGuest">Guest</span></span>
@@ -79,11 +85,7 @@
 
   <!-- Main Content Wrap -->
   <main class="main-wrap">
-    <section class="view-content" id="view-pro-analytics" aria-labelledby="pro-analytics-title">
-      <h1 id="pro-analytics-title">Advanced Analytics</h1>
-      <p id="pro-analytics-status" role="status" aria-live="polite"></p>
-      <div id="pro-analytics-content"></div>
-    </section>
+    <section class="view-content pro-workspace" id="view-pro-workspace"></section>
 
 
     <section class="view-content active" id="view-beranda">
@@ -1283,14 +1285,14 @@
         </div>
         <div class="site-footer-links">
           <nav aria-label="Workspace"><h2 data-i18n="footerWorkspace">Workspace</h2><ul>
-            <li><button type="button" onclick="startTrial()"><span data-i18n="openJournal">Open trading journal</span><svg class="shell-footer-arrow" width="12" height="12" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.5 7h9M8 3.5 11.5 7 8 10.5"></path></svg></button></li>
-            <li><button type="button" onclick="switchTab('berita')"><span data-i18n="news">Economic news</span><svg class="shell-footer-arrow" width="12" height="12" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.5 7h9M8 3.5 11.5 7 8 10.5"></path></svg></button></li>
-            <li><button type="button" onclick="switchTab('berita'); switchBeritaSub('kalender')"><span data-i18n="newsCalendar">Economic calendar</span><svg class="shell-footer-arrow" width="12" height="12" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.5 7h9M8 3.5 11.5 7 8 10.5"></path></svg></button></li>
+            <li><button type="button" onclick="startTrial()"><span data-i18n="openJournal">Open trading journal</span></button></li>
+            <li><button type="button" onclick="switchTab('berita')"><span data-i18n="news">Economic news</span></button></li>
+            <li><button type="button" onclick="switchTab('berita'); switchBeritaSub('kalender')"><span data-i18n="newsCalendar">Economic calendar</span></button></li>
           </ul></nav>
           <nav aria-label="Explore"><h2 data-i18n="footerExplore">Explore</h2><ul>
-            <li><button type="button" onclick="switchTab('beranda'); scrollToPricing()"><span data-i18n="footerPlans">Subscription plans</span><svg class="shell-footer-arrow" width="12" height="12" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.5 7h9M8 3.5 11.5 7 8 10.5"></path></svg></button></li>
-            <li><a href="home/#panduan-forex"><span data-i18n="footerGuide">Trading guide</span><svg class="shell-footer-arrow" width="12" height="12" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.5 7h9M8 3.5 11.5 7 8 10.5"></path></svg></a></li>
-            <li><a href="login/"><span data-i18n="signIn">Sign in</span><svg class="shell-footer-arrow" width="12" height="12" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.5 7h9M8 3.5 11.5 7 8 10.5"></path></svg></a></li>
+            <li><button type="button" onclick="switchTab('beranda'); scrollToPricing()"><span data-i18n="footerPlans">Subscription plans</span></button></li>
+            <li><a href="home/#panduan-forex"><span data-i18n="footerGuide">Trading guide</span></a></li>
+            <li><a href="login/"><span data-i18n="signIn">Sign in</span></a></li>
           </ul></nav>
         </div>
       </div>
@@ -1303,7 +1305,10 @@
   <script src="js/scan.js?v=20261010-locales"></script>
   <script src="js/news-select.js?v=20261010-locales"></script>
   <script src="js/i18n.js?v=20261010-locales"></script>
-  <script src="js/app.js?v=20261010-redesign"></script>
+  <script src="js/pro-config.js?v=20261010-pro"></script>
+  <script src="js/pro-import.js?v=20261010-pro"></script>
+  <script src="js/pro.js?v=20261010-pro"></script>
+  <script src="js/app.js?v=20261010-account-switch"></script>
   <script src="js/home.js?v=20261009-home-brand"></script>
   <script src="js/fed.js?v=20261010-locales"></script>
 
