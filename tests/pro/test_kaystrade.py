@@ -167,6 +167,24 @@ class Methodology(unittest.TestCase):
         snap.cross_market["DXY"] = [{"timestamp": c.timestamp.isoformat(), "close": "103"} for c in snap.candles]
         self.assertFalse(any("DXY context unavailable" in warning for warning in analyze(snap, TIMEFRAMES)["warnings"]))
 
+    def test_style_context_and_swing_daily_alignment(self):
+        snap = self.snapshot()
+        rating = {"summary":"buy","moving_averages":"buy","oscillators":"buy","timestamp":NOW,
+                  "tradingview_symbol":"TVC:GOLD","source_url":"https://www.tradingview.com/symbols/TVC-GOLD/technicals/"}
+        snap = Snapshot.model_validate({**snap.model_dump(),"technicals":[{**rating,"timeframe":frame} for frame in ('4h','1d')]})
+        fixture = {"structure":"HH_HL","momentum":"bullish","pivots":[{"kind":"low","price":Decimal(95)},{"kind":"high","price":Decimal(110)}],
+                   "base_retest":{"status":"confirmed","direction":"BUY","low":Decimal(96)},"head_shoulders":{"status":"not_confirmed"}}
+        with patch('services.pro_api.kaystrade.frame_evidence',return_value=fixture):
+            self.assertEqual(analyze(snap,TIMEFRAMES,'SCALPING')['execution_timeframe'],'15m')
+            self.assertEqual(analyze(snap,TIMEFRAMES,'INTRADAY')['historical_intraday_max_hours'],24)
+            swing = snap.model_copy(update={'timeframe':'4h','candles':snap.other_timeframes['4h']})
+            result = analyze(swing,TIMEFRAMES,'SWING')
+            self.assertEqual(result['execution_timeframe'],'1h')
+            self.assertEqual(result['signal']['direction'],'BUY')
+            self.assertIsNone(result['historical_intraday_max_hours'])
+        with patch('services.pro_api.kaystrade.frame_evidence',side_effect=lambda candles,seconds:{**fixture,'structure':'LH_LL'} if seconds==86400 else fixture):
+            self.assertEqual(analyze(swing,TIMEFRAMES,'SWING')['signal']['direction'],'NO TRADE')
+
     def test_sell_levels_choose_nearest_demand(self):
         snap = self.snapshot()
         rating = {"summary": "sell", "moving_averages": "sell", "oscillators": "sell", "timestamp": NOW, "tradingview_symbol": "TVC:GOLD", "source_url": "https://www.tradingview.com/symbols/TVC-GOLD/technicals/"}

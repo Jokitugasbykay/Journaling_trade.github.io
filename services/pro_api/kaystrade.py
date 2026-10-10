@@ -5,7 +5,7 @@ from decimal import Decimal
 from .analytics import timestamp, wire
 from .models import MarketSignal
 
-VERSION = "kaystrade-closed-bars-v1"
+VERSION = "kaystrade-closed-bars-v2"
 ZERO = Decimal(0)
 
 
@@ -238,7 +238,7 @@ def frame_evidence(candles, seconds):
             "timestamp": latest.timestamp.isoformat(), "bars": len(candles)}
 
 
-def analyze(snapshot, seconds):
+def analyze(snapshot, seconds, trading_style=None):
     frames = {**snapshot.other_timeframes, snapshot.timeframe: snapshot.candles}
     evidence, warnings = {}, []
     for frame, candles in frames.items():
@@ -250,8 +250,11 @@ def analyze(snapshot, seconds):
         if len(closed) != len(candles):
             warnings.append(f"{frame}: unfinished candle excluded")
     missing = [frame for frame in ("4h", "1d", "1h", snapshot.timeframe) if frame not in evidence]
-    if snapshot.timeframe not in ("15m", "30m"):
-        warnings.append("Kaystrade execution requires M15/M30; selected timeframe is context only")
+    swing = trading_style == "SWING"
+    execution_frame = "1h" if swing else snapshot.timeframe
+    eligible_frame = snapshot.timeframe in (("1h", "4h", "1d") if swing else ("15m", "30m"))
+    if not eligible_frame:
+        warnings.append("Swing requires D1/H4 context and H1 refinement; selected timeframe is context only" if swing else "Kaystrade execution requires M15/M30; selected timeframe is context only")
     warnings += [f"Required closed-bar frame unavailable: {frame}" for frame in missing]
     ratings = {item.timeframe: item for item in snapshot.technicals}
     for frame in ("4h", "1d"):
@@ -263,7 +266,7 @@ def analyze(snapshot, seconds):
         warnings.append("No timestamped financial news supplied; no news blackout assumed")
     h4 = evidence.get("4h", {})
     bias = "BUY" if h4.get("structure") == "HH_HL" else "SELL" if h4.get("structure") == "LH_LL" else "NEUTRAL"
-    execution = evidence.get(snapshot.timeframe, {})
+    execution = evidence.get(execution_frame, {})
     setup = execution.get("base_retest", {})
     confirmations = []
     h1 = evidence.get("1h", {})
@@ -278,20 +281,23 @@ def analyze(snapshot, seconds):
     aligned = bias != "NEUTRAL" and all(frame in ratings and all(getattr(ratings[frame], name) == ("buy" if bias == "BUY" else "sell") for name in ("summary", "moving_averages", "oscillators")) for frame in ("4h", "1d"))
     if not aligned:
         warnings.append("D1/H4 Technicals are missing, neutral or conflict with H4 structure")
+    daily_aligned = not swing or evidence.get("1d", {}).get("structure") == h4.get("structure")
+    if not daily_aligned:
+        warnings.append("Swing D1 context does not confirm the primary H4 structure")
     signal = {"direction": "NO TRADE", "bias": bias, "status": "INSUFFICIENT DATA" if missing else "WAITING FOR CONFIRMATION",
               "entry": None, "stop_loss": None, "take_profit": None, "risk_reward": None,
               "analysis_horizon": snapshot.timeframe, "confirmations": confirmations,
               "invalidation_conditions": ["H4 structure changes", "Body closes back into the breakout base", "Recorded swing invalidation is breached"],
               "timestamp": snapshot.as_of.isoformat()}
-    if not missing and snapshot.timeframe in ("15m", "30m") and aligned and h1.get("structure") == h4.get("structure") and len(confirmations) >= 3 and setup.get("status") == "confirmed" and setup.get("direction") == bias:
-        closed = [c for c in frames[snapshot.timeframe] if c.timestamp + timedelta(seconds=seconds[snapshot.timeframe]) <= snapshot.as_of]
+    if not missing and eligible_frame and daily_aligned and aligned and h1.get("structure") == h4.get("structure") and len(confirmations) >= 3 and setup.get("status") == "confirmed" and setup.get("direction") == bias:
+        closed = [c for c in frames[execution_frame] if c.timestamp + timedelta(seconds=seconds[execution_frame]) <= snapshot.as_of]
         entry = closed[-1].close
         swings = [p["price"] for p in execution["pivots"] if p["kind"] == ("low" if bias == "BUY" else "high")]
         tick = snapshot.price_tick
         if swings and tick is not None:
             stop = min(swings[-1], setup["low"]) - tick if bias == "BUY" else max(swings[-1], setup["high"]) + tick
             barriers, obstructed = [], False
-            for frame in dict.fromkeys((snapshot.timeframe, "1h", "4h")):
+            for frame in dict.fromkeys((execution_frame, "1h", "4h", *(('1d',) if swing else ()))):
                 mapped = evidence[frame]
                 prices = [p["price"] for p in mapped["pivots"] if p["kind"] == ("high" if bias == "BUY" else "low")]
                 prices += [p["price"] for p in mapped.get("levels", []) if p["label"] in (("Resistance", "SBR") if bias == "BUY" else ("Support",))]
@@ -314,7 +320,11 @@ def analyze(snapshot, seconds):
     if snapshot.instrument in ("GOLD", "XAUUSD") and (len(dxy_stamps) < 31 or not closed_stamps or max(closed_stamps) not in dxy_stamps):
         warnings.append("Timestamp-aligned DXY context unavailable; no inverse relationship assumed")
     signal = MarketSignal.model_validate(signal).model_dump(mode="json")
-    return wire({"methodology": VERSION, "signal": signal, "frames": evidence, "technicals": [r.model_dump(mode="json") for r in snapshot.technicals],
+    invalidation_level = (Decimal(signal["stop_loss"]) + snapshot.price_tick if signal["direction"] == "BUY" else Decimal(signal["stop_loss"]) - snapshot.price_tick) if signal["entry"] is not None else None
+    return wire({"methodology": VERSION, "signal": signal, "frames": evidence, "execution_timeframe": execution_frame,
+                 "trading_style": trading_style, "invalidation_level": invalidation_level,
+                 "historical_intraday_max_hours": 24 if trading_style == "INTRADAY" else None,
+                 "technicals": [r.model_dump(mode="json") for r in snapshot.technicals],
                  "scenarios": {"bullish": "Requires HH/HL H4, aligned H1, closed bullish breakout/retest and independent momentum confirmation",
                                "bearish": "Requires LH/LL H4, aligned H1, closed bearish breakout/retest and independent momentum confirmation",
                                "no_trade": "Consolidation, conflicting/unverified ratings, invalidated base or missing data"},

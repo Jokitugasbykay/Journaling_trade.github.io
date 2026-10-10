@@ -9,8 +9,9 @@ const equity=[{date:'2026-10-01',equity:'1000',drawdown:'0',pnl:'30'},{date:'202
 const group=[{label:'EURUSD',trade_count:2,net_pnl:'10',win_rate:'0.5'}];
 const job={id:ids.job,state:'succeeded',created_at:'2026-10-10',kind:'journal',result:{observations:[{text:'Two recorded trades.',evidence_ids:[ids.trade]}],model_version:'fixture-contract'}};
 let activeKind='journal';
+let actionableFixture=false,signalRows=[],alertRows=[],notificationRows=[];
 const marketContext=(symbol='XAUUSD',frame='15m')=>({instrument:symbol,timeframe:frame,name:symbol,asset_class:'Explicit transport fixture',tradingview_symbol:symbol==='XAUUSD'?'TVC:GOLD':'OANDA:EURUSD',as_of:'2026-10-10T10:00:00Z',provider:'Synthetic transport fixture',data_freshness:'fresh',current_price:'100',macro:[],news:[],geopolitics:[],correlations:{},kaystrade:{methodology:'fixture-rule-contract',signal:{direction:'NO TRADE',bias:'NEUTRAL',status:'WAITING FOR CONFIRMATION',entry:null,stop_loss:null,take_profit:null,risk_reward:null,analysis_horizon:frame,confirmations:[],invalidation_conditions:['No confirmed setup'],timestamp:'2026-10-10T10:00:00Z'},frames:{},technicals:[],warnings:['Fixture evidence only'],scenarios:{no_trade:'No confirmed setup'}}});
-const marketJob=()=>{const data=marketContext();return {...job,kind:'market',result:{...job.result,quantitative:{market:data},signal:data.kaystrade.signal,model_version:{name:'transport-fixture',digest:'fixture-not-real-inference'}}};};
+const marketJob=()=>{const data=marketContext();if(actionableFixture){data.kaystrade.signal={...data.kaystrade.signal,direction:'BUY',bias:'BUY',status:'CONDITIONAL SETUP',entry:'100',stop_loss:'90',take_profit:'120',risk_reward:'2'};data.intelligence={trading_style:'INTRADAY',comparison:{agreement:'ALIGNED'},fundamental:{events:[],warning:'Synthetic action transport fixture only'},warnings:[],scenarios:[{direction:'BUY',setup_status:'CONFIRMED',entry:'100',stop_loss:'90',take_profit_1:'120',risk_reward:'2',probability_status:'Not calibrated'}]};}return {...job,kind:'market',result:{...job.result,quantitative:{market:data},signal:data.kaystrade.signal,model_version:{name:'transport-fixture',digest:'fixture-not-real-inference'}}};};
 function api(url,method,body) {
   const route=url.pathname.replace('/api/v1','');requests.push({route,method,body,query:url.searchParams.toString()});
   if(route==='/entitlements')return {plan:'pro',effective_until:'2099-01-01T00:00:00Z',ai:{remaining:30,limit:30}};
@@ -33,6 +34,17 @@ function api(url,method,body) {
   if(route==='/ai/history'){const saved=url.searchParams.get('kind')==='market'?marketJob():job;return {items:[saved,{...saved,id:ids.second,state:'failed'}]};}
   if(route.startsWith('/ai/')){if(route.endsWith('-analysis'))activeKind=route.slice(4).replace('-analysis','');return activeKind==='market'?marketJob():job;}
   if(route==='/market/instruments')return {items:['XAUUSD','EURUSD'].map(symbol=>({symbol,name:symbol,asset_class:'fixture',tradingview_symbol:symbol==='XAUUSD'?'TVC:GOLD':'OANDA:EURUSD',timeframes:['1m','5m','15m','30m','1h','4h','1d']}))};
+  if(route==='/market/preference')return {trading_style:body.trading_style || 'INTRADAY'};
+  if(route==='/market/notification-preference')return {browser_notifications:body.browser_notifications};
+  if(route==='/market/signals'){
+    if(method==='POST'){let row=signalRows[0];if(!row){row={id:ids.trade,job_id:body.job_id,instrument:'XAUUSD',direction:body.direction,trading_style:'INTRADAY',status:'active',outcome:null,execution_confirmed:false};signalRows.push(row);}Object.assign(row,{action:body.action,mode:body.mode || row.mode});if(!alertRows.length)alertRows.push({id:ids.second,kind:'entry_watch',trigger_price:'100',enabled:true,triggered_at:null});if(!notificationRows.length)notificationRows.push({id:ids.account,instrument:'XAUUSD',trading_style:'INTRADAY',alert_type:'entry_watch',trigger_timestamp:'2026-10-10T10:00:00Z',explanation:'Synthetic price alert fixture',read_at:null});return row;}return {items:signalRows};
+  }
+  if(route.startsWith('/market/signals/')){Object.assign(signalRows[0],{execution_confirmed:true,...body});return signalRows[0];}
+  if(route==='/market/alerts')return {items:alertRows};
+  if(route.startsWith('/market/alerts/')){Object.assign(alertRows[0],body);return alertRows[0];}
+  if(route==='/market/notifications')return {items:notificationRows};
+  if(route.startsWith('/market/notifications/')){notificationRows[0].read_at='2026-10-10T10:01:00Z';return {read:true};}
+  if(route==='/market/performance')return {total_accepted_signals:0,categories:{actual:{winrate:null},paper:{winrate:null}}};
   if(route.startsWith('/market/'))return marketContext(body.instrument || url.searchParams.get('instrument'),body.timeframe || url.searchParams.get('timeframe'));
   if(route==='/news/filters')return {countries:['US','ID'],regions:['Asia','North America'],categories:['Business']};
   if(route==='/news')return {items:[{title:'<img src=x onerror=alert(1)>',source:'Publisher',published_at:'2026-10-10',url:'https://publisher.example.test/article',country:'US',category:'Business',excerpt:'Authorized fixture excerpt.'}]};
@@ -53,6 +65,19 @@ const server=http.createServer(async(req,res)=>{
   const open=feature=>page.evaluate(feature=>JTPRO.open(feature),feature);
   const click=async(selector)=>{await page.locator(selector).click();await page.waitForTimeout(100);};
   await open('ai-market');assert.equal(await page.locator('.pro-sections button').count(),10);
+  {
+    await page.route('**/api/v1/market/preference',route=>route.request().method()==='GET'?route.fulfill({contentType:'application/json',body:JSON.stringify({trading_style:null})}):route.continue());
+    await open('ai-market');const count=requests.filter(row=>row.route==='/ai/market-analysis').length;
+    await click('#pro-ai-generate');assert.equal(requests.filter(row=>row.route==='/ai/market-analysis').length,count,'Missing style submitted an AI job');
+    assert.ok((await page.locator('#view-pro-workspace').textContent()).includes('Select and save your trading style first.'));
+    await page.locator('#pro-market-style').selectOption('SWING');await page.waitForFunction(()=>!document.querySelector('#pro-market-style').disabled);
+    assert.equal(await page.locator('#pro-timeframe-4h').getAttribute('aria-pressed'),'true');
+    assert.equal(requests.filter(row=>row.route==='/ai/market-analysis').length,count,'Style change consumed AI quota');
+    await page.evaluate(()=>{window.Notification=class {static permission='granted';static async requestPermission(){return 'granted';}close(){}};});
+    await click('#pro-browser-notifications');assert.ok(requests.some(row=>row.route==='/market/notification-preference' && row.body.browser_notifications===true));
+    await click('#pro-browser-notifications');assert.ok(requests.some(row=>row.route==='/market/notification-preference' && row.body.browser_notifications===false));
+    await page.unroute('**/api/v1/market/preference');await open('ai-market');
+  }
   {
     let releaseRefresh,refreshStarted;
     const refreshPending=new Promise(resolve=>releaseRefresh=resolve),refreshReceived=new Promise(resolve=>refreshStarted=resolve);
@@ -92,6 +117,14 @@ const server=http.createServer(async(req,res)=>{
   await open('reports');await click('#pro-report-preview');await click('#pro-report-generate');await page.getByRole('button',{name:'Download',exact:true}).click();await page.getByRole('link',{name:'Download PDF'}).waitFor();assert.equal(await page.getByRole('link',{name:'Download PDF'}).count(),1);await page.getByRole('button',{name:'Retry',exact:true}).click();await page.getByRole('button',{name:'View status'}).first().click();await page.getByRole('button',{name:'Delete',exact:true}).first().click();
   for(const feature of ['ai-behaviour','ai-market','ai-journal']) {await open(feature);await click('#pro-ai-generate');assert.ok(requests.some(row=>row.route==='/ai/'+feature.slice(3)+'-analysis'));await page.getByRole('button',{name:'Open analysis'}).first().click();await page.getByRole('button',{name:'Retry',exact:true}).click();if(feature==='ai-market'){await page.locator('#pro-market-instrument').selectOption('EURUSD');await click('#pro-timeframe-4h');assert.ok((await page.locator('#view-pro-workspace').textContent()).includes('Displayed analysis belongs to XAUUSD / 15m'));await click('#pro-market-refresh');}}
   await open('global-news');await page.locator('#pro-news-q').fill('rates');await click('#pro-news-search');assert.ok(requests.at(-1).query.includes('q=rates'));assert.equal(await page.locator('img').count(),0);assert.ok((await page.locator('#view-pro-workspace').textContent()).includes('<img src=x onerror=alert(1)>'));await page.getByRole('button',{name:'Reset',exact:true}).click();
+  actionableFixture=true;activeKind='market';await open('ai-market');await page.getByRole('button',{name:'Open analysis'}).first().click();
+  await page.getByRole('button',{name:'Watch only / create price alerts'}).click();await page.waitForTimeout(100);assert.equal(signalRows[0].action,'watch');assert.equal(signalRows[0].execution_confirmed,false);
+  await page.getByRole('button',{name:'Take this signal'}).click();await page.waitForTimeout(100);assert.equal(signalRows[0].action,'take');assert.equal(signalRows[0].execution_confirmed,false);
+  await page.getByRole('button',{name:'Confirm execution',exact:true}).click();await page.locator('[id^=pro-execution-price-]').fill('101');await page.locator('[id^=pro-execution-time-]').fill('2026-10-10T12:30');await page.getByRole('button',{name:'Save execution confirmation'}).click();await page.waitForTimeout(100);assert.equal(signalRows[0].execution_confirmed,true);
+  await page.getByLabel('Watch price',{exact:true}).fill('102');await page.getByRole('button',{name:'Save watch price'}).click();await page.waitForTimeout(100);assert.equal(alertRows[0].trigger_price,'102');
+  await page.getByRole('button',{name:'Disable alert'}).click();await page.waitForTimeout(100);assert.equal(alertRows[0].enabled,false);await page.getByRole('button',{name:'Enable alert'}).click();await page.waitForTimeout(100);assert.equal(alertRows[0].enabled,true);
+  await click('#pro-signal-notifications');await page.getByRole('button',{name:'Mark as read'}).scrollIntoViewIfNeeded();await page.waitForTimeout(100);await page.getByRole('button',{name:'Mark as read'}).click();await page.waitForTimeout(100);assert.ok(notificationRows[0].read_at,JSON.stringify({requests:requests.slice(-5),alerts:await page.locator('[role=alert]').allTextContents(),errors}));
+  await page.getByRole('button',{name:'Dismiss signal',exact:true}).first().click();await page.waitForTimeout(100);assert.equal(signalRows[0].action,'dismiss');
   for(const feature of Object.keys(await page.evaluate(()=>JTPRO.features))) {await page.setViewportSize({width:375,height:900});await open(feature);assert.equal(await page.locator('#pro-section-selector').isVisible(),true);assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth>window.innerWidth),false,'mobile overflow '+feature);}
   assert.deepEqual(errors,[]);assert.ok(requests.filter(row=>row.method==='POST').length>=10);console.log('Ten Pro pages, market selection races and control transport checks passed at desktop and mobile widths; provider integrations were fixtures.');await browser.close();server.close();
 })().catch(error=>{console.error(error);server.close();process.exitCode=1;setTimeout(()=>process.exit(1),300);});

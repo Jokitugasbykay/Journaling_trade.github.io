@@ -11,6 +11,7 @@ from services.pro_api.market import TIMEFRAMES
 from services.pro_api.models import MarketSignal
 from services.pro_api.store import Settings, Store
 from services.pro_api.worker import process_job, run_job
+from services.pro_api.signals import monitor_once
 
 
 class MarketPipeline(unittest.IsolatedAsyncioTestCase):
@@ -52,16 +53,24 @@ class MarketPipeline(unittest.IsolatedAsyncioTestCase):
                                  ai_timeout=10)
         self.job = {"id": "b0b10000-0000-4000-a000-000000000021", "worker_id": "fixture-worker",
                     "user_id": "b0b10000-0000-4000-a000-000000000001", "kind": "market",
-                    "payload": {"instrument": "XAUUSD", "timeframe": "15m"}}
+                    "payload": {"instrument": "XAUUSD", "timeframe": "15m", "trading_style": "INTRADAY"}}
         self.output = {"market_outcome": "Bullish", "observations": [{
             "text": "Data sintetis belum menunjukkan struktur terkonfirmasi.",
             "evidence_ids": ["kaystrade", "macro-0", "news-0", "geopolitics-0", "correlation-DXY"]}]}
         self.chat_requests, self.finishes, self.runtime_timeout = [], [], False
+        self.monitored=[]
+        self.signal={"id":self.job['id'],"user_id":self.job['user_id'],"job_id":self.job['id'],"direction":"BUY","instrument":"XAUUSD","timeframe":"15m","trading_style":"INTRADAY",
+                     "entry":"100","stop_loss":"90","take_profit":"120","risk_reward":"2","status":"active","action":"watch","mode":None,"execution_confirmed":False,"executed_at":None,
+                     "analyzed_at":(now-timedelta(hours=1)).isoformat(),"created_at":(now-timedelta(hours=1)).isoformat(),"expires_at":(now+timedelta(hours=1)).isoformat()}
         self.client = httpx.AsyncClient(transport=httpx.MockTransport(self.upstream))
         self.addAsyncCleanup(self.client.aclose)
         self.store = Store(self.client, self.settings, "fixture-service-token", privileged=True)
 
     def upstream(self, request):
+        if request.url.path=='/rest/v1/market_signals':return httpx.Response(200,json=[self.signal])
+        if request.url.path=='/rest/v1/signal_alerts':return httpx.Response(200,json=[{'id':self.job['id'],'kind':'entry_watch','enabled':True,'trigger_price':'100','triggered_at':None}])
+        if request.url.path=='/rest/v1/rpc/journal_monitor_signal':
+            self.monitored.append(json.loads(request.content));return httpx.Response(200,json=self.signal)
         if request.url.path == "/rest/v1/rpc/journal_user_access":
             self.assertEqual(json.loads(request.content), {"p_user_id": self.job["user_id"]})
             return httpx.Response(200, json={"plan": "pro", "aiRemaining": 30})
@@ -81,12 +90,14 @@ class MarketPipeline(unittest.IsolatedAsyncioTestCase):
     def assert_market_result(self, result):
         signal = MarketSignal.model_validate(result["signal"])
         self.assertEqual(signal.direction, "NO TRADE")
-        self.assertEqual(signal.status, "WAITING FOR CONFIRMATION")
+        self.assertEqual(signal.status, "INSUFFICIENT DATA")
         self.assertIsNone(signal.entry)
-        self.assertEqual(result["market_outcome"], "No Trade")
+        self.assertEqual(result["market_outcome"], "Insufficient Data")
         self.assertEqual(result["model_version"], {"name": self.settings.ollama_model,
                                                  "digest": self.settings.model_digest,
-                                                 "license": self.settings.model_license})
+                                                 "license": self.settings.model_license,
+                                                 "methodology": "kaystrade-closed-bars-v2",
+                                                 "synthesis": "kaystrade-fundamental-synthesis-v1"})
         self.assertEqual(result["analysis_horizon"], "15m")
         self.assertIsNotNone(datetime.fromisoformat(result["generated_at"]).tzinfo)
         context = result["quantitative"]["market"]
@@ -122,6 +133,14 @@ class MarketPipeline(unittest.IsolatedAsyncioTestCase):
         self.runtime_timeout = True
         await run_job(self.store, self.settings, self.job)
         self.assert_failed_finish()
+
+    async def test_background_monitor_reads_validated_feed_without_browser_or_ai(self):
+        await monitor_once(self.store,self.settings)
+        self.assertEqual(len(self.monitored),1)
+        self.assertEqual(self.monitored[0]['p_result']['events'][0]['kind'],'entry_watch')
+        self.assertIsNone(self.monitored[0]['p_result']['outcome'])
+        self.assertEqual(self.chat_requests,[])
+        self.assertEqual(self.finishes,[])
 
     def assert_failed_finish(self):
         self.assertEqual(len(self.chat_requests), 1)

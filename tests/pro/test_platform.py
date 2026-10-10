@@ -185,6 +185,12 @@ class ApiContracts(unittest.TestCase):
             if request.headers.get("authorization") != "Bearer verified-fixture": return httpx.Response(401, json={"code": "invalid"})
             return httpx.Response(200, json={"id": UID})
         if path.endswith("journal_rate_limit"): return httpx.Response(200, json=True)
+        if path.endswith("journal_market_preference"):
+            payload=json.loads(request.content)
+            if payload.get("p_style"): self.style=payload["p_style"]
+            return httpx.Response(200, json={"trading_style": getattr(self, "style", None)})
+        if path.endswith("journal_notification_preference"):
+            return httpx.Response(200, json={"browser_notifications": json.loads(request.content)["p_enabled"]})
         if path.endswith("journal_entitlements"):
             end = datetime.now(timezone.utc) + timedelta(days=-1 if self.expired else 1)
             return httpx.Response(200, json={"plan": self.plan, "countries": ["ID"], "effectiveUntil": end.isoformat(), "aiRemaining": 30})
@@ -229,6 +235,23 @@ class ApiContracts(unittest.TestCase):
         self.assertEqual(result.status_code, 202, result.text)
         self.assertEqual(self.job_calls, 1)
         self.assertEqual(self.client.get(f"/api/v1/reports/{JOB}/download", headers=self.headers).status_code, 404)
+
+    def test_market_style_and_signal_endpoints_are_owned_and_protected(self):
+        self.assertIsNone(self.client.get('/api/v1/market/preference',headers=self.headers).json()['trading_style'])
+        denied=self.client.post('/api/v1/ai/market-analysis',headers=self.headers,json={'instrument':'XAUUSD','timeframe':'15m'})
+        self.assertEqual(denied.status_code,409)
+        self.assertEqual(self.job_calls,0)
+        for style in ('SCALPING','INTRADAY','SWING'):
+            response=self.client.put('/api/v1/market/preference',headers=self.headers,json={'trading_style':style})
+            self.assertEqual(response.status_code,200,response.text)
+            self.assertEqual(response.json()['trading_style'],style)
+        self.assertEqual(self.client.put('/api/v1/market/preference',headers=self.headers,json={'trading_style':'OTHER'}).status_code,422)
+        self.assertEqual(self.client.put('/api/v1/market/notification-preference',headers=self.headers,json={'browser_notifications':True}).status_code,200)
+        for route in ('signals','alerts','notifications','performance'):
+            self.assertEqual(self.client.get('/api/v1/market/'+route,headers=self.headers).status_code,200)
+        self.plan='plus'
+        self.assertEqual(self.client.get('/api/v1/market/signals',headers=self.headers).status_code,403)
+        self.assertEqual(self.client.put('/api/v1/market/preference',headers=self.headers,json={'trading_style':'SCALPING'}).status_code,403)
 
     def test_plus_international_cannot_bypass_country_limit(self):
         self.plan = "plus"

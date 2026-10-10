@@ -72,9 +72,12 @@ async def process_job(store, settings, job):
         return {"review": saved[0]}
     config = Analysis.model_validate(payload)
     if kind == "market":
-        context = await asyncio.to_thread(load_market, settings, config.instrument, config.timeframe)
+        if not config.trading_style:
+            raise ValueError("Select a trading style before market analysis")
+        context = await asyncio.to_thread(load_market, settings, config.instrument, config.timeframe, trading_style=config.trading_style)
         evidence = {"market": context}
         ids = ["technical", "multi_timeframe", "statistical_baseline", "kaystrade"]
+        ids += [event["evidence_id"] for event in context["intelligence"]["fundamental"]["events"] + context["intelligence"]["fundamental"]["context_events"]]
         for group in ("macro", "news", "geopolitics"):
             for index, item in enumerate(context[group]):
                 item["evidence_id"] = f"{group}-{index}"
@@ -104,8 +107,10 @@ async def process_job(store, settings, job):
             evidence["reviews"] = await store.rows("performance_reviews", {"user_id": f"eq.{uid}", "limit": 5, "order": "period_start.desc"})
     result = await explain(store.client, settings, kind, evidence, ids)
     if kind == "market":
-        signal = context["kaystrade"]["signal"]
+        signal = context["intelligence"]["signal"]
         result["signal"] = signal
+        result["model_version"]["methodology"] = context["kaystrade"]["methodology"]
+        result["model_version"]["synthesis"] = "kaystrade-fundamental-synthesis-v1"
         result["market_outcome"] = {"BUY": "Bullish", "SELL": "Bearish", "NEUTRAL": "Neutral", "NO TRADE": "Insufficient Data" if signal["status"] == "INSUFFICIENT DATA" else "No Trade"}[signal["direction"]]
     result["analysis_horizon"] = config.timeframe if kind == "market" else "Selected journal period"
     result["generated_at"] = datetime.now(timezone.utc).isoformat()

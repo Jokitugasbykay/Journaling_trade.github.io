@@ -13,6 +13,7 @@ from pydantic import BaseModel, ConfigDict, Field, model_validator
 from .analytics import number, timestamp, wire
 from .statistical import forecast
 from .kaystrade import analyze
+from .intelligence import FundamentalEvent, synthesize
 
 TIMEFRAMES = {"1m": 60, "5m": 300, "15m": 900, "30m": 1800, "1h": 3600, "4h": 14400, "1d": 86400}
 
@@ -68,6 +69,7 @@ class Snapshot(BaseModel):
     delayed: bool = False
     delay_seconds: int = Field(default=0, ge=0, le=86400)
     technicals: list[TechnicalRating] = Field(default_factory=list, max_length=2)
+    fundamental_events: list[FundamentalEvent] = Field(default_factory=list, max_length=300)
     candles: list[Candle] = Field(min_length=51, max_length=10000)
     macro: list[dict] = Field(default_factory=list, max_length=100)
     news: list[dict] = Field(default_factory=list, max_length=100)
@@ -174,7 +176,7 @@ def instrument_catalog(settings):
         raise HTTPException(503, "An authorized provider instrument manifest is unavailable or invalid") from exc
 
 
-def load_market(settings, instrument, timeframe, now=None):
+def load_market(settings, instrument, timeframe, now=None, trading_style=None):
     if not re.fullmatch(r"[A-Z0-9_]{1,30}", instrument) or timeframe not in TIMEFRAMES:
         raise HTTPException(422, "Unsupported instrument or timeframe")
     # Operator configuration is the authorization boundary; users cannot supply a URL or path.
@@ -205,12 +207,14 @@ def load_market(settings, instrument, timeframe, now=None):
                 raise HTTPException(409, "Multi-timeframe market data is stale")
         closed = [c for c in snapshot.candles if c.timestamp + timedelta(seconds=TIMEFRAMES[timeframe]) <= snapshot.as_of]
         closed_frames = {frame: [c for c in candles if c.timestamp + timedelta(seconds=TIMEFRAMES[frame]) <= snapshot.as_of] for frame, candles in snapshot.other_timeframes.items()}
+        kaystrade = analyze(snapshot, TIMEFRAMES, trading_style)
+        intelligence = synthesize(kaystrade, [event.model_dump() for event in snapshot.fundamental_events], instrument, trading_style, now)
         return {"instrument": instrument, "timeframe": timeframe, "tradingview_symbol": mapped["tradingview_symbol"],
                 "name": mapped["name"], "asset_class": mapped["asset_class"],
-                "as_of": snapshot.as_of.isoformat(), "provider": snapshot.provider,
+                "as_of": snapshot.as_of.isoformat(), "valid_until": snapshot.valid_until.isoformat(), "provider": snapshot.provider,
                 "license_reference": snapshot.license_reference, "market_open": snapshot.market_open,
                 "current_price": str(snapshot.candles[-1].close), "delayed": snapshot.delayed, "delay_seconds": snapshot.delay_seconds,
-                "kaystrade": analyze(snapshot, TIMEFRAMES),
+                "kaystrade": kaystrade, "intelligence": intelligence,
                 "technical": technical(closed) if len(closed) >= 51 else {"status": "insufficient_closed_bars"}, "macro": snapshot.macro, "news": snapshot.news,
                 "geopolitics": snapshot.geopolitics,
                 "multi_timeframe": {frame: technical(candles) for frame, candles in closed_frames.items() if len(candles) >= 51},

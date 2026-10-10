@@ -241,8 +241,8 @@
   function evidence(parent,ids) {if(!Array.isArray(ids))return;const bar=node('div',null,'pro-evidence');for(const id of ids.slice(0,100))if(/^[a-f0-9]{8}-[a-f0-9-]{27}$/i.test(String(id)))bar.append(button('View trade '+String(id).slice(0,8),()=>journal({trade_id:id})));else bar.append(node('span','Evidence: '+id));parent.append(bar);}
   function sourceReferences(parent,context) {
     if(!context)return;const section=node('section'),seen=new Set();section.append(node('h3','Source references'));
-    const items=Array.isArray(context)?context:[...(context.macro || []),...(context.news || []),...(context.geopolitics || []),...(context.kaystrade?.technicals || [])];
-    for(const item of items) {const url=safeLink(item?.source_url || item?.url),key=url+'|'+item?.timestamp;if(!url || seen.has(key))continue;seen.add(key);const link=node('a',item.title || item.name || item.timeframe || 'View source');link.href=url;link.target='_blank';link.rel='noopener noreferrer';section.append(link,node('span',' · '+format(item.timestamp),'pro-muted'),node('br'));}
+    const items=Array.isArray(context)?context:[...(context.macro || []),...(context.news || []),...(context.geopolitics || []),...(context.kaystrade?.technicals || []),...(context.intelligence?.fundamental?.events || []),...(context.intelligence?.fundamental?.context_events || [])];
+    for(const item of items) {const moment=item?.timestamp || item?.published_at,url=safeLink(item?.source_url || item?.url),key=url+'|'+moment;if(!url || seen.has(key))continue;seen.add(key);const link=node('a',item.title || item.name || item.timeframe || 'View source');link.href=url;link.target='_blank';link.rel='noopener noreferrer';section.append(link,node('span',' · '+format(moment),'pro-muted'),node('br'));}
     if(seen.size)parent.append(section);
   }
 
@@ -259,7 +259,7 @@
     let job=first, epoch=revision;const owner=options.getUserId?.();
     for(let attempt=0;attempt<90 && epoch===revision && owner===options.getUserId?.();attempt++) {
       parent.replaceChildren();details(parent,{id:job.id,state:job.state,error:job.error});
-      if(job.state==='succeeded'){if(kind==='ai')render(parent,job.result);return job;}
+      if(job.state==='succeeded'){if(kind==='ai')render(parent,job.result,job.id);return job;}
       if(['failed','cancelled','expired'].includes(job.state))return job;
       if(kind==='ai')parent.append(button('Cancel analysis',async()=>{await request('/ai/jobs/'+job.id+'/cancel',{method:'POST',body:{}});},'pro-ai-cancel'));
       await new Promise((resolve,reject)=>{const timer=setTimeout(resolve,2000);const cancel=()=>{clearTimeout(timer);reject(new DOMException('Account changed','AbortError'));};controller.signal.addEventListener('abort',cancel,{once:true});setTimeout(()=>controller.signal.removeEventListener('abort',cancel),2100);});
@@ -294,6 +294,19 @@
     parent.replaceChildren();const context=result?.quantitative?.market,signal=result?.signal;
     if(!context || !signal || !['BUY','SELL','NEUTRAL','NO TRADE'].includes(signal.direction)) throw new Error('The saved analysis has no validated Kaystrade signal. Generate a new analysis.');
     parent.append(node('h2','AI entry signal'),node('p',context.instrument+' · '+context.timeframe+' · '+signal.timestamp,'pro-muted'));
+    if(context.intelligence) {
+      const assessment=context.intelligence;
+      parent.append(node('p','Trading style: '+assessment.trading_style,'pro-muted'));
+      disclosure(parent,'Fundamental vs technical comparison',assessment.comparison);
+      const scenarios=node('div',null,'pro-grid');parent.append(scenarios);
+      for(const scenario of assessment.scenarios) {const card=node('section',null,'pro-panel');card.append(node('h3',scenario.direction==='BUY'?'Bullish scenario':'Bearish scenario'),node('p',(scenario.direction==='BUY'?'Bullish Probability: ':'Bearish Probability: ')+scenario.probability_status));disclosure(card,'Conditions, levels and evidence',scenario);scenarios.append(card);}
+      for(const [label,events] of [['Fundamental news timeline',assessment.fundamental.events],['Expectations, interpretations and unverified context',assessment.fundamental.context_events]]){
+        const timeline=disclosure(parent,label,null);
+        if(events?.length){timeline.lastChild.remove();for(const event of events){timeline.append(node('h3',event.title),node('p',[event.verification,event.category,event.region,event.relevance+' relevance',event.severity+' severity'].join(' · '),'pro-muted'),node('p','Published: '+event.published_at+' · Event: '+event.event_at+' · Valid until: '+event.valid_until,'pro-muted'),node('p','Source-stated mechanism: '+event.mechanism));disclosure(timeline,'Supporting evidence',event.evidence);}sourceReferences(timeline,events);}
+      }
+      parent.append(node('p',assessment.fundamental.warning,'pro-muted'));
+      for(const warning of assessment.warnings)parent.append(node('p',warning,'pro-muted'));
+    }
     const cells=node('div',null,'pro-signal-cells');parent.append(cells);
     for(const [label,value] of [['Market direction',signal.direction],['Entry signal status',signal.status],['Proposed entry',signal.entry],['Stop loss',signal.stop_loss],['Take profit',signal.take_profit],['Risk reward ratio',signal.risk_reward],['Analysis horizon',signal.analysis_horizon]]) {const cell=node('div');cell.append(node('span',label,'pro-muted'),node('p',format(value)));cells.append(cell);}
     disclosure(parent,'Technical confirmations',signal.confirmations);disclosure(parent,'Invalidation conditions',signal.invalidation_conditions);
@@ -304,6 +317,13 @@
   }
   async function marketIntelligence() {
     filters={};let mapped=[],selectedFrame='15m',context=null,stored=null,chartTimer,contextSequence=0;
+    const marketController=controller;
+    const preference=await request('/market/preference');
+    let savedStyle=preference.trading_style || '';
+    let browserNotifications=!!preference.browser_notifications;
+    const notified=new Set(),shownNotifications=[];let notificationsLoaded=false;
+    selectedFrame=savedStyle==='SWING'?'4h':'15m';
+    const style=select('Trading style',[['','Select trading style'],['SCALPING','SCALPING'],['INTRADAY','INTRADAY'],['SWING','SWING']],savedStyle,'pro-market-style');content.append(style.wrap);
     const toolbar=node('div',null,'pro-toolbar'),instrument=select('Instrument',[],'','pro-market-instrument');content.append(toolbar);toolbar.append(instrument.wrap);
     const identity=node('p',null,'pro-muted'),freshness=node('p','Market data not loaded.','pro-muted'),quota=node('p',null,'pro-muted');content.append(identity,freshness,quota);
     const showQuota=()=>quota.textContent='AI analyses remaining this month: '+format(access?.ai?.remaining)+' / '+format(access?.ai?.limit || 30);showQuota();
@@ -312,9 +332,9 @@
     const chartPanel=panel('Market chart'),iframe=node('iframe'),chartStatus=node('p','Select an authorized instrument to load the chart.','pro-muted');iframe.title='TradingView market chart';iframe.referrerPolicy='no-referrer';chartPanel.append(iframe,chartStatus);
     const engine=panel('AI engine status'),result=panel('AI entry signal'),evidencePanel=panel('Technical evidence'),history=panel('Analysis history');
     result.append(node('p','No analysis yet. Entry, stop loss and target remain unavailable until validated rules support them.'));
-    const selected=()=>({instrument:instrument.input.value,timeframe:selectedFrame});
+    const selected=()=>({instrument:instrument.input.value,timeframe:selectedFrame,...(savedStyle?{trading_style:savedStyle}:{})});
     const selectionNote=node('p',null,'pro-muted');result.prepend(selectionNote);
-    const notePrevious=()=>{selectionNote.textContent=stored && (stored.quantitative?.market?.instrument!==instrument.input.value || stored.quantitative?.market?.timeframe!==selectedFrame) ? 'Displayed analysis belongs to '+stored.quantitative.market.instrument+' / '+stored.quantitative.market.timeframe+'. Analyze the current selection for a new signal.' : '';};
+    const notePrevious=()=>{selectionNote.textContent=stored && (stored.quantitative?.market?.instrument!==instrument.input.value || stored.quantitative?.market?.timeframe!==selectedFrame || stored.quantitative?.market?.intelligence?.trading_style!==savedStyle) ? 'Displayed analysis belongs to '+stored.quantitative.market.instrument+' / '+stored.quantitative.market.timeframe+' / '+(stored.quantitative.market.intelligence?.trading_style || 'Legacy style unavailable')+'. Analyze the current selection for a new signal.' : '';};
     const draw=()=>{const row=mapped.find(row=>row.symbol===instrument.input.value);if(!row)return;clearTimeout(chartTimer);iframe.src='https://s.tradingview.com/widgetembed/?'+query({symbol:row.tradingview_symbol,interval:timeframes[selectedFrame],theme:'dark',style:1,locale:'en',hidesidetoolbar:0,allow_symbol_change:0,saveimage:0});chartStatus.textContent='Loading chart…';chartTimer=setTimeout(()=>{if(iframe.isConnected)chartStatus.textContent='The chart did not confirm loading. Check the chart provider and retry this section.';},15000);controller.signal.addEventListener('abort',()=>clearTimeout(chartTimer),{once:true});identity.textContent=row.name+' · '+row.asset_class;};
     iframe.addEventListener('load',()=>{clearTimeout(chartTimer);chartStatus.textContent='Embedded TradingView chart loaded. Chart and analysis feeds are separate; verify symbol and data availability in the chart.';});iframe.addEventListener('error',()=>{clearTimeout(chartTimer);chartStatus.textContent='Chart unavailable. Retry the section.';});
     const contextLoad=async(refresh=false)=>{const sequence=++contextSequence;context=null;generate.dataset.unavailable='true';generate.disabled=true;freshness.textContent='Loading authorized market data…';const selection=selected();try {const data=await request('/market/'+(refresh?'refresh':'context?'+query(selection)),refresh?{method:'POST',body:selection,latest:true}:{latest:true});if(sequence!==contextSequence || selection.instrument!==instrument.input.value || selection.timeframe!==selectedFrame)return;context=data;freshness.textContent=[data.data_freshness,data.delayed?'Delayed '+data.delay_seconds+' seconds':'',data.current_price!==undefined?'Last recorded price: '+data.current_price:'',data.as_of,data.provider].filter(Boolean).join(' · ');evidencePanel.replaceChildren();evidencePanel.append(node('h2','Technical evidence'));disclosure(evidencePanel,'Closed-bar Kaystrade calculations',data.kaystrade);sourceReferences(evidencePanel,data);generate.dataset.unavailable='false';if(!generate.dataset.running)generate.disabled=false;}catch(error){if(sequence!==contextSequence || selection.instrument!==instrument.input.value || selection.timeframe!==selectedFrame)return;if(error.name!=='AbortError'){freshness.textContent='Market data unavailable: '+error.message;generate.disabled=true;}throw error;}};
@@ -322,16 +342,71 @@
     for(const [frame,label] of Object.entries({'1m':'M1','5m':'M5','15m':'M15','30m':'M30','1h':'H1','4h':'H4','1d':'D1'})) {const item=button(label,()=>choose(frame),'pro-timeframe-'+frame);item.dataset.frame=frame;item.setAttribute('aria-pressed',String(frame===selectedFrame));framebar.append(item);}
     frameSelect.input.addEventListener('change',()=>action(frameSelect.input,()=>choose(frameSelect.input.value)));
     instrument.input.addEventListener('change',()=>action(instrument.input,async()=>{const row=mapped.find(item=>item.symbol===instrument.input.value);for(const item of framebar.children){item.dataset.unavailable=String(!row.timeframes.includes(item.dataset.frame));item.disabled=item.dataset.unavailable==='true' || !!item.dataset.running;}for(const item of frameSelect.input.options)item.disabled=!row.timeframes.includes(item.value);await choose(row.timeframes.includes(selectedFrame)?selectedFrame:row.timeframes[0]);}));
-    const display=(parent,value)=>{stored=value;marketResult(parent,value);parent.prepend(selectionNote);notePrevious();};
-    const loadHistory=async()=>{const data=await request('/ai/history?kind=market',{latest:true});history.replaceChildren();history.append(node('h2','Analysis history'));table(history,data.items,[['created_at','Created'],['state','Status']],(cell,row)=>{cell.append(button('Open analysis',async()=>{const job=await request('/ai/jobs/'+row.id);if(job.state==='succeeded')display(result,job.result);else {result.replaceChildren();details(result,job);}}));if(['failed','cancelled','expired'].includes(row.state))cell.append(button('Retry',async()=>{if(!global.confirm('Retry the original analysis? One successful result uses one shared monthly allowance.'))return;await verifyAccess();const job=await request('/ai/jobs/'+row.id+'/retry',{method:'POST',body:{},headers:{'Idempotency-Key':crypto.randomUUID()}});await watchJob('ai',job,result,display);await verifyAccess();showQuota();await loadHistory();}));});};
-    const generate=button('Analyze market',async()=>{const selection=selected();await verifyAccess();showQuota();if(!(Number(access.ai?.remaining)>0))throw new Error('No AI allowance remains this month.');await contextLoad();if(selection.instrument!==instrument.input.value || selection.timeframe!==selectedFrame)throw new DOMException('Selection changed','AbortError');if(!global.confirm('A successful analysis uses one shared monthly AI allowance. Continue?'))return;const job=await request('/ai/market-analysis',{method:'POST',body:selection,headers:{'Idempotency-Key':crypto.randomUUID()}});await watchJob('ai',job,result,display);await verifyAccess();showQuota();await loadHistory();},'pro-ai-generate');generate.disabled=true;generate.dataset.unavailable='true';
+    const signalsPanel=panel('Accepted signals and performance'),alertsPanel=panel('Active price alerts'),notificationsPanel=panel('Notifications');
+    const loadSignals=async()=>{
+      const [signals,performance]=await Promise.all([request('/market/signals',{latest:true}),request('/market/performance',{latest:true})]);
+      signalsPanel.replaceChildren(node('h2','Accepted signals and performance'));disclosure(signalsPanel,'Actual and paper performance',performance);
+      table(signalsPanel,signals.items,[['instrument','Instrument'],['trading_style','Style'],['action','Action'],['mode','Tracking'],['status','Setup'],['outcome','Paper outcome']],(cell,row)=>{
+        if(row.action==='take' && row.status==='active' && !row.execution_confirmed)cell.append(button('Confirm execution',async()=>{
+          if(cell.querySelector('input[type=number]'))return;
+          const form=node('div',null,'pro-toolbar'),price=field('Execution price','number','','pro-execution-price-'+row.id),time=field('Execution time (local)','datetime-local','','pro-execution-time-'+row.id);
+          form.append(price.wrap,time.wrap,button('Save execution confirmation',async()=>{
+            if(!price.input.value || !time.input.value)throw new Error('Enter your execution price and time.');
+            if(!global.confirm(row.mode==='paper'?'Confirm this paper-tracked fill?':'Confirm that you manually executed this trade? This does not verify a broker fill.'))return;
+            await request('/market/signals/'+row.id+'/execution',{method:'POST',body:{price:price.input.value,executed_at:new Date(time.input.value).toISOString()}});await loadSignals();
+          }));cell.append(form);
+        }));
+        cell.append(button('Dismiss signal',async()=>{await request('/market/signals',{method:'POST',body:{job_id:row.job_id,direction:row.direction,action:'dismiss'}});await Promise.all([loadSignals(),loadAlerts()]);}));
+      });
+    };
+    const loadAlerts=async()=>{const data=await request('/market/alerts',{latest:true});alertsPanel.replaceChildren(node('h2','Active price alerts'),node('p','Server monitoring requires a running monitor service and an authorized fresh feed. Browser closure does not delete saved alerts.','pro-muted'));
+      table(alertsPanel,data.items,[['kind','Alert'],['trigger_price','Watch price'],['enabled','Enabled'],['triggered_at','Observed bar close']],(cell,row)=>{
+        cell.append(button(row.enabled?'Disable alert':'Enable alert',async()=>{await request('/market/alerts/'+row.id,{method:'PATCH',body:{enabled:!row.enabled}});await loadAlerts();}));
+        if(row.kind==='entry_watch'){const price=field('Watch price','number',row.trigger_price);cell.append(price.wrap,button('Save watch price',async()=>{if(!price.input.value)throw new Error('Enter a positive watch price.');await request('/market/alerts/'+row.id,{method:'PATCH',body:{enabled:row.enabled,trigger_price:price.input.value}});await loadAlerts();}));}
+      });
+    };
+    const loadNotifications=async()=>{const data=await request('/market/notifications',{latest:true});notificationsPanel.replaceChildren(node('h2','Notifications'),node('p','Browser notifications require permission and an open workspace. Web Push and email delivery are not configured.','pro-muted'));
+      for(const row of data.items) {if(notificationsLoaded && !notified.has(row.id) && !row.read_at && browserNotifications && global.Notification?.permission==='granted') {
+        try {const notice=new global.Notification(row.instrument+' · '+row.alert_type,{body:row.trading_style+' · '+row.direction+' · '+row.trigger_timestamp+'\n'+row.explanation,tag:row.id});shownNotifications.push(notice);}catch(error){showError(new Error('This browser requires Web Push for background notifications. In-app alerts remain available.'));}
+      }notified.add(row.id);}notificationsLoaded=true;
+      table(notificationsPanel,data.items,[['instrument','Instrument'],['trading_style','Style'],['alert_type','Alert'],['trigger_timestamp','Observed time'],['explanation','Explanation']],(cell,row)=>{if(!row.read_at)cell.append(button('Mark as read',async()=>{await request('/market/notifications/'+row.id+'/read',{method:'POST',body:{}});await loadNotifications();}));});
+    };
+    const display=(parent,value,jobId)=>{stored=value;marketResult(parent,value);parent.prepend(selectionNote);notePrevious();
+      for(const scenario of value.quantitative?.market?.intelligence?.scenarios || [])if(scenario.entry && jobId){
+        const controls=node('div',null,'pro-toolbar'),mode=select('Execution type',[['actual','Real manually executed trade'],['paper','Paper-tracked trade']],'paper');
+        const save=async(action)=>{if(action==='take' && !global.confirm('Accept '+scenario.direction+' setup: entry '+scenario.entry+', SL '+scenario.stop_loss+', TP '+scenario.take_profit_1+', RR '+scenario.risk_reward+'? Execution must be confirmed separately.'))return;await request('/market/signals',{method:'POST',body:{job_id:jobId,direction:scenario.direction,action,mode:action==='take'?mode.input.value:null}});await Promise.all([loadSignals(),loadAlerts()]);};
+        controls.append(node('p',scenario.direction+' scenario · '+scenario.setup_status),mode.wrap);
+        if(scenario.setup_status==='CONFIRMED')controls.append(button('Take this signal',()=>save('take')));
+        controls.append(button('Watch only / create price alerts',()=>save('watch')),button('Dismiss signal',()=>save('dismiss')));parent.append(controls);
+      }
+    };
+    const loadHistory=async()=>{const data=await request('/ai/history?kind=market',{latest:true});history.replaceChildren();history.append(node('h2','Analysis history'));table(history,data.items,[['created_at','Created'],['state','Status']],(cell,row)=>{cell.append(button('Open analysis',async()=>{const job=await request('/ai/jobs/'+row.id);if(job.state==='succeeded')display(result,job.result,job.id);else {result.replaceChildren();details(result,job);}}));if(['failed','cancelled','expired'].includes(row.state))cell.append(button('Retry',async()=>{if(!global.confirm('Retry the original analysis? One successful result uses one shared monthly allowance.'))return;await verifyAccess();const job=await request('/ai/jobs/'+row.id+'/retry',{method:'POST',body:{},headers:{'Idempotency-Key':crypto.randomUUID()}});await watchJob('ai',job,result,display);await verifyAccess();showQuota();await loadHistory();}));});};
+    const generate=button('Analyze market',async()=>{if(!savedStyle)throw new Error('Select and save your trading style first.');const selection=selected();await verifyAccess();showQuota();if(!(Number(access.ai?.remaining)>0))throw new Error('No AI allowance remains this month.');await contextLoad();if(selection.instrument!==instrument.input.value || selection.timeframe!==selectedFrame || selection.trading_style!==savedStyle)throw new DOMException('Selection changed','AbortError');if(!global.confirm('A successful analysis uses one shared monthly AI allowance. Continue?'))return;const job=await request('/ai/market-analysis',{method:'POST',body:selection,headers:{'Idempotency-Key':crypto.randomUUID()}});await watchJob('ai',job,result,display);await verifyAccess();showQuota();await loadHistory();},'pro-ai-generate');generate.disabled=true;generate.dataset.unavailable='true';
     toolbar.append(generate,button('Refresh market data',()=>contextLoad(true),'pro-market-refresh'),button('View evidence',()=>{const disclosure=evidencePanel.querySelector('details');if(disclosure)disclosure.open=true;evidencePanel.scrollIntoView({behavior:'smooth',block:'start'});},'pro-market-evidence'),button('View analysis history',async()=>{await loadHistory();history.scrollIntoView({behavior:'smooth',block:'start'});},'pro-market-history'));
+    toolbar.append(button('View signal performance',loadSignals,'pro-signal-performance'),button('View price alerts',loadAlerts,'pro-signal-alerts'),button('View notifications',loadNotifications,'pro-signal-notifications'));
+    const notificationToggle=button(browserNotifications?'Disable browser notifications':'Enable browser notifications',async()=>{
+      if(!global.Notification)throw new Error('Browser notifications are unavailable on this device.');
+      const enabled=!browserNotifications;
+      if(enabled && await global.Notification.requestPermission()!=='granted')throw new Error('Browser notification permission was not granted.');
+      await request('/market/notification-preference',{method:'PUT',body:{browser_notifications:enabled}});browserNotifications=enabled;notificationToggle.textContent=enabled?'Disable browser notifications':'Enable browser notifications';
+    },'pro-browser-notifications');toolbar.append(notificationToggle);
     const loadEngine=async()=>{const data=await request('/ai/engine');engine.replaceChildren();engine.append(node('h2','AI engine status'));details(engine,data);};
+    style.input.addEventListener('change',()=>action(style.input,async()=>{
+      const next=style.input.value;
+      if(!next)throw new Error('Select SCALPING, INTRADAY or SWING.');
+      await request('/market/preference',{method:'PUT',body:{trading_style:next}});
+      savedStyle=next;stored=null;result.replaceChildren(node('h2','AI entry signal'),node('p','Trading style changed. Generate a new analysis; previous signals remain in history.'));
+      const row=mapped.find(item=>item.symbol===instrument.input.value),frame=next==='SWING'?'4h':'15m';
+      await choose(row.timeframes.includes(frame)?frame:row.timeframes[0]);
+    }));
     const catalog=await request('/market/instruments');mapped=catalog.items || [];for(const row of mapped){const option=node('option',row.symbol);option.value=row.symbol;instrument.input.append(option);}
     if(!mapped.length){freshness.textContent='No authorized instruments are configured.';return;}
     instrument.input.value=mapped.find(row=>row.symbol==='XAUUSD' || row.symbol==='GOLD')?.symbol || mapped[0].symbol;
     const row=mapped.find(row=>row.symbol===instrument.input.value);for(const item of framebar.children){item.dataset.unavailable=String(!row.timeframes.includes(item.dataset.frame));item.disabled=item.dataset.unavailable==='true' || !!item.dataset.running;}for(const item of frameSelect.input.options)item.disabled=!row.timeframes.includes(item.value);selectedFrame=row.timeframes.includes(selectedFrame)?selectedFrame:row.timeframes[0];frameSelect.input.value=selectedFrame;for(const item of framebar.children)item.setAttribute('aria-pressed',String(item.dataset.frame===selectedFrame));draw();
-    await Promise.all([contextLoad().catch(showError),loadEngine().catch(showError),loadHistory().catch(showError)]);
+    await Promise.all([contextLoad().catch(showError),loadEngine().catch(showError),loadHistory().catch(showError),loadSignals().catch(showError),loadAlerts().catch(showError),loadNotifications().catch(showError)]);
+    if(marketController.signal.aborted || !notificationsPanel.isConnected)return;
+    const notificationTimer=setInterval(()=>loadNotifications().catch(error=>{if(error.name!=='AbortError')showError(error);}),60000);
+    marketController.signal.addEventListener('abort',()=>{clearInterval(notificationTimer);for(const notice of shownNotifications)notice.close();},{once:true});
   }
   async function news() {
     const form=node('form',null,'pro-toolbar');content.append(form);filters={};

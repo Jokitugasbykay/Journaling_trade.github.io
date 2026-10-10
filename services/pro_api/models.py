@@ -39,6 +39,38 @@ class Strategy(Input):
     description: str | None = Field(default=None, max_length=4000)
 
 
+class MarketPreference(Input):
+    trading_style: Literal["SCALPING", "INTRADAY", "SWING"]
+
+
+class NotificationPreference(Input):
+    browser_notifications: bool
+
+
+class SignalAction(Input):
+    job_id: UUID
+    direction: Literal["BUY", "SELL"]
+    action: Literal["watch", "take", "dismiss"]
+    mode: Literal["actual", "paper"] | None = None
+
+
+class ExecutionConfirmation(Input):
+    price: Decimal = Field(gt=0, lt=1e24, allow_inf_nan=False)
+    executed_at: datetime
+
+    @field_validator("executed_at")
+    @classmethod
+    def aware_time(cls, value):
+        if value.tzinfo is None:
+            raise ValueError("Execution timestamp requires a timezone")
+        return value
+
+
+class AlertChange(Input):
+    enabled: bool
+    trigger_price: Decimal | None = Field(default=None, gt=0, lt=1e24, allow_inf_nan=False)
+
+
 class RiskRule(Input):
     name: str = Field(min_length=1, max_length=160)
     kind: Literal["max_risk_percent", "max_daily_loss", "max_weekly_loss", "max_trades_per_day"]
@@ -86,6 +118,7 @@ class Report(Filters):
 
 
 class Analysis(Filters):
+    trading_style: Literal["SCALPING", "INTRADAY", "SWING"] | None = None
     instrument: str | None = Field(default=None, pattern=r"^[A-Z0-9_]{1,30}$")
     timeframe: Literal["1m", "5m", "15m", "30m", "1h", "4h", "1d"] | None = None
     analysis_type: Literal["performance", "strategy", "risk", "consistency", "review"] = "performance"

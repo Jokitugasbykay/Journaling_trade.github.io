@@ -24,8 +24,9 @@ from fastapi.security import HTTPAuthorizationCredentials, HTTPBearer
 
 from .ai import model_available
 from .analytics import heatmap, number, open_exposure, overview, position_size, records, review, risk_analysis, wire
+from .kaystrade import VERSION
 from .market import instrument_catalog, load_market
-from .models import Analysis, Filters, Import, Position, Report, Review, RiskRule, Strategy
+from .models import AlertChange, Analysis, ExecutionConfirmation, Filters, Import, MarketPreference, NotificationPreference, Position, Report, Review, RiskRule, SignalAction, Strategy
 from .store import Settings, Store, entitlements
 
 log = logging.getLogger("journalingtrade.pro")
@@ -407,6 +408,11 @@ def create_app(settings=None, transport=None):
         if not job or job["status"] not in ("failed", "expired", "cancelled") or job["kind"] not in ("report", "behaviour", "journal", "market"):
             raise HTTPException(409, "Only failed, expired or cancelled analyses and reports can be retried")
         if job["kind"] != "report":
+            if job["kind"] == "market":
+                preference = await user.store.rpc("journal_market_preference")
+                if not preference or preference.get("trading_style") != job["payload"].get("trading_style"):
+                    raise HTTPException(409, "Select a trading style and generate a new analysis for that style")
+                await asyncio.to_thread(load_market, settings, job["payload"]["instrument"], job["payload"]["timeframe"], trading_style=preference["trading_style"])
             await model_available(request.app.state.client, settings)
         return await create_job(user, job["kind"], job["payload"], key)
 
@@ -421,7 +427,10 @@ def create_app(settings=None, transport=None):
         if kind == "market":
             if not payload.instrument or not payload.timeframe:
                 raise HTTPException(422, "Select an instrument and timeframe")
-            await asyncio.to_thread(load_market, settings, payload.instrument, payload.timeframe)
+            preference = await user.store.rpc("journal_market_preference")
+            if not payload.trading_style or not preference or preference.get("trading_style") != payload.trading_style:
+                raise HTTPException(409, "Save your trading style before analyzing the market")
+            await asyncio.to_thread(load_market, settings, payload.instrument, payload.timeframe, trading_style=payload.trading_style)
         else:
             rows, _, _, _ = await dataset(user.store, user.id, payload)
             if not rows:
@@ -433,23 +442,82 @@ def create_app(settings=None, transport=None):
     async def market_instruments(user: ProDep):
         return await asyncio.to_thread(instrument_catalog, settings)
 
+    @app.get("/api/v1/market/preference")
+    async def market_preference(user: ProDep):
+        return await user.store.rpc("journal_market_preference") or {"trading_style": None}
+
+    @app.put("/api/v1/market/preference")
+    async def save_market_preference(payload: MarketPreference, user: ProDep):
+        return await user.store.rpc("journal_market_preference", {"p_style": payload.trading_style})
+
+    @app.put("/api/v1/market/notification-preference")
+    async def notification_preference(payload: NotificationPreference, user: ProDep):
+        return await user.store.rpc("journal_notification_preference", {"p_enabled": payload.browser_notifications})
+
+    @app.get("/api/v1/market/signals")
+    async def signals(user: ProDep):
+        return {"items": await user.store.rows("market_signals", {"user_id": f"eq.{user.id}", "order": "created_at.desc"})}
+
+    @app.post("/api/v1/market/signals")
+    async def signal_action(payload: SignalAction, user: ProDep):
+        if payload.action != "dismiss":
+            job = await user.store.rpc("journal_job", {"p_job_id": str(payload.job_id)})
+            if not job or job.get("kind") != "market" or job.get("status") != "succeeded":
+                raise HTTPException(404, "Completed market analysis not found")
+            original = job["result"]["quantitative"]["market"]
+            current = await asyncio.to_thread(load_market, settings, original["instrument"], original["timeframe"], trading_style=original["intelligence"]["trading_style"])
+            selected_signal = current["intelligence"]["signal"] if payload.action == "take" else current["kaystrade"]["signal"]
+            if selected_signal["direction"] != payload.direction:
+                raise HTTPException(409, "Current evidence no longer supports this setup; generate a new analysis")
+        return await user.store.rpc("journal_signal_action", {"p_job_id": str(payload.job_id), "p_direction": payload.direction,
+                                                               "p_action": payload.action, "p_mode": payload.mode})
+
+    @app.post("/api/v1/market/signals/{identifier}/execution")
+    async def confirm_execution(identifier: UUID, payload: ExecutionConfirmation, user: ProDep):
+        return await user.store.rpc("journal_signal_execution", {"p_id": str(identifier), "p_price": str(payload.price),
+                                                                  "p_at": payload.executed_at.isoformat()})
+
+    @app.get("/api/v1/market/alerts")
+    async def alerts(user: ProDep):
+        return {"items": await user.store.rows("signal_alerts", {"user_id": f"eq.{user.id}", "order": "created_at.desc"})}
+
+    @app.patch("/api/v1/market/alerts/{identifier}")
+    async def change_alert(identifier: UUID, payload: AlertChange, user: ProDep):
+        return await user.store.rpc("journal_alert_change", {"p_id": str(identifier), "p_enabled": payload.enabled,
+                                                              "p_price": str(payload.trigger_price) if payload.trigger_price is not None else None})
+
+    @app.get("/api/v1/market/notifications")
+    async def notifications(user: ProDep):
+        return {"items": await user.store.rows("signal_notifications", {"user_id": f"eq.{user.id}", "order": "created_at.desc"})}
+
+    @app.post("/api/v1/market/notifications/{identifier}/read")
+    async def read_notification(identifier: UUID, user: ProDep):
+        if not await user.store.rpc("journal_notification_read", {"p_id": str(identifier)}):
+            raise HTTPException(404, "Notification not found")
+        return {"read": True}
+
+    @app.get("/api/v1/market/performance")
+    async def signal_performance(user: ProDep):
+        from .signals import performance
+        return performance(await user.store.rows("market_signals", {"user_id": f"eq.{user.id}"}))
+
     @app.get("/api/v1/ai/engine")
     async def engine_status(user: ProDep, request: Request):
         try:
             model = await model_available(request.app.state.client, settings)
-            return {"status": "ready", "name": model["name"], "version": model["digest"], "methodology": "kaystrade-closed-bars-v1", "forecasting_model": None}
+            return {"status": "ready", "name": model["name"], "version": model["digest"], "methodology": VERSION, "forecasting_model": None}
         except HTTPException as exc:
             return {"status": "unavailable", "detail": exc.detail, "forecasting_model": None}
 
     @app.get("/api/v1/market/context")
-    async def market_context(user: ProDep, instrument: str = Query(pattern=r"^[A-Z0-9_]{1,30}$"), timeframe: str = Query(pattern=r"^(1m|5m|15m|30m|1h|4h|1d)$")):
-        return await asyncio.to_thread(load_market, settings, instrument, timeframe)
+    async def market_context(user: ProDep, instrument: str = Query(pattern=r"^[A-Z0-9_]{1,30}$"), timeframe: str = Query(pattern=r"^(1m|5m|15m|30m|1h|4h|1d)$"), trading_style: str | None = Query(default=None, pattern=r"^(SCALPING|INTRADAY|SWING)$")):
+        return await asyncio.to_thread(load_market, settings, instrument, timeframe, trading_style=trading_style)
 
     @app.post("/api/v1/market/refresh")
     async def refresh_market(payload: Analysis, user: ProDep):
         if not payload.instrument or not payload.timeframe:
             raise HTTPException(422, "Select an instrument and timeframe")
-        return await asyncio.to_thread(load_market, settings, payload.instrument, payload.timeframe)
+        return await asyncio.to_thread(load_market, settings, payload.instrument, payload.timeframe, trading_style=payload.trading_style)
 
     @app.post("/api/v1/imports", status_code=202)
     async def imports(payload: Import, user: UserDep, key: Key):

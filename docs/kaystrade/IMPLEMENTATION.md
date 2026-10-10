@@ -149,3 +149,7 @@ python -m unittest discover -s tests/pro -p test_platform.py -v
 | Backtest/Fibonacci | Permintaan eksplisit, data historis, aturan periode/biaya/kontrak/concurrency/exit/sizing, semua asumsi parsial dilaporkan. Fib tidak aktif secara default; aturan golden lama tidak dianggap sudah diuji. |
 
 Lihat [pro-backend.md](../pro-backend.md) untuk konfigurasi dan [PRO_PHASE_REPORTS.md](../PRO_PHASE_REPORTS.md) untuk status integrasi. Dokumen ini tidak menyatakan deployment, provider, model, bridge, alarm, atau backtest telah berhasil.
+
+## Intelligence extension (2026-10-10)
+
+Alerts are now explicitly requested. Style-aware v2 uses H1 refinement and D1 alignment for Swing, preserves M15/M30 for Scalping/Intraday and the historical Intraday 24-hour ceiling. Fundamental synthesis can withhold technically valid setups. See [revision report](../KAYSTRADE_INTELLIGENCE_REPORT.md) for tests and partial/unavailable integrations.

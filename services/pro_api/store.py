@@ -24,6 +24,7 @@ class Settings:
     model_digest: str = os.getenv("OLLAMA_MODEL_DIGEST", "")
     model_benchmark: Path | None = Path(os.environ["PRO_MODEL_BENCHMARK"]) if os.getenv("PRO_MODEL_BENCHMARK") else None
     ai_timeout: int = int(os.getenv("PRO_AI_TIMEOUT_SECONDS", "120"))
+    snapshot_poll_seconds: int = int(os.getenv("PRO_SNAPSHOT_POLL_SECONDS", "60"))
     calendar_timezone: str = os.getenv("PRO_CALENDAR_SOURCE_TIMEZONE", "Asia/Jakarta")
 
     def validate(self, worker=False):
@@ -38,6 +39,8 @@ class Settings:
             raise RuntimeError("Ollama must be on the configured private local service")
         if not 10 <= self.ai_timeout <= 240:
             raise RuntimeError("AI timeout must be 10–240 seconds")
+        if not 10 <= self.snapshot_poll_seconds <= 3600:
+            raise RuntimeError("Snapshot polling must be 10–3600 seconds")
 
 
 class Store:

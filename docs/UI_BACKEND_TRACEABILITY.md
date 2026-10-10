@@ -136,3 +136,31 @@ The rows named `PRO-NAV-*` below now refer to **internal Pro section navigation*
 | btn-confirm-import | Journal / Confirm import | `confirmGatewayImport` | POST imports/files; POST imports; GET jobs/{id}; reload owned journal | Verified owner; server enforces successful Free quota and concurrent limits | Stable retry key; progress; successful persistence; failed import does not consume allowance | `js/pro-import.test.cjs`, `tests/pro/test_platform.py`, `supabase/test_platform.sql`; Implemented but Not Fully Tested |
 
 Configure the gateway and apply approved additive database migrations in the journaltrading project before claiming deployed Pro functionality. PDF signing requires private Storage; AI requires the permitted local model and self-hosted worker; market analyses require authorized timestamped machine-readable feeds. The current static news delivery cannot enforce a server paywall until the approved deployment changes that delivery path. These are explicit blockers, not fallback fake data.
+
+## Kaystrade controls (2026-10-10)
+
+Every control below is inside AI Market Intelligence, requires owner authentication and backend active Pro. Frontend uses existing `api`, market rendering and captured abort/owner guards. Requests disable controls, reload owned state on success and show explicit errors. Status: Implemented but Not Fully Tested with real providers. Tests: frontend-pro.cjs (browser fixtures), test_platform.py (API), test_intelligence.py (calculations), test_market_pipeline.py (worker fixtures), test_intelligence.sql (real local ownership/transactions).
+
+| Component ID / label | Handler/action and API | Result / relevant test |
+|---|---|---|
+| market-style / Select/change style | Preference form; PUT market/preference | Saved owner style, reset display/default TF, no quota; browser/API/SQL |
+| market-instrument / Select instrument | Existing chart/context selection; GET market/instruments and market/context | Authorized supported catalog; selection race/browser |
+| market-timeframe / Select timeframe | Existing chart/context refresh; GET market/context | Original signal identity preserved; browser |
+| market-analyze / Analyze Market | Confirmation, submit and existing job poll; POST ai/market-analysis; GET ai/jobs/{id} | Queued/running/validated result/failure; saved style, atomic quota; API/SQL/pipeline |
+| market-refresh / Refresh data | Reload; POST market/refresh | Freshness/error; no AI credit; API/browser |
+| fundamental-evidence / View fundamental evidence | Native disclosure; existing context/result | Verified facts separated from context, safe links; calculation/browser |
+| technical-evidence / View technical evidence | Native disclosure; existing context/result | Technical methods and missing data; technical tests |
+| both-scenarios / View both scenarios | Render result cards; existing context/job result | Both directions, uncalibrated probabilities; synthesis tests |
+| signal-take / Take this signal | Mode selection and levels confirmation; POST market/signals | CONFIRMED only, no broker fill; browser/SQL |
+| signal-watch / Watch only | Save watch; POST market/signals | No execution or winrate; browser/SQL |
+| signal-dismiss / Dismiss | Save dismiss; POST market/signals | History retained; browser/SQL |
+| signal-execution / Confirm execution | Validated price/time form; POST market/signals/{id}/execution | Explicit manual confirmation, no verified exit; browser/SQL |
+| alert-create / Create alerts | Transactional signal take/watch; POST market/signals | Owned default alerts, deduplicated; SQL |
+| alert-edit / Edit watch price | Validated watch price; PATCH market/alerts/{id} | Immutable structural SL/TP; browser/API |
+| alert-toggle / Enable/disable alert | Save enabled state; PATCH market/alerts/{id} | Reload owned list; browser/SQL |
+| signal-history / View history | Load records; GET market/signals | Owned list/empty/error; API/RLS |
+| signal-performance / View performance | Load metrics; GET market/performance | Actual/paper separated, no false PnL; calculation tests |
+| notification-list / View notifications | Owner-bound polling; GET market/notifications | Persistent in-app state; browser/API |
+| notification-read / Mark read | Save read status; POST market/notifications/{id}/read | Ownership and read state; browser/SQL |
+| browser-notifications / Enable browser notifications | Native permission then PUT market/notification-preference | Open workspace only; permission fixture, no real push proof |
+| analysis-history / Open saved analysis | Existing saved-job loading; GET ai/jobs and ai/jobs/{id} | Original style, no quota; existing browser tests |

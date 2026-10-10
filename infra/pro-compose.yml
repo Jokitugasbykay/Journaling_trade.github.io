@@ -10,6 +10,7 @@ services:
       PRO_ALLOWED_ORIGINS: ${PRO_ALLOWED_ORIGINS:?Required exact website origin}
       PRO_DATA_ROOT: /data
       PRO_MARKET_ROOT: /market
+      PRO_SNAPSHOT_POLL_SECONDS: ${PRO_SNAPSHOT_POLL_SECONDS:-60}
       OLLAMA_URL: http://ollama:11434
       OLLAMA_MODEL: ${OLLAMA_MODEL:-}
       OLLAMA_MODEL_LICENSE: ${OLLAMA_MODEL_LICENSE:-}
@@ -47,6 +48,23 @@ services:
     volumes: [ollama-models:/root/.ollama]
     networks: [inference]
     restart: unless-stopped
+  monitor:
+    build:
+      context: ..
+      dockerfile: infra/pro.Dockerfile
+    command: [python, -m, services.pro_api.signals]
+    environment:
+      <<: *public_environment
+      SUPABASE_SERVICE_ROLE_KEY: ${SUPABASE_SERVICE_ROLE_KEY:?Monitor secret required}
+    volumes:
+      - ${PRO_DATA_DIRECTORY:?Required}:/data:ro
+      - ${PRO_MARKET_DIRECTORY:?Required}:/market:ro
+    read_only: true
+    tmpfs: [/tmp]
+    security_opt: [no-new-privileges:true]
+    cap_drop: [ALL]
+    restart: unless-stopped
+    networks: [external]
 networks:
   external: {}
   inference:
