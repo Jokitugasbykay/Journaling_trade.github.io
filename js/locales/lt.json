@@ -58,8 +58,8 @@
   "freeBilling": "Free, nėra prenumeratos",
   "freeNote": "Pradėkite nuo duomenų savo įrenginyje",
   "tryFree": "Pabandykite Free",
-  "plusDescription": "Sukurkite nuoseklią žurnalų rašymo tvarką.",
-  "proDescription": "Peržiūrėkite savo našumą išsamiau.",
+  "plusDescription": "Laikykite savo žurnalą ir regioninės rinkos kontekstą vienoje vietoje.",
+  "proDescription": "Palyginkite našumą, peržiūrėkite riziką ir tyrinėkite AI rinkos informaciją.",
   "plusSoon": "Plus netrukus",
   "proSoon": "Pro netrukus",
   "paidNote": "Prenumeratos bus netrukus",
@@ -209,7 +209,7 @@
   "authBack": "Grįžti į pagrindinį puslapį",
   "plusFeature1": "Viskas Free funkcijos",
   "plusFeature2": "Neribotas įkėlimų skaičius",
-  "plusFeature3": "Ekonominių naujienų ir kalendoriaus prieiga",
+  "plusFeature3": "Regioninės ekonomikos ir finansų naujienos, tarptautinė aprėptis jūsų regionuose ir ekonomikos kalendorius",
   "newsLockedTitle": "Ekonomikos naujienos Plus nariai",
   "newsLockedLead": "Atrakinkite vietines ir pasaulines naujienas bei ekonomikos kalendorių Plus.",
   "newsViewPlans": "Peržiūrėkite planus",
@@ -1068,5 +1068,11 @@
   "proUnassigned": "Nepriskirta",
   "proUnspecified": "Nenurodyta",
   "proAnalyticsEmpty": "Šioje ataskaitoje nėra jokių uždarytų sandorių.",
-  "proAnalyticsUnavailable": "Pro analitika nepasiekiama. Patvirtinkite prenumeratą ir bandykite dar kartą."
+  "proAnalyticsUnavailable": "Pro analitika nepasiekiama. Patvirtinkite prenumeratą ir bandykite dar kartą.",
+  "proFeature1": "Viskas Plus funkcijos ir pasaulinė naujienų prieiga",
+  "proFeature2": "Išplėstinė analizė, našumo planas ir strategijos palyginimas",
+  "proFeature3": "Rizikos žvalgyba, savaitės ir mėnesio apžvalgos ir privatūs PDF pranešimus",
+  "proFeature4": "AI rinkos žvalgyba, elgesio analizė, žurnalų analizė ir pokalbiai",
+  "proFeature5": "30 sėkmingų dirbtinio intelekto analizių per prenumeratos mėnesį, bendrai naudojant AI įrankius; nepavykusios analizės neįskaičiuojamos",
+  "proAvailability": "AI įrankiams reikalingas aktyvus savarankiškai priglobtas modelis ir įgalioti rinkos duomenys. Mokama kasa dar neatidaryta."
 }

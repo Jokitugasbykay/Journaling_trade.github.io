@@ -58,8 +58,8 @@
   "freeBilling": "Free, gan síntiús",
   "freeNote": "Tosaigh le sonraí ar do ghléas féin",
   "tryFree": "Bain triail as Free",
-  "plusDescription": "Tóg gnáthamh iriseoireachta comhsheasmhach.",
-  "proDescription": "Déan athbhreithniú níos mine ar d'fheidhmíocht.",
+  "plusDescription": "Coinnigh do dhialann agus do chomhthéacs margaidh réigiúnach in aon áit amháin.",
+  "proDescription": "Déan comparáid idir feidhmíocht, athbhreithniú riosca, agus iniúchadh faisnéis mhargaidh AI.",
   "plusSoon": "Plus ag teacht go luath",
   "proSoon": "Pro ag teacht go luath",
   "paidNote": "Síntiúis ag teacht go luath",
@@ -209,7 +209,7 @@
   "authBack": "Ar Ais sa Bhaile",
   "plusFeature1": "Gach Free gnéithe",
   "plusFeature2": "Uaslódálacha gan teorainn",
-  "plusFeature3": "Nuacht eacnamaíoch agus rochtain ar fhéilire",
+  "plusFeature3": "Nuacht réigiúnach eacnamaíoch agus airgeadais, clúdach idirnáisiúnta laistigh de do réigiúin, agus an féilire eacnamaíoch",
   "newsLockedTitle": "Nuacht eacnamaíoch do Plus baill",
   "newsLockedLead": "Díghlasáil nuacht áitiúil agus dhomhanda agus an féilire eacnamaíoch le Plus.",
   "newsViewPlans": "Féach ar na pleananna",
@@ -1068,5 +1068,11 @@
   "proUnassigned": "Neamhshannta",
   "proUnspecified": "Neamhshonraithe",
   "proAnalyticsEmpty": "Níl aon ceirdeanna dúnta ar fáil don tuarascáil seo.",
-  "proAnalyticsUnavailable": "Pro anailísíocht ar fáil. Fíoraigh do shíntiús agus bain triail eile as."
+  "proAnalyticsUnavailable": "Pro anailísíocht ar fáil. Fíoraigh do shíntiús agus bain triail eile as.",
+  "proFeature1": "Gach Plus gnéithe agus rochtain domhanda nuachta",
+  "proFeature2": "Anailísíocht chun cinn, léarscáil teasa feidhmíochta, agus comparáid straitéise",
+  "proFeature3": "Faisnéis riosca, athbhreithnithe seachtainiúla agus míosúla, agus príobháideacha PDF tuarascálacha",
+  "proFeature4": "Faisnéis mhargaidh AI, anailís iompraíochta, anailís irise, agus comhrá",
+  "proFeature5": "30 anailís AI rathúil in aghaidh na míosa síntiús, roinnte ar fud uirlisí AI; ní áirítear anailísí teipthe",
+  "proAvailability": "Éilíonn uirlisí AI múnla gníomhach féin-óstáilte agus sonraí margaidh údaraithe. Níl an tseiceáil amach íoctha oscailte fós."
 }

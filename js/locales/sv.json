@@ -58,8 +58,8 @@
   "freeBilling": "Free, ingen prenumeration",
   "freeNote": "Börja med data på din egen enhet",
   "tryFree": "Försök Free",
-  "plusDescription": "Bygg en konsekvent journalföringsrutin.",
-  "proDescription": "Granska dina prestationer mer i detalj.",
+  "plusDescription": "Håll din journal och ditt regionala marknadssammanhang på ett ställe.",
+  "proDescription": "Jämför prestanda, granska risker och utforska AI-marknadsinformation.",
   "plusSoon": "Plus kommer snart",
   "proSoon": "Pro kommer snart",
   "paidNote": "Prenumerationer kommer snart",
@@ -209,7 +209,7 @@
   "authBack": "Tillbaka till hemmet",
   "plusFeature1": "Alla Free funktioner",
   "plusFeature2": "Obegränsade uppladdningar",
-  "plusFeature3": "Ekonomiska nyheter och kalenderåtkomst",
+  "plusFeature3": "Regionala ekonomiska och finansiella nyheter, internationell bevakning inom dina regioner och den ekonomiska kalendern",
   "newsLockedTitle": "Ekonomiska nyheter för Plus medlemmar",
   "newsLockedLead": "Lås upp lokala och globala nyheter och den ekonomiska kalendern med Plus.",
   "newsViewPlans": "Visa planer",
@@ -1068,5 +1068,11 @@
   "proUnassigned": "Otilldelad",
   "proUnspecified": "Ospecificerad",
   "proAnalyticsEmpty": "Inga slutna affärer tillgängliga för denna rapport.",
-  "proAnalyticsUnavailable": "Pro analys inte tillgänglig. Verifiera din prenumeration och försök igen."
+  "proAnalyticsUnavailable": "Pro analys inte tillgänglig. Verifiera din prenumeration och försök igen.",
+  "proFeature1": "Alla Plus funktioner och tillgång till globala nyheter",
+  "proFeature2": "Avancerad analys, prestandavärmekarta och strategijämförelse",
+  "proFeature3": "Riskintelligens, veckovisa och månatliga recensioner och privat PDF rapporterar",
+  "proFeature4": "AI-marknadsinformation, beteendeanalys, journalanalys och chatt",
+  "proFeature5": "30 framgångsrika AI-analyser per prenumerationsmånad, delade mellan AI-verktyg; misslyckade analyser räknas inte",
+  "proAvailability": "AI-verktyg kräver en aktiv modell med egen värd och auktoriserad marknadsdata. Betald kassa är inte öppen ännu."
 }

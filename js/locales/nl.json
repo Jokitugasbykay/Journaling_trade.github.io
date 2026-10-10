@@ -58,8 +58,8 @@
   "freeBilling": "Free, geen abonnement",
   "freeNote": "Begin met gegevens op uw eigen apparaat",
   "tryFree": "Probeer het Free",
-  "plusDescription": "Bouw een consistente dagboekroutine op.",
-  "proDescription": "Bekijk uw prestaties in meer detail.",
+  "plusDescription": "Bewaar uw tijdschrift en regionale marktcontext op één plek.",
+  "proDescription": "Vergelijk prestaties, bekijk risico's en verken AI-marktinformatie.",
   "plusSoon": "Plus komt binnenkort",
   "proSoon": "Pro komt binnenkort",
   "paidNote": "Abonnementen volgen binnenkort",
@@ -209,7 +209,7 @@
   "authBack": "Terug naar huis",
   "plusFeature1": "Alles Free -functies",
   "plusFeature2": "Onbeperkte uploads",
-  "plusFeature3": "Economisch nieuws en agendatoegang",
+  "plusFeature3": "Regionaal economisch en financieel nieuws, internationale berichtgeving binnen uw regio en de economische kalender",
   "newsLockedTitle": "Economisch nieuws voor Plus leden",
   "newsLockedLead": "Ontgrendel lokaal en mondiaal nieuws en de economische kalender met Plus.",
   "newsViewPlans": "Bekijk plannen",
@@ -1068,5 +1068,11 @@
   "proUnassigned": "Niet toegewezen",
   "proUnspecified": "Niet gespecificeerd",
   "proAnalyticsEmpty": "Er zijn geen gesloten transacties beschikbaar voor dit rapport.",
-  "proAnalyticsUnavailable": "Pro analyses niet beschikbaar. Controleer uw abonnement en probeer het opnieuw."
+  "proAnalyticsUnavailable": "Pro analyses niet beschikbaar. Controleer uw abonnement en probeer het opnieuw.",
+  "proFeature1": "Alles Plus functies en toegang tot wereldwijd nieuws",
+  "proFeature2": "Geavanceerde analyses, prestatie-heatmap en strategievergelijking",
+  "proFeature3": "Risico-informatie, wekelijkse en maandelijkse beoordelingen en privé PDF rapporten",
+  "proFeature4": "AI-marktinformatie, gedragsanalyse, tijdschriftanalyse en chat",
+  "proFeature5": "30 succesvolle AI-analyses per abonnementsmaand, gedeeld door AI-tools; mislukte analyses tellen niet mee",
+  "proAvailability": "AI-tools vereisen een actief, zelfgehost model en geautoriseerde marktgegevens. Betaald afrekenen is nog niet geopend."
 }

@@ -58,8 +58,8 @@
   "freeBilling": "Free, akukho mrhumo",
   "freeNote": "Qala ngedatha kwisixhobo sakho",
   "tryFree": "Zama Free",
-  "plusDescription": "Yakha inkqubo yejenali engaguqukiyo.",
-  "proDescription": "Hlaziya ukusebenza kwakho ngokweenkcukacha.",
+  "plusDescription": "Gcina ijenali yakho kunye nomxholo wentengiso yengingqi kwindawo enye.",
+  "proDescription": "Thelekisa ukusebenza, uphonononge umngcipheko, kwaye ujonge ubukrelekrele bentengiso ye-AI.",
   "plusSoon": "Plus iyeza kunekudala",
   "proSoon": "Pro iyeza kunekudala",
   "paidNote": "Imirhumo iyeza kungekudala",
@@ -209,7 +209,7 @@
   "authBack": "Buyela eKhaya",
   "plusFeature1": "Konke Free Iimbonakalo",
   "plusFeature2": "Ukulayisha okungenamkhawulo",
-  "plusFeature3": "Iindaba zezoqoqosho kunye nokufikelela kwikhalenda",
+  "plusFeature3": "Iindaba zoqoqosho lwengingqi kunye nezemali, ukuvela kumazwe ngamazwe kwingingqi yakho, kunye nekhalenda yezoqoqosho",
   "newsLockedTitle": "Iindaba zezoqoqosho ze Plus amalungu",
   "newsLockedLead": "Vula iindaba zasekhaya nezehlabathi kunye nekhalenda yezoqoqosho nge Plus.",
   "newsViewPlans": "Jonga izicwangciso",
@@ -1068,5 +1068,11 @@
   "proUnassigned": "Akuthunyelwanga",
   "proUnspecified": "Akuchazwanga",
   "proAnalyticsEmpty": "Akukho rhwebo luvaliweyo olukhoyo kule ngxelo.",
-  "proAnalyticsUnavailable": "Pro uhlalutyo alukho. Qinisekisa umrhumo wakho kwaye uzame kwakhona."
+  "proAnalyticsUnavailable": "Pro uhlalutyo alukho. Qinisekisa umrhumo wakho kwaye uzame kwakhona.",
+  "proFeature1": "Konke Plus iimpawu kunye nofikelelo kwiindaba zehlabathi",
+  "proFeature2": "Uhlalutyo oluphezulu, imephu yokushisa yokusebenza, kunye nothelekiso lweqhinga",
+  "proFeature3": "Umngcipheko wobukrelekrele, uphononongo lweveki nenyanga, kunye nabucala PDF iingxelo",
+  "proFeature4": "Ubukrelekrele bentengiso ye-AI, uhlalutyo lokuziphatha, uhlalutyo lwejenali, kunye nencoko",
+  "proFeature5": "Uhlalutyo lwe-30 oluyimpumelelo lwe-AI ngenyanga nganye yokubhalisa, ekwabelwana ngayo kuzo zonke izixhobo ze-AI; Uhlahlelo olungaphumelelanga alubali",
+  "proAvailability": "Izixhobo ze-AI zifuna imodeli esebenzayo yokuzibamba kunye nedatha yemarike egunyazisiweyo. Ukuphuma okuhlawulelweyo akukavulwa."
 }

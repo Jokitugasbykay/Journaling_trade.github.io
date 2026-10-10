@@ -58,8 +58,8 @@
   "freeBilling": "Free, ulac asenqed",
   "freeNote": "Bdu s isefka deg tmeẓdit-ik",
   "tryFree": "Ɛreḍ Free",
-  "plusDescription": "Bnu-d taɣult n uɣmis n tɣuri s tɣawla.",
-  "proDescription": "Ẓer axeddim-ik s tɣawla.",
+  "plusDescription": "Ḥrez aɣmis-ik d tmenḍawt n ssuq n temnaḍt deg yiwen n umkan.",
+  "proDescription": "Sserwes axeddim, ẓer amihi, u ẓer tamussni n ssuq n AI.",
   "plusSoon": "Plus Qṛib ad d-yaweḍ",
   "proSoon": "Pro Qṛib ad d-yaweḍ",
   "paidNote": "Iɣewwaɣen ad d-asen s lqerb",
@@ -209,7 +209,7 @@
   "authBack": "Tuɣalin ɣer uxxam",
   "plusFeature1": "Akk Free ṣifath",
   "plusFeature2": "Aceggeɛ ur nesɛi tilisa",
-  "plusFeature3": "Isalan n tdamsa d unekcum n useklas",
+  "plusFeature3": "Isalan n tdamsa d tedrimt n temnaḍin, aḍris agraɣlan daxel n temnaḍin-nwen, d tesɣunt tadamsant",
   "newsLockedTitle": "Isalan n tdamsa i Plus iɛeggalen",
   "newsLockedLead": "Rẓem isalan idiganen d imaḍlanen d tesɣunt tadamsant s Plus.",
   "newsViewPlans": "Wali iɣawasen",
@@ -1068,5 +1068,11 @@
   "proUnassigned": "Ur yettunefk ara",
   "proUnspecified": "Ur yettwasemma ara",
   "proAnalyticsEmpty": "Ur llint ara tmerniwin yettwaqqnen i lmend n ulɣu-a.",
-  "proAnalyticsUnavailable": "Pro analitik ur yelli ara. Ssekneḍ asenqed-ik u ɛreḍ tikkelt nniḍen."
+  "proAnalyticsUnavailable": "Pro analitik ur yelli ara. Ssekneḍ asenqed-ik u ɛreḍ tikkelt nniḍen.",
+  "proFeature1": "Akk Plus Tiskanin d unekcum n yisallen imaḍlanen",
+  "proFeature2": "Askasi aɛlayan, takarḍa n usḥulfu n useḍru, d usemgerrad n tesnatwilt",
+  "proFeature3": "Tamussni n umihi, asefqed n ddurt d wayyur, d uslig PDF Iṛabulen",
+  "proFeature4": "Tamusni n ssuq n AI, askasi n tikli, askasi n tesɣunt, d tmesliwt",
+  "proFeature5": "30 n yisefka n AI igerrzen deg yal ayyur n uɛeddi, yettwabḍa gar wallalen n AI; Tizrawin ur nessaweḍ ara ur ḥesbent ara",
+  "proAvailability": "Allalen n AI ḥwaǧen amḍan n usnefli n yiman d yisefka n ssuq yettwasneflen. Tasekkirt yettwaxelṣen ur teldi ara."
 }

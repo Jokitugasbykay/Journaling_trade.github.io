@@ -58,8 +58,8 @@
   "freeBilling": "Free, obuna yo'q",
   "freeNote": "O'zingizning qurilmangizdagi ma'lumotlardan boshlang",
   "tryFree": "Sinab ko'ring Free",
-  "plusDescription": "Izchil jurnal yuritish tartibini yarating.",
-  "proDescription": "Ish faoliyatini batafsilroq ko‘rib chiqing.",
+  "plusDescription": "Jurnalingiz va mintaqaviy bozor kontekstini bir joyda saqlang.",
+  "proDescription": "Samaradorlikni solishtiring, xavfni ko'rib chiqing va AI bozor razvedkasini o'rganing.",
   "plusSoon": "Plus tez orada",
   "proSoon": "Pro tez orada",
   "paidNote": "Obunalar tez orada",
@@ -209,7 +209,7 @@
   "authBack": "Uyga qaytish",
   "plusFeature1": "Hammasi Free xususiyatlari",
   "plusFeature2": "Cheksiz yuklash",
-  "plusFeature3": "Iqtisodiy yangiliklar va kalendarga kirish",
+  "plusFeature3": "Mintaqaviy iqtisodiy va moliyaviy yangiliklar, mintaqalaringizdagi xalqaro yoritish va iqtisodiy taqvim",
   "newsLockedTitle": "Iqtisodiy yangiliklar Plus a'zolari",
   "newsLockedLead": "Mahalliy va global yangiliklar va iqtisodiy taqvim bilan tanishing Plus.",
   "newsViewPlans": "Rejalarni ko‘rish",
@@ -1068,5 +1068,11 @@
   "proUnassigned": "Tayinlanmagan",
   "proUnspecified": "Aniqlanmagan",
   "proAnalyticsEmpty": "Ushbu hisobot uchun yopiq savdolar mavjud emas.",
-  "proAnalyticsUnavailable": "Pro tahliliy ma'lumotlar mavjud emas. Obunangizni tasdiqlang va qaytadan urining."
+  "proAnalyticsUnavailable": "Pro tahliliy ma'lumotlar mavjud emas. Obunangizni tasdiqlang va qaytadan urining.",
+  "proFeature1": "Hammasi Plus xususiyatlar va global yangiliklarga kirish",
+  "proFeature2": "Kengaytirilgan tahlil, ishlash issiqlik xaritasi va strategiyani taqqoslash",
+  "proFeature3": "Xavf haqida ma'lumot, haftalik va oylik sharhlar va shaxsiy PDF hisobotlar",
+  "proFeature4": "AI bozor razvedkasi, xatti-harakatlar tahlili, jurnal tahlili va suhbat",
+  "proFeature5": "Har bir obuna oyiga 30 ta muvaffaqiyatli AI tahlillari, AI vositalari boʻylab taqsimlanadi; muvaffaqiyatsiz tahlillar hisobga olinmaydi",
+  "proAvailability": "AI vositalari faol o'z-o'zidan joylashtirilgan model va vakolatli bozor ma'lumotlarini talab qiladi. Toʻlangan toʻlov hali ochilmagan."
 }

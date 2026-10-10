@@ -58,8 +58,8 @@
   "freeBilling": "Free, engin áskrift",
   "freeNote": "Byrjaðu með gögn í þínu eigin tæki",
   "tryFree": "Reyndu Free",
-  "plusDescription": "Byggðu upp samræmda dagbókarrútínu.",
-  "proDescription": "Farðu yfir frammistöðu þína nánar.",
+  "plusDescription": "Hafðu dagbókina þína og svæðismarkaðssamhengi á einum stað.",
+  "proDescription": "Berðu saman árangur, skoðaðu áhættu og skoðaðu gervigreind markaðsgreind.",
   "plusSoon": "Plus kemur bráðum",
   "proSoon": "Pro kemur bráðum",
   "paidNote": "Áskriftir koma fljótlega",
@@ -209,7 +209,7 @@
   "authBack": "Aftur heim",
   "plusFeature1": "Allt Free eiginleikar",
   "plusFeature2": "Ótakmarkað upphleðsla",
-  "plusFeature3": "Efnahagsfréttir og dagatalsaðgangur",
+  "plusFeature3": "Svæðisbundnar efnahags- og fjármálafréttir, alþjóðleg umfjöllun innan þinna svæða og efnahagsdagatalið",
   "newsLockedTitle": "Efnahagsfréttir fyrir Plus meðlimir",
   "newsLockedLead": "Opnaðu staðbundnar og alþjóðlegar fréttir og efnahagsdagatalið með Plus.",
   "newsViewPlans": "Skoða áætlanir",
@@ -1068,5 +1068,11 @@
   "proUnassigned": "Óúthlutað",
   "proUnspecified": "Ótilgreint",
   "proAnalyticsEmpty": "Engin lokuð viðskipti í boði fyrir þessa skýrslu.",
-  "proAnalyticsUnavailable": "Pro greining ekki tiltæk. Staðfestu áskriftina þína og reyndu aftur."
+  "proAnalyticsUnavailable": "Pro greining ekki tiltæk. Staðfestu áskriftina þína og reyndu aftur.",
+  "proFeature1": "Allt Plus eiginleikar og aðgang að alþjóðlegum fréttum",
+  "proFeature2": "Háþróuð greining, frammistöðuhitakort og samanburður á stefnu",
+  "proFeature3": "Áhættugreind, vikulegar og mánaðarlegar umsagnir og einkamál PDF skýrslur",
+  "proFeature4": "AI markaðsgreind, hegðunargreining, dagbókargreining og spjall",
+  "proFeature5": "30 árangursríkar gervigreindargreiningar á áskriftarmánuði, deilt á milli gervigreindarverkfæra; misheppnaðar greiningar telja ekki með",
+  "proAvailability": "Gervigreind verkfæri krefjast virks sjálf-hýstingarlíkans og viðurkenndra markaðsgagna. Greidd útskráning er ekki opin ennþá."
 }

@@ -58,8 +58,8 @@
   "freeBilling": "Free, abunə yoxdur",
   "freeNote": "Öz cihazınızda data ilə başlayın",
   "tryFree": "Çalışın Free",
-  "plusDescription": "Ardıcıl gündəlik iş rejimi qurun.",
-  "proDescription": "Performansınızı daha ətraflı nəzərdən keçirin.",
+  "plusDescription": "Jurnalınızı və regional bazar kontekstinizi bir yerdə saxlayın.",
+  "proDescription": "Performansı müqayisə edin, riskləri nəzərdən keçirin və AI bazar kəşfiyyatını araşdırın.",
   "plusSoon": "Plus tezliklə",
   "proSoon": "Pro tezliklə",
   "paidNote": "Abunəliklər tezliklə gəlir",
@@ -209,7 +209,7 @@
   "authBack": "Evə Qayıdın",
   "plusFeature1": "Hamısı Free xüsusiyyətləri",
   "plusFeature2": "Limitsiz yükləmələr",
-  "plusFeature3": "İqtisadi xəbərlər və təqvim girişi",
+  "plusFeature3": "Regional iqtisadi və maliyyə xəbərləri, regionlarınızda beynəlxalq əhatə və iqtisadi təqvim",
   "newsLockedTitle": "üçün iqtisadi xəbərlər Plus üzvləri",
   "newsLockedLead": "Yerli və qlobal xəbərləri və iqtisadi təqvimi ilə kiliddən çıxarın Plus.",
   "newsViewPlans": "Planlara baxın",
@@ -1068,5 +1068,11 @@
   "proUnassigned": "Təyin edilmədi",
   "proUnspecified": "Müəyyən edilməmiş",
   "proAnalyticsEmpty": "Bu hesabat üçün qapalı ticarət yoxdur.",
-  "proAnalyticsUnavailable": "Pro analitika mövcud deyil. Abunəliyinizi doğrulayın və yenidən cəhd edin."
+  "proAnalyticsUnavailable": "Pro analitika mövcud deyil. Abunəliyinizi doğrulayın və yenidən cəhd edin.",
+  "proFeature1": "Hamısı Plus xüsusiyyətlər və qlobal xəbərlərə giriş",
+  "proFeature2": "Qabaqcıl analitika, performansın istilik xəritəsi və strategiya müqayisəsi",
+  "proFeature3": "Risk kəşfiyyatı, həftəlik və aylıq araşdırmalar və özəl PDF hesabat verir",
+  "proFeature4": "AI bazar kəşfiyyatı, davranış təhlili, jurnal təhlili və söhbət",
+  "proFeature5": "Abunəlik ayı üçün 30 uğurlu AI təhlili, AI alətləri arasında paylaşılır; uğursuz təhlillər nəzərə alınmır",
+  "proAvailability": "AI alətləri aktiv öz-özünə idarə olunan model və səlahiyyətli bazar məlumatları tələb edir. Ödənişli kassa hələ açıq deyil."
 }

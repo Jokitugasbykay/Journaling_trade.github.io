@@ -58,8 +58,8 @@
   "freeBilling": "Free, žiadne predplatné",
   "freeNote": "Začnite s údajmi na svojom vlastnom zariadení",
   "tryFree": "Skúste Free",
-  "plusDescription": "Vytvorte konzistentnú rutinu žurnálovania.",
-  "proDescription": "Podrobnejšie skontrolujte svoju výkonnosť.",
+  "plusDescription": "Udržujte svoj časopis a kontext regionálneho trhu na jednom mieste.",
+  "proDescription": "Porovnajte výkon, skontrolujte riziká a preskúmajte trhové spravodajstvo AI.",
   "plusSoon": "Plus už čoskoro",
   "proSoon": "Pro už čoskoro",
   "paidNote": "Odbery budú čoskoro k dispozícii",
@@ -209,7 +209,7 @@
   "authBack": "Späť na domovskú stránku",
   "plusFeature1": "Všetky Free funkcie",
   "plusFeature2": "Neobmedzené nahrávanie",
-  "plusFeature3": "Ekonomické správy a prístup do kalendára",
+  "plusFeature3": "Regionálne ekonomické a finančné správy, medzinárodné pokrytie vo vašich regiónoch a ekonomický kalendár",
   "newsLockedTitle": "Ekonomické novinky pre Plus členov",
   "newsLockedLead": "Odomknite miestne a globálne správy a ekonomický kalendár pomocou Plus.",
   "newsViewPlans": "Zobraziť plány",
@@ -1068,5 +1068,11 @@
   "proUnassigned": "Nepriradené",
   "proUnspecified": "Nešpecifikované",
   "proAnalyticsEmpty": "Pre tento prehľad nie sú k dispozícii žiadne uzavreté obchody.",
-  "proAnalyticsUnavailable": "Pro analytika nie je k dispozícii. Overte svoje predplatné a skúste to znova."
+  "proAnalyticsUnavailable": "Pro analytika nie je k dispozícii. Overte svoje predplatné a skúste to znova.",
+  "proFeature1": "Všetky Plus funkcie a globálny prístup k správam",
+  "proFeature2": "Pokročilá analytika, teplotná mapa výkonu a porovnanie stratégií",
+  "proFeature3": "Informácie o riziku, týždenné a mesačné prehľady a súkromné PDF správy",
+  "proFeature4": "Inteligencia trhu AI, analýza správania, analýza denníkov a chat",
+  "proFeature5": "30 úspešných analýz AI za mesiac predplatného, ​​zdieľaných medzi nástrojmi AI; neúspešné analýzy sa nepočítajú",
+  "proAvailability": "Nástroje AI vyžadujú aktívny model s vlastným hosťovaním a údaje o autorizovanom trhu. Platená pokladňa ešte nie je otvorená."
 }

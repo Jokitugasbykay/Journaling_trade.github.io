@@ -58,8 +58,8 @@
   "freeBilling": "Free, bez předplatného",
   "freeNote": "Začněte s daty na svém vlastním zařízení",
   "tryFree": "Zkuste Free",
-  "plusDescription": "Vytvořte konzistentní žurnálovací rutinu.",
-  "proDescription": "Zkontrolujte svůj výkon podrobněji.",
+  "plusDescription": "Udržujte svůj deník a kontext regionálního trhu na jednom místě.",
+  "proDescription": "Porovnejte výkon, zkontrolujte rizika a prozkoumejte tržní inteligenci AI.",
   "plusSoon": "Plus již brzy",
   "proSoon": "Pro již brzy",
   "paidNote": "Odběry budou brzy k dispozici",
@@ -209,7 +209,7 @@
   "authBack": "Zpět na domovskou stránku",
   "plusFeature1": "Vše Free funkce",
   "plusFeature2": "Neomezené nahrávání",
-  "plusFeature3": "Ekonomické zprávy a přístup do kalendáře",
+  "plusFeature3": "Regionální ekonomické a finanční zprávy, mezinárodní pokrytí ve vašich regionech a ekonomický kalendář",
   "newsLockedTitle": "Ekonomické zprávy pro Plus členů",
   "newsLockedLead": "Odemkněte místní a globální zprávy a ekonomický kalendář pomocí Plus.",
   "newsViewPlans": "Zobrazit plány",
@@ -1068,5 +1068,11 @@
   "proUnassigned": "Nepřiřazeno",
   "proUnspecified": "Nespecifikováno",
   "proAnalyticsEmpty": "Pro tento přehled nejsou k dispozici žádné uzavřené obchody.",
-  "proAnalyticsUnavailable": "Pro analytika není k dispozici. Ověřte své předplatné a zkuste to znovu."
+  "proAnalyticsUnavailable": "Pro analytika není k dispozici. Ověřte své předplatné a zkuste to znovu.",
+  "proFeature1": "Vše Plus funkce a globální přístup ke zprávám",
+  "proFeature2": "Pokročilá analytika, teplotní mapa výkonu a srovnání strategií",
+  "proFeature3": "Informace o riziku, týdenní a měsíční přehledy a soukromé PDF zprávy",
+  "proFeature4": "Inteligence trhu AI, analýza chování, analýza žurnálu a chat",
+  "proFeature5": "30 úspěšných analýz AI za měsíc předplatného, ​​sdílených napříč nástroji AI; neúspěšné analýzy se nepočítají",
+  "proAvailability": "Nástroje umělé inteligence vyžadují aktivní model s vlastním hostitelem a údaje o autorizovaném trhu. Placená pokladna zatím není otevřena."
 }

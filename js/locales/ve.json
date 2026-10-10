@@ -58,8 +58,8 @@
   "freeBilling": "Free, a hu na u ṅwalisa",
   "freeNote": "Thomani nga data kha tshishumiswa tshaṋu .",
   "tryFree": "Edzisa Free",
-  "plusDescription": "Fhaṱani maitele a u ṅwala dzidzhenala a sa shanduki.",
-  "proDescription": "Vusulusani kushumele kwaṋu nga vhuḓalo.",
+  "plusDescription": "Kha vha vhee dzhenala yavho na nyimele ya makete wa dzingu fhethu huthihi.",
+  "proDescription": "Vhambedzani kushumele, sedzulusani khombo, na u ṱola vhuṱali ha makete wa AI.",
   "plusSoon": "Plus u ḓa hu si kale",
   "proSoon": "Pro u ḓa hu si kale",
   "paidNote": "U ṅwalisa zwi khou ḓa hu si kale .",
@@ -209,7 +209,7 @@
   "authBack": "U vhuyelela hayani",
   "plusFeature1": "Zwoṱhe Free tshivhumbeo",
   "plusFeature2": "U dzhenisa zwi si na mikano",
-  "plusFeature3": "Mafhungo a zwa ikonomi na tswikelelo ya khalenda .",
+  "plusFeature3": "Mafhungo a zwa ikonomi na zwa masheleni a dzingu, u ṱanganedzwa ha dzitshaka nga ngomu ha dzingu ḽaṋu, na khalenda ya ikonomi .",
   "newsLockedTitle": "Mafhungo a zwa ikonomi a Plus miraḓo",
   "newsLockedLead": "Kha vha vule mafhungo apo na a ḽifhasi na khalenda ya ikonomi nga . Plus.",
   "newsViewPlans": "Vhonani pulane",
@@ -1068,5 +1068,11 @@
   "proUnassigned": "A yo ngo avhelwa",
   "proUnspecified": "A zwo ngo ṱalutshedzwa",
   "proAnalyticsEmpty": "Ahuna dzi trade dzo valwaho dzine dza vha hone kha muvhigo uyu.",
-  "proAnalyticsUnavailable": "Pro tsenguluso a dzi wanali. Kha vha khwaṱhisedze u ṅwalisa havho nahone vha lingedze hafhu."
+  "proAnalyticsUnavailable": "Pro tsenguluso a dzi wanali. Kha vha khwaṱhisedze u ṅwalisa havho nahone vha lingedze hafhu.",
+  "proFeature1": "Zwoṱhe Plus zwidodombedzwa na tswikelelo ya mafhungo a ḽifhasi",
+  "proFeature2": "Tsenguluso dza mvelaphanḓa, heatmap ya kushumele, na u vhambedza maano",
+  "proFeature3": "Vhuṱali ha khombo, tsedzuluso dza vhege na ṅwedzi, na dza phuraivethe . PDF mivhigo",
+  "proFeature4": "Vhuṱali ha makete wa AI, tsenguluso ya vhuḓifari, tsenguluso ya dzhenala, na nyambedzano",
+  "proFeature5": "tsenguluso dza AI dza 30 dzo bvelelaho nga ṅwedzi wa u ṅwalisa, dzo kovhelwaho kha zwishumiswa zwoṱhe zwa AI; Tsenguluso dzo kundelwaho a dzi vhalei",
+  "proAvailability": "Zwishumiswa zwa AI zwi ṱoḓa modele wa u ḓi-hosta u shumaho na datha ya makete yo tendelwaho. Checkout yo badelwaho a i athu vula."
 }

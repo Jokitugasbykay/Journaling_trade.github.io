@@ -58,8 +58,8 @@
   "freeBilling": "Free，无订阅",
   "freeNote": "从您自己设备上的数据开始",
   "tryFree": "尝试 Free",
-  "plusDescription": "建立一致的日记例程。",
-  "proDescription": "更详细地审查您的表现。",
+  "plusDescription": "将您的期刊和区域市场背景保存在一处。",
+  "proDescription": "比较绩效、审查风险并探索人工智能市场情报。",
   "plusSoon": "Plus 即将推出",
   "proSoon": "Pro 即将推出",
   "paidNote": "订阅即将推出",
@@ -209,7 +209,7 @@
   "authBack": "返回首页",
   "plusFeature1": "全部 Free 特点",
   "plusFeature2": "无限上传",
-  "plusFeature3": "经济新闻和日历访问",
+  "plusFeature3": "地区经济和金融新闻、您所在地区的国际报道以及经济日历",
   "newsLockedTitle": "经济新闻 Plus 成员",
   "newsLockedLead": "解锁本地和全球新闻以及经济日历 Plus.",
   "newsViewPlans": "查看计划",
@@ -1068,5 +1068,11 @@
   "proUnassigned": "未分配",
   "proUnspecified": "未指定",
   "proAnalyticsEmpty": "本报告没有可用的已平仓交易。",
-  "proAnalyticsUnavailable": "Pro 分析不可用。验证您的订阅并重试。"
+  "proAnalyticsUnavailable": "Pro 分析不可用。验证您的订阅并重试。",
+  "proFeature1": "全部 Plus 功能和全球新闻访问",
+  "proFeature2": "高级分析、性能热图和策略比较",
+  "proFeature3": "风险情报、每周和每月回顾以及私人 PDF 报告",
+  "proFeature4": "AI市场情报、行为分析、期刊分析和聊天",
+  "proFeature5": "每个订阅月 30 次成功的人工智能分析，在人工智能工具之间共享；失败的分析不算数",
+  "proAvailability": "人工智能工具需要主动的自托管模型和授权的市场数据。付费结帐尚未开放。"
 }

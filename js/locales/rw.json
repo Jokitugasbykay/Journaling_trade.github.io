@@ -58,8 +58,8 @@
   "freeBilling": "Free, nta kwiyandikisha",
   "freeNote": "Tangira ukoresheje amakuru kubikoresho byawe bwite",
   "tryFree": "Gerageza Free",
-  "plusDescription": "Kubaka gahunda ihoraho yo gutangaza amakuru.",
-  "proDescription": "Subiramo imikorere yawe muburyo burambuye.",
+  "plusDescription": "Komeza ikinyamakuru cyawe hamwe nisoko ryakarere mukarere kamwe.",
+  "proDescription": "Gereranya imikorere, suzuma ingaruka, kandi ushishoze ubwenge bwisoko rya AI.",
   "plusSoon": "Plus izaza vuba",
   "proSoon": "Pro izaza vuba",
   "paidNote": "Kwiyandikisha biraza vuba",
@@ -209,7 +209,7 @@
   "authBack": "Subira Murugo",
   "plusFeature1": "Byose Free ibiranga",
   "plusFeature2": "Kohereza bitagira imipaka",
-  "plusFeature3": "Amakuru yubukungu hamwe na kalendari",
+  "plusFeature3": "Amakuru yubukungu n’imari yo mukarere, amakuru mpuzamahanga mukarere kawe, na kalendari yubukungu",
   "newsLockedTitle": "Amakuru yubukungu kuri Plus abanyamuryango",
   "newsLockedLead": "Fungura amakuru yibanze nisi yose hamwe na kalendari yubukungu hamwe Plus.",
   "newsViewPlans": "Reba gahunda",
@@ -1068,5 +1068,11 @@
   "proUnassigned": "Umukono",
   "proUnspecified": "Ntibisobanutse",
   "proAnalyticsEmpty": "Nta bucuruzi bufunze buboneka kuri iyi raporo.",
-  "proAnalyticsUnavailable": "Pro gusesengura ntibishoboka. Kugenzura abiyandikishije hanyuma wongere ugerageze."
+  "proAnalyticsUnavailable": "Pro gusesengura ntibishoboka. Kugenzura abiyandikishije hanyuma wongere ugerageze.",
+  "proFeature1": "Byose Plus ibiranga hamwe namakuru yisi yose",
+  "proFeature2": "Isesengura ryambere, imikorere yubushyuhe, hamwe no kugereranya ingamba",
+  "proFeature3": "Ibyago byubwenge, isubiramo buri cyumweru na buri kwezi, kandi wiherereye PDF raporo",
+  "proFeature4": "Ubwenge bwisoko rya AI, gusesengura imyitwarire, gusesengura ibinyamakuru, no kuganira",
+  "proFeature5": "30 isesengura rya AI ryatsinze buri kwezi kwiyandikisha, bisangiwe mubikoresho bya AI; isesengura ryananiwe ntiribara",
+  "proAvailability": "Ibikoresho bya AI bisaba gukora-kwiyakira-byemewe hamwe namakuru yemewe ku isoko. Igenzura ryishyuwe ntirifungura."
 }

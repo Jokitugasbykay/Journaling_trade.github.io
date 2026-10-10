@@ -58,8 +58,8 @@
   "freeBilling": "Free, ga go na peeletšo",
   "freeNote": "Thoma ka ya data ka sesebediswa sa hao",
   "tryFree": "Leka Free",
-  "plusDescription": "Aga mokgwa wa go ngwala dijenale wo o sa fetogego.",
-  "proDescription": "Boeletša tshepedišo ya gago ka botlalo.",
+  "plusDescription": "Boloka seemo sa gago sa jenale le mmaraka wa selete lefelong le tee.",
+  "proDescription": "Bapetša tshepedišo, hlahloba kotsi, gomme o hlahlobje bohlale bja mmaraka wa AI.",
   "plusSoon": "Plus e tla tla kgauswinyane",
   "proSoon": "Pro e tla tla kgauswinyane",
   "paidNote": "Dipeeletšo di tla kgauswinyane",
@@ -209,7 +209,7 @@
   "authBack": "Go boela Gae",
   "plusFeature1": "Ka moka Free dikarolo",
   "plusFeature2": "Di-upload tše di sa lekanyetšwego",
-  "plusFeature3": "Ditaba tša ekonomi le phihlelelo ya almanaka",
+  "plusFeature3": "Ditaba tša ekonomi le tša ditšhelete tša selete, khupetšo ya boditšhabatšhaba ka gare ga dilete tša gago, le almanaka ya ekonomi",
   "newsLockedTitle": "Ditaba tša ekonomi bakeng sa Plus maloko",
   "newsLockedLead": "Notlolla ditaba tša selegae le tša lefase ka bophara le almanaka ya ekonomi ka Plus.",
   "newsViewPlans": "Lebelela dithulaganyo",
@@ -1068,5 +1068,11 @@
   "proUnassigned": "E sa abelwa",
   "proUnspecified": "Ga se ya hlalošwa",
   "proAnalyticsEmpty": "Ga go na dikgwebo tše di tswaletšwego tšeo di lego gona bakeng sa pego ye.",
-  "proAnalyticsUnavailable": "Pro ditshekatsheko ga di hwetšagale. Netefatša peeletšo ya gago gomme o leke gape."
+  "proAnalyticsUnavailable": "Pro ditshekatsheko ga di hwetšagale. Netefatša peeletšo ya gago gomme o leke gape.",
+  "proFeature1": "Ka moka Plus dikarolo le phihlelelo ya ditaba ya lefase ka bophara",
+  "proFeature2": "Ditshekatsheko tša maemo a godimo, heatmap ya tshepedišo, le papiso ya leano",
+  "proFeature3": "Bohlale bja kotsi, ditlhahlobo tša beke le beke le tša kgwedi le kgwedi, le tša poraebete PDF dipego di bega",
+  "proFeature4": "Bohlale bja mmaraka wa AI, tshekatsheko ya boitshwaro, tshekatsheko ya jenale, le poledišano",
+  "proFeature5": "Ditshekatsheko tša AI tše 30 tše di atlegilego ka kgwedi ya peeletšo, tšeo di abelanwago go ralala le didirišwa tša AI; ditshekatsheko tše di paletšwego ga di bale",
+  "proAvailability": "Didirišwa tša AI di nyaka mohlala wo o šomago wa go itshwara le ya data ya mmaraka ye e dumeletšwego. Paid checkout ga se ya bulwa ga bjale."
 }

@@ -58,8 +58,8 @@
   "freeBilling": "Free, l-ebda abbonament",
   "freeNote": "Ibda bid-dejta fuq it-tagħmir tiegħek",
   "tryFree": "Ipprova Free",
-  "plusDescription": "Ibni rutina konsistenti ta' ġurnaling.",
-  "proDescription": "Irrevedi l-prestazzjoni tiegħek f'aktar dettall.",
+  "plusDescription": "Żomm il-ġurnal tiegħek u l-kuntest tas-suq reġjonali f'post wieħed.",
+  "proDescription": "Qabbel il-prestazzjoni, irrevedi r-riskju, u esplora l-intelliġenza tas-suq tal-AI.",
   "plusSoon": "Plus dalwaqt",
   "proSoon": "Pro dalwaqt",
   "paidNote": "L-abbonamenti ġejjin dalwaqt",
@@ -209,7 +209,7 @@
   "authBack": "Lura għad-Dar",
   "plusFeature1": "Kollha Free karatteristiċi",
   "plusFeature2": "Uploads bla limitu",
-  "plusFeature3": "Aċċess għall-aħbarijiet ekonomiċi u għall-kalendarju",
+  "plusFeature3": "Aħbarijiet ekonomiċi u finanzjarji reġjonali, kopertura internazzjonali fir-reġjuni tiegħek, u l-kalendarju ekonomiku",
   "newsLockedTitle": "Aħbarijiet ekonomiċi għal Plus membri",
   "newsLockedLead": "Nisfruttaw aħbarijiet lokali u globali u l-kalendarju ekonomiku ma Plus.",
   "newsViewPlans": "Ara l-pjanijiet",
@@ -1068,5 +1068,11 @@
   "proUnassigned": "Mhux assenjat",
   "proUnspecified": "Mhux speċifikat",
   "proAnalyticsEmpty": "L-ebda kummerċ magħluq disponibbli għal dan ir-rapport.",
-  "proAnalyticsUnavailable": "Pro analitiċi mhux disponibbli. Ivverifika l-abbonament tiegħek u erġa' pprova."
+  "proAnalyticsUnavailable": "Pro analitiċi mhux disponibbli. Ivverifika l-abbonament tiegħek u erġa' pprova.",
+  "proFeature1": "Kollha Plus karatteristiċi u aċċess għall-aħbarijiet globali",
+  "proFeature2": "Analitika avvanzata, mappa tas-sħana tal-prestazzjoni, u paragun tal-istrateġija",
+  "proFeature3": "Intelliġenza tar-riskju, reviżjonijiet ta 'kull ġimgħa u kull xahar, u privati PDF rapporti",
+  "proFeature4": "Intelliġenza tas-suq AI, analiżi tal-imġieba, analiżi tal-ġurnali, u chat",
+  "proFeature5": "30 analiżi AI ta’ suċċess għal kull xahar ta’ abbonament, kondiviżi bejn l-għodod tal-AI; analiżijiet falluti ma jgħoddux",
+  "proAvailability": "L-għodod tal-IA jeħtieġu mudell attiv awto-ospitat u dejta tas-suq awtorizzata. Il-ħlas imħallas għadu mhux miftuħ."
 }

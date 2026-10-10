@@ -58,8 +58,8 @@
   "freeBilling": "Free, ga go na peeletso",
   "freeNote": "Simolola ka tshedimosetso mo sedirisweng sa gago",
   "tryFree": "Leka Free",
-  "plusDescription": "Aga thulaganyo e e tlhomameng ya go kwala dibuka tsa gago.",
-  "proDescription": "Sekaseka tiragatso ya gago ka botlalo.",
+  "plusDescription": "Boloka jenale ya gago le bokao jwa mmaraka wa kgaolo mo lefelong le le lengwe.",
+  "proDescription": "Bapisa tiro, tlhatlhoba dikotsi, o bo o sekaseka botlhale jwa mmaraka wa AI.",
   "plusSoon": "Plus ya tla mo bogautshwaneng",
   "proSoon": "Pro ya tla mo bogautshwaneng",
   "paidNote": "Dipeeletso di tla tloga di tla",
@@ -209,7 +209,7 @@
   "authBack": "Boela kwa Gae",
   "plusFeature1": "Otlhe Free dipopego",
   "plusFeature2": "Dilaiso tse di senang selekanyo",
-  "plusFeature3": "Dikgang tsa ikonomi le phitlhelelo ya khalentara",
+  "plusFeature3": "Dikgang tsa ikonomi le tsa madi tsa kgaolo, kgaso ya boditšhabatšhaba mo dikgaolong tsa lona, ​​le khalentara ya ikonomi",
   "newsLockedTitle": "Dikgang tsa ikonomi tsa Plus ditokololo",
   "newsLockedLead": "Lotlolola dikgang tsa selegae le tsa lefatshe lotlhe le khalentara ya ikonomi ka Plus.",
   "newsViewPlans": "Leba dithulaganyo",
@@ -1068,5 +1068,11 @@
   "proUnassigned": "Ga e a abelwa",
   "proUnspecified": "Ga e a tlhalosiwa",
   "proAnalyticsEmpty": "Ga go na dikgwebo tse di tswetsweng tse di leng teng tsa pegelo eno.",
-  "proAnalyticsUnavailable": "Pro ditshekatsheko ga di yo. Tlhomamisa peeletso ya gago o bo o leka gape."
+  "proAnalyticsUnavailable": "Pro ditshekatsheko ga di yo. Tlhomamisa peeletso ya gago o bo o leka gape.",
+  "proFeature1": "Otlhe Plus dikarolo le phitlhelelo ya dikgang tsa lefatshe lotlhe",
+  "proFeature2": "Ditshekatsheko tsa maemo a a kwa godimo, mmapa wa mogote wa tiragatso, le papiso ya leano",
+  "proFeature3": "Botlhale jwa dikotsi, ditshekatsheko tsa beke le beke le tsa kgwedi le kgwedi, le tsa poraefete PDF dipegelo",
+  "proFeature4": "Botlhale jwa mmaraka wa AI, tshekatsheko ya boitshwaro, tshekatsheko ya jenale, le motlotlo",
+  "proFeature5": "Ditshekatsheko di le 30 tsa AI tse di atlegileng ka kgwedi ya peeletso, tse di abelanwang go ralala didirisiwa tsa AI; ditshekatsheko tse di paletsweng ga di balelwe",
+  "proAvailability": "Didiriswa tsa AI di tlhoka sekao se se dirang sa go itlhokomela le tshedimosetso ya mmaraka e e dumeletsweng. Go duela ga go ise go bulwe."
 }

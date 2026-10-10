@@ -58,8 +58,8 @@
   "freeBilling": "Free, tellimust pole",
   "freeNote": "Alustage oma seadmes olevate andmetega",
   "tryFree": "Proovige Free",
-  "plusDescription": "Looge järjepidev päevikurutiin.",
-  "proDescription": "Vaadake oma toimivust üksikasjalikumalt üle.",
+  "plusDescription": "Hoidke oma ajakirja ja piirkondliku turu konteksti ühes kohas.",
+  "proDescription": "Võrrelge jõudlust, vaadake üle riske ja uurige tehisintellekti turuanalüüsi.",
   "plusSoon": "Plus peagi tulemas",
   "proSoon": "Pro peagi tulemas",
   "paidNote": "Tellimused on peagi tulemas",
@@ -209,7 +209,7 @@
   "authBack": "Tagasi avalehele",
   "plusFeature1": "Kõik Free funktsioonid",
   "plusFeature2": "Piiramatu arv üleslaadimisi",
-  "plusFeature3": "Juurdepääs majandusuudistele ja kalendrile",
+  "plusFeature3": "Piirkondlikud majandus- ja finantsuudised, rahvusvaheline kajastus teie piirkondades ja majanduskalender",
   "newsLockedTitle": "Majandusuudised Plus liiget",
   "newsLockedLead": "Avage kohalikud ja ülemaailmsed uudised ning majanduskalender Plus.",
   "newsViewPlans": "Vaadake plaane",
@@ -1068,5 +1068,11 @@
   "proUnassigned": "Määramata",
   "proUnspecified": "Täpsustamata",
   "proAnalyticsEmpty": "Selle aruande jaoks pole ühtegi suletud tehingut saadaval.",
-  "proAnalyticsUnavailable": "Pro analüüs pole saadaval. Kinnitage oma tellimus ja proovige uuesti."
+  "proAnalyticsUnavailable": "Pro analüüs pole saadaval. Kinnitage oma tellimus ja proovige uuesti.",
+  "proFeature1": "Kõik Plus funktsioonid ja juurdepääs ülemaailmsetele uudistele",
+  "proFeature2": "Täiustatud analüüs, jõudluse soojuskaart ja strateegiate võrdlus",
+  "proFeature3": "Riskianalüüs, iganädalased ja igakuised ülevaated ning privaatne PDF aruanded",
+  "proFeature4": "AI turuanalüüs, käitumise analüüs, ajakirjade analüüs ja vestlus",
+  "proFeature5": "30 edukat tehisintellekti analüüsi tellimuskuu kohta, mis on jagatud tehisintellekti tööriistade vahel; ebaõnnestunud analüüsid ei lähe arvesse",
+  "proAvailability": "AI tööriistad nõuavad aktiivset isehostitavat mudelit ja volitatud turuandmeid. Tasuline kassa pole veel avatud."
 }

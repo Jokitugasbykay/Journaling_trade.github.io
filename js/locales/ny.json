@@ -58,8 +58,8 @@
   "freeBilling": "Free, palibe zolembetsa",
   "freeNote": "Yambani ndi deta pa chipangizo chanu",
   "tryFree": "Yesani Free",
-  "plusDescription": "Pangani chizoloŵezi cholembera zolemba zokhazikika.",
-  "proDescription": "Unikaninso momwe mumagwirira ntchito mwatsatanetsatane.",
+  "plusDescription": "Sungani zolemba zanu ndi msika wachigawo pamalo amodzi.",
+  "proDescription": "Fananizani magwiridwe antchito, pendani zoopsa, ndikuwunika nzeru zamsika za AI.",
   "plusSoon": "Plus zikubwera posachedwa",
   "proSoon": "Pro zikubwera posachedwa",
   "paidNote": "Zolembetsa zikubwera posachedwa",
@@ -209,7 +209,7 @@
   "authBack": "Bwererani Kunyumba",
   "plusFeature1": "Zonse Free Mawonekedwe",
   "plusFeature2": "Zopanda malire",
-  "plusFeature3": "Nkhani zachuma ndi mwayi wa kalendala",
+  "plusFeature3": "Nkhani zachuma ndi zachuma m'chigawo, kufalikira kwamayiko osiyanasiyana m'magawo anu, komanso kalendala yazachuma",
   "newsLockedTitle": "Nkhani zachuma za Plus mamembala",
   "newsLockedLead": "Tsegulani nkhani zakomweko komanso zapadziko lonse lapansi komanso kalendala yazachuma ndi Plus.",
   "newsViewPlans": "Onani mapulani",
@@ -1068,5 +1068,11 @@
   "proUnassigned": "Zosaperekedwa",
   "proUnspecified": "Zosadziwika",
   "proAnalyticsEmpty": "Palibe malonda otsekedwa a lipotili.",
-  "proAnalyticsUnavailable": "Pro ma analytics palibe. Tsimikizirani kulembetsa kwanu ndikuyesanso."
+  "proAnalyticsUnavailable": "Pro ma analytics palibe. Tsimikizirani kulembetsa kwanu ndikuyesanso.",
+  "proFeature1": "Zonse Plus mawonekedwe ndi kupezeka kwa nkhani zapadziko lonse lapansi",
+  "proFeature2": "Ma analytics apamwamba, mapu otenthetsera ntchito, ndi kufananitsa njira",
+  "proFeature3": "Chiwopsezo chanzeru, ndemanga za sabata ndi mwezi, komanso zachinsinsi PDF malipoti",
+  "proFeature4": "Luntha lamsika wa AI, kusanthula kwamakhalidwe, kusanthula kwamagazini, ndi macheza",
+  "proFeature5": "Kusanthula kwa AI kopambana 30 pamwezi wolembetsa, kugawidwa pazida zonse za AI; analephera kusanthula osawerengera",
+  "proAvailability": "Zida za AI zimafuna mtundu wokhazikika wokhazikika komanso deta yovomerezeka yamsika. Kulipira kolipiridwa sikunatsegulidwe."
 }

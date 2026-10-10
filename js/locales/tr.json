@@ -58,8 +58,8 @@
   "freeBilling": "Free, abonelik yok",
   "freeNote": "Kendi cihazınızdaki verilerle başlayın",
   "tryFree": "Denemek Free",
-  "plusDescription": "Tutarlı bir günlük kaydı rutini oluşturun.",
-  "proDescription": "Performansınızı daha ayrıntılı olarak inceleyin.",
+  "plusDescription": "Derginizi ve bölgesel pazar içeriğini tek bir yerde saklayın.",
+  "proDescription": "Performansı karşılaştırın, riski inceleyin ve yapay zeka pazar istihbaratını keşfedin.",
   "plusSoon": "Plus yakında gelecek",
   "proSoon": "Pro yakında gelecek",
   "paidNote": "Abonelikler yakında geliyor",
@@ -209,7 +209,7 @@
   "authBack": "Ana Sayfaya Geri Dön",
   "plusFeature1": "Tüm Free özellikler",
   "plusFeature2": "Sınırsız yükleme",
-  "plusFeature3": "Ekonomik haberlere ve takvime erişim",
+  "plusFeature3": "Bölgesel ekonomi ve finans haberleri, bölgelerinizdeki uluslararası haberler ve ekonomik takvim",
   "newsLockedTitle": "Ekonomi haberleri Plus üyeler",
   "newsLockedLead": "Yerel ve küresel haberlerin ve ekonomik takvimin kilidini açın Plus.",
   "newsViewPlans": "Planları görüntüle",
@@ -1068,5 +1068,11 @@
   "proUnassigned": "Atanmamış",
   "proUnspecified": "belirtilmemiş",
   "proAnalyticsEmpty": "Bu rapor için kapatılmış işlem yok.",
-  "proAnalyticsUnavailable": "Pro analitik kullanılamıyor. Aboneliğinizi doğrulayın ve tekrar deneyin."
+  "proAnalyticsUnavailable": "Pro analitik kullanılamıyor. Aboneliğinizi doğrulayın ve tekrar deneyin.",
+  "proFeature1": "Tüm Plus özellikler ve küresel haber erişimi",
+  "proFeature2": "Gelişmiş analizler, performans ısı haritası ve strateji karşılaştırması",
+  "proFeature3": "Risk istihbaratı, haftalık ve aylık incelemeler ve özel PDF raporlar",
+  "proFeature4": "Yapay zeka pazar istihbaratı, davranış analizi, günlük analizi ve sohbet",
+  "proFeature5": "Abonelik ayı başına 30 başarılı yapay zeka analizi, yapay zeka araçları arasında paylaşılıyor; başarısız analizler sayılmaz",
+  "proAvailability": "Yapay zeka araçları, aktif bir kendi kendine barındırılan model ve yetkili pazar verileri gerektirir. Ücretli ödeme henüz açık değil."
 }

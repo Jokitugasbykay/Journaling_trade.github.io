@@ -17,7 +17,7 @@ console.log('Strict Pro import preview preserves unknown values, quoted fields a
   const row={market:'EURUSD',direction:'Buy',date:'2026-10-10',time:'09:00',entry:1.1,exit:1.2,volume:1,profit:-5};
   let preview;
   const scope={crypto:require('node:crypto').webcrypto,TextEncoder,currentScan:{name:'statement.png',text:'explicit test evidence'},
-    scanHistoryRows:()=>[row],currentAccount:()=>({id:'a',currency:'USD'}),$:node,trades:[],JTPRO_CONFIG:{apiBase:'https://gateway.example'},
+    scanHistoryRows:()=>[row],currentAccount:()=>({id:'a',currency:'USD'}),$:node,trades:[],JTPRO_CONFIG:{apiBase:'https://gateway.example',journalApiBase:'https://gateway.example'},
     uiText:(_id,en)=>en,showUploadPreview:rows=>preview=rows,saveData(){throw Error('Quota bypass: local save called');}};
   scope.window=scope;
   vm.runInNewContext(source.slice(source.indexOf('      window.importScanToJournal ='),source.indexOf('      function renderScanRecognition(')),scope);

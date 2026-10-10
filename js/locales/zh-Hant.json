@@ -58,8 +58,8 @@
   "freeBilling": "Free，無訂閱",
   "freeNote": "從您自己裝置上的資料開始",
   "tryFree": "嘗試 Free",
-  "plusDescription": "建立一致的日記例行公事。",
-  "proDescription": "更詳細地檢視您的表現。",
+  "plusDescription": "將您的期刊和區域市場背景保存在一個地方。",
+  "proDescription": "比較績效、審查風險並探索人工智慧市場情報。",
   "plusSoon": "Plus 即將推出",
   "proSoon": "Pro 即將推出",
   "paidNote": "訂閱即將推出",
@@ -209,7 +209,7 @@
   "authBack": "返回首頁",
   "plusFeature1": "全部 Free 特點",
   "plusFeature2": "無限上傳",
-  "plusFeature3": "經濟新聞和日曆訪問",
+  "plusFeature3": "地區經濟和金融新聞、您所在地區的國際報道以及經濟日曆",
   "newsLockedTitle": "經濟新聞 Plus 成員",
   "newsLockedLead": "解鎖本地和全球新聞以及經濟日曆 Plus.",
   "newsViewPlans": "查看計劃",
@@ -1068,5 +1068,11 @@
   "proUnassigned": "未分配",
   "proUnspecified": "未指定",
   "proAnalyticsEmpty": "本報告沒有可用的已平倉交易。",
-  "proAnalyticsUnavailable": "Pro 分析不可用。驗證您的訂閱並重試。"
+  "proAnalyticsUnavailable": "Pro 分析不可用。驗證您的訂閱並重試。",
+  "proFeature1": "全部 Plus 功能和全球新聞訪問",
+  "proFeature2": "進階分析、效能熱圖與策略比較",
+  "proFeature3": "風險情報、每周和每月回顧以及私人 PDF 報告",
+  "proFeature4": "AI市場情報、行為分析、期刊分析與聊天",
+  "proFeature5": "每個訂閱月 30 次成功的人工智慧分析，在人工智慧工具之間共享；失敗的分析不算數",
+  "proAvailability": "人工智慧工具需要主動的自託管模型和授權的市場數據。付費結帳尚未開放。"
 }

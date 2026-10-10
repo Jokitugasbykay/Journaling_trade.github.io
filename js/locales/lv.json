@@ -58,8 +58,8 @@
   "freeBilling": "Free, nav abonementa",
   "freeNote": "Sāciet ar datiem savā ierīcē",
   "tryFree": "Mēģiniet Free",
-  "plusDescription": "Izveidojiet konsekventu žurnālu rutīnu.",
-  "proDescription": "Detalizētāk pārskatiet savu veiktspēju.",
+  "plusDescription": "Saglabājiet savu žurnālu un reģionālā tirgus kontekstu vienuviet.",
+  "proDescription": "Salīdziniet veiktspēju, pārskatiet risku un izpētiet AI tirgus informāciju.",
   "plusSoon": "Plus drīzumā",
   "proSoon": "Pro drīzumā",
   "paidNote": "Drīzumā būs pieejami abonementi",
@@ -209,7 +209,7 @@
   "authBack": "Atpakaļ uz sākumlapu",
   "plusFeature1": "Viss Free funkcijas",
   "plusFeature2": "Neierobežots augšupielādes skaits",
-  "plusFeature3": "Ekonomisko ziņu un kalendāra piekļuve",
+  "plusFeature3": "Reģionālās ekonomikas un finanšu ziņas, starptautisks pārklājums jūsu reģionos un ekonomikas kalendārs",
   "newsLockedTitle": "Ekonomikas ziņas priekš Plus dalībnieki",
   "newsLockedLead": "Atbloķējiet vietējās un globālās ziņas un ekonomikas kalendāru, izmantojot Plus.",
   "newsViewPlans": "Skatīt plānus",
@@ -1068,5 +1068,11 @@
   "proUnassigned": "Nav piešķirts",
   "proUnspecified": "Nenoteikts",
   "proAnalyticsEmpty": "Šim pārskatam nav pieejami slēgti darījumi.",
-  "proAnalyticsUnavailable": "Pro analītika nav pieejama. Apstipriniet savu abonementu un mēģiniet vēlreiz."
+  "proAnalyticsUnavailable": "Pro analītika nav pieejama. Apstipriniet savu abonementu un mēģiniet vēlreiz.",
+  "proFeature1": "Viss Plus funkcijas un piekļuve globālajām ziņām",
+  "proFeature2": "Uzlabota analīze, veiktspējas siltuma karte un stratēģijas salīdzinājums",
+  "proFeature3": "Riska informācija, iknedēļas un ikmēneša pārskati un privāti PDF ziņojumi",
+  "proFeature4": "AI tirgus izlūkošana, uzvedības analīze, žurnālu analīze un tērzēšana",
+  "proFeature5": "30 veiksmīgas AI analīzes katrā abonēšanas mēnesī, kas tiek kopīgotas ar AI rīkiem; neveiksmīgas analīzes netiek ņemtas vērā",
+  "proAvailability": "AI rīkiem ir nepieciešams aktīvs pašmitināts modelis un autorizēti tirgus dati. Maksas kase vēl nav atvērta."
 }

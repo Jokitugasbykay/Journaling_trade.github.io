@@ -58,8 +58,8 @@
   "freeBilling": "Free, không đăng ký",
   "freeNote": "Bắt đầu với dữ liệu trên thiết bị của riêng bạn",
   "tryFree": "Hãy thử Free",
-  "plusDescription": "Xây dựng thói quen viết nhật ký nhất quán.",
-  "proDescription": "Xem lại hiệu suất của bạn một cách chi tiết hơn.",
+  "plusDescription": "Giữ tạp chí của bạn và bối cảnh thị trường khu vực ở một nơi.",
+  "proDescription": "So sánh hiệu suất, xem xét rủi ro và khám phá thông tin thị trường AI.",
   "plusSoon": "Plus sắp ra mắt",
   "proSoon": "Pro sắp ra mắt",
   "paidNote": "Đăng ký sắp ra mắt",
@@ -209,7 +209,7 @@
   "authBack": "Trở về nhà",
   "plusFeature1": "Tất cả Free tính năng",
   "plusFeature2": "Tải lên không giới hạn",
-  "plusFeature3": "Tin tức kinh tế và truy cập lịch",
+  "plusFeature3": "Tin tức kinh tế và tài chính khu vực, tin tức quốc tế trong khu vực của bạn và lịch kinh tế",
   "newsLockedTitle": "Bản tin kinh tế cho Plus thành viên",
   "newsLockedLead": "Mở khóa tin tức địa phương và toàn cầu cũng như lịch kinh tế với Plus.",
   "newsViewPlans": "Xem kế hoạch",
@@ -1068,5 +1068,11 @@
   "proUnassigned": "Chưa được chỉ định",
   "proUnspecified": "Không xác định",
   "proAnalyticsEmpty": "Không có giao dịch đã đóng nào cho báo cáo này.",
-  "proAnalyticsUnavailable": "Pro phân tích không có sẵn. Hãy xác minh đăng ký của bạn và thử lại."
+  "proAnalyticsUnavailable": "Pro phân tích không có sẵn. Hãy xác minh đăng ký của bạn và thử lại.",
+  "proFeature1": "Tất cả Plus tính năng và truy cập tin tức toàn cầu",
+  "proFeature2": "Phân tích nâng cao, sơ đồ nhiệt hiệu suất và so sánh chiến lược",
+  "proFeature3": "Thông tin rủi ro, đánh giá hàng tuần và hàng tháng và riêng tư PDF báo cáo",
+  "proFeature4": "Trí tuệ thị trường AI, phân tích hành vi, phân tích tạp chí và trò chuyện",
+  "proFeature5": "30 phân tích AI thành công mỗi tháng đăng ký, được chia sẻ trên các công cụ AI; phân tích thất bại không được tính",
+  "proAvailability": "Các công cụ AI yêu cầu một mô hình tự lưu trữ đang hoạt động và dữ liệu thị trường được ủy quyền. Thanh toán trả phí vẫn chưa mở."
 }

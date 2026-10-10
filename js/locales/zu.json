@@ -58,8 +58,8 @@
   "freeBilling": "Free, akukho ukubhalisa",
   "freeNote": "Qala ngedatha kudivayisi yakho",
   "tryFree": "Zama Free",
-  "plusDescription": "Yakha umkhuba wokwenza ijenali ongaguquki.",
-  "proDescription": "Buyekeza ukusebenza kwakho ngokuningiliziwe.",
+  "plusDescription": "Gcina ijenali yakho kanye nengqikithi yemakethe yesifunda endaweni eyodwa.",
+  "proDescription": "Qhathanisa ukusebenza, buyekeza ubungozi, futhi uhlole ubuhlakani bemakethe ye-AI.",
   "plusSoon": "Plus kuyeza maduze",
   "proSoon": "Pro kuyeza maduze",
   "paidNote": "Okubhaliselwe kuyeza maduze",
@@ -209,7 +209,7 @@
   "authBack": "Buyela Ekhaya",
   "plusFeature1": "Konke Free izici",
   "plusFeature2": "Ukulayisha okungenamkhawulo",
-  "plusFeature3": "Izindaba zezomnotho nokufinyelela kwekhalenda",
+  "plusFeature3": "Izindaba zesifunda zomnotho nezezimali, ukufakwa kwamazwe ngamazwe ngaphakathi kwezifunda zakho, kanye nekhalenda lezomnotho",
   "newsLockedTitle": "Izindaba zezomnotho ze Plus amalungu",
   "newsLockedLead": "Vula izindaba zendawo nezomhlaba jikelele kanye nekhalenda lezomnotho nge Plus.",
   "newsViewPlans": "Buka izinhlelo",
@@ -1068,5 +1068,11 @@
   "proUnassigned": "Akunikeziwe",
   "proUnspecified": "Okungashiwongo",
   "proAnalyticsEmpty": "Akukho ukuhweba okuvaliwe okutholakalayo kulo mbiko.",
-  "proAnalyticsUnavailable": "Pro izibalo azitholakali. Qinisekisa ukubhalisa kwakho bese uzama futhi."
+  "proAnalyticsUnavailable": "Pro izibalo azitholakali. Qinisekisa ukubhalisa kwakho bese uzama futhi.",
+  "proFeature1": "Konke Plus izici nokufinyelela izindaba zomhlaba jikelele",
+  "proFeature2": "Izibalo ezithuthukile, imephu yokushisa yokusebenza, nokuqhathanisa kwamasu",
+  "proFeature3": "Ubuhlakani bengcuphe, ukubuyekezwa kweviki nenyanga, nokuyimfihlo PDF imibiko",
+  "proFeature4": "Ubuhlakani bemakethe ye-AI, ukuhlaziywa kokuziphatha, ukuhlaziywa kwejenali, kanye nengxoxo",
+  "proFeature5": "Ukuhlaziywa kwe-AI okuyimpumelelo okungu-30 ngenyanga ngayinye yokubhalisa, okwabelwana ngayo kuwo wonke amathuluzi e-AI; ukuhlaziya okuhlulekile akubalwa",
+  "proAvailability": "Amathuluzi e-AI adinga imodeli esebenzayo yokuzisingatha kanye nedatha yemakethe egunyaziwe. Ukukhokha okukhokhelwayo akukavulwa."
 }

@@ -58,8 +58,8 @@
   "freeBilling": "Free, intet abonnement",
   "freeNote": "Start med data på din egen enhed",
   "tryFree": "Prøv Free",
-  "plusDescription": "Opbyg en konsekvent journaliseringsrutine.",
-  "proDescription": "Gennemgå din præstation mere detaljeret.",
+  "plusDescription": "Hold din journal og regionale markedskontekst ét ​​sted.",
+  "proDescription": "Sammenlign ydeevne, gennemgå risiko, og udforsk AI-markedsintelligence.",
   "plusSoon": "Plus kommer snart",
   "proSoon": "Pro kommer snart",
   "paidNote": "Abonnementer kommer snart",
@@ -209,7 +209,7 @@
   "authBack": "Tilbage til hjemmet",
   "plusFeature1": "Alle Free funktioner",
   "plusFeature2": "Ubegrænsede uploads",
-  "plusFeature3": "Økonomiske nyheder og kalenderadgang",
+  "plusFeature3": "Regionale økonomiske og finansielle nyheder, international dækning inden for dine regioner og den økonomiske kalender",
   "newsLockedTitle": "Økonomiske nyheder for Plus medlemmer",
   "newsLockedLead": "Lås op for lokale og globale nyheder og den økonomiske kalender med Plus.",
   "newsViewPlans": "Se planer",
@@ -1068,5 +1068,11 @@
   "proUnassigned": "Ikke tildelt",
   "proUnspecified": "Uspecificeret",
   "proAnalyticsEmpty": "Ingen lukkede handler tilgængelige for denne rapport.",
-  "proAnalyticsUnavailable": "Pro analyse ikke tilgængelig. Bekræft dit abonnement, og prøv igen."
+  "proAnalyticsUnavailable": "Pro analyse ikke tilgængelig. Bekræft dit abonnement, og prøv igen.",
+  "proFeature1": "Alle Plus funktioner og adgang til globale nyheder",
+  "proFeature2": "Avanceret analyse, performance heatmap og strategisammenligning",
+  "proFeature3": "Risikointelligens, ugentlige og månedlige anmeldelser og privat PDF rapporter",
+  "proFeature4": "AI markedsintelligens, adfærdsanalyse, journalanalyse og chat",
+  "proFeature5": "30 vellykkede AI-analyser pr. abonnementsmåned, delt på tværs af AI-værktøjer; mislykkede analyser tæller ikke med",
+  "proAvailability": "AI-værktøjer kræver en aktiv selv-hostet model og autoriserede markedsdata. Betalt kassen er ikke åben endnu."
 }

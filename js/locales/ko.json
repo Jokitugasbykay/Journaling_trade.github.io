@@ -58,8 +58,8 @@
   "freeBilling": "Free, 구독 없음",
   "freeNote": "자신의 기기에 있는 데이터로 시작하세요",
   "tryFree": "시도해 보세요 Free",
-  "plusDescription": "일관된 저널링 루틴을 구축하세요.",
-  "proDescription": "귀하의 성과를 더 자세히 검토하십시오.",
+  "plusDescription": "저널과 지역 시장 상황을 한 곳에 보관하세요.",
+  "proDescription": "성능을 비교하고, 위험을 검토하고, AI 시장 인텔리전스를 살펴보세요.",
   "plusSoon": "Plus 곧 출시 예정",
   "proSoon": "Pro 곧 출시 예정",
   "paidNote": "구독이 곧 시작됩니다",
@@ -209,7 +209,7 @@
   "authBack": "홈으로 돌아가기",
   "plusFeature1": "모두 Free 특징",
   "plusFeature2": "무제한 업로드",
-  "plusFeature3": "경제 뉴스 및 캘린더 액세스",
+  "plusFeature3": "지역 경제 및 금융 뉴스, 해당 지역 내 국제 보도, 경제 캘린더",
   "newsLockedTitle": "경제 뉴스 Plus 회원",
   "newsLockedLead": "지역 및 글로벌 뉴스와 경제 캘린더를 잠금해제하세요. Plus.",
   "newsViewPlans": "계획 보기",
@@ -1068,5 +1068,11 @@
   "proUnassigned": "할당되지 않음",
   "proUnspecified": "지정되지 않음",
   "proAnalyticsEmpty": "이 보고서에는 마감된 거래가 없습니다.",
-  "proAnalyticsUnavailable": "Pro 분석을 사용할 수 없습니다. 구독을 확인하고 다시 시도하세요."
+  "proAnalyticsUnavailable": "Pro 분석을 사용할 수 없습니다. 구독을 확인하고 다시 시도하세요.",
+  "proFeature1": "모두 Plus 기능 및 글로벌 뉴스 액세스",
+  "proFeature2": "고급 분석, 성능 히트맵 및 전략 비교",
+  "proFeature3": "위험 인텔리전스, 주간 및 월간 검토 및 비공개 PDF 보고서",
+  "proFeature4": "AI 마켓 인텔리전스, 행동 분석, 저널 분석, 채팅",
+  "proFeature5": "구독 월당 30개의 성공적인 AI 분석이 AI 도구 전반에 걸쳐 공유됩니다. 실패한 분석은 포함되지 않습니다",
+  "proAvailability": "AI 도구에는 활성 자체 호스팅 모델과 승인된 시장 데이터가 필요합니다. 유료결제는 아직 오픈되지 않았습니다."
 }

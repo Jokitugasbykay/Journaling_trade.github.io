@@ -58,8 +58,8 @@
   "freeBilling": "Free, ha ho ngoliso",
   "freeNote": "Qala ka data ho sesebelisoa sa hau",
   "tryFree": "Leka Free",
-  "plusDescription": "Theha mokhoa o tsitsitseng oa ho ngola litaba.",
-  "proDescription": "Hlahloba tšebetso ea hau ka botlalo.",
+  "plusDescription": "Boloka koranta ea hau le maemo a 'maraka sebakeng se le seng.",
+  "proDescription": "Bapisa ts'ebetso, lekola kotsi, 'me u hlahlobe bohlale ba mmaraka ba AI.",
   "plusSoon": "Plus e fihla haufinyane",
   "proSoon": "Pro e fihla haufinyane",
   "paidNote": "Lipeeletso lia tla haufinyane",
@@ -209,7 +209,7 @@
   "authBack": "Kgutlela Hae",
   "plusFeature1": "Tsohle Free Likaroloana",
   "plusFeature2": "Lisebelisoa tse sa lekanyetsoang",
-  "plusFeature3": "Litaba tsa moruo le phihlello ea almanaka",
+  "plusFeature3": "Litaba tsa tikoloho le tsa lichelete, litaba tsa machaba ka har'a libaka tsa hau, le almanaka ea moruo",
   "newsLockedTitle": "Litaba tsa moruo bakeng sa Plus ditho",
   "newsLockedLead": "Notlolla litaba tsa lehae le tsa lefats'e le almanaka ea moruo ka Plus.",
   "newsViewPlans": "Sheba merero",
@@ -1068,5 +1068,11 @@
   "proUnassigned": "Ha ea ajoa",
   "proUnspecified": "E sa hlalosoang",
   "proAnalyticsEmpty": "Ha ho khoebo e koetsoeng tlalehong ena.",
-  "proAnalyticsUnavailable": "Pro li-analytics ha li fumanehe. Netefatsa boingoliso ba hau 'me u leke hape."
+  "proAnalyticsUnavailable": "Pro li-analytics ha li fumanehe. Netefatsa boingoliso ba hau 'me u leke hape.",
+  "proFeature1": "Tsohle Plus likarolo le phihlello ea litaba lefatšeng ka bophara",
+  "proFeature2": "Litlhahlobo tse tsoetseng pele, 'mapa oa mocheso oa ts'ebetso, le papiso ea maano",
+  "proFeature3": "Bohlale ba kotsi, maikutlo a beke le khoeli, le lekunutu PDF litlaleho",
+  "proFeature4": "Bohlale ba 'maraka ba AI, tlhahlobo ea boitšoaro, tlhahlobo ea koranta le moqoqo",
+  "proFeature5": "Litlhahlobo tse 30 tse atlehileng tsa AI ka khoeli ea peeletso, e arolelanoang lisebelisoa tsohle tsa AI; litlhahlobo tse hlotsoeng ha li bale",
+  "proAvailability": "Lisebelisoa tsa AI li hloka mohlala o sebetsang o ikemetseng le lintlha tse lumelletsoeng tsa mmaraka. Chelete e lefelloang ha e so buloe."
 }

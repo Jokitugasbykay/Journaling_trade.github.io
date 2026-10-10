@@ -8,7 +8,7 @@ All feature pages require an authenticated current owner and an effective **Pro*
 
 `action()` disables the activated control, shows a live “Working…” state, and restores it when finished. Validation errors and non-success responses appear in an alert. User/provider text is written with `textContent`; articles, evidence and downloads require HTTPS URLs without embedded credentials. No untrusted HTML is inserted. Charts also have expandable data tables. Heatmap borders/text distinguish positive/negative/zero/no activity without relying on color.
 
-Status for the controls below: **Implemented but Not Fully Tested**. Local unit and Chrome transport tests pass, but fixture transport tests are not evidence of deployed database, Storage, payment, authorized market feed or local model integration. Those external requirements and real API/database verification are tracked in the phase reports. No production deployment or live billing has been activated.
+Current live coverage and actual test evidence are in [PRO_HOSTED_GATEWAY.md](PRO_HOSTED_GATEWAY.md). Deterministic Pro endpoints are deployed after explicit approval; the full AI/provider-dependent controls remain **Blocked** or **Implemented but Not Fully Tested**. Fixture browser tests do not prove live inference or billing. Each control below uses the same contract, with live endpoint coverage identified in that report.
 
 Test references:
 
@@ -24,7 +24,7 @@ Buttons expose `data-component-id`; explicit IDs below remain stable. Generated 
 
 ## Shell, routes and shared filters
 
-The rows named `PRO-NAV-*` below now refer to **internal Pro section navigation**, not top-level header links. The header has one `nav-pro` entry after Economic news. `/pro/` defaults to AI Market Intelligence; other sections use `/pro/?section=<section>`. Historical Pro routes replace their history entry with this canonical workspace route. Free/Plus retain a disabled noninteractive AI Trading hook; Founder identity alone is not entitlement proof.
+The rows named `PRO-NAV-*` below now refer to **internal Pro section navigation**, not top-level header links. The header has one `nav-pro` entry after Economic news. `/pro/` defaults to AI Market Intelligence; other sections use `/pro/?section=<section>`. Historical Pro routes replace their history entry with this canonical workspace route. Free/Plus retain a disabled noninteractive AI Trading hook; confirmed Founder authorization is verified on the backend and grants Pro under the approved rule.
 
 | Component ID | Page / label | Frontend handler | API endpoint | Authentication / subscription | Loading / success / error | Test / status |
 |---|---|---|---|---|---|---|

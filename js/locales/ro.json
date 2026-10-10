@@ -58,8 +58,8 @@
   "freeBilling": "Free, fără abonament",
   "freeNote": "Începeți cu datele de pe propriul dispozitiv",
   "tryFree": "Încercați Free",
-  "plusDescription": "Creați o rutină de jurnal coerentă.",
-  "proDescription": "Examinați-vă performanța în detaliu.",
+  "plusDescription": "Păstrați jurnalul și contextul pieței regionale într-un singur loc.",
+  "proDescription": "Comparați performanța, examinați riscurile și explorați informațiile despre piața AI.",
   "plusSoon": "Plus în curând",
   "proSoon": "Pro în curând",
   "paidNote": "Abonamentele vor veni în curând",
@@ -209,7 +209,7 @@
   "authBack": "Înapoi la Acasă",
   "plusFeature1": "Toate Free caracteristici",
   "plusFeature2": "Încărcări nelimitate",
-  "plusFeature3": "Știri economice și acces la calendar",
+  "plusFeature3": "Știri economice și financiare regionale, acoperire internațională în regiunile dvs. și calendarul economic",
   "newsLockedTitle": "Stiri economice pt Plus membri",
   "newsLockedLead": "Deblocați știrile locale și globale și calendarul economic cu Plus.",
   "newsViewPlans": "Vezi planuri",
@@ -1068,5 +1068,11 @@
   "proUnassigned": "Nealocat",
   "proUnspecified": "Nespecificat",
   "proAnalyticsEmpty": "Nu sunt disponibile tranzacții închise pentru acest raport.",
-  "proAnalyticsUnavailable": "Pro analitice indisponibile. Verificați abonamentul și încercați din nou."
+  "proAnalyticsUnavailable": "Pro analitice indisponibile. Verificați abonamentul și încercați din nou.",
+  "proFeature1": "Toate Plus funcții și acces la știri globale",
+  "proFeature2": "Analiză avansată, hartă termică a performanței și comparare a strategiilor",
+  "proFeature3": "Informații despre risc, recenzii săptămânale și lunare și private PDF rapoarte",
+  "proFeature4": "Informații despre piață AI, analiză de comportament, analiză de jurnal și chat",
+  "proFeature5": "30 de analize AI de succes pe lună de abonament, partajate între instrumente AI; analizele eșuate nu contează",
+  "proAvailability": "Instrumentele AI necesită un model activ auto-găzduit și date de piață autorizate. Casă plătită nu este deschisă încă."
 }

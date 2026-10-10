@@ -1,3 +1,2 @@
-// Set an HTTPS gateway URL after deploying the Python service and approving its CSP origin.
-// Empty keeps the existing static site usable and denies new privileged features.
-window.JTPRO_CONFIG = Object.freeze({apiBase: ''});
+// The hosted Pro gateway is separate from the existing journal, imports and news paths.
+window.JTPRO_CONFIG = Object.freeze({apiBase: 'https://nmddjuqkdyhcobddinkc.supabase.co/functions/v1/pro-gateway', journalApiBase: ''});

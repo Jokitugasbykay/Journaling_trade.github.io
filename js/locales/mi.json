@@ -58,8 +58,8 @@
   "freeBilling": "Free, kaore he ohaurunga",
   "freeNote": "Tīmatahia ki te raraunga i runga i to ake taputapu",
   "tryFree": "Whakamātauria Free",
-  "plusDescription": "Hangaia he mahinga rehitatanga riterite.",
-  "proDescription": "Arotakehia to mahinga i roto i nga korero tino nui.",
+  "plusDescription": "Kia mau ki to rehitata me to horopaki maakete rohe ki te waahi kotahi.",
+  "proDescription": "Whakatauritehia te mahi, te arotake i te tupono, me te tirotiro i te mohiotanga maakete AI.",
   "plusSoon": "Plus ka tata mai",
   "proSoon": "Pro ka tata mai",
   "paidNote": "Ka tae mai nga ohaurunga",
@@ -209,7 +209,7 @@
   "authBack": "Hoki ki te Kainga",
   "plusFeature1": "Katoa Free āhuatanga",
   "plusFeature2": "Nga tukunga mutunga kore",
-  "plusFeature3": "Nga korero ohaoha me te uru maramataka",
+  "plusFeature3": "Nga purongo ohaoha aa-rohe me nga purongo putea, nga korero o te ao i roto i o rohe, me te maramataka ohaoha",
   "newsLockedTitle": "Nga korero ohaoha mo Plus mema",
   "newsLockedLead": "Wewete i nga purongo o te rohe me te ao me te maramataka ohaoha ki Plus.",
   "newsViewPlans": "Tirohia nga mahere",
@@ -1068,5 +1068,11 @@
   "proUnassigned": "Kore i tohua",
   "proUnspecified": "Kore i tohua",
   "proAnalyticsEmpty": "Karekau he hokohoko kati mo tenei purongo.",
-  "proAnalyticsUnavailable": "Pro karekau i te watea. Manatokohia to ohaurunga ka ngana ano."
+  "proAnalyticsUnavailable": "Pro karekau i te watea. Manatokohia to ohaurunga ka ngana ano.",
+  "proFeature1": "Katoa Plus nga ahuatanga me te uru ki nga purongo o te ao",
+  "proFeature2": "He tātaritanga matatau, he mahere whakamahana mahi, me te whakataurite rautaki",
+  "proFeature3": "Te mohiotanga morearea, nga arotake a-wiki me ia marama, me te motuhake PDF pūrongo",
+  "proFeature4": "Ko te mohio o te maakete AI, te tātari whanonga, te tātari hautaka, me te korerorero",
+  "proFeature5": "30 nga tātaritanga AI angitu mo ia marama ohaurunga, ka tohatoha puta noa i nga taputapu AI; Ko nga tātaritanga rahua kaore e tatau",
+  "proAvailability": "Ko nga taputapu AI e hiahia ana ki te tauira whakahaere-whaiaro me nga raraunga maakete whai mana. Kaore ano kia tuwhera te utu utu."
 }

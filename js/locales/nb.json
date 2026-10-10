@@ -58,8 +58,8 @@
   "freeBilling": "Free, ikke noe abonnement",
   "freeNote": "Start med data på din egen enhet",
   "tryFree": "Prøv Free",
-  "plusDescription": "Bygg en konsistent journalføringsrutine.",
-  "proDescription": "Gjennomgå ytelsen din mer detaljert.",
+  "plusDescription": "Hold journalen og den regionale markedskonteksten på ett sted.",
+  "proDescription": "Sammenlign ytelse, gjennomgå risiko og utforsk AI-markedsintelligens.",
   "plusSoon": "Plus kommer snart",
   "proSoon": "Pro kommer snart",
   "paidNote": "Abonnementer kommer snart",
@@ -209,7 +209,7 @@
   "authBack": "Tilbake til hjemmet",
   "plusFeature1": "Alle Free funksjoner",
   "plusFeature2": "Ubegrensede opplastinger",
-  "plusFeature3": "Økonomiske nyheter og kalendertilgang",
+  "plusFeature3": "Regionale økonomiske og finansielle nyheter, internasjonal dekning i dine regioner og den økonomiske kalenderen",
   "newsLockedTitle": "Økonomiske nyheter for Plus medlemmer",
   "newsLockedLead": "Lås opp lokale og globale nyheter og den økonomiske kalenderen med Plus.",
   "newsViewPlans": "Se planer",
@@ -1068,5 +1068,11 @@
   "proUnassigned": "Ikke tilordnet",
   "proUnspecified": "Uspesifisert",
   "proAnalyticsEmpty": "Ingen lukkede handler tilgjengelig for denne rapporten.",
-  "proAnalyticsUnavailable": "Pro analyse utilgjengelig. Bekreft abonnementet ditt og prøv igjen."
+  "proAnalyticsUnavailable": "Pro analyse utilgjengelig. Bekreft abonnementet ditt og prøv igjen.",
+  "proFeature1": "Alle Plus funksjoner og global nyhetstilgang",
+  "proFeature2": "Avansert analyse, ytelsesvarmekart og strategisammenligning",
+  "proFeature3": "Risikointelligens, ukentlige og månedlige vurderinger og privat PDF rapporter",
+  "proFeature4": "AI markedsintelligens, atferdsanalyse, journalanalyse og chat",
+  "proFeature5": "30 vellykkede AI-analyser per abonnementsmåned, delt på tvers av AI-verktøy; mislykkede analyser teller ikke",
+  "proAvailability": "AI-verktøy krever en aktiv selvdrevet modell og autoriserte markedsdata. Betalingskassen er ikke åpen ennå."
 }

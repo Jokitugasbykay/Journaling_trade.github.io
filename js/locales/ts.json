@@ -58,8 +58,8 @@
   "freeBilling": "Free, ku hava xikhokhelo",
   "freeNote": "Sungula hi data eka xitirhisiwa xa wena",
   "tryFree": "Ringeta Free",
-  "plusDescription": "Aka xiyimiso xa ku tsala tijenali lexi nga cincekiki.",
-  "proDescription": "Kambisisa matirhelo ya wena hi vuxokoxoko lebyikulu.",
+  "plusDescription": "Hlayisa jenali ya wena na xiyimo xa makete wa xifundzha eka ndhawu yin’we.",
+  "proDescription": "Fanisa matirhelo, kambisisa khombo, na ku lavisisa vutlhari bya makete wa AI.",
   "plusSoon": "Plus yi ta ku nga ri khale",
   "proSoon": "Pro yi ta ku nga ri khale",
   "paidNote": "Swikhokhelo swi ta ku nga ri khale",
@@ -209,7 +209,7 @@
   "authBack": "Ku tlhelela ekaya",
   "plusFeature1": "Hinkwaswo Free swihlawulekisi",
   "plusFeature2": "Ku layicha loku nga pimiwangiki",
-  "plusFeature3": "Mahungu ya ikhonomi na ku fikelela khalendara",
+  "plusFeature3": "Mahungu ya ikhonomi na timali ya miganga, ku hlanganisiwa ka matiko ya misava endzeni ka swifundzankulu swa n’wina, na khalendara ya ikhonomi",
   "newsLockedTitle": "Mahungu ya ikhonomi ya Plus swirho",
   "newsLockedLead": "Pfula mahungu ya laha kaya na ya misava hinkwayo na khalendara ya ikhonomi hi Plus.",
   "newsViewPlans": "Languta tipulani",
@@ -1068,5 +1068,11 @@
   "proUnassigned": "A swi averiwe",
   "proUnspecified": "A swi boxiwanga",
   "proAnalyticsEmpty": "Ku hava mabindzu lama pfalekeke lama kumekaka eka xiviko lexi.",
-  "proAnalyticsUnavailable": "Pro vuxopaxopi a byi kumeki. Tiyisisa xikhokhelo xa wena kutani u ringeta nakambe."
+  "proAnalyticsUnavailable": "Pro vuxopaxopi a byi kumeki. Tiyisisa xikhokhelo xa wena kutani u ringeta nakambe.",
+  "proFeature1": "Hinkwaswo Plus swihlawulekisi na mfikelelo wa mahungu ya misava hinkwayo",
+  "proFeature2": "Nxopaxopo wa xiyimo xa le henhla, heatmap ya matirhelo, na ku pimanisiwa ka maqhinga",
+  "proFeature3": "Vutlhari bya khombo, ku kamberiwa ka vhiki na vhiki na n’hweti na n’hweti, na le xihundleni PDF swiviko swa kona",
+  "proFeature4": "Vutlhari bya makete wa AI, nxopaxopo wa mahanyelo, nxopaxopo wa tijenali, na ku burisana",
+  "proFeature5": "30 wa minxopaxopo ya AI leyi humelelaka hi n’hweti ya xikhokhelo, leyi avelaniwa eka switirhisiwa hinkwaswo swa AI; minxopaxopo leyi tsandzekeke a yi hlayiwi",
+  "proAvailability": "Switirhisiwa swa AI swi lava modele lowu tirhaka lowu tiyimeleke na datha ya makete leyi pfumeleriweke. Paid checkout a yi si pfuriwa."
 }

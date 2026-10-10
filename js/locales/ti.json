@@ -58,8 +58,8 @@
   "freeBilling": "Free፣ ምዝገባ የለን",
   "freeNote": "ኣብ ናይ ገዛእ ርእስኻ መሳርሒ ብዘሎ ዳታ ጀምር",
   "tryFree": "ፈትን Free",
-  "plusDescription": "ቅኑዕ ናይ ጆርናል ልምዲ ምህናጽ።",
-  "proDescription": "ኣፈጻጽማኻ ብሰፊሑ ዳግም ርአ።",
+  "plusDescription": "መጽሔትካን ዞባዊ ዕዳጋኻን ኣብ ሓደ ቦታ ኣቐምጦ።",
+  "proDescription": "ኣፈፃፅማ ምውድዳር፣ ሓደጋ ምግምጋም፣ ከምኡ እውን ናይ AI ዕዳጋ ብልሒ ምድህሳስ።",
   "plusSoon": "Plus ኣብዚ ቐረባ እዋን",
   "proSoon": "Pro ኣብዚ ቐረባ እዋን",
   "paidNote": "ምዝገባ ኣብ ቀረባ እዋን ይመጽእ ኣሎ።",
@@ -209,7 +209,7 @@
   "authBack": "ናብ ገዛና ምምላስ",
   "plusFeature1": "ኩሎም Free መለለይታት",
   "plusFeature2": "ደረት ኣልቦ ምጽዓን",
-  "plusFeature3": "ቁጠባዊ ዜናን ምብጻሕ ኣቆጻጽራን",
+  "plusFeature3": "ዞባዊ ቁጠባውን ፋይናንሳውን ዜናታት፡ ኣብ ውሽጢ ዞባታትኩም ዘሎ ኣህጉራዊ ሽፋን፡ ከምኡ’ውን ቁጠባዊ ኣቆጻጽራ",
   "newsLockedTitle": "ቁጠባዊ ዜና ን... Plus ኣባላት",
   "newsLockedLead": "ናይ ውሽጢ ዓድን ዓለማውን ዜናን ቁጠባዊ ኣቆጻጽራን ምስ... Plus.",
   "newsViewPlans": "መደባት ርአ",
@@ -1068,5 +1068,11 @@
   "proUnassigned": "ዘይተመደበ",
   "proUnspecified": "ዘይተገልጸ",
   "proAnalyticsEmpty": "ነዚ ጸብጻብ ዝኸውን ዕጹው ንግዲ የለን።",
-  "proAnalyticsUnavailable": "Pro ትንታነታት ኣይተረኽበን። ምዝገባኻ ኣረጋግጽ እሞ እንደገና ፈትን።"
+  "proAnalyticsUnavailable": "Pro ትንታነታት ኣይተረኽበን። ምዝገባኻ ኣረጋግጽ እሞ እንደገና ፈትን።",
+  "proFeature1": "ኩሎም Plus ፍሉይነታትን ዓለማዊ ምብጻሕ ዜናን ምዃኑ’ዩ።",
+  "proFeature2": "ምዕቡል ትንታነታት፣ ናይ ኣፈፃፅማ ሂትማፕን ስትራተጂ ምውድዳርን።",
+  "proFeature3": "ብልሒ ሓደጋ፡ ሰሙናዊን ወርሓውን ገምጋም፡ ከምኡ’ውን ናይ ብሕቲ PDF ጸብጻባት ይሕብር",
+  "proFeature4": "ብልሒ ዕዳጋ AI፡ ትንተና ባህሪ፡ ትንተና መጽሔት፡ ከምኡ’ውን ዕላል",
+  "proFeature5": "ኣብ ወርሒ ምዝገባ 30 ዕዉታት ትንተናታት AI፣ ኣብ መላእ መሳርሒታት AI ዝካፈሉ፤ ዝፈሸለ ትንታነታት ኣይቁጸርን እዩ።",
+  "proAvailability": "መሳርሒታት AI ንጡፍ ባዕሉ ዝእንገድ ሞዴልን ፍቓድ ዘለዎ ዳታ ዕዳጋን የድልዮም። ዝኽፈል ምውጻእ ገንዘብ ገና ክፉት ኣይኮነን።"
 }

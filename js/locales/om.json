@@ -58,8 +58,8 @@
   "freeBilling": "Free, maallaqa galchuu hin qabu",
   "freeNote": "Meeshaa mataa keetii irratti daataa irraa jalqabi",
   "tryFree": "Yaali Free",
-  "plusDescription": "Barmaatilee joornaalii walfakkaatu ijaari.",
-  "proDescription": "Raawwii hojii kee bal'inaan irra deebi'ii ilaali.",
+  "plusDescription": "Haala gabaa joornaalii fi naannoo keessanii bakka tokkotti kaa’aa.",
+  "proDescription": "Raawwii hojii walbira qabuu, balaa gamaaggamuu, fi sammuu gabaa AI qorachuu.",
   "plusSoon": "Plus yeroo dhiyootti dhufaa jira",
   "proSoon": "Pro yeroo dhiyootti dhufaa jira",
   "paidNote": "Subscription yeroo dhiyootti dhufaa jira",
@@ -209,7 +209,7 @@
   "authBack": "Gara Manaatti Deebi'uu",
   "plusFeature1": "Hunda Free amaloota",
   "plusFeature2": "Olkaa'iinsa daangaa hin qabne",
-  "plusFeature3": "Oduu diinagdee fi qaqqabummaa kalaandarii",
+  "plusFeature3": "Oduu dinagdee fi faayinaansii naannoo, uwwisa idil-addunyaa naannolee keessan keessatti, fi kalaandarii dinagdee",
   "newsLockedTitle": "Oduu diinagdee kan... Plus miseensota",
   "newsLockedLead": "Oduu biyya keessaa fi addunyaa fi kalaandarii dinagdee waliin banaa Plus.",
   "newsViewPlans": "Karoora ilaali",
@@ -1068,5 +1068,11 @@
   "proUnassigned": "Kan hin ramadamne",
   "proUnspecified": "Hin ibsamne",
   "proAnalyticsEmpty": "Gabaasa kanaaf daldalli cufame hin jiru.",
-  "proAnalyticsUnavailable": "Pro xiinxala hin argamne. Subscription keessan mirkaneessaa irra deebi'aa yaalaa."
+  "proAnalyticsUnavailable": "Pro xiinxala hin argamne. Subscription keessan mirkaneessaa irra deebi'aa yaalaa.",
+  "proFeature1": "Hunda Plus features fi oduu addunyaa argachuu",
+  "proFeature2": "Xiinxala sadarkaa olaanaa, kaartaa ho’aa raawwii hojii, fi walmadaalchisuu tarsiimoo",
+  "proFeature3": "Odeeffannoo balaa, gamaaggama torbanii fi ji’a ji’aan, fi dhuunfaa PDF gabaasa",
+  "proFeature4": "Sammuu gabaa AI, xiinxala amala, xiinxala joornaalii, fi chaatii",
+  "proFeature5": "Ji’a maallaqa maallaqaan bitamuu tokkotti xiinxala AI milkaa’aa 30, meeshaalee AI hunda keessatti qoodamu; xiinxalawwan fashalaa’an hin lakkaa’aman",
+  "proAvailability": "Meeshaaleen AI moodeela ofumaan keessummeessuu sochii qabuu fi daataa gabaa hayyamame barbaadu. Kaffaltiin kaffaltii hanga ammaatti hin banamne."
 }

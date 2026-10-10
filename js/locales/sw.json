@@ -58,8 +58,8 @@
   "freeBilling": "Free, hakuna usajili",
   "freeNote": "Anza na data kwenye kifaa chako mwenyewe",
   "tryFree": "Jaribu Free",
-  "plusDescription": "Unda utaratibu thabiti wa uandishi wa habari.",
-  "proDescription": "Kagua utendaji wako kwa undani zaidi.",
+  "plusDescription": "Weka jarida lako na muktadha wa soko la kikanda katika sehemu moja.",
+  "proDescription": "Linganisha utendaji, kagua hatari, na uchunguze akili ya soko la AI.",
   "plusSoon": "Plus inakuja hivi karibuni",
   "proSoon": "Pro inakuja hivi karibuni",
   "paidNote": "Usajili unakuja hivi karibuni",
@@ -209,7 +209,7 @@
   "authBack": "Rudi Nyumbani",
   "plusFeature1": "Wote Free vipengele",
   "plusFeature2": "Upakiaji usio na kikomo",
-  "plusFeature3": "Habari za kiuchumi na ufikiaji wa kalenda",
+  "plusFeature3": "Habari za kikanda za kiuchumi na kifedha, habari za kimataifa ndani ya maeneo yako, na kalenda ya kiuchumi",
   "newsLockedTitle": "Habari za kiuchumi kwa Plus wanachama",
   "newsLockedLead": "Fungua habari za nchini na za kimataifa na kalenda ya kiuchumi ukitumia Plus.",
   "newsViewPlans": "Tazama mipango",
@@ -1068,5 +1068,11 @@
   "proUnassigned": "Haijakabidhiwa",
   "proUnspecified": "Haijabainishwa",
   "proAnalyticsEmpty": "Hakuna biashara zilizofungwa zinazopatikana kwa ripoti hii.",
-  "proAnalyticsUnavailable": "Pro uchanganuzi haupatikani. Thibitisha usajili wako na ujaribu tena."
+  "proAnalyticsUnavailable": "Pro uchanganuzi haupatikani. Thibitisha usajili wako na ujaribu tena.",
+  "proFeature1": "Wote Plus vipengele na ufikiaji wa habari wa kimataifa",
+  "proFeature2": "Uchanganuzi wa hali ya juu, ramani ya joto ya utendakazi, na ulinganisho wa mkakati",
+  "proFeature3": "Ufahamu wa hatari, hakiki za kila wiki na kila mwezi, na za faragha PDF ripoti",
+  "proFeature4": "AI ya akili ya soko, uchambuzi wa tabia, uchambuzi wa jarida, na gumzo",
+  "proFeature5": "Uchambuzi 30 wa AI uliofaulu kwa kila mwezi wa usajili, unaoshirikiwa katika zana zote za AI; uchambuzi uliofeli usihesabu",
+  "proAvailability": "Zana za AI zinahitaji modeli inayojiendesha yenyewe na data ya soko iliyoidhinishwa. Malipo ya kulipia bado hayajafunguliwa."
 }

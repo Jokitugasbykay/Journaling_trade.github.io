@@ -58,8 +58,8 @@
   "freeBilling": "Free, mana suscripcionniyuq",
   "freeNote": "Kikin dispositivoykipi willakuykunawan qallariy",
   "tryFree": "Ruway Free",
-  "plusDescription": "Huk sapanchasqa diario ruway ruwayta ruway.",
-  "proDescription": "Ruwasqaykita aswan sut'ita qhaway.",
+  "plusDescription": "Diarioykita hinallataq regional qhatu contextoykitapas huk cheqasllapi waqaychay.",
+  "proDescription": "Ruwayta tupachiy, riesgota qhaway, chaymanta AI qhatu yachayta maskay.",
   "plusSoon": "Plus chayamunqa",
   "proSoon": "Pro chayamunqa",
   "paidNote": "Suscripcionkuna pisi tiempollamanta hamushan",
@@ -209,7 +209,7 @@
   "authBack": "Wasiman kutiy",
   "plusFeature1": "Tukuy Free nisqa ruwaykuna",
   "plusFeature2": "Mana k'uchuyuq kargakuna",
-  "plusFeature3": "Qullqimanta willakuykunata hinaspa calendario nisqaman yaykuy",
+  "plusFeature3": "Regional económica y financiera nisqa willakuy, cobertura internacional nisqa suyuykikuna ukhupi, hinallataq calendario económico nisqa",
   "newsLockedTitle": "Qullqimanta willakuykunapaq Plus miembrukuna",
   "newsLockedLead": "Kichay llaqta hinallataq pachantinpi willakuykunata hinallataq qullqimanta calendario nisqawan Plus.",
   "newsViewPlans": "Planes nisqakunata qhaway",
@@ -1068,5 +1068,11 @@
   "proUnassigned": "Mana asignasqa",
   "proUnspecified": "Mana nisqa",
   "proAnalyticsEmpty": "Kay willakuypaqqa manam wichqasqa qhatuykuna kanchu.",
-  "proAnalyticsUnavailable": "Pro analisis mana tarikuq. Suscripcionniykita chiqapchay hinaspa hukmanta kallpanchakuy."
+  "proAnalyticsUnavailable": "Pro analisis mana tarikuq. Suscripcionniykita chiqapchay hinaspa hukmanta kallpanchakuy.",
+  "proFeature1": "Tukuy Plus ruwanakuna chaymanta pachantinpi willakuykunaman yaykuy",
+  "proFeature2": "Ñawpaqman puriq t'aqwiy, ruway ruphay mapa, chaymanta estrategia tupachiy",
+  "proFeature3": "Riesgo yachay, sapa semana chaymanta sapa killa qhaway, chaymanta sapanchasqa PDF willakun",
+  "proFeature4": "AI qhatu yachay, ruway t'aqwiy, revista t'aqwiy, chaymanta rimanakuy",
+  "proFeature5": "30 allin AI t'aqwiykuna sapa suscripción killapi, tukuy AI yanapakuykunapi rakisqa; mana allin ruwasqa anlisiskunaqa manam yupasqachu",
+  "proAvailability": "AI yanapakuykuna huk ruwaq kikinmanta qusqa modelota chaymanta kamachisqa qhatu willayta munanku. Pagasqa qullqi quyqa manaraqmi kichasqachu."
 }

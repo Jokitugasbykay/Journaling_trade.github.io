@@ -62,11 +62,12 @@ jobs:
         run: |
           mkdir _site
           cp index.html berita.json kalender.json bi.json fomc.json regional-sources.json _site/
+          cp services/pro_api/regions.json _site/news-regions.json
           cp -r css js _site/
           mkdir _site/news
           cp news/index.json _site/news/
           cp -r news/sources news/archive news/categories news/images _site/news/
-          for route in home journal statistics calculator economic-news economic-news/calendar economic-news/social login profile pro analytics heatmap strategies risk reviews reports ai/behaviour ai/market ai/journal global-news; do
+          for route in home journal statistics calculator economic-news economic-news/calendar economic-news/social login profile pro analytics heatmap strategies risk reviews reports ai/behaviour ai/market ai/journal ai/chat global-news; do
             mkdir -p "_site/$route"
             cp index.html "_site/$route/index.html"
           done

@@ -58,8 +58,8 @@
   "freeBilling": "Free, nema pretplate",
   "freeNote": "Počnite s podacima na vlastitom uređaju",
   "tryFree": "Pokušajte Free",
-  "plusDescription": "Izgradite dosljednu rutinu vođenja dnevnika.",
-  "proDescription": "Detaljnije pregledajte svoju izvedbu.",
+  "plusDescription": "Držite svoj časopis i kontekst regionalnog tržišta na jednom mjestu.",
+  "proDescription": "Usporedite izvedbu, pregledajte rizik i istražite AI tržišnu inteligenciju.",
   "plusSoon": "Plus uskoro",
   "proSoon": "Pro uskoro",
   "paidNote": "Pretplate stižu uskoro",
@@ -209,7 +209,7 @@
   "authBack": "Povratak kući",
   "plusFeature1": "Sve Free značajke",
   "plusFeature2": "Neograničeno učitavanje",
-  "plusFeature3": "Ekonomske vijesti i pristup kalendaru",
+  "plusFeature3": "Regionalne ekonomske i financijske vijesti, međunarodna pokrivenost unutar vaših regija i ekonomski kalendar",
   "newsLockedTitle": "Gospodarske vijesti za Plus članovi",
   "newsLockedLead": "Otključajte lokalne i globalne vijesti i ekonomski kalendar s Plus.",
   "newsViewPlans": "Pogledaj planove",
@@ -1068,5 +1068,11 @@
   "proUnassigned": "Nedodijeljeno",
   "proUnspecified": "Neodređeno",
   "proAnalyticsEmpty": "Nema dostupnih zatvorenih trgovina za ovo izvješće.",
-  "proAnalyticsUnavailable": "Pro analitika nedostupna. Potvrdite svoju pretplatu i pokušajte ponovno."
+  "proAnalyticsUnavailable": "Pro analitika nedostupna. Potvrdite svoju pretplatu i pokušajte ponovno.",
+  "proFeature1": "Sve Plus značajke i pristup globalnim vijestima",
+  "proFeature2": "Napredna analitika, toplinska karta performansi i usporedba strategija",
+  "proFeature3": "Risk intelligence, tjedni i mjesečni pregledi i privatni PDF izvješća",
+  "proFeature4": "AI tržišna inteligencija, analiza ponašanja, analiza časopisa i chat",
+  "proFeature5": "30 uspješnih AI analiza po mjesecu pretplate, podijeljenih između AI alata; neuspješne analize se ne računaju",
+  "proAvailability": "AI alati zahtijevaju aktivan samodomaćin model i ovlaštene tržišne podatke. Plaćena blagajna još nije otvorena."
 }

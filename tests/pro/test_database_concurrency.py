@@ -11,7 +11,7 @@ class QuotaRace(unittest.TestCase):
     def test_one_remaining_unit(self):
         uid = str(uuid4())
         args = [os.environ["JT_TEST_PSQL"], "-h", "127.0.0.1", "-p", os.getenv("JT_TEST_PGPORT", "55432"),
-                "-U", "jt_test", "-d", "postgres", "-X", "-v", "ON_ERROR_STOP=1", "-At"]
+                "-U", "jt_test", "-d", os.getenv("JT_TEST_PGDB", "postgres"), "-X", "-v", "ON_ERROR_STOP=1", "-At"]
 
         def sql(query):
             return subprocess.run(args + ["-c", query], capture_output=True, text=True, timeout=20)

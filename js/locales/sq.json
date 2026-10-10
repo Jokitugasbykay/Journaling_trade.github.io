@@ -58,8 +58,8 @@
   "freeBilling": "Free, pa abonim",
   "freeNote": "Filloni me të dhënat në pajisjen tuaj",
   "tryFree": "Provoni Free",
-  "plusDescription": "Ndërtoni një rutinë të qëndrueshme të ditarit.",
-  "proDescription": "Rishikoni performancën tuaj në më shumë detaje.",
+  "plusDescription": "Mbani ditarin tuaj dhe kontekstin e tregut rajonal në një vend.",
+  "proDescription": "Krahasoni performancën, rishikoni rrezikun dhe eksploroni inteligjencën e tregut të AI.",
   "plusSoon": "Plus vjen së shpejti",
   "proSoon": "Pro vjen së shpejti",
   "paidNote": "Abonimet vijnë së shpejti",
@@ -209,7 +209,7 @@
   "authBack": "Kthehu në shtëpi",
   "plusFeature1": "Të gjitha \nKarakteristikat e Free veçoritë",
   "plusFeature2": "Ngarkime të pakufizuara",
-  "plusFeature3": "Lajmet ekonomike dhe aksesi në kalendar",
+  "plusFeature3": "Lajmet rajonale ekonomike dhe financiare, mbulimi ndërkombëtar brenda rajoneve tuaja dhe kalendari ekonomik",
   "newsLockedTitle": "Lajme ekonomike për Plus anëtarë",
   "newsLockedLead": "Zhbllokoni lajmet lokale dhe globale dhe kalendarin ekonomik me Plus.",
   "newsViewPlans": "Shiko planet",
@@ -1068,5 +1068,11 @@
   "proUnassigned": "E pacaktuar",
   "proUnspecified": "E paspecifikuar",
   "proAnalyticsEmpty": "Nuk ka tregti të mbyllura për këtë raport.",
-  "proAnalyticsUnavailable": "Pro analitika e padisponueshme. Verifiko abonimin tënd dhe provo sërish."
+  "proAnalyticsUnavailable": "Pro analitika e padisponueshme. Verifiko abonimin tënd dhe provo sërish.",
+  "proFeature1": "Të gjitha \nKarakteristikat e Plus veçoritë dhe aksesi global i lajmeve",
+  "proFeature2": "Analiza e avancuar, harta e nxehtësisë e performancës dhe krahasimi i strategjisë",
+  "proFeature3": "Inteligjenca e rrezikut, rishikimet javore dhe mujore dhe private PDF raporton",
+  "proFeature4": "Inteligjenca e tregut të AI, analiza e sjelljes, analiza e ditarit dhe biseda",
+  "proFeature5": "30 analiza të suksesshme të AI për muaj abonimi, të ndara nëpër mjetet e AI; analizat e dështuara nuk llogariten",
+  "proAvailability": "Mjetet e AI kërkojnë një model aktiv të vetë-strehuar dhe të dhëna të autorizuara të tregut. Pagesa me pagesë nuk është hapur ende."
 }

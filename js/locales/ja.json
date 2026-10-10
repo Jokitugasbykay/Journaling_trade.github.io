@@ -58,8 +58,8 @@
   "freeBilling": "Free、サブスクリプションなし",
   "freeNote": "自分のデバイス上のデータから始める",
   "tryFree": "試してみる Free",
-  "plusDescription": "一貫したジャーナリング ルーチンを構築します。",
-  "proDescription": "パフォーマンスをより詳細にレビューします。",
+  "plusDescription": "ジャーナルと地域市場のコンテキストを 1 か所に保管します。",
+  "proDescription": "パフォーマンスを比較し、リスクを確認し、AI 市場のインテリジェンスを探索します。",
   "plusSoon": "Plus 近日公開予定",
   "proSoon": "Pro 近日公開予定",
   "paidNote": "サブスクリプションはまもなく開始されます",
@@ -209,7 +209,7 @@
   "authBack": "ホームに戻る",
   "plusFeature1": "すべて Free の特徴",
   "plusFeature2": "無制限のアップロード",
-  "plusFeature3": "経済ニュースとカレンダーへのアクセス",
+  "plusFeature3": "地域の経済および金融ニュース、地域内の国際報道、経済カレンダー",
   "newsLockedTitle": "の経済ニュース Plus メンバー",
   "newsLockedLead": "ローカルおよびグローバルのニュースと経済カレンダーを利用して、 Plus.",
   "newsViewPlans": "プランを見る",
@@ -1068,5 +1068,11 @@
   "proUnassigned": "未割り当て",
   "proUnspecified": "不特定",
   "proAnalyticsEmpty": "このレポートにはクローズされた取引はありません。",
-  "proAnalyticsUnavailable": "Pro 分析は利用できません。サブスクリプションを確認して、もう一度お試しください。"
+  "proAnalyticsUnavailable": "Pro 分析は利用できません。サブスクリプションを確認して、もう一度お試しください。",
+  "proFeature1": "すべて Plus 機能とグローバル ニュースへのアクセス",
+  "proFeature2": "高度な分析、パフォーマンスのヒートマップ、戦略の比較",
+  "proFeature3": "リスク インテリジェンス、週次および月次のレビュー、およびプライベート PDF レポート",
+  "proFeature4": "AI市場インテリジェンス、行動分析、ジャーナル分析、チャット",
+  "proFeature5": "サブスクリプション月あたり 30 件の AI 分析が成功し、AI ツール間で共有されます。失敗した分析はカウントされません",
+  "proAvailability": "AI ツールには、アクティブな自己ホスト型モデルと承認された市場データが必要です。有料チェックアウトはまだ開いていません。"
 }

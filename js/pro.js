@@ -415,7 +415,7 @@
       await choose(row.timeframes.includes(frame)?frame:row.timeframes[0]);
     }));
     const catalog=await request('/market/instruments');mapped=catalog.items || [];for(const row of mapped){const option=node('option',row.symbol);option.value=row.symbol;instrument.input.append(option);}
-    if(!mapped.length){freshness.textContent='No authorized instruments are configured.';return;}
+    if(!mapped.length){freshness.textContent='No authorized backend market feed is configured. AI market analysis is unavailable until that feed and the Python model are connected.';await Promise.all([loadEngine(),loadHistory()]);return;}
     instrument.input.value=mapped.find(row=>row.symbol==='XAUUSD' || row.symbol==='GOLD')?.symbol || mapped[0].symbol;
     const row=mapped.find(row=>row.symbol===instrument.input.value);for(const item of framebar.children){item.dataset.unavailable=String(!row.timeframes.includes(item.dataset.frame));item.disabled=item.dataset.unavailable==='true' || !!item.dataset.running;}for(const item of frameSelect.input.options)item.disabled=!row.timeframes.includes(item.value);selectedFrame=row.timeframes.includes(selectedFrame)?selectedFrame:row.timeframes[0];frameSelect.input.value=selectedFrame;for(const item of framebar.children)item.setAttribute('aria-pressed',String(item.dataset.frame===selectedFrame));draw();
     await Promise.all([contextLoad().catch(showError),loadEngine().catch(showError),loadHistory().catch(showError),loadSignals().catch(showError),loadAlerts().catch(showError),loadNotifications().catch(showError)]);

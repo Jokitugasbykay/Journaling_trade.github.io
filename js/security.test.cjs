@@ -66,7 +66,8 @@ for(const name of ['toggleBillingCycle','openQuickTrade','openProfileModal']) as
     assert.equal(get('nav-ai-trading').hidden,true);assert.ok(buttons.every(b=>!b.hidden&&!b.disabled));
     await pro.openProWorkspace();assert.deepEqual(opened,['ai-market']);
     await pro.openProAnalytics(9);assert.deepEqual(opened,['ai-market','global-news']);
-    await pro.openProAnalytics(10);assert.equal(opened.length,2);
+    await pro.openProAnalytics(10);assert.equal(opened.at(-1),'ai-chat');
+    await pro.openProAnalytics(11);assert.equal(opened.length,3);
     bridge.onAccessChange({plan:'pro',effective_until:'2000-01-01T00:00:00Z'});
     assert.equal(get('nav-ai-trading').hidden,false);assert.ok(buttons.every(b=>b.hidden&&b.disabled));
     bridge.onAccessChange({plan:'plus'});assert.equal(get('nav-ai-trading').disabled,true);

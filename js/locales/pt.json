@@ -58,8 +58,8 @@
   "freeBilling": "Free, sem assinatura",
   "freeNote": "Comece com dados em seu próprio dispositivo",
   "tryFree": "Tente Free",
-  "plusDescription": "Crie uma rotina de registro no diário consistente.",
-  "proDescription": "Revise seu desempenho com mais detalhes.",
+  "plusDescription": "Mantenha seu diário e o contexto do mercado regional em um só lugar.",
+  "proDescription": "Compare o desempenho, analise os riscos e explore a inteligência de mercado da IA.",
   "plusSoon": "Plus em breve",
   "proSoon": "Pro em breve",
   "paidNote": "As assinaturas estarão disponíveis em breve",
@@ -209,7 +209,7 @@
   "authBack": "Voltar para casa",
   "plusFeature1": "Todos Free recursos",
   "plusFeature2": "Envios ilimitados",
-  "plusFeature3": "Notícias econômicas e acesso ao calendário",
+  "plusFeature3": "Notícias económicas e financeiras regionais, cobertura internacional nas suas regiões e calendário económico",
   "newsLockedTitle": "Notícias econômicas para Plus membros",
   "newsLockedLead": "Desbloqueie notícias locais e globais e o calendário econômico com Plus.",
   "newsViewPlans": "Ver planos",
@@ -1068,5 +1068,11 @@
   "proUnassigned": "Não atribuído",
   "proUnspecified": "Não especificado",
   "proAnalyticsEmpty": "Nenhuma negociação fechada disponível para este relatório.",
-  "proAnalyticsUnavailable": "Pro análise indisponível. Verifique sua assinatura e tente novamente."
+  "proAnalyticsUnavailable": "Pro análise indisponível. Verifique sua assinatura e tente novamente.",
+  "proFeature1": "Todos Plus recursos e acesso a notícias globais",
+  "proFeature2": "Análise avançada, mapa de calor de desempenho e comparação de estratégias",
+  "proFeature3": "Inteligência de risco, revisões semanais e mensais e análises privadas PDF relatórios",
+  "proFeature4": "Inteligência de mercado de IA, análise de comportamento, análise de diário e bate-papo",
+  "proFeature5": "30 análises de IA bem-sucedidas por mês de assinatura, compartilhadas entre ferramentas de IA; análises falhadas não contam",
+  "proAvailability": "As ferramentas de IA exigem um modelo auto-hospedado ativo e dados de mercado autorizados. A finalização da compra paga ainda não está aberta."
 }

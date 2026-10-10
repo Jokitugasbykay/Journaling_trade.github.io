@@ -1,6 +1,6 @@
 # Pro service: local setup and operation
 
-Status: **Implemented but Not Fully Tested**. Deterministic calculations, API contracts, PostgreSQL transactions and real PDF bytes have local tests. Hosted Auth/Storage, actual subscription events, licensed market data, an installed LLM and production hosting are not verified. No production resource was changed.
+Current deployment status: see [PRO_HOSTED_GATEWAY.md](PRO_HOSTED_GATEWAY.md). Hosted deterministic endpoints, Auth/Storage and PDF downloads are now verified after approval. Python/Ollama production hosting, live inference and authorized market feeds remain unconnected. Earlier runtime notes below are historical and superseded by the current deployment report.
 
 ## Run locally
 

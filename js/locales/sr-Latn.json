@@ -58,8 +58,8 @@
   "freeBilling": "Free, nema pretplate",
   "freeNote": "Počnite sa podacima na svom uređaju",
   "tryFree": "Pokušajte Free",
-  "plusDescription": "Izgradite doslednu rutinu vođenja dnevnika.",
-  "proDescription": "Pregledajte svoj učinak detaljnije.",
+  "plusDescription": "Držite svoj časopis i kontekst regionalnog tržišta na jednom mestu.",
+  "proDescription": "Uporedite performanse, pregledajte rizik i istražite tržišnu inteligenciju veštačke inteligencije.",
   "plusSoon": "Plus uskoro dolazi",
   "proSoon": "Pro uskoro dolazi",
   "paidNote": "Pretplate stižu uskoro",
@@ -209,7 +209,7 @@
   "authBack": "Povratak kući",
   "plusFeature1": "Sve Free karakteristike",
   "plusFeature2": "Neograničeno otpremanje",
-  "plusFeature3": "Ekonomske vesti i pristup kalendaru",
+  "plusFeature3": "Regionalne ekonomske i finansijske vesti, međunarodna pokrivenost u vašim regionima i ekonomski kalendar",
   "newsLockedTitle": "Ekonomske vesti za Plus članova",
   "newsLockedLead": "Otključajte lokalne i globalne vesti i ekonomski kalendar sa Plus.",
   "newsViewPlans": "Pogledajte planove",
@@ -1068,5 +1068,11 @@
   "proUnassigned": "Unassigned",
   "proUnspecified": "Neodređeno",
   "proAnalyticsEmpty": "Nema dostupnih zatvorenih poslova za ovaj izveštaj.",
-  "proAnalyticsUnavailable": "Pro analitika nedostupna. Potvrdite svoju pretplatu i pokušajte ponovo."
+  "proAnalyticsUnavailable": "Pro analitika nedostupna. Potvrdite svoju pretplatu i pokušajte ponovo.",
+  "proFeature1": "Sve Plus funkcije i pristup globalnim vestima",
+  "proFeature2": "Napredna analitika, toplotna mapa performansi i poređenje strategije",
+  "proFeature3": "Obaveštavanje o riziku, nedeljni i mesečni pregledi i privatni PDF izveštaji",
+  "proFeature4": "AI tržišna inteligencija, analiza ponašanja, analiza časopisa i ćaskanje",
+  "proFeature5": "30 uspešnih AI analiza po mesecu pretplate, podeljenih preko AI alata; neuspele analize se ne računaju",
+  "proAvailability": "Alati za veštačku inteligenciju zahtevaju aktivan model sa sopstvenim hostingom i ovlašćene tržišne podatke. Plaćeno plaćanje još nije otvoreno."
 }

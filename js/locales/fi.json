@@ -58,8 +58,8 @@
   "freeBilling": "Free, ei tilausta",
   "freeNote": "Aloita datalla omalla laitteellasi",
   "tryFree": "Kokeile Free",
-  "plusDescription": "Luo johdonmukainen päiväkirjarutiini.",
-  "proDescription": "Tarkista suorituskykysi tarkemmin.",
+  "plusDescription": "Pidä päiväkirjasi ja alueesi markkinakonteksti yhdessä paikassa.",
+  "proDescription": "Vertaa suorituskykyä, arvioi riskejä ja tutki tekoälyn markkinatietoa.",
   "plusSoon": "Plus tulossa pian",
   "proSoon": "Pro tulossa pian",
   "paidNote": "Tilaukset ovat tulossa pian",
@@ -209,7 +209,7 @@
   "authBack": "Takaisin etusivulle",
   "plusFeature1": "Kaikki Free ominaisuuksia",
   "plusFeature2": "Rajoittamaton lataus",
-  "plusFeature3": "Talousuutisten ja kalenterin käyttöoikeus",
+  "plusFeature3": "Alueelliset talous- ja talousuutiset, kansainvälinen kattavuus alueillasi ja talouskalenteri",
   "newsLockedTitle": "Talousuutisia Plus jäsentä",
   "newsLockedLead": "Avaa paikalliset ja maailmanlaajuiset uutiset ja talouskalenteri Plus.",
   "newsViewPlans": "Näytä suunnitelmat",
@@ -1068,5 +1068,11 @@
   "proUnassigned": "Ei määritetty",
   "proUnspecified": "Määrittelemätön",
   "proAnalyticsEmpty": "Tälle raportille ei ole saatavilla suljettuja kauppoja.",
-  "proAnalyticsUnavailable": "Pro analytiikka ei ole saatavilla. Vahvista tilauksesi ja yritä uudelleen."
+  "proAnalyticsUnavailable": "Pro analytiikka ei ole saatavilla. Vahvista tilauksesi ja yritä uudelleen.",
+  "proFeature1": "Kaikki Plus ominaisuuksia ja pääsy maailmanlaajuisiin uutisiin",
+  "proFeature2": "Kehittynyt analytiikka, suorituskyvyn lämpökartta ja strategian vertailu",
+  "proFeature3": "Riskitietoa, viikoittaisia ​​ja kuukausittaisia ​​arvioita ja yksityisiä PDF raportteja",
+  "proFeature4": "Tekoälyn markkinatieto, käyttäytymisanalyysi, päiväkirja-analyysi ja chat",
+  "proFeature5": "30 onnistunutta tekoälyanalyysiä tilauskuukautta kohden, jaettuna tekoälytyökalujen kesken; epäonnistuneita analyyseja ei oteta huomioon",
+  "proAvailability": "Tekoälytyökalut vaativat aktiivisen itseisännöidyn mallin ja valtuutetut markkinatiedot. Maksullinen kassa ei ole vielä auki."
 }

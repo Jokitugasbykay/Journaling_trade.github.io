@@ -27,7 +27,8 @@ jobs:
           node-version: '24'
       - run: pip install -r tests/pro/requirements.txt
       - run: sudo apt-get update && sudo apt-get install -y postgresql-client
-      - run: psql -h 127.0.0.1 -U jt_test -d postgres -v ON_ERROR_STOP=1 -f supabase/test_platform_base.sql -f supabase/access.sql -f supabase/migrations/20261010003143_pro_platform.sql -f supabase/migrations/20261010115426_kaystrade_intelligence.sql -f supabase/migrations/20261010141712_founder_pro_entitlement.sql -f supabase/test_founder_access.sql -f supabase/test_platform.sql -f supabase/test_intelligence.sql -f supabase/test_security.sql
+      - run: psql -h 127.0.0.1 -U jt_test -d postgres -v ON_ERROR_STOP=1 -f supabase/test_platform_base.sql -f supabase/access.sql -f supabase/migrations/20261010003143_pro_platform.sql -f supabase/migrations/20261010115426_kaystrade_intelligence.sql -f supabase/migrations/20261010141712_founder_pro_entitlement.sql -f supabase/migrations/20261010155806_pro_hosted_gateway.sql -f supabase/test_founder_access.sql -f supabase/test_platform.sql -f supabase/test_intelligence.sql -f supabase/test_security.sql -f supabase/test_gateway.sql
+      - run: npx --yes deno test --allow-env --allow-read supabase/functions/pro-gateway/index.test.ts
       - run: python -m unittest discover -s tests/pro -v
         env:
           JT_TEST_PSQL: /usr/bin/psql

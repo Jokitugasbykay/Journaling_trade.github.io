@@ -75,7 +75,7 @@ function routeHarness() {
   console.log('A journal 503 preserves verified founder/paid news access while journal writes stay disabled');
 
   const gateway = authHarness({id:'a',email:'paid@example.com',email_confirmed_at:'2026-10-01'},'plus');
-  gateway.ctx.JTPRO_CONFIG={apiBase:'https://gateway.example'};
+  gateway.ctx.JTPRO_CONFIG={apiBase:'https://gateway.example',journalApiBase:'https://gateway.example'};
   gateway.ctx.kalCache=null;gateway.ctx.gambarKalender=()=>{};gateway.ctx.renderTodayOverviewCalendar=()=>{};
   gateway.ctx.JTPRO={reset(){},verifyAccess:async()=>{
     gateway.ctx.proVerifiedUser='a';gateway.ctx.proAccess={plan:'plus',effective_until:new Date(Date.now()+3600000).toISOString()};

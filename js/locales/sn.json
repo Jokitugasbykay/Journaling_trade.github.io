@@ -58,8 +58,8 @@
   "freeBilling": "Free, hapana kuzvinyoresa",
   "freeNote": "Tanga nedata pane chako kifaa",
   "tryFree": "Edza Free",
-  "plusDescription": "Gadzira muitiro wekutora nhau unoenderana.",
-  "proDescription": "Ongorora maitiro ako zvakadzama.",
+  "plusDescription": "Chengetedza jenari yako uye mamiriro emusika wedunhu munzvimbo imwechete.",
+  "proDescription": "Enzanisa kuita, ongorora njodzi, uye ongorora AI musika hungwaru.",
   "plusSoon": "Plus kuuya manje",
   "proSoon": "Pro kuuya manje",
   "paidNote": "Kunyoreswa kuri kuuya munguva pfupi",
@@ -209,7 +209,7 @@
   "authBack": "Kudzokera Kumba",
   "plusFeature1": "Zvose Free features",
   "plusFeature2": "Unlimited uploads",
-  "plusFeature3": "Economic nhau uye karenda kuwana",
+  "plusFeature3": "Nhau dzenharaunda dzehupfumi nezvemari, kuvharwa kwenyika mukati mematunhu ako, uye karenda yehupfumi",
   "newsLockedTitle": "Economic nhau dze Plus nhengo",
   "newsLockedLead": "Vhura nhau dzemuno neyepasirese uye kalendari yehupfumi ne Plus.",
   "newsViewPlans": "Ona zvirongwa",
@@ -1068,5 +1068,11 @@
   "proUnassigned": "Hauna kugoverwa",
   "proUnspecified": "Zvisina kutaurwa",
   "proAnalyticsEmpty": "Hapana kutengeserana kwakavharwa kuripo kune iyi report.",
-  "proAnalyticsUnavailable": "Pro analytics haisipo. Simbisa kubhadhara kwako uye edza zvakare."
+  "proAnalyticsUnavailable": "Pro analytics haisipo. Simbisa kubhadhara kwako uye edza zvakare.",
+  "proFeature1": "Zvose Plus maficha uye kuwana nhau dzepasi rose",
+  "proFeature2": "Yepamberi analytics, performance heatmap, uye zano rekuenzanisa",
+  "proFeature3": "Njodzi dzengozi, wongororo yevhiki nemwedzi, uye zvakavanzika PDF inoshuma",
+  "proFeature4": "Ungwaru hwemusika weAI, kuongororwa kwemaitiro, kuongororwa kwejenari, uye kutaura",
+  "proFeature5": "30 yakabudirira AI inoongorora pamwedzi wekunyorera, yakagovaniswa mukati meAI maturusi; ongororo dzakakundikana hadziverengeki",
+  "proAvailability": "Zvishandiso zveAI zvinoda inoshandira yega-yega modhi uye ine mvumo yemusika data. Kubhadhara kunobhadharwa hakusati kwavhurwa."
 }

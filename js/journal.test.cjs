@@ -78,7 +78,7 @@ console.log('Journal account isolation, metrics, filters, accessibility state an
   fail=false;scope.cloudUser={id:'another-owner'};
   await assert.rejects(scope.loadCloudTrades('owner',1),/account changed/);
   const resultExpression=source.match(/result: (t\.notes\?\.match\(\/Result: .*?), strategy: strategies/)[1];
-  const readResult=vm.runInNewContext('(t)=>'+resultExpression,{JTPRO_CONFIG:{apiBase:'https://gateway.example'}});
+  const readResult=vm.runInNewContext('(t)=>'+resultExpression,{JTPRO_CONFIG:{apiBase:'https://gateway.example',journalApiBase:'https://gateway.example'}});
   assert.equal(readResult({pnl:-5}),'Loss');
   assert.equal(readResult({pnl:0}),'BE');
   assert.equal(readResult({pnl:5}),'Win');

@@ -58,8 +58,8 @@
   "freeBilling": "Free, pas d'abonnement",
   "freeNote": "Commencez avec des données sur votre propre appareil",
   "tryFree": "Essayez Free",
-  "plusDescription": "Créez une routine de journalisation cohérente.",
-  "proDescription": "Examinez vos performances plus en détail.",
+  "plusDescription": "Conservez votre journal et le contexte du marché régional au même endroit.",
+  "proDescription": "Comparez les performances, examinez les risques et explorez les informations sur le marché de l’IA.",
   "plusSoon": "Plus à venir",
   "proSoon": "Pro à venir",
   "paidNote": "Les abonnements arrivent bientôt",
@@ -209,7 +209,7 @@
   "authBack": "Retour à l'accueil",
   "plusFeature1": "Tous \nCaractéristiques du Free caractéristiques",
   "plusFeature2": "Téléchargements illimités",
-  "plusFeature3": "Actualités économiques et accès au calendrier",
+  "plusFeature3": "Actualité économique et financière régionale, couverture internationale au sein de vos régions et calendrier économique",
   "newsLockedTitle": "Actualités économiques pour \nMembres Plus membres",
   "newsLockedLead": "Débloquez l'actualité locale et mondiale ainsi que le calendrier économique avec Plus.",
   "newsViewPlans": "Voir les plans",
@@ -1068,5 +1068,11 @@
   "proUnassigned": "Non attribué",
   "proUnspecified": "Indéterminé",
   "proAnalyticsEmpty": "Aucune transaction clôturée disponible pour ce rapport.",
-  "proAnalyticsUnavailable": "Pro analyses indisponibles. Vérifiez votre abonnement et réessayez."
+  "proAnalyticsUnavailable": "Pro analyses indisponibles. Vérifiez votre abonnement et réessayez.",
+  "proFeature1": "Tous \nCaractéristiques du Plus fonctionnalités et accès aux actualités mondiales",
+  "proFeature2": "Analyses avancées, carte thermique des performances et comparaison des stratégies",
+  "proFeature3": "Intelligence sur les risques, revues hebdomadaires et mensuelles et informations privées PDF rapports",
+  "proFeature4": "Intelligence de marché de l'IA, analyse du comportement, analyse de journaux et chat",
+  "proFeature5": "30 analyses d'IA réussies par mois d'abonnement, partagées entre les outils d'IA ; les analyses échouées ne comptent pas",
+  "proAvailability": "Les outils d’IA nécessitent un modèle auto-hébergé actif et des données de marché autorisées. Le paiement payant n'est pas encore ouvert."
 }

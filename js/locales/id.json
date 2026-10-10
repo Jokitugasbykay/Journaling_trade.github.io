@@ -58,8 +58,8 @@
   "freeBilling": "Free, tidak ada langganan",
   "freeNote": "Mulailah dengan data di perangkat Anda sendiri",
   "tryFree": "Coba Free",
-  "plusDescription": "Bangun rutinitas penjurnalan yang konsisten.",
-  "proDescription": "Tinjau kinerja Anda secara lebih rinci.",
+  "plusDescription": "Simpan jurnal Anda dan konteks pasar regional di satu tempat.",
+  "proDescription": "Bandingkan kinerja, tinjau risiko, dan jelajahi intelijen pasar AI.",
   "plusSoon": "Plus segera hadir",
   "proSoon": "Pro segera hadir",
   "paidNote": "Langganan akan segera hadir",
@@ -209,7 +209,7 @@
   "authBack": "Kembali ke Rumah",
   "plusFeature1": "Semua Free fitur",
   "plusFeature2": "Unggahan tanpa batas",
-  "plusFeature3": "Berita ekonomi dan akses kalender",
+  "plusFeature3": "Berita ekonomi dan keuangan regional, liputan internasional di wilayah Anda, dan kalender ekonomi",
   "newsLockedTitle": "Berita ekonomi untuk Plus anggota",
   "newsLockedLead": "Buka berita lokal dan global serta kalender ekonomi dengan Plus.",
   "newsViewPlans": "Lihat paket",
@@ -1068,5 +1068,11 @@
   "proUnassigned": "Belum ditetapkan",
   "proUnspecified": "Tidak ditentukan",
   "proAnalyticsEmpty": "Tidak ada perdagangan tertutup yang tersedia untuk laporan ini.",
-  "proAnalyticsUnavailable": "Pro analitik tidak tersedia. Verifikasi langganan Anda dan coba lagi."
+  "proAnalyticsUnavailable": "Pro analitik tidak tersedia. Verifikasi langganan Anda dan coba lagi.",
+  "proFeature1": "Semua Plus fitur dan akses berita global",
+  "proFeature2": "Analisis tingkat lanjut, peta panas kinerja, dan perbandingan strategi",
+  "proFeature3": "Intelijen risiko, ulasan mingguan dan bulanan, dan pribadi PDF laporan",
+  "proFeature4": "Intelijen pasar AI, analisis perilaku, analisis jurnal, dan obrolan",
+  "proFeature5": "30 analisis AI yang berhasil per bulan berlangganan, dibagikan ke seluruh alat AI; analisis yang gagal tidak dihitung",
+  "proAvailability": "Alat AI memerlukan model yang dihosting sendiri secara aktif dan data pasar resmi. Pembayaran berbayar belum dibuka."
 }

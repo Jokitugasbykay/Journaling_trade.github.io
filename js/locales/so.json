@@ -58,8 +58,8 @@
   "freeBilling": "Free, ma jiro rukun",
   "freeNote": "Ku bilow xogta qalabkaaga",
   "tryFree": "Isku day Free",
-  "plusDescription": "Dhis joornaal joogto ah oo joogto ah.",
-  "proDescription": "Si faahfaahsan u eeg waxqabadkaaga.",
+  "plusDescription": "Ku ilaali joornaalkaada iyo macnaha guud ee suuqa gobolka hal meel.",
+  "proDescription": "Is barbar dhig waxqabadka, dib u eeg khatarta, oo sahaminta sirdoonka suuqa AI.",
   "plusSoon": "Plus soo dhawaada",
   "proSoon": "Pro soo dhawaada",
   "paidNote": "Isdiiwaangelinta ayaa soo socota dhawaan",
@@ -209,7 +209,7 @@
   "authBack": "Ku laabo Guriga",
   "plusFeature1": "Dhammaan Free sifooyinka",
   "plusFeature2": "Uploads aan xadidnayn",
-  "plusFeature3": "Wararka dhaqaalaha iyo gelitaanka jadwalka taariikhda",
+  "plusFeature3": "Wararka dhaqaalaha iyo dhaqaalaha gobolka, wararka caalamiga ah ee gobolladaada, iyo jadwalka dhaqaalaha",
   "newsLockedTitle": "Wararka dhaqaalaha ee Plus xubnaha",
   "newsLockedLead": "Ku fur wararka gudaha iyo caalamka iyo jadwalka dhaqaalaha Plus.",
   "newsViewPlans": "Daawo qorshooyinka",
@@ -1068,5 +1068,11 @@
   "proUnassigned": "Aan la magacaabin",
   "proUnspecified": "Aan la cayimin",
   "proAnalyticsEmpty": "Ma jiro ganacsi xiran oo loo heli karo warbixintan.",
-  "proAnalyticsUnavailable": "Pro falanqaynta lama heli karo Xaqiiji isdiiwaangelintaada oo isku day markale."
+  "proAnalyticsUnavailable": "Pro falanqaynta lama heli karo Xaqiiji isdiiwaangelintaada oo isku day markale.",
+  "proFeature1": "Dhammaan Plus sifooyinka iyo helitaanka wararka caalamiga ah",
+  "proFeature2": "Falanqaynta sare, khariidadda kulaylka waxqabadka, iyo isbarbardhigga istiraatiijiyadda",
+  "proFeature3": "Sirdoonka khatarta ah, faallooyinka toddobaadlaha iyo bilaha ah, iyo kuwa gaarka ah PDF warbixino",
+  "proFeature4": "Sirdoonka suuqa AI, falanqaynta dabeecadda, falanqaynta joornaalka, iyo sheekaysiga",
+  "proFeature5": "30 falanqaynta guusha AI bishii kasta, oo la wadaago dhammaan agabka AI; Falanqaynta fashilantay lama xisaabiyo",
+  "proAvailability": "Aaladaha AI waxay u baahan yihiin nooc firfircoon oo is-martigeliyay iyo xogta suuqa ee la oggol yahay. Jeegaga lacag bixinta weli ma furna."
 }

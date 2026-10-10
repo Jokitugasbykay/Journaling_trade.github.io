@@ -58,8 +58,8 @@
   "freeBilling": "Free, nessun abbonamento",
   "freeNote": "Inizia con i dati sul tuo dispositivo",
   "tryFree": "Prova Free",
-  "plusDescription": "Costruisci una routine di journaling coerente.",
-  "proDescription": "Esamina le tue prestazioni in modo più dettagliato.",
+  "plusDescription": "Mantieni il tuo diario e il contesto del mercato regionale in un unico posto.",
+  "proDescription": "Confronta le prestazioni, esamina i rischi ed esplora la market intelligence dell'intelligenza artificiale.",
   "plusSoon": "Plus in arrivo",
   "proSoon": "Pro in arrivo",
   "paidNote": "Le iscrizioni arriveranno presto",
@@ -209,7 +209,7 @@
   "authBack": "Ritorno a casa",
   "plusFeature1": "Tutti Free caratteristiche",
   "plusFeature2": "Caricamenti illimitati",
-  "plusFeature3": "Notizie economiche e accesso al calendario",
+  "plusFeature3": "Notizie economiche e finanziarie regionali, copertura internazionale nelle tue regioni e calendario economico",
   "newsLockedTitle": "Notizie economiche per Plus membri",
   "newsLockedLead": "Sblocca notizie locali e globali e il calendario economico con Plus.",
   "newsViewPlans": "Visualizza i piani",
@@ -1068,5 +1068,11 @@
   "proUnassigned": "Non assegnato",
   "proUnspecified": "Non specificato",
   "proAnalyticsEmpty": "Nessuna operazione chiusa disponibile per questo rapporto.",
-  "proAnalyticsUnavailable": "Pro analisi non disponibili. Verifica la tua iscrizione e riprova."
+  "proAnalyticsUnavailable": "Pro analisi non disponibili. Verifica la tua iscrizione e riprova.",
+  "proFeature1": "Tutti Plus funzionalità e accesso alle notizie globali",
+  "proFeature2": "Analisi avanzate, mappa termica delle prestazioni e confronto delle strategie",
+  "proFeature3": "Informazioni sul rischio, revisioni settimanali e mensili e private PDF rapporti",
+  "proFeature4": "Intelligence di mercato basata sull'intelligenza artificiale, analisi del comportamento, analisi dei giornali e chat",
+  "proFeature5": "30 analisi AI riuscite per mese di abbonamento, condivise tra strumenti AI; le analisi fallite non contano",
+  "proAvailability": "Gli strumenti di intelligenza artificiale richiedono un modello self-hosted attivo e dati di mercato autorizzati. Il pagamento a pagamento non è ancora aperto."
 }

@@ -58,8 +58,8 @@
   "freeBilling": "Free, ikkje noko abonnement",
   "freeNote": "Start med data på di eiga eining",
   "tryFree": "Prøv Free",
-  "plusDescription": "Bygg ein konsistent journalføringsrutine.",
-  "proDescription": "Gjennomgå ytinga di meir detaljert.",
+  "plusDescription": "Hold journalen og den regionale marknadskonteksten på éin stad.",
+  "proDescription": "Sammenlign yting, gå gjennom risiko og utforsk AI-marknadsintelligens.",
   "plusSoon": "Plus kjem snart",
   "proSoon": "Pro kjem snart",
   "paidNote": "Abonnementer kjem snart",
@@ -209,7 +209,7 @@
   "authBack": "Tilbake til heimen",
   "plusFeature1": "Alle Free funksjonar",
   "plusFeature2": "Ubegrensede opplastingar",
-  "plusFeature3": "Økonomiske nyheiter og kalendertilgang",
+  "plusFeature3": "Regionale økonomiske og finansielle nyheiter, internasjonal dekning i regionane dine og den økonomiske kalenderen",
   "newsLockedTitle": "Økonomiske nyheiter for Plus medlemmer",
   "newsLockedLead": "Lås opp lokale og globale nyheiter og den økonomiske kalenderen med Plus.",
   "newsViewPlans": "Sjå planar",
@@ -1068,5 +1068,11 @@
   "proUnassigned": "Ikkje tilordna",
   "proUnspecified": "Uspesifisert",
   "proAnalyticsEmpty": "Ingen lukka handlar tilgjengelege for denne rapporten.",
-  "proAnalyticsUnavailable": "Pro analyse utilgjengeleg. Stadfest abonnementet ditt og prøv igjen."
+  "proAnalyticsUnavailable": "Pro analyse utilgjengeleg. Stadfest abonnementet ditt og prøv igjen.",
+  "proFeature1": "Alle Plus funksjonar og global nyheitstilgang",
+  "proFeature2": "Avansert analyse, ytingsvarmekart og strategisamanlikning",
+  "proFeature3": "Risikointelligens, vekevise og månadlege vurderingar og privat PDF rapportar",
+  "proFeature4": "AI marknadsintelligens, åtferdsanalyse, journalanalyse og chat",
+  "proFeature5": "30 vellykka AI-analysar per abonnementsmånad, delt på tvers av AI-verktøy; mislykka analysar tel ikkje",
+  "proAvailability": "AI-verktøy krev ein aktiv sjølvdriven modell og autoriserte marknadsdata. Betalingskassa er ikkje open enno."
 }

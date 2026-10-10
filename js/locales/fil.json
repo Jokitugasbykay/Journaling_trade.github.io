@@ -58,8 +58,8 @@
   "freeBilling": "Free, walang subscription",
   "freeNote": "Magsimula sa data sa iyong sariling device",
   "tryFree": "Subukan Free",
-  "plusDescription": "Bumuo ng pare-parehong gawain sa pag-journal.",
-  "proDescription": "Suriin ang iyong pagganap nang mas detalyado.",
+  "plusDescription": "Panatilihin ang iyong journal at konteksto ng rehiyonal na merkado sa isang lugar.",
+  "proDescription": "Ihambing ang pagganap, suriin ang panganib, at galugarin ang AI market intelligence.",
   "plusSoon": "Plus paparating na",
   "proSoon": "Pro paparating na",
   "paidNote": "Malapit na ang mga subscription",
@@ -209,7 +209,7 @@
   "authBack": "Bumalik sa Tahanan",
   "plusFeature1": "Lahat Free na mga tampok",
   "plusFeature2": "Walang limitasyong pag-upload",
-  "plusFeature3": "Balita sa ekonomiya at access sa kalendaryo",
+  "plusFeature3": "Balitang pang-ekonomiya at pananalapi sa rehiyon, internasyonal na saklaw sa loob ng iyong mga rehiyon, at kalendaryong pang-ekonomiya",
   "newsLockedTitle": "Balitang pangkabuhayan para sa Plus miyembro",
   "newsLockedLead": "I-unlock ang lokal at pandaigdigang balita at ang kalendaryong pang-ekonomiya gamit ang Plus.",
   "newsViewPlans": "Tingnan ang mga plano",
@@ -1068,5 +1068,11 @@
   "proUnassigned": "Hindi nakatalaga",
   "proUnspecified": "Hindi natukoy",
   "proAnalyticsEmpty": "Walang available na mga closed trade para sa ulat na ito.",
-  "proAnalyticsUnavailable": "Pro hindi available ang analytics. I-verify ang iyong subscription at subukang muli."
+  "proAnalyticsUnavailable": "Pro hindi available ang analytics. I-verify ang iyong subscription at subukang muli.",
+  "proFeature1": "Lahat Plus mga tampok at pandaigdigang pag-access sa balita",
+  "proFeature2": "Advanced na analytics, heatmap ng performance, at paghahambing ng diskarte",
+  "proFeature3": "Risk intelligence, lingguhan at buwanang pagsusuri, at pribado PDF mga ulat",
+  "proFeature4": "AI market intelligence, behavior analysis, journal analysis, at chat",
+  "proFeature5": "30 matagumpay na pagsusuri ng AI bawat buwan ng subscription, na ibinahagi sa mga tool ng AI; hindi binibilang ang mga nabigong pagsusuri",
+  "proAvailability": "Ang mga tool ng AI ay nangangailangan ng aktibong self-host na modelo at awtorisadong data ng merkado. Ang bayad na pag-checkout ay hindi pa bukas."
 }

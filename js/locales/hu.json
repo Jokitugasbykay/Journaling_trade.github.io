@@ -58,8 +58,8 @@
   "freeBilling": "Free, nincs előfizetés",
   "freeNote": "Kezdje a saját eszközén lévő adatokkal",
   "tryFree": "Próbáld ki Free",
-  "plusDescription": "Konzisztens naplózási rutin létrehozása.",
-  "proDescription": "Tekintse át teljesítményét részletesebben.",
+  "plusDescription": "Tartsa egy helyen folyóiratát és regionális piaci kontextusát.",
+  "proDescription": "Hasonlítsa össze a teljesítményt, tekintse át a kockázatokat, és fedezze fel a mesterséges intelligencia piaci intelligenciáját.",
   "plusSoon": "Plus hamarosan",
   "proSoon": "Pro hamarosan",
   "paidNote": "Hamarosan elérhetők az előfizetések",
@@ -209,7 +209,7 @@
   "authBack": "Vissza a kezdőlapra",
   "plusFeature1": "Mind Free jellemzői",
   "plusFeature2": "Korlátlan feltöltés",
-  "plusFeature3": "Gazdasági hírek és naptár hozzáférés",
+  "plusFeature3": "Regionális gazdasági és pénzügyi hírek, nemzetközi lefedettség az Ön régióiban és a gazdasági naptár",
   "newsLockedTitle": "Gazdasági hírek a Plus tagok",
   "newsLockedLead": "Nyisd meg a helyi és globális híreket, valamint a gazdasági naptárat Plus.",
   "newsViewPlans": "Tervek megtekintése",
@@ -1068,5 +1068,11 @@
   "proUnassigned": "Nincs hozzárendelve",
   "proUnspecified": "Meghatározatlan",
   "proAnalyticsEmpty": "Nincsenek lezárt kereskedések ehhez a jelentéshez.",
-  "proAnalyticsUnavailable": "Pro az elemzés nem érhető el. Igazolja előfizetését, és próbálja újra."
+  "proAnalyticsUnavailable": "Pro az elemzés nem érhető el. Igazolja előfizetését, és próbálja újra.",
+  "proFeature1": "Mind Plus funkciók és globális hírhozzáférés",
+  "proFeature2": "Speciális elemzés, teljesítményhőtérkép és stratégia-összehasonlítás",
+  "proFeature3": "Kockázati intelligencia, heti és havi felülvizsgálatok és privát PDF jelentéseket",
+  "proFeature4": "AI-piaci intelligencia, viselkedéselemzés, folyóirat-elemzés és chat",
+  "proFeature5": "Előfizetési hónaponként 30 sikeres AI-elemzés, megosztva az AI-eszközök között; a sikertelen elemzések nem számítanak",
+  "proAvailability": "Az AI-eszközök aktív, önállóan tárolt modellt és engedélyezett piaci adatokat igényelnek. A fizetős pénztár még nincs megnyitva."
 }

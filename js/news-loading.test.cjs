@@ -30,7 +30,7 @@ function harness() {
 }
 (async()=>{
   const a=item('alpha',1), b=item('beta',2);
-  const secured=harness();secured.ctx.JTPRO_CONFIG={apiBase:'https://gateway.example'};
+  const secured=harness();secured.ctx.JTPRO_CONFIG={apiBase:'https://gateway.example',journalApiBase:'https://gateway.example'};
   secured.cache.set('https://journal.example/news/index.json',response(feed([b])));
   const protectedCalls=[];
   secured.ctx.JTPRO={request:async path=>{protectedCalls.push(path);return {...feed([a]),total:1};}};

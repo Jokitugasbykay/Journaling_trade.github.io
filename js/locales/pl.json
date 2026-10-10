@@ -58,8 +58,8 @@
   "freeBilling": "Free, brak subskrypcji",
   "freeNote": "Zacznij od danych na swoim urządzeniu",
   "tryFree": "Spróbuj Free",
-  "plusDescription": "Stwórz spójną procedurę kronikowania.",
-  "proDescription": "Przejrzyj bardziej szczegółowo swoje wyniki.",
+  "plusDescription": "Trzymaj swoje czasopismo i kontekst rynku regionalnego w jednym miejscu.",
+  "proDescription": "Porównaj wydajność, przejrzyj ryzyko i poznaj informacje rynkowe dotyczące sztucznej inteligencji.",
   "plusSoon": "Plus już wkrótce",
   "proSoon": "Pro już wkrótce",
   "paidNote": "Subskrypcje już wkrótce",
@@ -209,7 +209,7 @@
   "authBack": "Powrót do domu",
   "plusFeature1": "Wszystkie \nFunkcje Free cechy",
   "plusFeature2": "Nieograniczone przesyłanie",
-  "plusFeature3": "Wiadomości gospodarcze i dostęp do kalendarza",
+  "plusFeature3": "Regionalne wiadomości gospodarcze i finansowe, zasięg międzynarodowy w Twoich regionach oraz kalendarz gospodarczy",
   "newsLockedTitle": "Wiadomości gospodarcze dla Plus członków",
   "newsLockedLead": "Odblokuj wiadomości lokalne i globalne oraz kalendarz gospodarczy za pomocą Plus.",
   "newsViewPlans": "Zobacz plany",
@@ -1068,5 +1068,11 @@
   "proUnassigned": "Nieprzypisany",
   "proUnspecified": "Nieokreślony",
   "proAnalyticsEmpty": "Dla tego raportu nie są dostępne żadne zamknięte transakcje.",
-  "proAnalyticsUnavailable": "Pro statystyki niedostępne. Zweryfikuj swoją subskrypcję i spróbuj ponownie."
+  "proAnalyticsUnavailable": "Pro statystyki niedostępne. Zweryfikuj swoją subskrypcję i spróbuj ponownie.",
+  "proFeature1": "Wszystkie \nFunkcje Plus funkcje i dostęp do wiadomości z całego świata",
+  "proFeature2": "Zaawansowana analityka, mapa cieplna wydajności i porównanie strategii",
+  "proFeature3": "Analiza ryzyka, przeglądy tygodniowe i miesięczne oraz prywatne PDF raporty",
+  "proFeature4": "Inteligencja rynkowa AI, analiza zachowań, analiza dzienników i czat",
+  "proFeature5": "30 udanych analiz AI na miesiąc subskrypcji, udostępnianych pomiędzy narzędziami AI; nieudane analizy się nie liczą",
+  "proAvailability": "Narzędzia AI wymagają aktywnego modelu hostowanego samodzielnie i autoryzowanych danych rynkowych. Płatna kasa nie jest jeszcze otwarta."
 }

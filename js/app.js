@@ -315,7 +315,7 @@
         hydratingUserId = '';
         cloudUser = null; cloudReady = false; nicknameReady = false; accountAccess = null;
         globalThis.JTPRO?.reset(); journalProFilter = null; gatewayImportFile = null; gatewayImportPending = null;
-        if (globalThis.JTPRO_CONFIG?.apiBase) { kalCache = null; gambarKalender([]); renderTodayOverviewCalendar([]); }
+        if (globalThis.JTPRO_CONFIG?.journalApiBase) { kalCache = null; gambarKalender([]); renderTodayOverviewCalendar([]); }
         resetNewsData();
         resetNewsRegion();
         selectJournalOwner();
@@ -343,7 +343,7 @@
         cloudUser = user;
         cloudReady = false; accountAccess = null;
         globalThis.JTPRO?.reset(); journalProFilter = null; gatewayImportFile = null; gatewayImportPending = null;
-        if (globalThis.JTPRO_CONFIG?.apiBase) { kalCache = null; gambarKalender([]); renderTodayOverviewCalendar([]); }
+        if (globalThis.JTPRO_CONFIG?.journalApiBase) { kalCache = null; gambarKalender([]); renderTodayOverviewCalendar([]); }
         try {
           if (!await verifyNewsIdentity(user.id, authRevision)) {
             if (authRevision !== cloudAuthRevision) return;
@@ -362,7 +362,7 @@
           const journalRequest = Promise.allSettled([
             cloudClient.from('trading_accounts').select('*').eq('user_id', user.id),
             cloudClient.from('strategies').select('*').eq('user_id', user.id),
-            globalThis.JTPRO_CONFIG?.apiBase ? loadCloudTrades(user.id, authRevision) : cloudClient.from('trades').select('*').eq('user_id', user.id)
+            globalThis.JTPRO_CONFIG?.journalApiBase ? loadCloudTrades(user.id, authRevision) : cloudClient.from('trades').select('*').eq('user_id', user.id)
           ]);
           const profileResult = await profileRequest;
           if (cloudUser?.id !== user.id || authRevision !== cloudAuthRevision) return;
@@ -393,7 +393,7 @@
             cloudAccountIds.clear(); cloudStrategyIds.clear(); cloudTradeIds.clear(); localAccountIds.clear();
             accounts = remoteAccounts.map(a => { const id = 'cloud_' + a.id; cloudAccountIds.set(id, a.id); localAccountIds.set(a.id, id); return { id, name: a.name, broker: a.broker || '', type: a.account_type || 'Standard', currency: a.currency, startBalance: Number(a.initial_balance), status: a.is_active ? 'Active' : 'Inactive' }; });
             const strategies = new Map((strategyResult.data || []).map(s => { cloudStrategyIds.set(s.name, s.id); return [s.id, s.name]; }));
-            trades = remoteTrades.map(t => { const id = 'cloud_' + t.id; cloudTradeIds.set(id, t.id); return { id, accountId: localAccountIds.get(t.account_id) || '', date: tradeDateJakarta(t.opened_at), jam: t.opened_at ? new Date(t.opened_at).toLocaleTimeString('id-ID', { timeZone: 'Asia/Jakarta', hour: '2-digit', minute: '2-digit', hour12: false }) : '', market: t.market || t.symbol, posisi: t.side === 'short' ? 'Sell' : 'Buy', entry: Number(t.entry_price) || 0, exit: t.exit_price === null ? null : Number(t.exit_price), sl: t.stop_loss === null ? null : Number(t.stop_loss), tp: t.take_profit === null ? null : Number(t.take_profit), vol: t.quantity === null ? null : Number(t.quantity), riskPct: t.risk_percent === null ? null : Number(t.risk_percent), actualPnl: t.pnl === null ? null : Number(t.pnl), pnlCurrency: globalThis.JTPRO_CONFIG?.apiBase ? accounts.find(a => a.id === 'cloud_' + t.account_id)?.currency : undefined, result: t.notes?.match(/Result: (Win|Loss|BE)/)?.[1] || (globalThis.JTPRO_CONFIG?.apiBase ? (t.pnl === null || t.pnl === undefined ? '' : Number(t.pnl) > 0 ? 'Win' : Number(t.pnl) < 0 ? 'Loss' : 'BE') : 'Win'), strategy: strategies.get(t.strategy_id) || '', tf: t.notes?.match(/TF: ([^·]+)/)?.[1]?.trim() || '', reason: t.notes?.split(' · ')[0] || '' }; });
+            trades = remoteTrades.map(t => { const id = 'cloud_' + t.id; cloudTradeIds.set(id, t.id); return { id, accountId: localAccountIds.get(t.account_id) || '', date: tradeDateJakarta(t.opened_at), jam: t.opened_at ? new Date(t.opened_at).toLocaleTimeString('id-ID', { timeZone: 'Asia/Jakarta', hour: '2-digit', minute: '2-digit', hour12: false }) : '', market: t.market || t.symbol, posisi: t.side === 'short' ? 'Sell' : 'Buy', entry: Number(t.entry_price) || 0, exit: t.exit_price === null ? null : Number(t.exit_price), sl: t.stop_loss === null ? null : Number(t.stop_loss), tp: t.take_profit === null ? null : Number(t.take_profit), vol: t.quantity === null ? null : Number(t.quantity), riskPct: t.risk_percent === null ? null : Number(t.risk_percent), actualPnl: t.pnl === null ? null : Number(t.pnl), pnlCurrency: globalThis.JTPRO_CONFIG?.journalApiBase ? accounts.find(a => a.id === 'cloud_' + t.account_id)?.currency : undefined, result: t.notes?.match(/Result: (Win|Loss|BE)/)?.[1] || (globalThis.JTPRO_CONFIG?.journalApiBase ? (t.pnl === null || t.pnl === undefined ? '' : Number(t.pnl) > 0 ? 'Win' : Number(t.pnl) < 0 ? 'Loss' : 'BE') : 'Win'), strategy: strategies.get(t.strategy_id) || '', tf: t.notes?.match(/TF: ([^·]+)/)?.[1]?.trim() || '', reason: t.notes?.split(' · ')[0] || '' }; });
             profile.name = profileResult.data?.display_name || '';
             profile.currentAccount = accounts[0]?.id || '';
             onboarding.name = profile.name; onboarding.started = true;
@@ -458,12 +458,12 @@
         if (data.session?.user) await hydrateCloud(data.session.user);
       }
 
-      function canReadNews() { return !!cloudUser && verifiedNewsUserId === cloudUser.id && nicknameReady && (globalThis.JTPRO_CONFIG?.apiBase ? proVerifiedUser === cloudUser.id && ['plus','pro'].includes(proAccess?.plan) && Date.parse(proAccess?.effective_until) > Date.now() : isNewsFounder() || ['plus', 'pro'].includes(accountAccess?.plan)); }
+      function canReadNews() { return !!cloudUser && verifiedNewsUserId === cloudUser.id && nicknameReady && (globalThis.JTPRO_CONFIG?.journalApiBase ? proVerifiedUser === cloudUser.id && ['plus','pro'].includes(proAccess?.plan) && Date.parse(proAccess?.effective_until) > Date.now() : isNewsFounder() || ['plus', 'pro'].includes(accountAccess?.plan)); }
       async function refreshAccountAccess(consumeUpload = false) {
         if (!cloudUser) throw new Error(uiText('Masuk untuk menggunakan jatah upload Free.', 'Sign in to use your Free upload allowance.'));
         const userId = cloudUser.id, authRevision = cloudAuthRevision;
         if (!nicknameReady && consumeUpload) throw new Error(uiText('Isi nama panggilan Anda terlebih dahulu.', 'Complete your nickname first.'));
-        if (globalThis.JTPRO_CONFIG?.apiBase && nicknameReady && verifiedNewsUserId === userId) {
+        if (globalThis.JTPRO_CONFIG?.journalApiBase && nicknameReady && verifiedNewsUserId === userId) {
           const access = await globalThis.JTPRO.verifyAccess(), usage = await globalThis.JTPRO.request('/usage');
           if (cloudUser?.id !== userId || authRevision !== cloudAuthRevision) throw new Error('Account changed. Try again.');
           accountAccess = {plan:access.plan, remaining:usage.imports.remaining, used:usage.imports.used, resetAt:usage.imports.reset_at,
@@ -488,8 +488,8 @@
         const reset = accountAccess.resetAt ? new Date(accountAccess.resetAt).toLocaleString(language, { hour: '2-digit', minute: '2-digit', day: 'numeric', month: 'short' }) : '';
         return uiText('Free · Sisa {remaining}/10 upload.', 'Free · {remaining}/10 uploads remaining.').replace('{remaining}', accountAccess.remaining) + ' ' + (reset ? uiText('Reset {time}.', 'Resets {time}.').replace('{time}', reset) : uiText('Diperbarui setiap 12 jam.', 'Resets every 12 hours.'));
       }
-      const proFeatures = ['analytics', 'heatmap', 'strategies', 'risk', 'reviews', 'reports', 'ai-behaviour', 'ai-market', 'ai-journal', 'global-news'];
-      const proPaths = ['analytics', 'heatmap', 'strategies', 'risk', 'reviews', 'reports', 'ai/behaviour', 'ai/market', 'ai/journal', 'global-news'];
+      const proFeatures = ['analytics', 'heatmap', 'strategies', 'risk', 'reviews', 'reports', 'ai-behaviour', 'ai-market', 'ai-journal', 'global-news', 'ai-chat'];
+      const proPaths = ['analytics', 'heatmap', 'strategies', 'risk', 'reviews', 'reports', 'ai/behaviour', 'ai/market', 'ai/journal', 'global-news', 'ai/chat'];
       let proAccess = null, proVerifiedUser = '', proExpiryTimer = null, pendingProRoute = null;
       let journalProFilter = null;
 
@@ -511,7 +511,7 @@
         proAccess = data;
         proVerifiedUser = data && cloudUser && verifiedNewsUserId === cloudUser.id && nicknameReady ? cloudUser.id : '';
         renderProNavigation();
-        if (globalThis.JTPRO_CONFIG?.apiBase && cloudUser && verifiedNewsUserId === cloudUser.id && nicknameReady) {
+        if (globalThis.JTPRO_CONFIG?.journalApiBase && cloudUser && verifiedNewsUserId === cloudUser.id && nicknameReady) {
           accountAccess = {...accountAccess, plan:data?.plan || 'free'};
           renderAccountAccess();
           if (!canReadNews()) { resetNewsData(); renderPublisherNews(); kalCache = null; gambarKalender([]); renderTodayOverviewCalendar([]); }
@@ -541,7 +541,7 @@
         if (!window.JTPRO || !cloudUser || verifiedNewsUserId !== cloudUser.id || !nicknameReady) return;
         try {
           await window.JTPRO.verifyAccess();
-          if (globalThis.JTPRO_CONFIG?.apiBase && canReadNews()) { reloadPublisherNews(); fetchKalenderData(false); }
+          if (globalThis.JTPRO_CONFIG?.journalApiBase && canReadNews()) { reloadPublisherNews(); fetchKalenderData(false); }
           if (pendingProRoute && effectiveProAccess()) await window.JTPRO.open(pendingProRoute);
         } catch { acceptProAccess(null); }
       }
@@ -1560,7 +1560,7 @@
 
         try {
           if (!['pdf', 'png', 'jpg', 'jpeg', 'txt', 'csv'].includes(ext)) throw new Error(uiText('Gunakan PDF, PNG, JPG, TXT, atau CSV.', 'Use PDF, PNG, JPG, TXT, or CSV.'));
-          if (window.JTPRO_CONFIG?.apiBase) {
+          if (window.JTPRO_CONFIG?.journalApiBase) {
             await refreshAccountAccess(false);
             const types = {pdf:'application/pdf',png:'image/png',jpg:'image/jpeg',jpeg:'image/jpeg',csv:'text/csv',txt:'text/plain'};
             const stored = await window.JTPRO.request('/imports/files', {method:'POST',body:file,rawBody:true,contentType:types[ext]});
@@ -1571,7 +1571,7 @@
           if (job !== scanJob) return;
           if (ext === 'txt' || ext === 'csv') {
             const text = await file.text();
-            if (job === scanJob && window.JTPRO_CONFIG?.apiBase) {
+            if (job === scanJob && window.JTPRO_CONFIG?.journalApiBase) {
               parsedTradesToImport = window.JTPRO_IMPORT.parse(text, profile.currentAccount);
               showUploadPreview(parsedTradesToImport);
               status.textContent = 'Review the recorded values before importing. Date/time columns use Asia/Jakarta; missing prices, position sizes and profit remain unknown.';
@@ -1738,7 +1738,7 @@
         if(!rows.length || !account || !['USD','IDR'].includes(currency))return;
         const button=$('btn-import-scan');button.disabled=true;
         try {
-          if (window.JTPRO_CONFIG?.apiBase && currency !== account.currency) {
+          if (window.JTPRO_CONFIG?.journalApiBase && currency !== account.currency) {
             $('upload-status-msg').textContent = 'Choose a trading account with the same currency as the document’s recorded profit.';
             return;
           }
@@ -1754,7 +1754,7 @@
             result:row.profit>0?'Win':row.profit<0?'Loss':'BE',actualPnl:row.profit,pnlCurrency:currency,
             strategy:'Impor screenshot',tf:'',scanSource,
             reason:`${scan.name} · Exit ${row.exit} · Profit ${row.profit} ${currency} · SL/TP dan risiko belum diketahui.`}));
-          if (window.JTPRO_CONFIG?.apiBase) {
+          if (window.JTPRO_CONFIG?.journalApiBase) {
             parsedTradesToImport = imported;
             showUploadPreview(imported);
             $('upload-status-msg').textContent = 'Review the extracted records, then confirm the private import. Only a successful saved import uses your allowance.';
@@ -1926,7 +1926,7 @@
 
       window.confirmParsedImport = async function () {
         if (!parsedTradesToImport.length) return;
-        if (window.JTPRO_CONFIG?.apiBase) return confirmGatewayImport();
+        if (window.JTPRO_CONFIG?.journalApiBase) return confirmGatewayImport();
         trades = [...parsedTradesToImport, ...trades];
         saveData();
         closeUploadModal();
@@ -3093,7 +3093,7 @@
           stampEl.textContent = kalText('Memperbarui otomatis...', 'Refreshing...');
         }
 
-        const gateway = !!globalThis.JTPRO_CONFIG?.apiBase, owner = cloudUser?.id, authRevision = cloudAuthRevision;
+        const gateway = !!globalThis.JTPRO_CONFIG?.journalApiBase, owner = cloudUser?.id, authRevision = cloudAuthRevision;
         let items = null;
         let updatedStr = '', sourceStatus = 'stale', agenda = [], coverageStart = '', coverageEnd = '';
 
@@ -3287,7 +3287,7 @@
         newsCategoryFeed = null; newsCategoryAttempt = ''; newsCategoryLoading = ''; newsCategoryFailed = false;
       }
       async function loadNewsFile(path, normalize, onSaved, current = () => true) {
-        if (globalThis.JTPRO_CONFIG?.apiBase && path.startsWith('news/')) {
+        if (globalThis.JTPRO_CONFIG?.journalApiBase && path.startsWith('news/')) {
           const params = new URLSearchParams({limit:'100'}), source = path.match(/^news\/sources\/([a-z0-9_]+)\.json$/), category = path.match(/^news\/categories\/([a-z0-9_]+)\.json$/), archive = path.match(/^news\/archive\/([a-f0-9]{2})\.json$/);
           if (source) params.set('source_id', source[1]);
           if (category && category[1] !== 'all') params.set('category', category[1]);

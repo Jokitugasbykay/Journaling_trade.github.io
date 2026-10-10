@@ -58,8 +58,8 @@
   "freeBilling": "Free, bez pretplate",
   "freeNote": "Počnite s podacima na vlastitom uređaju",
   "tryFree": "Pokušajte Free",
-  "plusDescription": "Izgradite dosljednu rutinu vođenja dnevnika.",
-  "proDescription": "Pregledajte svoj učinak detaljnije.",
+  "plusDescription": "Držite svoj časopis i kontekst regionalnog tržišta na jednom mjestu.",
+  "proDescription": "Uporedite performanse, pregledajte rizik i istražite tržišnu inteligenciju AI.",
   "plusSoon": "Plus uskoro",
   "proSoon": "Pro uskoro",
   "paidNote": "Pretplate stižu uskoro",
@@ -209,7 +209,7 @@
   "authBack": "Povratak na početnu stranicu",
   "plusFeature1": "Sve Free karakteristike",
   "plusFeature2": "Neograničeno otpremanje",
-  "plusFeature3": "Ekonomske vijesti i pristup kalendaru",
+  "plusFeature3": "Regionalne ekonomske i finansijske vijesti, međunarodna pokrivenost u vašim regijama i ekonomski kalendar",
   "newsLockedTitle": "Ekonomske vijesti za Plus članova",
   "newsLockedLead": "Otključajte lokalne i globalne vijesti i ekonomski kalendar sa Plus.",
   "newsViewPlans": "Pogledajte planove",
@@ -1068,5 +1068,11 @@
   "proUnassigned": "Nedodijeljeno",
   "proUnspecified": "Nespecificirano",
   "proAnalyticsEmpty": "Nema dostupnih zatvorenih trgovina za ovaj izvještaj.",
-  "proAnalyticsUnavailable": "Pro analitika nedostupna. Potvrdite svoju pretplatu i pokušajte ponovo."
+  "proAnalyticsUnavailable": "Pro analitika nedostupna. Potvrdite svoju pretplatu i pokušajte ponovo.",
+  "proFeature1": "Sve Plus funkcije i pristup globalnim vijestima",
+  "proFeature2": "Napredna analitika, toplotna mapa performansi i poređenje strategije",
+  "proFeature3": "Obavještavanje o rizicima, nedjeljni i mjesečni pregledi i privatni PDF izvještaji",
+  "proFeature4": "AI tržišna inteligencija, analiza ponašanja, analiza časopisa i ćaskanje",
+  "proFeature5": "30 uspješnih AI analiza po mjesecu pretplate, podijeljenih preko AI alata; neuspele analize se ne računaju",
+  "proAvailability": "Alati za umjetnu inteligenciju zahtijevaju aktivan vlastiti model i ovlaštene tržišne podatke. Plaćena blagajna još nije otvorena."
 }

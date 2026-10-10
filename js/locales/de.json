@@ -58,8 +58,8 @@
   "freeBilling": "Free, kein Abonnement",
   "freeNote": "Beginnen Sie mit Daten auf Ihrem eigenen Gerät",
   "tryFree": "Versuchen Sie es Free",
-  "plusDescription": "Erstellen Sie eine konsistente Journaling-Routine.",
-  "proDescription": "Überprüfen Sie Ihre Leistung genauer.",
+  "plusDescription": "Bewahren Sie Ihr Tagebuch und den regionalen Marktkontext an einem Ort auf.",
+  "proDescription": "Vergleichen Sie die Leistung, überprüfen Sie das Risiko und erkunden Sie KI-Marktinformationen.",
   "plusSoon": "Plus kommt bald",
   "proSoon": "Pro kommt bald",
   "paidNote": "Abonnements sind bald verfügbar",
@@ -209,7 +209,7 @@
   "authBack": "Zurück nach Hause",
   "plusFeature1": "Alle Free Funktionen",
   "plusFeature2": "Unbegrenzte Uploads",
-  "plusFeature3": "Zugriff auf Wirtschaftsnachrichten und Kalender",
+  "plusFeature3": "Regionale Wirtschafts- und Finanznachrichten, internationale Berichterstattung in Ihren Regionen und der Wirtschaftskalender",
   "newsLockedTitle": "Wirtschaftsnachrichten für Plus Mitglieder",
   "newsLockedLead": "Schalten Sie lokale und globale Nachrichten und den Wirtschaftskalender frei mit Plus.",
   "newsViewPlans": "Pläne anzeigen",
@@ -1068,5 +1068,11 @@
   "proUnassigned": "Nicht zugewiesen",
   "proUnspecified": "Nicht spezifiziert",
   "proAnalyticsEmpty": "Für diesen Bericht sind keine abgeschlossenen Geschäfte verfügbar.",
-  "proAnalyticsUnavailable": "Pro Analyse nicht verfügbar. Überprüfen Sie Ihr Abonnement und versuchen Sie es erneut."
+  "proAnalyticsUnavailable": "Pro Analyse nicht verfügbar. Überprüfen Sie Ihr Abonnement und versuchen Sie es erneut.",
+  "proFeature1": "Alle Plus Funktionen und globaler Nachrichtenzugriff",
+  "proFeature2": "Erweiterte Analysen, Leistungs-Heatmap und Strategievergleich",
+  "proFeature3": "Risikoinformationen, wöchentliche und monatliche Überprüfungen und privat PDF Berichte",
+  "proFeature4": "KI-Marktinformationen, Verhaltensanalyse, Journalanalyse und Chat",
+  "proFeature5": "30 erfolgreiche KI-Analysen pro Abonnementmonat, geteilt über alle KI-Tools; fehlgeschlagene Analysen zählen nicht",
+  "proAvailability": "KI-Tools erfordern ein aktives, selbst gehostetes Modell und autorisierte Marktdaten. Der kostenpflichtige Checkout ist noch nicht geöffnet."
 }
