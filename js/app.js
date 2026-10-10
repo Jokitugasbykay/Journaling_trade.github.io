@@ -23,7 +23,7 @@
       let ocrLibrary = null;
       let uploadTrigger = null;
       let onboarding = { name: '', started: false };
-      let language = 'id';
+      let language = 'en';
       const cloudClient = window.supabase?.createClient(SUPABASE_URL, SUPABASE_KEY, { auth: { storageKey: 'journalingtrade_nmddjuqkdyhcobddinkc_auth', flowType: 'pkce' } });
       let cloudUser = null, cloudReady = false, cloudBusy = false, cloudTimer = null, localRevision = 0;
       const FOUNDER_EMAILS = ['kaylafisika24@gmail.com', 'gamingyoga14@gmail.com'];
@@ -48,246 +48,21 @@
       let accountAccess = null, nicknameReady = false, hydratingUserId = '', authMode = 'signin';
       const cloudAccountIds = new Map(), cloudStrategyIds = new Map(), localAccountIds = new Map();
       let cloudSnapshot = '';
-      const originalCopy = new Map();
       try {
         const saved = JSON.parse(localStorage.getItem('fncjt_onboarding') || '{}');
         onboarding = { name: typeof saved.name === 'string' ? saved.name.slice(0, 80) : '', started: saved.started === true };
-        language = localStorage.getItem('fncjt_language') === 'en' ? 'en' : 'id';
       } catch {}
 
       /* Safe Element Selector */
       const $ = id => document.getElementById(id);
+      const uiText = (id, en) => window.JTI18n?.text(id, en) ?? (language === 'id' ? id : en);
       const esc = value => String(value ?? '').replace(/(?:[#*0-9]\uFE0F?\u20E3)|[\p{Extended_Pictographic}\p{Regional_Indicator}\p{Emoji_Modifier}\uFE0F\u200D]/gu, '').replace(/[&<>"']/g, ch => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[ch]));
       const safeId = value => /^[\w-]{1,80}$/.test(String(value || '')) ? String(value) : '';
 
-      const stateCopy = {
-        accessReady: 'Jurnal siap digunakan. Pilih tab yang ingin Anda buka.',
-        localProfile: 'Profil lokal', localProfileStatus: 'Data tersimpan di perangkat ini.',
-        changeProfile: 'Ganti profil lokal', cloudConnected: 'Akun server', cloudStatus: 'Jurnal otomatis disimpan ke server.',
-        cloudManage: 'Kelola akun cloud', cloudSignOut: 'Keluar dari akun cloud', cloudPending: 'Sinkronisasi jurnal belum selesai. Data lokal tetap tersimpan.'
-      };
-      const englishCopy = {
-        home: 'Home', journal: 'Journal', statistics: 'Statistics', calculator: 'Calculator', news: 'Economic news',
-        signIn: 'Sign in', welcome: 'Welcome', guestStatus: 'Explore the journal on the Home tab.',
-        loginMenu: 'Sign in', profileSettings: 'Profile settings', openJournal: 'Open trading journal',
-        language: 'Language', signOut: 'Sign out of this profile', try: 'Try', cloudManage: 'Manage cloud account', cloudSignOut: 'Sign out of cloud account',
-        heroTitle: 'Discipline in Every Execution.<br>Clarity in Every Trade.',
-        heroLead: 'Transform your trading journey with a disciplined journaling practice.',
-        tryJournal: 'Start your free journal', interested: "I’m interested",
-        accessHint: 'Click Try to unlock your journal.', accessReady: 'Your journal is ready. Choose a tab to get started.',
-        localProfile: 'Local profile', localProfileStatus: 'Data stays on this device.', changeProfile: 'Change local profile',
-        exampleTitle: 'Example journal note', market: 'Market', exampleMarket: 'Enter the instrument',
-        entryReason: 'Entry reason', exampleReason: 'Why are you taking this trade?', riskLimit: 'Risk limit', exampleRisk: 'Set your risk before entering',
-        evaluation: 'Review', exampleReview: 'Was the plan followed?', exampleHint: 'A note template, not your account data.',
-        foundationsTitle: 'Understand trading<br>before chasing results.',
-        foundationMarket: 'Markets & context',
-        foundationMarketText: 'Trading means buying and selling instruments in a market. Supply, demand, liquidity, and news influence prices. Record the context behind each decision.',
-        foundationRisk: 'Risk & position size',
-        foundationRiskText: 'Every position can lose money. Position size, stop distance, spread, and transaction costs determine its impact on your account.',
-        foundationPlan: 'Execution plan',
-        foundationPlanText: 'The entry reason, setup invalidation level, and target belong in your plan. Your notes help compare the plan with the actual execution.',
-        foundationProbability: 'Probability & review',
-        foundationProbabilityText: 'One trade does not establish strategy quality. Review a series of positions, the size of gains and losses, and how consistently you followed your process.',
-        purposeTitle: 'A journal turns experience into something you can review.',
-        purposeBefore: '<strong>Before a trade:</strong> write the reason, market context, and risk limit.',
-        purposeAfter: '<strong>After a trade:</strong> record the outcome, emotions, and whether you followed the plan.',
-        purposeReview: '<strong>During review:</strong> identify recurring patterns and choose one measurable change.',
-        purposeDetail: 'A journal helps identify habits to improve. Assess progress through your process and a collection of trades, without promises of trading returns.',
-        interestPlans: "I’m interested, show plans", pricingTitle: 'Plans that grow with you',
-        pricingLead: 'Start with Free. Paid plans are coming soon.', monthly: 'Monthly', annual: 'Annual', save17: 'Save 17%',
-        freeDescription: 'Get to know your trading habits.', freeBilling: 'Free, no subscription', freeNote: 'Start with data on your own device',
-        tryFree: 'Try Free', plusDescription: 'Build a consistent journaling routine.', proDescription: 'Review your performance in greater detail.',
-        plusSoon: 'Plus coming soon', proSoon: 'Pro coming soon', paidNote: 'Subscriptions are coming soon',
-        featureDetails: 'Show all features', freeFeature1: 'Manual trade journaling', freeFeature2: 'Statistics and risk calculators',
-        freeFeature3: 'PDF/PNG scans and CSV/TXT imports: 10 uploads every 12 hours', freeFeature4: 'Local backup and restore',
-        priceDetails: 'Show pricing details', perMonth: 'USD / month', perYear: 'USD / year',
-        plusSavings: 'Save $20 compared with 12 monthly payments. The discount rounds to 17%.',
-        proSavings: 'Save $40 compared with 12 monthly payments. The discount rounds to 17%.',
-        paidHint: 'Payments will be available once checkout launches.',
-        localDataHint: 'When signed in, your journal saves automatically to the server. Without signing in, it stays in this browser on this device. Export a backup to keep a copy.',
-        loginTitle: 'Sign in to your journal', loginDescription: 'Sign in with email to save your journal in the cloud and access it on other devices.',
-        googleLogin: 'Sign in with Google', googleSoon: 'Google sign-in is not available yet.', localName: 'Local profile name',
-        localLoginHint: 'Local profiles share the same browser data. They are not cloud accounts. On your first visit, click Try on Home to open the other tabs.',
-        localLogin: 'Use local profile', tryWithoutAccount: 'Try without an account', cloudEmail: 'Email', cloudPassword: 'Password', cloudHint: 'New accounts may require email verification. Your journal saves automatically to the server after sign-in. Importing a guest journal requires your confirmation.', cloudSignIn: 'Sign in and sync', cloudSignUp: 'Create account', cloudConnected: 'Server account', cloudStatus: 'Your journal saves automatically to the server.',
-        uploadLabel: 'Scan PDF/PNG · Import CSV/TXT', uploadTitle: 'Scan documents & import trades',
-        uploadDescription: 'PDF/PNG/JPG scans recognize position history and chart setups. Review CSV/TXT records before importing them into the journal.',
-        dropFile: 'Drop your file here', scanReviewHint: 'Trade history and chart setups are detected automatically. Check the detected values; missing information stays blank. No trades are added automatically.',
-        scanText: 'Detected information', saveScan: 'Save scan result', savedScans: 'Saved scan results',
-        scanCurrency: 'P/L currency · use your account currency', scanImportHint: 'Review the detected rows before importing. Missing SL/TP and risk stay blank. Chart setups are saved as analysis.',
-        scanEmpty: 'No scans have been saved on this device.', uploadLimit: 'Max. 10 MB · Excel: export as CSV'
-      };
-      Object.assign(englishCopy, {
-        cloudPending: 'Journal sync is incomplete. Local data remains saved.',
-        homeHeroTitle:'Every trade.<br><span>A clearer decision.</span>',
-        homeHeroLead:'Turn every trade into a process you can review. Plan your risk, record decisions and understand your habits in one workspace.',
-        homeDemoTabs:'Choose a feature preview', homeRiskPlan:'Risk plan', homeDemoHint:'Choose a tab. Try writing a note.',
-        homePreTrade:'Before opening a position', homeRiskSet:'Risk limit defined', homeSetupSet:'Entry reason recorded',
-        homeReviewTitle:'Review your decision', homeReviewPrompt:'What will you improve in your next session?',
-        homeDemoCaption:'Interactive preview. Notes here are not saved.', homeNextSession:'For your next session',
-        homeProcessNote:'Plan first. Execute second.', homeWorkflow:'A process you can repeat',
-        profileHeading: 'Profile & account', profileLead: 'Manage your identity, trading accounts, and journal storage.',
-        profileTotalTrades: 'Total trades', profileNetPL: 'Total P/L', profileAverageRR: 'Average R:R',
-        profileSettings: 'Profile settings', profileSettingsLead: 'Set your nickname and journal preferences.', profileSave: 'Save changes',
-        profileNickname: 'Nickname', profileEmail: 'Account email', profileCurrency: 'Currency & region',
-        profileCurrencyLead: 'Conversion settings for your journal reports.', profileReportCurrency: 'Report currency', profileTimezone: 'Journal timezone',
-        profileTradingAccounts: 'Trading accounts', profileAccountsLead: 'Broker accounts recorded in your journal.', profileAddAccount: '+ Add account',
-        profileAccountSecurity: 'Account & storage', profileSignInMethod: 'Sign-in method', profileJournalStorage: 'Journal storage',
-        profileDiscipline: 'Trading discipline', profileBackup: 'Backup & restore', profileBackupLead: 'Save a journal copy or restore data from a backup file.', profileLocalCopy: 'Local copy',
-        profileGoogleManage: 'Manage Google photo', profileLocalUsage: 'Local data size', profileRecordCount: 'Saved trades', profileRestore: 'Restore data', profileExport: 'Export CSV', profileDeleteLocal: 'Delete journal data',
-  "guideTitle": "Build better trading habits",
-  "guideLead": "Understand the market, set your risk, and use your journal to see what needs improving.",
-  "guideMarketTitle": "Know the market you trade",
-  "guideMarketText": "Forex involves currency pairs such as EUR/USD. Check the spread, position size, and economic calendar before opening a trade.",
-  "guideRiskTitle": "Set your risk before entering",
-  "guideRiskText": "Record your entry, stop loss, and target. Use the Calculator to size your position around your risk limit.",
-  "guideJournalTitle": "Record or import your trades",
-  "guideJournalText": "Click Try, then open Journal. Enter trades manually or upload PDFs, images, and CSV files. Review scan results before importing; unreadable values stay blank.",
-  "guideReviewTitle": "Find patterns in your results",
-  "guideReviewText": "Open Statistics to review profit and loss, win rate, and drawdown. Compare your setups and entry reasons, then choose one habit to improve in your next session."
-});
-      Object.assign(englishCopy, {"newsPageTitle":"News & economic calendar","newsPageLead":"Headlines from your selected publishers, publication times, and the economic calendar.","newsHeadlines":"Latest news","newsCalendar":"Economic calendar","newsSourceLabel":"News source","newsAllSources":"All sources","newsRefresh":"Refresh news","newsOriginalLanguage":"Headlines remain in the publisher’s original language. Read the full story on the source website.","newsCmeHint":"View current interest-rate probabilities and market data directly on CME Group."});
-      Object.assign(englishCopy, {"newsLatestStories": "Latest stories", "newsShowMore": "Show more stories"});
-      Object.assign(englishCopy, {"categoryAll": "All", "categoryWorld": "World", "categoryPolitics": "Politics", "categoryBusiness": "Business", "categoryMarkets": "Markets", "categorySustainability": "Sustainability", "categoryLegal": "Legal", "categoryCommentary": "Commentary", "categoryTechnology": "Technology", "categoryInvestigations": "Investigations", "categoryMore": "More", "categoryLocal": "Local news", "categoryScience": "Science", "categorySport": "Sport", "categoryOther": "Other news", "biSource": "Bank Indonesia transaction rates", "biBasis": "Journal conversion uses the midpoint of BI USD sell and buy rates. BI publishes rates once per business day."});
-      Object.assign(englishCopy, {
-        homeEyebrow: 'A workspace for traders', homePreview: 'Preview', homePlan: 'Plan', homeRecord: 'Record',
-        footerLead: 'Record decisions. Understand habits.<br>Build your trading process.',
-        footerWorkspace: 'Workspace', footerExplore: 'Explore', footerPlans: 'Subscription plans', footerGuide: 'Trading guide',
-        footerDescriptor: 'Professional Trading Journal & Analytics', footerPrinciples: 'Discipline · Data · Execution',
-        signupTitle: 'Create your journalingtrade account', signupLead: 'Start with Free and track your trading journey.',
-        authEmailDivider: 'or use email', confirmPassword: 'Confirm password',
-        authShowSignup: 'New here? Create an account', authShowSignin: 'Already have an account? Sign in',
-        nicknameTitle: 'What should we call you?', nicknameLead: 'Choose a nickname for your journal profile.',
-        authSwitchAccount: 'Use another account', nicknameLabel: 'Nickname', nicknameSave: 'Save and open journal', authBack: 'Back to Home',
-        plusFeature1: 'All Free features', plusFeature2: 'Unlimited uploads', plusFeature3: 'Economic news and calendar access',
-        newsLockedTitle: 'Economic news for Plus members', newsLockedLead: 'Unlock local and global news and the economic calendar with Plus.',
-        newsViewPlans: 'View plans', newsSignIn: 'Already subscribed? Sign in'
-      });
-      Object.assign(englishCopy, {"homeEyebrow": "A workspace for traders", "homeHeroLead": "Plan your risk, document your decisions and review your trading performance in one workspace.", "homeScroll": "Scroll to explore", "homeWorkflow": "A process you can repeat", "guideLead": "Market preparation, risk planning, recording and review. Four steps for every trading session.", "homeContextPreview": "Session preparation", "homeCalendarFocus": "Economic calendar", "homeCalendarDetail": "Check scheduled releases before entering.", "homeContextReminder": "Review high-impact releases.", "homeRiskPlan": "Risk plan", "homeRiskLimit": "Risk per trade", "homeYourLimit": "Your limit", "homeEntry": "Entry", "homeDefined": "Defined", "homeStop": "Stop loss", "homeTarget": "Target", "homeReasonLabel": "Entry reason", "homeReasonSample": "Support retest within the trading plan.", "homeImportPreview": "CSV import preview", "homeReviewPreview": "Performance review", "guideMarketTitle": "Understand the market context.", "guideMarketText": "Review your instrument, liquidity, spreads and the economic calendar before opening a position. Record the conditions behind your decision.", "homeContextTip": "Include news context in your notes so you can compare it during review.", "guideRiskTitle": "Define your risk before entry.", "guideRiskText": "Document your entry, stop loss and target. Use the calculator to align position size with your account risk limit.", "homePlanTip": "Define the loss limit and exit criteria before opening a position.", "guideJournalTitle": "Document every trade.", "guideJournalText": "Record trades manually or import PDFs, images and CSV files. Review scan results before saving; unreadable values stay blank.", "homeRecordTip": "Record your entry reason when you make the decision, before seeing the result.", "guideReviewTitle": "Review your decision patterns.", "guideReviewText": "Review profit and loss, win rate and drawdown in Statistics. Compare setups and entry reasons, then choose a change to test in your next session.", "homeReviewTip": "Evaluate one change consistently before introducing another.", "homeEveryMarket": "Every market", "homeMarketsLead": "Keep forex, stocks, crypto and gold records in one journal. Compare your experience across instruments.", "homeForex": "Forex", "homeStocks": "Stocks", "homeCrypto": "Crypto", "homeGold": "Gold", "homeHabits": "Review your habits", "homeSessionLead": "Compare results by trading session, setup and entry reason. Use your records to retain consistent decisions and identify habits that need improvement.", "homeSessionNote": "Illustrative session comparison. Actual results use your journal data.", "homeNextReview": "From review to action", "homeImproveLead": "Finish each review with a plan you can check in the next session.", "homeImproveObserve": "Identify the conditions.", "homeImproveObserveText": "Compare setup notes, entry timing and market context. Mark the conditions you want to examine further.", "homeImprovePlan": "Define one change.", "homeImprovePlanText": "Write down an adjustment to your risk plan or entry criteria. Use this note as a reference for the next session.", "homeImproveCheck": "Review the execution.", "homeImproveCheckText": "Check whether you followed the change consistently. Export a journal backup to keep your review history available.", "homeHeroTitle": "Every trade.<br><span>A clearer decision.</span>", "homeViewPlans": "View plans", "homeChartNote": "Illustrative price movement", "homePauseMotion": "Pause animation", "homeMarketsTitle": "One journal for every<br><span>market you trade.</span>", "homeSessionTitle": "Find your<br><span>best session.</span>", "homeImproveTitle": "Make your review<br><span>actionable.</span>", "homeClosingTitle": "Document your decisions.<br><span>Review every session.</span>"});
-      document.querySelectorAll('[data-i18n]').forEach(element => {
-        originalCopy.set(element.dataset.i18n, element.innerHTML);
-      });
-      Object.assign(englishCopy, {
-        calendarLead: 'Macroeconomic, employment, inflation and interest-rate releases. Table times are in WIB.',
-        calendarImpact: 'Impact'
-      });
-      Object.assign(englishCopy, {newsSearchLabel:'Search news', newsSearchClear:'Clear'});
-      const translatedText = new WeakMap();
-      const legacyCopy = {
-        'Cari judul atau sumber berita...': 'Search headlines or publishers...',
-        'Hapus pencarian berita': 'Clear news search',
-        'Jurnal Trading Terstruktur': 'Structured trading journal',
-        'Catat, filter, dan evaluasi setiap posisi trading secara objektif dan terukur.': 'Record, filter, and review each trading position.',
-        '+ Catat Trade': '+ Record trade', 'Total Jurnal': 'Total trades', 'Histori Akun': 'Account history',
-        'Rata-rata R:R': 'Average R:R', 'Semua Market': 'All markets', 'Semua Hasil': 'All outcomes',
-        'Semua Strategi': 'All strategies', 'Tanggal': 'Date', 'Jam': 'Time', 'Posisi': 'Side', 'Hasil': 'Outcome',
-        'Strategi': 'Strategy', 'Alasan': 'Reason', 'Catatan': 'Notes', 'Aksi': 'Actions', 'Akun': 'Account',
-        'Alasan & Catatan': 'Reason & notes', 'Alasan Entry & Evaluasi': 'Entry reason & review',
-        'Semua': 'All', 'Tinggi': 'High', 'Sedang': 'Medium', 'Rendah': 'Low',
-        'Belum Ada Catatan Trade': 'No trades recorded yet',
-        'Jurnal trading Anda masih kosong atau tidak ada trade yang cocok dengan filter saat ini. Mulai catat trade baru atau muat data simulasi demo.': 'Your journal is empty or no trades match the current filters. Record a trade or load example data.',
-        '+ Catat Trade Baru': '+ Record a new trade', 'Reset Filter': 'Reset filters',
-        'Upload File Jurnal': 'Scan or import a file', 'Muat 8 Trade Contoh': 'Load 8 example trades',
-        'Statistik & Kinerja Portofolio': 'Statistics & portfolio performance',
-        'Evaluasi metrik probabilitas, rasio untung-rugi, efisiensi eksekusi, dan kurva pertumbuhan modal Anda.': 'Review probability metrics, profit and loss ratios, execution, and your equity curve.',
-        'Kalkulator Trading Institusional': 'Trading calculators',
-        'Hitung ukuran posisi dari risiko, estimasi nilai pip, simulasi profit/loss, dan rasio R:R sebelum menekan tombol eksekusi.': 'Calculate position size, pip value, estimated profit/loss, and risk to reward before executing.',
-        'Parameter Setup & Akun': 'Setup & account parameters', 'Arah Posisi Order': 'Order direction',
-        'Saldo Akun ($)': 'Account balance ($)', 'Toleransi Risiko (%)': 'Risk tolerance (%)',
-        'Harga Entry': 'Entry price', 'Harga Stop Loss (SL)': 'Stop loss price (SL)',
-        'Harga Take Profit (TP)': 'Take profit price (TP)', 'Jarak SL (Pips)': 'Stop distance (pips)',
-        'Hasil Analisis Ukuran Posisi': 'Position size calculation',
-        'Wawasan Berita & Kalender Ekonomi Makro': 'News & economic calendar',
-        'Kalender Ekonomi Global (WIB)': 'Global economic calendar (WIB)',
-        'Muat Ulang': 'Reload', 'Kalender Ekonomi': 'Economic calendar',
-        'Tambah Akun': 'Add account', 'Tambah Akun Broker': 'Add broker account', 'Nama Akun': 'Account name',
-        'Saldo Awal': 'Starting balance', 'Mata Uang': 'Currency', 'Simpan Akun': 'Save account', 'Batal': 'Cancel',
-        'Tutup': 'Close', 'Simpan': 'Save', 'Simpan Trade': 'Save trade', 'Simpan Jurnal': 'Save trade',
-        'Entri Cepat': 'Quick entry', 'Form Lengkap': 'Full form', 'Tempel Teks': 'Paste text',
-        'Risiko (%)': 'Risk (%)', 'Risiko per Trade (%)': 'Risk per trade (%)', 'Alasan Entry': 'Entry reason',
-        'Nama Trader': 'Trader name', 'Pengaturan Profil': 'Profile settings', 'Simpan Pengaturan': 'Save settings',
-        'Profil & Pengaturan': 'Profile & settings', 'Pengaturan': 'Settings', 'Akun Broker': 'Broker accounts',
-        'Kurs USD ke IDR': 'USD to IDR exchange rate', 'Ekspor Backup JSON': 'Export JSON backup',
-        'Impor Backup JSON': 'Import JSON backup', 'Data & Penyimpanan': 'Data & storage',
-        'Statistik & Analitik': 'Statistics & analytics', 'Statistik Trading': 'Trading statistics',
-        'Kalkulator Trading': 'Trading calculators', 'Kalkulator Risiko': 'Risk calculator',
-        'Saldo Akun': 'Account balance', 'Ukuran Lot': 'Lot size', 'Nilai Pip': 'Pip value', 'Hitung': 'Calculate',
-        'Ringkasan': 'Summary', 'Analisa': 'Analysis', 'Kalender': 'Calendar', 'Berita Ekonomi': 'Economic news',
-        'Lihat Semua': 'Show all', 'Cari': 'Search', 'Filter': 'Filter', 'Reset': 'Reset',
-        'pilih dari perangkat': 'choose from your device', 'atau': 'or', 'Impor ke Jurnal': 'Import into journal',
-        'Pilih berkas dari perangkat Anda atau seret ke area dropzone di atas.': 'Choose a file on your device or drop it into the area above.',
-        'Hasil scan tersimpan di perangkat ini.': 'The scan is saved on this device.',
-        'Pemindaian selesai. Periksa teks sebelum menyimpan hasil scan. Tidak ada trade yang ditambahkan.': 'Scan complete. Review the text before saving the scan. No trades were added.',
-        'Hasil scan disimpan di perangkat ini. Jurnal Anda tidak berubah.': 'Scan saved on this device. Your journal has not changed.',
-        'Penyimpanan penuh. Salin teks hasil scan sebelum menutup jendela.': 'Storage is full. Copy the scanned text before closing this window.'
-      };
-      Object.assign(legacyCopy, {
-  "Rapor Disiplin & Psikologi": "Discipline & psychology report",
-  "Kelengkapan Stop Loss (SL)": "Recorded stop losses (SL)",
-  "Rata-rata Risiko Tercatat": "Average recorded risk",
-  "Drawdown Maksimum": "Maximum drawdown",
-  "Belum ada trade": "No trades yet",
-  "Belum ada data": "No data yet",
-  "Belum ada data risiko": "No risk data yet",
-  "Saldo awal dan transaksi diperlukan": "Add a starting balance and trades",
-  "Tambahkan transaksi untuk melihat rapor akun ini.": "Add trades to view this account’s report.",
-  "Dihitung dari jurnal akun aktif. SL tercatat tidak memastikan pemasangan di broker; kondisi psikologi belum dicatat.": "Based on the active account’s journal. A recorded stop loss does not confirm a broker order. Psychological data has not been recorded.",
-  "Nama Panggilan / Alias Trader": "Trader name",
-  "Kurs Dolar ke Rupiah (USD to IDR)": "Exchange rate (USD to IDR)",
-  "Simpan Profil & Kurs": "Save profile & exchange rate",
-  "Perbarui kurs otomatis": "Refresh exchange rate",
-  "Kurs referensi diperbarui harian.": "Reference rates are updated daily.",
-  "Mengambil kurs terbaru...": "Fetching the latest exchange rate...",
-  "Kunci Kembali Konten": "Lock content",
-  "Buka Akses": "Unlock access",
-  "Normal (Offline Ready)": "Available offline",
-  "Tab Baru": "Open in new tab",
-  "Edit": "Edit",
-  "Hapus": "Delete",
-  "Catatan Trade": "Trade notes",
-  "Pilih Akun": "Select account",
-  "Kinerja per Setup & Strategi": "Performance by setup & strategy",
-  "Belum ada data eksekusi": "No execution data yet",
-  "Profit Terbaik": "Best profit",
-  "Kerugian Terburuk": "Largest loss",
-  "KLIK MARKET UNTUK BUKA POP-UP CHART": "SELECT AN INSTRUMENT TO OPEN ITS CHART",
-  "Kalender Ekonomi": "Economic calendar",
-  "Dasar forex dan jurnal trading yang membantu Anda berkembang": "Forex fundamentals and journaling for better trading habits",
-  "Cari rilis data atau mata uang (Core CPI, NFP, USD, EUR, AUD...)": "Search releases or currencies (CPI, NFP, USD, EUR...)",
-  "Nama Anda": "Your name",
-  "Terapkan Setup Ini ke Form Jurnal": "Use this setup in the journal"
-});
-      const translatedAttributes = new WeakMap();
       function applyLanguage() {
-        document.documentElement.lang = language;
-        document.querySelectorAll('[data-i18n]').forEach(element => {
-          const key = element.dataset.i18n;
-          const copy = language === 'en' ? englishCopy[key] : (stateCopy[key] || originalCopy.get(key));
-          if (copy !== undefined) element.innerHTML = copy;
-        });
-        const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
-        while (walker.nextNode()) {
-          const node = walker.currentNode;
-          if (node.parentElement.closest('[data-i18n], script, style, textarea')) continue;
-          let original = translatedText.get(node) || node.textContent;
-          const previousEnglish = legacyCopy[original.trim()];
-          if (node.textContent !== original && (!previousEnglish || node.textContent !== original.replace(original.trim(), previousEnglish))) original = node.textContent;
-          const replacement = legacyCopy[original.trim()];
-          if (replacement) {
-            translatedText.set(node, original);
-            node.textContent = language === 'en' ? original.replace(original.trim(), replacement) : original;
-          }
-        }
-        document.querySelectorAll('[placeholder], [title], [aria-label]').forEach(element => {
-          const originals = translatedAttributes.get(element) || {};
-          for (const attr of ['placeholder', 'title', 'aria-label']) {
-            if (!element.hasAttribute(attr)) continue;
-            const original = originals[attr] ?? element.getAttribute(attr);
-            if (legacyCopy[original]) { originals[attr] = original; element.setAttribute(attr, language === 'en' ? legacyCopy[original] : original); }
-          }
-          translatedAttributes.set(element, originals);
-        });
+        window.JTI18n?.apply();
         $('language-select').value = language;
-        $('nickname-input').placeholder = language === 'en' ? 'Your nickname' : 'Nama panggilan Anda';
+        $('nickname-input').placeholder = uiText('Nama panggilan Anda', 'Your nickname');
         if (window.renderPublisherNews) renderPublisherNews();
         if (window.renderBiIndicators) renderBiIndicators();
         if (kalCache) {
@@ -296,13 +71,22 @@
         if (window.renderFedWatch) window.renderFedWatch();
         updatePricingDisplay();
       }
-      window.setLanguage = function (value) {
-        language = value === 'en' ? 'en' : 'id';
-        try { localStorage.setItem('fncjt_language', language); } catch {}
+      window.setLanguage = async function (value) {
+        try {
+          await window.JTI18n.ready;
+          if (!await window.JTI18n.setLanguage(value)) return;
+          language = window.JTI18n.language;
+        } catch (error) {
+          $('language-select').value = language;
+          console.error('Unable to load selected language', error);
+          return;
+        }
         renderJournalTable();
         renderStatistics();
         renderProfileView();
         updateAccess();
+        const proTab = document.querySelector('[data-pro-tab].active');
+        if (proTab && $('view-pro-analytics').classList.contains('active')) openProAnalytics(Number(proTab.dataset.proTab));
       };
 
       /* Initialization Demo Data if clean */
@@ -366,7 +150,7 @@
         renderJournalTable();
         renderStatistics();
         renderProfileView();
-        alert('8 data trade simulasi berhasil dimuat ke jurnal Anda!');
+        alert(uiText("8 data trade simulasi berhasil dimuat ke jurnal Anda!", "Eight example trades have been added to your journal."));
       };
 
       function saveData() {
@@ -385,12 +169,12 @@
 
       function cloudMessage(error) {
         const messages = {
-          'Invalid login credentials': 'Email atau kata sandi salah.',
-          'Email not confirmed': 'Konfirmasi email Anda sebelum masuk.',
-          'User already registered': 'Email ini sudah terdaftar. Silakan masuk.',
-          'Password should be at least 6 characters': 'Kata sandi terlalu pendek.'
+          'Invalid login credentials': uiText("Email atau kata sandi salah.", "Incorrect email or password."),
+          'Email not confirmed': uiText("Konfirmasi email Anda sebelum masuk.", "Confirm your email before signing in."),
+          'User already registered': uiText("Email ini sudah terdaftar. Silakan masuk.", "This email is already registered. Please sign in."),
+          'Password should be at least 6 characters': uiText("Kata sandi terlalu pendek.", "Password is too short.")
         };
-        return messages[error?.message] || error?.message || 'Koneksi server gagal. Data lokal tetap tersimpan.';
+        return messages[error?.message] || error?.message || uiText("Koneksi server gagal. Data lokal tetap tersimpan.", "Server connection failed. Your local data is preserved.");
       }
 
       function uuidFor(map, value) {
@@ -466,7 +250,7 @@
           if (cloudUser?.id !== userId || !cloudReady) return false;
           cloudSnapshot = snapshot;
           persistCloudMaps();
-          if ($('cloud-status')) $('cloud-status').textContent = language === 'en' ? 'Journal saved to the server.' : 'Jurnal tersimpan ke server.';
+          if ($('cloud-status')) $('cloud-status').textContent = uiText('Jurnal tersimpan ke server.', 'Journal saved to the server.');
         } catch (error) {
           console.error('Supabase sync error:', error);
           if ($('cloud-status')) $('cloud-status').textContent = cloudMessage(error);
@@ -488,7 +272,7 @@
       function scheduleCloudSave() {
         if (!cloudUser || !cloudReady || !nicknameReady) return;
         clearTimeout(cloudTimer);
-        if ($('cloud-status')) $('cloud-status').textContent = language === 'en' ? 'Saving journal to the server...' : 'Menyimpan jurnal ke server...';
+        if ($('cloud-status')) $('cloud-status').textContent = uiText('Menyimpan jurnal ke server...', 'Saving journal to the server...');
         cloudTimer = setTimeout(syncCloud, 700);
       }
 
@@ -520,7 +304,7 @@
         $('scan-result').hidden = true;
         $('scan-text').value = ''; $('scan-recognition').replaceChildren(); $('saved-scans').replaceChildren();
         loadData();
-        onboarding.name = profile.name;
+        onboarding.name = userId || profile.name !== 'Trader' ? profile.name : '';
         updateAccess(); renderJournalTable(); renderProfileView(); renderStatistics(); runAllCalculators();
       }
 
@@ -531,6 +315,7 @@
         resetNewsData();
         resetNewsRegion();
         selectJournalOwner();
+        persistOnboarding();
       }
 
       async function hydrateCloud(user) {
@@ -576,12 +361,12 @@
           const [accountResult, strategyResult, tradeResult] = results.map(result => result.status === 'fulfilled' ? result.value : {error:result.reason});
           for (const result of [accountResult, strategyResult, tradeResult]) if (result.error) throw result.error;
           const remoteAccounts = accountResult.data || [], remoteTrades = tradeResult.data || [];
-          if (!remoteAccounts.length && !remoteTrades.length && !trades.length && guestJournal && confirm(language === 'en' ? 'Import the local guest journal into this account?' : 'Impor jurnal lokal tamu ke akun ini?')) { accounts = guestJournal.accounts; trades = guestJournal.trades; saveLocalData(); }
+          if (!remoteAccounts.length && !remoteTrades.length && !trades.length && guestJournal && confirm(uiText('Impor jurnal lokal tamu ke akun ini?', 'Import the local guest journal into this account?'))) { accounts = guestJournal.accounts; trades = guestJournal.trades; saveLocalData(); }
           if (remoteAccounts.length || remoteTrades.length) {
             const hasLocalJournal = trades.length > 0 || accounts.some(a => a.id !== 'local_acc');
             const localChangedSinceSync = cloudSnapshot ? cloudSnapshot !== journalFingerprint() : hasLocalJournal;
             if (localChangedSinceSync && hasLocalJournal) {
-              if (!confirm(language === 'en' ? 'This account already has server data. Replace local data on this device with server data?' : 'Akun ini sudah memiliki data server. Ganti data lokal di perangkat ini dengan data server?')) {
+              if (!confirm(uiText('Akun ini sudah memiliki data server. Ganti data lokal di perangkat ini dengan data server?', 'This account already has server data. Replace local data on this device with server data?'))) {
                 cloudUser = null; cloudReady = false;
                 await cloudClient.auth.signOut();
                 return;
@@ -628,7 +413,7 @@
       }
 
       async function initCloudAuth() {
-        if (!cloudClient) { if ($('cloud-status')) $('cloud-status').textContent = 'Koneksi server tidak tersedia. Data lokal tetap tersimpan.'; return; }
+        if (!cloudClient) { if ($('cloud-status')) $('cloud-status').textContent = uiText("Koneksi server tidak tersedia. Data lokal tetap tersimpan.", "Server connection unavailable. Your local data is preserved."); return; }
         cloudClient.auth.onAuthStateChange((event, session) => {
           if (session?.user && ['SIGNED_IN', 'TOKEN_REFRESHED', 'USER_UPDATED'].includes(event)) {
             if (!cloudReady || cloudUser?.id !== session.user.id) setTimeout(() => hydrateCloud(session.user), 0);
@@ -643,11 +428,11 @@
 
       function canReadNews() { return !!cloudUser && verifiedNewsUserId === cloudUser.id && nicknameReady && (isNewsFounder() || ['plus', 'pro'].includes(accountAccess?.plan)); }
       async function refreshAccountAccess(consumeUpload = false) {
-        if (!cloudUser) throw new Error(language === 'en' ? 'Sign in to use your Free upload allowance.' : 'Masuk untuk menggunakan jatah upload Free.');
+        if (!cloudUser) throw new Error(uiText('Masuk untuk menggunakan jatah upload Free.', 'Sign in to use your Free upload allowance.'));
         const userId = cloudUser.id, authRevision = cloudAuthRevision;
-        if (!nicknameReady && consumeUpload) throw new Error(language === 'en' ? 'Complete your nickname first.' : 'Isi nama panggilan Anda terlebih dahulu.');
+        if (!nicknameReady && consumeUpload) throw new Error(uiText('Isi nama panggilan Anda terlebih dahulu.', 'Complete your nickname first.'));
         const { data, error } = await cloudClient.rpc('journal_access', { consume_upload: consumeUpload });
-        if (cloudUser?.id !== userId || authRevision !== cloudAuthRevision) throw new Error(language === 'en' ? 'Account changed. Try again.' : 'Akun berubah. Coba lagi.');
+        if (cloudUser?.id !== userId || authRevision !== cloudAuthRevision) throw new Error(uiText('Akun berubah. Coba lagi.', 'Account changed. Try again.'));
         if (error) throw error;
         if (!data || !['free', 'plus', 'pro'].includes(data.plan) || typeof data.allowed !== 'boolean') throw new Error('Invalid account access response');
         accountAccess = data;
@@ -656,13 +441,12 @@
         return data;
       }
       function uploadAllowanceText() {
-        if (!cloudUser) return language === 'en' ? 'Sign in for 10 Free uploads every 12 hours.' : 'Masuk untuk 10 upload Free setiap 12 jam.';
-        if (!accountAccess) return language === 'en' ? 'Checking your upload allowance...' : 'Memeriksa jatah upload...';
-        if (accountAccess.plan !== 'free') return (accountAccess.plan === 'pro' ? 'Pro' : 'Plus') + (language === 'en' ? ' · Unlimited uploads' : ' · Upload tanpa batas');
-        const reset = accountAccess.resetAt ? new Date(accountAccess.resetAt).toLocaleString(language === 'en' ? 'en-GB' : 'id-ID', { hour: '2-digit', minute: '2-digit', day: 'numeric', month: 'short' }) : '';
-        return language === 'en' ? `Free · ${accountAccess.remaining}/10 uploads remaining${reset ? '. Resets ' + reset : ' every 12 hours'}.` : `Free · Sisa ${accountAccess.remaining}/10 upload${reset ? '. Reset ' + reset : ' setiap 12 jam'}.`;
+        if (!cloudUser) return uiText('Masuk untuk 10 upload Free setiap 12 jam.', 'Sign in for 10 Free uploads every 12 hours.');
+        if (!accountAccess) return uiText('Memeriksa jatah upload...', 'Checking your upload allowance...');
+        if (accountAccess.plan !== 'free') return (accountAccess.plan === 'pro' ? 'Pro' : 'Plus') + ' · ' + uiText('Upload tanpa batas', 'Unlimited uploads');
+        const reset = accountAccess.resetAt ? new Date(accountAccess.resetAt).toLocaleString(language, { hour: '2-digit', minute: '2-digit', day: 'numeric', month: 'short' }) : '';
+        return uiText('Free · Sisa {remaining}/10 upload.', 'Free · {remaining}/10 uploads remaining.').replace('{remaining}', accountAccess.remaining) + ' ' + (reset ? uiText('Reset {time}.', 'Resets {time}.').replace('{time}', reset) : uiText('Diperbarui setiap 12 jam.', 'Resets every 12 hours.'));
       }
-      // Pro destinations remain hidden until real pages and server authorization exist.
       function renderProNavigation() {
         const hook = $('nav-ai-trading');
         if (!hook) return;
@@ -672,7 +456,13 @@
         hook.setAttribute('aria-disabled', 'true');
         const pro = verified && accountAccess.plan === 'pro';
         document.querySelectorAll('[data-pro-tab]').forEach(button => { button.hidden = !pro; button.disabled = !pro; });
-        if (!pro && $('view-pro-analytics')?.classList.contains('active')) switchTab('beranda');
+        if (!pro) {
+          proAnalyticsRequest++;
+          $('pro-analytics-title').textContent = '';
+          $('pro-analytics-status').textContent = '';
+          $('pro-analytics-content').replaceChildren();
+          if ($('view-pro-analytics').classList.contains('active')) switchTab('beranda');
+        }
       }
 
       const proAnalyticsNames = ['Advanced Analytics', 'Performance Heatmap', 'Strategy Comparison', 'Risk Intelligence', 'Weekly & Monthly Review'];
@@ -681,11 +471,11 @@
         if (!Number.isInteger(index) || index < 0 || index >= proAnalyticsNames.length) return;
         if (!cloudUser || !cloudReady || !nicknameReady || accountAccess?.plan !== 'pro') return;
         const revision = ++proAnalyticsRequest, userId = cloudUser.id;
-        const valid = () => revision === proAnalyticsRequest && cloudUser?.id === userId && cloudReady && accountAccess?.plan === 'pro';
+        const valid = () => revision === proAnalyticsRequest && cloudUser?.id === userId && cloudReady && nicknameReady && accountAccess?.plan === 'pro';
         const status = $('pro-analytics-status'), content = $('pro-analytics-content');
         const title = proAnalyticsNames[index];
-        $('pro-analytics-title').textContent = title;
-        status.textContent = 'Loading authenticated analytics…';
+        $('pro-analytics-title').textContent = uiText(title, title);
+        status.textContent = uiText('Loading authenticated analytics…', 'Loading authenticated analytics…');
         content.replaceChildren();
         document.querySelectorAll('.nav-tab').forEach(b => b.classList.toggle('active', b.dataset.proTab === String(index)));
         document.querySelectorAll('.view-content').forEach(v => v.classList.toggle('active', v.id === 'view-pro-analytics'));
@@ -695,7 +485,7 @@
           if (!valid()) return;
           if (error || !Array.isArray(data)) throw error || new Error('Invalid analytics response');
           const rows = data.map(t => ({...t, pnl:Number(t.pnl), risk_percent:Number(t.risk_percent)})).filter(t => Number.isFinite(t.pnl));
-          status.textContent = rows.length + ' closed trades · server verified';
+          status.textContent = uiText('{total} closed trades · server verified', '{total} closed trades · server verified').replace('{total}', rows.length);
           const by = (key) => {
             const groups = new Map();
             rows.forEach(t => { const k = key(t); if (!k) return; const a=groups.get(k)||{count:0,pnl:0,wins:0}; a.count++;a.pnl+=t.pnl;if(t.pnl>0)a.wins++;groups.set(k,a); });
@@ -703,24 +493,34 @@
           };
           const day = t => /^\d{4}-\d{2}-\d{2}/.exec(t.opened_at||'')?.[0]||'';
           let groups, headers;
-          if (index===0) { groups=by(t=>t.symbol||'Unknown');headers=['Symbol','Trades','Net P/L','Win rate']; }
+          if (index===0) { groups=by(t=>t.symbol||uiText('Unknown', 'Unknown'));headers=['Symbol','Trades','Net P/L','Win rate']; }
           else if(index===1) { groups=by(day);headers=['Date','Trades','Net P/L','Win rate']; }
-          else if(index===2) { groups=by(t=>t.strategy||'Unassigned');headers=['Strategy','Trades','Net P/L','Win rate']; }
-          else if(index===3) { groups=by(t=>Number.isFinite(t.risk_percent)&&t.risk_percent>0?(t.risk_percent<=1?'≤1%':t.risk_percent<=2?'1–2%':'>2%'):'Unspecified');headers=['Risk band','Trades','Net P/L','Win rate']; }
+          else if(index===2) { groups=by(t=>t.strategy||uiText('Unassigned', 'Unassigned'));headers=['Strategy','Trades','Net P/L','Win rate']; }
+          else if(index===3) { groups=by(t=>Number.isFinite(t.risk_percent)&&t.risk_percent>0?(t.risk_percent<=1?'≤1%':t.risk_percent<=2?'1–2%':'>2%'):uiText('Unspecified', 'Unspecified'));headers=['Risk band','Trades','Net P/L','Win rate']; }
           else { groups=by(t=>(day(t)||'').slice(0,7));headers=['Month','Trades','Net P/L','Win rate']; }
           const table=document.createElement('table');table.className='data-table';
           const thead=document.createElement('thead'),tr=document.createElement('tr');
-          headers.forEach(h=>{const th=document.createElement('th');th.textContent=h;tr.append(th);});thead.append(tr);table.append(thead);
+          headers.forEach(h=>{const th=document.createElement('th');th.textContent=uiText(h,h);tr.append(th);});thead.append(tr);table.append(thead);
           const tbody=document.createElement('tbody');
           groups.forEach(([key,v])=>{const tr=document.createElement('tr');[key,String(v.count),v.pnl.toFixed(2),(100*v.wins/v.count).toFixed(1)+'%'].forEach(value=>{const td=document.createElement('td');td.textContent=value;tr.append(td);});tbody.append(tr);});
           table.append(tbody);
-          if (!groups.length) status.textContent='No closed trades available for this report.';
+          if (!groups.length) status.textContent=uiText('No closed trades available for this report.', 'No closed trades available for this report.');
           content.append(table);
-        } catch(error) { if(valid()){status.textContent='Pro analytics unavailable. Verify your subscription and try again.';content.replaceChildren();} }
+        } catch(error) { if(valid()){status.textContent=uiText('Pro analytics unavailable. Verify your subscription and try again.', 'Pro analytics unavailable. Verify your subscription and try again.');content.replaceChildren();} }
       };
 
       function renderAccountAccess() {
         renderProNavigation();
+        const hasProfile = !!cloudUser || !!onboarding.name;
+        const name = googleAccountProfile()?.name || onboarding.name || profile.name || 'Trader';
+        const plan = isNewsFounder() ? 'Founder' : cloudUser && !accountAccess ? uiText('Memeriksa paket…', 'Checking plan…') : accountAccess?.plan === 'pro' ? 'Pro' : accountAccess?.plan === 'plus' ? 'Plus' : 'Free';
+        $('nav-dd-username').textContent = hasProfile ? name : uiText('Selamat datang', 'Welcome');
+        $('nav-avatar-initials').textContent = name.split(/\s+/).map(part => part[0]).join('').slice(0, 2).toUpperCase();
+        $('nav-trader-name').textContent = name;
+        $('nav-account-plan').textContent = plan;
+        $('nav-dd-plan').textContent = plan;
+        for (const id of ['nav-avatar-initials', 'nav-account-copy', 'nav-dd-plan', 'nav-account-storage']) $(id).hidden = !hasProfile;
+        for (const id of ['nav-login-label', 'nav-guest-badge', 'nav-try']) $(id).hidden = hasProfile;
         $('upload-quota-note').textContent = uploadAllowanceText();
         $('news-content').hidden = !canReadNews();
         $('news-paywall').hidden = canReadNews();
@@ -741,24 +541,24 @@
       const biRateSource = 'https://www.bi.go.id/id/statistik/indikator/bi-rate.aspx';
       function biDate(value) {
         const date = new Date(value + 'T12:00:00+07:00');
-        return /^\d{4}-\d{2}-\d{2}$/.test(value || '') && Number.isFinite(date.getTime()) ? date.toLocaleDateString(language === 'en' ? 'en-GB' : 'id-ID', {timeZone:'Asia/Jakarta', day:'numeric', month:'short', year:'numeric'}) : null;
+        return /^\d{4}-\d{2}-\d{2}$/.test(value || '') && Number.isFinite(date.getTime()) ? date.toLocaleDateString(language, {timeZone:'Asia/Jakarta', day:'numeric', month:'short', year:'numeric'}) : null;
       }
       window.renderBiIndicators = function () {
         const host = $('bi-indicators');
         if (!host) return;
-        if (!biData) { host.textContent = language === 'en' ? 'Loading Bank Indonesia data...' : 'Memuat data Bank Indonesia...'; return; }
+        if (!biData) { host.textContent = uiText('Memuat data Bank Indonesia...', 'Loading Bank Indonesia data...'); return; }
         const fx = biData.fx, rate = biData.rate;
         const rupiah = value => 'Rp ' + value.toLocaleString('id-ID', {minimumFractionDigits:2, maximumFractionDigits:2});
-        const tile = (label, value, date, url, status) => '<a class="bi-indicator" href="' + url + '" target="_blank" rel="noopener noreferrer"><span>' + esc(label) + '</span><strong>' + esc(value) + '</strong><small>' + esc(date || (language === 'en' ? 'Unavailable' : 'Tidak tersedia')) + (status === 'stale' ? (language === 'en' ? ' · Saved data' : ' · Data tersimpan') : '') + '</small></a>';
+        const tile = (label, value, date, url, status) => '<a class="bi-indicator" href="' + url + '" target="_blank" rel="noopener noreferrer"><span>' + esc(label) + '</span><strong>' + esc(value) + '</strong><small>' + esc(date || (uiText('Tidak tersedia', 'Unavailable'))) + (status === 'stale' ? (uiText(' · Data tersimpan', ' · Saved data')) : '') + '</small></a>';
         const validFx = fx && fx.source === biFxSource && fx.currency === 'USD' && fx.unit === 1 && Number.isFinite(fx.buy) && Number.isFinite(fx.sell) && fx.buy > 0 && fx.sell >= fx.buy && biDate(fx.date);
         const validRate = rate && rate.source === biRateSource && Number.isFinite(rate.percent) && rate.percent >= 0 && rate.percent <= 100 && biDate(rate.date);
-        host.innerHTML = tile(language === 'en' ? 'BI USD sell rate' : 'Kurs jual USD BI', validFx ? rupiah(fx.sell) : (language === 'en' ? 'Unavailable' : 'Tidak tersedia'), validFx ? biDate(fx.date) : null, biFxSource, fx?.status) + tile(language === 'en' ? 'BI USD buy rate' : 'Kurs beli USD BI', validFx ? rupiah(fx.buy) : (language === 'en' ? 'Unavailable' : 'Tidak tersedia'), validFx ? biDate(fx.date) : null, biFxSource, fx?.status) + tile(language === 'en' ? 'BI midpoint · Journal' : 'Titik tengah BI · Jurnal', validFx ? rupiah((fx.sell + fx.buy) / 2) : (language === 'en' ? 'Unavailable' : 'Tidak tersedia'), validFx ? biDate(fx.date) : null, biFxSource, fx?.status) + tile('BI-Rate', validRate ? rate.percent.toLocaleString(language === 'en' ? 'en-GB' : 'id-ID', {maximumFractionDigits:2}) + '%' : (language === 'en' ? 'Unavailable' : 'Tidak tersedia'), validRate ? biDate(rate.date) : null, biRateSource, rate?.status);
+        host.innerHTML = tile(uiText('Kurs jual USD BI', 'BI USD sell rate'), validFx ? rupiah(fx.sell) : (uiText('Tidak tersedia', 'Unavailable')), validFx ? biDate(fx.date) : null, biFxSource, fx?.status) + tile(uiText('Kurs beli USD BI', 'BI USD buy rate'), validFx ? rupiah(fx.buy) : (uiText('Tidak tersedia', 'Unavailable')), validFx ? biDate(fx.date) : null, biFxSource, fx?.status) + tile(uiText('Titik tengah BI · Jurnal', 'BI midpoint · Journal'), validFx ? rupiah((fx.sell + fx.buy) / 2) : (uiText('Tidak tersedia', 'Unavailable')), validFx ? biDate(fx.date) : null, biFxSource, fx?.status) + tile('BI-Rate', validRate ? rate.percent.toLocaleString(language, {maximumFractionDigits:2}) + '%' : (uiText('Tidak tersedia', 'Unavailable')), validRate ? biDate(rate.date) : null, biRateSource, rate?.status);
       };
       window.refreshExchangeRate = async function () {
         if (exchangeBusy) return;
         exchangeBusy = true;
         const status = $('exchange-status');
-        status.textContent = language === 'en' ? 'Fetching Bank Indonesia rates...' : 'Mengambil kurs Bank Indonesia...';
+        status.textContent = uiText('Mengambil kurs Bank Indonesia...', 'Fetching Bank Indonesia rates...');
         try {
           const response = await fetch('bi.json?t=' + Date.now(), {cache:'no-store', signal:AbortSignal.timeout(15000)});
           if (!response.ok) throw new Error('BI request failed');
@@ -775,10 +575,10 @@
           saveData();
           $('p-kurs-input').value = mid;
           renderJournalTable(); renderStatistics(); runAllCalculators();
-          status.textContent = (language === 'en' ? 'BI transaction midpoint: Rp ' : 'Titik tengah kurs transaksi BI: Rp ') + mid.toLocaleString('id-ID') + ' / USD. ' + biDate(fx.date) + (fx.status === 'stale' ? (language === 'en' ? ' · Saved BI data; source refresh failed.' : ' · Data BI tersimpan; sumber gagal diperbarui.') : '');
+          status.textContent = (uiText('Titik tengah kurs transaksi BI: Rp ', 'BI transaction midpoint: Rp ')) + mid.toLocaleString('id-ID') + ' / USD. ' + biDate(fx.date) + (fx.status === 'stale' ? (uiText(' · Data BI tersimpan; sumber gagal diperbarui.', ' · Saved BI data; source refresh failed.')) : '');
         } catch (error) {
-          status.textContent = (language === 'en' ? 'BI rates are unavailable. Saved journal rate: Rp ' : 'Kurs BI belum tersedia. Kurs jurnal tersimpan: Rp ') + Number(settings.kurs).toLocaleString('id-ID') + ' / USD.';
-          if (!biData) $('bi-indicators').innerHTML = '<a href="' + biFxSource + '" target="_blank" rel="noopener noreferrer">' + (language === 'en' ? 'BI data unavailable. Open the official source.' : 'Data BI belum tersedia. Buka sumber resmi.') + '</a>';
+          status.textContent = (uiText('Kurs BI belum tersedia. Kurs jurnal tersimpan: Rp ', 'BI rates are unavailable. Saved journal rate: Rp ')) + Number(settings.kurs).toLocaleString('id-ID') + ' / USD.';
+          if (!biData) $('bi-indicators').innerHTML = '<a href="' + biFxSource + '" target="_blank" rel="noopener noreferrer">' + (uiText('Data BI belum tersedia. Buka sumber resmi.', 'BI data unavailable. Open the official source.')) + '</a>';
         } finally { exchangeBusy = false; }
       };
 
@@ -895,7 +695,7 @@
 
       function persistOnboarding() {
         try { localStorage.setItem('fncjt_onboarding', JSON.stringify(onboarding)); }
-        catch { $('home-access-hint').textContent = language === 'en' ? 'Your session is active. Browser storage is unavailable.' : 'Sesi aktif. Penyimpanan browser tidak tersedia.'; }
+        catch { $('home-access-hint').textContent = uiText('Sesi aktif. Penyimpanan browser tidak tersedia.', 'Your session is active. Browser storage is unavailable.'); }
       }
 
       function updateAccess() {
@@ -903,16 +703,16 @@
           const locked = !['beranda', 'berita'].includes(button.dataset.tab) && !onboarding.started;
           button.disabled = locked;
           button.setAttribute('aria-disabled', String(locked));
-          button.title = locked ? (language === 'en' ? 'Click Try on Home to open this tab.' : 'Klik Coba di Beranda untuk membuka tab ini.') : '';
+          button.title = locked ? (uiText('Klik Coba di Beranda untuk membuka tab ini.', 'Click Try on Home to open this tab.')) : '';
         });
         $('home-access-hint').dataset.i18n = onboarding.started ? 'accessReady' : 'accessHint';
         $('nav-login-label').dataset.i18n = cloudUser ? 'cloudConnected' : (onboarding.name ? 'localProfile' : 'signIn');
-        $('nav-dd-username').textContent = onboarding.name || (language === 'en' ? 'Welcome' : 'Selamat datang');
+        $('nav-dd-username').textContent = onboarding.name || (uiText('Selamat datang', 'Welcome'));
         $('nav-dd-username').removeAttribute('data-i18n');
         $('nav-dd-status').dataset.i18n = cloudUser ? (cloudReady ? 'cloudStatus' : 'cloudPending') : (onboarding.name ? 'localProfileStatus' : 'guestStatus');
-        $('menu-login').dataset.i18n = cloudUser ? 'cloudManage' : (onboarding.name ? 'changeProfile' : 'loginMenu');
+        $('menu-login-label').dataset.i18n = cloudUser ? 'cloudManage' : (onboarding.name ? 'changeProfile' : 'loginMenu');
         $('menu-logout').hidden = !cloudUser && !onboarding.name;
-        $('menu-logout').dataset.i18n = cloudUser ? 'cloudSignOut' : 'signOut';
+        $('menu-logout-label').dataset.i18n = cloudUser ? 'cloudSignOut' : 'signOut';
         applyLanguage();
         renderAccountAccess();
         if (canReadNews()) reloadPublisherNews();
@@ -951,9 +751,9 @@
         return authMode === 'signup' ? signUpCloud() : signInCloud();
       };
       window.signInCloud = async function () {
-        if (!cloudClient) { $('cloud-status').textContent = language === 'en' ? 'Account connection is unavailable.' : 'Koneksi akun belum tersedia.'; return; }
+        if (!cloudClient) { $('cloud-status').textContent = uiText('Koneksi akun belum tersedia.', 'Account connection is unavailable.'); return; }
         const button = $('auth-signin-submit'); button.disabled = true;
-        $('cloud-status').textContent = language === 'en' ? 'Signing in...' : 'Sedang masuk...';
+        $('cloud-status').textContent = uiText('Sedang masuk...', 'Signing in...');
         try {
           const { error } = await cloudClient.auth.signInWithPassword({ email: $('cloud-email').value.trim(), password: $('cloud-password').value });
           if (error) throw error;
@@ -964,15 +764,15 @@
       window.signUpCloud = async function () {
         if (!cloudClient) return;
         const password = $('cloud-password'), confirmation = $('cloud-password-confirm');
-        confirmation.setCustomValidity(password.value === confirmation.value ? '' : (language === 'en' ? 'Passwords do not match.' : 'Kata sandi tidak sama.'));
+        confirmation.setCustomValidity(password.value === confirmation.value ? '' : (uiText('Kata sandi tidak sama.', 'Passwords do not match.')));
         if (!$('cloud-login-form').reportValidity()) return;
         const button = $('auth-signup-submit'); button.disabled = true;
-        $('cloud-status').textContent = language === 'en' ? 'Creating your account...' : 'Membuat akun...';
+        $('cloud-status').textContent = uiText('Membuat akun...', 'Creating your account...');
         try {
           const { data, error } = await cloudClient.auth.signUp({ email: $('cloud-email').value.trim(), password: password.value, options: { emailRedirectTo: new URL('login/', document.baseURI).href } });
           if (error) throw error;
           password.value = ''; confirmation.value = '';
-          if (!data.session) $('cloud-status').textContent = language === 'en' ? 'Check your email to confirm your account, then sign in.' : 'Buka email untuk konfirmasi akun, lalu masuk.';
+          if (!data.session) $('cloud-status').textContent = uiText('Buka email untuk konfirmasi akun, lalu masuk.', 'Check your email to confirm your account, then sign in.');
         } catch (error) { $('cloud-status').textContent = cloudMessage(error); }
         finally { button.disabled = false; }
       };
@@ -983,9 +783,9 @@
         button.disabled = true;
         try {
           const response = await fetch(SUPABASE_URL + '/auth/v1/settings', { headers: { apikey: SUPABASE_KEY }, signal: AbortSignal.timeout(10000) });
-          if (!response.ok) throw new Error(language === 'en' ? 'Unable to check Google sign-in. Try again.' : 'Tidak dapat memeriksa login Google. Coba lagi.');
+          if (!response.ok) throw new Error(uiText('Tidak dapat memeriksa login Google. Coba lagi.', 'Unable to check Google sign-in. Try again.'));
           const config = await response.json();
-          if (!config.external?.google) throw new Error(language === 'en' ? 'Google sign-in is awaiting account setup. Please use email for now.' : 'Login Google sedang menunggu konfigurasi akun. Gunakan email untuk saat ini.');
+          if (!config.external?.google) throw new Error(uiText('Login Google sedang menunggu konfigurasi akun. Gunakan email untuk saat ini.', 'Google sign-in is awaiting account setup. Please use email for now.'));
           const { error } = await cloudClient.auth.signInWithOAuth({ provider: 'google', options: { redirectTo: new URL('login/', document.baseURI).href, queryParams: { prompt: 'select_account' } } });
           if (error) throw error;
         } catch (error) { status.textContent = error.message; }
@@ -996,7 +796,7 @@
         if (!cloudUser) return;
         const userId = cloudUser.id;
         const input = $('nickname-input'), name = input.value.trim();
-        input.setCustomValidity(name.length >= 2 ? '' : (language === 'en' ? 'Enter at least 2 characters.' : 'Isi sedikitnya 2 karakter.'));
+        input.setCustomValidity(name.length >= 2 ? '' : (uiText('Isi sedikitnya 2 karakter.', 'Enter at least 2 characters.')));
         if (!input.reportValidity()) return;
         const button = $('nickname-form').querySelector('button'); button.disabled = true;
         try {
@@ -1019,6 +819,7 @@
             const { error } = await cloudClient.auth.signOut();
             if (error) { $('cloud-status').textContent = cloudMessage(error); return; }
             handleCloudSignedOut();
+            closeNavAccountDropdown();
             switchTab('beranda');
           })();
           return;
@@ -1090,8 +891,8 @@
         $('plus-price').textContent = annual ? '$100' : '$10';
         $('pro-price').textContent = annual ? '$200' : '$20';
         ['plus', 'pro'].forEach(plan => {
-          $(plan + '-period').textContent = language === 'en' ? (annual ? 'USD / year' : 'USD / month') : (annual ? 'USD / tahun' : 'USD / bulan');
-          $(plan + '-billing').textContent = language === 'en' ? (annual ? 'Billed annually · Save 17%' : 'Billed monthly') : (annual ? 'Ditagih tahunan · Hemat 17%' : 'Ditagih bulanan');
+          $(plan + '-period').textContent = annual ? uiText('USD / tahun', 'USD / year') : uiText('USD / bulan', 'USD / month');
+          $(plan + '-billing').textContent = annual ? uiText('Ditagih tahunan · Hemat 17%', 'Billed annually · Save 17%') : uiText('Ditagih bulanan', 'Billed monthly');
         });
       }
 
@@ -1152,7 +953,7 @@
         const res = $('q-result').value;
 
         if (!market || isNaN(entry) || isNaN(sl) || isNaN(tp)) {
-          alert('Mohon lengkapi Market, Entry, Stop Loss, dan Take Profit.');
+          alert(uiText("Mohon lengkapi Market, Entry, Stop Loss, dan Take Profit.", "Complete the market, entry, stop loss and take profit fields."));
           return;
         }
 
@@ -1189,7 +990,7 @@
       window.saveBatchPaste = function () {
         const text = ($('paste-input').value || '').trim();
         if (!text) {
-          alert('Tempel baris trade Anda terlebih dahulu.');
+          alert(uiText("Tempel baris trade Anda terlebih dahulu.", "Paste your trade rows first."));
           return;
         }
 
@@ -1236,9 +1037,9 @@
           closeTradeForm();
           $('paste-input').value = '';
           renderJournalTable();
-          alert(`Berhasil menyimpan ${count} baris trade!`);
+          alert(uiText('Tersimpan {total} baris trade.', 'Saved {total} trade rows.').replace('{total}', count));
         } else {
-          alert('Format baris tidak sesuai. Pastikan menggunakan pemisah pipa (|).');
+          alert(uiText("Format baris tidak sesuai. Pastikan menggunakan pemisah pipa (|).", "Invalid row format. Separate the values with a pipe (|)."));
         }
       };
 
@@ -1278,7 +1079,7 @@
         const accId = $('f-account').value || profile.currentAccount;
 
         if (!market || isNaN(entry) || isNaN(sl) || isNaN(tp)) {
-          alert('Mohon isi Market, Entry, Stop Loss, dan Take Profit.');
+          alert(uiText("Mohon isi Market, Entry, Stop Loss, dan Take Profit.", "Complete the market, entry, stop loss and take profit fields."));
           return;
         }
 
@@ -1352,11 +1153,11 @@
         if (t.accountId) $('f-account').value = t.accountId;
 
         updateFullFormCalculations();
-        $('btn-save-full').textContent = 'Perbarui Trade';
+        $('btn-save-full').textContent = uiText("Perbarui Trade", "Update trade");
       };
 
       window.deleteTrade = function (id) {
-        if (confirm('Hapus trade ini dari jurnal?')) {
+        if (confirm(uiText("Hapus trade ini dari jurnal?", "Delete this trade from the journal?"))) {
           trades = trades.filter(t => t.id !== id);
           saveData();
           renderJournalTable();
@@ -1364,30 +1165,33 @@
       };
 
       function updateFilterOptions() {
+        const accountTrades = trades.filter(t => t.accountId === profile.currentAccount);
         const marketSel = $('filter-market');
         if (marketSel) {
           const curVal = marketSel.value;
-          const uniqueMarkets = [...new Set(trades.map(t => (t.market || '').toString().trim().toUpperCase()).filter(Boolean))].sort();
+          const uniqueMarkets = [...new Set(accountTrades.map(t => (t.market || '').toString().trim().toUpperCase()).filter(Boolean))].sort();
           const currentOpts = Array.from(marketSel.options).map(o => o.value).filter(Boolean);
           const isSame = uniqueMarkets.length === currentOpts.length && uniqueMarkets.every((m, i) => m === currentOpts[i]);
           if (!isSame) {
-            marketSel.innerHTML = '<option value="">Semua Market</option>' +
+            marketSel.innerHTML = '<option value="">' + esc(window.JTI18n?.key('journalAllMarkets', 'All markets') || (language === 'en' ? 'All markets' : 'Semua Market')) + '</option>' +
               uniqueMarkets.map(m => `<option value="${esc(m)}">${esc(m)}</option>`).join('');
             marketSel.value = curVal;
           }
+          if (marketSel.options[0]) marketSel.options[0].textContent = window.JTI18n?.key('journalAllMarkets', 'All markets') || (language === 'en' ? 'All markets' : 'Semua Market');
         }
 
         const stratSel = $('filter-strategy');
         if (stratSel) {
           const curVal = stratSel.value;
-          const uniqueStrats = [...new Set(trades.map(t => (t.strategy || '').toString().trim()).filter(Boolean))].sort();
+          const uniqueStrats = [...new Set(accountTrades.map(t => (t.strategy || '').toString().trim()).filter(Boolean))].sort();
           const currentOpts = Array.from(stratSel.options).map(o => o.value).filter(Boolean);
           const isSame = uniqueStrats.length === currentOpts.length && uniqueStrats.every((s, i) => s === currentOpts[i]);
           if (!isSame) {
-            stratSel.innerHTML = '<option value="">Semua Strategi</option>' +
+            stratSel.innerHTML = '<option value="">' + esc(window.JTI18n?.key('journalAllStrategies', 'All strategies') || (language === 'en' ? 'All strategies' : 'Semua Strategi')) + '</option>' +
               uniqueStrats.map(s => `<option value="${esc(s)}">${esc(s)}</option>`).join('');
             stratSel.value = curVal;
           }
+          if (stratSel.options[0]) stratSel.options[0].textContent = window.JTI18n?.key('journalAllStrategies', 'All strategies') || (language === 'en' ? 'All strategies' : 'Semua Strategi');
         }
       }
 
@@ -1417,12 +1221,12 @@
 
         updateFilterOptions();
 
-        // Calculate pulse ribbon stats for all trades
+        const accountTrades = trades.filter(t => t.accountId === profile.currentAccount);
         let jWins = 0, jLoss = 0, jBE = 0;
         let jNetUSD = 0, jWinUSD = 0, jLossUSD = 0;
         let jTotalRR = 0, jRRCount = 0;
 
-        trades.filter(t => t.accountId === profile.currentAccount).forEach(t => {
+        accountTrades.forEach(t => {
           const m = computeTradeMetrics(t);
           if (Number.isFinite(m.rr)) { jTotalRR += m.rr; jRRCount++; }
           const res = (t.result || '').toString().trim().toLowerCase();
@@ -1438,34 +1242,42 @@
           jNetUSD += m.pnlUSD;
         });
 
-        const jTotal = trades.length;
+        const jTotal = accountTrades.length;
         const jWinRate = jTotal ? ((jWins / jTotal) * 100) : 0;
-        const jPF = jLossUSD > 0 ? (jWinUSD / jLossUSD) : (jWinUSD > 0 ? 99 : 0);
+        const jPF = jLossUSD > 0 ? (jWinUSD / jLossUSD) : (jWinUSD > 0 ? Infinity : 0);
         const jAvgRR = jRRCount ? (jTotalRR / jRRCount) : null;
 
-        if ($('j-stat-total')) $('j-stat-total').textContent = `${jTotal} Posisi`;
+        if ($('j-stat-total')) $('j-stat-total').textContent = jTotal.toLocaleString(language);
         if ($('j-stat-winrate')) {
           $('j-stat-winrate').textContent = `${jWinRate.toFixed(1)}%`;
           $('j-stat-winrate').style.color = jWinRate >= 50 ? 'var(--green)' : 'var(--red)';
         }
-        if ($('j-stat-wincount')) $('j-stat-wincount').textContent = `${jWins} Win · ${jLoss} Loss · ${jBE} BE`;
+        if ($('j-stat-wincount')) $('j-stat-wincount').textContent = (window.JTI18n?.key('journalResults', '{wins} Win · {losses} Loss · {breakeven} BE') || '{wins} Win · {losses} Loss · {breakeven} BE').replace('{wins}', jWins).replace('{losses}', jLoss).replace('{breakeven}', jBE);
+        [['j-bar-win', jWins], ['j-bar-loss', jLoss], ['j-bar-be', jBE]].forEach(([id, count]) => {
+          if ($(id)) { $(id).style.flexGrow = count; $(id).hidden = count === 0; }
+        });
         if ($('j-stat-netpl')) {
           $('j-stat-netpl').textContent = fmtPLUSD(jNetUSD);
           $('j-stat-netpl').style.color = jNetUSD >= 0 ? 'var(--green)' : 'var(--red)';
         }
         if ($('j-stat-idr')) {
           $('j-stat-idr').textContent = fmtPLIDR(jNetUSD * (settings.kurs || 17000));
-          $('j-stat-idr').style.color = jNetUSD >= 0 ? 'var(--green)' : 'var(--red)';
+          $('j-stat-idr').style.color = 'var(--text-muted)';
         }
-        if ($('j-stat-pf')) $('j-stat-pf').textContent = jPF > 50 ? '∞' : jPF.toFixed(2);
+        if ($('j-stat-pf')) $('j-stat-pf').textContent = Number.isFinite(jPF) ? jPF.toFixed(2) : '∞';
         if ($('j-stat-rr')) $('j-stat-rr').textContent = jAvgRR===null?'-':`1 : ${jAvgRR.toFixed(2)}`;
 
         const fMarket = (($('filter-market') && $('filter-market').value) || '').trim().toUpperCase();
         const fResult = (($('filter-result') && $('filter-result').value) || '').trim().toLowerCase();
         const fStrategy = (($('filter-strategy') && $('filter-strategy').value) || '').trim().toLowerCase();
         const fSearch = (($('filter-search') && $('filter-search').value) || '').trim().toLowerCase();
+        ['all', 'win', 'loss', 'be'].forEach(result => {
+          const chip = $('chip-filter-' + result);
+          const active = result === 'all' ? !fResult : result === fResult;
+          if (chip) { chip.classList.toggle('active', active); chip.setAttribute('aria-pressed', String(active)); }
+        });
 
-        const filtered = trades.filter(t => {
+        const filtered = accountTrades.filter(t => {
           const tMarket = (t.market || '').toString().trim().toUpperCase();
           const tResult = (t.result || '').toString().trim().toLowerCase();
           const tStrat = (t.strategy || '').toString().trim().toLowerCase();
@@ -1482,6 +1294,7 @@
           }
           return true;
         });
+        if ($('journal-row-count')) $('journal-row-count').textContent = (window.JTI18n?.key('journalRows', 'Showing {shown} of {total} positions') || (language === 'en' ? 'Showing {shown} of {total} positions' : 'Menampilkan {shown} dari {total} posisi')).replace('{shown}', filtered.length).replace('{total}', jTotal);
 
         if (!filtered.length) {
           tbody.innerHTML = '';
@@ -1504,28 +1317,22 @@
 
             return `<tr>
               <td style="color:var(--text-muted);">${filtered.length - idx}</td>
-              <td>${esc(t.date || '-')}</td>
-              <td style="color:var(--text-muted);">${esc(t.jam || '-')}</td>
-              <td><button type="button" class="btn-market-link" onclick="openTradingView('${marketName}')" title="Buka chart ${marketName} di TradingView"><b>${marketName}</b> <span style="font-size:10px; opacity:0.5;"></span></button></td>
-              <td><span class="pos-badge ${posClass}">${esc(pos.toUpperCase())}</span></td>
+              <td><div class="journal-cell-stack"><span>${esc(t.date || '-')}</span><small>${esc(t.jam || '-')}</small></div></td>
+              <td><button type="button" class="btn-market-link" onclick="openTradingView('${marketName}')" title="${esc((window.JTI18n?.key('journalChartTitle', 'Open {market} chart in TradingView') || 'Open {market} chart in TradingView').replace('{market}', marketName))}"><b>${marketName}</b></button></td>
+              <td><span class="pos-badge ${posClass}">${esc(pos.toLowerCase() === 'buy' ? uiText('Beli', 'Buy') : pos.toLowerCase() === 'sell' ? uiText('Jual', 'Sell') : pos)}</span></td>
               <td>${esc(t.entry ?? '-')}</td>
               <td style="color:var(--red);">${esc(t.sl ?? '-')}</td>
               <td style="color:var(--green);">${esc(t.tp ?? '-')}</td>
               <td>${esc(t.vol ?? '-')}</td>
-              <td>${t.riskPct===null?'-':esc(t.riskPct ?? 1)+'%'}</td>
-              <td>${m.riskUSD===null?'-':fmtUSD(m.riskUSD)}</td>
+              <td><div class="journal-cell-stack"><span>${m.riskUSD===null?'-':fmtUSD(m.riskUSD)}</span><small>${t.riskPct===null?'-':esc(t.riskPct ?? 1)+'%'}</small></div></td>
               <td>${m.rr===null?'-':(m.rr || 0).toFixed(2)}</td>
-              <td><span class="${resClass}">${esc(resVal)}</span></td>
-              <td class="${pnlClass}">${fmtPLUSD(m.pnlUSD)}</td>
-              <td class="${pnlClass}">${fmtPLIDR(m.pnlIDR)}</td>
-              <td style="font-family:var(--sans);">${esc(t.strategy || '-')}</td>
-              <td style="font-family:var(--sans); max-width:180px; overflow:hidden; text-overflow:ellipsis;" title="${esc(t.reason || '')}">
-                ${esc(t.reason || '-')}
-              </td>
-              <td>
-                <button class="btn btn-ghost btn-sm" style="padding:3px 7px;" onclick="editTrade('${tradeId}')" title="Edit">${language === 'en' ? 'Edit' : 'Edit'}</button>
-                <button class="btn btn-danger btn-sm" style="padding:3px 7px;" onclick="deleteTrade('${tradeId}')" title="Hapus">${language === 'en' ? 'Delete' : 'Hapus'}</button>
-              </td>
+              <td><span class="${resClass}">${esc(window.JTI18n?.key(resLower === 'win' ? 'journalWin' : resLower === 'loss' ? 'journalLoss' : 'journalBreakEven', resVal) || resVal)}</span></td>
+              <td><div class="journal-cell-stack"><span class="${pnlClass}">${fmtPLUSD(m.pnlUSD)}</span><small>${fmtPLIDR(m.pnlIDR)}</small></div></td>
+              <td class="journal-strategy">${t.reason ? `<details><summary>${esc(t.strategy || '-')}</summary><p>${esc(t.reason)}</p></details>` : esc(t.strategy || '-')}</td>
+              <td><div class="journal-row-actions">
+                <button class="btn btn-ghost btn-sm" type="button" onclick="editTrade('${tradeId}')">${esc(window.JTI18n?.key('journalEdit', 'Edit') || 'Edit')}</button>
+                <button class="btn btn-danger btn-sm" type="button" onclick="deleteTrade('${tradeId}')">${esc(window.JTI18n?.key('journalDelete', 'Delete') || (language === 'en' ? 'Delete' : 'Hapus'))}</button>
+              </div></td>
             </tr>`;
           } catch (err) {
             console.error('Error rendering trade row:', err, t);
@@ -1549,7 +1356,7 @@
         renderSavedScans();
         const chips = $('fu-06-chips');
         if (chips) chips.innerHTML = '';
-        $('upload-status-msg').textContent = 'Pilih berkas dari perangkat Anda atau seret ke area dropzone di atas.';
+        $('upload-status-msg').textContent = uiText("Pilih berkas dari perangkat Anda atau seret ke area dropzone di atas.", "Choose a file from your device or drag it into the area above.");
         parsedTradesToImport = [];
         applyLanguage();
         $('upload-modal').focus();
@@ -1659,18 +1466,18 @@
         const MAX_SIZE_BYTES = 10 * 1024 * 1024; // 10 MB
         if (file.size > MAX_SIZE_BYTES) {
           const actualMB = (file.size / (1024 * 1024)).toFixed(2);
-          status.innerHTML = `<span style="color:var(--red); font-weight:700;">Gagal: Ukuran file (${actualMB} MB) melebihi batas maksimum 10 MB.</span><br><span style="color:var(--text-muted); font-size:11.5px;">Silakan unggah dokumen yang lebih ringkas atau kompres file.</span>`;
+          status.textContent = uiText('Ukuran file ({size} MB) melebihi batas 10 MB. Gunakan dokumen yang lebih kecil atau kompres file.', 'File size ({size} MB) exceeds the 10 MB limit. Use a smaller document or compress the file.').replace('{size}', actualMB);
           $('btn-confirm-import').style.display = 'none';
           $('upload-preview-area').style.display = 'none';
           return;
         }
 
-        status.textContent = `${language === 'en' ? 'Reading' : 'Membaca'} ${file.name} (${formatFileSize(file.size)})…`;
+        status.textContent = `${uiText('Membaca', 'Reading')} ${file.name} (${formatFileSize(file.size)})…`;
         const ext = file.name.split('.').pop().toLowerCase();
         parsedTradesToImport = [];
 
         try {
-          if (!['pdf', 'png', 'jpg', 'jpeg', 'txt', 'csv'].includes(ext)) throw new Error(language === 'en' ? 'Use PDF, PNG, JPG, TXT, or CSV.' : 'Gunakan PDF, PNG, JPG, TXT, atau CSV.');
+          if (!['pdf', 'png', 'jpg', 'jpeg', 'txt', 'csv'].includes(ext)) throw new Error(uiText('Gunakan PDF, PNG, JPG, TXT, atau CSV.', 'Use PDF, PNG, JPG, TXT, or CSV.'));
           await refreshAccountAccess(true);
           if (job !== scanJob) return;
           if (ext === 'txt' || ext === 'csv') {
@@ -1679,18 +1486,18 @@
             return;
           }
           if (!['pdf', 'png', 'jpg', 'jpeg'].includes(ext)) {
-            throw new Error('Gunakan PDF, PNG, JPG, TXT, atau CSV. Untuk Excel, ekspor ke CSV terlebih dahulu.');
+            throw new Error(uiText("Gunakan PDF, PNG, JPG, TXT, atau CSV. Untuk Excel, ekspor ke CSV terlebih dahulu.", "Use PDF, PNG, JPG, TXT or CSV. Export Excel files to CSV first."));
           }
           const pages = ext === 'pdf' ? await scanPDF(file, job) : [await recognizeImage(file, job)];
           const text = pages.map((page, index) => (ext === 'pdf' ? `[Halaman ${index + 1}]\n` : '') + page.text.trim()).join('\n\n');
           if (job !== scanJob) return;
-          if (!text.trim()) throw new Error('Tidak ada teks terbaca. Coba berkas yang lebih jelas atau salin teks secara manual.');
+          if (!text.trim()) throw new Error(uiText("Tidak ada teks terbaca. Coba berkas yang lebih jelas atau salin teks secara manual.", "No readable text found. Try a clearer file or paste the text manually."));
           currentScan = { name: file.name, text: text.trim(), recognition: analyzeTradeScan(pages), status: 'ready', scannedAt: new Date().toISOString() };
           showScan(currentScan);
-          status.textContent = 'Pemindaian selesai. Periksa teks sebelum menyimpan hasil scan. Tidak ada trade yang ditambahkan.';
+          status.textContent = uiText("Pemindaian selesai. Periksa teks sebelum menyimpan hasil scan. Tidak ada trade yang ditambahkan.", "Scan complete. Review the text before saving. No trades have been added.");
           applyLanguage();
         } catch (error) {
-          if (job === scanJob) status.textContent = (language === 'en' ? 'Scan failed: ' : 'Pemindaian gagal: ') + error.message;
+          if (job === scanJob) status.textContent = (uiText('Pemindaian gagal: ', 'Scan failed: ')) + error.message;
         }
       }
 
@@ -1708,13 +1515,13 @@
         if (job !== scanJob) return { text: '', lines: [] };
         const worker = await Tesseract.createWorker('eng', 1, { logger: progress => {
           if (job === scanJob && progress.status === 'recognizing text') {
-            $('upload-status-msg').textContent = `${language === 'en' ? 'Recognizing text' : 'Mengenali teks'} ${Math.round(progress.progress * 100)}%…`;
+            $('upload-status-msg').textContent = `${uiText('Mengenali teks', 'Recognizing text')} ${Math.round(progress.progress * 100)}%…`;
           }
         } });
         let bitmap;
         try {
           bitmap = await createImageBitmap(source);
-          if (bitmap.width*bitmap.height>12000000 || Math.max(bitmap.width,bitmap.height)>10000) throw new Error('Gambar terlalu besar untuk OCR. Gunakan gambar maksimal 12 megapiksel.');
+          if (bitmap.width*bitmap.height>12000000 || Math.max(bitmap.width,bitmap.height)>10000) throw new Error(uiText("Gambar terlalu besar untuk OCR. Gunakan gambar maksimal 12 megapiksel.", "Image too large for OCR. Use an image of up to 12 megapixels."));
           const original = document.createElement('canvas');
           original.width = bitmap.width;
           original.height = bitmap.height;
@@ -1787,7 +1594,7 @@
         try {
           // ponytail: scan pages sequentially to bound memory; use a worker queue for large documents.
           for (let n = 1; n <= pdf.numPages && job === scanJob; n++) {
-            $('upload-status-msg').textContent = `${language === 'en' ? 'Reading page' : 'Membaca halaman'} ${n}/${pdf.numPages}…`;
+            $('upload-status-msg').textContent = `${uiText('Membaca halaman', 'Reading page')} ${n}/${pdf.numPages}…`;
             const page = await pdf.getPage(n);
             const content = await page.getTextContent();
             let text = content.items.map(item => item.str + (item.hasEOL ? '\n' : ' ')).join('');
@@ -1819,7 +1626,7 @@
         const candidates=scanHistoryRows(scan);
         $('scan-import-controls').hidden=!candidates.length;
         $('btn-import-scan').disabled=false;
-        $('btn-import-scan').textContent=language==='en'?`Add ${candidates.length} trades to journal`:`Masukkan ${candidates.length} transaksi ke jurnal`;
+        $('btn-import-scan').textContent=uiText('Masukkan {total} transaksi ke jurnal', 'Add {total} trades to journal').replace('{total}', candidates.length);
         $('btn-save-scan').disabled = false;
         applyLanguage();
       }
@@ -1842,7 +1649,7 @@
           const scanSource=Array.from(new Uint8Array(digest),byte=>byte.toString(16).padStart(2,'0')).join('');
           if (scan!==currentScan)return;
           if(trades.some(trade=>trade.scanSource===scanSource)) {
-            $('upload-status-msg').textContent=language==='en'?'This scan is already in the journal.':'Hasil scan ini sudah ada di jurnal.';
+            $('upload-status-msg').textContent=uiText('Hasil scan ini sudah ada di jurnal.', 'This scan is already in the journal.');
             return;
           }
           const imported=rows.map(row=>({id:'t_'+crypto.randomUUID(),accountId:account.id,date:row.date,jam:row.time,
@@ -1857,7 +1664,7 @@
           switchTab('jurnal');
           resetJournalFilters();
         } catch(error) {
-          $('upload-status-msg').textContent=language==='en'?'Import failed. Keep your scan and try again.':'Impor gagal. Hasil scan tetap tersedia; periksa penyimpanan dan coba lagi.';
+          $('upload-status-msg').textContent=uiText('Impor gagal. Hasil scan tetap tersedia; periksa penyimpanan dan coba lagi.', 'Import failed. Keep your scan and try again.');
         } finally { button.disabled=false; }
       };
 
@@ -1865,30 +1672,30 @@
         const container=$('scan-recognition');
         container.replaceChildren();
         if (!recognition?.records?.length) {
-          container.textContent=language==='en'?'No supported trade layout detected. The readable text is available below.':'Format transaksi belum dikenali. Teks yang terbaca tetap tersedia di bawah.';
+          container.textContent=uiText('Format transaksi belum dikenali. Teks yang terbaca tetap tersedia di bawah.', 'No supported trade layout detected. The readable text is available below.');
           return;
         }
         const heading=document.createElement('h4');
-        heading.textContent=language==='en'?'Automatically detected information':'Informasi dikenali otomatis';
+        heading.textContent=uiText('Informasi dikenali otomatis', 'Automatically detected information');
         container.appendChild(heading);
         const value=v=>v===null||v===undefined?'-':String(v);
         for (const kind of ['history','chart']) {
           const rows=recognition.records.filter(r=>r.kind===kind);
           if(!rows.length)continue;
           const title=document.createElement('p');
-          title.textContent=kind==='history'?`Riwayat posisi · ${rows.length} baris`:`Setup chart · ${rows.length} setup`;
+          title.textContent=(kind==='history' ? uiText('Riwayat posisi · {total} baris', 'Position history · {total} rows') : uiText('Setup chart · {total} setup', 'Chart analysis · {total} setups')).replace('{total}', rows.length);
           container.appendChild(title);
           const wrap=document.createElement('div');wrap.className='scan-table-wrap';wrap.tabIndex=0;
           wrap.setAttribute('role','region');wrap.setAttribute('aria-label',title.textContent);
           const table=document.createElement('table');table.className='trade-table';
           const columns=kind==='history'?[['market','Market'],['direction','Posisi'],['volume','Lot'],['date','Tanggal'],['time','Waktu'],['entry','Entry'],['exit','Exit'],['profit','Profit*'],['result','Hasil']]:
-            [['market','Market'],['direction','Posisi'],['entry','Entry'],['sl','SL'],['tp','TP'],['stopDistance','Jarak stop'],['targetDistance','Jarak target'],['rr','R:R'],['quantity','Qty alat'],['toolPnl','PnL alat']];
-          table.innerHTML='<thead><tr>'+columns.map(c=>`<th>${esc(c[1])}</th>`).join('')+'</tr></thead><tbody>'+rows.map(row=>'<tr>'+columns.map(c=>`<td>${esc(value(row[c[0]]))}</td>`).join('')+'</tr>').join('')+'</tbody>';
+            [['market','Market'],['direction','Posisi'],['entry','Entry'],['sl','SL'],['tp','TP'],['stopDistance',uiText("Jarak stop", "Stop distance")],['targetDistance',uiText("Jarak target", "Target distance")],['rr','R:R'],['quantity',uiText("Qty alat", "Tool quantity")],['toolPnl',uiText("PnL alat", "Tool PnL")]];
+          table.innerHTML='<thead><tr>'+columns.map(c=>`<th>${esc(uiText(c[1], ({Posisi:'Side',Tanggal:'Date',Waktu:'Time',Hasil:'Outcome'})[c[1]] || c[1]))}</th>`).join('')+'</tr></thead><tbody>'+rows.map(row=>'<tr>'+columns.map(c=>`<td>${esc(value(row[c[0]]))}</td>`).join('')+'</tr>').join('')+'</tbody>';
           wrap.appendChild(table);container.appendChild(wrap);
           for(const row of rows)if(row.notes?.length){const note=document.createElement('p');note.textContent=`${row.market||'Chart'}: ${row.notes.join(' ')}`;container.appendChild(note);}
         }
         const warnings=document.createElement('p');
-        warnings.textContent=recognition.warnings.join(' ')+' - berarti belum terbaca. '+(recognition.records.some(r=>r.kind==='history')?'*Profit mengikuti screenshot, mata uang belum diketahui. ':'')+'Periksa hasil OCR sebelum menyimpan. Jurnal tidak diubah otomatis.';
+        warnings.textContent=recognition.warnings.join(' ')+uiText(" - berarti belum terbaca. ", " - indicates an unreadable value. ")+(recognition.records.some(r=>r.kind==='history')?uiText("*Profit mengikuti screenshot, mata uang belum diketahui. ", "*Profit matches the screenshot; the currency is unknown. "):'')+uiText("Periksa hasil OCR sebelum menyimpan. Jurnal tidak diubah otomatis.", "Review OCR results before saving. The journal is not changed automatically.");
         container.appendChild(warnings);
       }
 
@@ -1915,7 +1722,7 @@
             currentScan = scans[index];
             showScan(currentScan);
             $('btn-save-scan').disabled = true;
-            $('upload-status-msg').textContent = 'Hasil scan tersimpan di perangkat ini.';
+            $('upload-status-msg').textContent = uiText("Hasil scan tersimpan di perangkat ini.", "Scan results are saved on this device.");
             applyLanguage();
           };
           $('saved-scans').appendChild(button);
@@ -1929,9 +1736,9 @@
           localStorage.setItem(scanStorageKey, JSON.stringify([currentScan, ...savedScans()]));
           renderSavedScans();
           $('btn-save-scan').disabled = true;
-          $('upload-status-msg').textContent = 'Hasil scan disimpan di perangkat ini. Jurnal Anda tidak berubah.';
+          $('upload-status-msg').textContent = uiText("Hasil scan disimpan di perangkat ini. Jurnal Anda tidak berubah.", "Scan results saved on this device. Your journal is unchanged.");
         } catch {
-          $('upload-status-msg').textContent = 'Penyimpanan penuh. Salin teks hasil scan sebelum menutup jendela.';
+          $('upload-status-msg').textContent = uiText("Penyimpanan penuh. Salin teks hasil scan sebelum menutup jendela.", "Storage full. Copy the scan text before closing this window.");
         }
         applyLanguage();
       };
@@ -1986,9 +1793,9 @@
         if (parsed.length > 0) {
           parsedTradesToImport = parsed;
           showUploadPreview(parsed);
-          $('upload-status-msg').innerHTML = `<span style="color:var(--green);"> Berhasil membaca ${parsed.length} entri trade dari berkas!</span>`;
+          $('upload-status-msg').textContent = uiText('Terbaca {total} entri trade dari berkas.', 'Read {total} trade entries from the file.').replace('{total}', parsed.length);
         } else {
-          $('upload-status-msg').innerHTML = `<span style="color:var(--orange);">Tidak ditemukan baris data trade yang valid. Pastikan ada kolom Market, Entry, dan Stop Loss.</span>`;
+          $('upload-status-msg').textContent = uiText('Tidak ada baris trade yang valid. Pastikan ada kolom Market, Entry, dan Stop Loss.', 'No valid trade rows found. Include Market, Entry and Stop Loss columns.');
         }
       }
 
@@ -2011,7 +1818,7 @@
 
         area.style.display = 'block';
         btn.style.display = 'inline-flex';
-        btn.textContent = `Impor ${list.length} Trade ke Jurnal`;
+        btn.textContent = uiText('Impor {total} trade ke jurnal', 'Import {total} trades into journal').replace('{total}', list.length);
       }
 
       window.confirmParsedImport = function () {
@@ -2020,7 +1827,7 @@
         saveData();
         closeUploadModal();
         renderJournalTable();
-        alert(`Sukses! ${parsedTradesToImport.length} trade telah ditambahkan ke Jurnal Anda.`);
+        alert(uiText('{total} trade ditambahkan ke jurnal.', '{total} trades added to journal.').replace('{total}', parsedTradesToImport.length));
       };
 
       /* Statistics & charts (codefronts tailwind dark metric cards) */
@@ -2084,24 +1891,24 @@
         const totalTrades = chronological.length;
         const winRate = totalTrades ? (wins / totalTrades) * 100 : 0;
         const netPL = sumWinUSD - sumLossUSD;
-        const profitFactor = sumLossUSD > 0 ? (sumWinUSD / sumLossUSD) : (sumWinUSD > 0 ? 99 : 0);
+        const profitFactor = sumLossUSD > 0 ? (sumWinUSD / sumLossUSD) : (sumWinUSD > 0 ? Infinity : 0);
         const avgRR = rrCount ? (totalRR / rrCount) : null;
         const expectancy = totalTrades ? (netPL / totalTrades) : 0;
 
         // Populate KPI Cards
         $('kpi-winrate').textContent = winRate.toFixed(1) + '%';
-        $('kpi-win-count').textContent = `${wins} Win · ${losses} Loss · ${bes} BE`;
+        $('kpi-win-count').textContent = window.JTI18n?.key('journalResults', '{wins} Win · {losses} Loss · {breakeven} BE', {wins,losses,breakeven:bes}) || `${wins} Win · ${losses} Loss · ${bes} BE`;
         $('kpi-winrate-delta').className = `kpi-delta ${winRate >= 50 ? 'pos' : 'neg'}`;
-        $('kpi-winrate-delta').textContent = winRate >= 50 ? 'Win Rate Kuat' : 'Perlu Evaluasi';
+        $('kpi-winrate-delta').textContent = winRate >= 50 ? uiText("Win Rate Kuat", "Win rate above 50%") : uiText("Perlu Evaluasi", "Review your results");
 
         $('kpi-netpl').textContent = fmtPLUSD(netPL);
         $('kpi-netpl').style.color = netPL >= 0 ? 'var(--green)' : 'var(--red)';
         $('kpi-netpl-idr').textContent = fmtPLIDR(netPL * settings.kurs);
-        $('kpi-netpl-delta').textContent = startBal > 0 ? ((netPL / startBal) * 100).toFixed(1) + (language === 'en' ? '% balance' : '% Saldo') : (language === 'en' ? 'Add a starting balance' : 'Tambahkan saldo awal');
+        $('kpi-netpl-delta').textContent = startBal > 0 ? ((netPL / startBal) * 100).toFixed(1) + (uiText('% Saldo', '% balance')) : (uiText('Tambahkan saldo awal', 'Add a starting balance'));
         $('kpi-netpl-delta').className = `kpi-delta ${netPL >= 0 ? 'pos' : 'neg'}`;
 
-        $('kpi-pf').textContent = profitFactor > 50 ? '∞' : profitFactor.toFixed(2);
-        $('kpi-total-trades').textContent = `${totalTrades} Trades`;
+        $('kpi-pf').textContent = Number.isFinite(profitFactor) ? profitFactor.toFixed(2) : '∞';
+        $('kpi-total-trades').textContent = uiText('{total} transaksi', '{total} trades').replace('{total}', totalTrades);
 
         $('kpi-max-dd').textContent = 'DD: -' + fmtUSD(maxDrawdownUSD);
         $('kpi-avg-rr').textContent = avgRR===null?'-':avgRR.toFixed(2) + 'R';
@@ -2110,7 +1917,7 @@
         // Performance Matrix
         if ($('stat-best-win')) $('stat-best-win').textContent = '+' + fmtUSD(bestWinUSD);
         if ($('stat-worst-loss')) $('stat-worst-loss').textContent = '-' + fmtUSD(worstLossUSD);
-        if ($('stat-win-streak')) $('stat-win-streak').textContent = `${maxWinStreak} Beruntun`;
+        if ($('stat-win-streak')) $('stat-win-streak').textContent = uiText('{total} beruntun', '{total} consecutive').replace('{total}', maxWinStreak);
         if ($('stat-max-dd-val')) $('stat-max-dd-val').textContent = '-' + fmtUSD(maxDrawdownUSD);
         if ($('stat-account-pill') && acc) $('stat-account-pill').textContent = `${acc.broker} (${acc.name})`;
 
@@ -2120,12 +1927,12 @@
         if ($('ds-be-pct')) $('ds-be-pct').textContent = totalTrades ? `${((bes / totalTrades) * 100).toFixed(0)}% (${bes})` : '0%';
 
         const report = disciplineMetrics(chronological);
-        $('discipline-status').textContent = report.total ? report.total + (language === 'en' && report.total !== 1 ? ' trades' : ' trade') : 'Belum ada trade';
-        $('discipline-sl').textContent = report.total ? report.slPct.toFixed(0) + (language === 'en' ? '% recorded' : '% tercatat') : 'Belum ada data';
+        $('discipline-status').textContent = report.total ? uiText('{total} transaksi', '{total} trades').replace('{total}', report.total) : uiText("Belum ada trade", "No trades yet");
+        $('discipline-sl').textContent = report.total ? report.slPct.toFixed(0) + (uiText('% tercatat', '% recorded')) : uiText("Belum ada data", "No data yet");
         $('discipline-sl-bar').style.width = report.slPct + '%';
-        $('discipline-risk').textContent = report.riskCount ? report.avgRisk.toFixed(2) + '% (' + report.riskCount + '/' + report.total + ' trade)' : 'Belum ada data risiko';
-        $('discipline-dd').textContent = report.total && startBal > 0 ? (maxDrawdownUSD / startBal * 100).toFixed(2) + (language === 'en' ? '% of starting balance' : '% dari saldo awal') : 'Saldo awal dan transaksi diperlukan';
-        $('discipline-summary').textContent = report.total ? 'Dihitung dari jurnal akun aktif. SL tercatat tidak memastikan pemasangan di broker; kondisi psikologi belum dicatat.' : 'Tambahkan transaksi untuk melihat rapor akun ini.';
+        $('discipline-risk').textContent = report.riskCount ? report.avgRisk.toFixed(2) + '% (' + report.riskCount + '/' + report.total + ' trade)' : uiText("Belum ada data risiko", "No risk data yet");
+        $('discipline-dd').textContent = report.total && startBal > 0 ? (maxDrawdownUSD / startBal * 100).toFixed(2) + (uiText('% dari saldo awal', '% of starting balance')) : uiText("Saldo awal dan transaksi diperlukan", "Starting balance and trades are required");
+        $('discipline-summary').textContent = report.total ? uiText("Dihitung dari jurnal akun aktif. SL tercatat tidak memastikan pemasangan di broker; kondisi psikologi belum dicatat.", "Calculated from the active account journal. A recorded stop loss does not confirm a broker order; psychological conditions are not recorded.") : uiText("Tambahkan transaksi untuk melihat rapor akun ini.", "Add trades to see this account review.");
 
         // Draw SVG Charts
         drawKpiSparklines(kpiCurves);
@@ -2159,7 +1966,7 @@
         const w = 800, h = 200, pad = 20;
 
         if (curve.length < 2) {
-          svg.innerHTML = `<line x1="0" y1="${h/2}" x2="${w}" y2="${h/2}" stroke="var(--line)"/><text x="400" y="105" text-anchor="middle" fill="#64748b" font-size="12">Belum ada data eksekusi</text>`;
+          svg.innerHTML = `<line x1="0" y1="${h/2}" x2="${w}" y2="${h/2}" stroke="var(--line)"/><text x="400" y="105" text-anchor="middle" fill="#64748b" font-size="12">${esc(uiText('Belum ada data eksekusi', 'No execution data yet.'))}</text>`;
           return;
         }
 
@@ -2198,15 +2005,15 @@
         const svg = $('donut-chart-svg');
         if (!svg) return;
         if (!total) {
-          svg.innerHTML = `<text x="160" y="100" text-anchor="middle" fill="#64748b" font-size="13">Belum ada trade</text>`;
+          svg.innerHTML = `<text x="160" y="100" text-anchor="middle" fill="#64748b" font-size="13">${esc(uiText('Belum ada trade', 'No trades yet.'))}</text>`;
           return;
         }
 
         const cx = 90, cy = 100, r = 58, rIn = 36;
         const data = [
-          { label: 'Win', val: w, color: '#10b981' },
-          { label: 'Loss', val: l, color: '#f43f5e' },
-          { label: 'BE', val: b, color: '#64748b' }
+          { label: uiText('Menang', 'Win'), val: w, color: '#10b981' },
+          { label: uiText('Rugi', 'Loss'), val: l, color: '#f43f5e' },
+          { label: uiText('Impas', 'Break even'), val: b, color: '#64748b' }
         ];
 
         let startAngle = -Math.PI / 2;
@@ -2235,13 +2042,13 @@
         const legend = data.map((d, i) => `
           <g transform="translate(180, ${60 + i * 26})">
             <rect width="10" height="10" rx="3" fill="${d.color}"/>
-            <text x="16" y="9" font-size="12" fill="#cbd5e1">${d.label}: ${d.val} (${((d.val / total) * 100).toFixed(0)}%)</text>
+            <text x="16" y="9" font-size="12" fill="#cbd5e1">${esc(d.label)}: ${d.val} (${((d.val / total) * 100).toFixed(0)}%)</text>
           </g>
         `).join('');
 
         svg.innerHTML = paths + `
           <text x="${cx}" y="${cy - 2}" text-anchor="middle" font-size="20" font-weight="700" fill="#ffffff" font-family="monospace">${total}</text>
-          <text x="${cx}" y="${cy + 14}" text-anchor="middle" font-size="9" fill="#8492a6" font-family="sans-serif">TRADES</text>
+          <text x="${cx}" y="${cy + 14}" text-anchor="middle" font-size="9" fill="#8492a6" font-family="sans-serif">${esc(uiText('Transaksi', 'Trades'))}</text>
         ` + legend;
       }
 
@@ -2251,8 +2058,8 @@
 
         trades.forEach(t => {
           const m = computeTradeMetrics(t);
-          const s = t.strategy || 'Uncategorized';
-          const p = t.market || 'OTHER';
+          const s = t.strategy || uiText('Tanpa kategori', 'Uncategorized');
+          const p = t.market || uiText('Lainnya', 'Other');
           stratMap[s] = (stratMap[s] || 0) + m.pnlUSD;
           marketMap[p] = (marketMap[p] || 0) + m.pnlUSD;
         });
@@ -2262,7 +2069,7 @@
           if (!c) return;
           const entries = Object.entries(map).sort((a, b) => b[1] - a[1]);
           if (!entries.length) {
-            c.innerHTML = '<span style="color:var(--text-muted); font-size:12px;">Belum ada data</span>';
+            c.innerHTML = `<span style="color:var(--text-muted); font-size:12px;">${esc(uiText('Belum ada data', 'No data yet.'))}</span>`;
             return;
           }
           const maxVal = Math.max(...entries.map(x => Math.abs(x[1]))) || 1;
@@ -2445,16 +2252,16 @@
         const traderName = google?.name || profile.name || 'Trader';
         $('profile-google-manage').hidden = !google;
         $('p-account-email').value = cloudUser?.email || '';
-        $('p-account-email').placeholder = language === 'en' ? 'Not signed in' : 'Belum masuk';
-        $('p-account-note').textContent = google ? (language === 'en' ? 'Managed by your Google account.' : 'Dikelola oleh akun Google Anda.') : cloudUser ? (language === 'en' ? 'Email used to sign in.' : 'Email yang digunakan untuk masuk.') : (language === 'en' ? 'Sign in to save your journal to the server.' : 'Masuk untuk menyimpan jurnal ke server.');
-        $('profile-signin-method').textContent = google ? 'Google' : cloudUser ? 'Email' : (language === 'en' ? 'Local profile' : 'Profil lokal');
-        $('profile-storage-method').textContent = cloudUser ? (language === 'en' ? 'Server + browser copy' : 'Server + salinan browser') : (language === 'en' ? 'This browser' : 'Browser ini');
-        $('profile-account-summary').textContent = cloudUser?.email || (language === 'en' ? 'You are using a local profile.' : 'Anda menggunakan profil lokal.');
-        $('profile-sync-status').textContent = cloudUser ? ($('cloud-status')?.textContent || (language === 'en' ? 'Journal changes are saved to the server automatically.' : 'Perubahan jurnal otomatis disimpan ke server.')) : (language === 'en' ? 'Journal data stays in this browser. Export a backup to keep a copy.' : 'Data jurnal tersimpan di browser ini. Ekspor backup untuk menyimpan salinannya.');
+        $('p-account-email').placeholder = uiText('Belum masuk', 'Not signed in');
+        $('p-account-note').textContent = google ? (uiText('Dikelola oleh akun Google Anda.', 'Managed by your Google account.')) : cloudUser ? (uiText('Email yang digunakan untuk masuk.', 'Email used to sign in.')) : (uiText('Masuk untuk menyimpan jurnal ke server.', 'Sign in to save your journal to the server.'));
+        $('profile-signin-method').textContent = google ? 'Google' : cloudUser ? 'Email' : (uiText('Profil lokal', 'Local profile'));
+        $('profile-storage-method').textContent = cloudUser ? (uiText('Server + salinan browser', 'Server + browser copy')) : (uiText('Browser ini', 'This browser'));
+        $('profile-account-summary').textContent = cloudUser?.email || (uiText('Anda menggunakan profil lokal.', 'You are using a local profile.'));
+        $('profile-sync-status').textContent = cloudUser ? ($('cloud-status')?.textContent || (uiText('Perubahan jurnal otomatis disimpan ke server.', 'Journal changes are saved to the server automatically.'))) : (uiText('Data jurnal tersimpan di browser ini. Ekspor backup untuk menyimpan salinannya.', 'Journal data stays in this browser. Export a backup to keep a copy.'));
         if ($('tpc-display-name')) $('tpc-display-name').textContent = google?.name || traderName;
         if ($('tpc-google-email')) { $('tpc-google-email').hidden = !google?.email; $('tpc-google-email').textContent = google?.email || ''; }
-        if ($('tpc-account-provider')) $('tpc-account-provider').textContent = google ? (language === 'en' ? 'Google account' : 'Akun Google') : cloudUser ? (language === 'en' ? 'Server account' : 'Akun server') : (language === 'en' ? 'Local profile' : 'Profil lokal');
-        if ($('tpc-profile-alias')) { $('tpc-profile-alias').hidden = !google || !profile.name || profile.name === google.name; $('tpc-profile-alias').textContent = google && profile.name && profile.name !== google.name ? (language === 'en' ? 'Nickname: ' : 'Nama panggilan: ') + profile.name : ''; }
+        if ($('tpc-account-provider')) $('tpc-account-provider').textContent = google ? (uiText('Akun Google', 'Google account')) : cloudUser ? (uiText('Akun server', 'Server account')) : (uiText('Profil lokal', 'Local profile'));
+        if ($('tpc-profile-alias')) { $('tpc-profile-alias').hidden = !google || !profile.name || profile.name === google.name; $('tpc-profile-alias').textContent = google && profile.name && profile.name !== google.name ? (uiText('Nama panggilan: ', 'Nickname: ')) + profile.name : ''; }
         const avatar = $('tpc-google-avatar');
         if (avatar) { avatar.hidden = !google?.avatar; avatar.onerror = () => { avatar.hidden = true; }; if (google?.avatar && avatar.src !== google.avatar) avatar.src = google.avatar; if (!google?.avatar) avatar.removeAttribute('src'); }
         if ($('tpc-avatar-initials')) {
@@ -2464,9 +2271,9 @@
 
         const curAcc = currentAccount();
         if ($('tpc-sub-status') && curAcc) {
-          $('tpc-sub-status').textContent = `${language === 'en' ? 'Active journal' : 'Jurnal aktif'}: ${curAcc.broker} · ${curAcc.name}`;
+          $('tpc-sub-status').textContent = `${uiText('Jurnal aktif', 'Active journal')}: ${curAcc.broker} · ${curAcc.name}`;
         }
-        if (!curAcc) $('tpc-sub-status').textContent = language === 'en' ? 'Add a trading account to start your journal.' : 'Tambah akun trading untuk memulai jurnal.';
+        if (!curAcc) $('tpc-sub-status').textContent = uiText('Tambah akun trading untuk memulai jurnal.', 'Add a trading account to start your journal.');
 
         const wins = trades.filter(t => t.result === 'Win').length;
         const totalTrades = trades.length;
@@ -2489,8 +2296,8 @@
           const kb = (totalBytes / 1024).toFixed(1);
           if ($('vault-storage-used')) $('vault-storage-used').textContent = `${kb} KB`;
           if ($('vault-total-records')) $('vault-total-records').textContent = String(totalTrades);
-          $('vault-storage-status').textContent = language === 'en' ? 'Available in this browser' : 'Tersedia di browser ini';
-        } catch (e) { $('vault-storage-status').textContent = language === 'en' ? 'Browser storage unavailable' : 'Penyimpanan browser tidak tersedia'; }
+          $('vault-storage-status').textContent = uiText('Tersedia di browser ini', 'Available in this browser');
+        } catch (e) { $('vault-storage-status').textContent = uiText('Penyimpanan browser tidak tersedia', 'Browser storage unavailable'); }
 
         const wrap = $('accounts-list-wrap');
         if (!wrap) return;
@@ -2500,34 +2307,32 @@
             <span class="profile-broker-icon" aria-hidden="true">${esc((a.broker || a.name).slice(0, 2).toUpperCase())}</span>
             <div>
               <div class="account-item-title">${esc(a.name)}</div>
-              <div class="account-item-sub">${esc(a.broker)} · ${esc(a.currency)} · ${language === 'en' ? 'Initial balance' : 'Saldo awal'}: ${a.currency === 'IDR' ? fmtIDR(a.startBalance) : fmtUSD(a.startBalance)}</div>
+              <div class="account-item-sub">${esc(a.broker)} · ${esc(a.currency)} · ${uiText('Saldo awal', 'Initial balance')}: ${a.currency === 'IDR' ? fmtIDR(a.startBalance) : fmtUSD(a.startBalance)}</div>
             </div>
             <div style="display:flex; align-items:center; gap:10px;">
               <span class="account-item-bal">${a.currency === 'IDR' ? fmtIDR(a.startBalance) : fmtUSD(a.startBalance)}</span>
-              ${accounts.length > 1 ? `<button class="btn btn-danger btn-sm" onclick="deleteAccount('${safeId(a.id)}')">Hapus</button>` : ''}
+              ${accounts.length > 1 ? `<button class="btn btn-danger btn-sm" onclick="deleteAccount('${safeId(a.id)}')">${esc(uiText('Hapus', 'Delete'))}</button>` : ''}
             </div>
           </div>
         `).join('');
 
         // Update nav bar name
         const navName = $('nav-trader-name');
-        const navBroker = $('nav-account-label');
         if (navName) navName.textContent = google?.name || profile.name || 'Trader';
-        if (navBroker && curAcc) navBroker.textContent = `${curAcc.broker} (${curAcc.name})`;
       }
 
       window.saveProfileSettings = function () {
         profile.name = ($('p-trader-name').value || 'Trader').trim();
         const kurs = Number($('p-kurs-input').value);
-        if (!Number.isFinite(kurs) || kurs <= 0) { alert('Masukkan kurs positif yang valid.'); return; }
+        if (!Number.isFinite(kurs) || kurs <= 0) { alert(uiText("Masukkan kurs positif yang valid.", "Enter a valid positive exchange rate.")); return; }
         settings.kurs = kurs;
-        $('exchange-status').textContent = 'Kurs manual: Rp ' + kurs.toLocaleString('id-ID') + ' per USD.';
+        $('exchange-status').textContent = uiText('Kurs manual: Rp {rate} per USD.', 'Manual rate: Rp {rate} per USD.').replace('{rate}', kurs.toLocaleString(language));
         saveData();
         renderJournalTable();
         renderStatistics();
         runAllCalculators();
         renderProfileView();
-        alert('Profil dan setelan kurs berhasil diperbarui.');
+        alert(uiText("Profil dan setelan kurs berhasil diperbarui.", "Profile and exchange rate settings updated."));
       };
 
       window.openNewAccountModal = function () {
@@ -2548,7 +2353,7 @@
         const bal = parseFloat($('acc-balance').value) || 1000;
 
         if (!name) {
-          alert('Mohon isi nama akun.');
+          alert(uiText("Mohon isi nama akun.", "Enter an account name."));
           return;
         }
 
@@ -2566,11 +2371,11 @@
         saveData();
         closeAccountModal();
         renderProfileView();
-        alert('Akun broker baru berhasil ditambahkan!');
+        alert(uiText("Akun broker baru berhasil ditambahkan!", "Trading account added."));
       };
 
       window.deleteAccount = function (accId) {
-        if (confirm('Hapus akun ini? Trade yang terhubung akan tetap tersimpan di histori.')) {
+        if (confirm(uiText("Hapus akun ini? Trade yang terhubung akan tetap tersimpan di histori.", "Delete this account? Linked trades will stay in your history."))) {
           accounts = accounts.filter(a => a.id !== accId);
           if (profile.currentAccount === accId) {
             profile.currentAccount = accounts[0] ? accounts[0].id : '';
@@ -2611,7 +2416,7 @@
             if (!data || !Array.isArray(data.accounts) || !data.accounts.every(a => a && typeof a === 'object' && !Array.isArray(a)) || !Array.isArray(data.trades) || !data.trades.every(t => t && typeof t === 'object' && !Array.isArray(t))) {
               throw new Error("Invalid structure");
             }
-            if (confirm(`Pulihkan ${data.accounts.length} akun & ${data.trades.length} trade? Data lokal akan diperbarui.`)) {
+            if (confirm(uiText('Pulihkan {accounts} akun dan {trades} transaksi? Data lokal akan diperbarui.', 'Restore {accounts} accounts and {trades} trades? Local data will be replaced.').replace('{accounts}',data.accounts.length).replace('{trades}',data.trades.length))) {
               accounts = data.accounts;
               trades = data.trades;
               if (data.settings && typeof data.settings === 'object' && !Array.isArray(data.settings)) settings = { kurs: Number(data.settings.kurs) || 17000, billingAnnual: !!data.settings.billingAnnual, exchangeUpdatedAt: Number(data.settings.exchangeUpdatedAt) || null };
@@ -2619,10 +2424,10 @@
               saveData();
               renderJournalTable();
               renderProfileView();
-              alert('Data berhasil dipulihkan!');
+              alert(uiText("Data berhasil dipulihkan!", "Data restored."));
             }
           } catch (err) {
-            alert('Format berkas backup tidak valid.');
+            alert(uiText("Format berkas backup tidak valid.", "Invalid backup file format."));
           }
         };
         reader.readAsText(f);
@@ -2630,7 +2435,7 @@
 
       window.exportCSV = function () {
         if (!trades.length) {
-          alert('Belum ada data untuk diekspor.');
+          alert(uiText("Belum ada data untuk diekspor.", "No data to export."));
           return;
         }
         const headers = ['Tanggal', 'Jam', 'Market', 'Posisi', 'Entry', 'SL', 'TP', 'Volume', 'RiskPct', 'Hasil', 'NetPL_USD', 'Strategi', 'Alasan'];
@@ -2661,12 +2466,12 @@
       }
 
       window.resetAllData = function () {
-        if (confirm('PERINGATAN: Apakah Anda yakin ingin menghapus SEMUA akun dan catatan jurnal trade?')) {
+        if (confirm(uiText("PERINGATAN: Apakah Anda yakin ingin menghapus SEMUA akun dan catatan jurnal trade?", "Delete all accounts and journal records?"))) {
           [K_ACCOUNTS, K_TRADES, K_SETTINGS, K_PROFILE, scanStorageKey, 'jt_kalender_cache_v2'].forEach(key => localStorage.removeItem(key));
           loadData();
           renderJournalTable();
           renderProfileView();
-          alert('Seluruh data berhasil direset ke pengaturan awal.');
+          alert(uiText("Seluruh data berhasil direset ke pengaturan awal.", "All data reset to the initial settings."));
         }
       };
 
@@ -2742,7 +2547,7 @@
         // Load interactive chart iframe directly inside the pop-up modal
         const box = $('tv-iframe-box');
         if (box) {
-          box.innerHTML = `<iframe src="https://s.tradingview.com/widgetembed/?symbol=${encodeURIComponent(info.target)}&interval=${encodeURIComponent(currentTvInterval)}&theme=dark&style=1&timezone=Asia%2FJakarta&locale=id" allowtransparency="true" scrolling="no" frameborder="0" title="${esc(info.label)} price chart"></iframe>`;
+          box.innerHTML = `<iframe src="https://s.tradingview.com/widgetembed/?symbol=${encodeURIComponent(info.target)}&interval=${encodeURIComponent(currentTvInterval)}&theme=dark&style=1&timezone=Asia%2FJakarta&locale=${language === 'id' ? 'id' : 'en'}" allowtransparency="true" scrolling="no" frameborder="0" title="${esc((window.JTI18n?.key('journalChartTitle', 'Open {market} chart in TradingView') || 'Open {market} chart in TradingView').replace('{market}', info.label))}"></iframe>`;
         }
       };
 
@@ -2780,7 +2585,7 @@
       let kalCountries = ['US'], kalCategory = '';
       let kalPollingTimer = null, kalCountdownTimer = null;
 
-      const kalText = (id, en) => language === 'en' ? en : id;
+      const kalText = uiText;
       function kalHariIni() {
         const parts = new Intl.DateTimeFormat('en-CA', {timeZone:'Asia/Jakarta',year:'numeric',month:'2-digit',day:'2-digit'}).formatToParts(new Date());
         return ['year','month','day'].map(type => parts.find(p => p.type === type).value).join('-');
@@ -2790,7 +2595,7 @@
         if (p.length !== 3) return t || '';
         const d = new Date(t + 'T12:00:00+07:00');
         if (isNaN(d)) return t || '';
-        return d.toLocaleDateString(language === 'en' ? 'en-GB' : 'id-ID', { timeZone:'Asia/Jakarta', weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
+        return d.toLocaleDateString(language, { timeZone:'Asia/Jakarta', weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
       }
       function kalAngka(v) {
         if (v === null || v === undefined) return null;
@@ -2860,7 +2665,7 @@
               (label ? label(v) : v) + '</option>').join('');
         };
         isi($('kal-th'), th, kalTh, kalText('Semua tahun', 'All years'));
-        isi($('kal-bl'), bl, kalBl, kalText('Semua bulan', 'All months'), v => new Date(Date.UTC(2000, +v - 1, 1)).toLocaleString(language === 'en' ? 'en-GB' : 'id-ID', {month:'long',timeZone:'UTC'}));
+        isi($('kal-bl'), bl, kalBl, kalText('Semua bulan', 'All months'), v => new Date(Date.UTC(2000, +v - 1, 1)).toLocaleString(language, {month:'long',timeZone:'UTC'}));
         isi($('kal-tg'), tg, kalTg, kalText('Semua tgl', 'All days'), v => String(parseInt(v, 10)));
       }
 
@@ -2906,7 +2711,7 @@
         return kalCategories.find(row => row[3]?.test(event.nama || ''))?.[0] || 'other';
       }
       function renderKalFilters() {
-        const names = new Intl.DisplayNames([language === 'en' ? 'en' : 'id'], {type:'region'});
+        const names = new Intl.DisplayNames([language], {type:'region'});
         const codes = kalAvailableCountries();
         const countryName = code => code === 'EU' ? kalText('Zona Euro','Eurozone') : /^[A-Z]{2}$/.test(code) ? names.of(code) : code;
         codes.sort((a,b) => countryName(a).localeCompare(countryName(b)));
@@ -2920,7 +2725,7 @@
         const query = $('kal-country-search').value.toLocaleLowerCase();
         $('kal-country-list').innerHTML = codes.filter(code => (countryName(code)+' '+code).toLocaleLowerCase().includes(query)).map(code => '<label><input type="checkbox" name="calendar-country" value="'+esc(code)+'" '+(kalCountries === null || kalCountries.includes(code) ? 'checked' : '')+'>'+kalCountryFlag(code)+'<span>'+esc(countryName(code))+'</span><small>'+esc(code)+'</small></label>').join('') || '<p>'+kalText('Negara tidak ditemukan','No countries found')+'</p>';
         $('kal-country-chips').innerHTML = (kalCountries === null ? codes : kalCountries).map(code => '<button type="button" data-remove-country="'+esc(code)+'" aria-label="'+esc(kalText('Hapus ','Remove ')+countryName(code))+'">'+kalCountryFlag(code)+esc(code)+' <span aria-hidden="true">×</span></button>').join('');
-        $('kal-category').innerHTML = '<option value="">'+kalText('Semua kategori','All categories')+'</option>'+kalCategories.map(row => '<option value="'+row[0]+'">'+row[language === 'en' ? 2 : 1]+'</option>').join('');
+        $('kal-category').innerHTML = '<option value="">'+kalText('Semua kategori','All categories')+'</option>'+kalCategories.map(row => '<option value="'+row[0]+'">'+esc(kalText(row[1],row[2]))+'</option>').join('');
         $('kal-category').value = kalCategory;
         const impacts = [[1,kalText('Rendah','Low')],[2,kalText('Sedang','Medium')],[3,kalText('Tinggi','High')]];
         $('kal-importance-summary').textContent = kalDmp.length === 3 ? kalText('Apa saja','Any importance') : kalDmp.length ? impacts.filter(row => kalDmp.includes(row[0])).map(row => row[1]).join(', ') : kalText('Tidak ada','None');
@@ -3225,7 +3030,7 @@
         const stale = kalCache.sourceStatus !== 'ok' || !kalCache.rawUpdated || Date.now()-Date.parse(kalCache.rawUpdated)>3600000;
         $('kal-stamp').textContent = !kalCache.items.length ? kalText('Kalender tidak tersedia', 'Calendar unavailable') :
           (stale ? kalText('Kalender tersimpan; pembaruan live belum tersedia. Data per: ', 'Saved calendar; live refresh unavailable. Data as of: ') : kalText('Sumber diperbarui: ', 'Source updated: ')) +
-          (kalCache.rawUpdated ? new Date(kalCache.rawUpdated).toLocaleString(language === 'en' ? 'en-GB' : 'id-ID', {timeZone:'Asia/Jakarta'}) + ' WIB' : kalText('Tidak diketahui', 'Unknown'));
+          (kalCache.rawUpdated ? new Date(kalCache.rawUpdated).toLocaleString(language, {timeZone:'Asia/Jakarta'}) + ' WIB' : kalText('Tidak diketahui', 'Unknown'));
         if (kalCache.coverageStart && kalCache.coverageEnd) $('kal-stamp').textContent += ' · ' + kalCache.coverageStart + ' – ' + kalCache.coverageEnd;
       }
 
@@ -3421,7 +3226,7 @@
         finally { if (request === newsArticleRequest && revision === newsDataRevision) { newsArticleLoading = ''; if (current()) renderNewsReader(); else newsArticleAttempt = ''; } }
       }
       const publisherDomains = { investing: 'investing.com', cnbc: 'cnbc.com', kontan: 'kontan.co.id', reuters: 'reuters.com', aljazeera: 'aljazeera.com', bloomberg: 'bloomberg.com', fnc: 'tradewithfnc.com', investing_id: 'investing.com', pluang: 'pluang.com', kompas: 'kompas.com', detik: 'detik.com', kemenkeu: 'kemenkeu.go.id', cnn_id: 'cnnindonesia.com', bisnis: 'bisnis.com', sindo: 'sindonews.com', ap:'apnews.com', bbc:['bbc.com','bbc.co.uk'], afp:'afp.com', wsj:'wsj.com', guardian:'theguardian.com', ft:'ft.com', dw:'dw.com', fedwatch: 'cmegroup.com', cme: 'cmegroup.com' };
-      const newsText = (id, en) => language === 'en' ? en : id;
+      const newsText = uiText;
       const NEWS_REGIONS = {};
       const GLOBAL_NEWS_SOURCES = [];
       const EUROPE_COUNTRY_CODES = ['GB','DE','FR','IT','ES','NL','CH','SE','PL','UA','NO','DK','FI','CZ','RO','HU','IE','AT'];
@@ -3437,7 +3242,7 @@
         OCEANIA: {names:['Semua Oseania','All Oceania'], countries:['AU','NZ','FJ','PG','WS','TO','VU','SB']}
       };
       const newsAreaCodes = [...Object.keys(NEWS_CONTINENTS), 'MIDDLE_EAST'];
-      const newsAlphabetical = (a, b) => a.localeCompare(b, language === 'en' ? 'en' : 'id', {sensitivity:'base'});
+      const newsAlphabetical = (a, b) => a.localeCompare(b, language, {sensitivity:'base'});
       const publisherCountries = {cnbc:'US', ap:'US', wsj:'US', bbc:'GB', guardian:'GB', ft:'GB', dw:'DE', kontan:'ID', fnc:'ID', investing_id:'ID', pluang:'ID', kompas:'ID', detik:'ID', kemenkeu:'ID', cnn_id:'ID', bisnis:'ID', sindo:'ID'};
       const newsTimeZoneCountries = {
         'Europe/Oslo':'NO', 'Europe/Copenhagen':'DK', 'Europe/Helsinki':'FI', 'Europe/Prague':'CZ',
@@ -3517,7 +3322,7 @@
       function isMiddleEastNewsSource(sourceId) { return MIDDLE_EAST_COUNTRY_CODES.includes(publisherCountries[sourceId]); }
       function isEuropeNewsSource(sourceId) { return EUROPE_COUNTRY_CODES.includes(publisherCountries[sourceId]); }
       function newsAreaCountries(area) { return area === 'MIDDLE_EAST' ? MIDDLE_EAST_COUNTRY_CODES : NEWS_CONTINENTS[area]?.countries || []; }
-      function newsAreaName(area) { return area === 'MIDDLE_EAST' ? newsText('Semua Timur Tengah','All Middle East') : NEWS_CONTINENTS[area]?.names[language === 'en' ? 1 : 0]; }
+      function newsAreaName(area) { const names = NEWS_CONTINENTS[area]?.names; return area === 'MIDDLE_EAST' ? newsText('Semua Timur Tengah','All Middle East') : names ? newsText(names[0],names[1]) : ''; }
       function canSelectNewsArea(area) { return newsAreaCodes.includes(area) && (isNewsFounder() || (area === 'EUROPE' && hasEuropeNewsAccess()) || (area === 'MIDDLE_EAST' && hasMiddleEastNewsAccess()) || newsAreaCountries(area).includes(newsCountry)); }
       function newsSourceInRegion(sourceId) {
         if (GLOBAL_NEWS_SOURCES.some(portal => portal.id === sourceId)) return true;
@@ -3567,7 +3372,7 @@
         $('news-founder-badge').hidden = !founder;
         $('news-region-indicator').hidden = founder;
         $('news-region-label').textContent = newsText('Region berita','News region');
-        const names = new Intl.DisplayNames([language === 'en' ? 'en' : 'id'], {type:'region'});
+        const names = new Intl.DisplayNames([language], {type:'region'});
         const name = code => code === 'AUTO' ? newsText('Deteksi otomatis','Detect automatically') : code === 'DEFAULT' ? newsText('Global / Default','Global / Default') : code === 'global_founder' ? 'Global / Tier 1' : newsAreaCodes.includes(code) ? newsAreaName(code) : code ? names.of(code) + ' (' + code + ')' : newsText('Semua region','All regions');
         const regions = founder ? ['global_founder','',...newsAreaCodes.sort((a,b) => newsAlphabetical(newsAreaName(a), newsAreaName(b))), 'DEFAULT', ...[...kalCountryCodes].sort((a,b) => newsAlphabetical(names.of(a), names.of(b)))] : hasUnlockedNewsAccess() ? [unlockedNewsRegion(), ...[...unlockedNewsCountries()].sort((a,b) => newsAlphabetical(names.of(a), names.of(b)))] : [activeNewsRegion()];
         const regionOptions = codes => codes.map(code => '<option value="' + esc(code) + '">' + esc(name(code)) + '</option>').join('');
@@ -3618,7 +3423,7 @@
       };
       function newsSourceOptions(sources) {
         const globalIds = new Set(GLOBAL_NEWS_SOURCES.map(portal => portal.id));
-        const names = new Intl.DisplayNames([language === 'en' ? 'en' : 'id'], {type:'region'});
+        const names = new Intl.DisplayNames([language], {type:'region'});
         const groups = new Map([[newsText('Berita Global','Global News'), []]]);
         for (const source of sources) {
           const country = publisherCountries[source.id];
@@ -3663,7 +3468,7 @@
       }
       function publisherTime(value) {
         const date = new Date(value);
-        return value && Number.isFinite(date.getTime()) ? date.toLocaleString(language === 'en' ? 'en-GB' : 'id-ID', { timeZone: 'Asia/Jakarta', day: 'numeric', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit' }) + ' WIB' : null;
+        return value && Number.isFinite(date.getTime()) ? date.toLocaleString(language, { timeZone: 'Asia/Jakarta', day: 'numeric', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit' }) + ' WIB' : null;
       }
       function publisherImageUrl(value) {
         try {
@@ -3806,10 +3611,10 @@
         portalLink.hidden = !portal;
         portalLink.innerHTML = portal ? '<a href="' + esc(publisherUrl(portal.url, portal.id)) + '" target="_blank" rel="noopener noreferrer">' + esc(newsText('Buka ', 'Visit ') + portal.name) + '</a>' : '';
         $('news-search-info').hidden = !newsQuery.trim();
-        $('news-search-info').textContent = newsQuery.trim() ? rows.length.toLocaleString(language === 'en' ? 'en-GB' : 'id-ID') + newsText(' berita cocok', ' matching stories') + (newsCategoryLoading === categoryKey && categoryKey ? newsText(' · pencarian arsip berlangsung…', ' · searching archive…') : '') : '';
+        $('news-search-info').textContent = newsQuery.trim() ? rows.length.toLocaleString(language) + newsText(' berita cocok', ' matching stories') + (newsCategoryLoading === categoryKey && categoryKey ? newsText(' · pencarian arsip berlangsung…', ' · searching archive…') : '') : '';
         document.querySelectorAll('#news-categories [data-category]').forEach(button => button.setAttribute('aria-pressed', String(button.dataset.category === newsCategory)));
         $('news-more-category').value = ['local','science','sport','other'].includes(newsCategory) ? newsCategory : '';
-        document.querySelector('.publisher-grid-heading').textContent = newsCategory ? newsCategoryNames[newsCategory][language === 'en' ? 1 : 0] : newsText('Berita terbaru', 'Latest stories');
+        document.querySelector('.publisher-grid-heading').textContent = newsCategory ? newsText(...newsCategoryNames[newsCategory]) : newsText('Berita terbaru', 'Latest stories');
         $('news-more').hidden = rows.length <= newsVisibleCount;
         $('publisher-news-list').innerHTML = rows.length ? rows.slice(0, newsVisibleCount).map(item => {
           const url = publisherUrl(item.url, item.source);
@@ -3901,7 +3706,7 @@
           const script = document.createElement('script');
           script.type = 'module';
           script.src = 'https://widgets.tradingview-widget.com/w/en/tv-ticker-tape.js';
-          script.onerror = () => { ticker.textContent = 'Prices unavailable. Please refresh to retry.'; };
+          script.onerror = () => { ticker.textContent = uiText('Harga tidak tersedia. Muat ulang untuk mencoba lagi.', 'Prices unavailable. Please refresh to retry.'); };
           ticker.appendChild(script);
         }
 
@@ -3952,6 +3757,17 @@
       applyLanguage();
       renderStatistics();
       restoreRoute();
+      window.JTI18n?.ready.then(() => {
+        language = window.JTI18n.language;
+        $('language-select').replaceChildren(...window.JTI18n.languages.map(row => {
+          const option = document.createElement('option');
+          option.value = row.code; option.textContent = row.nativeName === row.name ? row.name : row.nativeName + ' · ' + row.name;
+          option.disabled = row.available === false;
+          if (option.disabled) option.textContent += ' · ' + window.JTI18n.key('languageUnavailableShort', 'Translation pending');
+          return option;
+        }));
+        renderJournalTable(); renderStatistics(); renderProfileView(); updateAccess();
+      }).catch(error => console.error('Language catalog unavailable', error));
       window.addEventListener('popstate', restoreRoute);
       window.addEventListener('hashchange', () => { if (location.pathname === pagePath('login')) restoreRoute(); });
       refreshExchangeRate();

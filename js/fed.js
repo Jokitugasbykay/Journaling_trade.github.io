@@ -2,9 +2,10 @@
   'use strict';
   const panel = document.getElementById('fomc-panel');
   let data, failed = false, countdownTimer, refreshTimer;
-  const text = (en, id) => document.documentElement.lang === 'en' ? en : id;
+  const text = (en, id) => window.JTI18n?.text(id, en) ?? (document.documentElement.lang === 'id' ? id : en);
+  const locale = () => window.JTI18n?.locale || (document.documentElement.lang === 'id' ? 'id-ID' : 'en-GB');
   const escape = value => String(value ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-  const date = value => Number.isFinite(Date.parse(value)) ? new Date(value).toLocaleString(document.documentElement.lang === 'en' ? 'en-GB' : 'id-ID', {timeZone:'Asia/Jakarta',dateStyle:'medium',timeStyle:'short'}) + ' WIB' : text('Unavailable','Tidak tersedia');
+  const date = value => Number.isFinite(Date.parse(value)) ? new Date(value).toLocaleString(locale(), {timeZone:'Asia/Jakarta',dateStyle:'medium',timeStyle:'short'}) + ' WIB' : text('Unavailable','Tidak tersedia');
   const links = {
     fed:'https://www.federalreserve.gov/monetarypolicy/fomccalendars.htm',
     cme:'https://www.cmegroup.com/markets/interest-rates/cme-fedwatch-tool.html',
@@ -35,7 +36,7 @@
     const referenceValid = target && /^\d{4}-\d{2}-\d{2}$/.test(target.asOf) && target.asOf < meeting.date && !data.meetings.some(m => m.date > target.asOf && Date.parse(m.decisionAt) <= Date.now());
     const outcome = r => !referenceValid ? '' : r.lower === target.lower && r.upper === target.upper ? text('Hold', 'Tetap') : r.lower >= target.upper ? text('Hike', 'Naik') : r.upper <= target.lower ? text('Cut', 'Turun') : '';
     return `<p class="fomc-meta">${text('As of','Data per')} ${escape(date(source.asOf))} · ${stale ? text('Saved snapshot','Snapshot tersimpan') : text('Latest retrieved snapshot','Snapshot terbaru yang diambil')}</p>
-      <dl class="fomc-distribution">${rows.map(r => `<div><dt>${outcome(r) ? escape(outcome(r)) + ' · ' : ''}${r.lower.toFixed(2)}% to ${r.upper.toFixed(2)}%</dt><dd>${r.probability.toFixed(1)}%</dd></div>`).join('')}</dl>`;
+      <dl class="fomc-distribution">${rows.map(r => `<div><dt>${outcome(r) ? escape(outcome(r)) + ' · ' : ''}${r.lower.toFixed(2)}% ${text('to', 'sampai')} ${r.upper.toFixed(2)}%</dt><dd>${r.probability.toFixed(1)}%</dd></div>`).join('')}</dl>`;
   }
   function analysis() {
     return `<details class="fomc-analysis" open><summary>${text('Policy briefing: tariffs, inflation and the Fed','Kajian kebijakan: tarif, inflasi, dan Fed')}</summary>
@@ -52,7 +53,7 @@
     const meeting = nextMeeting();
     if (!meeting) { panel.innerHTML = `<p>${text('The official FOMC schedule is unavailable.','Jadwal FOMC resmi tidak tersedia.')} ${link(links.fed,'Federal Reserve')}</p>`; return; }
     panel.dataset.meeting = meeting.date;
-    const meetingDate = new Date(meeting.date+'T12:00:00Z').toLocaleDateString(document.documentElement.lang==='en'?'en-GB':'id-ID',{dateStyle:'long',timeZone:'UTC'});
+    const meetingDate = new Date(meeting.date+'T12:00:00Z').toLocaleDateString(locale(),{dateStyle:'long',timeZone:'UTC'});
     panel.innerHTML = `<div class="fomc-hero"><div><p class="fomc-eyebrow">FEDWATCH</p><h3>${text('The next FOMC decision','Keputusan FOMC berikutnya')}</h3><p>${escape(meetingDate)} · ${text('US meeting date','Tanggal rapat AS')}</p><p class="fomc-meta">${text('Expected release','Perkiraan rilis')}: ${escape(date(meeting.decisionAt))} · 14:00 New York</p>${link(links.fed,text('Official meeting schedule','Jadwal rapat resmi'))}${data.scheduleStatus !== 'ok' ? `<p>${text('Saved schedule; refresh unavailable.','Jadwal tersimpan; pembaruan tidak tersedia.')}</p>`:''}</div><div><p>${text('Countdown to the decision','Hitung mundur keputusan')}</p><div class="fomc-clock">${[text('DAYS','HARI'),text('HRS','JAM'),text('MIN','MNT'),text('SEC','DTK')].map(label=>`<div><b>00</b><span>${label}</span></div>`).join('')}</div></div></div>
       <h3>${text('FOMC rate probabilities','Probabilitas suku bunga FOMC')}</h3><p class="fomc-meta">${text('Target-range probabilities for this meeting. Snapshots can have different update times.','Probabilitas rentang suku bunga untuk rapat ini. Waktu pembaruan snapshot dapat berbeda.')}</p>
       <div class="fomc-sources">${(data.probabilities||[]).filter(s=>[links.beans,links.monitor].includes(s.url)).map(s=>`<article><h4>${link(s.url,s.name)}</h4>${probability(s,meeting)}</article>`).join('')}</div>

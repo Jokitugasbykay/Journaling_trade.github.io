@@ -10,7 +10,7 @@ assert.equal(escape('USD/IDR +1.5%'), 'USD/IDR +1.5%');
 assert.equal(escape('\u{1F1EE}\u{1F1E9}'), '');
 for (const file of ['index.html', 'js/app.js', 'js/scan.js', 'berita.json', 'kalender.json']) {
   const content = fs.readFileSync(path.join(__dirname, '..', file), 'utf8');
-  assert.ok(!/[\p{Extended_Pictographic}\p{Regional_Indicator}]/u.test(content), file);
+  assert.ok(!/[\p{Extended_Pictographic}\p{Regional_Indicator}]/u.test(content.replace(/\u00a9/g, '')), file);
 }
 console.log('UI text and incoming emoji checks passed');
 
@@ -22,9 +22,7 @@ assert.ok(!matchesSearch({title:'Fed weighs inflation data'}, 'Reuters', 'fed oi
 assert.ok(!matchesSearch({title:'Fed weighs inflation data'}, 'Reuters', '<script>'));
 console.log('News search matches archive headlines and publishers without case/spacing/accent sensitivity');
 
-const guideStart = source.indexOf('      Object.assign(englishCopy,');
-const guideEnd = source.indexOf("      document.querySelectorAll('[data-i18n]')", guideStart);
-const guideCopy = vm.runInNewContext('const englishCopy = {};\n' + source.slice(guideStart, guideEnd) + '\nenglishCopy');
+const guideCopy = JSON.parse(fs.readFileSync(path.join(__dirname, 'locales/en.json'), 'utf8'));
 const html = fs.readFileSync(path.join(__dirname, '..', 'index.html'), 'utf8');
 for (const match of html.matchAll(/data-i18n="((?:guide|home|footer)[A-Z][^"]*)"/g)) assert.ok(guideCopy[match[1]], match[1]);
 assert.ok(!html.includes('class="learning-sources"'));
@@ -33,7 +31,7 @@ console.log('English guide, Home preview and footer coverage passed');
 (async () => {
   const nodes = new Map();
   const data = {version:1, fx:{source:'https://www.bi.go.id/id/statistik/informasi-kurs/transaksi-bi/default.aspx', currency:'USD', unit:1, sell:17999.55, buy:17820.45, date:'2026-10-07', status:'ok'}};
-  const context = {language:'en', settings:{kurs:100}, esc:escape, AbortSignal,
+  const context = {language:'en', uiText:(_id,en)=>en, settings:{kurs:100}, esc:escape, AbortSignal,
     $: id => { if (!nodes.has(id)) nodes.set(id, {}); return nodes.get(id); },
     fetch: async () => ({ok:true, json:async () => data}), saveData() {}, renderJournalTable() {}, renderStatistics() {}, runAllCalculators() {}};
   context.window = context;
@@ -55,7 +53,7 @@ console.log('English guide, Home preview and footer coverage passed');
   const buttons = ['ringkasan', 'kalender'].map(sub => ({ dataset: { sub }, classList: { toggle() {} } }));
   let newsAllowed = true;
   let chartSymbol;
-  const context = { canReadNews: () => newsAllowed, renderNewsRegionControls() {}, detectNewsRegion() {}, $: id => nodes.get(id),
+  const context = { language:'en', uiText:(_id,en)=>en, canReadNews: () => newsAllowed, renderNewsRegionControls() {}, detectNewsRegion() {}, $: id => nodes.get(id),
     document: { querySelectorAll: () => buttons, createElement: () => ({attributes: {}, setAttribute(key, value) { this.attributes[key] = value; }, addEventListener(type, listener) { this.listener = listener; }}) },
     openTradingView(symbol) { chartSymbol = symbol; }, renderPublisherNews() {}, renderNewsReader() {}, renderEconomicCalendar() {}, pagePath: route => '/' + route + '/',
     location: { pathname: '/economic-news/' }, history: { pushState() {} } };

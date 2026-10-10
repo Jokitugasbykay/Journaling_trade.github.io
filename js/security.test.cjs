@@ -36,7 +36,57 @@ assert.ok(html.includes("object-src 'none'"));assert.ok(!html.includes('src="htt
 assert.ok(!source.includes('buildDefaultCalendarEvents'));assert.ok(!source.includes('(Live)'));
 const readNews=vm.runInNewContext(source.slice(source.indexOf('      function canReadNews()'),source.indexOf('      async function refreshAccountAccess('))+'\ncanReadNews', {cloudUser:{id:'a'},cloudReady:false,verifiedNewsUserId:'',nicknameReady:true,accountAccess:{plan:'pro'}});assert.equal(readNews(),false);
 for(const name of ['toggleBillingCycle','openQuickTrade','openProfileModal']) assert.ok(!source.includes('window.'+name+' ='));
+{
+  const headerNodes=new Map();
+  const header={cloudUser:{id:'a'},onboarding:{name:'Alice'},profile:{name:'Alice'},accountAccess:null,founder:false,window:{},uiText:(_id,en)=>en,
+    googleAccountProfile:()=>null,isNewsFounder:()=>header.founder,renderProNavigation(){},uploadAllowanceText:()=>'',canReadNews:()=>false,
+    $:id=>{if(!headerNodes.has(id))headerNodes.set(id,{hidden:false,classList:{contains:()=>false}});return headerNodes.get(id);}};
+  vm.runInNewContext(source.slice(source.indexOf('      function renderAccountAccess()'),source.indexOf('      function disciplineMetrics(')),header);
+  header.renderAccountAccess();assert.equal(headerNodes.get('nav-account-plan').textContent,'Checking plan…');
+  header.accountAccess={plan:'plus'};header.renderAccountAccess();assert.equal(headerNodes.get('nav-account-plan').textContent,'Plus');assert.equal(headerNodes.get('nav-dd-plan').textContent,'Plus');
+  header.accountAccess={plan:'pro'};header.renderAccountAccess();assert.equal(headerNodes.get('nav-account-plan').textContent,'Pro');
+  header.founder=true;header.renderAccountAccess();assert.equal(headerNodes.get('nav-account-plan').textContent,'Founder');
+  header.founder=false;header.cloudUser=null;header.accountAccess=null;header.onboarding.name='';header.profile.name='Trader';header.renderAccountAccess();
+  assert.equal(headerNodes.get('nav-login-label').hidden,false);assert.equal(headerNodes.get('nav-account-copy').hidden,true);assert.equal(headerNodes.get('nav-dd-username').textContent,'Welcome');
+}
 (async()=>{
+  {
+    const nodes = new Map();
+    const element = id => {
+      const active = new Set();
+      return {id, dataset:{}, children:[], textContent:'', hidden:false,
+        classList:{contains:name=>active.has(name),toggle(name,value){value?active.add(name):active.delete(name);}},
+        setAttribute(){}, append(child){this.children.push(child);}, replaceChildren(){this.children=[];}};
+    };
+    const get = id => { if (!nodes.has(id)) nodes.set(id,element(id)); return nodes.get(id); };
+    const buttons = Array.from({length:5},(_,index)=>Object.assign(element('pro-'+index),{dataset:{proTab:String(index)}}));
+    let complete, rpcCalls = 0;
+    const pro = {cloudUser:{id:'user-a'},cloudReady:true,nicknameReady:true,accountAccess:{plan:'pro'},$:get,
+      uiText:(_id,en)=>en,cloudClient:{rpc:()=>{rpcCalls++;return new Promise(resolve=>{complete=resolve;});}},
+      document:{querySelectorAll:selector=>selector==='.view-content'?[get('view-pro-analytics')]:buttons,createElement:()=>element('')},
+      switchTab(){get('view-pro-analytics').classList.toggle('active',false);}};
+    pro.window = pro;
+    vm.runInNewContext(source.slice(source.indexOf('      function renderProNavigation()'),source.indexOf('      function renderAccountAccess()')),pro);
+    pro.renderProNavigation();
+    assert.equal(get('nav-ai-trading').hidden,true);assert.ok(buttons.every(button=>!button.hidden&&!button.disabled));
+    const pending = pro.openProAnalytics(1);
+    const respond = complete;
+    get('pro-analytics-content').append({textContent:'Previous private report'});
+    pro.accountAccess={plan:'plus'};pro.renderProNavigation();
+    assert.equal(get('pro-analytics-content').children.length,0,'Loss of Pro access must clear private report data');
+    assert.equal(get('pro-analytics-status').textContent,'');assert.equal(get('pro-analytics-title').textContent,'');
+    assert.ok(buttons.every(button=>button.hidden&&button.disabled));assert.equal(get('nav-ai-trading').disabled,true);
+    pro.accountAccess={plan:'pro'};pro.renderProNavigation();
+    respond({data:[{pnl:10,opened_at:'2026-10-10T00:00:00Z'}]});await pending;
+    assert.equal(get('pro-analytics-content').children.length,0,'A response from before access loss must stay rejected after Pro access returns');
+    const current = pro.openProAnalytics(1);
+    complete({data:[{pnl:10,opened_at:'2026-10-10T00:00:00Z'}]});await current;
+    const table=get('pro-analytics-content').children[0];
+    assert.equal(table.children[1].children[0].children[0].textContent,'2026-10-10','Heatmap must group by the full ISO date');
+    pro.cloudUser={id:'user-b'};pro.cloudReady=false;pro.renderProNavigation();
+    assert.equal(get('pro-analytics-content').children.length,0,'Account changes must clear rendered Pro data');
+    await pro.openProAnalytics(0);assert.equal(rpcCalls,2,'Unverified accounts must not request Pro analytics');
+  }
   const calls=[];
   const ctx={accounts:[{id:'a',startBalance:1}],trades:[{id:'t',accountId:'a',strategy:'s'}],profile:{name:'A'},cloudUser:{id:'user-a'},cloudReady:true,nicknameReady:true,cloudBusy:false,localRevision:0,
     cloudAccountIds:new Map([['a','a-id']]),cloudTradeIds:new Map([['t','t-id']]),cloudStrategyIds:new Map([['s','s-id']]),localAccountIds:new Map(),
@@ -50,6 +100,19 @@ for(const name of ['toggleBillingCycle','openQuickTrade','openProfileModal']) as
   vm.runInNewContext(source.slice(source.indexOf('      function selectJournalOwner('),source.indexOf('      function handleCloudSignedOut()')),scope);
   scope.selectJournalOwner('user-a');assert.equal(scope.K_TRADES,'fncjt_trades_user-a');assert.equal(scope.scanStorageKey,'fncjt_scans_user-a');assert.equal(scope.currentScan,null);
   scope.selectJournalOwner('user-b');assert.equal(scope.K_TRADES,'fncjt_trades_user-b');scope.selectJournalOwner();assert.equal(scope.scanStorageKey,'fncjt_scans');
+  const persistedGuestProfiles=[];
+  Object.assign(scope,{cloudAuthRevision:0,founderUserId:'user-a',verifiedNewsUserId:'user-a',hydratingUserId:'user-a',cloudUser:{id:'user-a'},cloudReady:true,nicknameReady:true,accountAccess:{plan:'pro'},resetNewsData(){},resetNewsRegion(){},persistOnboarding(){persistedGuestProfiles.push(JSON.stringify(scope.onboarding));}});
+  scope.loadData=()=>{scope.profile={name:'Trader'};};
+  scope.onboarding.name='Previous server trader';
+  vm.runInNewContext(source.slice(source.indexOf('      function handleCloudSignedOut()'),source.indexOf('      async function hydrateCloud(')),scope);
+  scope.handleCloudSignedOut();
+  assert.equal(scope.cloudUser,null);assert.equal(scope.accountAccess,null);assert.equal(scope.verifiedNewsUserId,'');
+  assert.equal(scope.onboarding.name,'','The default guest name must not create a signed-in header');
+  assert.equal(JSON.parse(persistedGuestProfiles.at(-1)).name,'','Logout must persist the cleared guest identity');
+  scope.loadData=()=>{scope.profile={name:'Local analyst'};};
+  scope.handleCloudSignedOut();
+  assert.equal(scope.onboarding.name,'Local analyst','A meaningful guest name must survive returning from a cloud account');
+  assert.equal(JSON.parse(persistedGuestProfiles.at(-1)).name,'Local analyst');
   const input={value:'Alice',setCustomValidity(){},reportValidity:()=>true};
   const nickname={cloudUser:{id:'user-a'},journalOwner:'user-a',profile:{name:'Bob'},onboarding:{},nicknameReady:false,language:'en',cloudMessage:()=>'', $:id=>id==='nickname-input'?input:{querySelector:()=>({})},
     cloudClient:{from:()=>({async upsert(){nickname.cloudUser={id:'user-b'};nickname.journalOwner='user-b';return{}}})}};
@@ -64,7 +127,7 @@ for(const name of ['toggleBillingCycle','openQuickTrade','openProfileModal']) as
   const autosave = {localRevision:0, accounts:[{id:'a'}], trades:[{id:'t'}], settings:{}, profile:{name:'Alice'}, K_ACCOUNTS:'accounts',K_TRADES:'trades',K_SETTINGS:'settings',K_PROFILE:'profile', localStorage:{setItem:(key,value)=>saved[key]=value}, scheduleCloudSave:()=>queued++, window:{}, console};
   vm.runInNewContext(source.slice(source.indexOf('      function saveData()'),source.indexOf('      function cloudMessage(')),autosave);
   autosave.saveData(); assert.equal(JSON.parse(saved.trades)[0].id,'t'); assert.equal(queued,1);
-  const schedule = {cloudUser:null, cloudReady:true, nicknameReady:true, cloudTimer:null, clearTimeout(){}, setTimeout:()=>++queued, syncCloud(){}, $:()=>({}),language:'en'};
+  const schedule = {cloudUser:null, cloudReady:true, nicknameReady:true, cloudTimer:null, clearTimeout(){}, setTimeout:()=>++queued, syncCloud(){}, $:()=>({}),language:'en',uiText:(_id,en)=>en};
   vm.runInNewContext(source.slice(source.indexOf('      function scheduleCloudSave()'),source.indexOf('      function migrateLegacyJournal()')),schedule);
   schedule.scheduleCloudSave(); assert.equal(queued,1);
   schedule.cloudUser={id:'a'}; schedule.scheduleCloudSave(); assert.equal(queued,2);

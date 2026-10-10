@@ -1,0 +1,11 @@
+const assert = require('node:assert/strict'), fs = require('node:fs'), vm = require('node:vm');
+const context = {module:{exports:{}}, JTI18n:{text:(_id,en)=>'translated: ' + en}};
+vm.runInNewContext(fs.readFileSync(__dirname + '/scan.js','utf8'),context);
+const scan = context.module.exports([{text:'EURUSD, buy 0.10',lines:[{text:'EURUSD, buy 0.10',confidence:40,bbox:{x0:0,x1:100,y0:10,y1:20}}]}]);
+assert.equal(scan.records[0].market,'EURUSD');
+assert.ok(scan.records[0].notes.every(note=>note.startsWith('translated: ')));
+assert.ok(scan.warnings[0].startsWith('translated: '));
+const chart = context.module.exports([{text:'GOLD Alert Replay',height:100,lines:[{text:'GOLD',bbox:{x0:0,x1:100,y0:0,y1:5}},{text:'SELL WATCH original note',bbox:{x0:0,x1:100,y0:20,y1:30}}]}]);
+assert.equal(chart.records[0].notes[0],'SELL WATCH original note');
+assert.ok(chart.warnings[0].startsWith('translated: '));
+console.log('Generated scan warnings localize; detected instruments and chart notes remain original.');

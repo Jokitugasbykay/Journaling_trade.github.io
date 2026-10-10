@@ -12,7 +12,7 @@ assert.equal(report.avgRisk, 1.5);
 assert.equal(report.riskCount, 2);
 console.log('Discipline checks passed');
 const nodes = new Map();
-const ctx = {currentAccount:()=>({startBalance:0}),trades:[],profile:{currentAccount:'local'},settings:{kurs:17000},language:'en',disciplineMetrics:metrics,
+const ctx = {currentAccount:()=>({startBalance:0}),trades:[],profile:{currentAccount:'local'},settings:{kurs:17000},language:'en',uiText:(_id,en)=>en,disciplineMetrics:metrics,
   $:id=>{ if (!nodes.has(id)) nodes.set(id,{style:{}}); return nodes.get(id); },
   fmtPLUSD:String,fmtPLIDR:String,fmtUSD:String,drawKpiSparklines(){},drawEquityCurveSVG(){},drawDonutChartSVG(){},drawBreakdownBars(){}};
 ctx.window=ctx;
@@ -21,3 +21,14 @@ ctx.renderStatistics();
 assert.equal(nodes.get('kpi-netpl-delta').textContent,'Add a starting balance');
 assert.equal(nodes.get('kpi-netpl').textContent,'0');
 console.log('Empty account does not display NaN balance return');
+
+ctx.esc = value => String(value).replace(/&/g, '&amp;').replace(/</g, '&lt;');
+ctx.uiText = (_id, en) => '<translated> ' + en;
+vm.runInNewContext(source.slice(source.indexOf('      function drawEquityCurveSVG('), source.indexOf('      /* Calculator engine */')),ctx);
+ctx.drawEquityCurveSVG([]);
+ctx.drawDonutChartSVG(0,0,0,0);
+ctx.drawBreakdownBars();
+for (const id of ['equity-chart-svg','donut-chart-svg','strategy-breakdown','market-breakdown']) {
+  assert.ok(ctx.$(id).innerHTML.includes('&lt;translated>'),id+' did not translate or escape its empty state');
+}
+console.log('Statistics empty states use translated, escaped interface copy');

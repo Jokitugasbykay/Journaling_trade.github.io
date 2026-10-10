@@ -11,7 +11,8 @@
   };
   const mapRegions = ['AFRICA','ANTARCTICA','ASIA','EUROPE','MIDDLE_EAST','NORTH_AMERICA','OCEANIA','SOUTH_AMERICA'];
   const normalize = text => text.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
-  const words = (id, en) => id === 'news-region' ? en ? 'Search regions…' : 'Cari region…' : en ? 'Search publishers…' : 'Cari penerbit…';
+  const uiText = (id, en) => window.JTI18n?.text(id, en) ?? (document.documentElement.lang === 'id' ? id : en);
+  const words = id => id === 'news-region' ? uiText('Cari region…', 'Search regions…') : uiText('Cari penerbit…', 'Search publishers…');
 
   for (const id of ['news-region', 'news-source']) {
     const select = document.getElementById(id);
@@ -66,7 +67,8 @@
         row.id = id + '-option-' + rows.length; row.dataset.value = option.value;
         row.setAttribute('role', 'option'); row.setAttribute('aria-selected', String(option.value === select.value));
         row.setAttribute('aria-label', (heading ? heading + ': ' : '') + option.textContent);
-        row.textContent = id === 'news-region' && (mapRegions.includes(option.value) || option.value === 'ALL') ? option.textContent.replace(/^(All|Semua)\s/, '') : option.textContent;
+        const allPrefix = uiText('Semua', 'All') + ' ';
+        row.textContent = id === 'news-region' && (mapRegions.includes(option.value) || option.value === 'ALL') && option.textContent.startsWith(allPrefix) ? option.textContent.slice(allPrefix.length) : option.textContent;
         const marker = document.createElement('span'); marker.className = 'news-select-option-icon'; marker.setAttribute('aria-hidden', 'true');
         const shape = regionShapes[option.value || 'ALL'];
         const drawing = shape ? '<path d="' + shape + '"/>' : '<circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c5 5 5 13 0 18-5-5-5-13 0-18Z"/>';
@@ -78,7 +80,7 @@
         list.append(row); rows.push(row);
       }
       empty.hidden = rows.length > 0;
-      empty.textContent = document.documentElement.lang === 'en' ? 'No matches found.' : 'Tidak ada pilihan yang cocok.';
+      empty.textContent = uiText('Tidak ada pilihan yang cocok.', 'No matches found.');
       highlight(Math.max(0, rows.findIndex(row => row.dataset.value === (previous ?? select.value))), false);
     }
     function position() {
@@ -92,12 +94,11 @@
       panel.style.bottom = above ? innerHeight - box.top + 8 + 'px' : 'auto';
     }
     function sync() {
-      const en = document.documentElement.lang === 'en';
-      trigger.querySelector('span').textContent = select.selectedOptions[0]?.textContent || (en ? 'All sources' : 'Semua sumber');
+      trigger.querySelector('span').textContent = select.selectedOptions[0]?.textContent || uiText('Semua sumber', 'All sources');
       trigger.disabled = select.disabled || document.getElementById('news-content')?.hidden === true;
       trigger.setAttribute('aria-label', (label?.textContent || '') + ': ' + trigger.querySelector('span').textContent);
-      input.placeholder = words(id, en); input.setAttribute('aria-label', words(id, en));
-      list.setAttribute('aria-label', label?.textContent || words(id, en));
+      input.placeholder = words(id); input.setAttribute('aria-label', words(id));
+      list.setAttribute('aria-label', label?.textContent || words(id));
       if (trigger.disabled && isOpen()) panel.hidePopover();
       if (isOpen()) { render(); position(); }
     }

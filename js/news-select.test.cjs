@@ -137,4 +137,13 @@ for (const id of ['news-region', 'news-source']) {
   c.select.value = 'bbc'; let changes = 0; c.select.addEventListener('change', ()=>changes++); c.select.dispatchEvent(new Event('change'));
   assert.equal(changes, 1, 'Browsers without popovers must retain a working native select');
 }
+{
+  const h = harness(), c = h.control('news-source');
+  h.document.documentElement.lang = 'fr';
+  h.context.JTI18n = {text:(_id,en)=>({'Search publishers…':'Rechercher des éditeurs…','No matches found.':'Aucun résultat.'}[en] || en)};
+  h.context.syncNewsSelects(); c.open(); c.search('missing');
+  assert.equal(c.input.placeholder, 'Rechercher des éditeurs…');
+  assert.equal(c.empty.textContent, 'Aucun résultat.');
+  assert.equal(c.trigger.querySelector('span').textContent, 'All sources', 'Publisher option text is owned by the backing select');
+}
 console.log('News dropdown selection, search, keyboard, sync, access and native fallback checks passed');

@@ -23,6 +23,10 @@ vm.runInNewContext(fs.readFileSync(require('node:path').join(__dirname, 'fed.js'
   assert.ok(panel.innerHTML.includes('No verified snapshot for this meeting.'));
   context.document.documentElement.lang='id'; context.window.renderFedWatch();
   assert.ok(panel.innerHTML.includes('Keputusan FOMC berikutnya'));
+  context.window.JTI18n = {locale:'fr-FR',text:(_id,en)=>en === 'The next FOMC decision' ? 'La prochaine décision du FOMC' : en};
+  context.window.renderFedWatch();
+  assert.ok(panel.innerHTML.includes('La prochaine décision du FOMC') && panel.innerHTML.includes('28 octobre 2026'));
+  assert.ok(panel.innerHTML.includes('Test snapshot'), 'Source names must not be translated');
   now=Date.parse('2026-10-28T18:00:01Z'); intervals[1]();
   assert.equal(panel.dataset.meeting,'2026-12-09');
   assert.ok(digits.every(d=>Number(d.textContent)>=0));

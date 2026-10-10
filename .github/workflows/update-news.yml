@@ -31,6 +31,10 @@ jobs:
       - run: python scripts/audit_news.py --self-test
       - run: python scripts/test_macro.py
       - run: node js/home.test.cjs
+      - run: node js/journal.test.cjs
+      - run: node js/scan.test.cjs
+      - run: node js/i18n.test.cjs
+      - run: node scripts/audit-locales.cjs
       - run: node js/copy.test.cjs
       - run: node js/security.test.cjs
       - run: node js/news-region.test.cjs

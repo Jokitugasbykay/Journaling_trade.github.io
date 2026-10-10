@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="id" data-theme="dark">
+<html lang="en" data-theme="dark">
 
 <head>
   <meta charset="utf-8">
@@ -16,56 +16,64 @@
   <meta name="referrer" content="strict-origin-when-cross-origin">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>journalingtrade · Professional Trading Journal & Analytics</title>
-  <meta name="description" content="Platform jurnal trading presisi, analitik statistik mendalam, kalkulator risiko, dan wawasan ekonomi pasar finansial.">
+  <meta name="description" content="A trading journal with performance analysis, risk calculators and economic news.">
   <link rel="icon" type="image/svg+xml" href="css/brand/journalingtrade.svg">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&family=Manrope:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
 
   <link rel="stylesheet" href="css/style.css?v=20261009-home-brand">
   <link rel="stylesheet" href="css/home.css?v=20261009-home-brand">
+  <link rel="stylesheet" href="css/journal.css?v=20261010-redesign">
+  <link rel="stylesheet" href="css/shell.css?v=20261010-redesign">
 </head>
 
 <body>
 
-  <header class="navbar">
-    <div class="navbar-left">
-      <button class="brand-logo" type="button" onclick="switchTab('beranda')" aria-label="journalingtrade, Beranda"><img class="brand-icon" src="css/brand/journalingtrade.svg" width="32" height="32" alt=""><span class="brand-name">journalingtrade</span></button>
-      <nav class="nav-tabs" aria-label="Navigation">
-        <button class="nav-tab active" data-tab="beranda" onclick="switchTab('beranda')" data-i18n="home">Beranda</button>
-        <button class="nav-tab" data-tab="jurnal" onclick="switchTab('jurnal')" disabled data-i18n="journal">Jurnal</button>
-        <button class="nav-tab" data-tab="statistik" onclick="switchTab('statistik')" disabled data-i18n="statistics">Statistik</button>
-        <button class="nav-tab" data-tab="kalkulator" onclick="switchTab('kalkulator')" disabled data-i18n="calculator">Kalkulator</button>
-        <button class="nav-tab" data-tab="berita" onclick="switchTab('berita')" disabled data-i18n="news">Berita Ekonomi</button>
-        <button class="nav-tab" id="nav-ai-trading" type="button" disabled aria-disabled="true" hidden>AI Trading</button>
-        <button class="nav-tab" type="button" data-pro-tab="0" onclick="openProAnalytics(0)" hidden>Advanced Analytics</button>
-        <button class="nav-tab" type="button" data-pro-tab="1" onclick="openProAnalytics(1)" hidden>Performance Heatmap</button>
-        <button class="nav-tab" type="button" data-pro-tab="2" onclick="openProAnalytics(2)" hidden>Strategy Comparison</button>
-        <button class="nav-tab" type="button" data-pro-tab="3" onclick="openProAnalytics(3)" hidden>Risk Intelligence</button>
-        <button class="nav-tab" type="button" data-pro-tab="4" onclick="openProAnalytics(4)" hidden>Weekly & Monthly Review</button>
+  <header class="navbar shell-header">
+    <div class="shell-header-inner">
+      <button class="shell-brand" type="button" onclick="switchTab('beranda')"><span class="shell-brand-icon"><img src="css/brand/journalingtrade.svg" width="29" height="29" alt=""></span><span class="shell-brand-name">journalingtrade</span><span class="shell-visually-hidden" data-i18n="home">Home</span></button>
+      <nav class="nav-tabs shell-nav" aria-label="Navigation">
+        <button class="nav-tab active" data-tab="beranda" onclick="switchTab('beranda')" data-i18n="home">Home</button>
+        <button class="nav-tab" data-tab="jurnal" onclick="switchTab('jurnal')" disabled data-i18n="journal">Journal</button>
+        <button class="nav-tab" data-tab="statistik" onclick="switchTab('statistik')" disabled data-i18n="statistics">Statistics</button>
+        <button class="nav-tab" data-tab="kalkulator" onclick="switchTab('kalkulator')" disabled data-i18n="calculator">Calculator</button>
+        <button class="nav-tab" data-tab="berita" onclick="switchTab('berita')" disabled data-i18n="news">Economic news</button>
+        <button class="nav-tab" id="nav-ai-trading" type="button" disabled aria-disabled="true" hidden data-i18n="proAiTrading">AI Trading</button>
+        <button class="nav-tab" type="button" data-pro-tab="0" onclick="openProAnalytics(0)" hidden data-i18n="proAnalyticsTitle">Advanced Analytics</button>
+        <button class="nav-tab" type="button" data-pro-tab="1" onclick="openProAnalytics(1)" hidden data-i18n="proHeatmapTitle">Performance Heatmap</button>
+        <button class="nav-tab" type="button" data-pro-tab="2" onclick="openProAnalytics(2)" hidden data-i18n="proStrategyComparisonTitle">Strategy Comparison</button>
+        <button class="nav-tab" type="button" data-pro-tab="3" onclick="openProAnalytics(3)" hidden data-i18n="proRiskIntelligenceTitle">Risk Intelligence</button>
+        <button class="nav-tab" type="button" data-pro-tab="4" onclick="openProAnalytics(4)" hidden data-i18n="proReviewTitle">Weekly & Monthly Review</button>
       </nav>
-    </div>
-    <div class="navbar-right">
-      <div class="nav-dropdown-wrap">
-        <button class="nav-btn-masuk" id="btn-nav-masuk" onclick="toggleNavAccountDropdown(event)" type="button" aria-expanded="false" aria-controls="nav-account-dropdown">
-          <span id="nav-login-label" data-i18n="signIn">Masuk</span>
-          <svg class="chevron-down" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
-        </button>
-        <div class="nav-dropdown-menu" id="nav-account-dropdown" hidden>
-          <div class="nav-dd-header">
-            <span class="nav-dd-user" id="nav-dd-username" data-i18n="welcome">Selamat datang</span>
-            <span class="nav-dd-role" id="nav-dd-status" data-i18n="guestStatus">Kenali jurnal dari Beranda.</span>
+      <div class="navbar-right shell-actions">
+        <span class="shell-guest" id="nav-guest-badge"><span class="shell-guest-icon" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4"><circle cx="8" cy="5.5" r="2.5"></circle><path d="M3 13.5c.6-2.4 2.6-3.5 5-3.5s4.4 1.1 5 3.5" stroke-linecap="round"></path></svg></span><span data-i18n="shellGuest">Guest</span></span>
+        <button class="shell-storage" id="nav-account-storage" type="button" data-workspace-action onclick="switchTab('profil')" hidden disabled><svg width="17" height="17" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6.5a4 4 0 118 0c0 3 1.2 4 1.5 4.5h-11C2.8 10.5 4 9.5 4 6.5zM6.5 13a1.6 1.6 0 003 0"></path></svg><span class="shell-visually-hidden" data-i18n="profileAccountSecurity">Account & storage</span></button>
+        <div class="nav-dropdown-wrap">
+          <button class="nav-btn-masuk" id="btn-nav-masuk" onclick="toggleNavAccountDropdown(event)" type="button" aria-expanded="false" aria-controls="nav-account-dropdown">
+            <span class="shell-account-avatar" id="nav-avatar-initials" hidden aria-hidden="true"></span>
+            <span id="nav-login-label" data-i18n="signIn">Sign in</span>
+            <span class="shell-account-copy" id="nav-account-copy" hidden><span class="shell-account-name" id="nav-trader-name"></span><span class="shell-account-plan" id="nav-account-plan"></span></span>
+            <svg class="chevron-down" width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m3 4.5 3 3 3-3"></path></svg>
+          </button>
+          <div class="nav-dropdown-menu" id="nav-account-dropdown" hidden>
+            <div class="nav-dd-header">
+              <span class="nav-dd-user" id="nav-dd-username" data-i18n="welcome">Welcome</span>
+              <span class="shell-menu-plan" id="nav-dd-plan" hidden></span>
+              <span class="nav-dd-role" id="nav-dd-status" data-i18n="guestStatus">Explore the journal on the Home tab.</span>
+            </div>
+            <div class="nav-dd-divider"></div>
+            <a class="nav-dd-item" id="menu-login" href="login/" target="_blank" rel="noopener"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M6 2.5H3.5a1 1 0 00-1 1v9a1 1 0 001 1H6M10 5l3 3-3 3M13 8H6" stroke-linecap="round" stroke-linejoin="round"></path></svg><span id="menu-login-label" data-i18n="loginMenu">Sign in</span></a>
+            <button type="button" class="nav-dd-item" data-workspace-action onclick="switchTab('profil'); closeNavAccountDropdown();" disabled><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><circle cx="8" cy="5.5" r="2.5"></circle><path d="M3 13.5c.6-2.4 2.6-3.5 5-3.5s4.4 1.1 5 3.5" stroke-linecap="round"></path></svg><span data-i18n="profileSettings">Profile settings</span></button>
+            <button type="button" class="nav-dd-item" onclick="switchTab('beranda'); closeNavAccountDropdown(); scrollToPricing();"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round" aria-hidden="true"><path d="M8 2l1.8 3.7 4 .6-2.9 2.8.7 4L8 11.2l-3.6 1.9.7-4L2.2 6.3l4-.6L8 2z"></path></svg><span data-i18n="footerPlans">Subscription plans</span></button>
+            <button type="button" class="nav-dd-item" data-workspace-action onclick="switchTab('jurnal'); closeNavAccountDropdown();" disabled><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round" aria-hidden="true"><path d="M3 2h7l3 3v9H3V2zM10 2v3h3M6 8h4M6 11h4"></path></svg><span data-i18n="openJournal">Open trading journal</span></button>
+            <div class="nav-dd-divider"></div>
+            <label class="menu-language" for="language-select"><span data-i18n="language">Language</span><select id="language-select" onchange="setLanguage(this.value)"><option value="en">English</option><option value="id">Indonesia</option></select></label>
+            <button type="button" class="nav-dd-item" id="menu-logout" onclick="signOutLocal()" hidden><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 2.5H3.5a1 1 0 00-1 1v9a1 1 0 001 1H6M10 5l3 3-3 3M13 8H6"></path></svg><span id="menu-logout-label" data-i18n="signOut">Sign out of this profile</span></button>
           </div>
-          <div class="nav-dd-divider"></div>
-          <a class="nav-dd-item" id="menu-login" href="login/" target="_blank" rel="noopener" data-i18n="loginMenu">Masuk / login</a>
-          <button type="button" class="nav-dd-item" data-workspace-action onclick="switchTab('profil'); closeNavAccountDropdown();" disabled data-i18n="profileSettings">Pengaturan profil</button>
-          <button type="button" class="nav-dd-item" data-workspace-action onclick="switchTab('jurnal'); closeNavAccountDropdown();" disabled data-i18n="openJournal">Buka jurnal trade</button>
-          <div class="nav-dd-divider"></div>
-          <label class="menu-language" for="language-select"><span data-i18n="language">Bahasa</span><select id="language-select" onchange="setLanguage(this.value)"><option value="id">Indonesia</option><option value="en">English</option></select></label>
-          <button type="button" class="nav-dd-item" id="menu-logout" onclick="signOutLocal()" hidden data-i18n="signOut">Keluar dari profil lokal</button>
         </div>
+        <button class="nav-btn-coba" id="nav-try" onclick="startTrial()" type="button"><span data-i18n="try">Try</span></button>
       </div>
-      <button class="nav-btn-coba" onclick="startTrial()" type="button"><span data-i18n="try">Coba</span></button>
     </div>
   </header>
 
@@ -78,17 +86,16 @@
     </section>
 
 
-
     <section class="view-content active" id="view-beranda">
       <div class="home-shell home-rolling">
         <section class="home-hero" aria-labelledby="home-title">
           <div class="home-intro">
-<p class="home-label" data-i18n="homeEyebrow">Ruang kerja untuk trader</p>
-            <h1 id="home-title" data-i18n="homeHeroTitle">Setiap trade.<br><span>Keputusan yang lebih jernih.</span></h1>
-<p class="home-lead" data-i18n="homeHeroLead">Rencanakan risiko, dokumentasikan keputusan, dan evaluasi kinerja trading Anda dalam satu ruang kerja.</p>
-            <div class="home-actions"><button class="btn btn-primary" type="button" onclick="startTrial()" data-i18n="tryJournal">Mulai jurnal gratis</button><button class="btn btn-outline" type="button" onclick="scrollToPricing()" data-i18n="homeViewPlans">Lihat paket</button></div>
-            <p class="home-hint" id="home-access-hint" data-i18n="accessHint">Klik Coba untuk mulai menggunakan jurnal.</p>
-<a class="home-scroll" href="#panduan-forex" data-i18n="homeScroll">Gulir untuk menjelajahi</a>
+<p class="home-label" data-i18n="homeEyebrow">A workspace for traders</p>
+            <h1 id="home-title" data-i18n="homeHeroTitle">Every trade.<br><span>A clearer decision.</span></h1>
+<p class="home-lead" data-i18n="homeHeroLead">Plan your risk, document your decisions and review your trading performance in one workspace.</p>
+            <div class="home-actions"><button class="btn btn-primary" type="button" onclick="startTrial()" data-i18n="tryJournal">Start your free journal</button><button class="btn btn-outline" type="button" onclick="scrollToPricing()" data-i18n="homeViewPlans">View plans</button></div>
+            <p class="home-hint" id="home-access-hint" data-i18n="accessHint">Click Try to unlock your journal.</p>
+<a class="home-scroll" href="#panduan-forex" data-i18n="homeScroll">Scroll to explore</a>
           </div>
           <figure class="home-hero-visual">
 <svg class="home-chart home-hero-chart" aria-hidden="true" viewBox="0 0 600 440"><g stroke="#fff" stroke-opacity=".07"><line x1="0" x2="600" y1="110" y2="110"></line><line x1="0" x2="600" y1="220" y2="220"></line><line x1="0" x2="600" y1="330" y2="330"></line></g><g class="home-candle-slot" style="--i:0"><g class="home-candle"><line x1="17" x2="17" y1="270" y2="318" stroke="#27c98b" stroke-width="1.5"></line><rect x="8" y="274" width="17" height="34" rx="1.5" fill="#27c98b" stroke="#27c98b" stroke-width="1.5"></rect></g></g><g class="home-candle-slot" style="--i:1"><g class="home-candle"><line x1="50" x2="50" y1="230" y2="284" stroke="#27c98b" stroke-width="1.5"></line><rect x="41" y="233" width="17" height="41" rx="1.5" fill="#27c98b" stroke="#27c98b" stroke-width="1.5"></rect></g></g><g class="home-candle-slot" style="--i:2"><g class="home-candle"><line x1="83" x2="83" y1="215" y2="274" stroke="#f05252" stroke-width="1.5"></line><rect x="75" y="233" width="17" height="23" rx="1.5" fill="#f05252" stroke="#f05252" stroke-width="1.5"></rect></g></g><g class="home-candle-slot" style="--i:3"><g class="home-candle"><line x1="117" x2="117" y1="209" y2="264" stroke="#27c98b" stroke-width="1.5"></line><rect x="108" y="221" width="17" height="35" rx="1.5" fill="#27c98b" stroke="#27c98b" stroke-width="1.5"></rect></g></g><g class="home-candle-slot" style="--i:4"><g class="home-candle"><line x1="150" x2="150" y1="178" y2="228" stroke="#27c98b" stroke-width="1.5"></line><rect x="141" y="182" width="17" height="39" rx="1.5" fill="#27c98b" stroke="#27c98b" stroke-width="1.5"></rect></g></g><g class="home-candle-slot" style="--i:5"><g class="home-candle"><line x1="183" x2="183" y1="163" y2="224" stroke="#f05252" stroke-width="1.5"></line><rect x="175" y="182" width="17" height="24" rx="1.5" fill="#f05252" stroke="#f05252" stroke-width="1.5"></rect></g></g><g class="home-candle-slot" style="--i:6"><g class="home-candle"><line x1="217" x2="217" y1="200" y2="227" stroke="#f05252" stroke-width="1.5"></line><rect x="208" y="206" width="17" height="13" rx="1.5" fill="#f05252" stroke="#f05252" stroke-width="1.5"></rect></g></g><g class="home-candle-slot" style="--i:7"><g class="home-candle"><line x1="250" x2="250" y1="201" y2="238" stroke="#27c98b" stroke-width="1.5"></line><rect x="241" y="218" width="17" height="3" rx="1.5" fill="#27c98b" stroke="#27c98b" stroke-width="1.5"></rect></g></g><g class="home-candle-slot" style="--i:8"><g class="home-candle"><line x1="283" x2="283" y1="214" y2="252" stroke="#f05252" stroke-width="1.5"></line><rect x="275" y="218" width="17" height="20" rx="1.5" fill="#f05252" stroke="#f05252" stroke-width="1.5"></rect></g></g><g class="home-candle-slot" style="--i:9"><g class="home-candle"><line x1="317" x2="317" y1="226" y2="246" stroke="#f05252" stroke-width="1.5"></line><rect x="308" y="238" width="17" height="3" rx="1.5" fill="#f05252" stroke="#f05252" stroke-width="1.5"></rect></g></g><g class="home-candle-slot" style="--i:10"><g class="home-candle"><line x1="350" x2="350" y1="222" y2="261" stroke="#27c98b" stroke-width="1.5"></line><rect x="341" y="226" width="17" height="14" rx="1.5" fill="#27c98b" stroke="#27c98b" stroke-width="1.5"></rect></g></g><g class="home-candle-slot" style="--i:11"><g class="home-candle"><line x1="383" x2="383" y1="213" y2="253" stroke="#f05252" stroke-width="1.5"></line><rect x="375" y="226" width="17" height="19" rx="1.5" fill="#f05252" stroke="#f05252" stroke-width="1.5"></rect></g></g><g class="home-candle-slot" style="--i:12"><g class="home-candle"><line x1="417" x2="417" y1="231" y2="287" stroke="#f05252" stroke-width="1.5"></line><rect x="408" y="245" width="17" height="22" rx="1.5" fill="#f05252" stroke="#f05252" stroke-width="1.5"></rect></g></g><g class="home-candle-slot" style="--i:13"><g class="home-candle"><line x1="450" x2="450" y1="255" y2="295" stroke="#f05252" stroke-width="1.5"></line><rect x="441" y="267" width="17" height="17" rx="1.5" fill="#f05252" stroke="#f05252" stroke-width="1.5"></rect></g></g><g class="home-candle-slot" style="--i:14"><g class="home-candle"><line x1="483" x2="483" y1="270" y2="290" stroke="#27c98b" stroke-width="1.5"></line><rect x="475" y="281" width="17" height="4" rx="1.5" fill="#27c98b" stroke="#27c98b" stroke-width="1.5"></rect></g></g><g class="home-candle-slot" style="--i:15"><g class="home-candle"><line x1="517" x2="517" y1="234" y2="284" stroke="#27c98b" stroke-width="1.5"></line><rect x="508" y="253" width="17" height="28" rx="1.5" fill="#27c98b" stroke="#27c98b" stroke-width="1.5"></rect></g></g><g class="home-candle-slot" style="--i:16"><g class="home-candle"><line x1="550" x2="550" y1="188" y2="260" stroke="#27c98b" stroke-width="1.5"></line><rect x="541" y="203" width="17" height="50" rx="1.5" fill="#27c98b" stroke="#27c98b" stroke-width="1.5"></rect></g></g><g class="home-candle-slot" style="--i:17"><g class="home-candle"><line x1="583" x2="583" y1="182" y2="212" stroke="#27c98b" stroke-width="1.5"></line><rect x="575" y="194" width="17" height="9" rx="1.5" fill="#27c98b" stroke="#27c98b" stroke-width="1.5"></rect></g></g></svg>
@@ -96,95 +103,95 @@
         </section>
         <section class="home-process home-section" id="panduan-forex" aria-labelledby="learning-title">
           <header class="home-reveal">
-<p class="home-label" data-i18n="homeWorkflow">Proses yang dapat diulang</p>
-            <h2 id="learning-title" data-i18n="guideTitle">Trading adalah proses.<br><span>Jalankan dengan terukur.</span></h2>
-<p class="home-section-lead" data-i18n="guideLead">Persiapan pasar, perencanaan risiko, pencatatan, dan evaluasi. Empat langkah untuk setiap sesi trading.</p>
+<p class="home-label" data-i18n="homeWorkflow">A process you can repeat</p>
+            <h2 id="learning-title" data-i18n="guideTitle">Build better trading habits</h2>
+<p class="home-section-lead" data-i18n="guideLead">Market preparation, risk planning, recording and review. Four steps for every trading session.</p>
           </header>
-<article class="home-process-row home-reveal"><div><span class="home-label">01 / CONTEXT</span><h3 data-i18n="guideMarketTitle">Pahami konteks pasar.</h3><p data-i18n="guideMarketText">Tinjau instrumen, likuiditas, spread, dan kalender ekonomi sebelum membuka posisi. Catat kondisi yang mendasari keputusan Anda.</p><p class="home-tip" data-i18n="homeContextTip">Sertakan konteks berita dalam catatan agar dapat dibandingkan saat evaluasi.</p></div><div class="home-demo"><p class="home-label" data-i18n="homeContextPreview">Persiapan sesi</p><div class="home-context-calendar"><span class="home-calendar-day" aria-hidden="true"><i style="--day:0"></i><i style="--day:1"></i><i style="--day:2"></i><i style="--day:3"></i><i style="--day:4"></i><i style="--day:5"></i><i style="--day:6"></i><i style="--day:7"></i><i style="--day:8"></i><i style="--day:9"></i><i style="--day:10"></i><i style="--day:11"></i><i style="--day:12"></i><i style="--day:13"></i><i style="--day:14"></i><i style="--day:15"></i><i style="--day:16"></i><i style="--day:17"></i><i style="--day:18"></i><i style="--day:19"></i><i style="--day:20"></i></span><div><h4 data-i18n="homeCalendarFocus">Kalender ekonomi</h4><p data-i18n="homeCalendarDetail">Periksa jadwal rilis sebelum entry.</p></div></div><div class="home-context-note"><i aria-hidden="true"></i><span data-i18n="homeContextReminder">Perhatikan rilis berdampak tinggi.</span></div></div></article>
-<article class="home-process-row home-reveal"><div><span class="home-label">02 / PLAN</span><h3 data-i18n="guideRiskTitle">Tetapkan risiko sebelum entry.</h3><p data-i18n="guideRiskText">Dokumentasikan harga entry, stop loss, dan target. Gunakan kalkulator untuk menyesuaikan ukuran posisi dengan batas risiko akun Anda.</p><p class="home-tip" data-i18n="homePlanTip">Tentukan batas kerugian dan kriteria keluar sebelum membuka posisi.</p></div><div class="home-demo"><p class="home-label" data-i18n="homeRiskPlan">Rencana risiko</p><div class="home-demo-line"><span data-i18n="homeRiskLimit">Risiko per transaksi</span><span data-i18n="homeYourLimit">Batas Anda</span></div><div class="home-track" aria-hidden="true"><i class="home-risk-fill"></i></div><div class="home-plan-fields"><div><span data-i18n="homeEntry">Entry</span><strong data-i18n="homeDefined">Ditentukan</strong></div><div><span data-i18n="homeStop">Stop loss</span><strong data-i18n="homeDefined">Ditentukan</strong></div><div><span data-i18n="homeTarget">Target</span><strong data-i18n="homeDefined">Ditentukan</strong></div></div></div></article>
-<article class="home-process-row home-reveal"><div><span class="home-label">03 / RECORD</span><h3 data-i18n="guideJournalTitle">Dokumentasikan setiap transaksi.</h3><p data-i18n="guideJournalText">Catat transaksi secara manual atau impor PDF, gambar, dan CSV. Periksa hasil scan sebelum menyimpan; nilai yang tidak terbaca tetap kosong.</p><p class="home-tip" data-i18n="homeRecordTip">Catat alasan entry saat keputusan dibuat, bukan setelah melihat hasilnya.</p></div><div class="home-demo"><p class="home-label" data-i18n="homeReasonLabel">Alasan entry</p><div class="home-typing-box"><span class="home-typed" data-i18n="homeReasonSample">Retest support sesuai rencana.</span></div><p class="home-demo-line" data-i18n="homeImportPreview">Pratinjau impor CSV</p><div class="home-track" aria-hidden="true"><i class="home-import-fill"></i></div></div></article>
-<article class="home-process-row home-reveal"><div><span class="home-label">04 / REVIEW</span><h3 data-i18n="guideReviewTitle">Evaluasi pola keputusan Anda.</h3><p data-i18n="guideReviewText">Tinjau profit/loss, win rate, dan drawdown di Statistik. Bandingkan setup serta alasan entry, lalu tentukan perubahan yang akan diuji pada sesi berikutnya.</p><p class="home-tip" data-i18n="homeReviewTip">Evaluasi satu perubahan secara konsisten sebelum menambahkan perubahan lain.</p></div><div class="home-demo"><p class="home-label" data-i18n="homeReviewPreview">Evaluasi kinerja</p><svg class="home-equity" viewBox="0 0 300 130" aria-hidden="true"><path pathLength="1" d="M3 115 38 94 72 102 110 63 150 74 190 37 230 49 296 12" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div></article>
-</section><section class="home-markets home-section" aria-labelledby="home-markets-title"><header class="home-reveal"><p class="home-label" data-i18n="homeEveryMarket">Setiap pasar</p><h2 id="home-markets-title" data-i18n="homeMarketsTitle">Satu jurnal untuk setiap<br><span>pasar yang Anda trade.</span></h2><p class="home-section-lead" data-i18n="homeMarketsLead">Kelola catatan forex, saham, crypto, dan emas dalam satu jurnal. Bandingkan pengalaman Anda di berbagai instrumen.</p></header><div class="home-market-grid"><article class="home-market-card home-reveal"><span class="home-label">EUR/USD</span><svg class="home-chart" aria-hidden="true" viewBox="0 0 200 110"><g class="home-candle-slot" style="--i:0"><g class="home-candle"><line x1="11" x2="11" y1="63" y2="81" stroke="#27c98b" stroke-width="1.5"></line><rect x="5" y="67" width="12" height="10" rx="1.5" fill="#27c98b" stroke="#27c98b" stroke-width="1.5"></rect></g></g><g class="home-candle-slot" style="--i:1"><g class="home-candle"><line x1="33" x2="33" y1="61" y2="72" stroke="#27c98b" stroke-width="1.5"></line><rect x="28" y="64" width="12" height="3" rx="1.5" fill="#27c98b" stroke="#27c98b" stroke-width="1.5"></rect></g></g><g class="home-candle-slot" style="--i:2"><g class="home-candle"><line x1="56" x2="56" y1="60" y2="71" stroke="#f05252" stroke-width="1.5"></line><rect x="50" y="64" width="12" height="3" rx="1.5" fill="#f05252" stroke="#f05252" stroke-width="1.5"></rect></g></g><g class="home-candle-slot" style="--i:3"><g class="home-candle"><line x1="78" x2="78" y1="57" y2="70" stroke="#27c98b" stroke-width="1.5"></line><rect x="72" y="59" width="12" height="8" rx="1.5" fill="#27c98b" stroke="#27c98b" stroke-width="1.5"></rect></g></g><g class="home-candle-slot" style="--i:4"><g class="home-candle"><line x1="100" x2="100" y1="55" y2="63" stroke="#27c98b" stroke-width="1.5"></line><rect x="94" y="57" width="12" height="3" rx="1.5" fill="#27c98b" stroke="#27c98b" stroke-width="1.5"></rect></g></g><g class="home-candle-slot" style="--i:5"><g class="home-candle"><line x1="122" x2="122" y1="46" y2="60" stroke="#27c98b" stroke-width="1.5"></line><rect x="116" y="49" width="12" height="9" rx="1.5" fill="#27c98b" stroke="#27c98b" stroke-width="1.5"></rect></g></g><g class="home-candle-slot" style="--i:6"><g class="home-candle"><line x1="144" x2="144" y1="44" y2="61" stroke="#f05252" stroke-width="1.5"></line><rect x="139" y="49" width="12" height="7" rx="1.5" fill="#f05252" stroke="#f05252" stroke-width="1.5"></rect></g></g><g class="home-candle-slot" style="--i:7"><g class="home-candle"><line x1="167" x2="167" y1="54" y2="59" stroke="#27c98b" stroke-width="1.5"></line><rect x="161" y="56" width="12" height="3" rx="1.5" fill="#27c98b" stroke="#27c98b" stroke-width="1.5"></rect></g></g><g class="home-candle-slot" style="--i:8"><g class="home-candle"><line x1="189" x2="189" y1="50" y2="61" stroke="#27c98b" stroke-width="1.5"></line><rect x="183" y="53" width="12" height="3" rx="1.5" fill="#27c98b" stroke="#27c98b" stroke-width="1.5"></rect></g></g></svg><h3 data-i18n="homeForex">Forex</h3></article><article class="home-market-card home-reveal"><span class="home-label">STOCKS</span><svg class="home-chart" aria-hidden="true" viewBox="0 0 200 110"><g class="home-candle-slot" style="--i:0"><g class="home-candle"><line x1="11" x2="11" y1="75" y2="86" stroke="#f05252" stroke-width="1.5"></line><rect x="5" y="77" width="12" height="7" rx="1.5" fill="#f05252" stroke="#f05252" stroke-width="1.5"></rect></g></g><g class="home-candle-slot" style="--i:1"><g class="home-candle"><line x1="33" x2="33" y1="81" y2="93" stroke="#f05252" stroke-width="1.5"></line><rect x="28" y="84" width="12" height="7" rx="1.5" fill="#f05252" stroke="#f05252" stroke-width="1.5"></rect></g></g><g class="home-candle-slot" style="--i:2"><g class="home-candle"><line x1="56" x2="56" y1="88" y2="96" stroke="#f05252" stroke-width="1.5"></line><rect x="50" y="91" width="12" height="3" rx="1.5" fill="#f05252" stroke="#f05252" stroke-width="1.5"></rect></g></g><g class="home-candle-slot" style="--i:3"><g class="home-candle"><line x1="78" x2="78" y1="77" y2="94" stroke="#27c98b" stroke-width="1.5"></line><rect x="72" y="83" width="12" height="9" rx="1.5" fill="#27c98b" stroke="#27c98b" stroke-width="1.5"></rect></g></g><g class="home-candle-slot" style="--i:4"><g class="home-candle"><line x1="100" x2="100" y1="77" y2="87" stroke="#27c98b" stroke-width="1.5"></line><rect x="94" y="82" width="12" height="3" rx="1.5" fill="#27c98b" stroke="#27c98b" stroke-width="1.5"></rect></g></g><g class="home-candle-slot" style="--i:5"><g class="home-candle"><line x1="122" x2="122" y1="77" y2="90" stroke="#f05252" stroke-width="1.5"></line><rect x="116" y="82" width="12" height="6" rx="1.5" fill="#f05252" stroke="#f05252" stroke-width="1.5"></rect></g></g><g class="home-candle-slot" style="--i:6"><g class="home-candle"><line x1="144" x2="144" y1="84" y2="96" stroke="#f05252" stroke-width="1.5"></line><rect x="139" y="88" width="12" height="5" rx="1.5" fill="#f05252" stroke="#f05252" stroke-width="1.5"></rect></g></g><g class="home-candle-slot" style="--i:7"><g class="home-candle"><line x1="167" x2="167" y1="78" y2="97" stroke="#27c98b" stroke-width="1.5"></line><rect x="161" y="83" width="12" height="9" rx="1.5" fill="#27c98b" stroke="#27c98b" stroke-width="1.5"></rect></g></g><g class="home-candle-slot" style="--i:8"><g class="home-candle"><line x1="189" x2="189" y1="79" y2="95" stroke="#f05252" stroke-width="1.5"></line><rect x="183" y="83" width="12" height="6" rx="1.5" fill="#f05252" stroke="#f05252" stroke-width="1.5"></rect></g></g></svg><h3 data-i18n="homeStocks">Saham</h3></article><article class="home-market-card home-reveal"><span class="home-label">BTC/USD</span><svg class="home-chart" aria-hidden="true" viewBox="0 0 200 110"><g class="home-candle-slot" style="--i:0"><g class="home-candle"><line x1="11" x2="11" y1="72" y2="88" stroke="#f05252" stroke-width="1.5"></line><rect x="5" y="77" width="12" height="6" rx="1.5" fill="#f05252" stroke="#f05252" stroke-width="1.5"></rect></g></g><g class="home-candle-slot" style="--i:1"><g class="home-candle"><line x1="33" x2="33" y1="67" y2="86" stroke="#27c98b" stroke-width="1.5"></line><rect x="28" y="71" width="12" height="12" rx="1.5" fill="#27c98b" stroke="#27c98b" stroke-width="1.5"></rect></g></g><g class="home-candle-slot" style="--i:2"><g class="home-candle"><line x1="56" x2="56" y1="66" y2="74" stroke="#27c98b" stroke-width="1.5"></line><rect x="50" y="69" width="12" height="3" rx="1.5" fill="#27c98b" stroke="#27c98b" stroke-width="1.5"></rect></g></g><g class="home-candle-slot" style="--i:3"><g class="home-candle"><line x1="78" x2="78" y1="62" y2="72" stroke="#27c98b" stroke-width="1.5"></line><rect x="72" y="65" width="12" height="4" rx="1.5" fill="#27c98b" stroke="#27c98b" stroke-width="1.5"></rect></g></g><g class="home-candle-slot" style="--i:4"><g class="home-candle"><line x1="100" x2="100" y1="50" y2="69" stroke="#27c98b" stroke-width="1.5"></line><rect x="94" y="52" width="12" height="13" rx="1.5" fill="#27c98b" stroke="#27c98b" stroke-width="1.5"></rect></g></g><g class="home-candle-slot" style="--i:5"><g class="home-candle"><line x1="122" x2="122" y1="43" y2="56" stroke="#27c98b" stroke-width="1.5"></line><rect x="116" y="47" width="12" height="5" rx="1.5" fill="#27c98b" stroke="#27c98b" stroke-width="1.5"></rect></g></g><g class="home-candle-slot" style="--i:6"><g class="home-candle"><line x1="144" x2="144" y1="39" y2="52" stroke="#27c98b" stroke-width="1.5"></line><rect x="139" y="41" width="12" height="6" rx="1.5" fill="#27c98b" stroke="#27c98b" stroke-width="1.5"></rect></g></g><g class="home-candle-slot" style="--i:7"><g class="home-candle"><line x1="167" x2="167" y1="36" y2="46" stroke="#27c98b" stroke-width="1.5"></line><rect x="161" y="40" width="12" height="3" rx="1.5" fill="#27c98b" stroke="#27c98b" stroke-width="1.5"></rect></g></g><g class="home-candle-slot" style="--i:8"><g class="home-candle"><line x1="189" x2="189" y1="37" y2="52" stroke="#f05252" stroke-width="1.5"></line><rect x="183" y="40" width="12" height="7" rx="1.5" fill="#f05252" stroke="#f05252" stroke-width="1.5"></rect></g></g></svg><h3 data-i18n="homeCrypto">Crypto</h3></article><article class="home-market-card home-reveal"><span class="home-label">XAU/USD</span><svg class="home-chart" aria-hidden="true" viewBox="0 0 200 110"><g class="home-candle-slot" style="--i:0"><g class="home-candle"><line x1="11" x2="11" y1="72" y2="81" stroke="#f05252" stroke-width="1.5"></line><rect x="5" y="77" width="12" height="3" rx="1.5" fill="#f05252" stroke="#f05252" stroke-width="1.5"></rect></g></g><g class="home-candle-slot" style="--i:1"><g class="home-candle"><line x1="33" x2="33" y1="76" y2="90" stroke="#f05252" stroke-width="1.5"></line><rect x="28" y="78" width="12" height="7" rx="1.5" fill="#f05252" stroke="#f05252" stroke-width="1.5"></rect></g></g><g class="home-candle-slot" style="--i:2"><g class="home-candle"><line x1="56" x2="56" y1="70" y2="88" stroke="#27c98b" stroke-width="1.5"></line><rect x="50" y="74" width="12" height="12" rx="1.5" fill="#27c98b" stroke="#27c98b" stroke-width="1.5"></rect></g></g><g class="home-candle-slot" style="--i:3"><g class="home-candle"><line x1="78" x2="78" y1="70" y2="80" stroke="#f05252" stroke-width="1.5"></line><rect x="72" y="74" width="12" height="3" rx="1.5" fill="#f05252" stroke="#f05252" stroke-width="1.5"></rect></g></g><g class="home-candle-slot" style="--i:4"><g class="home-candle"><line x1="100" x2="100" y1="67" y2="81" stroke="#27c98b" stroke-width="1.5"></line><rect x="94" y="72" width="12" height="4" rx="1.5" fill="#27c98b" stroke="#27c98b" stroke-width="1.5"></rect></g></g><g class="home-candle-slot" style="--i:5"><g class="home-candle"><line x1="122" x2="122" y1="57" y2="77" stroke="#27c98b" stroke-width="1.5"></line><rect x="116" y="61" width="12" height="11" rx="1.5" fill="#27c98b" stroke="#27c98b" stroke-width="1.5"></rect></g></g><g class="home-candle-slot" style="--i:6"><g class="home-candle"><line x1="144" x2="144" y1="57" y2="66" stroke="#f05252" stroke-width="1.5"></line><rect x="139" y="61" width="12" height="3" rx="1.5" fill="#f05252" stroke="#f05252" stroke-width="1.5"></rect></g></g><g class="home-candle-slot" style="--i:7"><g class="home-candle"><line x1="167" x2="167" y1="60" y2="74" stroke="#f05252" stroke-width="1.5"></line><rect x="161" y="63" width="12" height="6" rx="1.5" fill="#f05252" stroke="#f05252" stroke-width="1.5"></rect></g></g><g class="home-candle-slot" style="--i:8"><g class="home-candle"><line x1="189" x2="189" y1="67" y2="76" stroke="#f05252" stroke-width="1.5"></line><rect x="183" y="69" width="12" height="4" rx="1.5" fill="#f05252" stroke="#f05252" stroke-width="1.5"></rect></g></g></svg><h3 data-i18n="homeGold">Emas</h3></article></div></section><section class="home-sessions home-section" aria-labelledby="home-session-title"><div class="home-reveal"><p class="home-label" data-i18n="homeHabits">Evaluasi kebiasaan</p><h2 id="home-session-title" data-i18n="homeSessionTitle">Temukan sesi<br><span>terbaik Anda.</span></h2><p class="home-section-lead" data-i18n="homeSessionLead">Bandingkan hasil berdasarkan sesi trading, setup, dan alasan entry. Gunakan catatan untuk mempertahankan keputusan yang konsisten dan mengidentifikasi kebiasaan yang perlu diperbaiki.</p></div><figure class="home-session-demo home-reveal"><div class="home-session-bars" aria-hidden="true"><div><i style="--i:0;--height:45%"></i><span>Asia</span></div><div><i style="--i:1;--height:80%"></i><span>London</span></div><div><i style="--i:2;--height:62%"></i><span>New York</span></div></div><figcaption data-i18n="homeSessionNote">Ilustrasi perbandingan sesi. Hasil aktual menggunakan data jurnal Anda.</figcaption></figure></section><section class="home-improve home-section" aria-labelledby="home-improve-title"><header class="home-reveal"><p class="home-label" data-i18n="homeNextReview">Dari evaluasi ke tindakan</p><h2 id="home-improve-title" data-i18n="homeImproveTitle">Buat evaluasi Anda<br><span>dapat ditindaklanjuti.</span></h2><p class="home-section-lead" data-i18n="homeImproveLead">Akhiri evaluasi dengan rencana yang dapat diperiksa pada sesi berikutnya.</p></header><div class="home-improve-grid"><article class="home-reveal"><span class="home-label">01</span><h3 data-i18n="homeImproveObserve">Identifikasi kondisi.</h3><p data-i18n="homeImproveObserveText">Bandingkan catatan setup, waktu entry, dan konteks pasar. Tandai kondisi yang ingin Anda evaluasi lebih lanjut.</p></article><article class="home-reveal"><span class="home-label">02</span><h3 data-i18n="homeImprovePlan">Tentukan satu perubahan.</h3><p data-i18n="homeImprovePlanText">Tuliskan penyesuaian pada rencana risiko atau kriteria entry. Jadikan catatan ini acuan untuk sesi berikutnya.</p></article><article class="home-reveal"><span class="home-label">03</span><h3 data-i18n="homeImproveCheck">Tinjau pelaksanaannya.</h3><p data-i18n="homeImproveCheckText">Periksa apakah perubahan dijalankan secara konsisten. Simpan backup jurnal agar riwayat evaluasi tetap tersedia.</p></article></div></section>        <section class="landing-pricing home-section home-reveal" id="pricing-section" aria-labelledby="pricing-title">
+<article class="home-process-row home-reveal"><div><span class="home-label">01 / CONTEXT</span><h3 data-i18n="guideMarketTitle">Understand the market context.</h3><p data-i18n="guideMarketText">Review your instrument, liquidity, spreads and the economic calendar before opening a position. Record the conditions behind your decision.</p><p class="home-tip" data-i18n="homeContextTip">Include news context in your notes so you can compare it during review.</p></div><div class="home-demo"><p class="home-label" data-i18n="homeContextPreview">Session preparation</p><div class="home-context-calendar"><span class="home-calendar-day" aria-hidden="true"><i style="--day:0"></i><i style="--day:1"></i><i style="--day:2"></i><i style="--day:3"></i><i style="--day:4"></i><i style="--day:5"></i><i style="--day:6"></i><i style="--day:7"></i><i style="--day:8"></i><i style="--day:9"></i><i style="--day:10"></i><i style="--day:11"></i><i style="--day:12"></i><i style="--day:13"></i><i style="--day:14"></i><i style="--day:15"></i><i style="--day:16"></i><i style="--day:17"></i><i style="--day:18"></i><i style="--day:19"></i><i style="--day:20"></i></span><div><h4 data-i18n="homeCalendarFocus">Economic calendar</h4><p data-i18n="homeCalendarDetail">Check scheduled releases before entering.</p></div></div><div class="home-context-note"><i aria-hidden="true"></i><span data-i18n="homeContextReminder">Review high-impact releases.</span></div></div></article>
+<article class="home-process-row home-reveal"><div><span class="home-label">02 / PLAN</span><h3 data-i18n="guideRiskTitle">Define your risk before entry.</h3><p data-i18n="guideRiskText">Document your entry, stop loss and target. Use the calculator to align position size with your account risk limit.</p><p class="home-tip" data-i18n="homePlanTip">Define the loss limit and exit criteria before opening a position.</p></div><div class="home-demo"><p class="home-label" data-i18n="homeRiskPlan">Risk plan</p><div class="home-demo-line"><span data-i18n="homeRiskLimit">Risk per trade</span><span data-i18n="homeYourLimit">Your limit</span></div><div class="home-track" aria-hidden="true"><i class="home-risk-fill"></i></div><div class="home-plan-fields"><div><span data-i18n="homeEntry">Entry</span><strong data-i18n="homeDefined">Defined</strong></div><div><span data-i18n="homeStop">Stop loss</span><strong data-i18n="homeDefined">Defined</strong></div><div><span data-i18n="homeTarget">Target</span><strong data-i18n="homeDefined">Defined</strong></div></div></div></article>
+<article class="home-process-row home-reveal"><div><span class="home-label">03 / RECORD</span><h3 data-i18n="guideJournalTitle">Document every trade.</h3><p data-i18n="guideJournalText">Record trades manually or import PDFs, images and CSV files. Review scan results before saving; unreadable values stay blank.</p><p class="home-tip" data-i18n="homeRecordTip">Record your entry reason when you make the decision, before seeing the result.</p></div><div class="home-demo"><p class="home-label" data-i18n="homeReasonLabel">Entry reason</p><div class="home-typing-box"><span class="home-typed" data-i18n="homeReasonSample">Support retest within the trading plan.</span></div><p class="home-demo-line" data-i18n="homeImportPreview">CSV import preview</p><div class="home-track" aria-hidden="true"><i class="home-import-fill"></i></div></div></article>
+<article class="home-process-row home-reveal"><div><span class="home-label">04 / REVIEW</span><h3 data-i18n="guideReviewTitle">Review your decision patterns.</h3><p data-i18n="guideReviewText">Review profit and loss, win rate and drawdown in Statistics. Compare setups and entry reasons, then choose a change to test in your next session.</p><p class="home-tip" data-i18n="homeReviewTip">Evaluate one change consistently before introducing another.</p></div><div class="home-demo"><p class="home-label" data-i18n="homeReviewPreview">Performance review</p><svg class="home-equity" viewBox="0 0 300 130" aria-hidden="true"><path pathLength="1" d="M3 115 38 94 72 102 110 63 150 74 190 37 230 49 296 12" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div></article>
+</section><section class="home-markets home-section" aria-labelledby="home-markets-title"><header class="home-reveal"><p class="home-label" data-i18n="homeEveryMarket">Every market</p><h2 id="home-markets-title" data-i18n="homeMarketsTitle">One journal for every<br><span>market you trade.</span></h2><p class="home-section-lead" data-i18n="homeMarketsLead">Keep forex, stocks, crypto and gold records in one journal. Compare your experience across instruments.</p></header><div class="home-market-grid"><article class="home-market-card home-reveal"><span class="home-label">EUR/USD</span><svg class="home-chart" aria-hidden="true" viewBox="0 0 200 110"><g class="home-candle-slot" style="--i:0"><g class="home-candle"><line x1="11" x2="11" y1="63" y2="81" stroke="#27c98b" stroke-width="1.5"></line><rect x="5" y="67" width="12" height="10" rx="1.5" fill="#27c98b" stroke="#27c98b" stroke-width="1.5"></rect></g></g><g class="home-candle-slot" style="--i:1"><g class="home-candle"><line x1="33" x2="33" y1="61" y2="72" stroke="#27c98b" stroke-width="1.5"></line><rect x="28" y="64" width="12" height="3" rx="1.5" fill="#27c98b" stroke="#27c98b" stroke-width="1.5"></rect></g></g><g class="home-candle-slot" style="--i:2"><g class="home-candle"><line x1="56" x2="56" y1="60" y2="71" stroke="#f05252" stroke-width="1.5"></line><rect x="50" y="64" width="12" height="3" rx="1.5" fill="#f05252" stroke="#f05252" stroke-width="1.5"></rect></g></g><g class="home-candle-slot" style="--i:3"><g class="home-candle"><line x1="78" x2="78" y1="57" y2="70" stroke="#27c98b" stroke-width="1.5"></line><rect x="72" y="59" width="12" height="8" rx="1.5" fill="#27c98b" stroke="#27c98b" stroke-width="1.5"></rect></g></g><g class="home-candle-slot" style="--i:4"><g class="home-candle"><line x1="100" x2="100" y1="55" y2="63" stroke="#27c98b" stroke-width="1.5"></line><rect x="94" y="57" width="12" height="3" rx="1.5" fill="#27c98b" stroke="#27c98b" stroke-width="1.5"></rect></g></g><g class="home-candle-slot" style="--i:5"><g class="home-candle"><line x1="122" x2="122" y1="46" y2="60" stroke="#27c98b" stroke-width="1.5"></line><rect x="116" y="49" width="12" height="9" rx="1.5" fill="#27c98b" stroke="#27c98b" stroke-width="1.5"></rect></g></g><g class="home-candle-slot" style="--i:6"><g class="home-candle"><line x1="144" x2="144" y1="44" y2="61" stroke="#f05252" stroke-width="1.5"></line><rect x="139" y="49" width="12" height="7" rx="1.5" fill="#f05252" stroke="#f05252" stroke-width="1.5"></rect></g></g><g class="home-candle-slot" style="--i:7"><g class="home-candle"><line x1="167" x2="167" y1="54" y2="59" stroke="#27c98b" stroke-width="1.5"></line><rect x="161" y="56" width="12" height="3" rx="1.5" fill="#27c98b" stroke="#27c98b" stroke-width="1.5"></rect></g></g><g class="home-candle-slot" style="--i:8"><g class="home-candle"><line x1="189" x2="189" y1="50" y2="61" stroke="#27c98b" stroke-width="1.5"></line><rect x="183" y="53" width="12" height="3" rx="1.5" fill="#27c98b" stroke="#27c98b" stroke-width="1.5"></rect></g></g></svg><h3 data-i18n="homeForex">Forex</h3></article><article class="home-market-card home-reveal"><span class="home-label">STOCKS</span><svg class="home-chart" aria-hidden="true" viewBox="0 0 200 110"><g class="home-candle-slot" style="--i:0"><g class="home-candle"><line x1="11" x2="11" y1="75" y2="86" stroke="#f05252" stroke-width="1.5"></line><rect x="5" y="77" width="12" height="7" rx="1.5" fill="#f05252" stroke="#f05252" stroke-width="1.5"></rect></g></g><g class="home-candle-slot" style="--i:1"><g class="home-candle"><line x1="33" x2="33" y1="81" y2="93" stroke="#f05252" stroke-width="1.5"></line><rect x="28" y="84" width="12" height="7" rx="1.5" fill="#f05252" stroke="#f05252" stroke-width="1.5"></rect></g></g><g class="home-candle-slot" style="--i:2"><g class="home-candle"><line x1="56" x2="56" y1="88" y2="96" stroke="#f05252" stroke-width="1.5"></line><rect x="50" y="91" width="12" height="3" rx="1.5" fill="#f05252" stroke="#f05252" stroke-width="1.5"></rect></g></g><g class="home-candle-slot" style="--i:3"><g class="home-candle"><line x1="78" x2="78" y1="77" y2="94" stroke="#27c98b" stroke-width="1.5"></line><rect x="72" y="83" width="12" height="9" rx="1.5" fill="#27c98b" stroke="#27c98b" stroke-width="1.5"></rect></g></g><g class="home-candle-slot" style="--i:4"><g class="home-candle"><line x1="100" x2="100" y1="77" y2="87" stroke="#27c98b" stroke-width="1.5"></line><rect x="94" y="82" width="12" height="3" rx="1.5" fill="#27c98b" stroke="#27c98b" stroke-width="1.5"></rect></g></g><g class="home-candle-slot" style="--i:5"><g class="home-candle"><line x1="122" x2="122" y1="77" y2="90" stroke="#f05252" stroke-width="1.5"></line><rect x="116" y="82" width="12" height="6" rx="1.5" fill="#f05252" stroke="#f05252" stroke-width="1.5"></rect></g></g><g class="home-candle-slot" style="--i:6"><g class="home-candle"><line x1="144" x2="144" y1="84" y2="96" stroke="#f05252" stroke-width="1.5"></line><rect x="139" y="88" width="12" height="5" rx="1.5" fill="#f05252" stroke="#f05252" stroke-width="1.5"></rect></g></g><g class="home-candle-slot" style="--i:7"><g class="home-candle"><line x1="167" x2="167" y1="78" y2="97" stroke="#27c98b" stroke-width="1.5"></line><rect x="161" y="83" width="12" height="9" rx="1.5" fill="#27c98b" stroke="#27c98b" stroke-width="1.5"></rect></g></g><g class="home-candle-slot" style="--i:8"><g class="home-candle"><line x1="189" x2="189" y1="79" y2="95" stroke="#f05252" stroke-width="1.5"></line><rect x="183" y="83" width="12" height="6" rx="1.5" fill="#f05252" stroke="#f05252" stroke-width="1.5"></rect></g></g></svg><h3 data-i18n="homeStocks">Stocks</h3></article><article class="home-market-card home-reveal"><span class="home-label">BTC/USD</span><svg class="home-chart" aria-hidden="true" viewBox="0 0 200 110"><g class="home-candle-slot" style="--i:0"><g class="home-candle"><line x1="11" x2="11" y1="72" y2="88" stroke="#f05252" stroke-width="1.5"></line><rect x="5" y="77" width="12" height="6" rx="1.5" fill="#f05252" stroke="#f05252" stroke-width="1.5"></rect></g></g><g class="home-candle-slot" style="--i:1"><g class="home-candle"><line x1="33" x2="33" y1="67" y2="86" stroke="#27c98b" stroke-width="1.5"></line><rect x="28" y="71" width="12" height="12" rx="1.5" fill="#27c98b" stroke="#27c98b" stroke-width="1.5"></rect></g></g><g class="home-candle-slot" style="--i:2"><g class="home-candle"><line x1="56" x2="56" y1="66" y2="74" stroke="#27c98b" stroke-width="1.5"></line><rect x="50" y="69" width="12" height="3" rx="1.5" fill="#27c98b" stroke="#27c98b" stroke-width="1.5"></rect></g></g><g class="home-candle-slot" style="--i:3"><g class="home-candle"><line x1="78" x2="78" y1="62" y2="72" stroke="#27c98b" stroke-width="1.5"></line><rect x="72" y="65" width="12" height="4" rx="1.5" fill="#27c98b" stroke="#27c98b" stroke-width="1.5"></rect></g></g><g class="home-candle-slot" style="--i:4"><g class="home-candle"><line x1="100" x2="100" y1="50" y2="69" stroke="#27c98b" stroke-width="1.5"></line><rect x="94" y="52" width="12" height="13" rx="1.5" fill="#27c98b" stroke="#27c98b" stroke-width="1.5"></rect></g></g><g class="home-candle-slot" style="--i:5"><g class="home-candle"><line x1="122" x2="122" y1="43" y2="56" stroke="#27c98b" stroke-width="1.5"></line><rect x="116" y="47" width="12" height="5" rx="1.5" fill="#27c98b" stroke="#27c98b" stroke-width="1.5"></rect></g></g><g class="home-candle-slot" style="--i:6"><g class="home-candle"><line x1="144" x2="144" y1="39" y2="52" stroke="#27c98b" stroke-width="1.5"></line><rect x="139" y="41" width="12" height="6" rx="1.5" fill="#27c98b" stroke="#27c98b" stroke-width="1.5"></rect></g></g><g class="home-candle-slot" style="--i:7"><g class="home-candle"><line x1="167" x2="167" y1="36" y2="46" stroke="#27c98b" stroke-width="1.5"></line><rect x="161" y="40" width="12" height="3" rx="1.5" fill="#27c98b" stroke="#27c98b" stroke-width="1.5"></rect></g></g><g class="home-candle-slot" style="--i:8"><g class="home-candle"><line x1="189" x2="189" y1="37" y2="52" stroke="#f05252" stroke-width="1.5"></line><rect x="183" y="40" width="12" height="7" rx="1.5" fill="#f05252" stroke="#f05252" stroke-width="1.5"></rect></g></g></svg><h3 data-i18n="homeCrypto">Crypto</h3></article><article class="home-market-card home-reveal"><span class="home-label">XAU/USD</span><svg class="home-chart" aria-hidden="true" viewBox="0 0 200 110"><g class="home-candle-slot" style="--i:0"><g class="home-candle"><line x1="11" x2="11" y1="72" y2="81" stroke="#f05252" stroke-width="1.5"></line><rect x="5" y="77" width="12" height="3" rx="1.5" fill="#f05252" stroke="#f05252" stroke-width="1.5"></rect></g></g><g class="home-candle-slot" style="--i:1"><g class="home-candle"><line x1="33" x2="33" y1="76" y2="90" stroke="#f05252" stroke-width="1.5"></line><rect x="28" y="78" width="12" height="7" rx="1.5" fill="#f05252" stroke="#f05252" stroke-width="1.5"></rect></g></g><g class="home-candle-slot" style="--i:2"><g class="home-candle"><line x1="56" x2="56" y1="70" y2="88" stroke="#27c98b" stroke-width="1.5"></line><rect x="50" y="74" width="12" height="12" rx="1.5" fill="#27c98b" stroke="#27c98b" stroke-width="1.5"></rect></g></g><g class="home-candle-slot" style="--i:3"><g class="home-candle"><line x1="78" x2="78" y1="70" y2="80" stroke="#f05252" stroke-width="1.5"></line><rect x="72" y="74" width="12" height="3" rx="1.5" fill="#f05252" stroke="#f05252" stroke-width="1.5"></rect></g></g><g class="home-candle-slot" style="--i:4"><g class="home-candle"><line x1="100" x2="100" y1="67" y2="81" stroke="#27c98b" stroke-width="1.5"></line><rect x="94" y="72" width="12" height="4" rx="1.5" fill="#27c98b" stroke="#27c98b" stroke-width="1.5"></rect></g></g><g class="home-candle-slot" style="--i:5"><g class="home-candle"><line x1="122" x2="122" y1="57" y2="77" stroke="#27c98b" stroke-width="1.5"></line><rect x="116" y="61" width="12" height="11" rx="1.5" fill="#27c98b" stroke="#27c98b" stroke-width="1.5"></rect></g></g><g class="home-candle-slot" style="--i:6"><g class="home-candle"><line x1="144" x2="144" y1="57" y2="66" stroke="#f05252" stroke-width="1.5"></line><rect x="139" y="61" width="12" height="3" rx="1.5" fill="#f05252" stroke="#f05252" stroke-width="1.5"></rect></g></g><g class="home-candle-slot" style="--i:7"><g class="home-candle"><line x1="167" x2="167" y1="60" y2="74" stroke="#f05252" stroke-width="1.5"></line><rect x="161" y="63" width="12" height="6" rx="1.5" fill="#f05252" stroke="#f05252" stroke-width="1.5"></rect></g></g><g class="home-candle-slot" style="--i:8"><g class="home-candle"><line x1="189" x2="189" y1="67" y2="76" stroke="#f05252" stroke-width="1.5"></line><rect x="183" y="69" width="12" height="4" rx="1.5" fill="#f05252" stroke="#f05252" stroke-width="1.5"></rect></g></g></svg><h3 data-i18n="homeGold">Gold</h3></article></div></section><section class="home-sessions home-section" aria-labelledby="home-session-title"><div class="home-reveal"><p class="home-label" data-i18n="homeHabits">Review your habits</p><h2 id="home-session-title" data-i18n="homeSessionTitle">Find your<br><span>best session.</span></h2><p class="home-section-lead" data-i18n="homeSessionLead">Compare results by trading session, setup and entry reason. Use your records to retain consistent decisions and identify habits that need improvement.</p></div><figure class="home-session-demo home-reveal"><div class="home-session-bars" aria-hidden="true"><div><i style="--i:0;--height:45%"></i><span>Asia</span></div><div><i style="--i:1;--height:80%"></i><span>London</span></div><div><i style="--i:2;--height:62%"></i><span>New York</span></div></div><figcaption data-i18n="homeSessionNote">Illustrative session comparison. Actual results use your journal data.</figcaption></figure></section><section class="home-improve home-section" aria-labelledby="home-improve-title"><header class="home-reveal"><p class="home-label" data-i18n="homeNextReview">From review to action</p><h2 id="home-improve-title" data-i18n="homeImproveTitle">Make your review<br><span>actionable.</span></h2><p class="home-section-lead" data-i18n="homeImproveLead">Finish each review with a plan you can check in the next session.</p></header><div class="home-improve-grid"><article class="home-reveal"><span class="home-label">01</span><h3 data-i18n="homeImproveObserve">Identify the conditions.</h3><p data-i18n="homeImproveObserveText">Compare setup notes, entry timing and market context. Mark the conditions you want to examine further.</p></article><article class="home-reveal"><span class="home-label">02</span><h3 data-i18n="homeImprovePlan">Define one change.</h3><p data-i18n="homeImprovePlanText">Write down an adjustment to your risk plan or entry criteria. Use this note as a reference for the next session.</p></article><article class="home-reveal"><span class="home-label">03</span><h3 data-i18n="homeImproveCheck">Review the execution.</h3><p data-i18n="homeImproveCheckText">Check whether you followed the change consistently. Export a journal backup to keep your review history available.</p></article></div></section>        <section class="landing-pricing home-section home-reveal" id="pricing-section" aria-labelledby="pricing-title">
           <header class="pricing-heading">
-            <h2 id="pricing-title" data-i18n="pricingTitle">Paket yang berkembang bersama Anda</h2>
-            <p data-i18n="pricingLead">Mulai dari Free. Pilihan berbayar segera tersedia.</p>
+            <h2 id="pricing-title" data-i18n="pricingTitle">Plans that grow with you</h2>
+            <p data-i18n="pricingLead">Start with Free. Paid plans are coming soon.</p>
           </header>
           <div class="paid-plan-grid">
             <article class="plan-card home-reveal free-plan">
               <div class="plan-card-heading"><h3>Free</h3></div>
-              <p class="plan-description" data-i18n="freeDescription">Kenali kebiasaan trading Anda.</p>
+              <p class="plan-description" data-i18n="freeDescription">Get to know your trading habits.</p>
               <div class="plan-price-line"><span class="plan-price">$0</span></div>
-              <p class="plan-billing" data-i18n="freeBilling">Gratis, tanpa langganan</p>
-              <button class="btn btn-primary" type="button" onclick="startTrial()" data-i18n="tryFree">Coba Free</button>
-              <p class="plan-action-note" data-i18n="freeNote">Mulai dengan data di perangkat Anda</p>
-              <details><summary data-i18n="featureDetails">Tampilkan semua fitur</summary><ul class="free-features"><li data-i18n="freeFeature1">Pencatatan jurnal manual</li><li data-i18n="freeFeature2">Statistik dan kalkulator risiko</li><li data-i18n="freeFeature3">Scan PDF/PNG dan impor CSV/TXT: 10 upload setiap 12 jam</li><li data-i18n="freeFeature4">Backup dan pemulihan data lokal</li></ul></details>
+              <p class="plan-billing" data-i18n="freeBilling">Free, no subscription</p>
+              <button class="btn btn-primary" type="button" onclick="startTrial()" data-i18n="tryFree">Try Free</button>
+              <p class="plan-action-note" data-i18n="freeNote">Start with data on your own device</p>
+              <details><summary data-i18n="featureDetails">Show all features</summary><ul class="free-features"><li data-i18n="freeFeature1">Manual trade journaling</li><li data-i18n="freeFeature2">Statistics and risk calculators</li><li data-i18n="freeFeature3">PDF/PNG scans and CSV/TXT imports: 10 uploads every 12 hours</li><li data-i18n="freeFeature4">Local backup and restore</li></ul></details>
             </article>
             <article class="plan-card home-reveal">
-              <div class="plan-card-heading"><h3>Plus</h3><div class="billing-toggle" role="group" aria-label="Periode Plus"><button id="btn-monthly" data-cycle="monthly" type="button" class="active" onclick="setBillingCycle(false)" aria-pressed="true" data-i18n="monthly">Bulanan</button><button id="btn-annual" data-cycle="annual" type="button" onclick="setBillingCycle(true)" aria-pressed="false"><span data-i18n="annual">Tahunan</span><span class="annual-saving" data-i18n="save17">Hemat 17%</span></button></div></div>
-              <p class="plan-description" data-i18n="plusDescription">Untuk rutinitas jurnal yang lebih teratur.</p>
-              <div class="plan-price-line"><span class="plan-price" id="plus-price">$10</span><span class="plan-period" id="plus-period">USD / bulan</span></div>
-              <p class="plan-billing" id="plus-billing">Ditagih bulanan</p>
+              <div class="plan-card-heading"><h3>Plus</h3><div class="billing-toggle" role="group" aria-label="Period Plus"><button id="btn-monthly" data-cycle="monthly" type="button" class="active" onclick="setBillingCycle(false)" aria-pressed="true" data-i18n="monthly">Monthly</button><button id="btn-annual" data-cycle="annual" type="button" onclick="setBillingCycle(true)" aria-pressed="false"><span data-i18n="annual">Annual</span><span class="annual-saving" data-i18n="save17">Save 17%</span></button></div></div>
+              <p class="plan-description" data-i18n="plusDescription">Build a consistent journaling routine.</p>
+              <div class="plan-price-line"><span class="plan-price" id="plus-price">$10</span><span class="plan-period" id="plus-period">USD / month</span></div>
+              <p class="plan-billing" id="plus-billing">Billed monthly</p>
 
-              <button class="btn plan-unavailable" type="button" disabled data-i18n="plusSoon">Plus segera tersedia</button>
-              <p class="plan-action-note" data-i18n="paidNote">Langganan belum dibuka</p>
-              <details><summary data-i18n="featureDetails">Tampilkan semua fitur</summary><ul class="free-features"><li data-i18n="plusFeature1">Semua fitur Free</li><li data-i18n="plusFeature2">Upload tanpa batas</li><li data-i18n="plusFeature3">Akses berita dan kalender ekonomi</li></ul><dl class="plan-details"><div><dt data-i18n="monthly">Bulanan</dt><dd>$10 <span data-i18n="perMonth">USD / bulan</span></dd></div><div><dt data-i18n="annual">Tahunan</dt><dd>$100 <span data-i18n="perYear">USD / tahun</span></dd></div></dl><p data-i18n="plusSavings">Hemat $20 dibanding 12 pembayaran bulanan. Diskon dibulatkan menjadi 17%.</p><p data-i18n="paidHint">Pembayaran akan tersedia setelah checkout diaktifkan.</p></details>
+              <button class="btn plan-unavailable" type="button" disabled data-i18n="plusSoon">Plus coming soon</button>
+              <p class="plan-action-note" data-i18n="paidNote">Subscriptions are coming soon</p>
+              <details><summary data-i18n="featureDetails">Show all features</summary><ul class="free-features"><li data-i18n="plusFeature1">All Free features</li><li data-i18n="plusFeature2">Unlimited uploads</li><li data-i18n="plusFeature3">Economic news and calendar access</li></ul><dl class="plan-details"><div><dt data-i18n="monthly">Monthly</dt><dd>$10 <span data-i18n="perMonth">USD / month</span></dd></div><div><dt data-i18n="annual">Annual</dt><dd>$100 <span data-i18n="perYear">USD / year</span></dd></div></dl><p data-i18n="plusSavings">Save $20 compared with 12 monthly payments. The discount rounds to 17%.</p><p data-i18n="paidHint">Payments will be available once checkout launches.</p></details>
             </article>
             <article class="plan-card home-reveal">
-              <div class="plan-card-heading"><h3>Pro</h3><div class="billing-toggle" role="group" aria-label="Periode Pro"><button data-cycle="monthly" type="button" class="active" onclick="setBillingCycle(false)" aria-pressed="true" data-i18n="monthly">Bulanan</button><button data-cycle="annual" type="button" onclick="setBillingCycle(true)" aria-pressed="false"><span data-i18n="annual">Tahunan</span><span class="annual-saving" data-i18n="save17">Hemat 17%</span></button></div></div>
-              <p class="plan-description" data-i18n="proDescription">Untuk evaluasi trading yang lebih mendalam.</p>
-              <div class="plan-price-line"><span class="plan-price" id="pro-price">$20</span><span class="plan-period" id="pro-period">USD / bulan</span></div>
-              <p class="plan-billing" id="pro-billing">Ditagih bulanan</p>
-              <button class="btn plan-unavailable" type="button" disabled data-i18n="proSoon">Pro segera tersedia</button>
-              <p class="plan-action-note" data-i18n="paidNote">Langganan belum dibuka</p>
-              <details><summary data-i18n="priceDetails">Lihat rincian harga</summary><dl class="plan-details"><div><dt data-i18n="monthly">Bulanan</dt><dd>$20 <span data-i18n="perMonth">USD / bulan</span></dd></div><div><dt data-i18n="annual">Tahunan</dt><dd>$200 <span data-i18n="perYear">USD / tahun</span></dd></div></dl><p data-i18n="proSavings">Hemat $40 dibanding 12 pembayaran bulanan. Diskon dibulatkan menjadi 17%.</p><p data-i18n="paidHint">Pembayaran akan tersedia setelah checkout diaktifkan.</p></details>
+              <div class="plan-card-heading"><h3>Pro</h3><div class="billing-toggle" role="group" aria-label="Pro Period"><button data-cycle="monthly" type="button" class="active" onclick="setBillingCycle(false)" aria-pressed="true" data-i18n="monthly">Monthly</button><button data-cycle="annual" type="button" onclick="setBillingCycle(true)" aria-pressed="false"><span data-i18n="annual">Annual</span><span class="annual-saving" data-i18n="save17">Save 17%</span></button></div></div>
+              <p class="plan-description" data-i18n="proDescription">Review your performance in greater detail.</p>
+              <div class="plan-price-line"><span class="plan-price" id="pro-price">$20</span><span class="plan-period" id="pro-period">USD / month</span></div>
+              <p class="plan-billing" id="pro-billing">Billed monthly</p>
+              <button class="btn plan-unavailable" type="button" disabled data-i18n="proSoon">Pro coming soon</button>
+              <p class="plan-action-note" data-i18n="paidNote">Subscriptions are coming soon</p>
+              <details><summary data-i18n="priceDetails">Show pricing details</summary><dl class="plan-details"><div><dt data-i18n="monthly">Monthly</dt><dd>$20 <span data-i18n="perMonth">USD / month</span></dd></div><div><dt data-i18n="annual">Annual</dt><dd>$200 <span data-i18n="perYear">USD / year</span></dd></div></dl><p data-i18n="proSavings">Save $40 compared with 12 monthly payments. The discount rounds to 17%.</p><p data-i18n="paidHint">Payments will be available once checkout launches.</p></details>
             </article>
           </div>
-          <p class="pricing-footnote" data-i18n="localDataHint">Saat login, jurnal otomatis tersimpan ke server. Tanpa login, jurnal tersimpan di browser perangkat ini. Ekspor backup untuk menyimpan salinannya.</p>
-        </section><section class="home-closing home-section home-reveal" aria-labelledby="home-closing-title"><h2 id="home-closing-title" data-i18n="homeClosingTitle">Catat keputusan Anda.<br><span>Evaluasi setiap sesi.</span></h2><button class="btn btn-primary" type="button" onclick="startTrial()" data-i18n="tryJournal">Mulai jurnal gratis</button></section></div></section>
+          <p class="pricing-footnote" data-i18n="localDataHint">When signed in, your journal saves automatically to the server. Without signing in, it stays in this browser on this device. Export a backup to keep a copy.</p>
+        </section><section class="home-closing home-section home-reveal" aria-labelledby="home-closing-title"><h2 id="home-closing-title" data-i18n="homeClosingTitle">Document your decisions.<br><span>Review every session.</span></h2><button class="btn btn-primary" type="button" onclick="startTrial()" data-i18n="tryJournal">Start your free journal</button></section></div></section>
 
-    <section class="view-content" id="view-jurnal">
-      <!-- Quick Pulse Metrics Ribbon -->
-      <div class="journal-pulse-ribbon">
+    <section class="view-content" id="view-jurnal" aria-labelledby="journal-heading">
+      <div class="journal-pulse-ribbon" aria-label="Account performance summary">
         <div class="j-pulse-item">
-          <span class="j-pulse-label">Total Jurnal</span>
-          <span class="j-pulse-val" id="j-stat-total">0 Posisi</span>
-          <span class="j-pulse-sub" id="j-stat-sample-tag">Histori Akun</span>
+          <span class="j-pulse-label" data-i18n="journalTotalTrades">Total trades</span>
+          <span class="j-pulse-val" id="j-stat-total">0</span>
+          <span class="j-pulse-sub" id="j-stat-sample-tag" data-i18n="journalAccountHistory">Account history</span>
         </div>
         <div class="j-pulse-item">
-          <span class="j-pulse-label">Win Rate</span>
+          <span class="j-pulse-label" data-i18n="journalWinRate">Win rate</span>
           <span class="j-pulse-val" id="j-stat-winrate" style="color:var(--green);">0.0%</span>
-          <span class="j-pulse-sub" id="j-stat-wincount">0 Win / 0 Loss</span>
+          <div class="journal-result-bar" aria-hidden="true"><span id="j-bar-win"></span><span id="j-bar-loss"></span><span id="j-bar-be"></span></div>
+          <span class="j-pulse-sub" id="j-stat-wincount">0 Win · 0 Loss · 0 BE</span>
         </div>
         <div class="j-pulse-item">
-          <span class="j-pulse-label">Net Profit / Loss</span>
+          <span class="j-pulse-label" data-i18n="journalNetProfitLoss">Net profit / loss</span>
           <span class="j-pulse-val" id="j-stat-netpl">$0.00</span>
           <span class="j-pulse-sub" id="j-stat-idr">Rp0</span>
         </div>
         <div class="j-pulse-item">
-          <span class="j-pulse-label">Profit Factor</span>
+          <span class="j-pulse-label" data-i18n="journalProfitFactor">Profit factor</span>
           <span class="j-pulse-val" id="j-stat-pf">0.00</span>
-          <span class="j-pulse-sub">Gross Win vs Loss</span>
+          <span class="j-pulse-sub" data-i18n="journalGrossWinLoss">Gross win vs loss</span>
         </div>
         <div class="j-pulse-item">
-          <span class="j-pulse-label">Rata-rata R:R</span>
+          <span class="j-pulse-label" data-i18n="journalAverageRR">Average R:R</span>
           <span class="j-pulse-val" id="j-stat-rr">1 : 0.00</span>
-          <span class="j-pulse-sub">Risk to Reward</span>
+          <span class="j-pulse-sub" data-i18n="journalRiskReward">Risk to reward</span>
         </div>
       </div>
 
       <div class="journal-header">
         <div class="journal-title-box">
-          <h2>Jurnal Trading Terstruktur</h2>
-          <p>Catat, filter, dan evaluasi setiap posisi trading secara objektif dan terukur.</p>
+          <h1 id="journal-heading" data-i18n="journalTitle">Structured trading journal</h1>
+          <p data-i18n="journalLead">Record, filter, and review each trading position.</p>
         </div>
         <div class="journal-actions"><p id="upload-quota-note" class="upload-quota-note" role="status"></p>
-          <button class="btn btn-accent" onclick="toggleTradeForm()">+ Catat Trade</button>
+          <button class="btn btn-accent" type="button" onclick="toggleTradeForm()" data-i18n="journalRecordTrade">+ Record trade</button>
           <button class="btn btn-ghost" onclick="openUploadModal()">
             <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
-            <span data-i18n="uploadLabel">Scan PDF/PNG · Impor CSV/TXT</span>
+            <span data-i18n="journalUpload">Upload document</span>
           </button>
-          <button class="btn btn-ghost btn-sm" onclick="exportBackupJSON()">Backup</button>
-          <button class="btn btn-ghost btn-sm" onclick="triggerRestore()">Restore</button>
+          <button class="btn btn-ghost btn-sm" type="button" onclick="exportBackupJSON()" data-i18n="journalBackup">Backup</button>
+          <button class="btn btn-ghost btn-sm" type="button" onclick="triggerRestore()" data-i18n="journalRestore">Restore</button>
           <button class="btn btn-ghost btn-sm" onclick="exportCSV()">CSV</button>
           <input type="file" id="file-restore-input" accept="application/json" style="display:none;" onchange="handleRestoreFile(this)">
         </div>
@@ -193,9 +200,9 @@
       <!-- Trade Form Panel -->
       <div class="form-panel" id="trade-form-panel">
         <div class="entry-mode-bar">
-          <button class="entry-mode-btn active" id="btn-mode-quick" onclick="setEntryMode('quick')">Entri Cepat</button>
-          <button class="entry-mode-btn" id="btn-mode-paste" onclick="setEntryMode('paste')">Tempel Teks (Batch)</button>
-          <button class="entry-mode-btn" id="btn-mode-full" onclick="setEntryMode('full')">Form Lengkap</button>
+          <button class="entry-mode-btn active" id="btn-mode-quick" onclick="setEntryMode('quick')">Quick entry</button>
+          <button class="entry-mode-btn" id="btn-mode-paste" onclick="setEntryMode('paste')">Paste Text (Batch)</button>
+          <button class="entry-mode-btn" id="btn-mode-full" onclick="setEntryMode('full')">Full form</button>
         </div>
 
         <!-- 1. Quick Form -->
@@ -206,14 +213,14 @@
               <input type="text" id="q-market" placeholder="XAUUSD" autocomplete="off">
             </div>
             <div class="field-group">
-              <label for="q-posisi">Arah Posisi</label>
+              <label for="q-posisi">Position Direction</label>
               <select id="q-posisi">
                 <option value="Buy">BUY / LONG</option>
                 <option value="Sell">SELL / SHORT</option>
               </select>
             </div>
             <div class="field-group">
-              <label for="q-entry">Harga Entry</label>
+              <label for="q-entry">Entry price</label>
               <input type="number" step="any" id="q-entry" placeholder="3340.50">
             </div>
             <div class="field-group">
@@ -225,7 +232,7 @@
               <input type="number" step="any" id="q-tp" placeholder="3355.00">
             </div>
             <div class="field-group">
-              <label for="q-result">Hasil Trade</label>
+              <label for="q-result">Trade Results</label>
               <select id="q-result">
                 <option value="Win">Win</option>
                 <option value="Loss">Loss</option>
@@ -238,23 +245,23 @@
             </div>
           </div>
           <div style="display:flex; justify-content:flex-end; gap:10px; margin-top:16px;">
-            <button class="btn btn-ghost" type="button" onclick="closeTradeForm()">Batal</button>
-            <button class="btn btn-accent" type="button" onclick="saveQuickTrade()">Simpan Trade</button>
+            <button class="btn btn-ghost" type="button" onclick="closeTradeForm()">Cancel</button>
+            <button class="btn btn-accent" type="button" onclick="saveQuickTrade()">Save trade</button>
           </div>
         </div>
 
         <!-- 2. Batch Paste Form -->
         <div id="subform-paste" style="display:none;">
           <p style="font-size:12.5px; color:var(--text-muted); margin-bottom:10px;">
-            Salin baris trade Anda dengan format: <code>MARKET | POSISI | ENTRY | SL | TP | HASIL</code><br>
-            Contoh: <code>XAUUSD | Buy | 3320.5 | 3314.0 | 3338.0 | Win</code>
+            Copy your trade line with the format: <code>MARKET | POSISI | ENTRY | SL | TP | HASIL</code><br>
+            Example: <code>XAUUSD | Buy | 3320.5 | 3314.0 | 3338.0 | Win</code>
           </p>
           <div class="field-group">
             <textarea id="paste-input" rows="6" placeholder="XAUUSD | Buy | 3320.5 | 3314.0 | 3338.0 | Win&#10;EURUSD | Sell | 1.0920 | 1.0940 | 1.0880 | Loss"></textarea>
           </div>
           <div style="display:flex; justify-content:flex-end; gap:10px; margin-top:16px;">
-            <button class="btn btn-ghost" type="button" onclick="closeTradeForm()">Batal</button>
-            <button class="btn btn-accent" type="button" onclick="saveBatchPaste()">Simpan Semua Baris</button>
+            <button class="btn btn-ghost" type="button" onclick="closeTradeForm()">Cancel</button>
+            <button class="btn btn-accent" type="button" onclick="saveBatchPaste()">Save All Rows</button>
           </div>
         </div>
 
@@ -262,15 +269,15 @@
         <div id="subform-full" style="display:none;">
           <div class="form-grid">
             <div class="field-group">
-              <label for="f-date">Tanggal</label>
+              <label for="f-date">Date</label>
               <input type="date" id="f-date">
             </div>
             <div class="field-group">
-              <label for="f-time">Jam</label>
+              <label for="f-time">Time</label>
               <input type="time" id="f-time">
             </div>
             <div class="field-group">
-              <label for="f-account">Akun</label>
+              <label for="f-account">Account</label>
               <select id="f-account"></select>
             </div>
             <div class="field-group">
@@ -278,7 +285,7 @@
               <input type="text" id="f-market" placeholder="XAUUSD">
             </div>
             <div class="field-group">
-              <label for="f-posisi">Posisi</label>
+              <label for="f-posisi">Side</label>
               <select id="f-posisi">
                 <option value="Buy">Buy</option>
                 <option value="Sell">Sell</option>
@@ -297,7 +304,7 @@
               <input type="number" step="any" id="f-tp" oninput="updateFullFormCalculations()">
             </div>
             <div class="field-group">
-              <label for="f-vol">Volume (Lot)</label>
+              <label for="f-vol">Volume (Lots)</label>
               <input type="number" step="any" id="f-vol" placeholder="0.05">
             </div>
             <div class="field-group">
@@ -305,7 +312,7 @@
               <input type="number" step="any" id="f-risk" value="1.0" oninput="updateFullFormCalculations()">
             </div>
             <div class="field-group">
-              <label for="f-result">Hasil</label>
+              <label for="f-result">Outcome</label>
               <select id="f-result">
                 <option value="Win">Win</option>
                 <option value="Loss">Loss</option>
@@ -313,7 +320,7 @@
               </select>
             </div>
             <div class="field-group">
-              <label for="f-strat">Strategi</label>
+              <label for="f-strat">Strategy</label>
               <input type="text" id="f-strat" placeholder="Order Block / FVG">
             </div>
             <div class="field-group">
@@ -341,71 +348,65 @@
                 <b id="preview-pl" style="color:var(--green);">+$25.00</b>
               </div>
               <div class="calc-pill-item">
-                <span>Setara Rupiah</span>
-                <b id="preview-idr">Rp425.000</b>
+                <span>Rupiah equivalent</span>
+                <b id="preview-idr">Rp. 425,000</b>
               </div>
             </div>
             <div class="field-group full">
-              <label for="f-reason">Alasan Entry & Evaluasi</label>
+              <label for="f-reason">Entry reason & Evaluasi</label>
               <textarea id="f-reason" rows="2" placeholder="Catatan setup konfirmasi, likuiditas, emosi saat entry..."></textarea>
             </div>
           </div>
           <div style="display:flex; justify-content:flex-end; gap:10px; margin-top:16px;">
-            <button class="btn btn-ghost" type="button" onclick="closeTradeForm()">Batal</button>
-            <button class="btn btn-accent" type="button" id="btn-save-full" onclick="saveFullTrade()">Simpan Trade</button>
+            <button class="btn btn-ghost" type="button" onclick="closeTradeForm()">Cancel</button>
+            <button class="btn btn-accent" type="button" id="btn-save-full" onclick="saveFullTrade()">Save trade</button>
           </div>
         </div>
       </div>
 
       <!-- Filters & Action Bar -->
       <div class="filter-bar">
-        <div class="filter-chip-group">
-          <button class="filter-chip active" id="chip-filter-all" onclick="setResultFilter('', this)">Semua</button>
-          <button class="filter-chip chip-win" id="chip-filter-win" onclick="setResultFilter('Win', this)">Win</button>
-          <button class="filter-chip chip-loss" id="chip-filter-loss" onclick="setResultFilter('Loss', this)">Loss</button>
-          <button class="filter-chip chip-be" id="chip-filter-be" onclick="setResultFilter('BE', this)">BE</button>
+        <div class="filter-chip-group" role="group" aria-label="Trade outcomes filter">
+          <button class="filter-chip active" id="chip-filter-all" type="button" aria-pressed="true" onclick="setResultFilter('', this)" data-i18n="journalAll">All</button>
+          <button class="filter-chip chip-win" id="chip-filter-win" type="button" aria-pressed="false" onclick="setResultFilter('Win', this)" data-i18n="journalWin">Win</button>
+          <button class="filter-chip chip-loss" id="chip-filter-loss" type="button" aria-pressed="false" onclick="setResultFilter('Loss', this)" data-i18n="journalLoss">Loss</button>
+          <button class="filter-chip chip-be" id="chip-filter-be" type="button" aria-pressed="false" onclick="setResultFilter('BE', this)">BE</button>
         </div>
-        <select id="filter-market" onchange="renderJournalTable()">
-          <option value="">Semua Market</option>
+        <select id="filter-market" aria-label="Market" onchange="renderJournalTable()">
+          <option value="" data-i18n="journalAllMarkets">All markets</option>
         </select>
         <select id="filter-result" onchange="renderJournalTable()" style="display:none;">
-          <option value="">Semua Hasil</option>
+          <option value="">All outcomes</option>
           <option value="Win">Win</option>
           <option value="Loss">Loss</option>
           <option value="BE">BE</option>
         </select>
-        <select id="filter-strategy" onchange="renderJournalTable()">
-          <option value="">Semua Strategi</option>
+        <select id="filter-strategy" aria-label="Strategy" onchange="renderJournalTable()">
+          <option value="" data-i18n="journalAllStrategies">All strategies</option>
         </select>
-        <input type="text" class="filter-search" id="filter-search" placeholder="Cari pair, strategi, atau catatan..." oninput="renderJournalTable()">
-        <button class="btn btn-ghost btn-sm" onclick="resetJournalFilters()" title="Reset semua filter pencarian & filter market" style="white-space:nowrap; padding:6px 12px;">
-          Reset Filter
-        </button>
+        <label class="journal-search" for="filter-search"><svg width="15" height="15" viewBox="0 0 16 16" fill="none" aria-hidden="true"><circle cx="7" cy="7" r="4.5" stroke="currentColor" stroke-width="1.5"/><path d="M10.5 10.5L14 14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg><input type="search" class="filter-search" id="filter-search" aria-label="Search trades" placeholder="Search pair, strategy, or notes..." oninput="renderJournalTable()"></label>
+        <button class="btn btn-ghost btn-sm" type="button" onclick="resetJournalFilters()" data-i18n="journalResetFilters">Reset filters</button>
       </div>
 
       <!-- Journal Table -->
       <div class="table-container">
-        <table class="trade-table">
+        <table class="trade-table" aria-label="Trading positions">
           <thead>
             <tr>
-              <th>#</th>
-              <th>Tanggal</th>
-              <th>Jam</th>
-              <th>Market</th>
-              <th>Posisi</th>
-              <th>Entry</th>
-              <th>SL</th>
-              <th>TP</th>
-              <th>Vol</th>
-              <th>Risk %</th>
-              <th>Risk $</th>
-              <th>R:R</th>
-              <th>Hasil</th>
-              <th>Net P/L ($)</th>
-              <th>Net P/L (Rp)</th>
-              <th>Strategi</th>
-              <th>Alasan & Catatan</th>
-              <th>Aksi</th>
+              <th scope="col">#</th>
+              <th scope="col" data-i18n="journalDate">Date</th>
+              <th scope="col" data-i18n="journalMarket">Market</th>
+              <th scope="col" data-i18n="journalSide">Side</th>
+              <th scope="col" data-i18n="journalEntry">Entry</th>
+              <th scope="col">SL</th>
+              <th scope="col">TP</th>
+              <th scope="col" data-i18n="journalVolume">Vol</th>
+              <th scope="col" data-i18n="journalRisk">Risk</th>
+              <th scope="col">R:R</th>
+              <th scope="col" data-i18n="journalOutcome">Outcome</th>
+              <th scope="col" data-i18n="journalNetPL">Net P/L</th>
+              <th scope="col" data-i18n="journalStrategy">Strategy</th>
+              <th scope="col" data-i18n="journalActions">Actions</th>
             </tr>
           </thead>
           <tbody id="journal-tbody">
@@ -419,24 +420,25 @@
             <div class="empty-icon-circle">
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
             </div>
-            <h4>Belum Ada Catatan Trade</h4>
-            <p>Jurnal trading Anda masih kosong atau tidak ada trade yang cocok dengan filter saat ini. Mulai catat trade baru atau muat data simulasi demo.</p>
+            <h2 data-i18n="journalEmptyTitle">No matching positions</h2>
+            <p data-i18n="journalEmptyLead">Record your first trade, import a document, or adjust your filters to review this account.</p>
             <div class="empty-actions-row">
-              <button class="btn btn-accent" onclick="toggleTradeForm()">+ Catat Trade Baru</button>
-              <button class="btn btn-ghost" onclick="resetJournalFilters()">Reset Filter</button>
-              <button class="btn btn-ghost" onclick="openUploadModal()">Upload File Jurnal</button>
-              <button class="btn btn-ghost" onclick="seedSampleTrades()">Muat 8 Trade Contoh</button>
+              <button class="btn btn-accent" type="button" onclick="toggleTradeForm()" data-i18n="journalRecordTrade">+ Record trade</button>
+              <button class="btn btn-ghost" type="button" onclick="resetJournalFilters()" data-i18n="journalResetFilters">Reset filters</button>
+              <button class="btn btn-ghost" type="button" onclick="openUploadModal()" data-i18n="journalUpload">Upload document</button>
+              <button class="btn btn-ghost" onclick="seedSampleTrades()">Load 8 example trades</button>
             </div>
           </div>
         </div>
       </div>
+      <div class="journal-table-footer"><span id="journal-row-count" role="status"></span><span data-i18n="journalCurrencyNote">Net P/L in USD · converted to Rupiah</span></div>
     </section>
 
 
     <section class="view-content" id="view-statistik">
       <div class="section-head" style="margin: 10px 0 20px; text-align:left;">
-        <h2>Statistik & Kinerja Portofolio</h2>
-        <p>Evaluasi metrik probabilitas, rasio untung-rugi, efisiensi eksekusi, dan kurva pertumbuhan modal Anda.</p>
+        <h2>Statistics & Kinerja Portofolio</h2>
+        <p>Review probability metrics, profit and loss ratios, execution, and your equity curve.</p>
       </div>
 
       <!-- 4 CodeFronts Dark Dashboard KPI Cards with SVG Sparklines -->
@@ -445,12 +447,12 @@
         <article class="kpi-card">
           <div class="kpi-top">
             <span class="kpi-label">Win Rate</span>
-            <span class="kpi-delta pos" id="kpi-winrate-delta">Konsisten</span>
+            <span class="kpi-delta pos" id="kpi-winrate-delta">Consistent</span>
           </div>
           <div class="kpi-value" id="kpi-winrate">0.0%</div>
           <svg class="kpi-sparkline" data-equity-spark="winrate" aria-hidden="true" viewBox="0 0 120 36" preserveAspectRatio="none"></svg>
           <div class="kpi-footer">
-            <span>Rasio Hasil</span>
+            <span>Yield Ratio</span>
             <span id="kpi-win-count">0 Win · 0 Loss · 0 BE</span>
           </div>
         </article>
@@ -464,7 +466,7 @@
           <div class="kpi-value" id="kpi-netpl">$0.00</div>
           <svg class="kpi-sparkline" data-equity-spark="netpl" aria-hidden="true" viewBox="0 0 120 36" preserveAspectRatio="none"></svg>
           <div class="kpi-footer">
-            <span>Setara Rupiah</span>
+            <span>Rupiah equivalent</span>
             <span id="kpi-netpl-idr">Rp0</span>
           </div>
         </article>
@@ -478,7 +480,7 @@
           <div class="kpi-value" id="kpi-pf">0.00</div>
           <svg class="kpi-sparkline" data-equity-spark="profitFactor" aria-hidden="true" viewBox="0 0 120 36" preserveAspectRatio="none"></svg>
           <div class="kpi-footer">
-            <span>Total Eksekusi</span>
+            <span>Execution Total</span>
             <span id="kpi-total-trades">0 Trades</span>
           </div>
         </article>
@@ -486,8 +488,8 @@
         <!-- 4. Avg R-Multiple & Drawdown -->
         <article class="kpi-card">
           <div class="kpi-top">
-            <span class="kpi-label">Rata-rata R:R</span>
-            <span class="kpi-delta pos">Target Positif</span>
+            <span class="kpi-label">Average R:R</span>
+            <span class="kpi-delta pos">Positive Target</span>
           </div>
           <div class="kpi-value" id="kpi-avg-rr">0.00R</div>
           <svg class="kpi-sparkline" data-equity-spark="averageRR" aria-hidden="true" viewBox="0 0 120 36" preserveAspectRatio="none"></svg>
@@ -504,29 +506,29 @@
         <div class="chart-panel">
           <div class="chart-panel-title">
             <div>
-              <span>Equity Curve (Pertumbuhan Saldo Portofolio)</span>
-              <p style="font-size:12px; color:var(--text-muted); font-weight:normal; margin-top:2px;">Histori saldo akumulatif dari saldo awal modal akun trading.</p>
+              <span>Equity Curve (Portfolio Balance Growth)</span>
+              <p style="font-size:12px; color:var(--text-muted); font-weight:normal; margin-top:2px;">Accumulative balance history of the initial trading account capital balance.</p>
             </div>
-            <span class="badge-pill" id="stat-account-pill">Akun Aktif</span>
+            <span class="badge-pill" id="stat-account-pill">Active Account</span>
           </div>
           <svg class="chart-svg" id="equity-chart-svg" viewBox="0 0 800 210" preserveAspectRatio="none"></svg>
 
           <!-- Summary Performance Matrix -->
           <div class="perf-metric-matrix">
             <div class="pm-box">
-              <span class="pm-label">Trade Terbesar (Win)</span>
+              <span class="pm-label">Biggest Trade (Win)</span>
               <b class="pm-val" id="stat-best-win" style="color:var(--green);">+$0.00</b>
             </div>
             <div class="pm-box">
-              <span class="pm-label">Loss Terbesar</span>
+              <span class="pm-label">Biggest Loss</span>
               <b class="pm-val" id="stat-worst-loss" style="color:var(--red);">-$0.00</b>
             </div>
             <div class="pm-box">
-              <span class="pm-label">Win Streak Maks</span>
-              <b class="pm-val" id="stat-win-streak">0 Beruntun</b>
+              <span class="pm-label">Win Streak Max</span>
+              <b class="pm-val" id="stat-win-streak">0 Consecutive</b>
             </div>
             <div class="pm-box">
-              <span class="pm-label">Drawdown Terbesar</span>
+              <span class="pm-label">Biggest Drawdown</span>
               <b class="pm-val" id="stat-max-dd-val" style="color:var(--red);">$0.00</b>
             </div>
           </div>
@@ -535,7 +537,7 @@
         <!-- Outcome Donut Panel -->
         <div class="chart-panel">
           <div class="chart-panel-title">
-            <span>Rasio Hasil Eksekusi</span>
+            <span>Execution Results Ratio</span>
             <span style="font-size:11px; color:var(--text-muted); font-family:var(--mono);">WIN / LOSS / BE</span>
           </div>
           <svg class="chart-svg" id="donut-chart-svg" viewBox="0 0 320 200" style="height:190px;"></svg>
@@ -564,7 +566,7 @@
         <!-- 1. Kinerja per Pair / Market -->
         <div class="chart-panel">
           <div class="chart-panel-title">
-            <span>Kinerja per Pair / Market</span>
+            <span>Performance per Pair / Market</span>
             <span style="font-size:11px; color:var(--text-muted); font-family:var(--mono);">TOP ASSETS</span>
           </div>
           <div id="market-breakdown" style="padding-top:4px;"></div>
@@ -573,19 +575,19 @@
         <!-- 2. Kinerja per Strategi -->
         <div class="chart-panel">
           <div class="chart-panel-title">
-            <span>Kinerja per Setup & Strategi</span>
+            <span>Kinerja per Setup & Strategy</span>
             <span style="font-size:11px; color:var(--text-muted); font-family:var(--mono);">SETUPS</span>
           </div>
           <div id="strategy-breakdown" style="padding-top:4px;"></div>
         </div>
 
         <div class="chart-panel">
-          <div class="chart-panel-title"><span>Rapor Disiplin & Psikologi</span><span class="badge-pill" id="discipline-status">Belum ada trade</span></div>
+          <div class="chart-panel-title"><span>Rapor Disiplin & Psikologi</span><span class="badge-pill" id="discipline-status">No trades yet</span></div>
           <div class="discipline-checklist" aria-live="polite">
-            <div class="disc-item"><div class="disc-top"><span>Kelengkapan Stop Loss (SL)</span><b id="discipline-sl">Belum ada data</b></div><div class="bar-track"><div class="bar-fill" id="discipline-sl-bar" style="width:0%;background:var(--green)"></div></div></div>
-            <div class="disc-item"><div class="disc-top"><span>Rata-rata Risiko Tercatat</span><b id="discipline-risk">Belum ada data</b></div></div>
-            <div class="disc-item"><div class="disc-top"><span>Drawdown Maksimum</span><b id="discipline-dd">Belum ada data</b></div></div>
-            <p class="disc-summary" id="discipline-summary">Tambahkan transaksi untuk melihat rapor akun ini.</p>
+            <div class="disc-item"><div class="disc-top"><span>Recorded stop losses (SL)</span><b id="discipline-sl">No data yet</b></div><div class="bar-track"><div class="bar-fill" id="discipline-sl-bar" style="width:0%;background:var(--green)"></div></div></div>
+            <div class="disc-item"><div class="disc-top"><span>Average recorded risk</span><b id="discipline-risk">No data yet</b></div></div>
+            <div class="disc-item"><div class="disc-top"><span>Maximum drawdown</span><b id="discipline-dd">No data yet</b></div></div>
+            <p class="disc-summary" id="discipline-summary">Add trades to see this account review.</p>
           </div>
         </div>
       </div>
@@ -594,13 +596,13 @@
 
     <section class="view-content" id="view-kalkulator">
       <div class="section-head" style="margin: 10px 0 20px; text-align:left;">
-        <h2>Kalkulator Trading Institusional</h2>
-        <p>Hitung ukuran posisi dari risiko, estimasi nilai pip, simulasi profit/loss, dan rasio R:R sebelum menekan tombol eksekusi.</p>
+        <h2>Trading calculators</h2>
+        <p>Calculate position size, pip value, estimated profit/loss, and risk to reward before executing.</p>
       </div>
 
       <!-- Quick Asset Selector Ribbon -->
       <div class="calc-asset-strip">
-        <span class="cas-label">Pilih Instrumen Cepat:</span>
+        <span class="cas-label">Quick Instrument Select:</span>
         <div class="cas-pills">
           <button class="cas-pill active" onclick="selectCalcAsset('XAUUSD', this)">XAUUSD (Gold)</button>
           <button class="cas-pill" onclick="selectCalcAsset('EURUSD', this)">EURUSD</button>
@@ -616,8 +618,8 @@
         <!-- Left Column: Order Parameters & Sizing Controls -->
         <div class="calc-card">
           <div class="calc-card-head">
-            <h3>Parameter Setup & Akun</h3>
-            <span class="badge-pill">Langkah 1</span>
+            <h3>Parameter Setup & Account</h3>
+            <span class="badge-pill">Step 1</span>
           </div>
 
           <div class="form-grid">
@@ -634,7 +636,7 @@
 
             <!-- Position Direction Switch -->
             <div class="field-group full">
-              <label>Arah Posisi Order</label>
+              <label>Order direction</label>
               <div class="calc-dir-switch">
                 <button type="button" class="dir-btn active dir-buy" id="calc-dir-buy" onclick="setCalcDirection('Buy')">BUY / LONG</button>
                 <button type="button" class="dir-btn dir-sell" id="calc-dir-sell" onclick="setCalcDirection('Sell')">SELL / SHORT</button>
@@ -644,7 +646,7 @@
             <!-- Balance Presets -->
             <div class="field-group full">
               <div style="display:flex; justify-content:space-between; align-items:center;">
-                <label for="c-balance">Saldo Akun ($)</label>
+                <label for="c-balance">Account balance ($)</label>
                 <div class="preset-chips">
                   <span class="p-chip" onclick="setCalcBalance(1000)">$1k</span>
                   <span class="p-chip" onclick="setCalcBalance(5000)">$5k</span>
@@ -659,7 +661,7 @@
             <!-- Risk Tolerance Presets -->
             <div class="field-group full">
               <div style="display:flex; justify-content:space-between; align-items:center;">
-                <label for="c-riskpct">Toleransi Risiko (%)</label>
+                <label for="c-riskpct">Risk tolerance (%)</label>
                 <div class="preset-chips">
                   <span class="p-chip" onclick="setCalcRisk(0.5)">0.5%</span>
                   <span class="p-chip" onclick="setCalcRisk(1.0)">1.0%</span>
@@ -672,21 +674,21 @@
 
             <!-- Entry & SL Prices -->
             <div class="field-group">
-              <label for="c-entry-price">Harga Entry</label>
+              <label for="c-entry-price">Entry price</label>
               <input type="number" id="c-entry-price" value="3340" step="any" oninput="syncCalcInputs('entry')">
             </div>
             <div class="field-group">
-              <label for="c-sl-price">Harga Stop Loss (SL)</label>
+              <label for="c-sl-price">Stop loss price (SL)</label>
               <input type="number" id="c-sl-price" value="3332" step="any" oninput="syncCalcInputs('sl')">
             </div>
 
             <!-- Take Profit Price -->
             <div class="field-group">
-              <label for="c-rr-tp">Harga Take Profit (TP)</label>
+              <label for="c-rr-tp">Take profit price (TP)</label>
               <input type="number" id="c-rr-tp" value="3360" step="any" oninput="runAllCalculators()">
             </div>
             <div class="field-group">
-              <label>Jarak SL (Pips)</label>
+              <label>Stop distance (pips)</label>
               <input type="text" id="c-sl-pips-input" value="80.0 pips" readonly style="color:var(--text-muted); background:var(--bg-main);">
             </div>
 
@@ -702,47 +704,47 @@
         <!-- Right Column: Institutional Execution Telemetry -->
         <div class="calc-card calc-card-telemetry">
           <div class="calc-card-head">
-            <h3>Hasil Analisis Ukuran Posisi</h3>
-            <span class="badge-pill" style="color:var(--green); border-color:var(--green-border);">Rekomendasi Presisi</span>
+            <h3>Position size calculation</h3>
+            <span class="badge-pill" style="color:var(--green); border-color:var(--green-border);">Precision Recommendation</span>
           </div>
 
           <!-- Hero Lot Display -->
           <div class="hero-lot-box">
-            <span class="hl-sub">Ukuran Posisi Direkomendasikan</span>
-            <div class="hl-value" id="c-suggested-lot">0.12 Lot</div>
-            <p class="hl-desc">Dihitung otomatis agar jika terkena SL, kerugian tepat sesuai batas toleransi risiko akun Anda.</p>
+            <span class="hl-sub">Recommended Position Size</span>
+            <div class="hl-value" id="c-suggested-lot">0.12 Lots</div>
+            <p class="hl-desc">Calculated automatically so that if you are hit by SL, the loss is exactly according to your account's risk tolerance limit.</p>
             <button class="btn btn-accent" style="width:100%; margin-top:14px;" onclick="applyLotToJournal()">
-              Terapkan Setup Ini ke Form Jurnal
+              Use this setup in the journal
             </button>
           </div>
 
           <!-- Risk & Reward Metrics Matrix -->
           <div class="calc-metrics-grid">
             <div class="cm-item">
-              <span class="cm-title">Nominal Risiko (SL)</span>
+              <span class="cm-title">Nominal Risk (SL)</span>
               <b class="cm-num" id="c-risk-amount" style="color:var(--red);">$10.00</b>
-              <span class="cm-sub" id="c-risk-idr">Rp170.000</span>
+              <span class="cm-sub" id="c-risk-idr">Rp. 170,000</span>
             </div>
             <div class="cm-item">
-              <span class="cm-title">Potensi Profit (TP)</span>
+              <span class="cm-title">Profit Potential (TP)</span>
               <b class="cm-num" id="c-rr-win" style="color:var(--green);">+$25.00</b>
-              <span class="cm-sub" id="c-win-idr">Rp425.000</span>
+              <span class="cm-sub" id="c-win-idr">Rp. 425,000</span>
             </div>
             <div class="cm-item">
-              <span class="cm-title">Jarak SL / TP</span>
+              <span class="cm-title">SL / TP distance</span>
               <b class="cm-num" id="c-rr-dist">80 / 200 pips</b>
               <span class="cm-sub">Pip Distance</span>
             </div>
             <div class="cm-item">
-              <span class="cm-title">Rasio Risk : Reward</span>
+              <span class="cm-title">Risk : Reward Ratio</span>
               <b class="cm-num" id="c-rr-ratio" style="color:var(--accent);">1 : 2.50</b>
-              <span class="cm-sub">Target Sehat</span>
+              <span class="cm-sub">Healthy Target</span>
             </div>
           </div>
 
           <!-- Pip Value Table by Lot Tiers -->
           <div class="calc-pip-tiers">
-            <div class="cpt-title">Spesifikasi Nilai Pip Instrumen Terpilih</div>
+            <div class="cpt-title">Selected Instrument Pip Value Specifications</div>
             <div class="cpt-row">
               <span>0.01 Lot (Micro)</span>
               <b id="c-pipval-001">$0.10 / pip</b>
@@ -768,22 +770,22 @@
         <div class="cgc-col">
 
           <div>
-            <b>Batas Rugi Harian (Daily Max Loss)</b>
-            <p>Maksimal 5% dari saldo awal per hari. Untuk akun $1,000, maksimal kerugian kumulatif harian adalah $50.00.</p>
+            <b>Daily Loss Limit (Daily Max Loss)</b>
+            <p>Maximum 5% of initial balance per day. For a $1,000 account, the maximum daily cumulative loss is $50.00.</p>
           </div>
         </div>
         <div class="cgc-col">
 
           <div>
-            <b>Maksimal Drawdown Akun (Max Trailing DD)</b>
-            <p>Maksimal 10% dari puncak saldo. Batasi risiko per trade di 0.5% - 1.0% untuk memastikan Anda memiliki minimal 10-20 kesempatan.</p>
+            <b>Maximum Account Drawdown (Max Trailing DD)</b>
+            <p>Maximum 10% of peak balance. Limit risk per trade at 0.5% - 1.0% to ensure you have at least 10-20 opportunities.</p>
           </div>
         </div>
         <div class="cgc-col">
 
           <div>
-            <b>Kaidah Eksekusi Institusional</b>
-            <p>Jangan pernah memperbesar lot setelah mengalami kerugian (Revenge trading). Selalu pasang Stop Loss bersamaan saat membuka order.</p>
+            <b>Institutional Execution Rules</b>
+            <p>Never enlarge lots after experiencing a loss (Revenge trading). Always place Stop Loss at the same time when opening an order.</p>
           </div>
         </div>
       </div>
@@ -792,20 +794,20 @@
 
     <section class="view-content" id="view-berita">
       <div id="news-paywall" class="news-paywall">
-        <p class="plan-eyebrow">Plus</p><h2 data-i18n="newsLockedTitle">Berita ekonomi untuk pelanggan Plus</h2>
-        <p data-i18n="newsLockedLead">Buka berita lokal dan global serta kalender ekonomi dengan paket Plus.</p>
-        <button class="btn btn-primary" type="button" onclick="switchTab('beranda'); scrollToPricing();" data-i18n="newsViewPlans">Lihat paket</button>
-        <a href="login/" target="_blank" rel="noopener" data-i18n="newsSignIn">Sudah berlangganan? Masuk</a>
+        <p class="plan-eyebrow">Plus</p><h2 data-i18n="newsLockedTitle">Economic news for Plus members</h2>
+        <p data-i18n="newsLockedLead">Unlock local and global news and the economic calendar with Plus.</p>
+        <button class="btn btn-primary" type="button" onclick="switchTab('beranda'); scrollToPricing();" data-i18n="newsViewPlans">View plans</button>
+        <a href="login/" target="_blank" rel="noopener" data-i18n="newsSignIn">Already subscribed? Sign in</a>
       </div><div id="news-content" hidden>
 
       <div class="section-head publisher-heading">
-        <h2 data-i18n="newsPageTitle">Berita & kalender ekonomi</h2>
-        <p data-i18n="newsPageLead">Berita dari penerbit pilihan Anda, waktu publikasi, dan kalender ekonomi.</p>
+        <h2 data-i18n="newsPageTitle">News & economic calendar</h2>
+        <p data-i18n="newsPageLead">Headlines from your selected publishers, publication times, and the economic calendar.</p>
       </div>
 
       <div class="news-filter-header">
       <div class="news-region-toolbar">
-        <label id="news-region-label" for="news-region">Region berita</label>
+        <label id="news-region-label" for="news-region">News region</label>
         <span id="news-region-flag" aria-hidden="true"></span>
         <select id="news-region" onchange="changeNewsRegion()" aria-describedby="news-region-status"></select>
         <span id="news-founder-badge" class="news-founder-badge" hidden>Founder Access</span>
@@ -813,13 +815,13 @@
         <p id="news-region-status" role="status" aria-live="polite"></p>
       </div>
       <div class="news-source-field">
-        <label for="news-source" data-i18n="newsSourceLabel">Sumber berita</label>
-        <select id="news-source" onchange="renderPublisherNews()"><option value="" data-i18n="newsAllSources">Semua sumber</option></select>
+        <label for="news-source" data-i18n="newsSourceLabel">News source</label>
+        <select id="news-source" onchange="renderPublisherNews()"><option value="" data-i18n="newsAllSources">All sources</option></select>
       </div>
       </div>
       <div class="seg" id="berita-seg" style="margin:18px 0 22px;">
-        <button class="seg-btn active" type="button" data-sub="ringkasan" onclick="switchBeritaSub('ringkasan')" data-i18n="newsHeadlines">Berita terbaru</button>
-        <button class="seg-btn" type="button" data-sub="kalender" onclick="switchBeritaSub('kalender')" data-i18n="newsCalendar">Kalender ekonomi</button>
+        <button class="seg-btn active" type="button" data-sub="ringkasan" onclick="switchBeritaSub('ringkasan')" data-i18n="newsHeadlines">Latest news</button>
+        <button class="seg-btn" type="button" data-sub="kalender" onclick="switchBeritaSub('kalender')" data-i18n="newsCalendar">Economic calendar</button>
       </div>
       <div id="bi-indicators" class="bi-indicators" role="status"></div>
       <section class="mqs-05" aria-label="Market prices">
@@ -830,46 +832,46 @@
       <div id="sub-berita-ringkasan">
         <div id="publisher-news-browse">
         <nav class="news-categories" id="news-categories" aria-label="News categories">
-          <button type="button" data-category="" aria-pressed="true" onclick="selectNewsCategory('')" data-i18n="categoryAll">Semua</button>
-          <button type="button" data-category="world" aria-pressed="false" onclick="selectNewsCategory('world')" data-i18n="categoryWorld">Dunia</button>
-          <button type="button" data-category="politics" aria-pressed="false" onclick="selectNewsCategory('politics')" data-i18n="categoryPolitics">Politik</button>
+          <button type="button" data-category="" aria-pressed="true" onclick="selectNewsCategory('')" data-i18n="categoryAll">All</button>
+          <button type="button" data-category="world" aria-pressed="false" onclick="selectNewsCategory('world')" data-i18n="categoryWorld">World</button>
+          <button type="button" data-category="politics" aria-pressed="false" onclick="selectNewsCategory('politics')" data-i18n="categoryPolitics">Politics</button>
           <button type="button" data-category="fed" aria-pressed="false" onclick="selectNewsCategory('fed')">The Fed</button>
-          <button type="button" data-category="business" aria-pressed="false" onclick="selectNewsCategory('business')" data-i18n="categoryBusiness">Bisnis</button>
-          <button type="button" data-category="markets" aria-pressed="false" onclick="selectNewsCategory('markets')" data-i18n="categoryMarkets">Pasar</button>
-          <button type="button" data-category="sustainability" aria-pressed="false" onclick="selectNewsCategory('sustainability')" data-i18n="categorySustainability">Keberlanjutan</button>
-          <button type="button" data-category="legal" aria-pressed="false" onclick="selectNewsCategory('legal')" data-i18n="categoryLegal">Hukum</button>
-          <button type="button" data-category="commentary" aria-pressed="false" onclick="selectNewsCategory('commentary')" data-i18n="categoryCommentary">Komentar</button>
-          <button type="button" data-category="technology" aria-pressed="false" onclick="selectNewsCategory('technology')" data-i18n="categoryTechnology">Teknologi</button>
-          <button type="button" data-category="investigations" aria-pressed="false" onclick="selectNewsCategory('investigations')" data-i18n="categoryInvestigations">Investigasi</button>
+          <button type="button" data-category="business" aria-pressed="false" onclick="selectNewsCategory('business')" data-i18n="categoryBusiness">Business</button>
+          <button type="button" data-category="markets" aria-pressed="false" onclick="selectNewsCategory('markets')" data-i18n="categoryMarkets">Markets</button>
+          <button type="button" data-category="sustainability" aria-pressed="false" onclick="selectNewsCategory('sustainability')" data-i18n="categorySustainability">Sustainability</button>
+          <button type="button" data-category="legal" aria-pressed="false" onclick="selectNewsCategory('legal')" data-i18n="categoryLegal">Legal</button>
+          <button type="button" data-category="commentary" aria-pressed="false" onclick="selectNewsCategory('commentary')" data-i18n="categoryCommentary">Commentary</button>
+          <button type="button" data-category="technology" aria-pressed="false" onclick="selectNewsCategory('technology')" data-i18n="categoryTechnology">Technology</button>
+          <button type="button" data-category="investigations" aria-pressed="false" onclick="selectNewsCategory('investigations')" data-i18n="categoryInvestigations">Investigations</button>
           <select id="news-more-category" aria-label="More categories" onchange="selectNewsCategory(this.value)">
-            <option value="" data-i18n="categoryMore">Lainnya</option>
-            <option value="local" data-i18n="categoryLocal">Berita lokal</option>
-            <option value="science" data-i18n="categoryScience">Sains</option>
-            <option value="sport" data-i18n="categorySport">Olahraga</option>
-            <option value="other" data-i18n="categoryOther">Berita lainnya</option>
+            <option value="" data-i18n="categoryMore">More</option>
+            <option value="local" data-i18n="categoryLocal">Local news</option>
+            <option value="science" data-i18n="categoryScience">Science</option>
+            <option value="sport" data-i18n="categorySport">Sport</option>
+            <option value="other" data-i18n="categoryOther">Other news</option>
           </select>
         </nav>
-        <label for="news-search" class="news-search-label" data-i18n="newsSearchLabel">Cari berita</label>
+        <label for="news-search" class="news-search-label" data-i18n="newsSearchLabel">Search news</label>
         <div class="cari news-search" id="news-search-box">
           <span class="ic" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 5 5"/></svg></span>
-          <input type="search" id="news-search" placeholder="Cari judul atau sumber berita..." aria-controls="publisher-news-list" aria-describedby="news-search-info" autocomplete="off" maxlength="200">
-          <button class="hapus" id="news-search-clear" type="button" aria-label="Hapus pencarian berita" data-i18n="newsSearchClear">Hapus</button>
+          <input type="search" id="news-search" placeholder="Search headlines or publishers..." aria-controls="publisher-news-list" aria-describedby="news-search-info" autocomplete="off" maxlength="200">
+          <button class="hapus" id="news-search-clear" type="button" aria-label="Clear news search" data-i18n="newsSearchClear">Clear</button>
         </div>
         <p class="cari-info" id="news-search-info" role="status" aria-live="polite" hidden></p>
         <div class="publisher-news-toolbar">
-          <button id="news-refresh" type="button" class="btn btn-secondary" onclick="reloadPublisherNews()" data-i18n="newsRefresh">Perbarui berita</button>
+          <button id="news-refresh" type="button" class="btn btn-secondary" onclick="reloadPublisherNews()" data-i18n="newsRefresh">Refresh news</button>
         </div>
         <p id="publisher-news-status" role="status" class="publisher-news-status"></p>
         <p id="news-publisher-link" class="publisher-news-status" hidden></p>
-        <h3 class="publisher-grid-heading" data-i18n="newsLatestStories">Berita terbaru</h3>
-        <section id="fomc-panel" class="fomc-panel" aria-label="FOMC decision and probabilities" hidden></section>
+        <h3 class="publisher-grid-heading" data-i18n="newsLatestStories">Latest stories</h3>
+        <section id="fomc-panel" class="fomc-panel" aria-label="FOMC decisions and probabilities" hidden></section>
         <div id="publisher-news-list" class="publisher-news-list"></div>
-        <button id="news-more" type="button" class="btn btn-secondary publisher-more" onclick="showMoreNews()" data-i18n="newsShowMore" hidden>Lihat lebih banyak</button>
-        <p class="publisher-news-note" data-i18n="newsOriginalLanguage">Judul mengikuti bahasa asli penerbit. Baca berita lengkap di situs sumber.</p>
+        <button id="news-more" type="button" class="btn btn-secondary publisher-more" onclick="showMoreNews()" data-i18n="newsShowMore" hidden>Show more stories</button>
+        <p class="publisher-news-note" data-i18n="newsOriginalLanguage">Headlines remain in the publisher’s original language. Read the full story on the source website.</p>
         <div class="publisher-tools">
           <a href="https://www.cmegroup.com/markets/interest-rates/cme-fedwatch-tool.html" target="_blank" rel="noopener noreferrer">CME FedWatch</a>
           <a href="https://www.cmegroup.com/markets.html?redirect=/markets/" target="_blank" rel="noopener noreferrer">CME Markets</a>
-          <p data-i18n="newsCmeHint">Lihat probabilitas suku bunga dan data pasar terbaru langsung di CME Group.</p>
+          <p data-i18n="newsCmeHint">View current interest-rate probabilities and market data directly on CME Group.</p>
         </div>
         </div>
         <article id="publisher-news-reader" class="news-reader" hidden aria-labelledby="news-reader-title"></article>
@@ -879,12 +881,12 @@
       <div id="sub-berita-kalender" hidden>
         <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:14px; flex-wrap:wrap; gap:10px;">
           <div>
-            <h3 style="font-size:18px; font-weight:700; margin-bottom:4px; letter-spacing:-0.02em;">Kalender Ekonomi Global (WIB)</h3>
-            <p data-i18n="calendarLead" style="font-size:12.5px; color:var(--text-muted); margin:0;">Jadwal rilis makro ekonomi, ketenagakerjaan, inflasi, dan suku bunga. Waktu tabel dalam WIB.</p>
+            <h3 style="font-size:18px; font-weight:700; margin-bottom:4px; letter-spacing:-0.02em;">Global economic calendar (WIB)</h3>
+            <p data-i18n="calendarLead" style="font-size:12.5px; color:var(--text-muted); margin:0;">Macroeconomic, employment, inflation and interest-rate releases. Table times are in WIB.</p>
           </div>
           <div style="display:flex; align-items:center; gap:8px;">
             <span class="feed-stamp" id="kal-stamp" style="font-family:var(--mono); font-size:11.5px; color:var(--text-muted);"></span>
-            <button class="btn btn-secondary btn-sm" id="kal-reload" onclick="reloadKalender()" style="font-size:12px; padding:5px 13px;">Muat Ulang</button>
+            <button class="btn btn-secondary btn-sm" id="kal-reload" onclick="reloadKalender()" style="font-size:12px; padding:5px 13px;">Reload</button>
           </div>
         </div>
 
@@ -892,18 +894,18 @@
         <div id="calendar-agenda" class="calendar-agenda"></div>
         <div class="cari" id="cari-kal-box">
           <span class="ic"></span>
-          <input type="search" id="cari-kal" placeholder="Cari rilis data atau mata uang (Core CPI, NFP, USD, EUR, AUD...)" autocomplete="off">
-          <button class="hapus" type="button" aria-label="Hapus pencarian">&times;</button>
+          <input type="search" id="cari-kal" placeholder="Search releases or currencies (CPI, NFP, USD, EUR...)" autocomplete="off">
+          <button class="hapus" type="button" aria-label="Clear search">&times;</button>
         </div>
         <div class="cari-info" id="cari-kal-info" hidden></div>
 
         <!-- Date Selectors -->
         <div class="kal-tgl" id="kal-tgl-pilih">
-          <span class="lbl">Tanggal</span>
-          <select id="kal-th" aria-label="Tahun"></select>
-          <select id="kal-bl" aria-label="Bulan"></select>
-          <select id="kal-tg" aria-label="Tanggal"></select>
-          <button class="btn btn-secondary btn-sm" type="button" id="kal-tgl-clr" style="padding:4px 10px; font-size:11.5px;">Semua</button>
+          <span class="lbl">Date</span>
+          <select id="kal-th" aria-label="Year"></select>
+          <select id="kal-bl" aria-label="Month"></select>
+          <select id="kal-tg" aria-label="Date"></select>
+          <button class="btn btn-secondary btn-sm" type="button" id="kal-tgl-clr" style="padding:4px 10px; font-size:11.5px;">All</button>
         </div>
 
         <div class="calendar-filters" id="calendar-filters">
@@ -931,7 +933,7 @@
 
 
     <section class="view-content" id="view-profil">
-      <div class="profile-page-heading"><h1 data-i18n="profileHeading">Profil & akun</h1><p data-i18n="profileLead">Kelola identitas, akun trading, dan penyimpanan jurnal Anda.</p></div>
+      <div class="profile-page-heading"><h1 data-i18n="profileHeading">Profile & account</h1><p data-i18n="profileLead">Manage your identity, trading accounts, and journal storage.</p></div>
       <div class="trader-passport-card">
         <div class="tpc-left">
           <div class="tpc-avatar" id="tpc-avatar">
@@ -945,13 +947,13 @@
             </div>
             <p class="tpc-sub" id="tpc-google-email" hidden></p>
             <p class="tpc-sub" id="tpc-account-provider"></p>
-            <a id="profile-google-manage" class="btn btn-ghost btn-sm" href="https://myaccount.google.com/personal-info" target="_blank" rel="noopener noreferrer" hidden data-i18n="profileGoogleManage">Kelola foto Google</a>
-            <p class="tpc-sub" id="tpc-sub-status">Trader Mandiri · Akun Utama: EXNESS Standard (demo_acc)</p>
+            <a id="profile-google-manage" class="btn btn-ghost btn-sm" href="https://myaccount.google.com/personal-info" target="_blank" rel="noopener noreferrer" hidden data-i18n="profileGoogleManage">Manage Google photo</a>
+            <p class="tpc-sub" id="tpc-sub-status">Independent Trader · Main Account: EXNESS Standard (demo_acc)</p>
           </div>
         </div>
         <div class="tpc-stats">
           <div class="tpc-stat-item">
-            <span data-i18n="profileTotalTrades">Total transaksi</span>
+            <span data-i18n="profileTotalTrades">Total trades</span>
             <b id="tpc-total-trades">0</b>
           </div>
           <div class="tpc-stat-item">
@@ -963,7 +965,7 @@
             <b id="tpc-net-pl">$0.00</b>
           </div>
           <div class="tpc-stat-item">
-            <span data-i18n="profileAverageRR">R:R rata-rata</span>
+            <span data-i18n="profileAverageRR">Average R:R</span>
             <b id="tpc-average-rr">—</b>
           </div>
         </div>
@@ -972,50 +974,48 @@
       <div class="profile-grid">
         <!-- Trader Settings Card -->
         <div class="profile-card">
-          <div class="profile-section-heading"><div><h3 data-i18n="profileSettings">Pengaturan profil</h3><p class="calc-desc" data-i18n="profileSettingsLead">Atur nama panggilan dan preferensi jurnal Anda.</p></div><button type="button" class="btn btn-accent btn-sm" onclick="saveProfileSettings()" data-i18n="profileSave">Simpan perubahan</button></div>
+          <div class="profile-section-heading"><div><h3 data-i18n="profileSettings">Profile settings</h3><p class="calc-desc" data-i18n="profileSettingsLead">Set your nickname and journal preferences.</p></div><button type="button" class="btn btn-accent btn-sm" onclick="saveProfileSettings()" data-i18n="profileSave">Save changes</button></div>
           <div class="form-grid">
             <div class="field-group">
-              <label for="p-trader-name" data-i18n="profileNickname">Nama panggilan</label>
+              <label for="p-trader-name" data-i18n="profileNickname">Nickname</label>
               <input type="text" id="p-trader-name" value="Trader" maxlength="80" autocomplete="nickname">
             </div>
             <div class="field-group">
-              <label for="p-account-email" data-i18n="profileEmail">Email akun</label>
+              <label for="p-account-email" data-i18n="profileEmail">Account email</label>
               <input type="email" id="p-account-email" readonly aria-describedby="p-account-note">
               <small id="p-account-note"></small>
             </div>
           </div>
-          <div class="profile-region-heading"><h3 data-i18n="profileCurrency">Mata uang & wilayah</h3><p class="calc-desc" data-i18n="profileCurrencyLead">Pengaturan konversi untuk laporan jurnal Anda.</p></div>
+          <div class="profile-region-heading"><h3 data-i18n="profileCurrency">Currency & region</h3><p class="calc-desc" data-i18n="profileCurrencyLead">Conversion settings for your journal reports.</p></div>
           <div class="form-grid">
-            <div class="field-group"><label for="p-report-currency" data-i18n="profileReportCurrency">Mata uang laporan</label><input id="p-report-currency" value="USD / IDR" readonly></div>
-            <div class="field-group"><label for="p-report-timezone" data-i18n="profileTimezone">Zona waktu jurnal</label><input id="p-report-timezone" value="Asia/Jakarta (UTC+07:00)" readonly></div>
+            <div class="field-group"><label for="p-report-currency" data-i18n="profileReportCurrency">Report currency</label><input id="p-report-currency" value="USD / IDR" readonly></div>
+            <div class="field-group"><label for="p-report-timezone" data-i18n="profileTimezone">Journal timezone</label><input id="p-report-timezone" value="Asia/Jakarta (UTC+07:00)" readonly></div>
             <div class="field-group full">
-              <label for="p-kurs-input">Kurs Dolar ke Rupiah (USD to IDR)</label>
+              <label for="p-kurs-input">Exchange rate (USD to IDR)</label>
               <input type="number" id="p-kurs-input" value="17000" min="1" step="any">
-              <p id="exchange-status" role="status">Kurs tersimpan. Mengambil kurs terbaru...</p>
-              <button type="button" class="btn btn-outline btn-sm" onclick="refreshExchangeRate()">Perbarui kurs otomatis</button>
-              <small><a href="https://www.bi.go.id/id/statistik/informasi-kurs/transaksi-bi/default.aspx" target="_blank" rel="noopener noreferrer" data-i18n="biSource">Kurs Transaksi Bank Indonesia</a>. <span data-i18n="biBasis">Konversi jurnal memakai titik tengah kurs jual dan beli USD BI. BI menerbitkan kurs sekali setiap hari kerja.</span></small>
+              <p id="exchange-status" role="status">Saved exchange rate. Taking the latest exchange rate...</p>
+              <button type="button" class="btn btn-outline btn-sm" onclick="refreshExchangeRate()">Refresh exchange rate</button>
+              <small><a href="https://www.bi.go.id/id/statistik/informasi-kurs/transaksi-bi/default.aspx" target="_blank" rel="noopener noreferrer" data-i18n="biSource">Bank Indonesia transaction rates</a>. <span data-i18n="biBasis">Journal conversion uses the midpoint of BI USD sell and buy rates. BI publishes rates once per business day.</span></small>
             </div>
           </div>
-          <div data-i18n="localDataHint" style="margin-top:18px; padding-top:14px; border-top:1px solid var(--line); font-size:12px; color:var(--text-muted);">
-            Saat login, jurnal otomatis tersimpan ke server. Tanpa login, jurnal tersimpan di browser perangkat ini. Ekspor backup untuk menyimpan salinannya.
-          </div>
+          <div data-i18n="localDataHint" style="margin-top:18px; padding-top:14px; border-top:1px solid var(--line); font-size:12px; color:var(--text-muted);">When signed in, your journal saves automatically to the server. Without signing in, it stays in this browser on this device. Export a backup to keep a copy.</div>
         </div>
 
         <!-- Accounts Management Card -->
         <div class="profile-card">
           <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:14px;">
             <div>
-              <h3 style="margin-bottom:2px;" data-i18n="profileTradingAccounts">Akun trading</h3>
-              <p class="calc-desc" style="margin-bottom:0;" data-i18n="profileAccountsLead">Akun broker yang tercatat di jurnal Anda.</p>
+              <h3 style="margin-bottom:2px;" data-i18n="profileTradingAccounts">Trading accounts</h3>
+              <p class="calc-desc" style="margin-bottom:0;" data-i18n="profileAccountsLead">Broker accounts recorded in your journal.</p>
             </div>
-            <button class="btn btn-accent btn-sm" onclick="openNewAccountModal()" data-i18n="profileAddAccount">+ Tambah akun</button>
+            <button class="btn btn-accent btn-sm" onclick="openNewAccountModal()" data-i18n="profileAddAccount">+ Add account</button>
           </div>
           <div id="accounts-list-wrap">
             <!-- Populated via JS -->
           </div>
-          <div class="profile-region-heading"><h3 data-i18n="profileAccountSecurity">Akun & penyimpanan</h3><p id="profile-account-summary" class="calc-desc"></p></div>
-          <div class="profile-account-row"><span data-i18n="profileSignInMethod">Metode masuk</span><b id="profile-signin-method"></b></div>
-          <div class="profile-account-row"><span data-i18n="profileJournalStorage">Penyimpanan jurnal</span><b id="profile-storage-method"></b></div>
+          <div class="profile-region-heading"><h3 data-i18n="profileAccountSecurity">Account & storage</h3><p id="profile-account-summary" class="calc-desc"></p></div>
+          <div class="profile-account-row"><span data-i18n="profileSignInMethod">Sign-in method</span><b id="profile-signin-method"></b></div>
+          <div class="profile-account-row"><span data-i18n="profileJournalStorage">Journal storage</span><b id="profile-storage-method"></b></div>
           <p class="profile-account-note" id="profile-sync-status" role="status"></p>
         </div>
       </div>
@@ -1024,55 +1024,55 @@
       <div class="profile-bottom-grid">
         <!-- Golden Rules Card -->
         <details class="profile-card profile-discipline">
-          <summary data-i18n="profileDiscipline">Aturan disiplin trading</summary>
-          <p class="calc-desc" style="margin-bottom:14px;">Pengingat psikologis sebelum mengeksekusi order di pasar.</p>
+          <summary data-i18n="profileDiscipline">Trading discipline</summary>
+          <p class="calc-desc" style="margin-bottom:14px;">Psychological reminder before executing orders in the market.</p>
           <div class="rules-list">
             <div class="rule-item">
               <span class="rule-num">1</span>
-              <span>Batas risiko maksimal 1.0% per trade dari modal akun.</span>
+              <span>Maximum risk limit is 1.0% per trade of account capital.</span>
             </div>
             <div class="rule-item">
               <span class="rule-num">2</span>
-              <span>Selalu pasang Stop Loss (SL) bersamaan saat membuka posisi.</span>
+              <span>Always place Stop Loss (SL) at the same time when opening a position.</span>
             </div>
             <div class="rule-item">
               <span class="rule-num">3</span>
-              <span>Berhenti trading hari ini jika mengalami 2 loss beruntun (Max Daily Loss).</span>
+              <span>Stop trading today if you experience 2 consecutive losses (Max Daily Loss).</span>
             </div>
             <div class="rule-item">
               <span class="rule-num">4</span>
-              <span>Hanya masuki pasar saat terdapat konfirmasi setup yang jelas.</span>
+              <span>Only enter the market when there is clear setup confirmation.</span>
             </div>
             <div class="rule-item">
               <span class="rule-num">5</span>
-              <span>Catat dan evaluasi setiap trade di journalingtrade secara objektif.</span>
+              <span>Record and evaluate each trade in journalingtrade objectively.</span>
             </div>
           </div>
         </details>
 
         <!-- Local Storage Health & Vault Card -->
         <div class="profile-card">
-          <h3 data-i18n="profileBackup">Backup & pemulihan</h3>
-          <p class="calc-desc" style="margin-bottom:14px;" data-i18n="profileBackupLead">Simpan salinan jurnal atau pulihkan data dari file backup.</p>
+          <h3 data-i18n="profileBackup">Backup & restore</h3>
+          <p class="calc-desc" style="margin-bottom:14px;" data-i18n="profileBackupLead">Save a journal copy or restore data from a backup file.</p>
           <div class="vault-status-box">
             <div class="vs-row">
-              <span data-i18n="profileLocalCopy">Salinan lokal</span>
+              <span data-i18n="profileLocalCopy">Local copy</span>
               <b id="vault-storage-status"></b>
             </div>
             <div class="vs-row">
-              <span data-i18n="profileLocalUsage">Ukuran data lokal</span>
+              <span data-i18n="profileLocalUsage">Local data size</span>
               <b id="vault-storage-used">—</b>
             </div>
             <div class="vs-row">
-              <span data-i18n="profileRecordCount">Transaksi tersimpan</span>
+              <span data-i18n="profileRecordCount">Saved trades</span>
               <b id="vault-total-records">0</b>
             </div>
           </div>
           <div style="display:flex; gap:8px; flex-wrap:wrap; margin-top:16px;">
-            <button class="btn btn-ghost btn-sm" onclick="exportBackupJSON()">Backup JSON</button>
-            <button class="btn btn-ghost btn-sm" onclick="triggerRestore()" data-i18n="profileRestore">Pulihkan data</button>
-            <button class="btn btn-ghost btn-sm" onclick="exportCSV()" data-i18n="profileExport">Ekspor CSV</button>
-            <button class="btn btn-danger btn-sm" onclick="resetAllData()" data-i18n="profileDeleteLocal">Hapus data jurnal</button>
+            <button class="btn btn-ghost btn-sm" onclick="exportBackupJSON()">JSON Backup</button>
+            <button class="btn btn-ghost btn-sm" onclick="triggerRestore()" data-i18n="profileRestore">Restore data</button>
+            <button class="btn btn-ghost btn-sm" onclick="exportCSV()" data-i18n="profileExport">Export CSV</button>
+            <button class="btn btn-danger btn-sm" onclick="resetAllData()" data-i18n="profileDeleteLocal">Delete journal data</button>
           </div>
         </div>
       </div>
@@ -1082,35 +1082,35 @@
       <div class="auth-shell">
         <a class="auth-brand" href="home/">journalingtrade</a>
         <div class="auth-card">
-          <div id="auth-signin-heading"><h1 data-i18n="loginTitle">Masuk ke jurnal Anda</h1><p class="login-description" data-i18n="loginDescription">Masuk untuk menyimpan jurnal dan membukanya di perangkat lain.</p></div>
-          <div id="auth-signup-heading" hidden><h1 data-i18n="signupTitle">Buat akun journalingtrade</h1><p class="login-description" data-i18n="signupLead">Mulai dengan Free dan catat perjalanan trading Anda.</p></div>
+          <div id="auth-signin-heading"><h1 data-i18n="loginTitle">Sign in to your journal</h1><p class="login-description" data-i18n="loginDescription">Sign in with email to save your journal in the cloud and access it on other devices.</p></div>
+          <div id="auth-signup-heading" hidden><h1 data-i18n="signupTitle">Create your journalingtrade account</h1><p class="login-description" data-i18n="signupLead">Start with Free and track your trading journey.</p></div>
           <div id="auth-credentials">
-            <button class="google-login-btn" id="google-login-btn" type="button" onclick="signInGoogle()"><span class="google-letter" aria-hidden="true">G</span><span data-i18n="googleLogin">Masuk dengan Google</span></button>
+            <button class="google-login-btn" id="google-login-btn" type="button" onclick="signInGoogle()"><span class="google-letter" aria-hidden="true">G</span><span data-i18n="googleLogin">Sign in with Google</span></button>
             <p id="google-login-status" class="login-note" role="status"></p>
-            <div class="auth-divider" data-i18n="authEmailDivider">atau gunakan email</div>
+            <div class="auth-divider" data-i18n="authEmailDivider">or use email</div>
             <form id="cloud-login-form" onsubmit="submitCloudAuth(event)">
               <label for="cloud-email" data-i18n="cloudEmail">Email</label>
-              <input id="cloud-email" name="email" type="email" autocomplete="username" required maxlength="254" placeholder="nama@email.com">
-              <label for="cloud-password" data-i18n="cloudPassword">Kata sandi</label>
+              <input id="cloud-email" name="email" type="email" autocomplete="username" required maxlength="254" placeholder="name@email.com">
+              <label for="cloud-password" data-i18n="cloudPassword">Password</label>
               <input id="cloud-password" name="password" type="password" autocomplete="current-password" required minlength="8" maxlength="128">
-              <div id="auth-confirm-field" hidden><label for="cloud-password-confirm" data-i18n="confirmPassword">Konfirmasi kata sandi</label><input id="cloud-password-confirm" type="password" autocomplete="new-password" minlength="8" maxlength="128" disabled></div>
-              <button class="btn btn-primary" id="auth-signin-submit" type="submit" data-i18n="cloudSignIn">Masuk dan sinkronkan</button>
-              <button class="btn btn-primary" id="auth-signup-submit" type="submit" hidden data-i18n="cloudSignUp">Buat akun</button>
+              <div id="auth-confirm-field" hidden><label for="cloud-password-confirm" data-i18n="confirmPassword">Confirm password</label><input id="cloud-password-confirm" type="password" autocomplete="new-password" minlength="8" maxlength="128" disabled></div>
+              <button class="btn btn-primary" id="auth-signin-submit" type="submit" data-i18n="cloudSignIn">Sign in and sync</button>
+              <button class="btn btn-primary" id="auth-signup-submit" type="submit" hidden data-i18n="cloudSignUp">Create account</button>
             </form>
-            <button id="auth-show-signup" class="text-action" type="button" onclick="setAuthMode('signup')" data-i18n="authShowSignup">Belum punya akun? Daftar sekarang</button>
-            <button id="auth-show-signin" class="text-action" type="button" onclick="setAuthMode('signin')" hidden data-i18n="authShowSignin">Sudah punya akun? Masuk di sini</button>
+            <button id="auth-show-signup" class="text-action" type="button" onclick="setAuthMode('signup')" data-i18n="authShowSignup">New here? Create an account</button>
+            <button id="auth-show-signin" class="text-action" type="button" onclick="setAuthMode('signin')" hidden data-i18n="authShowSignin">Already have an account? Sign in</button>
           </div>
           <form id="nickname-form" onsubmit="saveNickname(event)" hidden>
-            <h1 data-i18n="nicknameTitle">Kami harus memanggil Anda siapa?</h1>
-            <p class="login-description" data-i18n="nicknameLead">Pilih nama panggilan untuk profil jurnal Anda.</p>
-            <label for="nickname-input" data-i18n="nicknameLabel">Nama panggilan</label>
-            <input id="nickname-input" type="text" autocomplete="nickname" required minlength="2" maxlength="40" placeholder="Nama panggilan Anda">
-            <button class="btn btn-primary" type="submit" data-i18n="nicknameSave">Simpan dan buka jurnal</button>
-            <button class="text-action" type="button" onclick="signOutLocal()" data-i18n="authSwitchAccount">Gunakan akun lain</button>
+            <h1 data-i18n="nicknameTitle">What should we call you?</h1>
+            <p class="login-description" data-i18n="nicknameLead">Choose a nickname for your journal profile.</p>
+            <label for="nickname-input" data-i18n="nicknameLabel">Nickname</label>
+            <input id="nickname-input" type="text" autocomplete="nickname" required minlength="2" maxlength="40" placeholder="Your nickname">
+            <button class="btn btn-primary" type="submit" data-i18n="nicknameSave">Save and open journal</button>
+            <button class="text-action" type="button" onclick="signOutLocal()" data-i18n="authSwitchAccount">Use another account</button>
           </form>
           <p id="cloud-status" class="login-note" role="status" aria-live="polite"></p>
         </div>
-        <a class="auth-back" href="home/" data-i18n="authBack">Kembali ke Beranda</a>
+        <a class="auth-back" href="home/" data-i18n="authBack">Back to Home</a>
       </div>
     </section>
   </main>
@@ -1120,15 +1120,15 @@
     <div class="modal-card" style="max-width:560px;">
       <div class="modal-head">
         <div>
-          <h3 id="upload-title" style="margin-bottom:2px;" data-i18n="uploadTitle">Scan dokumen &amp; impor jurnal</h3>
-          <p class="upload-intro" data-i18n="uploadDescription">Scan PDF/PNG/JPG mengenali riwayat posisi dan setup chart. CSV/TXT dapat ditinjau untuk impor ke jurnal.</p>
+          <h3 id="upload-title" style="margin-bottom:2px;" data-i18n="uploadTitle">Scan documents & import trades</h3>
+          <p class="upload-intro" data-i18n="uploadDescription">PDF/PNG/JPG scans recognize position history and chart setups. Review CSV/TXT records before importing them into the journal.</p>
         </div>
         <button class="modal-close" onclick="closeUploadModal()">&times;</button>
       </div>
 
       <!-- CodeFronts Drag & Drop Zone -->
       <div class="fu-zone-wrap">
-        <div class="fu-zone" id="fu-06-zone" role="button" tabindex="0" aria-label="Seret & lepas berkas ke sini, atau tekan Enter untuk memilih" aria-describedby="fu-06-hint">
+        <div class="fu-zone" id="fu-06-zone" role="button" tabindex="0" aria-label="Drag &amp; drop files here, or press Enter to select" aria-describedby="fu-06-hint">
           <svg class="fu-outline" aria-hidden="true" focusable="false" preserveAspectRatio="none">
             <rect x="1" y="1" rx="14" ry="14" width="calc(100% - 2px)" height="calc(100% - 2px)"></rect>
           </svg>
@@ -1141,11 +1141,11 @@
               </svg>
             </span>
           </span>
-          <p class="fu-title" data-i18n="dropFile">Tarik &amp; lepas berkas di sini</p>
+          <p class="fu-title" data-i18n="dropFile">Drop your file here</p>
           <p class="fu-hint" id="fu-06-hint">
-            atau <label class="fu-browse" for="fu-06-file">pilih dari perangkat</label>
+            or <label class="fu-browse" for="fu-06-file">choose from your device</label>
             <span class="fu-rule" aria-hidden="true"></span>
-            <span class="fu-types">PDF, PNG, JPG, CSV, TXT · <b>Maks. 10 MB</b></span>
+            <span class="fu-types">PDF, PNG, JPG, CSV, TXT · <b>Max. 10MB</b></span>
           </p>
           <input class="fu-input" id="fu-06-file" type="file" accept=".pdf,.txt,.csv,.png,.jpg,.jpeg" onchange="handleSelectedFile(this)">
         </div>
@@ -1158,11 +1158,11 @@
           <thead>
             <tr>
               <th>Market</th>
-              <th>Posisi</th>
+              <th>Side</th>
               <th>Entry</th>
               <th>SL</th>
               <th>TP</th>
-              <th>Hasil</th>
+              <th>Outcome</th>
             </tr>
           </thead>
           <tbody id="upload-preview-tbody"></tbody>
@@ -1171,26 +1171,26 @@
       <div id="upload-status-msg" role="status" aria-live="polite" style="font-size:12.5px; color:var(--text-muted); margin-bottom:14px; min-height:20px;"></div>
       <section id="scan-result" class="scan-result" hidden>
         <h4 id="scan-file-name"></h4>
-        <p data-i18n="scanReviewHint">Riwayat posisi dan setup chart dikenali otomatis. Periksa nilai yang terbaca; data yang tidak terlihat tetap kosong. Jurnal tidak diubah otomatis.</p>
+        <p data-i18n="scanReviewHint">Trade history and chart setups are detected automatically. Check the detected values; missing information stays blank. No trades are added automatically.</p>
         <div id="scan-recognition" aria-live="polite"></div>
         <div id="scan-import-controls" hidden>
-          <label for="scan-profit-currency" data-i18n="scanCurrency">Mata uang profit · sesuaikan dengan akun broker</label>
+          <label for="scan-profit-currency" data-i18n="scanCurrency">P/L currency · use your account currency</label>
           <select id="scan-profit-currency"><option value="USD">USD</option><option value="IDR">IDR</option></select>
-          <button id="btn-import-scan" class="btn btn-primary" type="button" onclick="importScanToJournal()">Masukkan transaksi ke jurnal</button>
-          <p data-i18n="scanImportHint">Periksa hasil di atas sebelum impor. SL/TP dan risiko yang tidak terlihat tetap kosong. Chart setup disimpan sebagai analisis.</p>
+          <button id="btn-import-scan" class="btn btn-primary" type="button" onclick="importScanToJournal()">Enter the transaction to the journal</button>
+          <p data-i18n="scanImportHint">Review the detected rows before importing. Missing SL/TP and risk stay blank. Chart setups are saved as analysis.</p>
         </div>
-        <label for="scan-text" data-i18n="scanText">Informasi terbaca</label>
+        <label for="scan-text" data-i18n="scanText">Detected information</label>
         <textarea id="scan-text" readonly rows="8"></textarea>
-        <button id="btn-save-scan" class="btn btn-primary" type="button" onclick="saveScanResult()" data-i18n="saveScan">Simpan hasil scan</button>
+        <button id="btn-save-scan" class="btn btn-primary" type="button" onclick="saveScanResult()" data-i18n="saveScan">Save scan result</button>
       </section>
-      <details class="saved-scans-section"><summary data-i18n="savedScans">Hasil scan tersimpan</summary><p id="saved-scans-empty" data-i18n="scanEmpty">Belum ada hasil scan tersimpan di perangkat ini.</p><div id="saved-scans"></div></details>
+      <details class="saved-scans-section"><summary data-i18n="savedScans">Saved scan results</summary><p id="saved-scans-empty" data-i18n="scanEmpty">No scans have been saved on this device.</p><div id="saved-scans"></div></details>
 
       <div style="display:flex; justify-content:space-between; align-items:center;">
-        <span style="font-size:11.5px; color:var(--text-muted);" data-i18n="uploadLimit">Maks. 10 MB · Excel: ekspor ke CSV</span>
+        <span style="font-size:11.5px; color:var(--text-muted);" data-i18n="uploadLimit">Max. 10 MB · Excel: export as CSV</span>
         <div style="display:flex; gap:10px;">
-          <button class="btn btn-ghost" onclick="closeUploadModal()">Tutup</button>
+          <button class="btn btn-ghost" onclick="closeUploadModal()">Close</button>
           <button class="btn btn-accent" id="btn-confirm-import" style="display:none;" onclick="confirmParsedImport()">
-            Impor ke Jurnal
+            Import into journal
           </button>
         </div>
       </div>
@@ -1228,7 +1228,7 @@
         </div>
 
         <div class="tv-head-right">
-          <a id="tv-external-link" href="https://www.tradingview.com" target="_blank" rel="noopener noreferrer" class="btn btn-secondary" style="font-size:11px; padding:4px 9px;" title="Buka di tab TradingView terpisah jika perlu">Tab Baru </a>
+          <a id="tv-external-link" href="https://www.tradingview.com" target="_blank" rel="noopener noreferrer" class="btn btn-secondary" style="font-size:11px; padding:4px 9px;" title="Open in a separate TradingView tab if necessary">Open in new tab </a>
           <button class="modal-close" onclick="closeTradingView()" aria-label="Close chart" title="Close chart">&times;</button>
         </div>
       </div>
@@ -1241,62 +1241,71 @@
   <div class="modal-overlay" id="account-modal">
     <div class="modal-card" style="max-width:480px;">
       <div class="modal-head">
-        <h3 id="acc-modal-title">Tambah Akun Broker</h3>
+        <h3 id="acc-modal-title">Add broker account</h3>
         <button class="modal-close" onclick="closeAccountModal()">&times;</button>
       </div>
       <div class="form-grid">
         <div class="field-group full">
-          <label for="acc-name">Nama Akun</label>
-          <input type="text" id="acc-name" placeholder="Akun Utama / Challenge">
+          <label for="acc-name">Account name</label>
+          <input type="text" id="acc-name" placeholder="Main Account / Challenge">
         </div>
         <div class="field-group">
           <label for="acc-broker">Broker</label>
           <input type="text" id="acc-broker" placeholder="EXNESS / IC Markets">
         </div>
         <div class="field-group">
-          <label for="acc-currency">Mata Uang</label>
+          <label for="acc-currency">Currency</label>
           <select id="acc-currency">
-            <option value="USD">USD (Dolar)</option>
-            <option value="USC">USC (Akun Sen)</option>
+            <option value="USD">USD (Dollar)</option>
+            <option value="USC">USC (Cen Account)</option>
             <option value="IDR">IDR (Rupiah)</option>
           </select>
         </div>
         <div class="field-group full">
-          <label for="acc-balance">Saldo Awal</label>
+          <label for="acc-balance">Starting balance</label>
           <input type="number" id="acc-balance" placeholder="1000" value="1000">
         </div>
       </div>
       <div style="display:flex; justify-content:flex-end; gap:10px; margin-top:20px;">
-        <button class="btn btn-ghost" onclick="closeAccountModal()">Batal</button>
-        <button class="btn btn-accent" onclick="saveAccountRecord()">Simpan Akun</button>
+        <button class="btn btn-ghost" onclick="closeAccountModal()">Cancel</button>
+        <button class="btn btn-accent" onclick="saveAccountRecord()">Save account</button>
       </div>
     </div>
   </div>
 
   <!-- Footer -->
-  <footer class="site-footer">
+  <footer class="site-footer shell-footer">
     <div class="site-footer-inner">
       <div class="site-footer-main">
         <div class="site-footer-brand">
-          <button type="button" onclick="switchTab('beranda')"><img class="brand-icon" src="css/brand/journalingtrade.svg" width="44" height="44" alt="">journalingtrade<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M6 18 18 6M6 6h12v12"/></svg></button>
-          <p data-i18n="footerLead">Catat keputusan. Pahami kebiasaan.<br>Bangun proses trading Anda.</p>
+          <button class="shell-brand" type="button" onclick="switchTab('beranda')"><span class="shell-brand-icon"><img src="css/brand/journalingtrade.svg" width="35" height="35" alt=""></span><span class="shell-brand-name">journalingtrade</span><span class="shell-visually-hidden" data-i18n="home">Home</span></button>
+          <p data-i18n="footerLead">Record decisions.<br>Understand habits.<br>Build your trading process.</p>
         </div>
-        <nav class="site-footer-links" aria-label="Footer">
-          <div><h2 data-i18n="footerWorkspace">Ruang kerja</h2><button type="button" onclick="startTrial()" data-i18n="openJournal">Buka jurnal trade</button><button type="button" onclick="switchTab('berita')" data-i18n="news">Berita Ekonomi</button><button type="button" onclick="switchTab('berita'); switchBeritaSub('kalender')" data-i18n="newsCalendar">Kalender ekonomi</button></div>
-          <div><h2 data-i18n="footerExplore">Jelajahi</h2><button type="button" onclick="switchTab('beranda'); scrollToPricing()" data-i18n="footerPlans">Paket langganan</button><a href="home/#panduan-forex" data-i18n="footerGuide">Panduan trading</a><a href="login/" data-i18n="signIn">Masuk</a></div>
-        </nav>
+        <div class="site-footer-links">
+          <nav aria-label="Workspace"><h2 data-i18n="footerWorkspace">Workspace</h2><ul>
+            <li><button type="button" onclick="startTrial()"><span data-i18n="openJournal">Open trading journal</span><svg class="shell-footer-arrow" width="12" height="12" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.5 7h9M8 3.5 11.5 7 8 10.5"></path></svg></button></li>
+            <li><button type="button" onclick="switchTab('berita')"><span data-i18n="news">Economic news</span><svg class="shell-footer-arrow" width="12" height="12" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.5 7h9M8 3.5 11.5 7 8 10.5"></path></svg></button></li>
+            <li><button type="button" onclick="switchTab('berita'); switchBeritaSub('kalender')"><span data-i18n="newsCalendar">Economic calendar</span><svg class="shell-footer-arrow" width="12" height="12" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.5 7h9M8 3.5 11.5 7 8 10.5"></path></svg></button></li>
+          </ul></nav>
+          <nav aria-label="Explore"><h2 data-i18n="footerExplore">Explore</h2><ul>
+            <li><button type="button" onclick="switchTab('beranda'); scrollToPricing()"><span data-i18n="footerPlans">Subscription plans</span><svg class="shell-footer-arrow" width="12" height="12" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.5 7h9M8 3.5 11.5 7 8 10.5"></path></svg></button></li>
+            <li><a href="home/#panduan-forex"><span data-i18n="footerGuide">Trading guide</span><svg class="shell-footer-arrow" width="12" height="12" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.5 7h9M8 3.5 11.5 7 8 10.5"></path></svg></a></li>
+            <li><a href="login/"><span data-i18n="signIn">Sign in</span><svg class="shell-footer-arrow" width="12" height="12" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.5 7h9M8 3.5 11.5 7 8 10.5"></path></svg></a></li>
+          </ul></nav>
+        </div>
       </div>
-      <div class="site-footer-bottom"><span data-i18n="footerDescriptor">Professional Trading Journal & Analytics</span><span data-i18n="footerPrinciples">Disiplin · Data · Eksekusi</span></div>
+      <div class="site-footer-bottom"><span>© 2026 journalingtrade · <span data-i18n="footerDescriptor">Professional Trading Journal & Analytics</span></span><div class="shell-principles"><span data-i18n="footerDiscipline">Discipline</span><span data-i18n="footerData">Data</span><span data-i18n="footerExecution">Execution</span></div></div>
     </div>
   </footer>
 
 
   <script src="js/vendor/supabase-2.86.0.js" integrity="sha384-3Sgm1bFlHa+gvzgZCHY6SyQwlKZpsgWl0qwxcwsypsSZQvo1vV1miPkn7n1lU1/L"></script>
-  <script src="js/scan.js?v=20261007"></script>
-  <script src="js/news-select.js?v=20261009-geographic-icons"></script>
-  <script src="js/app.js?v=20261010-pro-navigation-2"></script>
+  <script src="js/scan.js?v=20261010-locales"></script>
+  <script src="js/news-select.js?v=20261010-locales"></script>
+  <script src="js/i18n.js?v=20261010-locales"></script>
+  <script src="js/app.js?v=20261010-redesign"></script>
   <script src="js/home.js?v=20261009-home-brand"></script>
-  <script src="js/fed.js?v=20261008-fomc"></script>
+  <script src="js/fed.js?v=20261010-locales"></script>
 
  </body>
 

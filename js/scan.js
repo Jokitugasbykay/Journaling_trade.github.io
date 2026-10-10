@@ -1,5 +1,6 @@
 (function (root) {
   'use strict';
+  const uiText = (id, en) => root.JTI18n?.text(id, en) ?? en;
   const number = value => {
     let text = String(value || '').replace(/[\s\u00a0]/g, '').replace(/[−-]/g, '-');
     if (text.includes(',') && text.includes('.')) {
@@ -29,10 +30,10 @@
           const notes = [];
           if (profit !== null && profit > 0 && entry !== null && exit !== null && (exit-entry)*(direction==='Buy'?1:-1)<0) {
             profit = null;
-            notes.push('Tanda profit tidak konsisten dengan arah harga; periksa screenshot.');
+            notes.push(uiText('Tanda profit tidak konsisten dengan arah harga; periksa screenshot.', 'The profit sign does not match the price direction; check the screenshot.'));
           }
-          if (!prices || !date || profit === null) notes.push('Sebagian data belum terbaca.');
-          if (row.some(l=>l.confidence !== undefined && l.confidence<60)) notes.push('Ada teks dengan keyakinan OCR rendah.');
+          if (!prices || !date || profit === null) notes.push(uiText('Sebagian data belum terbaca.', 'Some information could not be read.'));
+          if (row.some(l=>l.confidence !== undefined && l.confidence<60)) notes.push(uiText('Ada teks dengan keyakinan OCR rendah.', 'Some text has low OCR confidence.'));
           const dateValue = date ? `${date[1]}-${date[2]}-${date[3]}` : null;
           const parsedDate = dateValue ? new Date(dateValue+'T00:00:00Z') : null;
           const validDate = parsedDate && !Number.isNaN(parsedDate.getTime()) && parsedDate.toISOString().slice(0,10) === dateValue && +date[4].slice(0,2)<24 && +date[4].slice(3,5)<60;
@@ -41,8 +42,8 @@
             result:profit===null?null:profit>0?'Win':profit<0?'Loss':'BE', sl:null, tp:null, notes});
         }
         const topPrices = lines.some(l=>center(l)<anchors[0].line.bbox.y0 && new RegExp(`(${numeric})\\s*(?:→|->|-|-|-)\\s*(${numeric})`).test(l.text));
-        if (topPrices) warnings.push(`Halaman ${pageIndex+1}: baris terpotong di atas tidak dimasukkan.`);
-        warnings.push('Riwayat tidak menampilkan SL/TP atau mata uang akun. Baris identik tetap dipertahankan karena dapat merupakan posisi berbeda.');
+        if (topPrices) warnings.push(uiText('Halaman {page}: baris terpotong di atas tidak dimasukkan.', 'Page {page}: the cropped row at the top was not included.').replace('{page}', pageIndex+1));
+        warnings.push(uiText('Riwayat tidak menampilkan SL/TP atau mata uang akun. Baris identik tetap dipertahankan karena dapat merupakan posisi berbeda.', 'The history does not show SL/TP or the account currency. Identical rows are retained because they may represent separate positions.'));
         continue;
       }
       const stopLine = lines.find(l=>/\bStop\s*:/i.test(l.text));
@@ -66,7 +67,7 @@
         const notes = lines.filter(l=>/SELL WATCH|BUY WATCH|SL di|\bSNR\b|\bSBR\b|Supply|dugaan likuiditas/i.test(l.text)).map(l=>l.text.trim());
         records.push({kind:'chart',page:pageIndex+1,market,direction,entry,sl,tp,stopDistance,targetDistance,
           rr:labelled('Risk/reward ratio',page.text),quantity:labelled('Qty',page.text),toolPnl:labelled('Closed Pn[lL]{1,2}',page.text),timeframe:null,notes});
-        warnings.push('Chart adalah setup/analisis. Closed PnL dan Qty pada alat TradingView bukan profit broker atau lot akun. Timeframe, tanggal transaksi, dan hasil posisi belum dikonfirmasi.');
+        warnings.push(uiText('Chart adalah setup/analisis. Closed PnL dan Qty pada alat TradingView bukan profit broker atau lot akun. Timeframe, tanggal transaksi, dan hasil posisi belum dikonfirmasi.', 'This chart is a setup or analysis. Closed PnL and Qty in the TradingView tool are not broker profit or account lots. The timeframe, trade date, and position outcome have not been confirmed.'));
       }
     }
     const kinds = new Set(records.map(r=>r.kind));

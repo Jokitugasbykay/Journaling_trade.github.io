@@ -8,13 +8,13 @@ function authHarness(user = founder, plan = 'free') {
   const nodes = new Map();
   const ctx = {
     cloudUser:user, cloudReady:false, nicknameReady:false, accountAccess:null, hydratingUserId:'',
-    journalOwner:'a', trades:[], accounts:[], profile:{name:''}, onboarding:{}, language:'en',
+    journalOwner:'a', trades:[], accounts:[], profile:{name:''}, onboarding:{}, language:'en', uiText:(_id,en)=>en,
     cloudAccountIds:new Map(), cloudTradeIds:new Map(), cloudStrategyIds:new Map(), localAccountIds:new Map(), cloudSnapshot:'',
     localStorage:{getItem:()=>null}, structuredClone, confirm:()=>false,
-    serverUser:user, serverPlan:plan, journalError:Error('Temporary journal HTTP 503'), errors:[], publisherNews:{items:['saved headline']},
+    serverUser:user, serverPlan:plan, journalError:Error('Temporary journal HTTP 503'), errors:[], publisherNews:{items:['saved headline']}, closeMenuCalls:0,
     console:{error:(...values)=>ctx.errors.push(values)}, cloudMessage:error=>error.message,
     renderNewsRegionControls(){}, renderAccountAccess(){}, renderNewsReader(){}, renderJournalTable(){}, renderStatistics(){}, renderProfileView(){}, runAllCalculators(){},
-    updateAccess(){}, resetNewsRegion(){}, selectJournalOwner:id=>ctx.journalOwner = id,
+    updateAccess(){}, resetNewsRegion(){}, selectJournalOwner:id=>ctx.journalOwner = id, closeNavAccountDropdown(){ctx.closeMenuCalls++;},
     resetNewsData:()=>ctx.publisherNews = null, persistOnboarding(){}, persistCloudMaps(){}, saveLocalData(){}, scheduleCloudSave(){},
     googleAccountProfile:()=>null, switchTab(){}, setAuthMode(){}, uploadAllowanceText:()=>'',
     $:id=>{ if (!nodes.has(id)) nodes.set(id, {textContent:'',value:'',classList:{contains:()=>false}}); return nodes.get(id); }
@@ -129,6 +129,7 @@ function routeHarness() {
     assert.equal(syncCalls,ready?1:0,'Incomplete journal hydration attempted a cloud overwrite before logout');
     assert.equal(signOutCalls,ready?0:1,'Logout was blocked by incomplete hydration or ignored an actual sync failure');
     assert.equal(logout.ctx.cloudUser?.id,ready?'a':undefined);
+    assert.equal(logout.ctx.closeMenuCalls,ready?0:1,'The menu must close only after successful logout');
     assert.equal(saved.get('fncjt_trades_a'),'[{"id":"unsaved-local-copy"}]','Logout erased the account-scoped local journal');
   }
   console.log('Incomplete hydration allows explicit logout; failed ready-state sync protects the local journal');

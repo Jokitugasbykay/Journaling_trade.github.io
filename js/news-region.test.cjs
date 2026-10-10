@@ -8,8 +8,8 @@ const ctx = {
   cloudUser:{id:'a', email:'kaylafisika24@gmail.com'}, cloudReady:true, nicknameReady:true, accountAccess:{plan:'free'},
   publisherDomains:{reuters:'reuters.com'}, newsSelectedSource:'', newsVisibleCount:12,
   kalCountryCodes:'US GB ID DE NO DK FI CZ RO HU IE AT JP CN HK IN SG MY KR TH QA JO LB IQ KW OM BH IL SA AE PK BD TW TR IR LK ZA NG KE EG MA GH ET DZ UG TZ PH VN FR IT ES NL CH SE PL UA CA MX AR CO CL PE AU NZ CR UY'.split(' '), kalCountries:['US'], kalCountriesKey:'countries',
-  URL, Intl, AbortSignal, console, language:'en',
-  esc:String, kalCountryFlag:code => code, renderEconomicCalendar() {}, updateAccess() {}, renderPublisherNews() {}, renderNewsReader() {}, resetNewsData() {},
+  URL, Intl, AbortSignal, console, language:'en', uiText:(_id,en)=>en,
+  esc:String, kalCountryFlag:code => code, renderEconomicCalendar() {}, updateAccess() {}, renderPublisherNews() {}, renderNewsReader() {}, resetNewsData() {}, persistOnboarding() {},
   localStorage:{getItem:key=>storage.get(key) ?? null, setItem:(key,value)=>storage.set(key,value)},
   $:id=>{ if (!nodes.has(id)) nodes.set(id,{value:'',hidden:true,innerHTML:'',textContent:''}); return nodes.get(id); },
   cloudClient:{auth:{getUser:async()=>({data:{user:{id:'a',email:'regular@example.com',email_confirmed_at:'2026-10-01'}}})}}
