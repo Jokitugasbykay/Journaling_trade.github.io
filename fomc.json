@@ -290,7 +290,7 @@
       "status": "ok",
       "name": "CME FedWatch via Beansprout",
       "url": "https://growbeansprout.com/tools/fedwatch",
-      "checkedAt": "2026-10-10T14:00:47.494630+00:00"
+      "checkedAt": "2026-10-10T14:41:11.687721+00:00"
     },
     {
       "meetingDate": "2026-10-28",
@@ -307,16 +307,16 @@
           "probability": 18.4
         }
       ],
-      "status": "ok",
+      "status": "stale",
       "name": "Investing.com Fed Rate Monitor",
       "url": "https://www.investing.com/central-banks/fed-rate-monitor",
-      "checkedAt": "2026-10-10T14:00:47.494630+00:00"
+      "checkedAt": "2026-10-10T14:41:11.687721+00:00"
     }
   ],
   "scheduleStatus": "ok",
-  "scheduleCheckedAt": "2026-10-10T14:00:47.494630+00:00",
+  "scheduleCheckedAt": "2026-10-10T14:41:11.687721+00:00",
   "version": 1,
-  "checkedAt": "2026-10-10T14:00:47.494630+00:00",
+  "checkedAt": "2026-10-10T14:41:11.687721+00:00",
   "scheduleSource": "https://www.federalreserve.gov/monetarypolicy/fomccalendars.htm",
   "currentTarget": {
     "lower": 3.75,
