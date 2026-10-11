@@ -346,7 +346,8 @@
     const frameSelect=select('Timeframe',Object.keys(timeframes).map(key=>[key,key]),selectedFrame,'pro-market-timeframe');frameSelect.wrap.classList.add('pro-timeframe-select');content.append(frameSelect.wrap);
     const chartPanel=panel('Market chart'),iframe=node('iframe'),chartStatus=node('p','Select an authorized instrument to load the chart.','pro-muted');iframe.title='TradingView market chart';iframe.referrerPolicy='no-referrer';chartPanel.append(iframe,chartStatus);
     const engine=panel('AI engine status'),result=panel('AI entry signal'),evidencePanel=panel('Technical evidence'),history=panel('Analysis history');
-    result.append(node('p','No analysis yet. Entry, stop loss and target remain unavailable until validated rules support them.'));
+    const unavailableNotice=node('p','Analysis unavailable: the live service has no authorized OHLC market feed or connected Python analysis engine. The chart below is visual only; no signal, entry, stop loss or target can be calculated yet.','pro-muted');unavailableNotice.setAttribute('role','status');unavailableNotice.dataset.marketUnavailable='true';
+    result.append(unavailableNotice);
     const selected=()=>({instrument:instrument.input.value,timeframe:selectedFrame,...(savedStyle?{trading_style:savedStyle}:{})});
     const selectionNote=node('p',null,'pro-muted');result.prepend(selectionNote);
     const notePrevious=()=>{selectionNote.textContent=stored && (stored.quantitative?.market?.instrument!==instrument.input.value || stored.quantitative?.market?.timeframe!==selectedFrame || stored.quantitative?.market?.intelligence?.trading_style!==savedStyle) ? 'Displayed analysis belongs to '+stored.quantitative.market.instrument+' / '+stored.quantitative.market.timeframe+' / '+(stored.quantitative.market.intelligence?.trading_style || 'Legacy style unavailable')+'. Analyze the current selection for a new signal.' : '';};
