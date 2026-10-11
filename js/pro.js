@@ -405,7 +405,7 @@
       const enabled=!browserNotifications;
       if(enabled && await global.Notification.requestPermission()!=='granted')throw new Error('Browser notification permission was not granted.');
       await request('/market/notification-preference',{method:'PUT',body:{browser_notifications:enabled}});browserNotifications=enabled;notificationToggle.textContent=enabled?'Disable browser notifications':'Enable browser notifications';
-    },'pro-browser-notifications');toolbar.append(notificationToggle);
+    },'pro-browser-notifications');actions.append(notificationToggle);
     const loadEngine=async()=>{const data=await request('/ai/engine');engine.replaceChildren();engine.append(node('h2','AI engine status'));details(engine,data);};
     style.input.addEventListener('change',()=>action(style.input,async()=>{
       const next=style.input.value;
