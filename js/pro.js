@@ -36,7 +36,7 @@
     if(latestKey) latestReads.set(latestKey,sequence);
     const stale=()=>epoch!==revision || owner!==options.getUserId?.() || latestKey && latestReads.get(latestKey)!==sequence;
     if(!owner) throw new Error(text('SignIn','Sign in to use this feature.'));
-    const signal=AbortSignal.any([controller.signal,AbortSignal.timeout(options.requestTimeout || 30000)]);
+    const signal=AbortSignal.any([controller.signal,AbortSignal.timeout(options.requestTimeout || 45000)]);
     const base=apiBase(options.apiBase), token=await abortable(Promise.resolve(options.getToken?.()),signal);
     if(!token) throw new Error(text('SignIn','Sign in to use this feature.'));
     if(stale()) throw new DOMException('Selection changed','AbortError');
@@ -60,7 +60,7 @@
     }
     access=result; options.onAccessChange?.(result); return result;
   }
-  function showError(error) { if(error.name!=='AbortError' && status) { status.textContent=error.name==='TimeoutError' ? text('Timeout','The service did not respond in time. Retry the section.') : error.message; status.setAttribute('role','alert'); } }
+  function showError(error) { if(error.name!=='AbortError' && status) { status.textContent=error.name==='TimeoutError' ? text('Timeout','The Pro gateway did not respond in time (connection timeout). Click "Retry section" above to reconnect.') : error.message; status.setAttribute('role','alert'); } }
   async function action(button,fn) {
     if(button.disabled) return;
     const epoch=revision; button.disabled=true;button.dataset.running='true'; status.textContent=text('Working','Working…'); status.setAttribute('role','status');
@@ -275,7 +275,18 @@
     const config={},grid=node('div',null,'pro-grid');content.append(grid);let result;
     result=panel('Analysis result',grid);if(kind==='journal'){const analysisType=select('Analysis type',[['performance','Performance'],['strategy','Strategy'],['risk','Risk'],['consistency','Consistency'],['review','Review commentary']],preset.analysis_type || 'performance','pro-analysis-type');toolbar.append(analysisType.wrap);config.analysis_type=analysisType.input;}
     const history=panel('Analysis history');
-    const loadHistory=async()=>{const data=await request('/ai/history?'+query({kind,...filterValues()}),{latest:true});history.replaceChildren();history.append(node('h2','Analysis history'));table(history,data.items,[['created_at','Created'],['state','Status'],['kind','Analysis']],(cell,row)=>{cell.append(button('Open analysis',async()=>{const job=await request('/ai/jobs/'+row.id);if(job.state==='succeeded')aiResult(result,job.result);else details(result,job);}));if(['failed','cancelled','expired'].includes(row.state))cell.append(button('Retry',async()=>{if(!global.confirm('Start a new AI analysis? A successful result uses one shared monthly allowance.'))return;await verifyAccess();showQuota();const job=await request('/ai/jobs/'+row.id+'/retry',{method:'POST',body:{},headers:{'Idempotency-Key':crypto.randomUUID()}});await watchJob('ai',job,result);await verifyAccess();showQuota();await loadHistory();}));});};
+    const loadHistory=async()=>{
+      try {
+        const data=await request('/ai/history?'+query({kind,...filterValues()}),{latest:true});
+        history.replaceChildren();history.append(node('h2','Analysis history'));
+        table(history,data.items,[['created_at','Created'],['state','Status'],['kind','Analysis']],(cell,row)=>{
+          cell.append(button('Open analysis',async()=>{const job=await request('/ai/jobs/'+row.id);if(job.state==='succeeded')aiResult(result,job.result);else details(result,job);}));
+          if(['failed','cancelled','expired'].includes(row.state))cell.append(button('Retry',async()=>{if(!global.confirm('Start a new AI analysis? A successful result uses one shared monthly allowance.'))return;await verifyAccess();showQuota();const job=await request('/ai/jobs/'+row.id+'/retry',{method:'POST',body:{},headers:{'Idempotency-Key':crypto.randomUUID()}});await watchJob('ai',job,result);await verifyAccess();showQuota();await loadHistory();}));
+        });
+      } catch(err) {
+        history.replaceChildren();history.append(node('h2','Analysis history'),node('p',err.name==='TimeoutError'?'History load timed out. Click "Retry section" above.':'Analysis history is currently unavailable: '+err.message,'pro-muted'));
+      }
+    };
     toolbar.append(button(kind==='market'?'Analyze market':kind==='behaviour'?'Analyze behaviour':'Generate analysis',async()=>{
       validateFilters();await verifyAccess();showQuota();if(!(Number(access.ai?.remaining)>0))throw new Error('No AI allowance remains for this subscription month.');
       if(!global.confirm('A successful AI analysis uses one of your 30 shared monthly allowances. Failed or cancelled analyses do not count. Continue?'))return;
@@ -360,7 +371,9 @@
     instrument.input.addEventListener('change',()=>action(instrument.input,async()=>{const row=mapped.find(item=>item.symbol===instrument.input.value);for(const item of framebar.children){item.dataset.unavailable=String(!row.timeframes.includes(item.dataset.frame));item.disabled=item.dataset.unavailable==='true' || !!item.dataset.running;}for(const item of frameSelect.input.options)item.disabled=!row.timeframes.includes(item.value);await choose(row.timeframes.includes(selectedFrame)?selectedFrame:row.timeframes[0]);}));
     const signalsPanel=panel('Accepted signals and performance'),alertsPanel=panel('Active price alerts'),notificationsPanel=panel('Notifications');
     const loadSignals=async()=>{
-      const [signals,performance]=await Promise.all([request('/market/signals',{latest:true}),request('/market/performance',{latest:true})]);
+      const [signalsRes,performanceRes]=await Promise.allSettled([request('/market/signals',{latest:true}),request('/market/performance',{latest:true})]);
+      const signals=signalsRes.status==='fulfilled'?signalsRes.value:{items:[]};
+      const performance=performanceRes.status==='fulfilled'?performanceRes.value:{total_accepted_signals:0,categories:{},historical_backtest:{status:'Not loaded'}};
       signalsPanel.replaceChildren(node('h2','Accepted signals and performance'));disclosure(signalsPanel,'Actual and paper performance',performance);
       table(signalsPanel,signals.items,[['instrument','Instrument'],['trading_style','Style'],['action','Action'],['mode','Tracking'],['status','Setup'],['outcome','Paper outcome']],(cell,row)=>{
         if(row.action==='take' && row.status==='active' && !row.execution_confirmed)cell.append(button('Confirm execution',async()=>{

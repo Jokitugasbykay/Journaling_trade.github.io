@@ -141,6 +141,38 @@ export async function handler(req: Request): Promise<Response> {
     if(route==='/market/instruments' && req.method==='GET')return respond({items:[],status:'No authorized backend market feed is configured'});
     if(route==='/market/notification-preference' && req.method==='PUT'){if(typeof body.browser_notifications!=='boolean')throw new Failure(422,'Invalid notification preference');return respond(await rpc('journal_notification_preference',{p_enabled:body.browser_notifications}));}
     if(route==='/market/signals' && req.method==='GET')return respond({items:await rows('market_signals','&order=created_at.desc')});
+    if(route==='/market/performance' && req.method==='GET'){
+      const signalRows=await rows('market_signals','&order=created_at.desc');
+      const total=signalRows.filter((r:any)=>!!r.accepted_at).length;
+      const categories:Record<string,any>={};
+      for(const mode of ['actual','paper']){
+        const accepted=signalRows.filter((r:any)=>r.accepted_at && r.mode===mode);
+        const executed=accepted.filter((r:any)=>r.execution_confirmed);
+        const closed=executed.filter((r:any)=>mode==='paper' && ['win','loss','breakeven'].includes(r.outcome));
+        const wins=closed.filter((r:any)=>r.outcome==='win').length;
+        const losses=closed.filter((r:any)=>r.outcome==='loss').length;
+        categories[mode]={
+          accepted:accepted.length,confirmed_executions:executed.length,
+          closed_wins:wins,closed_losses:losses,breakeven:closed.filter((r:any)=>r.outcome==='breakeven').length,
+          ambiguous:executed.filter((r:any)=>r.outcome==='AMBIGUOUS').length,
+          open:executed.filter((r:any)=>!r.outcome).length,
+          winrate:wins+losses>0?wins/(wins+losses):null,
+          winrate_definition:'Closed winning / (closed winning + closed losing); breakeven excluded',
+          average_planned_risk_reward:accepted.length?String(accepted.reduce((s:number,r:any)=>s+Number(r.risk_reward||0),0)/accepted.length):null,
+          realized_pnl:null,maximum_drawdown:null,
+          warning:mode==='actual'?'Actual outcomes are unavailable until verified execution reconciliation is configured.':'Paper results use closed OHLC bars; they are not actual broker fills.'
+        };
+      }
+      return respond({total_accepted_signals:total,categories,historical_backtest:{status:'Not requested; not included in live signal performance'}});
+    }
+    if(route==='/market/context' && req.method==='GET'){
+      return respond({
+        instrument:filters.instrument||'XAUUSD',timeframe:filters.timeframe||'15m',
+        data_freshness:'Visual chart only · feed offline',delayed:false,provider:'TradingView visual embed',
+        as_of:new Date().toISOString(),kaystrade:{methodology:'docs/kaystrade/SKILL.md',warnings:['Authorized Python market feed is offline. Visual charts remain accessible.']},
+        macro:[],news:[],geopolitics:[],correlations:{}
+      });
+    }
     if(route==='/market/alerts' && req.method==='GET')return respond({items:await rows('signal_alerts','&order=created_at.desc')});
     if(route==='/market/notifications' && req.method==='GET')return respond({items:await rows('signal_notifications','&order=created_at.desc')});
     if(route==='/ai/engine' && req.method==='GET')return respond({available:false,status:'Self-hosted Python model not connected',fundamental_monitoring:'Unavailable',probabilities:'Not calibrated'});
