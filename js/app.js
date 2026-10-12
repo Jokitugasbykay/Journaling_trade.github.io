@@ -26,7 +26,7 @@
       let onboarding = { name: '', started: false };
       let language = 'en';
       const cloudClient = window.supabase?.createClient(SUPABASE_URL, SUPABASE_KEY, { auth: { storageKey: 'journalingtrade_nmddjuqkdyhcobddinkc_auth', flowType: 'pkce' } });
-      let cloudUser = null, cloudReady = false, cloudBusy = false, cloudTimer = null, localRevision = 0;
+      let cloudUser = null, cloudSession = null, cloudReady = false, cloudBusy = false, cloudTimer = null, localRevision = 0;
       const FOUNDER_EMAILS = ['kaylafisika24@gmail.com', 'gamingyoga14@gmail.com'];
       let founderUserId = '', verifiedNewsUserId = '', cloudAuthRevision = 0;
       function isNewsFounder() { return !!cloudUser && founderUserId === cloudUser.id; }
@@ -313,7 +313,7 @@
       function handleCloudSignedOut() {
         cloudAuthRevision++; founderUserId = ''; verifiedNewsUserId = '';
         hydratingUserId = '';
-        cloudUser = null; cloudReady = false; nicknameReady = false; accountAccess = null;
+        cloudUser = null; cloudSession = null; cloudReady = false; nicknameReady = false; accountAccess = null;
         globalThis.JTPRO?.reset(); journalProFilter = null; gatewayImportFile = null; gatewayImportPending = null;
         if (globalThis.JTPRO_CONFIG?.journalApiBase) { kalCache = null; gambarKalender([]); renderTodayOverviewCalendar([]); }
         resetNewsData();
@@ -436,6 +436,7 @@
         let eventRevision = 0;
         cloudClient.auth.onAuthStateChange((event, session) => {
           if (!['SIGNED_IN', 'TOKEN_REFRESHED', 'USER_UPDATED', 'SIGNED_OUT'].includes(event)) return;
+          cloudSession = session || null;
           const revision = ++eventRevision;
           if (session?.user && ['SIGNED_IN', 'TOKEN_REFRESHED', 'USER_UPDATED'].includes(event)) {
             setTimeout(() => {
@@ -455,6 +456,7 @@
         const { data, error } = await cloudClient.auth.getSession();
         if (revision !== eventRevision) return;
         if (error) { console.error('Supabase session error:', error); return; }
+        cloudSession = data.session || null;
         if (data.session?.user) await hydrateCloud(data.session.user);
       }
 
@@ -523,7 +525,7 @@
       function activateProRoute(feature, updateUrl = true) {
         const index = proFeatures.indexOf(feature);
         if (index < 0) return;
-        pendingProRoute = feature;
+        pendingProRoute = effectiveProAccess() ? null : feature;
         document.querySelectorAll('.nav-tab').forEach(button => button.classList.toggle('active', button.dataset.proTab === 'workspace'));
         document.querySelectorAll('.view-content').forEach(view => view.classList.toggle('active', view.id === 'view-pro-workspace'));
         document.body.classList.remove('auth-page');
@@ -542,7 +544,11 @@
         try {
           await window.JTPRO.verifyAccess();
           if (globalThis.JTPRO_CONFIG?.journalApiBase && canReadNews()) { reloadPublisherNews(); fetchKalenderData(false); }
-          if (pendingProRoute && effectiveProAccess()) await window.JTPRO.open(pendingProRoute);
+          if (pendingProRoute && effectiveProAccess()) {
+            const route = pendingProRoute;
+            pendingProRoute = null;
+            await window.JTPRO.open(route);
+          }
         } catch { acceptProAccess(null); }
       }
       function openProJournal(filters = {}) {
@@ -572,7 +578,9 @@
         getToken: async () => {
           const userId = cloudUser?.id;
           if (!userId || verifiedNewsUserId !== userId || !nicknameReady || !cloudClient) return '';
+          if (typeof cloudSession !== 'undefined' && cloudSession?.user?.id === userId && cloudSession.access_token && (!cloudSession.expires_at || cloudSession.expires_at * 1000 > Date.now() + 30000)) return cloudSession.access_token;
           const {data, error} = await cloudClient.auth.getSession();
+          if (!error && data?.session && typeof cloudSession !== 'undefined') cloudSession = data.session;
           return !error && cloudUser?.id === userId && data?.session?.user?.id === userId ? data.session.access_token : '';
         },
         onAccessChange: acceptProAccess,

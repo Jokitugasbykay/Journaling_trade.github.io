@@ -29,10 +29,13 @@ export async function handler(req: Request): Promise<Response> {
       return data;
     };
     const rpc = (name: string, body={}) => call('/rest/v1/rpc/'+name,'POST',body);
-    const user = await call('/auth/v1/user');
+    const [user, allowed, raw] = await Promise.all([
+      call('/auth/v1/user'),
+      rpc('journal_rate_limit',{p_bucket:'pro_api',p_limit:120,p_window_seconds:60}),
+      rpc('journal_entitlements')
+    ]);
     if (!user?.id || !uuid(user.id)) throw new Failure(401,'Invalid authentication token');
-    if (await rpc('journal_rate_limit',{p_bucket:'pro_api',p_limit:120,p_window_seconds:60}) !== true) throw new Failure(429,'Try again shortly');
-    const raw = await rpc('journal_entitlements');
+    if (allowed !== true) throw new Failure(429,'Try again shortly');
     const access = {plan:raw.plan,effective_until:raw.effectiveUntil,countries:raw.countries || [],
       ai:{limit:raw.aiLimit,used:raw.aiUsed,reserved:raw.aiReserved,remaining:raw.aiRemaining,period_start:raw.periodStart,period_end:raw.periodEnd}};
     const url = new URL(req.url); let route = url.pathname.replace(/^\/(?:functions\/v1\/)?pro-gateway/,'').replace(/^\/api\/v1/,'');
@@ -141,6 +144,15 @@ export async function handler(req: Request): Promise<Response> {
     if(route==='/market/instruments' && req.method==='GET')return respond({items:[],status:'No authorized backend market feed is configured'});
     if(route==='/market/notification-preference' && req.method==='PUT'){if(typeof body.browser_notifications!=='boolean')throw new Failure(422,'Invalid notification preference');return respond(await rpc('journal_notification_preference',{p_enabled:body.browser_notifications}));}
     if(route==='/market/signals' && req.method==='GET')return respond({items:await rows('market_signals','&order=created_at.desc')});
+    if(route==='/market/signals' && req.method==='POST' && body.action==='dismiss'){
+      if(!uuid(String(body.job_id||'')) || !['BUY','SELL'].includes(String(body.direction||'')))throw new Failure(422,'Invalid signal action');
+      return respond(await rpc('journal_signal_action',{p_job_id:body.job_id,p_direction:body.direction,p_action:'dismiss',p_mode:null}));
+    }
+    const sigExec=route.match(/^\/market\/signals\/([^/]+)\/execution$/);
+    if(sigExec && req.method==='POST'){
+      if(!uuid(sigExec[1]))throw new Failure(422,'Invalid identifier');
+      return respond(await rpc('journal_signal_execution',{p_id:sigExec[1],p_price:body.price,p_at:body.executed_at}));
+    }
     if(route==='/market/performance' && req.method==='GET'){
       const signalRows=await rows('market_signals','&order=created_at.desc');
       const total=signalRows.filter((r:any)=>!!r.accepted_at).length;
@@ -151,7 +163,7 @@ export async function handler(req: Request): Promise<Response> {
         const closed=executed.filter((r:any)=>mode==='paper' && ['win','loss','breakeven'].includes(r.outcome));
         const wins=closed.filter((r:any)=>r.outcome==='win').length;
         const losses=closed.filter((r:any)=>r.outcome==='loss').length;
-        categories[mode]={
+        const cat:Record<string,any>={
           accepted:accepted.length,confirmed_executions:executed.length,
           closed_wins:wins,closed_losses:losses,breakeven:closed.filter((r:any)=>r.outcome==='breakeven').length,
           ambiguous:executed.filter((r:any)=>r.outcome==='AMBIGUOUS').length,
@@ -162,19 +174,32 @@ export async function handler(req: Request): Promise<Response> {
           realized_pnl:null,maximum_drawdown:null,
           warning:mode==='actual'?'Actual outcomes are unavailable until verified execution reconciliation is configured.':'Paper results use closed OHLC bars; they are not actual broker fills.'
         };
+        for(const field of ['instrument','trading_style','model_version']){
+          const groups:Record<string,any>={};
+          for(const r of closed){
+            const key=r[field] && typeof r[field]==='object'?JSON.stringify(r[field]):String(r[field]||'');
+            if(!groups[key])groups[key]={wins:0,losses:0,breakeven:0};
+            groups[key][r.outcome==='win'?'wins':r.outcome==='loss'?'losses':'breakeven']++;
+          }
+          cat['by_'+field]=groups;
+        }
+        categories[mode]=cat;
       }
       return respond({total_accepted_signals:total,categories,historical_backtest:{status:'Not requested; not included in live signal performance'}});
     }
-    if(route==='/market/context' && req.method==='GET'){
-      return respond({
-        instrument:filters.instrument||'XAUUSD',timeframe:filters.timeframe||'15m',
-        data_freshness:'Visual chart only · feed offline',delayed:false,provider:'TradingView visual embed',
-        as_of:new Date().toISOString(),kaystrade:{methodology:'docs/kaystrade/SKILL.md',warnings:['Authorized Python market feed is offline. Visual charts remain accessible.']},
-        macro:[],news:[],geopolitics:[],correlations:{}
-      });
-    }
     if(route==='/market/alerts' && req.method==='GET')return respond({items:await rows('signal_alerts','&order=created_at.desc')});
+    const alertId=route.match(/^\/market\/alerts\/([^/]+)$/);
+    if(alertId && req.method==='PATCH'){
+      if(!uuid(alertId[1]) || typeof body.enabled!=='boolean')throw new Failure(422,'Invalid alert update');
+      return respond(await rpc('journal_alert_change',{p_id:alertId[1],p_enabled:body.enabled,p_price:body.trigger_price ?? null}));
+    }
     if(route==='/market/notifications' && req.method==='GET')return respond({items:await rows('signal_notifications','&order=created_at.desc')});
+    const notifRead=route.match(/^\/market\/notifications\/([^/]+)\/read$/);
+    if(notifRead && req.method==='POST'){
+      if(!uuid(notifRead[1]))throw new Failure(422,'Invalid identifier');
+      if(!await rpc('journal_notification_read',{p_id:notifRead[1]}))throw new Failure(404,'Notification not found');
+      return respond({read:true});
+    }
     if(route==='/ai/engine' && req.method==='GET')return respond({available:false,status:'Self-hosted Python model not connected',fundamental_monitoring:'Unavailable',probabilities:'Not calibrated'});
     if((route==='/ai/chat/history' || route==='/ai/history') && req.method==='GET'){
       const chat=route==='/ai/chat/history',kind=chat?'journal':filters.kind || 'journal';
@@ -182,6 +207,8 @@ export async function handler(req: Request): Promise<Response> {
       const jobs=await rows('platform_jobs','&kind=eq.'+kind+'&deleted_at=is.null&order=created_at.desc'+(chat?'&payload->>purpose=eq.chat':'&payload->>purpose=is.null'));
       return respond({items:jobs.map((job:any)=>({...shape(job),...(chat?{message:job.payload.message,reply:job.status==='succeeded'?job.result?.reply:null}:{})}))});
     }
+    const aiCancel=route.match(/^\/(?:ai\/)?jobs\/([^/]+)\/cancel$/);
+    if(aiCancel && req.method==='POST'){if(!uuid(aiCancel[1]))throw new Failure(422,'Invalid identifier');return respond(shape(await rpc('journal_cancel_job',{p_job_id:aiCancel[1]})));}
     const aiJob=route.match(/^\/ai\/jobs\/([^/]+)$/);
     if(aiJob && req.method==='GET'){if(!uuid(aiJob[1]))throw new Failure(422,'Invalid identifier');const jobs=await rows('platform_jobs','&id=eq.'+aiJob[1]+'&kind=in.(journal,market,behaviour)&deleted_at=is.null');if(!jobs.length)throw new Failure(404,'Analysis not found');return respond(shape(jobs[0]));}
     if(route==='/news' || route==='/news/filters') {
