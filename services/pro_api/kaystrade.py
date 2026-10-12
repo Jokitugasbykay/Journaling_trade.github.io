@@ -197,6 +197,19 @@ def head_shoulders(candles, points, tolerance):
             "neckline": neckline, "label": "Head and Shoulders" if side == "SELL" else "Inverse Head and Shoulders"}
 
 
+def ema_series(candles, period):
+    closes = [c.close for c in candles]
+    if len(closes) < period:
+        return [None] * len(closes)
+    k = Decimal(2) / Decimal(period + 1)
+    ema = sum(closes[:period]) / Decimal(period)
+    output = [None] * (period - 1) + [ema]
+    for price in closes[period:]:
+        ema = price * k + ema * (Decimal(1) - k)
+        output.append(ema)
+    return output
+
+
 def frame_evidence(candles, seconds):
     points = pivots(candles, seconds)
     threshold = atr(candles)
@@ -208,6 +221,28 @@ def frame_evidence(candles, seconds):
     tolerance = threshold * Decimal("0.1")
     mapped = levels(candles, points, tolerance)
     latest = candles[-1]
+    ema20_vals = ema_series(candles, 20)
+    ema50_vals = ema_series(candles, 50)
+    ema200_vals = ema_series(candles, 200)
+    ema20 = ema20_vals[-1]
+    ema50 = ema50_vals[-1]
+    ema200 = ema200_vals[-1]
+    ema_alignment = (
+        "bullish"
+        if ema20 is not None and ema50 is not None and latest.close > ema20 > ema50 and (ema200 is None or ema50 > ema200)
+        else "bearish"
+        if ema20 is not None and ema50 is not None and latest.close < ema20 < ema50 and (ema200 is None or ema50 < ema200)
+        else "mixed"
+    )
+    vols = [c.volume for c in candles if c.volume is not None]
+    if not vols:
+        volume_status = "unavailable"
+    elif all(v == 0 for v in vols):
+        volume_status = "zero"
+    elif len(vols) < len(candles):
+        volume_status = "partial"
+    else:
+        volume_status = "available"
     sweeps = [{"side": "potential_high_liquidity", "price": p["price"]}
               for p in points[-10:] if p["kind"] == "high" and latest.high > p["price"] > latest.close]
     sweeps += [{"side": "potential_low_liquidity", "price": p["price"]}
@@ -228,6 +263,8 @@ def frame_evidence(candles, seconds):
                 divergence = name + "_price_triggered"
     return {"structure": structure(points), "pivots": points[-20:], "levels": mapped[-30:], "level_merge_tolerance": tolerance,
             "period_high": max(c.high for c in candles), "period_low": min(c.low for c in candles),
+            "ema20": ema20, "ema50": ema50, "ema200": ema200, "ema_alignment": ema_alignment,
+            "volume_status": volume_status,
             "rsi14": values[-1], "rsi_sma14": ma[-1], "rsi_thresholds": [70, 50, 30], "momentum": direction,
             "oversold_recovery_cross": crossed_up and min(values[-5:]) <= 30,
             "overbought_weakening_cross": crossed_down and max(values[-5:]) >= 70,

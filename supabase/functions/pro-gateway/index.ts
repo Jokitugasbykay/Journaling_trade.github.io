@@ -141,6 +141,25 @@ export async function handler(req: Request): Promise<Response> {
       if(req.method==='PUT' && !['SCALPING','INTRADAY','SWING'].includes(String(body.trading_style)))throw new Failure(422,'Select a valid trading style');
       return respond(await rpc('journal_market_preference',{p_style:req.method==='PUT'?body.trading_style:null}) || {});
     }
+    const pythonApi = (Deno.env.get('PRO_PYTHON_API_URL') || '').replace(/\/+$/, '');
+    if (pythonApi && (route==='/market/instruments' || route.startsWith('/market/context') || route==='/market/refresh' || route==='/ai/engine' || route==='/ai/market-analysis' || route==='/ai/chat' || route==='/ai/behaviour-analysis' || route==='/ai/journal-analysis')) {
+      const targetUrl = pythonApi + '/api/v1' + route + (url.search || '');
+      const fwdHeaders: Record<string, string> = {'Authorization': auth, 'Content-Type': 'application/json'};
+      const idemp = req.headers.get('Idempotency-Key');
+      if (idemp) fwdHeaders['Idempotency-Key'] = idemp;
+      try {
+        const upstreamRes = await fetch(targetUrl, {
+          method: req.method,
+          headers: fwdHeaders,
+          body: ['POST','PUT','PATCH'].includes(req.method) ? JSON.stringify(body) : undefined,
+          signal: AbortSignal.timeout(30000)
+        });
+        const upstreamData = await upstreamRes.json().catch(() => null);
+        return respond(upstreamData, upstreamRes.status);
+      } catch {
+        throw new Failure(503, 'The self-hosted Python AI service is unreachable at ' + pythonApi + '. No AI credit was used.');
+      }
+    }
     if(route==='/market/instruments' && req.method==='GET')return respond({items:[],status:'No authorized backend market feed is configured'});
     if(route==='/market/notification-preference' && req.method==='PUT'){if(typeof body.browser_notifications!=='boolean')throw new Failure(422,'Invalid notification preference');return respond(await rpc('journal_notification_preference',{p_enabled:body.browser_notifications}));}
     if(route==='/market/signals' && req.method==='GET')return respond({items:await rows('market_signals','&order=created_at.desc')});

@@ -7,7 +7,7 @@ from unittest.mock import patch
 
 from pydantic import ValidationError
 
-from services.pro_api.kaystrade import analyze, atr, base_retest, frame_evidence, gaps, head_shoulders, levels, pivots, rsi_series, structure, zones
+from services.pro_api.kaystrade import analyze, atr, base_retest, ema_series, frame_evidence, gaps, head_shoulders, levels, pivots, rsi_series, structure, zones
 from services.pro_api.market import Candle, Snapshot, TIMEFRAMES
 from services.pro_api.models import MarketSignal
 
@@ -215,6 +215,45 @@ class Methodology(unittest.TestCase):
             MarketSignal.model_validate({**no_trade, "entry": "100"})
         with self.assertRaises(ValidationError):
             MarketSignal.model_validate({**no_trade, "direction": "BUY", "status": "CONDITIONAL SETUP", "entry": 100, "stop_loss": 90, "take_profit": 120, "risk_reward": 9, "confirmations": ["a", "b", "c"]})
+
+    def test_ema_series_and_alignment(self):
+        source = bars(list(range(100, 310)))
+        ema20 = ema_series(source, 20)
+        ema50 = ema_series(source, 50)
+        ema200 = ema_series(source, 200)
+        self.assertEqual(len(ema20), len(source))
+        self.assertIsNone(ema20[18])
+        self.assertIsNotNone(ema20[19])
+        self.assertIsNone(ema50[48])
+        self.assertIsNotNone(ema50[49])
+        self.assertIsNone(ema200[198])
+        self.assertIsNotNone(ema200[199])
+        self.assertTrue(source[-1].close > ema20[-1] > ema50[-1] > ema200[-1])
+
+        evidence = frame_evidence(source, 900)
+        self.assertEqual(evidence["ema_alignment"], "bullish")
+        self.assertEqual(evidence["ema20"], ema20[-1])
+        self.assertEqual(evidence["ema50"], ema50[-1])
+        self.assertEqual(evidence["ema200"], ema200[-1])
+
+        falling = bars(list(range(310, 100, -1)))
+        falling_ev = frame_evidence(falling, 900)
+        self.assertEqual(falling_ev["ema_alignment"], "bearish")
+
+        short_bars = bars(list(range(100, 160)))
+        short_ev = frame_evidence(short_bars, 900)
+        self.assertIsNone(short_ev["ema200"])
+        self.assertEqual(short_ev["ema_alignment"], "bullish")
+
+    def test_volume_status_distinguishes_unavailable_from_zero(self):
+        no_vol = bars([100] * 60)
+        self.assertEqual(frame_evidence(no_vol, 900)["volume_status"], "unavailable")
+
+        zero_vol = [c.model_copy(update={"volume": Decimal(0)}) for c in no_vol]
+        self.assertEqual(frame_evidence(zero_vol, 900)["volume_status"], "zero")
+
+        has_vol = [c.model_copy(update={"volume": Decimal(100)}) for c in no_vol]
+        self.assertEqual(frame_evidence(has_vol, 900)["volume_status"], "available")
 
 
 if __name__ == "__main__":

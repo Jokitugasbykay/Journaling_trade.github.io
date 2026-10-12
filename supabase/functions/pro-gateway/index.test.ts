@@ -29,6 +29,7 @@ Deno.test('Gateway authentication, ownership, contracts and real PDF generation 
     if(path.endsWith('/berita.json'))return Promise.resolve(Response.json({items:[{title:'Publisher headline',url:'https://publisher.invalid/story',source:'publisher',category:'Markets',publishedAt:'2026-10-01'}],sources:[{id:'publisher',name:'Publisher'}]}));
     if(path.endsWith('/regional-sources.json'))return Promise.resolve(Response.json({ID:[{id:'publisher'}]}));
     if(path.endsWith('/news-regions.json'))return Promise.resolve(Response.json({asia:['ID']}));
+    if(path==='/api/v1/market/instruments')return Promise.resolve(Response.json({items:[{symbol:'XAUUSD'}]}));
     throw new Error('Unexpected dependency '+path);
   };
   try {
@@ -43,6 +44,10 @@ Deno.test('Gateway authentication, ownership, contracts and real PDF generation 
     assert((await send('/reports/preview','POST',{sections:['unexpected']})).status===422);
     assert((await send('/ai/chat','POST',{message:'Hi'})).status===503);
     assert(!calls.some(path=>path.endsWith('/journal_create_job')),'Unavailable inference reserved quota');
+    Deno.env.set('PRO_PYTHON_API_URL','https://python.test');
+    const proxied=await send('/market/instruments');
+    assert(proxied.status===200 && (await proxied.json()).items[0].symbol==='XAUUSD','Python API proxy failed');
+    Deno.env.delete('PRO_PYTHON_API_URL');
     assert((await send('/reports','POST',{sections:['analytics']})).status===202);await Promise.all(background);
     assert(calls.some(path=>path.endsWith('/journal_finish_job')),'PDF completion not persisted');
     reportStatus='running';assert((await send('/reports/'+jobId,'DELETE')).status===409);reportStatus='succeeded';
@@ -53,5 +58,5 @@ Deno.test('Gateway authentication, ownership, contracts and real PDF generation 
     assert((await send('/news?country=INVALID')).status===422);
     const bytes=await pdfBytes({period:'October 2026',analytics:overview}),pdf=await PDFDocument.load(bytes);
     assert(pdf.getPageCount()>0 && pdf.getTitle()==='journalingtrade Performance Report');
-  }finally{globalThis.fetch=original;}
+  }finally{Deno.env.delete('PRO_PYTHON_API_URL');globalThis.fetch=original;}
 });

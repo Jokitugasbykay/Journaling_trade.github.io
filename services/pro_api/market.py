@@ -102,6 +102,16 @@ class Snapshot(BaseModel):
         return self
 
 
+def _calc_ema(closes, period):
+    if len(closes) < period:
+        return None
+    k = Decimal(2) / Decimal(period + 1)
+    ema = sum(closes[:period]) / Decimal(period)
+    for price in closes[period:]:
+        ema = price * k + ema * (Decimal(1) - k)
+    return ema
+
+
 def technical(candles):
     closes = [c.close for c in candles]
     changes = [closes[i] - closes[i - 1] for i in range(1, len(closes))]
@@ -117,6 +127,14 @@ def technical(candles):
     for value in ranges[14:]:
         atr = (atr * 13 + value) / 14
     sma20, sma50 = sum(closes[-20:]) / 20, sum(closes[-50:]) / 50
+    ema20, ema50, ema200 = _calc_ema(closes, 20), _calc_ema(closes, 50), _calc_ema(closes, 200)
+    ema_alignment = (
+        "bullish"
+        if ema20 and ema50 and closes[-1] > ema20 > ema50 and (not ema200 or ema50 > ema200)
+        else "bearish"
+        if ema20 and ema50 and closes[-1] < ema20 < ema50 and (not ema200 or ema50 < ema200)
+        else "mixed"
+    )
     swing_highs, swing_lows = [], []
     for i in range(2, len(candles) - 2):
         if candles[i].high == max(c.high for c in candles[i - 2:i + 3]):
@@ -126,12 +144,23 @@ def technical(candles):
     trend = "bullish" if closes[-1] > sma20 > sma50 else "bearish" if closes[-1] < sma20 < sma50 else "neutral"
     returns = [float(closes[i] / closes[i - 1] - 1) for i in range(1, len(closes))]
     volatility = sqrt(sum((value - mean(returns)) ** 2 for value in returns) / len(returns))
-    volume = [c.volume for c in candles[-20:] if c.volume is not None]
+    recent_volumes = [c.volume for c in candles[-20:]]
+    volume_present = [v for v in recent_volumes if v is not None]
+    if not volume_present:
+        volume_status = "unavailable"
+    elif all(v == 0 for v in volume_present):
+        volume_status = "zero"
+    elif len(volume_present) < 20:
+        volume_status = "partial"
+    else:
+        volume_status = "available"
     structure = "higher_highs_and_lows" if len(swing_highs) > 1 and len(swing_lows) > 1 and swing_highs[-1] > swing_highs[-2] and swing_lows[-1] > swing_lows[-2] else "lower_highs_and_lows" if len(swing_highs) > 1 and len(swing_lows) > 1 and swing_highs[-1] < swing_highs[-2] and swing_lows[-1] < swing_lows[-2] else "mixed_or_insufficient_swings"
-    return wire({"trend": trend, "structure": structure, "sma20": sma20, "sma50": sma50, "rsi14": rsi,
-                 "atr14": atr, "support": swing_lows[-3:], "resistance": swing_highs[-3:],
+    return wire({"trend": trend, "structure": structure, "sma20": sma20, "sma50": sma50,
+                 "ema20": ema20, "ema50": ema50, "ema200": ema200, "ema_alignment": ema_alignment,
+                 "rsi14": rsi, "atr14": atr, "support": swing_lows[-3:], "resistance": swing_highs[-3:],
                  "volatility_per_bar": str(volatility), "momentum_10_bars": closes[-1] / closes[-11] - 1,
-                 "average_volume20": sum(volume) / len(volume) if len(volume) == 20 else None})
+                 "volume_status": volume_status,
+                 "average_volume20": sum(volume_present) / len(volume_present) if len(volume_present) == 20 else None})
 
 
 def correlation(candles, other):
@@ -156,8 +185,23 @@ def correlation(candles, other):
             "sample_size": len(x), "warning": "Historical correlation is not causation and may change"}
 
 
+_MARKET_CONTEXT_CACHE: dict[tuple, tuple[datetime, dict]] = {}
+
+
 def instrument_catalog(settings):
     path = settings.market_root / "manifest.json"
+    if not path.is_file() and getattr(settings, "market_provider", ""):
+        from .providers import DEFAULT_INSTRUMENTS
+        items = []
+        for symbol, meta in DEFAULT_INSTRUMENTS.items():
+            items.append({
+                "symbol": symbol,
+                "name": meta["name"],
+                "asset_class": meta["asset_class"],
+                "tradingview_symbol": meta["tradingview_symbol"],
+                "timeframes": meta["timeframes"],
+            })
+        return {"items": items, "timeframes": list(TIMEFRAMES)}
     try:
         if path.stat().st_size > 100000:
             raise ValueError("Manifest too large")
@@ -171,40 +215,94 @@ def instrument_catalog(settings):
                 raise ValueError("Invalid provider timeframe mapping")
             items.append({"symbol": symbol, "name": row.get("name", symbol), "asset_class": row.get("asset_class", "Unspecified"),
                           "tradingview_symbol": row["tradingview_symbol"], "timeframes": frames})
-        return {"items": items, "timeframes": list(TIMEFRAMES)}
+        return {"items": items, "timeframes": list(TIMEFRAMES), "auto_refresh_provider": manifest.get("auto_refresh_provider")}
     except (OSError, ValueError, KeyError, TypeError, AttributeError) as exc:
         raise HTTPException(503, "An authorized provider instrument manifest is unavailable or invalid") from exc
 
 
-def load_market(settings, instrument, timeframe, now=None, trading_style=None):
+def load_market(settings, instrument, timeframe, now=None, trading_style=None, force_refresh=False):
     if not re.fullmatch(r"[A-Z0-9_]{1,30}", instrument) or timeframe not in TIMEFRAMES:
         raise HTTPException(422, "Unsupported instrument or timeframe")
-    # Operator configuration is the authorization boundary; users cannot supply a URL or path.
-    mapped = next((row for row in instrument_catalog(settings)["items"] if row["symbol"] == instrument), None)
+    catalog = instrument_catalog(settings)
+    mapped = next((row for row in catalog["items"] if row["symbol"] == instrument), None)
     if mapped is None or timeframe not in mapped["timeframes"]:
         raise HTTPException(422, "Instrument or timeframe is not configured by the authorized provider")
+
+    auto_provider = getattr(settings, "market_provider", "") or catalog.get("auto_refresh_provider")
+    now_utc = now or datetime.now(timezone.utc)
     path = (settings.market_root / f"{instrument}_{timeframe}.json").resolve()
-    if path.parent != settings.market_root or not path.is_file() or path.stat().st_size > 5_000_000:
-        raise HTTPException(503, "Market snapshot is unavailable")
+
+    # If force_refresh is requested or disk snapshot is missing/expired, invoke live provider if configured
+    if auto_provider and (force_refresh or not path.is_file() or path.parent != settings.market_root):
+        from .providers import get_market_snapshot
+        try:
+            snapshot = get_market_snapshot(
+                instrument,
+                timeframe,
+                data_root=settings.data_root,
+                market_root=settings.market_root,
+                now=now_utc,
+                force_refresh=force_refresh,
+            )
+        except Exception as exc:
+            raise HTTPException(503, f"Live market data provider unavailable: {exc}") from exc
+    else:
+        if path.parent != settings.market_root or not path.is_file() or path.stat().st_size > 5_000_000:
+            raise HTTPException(503, "Market snapshot is unavailable")
+        try:
+            snapshot = Snapshot.model_validate_json(path.read_bytes())
+        except Exception as exc:
+            raise HTTPException(503, "The configured market snapshot failed validation") from exc
+
     try:
-        snapshot = Snapshot.model_validate_json(path.read_bytes())
-        now = now or datetime.now(timezone.utc)
+        now = now_utc
         if snapshot.instrument != instrument or snapshot.timeframe != timeframe:
             raise ValueError("Snapshot mapping mismatch")
         if any(r.tradingview_symbol != mapped["tradingview_symbol"] for r in snapshot.technicals):
             raise ValueError("Technicals belong to another instrument")
         if snapshot.as_of > now + timedelta(seconds=30) or snapshot.valid_until < now:
-            raise HTTPException(409, "Market data is stale or its timestamp is invalid")
+            # If auto_provider is active and snapshot expired, try refreshing
+            if auto_provider and not force_refresh:
+                from .providers import get_market_snapshot
+                try:
+                    snapshot = get_market_snapshot(
+                        instrument,
+                        timeframe,
+                        data_root=settings.data_root,
+                        market_root=settings.market_root,
+                        now=now,
+                        force_refresh=True,
+                    )
+                except Exception:
+                    raise HTTPException(409, "Market data is stale or its timestamp is invalid")
+            else:
+                raise HTTPException(409, "Market data is stale or its timestamp is invalid")
         if snapshot.market_open and now - snapshot.as_of > timedelta(seconds=TIMEFRAMES[timeframe] * 2):
-            raise HTTPException(409, "Market data is stale")
+            if auto_provider and not force_refresh:
+                from .providers import get_market_snapshot
+                try:
+                    snapshot = get_market_snapshot(
+                        instrument,
+                        timeframe,
+                        data_root=settings.data_root,
+                        market_root=settings.market_root,
+                        now=now,
+                        force_refresh=True,
+                    )
+                except Exception:
+                    raise HTTPException(409, "Market data is stale")
+            else:
+                raise HTTPException(409, "Market data is stale")
         if snapshot.market_open and now - snapshot.candles[-1].timestamp > timedelta(seconds=TIMEFRAMES[timeframe] * 2):
             raise HTTPException(409, "The latest market bar is stale")
         for frame, candles in snapshot.other_timeframes.items():
             stamps = [c.timestamp for c in candles]
             if frame not in TIMEFRAMES or len(candles) < 51 or candles[-1].timestamp > snapshot.as_of or stamps != sorted(set(stamps)):
                 raise ValueError("Invalid multi-timeframe evidence")
-            if snapshot.market_open and now - candles[-1].timestamp > timedelta(seconds=TIMEFRAMES[frame] * 2):
+            mtf_max_stale = timedelta(days=4) if frame == "1d" else timedelta(days=3) if frame == "4h" else timedelta(seconds=TIMEFRAMES[frame] * 2)
+            if snapshot.market_open and now - candles[-1].timestamp > mtf_max_stale:
                 raise HTTPException(409, "Multi-timeframe market data is stale")
+
         closed = [c for c in snapshot.candles if c.timestamp + timedelta(seconds=TIMEFRAMES[timeframe]) <= snapshot.as_of]
         closed_frames = {frame: [c for c in candles if c.timestamp + timedelta(seconds=TIMEFRAMES[frame]) <= snapshot.as_of] for frame, candles in snapshot.other_timeframes.items()}
         kaystrade = analyze(snapshot, TIMEFRAMES, trading_style)

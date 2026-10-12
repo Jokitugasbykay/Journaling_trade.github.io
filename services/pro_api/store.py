@@ -17,7 +17,8 @@ class Settings:
     service_key: str = os.getenv("SUPABASE_SERVICE_ROLE_KEY", "")
     origins: tuple = tuple(value.strip() for value in os.getenv("PRO_ALLOWED_ORIGINS", "http://localhost:8778,http://127.0.0.1:8778").split(",") if value.strip())
     data_root: Path = Path(os.getenv("PRO_DATA_ROOT", Path(__file__).resolve().parents[2])).resolve()
-    market_root: Path = Path(os.getenv("PRO_MARKET_ROOT", Path(__file__).resolve().parent / "market_snapshots")).resolve()
+    market_root: Path | None = None
+    market_provider: str = os.getenv("PRO_MARKET_PROVIDER", "")
     ollama_url: str = os.getenv("OLLAMA_URL", "http://127.0.0.1:11434")
     ollama_model: str = os.getenv("OLLAMA_MODEL", "")
     model_license: str = os.getenv("OLLAMA_MODEL_LICENSE", "")
@@ -26,6 +27,11 @@ class Settings:
     ai_timeout: int = int(os.getenv("PRO_AI_TIMEOUT_SECONDS", "120"))
     snapshot_poll_seconds: int = int(os.getenv("PRO_SNAPSHOT_POLL_SECONDS", "60"))
     calendar_timezone: str = os.getenv("PRO_CALENDAR_SOURCE_TIMEZONE", "Asia/Jakarta")
+
+    def __post_init__(self):
+        if self.market_root is None:
+            default_root = Path(os.getenv("PRO_MARKET_ROOT", self.data_root / "services" / "pro_api" / "market_snapshots")).resolve()
+            object.__setattr__(self, "market_root", default_root)
 
     def validate(self, worker=False):
         if self.supabase_url.rstrip("/") != f"https://{PROJECT}.supabase.co":
