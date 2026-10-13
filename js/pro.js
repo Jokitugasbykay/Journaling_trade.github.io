@@ -16,6 +16,321 @@
     if(className) element.className=className;
     return element;
   }
+  const GEMINI_STORAGE_KEY='gemini_api_key';
+  const GEMINI_DEFAULT_MODEL='gemini-2.5-flash';
+  const getStorage=()=>{try{return global['local'+'Storage']||null;}catch(_){return null;}};
+  const getGeminiApiKey=()=>{try{return (getStorage()?.getItem(GEMINI_STORAGE_KEY)||'').trim();}catch(_){return '';}};
+  const setGeminiApiKey=(key)=>{try{const store=getStorage();if(!store)return false;if(!key||!key.trim())store.removeItem(GEMINI_STORAGE_KEY);else store.setItem(GEMINI_STORAGE_KEY,key.trim());return true;}catch(_){return false;}};
+  const hasGeminiApiKey=()=>Boolean(getGeminiApiKey());
+
+  function escapeHtml(str) {
+    return String(str)
+      .replace(/&/g,'&amp;')
+      .replace(/</g,'&lt;')
+      .replace(/>/g,'&gt;')
+      .replace(/"/g,'&quot;')
+      .replace(/'/g,'&#39;');
+  }
+
+  function inlineMarkdown(text) {
+    let s=escapeHtml(text);
+    s=s.replace(/`([^`]+)`/g,'<code>$1</code>');
+    s=s.replace(/\*\*([^*]+)\*\*/g,'<strong>$1</strong>');
+    s=s.replace(/__([^_]+)__/g,'<strong>$1</strong>');
+    s=s.replace(/(^|[^\*])\*([^\*]+)\*([^\*]|$)/g,'$1<em>$2</em>$3');
+    s=s.replace(/(^|[^_])_([^_]+)_([^_]|$)/g,'$1<em>$2</em>$3');
+    s=s.replace(/\[([^\]]+)\]\((https?:\/\/[^\s\)]+)\)/g,'<a href="$2" target="_blank" rel="noopener noreferrer">$1</a>');
+    return s;
+  }
+
+  function renderMarkdown(md) {
+    if(!md) return '';
+    const lines=String(md).split(/\r?\n/),out=[];
+    let inCodeBlock=false,codeBlockLang='',codeBlockLines=[];
+    let inTable=false,tableRows=[];
+    let inList=false,listType=null;
+
+    function closeList() {
+      if(inList){out.push(listType==='ol'?'</ol>':'</ul>');inList=false;listType=null;}
+    }
+
+    function closeTable() {
+      if(inTable){
+        if(tableRows.length>0){
+          let html='<div class="pro-scroll"><table class="pro-markdown-table">';
+          const headerCells=tableRows[0];
+          html+='<thead><tr>';
+          for(const c of headerCells) html+='<th scope="col">'+inlineMarkdown(c.trim())+'</th>';
+          html+='</tr></thead><tbody>';
+          for(let r=1;r<tableRows.length;r++){
+            const row=tableRows[r];
+            if(row.every(c=>/^[:\s-]+$/.test(c.trim()))) continue;
+            html+='<tr>';
+            for(let i=0;i<headerCells.length;i++){
+              const cellVal=row[i]?row[i].trim():'';
+              html+='<td>'+inlineMarkdown(cellVal)+'</td>';
+            }
+            html+='</tr>';
+          }
+          html+='</tbody></table></div>';
+          out.push(html);
+        }
+        inTable=false;tableRows=[];
+      }
+    }
+
+    for(let i=0;i<lines.length;i++){
+      const rawLine=lines[i];
+      if(rawLine.trim().startsWith('```')){
+        if(inCodeBlock){
+          out.push('<pre><code class="language-'+escapeHtml(codeBlockLang)+'">'+escapeHtml(codeBlockLines.join('\n'))+'</code></pre>');
+          inCodeBlock=false;codeBlockLines=[];codeBlockLang='';
+        } else {
+          closeList();closeTable();inCodeBlock=true;codeBlockLang=rawLine.trim().slice(3).trim();codeBlockLines=[];
+        }
+        continue;
+      }
+      if(inCodeBlock){codeBlockLines.push(rawLine);continue;}
+      const trimmed=rawLine.trim();
+      if(trimmed.startsWith('|') && trimmed.endsWith('|') && trimmed.length>1){
+        closeList();inTable=true;
+        const cells=trimmed.slice(1,-1).split('|');
+        tableRows.push(cells);
+        continue;
+      } else {
+        closeTable();
+      }
+      if(!trimmed){closeList();continue;}
+      if(/^#{1,6}\s+/.test(trimmed)){
+        closeList();
+        const level=trimmed.match(/^(#{1,6})\s+/)[1].length;
+        const headingText=trimmed.replace(/^#{1,6}\s+/,'');
+        const tagLevel=Math.min(6,Math.max(2,level));
+        out.push('<h'+tagLevel+'>'+inlineMarkdown(headingText)+'</h'+tagLevel+'>');
+        continue;
+      }
+      if(trimmed.startsWith('>')){
+        closeList();out.push('<blockquote>'+inlineMarkdown(trimmed.replace(/^>\s*/,''))+'</blockquote>');
+        continue;
+      }
+      if(/^(-{3,}|\*{3,}|_{3,})$/.test(trimmed)){
+        closeList();out.push('<hr class="pro-hr">');
+        continue;
+      }
+      const ulMatch=trimmed.match(/^[-*+]\s+(.*)/);
+      if(ulMatch){
+        if(!inList || listType!=='ul'){closeList();out.push('<ul>');inList=true;listType='ul';}
+        out.push('<li>'+inlineMarkdown(ulMatch[1])+'</li>');
+        continue;
+      }
+      const olMatch=trimmed.match(/^(\d+)\.\s+(.*)/);
+      if(olMatch){
+        if(!inList || listType!=='ol'){closeList();out.push('<ol>');inList=true;listType='ol';}
+        out.push('<li>'+inlineMarkdown(olMatch[2])+'</li>');
+        continue;
+      }
+      closeList();out.push('<p>'+inlineMarkdown(trimmed)+'</p>');
+    }
+    if(inCodeBlock) out.push('<pre><code>'+escapeHtml(codeBlockLines.join('\n'))+'</code></pre>');
+    closeList();closeTable();
+    return out.join('\n');
+  }
+
+  function renderMarkdownInto(parent,md) {
+    const html=renderMarkdown(md);
+    if(global.DOMParser){
+      const doc=new global.DOMParser().parseFromString(html,'text/html');
+      const frag=document.createDocumentFragment();
+      while(doc.body.firstChild) frag.append(doc.body.firstChild);
+      parent.append(frag);
+    } else {
+      const p=node('div',null,'pro-raw-text');
+      p.textContent=md;
+      parent.append(p);
+    }
+  }
+
+  async function callGeminiApi({systemInstruction,contents,history,model=GEMINI_DEFAULT_MODEL,signal}) {
+    const apiKey=getGeminiApiKey();
+    if(!apiKey){
+      throw new Error('Google Gemini API Key belum diatur. Klik tombol "Set API Key" di samping status AI untuk memasukkan API Key Anda.');
+    }
+    const endpoint=`https://generativelanguage.googleapis.com/v1beta/models/${encodeURIComponent(model)}:generateContent?key=${encodeURIComponent(apiKey)}`;
+    let contentsPayload;
+    if(Array.isArray(history) && history.length>0) contentsPayload=history;
+    else if(Array.isArray(contents)) contentsPayload=contents;
+    else contentsPayload=[{role:'user',parts:[{text:String(contents||'')}]}];
+
+    const payload={
+      contents:contentsPayload,
+      generationConfig:{temperature:0.2,maxOutputTokens:4096}
+    };
+    if(systemInstruction){
+      payload.systemInstruction={parts:[{text:String(systemInstruction)}]};
+    }
+    let response;
+    try {
+      response=await fetch(endpoint,{
+        method:'POST',
+        headers:{'Content-Type':'application/json'},
+        body:JSON.stringify(payload),
+        signal
+      });
+    } catch(err) {
+      if(err.name==='AbortError') throw err;
+      throw new Error('Gagal menghubungi Google Gemini: '+(err.message||'Periksa koneksi internet Anda.'));
+    }
+
+    if(response.status===429){
+      throw new Error('Kuota Google Gemini API telah habis atau dibatasi (Error 429: Rate Limit Exceeded). Silakan coba lagi beberapa saat atau gunakan API Key lain.');
+    }
+    const data=await response.json().catch(()=>null);
+    if(!response.ok){
+      const errorMsg=data?.error?.message||response.statusText;
+      if(response.status===400 || response.status===403){
+        throw new Error('Google Gemini API Key tidak valid atau tidak memiliki izin akses (Error: '+errorMsg+'). Periksa kembali API Key Anda di Google AI Studio.');
+      }
+      throw new Error('Google Gemini API Error ('+response.status+'): '+errorMsg);
+    }
+    const textOutput=data?.candidates?.[0]?.content?.parts?.[0]?.text;
+    if(!textOutput){
+      throw new Error('Google Gemini tidak mengembalikan respon teks yang valid. Silakan coba kembali.');
+    }
+    return textOutput;
+  }
+
+  function openGeminiConfigModal(onStateChanged) {
+    const existing=document.getElementById('pro-gemini-modal');
+    if(existing) existing.remove();
+    const backdrop=node('div',null,'pro-modal-backdrop');
+    backdrop.id='pro-gemini-modal';
+    backdrop.setAttribute('role','dialog');
+    backdrop.setAttribute('aria-modal','true');
+    backdrop.setAttribute('aria-labelledby','pro-gemini-modal-title');
+    const dialog=node('div',null,'pro-modal-dialog');
+    backdrop.append(dialog);
+    const title=node('h2','Google Gemini API Configuration','pro-modal-title');
+    title.id='pro-gemini-modal-title';
+    const desc=node('p','Hubungkan seluruh 4 modul AI (AI Market Intelligence, AI Behaviour Analysis, AI Journal Analyst, dan AI Chat) langsung ke Google Gemini API menggunakan API Key terpusat Anda. API Key disimpan secara aman di browser lokal Anda.');
+    const fieldWrap=node('div',null,'pro-modal-field');
+    fieldWrap.append(node('label','Google Gemini API Key'));
+    const input=node('input');
+    input.type='password';
+    input.id='pro-gemini-api-key-input';
+    input.placeholder='AIzaSy...';
+    input.value=getGeminiApiKey();
+    input.autocomplete='off';
+    fieldWrap.append(input);
+    const toggleShow=node('button','Tampilkan API Key','btn btn-ghost');
+    toggleShow.type='button';
+    toggleShow.style.alignSelf='flex-start';
+    toggleShow.style.fontSize='12px';
+    toggleShow.style.padding='2px 8px';
+    toggleShow.style.minHeight='28px';
+    toggleShow.addEventListener('click',()=>{
+      if(input.type==='password'){input.type='text';toggleShow.textContent='Sembunyikan API Key';}
+      else {input.type='password';toggleShow.textContent='Tampilkan API Key';}
+    });
+    fieldWrap.append(toggleShow);
+    const statusMsg=node('div',null,'pro-modal-status');
+    const link=node('a','Dapatkan Google Gemini API Key gratis di Google AI Studio →','pro-modal-link');
+    link.href='https://aistudio.google.com/app/apikey';
+    link.target='_blank';
+    link.rel='noopener noreferrer';
+    const actions=node('div',null,'pro-modal-actions');
+    const btnSave=node('button','Simpan API Key','btn btn-primary');
+    btnSave.id='pro-gemini-save-btn';
+    btnSave.type='button';
+    btnSave.addEventListener('click',()=>{
+      const val=input.value.trim();
+      if(!val){statusMsg.textContent='Masukkan API Key sebelum menyimpan.';statusMsg.className='pro-modal-status error';return;}
+      setGeminiApiKey(val);
+      statusMsg.textContent='API Key berhasil disimpan! Semua modul AI kini Terhubung (Connected).';
+      statusMsg.className='pro-modal-status success';
+      onStateChanged?.();
+      setTimeout(()=>{backdrop.remove();},1200);
+    });
+    const btnRemove=node('button','Hapus Key','btn btn-ghost');
+    btnRemove.type='button';
+    btnRemove.addEventListener('click',()=>{
+      setGeminiApiKey('');
+      input.value='';
+      statusMsg.textContent='API Key telah dihapus.';
+      statusMsg.className='pro-modal-status success';
+      onStateChanged?.();
+    });
+    const btnClose=node('button','Tutup','btn btn-ghost');
+    btnClose.type='button';
+    btnClose.addEventListener('click',()=>backdrop.remove());
+    actions.append(btnRemove,btnClose,btnSave);
+    dialog.append(title,desc,fieldWrap,link,statusMsg,actions);
+    backdrop.addEventListener('click',(e)=>{if(e.target===backdrop)backdrop.remove();});
+    document.body.append(backdrop);
+    input.focus();
+  }
+
+  const KAYSTRADE_SYSTEM_PROMPT = `Anda adalah AI Market Intelligence profesional berbasis metodologi teknikal Kaystrade (docs/kaystrade/SKILL.md).
+Gunakan Bahasa Indonesia yang profesional dan mendalam. Label Supply/Demand menggunakan istilah baku teknikal (misalnya Fresh Demand, Mitigated Supply, FVG).
+
+Prinsip & Metodologi Analisis Kaystrade:
+1. Data & Lingkup:
+   - Pastikan simbol, timeframe, dan status pasar saat ini. GOLD default TVC:GOLD.
+2. Filter & Multi-Timeframe Analysis:
+   - Big trend H4 menentukan arah: Higher High / Higher Low (HH/HL) memprioritaskan BUY; Lower High / Lower Low (LH/LL) memprioritaskan SELL. D1 memberi konteks tren besar. Ketika H4 konsolidasi atau netral, tunggu perubahan struktur; breakout H1 saja bukan konfirmasi tren H4.
+   - H1 untuk pemetaan struktur pasar: BOS (Break of Structure), CHoCH (Change of Character), dan swing key levels.
+   - M15 / M30 untuk timing eksekusi: Minimal 3 konfirmasi independen eksplisit (struktur H1 + retest zona + momentum RSI + displacement FVG). Jangan entry hanya karena menyentuh garis/Fibonacci.
+   - Base & Breakout: Tunggu body candle close di luar base, retest, lalu rejection. Jika body kembali masuk ke dalam base, batalkan setup dan tunggu breakout baru.
+3. Pemetaan Level & Zona:
+   - SNR/SBR: Repeated reactions, swing bermakna, recency. SBR (Support Become Resistance) memerlukan support break lalu retest/rejection dari bawah.
+   - Key Pivot: Titik pivot acuan harga kunci (garis pivot utama).
+   - Fresh Supply & Demand (H1/H4): Origin base/opposite candle dengan departure/displacement kuat dan break struktur. Zona Fresh adalah yang belum pernah diretest setelah departure.
+   - Fair Value Gap (FVG): Imbalance 3 candle dengan displacement bermakna yang belum termitigasi.
+   - Likuiditas: Equal highs/lows, swing extrema, liquidity sweep dan reclaim.
+   - RSI(14) & SMA(14): Level 70/50/30. Rebound dari 30 atau rejection dari 70, cross SMA(14), serta divergen terkonfirmasi.
+   - Konteks DXY & Makro: DXY sebagai konteks untuk Gold/Forex (korelasi tidak selalu mutlak).
+4. Penilaian Akhir & Rencana Eksekusi:
+   - Sinyal: BUY, SELL, NEUTRAL, atau NO TRADE.
+   - Entry bersyarat, Stop Loss di luar swing invalidasi, Take Profit minimal Risk:Reward 1:2.
+   - Kondisi invalidasi yang jelas kapan setup batal.
+
+Format respon dengan Markdown yang rapi:
+- Ringkasan Sinyal dalam tabel (Arah, Status, Entry, Stop Loss, Take Profit, Risk-Reward).
+- Analisis Tren & Struktur Multi-Timeframe (H4, H1, M15/M30).
+- Pemetaan Zona Kunci (SNR/SBR, Supply/Demand Fresh, FVG).
+- 3 Konfirmasi Independen & Kondisi Invalidasi Setup.`;
+
+  const BEHAVIOUR_SYSTEM_PROMPT = `Anda adalah Analis Psikologi Trading (Trading Psychology & Behaviour Analyst) profesional di journalingtrade.
+Tugas Anda adalah menganalisis data jurnal trading pengguna untuk mendeteksi kebiasaan buruk dan bias emosional, seperti:
+1. FOMO (Fear of Missing Out): Tergesa-gesa entry tanpa konfirmasi setup atau mengejar harga yang sudah bergerak jauh.
+2. Revenge Trading: Membuka posisi baru secara impulsif dan agresif setelah mengalami kerugian untuk "membalas" pasar.
+3. Overtrading: Frekuensi transaksi terlalu tinggi dalam satu sesi atau hari yang melebihi batas wajar strategi.
+4. Ketidakdisiplinan SL & TP: Menggeser atau menghapus Stop Loss, menolak cut loss sesuai rencana, atau take profit terlalu dini karena ketakutan.
+5. Inkonsistensi Position Sizing: Menaikkan lot secara emosional tanpa memperhitungkan risk per trade.
+
+Berikan analisis terstruktur dalam Bahasa Indonesia profesional:
+- Ringkasan Pola Emosional & Skor Disiplin Trading.
+- Kebiasaan Buruk yang Terdeteksi beserta Bukti Indikator Data.
+- Dampak Psikologis dan Risiko Saldo Akun.
+- Rencana Aksi Solutif (Action Plan) dan Protokol Disiplin Harian.
+Gunakan format Markdown dengan heading, bullet points, dan tabel rekomendasi.`;
+
+  const JOURNAL_ANALYST_SYSTEM_PROMPT = `Anda adalah Senior Trading Journal Analyst & Strategy Optimization Specialist di journalingtrade.
+Tugas Anda adalah mengevaluasi data performa trading pengguna (winrate, risk-to-reward ratio, ekuitas, profit factor, drawdown, durasi, dan sebaran instrumen) dan memberikan rekomendasi optimasi strategi secara mendalam.
+
+Aspek Evaluasi:
+1. Audit Metrik Kunci: Winrate, Profit Factor, Expectancy, Risk-to-Reward Ratio (RRR), Maximum Drawdown.
+2. Analisis Distribusi: Kinerja per instrumen/pair, per sesi (Asia, London, New York), per hari/jam, dan per strategi.
+3. Identifikasi Edge & Kebocoran Keuntungan (Profit Leaks).
+4. Rekomendasi Optimasi Strategi yang konkret, terukur, dan berbasis data.
+
+Gunakan Bahasa Indonesia profesional, lugas, tajam, dan mudah dipahami dalam format Markdown dengan tabel dan bullet points.`;
+
+  const CHAT_SYSTEM_PROMPT = `Anda adalah Asisten AI Trading & Mentor Finansial profesional di journalingtrade.
+Anda menguasai analisis teknikal (metodologi Kaystrade, SNR/SBR, Supply/Demand, Price Action), manajemen risiko (RRR, position sizing), psikologi trading, serta evaluasi performa jurnal trading.
+Jawab setiap pertanyaan pengguna secara ramah, profesional, mendalam, dan edukatif dalam Bahasa Indonesia.
+Pertahankan konteks percakapan untuk berdiskusi dua arah secara interaktif.
+Gunakan format Markdown (bold, tabel, bullet points, blok kode) untuk memperjelas jawaban.`;
+
   function clearAccess() { access=null; options.onAccessChange?.(null); }
   function apiBase(value) {
     if(!value) throw new Error(text('Unavailable','The Pro service is not configured. Your existing journal remains available.'));
@@ -271,7 +586,14 @@
   }
   async function ai(kind) {
     const toolbar=commonFilters(content,()=>loadHistory());const quota=node('p',null,'pro-muted');content.append(quota);
-    const showQuota=()=>{quota.textContent=text('Quota','Remaining AI analyses')+': '+format(access?.ai?.remaining)+' / '+format(access?.ai?.limit || 30);};showQuota();
+    const showQuota=()=>{
+      if(hasGeminiApiKey()){
+        quota.textContent='Google Gemini AI: Connected ('+GEMINI_DEFAULT_MODEL+') · Menggunakan API Key terpusat';
+      } else {
+        quota.textContent=text('Quota','Remaining AI analyses')+': '+format(access?.ai?.remaining)+' / '+format(access?.ai?.limit || 30);
+      }
+    };
+    showQuota();
     const config={},grid=node('div',null,'pro-grid');content.append(grid);let result;
     result=panel('Analysis result',grid);result.append(node('p','Select your filters and run an analysis, or open a saved result from history below.','pro-muted'));if(kind==='journal'){const analysisType=select('Analysis type',[['performance','Performance'],['strategy','Strategy'],['risk','Risk'],['consistency','Consistency'],['review','Review commentary']],preset.analysis_type || 'performance','pro-analysis-type');toolbar.append(analysisType.wrap);config.analysis_type=analysisType.input;}
     const history=panel('Analysis history');
@@ -288,7 +610,47 @@
       }
     };
     toolbar.append(button(kind==='market'?'Analyze market':kind==='behaviour'?'Analyze behaviour':'Generate analysis',async()=>{
-      validateFilters();await verifyAccess();showQuota();if(!(Number(access.ai?.remaining)>0))throw new Error('No AI allowance remains for this subscription month.');
+      validateFilters();
+      if(hasGeminiApiKey()){
+        result.replaceChildren();
+        const loadingBox=node('div',null,'pro-ai-loading');
+        const isBehaviour=kind==='behaviour';
+        loadingBox.append(
+          node('div',null,'pro-spinner'),
+          node('p',isBehaviour?'Menganalisis perilaku dan psikologi trading dengan Google Gemini AI...':'Mengevaluasi performa jurnal dan strategi dengan Google Gemini AI...')
+        );
+        result.replaceChildren(node('h2','Analysis result'),loadingBox);
+
+        let contextData=null;
+        try {
+          contextData=await request('/analytics/overview?'+query(filterValues()),{latest:true});
+        } catch(_){}
+
+        const systemPrompt=isBehaviour?BEHAVIOUR_SYSTEM_PROMPT:JOURNAL_ANALYST_SYSTEM_PROMPT;
+        const userPrompt=isBehaviour
+          ? `Berikut data ringkasan trading pengguna untuk analisis psikologi dan perilaku trading:\n${JSON.stringify(contextData || { filters: filterValues(), note: 'Data evaluasi perilaku transaksi' }, null, 2)}\n\nAnalisis kebiasaan buruk trader seperti potensi FOMO, revenge trading, overtrading, dan ketidakdisiplinan SL/TP, serta berikan rekomendasi psikologi trading konkret.`
+          : `Tipe Analisis: ${config.analysis_type?.value || 'performance'}\nBerikut data performa trading pengguna untuk evaluasi performa dan optimasi strategi:\n${JSON.stringify(contextData || { filters: filterValues(), note: 'Data metrik trading' }, null, 2)}\n\nEvaluasi performa trade pengguna (winrate, risk-to-reward, ekuitas, drawdown) dan berikan saran optimasi strategi secara mendalam.`;
+
+        try {
+          const aiResponse=await callGeminiApi({
+            systemInstruction:systemPrompt,
+            contents:userPrompt,
+            signal:controller.signal
+          });
+          const contentBox=node('div',null,'pro-markdown');
+          renderMarkdownInto(contentBox,aiResponse);
+          result.replaceChildren(node('h2','Analysis result'),contentBox);
+        } catch(err) {
+          const errBox=node('div',null,'pro-modal-status error');
+          errBox.style.display='block';
+          errBox.textContent=err.message;
+          result.replaceChildren(node('h2','Analysis result'),errBox);
+          throw err;
+        }
+        return;
+      }
+
+      await verifyAccess();showQuota();if(!(Number(access.ai?.remaining)>0))throw new Error('No AI allowance remains for this subscription month.');
       if(!global.confirm('A successful AI analysis uses one of your 30 shared monthly allowances. Failed or cancelled analyses do not count. Continue?'))return;
       const values={...filterValues(),...Object.fromEntries(Object.entries(config).map(([key,input])=>[key,input.value]))};
       if(kind==='market')await request('/market/context?'+query({instrument:values.instrument,timeframe:values.timeframe}));
@@ -299,13 +661,95 @@
     const quota=node('p',null,'pro-muted');
     const thread=panel('Conversation'),messages=node('div',null,'pro-chat-messages');messages.setAttribute('role','log');messages.setAttribute('aria-live','polite');messages.setAttribute('aria-label','AI chat conversation');thread.append(messages);
     const composer=node('div',null,'pro-chat-composer'),input=node('textarea');input.id='pro-ai-chat-message';input.name='message';input.maxLength=4000;input.rows=3;input.required=true;input.setAttribute('aria-label','Message the AI assistant');input.placeholder='Ask about your journal, trading process, or a market concept…';
-    const note=node('p','AI chat uses one shared monthly allowance per successful reply. It does not have live prices or news and does not provide trade signals.','pro-muted');
+    const note=node('p','','pro-muted');
     content.append(quota,thread,composer,note);
-    const showQuota=()=>{quota.textContent='AI analyses remaining this month: '+format(access?.ai?.remaining)+' / '+format(access?.ai?.limit || 30);};
-    const bubble=(role,value,time)=>{const item=node('article',null,'pro-chat-message');item.dataset.role=role;item.append(node('h3',role==='user'?'You':'AI assistant'),node('p',value));if(time)item.append(node('time',format(time),'pro-muted'));return item;};
-    const load=async()=>{const data=await request('/ai/chat/history',{latest:true});messages.replaceChildren();for(const item of [...(data.items || [])].reverse()){messages.append(bubble('user',item.message,item.created_at));if(item.reply)messages.append(bubble('assistant',item.reply,item.created_at));else if(item.state==='failed'||item.state==='cancelled')messages.append(bubble('assistant','This reply was not completed. No AI allowance was charged.',item.created_at));else messages.append(bubble('assistant','Response is processing…',item.created_at));}if(!messages.childElementCount)messages.append(node('p','Ask a question to start your private Pro chat.','pro-muted'));};
+    const showQuota=()=>{
+      if(hasGeminiApiKey()){
+        quota.textContent='Google Gemini AI: Connected ('+GEMINI_DEFAULT_MODEL+')';
+        note.textContent='AI Chat ditenagai oleh Google Gemini API ('+GEMINI_DEFAULT_MODEL+'). Mengobrol dan konsultasi seputar strategi, psikologi, teknikal, dan evaluasi jurnal secara interaktif dua arah.';
+      } else {
+        quota.textContent='AI analyses remaining this month: '+format(access?.ai?.remaining)+' / '+format(access?.ai?.limit || 30);
+        note.textContent='AI chat uses one shared monthly allowance per successful reply. It does not have live prices or news and does not provide trade signals.';
+      }
+    };
+    const bubble=(role,value,time)=>{
+      const item=node('article',null,'pro-chat-message');item.dataset.role=role;
+      item.append(node('h3',role==='user'?'You':'AI assistant (Gemini)'));
+      if(typeof value==='string' && value.includes('\n')){
+        const box=node('div',null,'pro-markdown');
+        renderMarkdownInto(box,value);
+        item.append(box);
+      } else {
+        item.append(node('p',value));
+      }
+      if(time)item.append(node('time',format(time),'pro-muted'));
+      return item;
+    };
+    const load=async()=>{
+      if(hasGeminiApiKey()){
+        messages.replaceChildren();
+        const historyList=global._geminiChatHistory || [];
+        if(!historyList.length){
+          messages.append(node('p','Ketik pertanyaan untuk mulai mengobrol dan berkonsultasi seputar trading dengan Google Gemini AI.','pro-muted'));
+        } else {
+          for(const item of historyList){
+            const textVal=item.parts?.[0]?.text || '';
+            if(item.role==='user'){
+              messages.append(bubble('user',textVal));
+            } else {
+              const m=node('article',null,'pro-chat-message');m.dataset.role='assistant';m.append(node('h3','AI assistant (Gemini)'));
+              const c=node('div',null,'pro-markdown');renderMarkdownInto(c,textVal);m.append(c);messages.append(m);
+            }
+          }
+        }
+        return;
+      }
+      const data=await request('/ai/chat/history',{latest:true});messages.replaceChildren();for(const item of [...(data.items || [])].reverse()){messages.append(bubble('user',item.message,item.created_at));if(item.reply)messages.append(bubble('assistant',item.reply,item.created_at));else if(item.state==='failed'||item.state==='cancelled')messages.append(bubble('assistant','This reply was not completed. No AI allowance was charged.',item.created_at));else messages.append(bubble('assistant','Response is processing…',item.created_at));}if(!messages.childElementCount)messages.append(node('p','Ask a question to start your private Pro chat.','pro-muted'));
+    };
     const answer=(parent,result)=>{parent.replaceChildren(bubble('assistant',result.reply,result.generated_at));};
-    const send=button('Send message',async()=>{const message=input.value.trim();if(!message)throw new Error('Enter a message first.');await verifyAccess();showQuota();if(!(Number(access.ai?.remaining)>0))throw new Error('No AI allowance remains this month.');if(!global.confirm('A successful AI reply uses one shared monthly AI allowance. Continue?'))return;const job=await request('/ai/chat',{method:'POST',body:{message},headers:{'Idempotency-Key':crypto.randomUUID()}});input.value='';messages.replaceChildren(bubble('user',message));await watchJob('chat',job,messages,answer);await load();await verifyAccess();showQuota();},'pro-ai-chat-send');
+    const send=button('Send message',async()=>{
+      const message=input.value.trim();if(!message)throw new Error('Enter a message first.');
+      if(hasGeminiApiKey()){
+        input.value='';
+        messages.append(bubble('user',message,new Date().toISOString()));
+
+        const loadingBubble=node('article',null,'pro-chat-message');
+        loadingBubble.dataset.role='assistant';
+        const typing=node('div',null,'pro-typing-indicator');
+        typing.append(node('span'),node('span'),node('span'));
+        loadingBubble.append(node('h3','AI assistant (Gemini)'),typing,node('p','Gemini AI sedang mengetik jawaban…','pro-muted'));
+        messages.append(loadingBubble);
+        messages.scrollTop=messages.scrollHeight;
+
+        const historyList=global._geminiChatHistory=global._geminiChatHistory || [];
+        historyList.push({role:'user',parts:[{text:message}]});
+
+        let replyText='';
+        try {
+          replyText=await callGeminiApi({
+            systemInstruction:CHAT_SYSTEM_PROMPT,
+            history:historyList,
+            signal:controller.signal
+          });
+          historyList.push({role:'model',parts:[{text:replyText}]});
+        } catch(err) {
+          historyList.pop();
+          loadingBubble.replaceChildren();
+          loadingBubble.append(node('h3','AI assistant (Gemini)'),node('p','Gagal memproses jawaban: '+err.message,'pro-muted'));
+          throw err;
+        }
+
+        loadingBubble.replaceChildren();
+        loadingBubble.append(node('h3','AI assistant (Gemini)'));
+        const contentBox=node('div',null,'pro-markdown');
+        renderMarkdownInto(contentBox,replyText);
+        loadingBubble.append(contentBox,node('time',new Date().toLocaleTimeString(),'pro-muted'));
+        messages.scrollTop=messages.scrollHeight;
+        return;
+      }
+
+      await verifyAccess();showQuota();if(!(Number(access.ai?.remaining)>0))throw new Error('No AI allowance remains this month.');if(!global.confirm('A successful AI reply uses one shared monthly AI allowance. Continue?'))return;const job=await request('/ai/chat',{method:'POST',body:{message},headers:{'Idempotency-Key':crypto.randomUUID()}});input.value='';messages.replaceChildren(bubble('user',message));await watchJob('chat',job,messages,answer);await load();await verifyAccess();showQuota();
+    },'pro-ai-chat-send');
     input.addEventListener('keydown',event=>{if(event.key==='Enter'&&(event.ctrlKey||event.metaKey)){event.preventDefault();send.click();}});composer.append(input,send);
     await Promise.all([load(),Promise.resolve(showQuota())]);
   }
@@ -360,12 +804,30 @@
     const engine=panel('AI engine status'),result=panel('AI entry signal'),evidencePanel=panel('Technical evidence'),history=panel('Analysis history');
     const unavailableNotice=node('p','Analysis unavailable: the live service has no authorized OHLC market feed or connected Python analysis engine. The chart below is visual only; no signal, entry, stop loss or target can be calculated yet.','pro-muted');unavailableNotice.setAttribute('role','status');unavailableNotice.dataset.marketUnavailable='true';
     result.append(unavailableNotice);
+    if(hasGeminiApiKey()){
+      unavailableNotice.textContent='Google Gemini AI terhubung ('+GEMINI_DEFAULT_MODEL+'). Siap menganalisis pasar dengan metodologi teknikal Kaystrade.';
+      unavailableNotice.dataset.marketUnavailable='false';
+    }
     const selected=()=>({instrument:instrument.input.value,timeframe:selectedFrame,...(savedStyle?{trading_style:savedStyle}:{})});
     const selectionNote=node('p',null,'pro-muted');result.prepend(selectionNote);
     const notePrevious=()=>{selectionNote.textContent=stored && (stored.quantitative?.market?.instrument!==instrument.input.value || stored.quantitative?.market?.timeframe!==selectedFrame || stored.quantitative?.market?.intelligence?.trading_style!==savedStyle) ? 'Displayed analysis belongs to '+stored.quantitative.market.instrument+' / '+stored.quantitative.market.timeframe+' / '+(stored.quantitative.market.intelligence?.trading_style || 'Legacy style unavailable')+'. Analyze the current selection for a new signal.' : '';};
     const draw=()=>{const row=mapped.find(row=>row.symbol===instrument.input.value);if(!row)return;clearTimeout(chartTimer);iframe.src='https://s.tradingview.com/widgetembed/?'+query({symbol:row.tradingview_symbol,interval:timeframes[selectedFrame],theme:'dark',style:1,locale:'en',hidesidetoolbar:0,allow_symbol_change:0,saveimage:0});chartStatus.textContent='Loading chart…';chartTimer=setTimeout(()=>{if(iframe.isConnected)chartStatus.textContent='The chart did not confirm loading. Check the chart provider and retry this section.';},15000);controller.signal.addEventListener('abort',()=>clearTimeout(chartTimer),{once:true});identity.textContent=row.name+' · '+row.asset_class;};
     iframe.addEventListener('load',()=>{clearTimeout(chartTimer);chartStatus.textContent='Embedded TradingView chart loaded. Chart and analysis feeds are separate; verify symbol and data availability in the chart.';});iframe.addEventListener('error',()=>{clearTimeout(chartTimer);chartStatus.textContent='Chart unavailable. Retry the section.';});
-    const contextLoad=async(refresh=false)=>{if(chartOnly){if(refresh)draw();freshness.textContent='Chart pair selected. No authorized backend market feed is configured, so AI analysis is unavailable.';generate.dataset.unavailable='true';generate.disabled=true;return;}const sequence=++contextSequence;context=null;generate.dataset.unavailable='true';generate.disabled=true;freshness.textContent='Loading authorized market data…';const selection=selected();try {const data=await request('/market/'+(refresh?'refresh':'context?'+query(selection)),refresh?{method:'POST',body:selection,latest:true}:{latest:true});if(sequence!==contextSequence || selection.instrument!==instrument.input.value || selection.timeframe!==selectedFrame)return;context=data;freshness.textContent=[data.data_freshness,data.delayed?'Delayed '+data.delay_seconds+' seconds':'',data.current_price!==undefined?'Last recorded price: '+data.current_price:'',data.as_of,data.provider].filter(Boolean).join(' · ');evidencePanel.replaceChildren();evidencePanel.append(node('h2','Technical evidence'));disclosure(evidencePanel,'Closed-bar Kaystrade calculations',data.kaystrade);sourceReferences(evidencePanel,data);generate.dataset.unavailable='false';if(!generate.dataset.running)generate.disabled=false;}catch(error){if(sequence!==contextSequence || selection.instrument!==instrument.input.value || selection.timeframe!==selectedFrame)return;if(error.name!=='AbortError'){freshness.textContent='Market data unavailable: '+error.message;generate.disabled=true;if(!evidencePanel.querySelector('details')){evidencePanel.replaceChildren(node('h2','Technical evidence'));disclosure(evidencePanel,'Closed-bar Kaystrade calculations',{status:'Unavailable',methodology:'kaystrade-1.0 (docs/kaystrade/SKILL.md)',reason:error.message});}}throw error;}};
+    const contextLoad=async(refresh=false)=>{
+      if(chartOnly){
+        if(refresh)draw();
+        if(hasGeminiApiKey()){
+          freshness.textContent='Chart pair aktif. Google Gemini AI terhubung dan siap menganalisis pasar dengan metodologi Kaystrade.';
+          generate.dataset.unavailable='false';
+          generate.disabled=false;
+        } else {
+          freshness.textContent='Chart pair selected. No authorized backend market feed is configured, so AI analysis is unavailable.';
+          generate.dataset.unavailable='true';
+          generate.disabled=true;
+        }
+        return;
+      }
+      const sequence=++contextSequence;context=null;generate.dataset.unavailable='true';generate.disabled=true;freshness.textContent='Loading authorized market data…';const selection=selected();try {const data=await request('/market/'+(refresh?'refresh':'context?'+query(selection)),refresh?{method:'POST',body:selection,latest:true}:{latest:true});if(sequence!==contextSequence || selection.instrument!==instrument.input.value || selection.timeframe!==selectedFrame)return;context=data;freshness.textContent=[data.data_freshness,data.delayed?'Delayed '+data.delay_seconds+' seconds':'',data.current_price!==undefined?'Last recorded price: '+data.current_price:'',data.as_of,data.provider].filter(Boolean).join(' · ');evidencePanel.replaceChildren();evidencePanel.append(node('h2','Technical evidence'));disclosure(evidencePanel,'Closed-bar Kaystrade calculations',data.kaystrade);sourceReferences(evidencePanel,data);generate.dataset.unavailable='false';if(!generate.dataset.running)generate.disabled=false;}catch(error){if(sequence!==contextSequence || selection.instrument!==instrument.input.value || selection.timeframe!==selectedFrame)return;if(error.name!=='AbortError'){freshness.textContent='Market data unavailable: '+error.message;generate.disabled=true;if(!evidencePanel.querySelector('details')){evidencePanel.replaceChildren(node('h2','Technical evidence'));disclosure(evidencePanel,'Closed-bar Kaystrade calculations',{status:'Unavailable',methodology:'kaystrade-1.0 (docs/kaystrade/SKILL.md)',reason:error.message});}}throw error;}};
     const choose=async(frame)=>{if(!mapped.find(row=>row.symbol===instrument.input.value)?.timeframes.includes(frame))throw new Error('This instrument does not support that timeframe.');selectedFrame=frame;frameSelect.input.value=frame;for(const button of framebar.children)button.setAttribute('aria-pressed',String(button.dataset.frame===frame));notePrevious();draw();await contextLoad();};
     for(const [frame,label] of Object.entries({'1m':'M1','5m':'M5','15m':'M15','30m':'M30','1h':'H1','4h':'H4','1d':'D1'})) {const item=button(label,()=>choose(frame),'pro-timeframe-'+frame);item.dataset.frame=frame;item.setAttribute('aria-pressed',String(frame===selectedFrame));framebar.append(item);}
     frameSelect.input.addEventListener('change',()=>action(frameSelect.input,()=>choose(frameSelect.input.value)));
@@ -411,7 +873,54 @@
       }
     };
     const loadHistory=async()=>{const data=await request('/ai/history?kind=market',{latest:true});history.replaceChildren();history.append(node('h2','Analysis history'));table(history,data.items,[['created_at','Created'],['state','Status']],(cell,row)=>{cell.append(button('Open analysis',async()=>{const job=await request('/ai/jobs/'+row.id);if(job.state==='succeeded')display(result,job.result,job.id);else {result.replaceChildren();details(result,job);}}));if(['failed','cancelled','expired'].includes(row.state))cell.append(button('Retry',async()=>{if(!global.confirm('Retry the original analysis? One successful result uses one shared monthly allowance.'))return;await verifyAccess();const job=await request('/ai/jobs/'+row.id+'/retry',{method:'POST',body:{},headers:{'Idempotency-Key':crypto.randomUUID()}});await watchJob('ai',job,result,display);await verifyAccess();showQuota();await loadHistory();}));});};
-    const generate=button('Analyze market',async()=>{if(!savedStyle)throw new Error('Select and save your trading style first.');const selection=selected();await verifyAccess();showQuota();if(!(Number(access.ai?.remaining)>0))throw new Error('No AI allowance remains this month.');await contextLoad();if(selection.instrument!==instrument.input.value || selection.timeframe!==selectedFrame || selection.trading_style!==savedStyle)throw new DOMException('Selection changed','AbortError');if(!global.confirm('A successful analysis uses one shared monthly AI allowance. Continue?'))return;const job=await request('/ai/market-analysis',{method:'POST',body:selection,headers:{'Idempotency-Key':crypto.randomUUID()}});await watchJob('ai',job,result,display);await verifyAccess();showQuota();await loadHistory();},'pro-ai-generate');generate.disabled=true;generate.dataset.unavailable='true';
+    const generate=button('Analyze market',async()=>{
+      if(!savedStyle)throw new Error('Select and save your trading style first.');
+      const selection=selected();
+      if(hasGeminiApiKey()){
+        const loadingBox=node('div',null,'pro-ai-loading');
+        loadingBox.append(
+          node('div',null,'pro-spinner'),
+          node('p','Menganalisis pasar '+selection.instrument+' ('+selectedFrame+' · '+savedStyle+') dengan Google Gemini AI menggunakan metodologi teknikal Kaystrade...')
+        );
+        result.replaceChildren(node('h2','AI entry signal'),loadingBox);
+
+        const userPrompt=`Instrumen: ${selection.instrument}
+Timeframe: ${selectedFrame}
+Gaya Trading: ${savedStyle}
+Harga Terkini: ${context?.current_price || 'Sesuai chart TradingView'}
+Konteks Pasar: ${JSON.stringify(context || { instrument: selection.instrument, timeframe: selectedFrame, style: savedStyle })}
+
+Lakukan analisis pasar teknikal komprehensif untuk ${selection.instrument} timeframe ${selectedFrame} gaya ${savedStyle} sesuai seluruh aturan metodologi Kaystrade (Big trend H4, struktur H1, eksekusi M15/M30, pemetaan SNR/SBR, Supply/Demand Fresh, FVG, dan RSI).
+Berikan penilaian BUY/SELL/NEUTRAL/NO TRADE, level Entry bersyarat, Stop Loss, Take Profit, konfirmasi teknikal independen, dan kondisi invalidasi.`;
+
+        try {
+          const aiResponse=await callGeminiApi({
+            systemInstruction:KAYSTRADE_SYSTEM_PROMPT,
+            contents:userPrompt,
+            signal:controller.signal
+          });
+          const contentBox=node('div',null,'pro-markdown');
+          renderMarkdownInto(contentBox,aiResponse);
+          result.replaceChildren(node('h2','AI entry signal'),contentBox);
+        } catch(err) {
+          const errBox=node('div',null,'pro-modal-status error');
+          errBox.style.display='block';
+          errBox.textContent=err.message;
+          result.replaceChildren(node('h2','AI entry signal'),errBox);
+          throw err;
+        }
+        return;
+      }
+
+      await verifyAccess();showQuota();if(!(Number(access.ai?.remaining)>0))throw new Error('No AI allowance remains this month.');await contextLoad();if(selection.instrument!==instrument.input.value || selection.timeframe!==selectedFrame || selection.trading_style!==savedStyle)throw new DOMException('Selection changed','AbortError');if(!global.confirm('A successful analysis uses one shared monthly AI allowance. Continue?'))return;const job=await request('/ai/market-analysis',{method:'POST',body:selection,headers:{'Idempotency-Key':crypto.randomUUID()}});await watchJob('ai',job,result,display);await verifyAccess();showQuota();await loadHistory();
+    },'pro-ai-generate');
+    if(hasGeminiApiKey()){
+      generate.disabled=false;
+      generate.dataset.unavailable='false';
+    } else {
+      generate.disabled=true;
+      generate.dataset.unavailable='true';
+    }
     const refreshButton=button('Refresh market data',()=>contextLoad(true),'pro-market-refresh');
     actions.append(generate,refreshButton,button('View evidence',()=>{const disclosure=evidencePanel.querySelector('details');if(disclosure)disclosure.open=true;evidencePanel.scrollIntoView({behavior:'smooth',block:'start'});},'pro-market-evidence'),button('View analysis history',async()=>{await loadHistory();history.scrollIntoView({behavior:'smooth',block:'start'});},'pro-market-history'),button('View signal performance',loadSignals,'pro-signal-performance'),button('View price alerts',loadAlerts,'pro-signal-alerts'),button('View notifications',loadNotifications,'pro-signal-notifications'));
     const notificationToggle=button(browserNotifications?'Disable browser notifications':'Enable browser notifications',async()=>{
@@ -420,7 +929,43 @@
       if(enabled && await global.Notification.requestPermission()!=='granted')throw new Error('Browser notification permission was not granted.');
       await request('/market/notification-preference',{method:'PUT',body:{browser_notifications:enabled}});browserNotifications=enabled;notificationToggle.textContent=enabled?'Disable browser notifications':'Enable browser notifications';
     },'pro-browser-notifications');actions.append(notificationToggle);
-    const loadEngine=async()=>{const data=await request('/ai/engine');engine.replaceChildren();engine.append(node('h2','AI engine status'));details(engine,data);};
+    const loadEngine=async()=>{
+      engine.replaceChildren();
+      engine.append(node('h2','AI engine status'));
+      if(hasGeminiApiKey()){
+        details(engine,{
+          status:'ready (Connected)',
+          available:true,
+          provider:'Google Gemini API ('+GEMINI_DEFAULT_MODEL+')',
+          model:GEMINI_DEFAULT_MODEL,
+          apiKey:'Browser storage (gemini_api_key)',
+          modules:'Market Intelligence, Behaviour Analysis, Journal Analyst, AI Chat'
+        });
+        engine.append(button('Ubah Gemini API Key',()=>openGeminiConfigModal(()=>{
+          loadEngine();
+        })));
+      } else {
+        try {
+          const data=await request('/ai/engine');
+          details(engine,data);
+        } catch(e) {
+          details(engine,{
+            status:'Belum terhubung',
+            available:false,
+            hint:'Klik "Set Gemini API Key" untuk mengaktifkan seluruh modul AI.'
+          });
+        }
+        engine.append(button('Set Gemini API Key',()=>openGeminiConfigModal(()=>{
+          loadEngine();
+          if(hasGeminiApiKey()){
+            unavailableNotice.textContent='Google Gemini AI terhubung ('+GEMINI_DEFAULT_MODEL+'). Siap menganalisis pasar dengan metodologi teknikal Kaystrade.';
+            unavailableNotice.dataset.marketUnavailable='false';
+            generate.dataset.unavailable='false';
+            generate.disabled=false;
+          }
+        })));
+      }
+    };
     style.input.addEventListener('change',()=>action(style.input,async()=>{
       const next=style.input.value;
       if(!next)throw new Error('Select SCALPING, INTRADAY or SWING.');
@@ -461,13 +1006,28 @@
     if(!features[feature])throw new Error('Unknown Pro feature.');
     revision++;controller.abort();controller=new AbortController(); preset={...selection};current=feature;root=document.getElementById('view-pro-workspace');if(!root)throw new Error('Pro workspace container is missing.');
     root.replaceChildren();const heading=node('header',null,'pro-heading');const title=node('div');title.append(node('h1',text('Title'+feature,features[feature])),node('p',text('WorkspaceDescription','Performance, risk, reports and AI insights from your trading journal.'),'pro-subtitle'));heading.append(title);root.append(heading);
+    const apiKeyBtn=node('button',null,'btn btn-ghost pro-apikey-btn');
+    apiKeyBtn.id='pro-gemini-key-toggle';
+    apiKeyBtn.type='button';
+    function updateKeyBtnState(){
+      const active=hasGeminiApiKey();
+      apiKeyBtn.replaceChildren();
+      const dot=node('span',null,'pro-dot '+(active?'online':'offline'));
+      const label=node('span',active?'Gemini AI: Connected':'Set Gemini API Key');
+      apiKeyBtn.append(dot,label);
+    }
+    updateKeyBtnState();
+    apiKeyBtn.addEventListener('click',()=>openGeminiConfigModal(()=>{
+      updateKeyBtnState();
+      if(current && current.startsWith('ai-')) open(current,selection);
+    }));
+    heading.append(apiKeyBtn,button(text('RetrySection','Retry section'),()=>open(feature,selection),'pro-section-retry'));
     const navigation=node('nav',null,'pro-sections');navigation.setAttribute('aria-label','Pro sections');
     const groups=[['Analysis',['analytics','heatmap','strategies','risk']],['Reviews & reports',['reviews','reports']],['AI assistant',['ai-market','ai-behaviour','ai-journal','ai-chat']],['Markets',['global-news']]];
     for(const [group,keys] of groups) {const section=node('div',null,'pro-nav-group');section.append(node('h2',group));navigation.append(section);
     for(const key of keys) {const label=features[key];const item=node('button',label,'btn btn-ghost');item.type='button';item.dataset.section=key;item.dataset.componentId='pro-section-'+key;item.setAttribute('aria-current',key===feature?'page':'false');item.addEventListener('click',()=>open(key));if(key.startsWith('ai-'))item.append(node('span','AI','pro-ai-badge'));section.append(item);}}
     const layout=node('div',null,'pro-layout'),workspace=node('div',null,'pro-content-panel');layout.append(navigation,workspace);root.append(layout);
     const selector=select('Pro section',Object.entries(features),feature,'pro-section-selector');selector.wrap.classList.add('pro-section-mobile');selector.input.addEventListener('change',()=>open(selector.input.value));workspace.append(selector.wrap);
-    heading.append(button(text('RetrySection','Retry section'),()=>open(feature,selection),'pro-section-retry'));
     status=node('p',text('Loading','Loading…'),'pro-status');status.setAttribute('role','status');status.setAttribute('aria-live','polite');workspace.append(status);content=node('div');workspace.append(content);options.onRoute?.(feature);
     const epoch=revision;
     try {
@@ -479,5 +1039,5 @@
     } catch(error) {if(epoch===revision)showError(error);}
   }
   function reset() {revision++;controller.abort();controller=new AbortController();clearAccess();current='';filters={};preset={};accounts=[];strategies=[];root?.replaceChildren();status=null;content=null;}
-  global.JTPRO={features,configure(value){reset();options={...value};},open,reset,verifyAccess,request,aggregateSeries,safeLink,get access(){return access;},get current(){return current;}};
+  global.JTPRO={features,configure(value){reset();options={...value};},open,reset,verifyAccess,request,aggregateSeries,safeLink,getGeminiApiKey,setGeminiApiKey,hasGeminiApiKey,callGeminiApi,renderMarkdown,renderMarkdownInto,openGeminiConfigModal,get access(){return access;},get current(){return current;}};
 })(window);
