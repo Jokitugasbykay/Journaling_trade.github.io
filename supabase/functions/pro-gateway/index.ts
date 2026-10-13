@@ -142,7 +142,7 @@ export async function handler(req: Request): Promise<Response> {
       return respond(await rpc('journal_market_preference',{p_style:req.method==='PUT'?body.trading_style:null}) || {});
     }
     const pythonApi = (Deno.env.get('PRO_PYTHON_API_URL') || '').replace(/\/+$/, '');
-    if (pythonApi && (route==='/market/instruments' || route.startsWith('/market/context') || route==='/market/refresh' || route==='/ai/engine' || route==='/ai/market-analysis' || route==='/ai/chat' || route==='/ai/behaviour-analysis' || route==='/ai/journal-analysis')) {
+    if (pythonApi && (route==='/market/instruments' || route.startsWith('/market/context') || route==='/market/refresh' || route==='/ai/engine' || route==='/ai/market-analysis' || route==='/ai/chat' || route==='/ai/behaviour-analysis' || route==='/ai/journal-analysis' || /^\/ai\/jobs\/[^/]+\/retry$/.test(route) || (route==='/market/signals' && req.method==='POST' && body.action!=='dismiss'))) {
       const targetUrl = pythonApi + '/api/v1' + route + (url.search || '');
       const fwdHeaders: Record<string, string> = {'Authorization': auth, 'Content-Type': 'application/json'};
       const idemp = req.headers.get('Idempotency-Key');
@@ -155,6 +155,7 @@ export async function handler(req: Request): Promise<Response> {
           signal: AbortSignal.timeout(30000)
         });
         const upstreamData = await upstreamRes.json().catch(() => null);
+        if (route==='/market/instruments' && upstreamRes.status===503) return respond({items:[],status:'No authorized backend market feed is configured'});
         return respond(upstreamData, upstreamRes.status);
       } catch {
         throw new Failure(503, 'The self-hosted Python AI service is unreachable at ' + pythonApi + '. No AI credit was used.');

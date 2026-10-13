@@ -264,7 +264,7 @@
       if(['failed','cancelled','expired'].includes(job.state))return job;
       if(kind==='ai'||kind==='chat')parent.append(button(kind==='chat'?'Cancel response':'Cancel analysis',async()=>{await request('/ai/jobs/'+job.id+'/cancel',{method:'POST',body:{}});},'pro-ai-cancel'));
       await new Promise((resolve,reject)=>{const timer=setTimeout(resolve,2000);const cancel=()=>{clearTimeout(timer);reject(new DOMException('Account changed','AbortError'));};controller.signal.addEventListener('abort',cancel,{once:true});setTimeout(()=>controller.signal.removeEventListener('abort',cancel),2100);});
-      job=await request('/'+(kind==='ai'?'ai/jobs':kind==='reviews'?'jobs':'reports')+'/'+job.id);
+      job=await request('/'+(kind==='ai'||kind==='chat'?'ai/jobs':kind==='reviews'?'jobs':'reports')+'/'+job.id);
     }
     if(epoch===revision)parent.append(node('p','The job is still processing. Check its status in history.','pro-muted'));
     return job;
@@ -429,7 +429,7 @@
       const row=mapped.find(item=>item.symbol===instrument.input.value),frame=next==='SWING'?'4h':'15m';
       await choose(row.timeframes.includes(frame)?frame:row.timeframes[0]);
     }));
-    const catalog=await request('/market/instruments');mapped=catalog.items || [];chartOnly=!mapped.length;
+    const catalog=await request('/market/instruments').catch(()=>({items:[],status:'No authorized backend market feed is configured'}));mapped=catalog.items || [];chartOnly=!mapped.length;
     if(chartOnly)mapped=[
       {symbol:'XAUUSD',name:'Gold / US Dollar',asset_class:'Metals · chart only',tradingview_symbol:'OANDA:XAUUSD',timeframes:Object.keys(timeframes)},
       {symbol:'EURUSD',name:'Euro / US Dollar',asset_class:'Forex · chart only',tradingview_symbol:'OANDA:EURUSD',timeframes:Object.keys(timeframes)},

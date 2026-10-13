@@ -324,6 +324,13 @@ class ApiContracts(unittest.TestCase):
         self.assertEqual(oversized.status_code, 413)
 
     def test_market_catalog_engine_and_authorization(self):
+        preflight = self.client.options(
+            "/api/v1/market/preference",
+            headers={"Origin": "https://jokitugasbykay.github.io", "Access-Control-Request-Method": "PUT"},
+        )
+        self.assertEqual(preflight.status_code, 200)
+        self.assertEqual(preflight.headers.get("access-control-allow-origin"), "https://jokitugasbykay.github.io")
+        self.assertIn("PUT", preflight.headers.get("access-control-allow-methods", ""))
         self.assertEqual(self.client.get('/api/v1/market/instruments').status_code, 401)
         for plan in ('free', 'plus'):
             self.plan = plan
@@ -333,6 +340,14 @@ class ApiContracts(unittest.TestCase):
         self.assertEqual(self.client.get('/api/v1/market/instruments', headers=self.headers).status_code, 503)
         result = self.client.get('/api/v1/ai/engine', headers=self.headers)
         self.assertEqual(result.json()['status'], 'unavailable')
+        self.assertFalse(result.json()['available'])
+        self.assertEqual(result.json()['market_feed'], 'unavailable')
+        with patch("services.pro_api.app.model_available", new=AsyncMock(return_value={"name": "qwen3:0.6b", "digest": "verified"})):
+            ready_engine = self.client.get('/api/v1/ai/engine', headers=self.headers).json()
+        self.assertEqual(ready_engine['status'], 'ready')
+        self.assertTrue(ready_engine['available'])
+        self.assertEqual(ready_engine['name'], 'qwen3:0.6b')
+        self.assertEqual(ready_engine['market_feed'], 'unavailable')
         self.assertEqual(self.job_calls, 0)
         result = self.client.post('/api/v1/ai/market-analysis', headers=self.headers, json={})
         self.assertEqual(result.status_code, 422)

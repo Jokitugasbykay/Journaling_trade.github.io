@@ -167,7 +167,7 @@ def create_app(settings=None, transport=None):
 
     app = FastAPI(title="journalingtrade Pro Gateway", version="1.0.0", lifespan=lifespan)
     app.state.settings = settings
-    app.add_middleware(CORSMiddleware, allow_origins=list(settings.origins), allow_methods=["GET", "POST", "PATCH", "DELETE"],
+    app.add_middleware(CORSMiddleware, allow_origins=list(settings.origins), allow_methods=["GET", "POST", "PUT", "PATCH", "DELETE"],
                        allow_headers=["Authorization", "Content-Type", "Idempotency-Key"], allow_credentials=False)
 
     @app.middleware("http")
@@ -520,11 +520,12 @@ def create_app(settings=None, transport=None):
 
     @app.get("/api/v1/ai/engine")
     async def engine_status(user: ProDep, request: Request):
+        market_feed_configured = (settings.market_root / "manifest.json").is_file()
         try:
             model = await model_available(request.app.state.client, settings)
-            return {"status": "ready", "name": model["name"], "version": model["digest"], "methodology": VERSION, "forecasting_model": None}
+            return {"available": True, "status": "ready", "name": model["name"], "version": model["digest"], "methodology": VERSION, "market_feed": "configured" if market_feed_configured else "unavailable", "forecasting_model": None}
         except HTTPException as exc:
-            return {"status": "unavailable", "detail": exc.detail, "forecasting_model": None}
+            return {"available": False, "status": "unavailable", "detail": exc.detail, "methodology": VERSION, "market_feed": "configured" if market_feed_configured else "unavailable", "forecasting_model": None}
 
     @app.get("/api/v1/market/context")
     async def market_context(user: ProDep, instrument: str = Query(pattern=r"^[A-Z0-9_]{1,30}$"), timeframe: str = Query(pattern=r"^(1m|5m|15m|30m|1h|4h|1d)$"), trading_style: str | None = Query(default=None, pattern=r"^(SCALPING|INTRADAY|SWING)$")):

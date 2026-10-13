@@ -185,23 +185,8 @@ def correlation(candles, other):
             "sample_size": len(x), "warning": "Historical correlation is not causation and may change"}
 
 
-_MARKET_CONTEXT_CACHE: dict[tuple, tuple[datetime, dict]] = {}
-
-
 def instrument_catalog(settings):
     path = settings.market_root / "manifest.json"
-    if not path.is_file() and getattr(settings, "market_provider", ""):
-        from .providers import DEFAULT_INSTRUMENTS
-        items = []
-        for symbol, meta in DEFAULT_INSTRUMENTS.items():
-            items.append({
-                "symbol": symbol,
-                "name": meta["name"],
-                "asset_class": meta["asset_class"],
-                "tradingview_symbol": meta["tradingview_symbol"],
-                "timeframes": meta["timeframes"],
-            })
-        return {"items": items, "timeframes": list(TIMEFRAMES)}
     try:
         if path.stat().st_size > 100000:
             raise ValueError("Manifest too large")
@@ -215,92 +200,39 @@ def instrument_catalog(settings):
                 raise ValueError("Invalid provider timeframe mapping")
             items.append({"symbol": symbol, "name": row.get("name", symbol), "asset_class": row.get("asset_class", "Unspecified"),
                           "tradingview_symbol": row["tradingview_symbol"], "timeframes": frames})
-        return {"items": items, "timeframes": list(TIMEFRAMES), "auto_refresh_provider": manifest.get("auto_refresh_provider")}
+        return {"items": items, "timeframes": list(TIMEFRAMES)}
     except (OSError, ValueError, KeyError, TypeError, AttributeError) as exc:
         raise HTTPException(503, "An authorized provider instrument manifest is unavailable or invalid") from exc
 
 
-def load_market(settings, instrument, timeframe, now=None, trading_style=None, force_refresh=False):
+def load_market(settings, instrument, timeframe, now=None, trading_style=None):
     if not re.fullmatch(r"[A-Z0-9_]{1,30}", instrument) or timeframe not in TIMEFRAMES:
         raise HTTPException(422, "Unsupported instrument or timeframe")
-    catalog = instrument_catalog(settings)
-    mapped = next((row for row in catalog["items"] if row["symbol"] == instrument), None)
+    # Operator configuration is the authorization boundary; users cannot supply a URL or path.
+    mapped = next((row for row in instrument_catalog(settings)["items"] if row["symbol"] == instrument), None)
     if mapped is None or timeframe not in mapped["timeframes"]:
         raise HTTPException(422, "Instrument or timeframe is not configured by the authorized provider")
-
-    auto_provider = getattr(settings, "market_provider", "") or catalog.get("auto_refresh_provider")
-    now_utc = now or datetime.now(timezone.utc)
     path = (settings.market_root / f"{instrument}_{timeframe}.json").resolve()
-
-    # If force_refresh is requested or disk snapshot is missing/expired, invoke live provider if configured
-    if auto_provider and (force_refresh or not path.is_file() or path.parent != settings.market_root):
-        from .providers import get_market_snapshot
-        try:
-            snapshot = get_market_snapshot(
-                instrument,
-                timeframe,
-                data_root=settings.data_root,
-                market_root=settings.market_root,
-                now=now_utc,
-                force_refresh=force_refresh,
-            )
-        except Exception as exc:
-            raise HTTPException(503, f"Live market data provider unavailable: {exc}") from exc
-    else:
-        if path.parent != settings.market_root or not path.is_file() or path.stat().st_size > 5_000_000:
-            raise HTTPException(503, "Market snapshot is unavailable")
-        try:
-            snapshot = Snapshot.model_validate_json(path.read_bytes())
-        except Exception as exc:
-            raise HTTPException(503, "The configured market snapshot failed validation") from exc
-
+    if path.parent != settings.market_root or not path.is_file() or path.stat().st_size > 5_000_000:
+        raise HTTPException(503, "Market snapshot is unavailable")
     try:
-        now = now_utc
+        snapshot = Snapshot.model_validate_json(path.read_bytes())
+        now = now or datetime.now(timezone.utc)
         if snapshot.instrument != instrument or snapshot.timeframe != timeframe:
             raise ValueError("Snapshot mapping mismatch")
         if any(r.tradingview_symbol != mapped["tradingview_symbol"] for r in snapshot.technicals):
             raise ValueError("Technicals belong to another instrument")
         if snapshot.as_of > now + timedelta(seconds=30) or snapshot.valid_until < now:
-            # If auto_provider is active and snapshot expired, try refreshing
-            if auto_provider and not force_refresh:
-                from .providers import get_market_snapshot
-                try:
-                    snapshot = get_market_snapshot(
-                        instrument,
-                        timeframe,
-                        data_root=settings.data_root,
-                        market_root=settings.market_root,
-                        now=now,
-                        force_refresh=True,
-                    )
-                except Exception:
-                    raise HTTPException(409, "Market data is stale or its timestamp is invalid")
-            else:
-                raise HTTPException(409, "Market data is stale or its timestamp is invalid")
+            raise HTTPException(409, "Market data is stale or its timestamp is invalid")
         if snapshot.market_open and now - snapshot.as_of > timedelta(seconds=TIMEFRAMES[timeframe] * 2):
-            if auto_provider and not force_refresh:
-                from .providers import get_market_snapshot
-                try:
-                    snapshot = get_market_snapshot(
-                        instrument,
-                        timeframe,
-                        data_root=settings.data_root,
-                        market_root=settings.market_root,
-                        now=now,
-                        force_refresh=True,
-                    )
-                except Exception:
-                    raise HTTPException(409, "Market data is stale")
-            else:
-                raise HTTPException(409, "Market data is stale")
+            raise HTTPException(409, "Market data is stale")
         if snapshot.market_open and now - snapshot.candles[-1].timestamp > timedelta(seconds=TIMEFRAMES[timeframe] * 2):
             raise HTTPException(409, "The latest market bar is stale")
         for frame, candles in snapshot.other_timeframes.items():
             stamps = [c.timestamp for c in candles]
             if frame not in TIMEFRAMES or len(candles) < 51 or candles[-1].timestamp > snapshot.as_of or stamps != sorted(set(stamps)):
                 raise ValueError("Invalid multi-timeframe evidence")
-            mtf_max_stale = timedelta(days=4) if frame == "1d" else timedelta(days=3) if frame == "4h" else timedelta(seconds=TIMEFRAMES[frame] * 2)
-            if snapshot.market_open and now - candles[-1].timestamp > mtf_max_stale:
+            if snapshot.market_open and now - candles[-1].timestamp > timedelta(seconds=TIMEFRAMES[frame] * 2):
                 raise HTTPException(409, "Multi-timeframe market data is stale")
 
         closed = [c for c in snapshot.candles if c.timestamp + timedelta(seconds=TIMEFRAMES[timeframe]) <= snapshot.as_of]
