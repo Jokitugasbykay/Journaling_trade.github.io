@@ -609,7 +609,7 @@ Gunakan format Markdown (bold, tabel, bullet points, blok kode) untuk memperjela
         history.replaceChildren();history.append(node('h2','Analysis history'),node('p',err.name==='TimeoutError'?'History load timed out. Click "Retry section" above.':'Analysis history is currently unavailable: '+err.message,'pro-muted'));
       }
     };
-    toolbar.append(button(kind==='market'?'Analyze market':kind==='behaviour'?'Analyze behaviour':'Generate analysis',async()=>{
+    const generateBtn=button(kind==='market'?'Analyze market':kind==='behaviour'?'Analyze behaviour':'Generate analysis',async()=>{
       validateFilters();
       if(hasGeminiApiKey()){
         result.replaceChildren();
@@ -655,7 +655,14 @@ Gunakan format Markdown (bold, tabel, bullet points, blok kode) untuk memperjela
       const values={...filterValues(),...Object.fromEntries(Object.entries(config).map(([key,input])=>[key,input.value]))};
       if(kind==='market')await request('/market/context?'+query({instrument:values.instrument,timeframe:values.timeframe}));
       const job=await request('/ai/'+kind+'-analysis',{method:'POST',body:values,headers:{'Idempotency-Key':crypto.randomUUID()}});await watchJob('ai',job,result);await verifyAccess();showQuota();await loadHistory();
-    },'pro-ai-generate'));await loadHistory();
+    },'pro-ai-generate');
+    const geminiKeyBtn=button(hasGeminiApiKey()?'Gemini API Key: Connected':'Set Gemini API Key',()=>{
+      openGeminiConfigModal(()=>{
+        showQuota();
+        geminiKeyBtn.textContent=hasGeminiApiKey()?'Gemini API Key: Connected':'Set Gemini API Key';
+      });
+    },'pro-gemini-key-btn-'+kind);
+    toolbar.append(generateBtn,geminiKeyBtn);await loadHistory();
   }
   async function aiChat() {
     const quota=node('p',null,'pro-muted');
@@ -750,7 +757,14 @@ Gunakan format Markdown (bold, tabel, bullet points, blok kode) untuk memperjela
 
       await verifyAccess();showQuota();if(!(Number(access.ai?.remaining)>0))throw new Error('No AI allowance remains this month.');if(!global.confirm('A successful AI reply uses one shared monthly AI allowance. Continue?'))return;const job=await request('/ai/chat',{method:'POST',body:{message},headers:{'Idempotency-Key':crypto.randomUUID()}});input.value='';messages.replaceChildren(bubble('user',message));await watchJob('chat',job,messages,answer);await load();await verifyAccess();showQuota();
     },'pro-ai-chat-send');
-    input.addEventListener('keydown',event=>{if(event.key==='Enter'&&(event.ctrlKey||event.metaKey)){event.preventDefault();send.click();}});composer.append(input,send);
+    input.addEventListener('keydown',event=>{if(event.key==='Enter'&&(event.ctrlKey||event.metaKey)){event.preventDefault();send.click();}});
+    const geminiChatKeyBtn=button(hasGeminiApiKey()?'Gemini API Key: Connected':'Set Gemini API Key',()=>{
+      openGeminiConfigModal(()=>{
+        showQuota();
+        geminiChatKeyBtn.textContent=hasGeminiApiKey()?'Gemini API Key: Connected':'Set Gemini API Key';
+      });
+    },'pro-gemini-key-btn-chat');
+    composer.append(input,send,geminiChatKeyBtn);
     await Promise.all([load(),Promise.resolve(showQuota())]);
   }
   function disclosure(parent,title,value) {
@@ -933,9 +947,20 @@ Berikan penilaian BUY/SELL/NEUTRAL/NO TRADE, level Entry bersyarat, Stop Loss, T
       engine.replaceChildren();
       engine.append(node('h2','AI engine status'));
       if(hasGeminiApiKey()){
+        const badge=node('div',null,'pro-engine-status-badge');
+        badge.textContent='AI engine status: available: true (Gemini Connected)';
+        badge.style.display='inline-block';
+        badge.style.padding='4px 10px';
+        badge.style.marginBottom='10px';
+        badge.style.borderRadius='4px';
+        badge.style.background='rgba(34,197,94,0.15)';
+        badge.style.color='#4ade80';
+        badge.style.fontWeight='600';
+        badge.style.fontSize='13px';
+        engine.append(badge);
         details(engine,{
-          status:'ready (Connected)',
-          available:true,
+          status:'available: true (Gemini Connected) · ready (Connected)',
+          available:'true (Gemini Connected)',
           provider:'Google Gemini API ('+GEMINI_DEFAULT_MODEL+')',
           model:GEMINI_DEFAULT_MODEL,
           apiKey:'Browser storage (gemini_api_key)',

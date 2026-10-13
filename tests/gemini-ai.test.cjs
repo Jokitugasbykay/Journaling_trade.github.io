@@ -134,6 +134,7 @@ const server=http.createServer(async(req,res)=>{
 
   // Check AI engine status card shows connected
   const engineText = await page.locator('.pro-panel:has-text("AI engine status")').textContent();
+  assert.ok(engineText.includes('available: true (Gemini Connected)'));
   assert.ok(engineText.includes('ready (Connected)'));
   assert.ok(engineText.includes('gemini-2.5-flash'));
 
