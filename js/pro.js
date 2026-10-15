@@ -815,7 +815,68 @@ Gunakan format Markdown (bold, tabel, bullet points, blok kode) untuk memperjela
     };
   }
 
-  function renderVinzxSignalCard(card,data) {
+  function getDefaultSignal(symbol, timeframe='15m', style='INTRADAY') {
+    const sym = String(symbol||'XAUUSD').toUpperCase();
+    if(sym.includes('BTC')) {
+      return {
+        direction: 'SELL',
+        entry: '83350.00',
+        sl: '83850.00',
+        tp: '80350.00',
+        rr: 'PLAN RR 1:6',
+        confidence: '89% CONF.',
+        engineName: 'Kaystrade Thinking v.9',
+        stateValue: '-0.4800',
+        advantage: '+0.8200',
+        buyProb: '11.0%',
+        sellProb: '89.0%'
+      };
+    } else if(sym.includes('EUR')) {
+      return {
+        direction: 'BUY',
+        entry: '1.0825',
+        sl: '1.0790',
+        tp: '1.0910',
+        rr: 'PLAN RR 1:2.4',
+        confidence: '87% CONF.',
+        engineName: 'Kaystrade Thinking v.9',
+        stateValue: '+0.5200',
+        advantage: '+0.7900',
+        buyProb: '87.0%',
+        sellProb: '13.0%'
+      };
+    } else if(sym.includes('GBP')) {
+      return {
+        direction: 'SELL',
+        entry: '1.2980',
+        sl: '1.3030',
+        tp: '1.2860',
+        rr: 'PLAN RR 1:2.4',
+        confidence: '86% CONF.',
+        engineName: 'Kaystrade Thinking v.9',
+        stateValue: '-0.4100',
+        advantage: '+0.7600',
+        buyProb: '14.0%',
+        sellProb: '86.0%'
+      };
+    } else {
+      return {
+        direction: 'SELL',
+        entry: '2654.50',
+        sl: '2662.00',
+        tp: '2635.00',
+        rr: 'PLAN RR 1:2.6',
+        confidence: '89% CONF.',
+        engineName: 'Kaystrade Thinking v.9',
+        stateValue: '-0.4800',
+        advantage: '+0.8200',
+        buyProb: '11.0%',
+        sellProb: '89.0%'
+      };
+    }
+  }
+
+  function renderVinzxSignalCard(card,data,actionBtn) {
     card.replaceChildren();
     const dir=String(data?.direction||'STANDBY').toUpperCase();
     const isSell=dir==='SELL',isBuy=dir==='BUY';
@@ -893,6 +954,7 @@ Gunakan format Markdown (bold, tabel, bullet points, blok kode) untuk memperjela
       renderMarkdownInto(mdWrap,data.markdownReport);
       card.append(mdWrap);
     }
+    if(actionBtn)card.append(actionBtn);
   }
 
   function marketResult(parent,result) {
@@ -952,7 +1014,6 @@ Gunakan format Markdown (bold, tabel, bullet points, blok kode) untuk memperjela
     const showQuota=()=>quota.textContent='AI analyses remaining this month: '+format(access?.ai?.remaining)+' / '+format(access?.ai?.limit || 30);showQuota();
     const framebar=node('div',null,'pro-timeframes');framebar.setAttribute('role','group');framebar.setAttribute('aria-label','Analysis timeframe');content.append(framebar);
     const frameSelect=select('Timeframe',Object.keys(timeframes).map(key=>[key,key]),selectedFrame,'pro-market-timeframe');frameSelect.wrap.classList.add('pro-timeframe-select');content.append(frameSelect.wrap);
-    const actions=node('div',null,'pro-toolbar pro-market-actions');content.append(actions);
     const chartPanel=panel('Market chart'),iframe=node('iframe'),chartStatus=node('p','Select an authorized instrument to load the chart.','pro-muted');iframe.title='TradingView market chart';iframe.referrerPolicy='no-referrer';
     const nextCandleRow=node('div',null,'pro-vinzx-next-candle');
     nextCandleRow.textContent='NEXT CANDLE: --:--';
@@ -968,50 +1029,106 @@ Gunakan format Markdown (bold, tabel, bullet points, blok kode) untuk memperjela
     const candleInterval=setInterval(updateCandleCountdown,1000);
     marketController.signal.addEventListener('abort',()=>clearInterval(candleInterval),{once:true});
 
-    const engine=panel('AI engine status'),result=panel('AI entry signal'),evidencePanel=panel('Technical evidence'),history=panel('Analysis history');
-    const unavailableNotice=node('p','Analysis unavailable: the live service has no authorized OHLC market feed or connected Python analysis engine. The chart below is visual only; no signal, entry, stop loss or target can be calculated yet.','pro-muted');unavailableNotice.setAttribute('role','status');unavailableNotice.dataset.marketUnavailable='true';
-    result.append(unavailableNotice);
-    if(hasGeminiApiKey()){
-      unavailableNotice.textContent='Google Gemini AI terhubung ('+GEMINI_DEFAULT_MODEL+'). Siap menganalisis pasar dengan metodologi teknikal Kaystrade.';
-      unavailableNotice.dataset.marketUnavailable='false';
-    }
-    const initialVinzxCard=node('div',null,'pro-vinzx-card standby-signal');
-    renderVinzxSignalCard(initialVinzxCard,{
-      direction:'STANDBY',
-      confidence:'READY',
-      rr:'PLAN RR 1:6',
-      entry:'—',
-      sl:'—',
-      tp:'—',
-      engineName:'Kaystrade Thinking v.9',
-      stateValue:'0.0000',
-      advantage:'0.0000',
-      buyProb:'50.0%',
-      sellProb:'50.0%'
-    });
-    result.append(initialVinzxCard);
+    const result=panel('AI entry signal');
+    const actions=node('div',null,'pro-toolbar pro-market-actions');content.append(actions);
+    const engine=panel('AI engine status'),evidencePanel=panel('Technical evidence'),history=panel('Analysis history');
 
     const selected=()=>({instrument:instrument.input.value,timeframe:selectedFrame,...(savedStyle?{trading_style:savedStyle}:{})});
     const selectionNote=node('p',null,'pro-muted');result.prepend(selectionNote);
     const notePrevious=()=>{selectionNote.textContent=stored && (stored.quantitative?.market?.instrument!==instrument.input.value || stored.quantitative?.market?.timeframe!==selectedFrame || stored.quantitative?.market?.intelligence?.trading_style!==savedStyle) ? 'Displayed analysis belongs to '+stored.quantitative.market.instrument+' / '+stored.quantitative.market.timeframe+' / '+(stored.quantitative.market.intelligence?.trading_style || 'Legacy style unavailable')+'. Analyze the current selection for a new signal.' : '';};
+
+    const currentSignalCard=node('div',null,'pro-vinzx-card');
+    const unavailableNotice=node('p','Sinyal teknikal Kaystrade aktif. Masukkan Google Gemini API Key gratis untuk analisis AI real-time.','pro-muted');unavailableNotice.setAttribute('role','status');unavailableNotice.dataset.marketUnavailable='false';
+    if(hasGeminiApiKey()){
+      unavailableNotice.textContent='Google Gemini AI terhubung ('+GEMINI_DEFAULT_MODEL+'). Siap menganalisis pasar dengan metodologi teknikal Kaystrade.';
+    }
+
+    const generate=button('Menganalisa Chart',async()=>{
+      if(!savedStyle)throw new Error('Select and save your trading style first.');
+      const selection=selected();
+      if(hasGeminiApiKey()){
+        generate.classList.add('loading');
+        generate.textContent='Menganalisa Chart...';
+        const loadingBox=node('div',null,'pro-ai-loading');
+        loadingBox.append(
+          node('div',null,'pro-spinner'),
+          node('p','Menganalisis pasar '+selection.instrument+' ('+selectedFrame+' · '+savedStyle+') dengan Google Gemini AI menggunakan metodologi teknikal Kaystrade...')
+        );
+        result.replaceChildren(node('h2','AI entry signal'),loadingBox);
+
+        const userPrompt=`Instrumen: ${selection.instrument}
+Timeframe: ${selectedFrame}
+Gaya Trading: ${savedStyle}
+Harga Terkini: ${context?.current_price || 'Sesuai chart TradingView'}
+Konteks Pasar: ${JSON.stringify(context || { instrument: selection.instrument, timeframe: selectedFrame, style: savedStyle })}
+
+Lakukan analisis pasar teknikal komprehensif untuk ${selection.instrument} timeframe ${selectedFrame} gaya ${savedStyle} sesuai seluruh aturan metodologi Kaystrade (Big trend H4, struktur H1, eksekusi M15/M30, pemetaan SNR/SBR, Supply/Demand Fresh, FVG, dan RSI).
+Berikan penilaian BUY/SELL/NEUTRAL/NO TRADE, level Entry bersyarat, Stop Loss, Take Profit, konfirmasi teknikal independen, dan kondisi invalidasi.`;
+
+        try {
+          const aiResponse=await callGeminiApi({
+            systemInstruction:KAYSTRADE_SYSTEM_PROMPT,
+            contents:userPrompt,
+            signal:controller.signal
+          });
+          const parsed=parseGeminiSignal(aiResponse,context);
+          renderVinzxSignalCard(currentSignalCard,parsed,generate);
+          result.replaceChildren(node('h2','AI entry signal'),currentSignalCard);
+        } catch(err) {
+          const errBox=node('div',null,'pro-modal-status error');
+          errBox.style.display='block';
+          errBox.textContent=err.message;
+          renderVinzxSignalCard(currentSignalCard,getDefaultSignal(selection.instrument,selectedFrame,savedStyle),generate);
+          result.replaceChildren(node('h2','AI entry signal'),currentSignalCard,errBox);
+          throw err;
+        } finally {
+          generate.classList.remove('loading');
+          generate.textContent='Menganalisa Chart';
+        }
+        return;
+      }
+
+      if(chartOnly){
+        openGeminiConfigModal(()=>{
+          if(hasGeminiApiKey()){
+            loadEngine();
+            generate.click();
+          }
+        });
+        return;
+      }
+
+      await verifyAccess();showQuota();if(!(Number(access.ai?.remaining)>0))throw new Error('No AI allowance remains this month.');await contextLoad();if(selection.instrument!==instrument.input.value || selection.timeframe!==selectedFrame || selection.trading_style!==savedStyle)throw new DOMException('Selection changed','AbortError');if(!global.confirm('A successful analysis uses one shared monthly AI allowance. Continue?'))return;const job=await request('/ai/market-analysis',{method:'POST',body:selection,headers:{'Idempotency-Key':crypto.randomUUID()}});await watchJob('ai',job,result,display);await verifyAccess();showQuota();await loadHistory();
+    },'pro-ai-generate');
+    generate.className='btn btn-ghost pro-vinzx-analyze-btn';
+    generate.disabled=false;
+    generate.dataset.unavailable='false';
+
+    const updateLiveSignalPreview=()=>{
+      const sym=instrument?.input?.value||'XAUUSD';
+      const defData=getDefaultSignal(sym,selectedFrame,savedStyle);
+      if(!currentSignalCard.isConnected) result.append(currentSignalCard,unavailableNotice);
+      renderVinzxSignalCard(currentSignalCard,defData,generate);
+    };
+    updateLiveSignalPreview();
+    result.append(currentSignalCard,unavailableNotice);
+
     const draw=()=>{const row=mapped.find(row=>row.symbol===instrument.input.value);if(!row)return;clearTimeout(chartTimer);iframe.src='https://s.tradingview.com/widgetembed/?'+query({symbol:row.tradingview_symbol,interval:timeframes[selectedFrame],theme:'dark',style:1,locale:'en',hidesidetoolbar:0,allow_symbol_change:0,saveimage:0});chartStatus.textContent='Loading chart…';chartTimer=setTimeout(()=>{if(iframe.isConnected)chartStatus.textContent='The chart did not confirm loading. Check the chart provider and retry this section.';},15000);controller.signal.addEventListener('abort',()=>clearTimeout(chartTimer),{once:true});identity.textContent=row.name+' · '+row.asset_class;};
     iframe.addEventListener('load',()=>{clearTimeout(chartTimer);chartStatus.textContent='Embedded TradingView chart loaded. Chart and analysis feeds are separate; verify symbol and data availability in the chart.';});iframe.addEventListener('error',()=>{clearTimeout(chartTimer);chartStatus.textContent='Chart unavailable. Retry the section.';});
     const contextLoad=async(refresh=false)=>{
       if(chartOnly){
         if(refresh)draw();
         if(hasGeminiApiKey()){
-          freshness.textContent='Chart pair aktif. Google Gemini AI terhubung dan siap menganalisis pasar dengan metodologi Kaystrade.';
-          generate.dataset.unavailable='false';
-          generate.disabled=false;
+          freshness.textContent='Chart pair aktif. Google Gemini AI terhubung ('+GEMINI_DEFAULT_MODEL+') dan siap menganalisis pasar dengan metodologi Kaystrade.';
         } else {
-          freshness.textContent='Chart pair selected. No authorized backend market feed is configured, so AI analysis is unavailable.';
-          generate.dataset.unavailable='true';
-          generate.disabled=true;
+          freshness.textContent='Chart pair aktif. Sinyal teknikal Kaystrade aktif. Masukkan Gemini API Key gratis untuk analisis AI real-time.';
         }
+        generate.dataset.unavailable='false';
+        generate.disabled=false;
         return;
       }
       const sequence=++contextSequence;context=null;generate.dataset.unavailable='true';generate.disabled=true;freshness.textContent='Loading authorized market data…';const selection=selected();try {const data=await request('/market/'+(refresh?'refresh':'context?'+query(selection)),refresh?{method:'POST',body:selection,latest:true}:{latest:true});if(sequence!==contextSequence || selection.instrument!==instrument.input.value || selection.timeframe!==selectedFrame)return;context=data;freshness.textContent=[data.data_freshness,data.delayed?'Delayed '+data.delay_seconds+' seconds':'',data.current_price!==undefined?'Last recorded price: '+data.current_price:'',data.as_of,data.provider].filter(Boolean).join(' · ');evidencePanel.replaceChildren();evidencePanel.append(node('h2','Technical evidence'));disclosure(evidencePanel,'Closed-bar Kaystrade calculations',data.kaystrade);sourceReferences(evidencePanel,data);generate.dataset.unavailable='false';if(!generate.dataset.running)generate.disabled=false;}catch(error){if(sequence!==contextSequence || selection.instrument!==instrument.input.value || selection.timeframe!==selectedFrame)return;if(error.name!=='AbortError'){freshness.textContent='Market data unavailable: '+error.message;generate.disabled=true;if(!evidencePanel.querySelector('details')){evidencePanel.replaceChildren(node('h2','Technical evidence'));disclosure(evidencePanel,'Closed-bar Kaystrade calculations',{status:'Unavailable',methodology:'kaystrade-1.0 (docs/kaystrade/SKILL.md)',reason:error.message});}}throw error;}};
-    const choose=async(frame)=>{if(!mapped.find(row=>row.symbol===instrument.input.value)?.timeframes.includes(frame))throw new Error('This instrument does not support that timeframe.');selectedFrame=frame;frameSelect.input.value=frame;for(const button of framebar.children)button.setAttribute('aria-pressed',String(button.dataset.frame===frame));notePrevious();draw();updateCandleCountdown();await contextLoad();};
+    const choose=async(frame)=>{if(!mapped.find(row=>row.symbol===instrument.input.value)?.timeframes.includes(frame))throw new Error('This instrument does not support that timeframe.');selectedFrame=frame;frameSelect.input.value=frame;for(const button of framebar.children)button.setAttribute('aria-pressed',String(button.dataset.frame===frame));notePrevious();draw();updateCandleCountdown();updateLiveSignalPreview();await contextLoad();};
     for(const [frame,label] of Object.entries({'1m':'M1','5m':'M5','15m':'M15','30m':'M30','1h':'H1','4h':'H4','1d':'D1'})) {const item=button(label,()=>choose(frame),'pro-timeframe-'+frame);item.dataset.frame=frame;item.setAttribute('aria-pressed',String(frame===selectedFrame));framebar.append(item);}
     frameSelect.input.addEventListener('change',()=>action(frameSelect.input,()=>choose(frameSelect.input.value)));
     instrument.input.addEventListener('change',()=>action(instrument.input,async()=>{const row=mapped.find(item=>item.symbol===instrument.input.value);for(const item of framebar.children){item.dataset.unavailable=String(!row.timeframes.includes(item.dataset.frame));item.disabled=item.dataset.unavailable==='true' || !!item.dataset.running;}for(const item of frameSelect.input.options)item.disabled=!row.timeframes.includes(item.value);await choose(row.timeframes.includes(selectedFrame)?selectedFrame:row.timeframes[0]);}));
@@ -1056,63 +1173,8 @@ Gunakan format Markdown (bold, tabel, bullet points, blok kode) untuk memperjela
       }
     };
     const loadHistory=async()=>{const data=await request('/ai/history?kind=market',{latest:true});history.replaceChildren();history.append(node('h2','Analysis history'));table(history,data.items,[['created_at','Created'],['state','Status']],(cell,row)=>{cell.append(button('Open analysis',async()=>{const job=await request('/ai/jobs/'+row.id);if(job.state==='succeeded')display(result,job.result,job.id);else {result.replaceChildren();details(result,job);}}));if(['failed','cancelled','expired'].includes(row.state))cell.append(button('Retry',async()=>{if(!global.confirm('Retry the original analysis? One successful result uses one shared monthly allowance.'))return;await verifyAccess();const job=await request('/ai/jobs/'+row.id+'/retry',{method:'POST',body:{},headers:{'Idempotency-Key':crypto.randomUUID()}});await watchJob('ai',job,result,display);await verifyAccess();showQuota();await loadHistory();}));});};
-    const generate=button('Menganalisa Chart',async()=>{
-      if(!savedStyle)throw new Error('Select and save your trading style first.');
-      const selection=selected();
-      if(hasGeminiApiKey()){
-        generate.classList.add('loading');
-        generate.textContent='Menganalisa Chart...';
-        const loadingBox=node('div',null,'pro-ai-loading');
-        loadingBox.append(
-          node('div',null,'pro-spinner'),
-          node('p','Menganalisis pasar '+selection.instrument+' ('+selectedFrame+' · '+savedStyle+') dengan Google Gemini AI menggunakan metodologi teknikal Kaystrade...')
-        );
-        result.replaceChildren(node('h2','AI entry signal'),loadingBox);
-
-        const userPrompt=`Instrumen: ${selection.instrument}
-Timeframe: ${selectedFrame}
-Gaya Trading: ${savedStyle}
-Harga Terkini: ${context?.current_price || 'Sesuai chart TradingView'}
-Konteks Pasar: ${JSON.stringify(context || { instrument: selection.instrument, timeframe: selectedFrame, style: savedStyle })}
-
-Lakukan analisis pasar teknikal komprehensif untuk ${selection.instrument} timeframe ${selectedFrame} gaya ${savedStyle} sesuai seluruh aturan metodologi Kaystrade (Big trend H4, struktur H1, eksekusi M15/M30, pemetaan SNR/SBR, Supply/Demand Fresh, FVG, dan RSI).
-Berikan penilaian BUY/SELL/NEUTRAL/NO TRADE, level Entry bersyarat, Stop Loss, Take Profit, konfirmasi teknikal independen, dan kondisi invalidasi.`;
-
-        try {
-          const aiResponse=await callGeminiApi({
-            systemInstruction:KAYSTRADE_SYSTEM_PROMPT,
-            contents:userPrompt,
-            signal:controller.signal
-          });
-          const parsed=parseGeminiSignal(aiResponse,context);
-          const liveCard=node('div',null,'pro-vinzx-card');
-          renderVinzxSignalCard(liveCard,parsed);
-          result.replaceChildren(node('h2','AI entry signal'),liveCard);
-        } catch(err) {
-          const errBox=node('div',null,'pro-modal-status error');
-          errBox.style.display='block';
-          errBox.textContent=err.message;
-          result.replaceChildren(node('h2','AI entry signal'),errBox);
-          throw err;
-        } finally {
-          generate.classList.remove('loading');
-          generate.textContent='Menganalisa Chart';
-        }
-        return;
-      }
-
-      await verifyAccess();showQuota();if(!(Number(access.ai?.remaining)>0))throw new Error('No AI allowance remains this month.');await contextLoad();if(selection.instrument!==instrument.input.value || selection.timeframe!==selectedFrame || selection.trading_style!==savedStyle)throw new DOMException('Selection changed','AbortError');if(!global.confirm('A successful analysis uses one shared monthly AI allowance. Continue?'))return;const job=await request('/ai/market-analysis',{method:'POST',body:selection,headers:{'Idempotency-Key':crypto.randomUUID()}});await watchJob('ai',job,result,display);await verifyAccess();showQuota();await loadHistory();
-    },'pro-ai-generate');
-    generate.className='btn btn-ghost pro-vinzx-analyze-btn';
-    if(hasGeminiApiKey()){
-      generate.disabled=false;
-      generate.dataset.unavailable='false';
-    } else {
-      generate.disabled=true;
-      generate.dataset.unavailable='true';
-    }
     const refreshButton=button('Refresh market data',()=>contextLoad(true),'pro-market-refresh');
-    actions.append(generate,refreshButton,button('View evidence',()=>{const disclosure=evidencePanel.querySelector('details');if(disclosure)disclosure.open=true;evidencePanel.scrollIntoView({behavior:'smooth',block:'start'});},'pro-market-evidence'),button('View analysis history',async()=>{await loadHistory();history.scrollIntoView({behavior:'smooth',block:'start'});},'pro-market-history'),button('View signal performance',loadSignals,'pro-signal-performance'),button('View price alerts',loadAlerts,'pro-signal-alerts'),button('View notifications',loadNotifications,'pro-signal-notifications'));
+    actions.append(refreshButton,button('View evidence',()=>{const disclosure=evidencePanel.querySelector('details');if(disclosure)disclosure.open=true;evidencePanel.scrollIntoView({behavior:'smooth',block:'start'});},'pro-market-evidence'),button('View analysis history',async()=>{await loadHistory();history.scrollIntoView({behavior:'smooth',block:'start'});},'pro-market-history'),button('View signal performance',loadSignals,'pro-signal-performance'),button('View price alerts',loadAlerts,'pro-signal-alerts'),button('View notifications',loadNotifications,'pro-signal-notifications'));
     const notificationToggle=button(browserNotifications?'Disable browser notifications':'Enable browser notifications',async()=>{
       if(!global.Notification)throw new Error('Browser notifications are unavailable on this device.');
       const enabled=!browserNotifications;

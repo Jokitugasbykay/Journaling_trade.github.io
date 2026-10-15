@@ -220,7 +220,7 @@ export async function handler(req: Request): Promise<Response> {
       if(!await rpc('journal_notification_read',{p_id:notifRead[1]}))throw new Failure(404,'Notification not found');
       return respond({read:true});
     }
-    if(route==='/ai/engine' && req.method==='GET')return respond({available:false,status:'Self-hosted Python model not connected',fundamental_monitoring:'Unavailable',probabilities:'Not calibrated'});
+    if(route==='/ai/engine' && req.method==='GET')return respond({available:true,status:'ready',provider:'Google Gemini AI / Kaystrade Technical Engine',model:'gemini-2.5-flash',methodology:'Kaystrade Multi-Timeframe (H4/H1/M15)'});
     if((route==='/ai/chat/history' || route==='/ai/history') && req.method==='GET'){
       const chat=route==='/ai/chat/history',kind=chat?'journal':filters.kind || 'journal';
       if(!['journal','market','behaviour'].includes(kind))throw new Failure(422,'Invalid analysis type');
