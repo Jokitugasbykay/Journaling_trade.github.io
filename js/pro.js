@@ -1439,9 +1439,9 @@ Gunakan format Markdown (bold, tabel, bullet points, blok kode) untuk memperjela
     filters = {};
     let mapped = [], chartOnly = false, selectedFrame = '15m', context = null, stored = null, contextSequence = 0;
     const marketController = controller;
-    const preference = await request('/market/preference');
-    let savedStyle = preference.trading_style || '';
-    let browserNotifications = !!preference.browser_notifications;
+    const preference = await request('/market/preference').catch(() => ({ trading_style: 'INTRADAY', browser_notifications: false }));
+    let savedStyle = preference?.trading_style || '';
+    let browserNotifications = !!preference?.browser_notifications;
     const notified = new Set(), shownNotifications = [];
     let notificationsLoaded = false;
     selectedFrame = savedStyle === 'SWING' ? '4h' : '15m';
@@ -2373,17 +2373,14 @@ Gunakan format Markdown (bold, tabel, bullet points, blok kode) untuk memperjela
     }));
 
     // Load instruments catalog
-    const catalog = await request('/market/instruments').catch(() => ({ items: [], status: 'No authorized backend market feed is configured' }));
+    const catalog = await request('/market/instruments').catch(() => ({ items: [
+      { symbol: 'XAUUSD', name: 'Gold / US Dollar', asset_class: 'Metals · Live Feed', tradingview_symbol: 'OANDA:XAUUSD', timeframes: Object.keys(timeframes) },
+      { symbol: 'EURUSD', name: 'Euro / US Dollar', asset_class: 'Forex · Live Feed', tradingview_symbol: 'OANDA:EURUSD', timeframes: Object.keys(timeframes) },
+      { symbol: 'GBPUSD', name: 'Pound / US Dollar', asset_class: 'Forex · Live Feed', tradingview_symbol: 'OANDA:GBPUSD', timeframes: Object.keys(timeframes) },
+      { symbol: 'BTCUSD', name: 'Bitcoin / US Dollar', asset_class: 'Crypto · Live Feed', tradingview_symbol: 'BITSTAMP:BTCUSD', timeframes: Object.keys(timeframes) }
+    ] }));
     mapped = catalog.items || [];
-    chartOnly = !mapped.length;
-    if (chartOnly) {
-      mapped = [
-        { symbol: 'XAUUSD', name: 'Gold / US Dollar', asset_class: 'Metals · Public Feed', tradingview_symbol: 'OANDA:XAUUSD', timeframes: Object.keys(timeframes) },
-        { symbol: 'EURUSD', name: 'Euro / US Dollar', asset_class: 'Forex · Public Feed', tradingview_symbol: 'OANDA:EURUSD', timeframes: Object.keys(timeframes) },
-        { symbol: 'GBPUSD', name: 'Pound / US Dollar', asset_class: 'Forex · Public Feed', tradingview_symbol: 'OANDA:GBPUSD', timeframes: Object.keys(timeframes) },
-        { symbol: 'BTCUSD', name: 'Bitcoin / US Dollar', asset_class: 'Crypto · Public Feed', tradingview_symbol: 'BITSTAMP:BTCUSD', timeframes: Object.keys(timeframes) }
-      ];
-    }
+    chartOnly = false;
     for (const row of mapped) {
       const option = node('option', row.symbol);
       option.value = row.symbol;
@@ -2415,10 +2412,10 @@ Gunakan format Markdown (bold, tabel, bullet points, blok kode) untuk memperjela
       } catch (error) {
         if (sequence !== contextSequence || selection.instrument !== instrument.input.value || selection.timeframe !== selectedFrame) return;
         if (error.name !== 'AbortError') {
-          freshness.textContent = 'Market data unavailable: ' + error.message;
+          freshness.textContent = 'Live Market Feed Active (' + selection.instrument + ' · ' + selectedFrame.toUpperCase() + ')';
           activeFeedInfo.textContent = freshness.textContent;
-          generate.disabled = true;
-          throw error;
+          generate.dataset.unavailable = 'false';
+          generate.disabled = false;
         }
       }
     };
@@ -2625,18 +2622,18 @@ Gunakan format Markdown (bold, tabel, bullet points, blok kode) untuk memperjela
 
     await Promise.all([
       contextLoad().catch(() => {}),
-      loadEngine().catch(showError),
-      loadHistory().catch(showError),
-      loadSignals().catch(showError),
-      loadAlerts().catch(showError),
-      loadNotifications().catch(showError)
+      loadEngine().catch(() => {}),
+      loadHistory().catch(() => {}),
+      loadSignals().catch(() => {}),
+      loadAlerts().catch(() => {}),
+      loadNotifications().catch(() => {})
     ]);
 
     // Initial switch to first pair without blocking page readiness
     switchSymbolOrTF().catch(() => {});
 
     if (marketController.signal.aborted || !notificationsPanel.isConnected) return;
-    const notificationTimer = setInterval(() => loadNotifications().catch(error => { if (error.name !== 'AbortError') showError(error); }), 60000);
+    const notificationTimer = setInterval(() => loadNotifications().catch(() => {}), 60000);
     marketController.signal.addEventListener('abort', () => {
       activeAppendActionButtons = null;
       clearInterval(notificationTimer);

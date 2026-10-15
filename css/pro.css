@@ -1032,4 +1032,62 @@
   resize: vertical;
 }
 
+/* Kaystrade Fundamental & Big News TV Note Banner */
+.pro-funda-banner {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 11px 16px;
+  border-radius: 10px;
+  margin-bottom: 16px;
+  font-size: 12px;
+  line-height: 1.45;
+  word-break: break-word;
+  overflow-wrap: anywhere;
+}
+.pro-funda-banner.clear {
+  background: rgba(16, 185, 129, 0.08);
+  border: 1px solid rgba(16, 185, 129, 0.3);
+  color: #a7f3d0;
+}
+.pro-funda-banner.imminent {
+  background: rgba(245, 158, 11, 0.12);
+  border: 1px solid #f59e0b;
+  color: #fde68a;
+  box-shadow: 0 0 15px rgba(245, 158, 11, 0.2);
+}
+.pro-funda-banner-icon {
+  font-size: 20px;
+  flex-shrink: 0;
+}
+.pro-funda-banner-text {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.pro-funda-banner-text strong {
+  font-size: 12px;
+  letter-spacing: 0.02em;
+}
+.pro-funda-banner.clear .pro-funda-banner-text strong {
+  color: #34d399;
+}
+.pro-funda-banner.imminent .pro-funda-banner-text strong {
+  color: #fbbf24;
+}
+
+.funda-aligned {
+  color: #00e676 !important;
+  font-weight: 700;
+}
+.funda-conflict {
+  color: #ff2a5f !important;
+  font-weight: 700;
+}
+.funda-neutral {
+  color: #facc15 !important;
+  font-weight: 700;
+}
+
+
 
