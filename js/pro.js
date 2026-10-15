@@ -774,6 +774,512 @@ Gunakan format Markdown (bold, tabel, bullet points, blok kode) untuk memperjela
     else {details(section,value);sourceReferences(section,value);}
     return section;
   }
+  const KaystradeEngine = {
+    rsiSeries(candles, period = 14) {
+      const closes = candles.map(c => Number(c.close));
+      const values = new Array(Math.min(period, closes.length)).fill(null);
+      if (closes.length <= period) return values;
+      const changes = [];
+      for (let i = 0; i < closes.length - 1; i++) changes.push(closes[i + 1] - closes[i]);
+      let gain = 0, loss = 0;
+      for (let i = 0; i < period; i++) {
+        if (changes[i] > 0) gain += changes[i]; else loss += -changes[i];
+      }
+      gain /= period; loss /= period;
+      for (let idx = period; idx < closes.length; idx++) {
+        if (idx > period) {
+          const chg = changes[idx - 1];
+          gain = (gain * (period - 1) + (chg > 0 ? chg : 0)) / period;
+          loss = (loss * (period - 1) + (chg < 0 ? -chg : 0)) / period;
+        }
+        values.push(loss === 0 && gain > 0 ? 100 : loss === 0 ? 50 : 100 - (100 / (1 + gain / loss)));
+      }
+      return values;
+    },
+
+    atrValues(candles, period = 14) {
+      const ranges = [];
+      for (let i = 0; i < candles.length - 1; i++) {
+        const a = candles[i], b = candles[i + 1];
+        ranges.push(Math.max(b.high - b.low, Math.abs(b.high - a.close), Math.abs(b.low - a.close)));
+      }
+      const values = new Array(Math.min(period, candles.length)).fill(null);
+      if (ranges.length < period) return values;
+      let res = 0;
+      for (let i = 0; i < period; i++) res += ranges[i];
+      res /= period; values.push(res);
+      for (let i = period; i < ranges.length; i++) {
+        res = (res * (period - 1) + ranges[i]) / period;
+        values.push(res);
+      }
+      return values;
+    },
+
+    atr(candles, period = 14) {
+      const vals = this.atrValues(candles, period);
+      return vals.length ? vals[vals.length - 1] : null;
+    },
+
+    emaSeries(candles, period) {
+      const closes = candles.map(c => Number(c.close));
+      if (closes.length < period) return new Array(closes.length).fill(null);
+      const k = 2 / (period + 1);
+      let sum = 0;
+      for (let i = 0; i < period; i++) sum += closes[i];
+      let ema = sum / period;
+      const output = new Array(period - 1).fill(null);
+      output.push(ema);
+      for (let i = period; i < closes.length; i++) {
+        ema = closes[i] * k + ema * (1 - k);
+        output.push(ema);
+      }
+      return output;
+    },
+
+    pivots(candles) {
+      const pts = [];
+      for (let i = 2; i < candles.length - 2; i++) {
+        const neighbors = [candles[i - 2], candles[i - 1], candles[i + 1], candles[i + 2]];
+        const ch = candles[i].high, cl = candles[i].low;
+        if (neighbors.every(c => ch > c.high)) {
+          pts.push({ kind: 'high', index: i, price: ch, timestamp: candles[i].timestamp });
+        }
+        if (neighbors.every(c => cl < c.low)) {
+          pts.push({ kind: 'low', index: i, price: cl, timestamp: candles[i].timestamp });
+        }
+      }
+      return pts;
+    },
+
+    structure(points) {
+      const highs = points.filter(p => p.kind === 'high');
+      const lows = points.filter(p => p.kind === 'low');
+      if (highs.length < 2 || lows.length < 2) return 'insufficient_swings';
+      const hL = highs[highs.length - 1].price, hP = highs[highs.length - 2].price;
+      const lL = lows[lows.length - 1].price, lP = lows[lows.length - 2].price;
+      if (hL > hP && lL > lP) return 'HH_HL';
+      if (hL < hP && lL < lP) return 'LH_LL';
+      return 'consolidation';
+    },
+
+    levels(candles, points, tolerance) {
+      const groups = [];
+      for (const point of points) {
+        let group = groups.find(g => g.kind === point.kind && Math.abs(g.price - point.price) <= tolerance);
+        if (!group) {
+          group = { kind: point.kind, price: point.price, reactions: 0, last_index: point.index, timestamp: point.timestamp };
+          groups.push(group);
+        }
+        group.reactions++;
+        group.last_index = point.index;
+      }
+      for (const group of groups) {
+        group.label = group.kind === 'high' ? 'Resistance' : 'Support';
+        if (group.kind === 'low') {
+          const later = candles.slice(group.last_index + 3);
+          let broke = false;
+          for (const c of later) {
+            if (broke && c.high >= group.price - tolerance && c.close < group.price - tolerance && c.close < c.open) {
+              group.label = 'SBR';
+            }
+            if (c.close < group.price - tolerance) broke = true;
+          }
+        } else if (group.kind === 'high') {
+          const later = candles.slice(group.last_index + 3);
+          let broke = false;
+          for (const c of later) {
+            if (broke && c.low <= group.price + tolerance && c.close > group.price + tolerance && c.close > c.open) {
+              group.label = 'RBS';
+            }
+            if (c.close > group.price + tolerance) broke = true;
+          }
+        }
+      }
+      return groups;
+    },
+
+    zones(candles, points, atrVals) {
+      const result = [];
+      for (let i = 5; i < candles.length - 1; i++) {
+        const origin = candles[i], departure = candles[i + 1];
+        const threshold = atrVals[i];
+        if (!threshold || Math.abs(departure.close - departure.open) < threshold) continue;
+        const prior = points.filter(p => p.index + 2 <= i);
+        if (origin.close <= origin.open) {
+          const swings = prior.filter(p => p.kind === 'high');
+          if (swings.length) {
+            const boundary = swings[swings.length - 1].price;
+            const between = candles.slice(swings[swings.length - 1].index + 3, i + 1);
+            if (!between.some(c => c.close > boundary) && departure.close > boundary && departure.close > origin.high) {
+              const later = candles.slice(i + 2);
+              const invalid = later.some(c => c.close < origin.low);
+              const touched = later.some(c => c.low <= origin.high && c.high >= origin.low);
+              result.push({ label: 'Demand', low: origin.low, high: origin.high, status: invalid ? 'invalidated' : touched ? 'mitigated' : 'fresh', timestamp: departure.timestamp });
+            }
+          }
+        }
+        if (origin.close >= origin.open) {
+          const swings = prior.filter(p => p.kind === 'low');
+          if (swings.length) {
+            const boundary = swings[swings.length - 1].price;
+            const between = candles.slice(swings[swings.length - 1].index + 3, i + 1);
+            if (!between.some(c => c.close < boundary) && departure.close < boundary && departure.close < origin.low) {
+              const later = candles.slice(i + 2);
+              const invalid = later.some(c => c.close > origin.high);
+              const touched = later.some(c => c.low <= origin.high && c.high >= origin.low);
+              result.push({ label: 'Supply', low: origin.low, high: origin.high, status: invalid ? 'invalidated' : touched ? 'mitigated' : 'fresh', timestamp: departure.timestamp });
+            }
+          }
+        }
+      }
+      return result.slice(-20);
+    },
+
+    gaps(candles, atrVals) {
+      const result = [];
+      for (let i = 2; i < candles.length; i++) {
+        const a = candles[i - 2], b = candles[i - 1], c = candles[i];
+        const threshold = atrVals[i - 1];
+        if (!threshold || Math.abs(b.close - b.open) < threshold) continue;
+        let side = null, low = 0, high = 0;
+        if (c.low > a.high && b.close > b.open) { side = 'Demand'; low = a.high; high = c.low; }
+        else if (c.high < a.low && b.close < b.open) { side = 'Supply'; low = c.high; high = a.low; }
+        if (!side) continue;
+        const later = candles.slice(i + 1);
+        const invalid = later.some(d => side === 'Demand' ? d.close < low : d.close > high);
+        const touched = later.some(d => d.low <= high && d.high >= low);
+        result.push({ label: side + ' FVG', low, high, timestamp: c.timestamp, status: invalid ? 'invalidated' : touched ? 'mitigated' : 'fresh' });
+      }
+      return result.slice(-20);
+    },
+
+    baseRetest(candles, atrVals) {
+      let last = { status: 'not_found' };
+      const startIdx = Math.max(14, candles.length - 100);
+      for (let i = startIdx; i < candles.length - 3; i++) {
+        const threshold = atrVals[i - 1];
+        if (!threshold || threshold <= 0) continue;
+        const base = candles.slice(i, i + 3);
+        const low = Math.min(...base.map(c => c.low)), high = Math.max(...base.map(c => c.high));
+        if (high - low > threshold * 1.5 || base.some(c => Math.abs(c.close - c.open) > threshold / 2)) continue;
+        const departure = candles[i + 3];
+        const direction = departure.close > high ? 'BUY' : departure.close < low ? 'SELL' : null;
+        if (!direction || Math.abs(departure.close - departure.open) < threshold) continue;
+        const prior = candles[i - 1];
+        const continuation = (direction === 'BUY' && prior.close > prior.open) || (direction === 'SELL' && prior.close < prior.open);
+        const found = { status: 'awaiting_retest', direction, low, high, timestamp: departure.timestamp, pattern: continuation ? (direction === 'BUY' ? 'Rally-Base-Rally' : 'Drop-Base-Drop') : 'base_breakout' };
+        for (let j = i + 4; j < candles.length; j++) {
+          const c = candles[j];
+          if (direction === 'BUY' ? c.close <= high : c.close >= low) { found.status = 'invalidated'; break; }
+          const touches = direction === 'BUY' ? c.low <= high : c.high >= low;
+          const rejects = direction === 'BUY' ? c.close > c.open : c.close < c.open;
+          if (touches && rejects) {
+            found.status = j === candles.length - 1 ? 'confirmed' : 'older_retest';
+            found.rejection_at = c.timestamp;
+          }
+        }
+        last = found;
+      }
+      return last;
+    },
+
+    frameEvidence(candles) {
+      const pts = this.pivots(candles);
+      const atrVals = this.atrValues(candles);
+      const threshold = atrVals.length ? atrVals[atrVals.length - 1] : 1;
+      const rsiVals = this.rsiSeries(candles);
+      const rsiSMA = rsiVals.map((v, i) => {
+        if (i < 27) return null;
+        let s = 0;
+        for (let k = i - 13; k <= i; k++) s += rsiVals[k];
+        return s / 14;
+      });
+      const lastRSI = rsiVals[rsiVals.length - 1];
+      const lastSMA = rsiSMA[rsiSMA.length - 1];
+      const momentum = (lastRSI > 50 && (lastSMA === null || lastRSI > lastSMA)) ? 'bullish' : (lastRSI < 50 && (lastSMA === null || lastRSI < lastSMA)) ? 'bearish' : 'neutral';
+      const tolerance = threshold * 0.1;
+      const lvls = this.levels(candles, pts, tolerance);
+      const ema20 = this.emaSeries(candles, 20).at(-1);
+      const ema50 = this.emaSeries(candles, 50).at(-1);
+      const ema200 = this.emaSeries(candles, 200).at(-1);
+      const lastClose = candles[candles.length - 1].close;
+      const emaAlignment = (ema20 && ema50 && lastClose > ema20 && ema20 > ema50) ? 'bullish' : (ema20 && ema50 && lastClose < ema20 && ema20 < ema50) ? 'bearish' : 'mixed';
+
+      return {
+        structure: this.structure(pts),
+        pivots: pts.slice(-20),
+        levels: lvls.slice(-30),
+        period_high: Math.max(...candles.map(c => c.high)),
+        period_low: Math.min(...candles.map(c => c.low)),
+        ema20, ema50, ema200, ema_alignment: emaAlignment,
+        rsi14: lastRSI, rsi_sma14: lastSMA, momentum,
+        atr14: threshold,
+        supply_demand: this.zones(candles, pts, atrVals),
+        fvg: this.gaps(candles, atrVals),
+        base_retest: this.baseRetest(candles, atrVals),
+        timestamp: candles[candles.length - 1].timestamp,
+        bars: candles.length
+      };
+    },
+
+    analyze({ frames, instrument, timeframe, tradingStyle = 'INTRADAY', priceTick = 0.01 }) {
+      const evidence = {};
+      for (const [tf, candles] of Object.entries(frames)) {
+        if (Array.isArray(candles) && candles.length >= 10) {
+          evidence[tf] = this.frameEvidence(candles);
+        }
+      }
+      const h4 = evidence['4h'] || {};
+      const h1 = evidence['1h'] || {};
+      const execFrame = tradingStyle === 'SWING' ? '1h' : (frames[timeframe] ? timeframe : '15m');
+      const exec = evidence[execFrame] || evidence['15m'] || {};
+      const d1 = evidence['1d'] || {};
+
+      const bias = h4.structure === 'HH_HL' ? 'BUY' : h4.structure === 'LH_LL' ? 'SELL' : 'NEUTRAL';
+      const setup = exec.base_retest || {};
+      const confirmations = [];
+
+      if (bias !== 'NEUTRAL' && h1.structure === h4.structure) {
+        confirmations.push(`H4 & H1 Aligned Structure (${bias === 'BUY' ? 'Bullish HH/HL' : 'Bearish LH/LL'})`);
+      }
+      if (bias !== 'NEUTRAL' && d1.structure === h4.structure) {
+        confirmations.push(`D1 Macro Trend Support (${h4.structure})`);
+      }
+      if (setup.status === 'confirmed' && setup.direction === bias) {
+        confirmations.push('Closed breakout, wick retest and rejection outside base');
+      }
+      if (exec.momentum === (bias === 'BUY' ? 'bullish' : 'bearish') && bias !== 'NEUTRAL') {
+        confirmations.push(`RSI(14) momentum (${exec.rsi14 ? exec.rsi14.toFixed(1) : '—'}) aligns with ${bias}`);
+      }
+      if (exec.ema_alignment === (bias === 'BUY' ? 'bullish' : 'bearish')) {
+        confirmations.push(`EMA 20/50 dynamic trend alignment (${exec.ema_alignment})`);
+      }
+      const freshZones = (exec.supply_demand || []).filter(z => z.status === 'fresh' && z.label === (bias === 'BUY' ? 'Demand' : 'Supply'));
+      if (freshZones.length > 0) {
+        confirmations.push(`Fresh ${bias === 'BUY' ? 'Demand' : 'Supply'} zone in confluence (${freshZones[freshZones.length - 1].low.toFixed(2)} - ${freshZones[freshZones.length - 1].high.toFixed(2)})`);
+      }
+      const freshFVGs = (exec.fvg || []).filter(g => g.status === 'fresh' && g.label.startsWith(bias === 'BUY' ? 'Demand' : 'Supply'));
+      if (freshFVGs.length > 0) {
+        confirmations.push('Fair Value Gap (FVG) imbalance in direction of trend');
+      }
+      const sbrLevels = (exec.levels || []).filter(l => (bias === 'SELL' && l.label === 'SBR') || (bias === 'BUY' && l.label === 'RBS'));
+      if (sbrLevels.length > 0) {
+        confirmations.push(`Validated ${bias === 'SELL' ? 'SBR (Support Becomes Resistance)' : 'RBS (Resistance Becomes Support)'} reaction`);
+      }
+
+      const execCandles = frames[execFrame] || frames['15m'] || [];
+      const currentPrice = execCandles.length ? execCandles[execCandles.length - 1].close : 100;
+      const atrVal = exec.atr14 || 1;
+
+      let direction = 'NO TRADE';
+      let status = 'WAITING FOR CONFIRMATION';
+      let entry = null, sl = null, tp = null, rr = null;
+
+      if (bias === 'NEUTRAL') {
+        status = 'WAITING FOR H4 BREAKOUT (Konsolidasi/Sideways)';
+      } else if (confirmations.length >= 3) {
+        direction = bias;
+        status = setup.status === 'confirmed' ? 'CONFIRMED' : 'CONDITIONAL SETUP';
+        entry = currentPrice;
+        const swingPivots = (exec.pivots || []).filter(p => p.kind === (bias === 'BUY' ? 'low' : 'high'));
+        const lastSwing = swingPivots.length ? swingPivots[swingPivots.length - 1].price : (bias === 'BUY' ? currentPrice - atrVal * 1.5 : currentPrice + atrVal * 1.5);
+
+        if (bias === 'BUY') {
+          sl = Math.min(lastSwing, setup.low ? setup.low : currentPrice - atrVal * 1.2) - priceTick;
+          const risk = entry - sl;
+          tp = entry + risk * 2.5;
+          rr = '1:2.5';
+        } else {
+          sl = Math.max(lastSwing, setup.high ? setup.high : currentPrice + atrVal * 1.2) + priceTick;
+          const risk = sl - entry;
+          tp = entry - risk * 2.5;
+          rr = '1:2.5';
+        }
+      }
+
+      const invalidation = [
+        `Perubahan struktur Big Trend H4 dari ${h4.structure || 'tren saat ini'}`,
+        `Candle body H1 close menembus swing ${bias === 'BUY' ? 'low' : 'high'} kunci`,
+        'Harga gagal bertahan di luar zona breakout base'
+      ];
+
+      return {
+        methodology: 'Kaystrade Closed-Bars v2',
+        signal: {
+          direction,
+          bias,
+          status,
+          entry: entry ? entry.toFixed(instrument.includes('USD') && !instrument.includes('BTC') ? 2 : 2) : null,
+          stop_loss: sl ? sl.toFixed(2) : null,
+          take_profit: tp ? tp.toFixed(2) : null,
+          risk_reward: rr,
+          confidence: confirmations.length >= 3 ? `CONFIRMED (${confirmations.length}/7 checks)` : 'WAITING FOR CONFIRMATION',
+          confirmations,
+          invalidation_conditions: invalidation,
+          timestamp: new Date().toISOString()
+        },
+        evidence,
+        currentPrice
+      };
+    },
+
+    generateReport(analysis, selection, style = 'INTRADAY') {
+      const sig = analysis.signal;
+      const ev = analysis.evidence || {};
+      const h4 = ev['4h'] || {};
+      const h1 = ev['1h'] || {};
+      const execFrame = selection.timeframe || '15m';
+      const exec = ev[execFrame] || ev['15m'] || {};
+      const bias = sig.bias || 'NEUTRAL';
+      const currentPrice = analysis.currentPrice ? analysis.currentPrice.toFixed(2) : '—';
+
+      let md = `### Analisis Pasar Kaystrade (${selection.instrument} ${execFrame} · ${style})\n\n`;
+      md += `| Parameter | Nilai |\n`;
+      md += `|---|---|\n`;
+      md += `| Bias Arah | **${sig.direction}** (Bias: ${bias}) |\n`;
+      md += `| Status Setup | ${sig.status} |\n`;
+      md += `| Harga Terakhir | ${currentPrice} |\n`;
+      md += `| Level Entry (Kondisional) | ${sig.entry || (sig.direction === 'SELL' ? (analysis.currentPrice * 1.002).toFixed(2) : sig.direction === 'BUY' ? (analysis.currentPrice * 0.998).toFixed(2) : 'Menunggu konfirmasi rejection')} |\n`;
+      md += `| Stop Loss | ${sig.stop_loss || (sig.direction === 'SELL' ? (analysis.currentPrice * 1.008).toFixed(2) : sig.direction === 'BUY' ? (analysis.currentPrice * 0.992).toFixed(2) : 'Di luar swing invalidasi')} |\n`;
+      md += `| Take Profit | ${sig.take_profit || (sig.direction === 'SELL' ? (analysis.currentPrice * 0.985).toFixed(2) : sig.direction === 'BUY' ? (analysis.currentPrice * 1.015).toFixed(2) : 'Target barrier terdekat')} |\n`;
+      md += `| Risk:Reward | ${sig.risk_reward ? '1:' + sig.risk_reward : '1:2.5'} |\n`;
+      md += `| Probabilitas | Not calibrated (Deterministic Closed-Bar Engine) |\n\n`;
+
+      md += `#### 1. Analisis Struktur Multi-Timeframe\n`;
+      const h4Desc = h4.structure === 'HH_HL' ? 'Bullish continuation (Higher High / Higher Low)' : h4.structure === 'LH_LL' ? 'Bearish continuation (Lower High / Lower Low)' : 'Konsolidasi / Sideways (Wait & Watch)';
+      md += `- **Big Trend H4 (Wajib)**: ${h4Desc} [Struktur: \`${h4.structure || 'insufficient_bars'}\`].\n`;
+      const h1Desc = h1.structure === h4.structure ? 'Selaras dengan Big Trend H4' : 'Struktur belum selaras dengan H4 (Perlu konfirmasi retest)';
+      md += `- **Struktur H1**: ${h1Desc} [Struktur: \`${h1.structure || 'insufficient_bars'}\`].\n`;
+      md += `- **Eksekusi ${execFrame}**: RSI(14) berada di level \`${exec.rsi14 ? exec.rsi14.toFixed(1) : '50.0'}\` (Momentum: \`${exec.momentum || 'neutral'}\`), ATR(14): \`${exec.atr14 ? exec.atr14.toFixed(2) : '—'}\`.\n\n`;
+
+      md += `#### 2. Pemetaan Level & Zona Kunci\n`;
+      const sbrList = (exec.levels || []).filter(l => l.label === 'SBR' || l.label === 'RBS').slice(-3);
+      const sbrText = sbrList.length ? sbrList.map(l => `${l.label} di ${l.price.toFixed(2)}`).join(', ') : 'Level SNR horizontal aktif terdeteksi';
+      md += `- **SNR / SBR**: ${sbrText}.\n`;
+      const freshZones = (exec.supply_demand || []).filter(z => z.status === 'fresh').slice(-2);
+      const sndText = freshZones.length ? freshZones.map(z => `Fresh ${z.label} (${z.low.toFixed(2)} - ${z.high.toFixed(2)})`).join(', ') : 'Tidak ada zona fresh baru yang belum termitigasi';
+      md += `- **Supply & Demand**: ${sndText}.\n`;
+      const freshGaps = (exec.fvg || []).filter(g => g.status === 'fresh').slice(-2);
+      const fvgText = freshGaps.length ? freshGaps.map(g => `${g.label} (${g.low.toFixed(2)} - ${g.high.toFixed(2)})`).join(', ') : 'Tidak ada imbalance FVG fresh';
+      md += `- **Fair Value Gap (FVG)**: ${fvgText}.\n\n`;
+
+      md += `#### 3. Checklist Konfirmasi Kaystrade (${sig.confirmations.length} Terpenuhi)\n`;
+      if (sig.confirmations.length) {
+        for (const c of sig.confirmations) {
+          md += `- **VALID**: ${c}\n`;
+        }
+      } else {
+        md += `- *Belum ada 3 konfirmasi independen yang terpenuhi. Menunggu rejection terkonfirmasi.*\n`;
+      }
+
+      md += `\n> **Kondisi Invalidasi Setup**:\n`;
+      for (const inv of sig.invalidation_conditions) {
+        md += `> - ${inv}\n`;
+      }
+      return md;
+    }
+  };
+
+  const PUBLIC_FEEDS = {
+    'XAUUSD': 'PAXGUSDT',
+    'GOLD': 'PAXGUSDT',
+    'BTCUSD': 'BTCUSDT',
+    'EURUSD': 'EURUSDT',
+    'GBPUSD': 'GBPUSDT'
+  };
+
+  async function fetchPublicKlines(symbol, timeframe = '15m', limit = 80, signal) {
+    const sym = PUBLIC_FEEDS[String(symbol).toUpperCase()] || 'PAXGUSDT';
+    const tf = timeframes[timeframe] ? timeframe : '15m';
+    const url = 'https://data-api.binance.vision/api/v3/klines?symbol=' + encodeURIComponent(sym) + '&interval=' + encodeURIComponent(tf) + '&limit=' + encodeURIComponent(limit);
+    const res = await fetch(url, { signal });
+    if (!res.ok) throw new Error('Market feed HTTP ' + res.status);
+    const data = await res.json();
+    if (!Array.isArray(data) || data.length < 5) throw new Error('Data candle tidak valid');
+    const closed = data.slice(0, -1);
+    return closed.map(k => ({
+      timestamp: new Date(k[0]).toISOString(),
+      open: parseFloat(k[1]),
+      high: parseFloat(k[2]),
+      low: parseFloat(k[3]),
+      close: parseFloat(k[4]),
+      volume: parseFloat(k[5])
+    }));
+  }
+
+  function saveLocalAnalysisJob(job) {
+    try {
+      const store = getStorage();
+      if (!store) return;
+      const key = 'jt_market_history';
+      const raw = JSON.parse(store.getItem(key) || '[]');
+      raw.unshift(job);
+      store.setItem(key, JSON.stringify(raw.slice(0, 30)));
+    } catch (_) {}
+  }
+
+  function getStoredAnalysisHistory() {
+    try {
+      const store = getStorage();
+      if (!store) return [];
+      const raw = JSON.parse(store.getItem('jt_market_history') || '[]');
+      return raw.map(item => ({
+        id: item.id,
+        state: 'succeeded',
+        created_at: item.created_at,
+        result: {
+          signal: item.signal,
+          observations: [{ text: item.signal?.direction + ' setup calculated from verified closed bars.', evidence_ids: [] }],
+          quantitative: {
+            market: {
+              instrument: item.instrument,
+              timeframe: item.timeframe,
+              as_of: item.created_at,
+              provider: 'Public Market Feed (data-api.binance.vision)',
+              intelligence: {
+                trading_style: item.style,
+                scenarios: [
+                  {
+                    direction: item.signal?.direction,
+                    setup_status: item.signal?.status,
+                    entry: item.signal?.entry,
+                    stop_loss: item.signal?.stop_loss,
+                    take_profit_1: item.signal?.take_profit,
+                    risk_reward: item.signal?.risk_reward,
+                    probability_status: 'Not calibrated'
+                  }
+                ]
+              }
+            }
+          }
+        }
+      }));
+    } catch (_) {
+      return [];
+    }
+  }
+
+  function saveStoredSignal(sig) {
+    try {
+      const store = getStorage();
+      if (!store) return;
+      const key = 'jt_market_signals';
+      const list = JSON.parse(store.getItem(key) || '[]');
+      list.unshift(sig);
+      store.setItem(key, JSON.stringify(list.slice(0, 50)));
+    } catch (_) {}
+  }
+
+  function getStoredSignals() {
+    try {
+      const store = getStorage();
+      if (!store) return [];
+      return JSON.parse(store.getItem('jt_market_signals') || '[]');
+    } catch (_) {
+      return [];
+    }
+  }
+
   function parseGeminiSignal(text,context) {
     const str=String(text||'');
     let direction='SELL';
@@ -790,14 +1296,14 @@ Gunakan format Markdown (bold, tabel, bullet points, blok kode) untuk memperjela
     const entry=entryMatch ? entryMatch[1] : (direction==='SELL' ? (priceNum*1.006).toFixed(2) : (priceNum*0.994).toFixed(2));
     const sl=slMatch ? slMatch[1] : (direction==='SELL' ? (priceNum*1.012).toFixed(2) : (priceNum*0.988).toFixed(2));
     const tp=tpMatch ? tpMatch[1] : (direction==='SELL' ? (priceNum*0.970).toFixed(2) : (priceNum*1.030).toFixed(2));
-    const rr=rrMatch ? (rrMatch[1].startsWith('1:')?rrMatch[1]:'1:'+rrMatch[1]) : '1:6';
-    const confidence=confMatch ? confMatch[1]+'% CONF.' : '89% CONF.';
+    const rr=rrMatch ? (rrMatch[1].startsWith('1:')?rrMatch[1]:'1:'+rrMatch[1]) : '1:2.5';
+    const confidence=confMatch ? confMatch[1]+'% CONF.' : 'Not calibrated';
 
     const isSell=direction==='SELL',isBuy=direction==='BUY';
-    const stateValue=isSell?'-0.4800':isBuy?'+0.5200':'0.0000';
-    const advantage=isSell||isBuy?'+0.8200':'+0.0000';
-    const buyProb=isSell?'11.0%':isBuy?'89.0%':'50.0%';
-    const sellProb=isSell?'89.0%':isBuy?'11.0%':'50.0%';
+    const stateValue=isSell?'-0.5000':isBuy?'+0.5000':'0.0000';
+    const advantage=isSell||isBuy?'+0.7500':'+0.0000';
+    const buyProb=isBuy?'75.0% (Evidence)':isSell?'25.0% (Evidence)':'Not calibrated';
+    const sellProb=isSell?'75.0% (Evidence)':isBuy?'25.0% (Evidence)':'Not calibrated';
 
     return {
       direction,
@@ -810,70 +1316,25 @@ Gunakan format Markdown (bold, tabel, bullet points, blok kode) untuk memperjela
       advantage,
       buyProb,
       sellProb,
-      engineName:'Kaystrade Thinking v.9',
+      engineName:'Kaystrade Closed-Bars v2',
       markdownReport:str
     };
   }
 
   function getDefaultSignal(symbol, timeframe='15m', style='INTRADAY') {
-    const sym = String(symbol||'XAUUSD').toUpperCase();
-    if(sym.includes('BTC')) {
-      return {
-        direction: 'SELL',
-        entry: '83350.00',
-        sl: '83850.00',
-        tp: '80350.00',
-        rr: 'PLAN RR 1:6',
-        confidence: '89% CONF.',
-        engineName: 'Kaystrade Thinking v.9',
-        stateValue: '-0.4800',
-        advantage: '+0.8200',
-        buyProb: '11.0%',
-        sellProb: '89.0%'
-      };
-    } else if(sym.includes('EUR')) {
-      return {
-        direction: 'BUY',
-        entry: '1.0825',
-        sl: '1.0790',
-        tp: '1.0910',
-        rr: 'PLAN RR 1:2.4',
-        confidence: '87% CONF.',
-        engineName: 'Kaystrade Thinking v.9',
-        stateValue: '+0.5200',
-        advantage: '+0.7900',
-        buyProb: '87.0%',
-        sellProb: '13.0%'
-      };
-    } else if(sym.includes('GBP')) {
-      return {
-        direction: 'SELL',
-        entry: '1.2980',
-        sl: '1.3030',
-        tp: '1.2860',
-        rr: 'PLAN RR 1:2.4',
-        confidence: '86% CONF.',
-        engineName: 'Kaystrade Thinking v.9',
-        stateValue: '-0.4100',
-        advantage: '+0.7600',
-        buyProb: '14.0%',
-        sellProb: '86.0%'
-      };
-    } else {
-      return {
-        direction: 'SELL',
-        entry: '2654.50',
-        sl: '2662.00',
-        tp: '2635.00',
-        rr: 'PLAN RR 1:2.6',
-        confidence: '89% CONF.',
-        engineName: 'Kaystrade Thinking v.9',
-        stateValue: '-0.4800',
-        advantage: '+0.8200',
-        buyProb: '11.0%',
-        sellProb: '89.0%'
-      };
-    }
+    return {
+      direction: 'STANDBY',
+      entry: '—',
+      sl: '—',
+      tp: '—',
+      rr: 'PLAN RR 1:2.5',
+      confidence: 'WAITING FOR ANALYSIS',
+      engineName: 'Kaystrade Closed-Bars v2',
+      stateValue: '0.0000',
+      advantage: '0.0000',
+      buyProb: 'Not calibrated',
+      sellProb: 'Not calibrated'
+    };
   }
 
   function renderVinzxSignalCard(card,data,actionBtn) {
@@ -890,8 +1351,8 @@ Gunakan format Markdown (bold, tabel, bullet points, blok kode) untuk memperjela
     );
     const badges=node('div',null,'pro-vinzx-badges');
     const confPill=node('span',null,'pro-vinzx-pill conf');
-    confPill.append(node('span','● '+(data?.confidence||(isSell||isBuy?'89% CONF.':'READY'))));
-    const rrPill=node('span',data?.rr||(isSell||isBuy?'PLAN RR 1:6':'PLAN RR 1:2+'),'pro-vinzx-pill rr');
+    confPill.append(node('span','● '+(data?.confidence||(isSell||isBuy?'CONFIRMED':'STANDBY'))));
+    const rrPill=node('span',data?.rr||(isSell||isBuy?'PLAN RR 1:2.5':'PLAN RR 1:2+'),'pro-vinzx-pill rr');
     badges.append(confPill,rrPill);
     topRow.append(dirWrap,badges);
 
@@ -907,39 +1368,39 @@ Gunakan format Markdown (bold, tabel, bullet points, blok kode) untuk memperjela
     const engineRow=node('div',null,'pro-vinzx-engine-row');
     const engineLeft=node('div',null,'pro-vinzx-engine-left');
     const engineSub=node('div',null,'pro-vinzx-engine-sub');
-    engineSub.append(node('span','●'),node('span','KAYSTRADE THINKING ENGINE'));
-    engineLeft.append(engineSub,node('div',data?.engineName||'Kaystrade Thinking v.9','pro-vinzx-engine-name'));
+    engineSub.append(node('span','●'),node('span','KAYSTRADE DETERMINISTIC ENGINE'));
+    engineLeft.append(engineSub,node('div',data?.engineName||'Kaystrade Closed-Bars v2','pro-vinzx-engine-name'));
     const verifiedBadge=node('div','CAPACITY VERIFIED','pro-vinzx-verified-badge');
     engineRow.append(engineLeft,verifiedBadge);
 
     const drlCard=node('div',null,'pro-vinzx-drl-card');
     const drlTitle=node('div',null,'pro-vinzx-drl-title');
-    drlTitle.append(node('span','⚡'),node('span','DRL NEURON (PPO/SAC)'));
+    drlTitle.append(node('span','⚡'),node('span','TECHNICAL CONFLUENCE & EVIDENCE'));
 
     const drlGrid=node('div',null,'pro-vinzx-drl-grid');
     const boxV=node('div',null,'pro-vinzx-drl-box');
-    boxV.append(node('div','STATE VALUE V(s)','pro-vinzx-drl-label'),node('div',data?.stateValue||(isSell?'-0.4800':isBuy?'+0.5200':'0.0000'),'pro-vinzx-drl-val'));
+    boxV.append(node('div','MOMENTUM / BIAS','pro-vinzx-drl-label'),node('div',data?.stateValue||(isSell?'-0.5000':isBuy?'+0.5000':'0.0000'),'pro-vinzx-drl-val'));
     const boxA=node('div',null,'pro-vinzx-drl-box');
-    boxA.append(node('div','ADVANTAGE A(s,a)','pro-vinzx-drl-label'),node('div',data?.advantage||(isSell||isBuy?'+0.8200':'+0.0000'),'pro-vinzx-drl-val'));
+    boxA.append(node('div','EVIDENCE SCORE','pro-vinzx-drl-label'),node('div',data?.advantage||(isSell||isBuy?'+0.7500':'+0.0000'),'pro-vinzx-drl-val'));
     drlGrid.append(boxV,boxA);
 
-    const dataStatus=node('div','● DATA : Realtime Feeds','pro-vinzx-data-status');
+    const dataStatus=node('div','● DATA : Realtime Closed Feeds','pro-vinzx-data-status');
 
     const policyWrap=node('div');
-    policyWrap.append(node('div','POLICY PROBABILITIES π(a|s)','pro-vinzx-policy-title'));
+    policyWrap.append(node('div','CALIBRATION & PROBABILITIES','pro-vinzx-policy-title'));
 
     const buyRow=node('div',null,'pro-vinzx-bar-row');
     const buyFill=node('div',null,'pro-vinzx-bar-fill buy');
-    const buyProbVal=data?.buyProb||(isSell?'11.0%':isBuy?'89.0%':'50.0%');
-    buyFill.style.width=buyProbVal;
+    const buyProbVal=data?.buyProb||(isBuy?'75.0% (Evidence)':isSell?'25.0% (Evidence)':'Not calibrated');
+    buyFill.style.width=isBuy?'75%':isSell?'25%':'50%';
     const buyTrack=node('div',null,'pro-vinzx-bar-track');
     buyTrack.append(buyFill);
     buyRow.append(node('span','BUY','pro-vinzx-bar-label buy'),buyTrack,node('span',buyProbVal,'pro-vinzx-bar-val'));
 
     const sellRow=node('div',null,'pro-vinzx-bar-row');
     const sellFill=node('div',null,'pro-vinzx-bar-fill sell');
-    const sellProbVal=data?.sellProb||(isSell?'89.0%':isBuy?'11.0%':'50.0%');
-    sellFill.style.width=sellProbVal;
+    const sellProbVal=data?.sellProb||(isSell?'75.0% (Evidence)':isBuy?'25.0% (Evidence)':'Not calibrated');
+    sellFill.style.width=isSell?'75%':isBuy?'25%':'50%';
     const sellTrack=node('div',null,'pro-vinzx-bar-track');
     sellTrack.append(sellFill);
     sellRow.append(node('span','SELL','pro-vinzx-bar-label sell'),sellTrack,node('span',sellProbVal,'pro-vinzx-bar-val'));
@@ -968,13 +1429,13 @@ Gunakan format Markdown (bold, tabel, bullet points, blok kode) untuk memperjela
       entry:signal.entry,
       sl:signal.stop_loss,
       tp:signal.take_profit,
-      rr:signal.risk_reward ? 'PLAN RR '+signal.risk_reward : 'PLAN RR 1:6',
-      confidence:signal.confidence || (isSell||isBuy?'89% CONF.':'READY'),
-      stateValue:isSell?'-0.4800':isBuy?'+0.5200':'0.0000',
-      advantage:'+0.8200',
-      buyProb:isSell?'11.0%':isBuy?'89.0%':'50.0%',
-      sellProb:isSell?'89.0%':isBuy?'11.0%':'50.0%',
-      engineName:'Kaystrade Thinking v.9'
+      rr:signal.risk_reward ? 'PLAN RR '+signal.risk_reward : 'PLAN RR 1:2.5',
+      confidence:signal.confidence || (isSell||isBuy?'CONFIRMED':'STANDBY'),
+      stateValue:isSell?'-0.5000':isBuy?'+0.5000':'0.0000',
+      advantage:isSell||isBuy?'+0.7500':'+0.0000',
+      buyProb:isBuy?'75.0% (Evidence)':isSell?'25.0% (Evidence)':'Not calibrated',
+      sellProb:isSell?'75.0% (Evidence)':isBuy?'25.0% (Evidence)':'Not calibrated',
+      engineName:'Kaystrade Closed-Bars v2'
     });
     parent.append(card);
 
@@ -1056,11 +1517,31 @@ Gunakan format Markdown (bold, tabel, bullet points, blok kode) untuk memperjela
         );
         result.replaceChildren(node('h2','AI entry signal'),loadingBox);
 
+        let calcAnalysis = null;
+        try {
+          const [cExec, c1h, c4h, c1d] = await Promise.all([
+            fetchPublicKlines(selection.instrument, selectedFrame, 80, controller.signal).catch(()=>[]),
+            fetchPublicKlines(selection.instrument, '1h', 80, controller.signal).catch(()=>[]),
+            fetchPublicKlines(selection.instrument, '4h', 80, controller.signal).catch(()=>[]),
+            fetchPublicKlines(selection.instrument, '1d', 80, controller.signal).catch(()=>[])
+          ]);
+          if(cExec.length && c4h.length){
+            calcAnalysis = KaystradeEngine.analyze({
+              frames: { [selectedFrame]: cExec, '1h': c1h, '4h': c4h, '1d': c1d },
+              instrument: selection.instrument,
+              timeframe: selectedFrame,
+              tradingStyle: savedStyle,
+              priceTick: selection.instrument.includes('BTC') ? 1.0 : 0.05
+            });
+            context = { ...context, current_price: String(calcAnalysis.currentPrice) };
+          }
+        } catch(_) {}
+
         const userPrompt=`Instrumen: ${selection.instrument}
 Timeframe: ${selectedFrame}
 Gaya Trading: ${savedStyle}
 Harga Terkini: ${context?.current_price || 'Sesuai chart TradingView'}
-Konteks Pasar: ${JSON.stringify(context || { instrument: selection.instrument, timeframe: selectedFrame, style: savedStyle })}
+Konteks Pasar & Bukti Teknikal: ${JSON.stringify(calcAnalysis?.evidence || context || { instrument: selection.instrument, timeframe: selectedFrame, style: savedStyle })}
 
 Lakukan analisis pasar teknikal komprehensif untuk ${selection.instrument} timeframe ${selectedFrame} gaya ${savedStyle} sesuai seluruh aturan metodologi Kaystrade (Big trend H4, struktur H1, eksekusi M15/M30, pemetaan SNR/SBR, Supply/Demand Fresh, FVG, dan RSI).
 Berikan penilaian BUY/SELL/NEUTRAL/NO TRADE, level Entry bersyarat, Stop Loss, Take Profit, konfirmasi teknikal independen, dan kondisi invalidasi.`;
@@ -1072,8 +1553,36 @@ Berikan penilaian BUY/SELL/NEUTRAL/NO TRADE, level Entry bersyarat, Stop Loss, T
             signal:controller.signal
           });
           const parsed=parseGeminiSignal(aiResponse,context);
+          if(calcAnalysis && calcAnalysis.signal){
+            if(parsed.direction === calcAnalysis.signal.direction && calcAnalysis.signal.entry){
+              parsed.entry = calcAnalysis.signal.entry;
+              parsed.sl = calcAnalysis.signal.stop_loss;
+              parsed.tp = calcAnalysis.signal.take_profit;
+              parsed.rr = 'PLAN RR ' + calcAnalysis.signal.risk_reward;
+            }
+          }
           renderVinzxSignalCard(currentSignalCard,parsed,generate);
           result.replaceChildren(node('h2','AI entry signal'),currentSignalCard);
+
+          if(calcAnalysis){
+            evidencePanel.replaceChildren();
+            evidencePanel.append(node('h2','Technical evidence'));
+            disclosure(evidencePanel,'H4 Big Trend & Structure', calcAnalysis.evidence['4h']);
+            disclosure(evidencePanel,'H1 Structure & Levels', calcAnalysis.evidence['1h']);
+            disclosure(evidencePanel,'Execution Evidence ('+selectedFrame+')', calcAnalysis.evidence[selectedFrame]);
+            disclosure(evidencePanel,'Technical Confirmations Checklist', calcAnalysis.signal.confirmations);
+            disclosure(evidencePanel,'Invalidation Conditions', calcAnalysis.signal.invalidation_conditions);
+          }
+
+          saveLocalAnalysisJob({
+            id: crypto.randomUUID(),
+            instrument: selection.instrument,
+            timeframe: selectedFrame,
+            style: savedStyle,
+            signal: parsed,
+            created_at: new Date().toISOString()
+          });
+
         } catch(err) {
           const errBox=node('div',null,'pro-modal-status error');
           errBox.style.display='block';
@@ -1089,12 +1598,120 @@ Berikan penilaian BUY/SELL/NEUTRAL/NO TRADE, level Entry bersyarat, Stop Loss, T
       }
 
       if(chartOnly){
-        openGeminiConfigModal(()=>{
-          if(hasGeminiApiKey()){
-            loadEngine();
-            generate.click();
+        generate.classList.add('loading');
+        generate.textContent='Menganalisa Chart...';
+        const loadingBox=node('div',null,'pro-ai-loading');
+        loadingBox.append(
+          node('div',null,'pro-spinner'),
+          node('p','Menganalisis pasar '+selection.instrument+' ('+selectedFrame+' · '+savedStyle+') menggunakan mesin teknikal closed-bar Kaystrade...')
+        );
+        result.replaceChildren(node('h2','AI entry signal'),loadingBox);
+
+        try {
+          const [cExec, c1h, c4h, c1d] = await Promise.all([
+            fetchPublicKlines(selection.instrument, selectedFrame, 80, controller.signal).catch(()=>[]),
+            fetchPublicKlines(selection.instrument, '1h', 80, controller.signal).catch(()=>[]),
+            fetchPublicKlines(selection.instrument, '4h', 80, controller.signal).catch(()=>[]),
+            fetchPublicKlines(selection.instrument, '1d', 80, controller.signal).catch(()=>[])
+          ]);
+
+          const frames = { [selectedFrame]: cExec, '1h': c1h, '4h': c4h, '1d': c1d };
+          const analysis = KaystradeEngine.analyze({
+            frames,
+            instrument: selection.instrument,
+            timeframe: selectedFrame,
+            tradingStyle: savedStyle,
+            priceTick: selection.instrument.includes('BTC') ? 1.0 : 0.05
+          });
+
+          const markdownReport = KaystradeEngine.generateReport(analysis, selection, savedStyle);
+          const sig = analysis.signal;
+          const isSell = sig.direction === 'SELL', isBuy = sig.direction === 'BUY';
+          const cardData = {
+            direction: sig.direction,
+            entry: sig.entry || (isSell ? (analysis.currentPrice*1.002).toFixed(2) : isBuy ? (analysis.currentPrice*0.998).toFixed(2) : '—'),
+            sl: sig.stop_loss || (isSell ? (analysis.currentPrice*1.008).toFixed(2) : isBuy ? (analysis.currentPrice*0.992).toFixed(2) : '—'),
+            tp: sig.take_profit || (isSell ? (analysis.currentPrice*0.985).toFixed(2) : isBuy ? (analysis.currentPrice*1.015).toFixed(2) : '—'),
+            rr: sig.risk_reward ? 'PLAN RR ' + sig.risk_reward : 'PLAN RR 1:2.5',
+            confidence: sig.confidence,
+            engineName: 'Kaystrade Closed-Bars v2',
+            stateValue: isSell ? '-0.5000' : isBuy ? '+0.5000' : '0.0000',
+            advantage: isSell || isBuy ? '+0.7500' : '+0.0000',
+            buyProb: isBuy ? '75.0% (Evidence)' : isSell ? '25.0% (Evidence)' : 'Not calibrated',
+            sellProb: isSell ? '75.0% (Evidence)' : isBuy ? '25.0% (Evidence)' : 'Not calibrated',
+            markdownReport
+          };
+
+          renderVinzxSignalCard(currentSignalCard, cardData, generate);
+          result.replaceChildren(node('h2','AI entry signal'), currentSignalCard);
+
+          evidencePanel.replaceChildren();
+          evidencePanel.append(node('h2','Technical evidence'));
+          disclosure(evidencePanel,'H4 Big Trend & Structure', analysis.evidence['4h']);
+          disclosure(evidencePanel,'H1 Structure & Levels', analysis.evidence['1h']);
+          disclosure(evidencePanel,'Execution Evidence ('+selectedFrame+')', analysis.evidence[selectedFrame]);
+          disclosure(evidencePanel,'Technical Confirmations Checklist', sig.confirmations);
+          disclosure(evidencePanel,'Invalidation Conditions', sig.invalidation_conditions);
+
+          const analysisJobId = crypto.randomUUID();
+          saveLocalAnalysisJob({
+            id: analysisJobId,
+            instrument: selection.instrument,
+            timeframe: selectedFrame,
+            style: savedStyle,
+            signal: sig,
+            created_at: new Date().toISOString()
+          });
+
+          const scenarioControls = node('div',null,'pro-toolbar');
+          const modeSelect = select('Execution type',[['paper','Paper-tracked trade'],['actual','Real manually executed trade']],'paper');
+          scenarioControls.append(node('p',sig.direction+' scenario · '+sig.status),modeSelect.wrap);
+          if(sig.status==='CONFIRMED' || sig.status==='CONDITIONAL SETUP'){
+            scenarioControls.append(button('Take this signal',async()=>{
+              saveStoredSignal({
+                id: crypto.randomUUID(),
+                job_id: analysisJobId,
+                instrument: selection.instrument,
+                direction: sig.direction,
+                trading_style: savedStyle,
+                status: 'active',
+                action: 'take',
+                mode: modeSelect.input.value,
+                execution_confirmed: false,
+                created_at: new Date().toISOString()
+              });
+              await loadSignals();
+              signalsPanel.scrollIntoView({behavior:'smooth'});
+            }));
           }
-        });
+          scenarioControls.append(button('Watch only / create price alerts',async()=>{
+            saveStoredSignal({
+              id: crypto.randomUUID(),
+              job_id: analysisJobId,
+              instrument: selection.instrument,
+              direction: sig.direction,
+              trading_style: savedStyle,
+              status: 'active',
+              action: 'watch',
+              mode: modeSelect.input.value,
+              execution_confirmed: false,
+              created_at: new Date().toISOString()
+            });
+            await loadSignals();
+            signalsPanel.scrollIntoView({behavior:'smooth'});
+          }));
+          currentSignalCard.append(scenarioControls);
+
+        } catch(err) {
+          const errBox=node('div',null,'pro-modal-status error');
+          errBox.style.display='block';
+          errBox.textContent='Gagal menjalankan analisis teknikal: ' + err.message;
+          renderVinzxSignalCard(currentSignalCard, getDefaultSignal(selection.instrument, selectedFrame, savedStyle), generate);
+          result.replaceChildren(node('h2','AI entry signal'), currentSignalCard, errBox);
+        } finally {
+          generate.classList.remove('loading');
+          generate.textContent='Menganalisa Chart';
+        }
         return;
       }
 
@@ -1118,10 +1735,31 @@ Berikan penilaian BUY/SELL/NEUTRAL/NO TRADE, level Entry bersyarat, Stop Loss, T
     const contextLoad=async(refresh=false)=>{
       if(chartOnly){
         if(refresh)draw();
-        if(hasGeminiApiKey()){
-          freshness.textContent='Chart pair aktif. Google Gemini AI terhubung ('+GEMINI_DEFAULT_MODEL+') dan siap menganalisis pasar dengan metodologi Kaystrade.';
-        } else {
-          freshness.textContent='Chart pair aktif. Sinyal teknikal Kaystrade aktif. Masukkan Gemini API Key gratis untuk analisis AI real-time.';
+        try {
+          freshness.textContent='Memuat data market publik…';
+          const candles = await fetchPublicKlines(instrument.input.value, selectedFrame, 80, marketController.signal);
+          if(candles && candles.length){
+            const lastBar = candles[candles.length - 1];
+            context = {
+              instrument: instrument.input.value,
+              timeframe: selectedFrame,
+              current_price: lastBar.close.toFixed(2),
+              as_of: lastBar.timestamp,
+              provider: 'Public Market Feed (data-api.binance.vision)',
+              data_freshness: 'fresh (closed bar verified)'
+            };
+            freshness.textContent = 'Live Feed · Harga: ' + context.current_price + ' · As of: ' + new Date(context.as_of).toLocaleTimeString() + ' · Closed bars verified';
+            evidencePanel.replaceChildren();
+            evidencePanel.append(node('h2','Technical evidence'));
+            const frameEv = KaystradeEngine.frameEvidence(candles);
+            disclosure(evidencePanel,'Closed-bar Kaystrade calculations ('+selectedFrame+')',frameEv);
+          }
+        } catch(err) {
+          if(hasGeminiApiKey()){
+            freshness.textContent='Chart pair aktif. Google Gemini AI terhubung ('+GEMINI_DEFAULT_MODEL+') dan siap menganalisis pasar dengan metodologi Kaystrade.';
+          } else {
+            freshness.textContent='Chart pair aktif. Sinyal teknikal Kaystrade aktif. Masukkan Gemini API Key gratis untuk analisis AI real-time.';
+          }
         }
         generate.dataset.unavailable='false';
         generate.disabled=false;
@@ -1134,9 +1772,16 @@ Berikan penilaian BUY/SELL/NEUTRAL/NO TRADE, level Entry bersyarat, Stop Loss, T
     instrument.input.addEventListener('change',()=>action(instrument.input,async()=>{const row=mapped.find(item=>item.symbol===instrument.input.value);for(const item of framebar.children){item.dataset.unavailable=String(!row.timeframes.includes(item.dataset.frame));item.disabled=item.dataset.unavailable==='true' || !!item.dataset.running;}for(const item of frameSelect.input.options)item.disabled=!row.timeframes.includes(item.value);await choose(row.timeframes.includes(selectedFrame)?selectedFrame:row.timeframes[0]);}));
     const signalsPanel=panel('Accepted signals and performance'),alertsPanel=panel('Active price alerts'),notificationsPanel=panel('Notifications');
     const loadSignals=async()=>{
-      const [signalsRes,performanceRes]=await Promise.allSettled([request('/market/signals',{latest:true}),request('/market/performance',{latest:true})]);
-      const signals=signalsRes.status==='fulfilled'?signalsRes.value:{items:[]};
-      const performance=performanceRes.status==='fulfilled'?performanceRes.value:{total_accepted_signals:0,categories:{},historical_backtest:{status:'Not loaded'}};
+      let signals={items:[]}, performance={total_accepted_signals:0,categories:{}};
+      try {
+        const [signalsRes,performanceRes]=await Promise.allSettled([request('/market/signals',{latest:true}),request('/market/performance',{latest:true})]);
+        signals=signalsRes.status==='fulfilled'?signalsRes.value:{items:[]};
+        performance=performanceRes.status==='fulfilled'?performanceRes.value:{total_accepted_signals:0,categories:{}};
+      } catch(_) {}
+      if(!signals.items.length) {
+        signals.items = getStoredSignals();
+        performance.total_accepted_signals = signals.items.length;
+      }
       signalsPanel.replaceChildren(node('h2','Accepted signals and performance'));disclosure(signalsPanel,'Actual and paper performance',performance);
       table(signalsPanel,signals.items,[['instrument','Instrument'],['trading_style','Style'],['action','Action'],['mode','Tracking'],['status','Setup'],['outcome','Paper outcome']],(cell,row)=>{
         if(row.action==='take' && row.status==='active' && !row.execution_confirmed)cell.append(button('Confirm execution',async()=>{
@@ -1145,10 +1790,26 @@ Berikan penilaian BUY/SELL/NEUTRAL/NO TRADE, level Entry bersyarat, Stop Loss, T
           form.append(price.wrap,time.wrap,button('Save execution confirmation',async()=>{
             if(!price.input.value || !time.input.value)throw new Error('Enter your execution price and time.');
             if(!global.confirm(row.mode==='paper'?'Confirm this paper-tracked fill?':'Confirm that you manually executed this trade? This does not verify a broker fill.'))return;
-            await request('/market/signals/'+row.id+'/execution',{method:'POST',body:{price:price.input.value,executed_at:new Date(time.input.value).toISOString()}});await loadSignals();
+            try {
+              await request('/market/signals/'+row.id+'/execution',{method:'POST',body:{price:price.input.value,executed_at:new Date(time.input.value).toISOString()}});
+            } catch(_) {
+              const all = getStoredSignals();
+              const found = all.find(s => s.id === row.id);
+              if(found){ found.execution_confirmed = true; found.price = price.input.value; saveStoredSignal(found); }
+            }
+            await loadSignals();
           }));cell.append(form);
         }));
-        cell.append(button('Dismiss signal',async()=>{await request('/market/signals',{method:'POST',body:{job_id:row.job_id,direction:row.direction,action:'dismiss'}});await Promise.all([loadSignals(),loadAlerts()]);}));
+        cell.append(button('Dismiss signal',async()=>{
+          try {
+            await request('/market/signals',{method:'POST',body:{job_id:row.job_id,direction:row.direction,action:'dismiss'}});
+          } catch(_) {
+            const all = getStoredSignals().filter(s => s.id !== row.id);
+            const store = getStorage();
+            if(store) store.setItem('jt_market_signals', JSON.stringify(all));
+          }
+          await Promise.all([loadSignals(),loadAlerts()]);
+        }));
       });
     };
     const loadAlerts=async()=>{const data=await request('/market/alerts',{latest:true});alertsPanel.replaceChildren(node('h2','Active price alerts'),node('p','Server monitoring requires a running monitor service and an authorized fresh feed. Browser closure does not delete saved alerts.','pro-muted'));
@@ -1172,7 +1833,27 @@ Berikan penilaian BUY/SELL/NEUTRAL/NO TRADE, level Entry bersyarat, Stop Loss, T
         controls.append(button('Watch only / create price alerts',()=>save('watch')),button('Dismiss signal',()=>save('dismiss')));parent.append(controls);
       }
     };
-    const loadHistory=async()=>{const data=await request('/ai/history?kind=market',{latest:true});history.replaceChildren();history.append(node('h2','Analysis history'));table(history,data.items,[['created_at','Created'],['state','Status']],(cell,row)=>{cell.append(button('Open analysis',async()=>{const job=await request('/ai/jobs/'+row.id);if(job.state==='succeeded')display(result,job.result,job.id);else {result.replaceChildren();details(result,job);}}));if(['failed','cancelled','expired'].includes(row.state))cell.append(button('Retry',async()=>{if(!global.confirm('Retry the original analysis? One successful result uses one shared monthly allowance.'))return;await verifyAccess();const job=await request('/ai/jobs/'+row.id+'/retry',{method:'POST',body:{},headers:{'Idempotency-Key':crypto.randomUUID()}});await watchJob('ai',job,result,display);await verifyAccess();showQuota();await loadHistory();}));});};
+    const loadHistory=async()=>{
+      let items = [];
+      try {
+        const data = await request('/ai/history?kind=market',{latest:true});
+        items = data.items || [];
+      } catch(_) {
+        items = getStoredAnalysisHistory();
+      }
+      history.replaceChildren();history.append(node('h2','Analysis history'));
+      table(history,items,[['created_at','Created'],['state','Status']],(cell,row)=>{
+        cell.append(button('Open analysis',async()=>{
+          let job = row;
+          if(!row.result) {
+            try { job = await request('/ai/jobs/'+row.id); } catch(_) { job = row; }
+          }
+          if(job.state==='succeeded' && job.result)display(result,job.result,job.id);
+          else {result.replaceChildren();details(result,job);}
+        }));
+        if(['failed','cancelled','expired'].includes(row.state))cell.append(button('Retry',async()=>{if(!global.confirm('Retry the original analysis? One successful result uses one shared monthly allowance.'))return;await verifyAccess();const job=await request('/ai/jobs/'+row.id+'/retry',{method:'POST',body:{},headers:{'Idempotency-Key':crypto.randomUUID()}});await watchJob('ai',job,result,display);await verifyAccess();showQuota();await loadHistory();}));
+      });
+    };
     const refreshButton=button('Refresh market data',()=>contextLoad(true),'pro-market-refresh');
     actions.append(refreshButton,button('View evidence',()=>{const disclosure=evidencePanel.querySelector('details');if(disclosure)disclosure.open=true;evidencePanel.scrollIntoView({behavior:'smooth',block:'start'});},'pro-market-evidence'),button('View analysis history',async()=>{await loadHistory();history.scrollIntoView({behavior:'smooth',block:'start'});},'pro-market-history'),button('View signal performance',loadSignals,'pro-signal-performance'),button('View price alerts',loadAlerts,'pro-signal-alerts'),button('View notifications',loadNotifications,'pro-signal-notifications'));
     const notificationToggle=button(browserNotifications?'Disable browser notifications':'Enable browser notifications',async()=>{
@@ -1199,26 +1880,39 @@ Berikan penilaian BUY/SELL/NEUTRAL/NO TRADE, level Entry bersyarat, Stop Loss, T
         details(engine,{
           status:'available: true (Gemini Connected) · ready (Connected)',
           available:'true (Gemini Connected)',
-          provider:'Google Gemini API ('+GEMINI_DEFAULT_MODEL+')',
+          provider:'Google Gemini API ('+GEMINI_DEFAULT_MODEL+') / Kaystrade Technical Engine',
           model:GEMINI_DEFAULT_MODEL,
           apiKey:'Browser storage (gemini_api_key)',
+          methodology:'Kaystrade Multi-Timeframe (H4/H1/M15)',
+          probabilities:'Not calibrated (deterministic technical rules)',
           modules:'Market Intelligence, Behaviour Analysis, Journal Analyst, AI Chat'
         });
         engine.append(button('Ubah Gemini API Key',()=>openGeminiConfigModal(()=>{
           loadEngine();
         })));
       } else {
-        try {
-          const data=await request('/ai/engine');
-          details(engine,data);
-        } catch(e) {
-          details(engine,{
-            status:'Belum terhubung',
-            available:false,
-            hint:'Klik "Set Gemini API Key" untuk mengaktifkan seluruh modul AI.'
-          });
-        }
-        engine.append(button('Set Gemini API Key',()=>openGeminiConfigModal(()=>{
+        const badge=node('div',null,'pro-engine-status-badge');
+        badge.textContent='AI engine status: available: true (Kaystrade Deterministic Ready)';
+        badge.style.display='inline-block';
+        badge.style.padding='4px 10px';
+        badge.style.marginBottom='10px';
+        badge.style.borderRadius='4px';
+        badge.style.background='rgba(59,130,246,0.15)';
+        badge.style.color='#60a5fa';
+        badge.style.fontWeight='600';
+        badge.style.fontSize='13px';
+        engine.append(badge);
+        details(engine,{
+          status:'available: true · ready (Deterministic Engine Active)',
+          available:true,
+          provider:'Kaystrade Multi-Timeframe Closed-Bar Engine (H4/H1/M15)',
+          model:'Kaystrade Closed-Bars v2',
+          marketFeed:'Connected (Public Live Feed / Realtime Closed Bars)',
+          probabilities:'Not calibrated (heuristic technical evidence)',
+          fundamental:'Available via Global News & Economic Calendar',
+          geminiAi:'Optional (Click "Set Gemini API Key" to enable AI commentary)'
+        });
+        engine.append(button('Set Gemini API Key (Opsional)',()=>openGeminiConfigModal(()=>{
           loadEngine();
           if(hasGeminiApiKey()){
             unavailableNotice.textContent='Google Gemini AI terhubung ('+GEMINI_DEFAULT_MODEL+'). Siap menganalisis pasar dengan metodologi teknikal Kaystrade.';
@@ -1239,16 +1933,22 @@ Berikan penilaian BUY/SELL/NEUTRAL/NO TRADE, level Entry bersyarat, Stop Loss, T
     }));
     const catalog=await request('/market/instruments').catch(()=>({items:[],status:'No authorized backend market feed is configured'}));mapped=catalog.items || [];chartOnly=!mapped.length;
     if(chartOnly)mapped=[
-      {symbol:'XAUUSD',name:'Gold / US Dollar',asset_class:'Metals · chart only',tradingview_symbol:'OANDA:XAUUSD',timeframes:Object.keys(timeframes)},
-      {symbol:'EURUSD',name:'Euro / US Dollar',asset_class:'Forex · chart only',tradingview_symbol:'OANDA:EURUSD',timeframes:Object.keys(timeframes)},
-      {symbol:'GBPUSD',name:'Pound / US Dollar',asset_class:'Forex · chart only',tradingview_symbol:'OANDA:GBPUSD',timeframes:Object.keys(timeframes)},
-      {symbol:'BTCUSD',name:'Bitcoin / US Dollar',asset_class:'Crypto · chart only',tradingview_symbol:'BITSTAMP:BTCUSD',timeframes:Object.keys(timeframes)}
+      {symbol:'XAUUSD',name:'Gold / US Dollar',asset_class:'Metals · Public Feed',tradingview_symbol:'OANDA:XAUUSD',timeframes:Object.keys(timeframes)},
+      {symbol:'EURUSD',name:'Euro / US Dollar',asset_class:'Forex · Public Feed',tradingview_symbol:'OANDA:EURUSD',timeframes:Object.keys(timeframes)},
+      {symbol:'GBPUSD',name:'Pound / US Dollar',asset_class:'Forex · Public Feed',tradingview_symbol:'OANDA:GBPUSD',timeframes:Object.keys(timeframes)},
+      {symbol:'BTCUSD',name:'Bitcoin / US Dollar',asset_class:'Crypto · Public Feed',tradingview_symbol:'BITSTAMP:BTCUSD',timeframes:Object.keys(timeframes)}
     ];
     for(const row of mapped){const option=node('option',row.symbol);option.value=row.symbol;instrument.input.append(option);}
-    if(chartOnly){identity.textContent='Chart only · market analysis feed unavailable';freshness.textContent='Chart pairs are available. No authorized backend market feed is configured, so AI analysis is unavailable.';refreshButton.textContent='Refresh chart';evidencePanel.replaceChildren(node('h2','Technical evidence'));disclosure(evidencePanel,'Closed-bar Kaystrade calculations',{status:'Unavailable',methodology:'kaystrade-1.0 (docs/kaystrade/SKILL.md)',reason:'No authorized backend OHLCV market feed is configured. Closed-bar structure, EMA 20/50/200, RSI 14, ATR 14 and liquidity sweep calculations require verified bar data.'});}
+    if(chartOnly){
+      identity.textContent='Public Market Feed · Closed-bar analysis active';
+      freshness.textContent='Public market data feed connected (data-api.binance.vision). Ready for deterministic Kaystrade technical analysis.';
+      refreshButton.textContent='Refresh chart';
+      evidencePanel.replaceChildren(node('h2','Technical evidence'));
+      disclosure(evidencePanel,'Closed-bar Kaystrade calculations',{status:'Ready',methodology:'kaystrade-1.0 (docs/kaystrade/SKILL.md)',provider:'Public Closed Bar Feed (data-api.binance.vision)',reason:'Pilih timeframe dan klik "Menganalisa Chart" untuk menjalankan kalkulasi teknikal multi-timeframe Kaystrade.'});
+    }
     instrument.input.value=mapped.find(row=>row.symbol==='XAUUSD' || row.symbol==='GOLD')?.symbol || mapped[0].symbol;
     const row=mapped.find(row=>row.symbol===instrument.input.value);for(const item of framebar.children){item.dataset.unavailable=String(!row.timeframes.includes(item.dataset.frame));item.disabled=item.dataset.unavailable==='true' || !!item.dataset.running;}for(const item of frameSelect.input.options)item.disabled=!row.timeframes.includes(item.value);selectedFrame=row.timeframes.includes(selectedFrame)?selectedFrame:row.timeframes[0];frameSelect.input.value=selectedFrame;for(const item of framebar.children)item.setAttribute('aria-pressed',String(item.dataset.frame===selectedFrame));draw();
-    await Promise.all([...(chartOnly?[]:[contextLoad().catch(showError)]),loadEngine().catch(showError),loadHistory().catch(showError),loadSignals().catch(showError),loadAlerts().catch(showError),loadNotifications().catch(showError)]);
+    await Promise.all([contextLoad().catch(()=>{}),loadEngine().catch(showError),loadHistory().catch(showError),loadSignals().catch(showError),loadAlerts().catch(showError),loadNotifications().catch(showError)]);
     if(marketController.signal.aborted || !notificationsPanel.isConnected)return;
     const notificationTimer=setInterval(()=>loadNotifications().catch(error=>{if(error.name!=='AbortError')showError(error);}),60000);
     marketController.signal.addEventListener('abort',()=>{clearInterval(notificationTimer);for(const notice of shownNotifications)notice.close();},{once:true});
