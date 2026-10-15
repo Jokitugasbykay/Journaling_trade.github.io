@@ -141,11 +141,19 @@ const server=http.createServer(async(req,res)=>{
   // 3. Test Module 1: AI Market Intelligence with Kaystrade prompt
   await page.click('#pro-ai-generate');
   await page.waitForSelector('.pro-markdown');
+  await page.waitForSelector('.pro-vinzx-card');
   const marketResultText = await page.locator('.pro-panel:has-text("AI entry signal")').textContent();
   assert.ok(marketResultText.includes('Analisis Pasar Kaystrade'));
   assert.ok(marketResultText.includes('Big Trend H4'));
   assert.ok(marketResultText.includes('Struktur H1'));
   assert.ok(marketResultText.includes('Eksekusi M15'));
+
+  // Verify Vinzx Intelligent Terminal components
+  const vinzxSignalDir = await page.locator('.pro-vinzx-signal-direction').textContent();
+  assert.equal(vinzxSignalDir, 'BUY');
+  assert.ok((await page.locator('.pro-vinzx-next-candle').textContent()).includes('NEXT CANDLE:'));
+  assert.ok((await page.locator('.pro-vinzx-metric-value.sl').textContent()).length > 0);
+  assert.ok((await page.locator('.pro-vinzx-metric-value.tp').textContent()).length > 0);
 
   // Verify Kaystrade system prompt was sent to Gemini
   assert.ok(geminiRequests.length > 0);
