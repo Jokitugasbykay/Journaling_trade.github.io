@@ -1058,6 +1058,7 @@
      4. INTERACTIVE OCR SCANNER DEMO (SECTION 03)
      ======================================================== */
   (function initOcrScanner() {
+    if (typeof document.querySelectorAll !== 'function') return;
     const tabs = document.querySelectorAll('.scan-tab-btn');
     if (!tabs.length) return;
 
@@ -1121,6 +1122,7 @@
      5. INTERACTIVE STRATEGY EQUITY CURVE (SECTION 04)
      ======================================================== */
   (function initStrategyCurve() {
+    if (typeof document.querySelectorAll !== 'function') return;
     const stratBtns = document.querySelectorAll('.rev-strat-btn');
     const path = document.getElementById('equity-curve-path');
     if (!stratBtns.length || !path) return;
@@ -1175,6 +1177,7 @@
      6. INTERACTIVE GLOBAL MARKET SESSIONS RADAR (SECTION 05)
      ======================================================== */
   (function initSessionRadar() {
+    if (typeof document.querySelector !== 'function') return;
     function updateSessions() {
       const now = new Date();
       const utcHours = now.getUTCHours() + now.getUTCMinutes() / 60;
