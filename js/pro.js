@@ -1891,14 +1891,16 @@ Gunakan format Markdown (bold, tabel, bullet points, blok kode) untuk memperjela
       alert('Seluruh isi skill.md lengkap berhasil disalin ke Clipboard!');
     }
 
-    // Panels below workspace for backward compatibility with backend / test suites
-    const evidencePanel = panel('Technical evidence');
-    const engine = panel('AI engine status');
-    const history = panel('Analysis history');
-    const signalsPanel = panel('Accepted signals and performance');
-    const alertsPanel = panel('Active price alerts');
-    const notificationsPanel = panel('Notifications');
-    content.append(evidencePanel, engine, history, signalsPanel, alertsPanel, notificationsPanel);
+    // Legacy panels kept hidden so they do not clutter the AI Market Intelligence UI
+    const legacyPanels = node('div', null, 'pro-legacy-panels');
+    legacyPanels.style.display = 'none';
+    const evidencePanel = panel('Technical evidence', legacyPanels);
+    const engine = panel('AI engine status', legacyPanels);
+    const history = panel('Analysis history', legacyPanels);
+    const signalsPanel = panel('Accepted signals and performance', legacyPanels);
+    const alertsPanel = panel('Active price alerts', legacyPanels);
+    const notificationsPanel = panel('Notifications', legacyPanels);
+    content.append(legacyPanels);
 
     // Initialize LightweightCharts 16:9
     function initChart() {
