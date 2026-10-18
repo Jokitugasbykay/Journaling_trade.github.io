@@ -1241,7 +1241,8 @@
 .chart-viewport-16-9 {
   width: 100%;
   aspect-ratio: 16 / 9;
-  min-height: 420px;
+  height: auto;
+  min-height: 0;
   position: relative;
   background-color: #080a0f;
   border: 1px solid #141926;
@@ -1251,7 +1252,7 @@
 
 @media (max-width: 640px) {
   .chart-viewport-16-9 {
-    min-height: 270px;
+    min-height: 0;
   }
 }
 
@@ -1259,7 +1260,6 @@
 #tv-iframe-container {
   width: 100%;
   height: 100%;
-  min-height: inherit;
   position: absolute;
   inset: 0;
 }
@@ -2688,5 +2688,47 @@
   font-weight: 600;
   color: #94a3b8;
 }
+
+/* AI CHAT TYPING ANIMATION & CURSOR */
+.mo-typing-cursor {
+  display: inline-block;
+  width: 2px;
+  height: 1.15em;
+  background-color: #38bdf8;
+  margin-left: 3px;
+  vertical-align: -0.15em;
+  border-radius: 1px;
+  box-shadow: 0 0 8px rgba(56, 189, 248, 0.7);
+  animation: moBlinkCursor 0.7s infinite ease-in-out;
+}
+
+@keyframes moBlinkCursor {
+  0%, 100% {
+    opacity: 1;
+    transform: scaleY(1);
+  }
+  50% {
+    opacity: 0;
+    transform: scaleY(0.75);
+  }
+}
+
+.pro-chat-content-holder {
+  display: inline;
+}
+
+.pro-chat-content-holder > p {
+  display: inline;
+}
+
+.pro-chat-content-holder > p:first-child {
+  margin-top: 0;
+}
+
+.pro-chat-error-wrap {
+  display: inline;
+  color: #94a3b8;
+}
+
 
 

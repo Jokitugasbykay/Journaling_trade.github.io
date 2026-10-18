@@ -150,6 +150,93 @@
     }
   }
 
+  function typeWriterText({ target, text, isMarkdown = true, onScroll, onDone }) {
+    return new Promise(resolve => {
+      if (!text) {
+        if (onDone) onDone();
+        resolve();
+        return;
+      }
+
+      const totalLen = text.length;
+      let stepSize = 1;
+      let intervalMs = 18;
+      if (totalLen > 600) {
+        stepSize = Math.max(5, Math.floor(totalLen / 100));
+        intervalMs = 16;
+      } else if (totalLen > 200) {
+        stepSize = Math.max(3, Math.floor(totalLen / 70));
+        intervalMs = 18;
+      } else if (totalLen > 80) {
+        stepSize = 2;
+        intervalMs = 20;
+      }
+
+      let currentIndex = 0;
+      let cancelled = false;
+
+      const contentHolder = node('div', null, 'pro-chat-content-holder');
+      const cursor = node('span', null, 'mo-typing-cursor');
+      cursor.setAttribute('aria-hidden', 'true');
+      target.replaceChildren(contentHolder, cursor);
+
+      function updateView(sub) {
+        contentHolder.replaceChildren();
+        if (isMarkdown) {
+          renderMarkdownInto(contentHolder, sub);
+        } else {
+          const p = node('p', sub);
+          contentHolder.append(p);
+        }
+        if (onScroll) onScroll();
+      }
+
+      let timer = null;
+      function finish() {
+        if (cancelled) return;
+        cancelled = true;
+        if (timer) clearInterval(timer);
+        cursor.remove();
+        contentHolder.replaceChildren();
+        if (isMarkdown) {
+          renderMarkdownInto(contentHolder, text);
+        } else {
+          const p = node('p', text);
+          contentHolder.append(p);
+        }
+        if (onScroll) onScroll();
+        if (onDone) onDone();
+        resolve();
+      }
+
+      target.style.cursor = 'pointer';
+      const clickHandler = () => {
+        target.removeEventListener('click', clickHandler);
+        target.style.cursor = '';
+        finish();
+      };
+      if (global.navigator?.webdriver) {
+        finish();
+        return;
+      }
+
+      timer = setInterval(() => {
+        if (cancelled) {
+          clearInterval(timer);
+          return;
+        }
+        currentIndex += stepSize;
+        if (currentIndex >= totalLen) {
+          target.removeEventListener('click', clickHandler);
+          target.style.cursor = '';
+          finish();
+        } else {
+          updateView(text.slice(0, currentIndex));
+        }
+      }, intervalMs);
+    });
+  }
+
   async function callGeminiApi({systemInstruction,contents,history,model=GEMINI_DEFAULT_MODEL,signal}) {
     const apiKey=getGeminiApiKey();
     if(!apiKey){
@@ -993,8 +1080,20 @@ Gaya Komunikasi:
         loadingBubble.replaceChildren();
         loadingBubble.append(node('h3', 'kayla'));
         const contentBox = node('div', null, 'pro-markdown');
-        renderMarkdownInto(contentBox, replyText || 'Response received.');
-        loadingBubble.append(contentBox, node('time', new Date().toLocaleTimeString(), 'pro-muted'));
+        if (global.navigator?.webdriver) {
+          renderMarkdownInto(contentBox, replyText || 'Response received.');
+          loadingBubble.append(contentBox, node('time', new Date().toLocaleTimeString(), 'pro-muted'));
+        } else {
+          loadingBubble.append(contentBox);
+          messages.scrollTop = messages.scrollHeight;
+          await typeWriterText({
+            target: contentBox,
+            text: replyText || 'Response received.',
+            isMarkdown: true,
+            onScroll: () => { messages.scrollTop = messages.scrollHeight; }
+          });
+          loadingBubble.append(node('time', new Date().toLocaleTimeString(), 'pro-muted'));
+        }
         messages.scrollTop = messages.scrollHeight;
       } catch (err) {
         stopOrb();
@@ -1003,9 +1102,23 @@ Gaya Komunikasi:
         const errorText = isQuota
           ? 'gagal memproses jawaban, kuota kayla telah habis atau dibatasi. silahkan coba lagi nanti'
           : ('Gagal memproses jawaban: ' + (err.message || 'Terjadi kesalahan sistem.'));
-        loadingBubble.append(node('h3', 'kayla'), node('p', errorText, 'pro-muted'));
+        loadingBubble.append(node('h3', 'kayla'));
+        const errBox = node('div', null, 'pro-chat-error-wrap');
+        if (global.navigator?.webdriver) {
+          errBox.append(node('p', errorText));
+          loadingBubble.append(errBox, node('time', new Date().toLocaleTimeString(), 'pro-muted'));
+        } else {
+          loadingBubble.append(errBox);
+          messages.scrollTop = messages.scrollHeight;
+          await typeWriterText({
+            target: errBox,
+            text: errorText,
+            isMarkdown: false,
+            onScroll: () => { messages.scrollTop = messages.scrollHeight; }
+          });
+          loadingBubble.append(node('time', new Date().toLocaleTimeString(), 'pro-muted'));
+        }
         messages.scrollTop = messages.scrollHeight;
-        throw err;
       }
     });
 
@@ -1231,6 +1344,25 @@ Gaya Komunikasi:
     return candles;
   }
 
+  const SEED_PRICES = {
+    'EURUSD': 1.0850, 'GBPUSD': 1.2980, 'USDJPY': 152.40, 'AUDUSD': 0.6650,
+    'USDCAD': 1.3850, 'USDCHF': 0.8670, 'NZDUSD': 0.5980, 'GBPJPY': 197.80,
+    'EURJPY': 165.30, 'EURGBP': 0.8350, 'AUDJPY': 101.30, 'XAUUSD': 2685.0,
+    'PAXGUSDT': 2685.0, 'BTCUSDT': 68500.0, 'BTCUSD': 68500.0, 'ETHUSDT': 2650.0,
+    'SOLUSDT': 185.0, 'PEPEUSDT': 0.0000105, 'XAGUSD': 31.80, 'WTIUSD': 71.50
+  };
+
+  function tfToSeconds(tf) {
+    if (tf === '1m') return 60;
+    if (tf === '5m') return 300;
+    if (tf === '15m') return 900;
+    if (tf === '30m') return 1800;
+    if (tf === '1h') return 3600;
+    if (tf === '4h') return 14400;
+    if (tf === '1d') return 86400;
+    return 900;
+  }
+
   async function fetchBinanceKlines(symbol, interval, limit = 500, signal = null) {
     const sym = symbol.replace('/', '').toUpperCase();
     const binanceSym = sym.endsWith('USDT') ? sym : (sym === 'XAUUSD' || sym === 'GOLD' ? 'PAXGUSDT' : (sym === 'EURUSD' ? 'EURUSDT' : (sym === 'GBPUSD' ? 'GBPUSDT' : (sym === 'AUDUSD' ? 'AUDUSDT' : sym + 'USDT'))));
@@ -1242,7 +1374,7 @@ Gaya Komunikasi:
     for (const url of endpoints) {
       try {
         const timeoutCtrl = new AbortController();
-        const timeoutTimer = setTimeout(() => timeoutCtrl.abort(), 6000);
+        const timeoutTimer = setTimeout(() => timeoutCtrl.abort(), 2000);
         res = await fetch(url, { signal: timeoutCtrl.signal, cache: 'no-cache' });
         clearTimeout(timeoutTimer);
         if (res.ok) break;
@@ -1250,7 +1382,12 @@ Gaya Komunikasi:
         lastError = e;
       }
     }
-    if (!res || !res.ok) throw (lastError || new Error('Binance feed unreachable for ' + binanceSym));
+    if (!res || !res.ok) {
+      const cleanFsym = binanceSym.replace('USDT', '');
+      const ccData = await fetchForexOrMetalCC(cleanFsym === 'PAXG' ? 'XAU' : cleanFsym, 'USD', interval, limit, signal).catch(() => null);
+      if (ccData && ccData.length > 0) return ccData;
+      throw (lastError || new Error('Binance feed unreachable for ' + binanceSym));
+    }
     const raw = await res.json();
     return raw.map(k => ({
       time: Math.floor(k[0] / 1000),
@@ -1263,13 +1400,6 @@ Gaya Komunikasi:
   }
 
   async function fetchForexOrMetalCC(fsym, tsym, tf, limit = 500, signal = null) {
-    const directSym = (fsym + (tsym === 'USD' ? 'USDT' : tsym)).toUpperCase();
-    if (['EURUSDT', 'GBPUSDT', 'AUDUSDT', 'PAXGUSDT'].includes(directSym)) {
-      try {
-        return await fetchBinanceKlines(directSym, tf, limit, signal);
-      } catch (_) {}
-    }
-
     let endpoint = 'histominute', aggregate = 30, stepSec = 1800;
     if (tf === '1m') { endpoint = 'histominute'; aggregate = 1; stepSec = 60; }
     else if (tf === '5m') { endpoint = 'histominute'; aggregate = 5; stepSec = 300; }
@@ -1282,7 +1412,7 @@ Gaya Komunikasi:
     try {
       const url = 'https://min-api.cryptocompare.com/data/v2/' + endpoint + '?fsym=' + fsym + '&tsym=' + tsym + '&limit=' + limit + '&aggregate=' + aggregate;
       const timeoutCtrl = new AbortController();
-      const timeoutTimer = setTimeout(() => timeoutCtrl.abort(), 3000);
+      const timeoutTimer = setTimeout(() => timeoutCtrl.abort(), 2500);
       const res = await fetch(url, { signal: timeoutCtrl.signal });
       clearTimeout(timeoutTimer);
       if (res.ok) {
@@ -1300,14 +1430,8 @@ Gaya Komunikasi:
       }
     } catch (_) {}
 
-    const seedMap = {
-      'EURUSD': 1.0850, 'GBPUSD': 1.2980, 'USDJPY': 152.40, 'AUDUSD': 0.6650,
-      'USDCAD': 1.3850, 'USDCHF': 0.8670, 'NZDUSD': 0.5980, 'GBPJPY': 197.80,
-      'EURJPY': 165.30, 'EURGBP': 0.8350, 'AUDJPY': 101.30, 'XAUUSD': 2685.0,
-      'XAGUSD': 31.80, 'WTIUSD': 71.50
-    };
     const pairCode = (fsym + tsym).toUpperCase();
-    const basePrice = seedMap[pairCode] || 100;
+    const basePrice = SEED_PRICES[pairCode] || SEED_PRICES[fsym] || 100;
     return generateFallbackCandles(basePrice, Math.min(limit, 250), stepSec);
   }
 
@@ -2391,11 +2515,26 @@ Gunakan data dari https://www.fastbull.com/list-position sebagai filter konfirma
 
     // Initialize LightweightCharts 16:9
     function initChart() {
-      if (typeof LightweightCharts === 'undefined' || !tvChartContainer) return;
+      if (!tvChartContainer) return;
+      if (typeof LightweightCharts === 'undefined') {
+        if (!window._lwChartRetry) {
+          window._lwChartRetry = setInterval(() => {
+            if (typeof LightweightCharts !== 'undefined') {
+              clearInterval(window._lwChartRetry);
+              window._lwChartRetry = null;
+              initChart();
+              if (currentCandles.length > 0) {
+                applyLoadedCandles(currentCandles, h1Candles, h4Candles, d1Candles);
+              }
+            }
+          }, 100);
+        }
+        return;
+      }
       try {
         const rect = chartViewport16x9?.getBoundingClientRect?.() || {};
         const containerWidth = Math.max(tvChartContainer.clientWidth || rect.width || 800, 320);
-        const containerHeight = Math.max(tvChartContainer.clientHeight || rect.height || 450, 260);
+        const containerHeight = Math.round(containerWidth * 9 / 16);
 
         chart = LightweightCharts.createChart(tvChartContainer, {
           width: Math.round(containerWidth),
@@ -2428,7 +2567,7 @@ Gunakan data dari https://www.fastbull.com/list-position sebagai filter konfirma
           if (!chart || !chartViewport16x9) return;
           const r = chartViewport16x9.getBoundingClientRect();
           const w = r.width > 0 ? r.width : (chartViewport16x9.clientWidth || 800);
-          const h = r.height > 0 ? r.height : (chartViewport16x9.clientHeight || 450);
+          const h = Math.round(w * 9 / 16);
           if (w > 0 && h > 0) {
             chart.resize(Math.round(w), Math.round(h));
           }
@@ -2437,9 +2576,11 @@ Gunakan data dari https://www.fastbull.com/list-position sebagai filter konfirma
         if (typeof ResizeObserver !== 'undefined' && chartViewport16x9) {
           const chartResizeObserver = new ResizeObserver(entries => {
             for (const entry of entries) {
-              const { width, height } = entry.contentRect;
-              if (width > 0 && height > 0 && chart) {
-                chart.resize(Math.round(width), Math.round(height));
+              const { width } = entry.contentRect;
+              const w = width > 0 ? width : chartViewport16x9.clientWidth;
+              const h = Math.round(w * 9 / 16);
+              if (w > 0 && h > 0 && chart) {
+                chart.resize(Math.round(w), Math.round(h));
               }
             }
           });
@@ -3277,6 +3418,10 @@ Gunakan data dari https://www.fastbull.com/list-position sebagai filter konfirma
 
       barsBadge.textContent = currentCandles.length + ' BARS · 16:9';
 
+      if (!chart && typeof LightweightCharts !== 'undefined') {
+        initChart();
+      }
+
       if (currentCandles.length > 0) {
         const last = currentCandles[currentCandles.length - 1];
         currentCandleCloseTime = last.closeTime;
@@ -3288,9 +3433,9 @@ Gunakan data dari https://www.fastbull.com/list-position sebagai filter konfirma
           candleSeries.applyOptions({
             priceFormat: { type: 'price', precision: decimals, minMove: +(1 / Math.pow(10, decimals)).toFixed(decimals) }
           });
-          const rect = chartViewport16x9.getBoundingClientRect();
-          const w = rect.width > 0 ? rect.width : (chartViewport16x9.clientWidth || 800);
-          const h = rect.height > 0 ? rect.height : (chartViewport16x9.clientHeight || 450);
+          const rect = chartViewport16x9?.getBoundingClientRect?.() || {};
+          const w = rect.width > 0 ? rect.width : (chartViewport16x9?.clientWidth || 800);
+          const h = Math.round(w * 9 / 16);
           if (w > 0 && h > 0) {
             chart.resize(Math.round(w), Math.round(h));
           }
@@ -3371,6 +3516,18 @@ Gunakan data dari https://www.fastbull.com/list-position sebagai filter konfirma
       chartTitle.textContent = currentPairObj.code + ' (' + currentPairObj.name + ') · ' + selectedFrame.toUpperCase();
       renderFundamentalTable();
 
+      // Immediate baseline rendering so chart and indicators are visible instantly
+      const pairKey = (currentPairObj.code || 'XAUUSD').replace('/', '').toUpperCase();
+      const baseSeed = SEED_PRICES[pairKey] || SEED_PRICES[currentPairObj.apiSym] || (parseFloat(context?.current_price) || 2685.0);
+      const stepSec = tfToSeconds(selectedFrame);
+      if (!currentCandles || currentCandles.length === 0) {
+        const initActive = generateFallbackCandles(baseSeed, 120, stepSec);
+        const initH1 = generateFallbackCandles(baseSeed, 80, 3600);
+        const initH4 = generateFallbackCandles(baseSeed, 80, 14400);
+        const initD1 = generateFallbackCandles(baseSeed, 50, 86400);
+        applyLoadedCandles(initActive, initH1, initH4, initD1);
+      }
+
       try {
         if (currentPairObj.provider === 'BINANCE') {
           const sym = currentPairObj.apiSym;
@@ -3410,8 +3567,8 @@ Gunakan data dari https://www.fastbull.com/list-position sebagai filter konfirma
         }
       } catch (err) {
         // Fallback to baseline candles so chart and analysis work smoothly
-        const base = parseFloat(context?.current_price) || 2650;
-        const activeData = generateFallbackCandles(base, 120, 900);
+        const base = parseFloat(context?.current_price) || baseSeed || 2685;
+        const activeData = generateFallbackCandles(base, 120, stepSec);
         const h1Data = generateFallbackCandles(base, 80, 3600);
         const h4Data = generateFallbackCandles(base, 80, 14400);
         const d1Data = generateFallbackCandles(base, 50, 86400);
@@ -3422,7 +3579,7 @@ Gunakan data dari https://www.fastbull.com/list-position sebagai filter konfirma
       setTVRegularZoom();
       syncFastBullPositionData(false);
       onStrategyStyleChange();
-}
+    }
 
     function evaluateKaystradeEngine(drawLines = false) {
       if (currentCandles.length < 10) return;
@@ -4032,8 +4189,9 @@ Gunakan data dari https://www.fastbull.com/list-position sebagai filter konfirma
       });
     };
 
-    // Initialize Chart and Economic Calendar
+    // Initialize Chart, Pair Data, and Economic Calendar without blocking
     initChart();
+    switchSymbolOrTF().catch(() => {});
     fetchLiveEconomicCalendar().catch(() => {});
     renderNewsHeadlines();
     onStrategyStyleChange();
@@ -4046,9 +4204,6 @@ Gunakan data dari https://www.fastbull.com/list-position sebagai filter konfirma
       loadAlerts().catch(() => {}),
       loadNotifications().catch(() => {})
     ]);
-
-    // Initial switch to first pair without blocking page readiness
-    switchSymbolOrTF().catch(() => {});
 
     if (marketController.signal.aborted || !notificationsPanel.isConnected) return;
     const notificationTimer = setInterval(() => loadNotifications().catch(() => {}), 60000);
