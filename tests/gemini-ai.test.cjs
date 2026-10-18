@@ -291,7 +291,7 @@ const server=http.createServer(async(req,res)=>{
   await page.click('#pro-ai-generate');
   await page.waitForSelector('.pro-modal-status.error, [role="alert"]');
   const error429Text = await page.locator('#view-pro-workspace').textContent();
-  assert.ok(error429Text.includes('Kuota Google Gemini API telah habis atau dibatasi (Error 429'));
+  assert.ok(error429Text.includes('kuota kayla telah habis atau dibatasi'));
 
   // 8. Test Error Handling: Invalid API Key 400
   geminiStatus = 400;

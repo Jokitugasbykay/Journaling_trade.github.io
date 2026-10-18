@@ -189,11 +189,14 @@
       }
 
       if(response.status===429){
-        throw new Error('Kuota Google Gemini API telah habis atau dibatasi (Error 429: Rate Limit Exceeded). Silakan coba lagi beberapa saat atau gunakan API Key lain.');
+        throw new Error('gagal memproses jawaban, kuota kayla telah habis atau dibatasi. silahkan coba lagi nanti');
       }
       const data=await response.json().catch(()=>null);
       if(!response.ok){
         const errorMsg=data?.error?.message||response.statusText;
+        if(/RESOURCE_EXHAUSTED|quota|rate limit/i.test(errorMsg)){
+          throw new Error('gagal memproses jawaban, kuota kayla telah habis atau dibatasi. silahkan coba lagi nanti');
+        }
         if(response.status===400 || response.status===403){
           throw new Error('Google Gemini API Key tidak valid atau tidak memiliki izin akses (Error: '+errorMsg+'). Periksa kembali API Key Anda di Google AI Studio.');
         }
@@ -996,7 +999,11 @@ Gaya Komunikasi:
       } catch (err) {
         stopOrb();
         loadingBubble.replaceChildren();
-        loadingBubble.append(node('h3', 'kayla'), node('p', 'Gagal memproses jawaban: ' + err.message, 'pro-muted'));
+        const isQuota = /kuota kayla telah habis|429|quota|rate limit|resource_exhausted/i.test(err?.message || '');
+        const errorText = isQuota
+          ? 'gagal memproses jawaban, kuota kayla telah habis atau dibatasi. silahkan coba lagi nanti'
+          : ('Gagal memproses jawaban: ' + (err.message || 'Terjadi kesalahan sistem.'));
+        loadingBubble.append(node('h3', 'kayla'), node('p', errorText, 'pro-muted'));
         messages.scrollTop = messages.scrollHeight;
         throw err;
       }
