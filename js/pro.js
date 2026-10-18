@@ -351,6 +351,7 @@
       statusMsg.textContent='API Key berhasil disimpan! Semua modul AI kini Terhubung (Connected).';
       statusMsg.className='pro-modal-status success';
       onStateChanged?.();
+      if(current && current.startsWith('ai-')) open(current,preset);
       setTimeout(()=>{backdrop.remove();},1200);
     });
     const btnRemove=node('button','Hapus Key','btn btn-ghost');
@@ -361,6 +362,7 @@
       statusMsg.textContent='API Key telah dihapus.';
       statusMsg.className='pro-modal-status success';
       onStateChanged?.();
+      if(current && current.startsWith('ai-')) open(current,preset);
     });
     const btnClose=node('button','Tutup','btn btn-ghost');
     btnClose.type='button';
@@ -4349,23 +4351,7 @@ Gunakan data dari https://www.fastbull.com/list-position sebagai filter konfirma
     if(!features[feature])throw new Error('Unknown Pro feature.');
     revision++;controller.abort();controller=new AbortController(); preset={...selection};current=feature;root=document.getElementById('view-pro-workspace');if(!root)throw new Error('Pro workspace container is missing.');
     root.replaceChildren();const heading=node('header',null,'pro-heading');const title=node('div');title.append(node('h1',text('Title'+feature,features[feature])),node('p',text('WorkspaceDescription','Performance, risk, reports and AI insights from your trading journal.'),'pro-subtitle'));heading.append(title);root.append(heading);
-    const apiKeyBtn=node('button',null,'btn btn-ghost pro-apikey-btn');
-    apiKeyBtn.id='pro-gemini-key-toggle';
-    apiKeyBtn.type='button';
-    function updateKeyBtnState(){
-      const active=hasGeminiApiKey();
-      apiKeyBtn.style.display='inline-flex';
-      apiKeyBtn.replaceChildren();
-      const dot=node('span',null,'pro-dot '+(active?'online':'offline'));
-      const label=node('span',active?'Gemini AI: Connected':'Set Gemini API Key');
-      apiKeyBtn.append(dot,label);
-    }
-    updateKeyBtnState();
-    apiKeyBtn.addEventListener('click',()=>openGeminiConfigModal(()=>{
-      updateKeyBtnState();
-      if(current && current.startsWith('ai-')) open(current,selection);
-    }));
-    heading.append(apiKeyBtn,button(text('RetrySection','Retry section'),()=>open(feature,selection),'pro-section-retry'));
+    heading.append(button(text('RetrySection','Retry section'),()=>open(feature,selection),'pro-section-retry'));
     const navigation=node('nav',null,'pro-sections');navigation.setAttribute('aria-label','Pro sections');
     const groups=[['Analysis',['analytics','heatmap','strategies','risk']],['Reviews & reports',['reviews','reports']],['AI assistant',['ai-market','ai-behaviour','ai-journal','ai-chat']],['Markets',['global-news']]];
     for(const [group,keys] of groups) {const section=node('div',null,'pro-nav-group');section.append(node('h2',group));navigation.append(section);

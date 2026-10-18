@@ -111,11 +111,10 @@ const server=http.createServer(async(req,res)=>{
 
   // 2. Test Centralized API Key Modal & localStorage storage
   await page.evaluate(()=>JTPRO.open('ai-market'));
-  await page.waitForSelector('#pro-gemini-key-toggle');
-  assert.equal(await page.locator('#pro-gemini-key-toggle').textContent(),'Set Gemini API Key');
+  assert.equal(await page.evaluate(()=>JTPRO.hasGeminiApiKey()), false);
 
-  // Open modal
-  await page.click('#pro-gemini-key-toggle');
+  // Open modal via JTPRO.openGeminiConfigModal
+  await page.evaluate(()=>JTPRO.openGeminiConfigModal());
   await page.waitForSelector('#pro-gemini-modal');
   assert.equal(await page.locator('#pro-gemini-modal h2').textContent(),'Google Gemini API Configuration');
 
@@ -127,10 +126,7 @@ const server=http.createServer(async(req,res)=>{
   // Check localStorage key
   const savedKey = await page.evaluate(()=>localStorage.getItem('gemini_api_key'));
   assert.equal(savedKey,'AIzaSyFakeKeyForTesting123');
-
-  // Check button reflects Connected state
-  await page.waitForSelector('#pro-gemini-key-toggle .pro-dot.online');
-  assert.equal(await page.locator('#pro-gemini-key-toggle').textContent(),'Gemini AI: Connected');
+  assert.equal(await page.evaluate(()=>JTPRO.hasGeminiApiKey()), true);
 
   // Check AI engine status card shows connected
   await page.waitForSelector('.pro-engine-status-badge');
@@ -304,7 +300,7 @@ const server=http.createServer(async(req,res)=>{
   // 9. Test Removal of Key & Missing Key Warning
   await page.evaluate(()=>localStorage.removeItem('gemini_api_key'));
   await page.evaluate(()=>JTPRO.open('ai-market'));
-  assert.equal(await page.locator('#pro-gemini-key-toggle').textContent(),'Set Gemini API Key');
+  assert.equal(await page.evaluate(()=>JTPRO.hasGeminiApiKey()), false);
 
   await browser.close();
   server.close();
