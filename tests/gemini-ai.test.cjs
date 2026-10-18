@@ -133,10 +133,11 @@ const server=http.createServer(async(req,res)=>{
   assert.equal(await page.locator('#pro-gemini-key-toggle').textContent(),'Gemini AI: Connected');
 
   // Check AI engine status card shows connected
+  await page.waitForSelector('.pro-engine-status-badge');
   const engineText = await page.locator('.pro-panel:has-text("AI engine status")').textContent();
   assert.ok(engineText.includes('available: true (Gemini Connected)'));
   assert.ok(engineText.includes('ready (Connected)'));
-  assert.ok(engineText.includes('gemini-2.5-flash'));
+  assert.ok(engineText.includes('gemini-3.8-flash'));
 
   // 3. Test Module 1: AI Market Intelligence with Kaystrade prompt
   await page.click('#pro-ai-generate');
