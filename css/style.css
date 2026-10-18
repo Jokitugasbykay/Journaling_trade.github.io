@@ -2335,7 +2335,19 @@
     /* Dark surfaces match the supplied references; serif headings distinguish reading from journal controls. */
     body { background-image: none; }
     [hidden] { display: none !important; }
-    :focus-visible { outline: 2px solid #f5f5f5; outline-offset: 4px; }
+    :focus-visible:not(.mo-field, #pro-ai-chat-message, .mo-input, .mo-input input, .mo-pill-composer, .mo-pill-composer input) { outline: 2px solid #f5f5f5; outline-offset: 4px; }
+    :is(.mo-field, #pro-ai-chat-message, .mo-input input, .mo-pill-composer input):focus,
+    :is(.mo-field, #pro-ai-chat-message, .mo-input input, .mo-pill-composer input):focus-visible {
+      outline: none !important;
+      outline-width: 0 !important;
+      outline-style: none !important;
+      outline-color: transparent !important;
+      outline-offset: 0 !important;
+      border: none !important;
+      box-shadow: none !important;
+      -webkit-appearance: none !important;
+      -webkit-tap-highlight-color: transparent !important;
+    }
     .brand-logo { border: 0; background: none; padding: 0; min-height: 44px; }
     .navbar { padding: 0 max(24px, calc((100% - 1380px) / 2)); height: 64px; }
     .nav-tab { min-height: 44px; }
