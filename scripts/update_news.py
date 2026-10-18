@@ -490,6 +490,21 @@ def merge_items(previous, incoming):
     return sorted(merged.values(), key=lambda item: item.get('publishedAt') or '', reverse=True)
 
 
+def prune_archive(items, max_per_source=100, max_total=35000):
+    counts = {}
+    retained = []
+    for item in items:
+        source = item.get('source')
+        limit = 200 if source == 'fnc' else max_per_source
+        count = counts.get(source, 0) + 1
+        counts[source] = count
+        if count <= limit:
+            retained.append(item)
+        if len(retained) >= max_total:
+            break
+    return retained
+
+
 def main():
     IMAGE_ROOT.mkdir(parents=True, exist_ok=True)
     path = ROOT / "berita.json"
@@ -532,6 +547,7 @@ def main():
         missing.sort(key=lambda item: (item['source'] != 'federal_reserve', item['source'] != 'reuters'))
         list(pool.map(add_article_image, missing[:96]))
     items = merge_items(previous.get('items', []), items)
+    items = prune_archive(items)
     output = {"version": 1, "checkedAt": dt.datetime.now(dt.timezone.utc).isoformat(), "intervalMinutes": 5, "sources": sources, "items": items}
     temporary = path.with_suffix(".json.tmp")
     temporary.write_text(json.dumps(output, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")

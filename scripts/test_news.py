@@ -128,7 +128,9 @@ assert len(news.merge_items(archive, [])) == 451
 assert len(news.merge_items(archive, [latest])) == 451
 fnc_rows = [{**latest, 'source':'fnc', 'id':str(n), 'url':'https://tradewithfnc.com/'} for n in (1,2)]
 assert len(news.merge_items([], fnc_rows)) == 2
-print('News archive survives successful/failed refreshes, duplicates and the former 400-story limit')
+assert len(news.prune_archive([{**latest, 'id':str(i), 'title':f'Headline {i}', 'url':f'https://www.reuters.com/world/story-{i}/'} for i in range(150)], max_per_source=100)) == 100
+assert len(news.prune_archive([{**latest, 'source':'fnc', 'id':str(i), 'title':f'FNC {i}', 'url':'https://tradewithfnc.com/'} for i in range(250)], max_per_source=100)) == 200
+print('News archive survives successful/failed refreshes, duplicates and the former 400-story limit; pruning caps retention')
 
 story = {**latest, 'source':'kompas', 'url':f'https://money.kompas.com/read/{local_date}/063340926/original-title', 'image':old[0]['image']}
 revision = {**story, 'id':'revision', 'title':'Updated technology headline from the same publisher',

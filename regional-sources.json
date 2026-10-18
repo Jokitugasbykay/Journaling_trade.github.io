@@ -10,6 +10,7 @@
     {"id":"marketwatch","name":"MarketWatch","url":"https://www.marketwatch.com","tag":"Markets","feed":"https://feeds.content.dowjones.io/public/rss/mw_topstories"}
   ],
   "ID": [
+    {"id":"fnc","name":"Trade With FNC","url":"https://tradewithfnc.com/","tag":"Pasar & Finansial","feed":"https://tradewithfnc.com/berita.json","kind":"json"},
     {"id":"bisnis","name":"Bisnis Indonesia","url":"https://bisnis.com","tag":"Ekonomi"},
     {"id":"kontan","name":"Kontan","url":"https://www.kontan.co.id","tag":"Pasar Uang"},
     {"id":"id_katadata","name":"Katadata","url":"https://katadata.co.id","tag":"Data & Makro"},
