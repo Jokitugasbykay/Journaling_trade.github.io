@@ -678,6 +678,15 @@ Gunakan format Markdown (bold, tabel, bullet points, blok kode) untuk memperjela
     toolbar.append(generateBtn,geminiKeyBtn);await loadHistory();
   }
 
+  function renderStatusLab(container, labelText) {
+    container.replaceChildren();
+    const lab = node('span', labelText, 'mo-lab-t');
+    const dots = node('span', null, 'mo-dots');
+    dots.setAttribute('aria-hidden', 'true');
+    dots.append(node('i'), node('i'), node('i'));
+    container.append(lab, dots);
+  }
+
   function startInlineOrb(canvas, statusLab) {
     const ctx = canvas.getContext('2d');
     let running = true;
@@ -688,7 +697,7 @@ Gunakan format Markdown (bold, tabel, bullet points, blok kode) untuk memperjela
       if (!running) return;
       labIdx = (labIdx + 1) % LABELS.length;
       if (statusLab) {
-        statusLab.innerHTML = '<span class="mo-lab-t">' + LABELS[labIdx] + '</span><span class="mo-dots" aria-hidden="true"><i></i><i></i><i></i></span>';
+        renderStatusLab(statusLab, LABELS[labIdx]);
       }
     }, 1150);
 
@@ -775,7 +784,11 @@ Gunakan format Markdown (bold, tabel, bullet points, blok kode) untuk memperjela
     sparkSvg.setAttribute('fill', 'none'); sparkSvg.setAttribute('stroke', 'currentColor');
     sparkSvg.setAttribute('stroke-width', '1.5'); sparkSvg.setAttribute('stroke-linecap', 'round');
     sparkSvg.setAttribute('stroke-linejoin', 'round'); sparkSvg.setAttribute('aria-hidden', 'true');
-    sparkSvg.innerHTML = '<path d="M10 3.5l1.7 4.8 4.8 1.7-4.8 1.7L10 16.5l-1.7-4.8L3.5 10l4.8-1.7L10 3.5z"/><path d="M18 14.5l.7 1.8 1.8.7-1.8.7-.7 1.8-.7-1.8-1.8-.7 1.8-.7.7-1.8z"/>';
+    const sparkP1 = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+    sparkP1.setAttribute('d', 'M10 3.5l1.7 4.8 4.8 1.7-4.8 1.7L10 16.5l-1.7-4.8L3.5 10l4.8-1.7L10 3.5z');
+    const sparkP2 = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+    sparkP2.setAttribute('d', 'M18 14.5l.7 1.8 1.8.7-1.8.7-.7 1.8-.7-1.8-1.8-.7 1.8-.7.7-1.8z');
+    sparkSvg.append(sparkP1, sparkP2);
 
     const input = node('input');
     input.id = 'pro-ai-chat-message'; input.name = 'message';
@@ -790,7 +803,11 @@ Gunakan format Markdown (bold, tabel, bullet points, blok kode) untuk memperjela
     sendSvg.setAttribute('viewBox', '0 0 24 24'); sendSvg.setAttribute('fill', 'none');
     sendSvg.setAttribute('stroke', 'currentColor'); sendSvg.setAttribute('stroke-width', '1.5');
     sendSvg.setAttribute('stroke-linecap', 'round'); sendSvg.setAttribute('stroke-linejoin', 'round');
-    sendSvg.innerHTML = '<path d="M12 19V5"/><path d="M5.5 11.5L12 5l6.5 6.5"/>';
+    const sendP1 = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+    sendP1.setAttribute('d', 'M12 19V5');
+    const sendP2 = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+    sendP2.setAttribute('d', 'M5.5 11.5L12 5l6.5 6.5');
+    sendSvg.append(sendP1, sendP2);
     sendBtn.append(sendSvg);
 
     form.append(sparkSvg, input, sendBtn);
@@ -886,7 +903,7 @@ Gunakan format Markdown (bold, tabel, bullet points, blok kode) untuk memperjela
       const canvas = node('canvas', null, 'mo-inline-orb');
       canvas.width = 64; canvas.height = 64;
       const statusLab = node('div', null, 'mo-inline-status');
-      statusLab.innerHTML = '<span class="mo-lab-t">Thinking</span><span class="mo-dots" aria-hidden="true"><i></i><i></i><i></i></span>';
+      renderStatusLab(statusLab, 'Thinking');
       orbWrap.append(canvas, statusLab);
       loadingBubble.append(head, orbWrap);
       messages.append(loadingBubble);
@@ -1062,9 +1079,9 @@ Gunakan format Markdown (bold, tabel, bullet points, blok kode) untuk memperjela
     return { rsi: currentRSI, sma: currentSMA, status };
   }
 
-  function analyzeStructure(candles) {
-    if (!candles || candles.length < 20) return { bias: 'NEUTRAL', score: 0, pivot: candles?.[candles.length - 1]?.close || 0, swingHigh: 0, swingLow: 0 };
-    const recent = candles.slice(-30);
+  function analyzeStructure(candles, lookback = 60) {
+    if (!candles || candles.length < 20) return { bias: 'NEUTRAL', score: 0, pivot: candles?.[candles.length - 1]?.close || 0, swingHigh: 0, swingLow: 0, baseBreakout: 'INSIDE BASE', baseHigh: 0, baseLow: 0 };
+    const recent = candles.slice(-Math.min(candles.length, lookback));
     const half = Math.floor(recent.length / 2);
     const firstHalf = recent.slice(0, half);
     const secondHalf = recent.slice(half);
@@ -1076,6 +1093,13 @@ Gunakan format Markdown (bold, tabel, bullet points, blok kode) untuk memperjela
 
     const lastClosed = recent[recent.length - 2] || recent[recent.length - 1];
     const pivot = (high2 + low2 + Number(lastClosed.close)) / 3;
+
+    const baseSlice = recent.slice(-12, -2);
+    const baseHigh = baseSlice.length ? Math.max(...baseSlice.map(c => Math.max(Number(c.open), Number(c.close)))) : high2;
+    const baseLow = baseSlice.length ? Math.min(...baseSlice.map(c => Math.min(Number(c.open), Number(c.close)))) : low2;
+    let baseBreakout = 'WAIT BODY CLOSE OUTSIDE BASE';
+    if (Number(lastClosed.close) > baseHigh) baseBreakout = 'BODY CLOSED ABOVE BASE (VALID)';
+    else if (Number(lastClosed.close) < baseLow) baseBreakout = 'BODY CLOSED BELOW BASE (VALID)';
 
     let bias = 'CONSOLIDATION';
     let score = 0;
@@ -1093,7 +1117,7 @@ Gunakan format Markdown (bold, tabel, bullet points, blok kode) untuk memperjela
       score = -0.35;
     }
 
-    return { bias, score, pivot, swingHigh: Math.max(high1, high2), swingLow: Math.min(low1, low2) };
+    return { bias, score, pivot, swingHigh: Math.max(high1, high2), swingLow: Math.min(low1, low2), baseBreakout, baseHigh, baseLow };
   }
 
   function analyzeSpeedometer(candles) {
@@ -1677,23 +1701,50 @@ Gunakan format Markdown (bold, tabel, bullet points, blok kode) untuk memperjela
     let economicEvents = [];
     let simulatedWarningEvent = null;
 
+    // FastBull Store (https://www.fastbull.com/list-position) & News Feed
+    const fastbullPositionStore = {
+      XAUUSD: { longPct: 42.0, shortPct: 58.0, netShift: +4.2, instBias: 'BUY', instName: 'Morgan Stanley & Citi Spot Desk' },
+      EURUSD: { longPct: 39.5, shortPct: 60.5, netShift: +3.1, instBias: 'BUY', instName: 'Goldman Sachs & Deutsche Bank FX' },
+      GBPUSD: { longPct: 44.0, shortPct: 56.0, netShift: +2.8, instBias: 'BUY', instName: 'Barclays & JP Morgan FX Desk' },
+      USDJPY: { longPct: 64.5, shortPct: 35.5, netShift: -3.6, instBias: 'SELL', instName: 'Nomura & MUFG Institutional Order' },
+      GBPJPY: { longPct: 62.0, shortPct: 38.0, netShift: -2.4, instBias: 'SELL', instName: 'Credit Agricole & UBS FX' },
+      AUDUSD: { longPct: 46.5, shortPct: 53.5, netShift: +1.9, instBias: 'BUY', instName: 'ANZ & Westpac Institutional' },
+      BTCUSDT: { longPct: 41.0, shortPct: 59.0, netShift: +5.4, instBias: 'BUY', instName: 'CME Institutional Futures & Block Desk' }
+    };
+    let customLongPctOverride = null;
+
+    const ECONOMIC_NEWS_FEED = [
+      { id: 1, cat: 'THE_FED', pill: 'THE_FED', label: 'The Fed', title: 'Pejabat The Fed sinyalkan kehati-hatian pemangkasan suku bunga; pasar pantau rilis CPI & imbal hasil Treasury AS', score: -5 },
+      { id: 2, cat: 'POLITIK_DUNIA', pill: 'DUNIA', label: 'Dunia', title: 'Ketegangan geopolitik global mendorong permintaan aset safe-haven emas batangan oleh bank sentral', score: +8 },
+      { id: 3, cat: 'PASAR_BISNIS', pill: 'PASAR', label: 'Pasar', title: 'Arus order institusi di sesi London & New York perkuat akumulasi pada area Demand H1 utama', score: +6 },
+      { id: 4, cat: 'POLITIK_DUNIA', pill: 'POLITIK', label: 'Politik', title: 'Dinamika kebijakan fiskal AS dan negosiasi anggaran memicu volatilitas intrasesi pada komoditas utama', score: +4 },
+      { id: 5, cat: 'PASAR_BISNIS', pill: 'BISNIS', label: 'Bisnis', title: 'Rotasi likuiditas institusi menuju instrumen lindung nilai menjelang rilis data makroekonomi pekan ini', score: +5 }
+    ];
+    let activeNewsPill = 'ALL';
+
     // Navigasi Cepat Khusus Mobile/Tablet
     const mobileQuickNav = node('nav', null, 'mobile-quick-nav');
-    const mNavAi = node('button', 'AI Market Intelligence', 'm-nav-btn active');
+    const mNavAi = node('button', 'Analyze Entry', 'm-nav-btn active');
     mNavAi.type = 'button';
     mNavAi.addEventListener('click', () => switchSymbolOrTF().catch(() => {}));
-    const mNavSkill = node('button', 'Full skill.md (Detail)', 'm-nav-btn');
-    mNavSkill.type = 'button';
-    mNavSkill.addEventListener('click', () => toggleSkillModal(true));
-    const mNavWarn = node('button', 'Test News <1H Warning', 'm-nav-btn');
+    const mNavFb = node('button', 'FastBull list-position', 'm-nav-btn');
+    mNavFb.type = 'button';
+    mNavFb.addEventListener('click', () => openBottomTab('FASTBULL'));
+    const mNavNews = node('button', 'Berita Ekonomi', 'm-nav-btn');
+    mNavNews.type = 'button';
+    mNavNews.addEventListener('click', () => openBottomTab('HEADLINES'));
+    const mNavWarn = node('button', 'Test News <1H', 'm-nav-btn');
     mNavWarn.type = 'button';
     mNavWarn.style.color = '#fda4af';
     mNavWarn.style.borderColor = '#ff2a5f';
     mNavWarn.addEventListener('click', triggerSimulatedHighImpactWarning);
+    const mNavSkill = node('button', 'Full skill.md', 'm-nav-btn');
+    mNavSkill.type = 'button';
+    mNavSkill.addEventListener('click', () => toggleSkillModal(true));
     const mNavJson = node('button', 'Copy JSON', 'm-nav-btn');
     mNavJson.type = 'button';
     mNavJson.addEventListener('click', exportSignalJSON);
-    mobileQuickNav.append(mNavAi, mNavSkill, mNavWarn, mNavJson);
+    mobileQuickNav.append(mNavAi, mNavFb, mNavNews, mNavWarn, mNavSkill, mNavJson);
 
     const mainCard = node('main', null, 'main-card');
     content.append(mobileQuickNav, mainCard);
@@ -1771,30 +1822,29 @@ Gunakan format Markdown (bold, tabel, bullet points, blok kode) untuk memperjela
 
     // 2. Trading Style Select
     const styleWrap = node('div');
-    styleWrap.append(node('label', 'Trading style (Kaystrade)'));
-    const style = select('Trading style', [['', 'Select trading style'], ['INTRADAY', 'INTRADAY (Max 24h · H4->H1->M30)'], ['SCALPING', 'SCALPING (M15/M30 Execution)'], ['SWING', 'SWING (H4/D1 Structure Hold)']], savedStyle, 'pro-market-style');
+    styleWrap.append(node('label', 'Strategi Trading (Intraday & Scalping + FastBull Entry)'));
+    const style = select('Trading style', [['', 'Select trading style'], ['INTRADAY', 'INTRADAY (Max 24h · H4->H1->M30 · RR 1:2.5-3.2)'], ['SCALPING', 'SCALPING (Fast M15/M30 · Tight Base · RR 1:2.0-2.4)'], ['SWING', 'SWING (Hold until TP/SL · H4/D1 · RR 1:3.5-4.0)']], savedStyle, 'pro-market-style');
     styleWrap.append(style.input);
     controlsGrid.append(styleWrap);
 
-    // 3. Fundamental Bias Compilation Select
-    const fundaWrap = node('div');
-    fundaWrap.append(node('label', 'Kompilasi Bias Fundamental / DXY'));
-    const fundaBiasSelect = node('select');
-    fundaBiasSelect.id = 'fundaBiasSelect';
-    const fOptions = [
-      ['AUTO', 'Auto-Detect dari Kalender Ekonomi'],
-      ['BULLISH', 'Fundamental Bullish (Mendukung Buy)'],
-      ['BEARISH', 'Fundamental Bearish (Mendukung Sell)'],
-      ['NEUTRAL', 'Fundamental Netral / No Catalyst']
+    // 3. Mode Penentuan Entry FastBull (list-position)
+    const fastbullWrap = node('div');
+    fastbullWrap.append(node('label', 'Mode Penentuan Entry FastBull (list-position)'));
+    const fastbullModeSelect = node('select');
+    fastbullModeSelect.id = 'fastbullModeSelect';
+    const fbOptions = [
+      ['SMART_BLEND', 'Auto Blend (Institusi Order + Contrarian Ratio)'],
+      ['INSTITUTIONAL_FOLLOW', 'Ikuti Klaster Order Institusi (Bank Positions)'],
+      ['RETAIL_CONTRARIAN', 'Contrarian (Lawan Kerumunan Ritel Ekstrem >65%)']
     ];
-    fOptions.forEach(([val, lbl]) => {
+    fbOptions.forEach(([val, lbl]) => {
       const opt = node('option', lbl);
       opt.value = val;
-      fundaBiasSelect.append(opt);
+      fastbullModeSelect.append(opt);
     });
-    fundaBiasSelect.addEventListener('change', () => evaluateKaystradeEngine(true));
-    fundaWrap.append(fundaBiasSelect);
-    controlsGrid.append(fundaWrap);
+    fastbullModeSelect.addEventListener('change', () => evaluateKaystradeEngine(true));
+    fastbullWrap.append(fastbullModeSelect);
+    controlsGrid.append(fastbullWrap);
 
     // 4. Chart Mode Select
     const modeWrap = node('div');
@@ -1809,6 +1859,25 @@ Gunakan format Markdown (bold, tabel, bullet points, blok kode) untuk memperjela
     chartModeSelect.addEventListener('change', toggleChartMode);
     modeWrap.append(chartModeSelect);
     controlsGrid.append(modeWrap);
+
+    // Bar Penjelasan Parameter Strategi Aktif
+    const strategyProfileBar = node('div', null, 'strategy-profile-bar');
+    strategyProfileBar.id = 'strategyProfileBar';
+    const spLeft = node('div');
+    const spBadge = node('span', 'MODE: INTRADAY', 'sp-badge');
+    spBadge.id = 'spNameBadge';
+    const spRule = node('span', ' Arah Utama: Big Trend H4 + Speedometer D1/H4 | Entry: Retest Base H1/M30 + Klaster Posisi FastBull | Durasi Maks: 24 Jam');
+    spRule.id = 'spRuleDesc';
+    spRule.style.marginLeft = '8px';
+    spRule.style.color = '#cbd5e1';
+    spLeft.append(spBadge, spRule);
+    const spRisk = node('span', 'FastBull Position Synced · Max SL GOLD: $100/oz');
+    spRisk.id = 'spRiskInfo';
+    spRisk.style.fontFamily = "'JetBrains Mono', monospace";
+    spRisk.style.fontSize = '11px';
+    spRisk.style.color = '#34d399';
+    strategyProfileBar.append(spLeft, spRisk);
+    mainCard.append(strategyProfileBar);
 
     // Quick Pairs Bar
     const quickPairsBar = node('div', null, 'quick-pairs-bar');
@@ -1840,7 +1909,7 @@ Gunakan format Markdown (bold, tabel, bullet points, blok kode) untuk memperjela
       tfBar.append(btn);
     });
 
-    const activeFeedInfo = node('div', 'Rasio 16:9 · 500 Bars Real-Time + News Guard', 'pro-feed-info');
+    const activeFeedInfo = node('div', 'Kompilasi Penuh: 500 Bars Teknikal + FastBull list-position + Berita Ekonomi', 'pro-feed-info');
     activeFeedInfo.id = 'activeFeedInfo';
     activeFeedInfo.style.fontSize = '11px';
     activeFeedInfo.style.color = '#94a3b8';
@@ -1853,10 +1922,12 @@ Gunakan format Markdown (bold, tabel, bullet points, blok kode) untuk memperjela
 
     // Action Buttons Grid
     const actionGrid = node('div', null, 'action-grid');
-    const generate = button('Analyze Tech + Funda', () => runKaystradeAnalysis(), 'pro-ai-generate');
+    const generate = button('Analyze Entry (Tech + FastBull)', () => runKaystradeAnalysis(), 'pro-ai-generate');
     generate.className = 'btn-action btn-primary';
 
-    const simWarnBtn = button('Simulasi News < 1 Jam', triggerSimulatedHighImpactWarning, 'btn-danger-sim');
+    const syncFbBtn = button('Sync FastBull list-position', () => syncFastBullPositionData(true), 'btn-action');
+
+    const simWarnBtn = button('Simulasi Warning News < 1 Jam', triggerSimulatedHighImpactWarning, 'btn-danger-sim');
     simWarnBtn.className = 'btn-action btn-danger-sim';
 
     const refreshBtn = button('Refresh Chart', () => handleMarketRefresh(), 'pro-market-refresh');
@@ -1886,7 +1957,7 @@ Gunakan format Markdown (bold, tabel, bullet points, blok kode) untuk memperjela
     }, 'pro-signal-notifications');
     alertsToggleBtn.className = 'btn-action';
 
-    actionGrid.append(generate, simWarnBtn, refreshBtn, resetZoomBtn, fit500Btn, skillBtn, notificationBtn, copyJsonBtn, alertsToggleBtn);
+    actionGrid.append(generate, syncFbBtn, simWarnBtn, refreshBtn, resetZoomBtn, fit500Btn, skillBtn, notificationBtn, copyJsonBtn, alertsToggleBtn);
     mainCard.append(actionGrid);
 
     // Chart Box (Full Width 16:9 Canvas)
@@ -1899,7 +1970,7 @@ Gunakan format Markdown (bold, tabel, bullet points, blok kode) untuk memperjela
     const legendPills = node('div', null, 'legend-pills');
     const legItems = [
       ['#facc15', 'H4 Key Pivot'],
-      ['#a855f7', 'Entry Watch'],
+      ['#a855f7', 'FastBull + Base Entry'],
       ['#ff2a5f', 'SL (Invalidation)'],
       ['#00e676', 'TP (Target)']
     ];
@@ -1952,7 +2023,7 @@ Gunakan format Markdown (bold, tabel, bullet points, blok kode) untuk memperjela
 
     const sigTop = node('div', null, 'signal-top');
     const sigTopLeft = node('div');
-    const sigSubLabel = node('div', 'TECH + FUNDA COMPILATION SIGNAL', 'signal-label');
+    const sigSubLabel = node('div', 'INTRADAY · KAYSTRADE + FASTBULL POSITION', 'signal-label');
     sigSubLabel.id = 'sigSubLabel';
     const sigDirection = node('div', 'ANALYZING', 'signal-direction pro-vinzx-signal-direction');
     sigDirection.id = 'sigDirection';
@@ -1962,7 +2033,7 @@ Gunakan format Markdown (bold, tabel, bullet points, blok kode) untuk memperjela
     const confText = node('div', null, 'conf-text');
     const sigConf = node('span', '--%');
     sigConf.id = 'sigConf';
-    confText.append(node('span', '⚡ '), sigConf, node('span', ' CONF.'));
+    confText.append(node('span', '● '), sigConf, node('span', ' CONF.'));
     const sigRR = node('div', 'PLAN RR --', 'rr-badge');
     sigRR.id = 'sigRR';
     confBox.append(confText, sigRR);
@@ -1970,47 +2041,62 @@ Gunakan format Markdown (bold, tabel, bullet points, blok kode) untuk memperjela
 
     const levelsGrid = node('div', null, 'levels-grid');
     const cellEntry = node('div', null, 'level-cell');
+    const lblEntry = node('div', 'ENTRY (FB + RETEST)', 'level-title');
+    lblEntry.id = 'lblEntryTitle';
     const valEntry = node('div', '--', 'level-val pro-vinzx-metric-value');
     valEntry.id = 'valEntry';
-    cellEntry.append(node('div', 'ENTRY (RETEST/LIVE)', 'level-title'), valEntry);
+    cellEntry.append(lblEntry, valEntry);
+
     const cellSL = node('div', null, 'level-cell sl-cell');
+    const lblSL = node('div', 'SL (INVALIDATION)', 'level-title');
+    lblSL.id = 'lblSLTitle';
     const valSL = node('div', '--', 'level-val sl-val pro-vinzx-metric-value sl');
     valSL.id = 'valSL';
-    cellSL.append(node('div', 'SL (INVALIDATION)', 'level-title'), valSL);
+    cellSL.append(lblSL, valSL);
+
     const cellTP = node('div', null, 'level-cell tp-cell');
+    const lblTP = node('div', 'TP (SWING TARGET)', 'level-title');
+    lblTP.id = 'lblTPTitle';
     const valTP = node('div', '--', 'level-val tp-val pro-vinzx-metric-value tp');
     valTP.id = 'valTP';
-    cellTP.append(node('div', 'TP (SWING TARGET)', 'level-title'), valTP);
+    cellTP.append(lblTP, valTP);
     levelsGrid.append(cellEntry, cellSL, cellTP);
 
     const engineBar = node('div', null, 'engine-bar');
     const engineBarLeft = node('div');
-    const engineStatusName = node('div', 'Syncing 6 Pillars...', 'engine-name');
+    const engineModeLabel = node('div', 'KAYSTRADE + FASTBULL POSITION ENGINE', 'engine-title-sm');
+    engineModeLabel.id = 'engineModeLabel';
+    const engineStatusName = node('div', 'Syncing 7 Pillars...', 'engine-name');
     engineStatusName.id = 'engineStatusName';
-    engineBarLeft.append(node('div', 'KAYSTRADE TECH + FUNDA ENGINE', 'engine-title-sm'), engineStatusName);
-    const verifiedPill = node('div', 'NEWS GUARD ON', 'verified-pill');
+    engineBarLeft.append(engineModeLabel, engineStatusName);
+    const verifiedPill = node('div', 'FASTBULL SYNC', 'verified-pill');
     verifiedPill.id = 'verifiedPill';
     engineBar.append(engineBarLeft, verifiedPill);
 
     const neuronBox = node('div', null, 'neuron-box');
     const neuronHeader = node('div', null, 'neuron-header');
-    const feedSourceLabel = node('span', '⚡ STREAM: ACTIVE');
+    const feedSourceLabel = node('span', '● STREAM: ACTIVE');
     feedSourceLabel.id = 'feedSourceLabel';
     feedSourceLabel.style.color = '#10b981';
-    neuronHeader.append(node('span', '6-PILLAR CONFLUENCE MATRIX'), feedSourceLabel);
+    neuronHeader.append(node('span', '7-PILLAR TECH + FASTBULL POSITION MATRIX'), feedSourceLabel);
 
     const stateGrid = node('div', null, 'state-grid');
     const stateCard1 = node('div', null, 'state-card');
+    const lblState1 = node('div', 'H4 TREND & STRUCTURE V(s)', 'state-label');
+    lblState1.id = 'lblState1';
     const valState = node('div', '--', 'state-num');
     valState.id = 'valState';
-    stateCard1.append(node('div', 'H4 BIG TREND V(s)', 'state-label'), valState);
+    stateCard1.append(lblState1, valState);
+
     const stateCard2 = node('div', null, 'state-card');
+    const lblState2 = node('div', 'FASTBULL POSITION A(s,a)', 'state-label');
+    lblState2.id = 'lblState2';
     const valAdv = node('div', '--', 'state-num');
     valAdv.id = 'valAdv';
-    stateCard2.append(node('div', 'FUNDA & RSI A(s,a)', 'state-label'), valAdv);
+    stateCard2.append(lblState2, valAdv);
     stateGrid.append(stateCard1, stateCard2);
 
-    const probSubtitle = node('div', 'COMPILED PROBABILITIES (TECHNICAL + FUNDAMENTAL)');
+    const probSubtitle = node('div', 'COMPILED PROBABILITIES π(a|s) (TECH + FASTBULL + NEWS)');
     probSubtitle.style.fontSize = '10px';
     probSubtitle.style.color = 'var(--text-muted)';
     probSubtitle.style.fontWeight = '700';
@@ -2045,7 +2131,7 @@ Gunakan format Markdown (bold, tabel, bullet points, blok kode) untuk memperjela
     const evidenceList = node('div', null, 'evidence-list');
     evidenceList.id = 'evidenceList';
     const initEv = node('div', null, 'ev-item');
-    initEv.append(node('span', 'Mengompilasi data teknikal & fundamental...'), node('span', 'WAIT', 'ev-tag'));
+    initEv.append(node('span', 'Mengompilasi data teknikal & posisi FastBull...'), node('span', 'WAIT', 'ev-tag'));
     evidenceList.append(initEv);
 
     neuronBox.append(neuronHeader, stateGrid, probSubtitle, probRowBuy, probRowSell, evidenceList);

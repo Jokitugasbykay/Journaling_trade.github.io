@@ -140,6 +140,8 @@ const server=http.createServer(async(req,res)=>{
   assert.ok(engineText.includes('gemini-3.8-flash'));
 
   // 3. Test Module 1: AI Market Intelligence with Kaystrade prompt
+  await page.waitForSelector('#pro-gemini-modal', { state: 'detached' });
+  await page.waitForSelector('#pro-ai-generate:not([disabled])');
   await page.click('#pro-ai-generate');
   await page.waitForSelector('.pro-markdown');
   await page.waitForSelector('.pro-vinzx-card');
