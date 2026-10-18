@@ -2784,3 +2784,316 @@ a, button, summary, input, select, label { -webkit-tap-highlight-color: transpar
 
 .news-related-text-only { grid-template-columns:minmax(0,1fr); }
 .news-related-photo[hidden] { display:none; }
+
+/* ==========================================================================
+   Kaystrade Universal Custom Select Styles
+   ========================================================================== */
+.app-custom-select-native {
+  position: absolute !important;
+  inset: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  opacity: 0.0001 !important;
+  pointer-events: none !important;
+  z-index: -1 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  border: 0 !important;
+}
+
+.app-custom-select-trigger {
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  min-height: 42px;
+  padding: 8px 14px;
+  background-color: #0d121c;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 10px;
+  color: #f1f5f9;
+  font: inherit;
+  font-size: 13.5px;
+  font-weight: 500;
+  line-height: 1.4;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  box-sizing: border-box;
+  text-align: left;
+  vertical-align: middle;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.app-custom-select-trigger.full-width {
+  width: 100%;
+}
+
+.app-custom-select-trigger:hover:not(:disabled) {
+  border-color: rgba(56, 189, 248, 0.5);
+  background-color: #121824;
+}
+
+.app-custom-select-trigger[aria-expanded="true"] {
+  border-color: #38bdf8;
+  background-color: #121824;
+  box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.22);
+}
+
+.app-custom-select-trigger:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.app-custom-select-text {
+  flex: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.app-custom-select-chevron {
+  width: 16px;
+  height: 16px;
+  color: #94a3b8;
+  flex-shrink: 0;
+  transition: transform 0.15s ease;
+}
+
+.app-custom-select-trigger[aria-expanded="true"] .app-custom-select-chevron {
+  transform: rotate(180deg);
+  color: #38bdf8;
+}
+
+.app-custom-select-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 99990;
+  background: rgba(5, 8, 16, 0.75);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.22s ease, visibility 0.22s ease;
+}
+
+.app-custom-select-backdrop.is-open {
+  opacity: 1;
+  visibility: visible;
+}
+
+.app-custom-select-panel {
+  position: fixed;
+  z-index: 99995;
+  background: #0c1017;
+  border: 1px solid rgba(56, 189, 248, 0.28);
+  border-radius: 12px;
+  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.7);
+  max-height: 320px;
+  display: none;
+  flex-direction: column;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+.app-custom-select-panel.is-open {
+  display: flex;
+}
+
+.app-custom-select-header {
+  display: none;
+}
+
+.app-custom-select-handle {
+  width: 44px;
+  height: 4.5px;
+  background: rgba(255, 255, 255, 0.22);
+  border-radius: 999px;
+  margin: 12px auto 8px;
+  flex-shrink: 0;
+}
+
+.app-custom-select-header-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.app-custom-select-title {
+  font-size: 16px;
+  font-weight: 700;
+  color: #ffffff;
+  font-family: 'Bricolage Grotesque', Manrope, system-ui, sans-serif;
+}
+
+.app-custom-select-close {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #94a3b8;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.app-custom-select-close:hover {
+  background: rgba(255, 255, 255, 0.12);
+  color: #ffffff;
+}
+
+.app-custom-select-close svg {
+  width: 16px;
+  height: 16px;
+}
+
+.app-custom-select-search {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 12px;
+  margin: 8px;
+  border-radius: 8px;
+  background: #141a26;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  flex-shrink: 0;
+}
+
+.app-custom-select-search input {
+  flex: 1;
+  min-width: 0;
+  height: 24px;
+  background: transparent;
+  border: 0;
+  color: #f1f5f9;
+  font: inherit;
+  font-size: 13.5px;
+  outline: none;
+  padding: 0;
+}
+
+.app-custom-select-search input::placeholder {
+  color: #64748b;
+}
+
+.app-custom-select-search-icon {
+  width: 16px;
+  height: 16px;
+  color: #64748b;
+  flex-shrink: 0;
+}
+
+.app-custom-select-options {
+  padding: 6px;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.15) transparent;
+  -webkit-overflow-scrolling: touch;
+}
+
+.app-custom-select-option {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  width: 100%;
+  min-height: 38px;
+  padding: 8px 12px;
+  border-radius: 8px;
+  border: 0;
+  background: transparent;
+  color: #94a3b8;
+  font: inherit;
+  font-size: 13.5px;
+  font-weight: 500;
+  text-align: left;
+  cursor: pointer;
+  transition: all 0.12s ease;
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.app-custom-select-option:hover,
+.app-custom-select-option:focus-visible {
+  background: rgba(255, 255, 255, 0.06);
+  color: #ffffff;
+  outline: none;
+}
+
+.app-custom-select-option.is-selected {
+  background: rgba(56, 189, 248, 0.14);
+  color: #38bdf8;
+  font-weight: 600;
+}
+
+.app-custom-select-option-check {
+  width: 15px;
+  height: 15px;
+  color: #38bdf8;
+  opacity: 0;
+  flex-shrink: 0;
+  transition: opacity 0.15s ease;
+}
+
+.app-custom-select-option.is-selected .app-custom-select-option-check {
+  opacity: 1;
+}
+
+.app-custom-select-empty {
+  padding: 16px 12px;
+  text-align: center;
+  color: #64748b;
+  font-size: 13px;
+}
+
+.custom-select-locked {
+  overflow: hidden !important;
+}
+
+@media (max-width: 768px) {
+  .app-custom-select-trigger {
+    min-height: 46px;
+    font-size: 14.5px;
+    padding: 10px 14px;
+  }
+  .app-custom-select-panel {
+    position: fixed !important;
+    inset-inline: 0 !important;
+    bottom: 0 !important;
+    top: auto !important;
+    left: 0 !important;
+    right: 0 !important;
+    width: 100% !important;
+    max-height: 80vh !important;
+    border-radius: 22px 22px 0 0 !important;
+    border: 0 !important;
+    border-top: 1px solid rgba(56, 189, 248, 0.3) !important;
+    background: #0d121c !important;
+    box-shadow: 0 -12px 48px rgba(0, 0, 0, 0.8) !important;
+    transform: translateY(100%);
+    transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  }
+  .app-custom-select-panel.is-open {
+    transform: translateY(0) !important;
+    display: flex !important;
+  }
+  .app-custom-select-header {
+    display: flex;
+    flex-direction: column;
+    padding: 10px 18px 12px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    flex-shrink: 0;
+  }
+  .app-custom-select-option {
+    min-height: 48px;
+    padding: 10px 14px;
+    font-size: 14.5px;
+  }
+}
