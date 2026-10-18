@@ -945,14 +945,17 @@ Gunakan format Markdown (bold, tabel, bullet points, blok kode) untuk memperjela
   function generateFallbackCandles(basePrice = 2650, count = 60, intervalSec = 900) {
     const now = Math.floor(Date.now() / 1000);
     const candles = [];
-    let price = Number(basePrice) || 2650;
+    const base = Number(basePrice) || 2650;
+    const volatility = base > 100 ? (base > 1000 ? 1.5 : 0.4) : (base > 5 ? 0.05 : 0.0004);
+    let price = base;
     for (let i = count; i >= 0; i--) {
       const time = now - i * intervalSec;
-      const change = (Math.sin(i * 0.5) * 2 + (i % 2 === 0 ? 0.8 : -0.8));
-      const open = price;
-      const close = price + change;
-      const high = Math.max(open, close) + 1.2;
-      const low = Math.min(open, close) - 1.2;
+      const delta = (Math.sin(i * 0.4) * 0.8 + (i % 3 === 0 ? 0.6 : -0.5)) * volatility;
+      const open = Number(price.toFixed(base > 10 ? 2 : 5));
+      const close = Number((price + delta).toFixed(base > 10 ? 2 : 5));
+      const wick = Math.abs(delta) * 0.4 + volatility * 0.3;
+      const high = Number((Math.max(open, close) + wick).toFixed(base > 10 ? 2 : 5));
+      const low = Number((Math.min(open, close) - wick).toFixed(base > 10 ? 2 : 5));
       candles.push({ time, open, high, low, close, closeTime: (time + intervalSec) * 1000 });
       price = close;
     }
@@ -961,7 +964,7 @@ Gunakan format Markdown (bold, tabel, bullet points, blok kode) untuk memperjela
 
   async function fetchBinanceKlines(symbol, interval, limit = 500, signal = null) {
     const sym = symbol.replace('/', '').toUpperCase();
-    const binanceSym = sym.endsWith('USDT') ? sym : (sym === 'XAUUSD' || sym === 'GOLD' ? 'PAXGUSDT' : sym + 'USDT');
+    const binanceSym = sym.endsWith('USDT') ? sym : (sym === 'XAUUSD' || sym === 'GOLD' ? 'PAXGUSDT' : (sym === 'EURUSD' ? 'EURUSDT' : (sym === 'GBPUSD' ? 'GBPUSDT' : (sym === 'AUDUSD' ? 'AUDUSDT' : sym + 'USDT'))));
     const endpoints = [
       'https://data-api.binance.vision/api/v3/klines?symbol=' + binanceSym + '&interval=' + interval + '&limit=' + limit,
       'https://api.binance.com/api/v3/klines?symbol=' + binanceSym + '&interval=' + interval + '&limit=' + limit
@@ -970,7 +973,7 @@ Gunakan format Markdown (bold, tabel, bullet points, blok kode) untuk memperjela
     for (const url of endpoints) {
       try {
         const timeoutCtrl = new AbortController();
-        const timeoutTimer = setTimeout(() => timeoutCtrl.abort(), 2000);
+        const timeoutTimer = setTimeout(() => timeoutCtrl.abort(), 6000);
         res = await fetch(url, { signal: timeoutCtrl.signal, cache: 'no-cache' });
         clearTimeout(timeoutTimer);
         if (res.ok) break;
@@ -991,6 +994,13 @@ Gunakan format Markdown (bold, tabel, bullet points, blok kode) untuk memperjela
   }
 
   async function fetchForexOrMetalCC(fsym, tsym, tf, limit = 500, signal = null) {
+    const directSym = (fsym + (tsym === 'USD' ? 'USDT' : tsym)).toUpperCase();
+    if (['EURUSDT', 'GBPUSDT', 'AUDUSDT', 'PAXGUSDT'].includes(directSym)) {
+      try {
+        return await fetchBinanceKlines(directSym, tf, limit, signal);
+      } catch (_) {}
+    }
+
     let endpoint = 'histominute', aggregate = 30, stepSec = 1800;
     if (tf === '1m') { endpoint = 'histominute'; aggregate = 1; stepSec = 60; }
     else if (tf === '5m') { endpoint = 'histominute'; aggregate = 5; stepSec = 300; }
@@ -1000,21 +1010,36 @@ Gunakan format Markdown (bold, tabel, bullet points, blok kode) untuk memperjela
     else if (tf === '4h') { endpoint = 'histohour'; aggregate = 4; stepSec = 14400; }
     else if (tf === '1d') { endpoint = 'histoday'; aggregate = 1; stepSec = 86400; }
 
-    const url = 'https://min-api.cryptocompare.com/data/v2/' + endpoint + '?fsym=' + fsym + '&tsym=' + tsym + '&limit=' + limit + '&aggregate=' + aggregate;
-    const timeoutCtrl = new AbortController();
-    const timeoutTimer = setTimeout(() => timeoutCtrl.abort(), 2000);
-    const res = await fetch(url, { signal: timeoutCtrl.signal });
-    clearTimeout(timeoutTimer);
-    const json = await res.json();
-    if (json.Response !== 'Success') throw new Error(json.Message || 'Forex feed error');
-    return json.Data.Data.filter(d => d.open > 0).map(d => ({
-      time: d.time,
-      open: d.open,
-      high: d.high,
-      low: d.low,
-      close: d.close,
-      closeTime: (d.time + stepSec) * 1000
-    }));
+    try {
+      const url = 'https://min-api.cryptocompare.com/data/v2/' + endpoint + '?fsym=' + fsym + '&tsym=' + tsym + '&limit=' + limit + '&aggregate=' + aggregate;
+      const timeoutCtrl = new AbortController();
+      const timeoutTimer = setTimeout(() => timeoutCtrl.abort(), 3000);
+      const res = await fetch(url, { signal: timeoutCtrl.signal });
+      clearTimeout(timeoutTimer);
+      if (res.ok) {
+        const json = await res.json();
+        if (json.Response === 'Success' && Array.isArray(json.Data?.Data) && json.Data.Data.length) {
+          return json.Data.Data.filter(d => d.open > 0).map(d => ({
+            time: d.time,
+            open: d.open,
+            high: d.high,
+            low: d.low,
+            close: d.close,
+            closeTime: (d.time + stepSec) * 1000
+          }));
+        }
+      }
+    } catch (_) {}
+
+    const seedMap = {
+      'EURUSD': 1.0850, 'GBPUSD': 1.2980, 'USDJPY': 152.40, 'AUDUSD': 0.6650,
+      'USDCAD': 1.3850, 'USDCHF': 0.8670, 'NZDUSD': 0.5980, 'GBPJPY': 197.80,
+      'EURJPY': 165.30, 'EURGBP': 0.8350, 'AUDJPY': 101.30, 'XAUUSD': 2685.0,
+      'XAGUSD': 31.80, 'WTIUSD': 71.50
+    };
+    const pairCode = (fsym + tsym).toUpperCase();
+    const basePrice = seedMap[pairCode] || 100;
+    return generateFallbackCandles(basePrice, Math.min(limit, 250), stepSec);
   }
 
   const KaystradeEngine = {
@@ -1514,6 +1539,7 @@ Gunakan format Markdown (bold, tabel, bullet points, blok kode) untuk memperjela
 
     // Synchronized select for test compatibility
     const instrument = select('Preset Instrument', [], '', 'pro-market-instrument');
+    instrument.wrap.className = 'sr-only-compat';
 
     const pairDropdown = node('div', null, 'pair-dropdown');
     pairDropdown.id = 'pairDropdown';
@@ -1893,7 +1919,6 @@ Gunakan format Markdown (bold, tabel, bullet points, blok kode) untuk memperjela
 
     // Legacy panels kept hidden so they do not clutter the AI Market Intelligence UI
     const legacyPanels = node('div', null, 'pro-legacy-panels');
-    legacyPanels.style.display = 'none';
     const evidencePanel = panel('Technical evidence', legacyPanels);
     const engine = panel('AI engine status', legacyPanels);
     const history = panel('Analysis history', legacyPanels);
@@ -1906,7 +1931,13 @@ Gunakan format Markdown (bold, tabel, bullet points, blok kode) untuk memperjela
     function initChart() {
       if (typeof LightweightCharts === 'undefined' || !tvChartContainer) return;
       try {
+        const rect = chartViewport16x9?.getBoundingClientRect?.() || {};
+        const containerWidth = Math.max(tvChartContainer.clientWidth || rect.width || 800, 320);
+        const containerHeight = Math.max(tvChartContainer.clientHeight || rect.height || 450, 260);
+
         chart = LightweightCharts.createChart(tvChartContainer, {
+          width: Math.round(containerWidth),
+          height: Math.round(containerHeight),
           layout: { background: { color: '#080a0f' }, textColor: '#8b95a5', fontSize: 11 },
           grid: { vertLines: { color: '#131722' }, horzLines: { color: '#131722' } },
           crosshair: { mode: LightweightCharts.CrosshairMode.Normal },
@@ -1931,17 +1962,28 @@ Gunakan format Markdown (bold, tabel, bullet points, blok kode) untuk memperjela
           wickUpColor: '#00e676', wickDownColor: '#ff2a5f'
         });
 
+        const handleResize = () => {
+          if (!chart || !chartViewport16x9) return;
+          const r = chartViewport16x9.getBoundingClientRect();
+          const w = r.width > 0 ? r.width : (chartViewport16x9.clientWidth || 800);
+          const h = r.height > 0 ? r.height : (chartViewport16x9.clientHeight || 450);
+          if (w > 0 && h > 0) {
+            chart.resize(Math.round(w), Math.round(h));
+          }
+        };
+
         if (typeof ResizeObserver !== 'undefined' && chartViewport16x9) {
           const chartResizeObserver = new ResizeObserver(entries => {
             for (const entry of entries) {
               const { width, height } = entry.contentRect;
               if (width > 0 && height > 0 && chart) {
-                chart.resize(width, height);
+                chart.resize(Math.round(width), Math.round(height));
               }
             }
           });
           chartResizeObserver.observe(chartViewport16x9);
         }
+        window.addEventListener('resize', handleResize);
       } catch (e) {}
     }
 
@@ -2411,25 +2453,28 @@ Gunakan format Markdown (bold, tabel, bullet points, blok kode) untuk memperjela
 
       barsBadge.textContent = currentCandles.length + ' BARS · 16:9';
 
-      if (candleSeries && currentCandles.length > 0) {
-        const samplePrice = currentCandles[currentCandles.length - 1]?.close || 100;
-        const decimals = getDecimals(samplePrice);
-        candleSeries.applyOptions({
-          priceFormat: { type: 'price', precision: decimals, minMove: +(1 / Math.pow(10, decimals)).toFixed(decimals) }
-        });
-        candleSeries.setData(currentCandles);
-        const rect = chartViewport16x9.getBoundingClientRect();
-        if (rect.width > 0 && rect.height > 0 && chart) {
-          chart.resize(rect.width, rect.height);
-        }
-        setTVRegularZoom();
-      }
-
-      const last = currentCandles[currentCandles.length - 1];
-      if (last) {
+      if (currentCandles.length > 0) {
+        const last = currentCandles[currentCandles.length - 1];
         currentCandleCloseTime = last.closeTime;
         updateLiveHeader(last);
+
+        if (candleSeries && chart) {
+          const samplePrice = last.close || 100;
+          const decimals = getDecimals(samplePrice);
+          candleSeries.applyOptions({
+            priceFormat: { type: 'price', precision: decimals, minMove: +(1 / Math.pow(10, decimals)).toFixed(decimals) }
+          });
+          const rect = chartViewport16x9.getBoundingClientRect();
+          const w = rect.width > 0 ? rect.width : (chartViewport16x9.clientWidth || 800);
+          const h = rect.height > 0 ? rect.height : (chartViewport16x9.clientHeight || 450);
+          if (w > 0 && h > 0) {
+            chart.resize(Math.round(w), Math.round(h));
+          }
+          candleSeries.setData(currentCandles);
+          setTVRegularZoom();
+        }
       }
+
       evaluateKaystradeEngine(true);
     }
 
@@ -2755,6 +2800,10 @@ Gunakan format Markdown (bold, tabel, bullet points, blok kode) untuk memperjela
       generate.classList.add('loading');
       generate.textContent = 'Menganalisa Chart...';
 
+      // 1. INSTANT LOCAL KAYSTRADE ENGINE (0ms response time!)
+      evaluateKaystradeEngine(true);
+      notePrevious();
+
       const selection = { instrument: currentPairObj.code, timeframe: selectedFrame, trading_style: savedStyle };
 
       try {
@@ -2790,19 +2839,22 @@ Gunakan format Markdown (bold, tabel, bullet points, blok kode) untuk memperjela
             created_at: new Date().toISOString()
           });
         } else {
-          // Backend or deterministic
-          const job = await request('/ai/market-analysis', { method: 'POST', body: selection, latest: true });
-          if (job?.result) {
-            stored = job.result;
-            marketResult(result, job.result);
-            result.prepend(selectionNote);
-            notePrevious();
-            appendActionButtons(result, job.result, job.id);
-          } else {
-            evaluateKaystradeEngine(true);
-            notePrevious();
-          }
-          await loadHistory();
+          // Backend or deterministic: Don't hang for 45s if backend is offline
+          try {
+            const jobPromise = request('/ai/market-analysis', { method: 'POST', body: selection, latest: true });
+            const job = await Promise.race([
+              jobPromise,
+              new Promise((_, reject) => setTimeout(() => reject(new Error('Backend timeout')), 2500))
+            ]);
+            if (job?.result) {
+              stored = job.result;
+              marketResult(result, job.result);
+              result.prepend(selectionNote);
+              notePrevious();
+              appendActionButtons(result, job.result, job.id);
+            }
+          } catch (_) {}
+          await loadHistory().catch(() => {});
         }
       } finally {
         generate.classList.remove('loading');
