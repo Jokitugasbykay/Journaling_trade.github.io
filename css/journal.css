@@ -51,13 +51,16 @@ body:has(#view-jurnal.active) { background: #0a0c0f; }
 #view-jurnal .journal-actions .btn:nth-of-type(2) { background: #11141a; color: #e8eaee; }
 #view-jurnal .form-panel { padding: 20px; margin-bottom: 28px; }
 #view-jurnal .entry-mode-bar { max-width: 100%; overflow-x: auto; }
-#view-jurnal .field-group :is(input, select, textarea) { background: #0a0c0f; border-color: var(--line-light); border-radius: 8px; min-height: 40px; }
+#view-jurnal .field-group :is(input, textarea) { background: #0a0c0f; border-color: var(--line-light); border-radius: 8px; min-height: 42px; }
+#view-jurnal .field-group select { background-color: #0a0c0f; border-color: var(--line-light); border-radius: 9px; min-height: 42px; padding: 9px 38px 9px 13px; }
 
 #view-jurnal .filter-bar { gap: 12px; padding: 10px; margin-bottom: 14px; }
 #view-jurnal .filter-chip-group { gap: 4px; border-radius: 10px; background: #0a0c0f; }
 #view-jurnal .filter-chip { height: 34px; min-width: 56px; padding: 0 14px; border: 0; border-radius: 8px; font-size: 13px; font-weight: 500; }
 #view-jurnal .filter-chip.active { background: #262d39; color: #fff; font-weight: 600; }
-#view-jurnal .filter-bar select { height: 40px; min-width: 150px; background: #0a0c0f; border: 1px solid var(--line-light); border-radius: 10px; padding: 0 12px; font-size: 13px; }
+#view-jurnal .filter-bar select { height: 42px; min-height: 42px; min-width: 150px; background-color: #0b0f19; border: 1px solid var(--line-light); border-radius: 10px; padding: 0 36px 0 13px; font-size: 13px; font-weight: 500; color: var(--text-main); cursor: pointer; transition: all 0.15s ease; }
+#view-jurnal .filter-bar select:hover { border-color: rgba(56, 189, 248, 0.5); background-color: #111726; }
+#view-jurnal .filter-bar select:focus { border-color: #38bdf8; box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.2); outline: none; }
 #view-jurnal #filter-strategy { min-width: 170px; }
 #view-jurnal .journal-search { display: flex; align-items: center; gap: 8px; flex: 1 1 220px; min-width: 200px; height: 40px; padding: 0 12px; border-radius: 10px; border: 1px solid var(--line-light); background: #0a0c0f; color: var(--text-muted); }
 #view-jurnal .journal-search:focus-within { outline: 2px solid #f5b544; outline-offset: 3px; }
@@ -108,7 +111,7 @@ body:has(#view-jurnal.active) { background: #0a0c0f; }
   #view-jurnal .journal-title-box h1 { font-size: 30px; line-height: 1.15; }
   #view-jurnal .filter-chip-group { flex-basis: 100%; }
   #view-jurnal .filter-chip { flex: 1; }
-  #view-jurnal .filter-bar select { flex: 1; min-width: 0; width: calc(50% - 6px); }
+  #view-jurnal .filter-bar select { flex: 1 1 calc(50% - 6px); min-width: 0; width: auto; height: 48px; min-height: 48px; font-size: 15px; padding: 0 36px 0 13px; }
   #view-jurnal #filter-strategy { min-width: 0; }
   #view-jurnal .journal-search { flex-basis: 100%; }
   #view-jurnal .form-panel { padding: 16px; }

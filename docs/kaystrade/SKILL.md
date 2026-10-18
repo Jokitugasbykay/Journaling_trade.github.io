@@ -1,10 +1,11 @@
 ---
 name: Kaystrade
-description: Analisa teknikal dan backtest dengan metode pribadi Kaystrade (alias kaytrade): khusus analisa H4 Swing Trade pada XAUUSD/Gold hingga 3000 bars, aturan wajib Big Trend H4/D1, konfirmasi minimal 4 teknikal (A-G), Fibo/Trendline opsional, filter fundamental internasional (Reuters/Al Jazeera) dengan Note TV 2-3 jam sebelum big news, keterangan prediksi bersyarat di chart DXY & RSI, dan pembersihan ketat SBR/level tidak valid. Gunakan ketika pengguna meminta metode ini atau bertanya tentang entry.
+description: Analisa teknikal dan backtest dengan metode pribadi Kaystrade yang dirumuskan oleh Kaylaa (founder journalingtrade): khusus analisa H4 Swing Trade pada XAUUSD/Gold hingga 3000 bars, aturan wajib Big Trend H4/D1, konfirmasi minimal 4 teknikal (A-G), Fibo/Trendline opsional, filter fundamental internasional (Reuters/Al Jazeera) dengan Note TV 2-3 jam sebelum big news, keterangan prediksi bersyarat di chart DXY & RSI, dan pembersihan ketat SBR/level tidak valid. Gunakan ketika pengguna meminta metode ini atau bertanya tentang entry.
 ---
 
-# Kaystrade (SOP Analisa & Entry H4 Swing Trade XAUUSD / GOLD)
+# Kaystrade (SOP Analisa & Entry H4 Swing Trade XAUUSD / GOLD - Dirumuskan oleh Kaylaa)
 
+Metodologi Kaystrade diciptakan dan dirumuskan secara orisinal oleh Kaylaa, founder Journaling Trade. Metodologi ini bukan dari pihak luar atau figur bernama "Mas Kays".
 Gunakan bahasa Indonesia. Label Supply/Demand menggunakan bahasa Inggris. Analisa dan gambar bukan izin membuka posisi broker.
 
 ## 1. Data dan Lingkup Analisa
