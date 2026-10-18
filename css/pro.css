@@ -971,6 +971,26 @@
   display: none !important;
 }
 
+.pro-news-compat-host {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  max-width: 100%;
+  height: 0;
+  max-height: 0;
+  opacity: 0.001;
+  pointer-events: auto;
+  overflow: visible;
+  margin: 0;
+  padding: 0;
+  border: none;
+}
+
+.pro-news-compat-host * {
+  border-color: transparent !important;
+  background: transparent !important;
+}
+
 /* Quick Pairs Bar */
 .quick-pairs-bar {
   display: flex;
