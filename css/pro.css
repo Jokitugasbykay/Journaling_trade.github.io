@@ -879,10 +879,31 @@
 }
 
 .pro-legacy-panels {
-  margin-top: 24px;
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
+  position: absolute;
+  left: 0;
+  width: 100%;
+  max-width: 100%;
+  height: 0;
+  max-height: 0;
+  opacity: 0.001;
+  pointer-events: auto;
+  overflow: visible;
+  margin: 0;
+  padding: 0;
+  border: none;
+}
+
+.pro-legacy-panels .pro-panel {
+  margin: 0 !important;
+  padding: 0 !important;
+  border: none !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  min-height: 0 !important;
+}
+
+.pro-legacy-panels h2 {
+  display: none !important;
 }
 
 /* Quick Pairs Bar */

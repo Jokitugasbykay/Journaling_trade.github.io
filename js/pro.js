@@ -769,6 +769,7 @@ Gunakan format Markdown (bold, tabel, bullet points, blok kode) untuk memperjela
       const active = hasGeminiApiKey();
       geminiChatKeyBtn.style.display = active ? 'none' : 'inline-flex';
       geminiChatKeyBtn.textContent = active ? 'Gemini API Key: Connected' : 'Set Gemini API Key';
+      terminalHeader.style.display = active ? 'none' : 'flex';
     };
     const geminiChatKeyBtn = button('Set Gemini API Key', () => {
       openGeminiConfigModal(() => {
@@ -837,7 +838,7 @@ Gunakan format Markdown (bold, tabel, bullet points, blok kode) untuk memperjela
       if (hasGeminiApiKey()) {
         quota.textContent = '';
         quota.style.display = 'none';
-        note.textContent = 'Ditenagai oleh kayla (Google Gemini API). Mengobrol dan konsultasi seputar strategi, psikologi, teknikal, dan evaluasi jurnal secara interaktif dua arah.';
+        note.textContent = 'Ditenagai oleh kayla. Mengobrol dan konsultasi seputar strategi, psikologi, teknikal, dan evaluasi jurnal secara interaktif dua arah.';
       } else {
         quota.style.display = '';
         quota.textContent = 'AI analyses remaining this month: ' + format(access?.ai?.remaining) + ' / ' + format(access?.ai?.limit || 30);
@@ -2158,7 +2159,7 @@ Gunakan format Markdown (bold, tabel, bullet points, blok kode) untuk memperjela
     // Fundamental & FastBull Integrated Panel (Di bawah AI entry signal)
     const fundaPanel = node('div', null, 'funda-panel');
     fundaPanel.id = 'integratedNewsPanel';
-    fundaPanel.innerHTML = `
+    fundaPanel.insertAdjacentHTML('beforeend', `
       <div class="funda-tabs-header">
         <div class="funda-main-tabs">
           <button class="f-tab-btn active" id="tabBtnFastbull" type="button">FastBull Position (list-position)</button>
@@ -2244,7 +2245,7 @@ Gunakan format Markdown (bold, tabel, bullet points, blok kode) untuk memperjela
           </table>
         </div>
       </div>
-    `;
+    `);
     mainCard.append(fundaPanel);
 
     const tabFb = fundaPanel.querySelector('#tabBtnFastbull');
@@ -4062,7 +4063,11 @@ Gunakan data dari https://www.fastbull.com/list-position sebagai filter konfirma
       const active=hasGeminiApiKey();
       statusBadge.style.background=active?'rgba(16, 185, 129, 0.12)':'rgba(239, 68, 68, 0.12)';
       statusBadge.style.color=active?'#10B981':'#EF4444';
-      statusBadge.innerHTML='<span style="width:8px;height:8px;border-radius:50%;background:'+(active?'#10B981':'#EF4444')+';display:inline-block;"></span> <strong>'+(active?'Status: Terhubung (API Key Aktif)':'Status: Belum Terhubung')+'</strong>';
+      statusBadge.replaceChildren();
+      const dot=node('span');
+      dot.style.cssText='width:8px;height:8px;border-radius:50%;background:'+(active?'#10B981':'#EF4444')+';display:inline-block;';
+      const strong=node('strong',active?'Status: Terhubung (API Key Aktif)':'Status: Belum Terhubung');
+      statusBadge.append(dot,strong);
     }
     refreshStatusBadge();
 
@@ -4141,16 +4146,10 @@ Gunakan data dari https://www.fastbull.com/list-position sebagai filter konfirma
     },'btn btn-ghost');
     removeBtn.type='button';
 
-    const viewNewsBtn=button('Buka Feed Berita (Global News)',async()=>{
-      content.replaceChildren();
-      await news();
-    },'btn btn-outline');
-    viewNewsBtn.type='button';
-    viewNewsBtn.style.marginLeft='auto';
-
-    actions.append(saveBtn,removeBtn,viewNewsBtn);
+    actions.append(saveBtn,removeBtn);
     card.append(h2,desc,statusBadge,label,inputWrap,link,statusMsg,actions);
     content.append(card);
+    await news();
   }
 
   async function news() {
