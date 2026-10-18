@@ -4,7 +4,7 @@
     analytics:'Advanced Analytics', heatmap:'Performance Heatmap', strategies:'Strategy Comparison',
     risk:'Risk Intelligence', reviews:'Weekly & Monthly Review', reports:'PDF Reports',
     'ai-behaviour':'AI Behaviour Analysis', 'ai-market':'AI Market Intelligence',
-    'ai-journal':'AI Journal Analyst', 'ai-chat':'AI Chat', 'global-news':'Global News'
+    'ai-journal':'AI Journal Analyst', 'ai-chat':'AI Chat', 'global-news':'Gemini API Key'
   };
   const timeframes = {'1m':'1','5m':'5','15m':'15','30m':'30','1h':'60','4h':'240','1d':'D'};
   let options={}, revision=0, controller=new AbortController(), access=null, current='', root=null, status=null, content=null, filters={}, preset={}, accounts=[], strategies=[];
@@ -338,7 +338,7 @@ Aspek Evaluasi:
 
 Gunakan Bahasa Indonesia profesional, lugas, tajam, dan mudah dipahami dalam format Markdown dengan tabel dan bullet points.`;
 
-  const CHAT_SYSTEM_PROMPT = `Anda adalah Asisten AI Trading & Mentor Finansial profesional di journalingtrade.
+  const CHAT_SYSTEM_PROMPT = `Anda adalah kayla, Asisten AI Trading & Mentor Finansial profesional di journalingtrade.
 Anda menguasai analisis teknikal (metodologi Kaystrade, SNR/SBR, Supply/Demand, Price Action), manajemen risiko (RRR, position sizing), psikologi trading, serta evaluasi performa jurnal trading.
 Jawab setiap pertanyaan pengguna secara ramah, profesional, mendalam, dan edukatif dalam Bahasa Indonesia.
 Pertahankan konteks percakapan untuk berdiskusi dua arah secara interaktif.
@@ -601,8 +601,10 @@ Gunakan format Markdown (bold, tabel, bullet points, blok kode) untuk memperjela
     const toolbar=commonFilters(content,()=>loadHistory());const quota=node('p',null,'pro-muted');content.append(quota);
     const showQuota=()=>{
       if(hasGeminiApiKey()){
-        quota.textContent='Google Gemini AI: Connected ('+GEMINI_DEFAULT_MODEL+') · Menggunakan API Key terpusat';
+        quota.textContent='';
+        quota.style.display='none';
       } else {
+        quota.style.display='';
         quota.textContent=text('Quota','Remaining AI analyses')+': '+format(access?.ai?.remaining)+' / '+format(access?.ai?.limit || 30);
       }
     };
@@ -669,12 +671,18 @@ Gunakan format Markdown (bold, tabel, bullet points, blok kode) untuk memperjela
       if(kind==='market')await request('/market/context?'+query({instrument:values.instrument,timeframe:values.timeframe}));
       const job=await request('/ai/'+kind+'-analysis',{method:'POST',body:values,headers:{'Idempotency-Key':crypto.randomUUID()}});await watchJob('ai',job,result);await verifyAccess();showQuota();await loadHistory();
     },'pro-ai-generate');
-    const geminiKeyBtn=button(hasGeminiApiKey()?'Gemini API Key: Connected':'Set Gemini API Key',()=>{
+    const updateGeminiKeyBtn=()=>{
+      const active=hasGeminiApiKey();
+      geminiKeyBtn.style.display=active?'none':'inline-flex';
+      geminiKeyBtn.textContent=active?'Gemini API Key: Connected':'Set Gemini API Key';
+    };
+    const geminiKeyBtn=button('Set Gemini API Key',()=>{
       openGeminiConfigModal(()=>{
         showQuota();
-        geminiKeyBtn.textContent=hasGeminiApiKey()?'Gemini API Key: Connected':'Set Gemini API Key';
+        updateGeminiKeyBtn();
       });
     },'pro-gemini-key-btn-'+kind);
+    updateGeminiKeyBtn();
     toolbar.append(generateBtn,geminiKeyBtn);await loadHistory();
   }
 
@@ -757,12 +765,18 @@ Gunakan format Markdown (bold, tabel, bullet points, blok kode) untuk memperjela
     const terminalHeader = node('div', null, 'pro-chat-header');
     const quota = node('p', null, 'pro-muted');
 
-    const geminiChatKeyBtn = button(hasGeminiApiKey() ? 'Gemini API Key: Connected' : 'Set Gemini API Key', () => {
+    const updateChatKeyBtn = () => {
+      const active = hasGeminiApiKey();
+      geminiChatKeyBtn.style.display = active ? 'none' : 'inline-flex';
+      geminiChatKeyBtn.textContent = active ? 'Gemini API Key: Connected' : 'Set Gemini API Key';
+    };
+    const geminiChatKeyBtn = button('Set Gemini API Key', () => {
       openGeminiConfigModal(() => {
         showQuota();
-        geminiChatKeyBtn.textContent = hasGeminiApiKey() ? 'Gemini API Key: Connected' : 'Set Gemini API Key';
+        updateChatKeyBtn();
       });
     }, 'pro-gemini-key-btn-chat');
+    updateChatKeyBtn();
 
     terminalHeader.append(quota, geminiChatKeyBtn);
 
@@ -821,9 +835,11 @@ Gunakan format Markdown (bold, tabel, bullet points, blok kode) untuk memperjela
 
     const showQuota = () => {
       if (hasGeminiApiKey()) {
-        quota.textContent = 'Google Gemini AI: Connected (' + GEMINI_DEFAULT_MODEL + ')';
-        note.textContent = 'AI Chat ditenagai oleh Google Gemini API (' + GEMINI_DEFAULT_MODEL + '). Mengobrol dan konsultasi seputar strategi, psikologi, teknikal, dan evaluasi jurnal secara interaktif dua arah.';
+        quota.textContent = '';
+        quota.style.display = 'none';
+        note.textContent = 'Ditenagai oleh kayla (Google Gemini API). Mengobrol dan konsultasi seputar strategi, psikologi, teknikal, dan evaluasi jurnal secara interaktif dua arah.';
       } else {
+        quota.style.display = '';
         quota.textContent = 'AI analyses remaining this month: ' + format(access?.ai?.remaining) + ' / ' + format(access?.ai?.limit || 30);
         note.textContent = 'AI chat uses one shared monthly allowance per successful reply. It does not have live prices or news and does not provide trade signals.';
       }
@@ -831,7 +847,7 @@ Gunakan format Markdown (bold, tabel, bullet points, blok kode) untuk memperjela
 
     const bubble = (role, value, time) => {
       const item = node('article', null, 'pro-chat-message'); item.dataset.role = role;
-      item.append(node('h3', role === 'user' ? 'You' : 'AI assistant (Gemini)'));
+      item.append(node('h3', role === 'user' ? 'You' : 'kayla'));
       if (typeof value === 'string' && value.includes('\n')) {
         const box = node('div', null, 'pro-markdown');
         renderMarkdownInto(box, value);
@@ -848,14 +864,14 @@ Gunakan format Markdown (bold, tabel, bullet points, blok kode) untuk memperjela
         messages.replaceChildren();
         const historyList = global._geminiChatHistory || [];
         if (!historyList.length) {
-          messages.append(node('p', 'Ketik pertanyaan untuk mulai mengobrol dan berkonsultasi seputar trading dengan Google Gemini AI.', 'pro-muted'));
+          messages.append(node('p', 'Ketik pertanyaan untuk mulai mengobrol dan berkonsultasi seputar trading dengan kayla.', 'pro-muted'));
         } else {
           for (const item of historyList) {
             const textVal = item.parts?.[0]?.text || '';
             if (item.role === 'user') {
               messages.append(bubble('user', textVal));
             } else {
-              const m = node('article', null, 'pro-chat-message'); m.dataset.role = 'assistant'; m.append(node('h3', 'AI assistant (Gemini)'));
+              const m = node('article', null, 'pro-chat-message'); m.dataset.role = 'assistant'; m.append(node('h3', 'kayla'));
               const c = node('div', null, 'pro-markdown'); renderMarkdownInto(c, textVal); m.append(c); messages.append(m);
             }
           }
@@ -897,7 +913,7 @@ Gunakan format Markdown (bold, tabel, bullet points, blok kode) untuk memperjela
       const loadingBubble = node('article', null, 'pro-chat-message');
       loadingBubble.dataset.role = 'assistant';
       loadingBubble.dataset.loading = 'true';
-      const head = node('h3', 'AI assistant (Gemini)');
+      const head = node('h3', 'kayla');
 
       const orbWrap = node('div', null, 'mo-inline-orb-wrap');
       const canvas = node('canvas', null, 'mo-inline-orb');
@@ -955,7 +971,7 @@ Gunakan format Markdown (bold, tabel, bullet points, blok kode) untuk memperjela
 
         stopOrb();
         loadingBubble.replaceChildren();
-        loadingBubble.append(node('h3', 'AI assistant (Gemini)'));
+        loadingBubble.append(node('h3', 'kayla'));
         const contentBox = node('div', null, 'pro-markdown');
         renderMarkdownInto(contentBox, replyText || 'Response received.');
         loadingBubble.append(contentBox, node('time', new Date().toLocaleTimeString(), 'pro-muted'));
@@ -963,7 +979,7 @@ Gunakan format Markdown (bold, tabel, bullet points, blok kode) untuk memperjela
       } catch (err) {
         stopOrb();
         loadingBubble.replaceChildren();
-        loadingBubble.append(node('h3', 'AI assistant (Gemini)'), node('p', 'Gagal memproses jawaban: ' + err.message, 'pro-muted'));
+        loadingBubble.append(node('h3', 'kayla'), node('p', 'Gagal memproses jawaban: ' + err.message, 'pro-muted'));
         messages.scrollTop = messages.scrollHeight;
         throw err;
       }
@@ -4020,6 +4036,123 @@ Gunakan data dari https://www.fastbull.com/list-position sebagai filter konfirma
       if (pollInterval) { clearInterval(pollInterval); pollInterval = null; }
     }, { once: true });
   }
+  async function geminiConfigSection() {
+    const card=node('article',null,'pro-panel');
+    card.style.maxWidth='680px';
+    card.style.margin='0 auto';
+    card.style.padding='24px';
+
+    const h2=node('h2','Google Gemini API Key','pro-panel-title');
+    h2.style.fontSize='20px';
+    h2.style.fontWeight='700';
+    h2.style.marginBottom='8px';
+
+    const desc=node('p','Kelola konfigurasi Google Gemini API Key Anda untuk menghubungkan seluruh modul AI (AI Market Intelligence, AI Behaviour Analysis, AI Journal Analyst, dan kayla AI Chat) secara terpusat. API Key disimpan aman di browser lokal Anda.','pro-muted');
+    desc.style.marginBottom='18px';
+
+    const statusBadge=node('div',null,'pro-engine-status-badge');
+    statusBadge.style.display='inline-flex';
+    statusBadge.style.alignItems='center';
+    statusBadge.style.gap='8px';
+    statusBadge.style.padding='6px 14px';
+    statusBadge.style.borderRadius='999px';
+    statusBadge.style.marginBottom='20px';
+
+    function refreshStatusBadge(){
+      const active=hasGeminiApiKey();
+      statusBadge.style.background=active?'rgba(16, 185, 129, 0.12)':'rgba(239, 68, 68, 0.12)';
+      statusBadge.style.color=active?'#10B981':'#EF4444';
+      statusBadge.innerHTML='<span style="width:8px;height:8px;border-radius:50%;background:'+(active?'#10B981':'#EF4444')+';display:inline-block;"></span> <strong>'+(active?'Status: Terhubung (API Key Aktif)':'Status: Belum Terhubung')+'</strong>';
+    }
+    refreshStatusBadge();
+
+    const label=node('label','Google Gemini API Key');
+    label.style.display='block';
+    label.style.fontWeight='600';
+    label.style.marginBottom='6px';
+
+    const inputWrap=node('div');
+    inputWrap.style.display='flex';
+    inputWrap.style.gap='10px';
+    inputWrap.style.marginBottom='14px';
+
+    const input=node('input',null,'form-input');
+    input.type='password';
+    input.value=getGeminiApiKey();
+    input.placeholder='AIzaSy...';
+    input.style.flex='1';
+    input.style.padding='10px 14px';
+    input.style.borderRadius='8px';
+    input.style.border='1px solid var(--border-light, #333)';
+    input.style.background='var(--surface-field, #1e222d)';
+    input.style.color='inherit';
+
+    const toggleBtn=button('Tampilkan',()=>{
+      if(input.type==='password'){
+        input.type='text';
+        toggleBtn.textContent='Sembunyikan';
+      } else {
+        input.type='password';
+        toggleBtn.textContent='Tampilkan';
+      }
+    },'btn btn-outline');
+    toggleBtn.type='button';
+
+    inputWrap.append(input,toggleBtn);
+
+    const link=node('a','Dapatkan Google Gemini API Key gratis di Google AI Studio →','pro-link');
+    link.href='https://aistudio.google.com/app/apikey';
+    link.target='_blank';
+    link.rel='noopener noreferrer';
+    link.style.display='inline-block';
+    link.style.fontSize='13px';
+    link.style.marginBottom='20px';
+    link.style.color='var(--accent-blue, #3b82f6)';
+
+    const statusMsg=node('div',null,'pro-modal-status');
+    statusMsg.style.marginBottom='16px';
+    statusMsg.style.fontWeight='600';
+
+    const actions=node('div');
+    actions.style.display='flex';
+    actions.style.flexWrap='wrap';
+    actions.style.gap='10px';
+
+    const saveBtn=button('Simpan API Key',()=>{
+      const val=input.value.trim();
+      if(!val){
+        statusMsg.textContent='Masukkan API Key sebelum menyimpan.';
+        statusMsg.style.color='#EF4444';
+        return;
+      }
+      setGeminiApiKey(val);
+      statusMsg.textContent='API Key berhasil disimpan! Semua modul AI kini aktif terhubung.';
+      statusMsg.style.color='#10B981';
+      refreshStatusBadge();
+    },'btn btn-primary');
+    saveBtn.type='button';
+
+    const removeBtn=button('Hapus Key',()=>{
+      setGeminiApiKey('');
+      input.value='';
+      statusMsg.textContent='API Key telah dihapus.';
+      statusMsg.style.color='#F59E0B';
+      refreshStatusBadge();
+    },'btn btn-ghost');
+    removeBtn.type='button';
+
+    const viewNewsBtn=button('Buka Feed Berita (Global News)',async()=>{
+      content.replaceChildren();
+      await news();
+    },'btn btn-outline');
+    viewNewsBtn.type='button';
+    viewNewsBtn.style.marginLeft='auto';
+
+    actions.append(saveBtn,removeBtn,viewNewsBtn);
+    card.append(h2,desc,statusBadge,label,inputWrap,link,statusMsg,actions);
+    content.append(card);
+  }
+
   async function news() {
     const form=node('form',null,'pro-toolbar');content.append(form);filters={};
     const catalog=await request('/news/filters');
@@ -4041,10 +4174,15 @@ Gunakan data dari https://www.fastbull.com/list-position sebagai filter konfirma
     apiKeyBtn.type='button';
     function updateKeyBtnState(){
       const active=hasGeminiApiKey();
-      apiKeyBtn.replaceChildren();
-      const dot=node('span',null,'pro-dot '+(active?'online':'offline'));
-      const label=node('span',active?'Gemini AI: Connected':'Set Gemini API Key');
-      apiKeyBtn.append(dot,label);
+      if(active){
+        apiKeyBtn.style.display='none';
+      } else {
+        apiKeyBtn.style.display='inline-flex';
+        apiKeyBtn.replaceChildren();
+        const dot=node('span',null,'pro-dot offline');
+        const label=node('span','Set Gemini API Key');
+        apiKeyBtn.append(dot,label);
+      }
     }
     updateKeyBtnState();
     apiKeyBtn.addEventListener('click',()=>openGeminiConfigModal(()=>{
@@ -4065,7 +4203,7 @@ Gunakan data dari https://www.fastbull.com/list-position sebagai filter konfirma
       if(!['ai-market','ai-chat','global-news'].includes(feature)) {
         const [accountData,strategyData]=await Promise.all([request('/accounts'),request('/strategies')]);if(epoch!==revision)return;accounts=accountData.items || [];strategies=strategyData.items || [];
       }
-      await ({analytics,heatmap,strategies:strategyComparison,risk,reviews,reports,'ai-behaviour':()=>ai('behaviour'),'ai-market':marketIntelligence,'ai-journal':()=>ai('journal'),'ai-chat':aiChat,'global-news':news})[feature]();if(epoch===revision && status.textContent===text('Loading','Loading…'))status.textContent='';
+      await ({analytics,heatmap,strategies:strategyComparison,risk,reviews,reports,'ai-behaviour':()=>ai('behaviour'),'ai-market':marketIntelligence,'ai-journal':()=>ai('journal'),'ai-chat':aiChat,'global-news':geminiConfigSection})[feature]();if(epoch===revision && status.textContent===text('Loading','Loading…'))status.textContent='';
     } catch(error) {if(epoch===revision)showError(error);}
   }
   function reset() {revision++;controller.abort();controller=new AbortController();clearAccess();current='';filters={};preset={};accounts=[];strategies=[];root?.replaceChildren();status=null;content=null;}
