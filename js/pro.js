@@ -514,10 +514,297 @@ Gaya Komunikasi:
     const input=node(type==='select'?'select':'input'); if(type!=='select') input.type=type;
     if(id) input.id=id; input.value=value; wrap.append(input); return {wrap,input};
   }
+  function createProSvg(name) {
+    const svg=document.createElementNS('http://www.w3.org/2000/svg','svg');
+    svg.setAttribute('viewBox','0 0 24 24');
+    svg.setAttribute('fill','none');
+    svg.setAttribute('stroke','currentColor');
+    svg.setAttribute('stroke-width','2');
+    svg.setAttribute('stroke-linecap','round');
+    svg.setAttribute('stroke-linejoin','round');
+    svg.setAttribute('class','pro-select-svg');
+    svg.setAttribute('aria-hidden','true');
+    const path=document.createElementNS(svg.namespaceURI,'path');
+    let d='';
+    if(name==='chevron-down') d='M6 9l6 6 6-6';
+    else if(name==='check') d='M20 6L9 17l-5-5';
+    else if(name==='x') d='M18 6L6 18M6 6l12 12';
+    else if(name==='chart') d='M18 20V10M12 20V4M6 20v-6';
+    else if(name==='grid') d='M3 3h7v7H3zM14 3h7v7h-7zM14 14h7v7h-7zM3 14h7v7H3z';
+    else if(name==='branch') d='M6 3v12M18 9a3 3 0 1 0 0-6 3 3 0 0 0 0 6zM6 21a3 3 0 1 0 0-6 3 3 0 0 0 0 6zM18 9a9 9 0 0 1-9 9';
+    else if(name==='shield') d='M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z';
+    else if(name==='book') d='M4 19.5A2.5 2.5 0 0 1 6.5 17H20M4 4.5A2.5 2.5 0 0 1 6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15z';
+    else if(name==='file') d='M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8zM14 2v6h6M16 13H8M16 17H8M10 9H8';
+    else if(name==='sparkles') d='M12 3l1.9 4.5L18.4 9l-3.7 3.2.9 5.1-4.6-2.4-4.6 2.4.9-5.1L3.6 9l4.5-1.5L10 3z';
+    else if(name==='brain') d='M9.5 2A2.5 2.5 0 0 1 12 4.5v15a2.5 2.5 0 0 1-4.96.44 2.5 2.5 0 0 1-2.96-3.08 3 3 0 0 1-.34-5.58 2.5 2.5 0 0 1 1.32-4.24 2.5 2.5 0 0 1 4.44-5.04zM14.5 2A2.5 2.5 0 0 0 12 4.5v15a2.5 2.5 0 0 0 4.96.44 2.5 2.5 0 0 0 2.96-3.08 3 3 0 0 0 .34-5.58 2.5 2.5 0 0 0-1.32-4.24 2.5 2.5 0 0 0-4.44-5.04z';
+    else if(name==='search') d='M11 19a8 8 0 1 0 0-16 8 8 0 0 0 0 16zM21 21l-4.35-4.35';
+    else if(name==='chat') d='M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z';
+    else if(name==='key') d='M21 2l-2 2m-1.5 1.5L14 9l2 2-1 1-2-2-2 2 2 2-1 1-2-2-4.5 4.5a3 3 0 1 1-4.24-4.24L7.5 9.5';
+    else d='M12 2v20M2 12h20';
+    path.setAttribute('d',d);
+    svg.append(path);
+    return svg;
+  }
+  function enhanceProSelect(wrap, selectEl) {
+    if (!wrap || !selectEl || wrap.classList.contains('sr-only-compat') || selectEl.id === 'pro-section-selector') return;
+    wrap.classList.add('custom-select-container');
+    selectEl.classList.add('custom-select-native');
+
+    const trigger = node('button', null, 'custom-select-trigger-btn');
+    trigger.type = 'button';
+    trigger.setAttribute('aria-haspopup', 'listbox');
+    trigger.setAttribute('aria-expanded', 'false');
+    const labelSpan = node('span', '', 'custom-select-label');
+    const chevron = createProSvg('chevron-down');
+    chevron.classList.add('custom-select-chevron');
+    trigger.append(labelSpan, chevron);
+
+    const menu = node('div', null, 'custom-select-dropdown-menu');
+    menu.setAttribute('role', 'listbox');
+
+    function syncLabel() {
+      const selected = selectEl.options[selectEl.selectedIndex];
+      labelSpan.textContent = selected ? selected.textContent : (selectEl.value || '');
+      trigger.disabled = Boolean(selectEl.disabled);
+      for (const btn of menu.querySelectorAll('.custom-select-option')) {
+        const isMatch = btn.dataset.value === selectEl.value;
+        btn.classList.toggle('is-selected', isMatch);
+        btn.setAttribute('aria-selected', String(isMatch));
+      }
+    }
+
+    function renderOptions() {
+      menu.replaceChildren();
+      for (const opt of selectEl.options) {
+        if (opt.hidden) continue;
+        const item = node('button', null, 'custom-select-option');
+        item.type = 'button';
+        item.dataset.value = opt.value;
+        item.setAttribute('role', 'option');
+        const textSpan = node('span', opt.textContent);
+        const checkIcon = createProSvg('check');
+        checkIcon.classList.add('custom-select-check-icon');
+        item.append(textSpan, checkIcon);
+        item.addEventListener('click', (e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          selectEl.value = opt.value;
+          syncLabel();
+          closeMenu();
+          selectEl.dispatchEvent(new Event('change', { bubbles: true }));
+        });
+        menu.append(item);
+      }
+      syncLabel();
+    }
+
+    function openMenu() {
+      if (trigger.disabled) return;
+      document.querySelectorAll('.custom-select-dropdown-menu.is-open').forEach(m => {
+        if (m !== menu) {
+          m.classList.remove('is-open');
+          const t = m.parentElement?.querySelector('.custom-select-trigger-btn');
+          if (t) t.setAttribute('aria-expanded', 'false');
+        }
+      });
+      renderOptions();
+      menu.classList.add('is-open');
+      trigger.setAttribute('aria-expanded', 'true');
+    }
+
+    function closeMenu() {
+      menu.classList.remove('is-open');
+      trigger.setAttribute('aria-expanded', 'false');
+    }
+
+    trigger.addEventListener('click', (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      if (menu.classList.contains('is-open')) closeMenu();
+      else openMenu();
+    });
+
+    document.addEventListener('click', (e) => {
+      if (!wrap.contains(e.target)) closeMenu();
+    });
+
+    selectEl.addEventListener('change', () => {
+      syncLabel();
+    });
+
+    if (typeof MutationObserver !== 'undefined') {
+      const observer = new MutationObserver(() => {
+        renderOptions();
+      });
+      observer.observe(selectEl, { childList: true, subtree: true, attributes: true, attributeFilter: ['disabled', 'selected'] });
+    }
+
+    renderOptions();
+    wrap.append(trigger, menu);
+  }
+  const PRO_NAV_METADATA = {
+    analytics: { group: 'Analysis', icon: 'chart', desc: 'KPI, kurva drawdown & win rate' },
+    heatmap: { group: 'Analysis', icon: 'grid', desc: 'Matriks performa trading per hari' },
+    strategies: { group: 'Analysis', icon: 'branch', desc: 'Perbandingan profitabilitas strategi' },
+    risk: { group: 'Analysis', icon: 'shield', desc: 'Ukuran posisi & batas risiko akun' },
+    reviews: { group: 'Reviews & reports', icon: 'book', desc: 'Evaluasi mingguan & bulanan' },
+    reports: { group: 'Reviews & reports', icon: 'file', desc: 'Laporan komprehensif & ekspor' },
+    'ai-market': { group: 'AI assistant', icon: 'sparkles', isAi: true, desc: 'Multi-timeframe technical bias' },
+    'ai-behaviour': { group: 'AI assistant', icon: 'brain', isAi: true, desc: 'Psikologi & deteksi FOMO' },
+    'ai-journal': { group: 'AI assistant', icon: 'search', isAi: true, desc: 'Analisis konsistensi jurnal' },
+    'ai-chat': { group: 'AI assistant', icon: 'chat', isAi: true, desc: 'Asisten trading cerdas interaktif' },
+    'global-news': { group: 'Markets', icon: 'key', desc: 'Konfigurasi terpusat Gemini API' }
+  };
+  function createProMobileNavigator(wrap, selectEl, activeKey, onSelect) {
+    wrap.classList.add('pro-section-mobile');
+    const oldCaption = wrap.querySelector('span');
+    if (oldCaption) oldCaption.style.display = 'none';
+
+    selectEl.classList.add('pro-section-selector-compat');
+
+    const trigger = node('button', null, 'pro-mobile-nav-trigger');
+    trigger.type = 'button';
+    trigger.setAttribute('aria-haspopup', 'dialog');
+    trigger.setAttribute('aria-expanded', 'false');
+
+    const leftBox = node('div', null, 'pro-mobile-nav-info');
+    const topRow = node('div', null, 'pro-mobile-nav-meta');
+    const catBadge = node('span', '', 'pro-mobile-nav-cat');
+    const aiBadge = node('span', 'AI', 'pro-mobile-nav-ai');
+    aiBadge.style.display = 'none';
+    topRow.append(catBadge, aiBadge);
+
+    const titleEl = node('div', '', 'pro-mobile-nav-title');
+    const subTitleEl = node('div', 'Ketuk untuk beralih modul Pro', 'pro-mobile-nav-hint');
+    leftBox.append(topRow, titleEl, subTitleEl);
+
+    const rightBox = node('div', null, 'pro-mobile-nav-action');
+    const chevron = createProSvg('chevron-down');
+    chevron.classList.add('pro-mobile-nav-chevron');
+    rightBox.append(chevron);
+    trigger.append(leftBox, rightBox);
+
+    function updateTriggerInfo(key) {
+      const meta = PRO_NAV_METADATA[key] || { group: 'Pro', isAi: String(key).startsWith('ai-') };
+      catBadge.textContent = meta.group;
+      titleEl.textContent = features[key] || key;
+      aiBadge.style.display = meta.isAi ? 'inline-flex' : 'none';
+    }
+    updateTriggerInfo(activeKey);
+
+    const modal = node('div', null, 'pro-nav-modal');
+    modal.setAttribute('role', 'dialog');
+    modal.setAttribute('aria-modal', 'true');
+    modal.setAttribute('aria-label', 'Pilih Bagian Pro');
+
+    const backdrop = node('div', null, 'pro-nav-backdrop');
+    const sheet = node('div', null, 'pro-nav-sheet');
+
+    const handle = node('div', null, 'pro-nav-handle');
+    const sheetHeader = node('div', null, 'pro-nav-header');
+    const sheetTitleBox = node('div', null, 'pro-nav-header-text');
+    const sheetH3 = node('h3', 'Navigasi Pro Workspace', 'pro-nav-sheet-title');
+    const sheetDesc = node('p', 'Pilih modul analisis, AI assistant, atau laporan', 'pro-nav-sheet-subtitle');
+    sheetTitleBox.append(sheetH3, sheetDesc);
+
+    const closeBtn = node('button', null, 'pro-nav-close-btn');
+    closeBtn.type = 'button';
+    closeBtn.setAttribute('aria-label', 'Tutup navigasi');
+    closeBtn.append(createProSvg('x'));
+    sheetHeader.append(sheetTitleBox, closeBtn);
+
+    const sheetBody = node('div', null, 'pro-nav-body');
+    const groups = [
+      ['Analysis', ['analytics', 'heatmap', 'strategies', 'risk']],
+      ['Reviews & reports', ['reviews', 'reports']],
+      ['AI assistant', ['ai-market', 'ai-behaviour', 'ai-journal', 'ai-chat']],
+      ['Markets', ['global-news']]
+    ];
+
+    for (const [groupTitle, keys] of groups) {
+      const groupEl = node('div', null, 'pro-nav-group-section');
+      const groupHead = node('div', groupTitle, 'pro-nav-group-title');
+      groupEl.append(groupHead);
+
+      const itemsGrid = node('div', null, 'pro-nav-items-list');
+      for (const k of keys) {
+        const itemMeta = PRO_NAV_METADATA[k] || { icon: 'chart', desc: '' };
+        const itemBtn = node('button', null, 'pro-nav-item');
+        itemBtn.type = 'button';
+        itemBtn.dataset.section = k;
+        if (k === activeKey) itemBtn.classList.add('is-active');
+
+        const iconBox = node('div', null, 'pro-nav-item-icon');
+        iconBox.append(createProSvg(itemMeta.icon || 'chart'));
+
+        const textBox = node('div', null, 'pro-nav-item-text');
+        const nameRow = node('div', null, 'pro-nav-item-name-row');
+        const nameSpan = node('span', features[k], 'pro-nav-item-name');
+        nameRow.append(nameSpan);
+        if (itemMeta.isAi) {
+          const aiTag = node('span', 'AI', 'pro-nav-item-ai');
+          nameRow.append(aiTag);
+        }
+        const descSpan = node('span', itemMeta.desc, 'pro-nav-item-desc');
+        textBox.append(nameRow, descSpan);
+
+        const rightIndicator = node('div', null, 'pro-nav-item-check');
+        rightIndicator.append(createProSvg('check'));
+
+        itemBtn.append(iconBox, textBox, rightIndicator);
+
+        itemBtn.addEventListener('click', () => {
+          closeNav();
+          selectEl.value = k;
+          updateTriggerInfo(k);
+          onSelect(k);
+        });
+
+        itemsGrid.append(itemBtn);
+      }
+      groupEl.append(itemsGrid);
+      sheetBody.append(groupEl);
+    }
+
+    sheet.append(handle, sheetHeader, sheetBody);
+    modal.append(backdrop, sheet);
+
+    function openNav() {
+      document.body.append(modal);
+      requestAnimationFrame(() => modal.classList.add('is-open'));
+      trigger.setAttribute('aria-expanded', 'true');
+    }
+
+    function closeNav() {
+      modal.classList.remove('is-open');
+      trigger.setAttribute('aria-expanded', 'false');
+      setTimeout(() => {
+        if (modal.parentElement) modal.parentElement.removeChild(modal);
+      }, 250);
+    }
+
+    trigger.addEventListener('click', (e) => {
+      e.preventDefault();
+      openNav();
+    });
+
+    backdrop.addEventListener('click', closeNav);
+    closeBtn.addEventListener('click', closeNav);
+
+    selectEl.addEventListener('change', () => {
+      updateTriggerInfo(selectEl.value);
+    });
+
+    wrap.append(trigger);
+  }
   function select(label,values,value,id) {
     const result=field(label,'select','',id);
     for(const [key,name] of values) { const item=node('option',name); item.value=key; result.input.append(item); }
-    result.input.value=value; return result;
+    result.input.value=value;
+    if (id !== 'pro-section-selector') {
+      enhanceProSelect(result.wrap, result.input);
+    }
+    return result;
   }
   function panel(title,parent=content) { const section=node('section',null,'pro-panel'); section.append(node('h2',title)); parent.append(section); return section; }
   function table(parent,rows,columns,actions) {
@@ -4357,7 +4644,10 @@ Gunakan data dari https://www.fastbull.com/list-position sebagai filter konfirma
     for(const [group,keys] of groups) {const section=node('div',null,'pro-nav-group');section.append(node('h2',group));navigation.append(section);
     for(const key of keys) {const label=features[key];const item=node('button',label,'btn btn-ghost');item.type='button';item.dataset.section=key;item.dataset.componentId='pro-section-'+key;item.setAttribute('aria-current',key===feature?'page':'false');item.addEventListener('click',()=>open(key));if(key.startsWith('ai-'))item.append(node('span','AI','pro-ai-badge'));section.append(item);}}
     const layout=node('div',null,'pro-layout'),workspace=node('div',null,'pro-content-panel');layout.append(navigation,workspace);root.append(layout);
-    const selector=select('Pro section',Object.entries(features),feature,'pro-section-selector');selector.wrap.classList.add('pro-section-mobile');selector.input.addEventListener('change',()=>open(selector.input.value));workspace.append(selector.wrap);
+    const selector=select('Pro section',Object.entries(features),feature,'pro-section-selector');
+    createProMobileNavigator(selector.wrap,selector.input,feature,(key)=>open(key));
+    selector.input.addEventListener('change',()=>open(selector.input.value));
+    workspace.append(selector.wrap);
     status=node('p',text('Loading','Loading…'),'pro-status');status.setAttribute('role','status');status.setAttribute('aria-live','polite');workspace.append(status);content=node('div');workspace.append(content);options.onRoute?.(feature);
     const epoch=revision;
     try {
