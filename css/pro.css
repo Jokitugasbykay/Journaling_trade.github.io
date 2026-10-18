@@ -1014,10 +1014,10 @@
 
 /* Workspace Split (Chart Box & Signal Card) */
 .workspace-split {
-  display: grid;
-  grid-template-columns: 1.35fr 1fr;
+  display: flex;
+  flex-direction: column;
   gap: 16px;
-  align-items: start;
+  width: 100%;
 }
 
 .chart-box {

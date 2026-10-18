@@ -2531,12 +2531,7 @@ Gunakan format Markdown (bold, tabel, bullet points, blok kode) untuk memperjela
     actionGrid.append(generate, simWarnBtn, refreshBtn, resetZoomBtn, fit500Btn, skillBtn, notificationBtn, copyJsonBtn, alertsToggleBtn);
     mainCard.append(actionGrid);
 
-    // Workspace Split (Chart Box & Signal Card)
-    const workspaceSplit = node('div', null, 'workspace-split');
-    mainCard.append(workspaceSplit);
-
-    // Left Column: Chart Box + Fundamental Panel
-    const leftCol = node('div');
+    // Chart Box (Full Width 16:9 Canvas)
     const chartBox = node('div', null, 'chart-box');
     const chartHeader = node('div', null, 'chart-header');
     const chartTitleWrap = node('div', null, 'chart-title-wrap');
@@ -2586,37 +2581,10 @@ Gunakan format Markdown (bold, tabel, bullet points, blok kode) untuk memperjela
     nextCandleBar.append(ohlcBarInfo, nextCandleRight);
 
     chartBox.append(chartHeader, chartViewport16x9, nextCandleBar);
+    mainCard.append(chartBox);
 
-    // Fundamental Panel
-    const fundaPanel = node('div', null, 'funda-panel');
-    const fundaHeader = node('div', null, 'funda-header');
-    const fundaHeaderLeft = node('span');
-    const ccySpan = node('span', 'USD');
-    ccySpan.id = 'fundaPairCurrencies';
-    fundaHeaderLeft.append(node('span', 'KALENDER FUNDAMENTAL & 1H HIGH IMPACT GUARD ('), ccySpan, node('span', ')'));
-    const fundaFeedStatus = node('span', 'Auto-Monitoring 60m Window');
-    fundaFeedStatus.id = 'fundaFeedStatus';
-    fundaFeedStatus.style.fontSize = '10.5px';
-    fundaFeedStatus.style.color = '#38bdf8';
-    fundaHeader.append(fundaHeaderLeft, fundaFeedStatus);
-
-    const tableScrollWrap = node('div', null, 'table-scroll-wrap');
-    const fundaTable = node('table', null, 'funda-table');
-    const fThead = node('thead');
-    const fTrHead = node('tr');
-    ['Waktu', 'CCY', 'Event Fundamental', 'Impact', 'Status / Sisa Waktu'].forEach(h => fTrHead.append(node('th', h)));
-    fThead.append(fTrHead);
-    const fundaTableBody = node('tbody');
-    fundaTableBody.id = 'fundaTableBody';
-    fundaTable.append(fThead, fundaTableBody);
-    tableScrollWrap.append(fundaTable);
-    fundaPanel.append(fundaHeader, tableScrollWrap);
-
-    leftCol.append(chartBox, fundaPanel);
-    workspaceSplit.append(leftCol);
-
-    // Right Column: Result Panel with heading "AI entry signal"
-    const result = panel('AI entry signal');
+    // Result Panel with heading "AI entry signal" (Taruh di bawah chart)
+    const result = panel('AI entry signal', mainCard);
     const selectionNote = node('p', null, 'pro-muted');
     result.append(selectionNote);
 
@@ -2725,7 +2693,32 @@ Gunakan format Markdown (bold, tabel, bullet points, blok kode) untuk memperjela
     neuronBox.append(neuronHeader, stateGrid, probSubtitle, probRowBuy, probRowSell, evidenceList);
     signalCard.append(sigTop, levelsGrid, engineBar, neuronBox);
     result.append(signalCard);
-    workspaceSplit.append(result);
+
+    // Fundamental Panel (Di bawah AI entry signal)
+    const fundaPanel = node('div', null, 'funda-panel');
+    const fundaHeader = node('div', null, 'funda-header');
+    const fundaHeaderLeft = node('span');
+    const ccySpan = node('span', 'USD');
+    ccySpan.id = 'fundaPairCurrencies';
+    fundaHeaderLeft.append(node('span', 'KALENDER FUNDAMENTAL & 1H HIGH IMPACT GUARD ('), ccySpan, node('span', ')'));
+    const fundaFeedStatus = node('span', 'Auto-Monitoring 60m Window');
+    fundaFeedStatus.id = 'fundaFeedStatus';
+    fundaFeedStatus.style.fontSize = '10.5px';
+    fundaFeedStatus.style.color = '#38bdf8';
+    fundaHeader.append(fundaHeaderLeft, fundaFeedStatus);
+
+    const tableScrollWrap = node('div', null, 'table-scroll-wrap');
+    const fundaTable = node('table', null, 'funda-table');
+    const fThead = node('thead');
+    const fTrHead = node('tr');
+    ['Waktu', 'CCY', 'Event Fundamental', 'Impact', 'Status / Sisa Waktu'].forEach(h => fTrHead.append(node('th', h)));
+    fThead.append(fTrHead);
+    const fundaTableBody = node('tbody');
+    fundaTableBody.id = 'fundaTableBody';
+    fundaTable.append(fThead, fundaTableBody);
+    tableScrollWrap.append(fundaTable);
+    fundaPanel.append(fundaHeader, tableScrollWrap);
+    mainCard.append(fundaPanel);
 
     // Modal skill.md
     const skillModal = node('div', null, 'modal-backdrop');
