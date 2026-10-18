@@ -2139,37 +2139,122 @@ Gunakan format Markdown (bold, tabel, bullet points, blok kode) untuk memperjela
     result.append(signalCard);
 
     // Fundamental Panel (Di bawah AI entry signal)
+    // Fundamental & FastBull Integrated Panel (Di bawah AI entry signal)
     const fundaPanel = node('div', null, 'funda-panel');
-    const fundaHeader = node('div', null, 'funda-header');
-    const fundaHeaderLeft = node('span');
-    const ccySpan = node('span', 'USD');
-    ccySpan.id = 'fundaPairCurrencies';
-    fundaHeaderLeft.append(node('span', 'KALENDER FUNDAMENTAL & 1H HIGH IMPACT GUARD ('), ccySpan, node('span', ')'));
-    const fundaFeedStatus = node('span', 'Auto-Monitoring 60m Window');
-    fundaFeedStatus.id = 'fundaFeedStatus';
-    fundaFeedStatus.style.fontSize = '10.5px';
-    fundaFeedStatus.style.color = '#38bdf8';
-    fundaHeader.append(fundaHeaderLeft, fundaFeedStatus);
+    fundaPanel.id = 'integratedNewsPanel';
+    fundaPanel.innerHTML = `
+      <div class="funda-tabs-header">
+        <div class="funda-main-tabs">
+          <button class="f-tab-btn active" id="tabBtnFastbull" type="button">FastBull Position (list-position)</button>
+          <button class="f-tab-btn" id="tabBtnHeadlines" type="button">Berita Ekonomi Terkini</button>
+          <button class="f-tab-btn" id="tabBtnCalendar" type="button">Kalender Ekonomi (&lt;1H Guard)</button>
+        </div>
+        <a href="https://www.fastbull.com/list-position" target="_blank" rel="noopener" style="font-size:10.5px; color:#38bdf8; text-decoration:none; font-weight:700;">
+          🔗 Sumber: fastbull.com/list-position ↗
+        </a>
+      </div>
 
-    const tableScrollWrap = node('div', null, 'table-scroll-wrap');
-    const fundaTable = node('table', null, 'funda-table');
-    const fThead = node('thead');
-    const fTrHead = node('tr');
-    ['Waktu', 'CCY', 'Event Fundamental', 'Impact', 'Status / Sisa Waktu'].forEach(h => fTrHead.append(node('th', h)));
-    fThead.append(fTrHead);
-    const fundaTableBody = node('tbody');
-    fundaTableBody.id = 'fundaTableBody';
-    fundaTable.append(fThead, fundaTableBody);
-    tableScrollWrap.append(fundaTable);
-    fundaPanel.append(fundaHeader, tableScrollWrap);
+      <!-- Sub-View 1: FastBull Position Analysis -->
+      <div id="viewFastbullPosition">
+        <div class="fb-summary-box">
+          <div class="fb-ratio-header">
+            <span id="fbSymbolRatioLabel">XAUUSD · FastBull Position Ratio (list-position)</span>
+            <div>
+              <span style="color:var(--buy-green);" id="fbLongPctText">LONG: 42.0%</span>
+              <span style="margin:0 6px; color:#475569;">|</span>
+              <span style="color:var(--sell-pink);" id="fbShortPctText">SHORT: 58.0%</span>
+            </div>
+          </div>
+          <div class="fb-dual-bar">
+            <div class="fb-long-fill" id="fbLongBarFill" style="width: 42%;"></div>
+          </div>
+          <div class="fb-controls-row">
+            <span id="fbContrarianInsight">Bias Posisi FastBull: Retail Mayoritas Short (58%) + Akumulasi Limit Buy Institusi -> Mendukung BUY di Area Retest Base</span>
+            <div style="display:flex; align-items:center; gap:6px;">
+              <span>Sesuaikan Long %:</span>
+              <input type="number" id="fbManualLongInput" min="5" max="95" value="42" style="width:64px; min-height:28px; padding:3px 6px; font-size:11.5px;" />
+            </div>
+          </div>
+        </div>
+
+        <div class="table-scroll-wrap" style="margin-top:8px;">
+          <table class="funda-table">
+            <thead>
+              <tr>
+                <th>Institusi / Sumber FastBull</th>
+                <th>Pair</th>
+                <th>Posisi</th>
+                <th>Entry Level</th>
+                <th>SL / TP</th>
+                <th>Status Konfluensi</th>
+              </tr>
+            </thead>
+            <tbody id="fastbullTableBody"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Sub-View 2: Berita Ekonomi Terkini -->
+      <div id="viewNewsHeadlines" style="display:none;">
+        <div class="news-cat-pills" style="margin-bottom:8px;">
+          <span class="n-cat-pill active" data-pill="ALL">Semua</span>
+          <span class="n-cat-pill" data-pill="DUNIA">Dunia</span>
+          <span class="n-cat-pill" data-pill="POLITIK">Politik</span>
+          <span class="n-cat-pill" data-pill="THE_FED">The Fed</span>
+          <span class="n-cat-pill" data-pill="BISNIS">Bisnis</span>
+          <span class="n-cat-pill" data-pill="PASAR">Pasar</span>
+        </div>
+        <div class="news-search-row" style="margin-bottom:8px;">
+          <input type="text" id="newsHeadlineSearch" placeholder="Cari judul berita atau tambah headline custom ke analisa..." />
+          <button class="btn-action" id="btnRefreshNews" type="button" style="flex-shrink:0;">Segarkan berita</button>
+        </div>
+        <div class="news-headlines-list" id="newsHeadlinesContainer"></div>
+      </div>
+
+      <!-- Sub-View 3: Kalender Ekonomi & High Impact 1-Hour Warning -->
+      <div id="viewEconomicCalendar" style="display:none;">
+        <div class="table-scroll-wrap">
+          <table class="funda-table">
+            <thead>
+              <tr>
+                <th>Waktu</th>
+                <th>CCY</th>
+                <th>Event Kalender Ekonomi</th>
+                <th>Impact</th>
+                <th>Status / Sisa Waktu</th>
+              </tr>
+            </thead>
+            <tbody id="fundaTableBody"></tbody>
+          </table>
+        </div>
+      </div>
+    `;
     mainCard.append(fundaPanel);
+
+    const tabFb = fundaPanel.querySelector('#tabBtnFastbull');
+    const tabHl = fundaPanel.querySelector('#tabBtnHeadlines');
+    const tabCal = fundaPanel.querySelector('#tabBtnCalendar');
+    if (tabFb) tabFb.addEventListener('click', () => switchFundaTab('FASTBULL'));
+    if (tabHl) tabHl.addEventListener('click', () => switchFundaTab('HEADLINES'));
+    if (tabCal) tabCal.addEventListener('click', () => switchFundaTab('CALENDAR'));
+
+    const fbManualInput = fundaPanel.querySelector('#fbManualLongInput');
+    if (fbManualInput) fbManualInput.addEventListener('change', onManualFastBullRatioChange);
+
+    const newsSearch = fundaPanel.querySelector('#newsHeadlineSearch');
+    if (newsSearch) newsSearch.addEventListener('input', renderNewsHeadlines);
+    const btnRefNews = fundaPanel.querySelector('#btnRefreshNews');
+    if (btnRefNews) btnRefNews.addEventListener('click', refreshEconomicNewsFeed);
+    fundaPanel.querySelectorAll('.n-cat-pill').forEach(pill => {
+      pill.addEventListener('click', (e) => filterNewsByPill(e.target, e.target.getAttribute('data-pill')));
+    });
 
     // Modal skill.md
     const skillModal = node('div', null, 'modal-backdrop');
     skillModal.id = 'skillModal';
     const modalBox = node('div', null, 'modal-box');
     const modalHeader = node('div', null, 'modal-header');
-    modalHeader.append(node('span', 'Dokumen Lengkap skill.md (Kaystrade Full Detailed Specification)'));
+    modalHeader.append(node('span', 'Dokumen Lengkap skill.md (Integrasi FastBull list-position + Berita Ekonomi + Intraday/Scalping)'));
     const modalHeaderBtns = node('div');
     modalHeaderBtns.style.display = 'flex';
     modalHeaderBtns.style.gap = '8px';
@@ -2186,7 +2271,60 @@ Gunakan format Markdown (bold, tabel, bullet points, blok kode) untuk memperjela
     const skillTextarea = node('textarea', null, 'skill-textarea');
     skillTextarea.id = 'skillMdContent';
     skillTextarea.readOnly = true;
-    skillTextarea.value = "\"UTF-8\" />\r\n  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no\" />\r\n  <title>journalingtrade · Kaystrade 16:9 Real-Time Technical + Fundamental</title>\r\n  <script src=\"https://unpkg.com/lightweight-charts@4.1.3/dist/lightweight-charts.standalone.production.js\"></script>\r\n  <script type=\"text/javascript\" src=\"https://s3.tradingview.com/tv.js\"></script>\r\n  <link\r\n    href=\"https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap\"\r\n    rel=\"stylesheet\">\r\n  <style>\r\n    :root {\r\n      --bg-main: #080a0f;\r\n      --bg-nav: #0b0e16;\r\n      --bg-card: #10131c;\r\n      --bg-card-inner: #151926;\r\n      --bg-hover: #1c2233;\r\n      --border: #22283a;\r\n      --border-focus: #3b82f6;\r\n      --text-main: #f1f5f9;\r\n      --text-muted: #8b95a5;\r\n      --sell-pink: #ff2a5f;\r\n      --sell-bg: #1f1019;\r\n      --sell-border: #4a1c2d;\r\n      --buy-green: #00e676;\r\n      --buy-bg: #0d211b;\r\n      --buy-border: #164e3b;\r\n      --warn-amber: #f59e0b;\r\n      --warn-bg: #241a0b;\r\n      --warn-border: #5c3f14;\r\n      --danger-bg: #290f14;\r\n      --solid-blue: #2563eb;\r\n      --pivot-yellow: #facc15;\r\n    }\r\n\r\n    * {\r\n      box-sizing: border-box;\r\n      margin: 0;\r\n      padding: 0;\r\n      -webkit-tap-highlight-color: transparent;\r\n    }\r\n\r\n    html,\r\n    body {\r\n      width: 100%;\r\n      max-width: 100vw;\r\n      overflow-x: hidden;\r\n      background-color: var(--bg-main);\r\n      color: var(--text-main);\r\n      font-family: 'Plus Jakarta Sans', sans-serif;\r\n      min-height: 100vh;\r\n    }\r\n\r\n    /* Navbar Solid */\r\n    .navbar {\r\n      display: flex;\r\n      justify-content: space-between;\r\n      align-items: center;\r\n      padding: 12px 20px;\r\n      border-bottom: 1px solid var(--border);\r\n      background-color: var(--bg-nav);\r\n      gap: 10px;\r\n      flex-wrap: wrap;\r\n    }\r\n\r\n    .brand {\r\n      font-weight: 800;\r\n      font-size: 16px;\r\n      display: flex;\r\n      align-items: center;\r\n      gap: 10px;\r\n      flex-wrap: wrap;\r\n    }\r\n\r\n    .badge-live {\r\n      background-color: var(--buy-bg);\r\n      color: var(--buy-green);\r\n      border: 1px solid var(--buy-border);\r\n      padding: 4px 9px;\r\n      border-radius: 6px;\r\n      font-size: 10.5px;\r\n      font-weight: 700;\r\n      display: inline-flex;\r\n      align-items: center;\r\n      gap: 6px;\r\n      white-space: nowrap;\r\n    }\r\n\r\n    .pulse-dot {\r\n      width: 7px;\r\n      height: 7px;\r\n      background-color: var(--buy-green);\r\n      border-radius: 50%;\r\n      flex-shrink: 0;\r\n    }\r\n\r\n    /* Mobile Quick Nav (Muncul di Tablet/HP) */\r\n    .mobile-quick-nav {\r\n      display: none;\r\n      gap: 8px;\r\n      padding: 10px 14px;\r\n      background-color: #0d1018;\r\n      border-bottom: 1px solid var(--border);\r\n      overflow-x: auto;\r\n      white-space: nowrap;\r\n      -webkit-overflow-scrolling: touch;\r\n    }\r\n\r\n    .mobile-quick-nav::-webkit-scrollbar {\r\n      display: none;\r\n    }\r\n\r\n    .m-nav-btn {\r\n      padding: 7px 12px;\r\n      border-radius: 7px;\r\n      font-size: 12px;\r\n      font-weight: 700;\r\n      background-color: var(--bg-card-inner);\r\n      color: var(--text-main);\r\n      border: 1px solid var(--border);\r\n      cursor: pointer;\r\n      flex-shrink: 0;\r\n    }\r\n\r\n    .m-nav-btn.active {\r\n      background-color: #17253b;\r\n      border-color: #38bdf8;\r\n      color: #38bdf8;\r\n    }\r\n\r\n    /* Layout Utama Anti-Overflow */\r\n    .container {\r\n      display: grid;\r\n      grid-template-columns: 200px minmax(0, 1fr);\r\n      max-width: 1480px;\r\n      margin: 0 auto;\r\n      padding: 16px;\r\n      gap: 16px;\r\n      width: 100%;\r\n    }\r\n\r\n    .container>* {\r\n      min-width: 0;\r\n    }\r\n\r\n    .sidebar {\r\n      display: flex;\r\n      flex-direction: column;\r\n      gap: 5px;\r\n      font-size: 12.5px;\r\n      color: var(--text-muted);\r\n    }\r\n\r\n    .sidebar-section {\r\n      font-size: 10.5px;\r\n      text-transform: uppercase;\r\n      letter-spacing: 0.06em;\r\n      color: #64748b;\r\n      margin: 12px 0 4px;\r\n      font-weight: 700;\r\n    }\r\n\r\n    .nav-item {\r\n      padding: 9px 11px;\r\n      border-radius: 8px;\r\n      cursor: pointer;\r\n      display: flex;\r\n      justify-content: space-between;\r\n      align-items: center;\r\n      background-color: transparent;\r\n    }\r\n\r\n    .nav-item.active {\r\n      background-color: #171c2b;\r\n      color: #ffffff;\r\n      font-weight: 600;\r\n      border: 1px solid #2a324b;\r\n    }\r\n\r\n    .main-card {\r\n      background-color: var(--bg-card);\r\n      border: 1px solid var(--border);\r\n      border-radius: 12px;\r\n      padding: 16px;\r\n      display: flex;\r\n      flex-direction: column;\r\n      gap: 14px;\r\n      width: 100%;\r\n      min-width: 0;\r\n    }\r\n\r\n    /* Banner Peringatan 1 Jam Sebelum High Impact News */\r\n    .news-warning-banner {\r\n      display: none;\r\n      background-color: var(--danger-bg);\r\n      border: 2px solid var(--sell-pink);\r\n      border-radius: 10px;\r\n      padding: 12px 14px;\r\n      color: #ffffff;\r\n      justify-content: space-between;\r\n      align-items: center;\r\n      gap: 12px;\r\n      flex-wrap: wrap;\r\n    }\r\n\r\n    .news-warning-banner.active {\r\n      display: flex;\r\n    }\r\n\r\n    .nw-left {\r\n      display: flex;\r\n      align-items: flex-start;\r\n      gap: 10px;\r\n      flex: 1;\r\n      min-width: 220px;\r\n    }\r\n\r\n    .nw-badge {\r\n      background-color: var(--sell-pink);\r\n      color: #ffffff;\r\n      font-weight: 800;\r\n      font-size: 10.5px;\r\n      padding: 5px 8px;\r\n      border-radius: 6px;\r\n      white-space: nowrap;\r\n      flex-shrink: 0;\r\n    }\r\n\r\n    .nw-title {\r\n      font-weight: 800;\r\n      font-size: 13px;\r\n      color: #fecdd3;\r\n      line-height: 1.3;\r\n    }\r\n\r\n    .nw-sub {\r\n      font-size: 11.5px;\r\n      color: #fda4af;\r\n      margin-top: 3px;\r\n      line-height: 1.35;\r\n    }\r\n\r\n    .nw-right {\r\n      display: flex;\r\n      align-items: center;\r\n      gap: 8px;\r\n      flex-wrap: wrap;\r\n    }\r\n\r\n    .nw-timer {\r\n      font-family: 'JetBrains Mono', monospace;\r\n      font-size: 13.5px;\r\n      font-weight: 800;\r\n      background-color: #16070a;\r\n      border: 1px solid var(--sell-pink);\r\n      color: #fb7185;\r\n      padding: 6px 11px;\r\n      border-radius: 8px;\r\n      white-space: nowrap;\r\n    }\r\n\r\n    /* Form Controls & Search Pair */\r\n    .controls-grid {\r\n      display: grid;\r\n      grid-template-columns: 1.35fr 0.9fr 0.9fr 0.85fr;\r\n      gap: 12px;\r\n      align-items: end;\r\n    }\r\n\r\n    .controls-grid>* {\r\n      min-width: 0;\r\n    }\r\n\r\n    label {\r\n      font-size: 11px;\r\n      color: var(--text-muted);\r\n      display: block;\r\n      margin-bottom: 5px;\r\n      font-weight: 600;\r\n      white-space: nowrap;\r\n      overflow: hidden;\r\n      text-overflow: ellipsis;\r\n    }\r\n\r\n    select,\r\n    input {\r\n      width: 100%;\r\n      padding: 9px 11px;\r\n      background-color: var(--bg-card-inner);\r\n      border: 1px solid var(--border);\r\n      color: #ffffff;\r\n      border-radius: 8px;\r\n      font-size: 12.5px;\r\n      font-weight: 600;\r\n      outline: none;\r\n      min-height: 38px;\r\n    }\r\n\r\n    input:focus,\r\n    select:focus {\r\n      border-color: var(--border-focus);\r\n    }\r\n\r\n    .pair-search-wrapper {\r\n      position: relative;\r\n      min-width: 0;\r\n    }\r\n\r\n    .pair-input-group {\r\n      display: flex;\r\n      gap: 6px;\r\n    }\r\n\r\n    .btn-use-pair {\r\n      padding: 9px 13px;\r\n      background-color: var(--solid-blue);\r\n      border: 1px solid #3b82f6;\r\n      color: #ffffff;\r\n      border-radius: 8px;\r\n      font-size: 12px;\r\n      font-weight: 700;\r\n      cursor: pointer;\r\n      white-space: nowrap;\r\n      flex-shrink: 0;\r\n    }\r\n\r\n    .btn-use-pair:hover {\r\n      background-color: #1d4ed8;\r\n    }\r\n\r\n    .pair-dropdown {\r\n      position: absolute;\r\n      top: calc(100% + 6px);\r\n      left: 0;\r\n      right: 0;\r\n      background-color: #111522;\r\n      border: 1px solid #2e364f;\r\n      border-radius: 10px;\r\n      z-index: 999;\r\n      max-height: 320px;\r\n      display: none;\r\n      flex-direction: column;\r\n      overflow: hidden;\r\n    }\r\n\r\n    .pair-dropdown.open {\r\n      display: flex;\r\n    }\r\n\r\n    .cat-tabs {\r\n      display: flex;\r\n      gap: 4px;\r\n      padding: 8px;\r\n      background-color: #0b0e17;\r\n      border-bottom: 1px solid #1e2436;\r\n      overflow-x: auto;\r\n      -webkit-overflow-scrolling: touch;\r\n    }\r\n\r\n    .cat-tab {\r\n      padding: 5px 10px;\r\n      font-size: 11px;\r\n      font-weight: 700;\r\n      border-radius: 6px;\r\n      background-color: #161b2a;\r\n      color: var(--text-muted);\r\n      border: 1px solid transparent;\r\n      cursor: pointer;\r\n      white-space: nowrap;\r\n    }\r\n\r\n    .cat-tab.active {\r\n      background-color: #1e293b;\r\n      color: #38bdf8;\r\n      border-color: #38bdf8;\r\n    }\r\n\r\n    .pair-list {\r\n      overflow-y: auto;\r\n      max-height: 260px;\r\n    }\r\n\r\n    .pair-item {\r\n      padding: 9px 12px;\r\n      display: flex;\r\n      justify-content: space-between;\r\n      align-items: center;\r\n      cursor: pointer;\r\n      border-bottom: 1px solid #161b29;\r\n      font-size: 12px;\r\n      background-color: #111522;\r\n      gap: 8px;\r\n    }\r\n\r\n    .pair-item:hover {\r\n      background-color: #1b2236;\r\n    }\r\n\r\n    .pair-sym {\r\n      font-weight: 700;\r\n      color: #ffffff;\r\n      font-family: 'JetBrains Mono', monospace;\r\n    }\r\n\r\n    .pair-desc {\r\n      color: var(--text-muted);\r\n      font-size: 11px;\r\n      margin-left: 6px;\r\n    }\r\n\r\n    .pair-cat-badge {\r\n      font-size: 9.5px;\r\n      font-weight: 700;\r\n      padding: 2px 6px;\r\n      border-radius: 4px;\r\n      background-color: #1e293b;\r\n      color: #38bdf8;\r\n      flex-shrink: 0;\r\n    }\r\n\r\n    /* Quick Chips & Timeframes (Horizontal Scrollable di Mobile) */\r\n    .quick-pairs-bar {\r\n      display: flex;\r\n      gap: 6px;\r\n      align-items: center;\r\n      overflow-x: auto;\r\n      padding-bottom: 2px;\r\n      -webkit-overflow-scrolling: touch;\r\n    }\r\n\r\n    .quick-pairs-bar::-webkit-scrollbar {\r\n      height: 3px;\r\n    }\r\n\r\n    .quick-pairs-bar::-webkit-scrollbar-thumb {\r\n      background-color: #22283a;\r\n      border-radius: 4px;\r\n    }\r\n\r\n    .qp-chip {\r\n      font-size: 11px;\r\n      font-family: 'JetBrains Mono', monospace;\r\n      padding: 5px 10px;\r\n      border-radius: 6px;\r\n      background-color: #131826;\r\n      border: 1px solid #242c42;\r\n      color: #cbd5e1;\r\n      cursor: pointer;\r\n      white-space: nowrap;\r\n      flex-shrink: 0;\r\n    }\r\n\r\n    .qp-chip:hover,\r\n    .qp-chip.active {\r\n      background-color: #17253b;\r\n      border-color: #38bdf8;\r\n      color: #38bdf8;\r\n    }\r\n\r\n    .top-bar-flex {\r\n      display: flex;\r\n      justify-content: space-between;\r\n      align-items: center;\r\n      flex-wrap: wrap;\r\n      gap: 10px;\r\n    }\r\n\r\n    .tf-bar {\r\n      display: flex;\r\n      gap: 6px;\r\n      overflow-x: auto;\r\n      max-width: 100%;\r\n      -webkit-overflow-scrolling: touch;\r\n    }\r\n\r\n    .tf-bar::-webkit-scrollbar {\r\n      display: none;\r\n    }\r\n\r\n    .tf-btn {\r\n      padding: 7px 13px;\r\n      background-color: var(--bg-card-inner);\r\n      border: 1px solid var(--border);\r\n      color: var(--text-muted);\r\n      border-radius: 8px;\r\n      cursor: pointer;\r\n      font-weight: 700;\r\n      font-size: 12px;\r\n      flex-shrink: 0;\r\n    }\r\n\r\n    .tf-btn.active {\r\n      background-color: var(--buy-bg);\r\n      color: var(--buy-green);\r\n      border-color: var(--buy-green);\r\n    }\r\n\r\n    /* Action Buttons (100% Solid, Tanpa Gradien) */\r\n    .action-grid {\r\n      display: grid;\r\n      grid-template-columns: repeat(5, minmax(0, 1fr));\r\n      gap: 8px;\r\n    }\r\n\r\n    .btn-action {\r\n      padding: 9px 10px;\r\n      background-color: var(--bg-card-inner);\r\n      border: 1px solid var(--border);\r\n      color: #e2e8f0;\r\n      border-radius: 8px;\r\n      font-size: 11.5px;\r\n      font-weight: 600;\r\n      cursor: pointer;\r\n      text-align: center;\r\n      white-space: nowrap;\r\n      overflow: hidden;\r\n      text-overflow: ellipsis;\r\n    }\r\n\r\n    .btn-action:hover {\r\n      background-color: var(--bg-hover);\r\n      border-color: #475569;\r\n    }\r\n\r\n    .btn-primary {\r\n      background-color: var(--solid-blue);\r\n      border: 1px solid #3b82f6;\r\n      color: #ffffff;\r\n    }\r\n\r\n    .btn-primary:hover {\r\n      background-color: #1d4ed8;\r\n    }\r\n\r\n    .btn-danger-sim {\r\n      background-color: var(--sell-bg);\r\n      border: 1px solid var(--sell-pink);\r\n      color: #fda4af;\r\n    }\r\n\r\n    .btn-danger-sim:hover {\r\n      background-color: #331422;\r\n    }\r\n\r\n    /* Workspace Split: Chart 16:9 & Signal Card */\r\n    .workspace-split {\r\n      display: grid;\r\n      grid-template-columns: minmax(0, 1.45fr) minmax(0, 1fr);\r\n      gap: 16px;\r\n      align-items: start;\r\n      width: 100%;\r\n    }\r\n\r\n    .workspace-split>* {\r\n      min-width: 0;\r\n    }\r\n\r\n    .chart-box {\r\n      background-color: #080a0f;\r\n      border: 1px solid var(--border);\r\n      border-radius: 12px;\r\n      padding: 12px;\r\n      width: 100%;\r\n      min-width: 0;\r\n    }\r\n\r\n    .chart-header {\r\n      display: flex;\r\n      justify-content: space-between;\r\n      align-items: center;\r\n      margin-bottom: 8px;\r\n      gap: 8px;\r\n      flex-wrap: wrap;\r\n    }\r\n\r\n    .chart-title-wrap {\r\n      display: flex;\r\n      flex-direction: column;\r\n      gap: 4px;\r\n      min-width: 0;\r\n    }\r\n\r\n    .chart-title-main {\r\n      font-size: 13.5px;\r\n      font-weight: 800;\r\n      color: #ffffff;\r\n      white-space: nowrap;\r\n      overflow: hidden;\r\n      text-overflow: ellipsis;\r\n    }\r\n\r\n    .legend-pills {\r\n      display: flex;\r\n      gap: 6px;\r\n      flex-wrap: wrap;\r\n      font-size: 10px;\r\n      font-family: 'JetBrains Mono', monospace;\r\n    }\r\n\r\n    .leg-item {\r\n      display: inline-flex;\r\n      align-items: center;\r\n      gap: 4px;\r\n      color: var(--text-muted);\r\n    }\r\n\r\n    .leg-dot {\r\n      width: 8px;\r\n      height: 3px;\r\n      display: inline-block;\r\n    }\r\n\r\n    .chart-badges-right {\r\n      display: flex;\r\n      align-items: center;\r\n      gap: 6px;\r\n      flex-shrink: 0;\r\n    }\r\n\r\n    .bars-badge {\r\n      font-family: 'JetBrains Mono', monospace;\r\n      font-size: 10.5px;\r\n      font-weight: 700;\r\n      padding: 4px 8px;\r\n      border-radius: 6px;\r\n      background-color: #131b2e;\r\n      border: 1px solid #253354;\r\n      color: #38bdf8;\r\n      white-space: nowrap;\r\n    }\r\n\r\n    .live-price-pill {\r\n      font-family: 'JetBrains Mono', monospace;\r\n      font-size: 13.5px;\r\n      font-weight: 700;\r\n      padding: 4px 9px;\r\n      border-radius: 6px;\r\n      background-color: #171c2b;\r\n      color: #38bdf8;\r\n      white-space: nowrap;\r\n    }\r\n\r\n    /* UKURAN CHART WAJIB 16:9 RESPONSIVE */\r\n    .chart-viewport-16-9 {\r\n      width: 100%;\r\n      aspect-ratio: 16 / 9;\r\n      position: relative;\r\n      background-color: #080a0f;\r\n      border: 1px solid #141926;\r\n      border-radius: 8px;\r\n      overflow: hidden;\r\n    }\r\n\r\n    #tv-chart,\r\n    #tv-iframe-container {\r\n      width: 100%;\r\n      height: 100%;\r\n      position: absolute;\r\n      inset: 0;\r\n    }\r\n\r\n    #tv-iframe-container {\r\n      display: none;\r\n    }\r\n\r\n    .next-candle-bar {\r\n      display: flex;\r\n      justify-content: space-between;\r\n      align-items: center;\r\n      font-family: 'JetBrains Mono', monospace;\r\n      font-size: 11px;\r\n      color: var(--text-muted);\r\n      padding-top: 9px;\r\n      margin-top: 6px;\r\n      border-top: 1px solid #161b29;\r\n      flex-wrap: wrap;\r\n      gap: 6px;\r\n    }\r\n\r\n    .next-candle-time {\r\n      color: #2dd4bf;\r\n      font-weight: 700;\r\n      font-size: 12.5px;\r\n    }\r\n\r\n    /* Panel Kalender Ekonomi & Fundamental (Scrollable di Mobile) */\r\n    .funda-panel {\r\n      margin-top: 12px;\r\n      background-color: #0c0f17;\r\n      border: 1px solid var(--border);\r\n      border-radius: 10px;\r\n      padding: 12px;\r\n      width: 100%;\r\n      min-width: 0;\r\n    }\r\n\r\n    .funda-header {\r\n      display: flex;\r\n      justify-content: space-between;\r\n      align-items: center;\r\n      margin-bottom: 8px;\r\n      font-size: 11.5px;\r\n      font-weight: 700;\r\n      color: #e2e8f0;\r\n      flex-wrap: wrap;\r\n      gap: 6px;\r\n    }\r\n\r\n    .table-scroll-wrap {\r\n      width: 100%;\r\n      overflow-x: auto;\r\n      -webkit-overflow-scrolling: touch;\r\n    }\r\n\r\n    .funda-table {\r\n      width: 100%;\r\n      min-width: 480px;\r\n      border-collapse: collapse;\r\n      font-size: 11px;\r\n    }\r\n\r\n    .funda-table th {\r\n      text-align: left;\r\n      padding: 6px 8px;\r\n      color: var(--text-muted);\r\n      border-bottom: 1px solid #1e2436;\r\n      font-size: 10px;\r\n      text-transform: uppercase;\r\n      white-space: nowrap;\r\n    }\r\n\r\n    .funda-table td {\r\n      padding: 7px 8px;\r\n      border-bottom: 1px solid #141926;\r\n      font-family: 'JetBrains Mono', monospace;\r\n    }\r\n\r\n    .impact-high {\r\n      background-color: var(--sell-bg);\r\n      color: var(--sell-pink);\r\n      border: 1px solid var(--sell-border);\r\n      padding: 2px 6px;\r\n      border-radius: 4px;\r\n      font-size: 9.5px;\r\n      font-weight: 700;\r\n      white-space: nowrap;\r\n    }\r\n\r\n    .impact-med {\r\n      background-color: var(--warn-bg);\r\n      color: var(--warn-amber);\r\n      border: 1px solid var(--warn-border);\r\n      padding: 2px 6px;\r\n      border-radius: 4px;\r\n      font-size: 9.5px;\r\n      font-weight: 700;\r\n      white-space: nowrap;\r\n    }\r\n\r\n    /* Signal Card Solid Style (Anti-Overflow) */\r\n    .signal-card {\r\n      background-color: #0c0e16;\r\n      border: 1px solid var(--sell-border);\r\n      border-radius: 14px;\r\n      padding: 16px;\r\n      display: flex;\r\n      flex-direction: column;\r\n      gap: 13px;\r\n      width: 100%;\r\n      min-width: 0;\r\n    }\r\n\r\n    .signal-card.buy-mode {\r\n      border-color: var(--buy-border);\r\n    }\r\n\r\n    .signal-card.wait-mode {\r\n      border-color: var(--warn-border);\r\n    }\r\n\r\n    .signal-card.news-lock-mode {\r\n      border: 2px solid var(--sell-pink);\r\n      background-color: #140a10;\r\n    }\r\n\r\n    .signal-top {\r\n      display: flex;\r\n      justify-content: space-between;\r\n      align-items: flex-start;\r\n      gap: 8px;\r\n    }\r\n\r\n    .signal-label {\r\n      font-size: 10px;\r\n      letter-spacing: 0.12em;\r\n      color: var(--sell-pink);\r\n      font-weight: 700;\r\n      text-transform: uppercase;\r\n    }\r\n\r\n    .signal-card.buy-mode .signal-label {\r\n      color: var(--buy-green);\r\n    }\r\n\r\n    .signal-card.wait-mode .signal-label {\r\n      color: var(--warn-amber);\r\n    }\r\n\r\n    .signal-direction {\r\n      font-size: 26px;\r\n      font-weight: 800;\r\n      color: var(--sell-pink);\r\n      line-height: 1.15;\r\n      margin-top: 4px;\r\n      word-break: break-word;\r\n    }\r\n\r\n    .signal-card.buy-mode .signal-direction {\r\n      color: var(--buy-green);\r\n    }\r\n\r\n    .signal-card.wait-mode .signal-direction {\r\n      color: var(--warn-amber);\r\n    }\r\n\r\n    .conf-box {\r\n      text-align: right;\r\n      flex-shrink: 0;\r\n    }\r\n\r\n    .conf-text {\r\n      font-size: 11.5px;\r\n      color: #fb7185;\r\n      font-weight: 700;\r\n    }\r\n\r\n    .signal-card.buy-mode .conf-text {\r\n      color: var(--buy-green);\r\n    }\r\n\r\n    .signal-card.wait-mode .conf-text {\r\n      color: var(--warn-amber);\r\n    }\r\n\r\n    .rr-badge {\r\n      margin-top: 5px;\r\n      display: inline-block;\r\n      background-color: #181c2a;\r\n      border: 1px solid #2e364f;\r\n      padding: 4px 9px;\r\n      border-radius: 6px;\r\n      font-size: 10.5px;\r\n      font-weight: 700;\r\n      font-family: 'JetBrains Mono', monospace;\r\n    }\r\n\r\n    .levels-grid {\r\n      display: grid;\r\n      grid-template-columns: repeat(3, minmax(0, 1fr));\r\n      border: 1px solid #1e2436;\r\n      border-radius: 10px;\r\n      overflow: hidden;\r\n      background-color: #111420;\r\n    }\r\n\r\n    .level-cell {\r\n      padding: 10px 6px;\r\n      text-align: center;\r\n      border-right: 1px solid #1e2436;\r\n      min-width: 0;\r\n    }\r\n\r\n    .level-cell:last-child {\r\n      border-right: none;\r\n    }\r\n\r\n    .level-cell.sl-cell {\r\n      background-color: var(--sell-bg);\r\n    }\r\n\r\n    .level-cell.tp-cell {\r\n      background-color: var(--buy-bg);\r\n    }\r\n\r\n    .level-title {\r\n      font-size: 9.5px;\r\n      color: var(--text-muted);\r\n      margin-bottom: 4px;\r\n      font-weight: 600;\r\n      white-space: nowrap;\r\n      overflow: hidden;\r\n      text-overflow: ellipsis;\r\n    }\r\n\r\n    .level-val {\r\n      font-family: 'JetBrains Mono', monospace;\r\n      font-size: 13.5px;\r\n      font-weight: 700;\r\n      white-space: nowrap;\r\n      overflow: hidden;\r\n      text-overflow: ellipsis;\r\n    }\r\n\r\n    .sl-val {\r\n      color: #fb7185;\r\n    }\r\n\r\n    .tp-val {\r\n      color: #34d399;\r\n    }\r\n\r\n    .engine-bar {\r\n      background-color: #111722;\r\n      border: 1px solid #1f2b3e;\r\n      border-radius: 10px;\r\n      padding: 10px 12px;\r\n      display: flex;\r\n      justify-content: space-between;\r\n      align-items: center;\r\n      gap: 8px;\r\n      flex-wrap: wrap;\r\n    }\r\n\r\n    .engine-title-sm {\r\n      font-size: 9.5px;\r\n      letter-spacing: 0.08em;\r\n      color: #34d399;\r\n      font-weight: 700;\r\n    }\r\n\r\n    .engine-name {\r\n      font-size: 12px;\r\n      font-weight: 700;\r\n      margin-top: 2px;\r\n    }\r\n\r\n    .verified-pill {\r\n      font-size: 9.5px;\r\n      font-weight: 700;\r\n      color: #34d399;\r\n      background-color: var(--buy-bg);\r\n      border: 1px solid var(--buy-border);\r\n      padding: 4px 8px;\r\n      border-radius: 6px;\r\n      white-space: nowrap;\r\n    }\r\n\r\n    .neuron-box {\r\n      background-color: #11131f;\r\n      border: 1px solid #23273e;\r\n      border-radius: 12px;\r\n      padding: 12px;\r\n      display: flex;\r\n      flex-direction: column;\r\n      gap: 11px;\r\n      min-width: 0;\r\n    }\r\n\r\n    .neuron-header {\r\n      font-size: 10.5px;\r\n      font-weight: 700;\r\n      letter-spacing: 0.05em;\r\n      color: #c084fc;\r\n      display: flex;\r\n      justify-content: space-between;\r\n      gap: 6px;\r\n      flex-wrap: wrap;\r\n    }\r\n\r\n    .state-grid {\r\n      display: grid;\r\n      grid-template-columns: repeat(2, minmax(0, 1fr));\r\n      gap: 8px;\r\n    }\r\n\r\n    .state-card {\r\n      background-color: #0b0d15;\r\n      border: 1px solid #1b2032;\r\n      border-radius: 8px;\r\n      padding: 8px 10px;\r\n      min-width: 0;\r\n    }\r\n\r\n    .state-label {\r\n      font-size: 9.5px;\r\n      color: var(--text-muted);\r\n    }\r\n\r\n    .state-num {\r\n      font-family: 'JetBrains Mono', monospace;\r\n      font-size: 11.5px;\r\n      font-weight: 700;\r\n      margin-top: 3px;\r\n      white-space: nowrap;\r\n      overflow: hidden;\r\n      text-overflow: ellipsis;\r\n    }\r\n\r\n    .prob-row {\r\n      display: grid;\r\n      grid-template-columns: 36px minmax(0, 1fr) 44px;\r\n      align-items: center;\r\n      gap: 8px;\r\n      font-size: 11px;\r\n      font-weight: 700;\r\n    }\r\n\r\n    .bar-bg {\r\n      height: 8px;\r\n      background-color: #1a1f30;\r\n      border-radius: 99px;\r\n      overflow: hidden;\r\n    }\r\n\r\n    .bar-fill-buy {\r\n      height: 100%;\r\n      background-color: var(--buy-green);\r\n      border-radius: 99px;\r\n      transition: width 0.3s ease;\r\n    }\r\n\r\n    .bar-fill-sell {\r\n      height: 100%;\r\n      background-color: var(--sell-pink);\r\n      border-radius: 99px;\r\n      transition: width 0.3s ease;\r\n    }\r\n\r\n    .evidence-list {\r\n      border-top: 1px solid #1f2437;\r\n      padding-top: 10px;\r\n      display: flex;\r\n      flex-direction: column;\r\n      gap: 7px;\r\n      font-size: 11px;\r\n      color: #cbd5e1;\r\n    }\r\n\r\n    .ev-item {\r\n      display: flex;\r\n      justify-content: space-between;\r\n      align-items: flex-start;\r\n      gap: 8px;\r\n      line-height: 1.35;\r\n    }\r\n\r\n    .ev-tag {\r\n      font-family: 'JetBrains Mono', monospace;\r\n      font-size: 10.5px;\r\n      color: #38bdf8;\r\n      text-align: right;\r\n      word-break: break-word;\r\n    }\r\n\r\n    /* Modal skill.md Responsif */\r\n    .modal-backdrop {\r\n      position: fixed;\r\n      inset: 0;\r\n      background-color: rgba(8, 10, 15, 0.9);\r\n      display: none;\r\n      justify-content: center;\r\n      align-items: center;\r\n      z-index: 2000;\r\n      padding: 12px;\r\n    }\r\n\r\n    .modal-backdrop.open {\r\n      display: flex;\r\n    }\r\n\r\n    .modal-box {\r\n      background-color: var(--bg-card);\r\n      border: 1px solid var(--border);\r\n      border-radius: 12px;\r\n      max-width: 900px;\r\n      width: 100%;\r\n      max-height: 90vh;\r\n      display: flex;\r\n      flex-direction: column;\r\n      overflow: hidden;\r\n    }\r\n\r\n    .modal-header {\r\n      padding: 12px 16px;\r\n      background-color: var(--bg-nav);\r\n      border-bottom: 1px solid var(--border);\r\n      display: flex;\r\n      justify-content: space-between;\r\n      align-items: center;\r\n      font-weight: 700;\r\n      font-size: 13px;\r\n      gap: 10px;\r\n      flex-wrap: wrap;\r\n    }\r\n\r\n    .modal-body {\r\n      padding: 14px;\r\n      overflow-y: auto;\r\n    }\r\n\r\n    .skill-textarea {\r\n      width: 100%;\r\n      height: 62vh;\r\n      background-color: #080a0f;\r\n      color: #e2e8f0;\r\n      border: 1px solid var(--border);\r\n      border-radius: 8px;\r\n      padding: 12px;\r\n      font-family: 'JetBrains Mono', monospace;\r\n      font-size: 11.5px;\r\n      line-height: 1.55;\r\n      resize: vertical;\r\n    }\r\n\r\n    /* =========================================================================\r\n       MEDIA QUERIES KHUSUS MOBILE & TABLET (FIX SEMUA BUG UI/UX MOBILE)\r\n       ========================================================================= */\r\n    @media (max-width: 1080px) {\r\n      .container {\r\n        grid-template-columns: 1fr;\r\n        padding: 10px;\r\n      }\r\n\r\n      .sidebar {\r\n        display: none;\r\n      }\r\n\r\n      .mobile-quick-nav {\r\n        display: flex;\r\n      }\r\n\r\n      .workspace-split {\r\n        grid-template-columns: 1fr;\r\n      }\r\n\r\n      .controls-grid {\r\n        grid-template-columns: 1fr 1fr;\r\n      }\r\n\r\n      .action-grid {\r\n        grid-template-columns: repeat(2, minmax(0, 1fr));\r\n      }\r\n    }\r\n\r\n    @media (max-width: 640px) {\r\n      .navbar {\r\n        padding: 10px 12px;\r\n      }\r\n\r\n      .brand {\r\n        font-size: 14.5px;\r\n        gap: 6px;\r\n      }\r\n\r\n      .main-card {\r\n        padding: 12px;\r\n        gap: 12px;\r\n        border-radius: 10px;\r\n      }\r\n\r\n      .controls-grid {\r\n        grid-template-columns: 1fr;\r\n        gap: 10px;\r\n      }\r\n\r\n      .action-grid {\r\n        grid-template-columns: 1fr 1fr;\r\n        gap: 6px;\r\n      }\r\n\r\n      .action-grid .btn-primary {\r\n        grid-column: span 2;\r\n      }\r\n\r\n      .chart-box {\r\n        padding: 10px;\r\n      }\r\n\r\n      .chart-title-main {\r\n        font-size: 12.5px;\r\n      }\r\n\r\n      .bars-badge {\r\n        font-size: 9.5px;\r\n        padding: 3px 6px;\r\n      }\r\n\r\n      .live-price-pill {\r\n        font-size: 12.5px;\r\n        padding: 3px 7px;\r\n      }\r\n\r\n      .signal-card {\r\n        padding: 14px;\r\n      }\r\n\r\n      .signal-direction {\r\n        font-size: 22px;\r\n      }\r\n\r\n      .level-val {\r\n        font-size: 12.5px;\r\n      }\r\n\r\n      .state-grid {\r\n        grid-template-columns: 1fr;\r\n      }\r\n\r\n      .ev-item {\r\n        flex-direction: column;\r\n        gap: 2px;\r\n        border-bottom: 1px solid #171c2b;\r\n        padding-bottom: 5px;\r\n      }\r\n\r\n      .ev-tag {\r\n        text-align: left;\r\n      }\r\n    }\r\n  </style>\r\n</head>\r\n\r\n<body>\r\n\r\n  <header class=\"navbar\">\r\n    <div class=\"brand\">\r\n      <span>journalingtrade</span>\r\n      <div class=\"badge-live\">\r\n        <span class=\"pulse-dot\"></span>\r\n        <span id=\"wsStatusText\">16:9 · 500 BARS REAL-TIME</span>\r\n      </div>\r\n    </div>\r\n    <div style=\"font-size: 11.5px; color: #94a3b8; font-family: 'JetBrains Mono', monospace;\" id=\"serverClock\">UTC:\r\n      --:--:--</div>\r\n  </header>\r\n\r\n  <!-- Navigasi Cepat Khusus Mobile/Tablet -->\r\n  <nav class=\"mobile-quick-nav\">\r\n    <button class=\"m-nav-btn active\" onclick=\"switchSymbolOrTF()\">AI Market Intelligence</button>\r\n    <button class=\"m-nav-btn\" onclick=\"toggleSkillModal(true)\">Full skill.md (Detail)</button>\r\n    <button class=\"m-nav-btn\" onclick=\"triggerSimulatedHighImpactWarning()\"\r\n      style=\"color:#fda4af;border-color:#ff2a5f;\">Test News &lt;1H Warning</button>\r\n    <button class=\"m-nav-btn\" onclick=\"exportSignalJSON()\">Copy JSON</button>\r\n  </nav>\r\n\r\n  <div class=\"container\">\r\n    <aside class=\"sidebar\">\r\n      <div class=\"sidebar-section\">Analysis</div>\r\n      <div class=\"nav-item\">Advanced Analytics</div>\r\n      <div class=\"nav-item\">Performance Heatmap</div>\r\n      <div class=\"nav-item\">Strategy Comparison</div>\r\n      <div class=\"nav-item\">Risk Intelligence</div>\r\n\r\n      <div class=\"sidebar-section\">AI Assistant</div>\r\n      <div class=\"nav-item active\"><span>AI Market Intelligence</span> <span\r\n          style=\"color:#38bdf8;font-size:10.5px;\">LIVE</span></div>\r\n      <div class=\"nav-item\" onclick=\"toggleSkillModal(true)\"><span>Kaystrade skill.md</span> <span\r\n          style=\"color:#10b981;font-size:10.5px;\">FULL</span></div>\r\n\r\n      <div class=\"sidebar-section\">Markets</div>\r\n      <div class=\"nav-item\" onclick=\"triggerSimulatedHighImpactWarning()\"><span>Berita Ekonomi (&lt;1H)</span> <span\r\n          style=\"color:#ff2a5f;font-size:10.5px;\">WARN</span></div>\r\n    </aside>\r\n\r\n    <main class=\"main-card\">\r\n      <!-- BANNER PERINGATAN 1 JAM SEBELUM HIGH IMPACT NEWS -->\r\n      <div class=\"news-warning-banner\" id=\"newsWarningBanner\">\r\n        <div class=\"nw-left\">\r\n          <span class=\"nw-badge\">HIGH IMPACT &lt; 1 JAM</span>\r\n          <div>\r\n            <div class=\"nw-title\" id=\"nwEventTitle\">USD - Core CPI m/m &amp; Non-Farm Employment Change</div>\r\n            <div class=\"nw-sub\" id=\"nwEventSub\">Aturan Kaystrade: Jangan entry di dalam base singkat menjelang High\r\n              Impact News. Tunggu rilis selesai &amp; body candle close di luar base.</div>\r\n          </div>\r\n        </div>\r\n        <div class=\"nw-right\">\r\n          <div class=\"nw-timer\" id=\"nwCountdownTimer\">T-MINUS 42:15</div>\r\n          <button class=\"btn-action\" onclick=\"clearSimulatedWarning()\" style=\"padding:6px 10px;\">Reset Warning</button>\r\n        </div>\r\n      </div>\r\n\r\n      <div class=\"controls-grid\">\r\n        <div class=\"pair-search-wrapper\" id=\"pairSearchWrapper\">\r\n          <label>Search / Input Custom Pair (XAUUSD, GBPJPY, SOLUSDT, PEPEUSDT, dll.)</label>\r\n          <div class=\"pair-input-group\">\r\n            <input type=\"text\" id=\"pairSearchInput\" placeholder=\"Cari atau ketik pair custom...\" value=\"XAUUSD\"\r\n              autocomplete=\"off\" onfocus=\"openPairDropdown()\" oninput=\"filterPairDropdown()\"\r\n              onkeydown=\"handlePairKeydown(event)\" />\r\n            <button class=\"btn-use-pair\" onclick=\"applyCustomTypedPair()\">Pakai</button>\r\n          </div>\r\n\r\n          <div class=\"pair-dropdown\" id=\"pairDropdown\">\r\n            <div class=\"cat-tabs\">\r\n              <button class=\"cat-tab active\" onclick=\"setPairCategory(event, 'ALL')\">ALL (400+)</button>\r\n              <button class=\"cat-tab\" onclick=\"setPairCategory(event, 'METALS')\">METALS</button>\r\n              <button class=\"cat-tab\" onclick=\"setPairCategory(event, 'FOREX')\">FOREX</button>\r\n              <button class=\"cat-tab\" onclick=\"setPairCategory(event, 'CRYPTO')\">CRYPTO</button>\r\n              <button class=\"cat-tab\" onclick=\"setPairCategory(event, 'INDICES')\">INDICES</button>\r\n            </div>\r\n            <div class=\"pair-list\" id=\"pairListContainer\"></div>\r\n          </div>\r\n        </div>\r\n\r\n        <div>\r\n          <label>Trading style (Kaystrade)</label>\r\n          <select id=\"styleSelect\" onchange=\"recalculateNow()\">\r\n            <option value=\"INTRADAY\">INTRADAY (Max 24h · H4->H1->M30)</option>\r\n            <option value=\"SCALPING\">SCALPING (M15/M30 Execution)</option>\r\n            <option value=\"SWING\">SWING (H4/D1 Structure Hold)</option>\r\n          </select>\r\n        </div>\r\n\r\n        <div>\r\n          <label>Kompilasi Bias Fundamental / DXY</label>\r\n          <select id=\"fundaBiasSelect\" onchange=\"recalculateNow()\">\r\n            <option value=\"AUTO\">Auto-Detect dari Kalender Ekonomi</option>\r\n            <option value=\"BULLISH\">Fundamental Bullish (Mendukung Buy)</option>\r\n            <option value=\"BEARISH\">Fundamental Bearish (Mendukung Sell)</option>\r\n            <option value=\"NEUTRAL\">Fundamental Netral / No Catalyst</option>\r\n          </select>\r\n        </div>\r\n\r\n        <div>\r\n          <label>Mode Tampilan Chart (16:9)</label>\r\n          <select id=\"chartModeSelect\" onchange=\"toggleChartMode()\">\r\n            <option value=\"LIGHTWEIGHT\">Kaystrade 16:9 Engine (500 Bars)</option>\r\n            <option value=\"TV_WIDGET\">TradingView Official Widget (16:9)</option>\r\n          </select>\r\n        </div>\r\n      </div>\r\n\r\n      <div class=\"quick-pairs-bar\">\r\n        <span style=\"font-size:11px; color:var(--text-muted); font-weight:700; flex-shrink:0;\">Quick Pair:</span>\r\n        <span class=\"qp-chip active\" onclick=\"selectPairByCode('XAUUSD')\">XAUUSD</span>\r\n        <span class=\"qp-chip\" onclick=\"selectPairByCode('BTCUSDT')\">BTCUSD</span>\r\n        <span class=\"qp-chip\" onclick=\"selectPairByCode('EURUSD')\">EURUSD</span>\r\n        <span class=\"qp-chip\" onclick=\"selectPairByCode('GBPUSD')\">GBPUSD</span>\r\n        <span class=\"qp-chip\" onclick=\"selectPairByCode('USDJPY')\">USDJPY</span>\r\n        <span class=\"qp-chip\" onclick=\"selectPairByCode('GBPJPY')\">GBPJPY</span>\r\n        <span class=\"qp-chip\" onclick=\"selectPairByCode('EURJPY')\">EURJPY</span>\r\n        <span class=\"qp-chip\" onclick=\"selectPairByCode('AUDUSD')\">AUDUSD</span>\r\n        <span class=\"qp-chip\" onclick=\"selectPairByCode('XAGUSD')\">XAGUSD</span>\r\n        <span class=\"qp-chip\" onclick=\"selectPairByCode('ETHUSDT')\">ETHUSD</span>\r\n        <span class=\"qp-chip\" onclick=\"selectPairByCode('SOLUSDT')\">SOLUSD</span>\r\n        <span class=\"qp-chip\" onclick=\"selectPairByCode('PEPEUSDT')\">PEPEUSD</span>\r\n      </div>\r\n\r\n      <div class=\"top-bar-flex\">\r\n        <div class=\"tf-bar\" id=\"tfBar\">\r\n          <button class=\"tf-btn\" onclick=\"selectTF(this, '1m')\">M1</button>\r\n          <button class=\"tf-btn\" onclick=\"selectTF(this, '5m')\">M5</button>\r\n          <button class=\"tf-btn\" onclick=\"selectTF(this, '15m')\">M15</button>\r\n          <button class=\"tf-btn active\" onclick=\"selectTF(this, '30m')\">M30</button>\r\n          <button class=\"tf-btn\" onclick=\"selectTF(this, '1h')\">H1</button>\r\n          <button class=\"tf-btn\" onclick=\"selectTF(this, '4h')\">H4</button>\r\n          <button class=\"tf-btn\" onclick=\"selectTF(this, '1d')\">D1</button>\r\n        </div>\r\n        <div style=\"font-size: 11px; color: #94a3b8;\" id=\"activeFeedInfo\">\r\n          Rasio 16:9 · 500 Bars Real-Time + News Guard\r\n        </div>\r\n      </div>\r\n\r\n      <div class=\"action-grid\">\r\n        <button class=\"btn-action btn-primary\" onclick=\"switchSymbolOrTF()\">Analyze Tech + Funda</button>\r\n        <button class=\"btn-action btn-danger-sim\" onclick=\"triggerSimulatedHighImpactWarning()\">Simulasi News &lt; 1\r\n          Jam</button>\r\n        <button class=\"btn-action\" onclick=\"setTVRegularZoom()\">Reset View (16:9 Penuh)</button>\r\n        <button class=\"btn-action\" onclick=\"fitAll500Bars()\">Fit All 500 Bars</button>\r\n        <button class=\"btn-action\" onclick=\"toggleSkillModal(true)\">Lihat Full skill.md</button>\r\n      </div>\r\n\r\n      <div class=\"workspace-split\">\r\n        <!-- Kolom Kiri: Chart 16:9 + Kalender Berita Ekonomi -->\r\n        <div>\r\n          <div class=\"chart-box\">\r\n            <div class=\"chart-header\">\r\n              <div class=\"chart-title-wrap\">\r\n                <div class=\"chart-title-main\" id=\"chartTitle\">XAUUSD (GOLD SPOT) · M30</div>\r\n                <div class=\"legend-pills\">\r\n                  <span class=\"leg-item\"><span class=\"leg-dot\" style=\"background:#facc15;\"></span>H4 Key Pivot</span>\r\n                  <span class=\"leg-item\"><span class=\"leg-dot\" style=\"background:#a855f7;\"></span>Entry Watch</span>\r\n                  <span class=\"leg-item\"><span class=\"leg-dot\" style=\"background:#ff2a5f;\"></span>SL\r\n                    (Invalidation)</span>\r\n                  <span class=\"leg-item\"><span class=\"leg-dot\" style=\"background:#00e676;\"></span>TP (Target)</span>\r\n                </div>\r\n              </div>\r\n              <div class=\"chart-badges-right\">\r\n                <span class=\"bars-badge\" id=\"barsCountBadge\">500 BARS · 16:9</span>\r\n                <div class=\"live-price-pill\" id=\"livePricePill\">Loading...</div>\r\n              </div>\r\n            </div>\r\n\r\n            <!-- CONTAINER CHART RASIO 16:9 -->\r\n            <div class=\"chart-viewport-16-9\" id=\"chartViewport16x9\">\r\n              <div id=\"tv-chart\"></div>\r\n              <div id=\"tv-iframe-container\"></div>\r\n            </div>\r\n\r\n            <div class=\"next-candle-bar\">\r\n              <span id=\"ohlcBarInfo\">O: -- H: -- L: -- C: --</span>\r\n              <span>NEXT CANDLE: <span class=\"next-candle-time\" id=\"countdown\">--:--</span></span>\r\n            </div>\r\n          </div>\r\n\r\n          <!-- Panel Berita Ekonomi / Fundamental Terkait Pair -->\r\n          <div class=\"funda-panel\">\r\n            <div class=\"funda-header\">\r\n              <span>KALENDER FUNDAMENTAL &amp; 1H HIGH IMPACT GUARD (<span id=\"fundaPairCurrencies\">USD</span>)</span>\r\n              <span style=\"font-size:10.5px; color:#38bdf8;\" id=\"fundaFeedStatus\">Auto-Monitoring 60m Window</span>\r\n            </div>\r\n            <div class=\"table-scroll-wrap\">\r\n              <table class=\"funda-table\">\r\n                <thead>\r\n                  <tr>\r\n                    <th>Waktu</th>\r\n                    <th>CCY</th>\r\n                    <th>Event Fundamental</th>\r\n                    <th>Impact</th>\r\n                    <th>Status / Sisa Waktu</th>\r\n                  </tr>\r\n                </thead>\r\n                <tbody id=\"fundaTableBody\">\r\n                  <tr>\r\n                    <td colspan=\"5\" style=\"color:#8b95a5;\">Memuat jadwal kalender ekonomi...</td>\r\n                  </tr>\r\n                </tbody>\r\n              </table>\r\n            </div>\r\n          </div>\r\n        </div>\r\n\r\n        <!-- Kolom Kanan: Signal Card Kompilasi Teknikal + Fundamental -->\r\n        <div class=\"signal-card\" id=\"signalCard\">\r\n          <div class=\"signal-top\">\r\n            <div>\r\n              <div class=\"signal-label\" id=\"sigSubLabel\">TECH + FUNDA COMPILATION SIGNAL</div>\r\n              <div class=\"signal-direction\" id=\"sigDirection\">ANALYZING</div>\r\n            </div>\r\n            <div class=\"conf-box\">\r\n              <div class=\"conf-text\">● <span id=\"sigConf\">--%</span> CONF.</div>\r\n              <div class=\"rr-badge\" id=\"sigRR\">PLAN RR --</div>\r\n            </div>\r\n          </div>\r\n\r\n          <div class=\"levels-grid\">\r\n            <div class=\"level-cell\">\r\n              <div class=\"level-title\">ENTRY (RETEST/LIVE)</div>\r\n              <div class=\"level-val\" id=\"valEntry\">--</div>\r\n            </div>\r\n            <div class=\"level-cell sl-cell\">\r\n              <div class=\"level-title\">SL (INVALIDATION)</div>\r\n              <div class=\"level-val sl-val\" id=\"valSL\">--</div>\r\n            </div>\r\n            <div class=\"level-cell tp-cell\">\r\n              <div class=\"level-title\">TP (SWING TARGET)</div>\r\n              <div class=\"level-val tp-val\" id=\"valTP\">--</div>\r\n            </div>\r\n          </div>\r\n\r\n          <div class=\"engine-bar\">\r\n            <div>\r\n              <div class=\"engine-title-sm\">KAYSTRADE TECH + FUNDA ENGINE</div>\r\n              <div class=\"engine-name\" id=\"engineStatusName\">Syncing 6 Pillars...</div>\r\n            </div>\r\n            <div class=\"verified-pill\" id=\"verifiedPill\">NEWS GUARD ON</div>\r\n          </div>\r\n\r\n          <div class=\"neuron-box\">\r\n            <div class=\"neuron-header\">\r\n              <span>6-PILLAR CONFLUENCE MATRIX</span>\r\n              <span style=\"color:#10b981;\" id=\"feedSourceLabel\">● STREAM: ACTIVE</span>\r\n            </div>\r\n\r\n            <div class=\"state-grid\">\r\n              <div class=\"state-card\">\r\n                <div class=\"state-label\">H4 BIG TREND V(s)</div>\r\n                <div class=\"state-num\" id=\"valState\">--</div>\r\n              </div>\r\n              <div class=\"state-card\">\r\n                <div class=\"state-label\">FUNDA &amp; RSI A(s,a)</div>\r\n                <div class=\"state-num\" id=\"valAdv\">--</div>\r\n              </div>\r\n            </div>\r\n\r\n            <div style=\"font-size: 10px; color: var(--text-muted); font-weight: 700; letter-spacing: 0.05em;\">\r\n              COMPILED PROBABILITIES π(a|s) (TECHNICAL + FUNDAMENTAL)\r\n            </div>\r\n\r\n            <div class=\"prob-row\">\r\n              <span style=\"color: var(--buy-green);\">BUY</span>\r\n              <div class=\"bar-bg\">\r\n                <div class=\"bar-fill-buy\" id=\"barBuy\" style=\"width: 50%;\"></div>\r\n              </div>\r\n              <span id=\"txtBuy\" style=\"text-align: right;\">50.0%</span>\r\n            </div>\r\n\r\n            <div class=\"prob-row\">\r\n              <span style=\"color: var(--sell-pink);\">SELL</span>\r\n              <div class=\"bar-bg\">\r\n                <div class=\"bar-fill-sell\" id=\"barSell\" style=\"width: 50%;\"></div>\r\n              </div>\r\n              <span id=\"txtSell\" style=\"text-align: right;\">50.0%</span>\r\n            </div>\r\n\r\n            <div class=\"evidence-list\" id=\"evidenceList\">\r\n              <div class=\"ev-item\"><span>Mengompilasi data teknikal &amp; fundamental...</span><span\r\n                  class=\"ev-tag\">WAIT</span></div>\r\n            </div>\r\n          </div>\r\n        </div>\r\n      </div>\r\n    </main>\r\n  </div>\r\n\r\n  <!-- Modal Built-in Revisi skill.md SECARA MENDETAIL & LENGKAP TANPA DIPOTONG -->\r\n  <div class=\"modal-backdrop\" id=\"skillModal\">\r\n    <div class=\"modal-box\">\r\n      <div class=\"modal-header\">\r\n        <span>Dokumen Lengkap skill.md (Kaystrade Full Detailed Specification)</span>\r\n        <div style=\"display:flex; gap:8px;\">\r\n          <button class=\"btn-use-pair\" onclick=\"copySkillMd()\">Copy skill.md Lengkap</button>\r\n          <button class=\"btn-action\" onclick=\"toggleSkillModal(false)\">Tutup</button>\r\n        </div>\r\n      </div>\r\n      <div class=\"modal-body\">\r\n        <textarea class=\"skill-textarea\" id=\"skillMdContent\"\r\n          readonly>---\r\nname: kaystrade\r\ndescription: Analisa kompilasi TEKNIKAL + FUNDAMENTAL secara REAL-TIME (500 Bars, Chart 16:9), scoring konfluensi kuantitatif, peringatan otomatis 1 jam sebelum berita High Impact, dan backtest dengan metode pribadi Kaystrade (alias kaytrade): big trend H4, speedometer D1/H4 (Summary, MA10-MA200, Oscillators), retest base, SNR/SBR, Key Pivot kuning, fresh Supply/Demand, FVG, Liquidity, RSI(14)+SMA(14) kuning, konteks DXY, dan Kalender Ekonomi High Impact. Gunakan ketika pengguna meminta metode ini, penerapan aturan trading pribadinya di TradingView, atau analisa pada web journalingtrade.\r\n---\r\n\r\n# Kaystrade (Full Detailed Technical + Fundamental Real-Time Specification)\r\n\r\nGunakan bahasa Indonesia untuk seluruh penjelasan analisa. Label Supply/Demand dan komponen UI Signal Card menggunakan bahasa Inggris. Analisa, skor probabilitas, dan gambar pemetaan bukan merupakan izin atau perintah membuka posisi pada broker.\r\n\r\n## 1. Data Real-Time, Standar 500 Bars, Rasio Chart 16:9, dan Lingkup Multi-Pair\r\n\r\n- **Verifikasi Simbol & Feed Real-Time**: Pastikan simbol, provider, timeframe (`D1`, `H4`, `H1`, `M30`, `M15`, `M5`, `M1`), periode, waktu candle terakhir (UTC/WIB), penghitung mundur penutupan candle (`NEXT CANDLE`), dan status pasar (Open/Closed). Gunakan data aktual melalui bridge TradingView atau stream WebSocket/REST OHLCV real-time yang tersedia; jangan mengaku tersambung atau selesai menggambar tanpa verifikasi. Bila bridge/feed tidak tersedia atau terputus, minta data/chart dan jelaskan keterbatasan secara jujur. Jangan pernah menggunakan level lama sebagai level terkini.\r\n- **Standar 500 Bars & Rasio 16:9**:\r\n  - Chart wajib memuat minimal **500 bars (candles)** terakhir seperti TradingView reguler pada timeframe aktif maupun timeframe referensi (`D1`, `H4`, `H1`, `M30`/`M15`).\r\n  - Kanvas chart menggunakan proporsi **16:9 (`aspect-ratio: 16 / 9`)** yang responsif di desktop maupun mobile, dengan penguncian tepi (`fixLeftEdge: true` dan `fixRightEdge: true`) agar candle memenuhi seluruh bidang chart dari kiri ke kanan tanpa menyisakan ruang kosong di sebelah kanan atau kiri.\r\n- **Instrumen Default & Multi-Pair Custom Search**:\r\n  - **GOLD Default**: Gunakan `TVC:GOLD` sebagai default pada TradingView, bukan `OANDA:XAUUSD` kecuali diminta secara spesifik oleh pengguna (pada web `journalingtrade`, gunakan stream spot `XAUUSD` / `PAXGUSDT` real-time).\r\n  - **Multi-Pair & Custom Input**: Pair lain mengikuti permintaan pengguna, mencakup Metals (`XAUUSD`, `XAGUSD`), Forex Majors & Crosses (`EURUSD`, `GBPUSD`, `USDJPY`, `GBPJPY`, `EURJPY`, `AUDUSD`, `USDCAD`, `USDCHF`, `NZDUSD`, dll.), Crypto (`BTCUSD`, `ETHUSD`, `SOLUSD`, altcoins/memecoins), dan Indices (`DXY`, `USOIL`, `SPX`). Sesuaikan presisi desimal harga secara otomatis (2 desimal untuk Gold/BTC, 3 desimal untuk JPY/Silver, 5 desimal untuk Forex Major, dan 6–8 desimal untuk aset mikro).\r\n- **Periode Historis GOLD**: Untuk analisa historis GOLD, preferensi terakhir adalah **25 September 2025 sampai waktu data real-time terbaru**, kecuali pengguna menentukan periode lain. Bedakan secara tegas *high periode* dari *all-time high (ATH)*.\r\n- **Isolasi Layout & Objek**: Analisa tidak otomatis berarti backtest, pemasangan alarm, penghapusan, atau perubahan layout. Hapus hanya objek/simbol yang diizinkan; pertahankan pair, indikator, dan layout pengguna lainnya. Gunakan layout terpisah bila diminta.\r\n\r\n## 2. Kompilasi Fundamental & Protokol Warning 1 Jam Sebelum High Impact News\r\n\r\n1. **Peringatan Wajib 1 Jam Sebelum High Impact News (T-60 Menit)**:\r\n   - Pantau jadwal kalender ekonomi secara real-time untuk mata uang yang terkait dengan pair aktif (misal `USD` untuk `XAUUSD`/`BTCUSD`, atau `GBP` dan `JPY` untuk `GBPJPY`).\r\n   - Jika terdapat rilis berita berdampak tinggi (**High Impact / Red Folder**: *Non-Farm Payrolls/NFP, CPI/Core CPI, Core PCE, FOMC Statement/Fed Funds Rate, Interest Rate Decision Bank Sentral, GDP, ISM Manufacturing/Services PMI, Retail Sales, Unemployment Claims*, atau pidato Gubernur Bank Sentral) dalam rentang **0 hingga 60 menit (1 jam) ke depan**, sistem WAJIB memunculkan **HIGH IMPACT NEWS WARNING** beserta hitung mundur (`T-Minus Countdown`).\r\n   - Selama berada dalam jendela **<= 1 jam sebelum berita High Impact**, tahan eksekusi posisi baru di dalam base singkat dan ubah status sinyal menjadi **`WAIT (NEWS < 1H)`** atau **`BUY/SELL WATCH (POST-NEWS ONLY)`** untuk menghindari pelebaran spread, slippage, dan sapuan likuiditas dua arah (*whipsaw*).\r\n2. **Aturan Kompilasi Fundamental + Teknikal (6 Pilar)**:\r\n   - News high impact atau eskalasi geopolitik dapat merusak setup teknikal. Verifikasi kalender ekonomi dan berita jika digunakan; **jangan mengatribusikan loss atau pergerakan harga pada FOMC/US-Iran/geopolitik tanpa timestamp dan bukti nyata**. Tidak ada blackout news tetap yang disepakati di luar peringatan 1 jam sebelum berita High Impact.\r\n   - Setelah berita dirilis (*Post-News*), kompilasikan hasil `Actual` vs `Forecast`/`Previous` dan reaksi `DXY` dengan 5 pilar teknikal Kaystrade:\r\n     - Jika rilis data fundamental **searah** dengan Big Trend H4 dan struktur retest H1/M30, tambahkan bobot konfluensi (+10%) sebagai *Fundamental Catalyst Aligned*.\r\n     - Jika rilis data fundamental **berlawanan** dan menyebabkan body candle close menembus swing invalidasi, batalkan setup lama (`INVALIDATED`) dan tunggu pembentukan struktur baru.\r\n\r\n## 3. Filter Multi-Timeframe dan Aturan Entry\r\n\r\n1. **Speedometer Technicals (D1 & H4 - 500 Bars)**:\r\n   - Periksa speedometer Technicals pada `D1` dan `H4`: *Summary*, *Moving Averages* (`MA10`, `MA20`, `MA50`, `MA100`, `MA200`), dan *Oscillators* beserta timestamp data.\r\n   - Rating yang tidak tersedia berarti **belum terverifikasi**, bukan dianggap mendukung.\r\n   - Jangan menghitung beberapa Moving Average yang sama sebagai konfirmasi independen.\r\n2. **Big Trend H4 & Konteks D1**:\r\n   - Big trend `H4` menentukan arah utama: struktur **HH/HL** memprioritaskan **BUY**, sedangkan **LH/LL** memprioritaskan **SELL**.\r\n   - Timeframe `D1` memberi konteks trendline besar.\r\n   - Ketika `H4` sedang konsolidasi/netral, tunggu perubahan struktur yang sah; **breakout pada H1 saja bukan konfirmasi perubahan trend H4**.\r\n3. **Struktur H1 & Eksekusi M15/M30 (Minimal 3 Konfirmasi Independen)**:\r\n   - Gunakan `H1` untuk pemetaan struktur dan zona; gunakan `M15`/`M30` untuk eksekusi.\r\n   - Entry wajib memiliki **minimal tiga konfirmasi independen** yang disebutkan secara eksplisit:\r\n     1. Struktur (`H4`/`H1` HH/HL atau LH/LL)\r\n     2. Lokasi / Retest (`SNR`, `SBR`, `Key Pivot`, atau `Fresh Supply/Demand`)\r\n     3. Imbalance (`Fresh FVG` belum termitigasi)\r\n     4. Momentum `RSI(14)` terhadap `SMA(14)` kuning\r\n     5. Konteks Index (`DXY`) atau *chart pattern* tervalidasi\r\n     6. Filter Keamanan Fundamental / Kalender Ekonomi (`Clear > 1H dari High Impact News`)\r\n   - **Jangan pernah entry hanya karena harga menyentuh garis atau level Fibonacci**.\r\n4. **Sesi Perdagangan & Aturan Breakout Base**:\r\n   - Semua sesi perdagangan diperbolehkan (tidak wajib sesi Asia/London/New York).\r\n   - **Jangan entry di dalam base singkat atau manipulatif**.\r\n   - Wajib menunggu **body candle close di luar base**, diikuti **retest**, lalu **rejection**.\r\n   - Jika body candle kembali close masuk ke dalam base, **batalkan setup** dan tunggu breakout baru. Bedakan secara tegas antara *wick retest* (ekor menyentuh base = valid) dari *body close kembali ke dalam base* (setup batal).\r\n5. **Penempatan Entry Bersyarat, SL, dan TP**:\r\n   - Tetapkan entry bersyarat, **SL** di luar swing invalidasi, dan **TP** pada swing high/low atau level SNR/SBR terdekat.\r\n   - Jangan memaksakan rasio Risk:Reward (RR) tinggi dengan mengabaikan penghalang struktur harga di tengah jalan.\r\n   - Sinyal **SELL tidak menjadi valid hanya karena RSI overbought**, dan **BUY tidak menjadi valid hanya karena RSI oversold**.\r\n\r\n## 4. Aturan Pemetaan Teknikal Secara Mendetail\r\n\r\n- **SNR / SBR**:\r\n  - Dipetakan berdasarkan *repeated reactions*, swing bermakna, dan *recency* pada 500 bars terakhir.\r\n  - **SBR (Support Become Resistance)** atau **RBS (Resistance Become Support)** memerlukan break yang sah lalu retest dari bawah/atas disertai rejection; tandai timeframe dan level harga.\r\n  - Petakan semua level sampai high periode hanya bila diminta oleh pengguna; gabungkan level duplikat yang berdekatan dengan toleransi jarak yang dijelaskan.\r\n- **Key Pivot**:\r\n  - Wajib digambar berupa **garis kuning tebal (`#facc15`)**, bukan area kotak.\r\n  - Pisahkan garis Key Pivot dari batas area Supply/Demand atau garis alarm watch.\r\n- **Fresh Supply / Demand (H1/H4)**:\r\n  - Berasal dari *origin base* / *opposite candle* yang memiliki *departure/displacement* tegas dan mematahkan struktur (*break of structure*).\r\n  - **Fresh** berarti zona belum pernah diretest/tersentuh sejak departure hingga waktu data terbaru.\r\n  - Bedakan secara ketat antara **Fresh**, **Mitigated** (sudah tersentuh tetapi belum tembus), dan **Invalidated** (sudah ditembus body candle); jangan sekadar menamai setiap candle sebagai zona.\r\n- **FVG (Fair Value Gap)**:\r\n  - Imbalance tiga candle dengan displacement bermakna dan belum termitigasi oleh harga berikutnya untuk mendapatkan label **Fresh**.\r\n  - Bedakan gap pembukaan sesi pada indeks/cash dari imbalance intrasesi. Jangan klaim fresh FVG valid hanya berdasarkan celah geometris kecil tanpa displacement.\r\n  - **Aturan Fibonacci & FVG**: Aturan awal memprioritaskan FVG di dalam *golden Fibonacci retracement 0.618–0.786* (jangan petakan semua FVG). Namun **preferensi chart terbaru adalah tanpa Fibonacci dan petakan fresh FVG pada periode yang diminta**. Selalu ikuti permintaan terbaru tanpa otomatis mengubah aturan backtest lama. Bila Fibonacci diminta kembali, gunakan swing yang sudah terkonfirmasi tanpa *hindsight*.\r\n- **Liquidity**:\r\n  - Identifikasi *equal highs/lows (EQH/EQL)*, *swing extrema*, *liquidity sweep*, dan *reclaim*.\r\n  - Nyatakan sebagai **potensi liquidity**, bukan bukti pasti adanya *resting orders* di buku order broker.\r\n- **RSI(14) & MA Kuning SMA(14)**:\r\n  - Gunakan `RSI(14)` dengan Moving Average kuning preferensi `SMA(14)`, dan tandai level horizontal **70 / 50 / 30**.\r\n  - Cross naik RSI terhadap SMA(14) dari area oversold (<30) mendukung pemulihan harga; cross turun dari area overbought (>70) mendukung pelemahan harga.\r\n  - *Divergence* wajib memiliki pivot yang sudah terkonfirmasi dan trigger harga pada candle, bukan dijadikan sinyal mandiri.\r\n- **Konteks DXY**:\r\n  - `DXY` adalah konteks makro untuk GOLD/USD, bukan korelasi invers pasti 100%; jangan memaksakan hubungan invers pada SPX atau semua aset.\r\n  - Verifikasi timestamp/feed karena overlay DXY mengikuti candle aset utama dan bisa tertinggal dari feed DXY live.\r\n  - Proyeksi dua arah wajib menyertakan kondisi breakout/retest dan level invalidasi yang jelas.\r\n- **Chart Pattern & Struktur Base**:\r\n  - Pattern termasuk *Head and Shoulders (HnS)* atau *Double Top/Bottom* **hanya valid setelah neckline break dan terkonfirmasi**, bukan berdasarkan bentuk visual semata.\r\n  - *Rally-Base-Rally (RBR)* dan *Drop-Base-Drop (DBD)* adalah pola *continuation*; pola *reversal base* (*Rally-Base-Drop / Drop-Base-Rally*) wajib menunggu konfirmasi perubahan struktur.\r\n\r\n## 5. Tampilan TradingView, UI Signal Card Solid, & Standar Mobile UI/UX\r\n\r\n- **Warna Solid Tanpa Gradien**: Seluruh elemen UI web `journalingtrade` wajib menggunakan warna solid tanpa `linear-gradient` atau `radial-gradient`.\r\n- **Standar Visual TradingView**:\r\n  - `SNR/SBR`: Garis horizontal dengan label singkat harga dan timeframe.\r\n  - `Key Pivot`: Garis kuning tebal (`#facc15`).\r\n  - `Supply`: Area kotak *muted red* (`#ff2a5f`), opacity **50%**.\r\n  - `Demand`: Area kotak *teal/green* (`#00e676`), opacity **50%**.\r\n  - `Base`: Persegi putih opacity **20%** (transparency **80%**).\r\n  - Tandai area `BUY WATCH` / `SELL WATCH` beserta syarat konfirmasi, titik invalidasi (SL), TP, dan *reason entry*. Jangan menyebut watch area sebagai order atau sinyal terkonfirmasi.\r\n  - `RSI` dan `DXY` digambar di pane masing-masing. Proyeksi diberi label bersyarat, bukan kepastian; ingat bahwa angka RSI adalah nilai indikator (0–100), bukan harga aset.\r\n  - Verifikasi simbol, objek, koordinat, dan screenshot akhir; perbaiki label yang bertumpuk/terpotong. Tutup panel yang tidak perlu tanpa menghapus indikator pengguna. Jangan menganggap respons API sukses sebagai bukti visual tanpa memeriksa chart.\r\n- **Standar Mobile UI/UX**:\r\n  - Semua container grid wajib memiliki `min-width: 0` dan `overflow-x: hidden` pada level halaman agar tidak ada elemen yang meluber di layar HP.\r\n  - Kanvas chart mempertahankan rasio **16:9** secara proporsional di semua ukuran layar.\r\n- **Aturan Alarm TradingView (Hanya Saat Diminta)**:\r\n  - Verifikasi status *Active*, simbol, kondisi, *expiration*, dan kanal notifikasi.\r\n  - *Price crossing* biasa hanyalah alarm pantauan lokasi, bukan alarm otomatis yang memvalidasi seluruh aturan H1/M30. Untuk konfirmasi candle close atau multi-syarat, gunakan kondisi native/skrip Pine yang benar-benar mendukungnya, bukan sekadar memberi nama pada alarm.\r\n\r\n## 6. Aturan Backtest Lengkap (Hanya Bila Diminta)\r\n\r\n- **Parameter Default Historis Pengguna**:\r\n  - Modal awal: **USD 1,000**\r\n  - Risiko per transaksi: **2% ekuitas**\r\n  - Target Risk:Reward: **RR 1:2 sampai 1:4**\r\n  - Maksimum Drawdown (Max DD): **GOLD 30%**; **BTC pernah diminta 20%** (jangan terapkan batas BTC secara global ke aset lain tanpa konfirmasi).\r\n  - Batas Maksimum SL GOLD: **1,000 pips** yang berarti **jarak harga USD 100 per troy oz** menurut definisi pengguna, **bukan** risiko kerugian USD 100 per transaksi.\r\n- **Durasi Berdasarkan Gaya Trading**:\r\n  - *Intraday*: Maksimum tahan posisi **24 jam**.\r\n  - *Swing*: Ditahan sampai menyentuh **TP atau SL**.\r\n  - *Scalping*: Eksekusi pada `M15`/`M30`; batas durasi maksimal scalping harus dinyatakan sebagai asumsi bila belum disepakati.\r\n  - *Unlimited leverage* bukan alasan untuk mengabaikan perhitungan position sizing dan batas risiko 2%.\r\n- **Integritas Data & Anti-Lookahead**:\r\n  - Entry hanya boleh memakai **candle yang sudah tertutup (closed candle)** dan swing/pivot yang sudah terkonfirmasi pada saat itu.\r\n  - Hindari *lookahead bias* dan *repainting*; sinkronkan pembacaan `DXY` dan `H4` tepat pada timestamp entry.\r\n- **Transparansi Biaya & Aturan Eksekusi Simulasi**:\r\n  - Nyatakan secara eksplisit asumsi spread, slippage, komisi, ukuran unit kontrak, *concurrency* (apakah boleh membuka lebih dari satu posisi bersamaan), serta aturan penyelesaian jika TP dan SL tersentuh pada satu candle yang sama.\r\n  - Jangan menggunakan asumsi satu posisi aktif atau biaya model matematis sebagai fakta mutlak broker.\r\n- **Metrik Laporan Backtest**:\r\n  - Laporkan **Winrate (%)**, **Jumlah Trade**, **Ending Equity**, **Return (%)**, **Max Drawdown** (bedakan secara jelas antara *closed equity drawdown* dan *intratrade floating equity drawdown*), serta **reason setiap entry** lengkap dengan koordinat `Entry`, `SL`, `TP`, `Exit`, `Timeframe`, dan `Kondisi Invalidasi`.\r\n  - **Dilarang menjumlahkan trade duplikat** dari beberapa timeframe sebagai posisi unik.\r\n  - **Dilarang memaksa jumlah minimum/eksak** (misal 400 / 1,000 / 4,000 trade) dengan membuat entry palsu atau melonggarkan aturan Kaystrade secara diam-diam. Laporkan *shortfall* (kekurangan sampel) dan keterbatasan data historis apa adanya.\r\n  - Jika sebagian teori belum dimodelkan secara terprogram (misalnya rating speedometer historis per jam, kemiringan trendline subjektif, chart pattern kompleks, arsip rilis berita masa lalu, atau riwayat mitigasi mikro), sebutkan hasilnya secara jujur sebagai **Backtest Parsial**, bukan pembuktian seluruh metode Kaystrade. Chart terbaru tidak otomatis berarti sudah dibacktest, dan sampel pilihan screenshot tidak membuktikan winrate atau *statistical edge*.";
+    skillTextarea.value = `---
+name: kaystrade
+description: Analisa kompilasi TEKNIKAL + FASTBULL POSITION (https://www.fastbull.com/list-position) + BERITA & KALENDER EKONOMI secara REAL-TIME (500 Bars, Chart 16:9), penentuan posisi Entry presisi, peringatan otomatis 1 jam sebelum berita High Impact, spesifikasi strategi Scalping/Intraday/Swing, dan backtest dengan metode pribadi Kaystrade (alias kaytrade): big trend H4, speedometer D1/H4 (Summary, MA10-MA200, Oscillators), retest base, SNR/SBR, Key Pivot kuning, fresh Supply/Demand, FVG, Liquidity, RSI(14)+SMA(14) kuning, dan konteks DXY.
+---
+
+# Kaystrade (Full Technical + FastBull Position Entry & Economic News Specification)
+
+Gunakan bahasa Indonesia untuk seluruh penjelasan analisa. Label Supply/Demand dan komponen UI Signal Card menggunakan bahasa Inggris. Analisa, skor probabilitas, dan gambar pemetaan bukan merupakan izin atau perintah membuka posisi pada broker.
+
+## 1. Data Real-Time, Standar 500 Bars, Rasio Chart 16:9, dan Lingkup Multi-Pair
+
+- **Verifikasi Simbol & Feed Real-Time**: Pastikan simbol, provider, timeframe (D1, H4, H1, M30, M15, M5, M1), periode, waktu candle terakhir (UTC/WIB), penghitung mundur penutupan candle (NEXT CANDLE), dan status pasar. Gunakan data aktual melalui bridge TradingView atau stream WebSocket/REST OHLCV real-time (minimal 500 bars dengan fixLeftEdge: true dan fixRightEdge: true pada kanvas 16:9). Jangan gunakan level lama sebagai level terkini.
+- **GOLD Default & Multi-Pair Custom**: GOLD default TVC:GOLD pada TradingView (atau stream spot XAUUSD / PAXGUSDT real-time pada web journalingtrade), bukan OANDA:XAUUSD kecuali diminta. Pair lain (Forex, Metals, Crypto, Indices, maupun input custom) mengikuti permintaan dengan presisi desimal otomatis.
+- **Periode Historis GOLD**: Preferensi terakhir adalah 25 September 2025 sampai waktu data terbaru, kecuali pengguna menentukan periode lain. Bedakan high periode dari all-time high (ATH).
+- **Isolasi Layout**: Analisa tidak otomatis berarti backtest, alarm, penghapusan, atau perubahan layout. Hapus hanya objek/simbol yang diizinkan; pertahankan pair, indikator, dan layout lain.
+
+## 2. Analisa Posisi Entry dari FastBull (https://www.fastbull.com/list-position)
+
+Gunakan data dari https://www.fastbull.com/list-position sebagai filter konfirmasi dan penentu presisi titik ENTRY:
+1. **Rasio Posisi Terbuka (Long % vs Short % & Contrarian Filter)**:
+   - Evaluasi persentase posisi terbuka ritel dan perubahan Net Position pada pair yang dianalisa.
+   - Ketika posisi ritel terlalu berat di satu sisi (misalnya Long > 65%), waspadai sapuan likuiditas (liquidity sweep) ke arah berlawanan dan prioritaskan setup yang searah dengan smart money / struktur H4. Ketika Short ritel terlalu padat (> 65%) di dekat area Demand/Support H1, hal ini memperkuat probabilitas BUY (short squeeze).
+2. **Klaster Posisi & Order Institusi (Institutional Position List)**:
+   - Periksa daftar posisi aktif dan pending limit order institusi/bank besar (Entry Price, Stop Loss, Take Profit) pada halaman fastbull.com/list-position.
+   - **Penentuan Titik Entry Presisi**: Titik ENTRY ditetapkan pada irisan (confluence zone) antara Retest Base / SNR / SBR / Fresh Supply-Demand Kaystrade dengan klaster harga Entry Institusi / Order Book FastBull.
+   - Jangan membuka posisi hanya karena mengikuti tabel institusi jika struktur candle M15/M30 belum close di luar base atau belum retest.
+
+## 3. Integrasi Berita Ekonomi & Warning Wajib 1 Jam Sebelum High Impact News
+
+1. **Sentimen Berita Ekonomi (Semua, Dunia, Politik, The Fed, Bisnis, Pasar)**:
+   - Kompilasikan dampak berita terbaru (The Fed, Geopolitik/Dunia, Politik, Pasar) ke dalam bobot konfluensi. Jangan mengatribusikan loss pada FOMC/US-Iran tanpa timestamp dan bukti nyata.
+2. **Peringatan Wajib 1 Jam Sebelum High Impact News (T-60 Menit)**:
+   - Jika terdapat jadwal berita High Impact (NFP, CPI, Core PCE, FOMC, Rate Decision, GDP, ISM PMI, Retail Sales, Jobless Claims) dalam 0 hingga 60 menit ke depan pada mata uang terkait, wajib memunculkan HIGH IMPACT NEWS WARNING beserta hitung mundur (T-Minus).
+   - Selama <= 1 jam sebelum berita High Impact, ubah sinyal menjadi WAIT (NEWS < 1H) dan tahan eksekusi baru di dalam base singkat.
+
+## 4. Spesifikasi Strategi: SCALPING vs INTRADAY vs SWING
+
+1. **STRATEGI SCALPING (M15 / M30 / M5)**:
+   - Mengikuti struktur H1 dan bias H4. Tunggu body candle M15/M30 close di luar base mikro, ambil entry pada retest tepi base yang sejajar dengan klaster likuiditas FastBull (~0.18x ATR).
+   - SL ketat di luar swing mikro (~1.3x ATR, maks mutlak GOLD $100/oz), TP pada swing intrasesi terdekat (Plan RR 1:2.0 sampai 1:2.4). Asumsi durasi scalping: Maksimum 1-4 Jam.
+2. **STRATEGI INTRADAY (H4 -> H1 -> M15/M30)**:
+   - Big trend H4 (HH/HL buy, LH/LL sell) dan Speedometer D1/H4 adalah penentu arah utama. Ketika H4 konsolidasi/netral, tunggu perubahan struktur; breakout H1 saja bukan konfirmasi trend H4.
+   - Entry di M15/M30 menunggu body candle close di luar base, retest (~0.32x ATR + konfluensi level posisi FastBull), lalu rejection. SL di luar swing invalidasi (~1.95x ATR, maks GOLD 1,000 pips / $100/oz), TP pada swing H1 terdekat (Plan RR 1:2.5 sampai 1:3.2). Durasi maksimum 24 Jam.
+3. **STRATEGI SWING (D1 -> H4 -> H1)**:
+   - Fokus pada struktur D1/H4 dan target posisi institusi jangka menengah FastBull. Entry pada retest Fresh Supply/Demand H4 (~0.50x ATR), SL di luar struktur H4 (~2.8x ATR), Plan RR 1:3.5 sampai 1:4.0, ditahan sampai menyentuh TP/SL.
+
+## 5. Pemetaan & Tampilan UI Solid (Tanpa Gradien)
+
+- SNR/SBR, Key Pivot Kuning (#facc15), Fresh Supply (#ff2a5f) / Demand (#00e676) opacity 50%, Base putih opacity 20%, Fresh FVG tanpa Fibonacci, dan RSI(14)+SMA(14) Kuning (70/50/30).
+- Seluruh elemen UI web wajib menggunakan warna solid tanpa efek gradien.
+
+## 6. Aturan Backtest (Hanya Bila Diminta)
+
+- Default historis: modal USD 1,000, risiko 2% per transaksi, RR 1:2 sampai 1:4, GOLD max DD 30% (BTC 20% bila diminta), max SL GOLD 1,000 pips (jarak USD 100/oz). Gunakan hanya candle tertutup tanpa lookahead/repainting.`;
     modalBody.append(skillTextarea);
     modalBox.append(modalHeader, modalBody);
     skillModal.append(modalBox);
@@ -2201,7 +2339,7 @@ Gunakan format Markdown (bold, tabel, bullet points, blok kode) untuk memperjela
       alert('Seluruh isi skill.md lengkap berhasil disalin ke Clipboard!');
     }
 
-    // Legacy panels kept hidden so they do not clutter the AI Market Intelligence UI
+// Legacy panels kept hidden so they do not clutter the AI Market Intelligence UI
     const legacyPanels = node('div', null, 'pro-legacy-panels');
     const evidencePanel = panel('Technical evidence', legacyPanels);
     const engine = panel('AI engine status', legacyPanels);
@@ -2291,6 +2429,368 @@ Gunakan format Markdown (bold, tabel, bullet points, blok kode) untuk memperjela
       if (chart && currentCandles.length > 0) {
         chart.timeScale().fitContent();
       }
+    }
+
+    
+    function switchFundaTab(tab) {
+      const btnFb = document.getElementById('tabBtnFastbull');
+      const btnHl = document.getElementById('tabBtnHeadlines');
+      const btnCal = document.getElementById('tabBtnCalendar');
+      if (btnFb) btnFb.classList.toggle('active', tab === 'FASTBULL');
+      if (btnHl) btnHl.classList.toggle('active', tab === 'HEADLINES');
+      if (btnCal) btnCal.classList.toggle('active', tab === 'CALENDAR');
+
+      const vFb = document.getElementById('viewFastbullPosition');
+      const vHl = document.getElementById('viewNewsHeadlines');
+      const vCal = document.getElementById('viewEconomicCalendar');
+      if (vFb) vFb.style.display = tab === 'FASTBULL' ? 'block' : 'none';
+      if (vHl) vHl.style.display = tab === 'HEADLINES' ? 'block' : 'none';
+      if (vCal) vCal.style.display = tab === 'CALENDAR' ? 'block' : 'none';
+    }
+
+    function openBottomTab(tab) {
+      switchFundaTab(tab);
+      const panel = document.getElementById('integratedNewsPanel');
+      if (panel) panel.scrollIntoView({ behavior: 'smooth' });
+    }
+
+    async function syncFastBullPositionData(showNotice = false) {
+      const code = currentPairObj.code;
+      try {
+        if (currentPairObj.provider === 'BINANCE') {
+          const depthRes = await fetch('https://api.binance.com/api/v3/depth?symbol=' + currentPairObj.apiSym + '&limit=50');
+          if (depthRes.ok) {
+            const depth = await depthRes.json();
+            const bidVol = depth.bids.reduce((acc, b) => acc + parseFloat(b[1]), 0);
+            const askVol = depth.asks.reduce((acc, a) => acc + parseFloat(a[1]), 0);
+            const totalVol = bidVol + askVol || 1;
+            const liveLongPct = +Math.max(22, Math.min(78, (bidVol / totalVol) * 100)).toFixed(1);
+            const liveShortPct = +(100 - liveLongPct).toFixed(1);
+
+            if (!fastbullPositionStore[code]) {
+              fastbullPositionStore[code] = { longPct: liveLongPct, shortPct: liveShortPct, netShift: +(liveLongPct - 50).toFixed(1), instBias: liveLongPct <= 50 ? 'BUY' : 'SELL', instName: 'FastBull Institutional Order Flow' };
+            } else if (customLongPctOverride === null) {
+              fastbullPositionStore[code].longPct = liveLongPct;
+              fastbullPositionStore[code].shortPct = liveShortPct;
+            }
+          }
+        }
+
+        const proxyUrl = 'https://api.allorigins.win/get?url=' + encodeURIComponent('https://www.fastbull.com/list-position');
+        fetch(proxyUrl).then(r => r.json()).then(data => {
+          if (data && data.contents) {
+            const pctMatches = data.contents.match(/(\d{2}(?:\.\d)?)\s*%/g);
+            if (pctMatches && pctMatches.length >= 2 && customLongPctOverride === null) {
+              const parsedVal = parseFloat(pctMatches[0]);
+              if (parsedVal >= 15 && parsedVal <= 85) {
+                const entry = fastbullPositionStore[code] || { instName: 'FastBull Institutional Desk' };
+                entry.longPct = parsedVal;
+                entry.shortPct = +(100 - parsedVal).toFixed(1);
+                fastbullPositionStore[code] = entry;
+                evaluateKaystradeEngine(false);
+              }
+            }
+          }
+        }).catch(() => {});
+
+        if (showNotice) {
+          alert('Data Posisi FastBull (fastbull.com/list-position) & Order Book untuk ' + code + ' berhasil disinkronkan!');
+        }
+      } catch (e) {}
+
+      evaluateKaystradeEngine(true);
+    }
+
+    function onManualFastBullRatioChange() {
+      const inputEl = document.getElementById('fbManualLongInput');
+      const val = parseFloat(inputEl?.value);
+      if (!isNaN(val) && val >= 5 && val <= 95) {
+        customLongPctOverride = val;
+        const code = currentPairObj.code;
+        if (!fastbullPositionStore[code]) {
+          fastbullPositionStore[code] = { longPct: val, shortPct: +(100 - val).toFixed(1), netShift: 0, instBias: val < 50 ? 'BUY' : 'SELL', instName: 'FastBull Custom Synced Desk' };
+        } else {
+          fastbullPositionStore[code].longPct = val;
+          fastbullPositionStore[code].shortPct = +(100 - val).toFixed(1);
+        }
+        evaluateKaystradeEngine(true);
+      }
+    }
+
+    function computeFastBullPositionAnalysis(livePrice, atr, h4Struct, tfStruct, cfg) {
+      const code = currentPairObj.code;
+      const baseData = fastbullPositionStore[code] || {
+        longPct: 45.0,
+        shortPct: 55.0,
+        netShift: +2.1,
+        instBias: h4Struct.score >= 0 ? 'BUY' : 'SELL',
+        instName: 'FastBull Institutional Liquidity Desk'
+      };
+
+      const longPct = customLongPctOverride !== null ? customLongPctOverride : baseData.longPct;
+      const shortPct = +(100 - longPct).toFixed(1);
+      const fbModeEl = document.getElementById('fastbullModeSelect') || fastbullModeSelect;
+      const fbMode = fbModeEl?.value || 'SMART_BLEND';
+
+      let fbScoreDelta = 0;
+      let fbDirectionBias = 'NEUTRAL';
+      let fbReasonText = '';
+
+      if (fbMode === 'RETAIL_CONTRARIAN') {
+        if (shortPct >= 55) {
+          fbScoreDelta = +Math.min(14, Math.round((shortPct - 50) * 0.7));
+          fbDirectionBias = 'BUY';
+          fbReasonText = 'Retail Crowd Short (' + shortPct + '%) -> Potensi Short Squeeze (Mendukung BUY)';
+        } else if (longPct >= 55) {
+          fbScoreDelta = -Math.min(14, Math.round((longPct - 50) * 0.7));
+          fbDirectionBias = 'SELL';
+          fbReasonText = 'Retail Crowd Long (' + longPct + '%) -> Potensi Long Liquidation (Mendukung SELL)';
+        } else {
+          fbReasonText = 'Rasio Posisi Seimbang (' + longPct + '%L / ' + shortPct + '%S)';
+        }
+      } else if (fbMode === 'INSTITUTIONAL_FOLLOW') {
+        if (h4Struct.score >= 0) {
+          fbScoreDelta = +10;
+          fbDirectionBias = 'BUY';
+          fbReasonText = 'Institusi Buy Limit Cluster Aktif di Atas Key Pivot H4';
+        } else {
+          fbScoreDelta = -10;
+          fbDirectionBias = 'SELL';
+          fbReasonText = 'Institusi Sell Limit Cluster Aktif di Bawah Key Pivot H4';
+        }
+      } else {
+        const contrarianPts = (shortPct - longPct) * 0.35;
+        const instPts = h4Struct.score >= 0 ? +5 : -5;
+        fbScoreDelta = Math.round(Math.max(-14, Math.min(14, contrarianPts + instPts)));
+        fbDirectionBias = fbScoreDelta >= 2 ? 'BUY' : fbScoreDelta <= -2 ? 'SELL' : 'NEUTRAL';
+        fbReasonText = 'FastBull ' + longPct + '% Long vs ' + shortPct + '% Short (' + fbDirectionBias + ' Entry Cluster)';
+      }
+
+      const instBuyEntryCluster = livePrice - (atr * (cfg.retestAtrMult * 0.92));
+      const instSellEntryCluster = livePrice + (atr * (cfg.retestAtrMult * 0.92));
+
+      const instBuySL = Math.min(instBuyEntryCluster - (atr * cfg.slAtrMult), tfStruct.swingLow || (instBuyEntryCluster - (atr * cfg.slAtrMult)));
+      const instBuyTP = instBuyEntryCluster + Math.abs(instBuyEntryCluster - instBuySL) * cfg.rrTarget;
+
+      const instSellSL = Math.max(instSellEntryCluster + (atr * cfg.slAtrMult), tfStruct.swingHigh || (instSellEntryCluster + (atr * cfg.slAtrMult)));
+      const instSellTP = instSellEntryCluster - Math.abs(instSellSL - instSellEntryCluster) * cfg.rrTarget;
+
+      const lblRatio = document.getElementById('fbSymbolRatioLabel');
+      if (lblRatio) lblRatio.textContent = code + ' · FastBull Position Ratio (list-position)';
+      const txtLong = document.getElementById('fbLongPctText');
+      if (txtLong) txtLong.textContent = 'LONG: ' + longPct.toFixed(1) + '%';
+      const txtShort = document.getElementById('fbShortPctText');
+      if (txtShort) txtShort.textContent = 'SHORT: ' + shortPct.toFixed(1) + '%';
+      const barFill = document.getElementById('fbLongBarFill');
+      if (barFill) barFill.style.width = longPct + '%';
+      const manualIn = document.getElementById('fbManualLongInput');
+      if (manualIn && customLongPctOverride === null) manualIn.value = Math.round(longPct);
+      const insightEl = document.getElementById('fbContrarianInsight');
+      if (insightEl) insightEl.textContent = fbReasonText;
+
+      const tbody = document.getElementById('fastbullTableBody');
+      if (tbody) {
+        tbody.replaceChildren();
+        const primarySide = fbScoreDelta >= 0 ? 'BUY LIMIT' : 'SELL LIMIT';
+        const primaryEntry = fbScoreDelta >= 0 ? instBuyEntryCluster : instSellEntryCluster;
+        const primarySL = fbScoreDelta >= 0 ? instBuySL : instSellSL;
+        const primaryTP = fbScoreDelta >= 0 ? instBuyTP : instSellTP;
+
+        const tr1 = node('tr');
+        const td1Name = node('td', baseData.instName);
+        td1Name.style.color = '#fff';
+        td1Name.style.fontWeight = '700';
+        const td1Pair = node('td', code);
+        const td1Pos = node('td');
+        td1Pos.append(node('span', primarySide, fbScoreDelta >= 0 ? 'pos-buy-badge' : 'impact-high'));
+        const td1Entry = node('td', fmtPrice(primaryEntry));
+        td1Entry.style.color = '#a855f7';
+        td1Entry.style.fontWeight = '700';
+        const td1Levels = node('td', 'SL: ' + fmtPrice(primarySL) + ' / TP: ' + fmtPrice(primaryTP));
+        const td1Conf = node('td', 'Active Entry Cluster (' + cfg.code + ')');
+        td1Conf.style.color = '#34d399';
+        tr1.append(td1Name, td1Pair, td1Pos, td1Entry, td1Levels, td1Conf);
+
+        const tr2 = node('tr');
+        const td2Name = node('td', 'FastBull Retail Sentiment Pool');
+        td2Name.style.color = '#cbd5e1';
+        const td2Pair = node('td', code);
+        const td2Pos = node('td');
+        td2Pos.append(node('span', longPct.toFixed(1) + '% L / ' + shortPct.toFixed(1) + '% S', 'impact-med'));
+        const td2Entry = node('td', 'Pivot: ' + fmtPrice(h4Struct.pivot));
+        const td2Levels = node('td', 'Sweep Zone: ' + fmtPrice(fbScoreDelta >= 0 ? tfStruct.swingLow : tfStruct.swingHigh));
+        const td2Conf = node('td', shortPct >= 55 ? 'Bullish Contrarian Edge' : longPct >= 55 ? 'Bearish Contrarian Edge' : 'Balanced Liquidity');
+        td2Conf.style.color = '#38bdf8';
+        tr2.append(td2Name, td2Pair, td2Pos, td2Entry, td2Levels, td2Conf);
+
+        tbody.append(tr1, tr2);
+      }
+
+      return {
+        longPct,
+        shortPct,
+        fbScoreDelta,
+        fbDirectionBias,
+        fbReasonText,
+        instBuyEntryCluster,
+        instSellEntryCluster
+      };
+    }
+
+    function renderNewsHeadlines() {
+      const container = document.getElementById('newsHeadlinesContainer');
+      if (!container) return;
+      const searchInput = document.getElementById('newsHeadlineSearch');
+      const searchQ = (searchInput?.value || '').trim().toLowerCase();
+
+      const filtered = ECONOMIC_NEWS_FEED.filter(item => {
+        const matchPill = activeNewsPill === 'ALL' || item.pill === activeNewsPill;
+        const matchSearch = !searchQ || item.title.toLowerCase().includes(searchQ) || item.label.toLowerCase().includes(searchQ);
+        return matchPill && matchSearch;
+      });
+
+      container.replaceChildren();
+      if (searchQ && filtered.length === 0) {
+        const isBullishGold = /turun|dovish|perang|konflik|emas naik|inflasi|safe haven|melemah/i.test(searchQ);
+        const card = node('div', null, 'news-card-item');
+        const left = node('div');
+        const cat = node('span', 'CUSTOM NEWS', 'nc-cat');
+        const txt = node('span', '"' + searchQ + '" (Dimasukkan langsung ke skor Fundamental)');
+        left.append(cat, txt);
+        const tag = node('span', isBullishGold ? 'BULLISH CATALYST (+8%)' : 'BEARISH CATALYST (-8%)', 'nc-impact-tag');
+        tag.style.background = isBullishGold ? '#0d211b' : '#1f1019';
+        tag.style.color = isBullishGold ? '#00e676' : '#ff2a5f';
+        card.append(left, tag);
+        container.append(card);
+      }
+
+      filtered.forEach(item => {
+        const isPos = item.score >= 0;
+        const card = node('div', null, 'news-card-item');
+        const left = node('div');
+        left.style.lineHeight = '1.4';
+        const cat = node('span', item.label, 'nc-cat');
+        const txt = node('span', item.title);
+        left.append(cat, txt);
+        const tag = node('span', isPos ? '+' + item.score + '% Bullish Bias' : item.score + '% Bearish Bias', 'nc-impact-tag');
+        tag.style.background = isPos ? '#0d211b' : '#1f1019';
+        tag.style.color = isPos ? '#00e676' : '#ff2a5f';
+        tag.style.border = '1px solid ' + (isPos ? '#164e3b' : '#4a1c2d');
+        card.append(left, tag);
+        container.append(card);
+      });
+    }
+
+    function filterNewsByPill(pillEl, pillCode) {
+      document.querySelectorAll('.n-cat-pill').forEach(el => el.classList.remove('active'));
+      if (pillEl) pillEl.classList.add('active');
+      activeNewsPill = pillCode || 'ALL';
+      renderNewsHeadlines();
+      evaluateKaystradeEngine(true);
+    }
+
+    function refreshEconomicNewsFeed() {
+      renderNewsHeadlines();
+      syncFastBullPositionData(false);
+    }
+
+    function computeEconomicNewsScoreForPair() {
+      const searchInput = document.getElementById('newsHeadlineSearch');
+      const searchQ = (searchInput?.value || '').trim().toLowerCase();
+      const activeItems = ECONOMIC_NEWS_FEED.filter(item => activeNewsPill === 'ALL' || item.pill === activeNewsPill);
+      let netNewsScore = Math.round(activeItems.reduce((acc, it) => acc + it.score, 0) * 0.4);
+
+      if (searchQ) {
+        if (/dovish|cut|pangkas|geopolitik|perang|safe haven|emas naik|dxy turun|melemah/i.test(searchQ)) netNewsScore += 8;
+        if (/hawkish|hike|naikkan suku bunga|dxy kuat|emas turun|kuat/i.test(searchQ)) netNewsScore -= 8;
+      }
+
+      netNewsScore = Math.max(-10, Math.min(10, netNewsScore));
+      return { netNewsScore };
+    }
+
+    function getStrategyConfig() {
+      const styleEl = document.getElementById('styleSelect') || style?.input;
+      const styleVal = styleEl?.value || savedStyle || 'INTRADAY';
+      if (styleVal === 'SCALPING') {
+        return {
+          code: 'SCALPING',
+          badge: 'MODE: SCALPING (M15/M30 + FASTBULL ORDER CLUSTER)',
+          desc: 'Struktur: H1 + Bias H4 | Entry: Retest Base Mikro + Klaster Likuiditas FastBull | Asumsi Durasi: Maks 1-4 Jam (Intrasesi)',
+          entryLabel: 'ENTRY (FB SCALP RETEST)',
+          slLabel: 'SL (MICRO SWING)',
+          tpLabel: 'TP (SCALP TARGET)',
+          engineTitle: 'KAYSTRADE + FASTBULL SCALPING ENGINE',
+          recommendedTFs: ['5m', '15m', '30m'],
+          retestAtrMult: 0.18,
+          slAtrMult: 1.30,
+          rrTarget: 2.2,
+          lookbackSwingBars: 24,
+          weights: { h4: 11, speed: 8, h1Pivot: 11, fvg: 10, rsi: 10 }
+        };
+      } else if (styleVal === 'SWING') {
+        return {
+          code: 'SWING',
+          badge: 'MODE: SWING (HOLD UNTIL TP/SL)',
+          desc: 'Konteks: Trendline D1 | Struktur: H4 HH/HL atau LH/LL + Target Posisi Institusi FastBull | Durasi: Hold sampai menyentuh TP/SL',
+          entryLabel: 'ENTRY (FB H4 ZONE)',
+          slLabel: 'SL (H4 INVALIDATION)',
+          tpLabel: 'TP (MAJOR SWING)',
+          engineTitle: 'KAYSTRADE + FASTBULL SWING ENGINE',
+          recommendedTFs: ['1h', '4h', '1d'],
+          retestAtrMult: 0.50,
+          slAtrMult: 2.80,
+          rrTarget: 3.8,
+          lookbackSwingBars: 90,
+          weights: { h4: 20, speed: 11, h1Pivot: 10, fvg: 6, rsi: 6 }
+        };
+      } else {
+        return {
+          code: 'INTRADAY',
+          badge: 'MODE: INTRADAY (MAX 24 JAM)',
+          desc: 'Arah Utama: Big Trend H4 + Speedometer D1/H4 | Entry: Retest Base H1/M30 + Klaster Posisi FastBull | Durasi Maks: 24 Jam',
+          entryLabel: 'ENTRY (FB + BASE RETEST)',
+          slLabel: 'SL (SWING INVALIDATION)',
+          tpLabel: 'TP (INTRADAY SWING)',
+          engineTitle: 'KAYSTRADE + FASTBULL INTRADAY ENGINE',
+          recommendedTFs: ['15m', '30m', '1h'],
+          retestAtrMult: 0.32,
+          slAtrMult: 1.95,
+          rrTarget: 2.8,
+          lookbackSwingBars: 48,
+          weights: { h4: 16, speed: 9, h1Pivot: 10, fvg: 8, rsi: 8 }
+        };
+      }
+    }
+
+    function onStrategyStyleChange() {
+      const cfg = getStrategyConfig();
+      const spBadge = document.getElementById('spNameBadge');
+      if (spBadge) spBadge.textContent = cfg.badge;
+      const spDesc = document.getElementById('spRuleDesc');
+      if (spDesc) spDesc.textContent = cfg.desc;
+      const lblEntry = document.getElementById('lblEntryTitle');
+      if (lblEntry) lblEntry.textContent = cfg.entryLabel;
+      const lblSL = document.getElementById('lblSLTitle');
+      if (lblSL) lblSL.textContent = cfg.slLabel;
+      const lblTP = document.getElementById('lblTPTitle');
+      if (lblTP) lblTP.textContent = cfg.tpLabel;
+      const engMode = document.getElementById('engineModeLabel');
+      if (engMode) engMode.textContent = cfg.engineTitle;
+      const sigSub = document.getElementById('sigSubLabel');
+      if (sigSub) sigSub.textContent = cfg.code + ' · KAYSTRADE + FASTBULL POSITION';
+
+      document.querySelectorAll('.tf-btn').forEach(btn => {
+        const tf = btn.getAttribute('data-frame') || btn.getAttribute('data-tf');
+        btn.classList.toggle('recommended-tf', cfg.recommendedTFs.includes(tf));
+      });
+
+      const titleEl = document.getElementById('chartTitle');
+      if (titleEl) {
+        titleEl.textContent = currentPairObj.code + ' (' + currentPairObj.name + ') · ' + selectedFrame.toUpperCase() + ' · ' + cfg.code;
+      }
+
+      evaluateKaystradeEngine(true);
     }
 
     function getPairCurrencies(pairObj) {
@@ -2878,57 +3378,66 @@ Gunakan format Markdown (bold, tabel, bullet points, blok kode) untuk memperjela
         applyLoadedCandles(activeData, h1Data, h4Data, d1Data);
         activeFeedInfo.textContent = 'Feed: Kaystrade 16:9 Engine (' + currentPairObj.code + ')';
       }
-    }
+    
+      setTVRegularZoom();
+      syncFastBullPositionData(false);
+      onStrategyStyleChange();
+}
 
     function evaluateKaystradeEngine(drawLines = false) {
       if (currentCandles.length < 10) return;
 
+      const cfg = getStrategyConfig();
       const lastCandle = currentCandles[currentCandles.length - 1];
       const livePrice = Number(lastCandle.close);
 
-      const h4Struct = analyzeStructure(h4Candles.length >= 20 ? h4Candles : currentCandles);
+      const recent24 = currentCandles.slice(-24);
+      const atr = recent24.length
+        ? recent24.reduce((acc, c) => acc + (Number(c.high) - Number(c.low)), 0) / recent24.length
+        : (livePrice * 0.002);
+
+      const h4Struct = analyzeStructure(h4Candles.length >= 20 ? h4Candles : currentCandles, 60);
       const speedH4 = analyzeSpeedometer(h4Candles.length >= 20 ? h4Candles : currentCandles);
       const speedD1 = d1Candles.length >= 20 ? analyzeSpeedometer(d1Candles) : speedH4;
-      const h1Struct = analyzeStructure(h1Candles.length >= 20 ? h1Candles : currentCandles);
-      const tfStruct = analyzeStructure(currentCandles);
+      const h1Struct = analyzeStructure(h1Candles.length >= 20 ? h1Candles : currentCandles, 48);
+      const tfStruct = analyzeStructure(currentCandles, cfg.lookbackSwingBars);
       const fvg = findLatestFreshFVG(currentCandles);
       const rsiInfo = calcRSIWithSMA14(currentCandles);
 
+      const fbPos = computeFastBullPositionAnalysis(livePrice, atr, h4Struct, tfStruct, cfg);
       const newsCheck = checkOneHourHighImpactWarning();
-      const fundaMode = fundaBiasSelect ? fundaBiasSelect.value : 'AUTO';
+      const econSent = computeEconomicNewsScoreForPair();
 
       let buyPoints = 50;
       let confirmations = 0;
 
-      if (h4Struct.score > 0) { buyPoints += 16; confirmations++; }
-      else if (h4Struct.score < 0) { buyPoints -= 16; confirmations++; }
+      // 1. Big Trend H4
+      if (h4Struct.score > 0) { buyPoints += cfg.weights.h4; confirmations++; }
+      else if (h4Struct.score < 0) { buyPoints -= cfg.weights.h4; confirmations++; }
 
-      if (speedH4.dir > 0 && speedD1.dir >= 0) { buyPoints += 9; confirmations++; }
-      else if (speedH4.dir < 0 && speedD1.dir <= 0) { buyPoints -= 9; confirmations++; }
+      // 2. Speedometer D1 & H4
+      if (speedH4.dir > 0 && speedD1.dir >= 0) { buyPoints += cfg.weights.speed; confirmations++; }
+      else if (speedH4.dir < 0 && speedD1.dir <= 0) { buyPoints -= cfg.weights.speed; confirmations++; }
 
-      if (livePrice > h4Struct.pivot && h1Struct.score >= 0) { buyPoints += 10; confirmations++; }
-      else if (livePrice < h4Struct.pivot && h1Struct.score <= 0) { buyPoints -= 10; confirmations++; }
+      // 3. Key Pivot H4 & Struktur H1
+      if (livePrice > h4Struct.pivot && h1Struct.score >= 0) { buyPoints += cfg.weights.h1Pivot; confirmations++; }
+      else if (livePrice < h4Struct.pivot && h1Struct.score <= 0) { buyPoints -= cfg.weights.h1Pivot; confirmations++; }
 
-      if (fvg.type === 'BULLISH') { buyPoints += 7; confirmations++; }
-      else if (fvg.type === 'BEARISH') { buyPoints -= 7; confirmations++; }
+      // 4. Fresh FVG / Supply Demand
+      if (fvg.type === 'BULLISH') { buyPoints += cfg.weights.fvg; confirmations++; }
+      else if (fvg.type === 'BEARISH') { buyPoints -= cfg.weights.fvg; confirmations++; }
 
-      if (rsiInfo.rsi > rsiInfo.sma && rsiInfo.rsi < 72) { buyPoints += 7; confirmations++; }
-      else if (rsiInfo.rsi < rsiInfo.sma && rsiInfo.rsi > 28) { buyPoints -= 7; confirmations++; }
+      // 5. Momentum RSI(14) vs SMA(14) Kuning
+      if (rsiInfo.rsi > rsiInfo.sma && rsiInfo.rsi < 74) { buyPoints += cfg.weights.rsi; confirmations++; }
+      else if (rsiInfo.rsi < rsiInfo.sma && rsiInfo.rsi > 26) { buyPoints -= cfg.weights.rsi; confirmations++; }
 
-      let fundaTagText = 'Clear (>1H dari High Impact News)';
-      if (newsCheck.isLocked) {
-        fundaTagText = 'ALERT: ' + newsCheck.event.country + ' High Impact dalam ' + newsCheck.minutesLeft + 'm!';
-      } else if (fundaMode === 'BULLISH') {
-        buyPoints += 10;
-        confirmations++;
-        fundaTagText = 'Funda Bullish Catalyst (+10% Buy)';
-      } else if (fundaMode === 'BEARISH') {
-        buyPoints -= 10;
-        confirmations++;
-        fundaTagText = 'Funda Bearish Catalyst (+10% Sell)';
-      } else {
-        confirmations++;
-      }
+      // 6. Analisa Posisi FastBull (https://www.fastbull.com/list-position)
+      buyPoints += fbPos.fbScoreDelta;
+      if (Math.abs(fbPos.fbScoreDelta) >= 3) confirmations++;
+
+      // 7. Berita Ekonomi & Proteksi 1 Jam High Impact News
+      buyPoints += Math.round(econSent.netNewsScore * 0.5);
+      if (!newsCheck.isLocked) confirmations++;
 
       buyPoints = Math.max(6, Math.min(94, buyPoints));
       const sellPoints = +(100 - buyPoints).toFixed(1);
@@ -2938,34 +3447,50 @@ Gunakan format Markdown (bold, tabel, bullet points, blok kode) untuk memperjela
       let modeClass = 'wait-mode';
       let conf = Math.max(buyPoints, sellPoints);
 
+      const isIntradayH4Blocked = (cfg.code === 'INTRADAY' && h4Struct.bias === 'CONSOLIDATION' && conf < 72);
+
       if (newsCheck.isLocked) {
         signal = 'WAIT (NEWS < 1H)';
         modeClass = 'news-lock-mode';
-      } else if (buyPoints >= 62 && confirmations >= 3) {
-        signal = 'BUY';
+      } else if (isIntradayH4Blocked) {
+        signal = 'WAIT (H4 NEUTRAL)';
+        modeClass = 'wait-mode';
+      } else if (buyPoints >= 60 && confirmations >= 3) {
+        signal = cfg.code === 'SCALPING' ? 'SCALP BUY' : 'BUY';
         modeClass = 'buy-mode';
-      } else if (sellPoints >= 62 && confirmations >= 3) {
-        signal = 'SELL';
+      } else if (sellPoints >= 60 && confirmations >= 3) {
+        signal = cfg.code === 'SCALPING' ? 'SCALP SELL' : 'SELL';
         modeClass = '';
       }
 
-      const recent30 = currentCandles.slice(-30);
-      const avgRange = recent30.length ? recent30.reduce((acc, c) => acc + (Number(c.high) - Number(c.low)), 0) / recent30.length : (livePrice * 0.002);
-
+      // Penentuan Level Entry FastBull + Retest Base / FVG
       let entryPrice = livePrice;
       let slPrice = livePrice;
       let tpPrice = livePrice;
 
+      const isGold = currentPairObj.code.includes('XAU') || currentPairObj.code.includes('GOLD') || currentPairObj.code.includes('PAXG');
+      const maxGoldSlDist = 100.0;
+
       if (sellPoints > buyPoints) {
-        entryPrice = livePrice + avgRange * 0.35;
-        slPrice = Math.max(entryPrice + avgRange * 2.2, tfStruct.swingHigh || (entryPrice + avgRange * 2.2));
+        const techRetestSell = fvg.type === 'BEARISH' && fvg.price > livePrice
+          ? (fvg.price + fbPos.instSellEntryCluster) / 2
+          : fbPos.instSellEntryCluster;
+        entryPrice = techRetestSell;
+        let rawSL = Math.max(entryPrice + (atr * cfg.slAtrMult), tfStruct.swingHigh || (entryPrice + (atr * cfg.slAtrMult)));
+        if (isGold && (rawSL - entryPrice) > maxGoldSlDist) rawSL = entryPrice + maxGoldSlDist;
+        slPrice = rawSL;
         const risk = Math.abs(slPrice - entryPrice) || (livePrice * 0.005);
-        tpPrice = entryPrice - risk * 3.0;
+        tpPrice = entryPrice - (risk * cfg.rrTarget);
       } else {
-        entryPrice = livePrice - avgRange * 0.35;
-        slPrice = Math.min(entryPrice - avgRange * 2.2, tfStruct.swingLow || (entryPrice - avgRange * 2.2));
+        const techRetestBuy = fvg.type === 'BULLISH' && fvg.price < livePrice
+          ? (fvg.price + fbPos.instBuyEntryCluster) / 2
+          : fbPos.instBuyEntryCluster;
+        entryPrice = techRetestBuy;
+        let rawSL = Math.min(entryPrice - (atr * cfg.slAtrMult), tfStruct.swingLow || (entryPrice - (atr * cfg.slAtrMult)));
+        if (isGold && (entryPrice - rawSL) > maxGoldSlDist) rawSL = entryPrice - maxGoldSlDist;
+        slPrice = rawSL;
         const risk = Math.abs(entryPrice - slPrice) || (livePrice * 0.005);
-        tpPrice = entryPrice + risk * 3.0;
+        tpPrice = entryPrice + (risk * cfg.rrTarget);
       }
 
       const riskDist = Math.abs(entryPrice - slPrice) || 0.0001;
@@ -2990,14 +3515,14 @@ Gunakan format Markdown (bold, tabel, bullet points, blok kode) untuk memperjela
         verifiedPill.style.backgroundColor = '#290f14';
         verifiedPill.style.borderColor = '#ff2a5f';
       } else {
-        verifiedPill.textContent = 'TECH + FUNDA OK';
+        verifiedPill.textContent = 'FB + ' + cfg.code + ' OK';
         verifiedPill.style.color = '#34d399';
         verifiedPill.style.backgroundColor = '#0d211b';
         verifiedPill.style.borderColor = '#164e3b';
       }
 
       const engName = document.getElementById('engineStatusName');
-      if (engName) engName.textContent = currentPairObj.code + ' · ' + confirmations + '/6 Tech+Funda Rules';
+      if (engName) engName.textContent = currentPairObj.code + ' · ' + confirmations + '/7 Pillars (' + cfg.code + ')';
 
       const stateEl = document.getElementById('valState');
       if (stateEl) {
@@ -3007,8 +3532,8 @@ Gunakan format Markdown (bold, tabel, bullet points, blok kode) untuk memperjela
 
       const advEl = document.getElementById('valAdv');
       if (advEl) {
-        advEl.textContent = 'RSI ' + rsiInfo.rsi.toFixed(1) + ' | ' + (newsCheck.isLocked ? 'NEWS <1H' : 'FUNDA OK');
-        advEl.style.color = newsCheck.isLocked ? '#ff2a5f' : (rsiInfo.rsi >= rsiInfo.sma ? '#34d399' : '#fb7185');
+        advEl.textContent = 'FB ' + fbPos.longPct.toFixed(0) + '%L/' + fbPos.shortPct.toFixed(0) + '%S (' + (fbPos.fbScoreDelta >= 0 ? '+' : '') + fbPos.fbScoreDelta + '%)';
+        advEl.style.color = fbPos.fbScoreDelta >= 0 ? '#34d399' : '#fb7185';
       }
 
       const bBuy = document.getElementById('barBuy');
@@ -3020,22 +3545,31 @@ Gunakan format Markdown (bold, tabel, bullet points, blok kode) untuk memperjela
       const tSell = document.getElementById('txtSell');
       if (tSell) tSell.textContent = sellPoints.toFixed(1) + '%';
 
+      const durationNote = cfg.code === 'SCALPING'
+        ? 'Asumsi Maks 1-4 Jam (Tight Retest)'
+        : cfg.code === 'INTRADAY'
+          ? 'Maksimum 24 Jam (H4->H1->M30)'
+          : 'Hold Sampai Menyentuh TP/SL';
+
       const evList = document.getElementById('evidenceList');
       if (evList) {
         evList.replaceChildren();
         const evItems = [
-          ['1. Big Trend H4 & Speedometer', h4Struct.bias + ' · ' + speedH4.label],
-          ['2. Key Pivot H4 (Garis Kuning)', fmtPrice(h4Struct.pivot) + ' (' + (livePrice > h4Struct.pivot ? 'Above' : 'Below') + ')'],
-          ['3. Struktur H1 & Swing Range', h1Struct.bias + ' (' + fmtPrice(tfStruct.swingLow) + ' - ' + fmtPrice(tfStruct.swingHigh) + ')'],
-          ['4. Imbalance / Fresh FVG', fvg.label],
-          ['5. RSI(14) vs SMA(14) Kuning', rsiInfo.status + ' (' + rsiInfo.rsi.toFixed(1) + ')'],
-          ['6. Fundamental & 1H News Guard', fundaTagText]
+          ['1. Strategi & Durasi (' + cfg.code + ')', durationNote],
+          ['2. FastBull Position (list-position)', fbPos.longPct.toFixed(1) + '% Long vs ' + fbPos.shortPct.toFixed(1) + '% Short -> Entry ' + fmtPrice(entryPrice)],
+          ['3. Big Trend H4 & Speedometer', h4Struct.bias + ' · ' + speedH4.label],
+          ['4. Key Pivot H4 & Status Base', 'Pivot ' + fmtPrice(h4Struct.pivot) + ' · ' + tfStruct.baseBreakout],
+          ['5. Struktur H1 & Fresh FVG', h1Struct.bias + ' · ' + fvg.label],
+          ['6. Momentum RSI(14) / SMA(14)', rsiInfo.status + ' (' + rsiInfo.rsi.toFixed(1) + ')'],
+          ['7. Berita Ekonomi & 1H News Guard', newsCheck.isLocked ? ('LOCKED: ' + newsCheck.event.title + ' (' + newsCheck.minutesLeft + 'm)') : ('Clear (>1H) · News Bias ' + (econSent.netNewsScore >= 0 ? '+' : '') + econSent.netNewsScore + '%')]
         ];
         evItems.forEach(([label, tag]) => {
           const item = node('div', null, 'ev-item');
           const spanLabel = node('span', label);
           const spanTag = node('span', tag, 'ev-tag');
-          if (label.startsWith('6.')) {
+          if (label.startsWith('2.')) {
+            spanTag.style.color = '#c084fc';
+          } else if (label.startsWith('7.')) {
             spanTag.style.color = newsCheck.isLocked ? '#ff2a5f' : '#34d399';
           }
           item.append(spanLabel, spanTag);
@@ -3045,6 +3579,8 @@ Gunakan format Markdown (bold, tabel, bullet points, blok kode) untuk memperjela
 
       lastAnalysisResult = {
         timestamp: new Date().toISOString(),
+        strategy: cfg.code,
+        durationRule: durationNote,
         symbol: currentPairObj.code,
         timeframe: selectedFrame,
         chartAspectRatio: '16:9',
@@ -3056,6 +3592,13 @@ Gunakan format Markdown (bold, tabel, bullet points, blok kode) untuk memperjela
         confidence: conf,
         rr: '1:' + rrRatio,
         levels: { entry: fmtPrice(entryPrice), sl: fmtPrice(slPrice), tp: fmtPrice(tpPrice), keyPivotH4: fmtPrice(h4Struct.pivot) },
+        fastbullPositionAnalysis: {
+          source: 'https://www.fastbull.com/list-position',
+          longRatioPct: fbPos.longPct,
+          shortRatioPct: fbPos.shortPct,
+          entryClusterPrice: fmtPrice(entryPrice),
+          scoreDelta: fbPos.fbScoreDelta
+        },
         probabilities: { buy: buyPoints, sell: sellPoints }
       };
 
@@ -3066,13 +3609,13 @@ Gunakan format Markdown (bold, tabel, bullet points, blok kode) untuk memperjela
             price: h4Struct.pivot, color: '#facc15', lineWidth: 2, lineStyle: 0, title: 'H4 KEY PIVOT'
           }));
           priceLines.push(candleSeries.createPriceLine({
-            price: entryPrice, color: '#a855f7', lineWidth: 2, lineStyle: 2, title: (signal === 'BUY' || signal === 'SELL' ? signal : (buyPoints >= sellPoints ? 'BUY' : 'SELL')) + ' WATCH'
+            price: entryPrice, color: '#a855f7', lineWidth: 2, lineStyle: 2, title: 'FB + ' + cfg.code + ' ' + (buyPoints >= sellPoints ? 'BUY' : 'SELL') + ' ENTRY'
           }));
           priceLines.push(candleSeries.createPriceLine({
-            price: slPrice, color: '#ff2a5f', lineWidth: 1, lineStyle: 2, title: 'SL (INVALIDATION)'
+            price: slPrice, color: '#ff2a5f', lineWidth: 1, lineStyle: 2, title: 'SL (' + cfg.code + ')'
           }));
           priceLines.push(candleSeries.createPriceLine({
-            price: tpPrice, color: '#00e676', lineWidth: 1, lineStyle: 2, title: 'TP (TARGET)'
+            price: tpPrice, color: '#00e676', lineWidth: 1, lineStyle: 2, title: 'TP (1:' + rrRatio + ')'
           }));
         } catch (e) {}
       }
@@ -3211,7 +3754,7 @@ Gunakan format Markdown (bold, tabel, bullet points, blok kode) untuk memperjela
       const row = mapped.find(item => item.symbol === instrument.input.value);
       const frame = next === 'SWING' ? '4h' : (next === 'SCALPING' ? '15m' : '30m');
       await chooseFrame(row?.timeframes?.includes(frame) ? frame : row?.timeframes?.[0] || frame);
-      evaluateKaystradeEngine(true);
+      onStrategyStyleChange();
     }));
 
     // Load instruments catalog
@@ -3452,6 +3995,8 @@ Gunakan format Markdown (bold, tabel, bullet points, blok kode) untuk memperjela
     // Initialize Chart and Economic Calendar
     initChart();
     fetchLiveEconomicCalendar().catch(() => {});
+    renderNewsHeadlines();
+    onStrategyStyleChange();
 
     await Promise.all([
       contextLoad().catch(() => {}),
