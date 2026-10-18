@@ -2167,7 +2167,7 @@ Gunakan format Markdown (bold, tabel, bullet points, blok kode) untuk memperjela
           <button class="f-tab-btn" id="tabBtnCalendar" type="button">Kalender Ekonomi (&lt;1H Guard)</button>
         </div>
         <a href="https://www.fastbull.com/list-position" target="_blank" rel="noopener" style="font-size:10.5px; color:#38bdf8; text-decoration:none; font-weight:700;">
-          🔗 Sumber: fastbull.com/list-position ↗
+          Sumber: fastbull.com/list-position -&gt;
         </a>
       </div>
 
@@ -4173,15 +4173,11 @@ Gunakan data dari https://www.fastbull.com/list-position sebagai filter konfirma
     apiKeyBtn.type='button';
     function updateKeyBtnState(){
       const active=hasGeminiApiKey();
-      if(active){
-        apiKeyBtn.style.display='none';
-      } else {
-        apiKeyBtn.style.display='inline-flex';
-        apiKeyBtn.replaceChildren();
-        const dot=node('span',null,'pro-dot offline');
-        const label=node('span','Set Gemini API Key');
-        apiKeyBtn.append(dot,label);
-      }
+      apiKeyBtn.style.display='inline-flex';
+      apiKeyBtn.replaceChildren();
+      const dot=node('span',null,'pro-dot '+(active?'online':'offline'));
+      const label=node('span',active?'Gemini AI: Connected':'Set Gemini API Key');
+      apiKeyBtn.append(dot,label);
     }
     updateKeyBtnState();
     apiKeyBtn.addEventListener('click',()=>openGeminiConfigModal(()=>{
@@ -4202,7 +4198,7 @@ Gunakan data dari https://www.fastbull.com/list-position sebagai filter konfirma
       if(!['ai-market','ai-chat','global-news'].includes(feature)) {
         const [accountData,strategyData]=await Promise.all([request('/accounts'),request('/strategies')]);if(epoch!==revision)return;accounts=accountData.items || [];strategies=strategyData.items || [];
       }
-      await ({analytics,heatmap,strategies:strategyComparison,risk,reviews,reports,'ai-behaviour':()=>ai('behaviour'),'ai-market':marketIntelligence,'ai-journal':()=>ai('journal'),'ai-chat':aiChat,'global-news':geminiConfigSection})[feature]();if(epoch===revision && status.textContent===text('Loading','Loading…'))status.textContent='';
+      await ({analytics,heatmap,strategies:strategyComparison,risk,reviews,reports,'ai-behaviour':()=>ai('behaviour'),'ai-market':marketIntelligence,'ai-journal':()=>ai('journal'),'ai-chat':aiChat,'global-news':news})[feature]();if(epoch===revision && status.textContent===text('Loading','Loading…'))status.textContent='';
     } catch(error) {if(epoch===revision)showError(error);}
   }
   function reset() {revision++;controller.abort();controller=new AbortController();clearAccess();current='';filters={};preset={};accounts=[];strategies=[];root?.replaceChildren();status=null;content=null;}
