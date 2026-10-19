@@ -569,6 +569,7 @@ body:has(#view-beranda.active) .navbar {
   letter-spacing: -0.02em;
   line-height: 1.1;
   margin: 0 0 8px;
+  white-space: nowrap;
 }
 
 .timeline-desc {
@@ -576,6 +577,8 @@ body:has(#view-beranda.active) .navbar {
   color: #a1a1aa;
   line-height: 1.4;
   margin: 0;
+  word-break: normal;
+  overflow-wrap: normal;
 }
 
 @media (max-width: 768px) {
