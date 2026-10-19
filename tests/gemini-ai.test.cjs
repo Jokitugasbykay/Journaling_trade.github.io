@@ -22,12 +22,12 @@ const server=http.createServer(async(req,res)=>{
       return res.end(JSON.stringify({ok:true}));
     }
     if(url.pathname==='/') {
-      res.setHeader('Content-Type','text/html');
-      return res.end('<!doctype html><html><head><meta name="viewport" content="width=device-width,initial-scale=1"><link rel="stylesheet" href="/css/style.css"><link rel="stylesheet" href="/css/pro.css"></head><body><main><section class="pro-workspace active" id="view-pro-workspace"></section></main><script src="/js/pro.js"></script><script>JTPRO.configure({apiBase:location.origin,getToken:async()=>"gemini-test-token",getUserId:()=>"gemini-user"});</script></body></html>');
+      res.setHeader('Content-Type','text/html; charset=utf-8');
+      return res.end('<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><link rel="stylesheet" href="/css/style.css"><link rel="stylesheet" href="/css/pro.css"></head><body><main><section class="pro-workspace active" id="view-pro-workspace"></section></main><script src="/js/pro.js"></script><script>JTPRO.configure({apiBase:location.origin,getToken:async()=>"gemini-test-token",getUserId:()=>"gemini-user"});</script></body></html>');
     }
     const file=path.resolve(root,'.'+url.pathname);
     if(!file.startsWith(root+path.sep)) throw new Error('Invalid path');
-    res.setHeader('Content-Type',file.endsWith('.css')?'text/css':'application/javascript');
+    res.setHeader('Content-Type',file.endsWith('.css')?'text/css; charset=utf-8':'application/javascript; charset=utf-8');
     res.end(fs.readFileSync(file));
   } catch(e) {
     res.statusCode=500;
@@ -312,6 +312,51 @@ const server=http.createServer(async(req,res)=>{
   assert.ok(reloadedChatText.includes('Support Become Resistance'));
   assert.ok(reloadedChatText.includes('Lalu bagaimana konfirmasi retest-nya?'));
   assert.ok(reloadedChatText.includes('tunggu body candle reject'));
+
+  // Test zero-leak sanitization on inline planning checklist response
+  geminiMockResponse = {
+    candidates:[
+      {
+        content:{
+          parts:[
+            {
+              text:`"imuttt nyaaa" (So cuteeee). The user is complimenting the AI's personality/style. Kayla AI (Cute, sweet, energetic, supportive, professional in trading).
+
+• Acknowledge the compliment with a cute, energetic, and sweet response.
+• Maintain the persona (Kayla AI).
+• Gently steer the conversation back to the core purpose: Trading.
+• Ensure no forbidden symbols (no skull emojis, no em/en dashes).
+• Use Markdown for a neat look.
+
+• Check: No skull emojis? Yes.
+• Check: No em/en dashes? Yes (use "-" or ":").
+• Check: Tone? Cute, sweet, energetic.
+• Check: Topic? Steering towards trading.
+
+"Hehe, makasih banyak yaaa! Kamu bisa aja deh bikin Kayla jadi malu-malu kucing~ Tapi meskipun imut, Kayla tetep asisten cerdas yang disiplin! Yuk kita langsung bahas trading aja!"`
+            }
+          ]
+        }
+      }
+    ]
+  };
+  await page.fill('#pro-ai-chat-message','imuttt nyaaa');
+  await page.click('#pro-ai-chat-send');
+  await page.waitForFunction(()=>document.querySelectorAll('.pro-chat-message[data-role="assistant"] .pro-markdown').length===3);
+  const thirdBubbleText = await page.locator('.pro-chat-message[data-role="assistant"]').nth(2).textContent();
+  assert.ok(!thirdBubbleText.includes('Check: No skull emojis'), 'Checklist rules must not leak');
+  assert.ok(!thirdBubbleText.includes('• Acknowledge'), 'Planning bullets must not leak');
+  assert.ok(!thirdBubbleText.includes('The user is complimenting'), 'User analysis must not leak');
+  assert.ok(thirdBubbleText.includes('Hehe, makasih banyak yaaa!'), 'Clean dialogue must be presented');
+
+  // Verify unit sanitization utility in page context
+  const unitSanitizationResult = await page.evaluate(()=>{
+    const rawWithAllArtifacts = `Kayla AI\n• User says: "halo"\n• Context: I am Kayla AI\n• Check: No skull emojis? Yes.\n• Tone: "Halo halo! Semangat trading yaaa!"`;
+    return JTPRO.sanitizeChatOutput(rawWithAllArtifacts);
+  });
+  assert.ok(!unitSanitizationResult.includes('User says:'));
+  assert.ok(!unitSanitizationResult.includes('Check:'));
+  assert.ok(unitSanitizationResult.includes('Halo halo! Semangat trading yaaa!'));
 
   // Test clear chat button
   const dialogHandler = async dialog => { await dialog.accept(); };
