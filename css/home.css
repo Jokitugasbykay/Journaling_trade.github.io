@@ -375,7 +375,7 @@ body:has(#view-beranda.active) .navbar {
 .home-timeline-hero-fullscreen {
   position: relative;
   width: 100%;
-  height: 190vh;
+  height: 280vh;
   background: #000000;
   color: #ffffff;
   overflow: clip;
@@ -383,7 +383,7 @@ body:has(#view-beranda.active) .navbar {
 
 @media (max-width: 600px) {
   .home-timeline-hero-fullscreen {
-    height: 230vh;
+    height: 340vh;
   }
 }
 
@@ -449,7 +449,7 @@ body:has(#view-beranda.active) .navbar {
   max-height: 440px;
   width: max-content;
   min-width: max-content;
-  padding-right: 28vw;
+  padding-right: calc(45vw + 120px);
   flex-shrink: 0;
 }
 

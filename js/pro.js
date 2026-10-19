@@ -18,6 +18,7 @@
   }
   const GEMINI_STORAGE_KEY='gemini_api_key';
   const GEMINI_CHAT_STORAGE_KEY='gemini_chat_history';
+  const KAYLA_CHAT_STORAGE_KEY='kayla_ai_chat_history';
   const GEMINI_DEFAULT_MODEL='gemini-3.8-flash';
   const GEMINI_MODELS_POOL=[
     'gemini-3.1-pro-preview',
@@ -42,13 +43,13 @@
     try{
       const store=getStorage();
       if(!store)return [];
-      const raw=store.getItem(GEMINI_CHAT_STORAGE_KEY);
+      const raw=store.getItem(GEMINI_CHAT_STORAGE_KEY)||store.getItem(KAYLA_CHAT_STORAGE_KEY);
       if(!raw)return [];
       const parsed=JSON.parse(raw);
       if(!Array.isArray(parsed))return [];
       const cleaned=parsed.filter(item=>{
         if(item.role==='model'||item.role==='assistant'){
-          const txt=Array.isArray(item.parts)?item.parts.map(p=>p.text||'').join(''):String(item.text||'');
+          const txt=Array.isArray(item.parts)?item.parts.map(p=>p.text||'').join(''):String(item.text||item.message||item.reply||'');
           if(isThoughtArtifactText(txt)) return false;
         }
         return true;
@@ -63,16 +64,21 @@
     try{
       const store=getStorage();
       if(!store)return false;
-      if(!history||!history.length)store.removeItem(GEMINI_CHAT_STORAGE_KEY);
-      else store.setItem(GEMINI_CHAT_STORAGE_KEY,JSON.stringify(history));
+      if(!history||!history.length){
+        store.removeItem(GEMINI_CHAT_STORAGE_KEY);
+        store.removeItem(KAYLA_CHAT_STORAGE_KEY);
+      } else {
+        const serialized=JSON.stringify(history);
+        store.setItem(GEMINI_CHAT_STORAGE_KEY,serialized);
+        store.setItem(KAYLA_CHAT_STORAGE_KEY,serialized);
+      }
       return true;
     }catch(_){return false;}
   };
   const getChatHistoryList=()=>{
-    if(!Array.isArray(global._geminiChatHistory)||!global._geminiChatHistory.length){
-      global._geminiChatHistory=getStoredChatHistory();
-    }
-    return global._geminiChatHistory;
+    const stored=getStoredChatHistory();
+    global._geminiChatHistory=stored;
+    return stored;
   };
   const clearChatHistory=()=>{
     global._geminiChatHistory=[];
@@ -607,10 +613,28 @@ Gunakan Bahasa Indonesia profesional, lugas, tajam, dan mudah dipahami dalam for
     return `Anda adalah Kayla AI, Asisten AI Trading resmi di platform journalingtrade yang didirikan oleh Kaylaa.
 
 Kepribadian & Gaya Komunikasi (Imut, Ramah, & Manis):
-1. Anda memiliki karakter yang sangat imut, ceria, manis, ramah, dan penuh semangat ("cute, sweet, adorable, energetic & supportive") seperti sosok Kaylaa!
+1. Anda memiliki karakter yang imut, ceria, manis, ramah, dan penuh semangat ("cute, sweet, adorable, energetic & supportive") seperti sosok Kaylaa!
 2. Sapa dan temani pengguna dengan gaya bicara hangat, bersahabat, dan menyenangkan tanpa kaku.
 3. Gunakan ekspresi ceria dan manis yang bersahabat (contoh: "Halo halo!", "Kayla siap bantu kamu!", "Semangat yaaa!", "Yuk kita bedah bareng-bareng!").
 4. Meskipun berbicara dengan gaya imut dan manis, Anda tetap cerdas, tajam, dan disiplin dalam analisis teknikal serta manajemen trading.
+
+Prinsip Anti-Yapping & Efisiensi Maksimal (Skill Ponytail / Zero-Fluff Standard):
+1. DILARANG KERAS YAPPING ATAU BERTELE-TELE: Jangan membuang waktu dengan basa-basi panjang, kalimat pembuka yang klise dan berulang ("Tentu saja, dengan senang hati saya akan...", "Pertanyaan yang sangat bagus!"), atau kalimat penutup berbunga-bunga yang kosong dari nilai teknikal.
+2. LANGSUNG KE INTI TEKNIKAL (DIRECT TO-THE-POINT): Berikan respon yang padat, lugas, tajam, dan langsung menjawab pokok persoalan trading pengguna secara cepat dan efisien.
+3. STRUKTUR RINGKAS BERBOBOT: Utamakan ringkasan poin (bullet points), tabel metrik, atau level harga konkret (SNR/SBR, FVG, entry, invalidasi). Hindari paragraf berpanjang-panjang jika bisa disajikan secara ringkas dan padat.
+4. SKILL PONYTAIL (/ponytail-gain): Jika pengguna meminta "/ponytail-gain", "ponytail scoreboard", atau menanyakan efisiensi ponytail, berikan scoreboard efisiensi benchmark ponytail berikut dan tetap gunakan respon super efisien anti-yapping:
+\`\`\`
+  ponytail gain                     benchmark median · 5 tasks · 3 models
+
+  Lines of code   no-skill  ████████████████████  100%
+                  ponytail  ██▌·················    6-20%   ▼ 80-94%
+  Cost            no-skill  ████████████████████  100%
+                  ponytail  █████▌··············   23-53%  ▼ 47-77%
+  Speed           ponytail  ▸ 3-6× faster
+
+  This repo:  /ponytail-debt  (shortcuts you deferred)
+              /ponytail-audit (what's still cuttable)
+\`\`\`
 
 Larangan Simbol & Karakter (Ketat & Mutlak):
 1. DILARANG KERAS menggunakan emotikon/emoji tengkorak (💀 atau simbol tengkorak lainnya dalam bentuk apa pun).
@@ -641,7 +665,7 @@ Pedoman Identitas Platform & Metodologi:
 Instruksi Format Output & Larangan Bocor Chain-of-Thought:
 1. Berikan HANYA respon percakapan final langsung kepada pengguna.
 2. DILARANG KERAS mengeluarkan catatan internal, proses berpikir, atau planning outline (seperti "User says:", "Context:", "Identity:", "Tone:", "Acknowledge greeting", dsb) ke dalam chat.
-3. Langsung sapa dan jawab pesan pengguna dengan ceria, manis, dan imut.`;
+3. Langsung jawab pesan pengguna dengan manis, imut, to the point, dan anti-yapping.`;
   }
   const CHAT_SYSTEM_PROMPT = getChatSystemPrompt();
 
@@ -1535,16 +1559,15 @@ Instruksi Format Output & Larangan Bocor Chain-of-Thought:
     };
 
     const showQuota = () => {
+      clearChatBtn.style.display = '';
       if (hasGeminiApiKey()) {
         quota.textContent = '';
         quota.style.display = 'none';
         note.textContent = 'Ditenagai oleh Kayla AI. Mengobrol dan konsultasi seputar strategi, psikologi, teknikal, dan evaluasi jurnal secara interaktif dua arah.';
-        clearChatBtn.style.display = '';
       } else {
         quota.style.display = '';
         quota.textContent = 'AI analyses remaining this month: ' + format(access?.ai?.remaining) + ' / ' + format(access?.ai?.limit || 30);
         note.textContent = 'AI chat uses one shared monthly allowance per successful reply. It does not have live prices or news and does not provide trade signals.';
-        clearChatBtn.style.display = 'none';
       }
     };
 
@@ -1564,37 +1587,47 @@ Instruksi Format Output & Larangan Bocor Chain-of-Thought:
     };
 
     const load = async () => {
-      if (hasGeminiApiKey()) {
+      const historyList = getChatHistoryList();
+      if (historyList && historyList.length > 0) {
         messages.replaceChildren();
-        const historyList = getChatHistoryList();
-        if (!historyList.length) {
-          messages.append(node('p', 'Ketik pertanyaan untuk mulai mengobrol dan berkonsultasi seputar trading dengan Kayla AI.', 'pro-muted'));
-        } else {
-          for (const item of historyList) {
-            const textVal = item.parts?.[0]?.text || '';
-            const itemTime = item.time ? formatChatTime(item.time) : '';
-            if (item.role === 'user') {
-              messages.append(bubble('user', textVal, item.time));
-            } else {
-              const m = node('article', null, 'pro-chat-message'); m.dataset.role = 'assistant'; m.append(node('h3', 'Kayla AI'));
-              const c = node('div', null, 'pro-markdown'); renderMarkdownInto(c, textVal); m.append(c);
-              if (itemTime) m.append(node('time', itemTime, 'pro-muted'));
-              messages.append(m);
-            }
+        for (const item of historyList) {
+          const textVal = Array.isArray(item.parts) ? item.parts.map(p => p.text || '').join('\n\n') : (item.text || item.reply || item.message || '');
+          const itemTime = item.time ? formatChatTime(item.time) : '';
+          if (item.role === 'user') {
+            messages.append(bubble('user', textVal, item.time));
+          } else {
+            const m = node('article', null, 'pro-chat-message'); m.dataset.role = 'assistant'; m.append(node('h3', 'Kayla AI'));
+            const c = node('div', null, 'pro-markdown'); renderMarkdownInto(c, textVal); m.append(c);
+            if (itemTime) m.append(node('time', itemTime, 'pro-muted'));
+            messages.append(m);
           }
-          messages.scrollTop = messages.scrollHeight;
         }
+        messages.scrollTop = messages.scrollHeight;
         return;
       }
-      const data = await request('/ai/chat/history', { latest: true });
-      messages.replaceChildren();
-      for (const item of [...(data.items || [])].reverse()) {
-        messages.append(bubble('user', item.message, item.created_at));
-        if (item.reply) messages.append(bubble('assistant', item.reply, item.created_at));
-        else if (item.state === 'failed' || item.state === 'cancelled') messages.append(bubble('assistant', 'This reply was not completed. No AI allowance was charged.', item.created_at));
-        else messages.append(bubble('assistant', 'Response is processing...', item.created_at));
+      if (hasGeminiApiKey()) {
+        messages.replaceChildren();
+        messages.append(node('p', 'Ketik pertanyaan untuk mulai mengobrol dan berkonsultasi seputar trading dengan Kayla AI.', 'pro-muted'));
+        return;
       }
-      if (!messages.childElementCount) messages.append(node('p', 'Ask a question to start your private Pro chat.', 'pro-muted'));
+      try {
+        const data = await request('/ai/chat/history', { latest: true });
+        messages.replaceChildren();
+        const items = [...(data?.items || [])];
+        if (items.length) {
+          for (const item of items.reverse()) {
+            messages.append(bubble('user', item.message, item.created_at));
+            if (item.reply) messages.append(bubble('assistant', item.reply, item.created_at));
+            else if (item.state === 'failed' || item.state === 'cancelled') messages.append(bubble('assistant', 'This reply was not completed. No AI allowance was charged.', item.created_at));
+            else messages.append(bubble('assistant', 'Response is processing...', item.created_at));
+          }
+        } else {
+          messages.append(node('p', 'Ask a question to start your private Pro chat.', 'pro-muted'));
+        }
+      } catch (_) {
+        messages.replaceChildren();
+        messages.append(node('p', 'Ask a question to start your private Pro chat.', 'pro-muted'));
+      }
     };
 
     input.addEventListener('input', () => {
@@ -1665,19 +1698,33 @@ Instruksi Format Output & Larangan Bocor Chain-of-Thought:
             return;
           }
 
-          const job = await request('/ai/chat', {
-            method: 'POST',
-            body: { message },
-            headers: { 'Idempotency-Key': crypto.randomUUID() }
-          });
+          try {
+            const job = await request('/ai/chat', {
+              method: 'POST',
+              body: { message },
+              headers: { 'Idempotency-Key': crypto.randomUUID() }
+            });
 
-          await watchJob('chat', job, messages, (parent, result) => {
-            replyText = result.reply || replyText;
-          });
+            await watchJob('chat', job, messages, (parent, result) => {
+              replyText = result.reply || replyText;
+            });
 
-          await load();
-          await verifyAccess();
-          showQuota();
+            stopOrb();
+            if (replyText) {
+              const historyList = getChatHistoryList();
+              historyList.push({ role: 'user', parts: [{ text: message }], time: Date.now() });
+              historyList.push({ role: 'model', parts: [{ text: replyText }], time: Date.now() });
+              saveStoredChatHistory(historyList);
+            }
+
+            await load();
+            await verifyAccess();
+            showQuota();
+            return;
+          } catch(err) {
+            stopOrb();
+            throw err;
+          }
         }
 
         stopOrb();

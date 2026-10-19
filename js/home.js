@@ -524,8 +524,20 @@
       if (railLine) {
         const isMobile = window.innerWidth < 600;
         const baseWidth = isMobile ? 190 : 250;
-        const targetWidth = Math.max(baseWidth, (totalTrackWidth * 0.90) - 100);
-        const currentWidth = baseWidth + (progress * (targetWidth - baseWidth));
+        const node7 = section.querySelector('.timeline-node[data-num="07"]') || section.querySelector('.timeline-node:last-child');
+        const stageWrap = section.querySelector('.timeline-stage-wrap');
+        let targetWidth = 1980;
+        if (node7 && stageWrap) {
+          let left = 0;
+          let curr = node7;
+          while (curr && curr !== stageWrap && curr !== track) {
+            left += curr.offsetLeft || 0;
+            curr = curr.offsetParent;
+          }
+          targetWidth = Math.max(baseWidth, left + (node7.offsetWidth || 280) + 30);
+        }
+        const lineProgress = Math.min(1, progress / 0.88);
+        const currentWidth = baseWidth + (lineProgress * (targetWidth - baseWidth));
         railLine.style.width = currentWidth.toFixed(0) + 'px';
       }
     }
