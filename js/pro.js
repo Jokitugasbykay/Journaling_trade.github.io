@@ -7,7 +7,7 @@
     'ai-journal':'AI Journal Analyst', 'ai-chat':'AI Chat', 'global-news':'Gemini API Key'
   };
   const timeframes = {'1m':'1','5m':'5','15m':'15','30m':'30','1h':'60','4h':'240','1d':'D'};
-  let options={}, revision=0, controller=new AbortController(), access=null, current='', root=null, status=null, content=null, filters={}, preset={}, accounts=[], strategies=[];
+  let options={}, revision=0, controller=new AbortController(), access=null, current='', root=null, status=null, content=null, filters={}, preset={}, accounts=[], strategies=[], activeTabLoader=null;
   const latestReads=new Map();
   const text = (key,fallback) => options.labels?.(key,fallback) ?? global.JTI18n?.key('pro'+key,fallback) ?? fallback;
   function node(tag,value,className) {
@@ -526,10 +526,10 @@ Gaya Komunikasi:
     }
     access=result; options.onAccessChange?.(result); return result;
   }
-  function showError(error) { if(error.name!=='AbortError' && status) { status.textContent=error.name==='TimeoutError' ? text('Timeout','The service did not respond in time. Retry the section.') : error.message; status.setAttribute('role','alert'); } }
+  function showError(error) { if(error.name!=='AbortError' && status) { status.style.display=''; status.textContent=error.name==='TimeoutError' ? text('Timeout','The service did not respond in time. Retry the section.') : error.message; status.setAttribute('role','alert'); } }
   async function action(button,fn) {
     if(button.disabled) return;
-    const epoch=revision; button.disabled=true;button.dataset.running='true'; status.textContent=text('Working','Working…'); status.setAttribute('role','status');
+    const epoch=revision; button.disabled=true;button.dataset.running='true'; status.style.display=''; status.textContent=text('Working','Working…'); status.setAttribute('role','status');
     try { await fn(); if(epoch===revision) status.textContent=''; }
     catch(error) { if(epoch===revision) showError(error); }
     finally { if(epoch===revision) {button.disabled=button.dataset.unavailable==='true';delete button.dataset.running;} }
@@ -1099,9 +1099,8 @@ Gaya Komunikasi:
         result.replaceChildren();
         const loadingBox=node('div',null,'pro-ai-loading');
         const isBehaviour=kind==='behaviour';
-        const liquid=createLiquidLoader({ compact: true, speed: 1 });
         loadingBox.append(
-          liquid.element,
+          node('div',null,'pro-spinner'),
           node('p',isBehaviour?'Menganalisis perilaku dan psikologi trading dengan Google Gemini AI...':'Mengevaluasi performa jurnal dan strategi dengan Google Gemini AI...')
         );
         result.replaceChildren(node('h2','Analysis result'),loadingBox);
@@ -1122,12 +1121,10 @@ Gaya Komunikasi:
             contents:userPrompt,
             signal:controller.signal
           });
-          liquid.stop();
           const contentBox=node('div',null,'pro-markdown');
           renderMarkdownInto(contentBox,aiResponse);
           result.replaceChildren(node('h2','Analysis result'),contentBox);
         } catch(err) {
-          liquid.stop();
           const errBox=node('div',null,'pro-modal-status error');
           errBox.style.display='block';
           errBox.textContent=err.message;
@@ -1261,13 +1258,65 @@ Gaya Komunikasi:
     return { element: wrap, stop };
   }
 
-  function startInlineOrb(container, statusLab) {
-    const liquid = createLiquidLoader({ compact: true, speed: 1.1 });
-    container.append(liquid.element);
+  function startInlineOrb(canvas, statusLab) {
+    const ctx = canvas.getContext ? canvas.getContext('2d') : null;
+    let running = true;
+    let time = 0, raf = 0, last = (typeof performance !== 'undefined' ? performance.now() : Date.now());
     const stopRotation = startStatusRotation(statusLab);
+
+    const RINGS = 10;
+    const dots = [];
+    for (let k = 0; k < RINGS; k++) {
+      const y = 1 - ((k + 0.5) / RINGS) * 2;
+      const r = Math.sqrt(1 - y * y);
+      const m = Math.max(4, Math.round(18 * r));
+      for (let j = 0; j < m; j++) {
+        const a = (j / m) * Math.PI * 2 + k * 0.4;
+        dots.push({ x: Math.cos(a) * r, y, z: Math.sin(a) * r });
+      }
+    }
+
+    const draw = (dt) => {
+      if (!ctx) return;
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      time += dt;
+      const yaw = time * 0.9, cyw = Math.cos(yaw), syw = Math.sin(yaw);
+      const CP = Math.cos(0.35), SP = Math.sin(0.35);
+      const C0 = canvas.width / 2, R = C0 * 0.72;
+
+      for (let i = 0; i < dots.length; i++) {
+        const d = dots[i];
+        const x1 = d.x * cyw + d.z * syw, z1 = -d.x * syw + d.z * cyw;
+        const y2 = d.y * CP - z1 * SP, z2 = d.y * SP + z1 * CP;
+        const depth = (z2 + 1) / 2;
+        const ox = x1 * R, oy = -y2 * R;
+        const rad = 1.0 + 1.2 * depth;
+        const alpha = 0.25 + 0.75 * depth * depth;
+        ctx.fillStyle = 'rgba(52, 211, 153, ' + alpha.toFixed(3) + ')';
+        ctx.beginPath();
+        ctx.arc(C0 + ox, C0 + oy, rad, 0, Math.PI * 2);
+        ctx.fill();
+      }
+    };
+
+    const loop = (now) => {
+      if (!running) return;
+      const dt = Math.max(0, Math.min(0.05, (now - last) / 1000));
+      last = now;
+      draw(dt);
+      if (typeof requestAnimationFrame !== 'undefined') {
+        raf = requestAnimationFrame(loop);
+      }
+    };
+    if (typeof requestAnimationFrame !== 'undefined') {
+      raf = requestAnimationFrame(loop);
+    }
+
     return () => {
-      liquid.stop();
+      running = false;
+      if (typeof cancelAnimationFrame !== 'undefined' && raf) cancelAnimationFrame(raf);
       stopRotation();
+      if (ctx) ctx.clearRect(0, 0, canvas.width, canvas.height);
     };
   }
 
@@ -1441,13 +1490,16 @@ Gaya Komunikasi:
       const head = node('h3', 'Kayla AI');
 
       const orbWrap = node('div', null, 'mo-inline-orb-wrap');
+      const canvas = node('canvas', null, 'mo-inline-orb');
+      canvas.width = 64; canvas.height = 64;
       const statusLab = node('div', null, 'mo-inline-status');
       renderStatusLab(statusLab, 'Thinking');
-      const stopOrb = startInlineOrb(orbWrap, statusLab);
-      orbWrap.append(statusLab);
+      orbWrap.append(canvas, statusLab);
       loadingBubble.append(head, orbWrap);
       messages.append(loadingBubble);
       messages.scrollTop = messages.scrollHeight;
+
+      const stopOrb = startInlineOrb(canvas, statusLab);
 
       try {
         let replyText = '';
@@ -5675,6 +5727,7 @@ Setiap kali melakukan analisa pada instrumen apa pun, jalankan prosedur sinkroni
   }
   async function open(feature='ai-market',selection={}) {
     if(!features[feature])throw new Error('Unknown Pro feature.');
+    if(activeTabLoader){activeTabLoader.stop();activeTabLoader=null;}
     revision++;controller.abort();controller=new AbortController(); preset={...selection};current=feature;root=document.getElementById('view-pro-workspace');if(!root)throw new Error('Pro workspace container is missing.');
     root.replaceChildren();const heading=node('header',null,'pro-heading');const title=node('div');title.append(node('h1',text('Title'+feature,features[feature])),node('p',text('WorkspaceDescription','Performance, risk, reports and AI insights from your trading journal.'),'pro-subtitle'));heading.append(title);root.append(heading);
     heading.append(button(text('RetrySection','Retry section'),()=>open(feature,selection),'pro-section-retry'));
@@ -5687,16 +5740,40 @@ Setiap kali melakukan analisa pada instrumen apa pun, jalankan prosedur sinkroni
     createProMobileNavigator(selector.wrap,selector.input,feature,(key)=>open(key));
     selector.input.addEventListener('change',()=>open(selector.input.value));
     workspace.append(selector.wrap);
-    status=node('p',text('Loading','Loading…'),'pro-status');status.setAttribute('role','status');status.setAttribute('aria-live','polite');workspace.append(status);content=node('div');workspace.append(content);options.onRoute?.(feature);
+    status=node('p',text('Loading','Loading…'),'pro-status');status.setAttribute('role','status');status.setAttribute('aria-live','polite');status.style.display='none';workspace.append(status);
+    const tabLoadingWrap=node('div',null,'pro-tab-loading-wrap');
+    const tabLiquid=createLiquidLoader({compact:false,speed:1.1});
+    activeTabLoader=tabLiquid;
+    const tabLoadingText=node('p','Memuat modul '+(features[feature] || 'Pro')+'...','pro-tab-loading-text');
+    tabLoadingWrap.append(tabLiquid.element,tabLoadingText);
+    workspace.append(tabLoadingWrap);
+    content=node('div');content.style.display='none';workspace.append(content);options.onRoute?.(feature);
     const epoch=revision;
     try {
       await verifyAccess();if(access.plan!=='pro')throw new Error(text('ProRequired','An active Pro subscription is required.'));
       if(!['ai-market','ai-chat','global-news'].includes(feature)) {
         const [accountData,strategyData]=await Promise.all([request('/accounts'),request('/strategies')]);if(epoch!==revision)return;accounts=accountData.items || [];strategies=strategyData.items || [];
       }
-      await ({analytics,heatmap,strategies:strategyComparison,risk,reviews,reports,'ai-behaviour':()=>ai('behaviour'),'ai-market':marketIntelligence,'ai-journal':()=>ai('journal'),'ai-chat':aiChat,'global-news':geminiConfigSection})[feature]();if(epoch===revision && status.textContent===text('Loading','Loading…'))status.textContent='';
-    } catch(error) {if(epoch===revision)showError(error);}
+      await ({analytics,heatmap,strategies:strategyComparison,risk,reviews,reports,'ai-behaviour':()=>ai('behaviour'),'ai-market':marketIntelligence,'ai-journal':()=>ai('journal'),'ai-chat':aiChat,'global-news':geminiConfigSection})[feature]();
+      if(epoch===revision){
+        tabLiquid.stop();
+        if(activeTabLoader===tabLiquid)activeTabLoader=null;
+        tabLoadingWrap.remove();
+        content.style.display='';
+        status.style.display='';
+        if(status.textContent===text('Loading','Loading…'))status.textContent='';
+      }
+    } catch(error) {
+      if(epoch===revision){
+        tabLiquid.stop();
+        if(activeTabLoader===tabLiquid)activeTabLoader=null;
+        tabLoadingWrap.remove();
+        content.style.display='';
+        status.style.display='';
+        showError(error);
+      }
+    }
   }
-  function reset() {revision++;controller.abort();controller=new AbortController();clearAccess();current='';filters={};preset={};accounts=[];strategies=[];root?.replaceChildren();status=null;content=null;}
+  function reset() {if(activeTabLoader){activeTabLoader.stop();activeTabLoader=null;}revision++;controller.abort();controller=new AbortController();clearAccess();current='';filters={};preset={};accounts=[];strategies=[];root?.replaceChildren();status=null;content=null;}
   global.JTPRO={features,configure(value){reset();options={...value};},open,reset,verifyAccess,request,aggregateSeries,safeLink,getGeminiApiKey,setGeminiApiKey,hasGeminiApiKey,callGeminiApi,renderMarkdown,renderMarkdownInto,openGeminiConfigModal,createLiquidLoader,get access(){return access;},get current(){return current;}};
 })(window);

@@ -3780,5 +3780,31 @@ body.pro-sheet-open { overflow:hidden !important; }
 .pro-liquid-col-6 .pro-liquid-drop-bottom { background: linear-gradient(135deg, #ef4444, #f97316); box-shadow: 0 0 12px rgba(239, 68, 68, 0.5); }
 .pro-liquid-col-6 .pro-liquid-bar { background: linear-gradient(180deg, #f97316 0%, #ef4444 100%); box-shadow: 0 0 16px rgba(239, 68, 68, 0.5), inset 0 0 14px rgba(255, 255, 255, 0.2); }
 
+/* PRO TAB TRANSITION LIQUID LOADER */
+.pro-tab-loading-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 80px 20px;
+  min-height: 380px;
+  gap: 24px;
+  text-align: center;
+  animation: proTabFadeIn 0.25s ease-out;
+}
+
+.pro-tab-loading-text {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-muted, #94a3b8);
+  letter-spacing: 0.02em;
+  margin: 0;
+}
+
+@keyframes proTabFadeIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
 
 
