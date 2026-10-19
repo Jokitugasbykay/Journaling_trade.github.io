@@ -26,7 +26,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&family=Manrope:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
 
   <link rel="stylesheet" href="css/style.css?v=20261019-chat-pill-clean">
-  <link rel="stylesheet" href="css/home.css?v=20261009-home-brand">
+  <link rel="stylesheet" href="css/home.css?v=20261020-timeline-lead-v2">
   <link rel="stylesheet" href="css/journal.css?v=20261019-dropdown-redesign">
   <link rel="stylesheet" href="css/shell.css?v=20261019-dropdown-redesign">
   <link rel="stylesheet" href="css/pro.css?v=20261019-16-9-typing-v1">
@@ -84,72 +84,15 @@
 
     <section class="view-content active" id="view-beranda">
       <div class="home-shell home-rolling">
-        <section class="home-hero" aria-labelledby="home-title">
-          <div class="home-intro">
-<p class="home-label" data-i18n="homeEyebrow">A workspace for traders</p>
-            <h1 id="home-title" data-i18n="homeHeroTitle">Every trade.<br><span>A clearer decision.</span></h1>
-<p class="home-lead" data-i18n="homeHeroLead">Plan your risk, document your decisions and review your trading performance in one workspace.</p>
-            <div class="home-actions"><button class="btn btn-primary" type="button" onclick="startTrial()" data-i18n="tryJournal">Start your free journal</button><button class="btn btn-outline" type="button" onclick="scrollToPricing()" data-i18n="homeViewPlans">View plans</button></div>
-            <p class="home-hint" id="home-access-hint" data-i18n="accessHint">Click Try to unlock your journal.</p>
-<a class="home-scroll" href="#panduan-forex" data-i18n="homeScroll">Scroll to explore</a>
-          </div>
-          <div class="home-hero-visual home-terminal-card" id="home-hero-terminal">
-            <div class="terminal-header">
-              <div class="terminal-pairs-nav" role="tablist" aria-label="Terminal Pairs">
-                <button type="button" class="terminal-pair-btn active" data-pair="EUR/USD">EUR/USD</button>
-                <button type="button" class="terminal-pair-btn" data-pair="XAU/USD">XAU/USD</button>
-                <button type="button" class="terminal-pair-btn" data-pair="BTC/USD">BTC/USD</button>
-              </div>
-              <div class="terminal-live-badge">
-                <span class="terminal-pulse-dot" aria-hidden="true"></span>
-                <span id="hero-live-price">1.08450</span>
-                <span class="terminal-status-tag" data-i18n="homeHeroMarketActive">Market active</span>
-              </div>
-            </div>
-            <div class="terminal-chart-area">
-              <canvas id="home-hero-canvas" class="home-hero-canvas" width="600" height="280" aria-label="Interactive Price Action Chart"></canvas>
-              <div class="terminal-drag-hints" aria-hidden="true">
-                <span class="drag-hint tp-hint">TP: <strong id="hint-tp-val">+3.2R / +$320</strong></span>
-                <span class="drag-hint entry-hint">Entry: <strong id="hint-entry-val">1.08450</strong></span>
-                <span class="drag-hint sl-hint">SL: <strong id="hint-sl-val">-1.0R / -$100</strong></span>
-              </div>
-            </div>
-            <div class="terminal-hud-grid">
-              <div class="terminal-hud-stat">
-                <span class="hud-label" data-i18n="homeHeroRiskReward">Risk / Reward</span>
-                <strong class="hud-val highlight-cyan" id="hero-hud-rr">1 : 3.2</strong>
-              </div>
-              <div class="terminal-hud-stat">
-                <span class="hud-label" data-i18n="homeHeroLotSize">Position size</span>
-                <strong class="hud-val" id="hero-hud-lot">0.32 Lots</strong>
-              </div>
-              <div class="terminal-hud-stat">
-                <span class="hud-label" data-i18n="homeHeroPotentialProfit">Potential target</span>
-                <strong class="hud-val highlight-green" id="hero-hud-profit">+$320.00</strong>
-              </div>
-              <div class="terminal-hud-stat">
-                <span class="hud-label" data-i18n="homeHeroMaxRisk">Max risk</span>
-                <strong class="hud-val highlight-red" id="hero-hud-risk">-$100.00</strong>
-              </div>
-            </div>
-            <div class="terminal-action-row">
-              <button type="button" class="btn btn-sm btn-accent" id="hero-btn-simulate" data-i18n="homeHeroSimulate">Simulate next bar</button>
-              <button type="button" class="btn btn-sm btn-outline" id="hero-btn-log" data-i18n="homeHeroLogTrade">Log trade to demo</button>
-              <button type="button" class="btn btn-sm btn-ghost" id="hero-btn-reset" data-i18n="homeHeroReset">Reset</button>
-              <div class="hero-terminal-toast" id="hero-terminal-toast" hidden>
-                <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="#27c98b" stroke-width="2" aria-hidden="true"><path d="M3 8.5l3.5 3.5 6.5-7"></path></svg>
-                <span data-i18n="homeHeroLogged">Position documented</span>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <!-- Product Storyline / 6 Years Timeline Roadmap Section -->
-        <section class="home-timeline-section home-section" id="home-product-timeline" aria-labelledby="home-timeline-title">
-          <header class="home-reveal">
+        <!-- 1. PRIMARY HOME HERO: PRODUCT STORYLINE 6-YEAR ROADMAP TIMELINE -->
+        <section class="home-timeline-section home-timeline-hero home-section" id="home-product-timeline" aria-labelledby="home-timeline-title">
+          <header class="home-timeline-lead-header">
             <p class="home-label">Product roadmap</p>
-            <h2 id="home-timeline-title">Six years, one horizontal scroll.</h2>
+            <h1 id="home-timeline-title" class="home-timeline-headline">Six years, one horizontal scroll.</h1>
             <p class="home-section-lead">Keep scrolling - the section pins, the track slides sideways, and each milestone draws its stem and reveals its copy as it reaches centre.</p>
+            <div class="timeline-bounce-wrap" aria-hidden="true">
+              <a href="#home-workspace-hero" class="timeline-bounce-arrow" aria-label="Scroll to trading workspace">&darr;</a>
+            </div>
           </header>
 
           <div class="timeline-interactive-wrap home-reveal" id="timeline-interactive-stage">
@@ -281,6 +224,67 @@
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
               </button>
               <span class="timeline-footer-caption">From the first research note to a multi-market launch.</span>
+            </div>
+          </div>
+        </section>
+
+        <!-- 2. TRADING WORKSPACE & TERMINAL HERO -->
+        <section class="home-hero" id="home-workspace-hero" aria-labelledby="home-title">
+          <div class="home-intro">
+<p class="home-label" data-i18n="homeEyebrow">A workspace for traders</p>
+            <h1 id="home-title" data-i18n="homeHeroTitle">Every trade.<br><span>A clearer decision.</span></h1>
+<p class="home-lead" data-i18n="homeHeroLead">Plan your risk, document your decisions and review your trading performance in one workspace.</p>
+            <div class="home-actions"><button class="btn btn-primary" type="button" onclick="startTrial()" data-i18n="tryJournal">Start your free journal</button><button class="btn btn-outline" type="button" onclick="scrollToPricing()" data-i18n="homeViewPlans">View plans</button></div>
+            <p class="home-hint" id="home-access-hint" data-i18n="accessHint">Click Try to unlock your journal.</p>
+<a class="home-scroll" href="#panduan-forex" data-i18n="homeScroll">Scroll to explore</a>
+          </div>
+          <div class="home-hero-visual home-terminal-card" id="home-hero-terminal">
+            <div class="terminal-header">
+              <div class="terminal-pairs-nav" role="tablist" aria-label="Terminal Pairs">
+                <button type="button" class="terminal-pair-btn active" data-pair="EUR/USD">EUR/USD</button>
+                <button type="button" class="terminal-pair-btn" data-pair="XAU/USD">XAU/USD</button>
+                <button type="button" class="terminal-pair-btn" data-pair="BTC/USD">BTC/USD</button>
+              </div>
+              <div class="terminal-live-badge">
+                <span class="terminal-pulse-dot" aria-hidden="true"></span>
+                <span id="hero-live-price">1.08450</span>
+                <span class="terminal-status-tag" data-i18n="homeHeroMarketActive">Market active</span>
+              </div>
+            </div>
+            <div class="terminal-chart-area">
+              <canvas id="home-hero-canvas" class="home-hero-canvas" width="600" height="280" aria-label="Interactive Price Action Chart"></canvas>
+              <div class="terminal-drag-hints" aria-hidden="true">
+                <span class="drag-hint tp-hint">TP: <strong id="hint-tp-val">+3.2R / +$320</strong></span>
+                <span class="drag-hint entry-hint">Entry: <strong id="hint-entry-val">1.08450</strong></span>
+                <span class="drag-hint sl-hint">SL: <strong id="hint-sl-val">-1.0R / -$100</strong></span>
+              </div>
+            </div>
+            <div class="terminal-hud-grid">
+              <div class="terminal-hud-stat">
+                <span class="hud-label" data-i18n="homeHeroRiskReward">Risk / Reward</span>
+                <strong class="hud-val highlight-cyan" id="hero-hud-rr">1 : 3.2</strong>
+              </div>
+              <div class="terminal-hud-stat">
+                <span class="hud-label" data-i18n="homeHeroLotSize">Position size</span>
+                <strong class="hud-val" id="hero-hud-lot">0.32 Lots</strong>
+              </div>
+              <div class="terminal-hud-stat">
+                <span class="hud-label" data-i18n="homeHeroPotentialProfit">Potential target</span>
+                <strong class="hud-val highlight-green" id="hero-hud-profit">+$320.00</strong>
+              </div>
+              <div class="terminal-hud-stat">
+                <span class="hud-label" data-i18n="homeHeroMaxRisk">Max risk</span>
+                <strong class="hud-val highlight-red" id="hero-hud-risk">-$100.00</strong>
+              </div>
+            </div>
+            <div class="terminal-action-row">
+              <button type="button" class="btn btn-sm btn-accent" id="hero-btn-simulate" data-i18n="homeHeroSimulate">Simulate next bar</button>
+              <button type="button" class="btn btn-sm btn-outline" id="hero-btn-log" data-i18n="homeHeroLogTrade">Log trade to demo</button>
+              <button type="button" class="btn btn-sm btn-ghost" id="hero-btn-reset" data-i18n="homeHeroReset">Reset</button>
+              <div class="hero-terminal-toast" id="hero-terminal-toast" hidden>
+                <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="#27c98b" stroke-width="2" aria-hidden="true"><path d="M3 8.5l3.5 3.5 6.5-7"></path></svg>
+                <span data-i18n="homeHeroLogged">Position documented</span>
+              </div>
             </div>
           </div>
         </section>
@@ -1642,7 +1646,7 @@
   <script src="js/pro-import.js?v=20261010-pro"></script>
   <script src="js/pro.js?v=20261019-16-9-typing-v1"></script>
   <script src="js/app.js?v=20261012-pro-repair"></script>
-  <script src="js/home.js?v=20261009-home-brand"></script>
+  <script src="js/home.js?v=20261020-timeline-lead-v2"></script>
   <script src="js/fed.js?v=20261010-locales"></script>
 
  </body>
