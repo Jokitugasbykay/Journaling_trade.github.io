@@ -1526,11 +1526,13 @@ Gaya Komunikasi:
     return section;
   }
   const PRESET_PAIRS = [
-    { code: 'XAUUSD', name: 'Gold Spot / US Dollar (TVC:GOLD)', cat: 'METALS', provider: 'BINANCE', apiSym: 'PAXGUSDT', tvSym: 'TVC:GOLD', ccy: ['USD', 'XAU'] },
+    // 1. Komoditas dan Logam Mulia (Metals & Energy)
+    { code: 'XAUUSD', name: 'Gold Spot / US Dollar', cat: 'METALS', provider: 'BINANCE', apiSym: 'PAXGUSDT', tvSym: 'TVC:GOLD', ccy: ['USD', 'XAU'] },
     { code: 'XAGUSD', name: 'Silver Spot / US Dollar', cat: 'METALS', provider: 'CC', fsym: 'XAG', tsym: 'USD', tvSym: 'TVC:SILVER', ccy: ['USD', 'XAG'] },
     { code: 'PAXGUSDT', name: 'PAX Gold Spot (1:1 Troy Oz)', cat: 'METALS', provider: 'BINANCE', apiSym: 'PAXGUSDT', tvSym: 'BINANCE:PAXGUSDT', ccy: ['USD'] },
     { code: 'WTIUSD', name: 'Crude Oil WTI Spot', cat: 'METALS', provider: 'CC', fsym: 'WTI', tsym: 'USD', tvSym: 'TVC:USOIL', ccy: ['USD', 'CAD'] },
 
+    // 2. Pasar Mata Uang Dunia (Forex Majors & Crosses)
     { code: 'EURUSD', name: 'Euro / US Dollar', cat: 'FOREX', provider: 'BINANCE', apiSym: 'EURUSDT', tvSym: 'FX:EURUSD', ccy: ['EUR', 'USD'] },
     { code: 'GBPUSD', name: 'British Pound / US Dollar', cat: 'FOREX', provider: 'BINANCE', apiSym: 'GBPUSDT', tvSym: 'FX:GBPUSD', ccy: ['GBP', 'USD'] },
     { code: 'USDJPY', name: 'US Dollar / Japanese Yen', cat: 'FOREX', provider: 'BINANCE', apiSym: 'USDJPY', tvSym: 'FX:USDJPY', ccy: ['USD', 'JPY'] },
@@ -1543,15 +1545,111 @@ Gaya Komunikasi:
     { code: 'EURGBP', name: 'Euro / British Pound', cat: 'FOREX', provider: 'BINANCE', apiSym: 'EURGBP', tvSym: 'FX:EURGBP', ccy: ['EUR', 'GBP'] },
     { code: 'AUDJPY', name: 'Australian Dollar / Japanese Yen', cat: 'FOREX', provider: 'BINANCE', apiSym: 'AUDJPY', tvSym: 'FX:AUDJPY', ccy: ['AUD', 'JPY'] },
 
-    { code: 'BTCUSDT', name: 'Bitcoin / US Dollar', cat: 'CRYPTO', provider: 'BINANCE', apiSym: 'BTCUSDT', tvSym: 'BINANCE:BTCUSDT', ccy: ['USD'] },
-    { code: 'ETHUSDT', name: 'Ethereum / US Dollar', cat: 'CRYPTO', provider: 'BINANCE', apiSym: 'ETHUSDT', tvSym: 'BINANCE:ETHUSDT', ccy: ['USD'] },
-    { code: 'SOLUSDT', name: 'Solana / US Dollar', cat: 'CRYPTO', provider: 'BINANCE', apiSym: 'SOLUSDT', tvSym: 'BINANCE:SOLUSDT', ccy: ['USD'] },
-    { code: 'BNBUSDT', name: 'BNB / US Dollar', cat: 'CRYPTO', provider: 'BINANCE', apiSym: 'BNBUSDT', tvSym: 'BINANCE:BNBUSDT', ccy: ['USD'] },
-    { code: 'XRPUSDT', name: 'Ripple XRP / US Dollar', cat: 'CRYPTO', provider: 'BINANCE', apiSym: 'XRPUSDT', tvSym: 'BINANCE:XRPUSDT', ccy: ['USD'] },
-    { code: 'DOGEUSDT', name: 'Dogecoin / US Dollar', cat: 'CRYPTO', provider: 'BINANCE', apiSym: 'DOGEUSDT', tvSym: 'BINANCE:DOGEUSDT', ccy: ['USD'] },
-    { code: 'PEPEUSDT', name: 'Pepe / US Dollar', cat: 'CRYPTO', provider: 'BINANCE', apiSym: 'PEPEUSDT', tvSym: 'BINANCE:PEPEUSDT', ccy: ['USD'] },
+    // 3. Indeks Makro
+    { code: 'DXY', name: 'US Dollar Index Context', cat: 'INDICES', provider: 'CC', fsym: 'USD', tsym: 'EUR', tvSym: 'TVC:DXY', ccy: ['USD', 'EUR'] },
 
-    { code: 'DXY', name: 'US Dollar Index Context', cat: 'INDICES', provider: 'CC', fsym: 'USD', tsym: 'EUR', tvSym: 'TVC:DXY', ccy: ['USD', 'EUR'] }
+    // 4. Kripto Pilihan & Altcoin Binance
+    // Bitcoin (OANDA & Binance)
+    { code: 'BTCUSD', name: 'Bitcoin / US Dollar (OANDA)', cat: 'CRYPTO', provider: 'BINANCE', apiSym: 'BTCUSDT', tvSym: 'OANDA:BTCUSD', ccy: ['USD'] },
+    { code: 'BTCUSDT', name: 'Bitcoin / TetherUS', cat: 'CRYPTO', provider: 'BINANCE', apiSym: 'BTCUSDT', tvSym: 'BINANCE:BTCUSDT', ccy: ['USD'] },
+
+    // Blue Chip & Layer 1 Utama
+    { code: 'ETHUSDT', name: 'Ethereum / TetherUS', cat: 'CRYPTO', provider: 'BINANCE', apiSym: 'ETHUSDT', tvSym: 'BINANCE:ETHUSDT', ccy: ['USD'] },
+    { code: 'SOLUSDT', name: 'Solana / TetherUS', cat: 'CRYPTO', provider: 'BINANCE', apiSym: 'SOLUSDT', tvSym: 'BINANCE:SOLUSDT', ccy: ['USD'] },
+    { code: 'BNBUSDT', name: 'BNB / TetherUS', cat: 'CRYPTO', provider: 'BINANCE', apiSym: 'BNBUSDT', tvSym: 'BINANCE:BNBUSDT', ccy: ['USD'] },
+    { code: 'XRPUSDT', name: 'Ripple XRP / TetherUS', cat: 'CRYPTO', provider: 'BINANCE', apiSym: 'XRPUSDT', tvSym: 'BINANCE:XRPUSDT', ccy: ['USD'] },
+    { code: 'ADAUSDT', name: 'Cardano / TetherUS', cat: 'CRYPTO', provider: 'BINANCE', apiSym: 'ADAUSDT', tvSym: 'BINANCE:ADAUSDT', ccy: ['USD'] },
+    { code: 'AVAXUSDT', name: 'Avalanche / TetherUS', cat: 'CRYPTO', provider: 'BINANCE', apiSym: 'AVAXUSDT', tvSym: 'BINANCE:AVAXUSDT', ccy: ['USD'] },
+    { code: 'DOTUSDT', name: 'Polkadot / TetherUS', cat: 'CRYPTO', provider: 'BINANCE', apiSym: 'DOTUSDT', tvSym: 'BINANCE:DOTUSDT', ccy: ['USD'] },
+    { code: 'SUIUSDT', name: 'Sui / TetherUS', cat: 'CRYPTO', provider: 'BINANCE', apiSym: 'SUIUSDT', tvSym: 'BINANCE:SUIUSDT', ccy: ['USD'] },
+    { code: 'APTUSDT', name: 'Aptos / TetherUS', cat: 'CRYPTO', provider: 'BINANCE', apiSym: 'APTUSDT', tvSym: 'BINANCE:APTUSDT', ccy: ['USD'] },
+    { code: 'NEARUSDT', name: 'NEAR Protocol / TetherUS', cat: 'CRYPTO', provider: 'BINANCE', apiSym: 'NEARUSDT', tvSym: 'BINANCE:NEARUSDT', ccy: ['USD'] },
+    { code: 'ATOMUSDT', name: 'Cosmos / TetherUS', cat: 'CRYPTO', provider: 'BINANCE', apiSym: 'ATOMUSDT', tvSym: 'BINANCE:ATOMUSDT', ccy: ['USD'] },
+    { code: 'SEIUSDT', name: 'Sei / TetherUS', cat: 'CRYPTO', provider: 'BINANCE', apiSym: 'SEIUSDT', tvSym: 'BINANCE:SEIUSDT', ccy: ['USD'] },
+    { code: 'TIAUSDT', name: 'Celestia / TetherUS', cat: 'CRYPTO', provider: 'BINANCE', apiSym: 'TIAUSDT', tvSym: 'BINANCE:TIAUSDT', ccy: ['USD'] },
+    { code: 'INJUSDT', name: 'Injective / TetherUS', cat: 'CRYPTO', provider: 'BINANCE', apiSym: 'INJUSDT', tvSym: 'BINANCE:INJUSDT', ccy: ['USD'] },
+    { code: 'TONUSDT', name: 'Toncoin / TetherUS', cat: 'CRYPTO', provider: 'BINANCE', apiSym: 'TONUSDT', tvSym: 'BINANCE:TONUSDT', ccy: ['USD'] },
+    { code: 'ICPUSDT', name: 'Internet Computer / TetherUS', cat: 'CRYPTO', provider: 'BINANCE', apiSym: 'ICPUSDT', tvSym: 'BINANCE:ICPUSDT', ccy: ['USD'] },
+    { code: 'HBARUSDT', name: 'Hedera / TetherUS', cat: 'CRYPTO', provider: 'BINANCE', apiSym: 'HBARUSDT', tvSym: 'BINANCE:HBARUSDT', ccy: ['USD'] },
+    { code: 'ALGOUSDT', name: 'Algorand / TetherUS', cat: 'CRYPTO', provider: 'BINANCE', apiSym: 'ALGOUSDT', tvSym: 'BINANCE:ALGOUSDT', ccy: ['USD'] },
+    { code: 'KASUSDT', name: 'Kaspa / TetherUS', cat: 'CRYPTO', provider: 'BINANCE', apiSym: 'KASUSDT', tvSym: 'BINANCE:KASUSDT', ccy: ['USD'] },
+
+    // Layer 2 & Rollups
+    { code: 'ARBUSDT', name: 'Arbitrum / TetherUS', cat: 'CRYPTO', provider: 'BINANCE', apiSym: 'ARBUSDT', tvSym: 'BINANCE:ARBUSDT', ccy: ['USD'] },
+    { code: 'OPUSDT', name: 'Optimism / TetherUS', cat: 'CRYPTO', provider: 'BINANCE', apiSym: 'OPUSDT', tvSym: 'BINANCE:OPUSDT', ccy: ['USD'] },
+    { code: 'MATICUSDT', name: 'Polygon (POL) / TetherUS', cat: 'CRYPTO', provider: 'BINANCE', apiSym: 'POLUSDT', tvSym: 'BINANCE:POLUSDT', ccy: ['USD'] },
+    { code: 'STRKUSDT', name: 'Starknet / TetherUS', cat: 'CRYPTO', provider: 'BINANCE', apiSym: 'STRKUSDT', tvSym: 'BINANCE:STRKUSDT', ccy: ['USD'] },
+    { code: 'ZKUSDT', name: 'ZKsync / TetherUS', cat: 'CRYPTO', provider: 'BINANCE', apiSym: 'ZKUSDT', tvSym: 'BINANCE:ZKUSDT', ccy: ['USD'] },
+    { code: 'MANTAUSDT', name: 'Manta Network / TetherUS', cat: 'CRYPTO', provider: 'BINANCE', apiSym: 'MANTAUSDT', tvSym: 'BINANCE:MANTAUSDT', ccy: ['USD'] },
+    { code: 'METISUSDT', name: 'Metis / TetherUS', cat: 'CRYPTO', provider: 'BINANCE', apiSym: 'METISUSDT', tvSym: 'BINANCE:METISUSDT', ccy: ['USD'] },
+
+    // Kripto Sektor AI (Artificial Intelligence) & Data
+    { code: 'TAOUSDT', name: 'Bittensor / TetherUS', cat: 'CRYPTO', provider: 'BINANCE', apiSym: 'TAOUSDT', tvSym: 'BINANCE:TAOUSDT', ccy: ['USD'] },
+    { code: 'FETUSDT', name: 'Artificial Superintelligence / TetherUS', cat: 'CRYPTO', provider: 'BINANCE', apiSym: 'FETUSDT', tvSym: 'BINANCE:FETUSDT', ccy: ['USD'] },
+    { code: 'RENDERUSDT', name: 'Render / TetherUS', cat: 'CRYPTO', provider: 'BINANCE', apiSym: 'RENDERUSDT', tvSym: 'BINANCE:RENDERUSDT', ccy: ['USD'] },
+    { code: 'WLDUSDT', name: 'Worldcoin / TetherUS', cat: 'CRYPTO', provider: 'BINANCE', apiSym: 'WLDUSDT', tvSym: 'BINANCE:WLDUSDT', ccy: ['USD'] },
+    { code: 'GRTUSDT', name: 'The Graph / TetherUS', cat: 'CRYPTO', provider: 'BINANCE', apiSym: 'GRTUSDT', tvSym: 'BINANCE:GRTUSDT', ccy: ['USD'] },
+    { code: 'ARUSDT', name: 'Arweave / TetherUS', cat: 'CRYPTO', provider: 'BINANCE', apiSym: 'ARUSDT', tvSym: 'BINANCE:ARUSDT', ccy: ['USD'] },
+    { code: 'AKTUSDT', name: 'Akash Network / TetherUS', cat: 'CRYPTO', provider: 'BINANCE', apiSym: 'AKTUSDT', tvSym: 'BINANCE:AKTUSDT', ccy: ['USD'] },
+    { code: 'PHBUSDT', name: 'Phoenix / TetherUS', cat: 'CRYPTO', provider: 'BINANCE', apiSym: 'PHBUSDT', tvSym: 'BINANCE:PHBUSDT', ccy: ['USD'] },
+    { code: 'RLCUSDT', name: 'iExec RLC / TetherUS', cat: 'CRYPTO', provider: 'BINANCE', apiSym: 'RLCUSDT', tvSym: 'BINANCE:RLCUSDT', ccy: ['USD'] },
+
+    // DeFi & Decentralized Exchanges (DEX)
+    { code: 'UNIUSDT', name: 'Uniswap / TetherUS', cat: 'CRYPTO', provider: 'BINANCE', apiSym: 'UNIUSDT', tvSym: 'BINANCE:UNIUSDT', ccy: ['USD'] },
+    { code: 'AAVEUSDT', name: 'Aave / TetherUS', cat: 'CRYPTO', provider: 'BINANCE', apiSym: 'AAVEUSDT', tvSym: 'BINANCE:AAVEUSDT', ccy: ['USD'] },
+    { code: 'LINKUSDT', name: 'Chainlink / TetherUS', cat: 'CRYPTO', provider: 'BINANCE', apiSym: 'LINKUSDT', tvSym: 'BINANCE:LINKUSDT', ccy: ['USD'] },
+    { code: 'PENDLEUSDT', name: 'Pendle / TetherUS', cat: 'CRYPTO', provider: 'BINANCE', apiSym: 'PENDLEUSDT', tvSym: 'BINANCE:PENDLEUSDT', ccy: ['USD'] },
+    { code: 'MKRUSDT', name: 'Maker / TetherUS', cat: 'CRYPTO', provider: 'BINANCE', apiSym: 'MKRUSDT', tvSym: 'BINANCE:MKRUSDT', ccy: ['USD'] },
+    { code: 'LDOUSDT', name: 'Lido DAO / TetherUS', cat: 'CRYPTO', provider: 'BINANCE', apiSym: 'LDOUSDT', tvSym: 'BINANCE:LDOUSDT', ccy: ['USD'] },
+    { code: 'CRVUSDT', name: 'Curve DAO / TetherUS', cat: 'CRYPTO', provider: 'BINANCE', apiSym: 'CRVUSDT', tvSym: 'BINANCE:CRVUSDT', ccy: ['USD'] },
+    { code: 'SNXUSDT', name: 'Synthetix / TetherUS', cat: 'CRYPTO', provider: 'BINANCE', apiSym: 'SNXUSDT', tvSym: 'BINANCE:SNXUSDT', ccy: ['USD'] },
+    { code: 'RUNEUSDT', name: 'THORChain / TetherUS', cat: 'CRYPTO', provider: 'BINANCE', apiSym: 'RUNEUSDT', tvSym: 'BINANCE:RUNEUSDT', ccy: ['USD'] },
+    { code: 'JUPUSDT', name: 'Jupiter / TetherUS', cat: 'CRYPTO', provider: 'BINANCE', apiSym: 'JUPUSDT', tvSym: 'BINANCE:JUPUSDT', ccy: ['USD'] },
+    { code: 'DYDXUSDT', name: 'dYdX / TetherUS', cat: 'CRYPTO', provider: 'BINANCE', apiSym: 'DYDXUSDT', tvSym: 'BINANCE:DYDXUSDT', ccy: ['USD'] },
+    { code: 'CAKEUSDT', name: 'PancakeSwap / TetherUS', cat: 'CRYPTO', provider: 'BINANCE', apiSym: 'CAKEUSDT', tvSym: 'BINANCE:CAKEUSDT', ccy: ['USD'] },
+    { code: 'COMPUSDT', name: 'Compound / TetherUS', cat: 'CRYPTO', provider: 'BINANCE', apiSym: 'COMPUSDT', tvSym: 'BINANCE:COMPUSDT', ccy: ['USD'] },
+    { code: 'SUSHIUSDT', name: 'Sushi / TetherUS', cat: 'CRYPTO', provider: 'BINANCE', apiSym: 'SUSHIUSDT', tvSym: 'BINANCE:SUSHIUSDT', ccy: ['USD'] },
+    { code: '1INCHUSDT', name: '1inch Network / TetherUS', cat: 'CRYPTO', provider: 'BINANCE', apiSym: '1INCHUSDT', tvSym: 'BINANCE:1INCHUSDT', ccy: ['USD'] },
+
+    // Koin Meme Terpopuler
+    { code: 'DOGEUSDT', name: 'Dogecoin / TetherUS', cat: 'CRYPTO', provider: 'BINANCE', apiSym: 'DOGEUSDT', tvSym: 'BINANCE:DOGEUSDT', ccy: ['USD'] },
+    { code: 'SHIBUSDT', name: 'Shiba Inu / TetherUS', cat: 'CRYPTO', provider: 'BINANCE', apiSym: 'SHIBUSDT', tvSym: 'BINANCE:SHIBUSDT', ccy: ['USD'] },
+    { code: 'PEPEUSDT', name: 'Pepe / TetherUS', cat: 'CRYPTO', provider: 'BINANCE', apiSym: 'PEPEUSDT', tvSym: 'BINANCE:PEPEUSDT', ccy: ['USD'] },
+    { code: 'WIFUSDT', name: 'dogwifhat / TetherUS', cat: 'CRYPTO', provider: 'BINANCE', apiSym: 'WIFUSDT', tvSym: 'BINANCE:WIFUSDT', ccy: ['USD'] },
+    { code: 'FLOKIUSDT', name: 'FLOKI / TetherUS', cat: 'CRYPTO', provider: 'BINANCE', apiSym: 'FLOKIUSDT', tvSym: 'BINANCE:FLOKIUSDT', ccy: ['USD'] },
+    { code: 'BONKUSDT', name: 'Bonk / TetherUS', cat: 'CRYPTO', provider: 'BINANCE', apiSym: 'BONKUSDT', tvSym: 'BINANCE:BONKUSDT', ccy: ['USD'] },
+    { code: 'BOMEUSDT', name: 'BOOK OF MEME / TetherUS', cat: 'CRYPTO', provider: 'BINANCE', apiSym: 'BOMEUSDT', tvSym: 'BINANCE:BOMEUSDT', ccy: ['USD'] },
+    { code: 'NOTUSDT', name: 'Notcoin / TetherUS', cat: 'CRYPTO', provider: 'BINANCE', apiSym: 'NOTUSDT', tvSym: 'BINANCE:NOTUSDT', ccy: ['USD'] },
+    { code: 'MEMEUSDT', name: 'Memecoin / TetherUS', cat: 'CRYPTO', provider: 'BINANCE', apiSym: 'MEMEUSDT', tvSym: 'BINANCE:MEMEUSDT', ccy: ['USD'] },
+    { code: 'ORDIUSDT', name: 'ORDI / TetherUS', cat: 'CRYPTO', provider: 'BINANCE', apiSym: 'ORDIUSDT', tvSym: 'BINANCE:ORDIUSDT', ccy: ['USD'] },
+    { code: '1000SATSUSDT', name: '1000SATS / TetherUS', cat: 'CRYPTO', provider: 'BINANCE', apiSym: '1000SATSUSDT', tvSym: 'BINANCE:1000SATSUSDT', ccy: ['USD'] },
+
+    // Koin Legacy / Proof of Work
+    { code: 'LTCUSDT', name: 'Litecoin / TetherUS', cat: 'CRYPTO', provider: 'BINANCE', apiSym: 'LTCUSDT', tvSym: 'BINANCE:LTCUSDT', ccy: ['USD'] },
+    { code: 'BCHUSDT', name: 'Bitcoin Cash / TetherUS', cat: 'CRYPTO', provider: 'BINANCE', apiSym: 'BCHUSDT', tvSym: 'BINANCE:BCHUSDT', ccy: ['USD'] },
+    { code: 'ETCUSDT', name: 'Ethereum Classic / TetherUS', cat: 'CRYPTO', provider: 'BINANCE', apiSym: 'ETCUSDT', tvSym: 'BINANCE:ETCUSDT', ccy: ['USD'] },
+    { code: 'XLMUSDT', name: 'Stellar / TetherUS', cat: 'CRYPTO', provider: 'BINANCE', apiSym: 'XLMUSDT', tvSym: 'BINANCE:XLMUSDT', ccy: ['USD'] },
+    { code: 'XMRUSDT', name: 'Monero / TetherUS', cat: 'CRYPTO', provider: 'BINANCE', apiSym: 'XMRUSDT', tvSym: 'BINANCE:XMRUSDT', ccy: ['USD'] },
+    { code: 'ZECUSDT', name: 'Zcash / TetherUS', cat: 'CRYPTO', provider: 'BINANCE', apiSym: 'ZECUSDT', tvSym: 'BINANCE:ZECUSDT', ccy: ['USD'] },
+    { code: 'DASHUSDT', name: 'Dash / TetherUS', cat: 'CRYPTO', provider: 'BINANCE', apiSym: 'DASHUSDT', tvSym: 'BINANCE:DASHUSDT', ccy: ['USD'] },
+
+    // Gaming, NFT, & Metaverse
+    { code: 'GALAUSDT', name: 'GALA / TetherUS', cat: 'CRYPTO', provider: 'BINANCE', apiSym: 'GALAUSDT', tvSym: 'BINANCE:GALAUSDT', ccy: ['USD'] },
+    { code: 'AXSUSDT', name: 'Axie Infinity / TetherUS', cat: 'CRYPTO', provider: 'BINANCE', apiSym: 'AXSUSDT', tvSym: 'BINANCE:AXSUSDT', ccy: ['USD'] },
+    { code: 'SANDUSDT', name: 'The Sandbox / TetherUS', cat: 'CRYPTO', provider: 'BINANCE', apiSym: 'SANDUSDT', tvSym: 'BINANCE:SANDUSDT', ccy: ['USD'] },
+    { code: 'MANAUSDT', name: 'Decentraland / TetherUS', cat: 'CRYPTO', provider: 'BINANCE', apiSym: 'MANAUSDT', tvSym: 'BINANCE:MANAUSDT', ccy: ['USD'] },
+    { code: 'BEAMUSDT', name: 'Beam / TetherUS', cat: 'CRYPTO', provider: 'BINANCE', apiSym: 'BEAMXUSDT', tvSym: 'BINANCE:BEAMXUSDT', ccy: ['USD'] },
+    { code: 'PIXELUSDT', name: 'Pixels / TetherUS', cat: 'CRYPTO', provider: 'BINANCE', apiSym: 'PIXELUSDT', tvSym: 'BINANCE:PIXELUSDT', ccy: ['USD'] },
+    { code: 'PORTALUSDT', name: 'Portal / TetherUS', cat: 'CRYPTO', provider: 'BINANCE', apiSym: 'PORTALUSDT', tvSym: 'BINANCE:PORTALUSDT', ccy: ['USD'] },
+    { code: 'ENJUSDT', name: 'Enjin Coin / TetherUS', cat: 'CRYPTO', provider: 'BINANCE', apiSym: 'ENJUSDT', tvSym: 'BINANCE:ENJUSDT', ccy: ['USD'] },
+    { code: 'ILVUSDT', name: 'Illuvium / TetherUS', cat: 'CRYPTO', provider: 'BINANCE', apiSym: 'ILVUSDT', tvSym: 'BINANCE:ILVUSDT', ccy: ['USD'] },
+
+    // Storage & Web3 Infrastructure
+    { code: 'FILUSDT', name: 'Filecoin / TetherUS', cat: 'CRYPTO', provider: 'BINANCE', apiSym: 'FILUSDT', tvSym: 'BINANCE:FILUSDT', ccy: ['USD'] },
+    { code: 'PYTHUSDT', name: 'Pyth Network / TetherUS', cat: 'CRYPTO', provider: 'BINANCE', apiSym: 'PYTHUSDT', tvSym: 'BINANCE:PYTHUSDT', ccy: ['USD'] },
+    { code: 'STORJUSDT', name: 'Storj / TetherUS', cat: 'CRYPTO', provider: 'BINANCE', apiSym: 'STORJUSDT', tvSym: 'BINANCE:STORJUSDT', ccy: ['USD'] },
+    { code: 'JASMYUSDT', name: 'JasmyCoin / TetherUS', cat: 'CRYPTO', provider: 'BINANCE', apiSym: 'JASMYUSDT', tvSym: 'BINANCE:JASMYUSDT', ccy: ['USD'] },
+    { code: 'ANKRUSDT', name: 'Ankr / TetherUS', cat: 'CRYPTO', provider: 'BINANCE', apiSym: 'ANKRUSDT', tvSym: 'BINANCE:ANKRUSDT', ccy: ['USD'] }
   ];  function getDecimals(price) {
     if (!price || isNaN(price)) return 2;
     const abs = Math.abs(price);
@@ -1739,11 +1837,31 @@ Gaya Komunikasi:
   }
 
   const SEED_PRICES = {
-    'EURUSD': 1.1235, 'GBPUSD': 1.1800, 'USDJPY': 158.10, 'AUDUSD': 0.7250,
-    'USDCAD': 1.4130, 'USDCHF': 0.8240, 'NZDUSD': 0.5650, 'GBPJPY': 186.50,
-    'EURJPY': 177.60, 'EURGBP': 0.9520, 'AUDJPY': 114.65, 'XAUUSD': 2720.0,
-    'PAXGUSDT': 2720.0, 'BTCUSDT': 82200.0, 'BTCUSD': 82200.0, 'ETHUSDT': 2700.0,
-    'SOLUSDT': 188.0, 'PEPEUSDT': 0.0000105, 'XAGUSD': 32.20, 'WTIUSD': 71.50
+    'EURUSD': 1.0850, 'GBPUSD': 1.2950, 'USDJPY': 152.40, 'AUDUSD': 0.6580,
+    'USDCAD': 1.3850, 'USDCHF': 0.8650, 'NZDUSD': 0.5980, 'GBPJPY': 197.50,
+    'EURJPY': 165.40, 'EURGBP': 0.8380, 'AUDJPY': 100.20, 'XAUUSD': 2720.0,
+    'PAXGUSDT': 2720.0, 'XAGUSD': 32.20, 'WTIUSD': 71.50, 'DXY': 104.20,
+    'BTCUSD': 82200.0, 'BTCUSDT': 82200.0, 'ETHUSDT': 2700.0, 'SOLUSDT': 188.0,
+    'BNBUSDT': 590.0, 'XRPUSDT': 0.54, 'ADAUSDT': 0.35, 'AVAXUSDT': 27.50,
+    'DOTUSDT': 4.20, 'SUIUSDT': 2.10, 'APTUSDT': 8.50, 'NEARUSDT': 4.80,
+    'ATOMUSDT': 4.50, 'SEIUSDT': 0.42, 'TIAUSDT': 5.20, 'INJUSDT': 21.0,
+    'TONUSDT': 5.10, 'ICPUSDT': 8.20, 'HBARUSDT': 0.052, 'ALGOUSDT': 0.13,
+    'KASUSDT': 0.13, 'ARBUSDT': 0.55, 'OPUSDT': 1.60, 'MATICUSDT': 0.38,
+    'STRKUSDT': 0.40, 'ZKUSDT': 0.14, 'MANTAUSDT': 0.80, 'METISUSDT': 45.0,
+    'TAOUSDT': 520.0, 'FETUSDT': 1.30, 'RENDERUSDT': 5.60, 'WLDUSDT': 2.10,
+    'GRTUSDT': 0.18, 'ARUSDT': 18.0, 'AKTUSDT': 3.20, 'PHBUSDT': 1.85,
+    'RLCUSDT': 1.95, 'UNIUSDT': 8.50, 'AAVEUSDT': 165.0, 'LINKUSDT': 12.50,
+    'PENDLEUSDT': 4.80, 'MKRUSDT': 1550.0, 'LDOUSDT': 1.25, 'CRVUSDT': 0.28,
+    'SNXUSDT': 1.50, 'RUNEUSDT': 5.20, 'JUPUSDT': 1.05, 'DYDXUSDT': 1.15,
+    'CAKEUSDT': 1.90, 'COMPUSDT': 50.0, 'SUSHIUSDT': 0.80, '1INCHUSDT': 0.28,
+    'DOGEUSDT': 0.16, 'SHIBUSDT': 0.000018, 'PEPEUSDT': 0.0000105, 'WIFUSDT': 2.40,
+    'FLOKIUSDT': 0.00015, 'BONKUSDT': 0.000022, 'BOMEUSDT': 0.009, 'NOTUSDT': 0.008,
+    'MEMEUSDT': 0.013, 'ORDIUSDT': 35.0, '1000SATSUSDT': 0.00028, 'LTCUSDT': 75.0,
+    'BCHUSDT': 360.0, 'ETCUSDT': 20.0, 'XLMUSDT': 0.095, 'XMRUSDT': 155.0,
+    'ZECUSDT': 35.0, 'DASHUSDT': 26.0, 'GALAUSDT': 0.022, 'AXSUSDT': 5.20,
+    'SANDUSDT': 0.28, 'MANAUSDT': 0.32, 'BEAMUSDT': 0.018, 'PIXELUSDT': 0.15,
+    'PORTALUSDT': 0.30, 'ENJUSDT': 0.17, 'ILVUSDT': 42.0, 'FILUSDT': 3.80,
+    'PYTHUSDT': 0.35, 'STORJUSDT': 0.48, 'JASMYUSDT': 0.020, 'ANKRUSDT': 0.028
   };
 
   function tfToSeconds(tf) {
@@ -1858,7 +1976,7 @@ Gaya Komunikasi:
         if (cross && cross.length >= 10) return cross;
       }
 
-      const binanceSym = sym.endsWith('USDT') ? sym : (sym === 'XAUUSD' || sym === 'GOLD' ? 'PAXGUSDT' : (sym === 'EURUSD' ? 'EURUSDT' : (sym === 'GBPUSD' ? 'GBPUSDT' : (sym === 'AUDUSD' ? 'AUDUSDT' : sym + 'USDT'))));
+      const binanceSym = sym.endsWith('USDT') ? (sym === 'MATICUSDT' ? 'POLUSDT' : (sym === 'BEAMUSDT' ? 'BEAMXUSDT' : sym)) : (sym === 'BTCUSD' ? 'BTCUSDT' : (sym === 'XAUUSD' || sym === 'GOLD' ? 'PAXGUSDT' : (sym === 'EURUSD' ? 'EURUSDT' : (sym === 'GBPUSD' ? 'GBPUSDT' : (sym === 'AUDUSD' ? 'AUDUSDT' : sym + 'USDT')))));
       return await fetchBinanceRaw(binanceSym, interval, limit, signal);
     } catch (e) {
       const cleanFsym = sym.replace('USDT', '');
@@ -2355,7 +2473,8 @@ Gaya Komunikasi:
       USDJPY: { longPct: 64.5, shortPct: 35.5, netShift: -3.6, instBias: 'SELL', instName: 'Nomura & MUFG Institutional Order' },
       GBPJPY: { longPct: 62.0, shortPct: 38.0, netShift: -2.4, instBias: 'SELL', instName: 'Credit Agricole & UBS FX' },
       AUDUSD: { longPct: 46.5, shortPct: 53.5, netShift: +1.9, instBias: 'BUY', instName: 'ANZ & Westpac Institutional' },
-      BTCUSDT: { longPct: 41.0, shortPct: 59.0, netShift: +5.4, instBias: 'BUY', instName: 'CME Institutional Futures & Block Desk' }
+      BTCUSDT: { longPct: 41.0, shortPct: 59.0, netShift: +5.4, instBias: 'BUY', instName: 'CME Institutional Futures & Block Desk' },
+      BTCUSD: { longPct: 41.0, shortPct: 59.0, netShift: +5.4, instBias: 'BUY', instName: 'CME Institutional Futures & OANDA Desk' }
     };
     let customLongPctOverride = null;
 
@@ -2446,7 +2565,7 @@ Gaya Komunikasi:
     const pairDropdown = node('div', null, 'pair-dropdown');
     pairDropdown.id = 'pairDropdown';
     const catTabs = node('div', null, 'cat-tabs');
-    const catKeys = [['ALL', 'ALL (400+)'], ['METALS', 'METALS'], ['FOREX', 'FOREX'], ['CRYPTO', 'CRYPTO'], ['INDICES', 'INDICES']];
+    const catKeys = [['ALL', 'ALL'], ['METALS', 'METALS'], ['FOREX', 'FOREX'], ['CRYPTO', 'CRYPTO'], ['INDICES', 'INDICES']];
     catKeys.forEach(([catKey, catLabel]) => {
       const tabBtn = node('button', catLabel, 'cat-tab' + (catKey === 'ALL' ? ' active' : ''));
       tabBtn.type = 'button';
@@ -2558,9 +2677,9 @@ Gaya Komunikasi:
     qpLabel.style.flexShrink = '0';
     quickPairsBar.append(qpLabel);
 
-    const quickList = ['XAUUSD', 'BTCUSDT', 'EURUSD', 'GBPUSD', 'USDJPY', 'GBPJPY', 'EURJPY', 'AUDUSD', 'XAGUSD', 'ETHUSDT', 'SOLUSDT', 'PEPEUSDT'];
+    const quickList = ['XAUUSD', 'BTCUSD', 'EURUSD', 'GBPUSD', 'USDJPY', 'GBPJPY', 'EURJPY', 'AUDUSD', 'XAGUSD', 'ETHUSDT', 'SOLUSDT', 'PEPEUSDT'];
     quickList.forEach(code => {
-      const label = code === 'BTCUSDT' ? 'BTCUSD' : (code === 'ETHUSDT' ? 'ETHUSD' : (code === 'SOLUSDT' ? 'SOLUSD' : (code === 'PEPEUSDT' ? 'PEPEUSD' : code)));
+      const label = code === 'ETHUSDT' ? 'ETHUSD' : (code === 'SOLUSDT' ? 'SOLUSD' : (code === 'PEPEUSDT' ? 'PEPEUSD' : code));
       const chip = node('button', label, 'qp-chip' + (code === 'XAUUSD' ? ' active' : ''));
       chip.type = 'button';
       chip.dataset.code = code;
@@ -3768,7 +3887,7 @@ Gunakan data dari https://www.fastbull.com/list-position sebagai filter konfirma
         const matchCat = selectedPairCategory === 'ALL' || p.cat === selectedPairCategory;
         const matchQuery = !query || p.code.includes(query) || p.name.toUpperCase().includes(query);
         return matchCat && matchQuery;
-      }).slice(0, 80);
+      }).slice(0, 150);
 
       if (query && !allPairsCatalog.some(p => p.code === query)) {
         const customItem = node('div', null, 'pair-item');
@@ -3815,7 +3934,7 @@ Gunakan data dari https://www.fastbull.com/list-position sebagai filter konfirma
 
     async function selectPairByCode(code) {
       const norm = (code || '').toUpperCase().replace('/', '');
-      const found = allPairsCatalog.find(p => p.code === norm || p.code === code || p.code === (norm + 'T') || p.code.replace('USDT', 'USD') === norm);
+      const found = allPairsCatalog.find(p => p.code === norm || p.code === code) || allPairsCatalog.find(p => p.code === (norm + 'T') || p.code.replace('USDT', 'USD') === norm);
       if (found) {
         currentPairObj = found;
         pairSearchInput.value = found.code;
@@ -3847,7 +3966,7 @@ Gunakan data dari https://www.fastbull.com/list-position sebagai filter konfirma
     async function selectCustomString(rawInput) {
       pairDropdown.classList.remove('open');
       const clean = rawInput.replace('/', '').replace('-', '').trim().toUpperCase();
-      const existing = allPairsCatalog.find(p => p.code === clean || p.tvSym === rawInput || p.code.replace('USDT', 'USD') === clean);
+      const existing = allPairsCatalog.find(p => p.code === clean || p.tvSym === rawInput) || allPairsCatalog.find(p => p.code.replace('USDT', 'USD') === clean);
 
       if (existing) {
         currentPairObj = existing;
@@ -3922,7 +4041,10 @@ Gunakan data dari https://www.fastbull.com/list-position sebagai filter konfirma
         if (chip.classList.contains('qp-chip')) {
           const chipCode = (chip.dataset.code || chip.textContent || '').toUpperCase();
           const chipNormNoT = chipCode.endsWith('USDT') ? chipCode.replace(/USDT$/, 'USD') : chipCode;
-          const isActive = chipCode === norm || chipNormNoT === norm || chipNormNoT === normNoT || chip.textContent === norm || chip.textContent === normNoT;
+          const isExact = chipCode === norm || chip.textContent === norm;
+          const hasDistinctSibling = allPairsCatalog.some(p => p.code === chipCode && p.code !== norm);
+          const isFallbackMatch = !hasDistinctSibling && (chipNormNoT === norm || chipNormNoT === normNoT || chip.textContent === normNoT);
+          const isActive = isExact || isFallbackMatch;
           chip.classList.toggle('active', isActive);
           chip.setAttribute('aria-pressed', isActive ? 'true' : 'false');
         }
@@ -4773,31 +4895,9 @@ Gunakan data dari https://www.fastbull.com/list-position sebagai filter konfirma
     }, 1000);
     marketController.signal.addEventListener('abort', () => clearInterval(clockInterval), { once: true });
 
-    // Load extra Binance pairs in background
+    // Curated catalog synchronization (no 400+ background unrequested coin injection)
     async function loadExtraBinancePairs() {
-      try {
-        const timeoutCtrl = new AbortController();
-        const timeoutTimer = setTimeout(() => timeoutCtrl.abort(), 2000);
-        const res = await fetch('https://api.binance.com/api/v3/ticker/price', { signal: timeoutCtrl.signal });
-        clearTimeout(timeoutTimer);
-        const list = await res.json();
-        const existingCodes = new Set(allPairsCatalog.map(p => p.code));
-        list.forEach(item => {
-          if (item.symbol.endsWith('USDT') && !existingCodes.has(item.symbol)) {
-            const base = item.symbol.replace('USDT', '');
-            allPairsCatalog.push({
-              code: item.symbol,
-              name: base + ' / USDT (Live Spot)',
-              cat: 'CRYPTO',
-              provider: 'BINANCE',
-              apiSym: item.symbol,
-              tvSym: 'BINANCE:' + item.symbol,
-              ccy: ['USD']
-            });
-          }
-        });
-        renderPairDropdownList();
-      } catch (e) {}
+      // Catalog remains curated with high-quality pairs requested by user
     }
     loadExtraBinancePairs().catch(() => {});
 
@@ -4820,7 +4920,7 @@ Gunakan data dari https://www.fastbull.com/list-position sebagai filter konfirma
       { symbol: 'XAUUSD', name: 'Gold / US Dollar', asset_class: 'Metals · Live Feed', tradingview_symbol: 'TVC:GOLD', timeframes: Object.keys(timeframes) },
       { symbol: 'EURUSD', name: 'Euro / US Dollar', asset_class: 'Forex · Live Feed', tradingview_symbol: 'FX:EURUSD', timeframes: Object.keys(timeframes) },
       { symbol: 'GBPUSD', name: 'Pound / US Dollar', asset_class: 'Forex · Live Feed', tradingview_symbol: 'FX:GBPUSD', timeframes: Object.keys(timeframes) },
-      { symbol: 'BTCUSD', name: 'Bitcoin / US Dollar', asset_class: 'Crypto · Live Feed', tradingview_symbol: 'BINANCE:BTCUSDT', timeframes: Object.keys(timeframes) }
+      { symbol: 'BTCUSD', name: 'Bitcoin / US Dollar', asset_class: 'Crypto · Live Feed', tradingview_symbol: 'OANDA:BTCUSD', timeframes: Object.keys(timeframes) }
     ] }));
     mapped = catalog.items || [];
     chartOnly = false;
