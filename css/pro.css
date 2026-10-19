@@ -3439,5 +3439,203 @@ body.pro-sheet-open { overflow:hidden !important; }
   color: #94a3b8;
 }
 
+/* Real-Time Signal Stream Log Card */
+.pro-signal-log-card {
+  background-color: #0b0f19;
+  border: 1px solid #1e2538;
+  border-radius: 12px;
+  padding: 16px;
+  margin-top: 14px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+}
+
+.signal-log-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 10px;
+  border-bottom: 1px solid #1a2333;
+  padding-bottom: 12px;
+  margin-bottom: 12px;
+}
+
+.signal-log-header-left {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.signal-log-title {
+  font-size: 14px;
+  font-weight: 700;
+  color: #f8fafc;
+  margin: 0;
+}
+
+.signal-log-live-badge {
+  font-size: 10px;
+  font-weight: 800;
+  color: #10b981;
+  background-color: rgba(16, 185, 129, 0.12);
+  border: 1px solid rgba(16, 185, 129, 0.3);
+  padding: 2px 8px;
+  border-radius: 999px;
+  letter-spacing: 0.05em;
+}
+
+.signal-log-header-right {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.signal-log-count {
+  font-size: 11px;
+  font-weight: 600;
+  color: #94a3b8;
+  background-color: #131b2e;
+  border: 1px solid #222d44;
+  padding: 4px 10px;
+  border-radius: 6px;
+}
+
+.btn-log-action {
+  padding: 4px 10px;
+  background-color: #1e293b;
+  border: 1px solid #334155;
+  color: #cbd5e1;
+  border-radius: 6px;
+  font-size: 11px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+.btn-log-action:hover {
+  background-color: #334155;
+  color: #ffffff;
+}
+
+.signal-log-container {
+  max-height: 280px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding-right: 4px;
+}
+
+.signal-log-container::-webkit-scrollbar {
+  width: 4px;
+}
+
+.signal-log-container::-webkit-scrollbar-thumb {
+  background-color: #1e2538;
+  border-radius: 4px;
+}
+
+.signal-log-item {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 6px;
+  padding: 8px 12px;
+  border-radius: 8px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  line-height: 1.5;
+  background-color: #101524;
+  border: 1px solid #1b2236;
+  animation: logFadeIn 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes logFadeIn {
+  from { opacity: 0; transform: translateY(-3px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.signal-log-item.log-buy {
+  border-left: 3px solid #00e676;
+  background: linear-gradient(90deg, rgba(0, 230, 118, 0.08) 0%, rgba(16, 21, 36, 0.95) 100%);
+}
+
+.signal-log-item.log-sell {
+  border-left: 3px solid #ff2a5f;
+  background: linear-gradient(90deg, rgba(255, 42, 95, 0.08) 0%, rgba(16, 21, 36, 0.95) 100%);
+}
+
+.signal-log-item.log-wait {
+  border-left: 3px solid #facc15;
+  background: linear-gradient(90deg, rgba(250, 204, 21, 0.06) 0%, rgba(16, 21, 36, 0.95) 100%);
+}
+
+.signal-log-time {
+  color: #64748b;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.signal-log-dir {
+  font-weight: 800;
+  padding: 1px 6px;
+  border-radius: 4px;
+  font-size: 11px;
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+}
+
+.signal-log-dir.dir-buy {
+  background-color: rgba(0, 230, 118, 0.15);
+  color: #00e676;
+}
+
+.signal-log-dir.dir-sell {
+  background-color: rgba(255, 42, 95, 0.15);
+  color: #ff2a5f;
+}
+
+.signal-log-dir.dir-wait {
+  background-color: rgba(250, 204, 21, 0.15);
+  color: #facc15;
+}
+
+.signal-log-colon {
+  color: #64748b;
+  font-weight: 700;
+}
+
+.signal-log-reason {
+  color: #e2e8f0;
+  flex: 1 1 auto;
+  word-break: break-word;
+}
+
+.signal-log-levels {
+  color: #94a3b8;
+  font-size: 11px;
+  white-space: nowrap;
+}
+
+.signal-log-empty {
+  color: #64748b;
+  font-size: 12px;
+  padding: 18px;
+  text-align: center;
+  font-style: italic;
+}
+
+@media (max-width: 640px) {
+  .signal-log-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .signal-log-item {
+    font-size: 11px;
+    padding: 7px 9px;
+  }
+}
+
 
 

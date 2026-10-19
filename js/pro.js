@@ -2065,9 +2065,9 @@ Gaya Komunikasi:
     else if (/\bSELL\b|\*\*SELL\*\*/i.test(text)) direction = 'SELL';
     else if (/\bNO TRADE\b|\bWAIT\b/i.test(text)) direction = 'WAIT (BASE)';
 
-    const entryMatch = text.match(/Entry Level[^\n\d]*([\d.,]+)/i) || text.match(/Entry[^\n\d]*([\d.,]+)/i);
-    const slMatch = text.match(/Stop Loss[^\n\d]*([\d.,]+)/i) || text.match(/SL[^\n\d]*([\d.,]+)/i);
-    const tpMatch = text.match(/Take Profit[^\n\d]*([\d.,]+)/i) || text.match(/TP[^\n\d]*([\d.,]+)/i);
+    const entryMatch = text.match(/(?:Entry Level|Entry)[^\n\d]*([\d]+(?:[.,]\d+)?)/i);
+    const slMatch = text.match(/(?:Stop Loss|SL)[^\n\d]*([\d]+(?:[.,]\d+)?)/i);
+    const tpMatch = text.match(/(?:Take Profit|TP)(?:\s*(?:1|2|3|target))?[^\n\d]*([\d]+(?:[.,]\d+)?)/i);
     const rrMatch = text.match(/Risk:?Reward[^\n\d]*([1\d:.]+)/i);
 
     const basePrice = parseFloat(context?.current_price) || 2650;
@@ -2082,7 +2082,7 @@ Gaya Komunikasi:
       sl,
       tp,
       rr,
-      confidence: direction === 'WAIT (BASE)' ? 'WAIT' : 'CONFIRMED',
+      confidence: direction === 'WAIT (BASE)' ? '50.0%' : '75.0%',
       engineName: 'Gemini AI (' + GEMINI_DEFAULT_MODEL + ') · Kaystrade',
       stateValue: direction === 'BUY' ? '+0.78 (BULLISH)' : direction === 'SELL' ? '-0.78 (BEARISH)' : '0.00 (NEUTRAL)',
       advantage: direction === 'BUY' ? 'RSI 58.2 | SMA 51.4' : direction === 'SELL' ? 'RSI 42.1 | SMA 49.3' : 'RSI 50.0 | SMA 50.0',
@@ -2101,25 +2101,37 @@ Gaya Komunikasi:
 
     const topRow = node('div', null, 'signal-top pro-vinzx-top-row');
     const dirWrap = node('div');
-    dirWrap.append(
-      node('div', 'ENTRY SIGNAL (REAL-TIME KAYSTRADE)', 'signal-label pro-vinzx-signal-title'),
-      node('div', dir, 'signal-direction pro-vinzx-signal-direction')
-    );
+    const dirTitle = node('div', 'ENTRY SIGNAL (REAL-TIME KAYSTRADE)', 'signal-label pro-vinzx-signal-title');
+    const dirVal = node('div', dir, 'signal-direction pro-vinzx-signal-direction');
+    dirVal.id = 'sigDirection';
+    dirWrap.append(dirTitle, dirVal);
     const confBox = node('div', null, 'conf-box pro-vinzx-badges');
     const confText = node('div', null, 'conf-text pro-vinzx-pill conf');
     const confVal = data?.confidence ? String(data.confidence) : (isBuy || isSell ? '75.0%' : '50.0%');
-    confText.append(node('span', '● ' + (confVal.includes('%') ? confVal : confVal + '%') + ' CONF.'));
+    const confDisplay = confVal.includes('%') ? confVal : (confVal === 'CONFIRMED' ? '75.0%' : (confVal === 'WAIT' ? '50.0%' : confVal + '%'));
+    const sigConfEl = node('span', confDisplay);
+    sigConfEl.id = 'sigConf';
+    confText.append(node('span', '● '), sigConfEl, node('span', ' CONF.'));
     const rrBadge = node('div', data?.rr || 'PLAN RR 1:2.5', 'rr-badge pro-vinzx-pill rr');
+    rrBadge.id = 'sigRR';
     confBox.append(confText, rrBadge);
     topRow.append(dirWrap, confBox);
 
     const levelsGrid = node('div', null, 'levels-grid pro-vinzx-metrics-grid');
     const cellEntry = node('div', null, 'level-cell pro-vinzx-metric-col');
-    cellEntry.append(node('div', 'ENTRY (RETEST/LIVE)', 'level-title pro-vinzx-metric-label'), node('div', format(data?.entry || '-'), 'level-val pro-vinzx-metric-value'));
+    const valEntryEl = node('div', format(data?.entry || '-'), 'level-val pro-vinzx-metric-value');
+    valEntryEl.id = 'valEntry';
+    cellEntry.append(node('div', 'ENTRY (RETEST/LIVE)', 'level-title pro-vinzx-metric-label'), valEntryEl);
+
     const cellSL = node('div', null, 'level-cell sl-cell pro-vinzx-metric-col');
-    cellSL.append(node('div', 'SL (INVALIDATION)', 'level-title pro-vinzx-metric-label'), node('div', format(data?.sl || '-'), 'level-val sl-val pro-vinzx-metric-value sl'));
+    const valSLEl = node('div', format(data?.sl || '-'), 'level-val sl-val pro-vinzx-metric-value sl');
+    valSLEl.id = 'valSL';
+    cellSL.append(node('div', 'SL (INVALIDATION)', 'level-title pro-vinzx-metric-label'), valSLEl);
+
     const cellTP = node('div', null, 'level-cell tp-cell pro-vinzx-metric-col');
-    cellTP.append(node('div', 'TP (SWING TARGET)', 'level-title pro-vinzx-metric-label'), node('div', format(data?.tp || '-'), 'level-val tp-val pro-vinzx-metric-value tp'));
+    const valTPEl = node('div', format(data?.tp || '-'), 'level-val tp-val pro-vinzx-metric-value tp');
+    valTPEl.id = 'valTP';
+    cellTP.append(node('div', 'TP (SWING TARGET)', 'level-title pro-vinzx-metric-label'), valTPEl);
     levelsGrid.append(cellEntry, cellSL, cellTP);
 
     const engineBar = node('div', null, 'engine-bar pro-vinzx-engine-row');
@@ -2802,7 +2814,96 @@ Gaya Komunikasi:
 
     neuronBox.append(neuronHeader, stateGrid, probSubtitle, probRowBuy, probRowSell, evidenceList);
     signalCard.append(sigTop, levelsGrid, engineBar, neuronBox);
-    result.append(signalCard);
+
+    // Real-Time Signal Stream Log
+    const signalLogList = [];
+
+    function addSignalLogEntry(entry) {
+      const now = Date.now();
+      if (signalLogList.length > 0) {
+        const last = signalLogList[0];
+        if (last.direction === entry.direction && Math.abs(now - last.timestamp) < 8000 && last.entry === entry.entry) {
+          return;
+        }
+      }
+
+      signalLogList.unshift({ ...entry, timestamp: now });
+      if (signalLogList.length > 60) signalLogList.pop();
+
+      const emptyEl = document.getElementById('signalLogEmpty');
+      if (emptyEl) emptyEl.remove();
+
+      const container = document.getElementById('signalLogContainer') || signalLogContainer;
+      const countEl = document.getElementById('signalLogCount') || logCountBadge;
+      if (countEl) countEl.textContent = signalLogList.length + ' Sinyal Tercatat';
+
+      if (container) {
+        const isBuy = entry.direction.includes('BUY');
+        const isSell = entry.direction.includes('SELL');
+        const item = node('div', null, 'signal-log-item ' + (isBuy ? 'log-buy' : isSell ? 'log-sell' : 'log-wait'));
+
+        const timeSpan = node('span', 'jam ' + entry.time + ' ', 'signal-log-time');
+        const dirSpan = node('span', (isBuy ? 'BUY' : isSell ? 'SELL' : entry.direction) + ' ', 'signal-log-dir ' + (isBuy ? 'dir-buy' : isSell ? 'dir-sell' : 'dir-wait'));
+        const colonSpan = node('span', ': ', 'signal-log-colon');
+        const reasonSpan = node('span', entry.reason, 'signal-log-reason');
+        const levelsSpan = node('span', ' [Entry: ' + entry.entry + ' · SL: ' + entry.sl + ' · TP: ' + entry.tp + ']', 'signal-log-levels');
+
+        item.append(timeSpan, dirSpan, colonSpan, reasonSpan, levelsSpan);
+        container.prepend(item);
+      }
+    }
+
+    function copySignalLog() {
+      if (!signalLogList.length) {
+        alert('Belum ada riwayat sinyal untuk disalin.');
+        return;
+      }
+      const lines = signalLogList.map(item => {
+        const dir = item.direction.includes('BUY') ? 'BUY' : item.direction.includes('SELL') ? 'SELL' : item.direction;
+        return 'jam ' + item.time + ' ' + dir + ' : ' + item.reason + ' (Entry: ' + item.entry + ', SL: ' + item.sl + ', TP: ' + item.tp + ')';
+      });
+      navigator.clipboard.writeText(lines.join('\n'));
+      alert(signalLogList.length + ' riwayat sinyal berhasil disalin ke Clipboard!');
+    }
+
+    function clearSignalLog() {
+      signalLogList.length = 0;
+      const container = document.getElementById('signalLogContainer');
+      if (container) {
+        container.replaceChildren();
+        const empty = node('div', 'Menunggu pemicu sinyal real-time berikutnya...', 'signal-log-empty');
+        empty.id = 'signalLogEmpty';
+        container.append(empty);
+      }
+      const countEl = document.getElementById('signalLogCount');
+      if (countEl) countEl.textContent = '0 Sinyal Tercatat';
+    }
+
+    const signalLogCard = node('div', null, 'pro-signal-log-card');
+    signalLogCard.id = 'signalLogCard';
+
+    const logHeader = node('div', null, 'signal-log-header');
+    const logHeaderLeft = node('div', null, 'signal-log-header-left');
+    const logTitle = node('h3', 'Riwayat Sinyal Real-Time (Signal Stream Log)', 'signal-log-title');
+    const logBadge = node('span', '● LIVE RECORDER', 'signal-log-live-badge');
+    logHeaderLeft.append(logTitle, logBadge);
+
+    const logHeaderRight = node('div', null, 'signal-log-header-right');
+    const logCountBadge = node('span', '0 Sinyal Tercatat', 'signal-log-count');
+    logCountBadge.id = 'signalLogCount';
+    const copyLogBtn = button('Salin Log', copySignalLog, 'btn-log-action');
+    const clearLogBtn = button('Bersihkan', clearSignalLog, 'btn-log-action');
+    logHeaderRight.append(logCountBadge, copyLogBtn, clearLogBtn);
+    logHeader.append(logHeaderLeft, logHeaderRight);
+
+    const signalLogContainer = node('div', null, 'signal-log-container');
+    signalLogContainer.id = 'signalLogContainer';
+    const emptyLogMsg = node('div', 'Menunggu pemicu sinyal real-time berikutnya...', 'signal-log-empty');
+    emptyLogMsg.id = 'signalLogEmpty';
+    signalLogContainer.append(emptyLogMsg);
+
+    signalLogCard.append(logHeader, signalLogContainer);
+    result.append(signalCard, signalLogCard);
 
     // Fundamental Panel (Di bawah AI entry signal)
     // Fundamental & FastBull Integrated Panel (Di bawah AI entry signal)
@@ -4263,6 +4364,9 @@ Gunakan data dari https://www.fastbull.com/list-position sebagai filter konfirma
       onStrategyStyleChange();
     }
 
+    let currentEngineSignalState = 'WAIT (BASE)';
+    let lastEngineRecordedSignal = '';
+
     function evaluateKaystradeEngine(drawLines = false) {
       if (currentCandles.length < 10) return;
 
@@ -4328,19 +4432,48 @@ Gunakan data dari https://www.fastbull.com/list-position sebagai filter konfirma
 
       const isIntradayH4Blocked = (cfg.code === 'INTRADAY' && h4Struct.bias === 'CONSOLIDATION' && conf < 72);
 
+      // Hysteresis: prevent rapid fluttering between BUY and SELL on minor tick noise
       if (newsCheck.isLocked) {
         signal = 'WAIT (NEWS < 1H)';
         modeClass = 'news-lock-mode';
       } else if (isIntradayH4Blocked) {
         signal = 'WAIT (H4 NEUTRAL)';
         modeClass = 'wait-mode';
-      } else if (buyPoints >= 60 && confirmations >= 3) {
-        signal = cfg.code === 'SCALPING' ? 'SCALP BUY' : 'BUY';
-        modeClass = 'buy-mode';
-      } else if (sellPoints >= 60 && confirmations >= 3) {
-        signal = cfg.code === 'SCALPING' ? 'SCALP SELL' : 'SELL';
-        modeClass = '';
+      } else if (currentEngineSignalState.includes('BUY')) {
+        if (sellPoints >= 60 && confirmations >= 3) {
+          signal = cfg.code === 'SCALPING' ? 'SCALP SELL' : 'SELL';
+          modeClass = '';
+        } else if (buyPoints >= 52) {
+          signal = cfg.code === 'SCALPING' ? 'SCALP BUY' : 'BUY';
+          modeClass = 'buy-mode';
+        } else {
+          signal = 'WAIT (BASE)';
+          modeClass = 'wait-mode';
+        }
+      } else if (currentEngineSignalState.includes('SELL')) {
+        if (buyPoints >= 60 && confirmations >= 3) {
+          signal = cfg.code === 'SCALPING' ? 'SCALP BUY' : 'BUY';
+          modeClass = 'buy-mode';
+        } else if (sellPoints >= 52) {
+          signal = cfg.code === 'SCALPING' ? 'SCALP SELL' : 'SELL';
+          modeClass = '';
+        } else {
+          signal = 'WAIT (BASE)';
+          modeClass = 'wait-mode';
+        }
+      } else {
+        if (buyPoints >= 60 && confirmations >= 3) {
+          signal = cfg.code === 'SCALPING' ? 'SCALP BUY' : 'BUY';
+          modeClass = 'buy-mode';
+        } else if (sellPoints >= 60 && confirmations >= 3) {
+          signal = cfg.code === 'SCALPING' ? 'SCALP SELL' : 'SELL';
+          modeClass = '';
+        } else {
+          signal = 'WAIT (BASE)';
+          modeClass = 'wait-mode';
+        }
       }
+      currentEngineSignalState = signal;
 
       // Penentuan Level Entry FastBull + Retest Base / FVG
       let entryPrice = livePrice;
@@ -4387,6 +4520,37 @@ Gunakan data dari https://www.fastbull.com/list-position sebagai filter konfirma
       if (valSLEl) valSLEl.textContent = fmtPrice(slPrice);
       const valTPEl = document.getElementById('valTP');
       if (valTPEl) valTPEl.textContent = fmtPrice(tpPrice);
+
+      // Real-Time Signal Stream Logger: Record changes in format: jam xx:xx BUY/SELL : reason
+      const signalKey = signal + '_' + currentPairObj.code + '_' + selectedFrame;
+      if (signalKey !== lastEngineRecordedSignal) {
+        lastEngineRecordedSignal = signalKey;
+        const now = new Date();
+        const timeStr = String(now.getHours()).padStart(2, '0') + ':' + String(now.getMinutes()).padStart(2, '0') + ':' + String(now.getSeconds()).padStart(2, '0');
+
+        let reason = '';
+        if (signal.includes('BUY')) {
+          reason = 'Retest Base ' + selectedFrame.toUpperCase() + ' (' + fmtPrice(entryPrice) + ') + FastBull Long ' + fbPos.longPct.toFixed(0) + '% · RSI(14) ' + rsiInfo.rsi.toFixed(1) + ' Bullish · H4 ' + h4Struct.bias + ' (' + confirmations + '/7 Konfirmasi)';
+        } else if (signal.includes('SELL')) {
+          reason = 'Rejection Base / Pivot (' + fmtPrice(entryPrice) + ') + FastBull Short ' + fbPos.shortPct.toFixed(0) + '% · RSI(14) ' + rsiInfo.rsi.toFixed(1) + ' Bearish · H4 ' + h4Struct.bias + ' (' + confirmations + '/7 Konfirmasi)';
+        } else {
+          reason = newsCheck.isLocked
+            ? ('Peringatan Berita High Impact <1 Jam: ' + newsCheck.event.title)
+            : ('Konsolidasi / Menunggu Breakout Base ' + selectedFrame.toUpperCase() + ' · RSI(14) ' + rsiInfo.rsi.toFixed(1) + ' Netral');
+        }
+
+        addSignalLogEntry({
+          time: timeStr,
+          pair: currentPairObj.code,
+          timeframe: selectedFrame.toUpperCase(),
+          direction: signal,
+          entry: fmtPrice(entryPrice),
+          sl: fmtPrice(slPrice),
+          tp: fmtPrice(tpPrice),
+          rr: '1:' + rrRatio,
+          reason
+        });
+      }
 
       if (newsCheck.isLocked) {
         verifiedPill.textContent = 'NEWS LOCK (<1H)';
@@ -4533,8 +4697,22 @@ Gunakan data dari https://www.fastbull.com/list-position sebagai filter konfirma
 
           const parsed = parseGeminiSignal(aiResponse, context);
           renderVinzxSignalCard(signalCard, parsed);
-          result.replaceChildren(node('h2', 'AI entry signal'), selectionNote, signalCard);
+          result.replaceChildren(node('h2', 'AI entry signal'), selectionNote, signalCard, signalLogCard);
           notePrevious();
+
+          const now = new Date();
+          const timeStr = String(now.getHours()).padStart(2, '0') + ':' + String(now.getMinutes()).padStart(2, '0') + ':' + String(now.getSeconds()).padStart(2, '0');
+          addSignalLogEntry({
+            time: timeStr,
+            pair: selection.instrument,
+            timeframe: selectedFrame.toUpperCase(),
+            direction: parsed.direction,
+            entry: parsed.entry,
+            sl: parsed.sl,
+            tp: parsed.tp,
+            rr: parsed.rr ? parsed.rr.replace('PLAN RR ', '') : '1:2.5',
+            reason: 'Analisis AI Gemini (' + GEMINI_DEFAULT_MODEL + ') · ' + (parsed.direction === 'BUY' ? 'Setup Bullish Terkonfirmasi' : parsed.direction === 'SELL' ? 'Setup Bearish Terkonfirmasi' : 'Konsolidasi / Menunggu Base')
+          });
 
           saveLocalAnalysisJob({
             id: crypto.randomUUID(),
@@ -4556,6 +4734,7 @@ Gunakan data dari https://www.fastbull.com/list-position sebagai filter konfirma
               stored = job.result;
               marketResult(result, job.result);
               result.prepend(selectionNote);
+              result.append(signalLogCard);
               notePrevious();
               appendActionButtons(result, job.result, job.id);
             }
