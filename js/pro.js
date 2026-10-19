@@ -237,12 +237,22 @@
     });
   }
 
+  const BANNED_MODELS_REGEX = /3\.1|pro|argon|gemini-4/i;
+  const isModelAllowed = (m) => typeof m === 'string' && !BANNED_MODELS_REGEX.test(m);
+
   async function callGeminiApi({systemInstruction,contents,history,model=GEMINI_DEFAULT_MODEL,signal}) {
     const apiKey=getGeminiApiKey();
     if(!apiKey){
       throw new Error('Google Gemini API Key belum diatur. Klik tombol "Set API Key" di samping status AI untuk memasukkan API Key Anda.');
     }
-    const candidateModels = [model, 'gemini-3.8-flash', 'gemini-2.0-flash', 'gemini-2.5-flash', 'gemini-1.5-flash'];
+    const candidateModels = [
+      model,
+      'gemini-3.8-flash',
+      'gemini-2.5-flash',
+      'gemini-2.0-flash',
+      'gemini-1.5-flash',
+      'gemini-2.5-flash-lite'
+    ].filter(isModelAllowed);
     const modelsToTry = [...new Set(candidateModels)];
 
     let contentsPayload;
@@ -259,6 +269,8 @@
     }
 
     let lastError = null;
+    let hadQuotaExhaustion = false;
+
     for (let i = 0; i < modelsToTry.length; i++) {
       const curModel = modelsToTry[i];
       const endpoint=`https://generativelanguage.googleapis.com/v1beta/models/${encodeURIComponent(curModel)}:generateContent?key=${encodeURIComponent(apiKey)}`;
@@ -276,28 +288,46 @@
       }
 
       if(response.status===429){
-        throw new Error('gagal memproses jawaban, kuota kayla telah habis atau dibatasi. silahkan coba lagi nanti');
+        hadQuotaExhaustion = true;
+        lastError = new Error('gagal memproses jawaban, kuota kayla telah habis atau dibatasi. silahkan coba lagi nanti');
+        if (i < modelsToTry.length - 1) {
+          continue;
+        }
+        throw lastError;
       }
+
       const data=await response.json().catch(()=>null);
       if(!response.ok){
         const errorMsg=data?.error?.message||response.statusText;
-        if(/RESOURCE_EXHAUSTED|quota|rate limit/i.test(errorMsg)){
-          throw new Error('gagal memproses jawaban, kuota kayla telah habis atau dibatasi. silahkan coba lagi nanti');
-        }
+        const isQuotaErr = /RESOURCE_EXHAUSTED|quota|rate limit/i.test(errorMsg);
+        if (isQuotaErr) hadQuotaExhaustion = true;
+
         if(response.status===400 || response.status===403){
           throw new Error('Google Gemini API Key tidak valid atau tidak memiliki izin akses (Error: '+errorMsg+'). Periksa kembali API Key Anda di Google AI Studio.');
         }
-        if(response.status===404 && i < modelsToTry.length - 1){
-          lastError = new Error('Google Gemini API Error ('+response.status+'): '+errorMsg);
+
+        const isTransientOrSwitchable = isQuotaErr || response.status === 503 || response.status === 500 || response.status === 404;
+        if(isTransientOrSwitchable && i < modelsToTry.length - 1){
+          lastError = isQuotaErr
+            ? new Error('gagal memproses jawaban, kuota kayla telah habis atau dibatasi. silahkan coba lagi nanti')
+            : new Error('Google Gemini API Error ('+response.status+'): '+errorMsg);
           continue;
+        }
+
+        if (isQuotaErr || hadQuotaExhaustion) {
+          throw new Error('gagal memproses jawaban, kuota kayla telah habis atau dibatasi. silahkan coba lagi nanti');
         }
         throw new Error('Google Gemini API Error ('+response.status+'): '+errorMsg);
       }
       const textOutput=data?.candidates?.[0]?.content?.parts?.[0]?.text;
       if(!textOutput){
+        if (i < modelsToTry.length - 1) continue;
         throw new Error('Google Gemini tidak mengembalikan respon teks yang valid. Silakan coba kembali.');
       }
       return textOutput;
+    }
+    if (hadQuotaExhaustion) {
+      throw new Error('gagal memproses jawaban, kuota kayla telah habis atau dibatasi. silahkan coba lagi nanti');
     }
     if (lastError) throw lastError;
   }
@@ -433,13 +463,13 @@ Aspek Evaluasi:
 
 Gunakan Bahasa Indonesia profesional, lugas, tajam, dan mudah dipahami dalam format Markdown dengan tabel dan bullet points.`;
 
-  const CHAT_SYSTEM_PROMPT = `Anda adalah kayla, Asisten AI Trading & Mentor Finansial profesional di platform journalingtrade yang didirikan oleh Kaylaa.
+  const CHAT_SYSTEM_PROMPT = `Anda adalah Kayla AI, Asisten AI Trading & Mentor Finansial profesional di platform journalingtrade yang didirikan oleh Kaylaa.
 
 Pedoman Identitas & Konteks Platform:
 1. Founder & Pencipta Journaling Trade adalah Kaylaa.
 2. Metodologi analisis teknikal Kaystrade dirancang dan dirumuskan secara orisinal oleh sang Founder, Kaylaa.
 3. TIDAK ADA figur atau mentor bernama "Mas Kays". DILARANG KERAS mengarang, menyebut, atau mengasumsikan adanya sosok "Mas Kays". Jika pengguna menanyakan metodologi Kaystrade atau pendiri platform, jelaskan bahwa platform ini dan metodologi Kaystrade didirikan dan dirancang oleh Kaylaa.
-4. Anda bernama kayla, asisten AI resmi yang mendampingi trader dalam proses journaling, analisis, dan eksekusi.
+4. Anda bernama Kayla AI, asisten AI resmi yang mendampingi trader dalam proses journaling, analisis, dan eksekusi.
 
 Kompetensi Utama:
 - Analisis teknikal berbasis metodologi Kaystrade (Multi-Timeframe H4/H1/M15, Price Action, SNR/SBR, Supply/Demand, FVG, dan sentimen FastBull).
@@ -631,6 +661,12 @@ Gaya Komunikasi:
         }
       });
       renderOptions();
+      if (typeof window !== 'undefined' && window.innerWidth <= 768) {
+        document.body.append(backdrop, menu);
+        document.body.classList.add('pro-sheet-open');
+      } else {
+        wrap.append(menu, backdrop);
+      }
       menu.classList.add('is-open');
       backdrop.classList.add('is-open');
       trigger.setAttribute('aria-expanded', 'true');
@@ -640,6 +676,9 @@ Gaya Komunikasi:
       menu.classList.remove('is-open');
       backdrop.classList.remove('is-open');
       trigger.setAttribute('aria-expanded', 'false');
+      if (typeof document !== 'undefined') {
+        document.body.classList.remove('pro-sheet-open');
+      }
     }
 
     trigger.addEventListener('click', (e) => {
@@ -655,8 +694,12 @@ Gaya Komunikasi:
       closeMenu();
     });
 
+    menu.addEventListener('click', (e) => {
+      e.stopPropagation();
+    });
+
     document.addEventListener('click', (e) => {
-      if (!wrap.contains(e.target)) closeMenu();
+      if (!wrap.contains(e.target) && !menu.contains(e.target)) closeMenu();
     });
 
     selectEl.addEventListener('change', () => {
@@ -851,7 +894,7 @@ Gaya Komunikasi:
     if(!rows?.length) parent.append(node('p',text('Empty','No records for this selection.'),'pro-muted'));
   }
   function format(value) {
-    if(value===null || value===undefined) return '—';
+    if(value===null || value===undefined) return '-';
     if(typeof value==='object') return JSON.stringify(value);
     return String(value);
   }
@@ -1260,11 +1303,20 @@ Gaya Komunikasi:
     const note = node('p', '', 'pro-muted');
     content.append(terminal, note);
 
+    const formatChatTime = (t) => {
+      if (!t) return '';
+      const d = new Date(t);
+      if (isNaN(d.getTime())) return String(t);
+      const hours = String(d.getHours()).padStart(2, '0');
+      const mins = String(d.getMinutes()).padStart(2, '0');
+      return `${hours}:${mins}`;
+    };
+
     const showQuota = () => {
       if (hasGeminiApiKey()) {
         quota.textContent = '';
         quota.style.display = 'none';
-        note.textContent = 'Ditenagai oleh kayla. Mengobrol dan konsultasi seputar strategi, psikologi, teknikal, dan evaluasi jurnal secara interaktif dua arah.';
+        note.textContent = 'Ditenagai oleh Kayla AI. Mengobrol dan konsultasi seputar strategi, psikologi, teknikal, dan evaluasi jurnal secara interaktif dua arah.';
       } else {
         quota.style.display = '';
         quota.textContent = 'AI analyses remaining this month: ' + format(access?.ai?.remaining) + ' / ' + format(access?.ai?.limit || 30);
@@ -1274,7 +1326,7 @@ Gaya Komunikasi:
 
     const bubble = (role, value, time) => {
       const item = node('article', null, 'pro-chat-message'); item.dataset.role = role;
-      item.append(node('h3', role === 'user' ? 'You' : 'kayla'));
+      item.append(node('h3', role === 'user' ? 'You' : 'Kayla AI'));
       if (typeof value === 'string' && value.includes('\n')) {
         const box = node('div', null, 'pro-markdown');
         renderMarkdownInto(box, value);
@@ -1282,7 +1334,8 @@ Gaya Komunikasi:
       } else {
         item.append(node('p', value));
       }
-      if (time) item.append(node('time', format(time), 'pro-muted'));
+      const timeVal = time ? formatChatTime(time) : formatChatTime(new Date());
+      item.append(node('time', timeVal, 'pro-muted'));
       return item;
     };
 
@@ -1291,15 +1344,18 @@ Gaya Komunikasi:
         messages.replaceChildren();
         const historyList = global._geminiChatHistory || [];
         if (!historyList.length) {
-          messages.append(node('p', 'Ketik pertanyaan untuk mulai mengobrol dan berkonsultasi seputar trading dengan kayla.', 'pro-muted'));
+          messages.append(node('p', 'Ketik pertanyaan untuk mulai mengobrol dan berkonsultasi seputar trading dengan Kayla AI.', 'pro-muted'));
         } else {
           for (const item of historyList) {
             const textVal = item.parts?.[0]?.text || '';
+            const itemTime = item.time ? formatChatTime(item.time) : '';
             if (item.role === 'user') {
-              messages.append(bubble('user', textVal));
+              messages.append(bubble('user', textVal, item.time));
             } else {
-              const m = node('article', null, 'pro-chat-message'); m.dataset.role = 'assistant'; m.append(node('h3', 'kayla'));
-              const c = node('div', null, 'pro-markdown'); renderMarkdownInto(c, textVal); m.append(c); messages.append(m);
+              const m = node('article', null, 'pro-chat-message'); m.dataset.role = 'assistant'; m.append(node('h3', 'Kayla AI'));
+              const c = node('div', null, 'pro-markdown'); renderMarkdownInto(c, textVal); m.append(c);
+              if (itemTime) m.append(node('time', itemTime, 'pro-muted'));
+              messages.append(m);
             }
           }
         }
@@ -1311,7 +1367,7 @@ Gaya Komunikasi:
         messages.append(bubble('user', item.message, item.created_at));
         if (item.reply) messages.append(bubble('assistant', item.reply, item.created_at));
         else if (item.state === 'failed' || item.state === 'cancelled') messages.append(bubble('assistant', 'This reply was not completed. No AI allowance was charged.', item.created_at));
-        else messages.append(bubble('assistant', 'Response is processing…', item.created_at));
+        else messages.append(bubble('assistant', 'Response is processing...', item.created_at));
       }
       if (!messages.childElementCount) messages.append(node('p', 'Ask a question to start your private Pro chat.', 'pro-muted'));
     };
@@ -1340,7 +1396,7 @@ Gaya Komunikasi:
       const loadingBubble = node('article', null, 'pro-chat-message');
       loadingBubble.dataset.role = 'assistant';
       loadingBubble.dataset.loading = 'true';
-      const head = node('h3', 'kayla');
+      const head = node('h3', 'Kayla AI');
 
       const orbWrap = node('div', null, 'mo-inline-orb-wrap');
       const canvas = node('canvas', null, 'mo-inline-orb');
@@ -1358,7 +1414,7 @@ Gaya Komunikasi:
         let replyText = '';
         if (hasGeminiApiKey()) {
           const historyList = global._geminiChatHistory = global._geminiChatHistory || [];
-          historyList.push({ role: 'user', parts: [{ text: message }] });
+          historyList.push({ role: 'user', parts: [{ text: message }], time: Date.now() });
 
           try {
             replyText = await callGeminiApi({
@@ -1366,7 +1422,7 @@ Gaya Komunikasi:
               history: historyList,
               signal: controller.signal
             });
-            historyList.push({ role: 'model', parts: [{ text: replyText }] });
+            historyList.push({ role: 'model', parts: [{ text: replyText }], time: Date.now() });
           } catch(err) {
             historyList.pop();
             throw err;
@@ -1398,11 +1454,11 @@ Gaya Komunikasi:
 
         stopOrb();
         loadingBubble.replaceChildren();
-        loadingBubble.append(node('h3', 'kayla'));
+        loadingBubble.append(node('h3', 'Kayla AI'));
         const contentBox = node('div', null, 'pro-markdown');
         if (global.navigator?.webdriver) {
           renderMarkdownInto(contentBox, replyText || 'Response received.');
-          loadingBubble.append(contentBox, node('time', new Date().toLocaleTimeString(), 'pro-muted'));
+          loadingBubble.append(contentBox, node('time', formatChatTime(new Date()), 'pro-muted'));
         } else {
           loadingBubble.append(contentBox);
           messages.scrollTop = messages.scrollHeight;
@@ -1412,7 +1468,7 @@ Gaya Komunikasi:
             isMarkdown: true,
             onScroll: () => { messages.scrollTop = messages.scrollHeight; }
           });
-          loadingBubble.append(node('time', new Date().toLocaleTimeString(), 'pro-muted'));
+          loadingBubble.append(node('time', formatChatTime(new Date()), 'pro-muted'));
         }
         messages.scrollTop = messages.scrollHeight;
       } catch (err) {
@@ -1422,11 +1478,11 @@ Gaya Komunikasi:
         const errorText = isQuota
           ? 'gagal memproses jawaban, kuota kayla telah habis atau dibatasi. silahkan coba lagi nanti'
           : ('Gagal memproses jawaban: ' + (err.message || 'Terjadi kesalahan sistem.'));
-        loadingBubble.append(node('h3', 'kayla'));
+        loadingBubble.append(node('h3', 'Kayla AI'));
         const errBox = node('div', null, 'pro-chat-error-wrap');
         if (global.navigator?.webdriver) {
           errBox.append(node('p', errorText));
-          loadingBubble.append(errBox, node('time', new Date().toLocaleTimeString(), 'pro-muted'));
+          loadingBubble.append(errBox, node('time', formatChatTime(new Date()), 'pro-muted'));
         } else {
           loadingBubble.append(errBox);
           messages.scrollTop = messages.scrollHeight;
@@ -1436,7 +1492,7 @@ Gaya Komunikasi:
             isMarkdown: false,
             onScroll: () => { messages.scrollTop = messages.scrollHeight; }
           });
-          loadingBubble.append(node('time', new Date().toLocaleTimeString(), 'pro-muted'));
+          loadingBubble.append(node('time', formatChatTime(new Date()), 'pro-muted'));
         }
         messages.scrollTop = messages.scrollHeight;
       }
@@ -1475,17 +1531,17 @@ Gaya Komunikasi:
     { code: 'PAXGUSDT', name: 'PAX Gold Spot (1:1 Troy Oz)', cat: 'METALS', provider: 'BINANCE', apiSym: 'PAXGUSDT', tvSym: 'BINANCE:PAXGUSDT', ccy: ['USD'] },
     { code: 'WTIUSD', name: 'Crude Oil WTI Spot', cat: 'METALS', provider: 'CC', fsym: 'WTI', tsym: 'USD', tvSym: 'TVC:USOIL', ccy: ['USD', 'CAD'] },
 
-    { code: 'EURUSD', name: 'Euro / US Dollar', cat: 'FOREX', provider: 'CC', fsym: 'EUR', tsym: 'USD', tvSym: 'FX:EURUSD', ccy: ['EUR', 'USD'] },
-    { code: 'GBPUSD', name: 'British Pound / US Dollar', cat: 'FOREX', provider: 'CC', fsym: 'GBP', tsym: 'USD', tvSym: 'FX:GBPUSD', ccy: ['GBP', 'USD'] },
-    { code: 'USDJPY', name: 'US Dollar / Japanese Yen', cat: 'FOREX', provider: 'CC', fsym: 'USD', tsym: 'JPY', tvSym: 'FX:USDJPY', ccy: ['USD', 'JPY'] },
-    { code: 'AUDUSD', name: 'Australian Dollar / US Dollar', cat: 'FOREX', provider: 'CC', fsym: 'AUD', tsym: 'USD', tvSym: 'FX:AUDUSD', ccy: ['AUD', 'USD'] },
+    { code: 'EURUSD', name: 'Euro / US Dollar', cat: 'FOREX', provider: 'BINANCE', apiSym: 'EURUSDT', tvSym: 'FX:EURUSD', ccy: ['EUR', 'USD'] },
+    { code: 'GBPUSD', name: 'British Pound / US Dollar', cat: 'FOREX', provider: 'BINANCE', apiSym: 'GBPUSDT', tvSym: 'FX:GBPUSD', ccy: ['GBP', 'USD'] },
+    { code: 'USDJPY', name: 'US Dollar / Japanese Yen', cat: 'FOREX', provider: 'BINANCE', apiSym: 'USDJPY', tvSym: 'FX:USDJPY', ccy: ['USD', 'JPY'] },
+    { code: 'AUDUSD', name: 'Australian Dollar / US Dollar', cat: 'FOREX', provider: 'BINANCE', apiSym: 'AUDUSDT', tvSym: 'FX:AUDUSD', ccy: ['AUD', 'USD'] },
     { code: 'USDCAD', name: 'US Dollar / Canadian Dollar', cat: 'FOREX', provider: 'CC', fsym: 'USD', tsym: 'CAD', tvSym: 'FX:USDCAD', ccy: ['USD', 'CAD'] },
     { code: 'USDCHF', name: 'US Dollar / Swiss Franc', cat: 'FOREX', provider: 'CC', fsym: 'USD', tsym: 'CHF', tvSym: 'FX:USDCHF', ccy: ['USD', 'CHF'] },
     { code: 'NZDUSD', name: 'New Zealand Dollar / US Dollar', cat: 'FOREX', provider: 'CC', fsym: 'NZD', tsym: 'USD', tvSym: 'FX:NZDUSD', ccy: ['NZD', 'USD'] },
-    { code: 'GBPJPY', name: 'British Pound / Japanese Yen', cat: 'FOREX', provider: 'CC', fsym: 'GBP', tsym: 'JPY', tvSym: 'FX:GBPJPY', ccy: ['GBP', 'JPY'] },
-    { code: 'EURJPY', name: 'Euro / Japanese Yen', cat: 'FOREX', provider: 'CC', fsym: 'EUR', tsym: 'JPY', tvSym: 'FX:EURJPY', ccy: ['EUR', 'JPY'] },
-    { code: 'EURGBP', name: 'Euro / British Pound', cat: 'FOREX', provider: 'CC', fsym: 'EUR', tsym: 'GBP', tvSym: 'FX:EURGBP', ccy: ['EUR', 'GBP'] },
-    { code: 'AUDJPY', name: 'Australian Dollar / Japanese Yen', cat: 'FOREX', provider: 'CC', fsym: 'AUD', tsym: 'JPY', tvSym: 'FX:AUDJPY', ccy: ['AUD', 'JPY'] },
+    { code: 'GBPJPY', name: 'British Pound / Japanese Yen', cat: 'FOREX', provider: 'BINANCE', apiSym: 'GBPJPY', tvSym: 'FX:GBPJPY', ccy: ['GBP', 'JPY'] },
+    { code: 'EURJPY', name: 'Euro / Japanese Yen', cat: 'FOREX', provider: 'BINANCE', apiSym: 'EURJPY', tvSym: 'FX:EURJPY', ccy: ['EUR', 'JPY'] },
+    { code: 'EURGBP', name: 'Euro / British Pound', cat: 'FOREX', provider: 'BINANCE', apiSym: 'EURGBP', tvSym: 'FX:EURGBP', ccy: ['EUR', 'GBP'] },
+    { code: 'AUDJPY', name: 'Australian Dollar / Japanese Yen', cat: 'FOREX', provider: 'BINANCE', apiSym: 'AUDJPY', tvSym: 'FX:AUDJPY', ccy: ['AUD', 'JPY'] },
 
     { code: 'BTCUSDT', name: 'Bitcoin / US Dollar', cat: 'CRYPTO', provider: 'BINANCE', apiSym: 'BTCUSDT', tvSym: 'BINANCE:BTCUSDT', ccy: ['USD'] },
     { code: 'ETHUSDT', name: 'Ethereum / US Dollar', cat: 'CRYPTO', provider: 'BINANCE', apiSym: 'ETHUSDT', tvSym: 'BINANCE:ETHUSDT', ccy: ['USD'] },
@@ -1646,30 +1702,48 @@ Gaya Komunikasi:
 
   function generateFallbackCandles(basePrice = 2650, count = 60, intervalSec = 900) {
     const now = Math.floor(Date.now() / 1000);
-    const candles = [];
     const base = Number(basePrice) || 2650;
-    const volatility = base > 100 ? (base > 1000 ? 1.5 : 0.4) : (base > 5 ? 0.05 : 0.0004);
-    let price = base;
+    const decimals = getDecimals(base);
+    const tfRatio = Math.sqrt(Math.max(60, intervalSec) / 900);
+    const atrBase = base >= 500 ? (base * 0.0018) : (base >= 20 ? 0.22 : (base >= 0.5 ? 0.0015 : base * 0.003));
+    const atr = atrBase * tfRatio;
+
+    let p = base;
+    const candles = [];
     for (let i = count; i >= 0; i--) {
       const time = now - i * intervalSec;
-      const delta = (Math.sin(i * 0.4) * 0.8 + (i % 3 === 0 ? 0.6 : -0.5)) * volatility;
-      const open = Number(price.toFixed(base > 10 ? 2 : 5));
-      const close = Number((price + delta).toFixed(base > 10 ? 2 : 5));
-      const wick = Math.abs(delta) * 0.4 + volatility * 0.3;
-      const high = Number((Math.max(open, close) + wick).toFixed(base > 10 ? 2 : 5));
-      const low = Number((Math.min(open, close) - wick).toFixed(base > 10 ? 2 : 5));
-      candles.push({ time, open, high, low, close, closeTime: (time + intervalSec) * 1000 });
-      price = close;
+      const macroCycle = Math.sin((count - i) * 0.08) * 1.5;
+      const swingCycle = Math.cos((count - i) * 0.25) * 0.8;
+      const noise = (Math.random() - 0.5) * 1.4;
+      const change = (macroCycle * 0.25 + swingCycle * 0.35 + noise * 0.8) * atr * 0.6;
+
+      const open = p;
+      const close = p + change;
+      const body = Math.abs(close - open);
+      const upperWick = (Math.random() * 0.5 + 0.1) * atr + (close < open ? body * 0.3 : 0);
+      const lowerWick = (Math.random() * 0.5 + 0.1) * atr + (close > open ? body * 0.3 : 0);
+      const high = Math.max(open, close) + upperWick;
+      const low = Math.min(open, close) - lowerWick;
+
+      candles.push({
+        time,
+        open: +open.toFixed(decimals),
+        high: +high.toFixed(decimals),
+        low: +low.toFixed(decimals),
+        close: +close.toFixed(decimals),
+        closeTime: (time + intervalSec) * 1000
+      });
+      p = close;
     }
     return candles;
   }
 
   const SEED_PRICES = {
-    'EURUSD': 1.0850, 'GBPUSD': 1.2980, 'USDJPY': 152.40, 'AUDUSD': 0.6650,
-    'USDCAD': 1.3850, 'USDCHF': 0.8670, 'NZDUSD': 0.5980, 'GBPJPY': 197.80,
-    'EURJPY': 165.30, 'EURGBP': 0.8350, 'AUDJPY': 101.30, 'XAUUSD': 2685.0,
-    'PAXGUSDT': 2685.0, 'BTCUSDT': 68500.0, 'BTCUSD': 68500.0, 'ETHUSDT': 2650.0,
-    'SOLUSDT': 185.0, 'PEPEUSDT': 0.0000105, 'XAGUSD': 31.80, 'WTIUSD': 71.50
+    'EURUSD': 1.1235, 'GBPUSD': 1.1800, 'USDJPY': 158.10, 'AUDUSD': 0.7250,
+    'USDCAD': 1.4130, 'USDCHF': 0.8240, 'NZDUSD': 0.5650, 'GBPJPY': 186.50,
+    'EURJPY': 177.60, 'EURGBP': 0.9520, 'AUDJPY': 114.65, 'XAUUSD': 2720.0,
+    'PAXGUSDT': 2720.0, 'BTCUSDT': 82200.0, 'BTCUSD': 82200.0, 'ETHUSDT': 2700.0,
+    'SOLUSDT': 188.0, 'PEPEUSDT': 0.0000105, 'XAGUSD': 32.20, 'WTIUSD': 71.50
   };
 
   function tfToSeconds(tf) {
@@ -1683,9 +1757,7 @@ Gaya Komunikasi:
     return 900;
   }
 
-  async function fetchBinanceKlines(symbol, interval, limit = 500, signal = null) {
-    const sym = symbol.replace('/', '').toUpperCase();
-    const binanceSym = sym.endsWith('USDT') ? sym : (sym === 'XAUUSD' || sym === 'GOLD' ? 'PAXGUSDT' : (sym === 'EURUSD' ? 'EURUSDT' : (sym === 'GBPUSD' ? 'GBPUSDT' : (sym === 'AUDUSD' ? 'AUDUSDT' : sym + 'USDT'))));
+  async function fetchBinanceRaw(binanceSym, interval, limit = 500, signal = null) {
     const endpoints = [
       'https://data-api.binance.vision/api/v3/klines?symbol=' + binanceSym + '&interval=' + interval + '&limit=' + limit,
       'https://api.binance.com/api/v3/klines?symbol=' + binanceSym + '&interval=' + interval + '&limit=' + limit
@@ -1694,7 +1766,7 @@ Gaya Komunikasi:
     for (const url of endpoints) {
       try {
         const timeoutCtrl = new AbortController();
-        const timeoutTimer = setTimeout(() => timeoutCtrl.abort(), 2000);
+        const timeoutTimer = setTimeout(() => timeoutCtrl.abort(), 2500);
         res = await fetch(url, { signal: timeoutCtrl.signal, cache: 'no-cache' });
         clearTimeout(timeoutTimer);
         if (res.ok) break;
@@ -1703,9 +1775,6 @@ Gaya Komunikasi:
       }
     }
     if (!res || !res.ok) {
-      const cleanFsym = binanceSym.replace('USDT', '');
-      const ccData = await fetchForexOrMetalCC(cleanFsym === 'PAXG' ? 'XAU' : cleanFsym, 'USD', interval, limit, signal).catch(() => null);
-      if (ccData && ccData.length > 0) return ccData;
       throw (lastError || new Error('Binance feed unreachable for ' + binanceSym));
     }
     const raw = await res.json();
@@ -1717,6 +1786,87 @@ Gaya Komunikasi:
       close: parseFloat(k[4]),
       closeTime: k[6]
     }));
+  }
+
+  function synthesizeCrossBars(b1List, b2List, op, decimals = 3) {
+    const map = new Map(b2List.map(b => [b.time, b]));
+    const result = [];
+    for (const b1 of b1List) {
+      const b2 = map.get(b1.time);
+      if (!b2) continue;
+      let o, c, h, l;
+      if (op === 'DIVIDE') {
+        if (!b2.open || !b2.close || !b2.low || !b2.high) continue;
+        o = +(b1.open / b2.open).toFixed(decimals);
+        c = +(b1.close / b2.close).toFixed(decimals);
+        h = +(Math.max(o, c, b1.high / b2.low)).toFixed(decimals);
+        l = +(Math.min(o, c, b1.low / b2.high)).toFixed(decimals);
+      } else {
+        o = +(b1.open * b2.open).toFixed(decimals);
+        c = +(b1.close * b2.close).toFixed(decimals);
+        h = +(Math.max(o, c, b1.high * b2.high)).toFixed(decimals);
+        l = +(Math.min(o, c, b1.low * b2.low)).toFixed(decimals);
+      }
+      result.push({ time: b1.time, open: o, high: h, low: l, close: c, closeTime: b1.closeTime });
+    }
+    return result;
+  }
+
+  async function fetchBinanceKlines(symbol, interval, limit = 500, signal = null) {
+    const sym = symbol.replace('/', '').toUpperCase();
+    try {
+      if (sym === 'USDJPY') {
+        const [jpyBars, usdBars] = await Promise.all([
+          fetchBinanceRaw('BTCJPY', interval, limit, signal),
+          fetchBinanceRaw('BTCUSDT', interval, limit, signal)
+        ]);
+        const cross = synthesizeCrossBars(jpyBars, usdBars, 'DIVIDE', 3);
+        if (cross && cross.length >= 10) return cross;
+      } else if (sym === 'EURJPY') {
+        const [eurBars, jpyBars, usdBars] = await Promise.all([
+          fetchBinanceRaw('EURUSDT', interval, limit, signal),
+          fetchBinanceRaw('BTCJPY', interval, limit, signal),
+          fetchBinanceRaw('BTCUSDT', interval, limit, signal)
+        ]);
+        const usdJpy = synthesizeCrossBars(jpyBars, usdBars, 'DIVIDE', 5);
+        const cross = synthesizeCrossBars(eurBars, usdJpy, 'MULTIPLY', 3);
+        if (cross && cross.length >= 10) return cross;
+      } else if (sym === 'GBPJPY') {
+        const [gbpBars, jpyBars, usdBars] = await Promise.all([
+          fetchBinanceRaw('GBPUSDT', interval, limit, signal),
+          fetchBinanceRaw('BTCJPY', interval, limit, signal),
+          fetchBinanceRaw('BTCUSDT', interval, limit, signal)
+        ]);
+        const usdJpy = synthesizeCrossBars(jpyBars, usdBars, 'DIVIDE', 5);
+        const cross = synthesizeCrossBars(gbpBars, usdJpy, 'MULTIPLY', 3);
+        if (cross && cross.length >= 10) return cross;
+      } else if (sym === 'AUDJPY') {
+        const [audBars, jpyBars, usdBars] = await Promise.all([
+          fetchBinanceRaw('AUDUSDT', interval, limit, signal),
+          fetchBinanceRaw('BTCJPY', interval, limit, signal),
+          fetchBinanceRaw('BTCUSDT', interval, limit, signal)
+        ]);
+        const usdJpy = synthesizeCrossBars(jpyBars, usdBars, 'DIVIDE', 5);
+        const cross = synthesizeCrossBars(audBars, usdJpy, 'MULTIPLY', 3);
+        if (cross && cross.length >= 10) return cross;
+      } else if (sym === 'EURGBP') {
+        const [eurBars, gbpBars] = await Promise.all([
+          fetchBinanceRaw('EURUSDT', interval, limit, signal),
+          fetchBinanceRaw('GBPUSDT', interval, limit, signal)
+        ]);
+        const cross = synthesizeCrossBars(eurBars, gbpBars, 'DIVIDE', 5);
+        if (cross && cross.length >= 10) return cross;
+      }
+
+      const binanceSym = sym.endsWith('USDT') ? sym : (sym === 'XAUUSD' || sym === 'GOLD' ? 'PAXGUSDT' : (sym === 'EURUSD' ? 'EURUSDT' : (sym === 'GBPUSD' ? 'GBPUSDT' : (sym === 'AUDUSD' ? 'AUDUSDT' : sym + 'USDT'))));
+      return await fetchBinanceRaw(binanceSym, interval, limit, signal);
+    } catch (e) {
+      const cleanFsym = sym.replace('USDT', '');
+      const ccData = await fetchForexOrMetalCC(cleanFsym === 'PAXG' ? 'XAU' : cleanFsym, 'USD', interval, limit, signal).catch(() => null);
+      if (ccData && ccData.length > 0) return ccData;
+      const basePrice = SEED_PRICES[sym] || SEED_PRICES[cleanFsym] || 100;
+      return generateFallbackCandles(basePrice, Math.min(limit, 250), tfToSeconds(interval));
+    }
   }
 
   async function fetchForexOrMetalCC(fsym, tsym, tf, limit = 500, signal = null) {
@@ -1965,11 +2115,11 @@ Gaya Komunikasi:
 
     const levelsGrid = node('div', null, 'levels-grid pro-vinzx-metrics-grid');
     const cellEntry = node('div', null, 'level-cell pro-vinzx-metric-col');
-    cellEntry.append(node('div', 'ENTRY (RETEST/LIVE)', 'level-title pro-vinzx-metric-label'), node('div', format(data?.entry || '—'), 'level-val pro-vinzx-metric-value'));
+    cellEntry.append(node('div', 'ENTRY (RETEST/LIVE)', 'level-title pro-vinzx-metric-label'), node('div', format(data?.entry || '-'), 'level-val pro-vinzx-metric-value'));
     const cellSL = node('div', null, 'level-cell sl-cell pro-vinzx-metric-col');
-    cellSL.append(node('div', 'SL (INVALIDATION)', 'level-title pro-vinzx-metric-label'), node('div', format(data?.sl || '—'), 'level-val sl-val pro-vinzx-metric-value sl'));
+    cellSL.append(node('div', 'SL (INVALIDATION)', 'level-title pro-vinzx-metric-label'), node('div', format(data?.sl || '-'), 'level-val sl-val pro-vinzx-metric-value sl'));
     const cellTP = node('div', null, 'level-cell tp-cell pro-vinzx-metric-col');
-    cellTP.append(node('div', 'TP (SWING TARGET)', 'level-title pro-vinzx-metric-label'), node('div', format(data?.tp || '—'), 'level-val tp-val pro-vinzx-metric-value tp'));
+    cellTP.append(node('div', 'TP (SWING TARGET)', 'level-title pro-vinzx-metric-label'), node('div', format(data?.tp || '-'), 'level-val tp-val pro-vinzx-metric-value tp'));
     levelsGrid.append(cellEntry, cellSL, cellTP);
 
     const engineBar = node('div', null, 'engine-bar pro-vinzx-engine-row');
@@ -2038,9 +2188,9 @@ Gaya Komunikasi:
   function getDefaultSignal(symbol = 'XAUUSD', timeframe = '15m', style = 'INTRADAY') {
     return {
       direction: 'WAIT (BASE)',
-      entry: '—',
-      sl: '—',
-      tp: '—',
+      entry: '-',
+      sl: '-',
+      tp: '-',
       rr: 'PLAN RR 1:2.5',
       confidence: 'WAIT',
       engineName: symbol + ' · Kaystrade Engine',
@@ -2983,8 +3133,9 @@ Gunakan data dari https://www.fastbull.com/list-position sebagai filter konfirma
       const code = currentPairObj.code;
       try {
         if (currentPairObj.provider === 'BINANCE') {
-          const depthRes = await fetch('https://api.binance.com/api/v3/depth?symbol=' + currentPairObj.apiSym + '&limit=50');
-          if (depthRes.ok) {
+          const depthSym = ['USDJPY', 'GBPJPY', 'EURJPY', 'AUDJPY'].includes(currentPairObj.apiSym) ? 'BTCJPY' : (currentPairObj.apiSym === 'EURGBP' ? 'EURUSDT' : currentPairObj.apiSym);
+          const depthRes = await fetch('https://data-api.binance.vision/api/v3/depth?symbol=' + depthSym + '&limit=50').catch(() => null);
+          if (depthRes && depthRes.ok) {
             const depth = await depthRes.json();
             const bidVol = depth.bids.reduce((acc, b) => acc + parseFloat(b[1]), 0);
             const askVol = depth.asks.reduce((acc, a) => acc + parseFloat(a[1]), 0);
@@ -3595,11 +3746,13 @@ Gunakan data dari https://www.fastbull.com/list-position sebagai filter konfirma
       } else if (tickerOnly.length === 6 && !tickerOnly.endsWith('USDT') && !tickerOnly.endsWith('BUSD')) {
         const fsym = tickerOnly.slice(0, 3);
         const tsym = tickerOnly.slice(3, 6);
+        const isBinanceSupported = ['EURUSD', 'GBPUSD', 'AUDUSD', 'USDJPY', 'GBPJPY', 'EURJPY', 'AUDJPY', 'EURGBP'].includes(tickerOnly);
         currentPairObj = {
           code: tickerOnly,
           name: 'Custom Pair ' + fsym + '/' + tsym,
           cat: 'FOREX',
-          provider: 'CC',
+          provider: isBinanceSupported ? 'BINANCE' : 'CC',
+          apiSym: isBinanceSupported ? (tickerOnly === 'EURUSD' ? 'EURUSDT' : (tickerOnly === 'GBPUSD' ? 'GBPUSDT' : (tickerOnly === 'AUDUSD' ? 'AUDUSDT' : tickerOnly))) : undefined,
           fsym,
           tsym,
           tvSym: rawInput.includes(':') ? rawInput : 'FX:' + tickerOnly,
@@ -3792,13 +3945,113 @@ Gunakan data dari https://www.fastbull.com/list-position sebagai filter konfirma
     }
 
     function connectBinanceWS(symbol, interval) {
-      if (typeof WebSocket === 'undefined') return;
+      if (ws) { try { ws.close(); } catch (_) {} ws = null; }
+      if (pollInterval) { clearInterval(pollInterval); pollInterval = null; }
+
+      const crossPairs = ['USDJPY', 'GBPJPY', 'EURJPY', 'AUDJPY', 'EURGBP'];
+      if (crossPairs.includes(symbol)) {
+        activeFeedInfo.textContent = 'Feed: Binance Real-Time Cross (' + symbol + ' · 16:9)';
+        const feedLabel = document.getElementById('feedSourceLabel');
+        if (feedLabel) feedLabel.textContent = '⚡ STREAM: BINANCE CROSS (' + symbol + ')';
+
+        const pollCross = async () => {
+          try {
+            let livePrice = null;
+            if (symbol === 'USDJPY') {
+              const [r1, r2] = await Promise.all([
+                fetch('https://data-api.binance.vision/api/v3/ticker/price?symbol=BTCJPY').then(r => r.json()),
+                fetch('https://data-api.binance.vision/api/v3/ticker/price?symbol=BTCUSDT').then(r => r.json())
+              ]);
+              if (r1.price && r2.price) livePrice = +(parseFloat(r1.price) / parseFloat(r2.price)).toFixed(3);
+            } else if (symbol === 'EURJPY') {
+              const [r0, r1, r2] = await Promise.all([
+                fetch('https://data-api.binance.vision/api/v3/ticker/price?symbol=EURUSDT').then(r => r.json()),
+                fetch('https://data-api.binance.vision/api/v3/ticker/price?symbol=BTCJPY').then(r => r.json()),
+                fetch('https://data-api.binance.vision/api/v3/ticker/price?symbol=BTCUSDT').then(r => r.json())
+              ]);
+              if (r0.price && r1.price && r2.price) livePrice = +(parseFloat(r0.price) * (parseFloat(r1.price) / parseFloat(r2.price))).toFixed(3);
+            } else if (symbol === 'GBPJPY') {
+              const [r0, r1, r2] = await Promise.all([
+                fetch('https://data-api.binance.vision/api/v3/ticker/price?symbol=GBPUSDT').then(r => r.json()),
+                fetch('https://data-api.binance.vision/api/v3/ticker/price?symbol=BTCJPY').then(r => r.json()),
+                fetch('https://data-api.binance.vision/api/v3/ticker/price?symbol=BTCUSDT').then(r => r.json())
+              ]);
+              if (r0.price && r1.price && r2.price) livePrice = +(parseFloat(r0.price) * (parseFloat(r1.price) / parseFloat(r2.price))).toFixed(3);
+            } else if (symbol === 'AUDJPY') {
+              const [r0, r1, r2] = await Promise.all([
+                fetch('https://data-api.binance.vision/api/v3/ticker/price?symbol=AUDUSDT').then(r => r.json()),
+                fetch('https://data-api.binance.vision/api/v3/ticker/price?symbol=BTCJPY').then(r => r.json()),
+                fetch('https://data-api.binance.vision/api/v3/ticker/price?symbol=BTCUSDT').then(r => r.json())
+              ]);
+              if (r0.price && r1.price && r2.price) livePrice = +(parseFloat(r0.price) * (parseFloat(r1.price) / parseFloat(r2.price))).toFixed(3);
+            } else if (symbol === 'EURGBP') {
+              const [r1, r2] = await Promise.all([
+                fetch('https://data-api.binance.vision/api/v3/ticker/price?symbol=EURUSDT').then(r => r.json()),
+                fetch('https://data-api.binance.vision/api/v3/ticker/price?symbol=GBPUSDT').then(r => r.json())
+              ]);
+              if (r1.price && r2.price) livePrice = +(parseFloat(r1.price) / parseFloat(r2.price)).toFixed(5);
+            }
+            if (!livePrice || currentCandles.length === 0) return;
+            const last = { ...currentCandles[currentCandles.length - 1] };
+            last.close = livePrice;
+            if (livePrice > last.high) last.high = livePrice;
+            if (livePrice < last.low) last.low = livePrice;
+            currentCandles[currentCandles.length - 1] = last;
+            if (candleSeries) candleSeries.update(last);
+            updateLiveHeader(last);
+            evaluateKaystradeEngine(false);
+          } catch (_) {}
+        };
+        pollInterval = setInterval(pollCross, 2500);
+        pollCross();
+        return;
+      }
+
+      let wsConnected = false;
+      const startRestFallback = () => {
+        if (pollInterval) return;
+        activeFeedInfo.textContent = 'Feed: Binance REST Poller (' + currentPairObj.code + ' · 16:9)';
+        const feedLabel = document.getElementById('feedSourceLabel');
+        if (feedLabel) feedLabel.textContent = '⚡ STREAM: BINANCE REST (' + currentPairObj.code + ')';
+
+        pollInterval = setInterval(async () => {
+          try {
+            const res = await fetch('https://data-api.binance.vision/api/v3/ticker/price?symbol=' + symbol);
+            const data = await res.json();
+            const livePrice = parseFloat(data?.price);
+            if (!livePrice || currentCandles.length === 0) return;
+            const last = { ...currentCandles[currentCandles.length - 1] };
+            last.close = livePrice;
+            if (livePrice > last.high) last.high = livePrice;
+            if (livePrice < last.low) last.low = livePrice;
+            currentCandles[currentCandles.length - 1] = last;
+            if (candleSeries) candleSeries.update(last);
+            updateLiveHeader(last);
+            evaluateKaystradeEngine(false);
+          } catch (_) {}
+        }, 2500);
+      };
+
+      if (typeof WebSocket === 'undefined') {
+        startRestFallback();
+        return;
+      }
+
       try {
         const streamUrl = 'wss://stream.binance.com:9443/ws/' + symbol.toLowerCase() + '@kline_' + interval;
         ws = new WebSocket(streamUrl);
 
         ws.onopen = () => {
+          wsConnected = true;
           activeFeedInfo.textContent = 'Feed: Binance WS (' + currentPairObj.code + ' · 16:9)';
+        };
+
+        ws.onerror = () => {
+          startRestFallback();
+        };
+
+        ws.onclose = () => {
+          if (!wsConnected) startRestFallback();
         };
 
         ws.onmessage = (event) => {
@@ -3828,16 +4081,38 @@ Gunakan data dari https://www.fastbull.com/list-position sebagai filter konfirma
           updateLiveHeader(liveCandle);
           evaluateKaystradeEngine(k.x);
         };
-      } catch (e) {}
+
+        setTimeout(() => {
+          if (!wsConnected && !pollInterval) startRestFallback();
+        }, 3000);
+      } catch (e) {
+        startRestFallback();
+      }
     }
 
     function startForexLiveTicker(fsym, tsym) {
       activeFeedInfo.textContent = 'Feed: Forex/Spot Live (' + fsym + '/' + tsym + ' · 16:9)';
       pollInterval = setInterval(async () => {
         try {
-          const res = await fetch('https://min-api.cryptocompare.com/data/price?fsym=' + fsym + '&tsyms=' + tsym);
-          const data = await res.json();
-          const livePrice = data[tsym];
+          let livePrice = null;
+          try {
+            const erRes = await fetch('https://open.er-api.com/v6/latest/' + (fsym === 'NZD' ? 'USD' : fsym));
+            if (erRes.ok) {
+              const erData = await erRes.json();
+              if (fsym === 'NZD' && tsym === 'USD' && erData.rates?.NZD) {
+                livePrice = +(1 / erData.rates.NZD).toFixed(5);
+              } else if (erData.rates?.[tsym]) {
+                livePrice = erData.rates[tsym];
+              }
+            }
+          } catch (_) {}
+
+          if (!livePrice) {
+            const res = await fetch('https://min-api.cryptocompare.com/data/price?fsym=' + fsym + '&tsyms=' + tsym);
+            const data = await res.json();
+            livePrice = data[tsym];
+          }
+
           if (!livePrice || currentCandles.length === 0) return;
 
           const last = { ...currentCandles[currentCandles.length - 1] };
@@ -4570,7 +4845,7 @@ Gunakan data dari https://www.fastbull.com/list-position sebagai filter konfirma
     h2.style.fontWeight='700';
     h2.style.marginBottom='8px';
 
-    const desc=node('p','Kelola konfigurasi Google Gemini API Key Anda untuk menghubungkan seluruh modul AI (AI Market Intelligence, AI Behaviour Analysis, AI Journal Analyst, dan kayla AI Chat) secara terpusat. API Key disimpan aman di browser lokal Anda.','pro-muted');
+    const desc=node('p','Kelola konfigurasi Google Gemini API Key Anda untuk menghubungkan seluruh modul AI (AI Market Intelligence, AI Behaviour Analysis, AI Journal Analyst, dan Kayla AI Chat) secara terpusat. API Key disimpan aman di browser lokal Anda.','pro-muted');
     desc.style.marginBottom='18px';
 
     const statusBadge=node('div',null,'pro-engine-status-badge');
