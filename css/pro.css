@@ -1568,6 +1568,27 @@ body.pro-sheet-open { overflow:hidden !important; }
   cursor: pointer;
   white-space: nowrap;
   flex-shrink: 0;
+  appearance: none;
+  -webkit-appearance: none;
+  line-height: 1.2;
+  text-align: center;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  outline: none;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  transition: background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease, transform 0.1s ease;
+}
+
+.qp-chip:active {
+  transform: scale(0.96);
+}
+
+.qp-chip:focus-visible {
+  outline: 2px solid #38bdf8;
+  outline-offset: 1px;
 }
 
 .qp-chip:hover,

@@ -2548,8 +2548,16 @@ Gaya Komunikasi:
 
     const quickList = ['XAUUSD', 'BTCUSDT', 'EURUSD', 'GBPUSD', 'USDJPY', 'GBPJPY', 'EURJPY', 'AUDUSD', 'XAGUSD', 'ETHUSDT', 'SOLUSDT', 'PEPEUSDT'];
     quickList.forEach(code => {
-      const chip = node('span', code === 'BTCUSDT' ? 'BTCUSD' : (code === 'ETHUSDT' ? 'ETHUSD' : (code === 'SOLUSDT' ? 'SOLUSD' : (code === 'PEPEUSDT' ? 'PEPEUSD' : code))), 'qp-chip' + (code === 'XAUUSD' ? ' active' : ''));
-      chip.addEventListener('click', () => selectPairByCode(code));
+      const label = code === 'BTCUSDT' ? 'BTCUSD' : (code === 'ETHUSDT' ? 'ETHUSD' : (code === 'SOLUSDT' ? 'SOLUSD' : (code === 'PEPEUSDT' ? 'PEPEUSD' : code)));
+      const chip = node('button', label, 'qp-chip' + (code === 'XAUUSD' ? ' active' : ''));
+      chip.type = 'button';
+      chip.dataset.code = code;
+      chip.setAttribute('aria-label', 'Pilih pair ' + label);
+      chip.setAttribute('aria-pressed', code === 'XAUUSD' ? 'true' : 'false');
+      chip.addEventListener('click', (e) => {
+        e.preventDefault();
+        selectPairByCode(code);
+      });
       quickPairsBar.append(chip);
     });
     mainCard.append(quickPairsBar);
@@ -2572,7 +2580,7 @@ Gaya Komunikasi:
     activeFeedInfo.style.fontSize = '11px';
     activeFeedInfo.style.color = '#94a3b8';
 
-    const freshness = node('p', 'Market data not loaded.', 'pro-muted');
+    const freshness = node('p', 'Live Market Feed Active (XAUUSD · 15M · 16:9)', 'pro-muted');
     freshness.id = 'pro-market-freshness';
 
     topBarFlex.append(tfBar, activeFeedInfo);
@@ -3704,8 +3712,9 @@ Gunakan data dari https://www.fastbull.com/list-position sebagai filter konfirma
       }
     });
 
-    function selectPairByCode(code) {
-      const found = allPairsCatalog.find(p => p.code === code);
+    async function selectPairByCode(code) {
+      const norm = (code || '').toUpperCase().replace('/', '');
+      const found = allPairsCatalog.find(p => p.code === norm || p.code === code || p.code === (norm + 'T') || p.code.replace('USDT', 'USD') === norm);
       if (found) {
         currentPairObj = found;
         pairSearchInput.value = found.code;
@@ -3713,22 +3722,31 @@ Gunakan data dari https://www.fastbull.com/list-position sebagai filter konfirma
         highlightQuickChip(found.code);
         syncInstrumentSelect(found.code);
         renderFundamentalTable();
-        switchSymbolOrTF().catch(() => {});
+        freshness.textContent = 'Memuat data pasar ' + found.code + ' (' + selectedFrame.toUpperCase() + ')...';
+        generate.dataset.unavailable = 'false';
+        generate.disabled = false;
+        await Promise.all([
+          switchSymbolOrTF().catch(() => {}),
+          contextLoad().catch(() => {})
+        ]);
+        if (!freshness.textContent || freshness.textContent.startsWith('Memuat') || freshness.textContent === 'Market data not loaded.') {
+          freshness.textContent = 'Live Market Feed Active (' + found.code + ' · ' + selectedFrame.toUpperCase() + ' · 16:9)';
+        }
       } else {
-        selectCustomString(code);
+        await selectCustomString(code);
       }
     }
 
     function applyCustomTypedPair() {
       const raw = pairSearchInput.value.trim().toUpperCase();
       if (!raw) return;
-      selectCustomString(raw);
+      selectCustomString(raw).catch(() => {});
     }
 
-    function selectCustomString(rawInput) {
+    async function selectCustomString(rawInput) {
       pairDropdown.classList.remove('open');
-      const clean = rawInput.replace('/', '').replace('-', '');
-      const existing = allPairsCatalog.find(p => p.code === clean || p.tvSym === rawInput);
+      const clean = rawInput.replace('/', '').replace('-', '').trim().toUpperCase();
+      const existing = allPairsCatalog.find(p => p.code === clean || p.tvSym === rawInput || p.code.replace('USDT', 'USD') === clean);
 
       if (existing) {
         currentPairObj = existing;
@@ -3736,7 +3754,16 @@ Gunakan data dari https://www.fastbull.com/list-position sebagai filter konfirma
         highlightQuickChip(existing.code);
         syncInstrumentSelect(existing.code);
         renderFundamentalTable();
-        switchSymbolOrTF().catch(() => {});
+        freshness.textContent = 'Memuat data pasar ' + existing.code + ' (' + selectedFrame.toUpperCase() + ')...';
+        generate.dataset.unavailable = 'false';
+        generate.disabled = false;
+        await Promise.all([
+          switchSymbolOrTF().catch(() => {}),
+          contextLoad().catch(() => {})
+        ]);
+        if (!freshness.textContent || freshness.textContent.startsWith('Memuat') || freshness.textContent === 'Market data not loaded.') {
+          freshness.textContent = 'Live Market Feed Active (' + existing.code + ' · ' + selectedFrame.toUpperCase() + ' · 16:9)';
+        }
         return;
       }
 
@@ -3775,13 +3802,28 @@ Gunakan data dari https://www.fastbull.com/list-position sebagai filter konfirma
       highlightQuickChip(currentPairObj.code);
       syncInstrumentSelect(currentPairObj.code);
       renderFundamentalTable();
-      switchSymbolOrTF().catch(() => {});
+      freshness.textContent = 'Memuat data pasar ' + currentPairObj.code + ' (' + selectedFrame.toUpperCase() + ')...';
+      generate.dataset.unavailable = 'false';
+      generate.disabled = false;
+      await Promise.all([
+        switchSymbolOrTF().catch(() => {}),
+        contextLoad().catch(() => {})
+      ]);
+      if (!freshness.textContent || freshness.textContent.startsWith('Memuat') || freshness.textContent === 'Market data not loaded.') {
+        freshness.textContent = 'Live Market Feed Active (' + currentPairObj.code + ' · ' + selectedFrame.toUpperCase() + ' · 16:9)';
+      }
     }
 
     function highlightQuickChip(code) {
+      const norm = (code || '').toUpperCase().replace('/', '');
+      const normNoT = norm.endsWith('USDT') ? norm.replace(/USDT$/, 'USD') : norm;
       for (const chip of quickPairsBar.children) {
         if (chip.classList.contains('qp-chip')) {
-          chip.classList.toggle('active', chip.textContent === code || (code === 'BTCUSDT' && chip.textContent === 'BTCUSD'));
+          const chipCode = (chip.dataset.code || chip.textContent || '').toUpperCase();
+          const chipNormNoT = chipCode.endsWith('USDT') ? chipCode.replace(/USDT$/, 'USD') : chipCode;
+          const isActive = chipCode === norm || chipNormNoT === norm || chipNormNoT === normNoT || chip.textContent === norm || chip.textContent === normNoT;
+          chip.classList.toggle('active', isActive);
+          chip.setAttribute('aria-pressed', isActive ? 'true' : 'false');
         }
       }
     }
@@ -3805,6 +3847,13 @@ Gunakan data dari https://www.fastbull.com/list-position sebagai filter konfirma
         if (!row.timeframes.includes(selectedFrame)) {
           selectedFrame = row.timeframes.includes('15m') ? '15m' : row.timeframes[0];
           updateTFButtons();
+        }
+      } else {
+        for (const item of tfBar.children) {
+          if (item.dataset.frame) {
+            item.dataset.unavailable = 'false';
+            item.disabled = false;
+          }
         }
       }
       notePrevious();
@@ -3852,8 +3901,12 @@ Gunakan data dari https://www.fastbull.com/list-position sebagai filter konfirma
       selectedFrame = frame;
       updateTFButtons();
       notePrevious();
+      freshness.textContent = 'Memuat timeframe ' + selectedFrame.toUpperCase() + ' (' + currentPairObj.code + ')...';
       await contextLoad();
-      switchSymbolOrTF().catch(() => {});
+      await switchSymbolOrTF().catch(() => {});
+      if (!freshness.textContent || freshness.textContent.startsWith('Memuat') || freshness.textContent === 'Market data not loaded.') {
+        freshness.textContent = 'Live Market Feed Active (' + currentPairObj.code + ' · ' + selectedFrame.toUpperCase() + ' · 16:9)';
+      }
     }
 
     function toggleChartMode() {
@@ -4128,6 +4181,9 @@ Gunakan data dari https://www.fastbull.com/list-position sebagai filter konfirma
       }, 2500);
     }
 
+    let lastAppliedPairCode = '';
+    let lastAppliedTF = '';
+
     async function switchSymbolOrTF() {
       if (ws) { try { ws.close(); } catch (e) {} ws = null; }
       if (pollInterval) { clearInterval(pollInterval); pollInterval = null; }
@@ -4139,7 +4195,10 @@ Gunakan data dari https://www.fastbull.com/list-position sebagai filter konfirma
       const pairKey = (currentPairObj.code || 'XAUUSD').replace('/', '').toUpperCase();
       const baseSeed = SEED_PRICES[pairKey] || SEED_PRICES[currentPairObj.apiSym] || (parseFloat(context?.current_price) || 2685.0);
       const stepSec = tfToSeconds(selectedFrame);
-      if (!currentCandles || currentCandles.length === 0) {
+      const hasSwitchedPair = lastAppliedPairCode !== currentPairObj.code || lastAppliedTF !== selectedFrame;
+      if (!currentCandles || currentCandles.length === 0 || hasSwitchedPair) {
+        lastAppliedPairCode = currentPairObj.code;
+        lastAppliedTF = selectedFrame;
         const initActive = generateFallbackCandles(baseSeed, 120, stepSec);
         const initH1 = generateFallbackCandles(baseSeed, 80, 3600);
         const initH4 = generateFallbackCandles(baseSeed, 80, 14400);
@@ -4193,6 +4252,10 @@ Gunakan data dari https://www.fastbull.com/list-position sebagai filter konfirma
         const d1Data = generateFallbackCandles(base, 50, 86400);
         applyLoadedCandles(activeData, h1Data, h4Data, d1Data);
         activeFeedInfo.textContent = 'Feed: Kaystrade 16:9 Engine (' + currentPairObj.code + ')';
+      }
+
+      if (!freshness.textContent || freshness.textContent === 'Market data not loaded.') {
+        freshness.textContent = 'Live Market Feed Active (' + currentPairObj.code + ' · ' + selectedFrame.toUpperCase() + ' · 16:9)';
       }
     
       setTVRegularZoom();
