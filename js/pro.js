@@ -1178,15 +1178,10 @@ Gaya Komunikasi:
 
   function createLiquidLoader(options = {}) {
     const isCompact = Boolean(options.compact);
-    const speed = options.speed || 1;
-    const maxHeight = options.maxHeight || (isCompact ? 36 : 68);
-    const minHeight = options.minHeight || (isCompact ? 8 : 14);
-
     const wrap = node('div', null, 'pro-liquid-loader' + (isCompact ? ' compact' : ''));
     wrap.setAttribute('role', 'status');
     wrap.setAttribute('aria-label', 'Loading...');
 
-    const columns = [];
     for (let i = 0; i < 7; i++) {
       const col = node('div', null, 'pro-liquid-col pro-liquid-col-' + i);
       const dropTop = node('div', null, 'pro-liquid-drop-top');
@@ -1199,63 +1194,14 @@ Gaya Komunikasi:
       const dropBottom = node('div', null, 'pro-liquid-drop-bottom');
       col.append(dropTop, bar, dropBottom);
       wrap.append(col);
-      columns.push({ col, dropTop, bar, glossTop, glossBody, shimmer, bubble, dropBottom });
     }
 
-    let running = true;
-    let animId = 0;
-    let lastTime = 0;
-
-    const tick = (now) => {
-      if (!running) return;
-      if (!lastTime || now - lastTime >= 30) {
-        lastTime = now;
-        const t = (now || (typeof performance !== 'undefined' ? performance.now() : Date.now())) * 0.001 * speed;
-        for (let i = 0; i < 7; i++) {
-          const c = columns[i];
-          const offset = i * 0.8;
-          const wave1 = Math.sin(t + offset);
-          const wave2 = Math.sin(t * 4 + offset) * 0.15;
-          const wave3 = Math.sin(t * 8 + offset) * 0.05;
-          const rawH = (wave1 + wave2 + wave3);
-          const barH = Math.max(minHeight, Math.abs(rawH) * maxHeight);
-          const isDroplet = Math.sin(t + offset) > 0.75;
-
-          c.bar.style.height = barH.toFixed(1) + 'px';
-          c.bar.style.transform = rawH < 0 ? 'scaleY(-1)' : 'scaleY(1)';
-
-          c.dropTop.style.opacity = isDroplet ? '1' : '0';
-          const dyTop = (Math.sin(t * 8 + i * 0.5) * 3).toFixed(1);
-          const sTop = (0.8 + Math.sin(t * 6 + i * 0.3) * 0.4).toFixed(2);
-          c.dropTop.style.transform = isDroplet ? ('translateY(' + dyTop + 'px) scale(' + sTop + ')') : 'translateY(8px) scale(0.4)';
-
-          c.shimmer.style.transform = 'translateX(' + (Math.sin(t * 1.5 + i * 0.7) * 8).toFixed(1) + 'px)';
-          c.bubble.style.top = (20 + Math.sin(t * 3 + i * 0.8) * 10).toFixed(0) + '%';
-          c.bubble.style.left = (30 + Math.sin(t * 2 + i * 0.6) * 20).toFixed(0) + '%';
-
-          const sBottom = (0.6 + Math.sin(t * 2 + i * 0.6) * 0.4).toFixed(2);
-          const dyBottom = (Math.sin(t * 4 + i * 0.8) * 1.2).toFixed(1);
-          c.dropBottom.style.transform = 'translateY(' + dyBottom + 'px) scale(' + sBottom + ')';
-          c.dropBottom.style.opacity = (0.6 + Math.sin(t * 3 + i * 0.9) * 0.4).toFixed(2);
-        }
-      }
-      if (typeof requestAnimationFrame !== 'undefined') {
-        animId = requestAnimationFrame(tick);
+    return {
+      element: wrap,
+      stop() {
+        wrap.classList.add('stopped');
       }
     };
-
-    if (typeof requestAnimationFrame !== 'undefined') {
-      animId = requestAnimationFrame(tick);
-    }
-
-    const stop = () => {
-      running = false;
-      if (typeof cancelAnimationFrame !== 'undefined' && animId) {
-        cancelAnimationFrame(animId);
-      }
-    };
-
-    return { element: wrap, stop };
   }
 
   function startInlineOrb(canvas, statusLab) {

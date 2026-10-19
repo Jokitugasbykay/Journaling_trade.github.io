@@ -121,7 +121,7 @@ export default function LiquidLoading({
 
             {/* Main Liquid Capsule */}
             <div
-              className={`${colWidth} bg-gradient-to-t ${GRADIENTS[i]} rounded-full transition-all duration-200 ease-out relative overflow-hidden shadow-lg`}
+              className={`${colWidth} bg-gradient-to-t ${GRADIENTS[i]} rounded-full will-change-transform relative overflow-hidden shadow-lg`}
               style={{
                 height: `${barHeight}px`,
                 transform: h < 0 ? "scaleY(-1)" : "scaleY(1)",
