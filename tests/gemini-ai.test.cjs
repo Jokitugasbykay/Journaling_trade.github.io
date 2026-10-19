@@ -280,6 +280,9 @@ const server=http.createServer(async(req,res)=>{
   assert.equal(followUpChatReq.postData.contents[0].role, 'user');
   assert.equal(followUpChatReq.postData.contents[1].role, 'model');
   assert.equal(followUpChatReq.postData.contents[2].role, 'user');
+  assert.equal(followUpChatReq.postData.contents[0].time, undefined);
+  assert.equal(followUpChatReq.postData.contents[1].time, undefined);
+  assert.equal(followUpChatReq.postData.contents[2].time, undefined);
 
   // 7. Test Error Handling: Rate Limit 429
   geminiStatus = 429;

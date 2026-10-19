@@ -256,9 +256,23 @@
     const modelsToTry = [...new Set(candidateModels)];
 
     let contentsPayload;
-    if(Array.isArray(history) && history.length>0) contentsPayload=history;
-    else if(Array.isArray(contents)) contentsPayload=contents;
-    else contentsPayload=[{role:'user',parts:[{text:String(contents||'')}]}];
+    if (Array.isArray(history) && history.length > 0) {
+      contentsPayload = history.map(item => ({
+        role: (item.role === 'model' || item.role === 'assistant') ? 'model' : 'user',
+        parts: Array.isArray(item.parts)
+          ? item.parts.map(p => ({ text: String(p.text || '') }))
+          : [{ text: String(item.text || '') }]
+      }));
+    } else if (Array.isArray(contents)) {
+      contentsPayload = contents.map(item => ({
+        role: (item.role === 'model' || item.role === 'assistant') ? 'model' : 'user',
+        parts: Array.isArray(item.parts)
+          ? item.parts.map(p => ({ text: String(p.text || '') }))
+          : [{ text: String(item.text || '') }]
+      }));
+    } else {
+      contentsPayload = [{ role: 'user', parts: [{ text: String(contents || '') }] }];
+    }
 
     const payload={
       contents:contentsPayload,
