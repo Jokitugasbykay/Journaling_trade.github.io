@@ -404,6 +404,70 @@
     input.focus();
   }
 
+  function createLiquidLoader({ compact = false, speed = 1 } = {}) {
+    const root = node('div', null, 'pro-liquid-loader' + (compact ? ' compact' : ''));
+    root.setAttribute('role', 'status');
+    root.setAttribute('aria-label', 'Loading AI analysis...');
+
+    const cols = [];
+    for (let i = 0; i < 7; i++) {
+      const col = node('div', null, 'pro-liquid-col pro-liquid-col-' + i);
+      const dropTop = node('div', null, 'pro-liquid-drop-top');
+      const bar = node('div', null, 'pro-liquid-bar');
+      const glossTop = node('div', null, 'pro-liquid-gloss-top');
+      const glossBody = node('div', null, 'pro-liquid-gloss-body');
+      const shimmer = node('div', null, 'pro-liquid-shimmer');
+      bar.append(glossTop, glossBody, shimmer);
+      const dropBottom = node('div', null, 'pro-liquid-drop-bottom');
+      col.append(dropTop, bar, dropBottom);
+      root.append(col);
+      cols.push({ dropTop, bar, dropBottom });
+    }
+
+    let animId = null;
+    let stopped = false;
+    const scale = compact ? 0.45 : 0.9;
+    const startTime = Date.now();
+
+    function renderFrame() {
+      if (stopped) return;
+      const t = (Date.now() - startTime) * 0.001 * speed;
+      for (let i = 0; i < 7; i++) {
+        const offset = i * 0.8;
+        const wave1 = Math.sin(t + offset);
+        const wave2 = Math.sin(t * 4 + offset) * 0.15;
+        const wave3 = Math.sin(t * 8 + offset) * 0.05;
+        const h = 75 * (wave1 + wave2 + wave3);
+        const barH = Math.max(compact ? 10 : 16, Math.abs(h) * scale);
+        const isDroplet = Math.sin(t + offset) > 0.78;
+
+        const { dropTop, bar, dropBottom } = cols[i];
+        bar.style.height = barH + 'px';
+        bar.style.transform = h < 0 ? 'scaleY(-1)' : 'scaleY(1)';
+        dropTop.style.opacity = isDroplet ? '1' : '0';
+        dropTop.style.transform = isDroplet ? 'scale(1)' : 'translateY(6px) scale(0.5)';
+        dropBottom.style.opacity = isDroplet ? '0.8' : '0';
+      }
+      animId = requestAnimationFrame(renderFrame);
+    }
+
+    if (!global.matchMedia?.('(prefers-reduced-motion: reduce)')?.matches && !global.navigator?.webdriver) {
+      animId = requestAnimationFrame(renderFrame);
+    } else {
+      for (let i = 0; i < 7; i++) {
+        cols[i].bar.style.height = (compact ? 22 : 44) + 'px';
+      }
+    }
+
+    return {
+      element: root,
+      stop() {
+        stopped = true;
+        if (animId) cancelAnimationFrame(animId);
+      }
+    };
+  }
+
   const KAYSTRADE_SYSTEM_PROMPT = `Anda adalah AI Market Intelligence profesional berbasis metodologi teknikal Kaystrade (docs/kaystrade/SKILL.md) yang dirumuskan oleh founder journalingtrade, Kaylaa.
 Catatan Identitas:
 - Founder journalingtrade dan perumus metodologi Kaystrade adalah Kaylaa.
@@ -1099,8 +1163,9 @@ Gaya Komunikasi:
         result.replaceChildren();
         const loadingBox=node('div',null,'pro-ai-loading');
         const isBehaviour=kind==='behaviour';
+        const liquid=createLiquidLoader({ compact: true, speed: 1 });
         loadingBox.append(
-          node('div',null,'pro-spinner'),
+          liquid.element,
           node('p',isBehaviour?'Menganalisis perilaku dan psikologi trading dengan Google Gemini AI...':'Mengevaluasi performa jurnal dan strategi dengan Google Gemini AI...')
         );
         result.replaceChildren(node('h2','Analysis result'),loadingBox);
@@ -1121,10 +1186,12 @@ Gaya Komunikasi:
             contents:userPrompt,
             signal:controller.signal
           });
+          liquid.stop();
           const contentBox=node('div',null,'pro-markdown');
           renderMarkdownInto(contentBox,aiResponse);
           result.replaceChildren(node('h2','Analysis result'),contentBox);
         } catch(err) {
+          liquid.stop();
           const errBox=node('div',null,'pro-modal-status error');
           errBox.style.display='block';
           errBox.textContent=err.message;
@@ -1164,68 +1231,107 @@ Gaya Komunikasi:
     container.append(lab, dots);
   }
 
-  function startInlineOrb(canvas, statusLab) {
-    const ctx = canvas.getContext('2d');
-    let running = true;
-    let time = 0, raf = 0, last = performance.now();
+  function startStatusRotation(statusLab) {
     const LABELS = ['Thinking', 'Searching', 'Analyzing', 'Composing'];
     let labIdx = 0;
     const interval = setInterval(() => {
-      if (!running) return;
       labIdx = (labIdx + 1) % LABELS.length;
       if (statusLab) {
         renderStatusLab(statusLab, LABELS[labIdx]);
       }
     }, 1150);
+    return () => clearInterval(interval);
+  }
 
-    const RINGS = 10;
-    const dots = [];
-    for (let k = 0; k < RINGS; k++) {
-      const y = 1 - ((k + 0.5) / RINGS) * 2;
-      const r = Math.sqrt(1 - y * y);
-      const m = Math.max(4, Math.round(18 * r));
-      for (let j = 0; j < m; j++) {
-        const a = (j / m) * Math.PI * 2 + k * 0.4;
-        dots.push({ x: Math.cos(a) * r, y, z: Math.sin(a) * r });
-      }
+  function createLiquidLoader(options = {}) {
+    const isCompact = options.compact !== false;
+    const speed = options.speed || 1;
+    const maxHeight = options.maxHeight || (isCompact ? 36 : 68);
+    const minHeight = options.minHeight || (isCompact ? 8 : 14);
+
+    const wrap = node('div', null, 'pro-liquid-loader' + (isCompact ? ' compact' : ''));
+    wrap.setAttribute('role', 'status');
+    wrap.setAttribute('aria-label', 'Loading...');
+
+    const columns = [];
+    for (let i = 0; i < 7; i++) {
+      const col = node('div', null, 'pro-liquid-col pro-liquid-col-' + i);
+      const dropTop = node('div', null, 'pro-liquid-drop-top');
+      const bar = node('div', null, 'pro-liquid-bar');
+      const glossTop = node('div', null, 'pro-liquid-gloss-top');
+      const glossBody = node('div', null, 'pro-liquid-gloss-body');
+      const shimmer = node('div', null, 'pro-liquid-shimmer');
+      const bubble = node('div', null, 'pro-liquid-bubble');
+      bar.append(glossTop, glossBody, shimmer, bubble);
+      const dropBottom = node('div', null, 'pro-liquid-drop-bottom');
+      col.append(dropTop, bar, dropBottom);
+      wrap.append(col);
+      columns.push({ col, dropTop, bar, glossTop, glossBody, shimmer, bubble, dropBottom });
     }
 
-    const draw = (dt) => {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      time += dt;
-      const yaw = time * 0.9, cyw = Math.cos(yaw), syw = Math.sin(yaw);
-      const CP = Math.cos(0.35), SP = Math.sin(0.35);
-      const C0 = canvas.width / 2, R = C0 * 0.72;
+    let running = true;
+    let animId = 0;
+    let lastTime = 0;
 
-      for (let i = 0; i < dots.length; i++) {
-        const d = dots[i];
-        const x1 = d.x * cyw + d.z * syw, z1 = -d.x * syw + d.z * cyw;
-        const y2 = d.y * CP - z1 * SP, z2 = d.y * SP + z1 * CP;
-        const depth = (z2 + 1) / 2;
-        const ox = x1 * R, oy = -y2 * R;
-        const rad = 1.0 + 1.2 * depth;
-        const alpha = 0.25 + 0.75 * depth * depth;
-        ctx.fillStyle = 'rgba(52, 211, 153, ' + alpha.toFixed(3) + ')';
-        ctx.beginPath();
-        ctx.arc(C0 + ox, C0 + oy, rad, 0, Math.PI * 2);
-        ctx.fill();
+    const tick = (now) => {
+      if (!running) return;
+      if (!lastTime || now - lastTime >= 30) {
+        lastTime = now;
+        const t = (now || (typeof performance !== 'undefined' ? performance.now() : Date.now())) * 0.001 * speed;
+        for (let i = 0; i < 7; i++) {
+          const c = columns[i];
+          const offset = i * 0.8;
+          const wave1 = Math.sin(t + offset);
+          const wave2 = Math.sin(t * 4 + offset) * 0.15;
+          const wave3 = Math.sin(t * 8 + offset) * 0.05;
+          const rawH = (wave1 + wave2 + wave3);
+          const barH = Math.max(minHeight, Math.abs(rawH) * maxHeight);
+          const isDroplet = Math.sin(t + offset) > 0.75;
+
+          c.bar.style.height = barH.toFixed(1) + 'px';
+          c.bar.style.transform = rawH < 0 ? 'scaleY(-1)' : 'scaleY(1)';
+
+          c.dropTop.style.opacity = isDroplet ? '1' : '0';
+          const dyTop = (Math.sin(t * 8 + i * 0.5) * 3).toFixed(1);
+          const sTop = (0.8 + Math.sin(t * 6 + i * 0.3) * 0.4).toFixed(2);
+          c.dropTop.style.transform = isDroplet ? ('translateY(' + dyTop + 'px) scale(' + sTop + ')') : 'translateY(8px) scale(0.4)';
+
+          c.shimmer.style.transform = 'translateX(' + (Math.sin(t * 1.5 + i * 0.7) * 8).toFixed(1) + 'px)';
+          c.bubble.style.top = (20 + Math.sin(t * 3 + i * 0.8) * 10).toFixed(0) + '%';
+          c.bubble.style.left = (30 + Math.sin(t * 2 + i * 0.6) * 20).toFixed(0) + '%';
+
+          const sBottom = (0.6 + Math.sin(t * 2 + i * 0.6) * 0.4).toFixed(2);
+          const dyBottom = (Math.sin(t * 4 + i * 0.8) * 1.2).toFixed(1);
+          c.dropBottom.style.transform = 'translateY(' + dyBottom + 'px) scale(' + sBottom + ')';
+          c.dropBottom.style.opacity = (0.6 + Math.sin(t * 3 + i * 0.9) * 0.4).toFixed(2);
+        }
+      }
+      if (typeof requestAnimationFrame !== 'undefined') {
+        animId = requestAnimationFrame(tick);
       }
     };
 
-    const loop = (now) => {
-      if (!running) return;
-      const dt = Math.max(0, Math.min(0.05, (now - last) / 1000));
-      last = now;
-      draw(dt);
-      raf = requestAnimationFrame(loop);
-    };
-    raf = requestAnimationFrame(loop);
+    if (typeof requestAnimationFrame !== 'undefined') {
+      animId = requestAnimationFrame(tick);
+    }
 
-    return () => {
+    const stop = () => {
       running = false;
-      cancelAnimationFrame(raf);
-      clearInterval(interval);
-      if (ctx) ctx.clearRect(0, 0, canvas.width, canvas.height);
+      if (typeof cancelAnimationFrame !== 'undefined' && animId) {
+        cancelAnimationFrame(animId);
+      }
+    };
+
+    return { element: wrap, stop };
+  }
+
+  function startInlineOrb(container, statusLab) {
+    const liquid = createLiquidLoader({ compact: true, speed: 1.1 });
+    container.append(liquid.element);
+    const stopRotation = startStatusRotation(statusLab);
+    return () => {
+      liquid.stop();
+      stopRotation();
     };
   }
 
@@ -1399,16 +1505,13 @@ Gaya Komunikasi:
       const head = node('h3', 'Kayla AI');
 
       const orbWrap = node('div', null, 'mo-inline-orb-wrap');
-      const canvas = node('canvas', null, 'mo-inline-orb');
-      canvas.width = 64; canvas.height = 64;
       const statusLab = node('div', null, 'mo-inline-status');
       renderStatusLab(statusLab, 'Thinking');
-      orbWrap.append(canvas, statusLab);
+      const stopOrb = startInlineOrb(orbWrap, statusLab);
+      orbWrap.append(statusLab);
       loadingBubble.append(head, orbWrap);
       messages.append(loadingBubble);
       messages.scrollTop = messages.scrollHeight;
-
-      const stopOrb = startInlineOrb(canvas, statusLab);
 
       try {
         let replyText = '';
@@ -5659,5 +5762,5 @@ Setiap kali melakukan analisa pada instrumen apa pun, jalankan prosedur sinkroni
     } catch(error) {if(epoch===revision)showError(error);}
   }
   function reset() {revision++;controller.abort();controller=new AbortController();clearAccess();current='';filters={};preset={};accounts=[];strategies=[];root?.replaceChildren();status=null;content=null;}
-  global.JTPRO={features,configure(value){reset();options={...value};},open,reset,verifyAccess,request,aggregateSeries,safeLink,getGeminiApiKey,setGeminiApiKey,hasGeminiApiKey,callGeminiApi,renderMarkdown,renderMarkdownInto,openGeminiConfigModal,get access(){return access;},get current(){return current;}};
+  global.JTPRO={features,configure(value){reset();options={...value};},open,reset,verifyAccess,request,aggregateSeries,safeLink,getGeminiApiKey,setGeminiApiKey,hasGeminiApiKey,callGeminiApi,renderMarkdown,renderMarkdownInto,openGeminiConfigModal,createLiquidLoader,get access(){return access;},get current(){return current;}};
 })(window);
