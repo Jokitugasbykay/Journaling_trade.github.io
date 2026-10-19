@@ -66,6 +66,7 @@
      1. HERO TRADING TERMINAL (ACTIVE PAIRS & LIVE STREAM)
      ======================================================== */
   (function initHeroTerminal() {
+    if (typeof document.querySelectorAll !== 'function') return;
     const pairs = {
       'EUR/USD': { price: '1.08450', tp: '+3.2R / +$320', sl: '-1.0R / -$100', rr: '1 : 3.2', lot: '0.32 Lots', profit: '+$320.00', risk: '-$100.00' },
       'XAU/USD': { price: '2650.00', tp: '+3.5R / +$350', sl: '-1.0R / -$100', rr: '1 : 3.5', lot: '0.40 Lots', profit: '+$350.00', risk: '-$100.00' },
@@ -107,6 +108,7 @@
      2. PRO WORKSPACE MODULES PREVIEW & MODERN LOADING TAB
      ======================================================== */
   (function initProTabsPreview() {
+    if (typeof document.querySelectorAll !== 'function') return;
     const tabBtns = document.querySelectorAll('.tab-preview-btn');
     const loader = document.getElementById('tab-preview-loader');
     const content = document.getElementById('tab-preview-content');
