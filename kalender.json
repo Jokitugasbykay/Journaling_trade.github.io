@@ -2560,7 +2560,7 @@
    "prk": "",
    "sbl": "",
    "cat": "",
-   "source": "https://www.forexfactory.com/calendar?day=oct15.2026#detail=148530"
+   "source": "https://www.forexfactory.com/calendar?day=oct14.2026#detail=148530"
   },
   {
    "id": "ff-149687",
@@ -2574,7 +2574,7 @@
    "prk": "-1.7%",
    "sbl": "-1.7%",
    "cat": "",
-   "source": "https://www.forexfactory.com/calendar?day=oct15.2026#detail=149687"
+   "source": "https://www.forexfactory.com/calendar?day=oct14.2026#detail=149687"
   },
   {
    "id": "ff-154993",
@@ -2588,7 +2588,7 @@
    "prk": "",
    "sbl": "",
    "cat": "",
-   "source": "https://www.forexfactory.com/calendar?day=oct15.2026#detail=154993"
+   "source": "https://www.forexfactory.com/calendar?day=oct14.2026#detail=154993"
   },
   {
    "id": "ff-151566",
@@ -3036,7 +3036,7 @@
    "prk": "",
    "sbl": "",
    "cat": "",
-   "source": "https://www.forexfactory.com/calendar?day=oct16.2026#detail=154978"
+   "source": "https://www.forexfactory.com/calendar?day=oct15.2026#detail=154978"
   },
   {
    "id": "ff-151321",
@@ -3218,7 +3218,7 @@
    "prk": "",
    "sbl": "",
    "cat": "",
-   "source": "https://www.forexfactory.com/calendar?day=oct17.2026#detail=155000"
+   "source": "https://www.forexfactory.com/calendar?day=oct16.2026#detail=155000"
   },
   {
    "id": "ff-155001",
@@ -3235,18 +3235,18 @@
    "source": "https://www.forexfactory.com/calendar?day=oct17.2026#detail=155001"
   },
   {
-   "id": "559546",
+   "id": "ff-154980",
    "tgl": "2026-10-18",
    "jam": "07:00",
    "neg": "AUD",
    "countryCode": "AU",
    "nama": "RBA Assist Gov Kent Speaks",
-   "dmp": 2,
+   "dmp": 1,
    "akt": "",
    "prk": "",
    "sbl": "",
    "cat": "",
-   "source": "https://www.investing.com/economic-calendar/"
+   "source": "https://www.forexfactory.com/calendar?day=oct17.2026#detail=154980"
   },
   {
    "id": "ff-150215",
@@ -3277,60 +3277,18 @@
    "source": "https://www.forexfactory.com/calendar?day=oct18.2026#detail=149360"
   },
   {
-   "id": "558810",
-   "tgl": "2026-10-19",
-   "jam": "04:30",
-   "neg": "NZD",
-   "countryCode": "NZ",
-   "nama": "Performance of Services Index (Sep)",
-   "dmp": 1,
-   "akt": "50.9",
-   "prk": "",
-   "sbl": "51.0",
-   "cat": "",
-   "source": "https://www.investing.com/economic-calendar/"
-  },
-  {
-   "id": "558255",
+   "id": "ff-149320",
    "tgl": "2026-10-19",
    "jam": "04:45",
    "neg": "NZD",
    "countryCode": "NZ",
-   "nama": "Exports (Sep)",
+   "nama": "Trade Balance",
    "dmp": 1,
-   "akt": "6.47B",
-   "prk": "",
-   "sbl": "6.48B",
+   "akt": "-1971M",
+   "prk": "-775M",
+   "sbl": "-1349M",
    "cat": "",
-   "source": "https://www.investing.com/economic-calendar/"
-  },
-  {
-   "id": "558256",
-   "tgl": "2026-10-19",
-   "jam": "04:45",
-   "neg": "NZD",
-   "countryCode": "NZ",
-   "nama": "Imports (Sep)",
-   "dmp": 1,
-   "akt": "8.44B",
-   "prk": "",
-   "sbl": "8.02B",
-   "cat": "",
-   "source": "https://www.investing.com/economic-calendar/"
-  },
-  {
-   "id": "558258",
-   "tgl": "2026-10-19",
-   "jam": "04:45",
-   "neg": "NZD",
-   "countryCode": "NZ",
-   "nama": "Trade Balance (Sep)",
-   "dmp": 1,
-   "akt": "-6,180M",
-   "prk": "",
-   "sbl": "-5,610M",
-   "cat": "",
-   "source": "https://www.investing.com/economic-calendar/"
+   "source": "https://www.forexfactory.com/calendar?day=oct18.2026#detail=149320"
   },
   {
    "id": "ff-150783",
@@ -3347,30 +3305,30 @@
    "source": "https://www.forexfactory.com/calendar?day=oct18.2026#detail=150783"
   },
   {
-   "id": "558811",
-   "tgl": "2026-10-19",
-   "jam": "06:01",
-   "neg": "GBP",
-   "countryCode": "UK",
-   "nama": "Rightmove House Price Index (Oct)",
-   "dmp": 1,
-   "akt": "1.0%",
-   "prk": "",
-   "sbl": "0.7%",
-   "cat": "",
-   "source": "https://www.investing.com/economic-calendar/"
-  },
-  {
-   "id": "559548",
+   "id": "ff-155134",
    "tgl": "2026-10-19",
    "jam": "06:05",
    "neg": "AUD",
    "countryCode": "AU",
    "nama": "RBA Assist Gov Kent Speaks",
-   "dmp": 2,
+   "dmp": 1,
    "akt": "",
    "prk": "",
    "sbl": "",
+   "cat": "",
+   "source": "https://www.forexfactory.com/calendar?day=oct18.2026#detail=155134"
+  },
+  {
+   "id": "558260",
+   "tgl": "2026-10-19",
+   "jam": "08:30",
+   "neg": "CNY",
+   "countryCode": "CN",
+   "nama": "House Prices (Sep)",
+   "dmp": 1,
+   "akt": "-2.8%",
+   "prk": "",
+   "sbl": "-3.0%",
    "cat": "",
    "source": "https://www.investing.com/economic-calendar/"
   },
@@ -3382,11 +3340,81 @@
    "countryCode": "CN",
    "nama": "New Home Prices m/m",
    "dmp": 1,
-   "akt": "",
+   "akt": "-0.14%",
    "prk": "",
    "sbl": "-0.17%",
    "cat": "",
    "source": "https://www.forexfactory.com/calendar?day=oct18.2026#detail=150171"
+  },
+  {
+   "id": "558261",
+   "tgl": "2026-10-19",
+   "jam": "09:00",
+   "neg": "CNY",
+   "countryCode": "CN",
+   "nama": "Chinese GDP YTD  (Q3)",
+   "dmp": 2,
+   "akt": "",
+   "prk": "",
+   "sbl": "4.7%",
+   "cat": "",
+   "source": "https://www.investing.com/economic-calendar/"
+  },
+  {
+   "id": "558266",
+   "tgl": "2026-10-19",
+   "jam": "09:00",
+   "neg": "CNY",
+   "countryCode": "CN",
+   "nama": "Chinese Industrial Production YTD  (Sep)",
+   "dmp": 2,
+   "akt": "",
+   "prk": "",
+   "sbl": "5.3%",
+   "cat": "",
+   "source": "https://www.investing.com/economic-calendar/"
+  },
+  {
+   "id": "558267",
+   "tgl": "2026-10-19",
+   "jam": "09:00",
+   "neg": "CNY",
+   "countryCode": "CN",
+   "nama": "Chinese Retail Sales YTD  (Sep)",
+   "dmp": 1,
+   "akt": "",
+   "prk": "",
+   "sbl": "1.13%",
+   "cat": "",
+   "source": "https://www.investing.com/economic-calendar/"
+  },
+  {
+   "id": "558268",
+   "tgl": "2026-10-19",
+   "jam": "09:00",
+   "neg": "CNY",
+   "countryCode": "CN",
+   "nama": "Chinese Unemployment Rate (Sep)",
+   "dmp": 2,
+   "akt": "",
+   "prk": "5.3%",
+   "sbl": "5.3%",
+   "cat": "",
+   "source": "https://www.investing.com/economic-calendar/"
+  },
+  {
+   "id": "558262",
+   "tgl": "2026-10-19",
+   "jam": "09:00",
+   "neg": "CNY",
+   "countryCode": "CN",
+   "nama": "Fixed Asset Investment (Sep)",
+   "dmp": 2,
+   "akt": "",
+   "prk": "-7.3%",
+   "sbl": "-7.2%",
+   "cat": "",
+   "source": "https://www.investing.com/economic-calendar/"
   },
   {
    "id": "ff-150410",
@@ -3403,6 +3431,20 @@
    "source": "https://www.forexfactory.com/calendar?day=oct18.2026#detail=150410"
   },
   {
+   "id": "558263",
+   "tgl": "2026-10-19",
+   "jam": "09:00",
+   "neg": "CNY",
+   "countryCode": "CN",
+   "nama": "GDP (Q3)",
+   "dmp": 2,
+   "akt": "",
+   "prk": "1.1%",
+   "sbl": "0.9%",
+   "cat": "",
+   "source": "https://www.investing.com/economic-calendar/"
+  },
+  {
    "id": "ff-150408",
    "tgl": "2026-10-19",
    "jam": "09:00",
@@ -3415,6 +3457,20 @@
    "sbl": "4.3%",
    "cat": "",
    "source": "https://www.forexfactory.com/calendar?day=oct18.2026#detail=150408"
+  },
+  {
+   "id": "558264",
+   "tgl": "2026-10-19",
+   "jam": "09:00",
+   "neg": "CNY",
+   "countryCode": "CN",
+   "nama": "Industrial Production (Sep)",
+   "dmp": 2,
+   "akt": "",
+   "prk": "5.4%",
+   "sbl": "5.2%",
+   "cat": "",
+   "source": "https://www.investing.com/economic-calendar/"
   },
   {
    "id": "ff-150409",
@@ -3431,18 +3487,32 @@
    "source": "https://www.forexfactory.com/calendar?day=oct18.2026#detail=150409"
   },
   {
-   "id": "ff-150411",
+   "id": "559358",
    "tgl": "2026-10-19",
    "jam": "09:00",
    "neg": "CNY",
    "countryCode": "CN",
    "nama": "NBS Press Conference",
-   "dmp": 1,
+   "dmp": 2,
    "akt": "",
    "prk": "",
    "sbl": "",
    "cat": "",
-   "source": "https://www.forexfactory.com/calendar?day=oct18.2026#detail=150411"
+   "source": "https://www.investing.com/economic-calendar/"
+  },
+  {
+   "id": "558265",
+   "tgl": "2026-10-19",
+   "jam": "09:00",
+   "neg": "CNY",
+   "countryCode": "CN",
+   "nama": "Retail Sales (Sep)",
+   "dmp": 1,
+   "akt": "",
+   "prk": "0.5%",
+   "sbl": "0.4%",
+   "cat": "",
+   "source": "https://www.investing.com/economic-calendar/"
   },
   {
    "id": "ff-150413",
@@ -3473,6 +3543,20 @@
    "source": "https://www.forexfactory.com/calendar?day=oct18.2026#detail=150414"
   },
   {
+   "id": "558275",
+   "tgl": "2026-10-19",
+   "jam": "11:30",
+   "neg": "JPY",
+   "countryCode": "JP",
+   "nama": "Tertiary Industry Activity Index (Aug)",
+   "dmp": 1,
+   "akt": "",
+   "prk": "",
+   "sbl": "0.90",
+   "cat": "",
+   "source": "https://www.investing.com/economic-calendar/"
+  },
+  {
    "id": "ff-149723",
    "tgl": "2026-10-19",
    "jam": "11:30",
@@ -3484,7 +3568,105 @@
    "prk": "-0.3%",
    "sbl": "0.4%",
    "cat": "",
-   "source": "https://www.forexfactory.com/calendar?day=oct19.2026#detail=149723"
+   "source": "https://www.forexfactory.com/calendar?day=oct18.2026#detail=149723"
+  },
+  {
+   "id": "559549",
+   "tgl": "2026-10-19",
+   "jam": "13:00",
+   "neg": "EUR",
+   "countryCode": "EU",
+   "nama": "ECB's Elderson Speaks",
+   "dmp": 2,
+   "akt": "",
+   "prk": "",
+   "sbl": "",
+   "cat": "",
+   "source": "https://www.investing.com/economic-calendar/"
+  },
+  {
+   "id": "559226",
+   "tgl": "2026-10-19",
+   "jam": "16:00",
+   "neg": "CNY",
+   "countryCode": "CN",
+   "nama": "FDI (Sep)",
+   "dmp": 1,
+   "akt": "",
+   "prk": "",
+   "sbl": "-5.30%",
+   "cat": "",
+   "source": "https://www.investing.com/economic-calendar/"
+  },
+  {
+   "id": "559432",
+   "tgl": "2026-10-19",
+   "jam": "17:00",
+   "neg": "EUR",
+   "countryCode": "DE",
+   "nama": "German Buba Monthly Report",
+   "dmp": 1,
+   "akt": "",
+   "prk": "",
+   "sbl": "",
+   "cat": "",
+   "source": "https://www.investing.com/economic-calendar/"
+  },
+  {
+   "id": "558718",
+   "tgl": "2026-10-19",
+   "jam": "18:00",
+   "neg": "ZAR",
+   "countryCode": "ZA",
+   "nama": "Business Confidence (Aug)",
+   "dmp": 1,
+   "akt": "",
+   "prk": "",
+   "sbl": "125.4",
+   "cat": "",
+   "source": "https://www.investing.com/economic-calendar/"
+  },
+  {
+   "id": "558281",
+   "tgl": "2026-10-19",
+   "jam": "18:00",
+   "neg": "BRL",
+   "countryCode": "BR",
+   "nama": "IGP-10 Inflation Index (Oct)",
+   "dmp": 1,
+   "akt": "",
+   "prk": "",
+   "sbl": "1.5%",
+   "cat": "",
+   "source": "https://www.investing.com/economic-calendar/"
+  },
+  {
+   "id": "559176",
+   "tgl": "2026-10-19",
+   "jam": "18:25",
+   "neg": "BRL",
+   "countryCode": "BR",
+   "nama": "BCB Focus Market Readout",
+   "dmp": 1,
+   "akt": "",
+   "prk": "",
+   "sbl": "",
+   "cat": "",
+   "source": "https://www.investing.com/economic-calendar/"
+  },
+  {
+   "id": "558463",
+   "tgl": "2026-10-19",
+   "jam": "19:30",
+   "neg": "CAD",
+   "countryCode": "CA",
+   "nama": "CPI (Sep)",
+   "dmp": 1,
+   "akt": "",
+   "prk": "",
+   "sbl": "3.0%",
+   "cat": "",
+   "source": "https://www.investing.com/economic-calendar/"
   },
   {
    "id": "ff-149171",
@@ -3501,6 +3683,20 @@
    "source": "https://www.forexfactory.com/calendar?day=oct19.2026#detail=149171"
   },
   {
+   "id": "558461",
+   "tgl": "2026-10-19",
+   "jam": "19:30",
+   "neg": "CAD",
+   "countryCode": "CA",
+   "nama": "Common CPI (Sep)",
+   "dmp": 1,
+   "akt": "",
+   "prk": "2.6%",
+   "sbl": "2.6%",
+   "cat": "",
+   "source": "https://www.investing.com/economic-calendar/"
+  },
+  {
    "id": "ff-149169",
    "tgl": "2026-10-19",
    "jam": "19:30",
@@ -3513,6 +3709,20 @@
    "sbl": "2.6%",
    "cat": "",
    "source": "https://www.forexfactory.com/calendar?day=oct19.2026#detail=149169"
+  },
+  {
+   "id": "558462",
+   "tgl": "2026-10-19",
+   "jam": "19:30",
+   "neg": "CAD",
+   "countryCode": "CA",
+   "nama": "Core CPI (Sep)",
+   "dmp": 2,
+   "akt": "",
+   "prk": "",
+   "sbl": "0.1%",
+   "cat": "",
+   "source": "https://www.investing.com/economic-calendar/"
   },
   {
    "id": "ff-149170",
@@ -3529,6 +3739,20 @@
    "source": "https://www.forexfactory.com/calendar?day=oct19.2026#detail=149170"
   },
   {
+   "id": "558465",
+   "tgl": "2026-10-19",
+   "jam": "19:30",
+   "neg": "CAD",
+   "countryCode": "CA",
+   "nama": "Median CPI (Sep)",
+   "dmp": 1,
+   "akt": "",
+   "prk": "2.0%",
+   "sbl": "2.0%",
+   "cat": "",
+   "source": "https://www.investing.com/economic-calendar/"
+  },
+  {
    "id": "ff-149172",
    "tgl": "2026-10-19",
    "jam": "19:30",
@@ -3541,6 +3765,20 @@
    "sbl": "2.0%",
    "cat": "",
    "source": "https://www.forexfactory.com/calendar?day=oct19.2026#detail=149172"
+  },
+  {
+   "id": "558464",
+   "tgl": "2026-10-19",
+   "jam": "19:30",
+   "neg": "CAD",
+   "countryCode": "CA",
+   "nama": "Trimmed CPI (Sep)",
+   "dmp": 1,
+   "akt": "",
+   "prk": "1.9%",
+   "sbl": "1.9%",
+   "cat": "",
+   "source": "https://www.investing.com/economic-calendar/"
   },
   {
    "id": "ff-149173",
@@ -3557,32 +3795,102 @@
    "source": "https://www.forexfactory.com/calendar?day=oct19.2026#detail=149173"
   },
   {
-   "id": "ff-149759",
+   "id": "559219",
+   "tgl": "2026-10-19",
+   "jam": "20:00",
+   "neg": "EUR",
+   "countryCode": "FR",
+   "nama": "French 12-Month BTF Auction",
+   "dmp": 1,
+   "akt": "",
+   "prk": "",
+   "sbl": "3.255%",
+   "cat": "",
+   "source": "https://www.investing.com/economic-calendar/"
+  },
+  {
+   "id": "559220",
+   "tgl": "2026-10-19",
+   "jam": "20:00",
+   "neg": "EUR",
+   "countryCode": "FR",
+   "nama": "French 3-Month BTF Auction",
+   "dmp": 1,
+   "akt": "",
+   "prk": "",
+   "sbl": "2.761%",
+   "cat": "",
+   "source": "https://www.investing.com/economic-calendar/"
+  },
+  {
+   "id": "559221",
+   "tgl": "2026-10-19",
+   "jam": "20:00",
+   "neg": "EUR",
+   "countryCode": "FR",
+   "nama": "French 6-Month BTF Auction",
+   "dmp": 1,
+   "akt": "",
+   "prk": "",
+   "sbl": "2.964%",
+   "cat": "",
+   "source": "https://www.investing.com/economic-calendar/"
+  },
+  {
+   "id": "558284",
    "tgl": "2026-10-19",
    "jam": "21:00",
    "neg": "USD",
    "countryCode": "US",
-   "nama": "NAHB Housing Market Index",
+   "nama": "NAHB Housing Market Index (Oct)",
    "dmp": 1,
    "akt": "",
    "prk": "31",
    "sbl": "32",
    "cat": "",
-   "source": "https://www.forexfactory.com/calendar?day=oct19.2026#detail=149759"
+   "source": "https://www.investing.com/economic-calendar/"
   },
   {
-   "id": "ff-146562",
+   "id": "559287",
+   "tgl": "2026-10-19",
+   "jam": "22:30",
+   "neg": "USD",
+   "countryCode": "US",
+   "nama": "3-Month Bill Auction",
+   "dmp": 1,
+   "akt": "",
+   "prk": "",
+   "sbl": "4.085%",
+   "cat": "",
+   "source": "https://www.investing.com/economic-calendar/"
+  },
+  {
+   "id": "559288",
+   "tgl": "2026-10-19",
+   "jam": "22:30",
+   "neg": "USD",
+   "countryCode": "US",
+   "nama": "6-Month Bill Auction",
+   "dmp": 1,
+   "akt": "",
+   "prk": "",
+   "sbl": "4.200%",
+   "cat": "",
+   "source": "https://www.investing.com/economic-calendar/"
+  },
+  {
+   "id": "559359",
    "tgl": "2026-10-19",
    "jam": "22:30",
    "neg": "CAD",
    "countryCode": "CA",
-   "nama": "BOC Business Outlook Survey",
-   "dmp": 1,
+   "nama": "BoC Business Outlook Survey",
+   "dmp": 2,
    "akt": "",
    "prk": "",
    "sbl": "",
    "cat": "",
-   "source": "https://www.forexfactory.com/calendar?day=oct19.2026#detail=146562"
+   "source": "https://www.investing.com/economic-calendar/"
   },
   {
    "id": "ff-150629",
@@ -5755,10 +6063,10 @@
    "source": "https://www.forexfactory.com/calendar?day=oct30.2026#detail=150083"
   }
  ],
- "updated": "2026-10-18T23:45:54.160485+00:00",
+ "updated": "2026-10-19T01:53:44.800210+00:00",
  "source": "https://www.forexfactory.com/calendar?month=oct.2026",
  "status": "ok",
- "checkedAt": "2026-10-18T23:45:54.160485+00:00",
+ "checkedAt": "2026-10-19T01:53:44.800210+00:00",
  "coverageStart": "2026-10-01",
  "coverageEnd": "2026-10-31",
  "agenda": [
