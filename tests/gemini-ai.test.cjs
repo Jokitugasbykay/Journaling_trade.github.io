@@ -254,6 +254,10 @@ const server=http.createServer(async(req,res)=>{
 
   const lastChatReq = geminiRequests[geminiRequests.length - 1];
   assert.ok(lastChatReq.postData.systemInstruction.parts[0].text.includes('Asisten AI Trading'));
+  assert.ok(lastChatReq.postData.systemInstruction.parts[0].text.includes('Imut, Ramah, & Manis'));
+  assert.ok(lastChatReq.postData.systemInstruction.parts[0].text.includes('DILARANG KERAS MEMBAHAS CODING'));
+  assert.ok(lastChatReq.postData.systemInstruction.parts[0].text.includes('POLITIK BERBAHAYA'));
+  assert.ok(lastChatReq.postData.systemInstruction.parts[0].text.includes('Konteks Lokasi & Waktu Pengguna'));
   assert.equal(lastChatReq.postData.contents[0].parts[0].text,'Bagaimana cara validasi SBR menurut Kaystrade?');
 
   // Test chat context preservation on follow-up message
