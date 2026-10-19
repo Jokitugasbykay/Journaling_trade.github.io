@@ -77,6 +77,7 @@ type JourneyItem = {
   id: string;
   year: string;
   month: Month;
+  title?: string;
   content: string;
 };
 
@@ -128,49 +129,56 @@ function usePrefersReducedMotion() {
 
 const topJourneyData: JourneyItem[] = [
   {
-    id: "2020-march",
-    year: "2020",
+    id: "01-multi-market",
+    year: "01",
+    month: "January",
+    title: "01 · Multi-Market Log",
+    content: "Record Forex, Gold, Crypto, and Stocks in one structured workspace.",
+  },
+  {
+    id: "03-session-context",
+    year: "03",
     month: "March",
-    content: "Signal research turns scattered notes into a clear product thesis",
+    title: "03 · Session & News Context",
+    content: "Track high-impact economic news across Sydney, Tokyo, London, and NY sessions.",
   },
   {
-    id: "2021-july",
-    year: "2021",
-    month: "July",
-    content: "Founding release ships with the first live customer journeys",
-  },
-  {
-    id: "2023-april",
-    year: "2023",
-    month: "April",
-    content: "Automation layer connects insight, publishing, and sales motion",
-  },
-  {
-    id: "2026-may",
-    year: "2026",
+    id: "05-edge-analytics",
+    year: "05",
     month: "May",
-    content: "New markets open with localized launches and faster onboarding",
+    title: "05 · Edge & Heatmap Analytics",
+    content: "Uncover win-rate setups, profit factor, and drawdown patterns.",
+  },
+  {
+    id: "07-automated-reports",
+    year: "07",
+    month: "July",
+    title: "07 · Automated Review Reports",
+    content: "Generate actionable weekly/monthly reviews and PDF reports.",
   },
 ];
 
 const bottomJourneyData: JourneyItem[] = [
   {
-    id: "2020-november",
-    year: "2020",
-    month: "November",
-    content: "Prototype sprint validates the experience with real operators",
+    id: "02-risk-calculator",
+    year: "02",
+    month: "February",
+    title: "02 · Risk Calculator",
+    content: "Calculate exact lot size, stop loss distance, and risk cap in USD & Rupiah.",
   },
   {
-    id: "2022-october",
-    year: "2022",
-    month: "October",
-    content: "Community feedback reshapes the roadmap into sharper releases",
+    id: "04-smart-ocr",
+    year: "04",
+    month: "April",
+    title: "04 · Smart OCR Import",
+    content: "Extract entry, SL, TP, and R:R automatically from screenshots, CSV, and PDFs.",
   },
   {
-    id: "2025-september",
-    year: "2025",
-    month: "September",
-    content: "Companion mobile workflows make the timeline travel-ready",
+    id: "06-ai-behaviour",
+    year: "06",
+    month: "June",
+    title: "06 · AI Behaviour Analyst",
+    content: "Detect FOMO, overtrading, and rule breaks with AI insights.",
   },
 ];
 
@@ -184,14 +192,14 @@ const allJourneyItems: JourneyItem[] = [
 });
 
 export default function Timeline({
-  title = "Product Storyline",
-  periodLabel = "2020 - 2026",
+  title = "Trading Workflow & Evolution",
+  periodLabel = "FROM PREPARATION TO AI EDGE",
   textColor = "var(--color-foreground, #ffffff)",
   mutedTextColor = "var(--color-muted-foreground, #a1a1aa)",
   activeColor = "#ff5f00",
   backgroundColor = "var(--color-background, #000000)",
-  imageUrl = "https://cdn.21st.dev/assets/mirror/b0/b0c41784074f76ac5fb6b447da87780c901135841317a096241371f24bc13ddd.jpg",
-  imageAlt = "Product Storyline isometric 3D glass cuboids",
+  imageUrl = "https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?auto=format&fit=crop&w=1000&q=85",
+  imageAlt = "Trading Workflow & Evolution dark trading chart",
   duration,
   scrollDuration = 1.2,
 }: TimelineProps) {
@@ -454,7 +462,7 @@ export default function Timeline({
                 {topJourneyData.map((item) => (
                   <div
                     key={`top-${item.id}`}
-                    className="relative h-full w-[30vw] px-[3vw] max-[600px]:flex max-[600px]:w-[70vw] max-[600px]:flex-col max-[600px]:px-[7vw]"
+                    className="relative h-full w-[30vw] min-w-[260px] shrink-0 px-[3vw] max-[600px]:flex max-[600px]:w-[70vw] max-[600px]:flex-col max-[600px]:px-[7vw]"
                   >
                     <div className="w-full absolute left-0 bottom-0 top-0 h-full">
                       <div
@@ -471,7 +479,7 @@ export default function Timeline({
                       <h4
                         className={`title-${item.id} text-[2.5vw] leading-none max-[600px]:text-[6.4vw]`}
                       >
-                        {item.year} {item.month}
+                        {item.title || `${item.year} ${item.month}`}
                       </h4>
                       <p
                         className={`description-${item.id} w-[90%] text-[1.5vw] leading-[1.15] max-[600px]:w-[90%] max-[600px]:text-[4.8vw]`}
@@ -499,7 +507,7 @@ export default function Timeline({
                 {bottomJourneyData.map((item) => (
                   <div
                     key={`bottom-${item.id}`}
-                    className="relative h-full w-[25vw] px-[3vw] max-[600px]:w-[70vw] max-[600px]:px-[7vw]"
+                    className="relative h-full w-[25vw] min-w-[260px] shrink-0 px-[3vw] max-[600px]:w-[70vw] max-[600px]:px-[7vw]"
                   >
                     <div className="w-full absolute left-0 bottom-[-1%] h-full">
                       <div
@@ -516,7 +524,7 @@ export default function Timeline({
                       <h4
                         className={`title-${item.id} text-[2.5vw] leading-none max-[600px]:text-[6.4vw]`}
                       >
-                        {item.year} {item.month}
+                        {item.title || `${item.year} ${item.month}`}
                       </h4>
                       <p
                         className={`description-${item.id} w-[90%] text-[1.5vw] leading-[1.15] max-[600px]:w-[90%] max-[600px]:text-[4.8vw]`}

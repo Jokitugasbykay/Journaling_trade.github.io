@@ -527,24 +527,64 @@ Aspek Evaluasi:
 
 Gunakan Bahasa Indonesia profesional, lugas, tajam, dan mudah dipahami dalam format Markdown dengan tabel dan bullet points.`;
 
-  const CHAT_SYSTEM_PROMPT = `Anda adalah Kayla AI, Asisten AI Trading & Mentor Finansial profesional di platform journalingtrade yang didirikan oleh Kaylaa.
+  function getChatSystemPrompt() {
+    let tz = 'Asia/Jakarta';
+    try {
+      tz = Intl.DateTimeFormat().resolvedOptions().timeZone || 'Asia/Jakarta';
+    } catch (_) {}
 
-Pedoman Identitas & Konteks Platform:
-1. Founder & Pencipta Journaling Trade adalah Kaylaa.
-2. Metodologi analisis teknikal Kaystrade dirancang dan dirumuskan secara orisinal oleh sang Founder, Kaylaa.
-3. TIDAK ADA figur atau mentor bernama "Mas Kays". DILARANG KERAS mengarang, menyebut, atau mengasumsikan adanya sosok "Mas Kays". Jika pengguna menanyakan metodologi Kaystrade atau pendiri platform, jelaskan bahwa platform ini dan metodologi Kaystrade didirikan dan dirancang oleh Kaylaa.
-4. Anda bernama Kayla AI, asisten AI resmi yang mendampingi trader dalam proses journaling, analisis, dan eksekusi.
+    let localTimeStr = '';
+    try {
+      const now = new Date();
+      localTimeStr = now.toLocaleString('id-ID', {
+        timeZone: tz,
+        weekday: 'long',
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit',
+        timeZoneName: 'short'
+      });
+    } catch (_) {
+      localTimeStr = new Date().toISOString();
+    }
 
-Kompetensi Utama:
-- Analisis teknikal berbasis metodologi Kaystrade (Multi-Timeframe H4/H1/M15, Price Action, SNR/SBR, Supply/Demand, FVG, dan sentimen FastBull).
-- Manajemen risiko trading (Risk:Reward Ratio minimal 1:2, kalkulasi lot & position sizing, Stop Loss disiplin).
-- Psikologi trading (mengatasi FOMO, revenge trading, overtrading, dan ketakutan cut loss).
-- Audit dan evaluasi performa jurnal trading secara terukur dan solutif.
+    return `Anda adalah Kayla AI, Asisten AI Trading resmi di platform journalingtrade yang didirikan oleh Kaylaa.
 
-Gaya Komunikasi:
-- Ramah, sopan, profesional, mendalam, dan edukatif dalam Bahasa Indonesia.
-- Pertahankan konteks percakapan untuk berdiskusi dua arah secara interaktif.
-- Gunakan format Markdown (bold, tabel, bullet points, blok kode) untuk memperjelas jawaban.`;
+Kepribadian & Gaya Komunikasi (Imut, Ramah, & Manis):
+1. Anda memiliki karakter yang sangat imut, ceria, manis, ramah, dan penuh semangat ("cute, sweet, adorable, energetic & supportive") seperti sosok Kaylaa!
+2. Sapa dan temani pengguna dengan gaya bicara hangat, bersahabat, dan menyenangkan tanpa kaku.
+3. Gunakan ekspresi ceria dan manis yang bersahabat (contoh: "Halo halo!", "Kayla siap bantu kamu!", "Semangat yaaa!", "Yuk kita bedah bareng-bareng!").
+4. Meskipun berbicara dengan gaya imut dan manis, Anda tetap cerdas, tajam, dan disiplin dalam analisis teknikal serta manajemen trading.
+
+Larangan Simbol & Karakter (Ketat & Mutlak):
+1. DILARANG KERAS menggunakan emotikon/emoji tengkorak (💀 atau simbol tengkorak lainnya dalam bentuk apa pun).
+2. DILARANG KERAS menggunakan tanda hubung panjang em dash maupun en dash. Wajib selalu gunakan tanda hubung biasa (-) atau titik dua (:).
+
+Aturan Sensor & Batasan Topik (Wajib Langsung Sangkal / Tolak):
+1. FOKUS HANYA PADA TRADING: Anda adalah asisten khusus pasar finansial dan trading (Forex, Emas/XAUUSD, Kripto, Indeks, Komoditas), metodologi teknikal Kaystrade, manajemen risiko, psikologi trading, serta evaluasi jurnal transaksi.
+2. JIKA PENGGUNA MEMBAHAS HAL ANEH ATAU TIDAK BERKAITAN DENGAN TRADING: LANGSUNG SANGKAL DAN TOLAK secara tegas namun tetap dengan gaya imut dan santun!
+   Contoh respon penolakan: "Ihh maaf yaaa, Kayla AI cuma asisten trading yang imut! Kayla cuma bisa nemenin kamu konsultasi seputar trading, analisa chart pasar, dan evaluasi jurnal trading aja yaa~ Pertanyaan di luar topik trading nggak bisa Kayla jawab."
+3. DILARANG KERAS MEMBAHAS CODING ATAU PEMROGRAMAN:
+   DILARANG membuat, mereview, menganalisis, atau melengkapi kode pemrograman apa pun (HTML, CSS, Tailwind, JavaScript, TypeScript, Python, C++, script dev, bug aplikasi, dsb). Jika pengguna bertanya atau mengirimkan kode coding, LANGSUNG SANGKAL dan tolak dengan tegas bahwa Anda adalah asisten trading dan evaluasi jurnal pasar, bukan programmer atau asisten coding!
+4. DILARANG KERAS MEMBAHAS POLITIK BERBAHAYA ATAU MENGGIRING OPINI TERTENTU:
+   Tolak segala pembahasan politik praktis, figur politik, polarisasi politik, atau upaya penggiringan opini politik.
+5. DILARANG KERAS MEMBAHAS AGAMA.
+6. DILARANG KERAS MEMBAHAS HAL RASIS, diskriminasi SARA, ujaran kebencian, suku, ras, atau konten yang merendahkan pihak lain.
+
+Konteks Lokasi & Waktu Pengguna:
+- Lokasi zona waktu pengguna saat ini: ${tz}
+- Waktu lokal pengguna saat ini: ${localTimeStr}
+- Selalu sesuaikan jawaban Anda berdasarkan lokasi dan zona waktu pengguna tersebut. Jika membahas jam perdagangan, sesi market (Sesi Asia/Tokyo, London, New York), atau jadwal rilis berita ekonomi, berikan konversi waktu yang presisi sesuai zona waktu lokal pengguna (${tz}).
+
+Pedoman Identitas Platform & Metodologi:
+1. Founder & Pencipta platform journalingtrade adalah Kaylaa.
+2. Metodologi analisis teknikal Kaystrade dirancang secara orisinal oleh Founder, Kaylaa (Multi-Timeframe H4/H1/M15, Price Action, SNR/SBR, Supply/Demand Fresh, FVG, dan sentimen FastBull).
+3. TIDAK ADA figur atau mentor bernama "Mas Kays". DILARANG KERAS mengarang, menyebut, atau mengasumsikan adanya sosok tersebut.
+4. Gunakan format Markdown (bold, tabel, bullet points) yang rapi, imut, dan mudah dipahami.`;
+  }
+  const CHAT_SYSTEM_PROMPT = getChatSystemPrompt();
 
   function clearAccess() { access=null; options.onAccessChange?.(null); }
   function apiBase(value) {
@@ -5765,6 +5805,52 @@ Setiap kali melakukan analisa pada instrumen apa pun, jalankan prosedur sinkroni
     const search=button('Search',async()=>{validateFilters();offset=0;await load();},'pro-news-search');form.append(search,button('Reset',async()=>{Object.values(filters).forEach(input=>input.value='');offset=0;await load();}));form.addEventListener('submit',event=>{event.preventDefault();search.click();});
     const previous=button('Previous page',async()=>{offset=Math.max(0,offset-24);await load();}),next=button('Next page',async()=>{offset+=24;await load();});pagination.append(previous,next);await load();
   }
+  function createProModernLoader(featureTitle = 'Modul Pro') {
+    const wrap = node('div', null, 'pro-modern-tab-loader');
+    wrap.setAttribute('role', 'status');
+    wrap.setAttribute('aria-label', 'Memuat ' + featureTitle);
+
+    const candlePulse = node('div', null, 'preview-candlestick-pulse');
+    const candleConfigs = [
+      { up: true, tall: false, delay: 0 },
+      { up: false, tall: false, delay: 1 },
+      { up: true, tall: true, delay: 2 },
+      { up: true, tall: false, delay: 3 },
+      { up: false, tall: true, delay: 4 },
+    ];
+    for (const c of candleConfigs) {
+      const candle = node('div', null, 'p-candle ' + (c.up ? 'up' : 'down') + (c.tall ? ' tall' : ''));
+      candle.style.setProperty('--pci', c.delay);
+      const wick = node('div', null, 'p-wick');
+      const body = node('div', null, 'p-body');
+      candle.append(wick, body);
+      candlePulse.append(candle);
+    }
+
+    const statusBox = node('div', null, 'preview-loader-status');
+    const title = node('h4', 'Memuat ' + featureTitle + '...', 'preview-loader-title');
+    const sub = node('p', 'Sinkronisasi riwayat transaksi, kalkulasi matriks, dan analisis real-time...', 'preview-loader-sub');
+    statusBox.append(title, sub);
+
+    const skeletonGrid = node('div', null, 'preview-skeleton-grid');
+    for (let i = 0; i < 3; i++) {
+      const card = node('div', null, 'p-skeleton-card');
+      const l1 = node('div', null, 'p-skeleton-line short');
+      const l2 = node('div', null, 'p-skeleton-line long');
+      card.append(l1, l2);
+      skeletonGrid.append(card);
+    }
+
+    wrap.append(candlePulse, statusBox, skeletonGrid);
+
+    return {
+      element: wrap,
+      stop() {
+        wrap.classList.add('stopped');
+      }
+    };
+  }
+
   async function open(feature='ai-market',selection={}) {
     if(!features[feature])throw new Error('Unknown Pro feature.');
     if(activeTabLoader){activeTabLoader.stop();activeTabLoader=null;}
@@ -5781,13 +5867,11 @@ Setiap kali melakukan analisa pada instrumen apa pun, jalankan prosedur sinkroni
     selector.input.addEventListener('change',()=>open(selector.input.value));
     workspace.append(selector.wrap);
     status=node('p',text('Loading','Loading…'),'pro-status');status.setAttribute('role','status');status.setAttribute('aria-live','polite');status.style.display='none';workspace.append(status);
-    const tabLoadingWrap=node('div',null,'pro-tab-loading-wrap');
-    const tabLiquid=createLiquidLoader({compact:false,speed:1.1});
-    activeTabLoader=tabLiquid;
-    const tabLoadingText=node('p','Memuat modul '+(features[feature] || 'Pro')+'...','pro-tab-loading-text');
-    tabLoadingWrap.append(tabLiquid.element,tabLoadingText);
-    workspace.append(tabLoadingWrap);
-    content=node('div');content.style.display='none';workspace.append(content);options.onRoute?.(feature);
+    const featureName = features[feature] || 'Pro';
+    const modernLoader = createProModernLoader(featureName);
+    activeTabLoader = modernLoader;
+    workspace.append(modernLoader.element);
+    content=node('div',null,'pro-tab-content-container');content.style.display='none';workspace.append(content);options.onRoute?.(feature);
     const epoch=revision;
     try {
       await verifyAccess();if(access.plan!=='pro')throw new Error(text('ProRequired','An active Pro subscription is required.'));
@@ -5796,24 +5880,26 @@ Setiap kali melakukan analisa pada instrumen apa pun, jalankan prosedur sinkroni
       }
       await ({analytics,heatmap,strategies:strategyComparison,risk,reviews,reports,'ai-behaviour':()=>ai('behaviour'),'ai-market':marketIntelligence,'ai-journal':()=>ai('journal'),'ai-chat':aiChat,'global-news':geminiConfigSection})[feature]();
       if(epoch===revision){
-        tabLiquid.stop();
-        if(activeTabLoader===tabLiquid)activeTabLoader=null;
-        tabLoadingWrap.remove();
+        modernLoader.stop();
+        if(activeTabLoader===modernLoader)activeTabLoader=null;
+        modernLoader.element.remove();
         content.style.display='';
+        content.classList.add('pro-tab-fade-in');
         status.style.display='';
         if(status.textContent===text('Loading','Loading…'))status.textContent='';
       }
     } catch(error) {
       if(epoch===revision){
-        tabLiquid.stop();
-        if(activeTabLoader===tabLiquid)activeTabLoader=null;
-        tabLoadingWrap.remove();
+        modernLoader.stop();
+        if(activeTabLoader===modernLoader)activeTabLoader=null;
+        modernLoader.element.remove();
         content.style.display='';
+        content.classList.add('pro-tab-fade-in');
         status.style.display='';
         showError(error);
       }
     }
   }
   function reset() {if(activeTabLoader){activeTabLoader.stop();activeTabLoader=null;}revision++;controller.abort();controller=new AbortController();clearAccess();current='';filters={};preset={};accounts=[];strategies=[];root?.replaceChildren();status=null;content=null;}
-  global.JTPRO={features,configure(value){reset();options={...value};},open,reset,verifyAccess,request,aggregateSeries,safeLink,getGeminiApiKey,setGeminiApiKey,hasGeminiApiKey,callGeminiApi,getRandomizedModelsPool,modelsPool:GEMINI_MODELS_POOL,getChatHistoryList,saveStoredChatHistory,clearChatHistory,renderMarkdown,renderMarkdownInto,openGeminiConfigModal,createLiquidLoader,get access(){return access;},get current(){return current;}};
+  global.JTPRO={features,configure(value){reset();options={...value};},open,reset,verifyAccess,request,aggregateSeries,safeLink,getGeminiApiKey,setGeminiApiKey,hasGeminiApiKey,callGeminiApi,getRandomizedModelsPool,modelsPool:GEMINI_MODELS_POOL,getChatHistoryList,saveStoredChatHistory,clearChatHistory,renderMarkdown,renderMarkdownInto,openGeminiConfigModal,createLiquidLoader,createProModernLoader,get access(){return access;},get current(){return current;}};
 })(window);
