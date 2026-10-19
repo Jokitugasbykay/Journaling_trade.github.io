@@ -63,948 +63,221 @@
   }
 
   /* ========================================================
-     1. HERO INTERACTIVE TRADING TERMINAL & CHART SIMULATOR
+     1. HERO TRADING TERMINAL (ACTIVE PAIRS & LIVE STREAM)
      ======================================================== */
   (function initHeroTerminal() {
-    const canvas = document.getElementById('home-hero-canvas');
-    if (!canvas) return;
-    const ctx = canvas.getContext('2d');
-    if (!ctx) return;
-
     const pairs = {
-      'EUR/USD': { base: 1.08450, step: 0.0001, decimals: 5, unit: 'pips', pipVal: 10 },
-      'XAU/USD': { base: 2650.00, step: 0.10, decimals: 2, unit: 'pips', pipVal: 10 },
-      'BTC/USD': { base: 68200.0, step: 1.0, decimals: 1, unit: 'pts', pipVal: 1 }
+      'EUR/USD': { price: '1.08450', tp: '+3.2R / +$320', sl: '-1.0R / -$100', rr: '1 : 3.2', lot: '0.32 Lots', profit: '+$320.00', risk: '-$100.00' },
+      'XAU/USD': { price: '2650.00', tp: '+3.5R / +$350', sl: '-1.0R / -$100', rr: '1 : 3.5', lot: '0.40 Lots', profit: '+$350.00', risk: '-$100.00' },
+      'BTC/USD': { price: '68,200.0', tp: '+3.0R / +$300', sl: '-1.0R / -$100', rr: '1 : 3.0', lot: '0.05 BTC', profit: '+$300.00', risk: '-$100.00' }
     };
-    let currentPair = 'EUR/USD';
 
-    let candles = [];
-    function generateCandles(base, count = 22) {
-      const list = [];
-      let lastClose = base - (count * 0.0004);
-      for (let i = 0; i < count; i++) {
-        const delta = (Math.random() - 0.46) * 0.0008;
-        const open = lastClose;
-        const close = open + delta;
-        const high = Math.max(open, close) + Math.random() * 0.0004;
-        const low = Math.min(open, close) - Math.random() * 0.0004;
-        list.push({ open, high, low, close });
-        lastClose = close;
-      }
-      return list;
-    }
-
-    candles = generateCandles(pairs[currentPair].base);
-
-    let entryY = 160;
-    let tpY = 70;
-    let slY = 220;
-    let activeDrag = null;
-
-    function renderHeroChart() {
-      const w = canvas.width;
-      const h = canvas.height;
-      ctx.clearRect(0, 0, w, h);
-
-      // Background Grid
-      ctx.strokeStyle = 'rgba(255, 255, 255, 0.05)';
-      ctx.lineWidth = 1;
-      for (let y = 30; y < h; y += 45) {
-        ctx.beginPath();
-        ctx.moveTo(0, y);
-        ctx.lineTo(w, y);
-        ctx.stroke();
-      }
-      for (let x = 40; x < w; x += 55) {
-        ctx.beginPath();
-        ctx.moveTo(x, 0);
-        ctx.lineTo(x, h);
-        ctx.stroke();
-      }
-
-      // Calculate price bounds
-      let minP = Infinity, maxP = -Infinity;
-      candles.forEach(c => {
-        if (c.low < minP) minP = c.low;
-        if (c.high > maxP) maxP = c.high;
-      });
-      const pad = (maxP - minP) * 0.2 || 0.001;
-      minP -= pad;
-      maxP += pad;
-
-      function priceToY(p) {
-        return h - ((p - minP) / (maxP - minP)) * (h - 40) - 20;
-      }
-
-      // Draw Candlesticks
-      const slotW = (w - 60) / candles.length;
-      candles.forEach((c, i) => {
-        const x = 30 + i * slotW;
-        const oY = priceToY(c.open);
-        const cY = priceToY(c.close);
-        const hY = priceToY(c.high);
-        const lY = priceToY(c.low);
-        const isUp = c.close >= c.open;
-        const color = isUp ? '#27c98b' : '#f05252';
-
-        ctx.strokeStyle = color;
-        ctx.lineWidth = 1.5;
-        ctx.beginPath();
-        ctx.moveTo(x, hY);
-        ctx.lineTo(x, lY);
-        ctx.stroke();
-
-        ctx.fillStyle = color;
-        const rectY = Math.min(oY, cY);
-        const rectH = Math.max(Math.abs(cY - oY), 2.5);
-        ctx.fillRect(x - slotW * 0.32, rectY, slotW * 0.64, rectH);
-      });
-
-      // Shaded Risk / Reward Area
-      ctx.fillStyle = 'rgba(39, 201, 139, 0.08)';
-      ctx.fillRect(0, Math.min(tpY, entryY), w, Math.abs(entryY - tpY));
-
-      ctx.fillStyle = 'rgba(240, 82, 82, 0.08)';
-      ctx.fillRect(0, Math.min(entryY, slY), w, Math.abs(slY - entryY));
-
-      // Draw Take Profit Line (Green dashed)
-      ctx.strokeStyle = '#27c98b';
-      ctx.setLineDash([5, 4]);
-      ctx.lineWidth = 1.8;
-      ctx.beginPath();
-      ctx.moveTo(0, tpY);
-      ctx.lineTo(w, tpY);
-      ctx.stroke();
-
-      // Draw Stop Loss Line (Red dashed)
-      ctx.strokeStyle = '#f05252';
-      ctx.beginPath();
-      ctx.moveTo(0, slY);
-      ctx.lineTo(w, slY);
-      ctx.stroke();
-
-      // Draw Entry Line (Cyan solid)
-      ctx.strokeStyle = '#60a5fa';
-      ctx.setLineDash([]);
-      ctx.lineWidth = 2;
-      ctx.beginPath();
-      ctx.moveTo(0, entryY);
-      ctx.lineTo(w, entryY);
-      ctx.stroke();
-
-      // Drag handles
-      function drawHandle(y, color) {
-        ctx.fillStyle = color;
-        ctx.beginPath();
-        ctx.arc(w - 20, y, 6, 0, Math.PI * 2);
-        ctx.fill();
-        ctx.strokeStyle = '#000';
-        ctx.lineWidth = 1.5;
-        ctx.stroke();
-      }
-      drawHandle(tpY, '#27c98b');
-      drawHandle(entryY, '#60a5fa');
-      drawHandle(slY, '#f05252');
-
-      updateHudCalculations();
-    }
-
-    function updateHudCalculations() {
-      const rewardDist = Math.max(Math.abs(entryY - tpY), 4);
-      const riskDist = Math.max(Math.abs(slY - entryY), 4);
-      const rrRatio = (rewardDist / riskDist).toFixed(1);
-
-      const slPips = Math.max(Math.round(riskDist / 3), 5);
-      const tpPips = Math.round(slPips * rrRatio);
-
-      const lot = (100 / (slPips * 10)).toFixed(2);
-      const profitUsd = Math.round(lot * tpPips * 10);
-
-      const rrEl = document.getElementById('hero-hud-rr');
-      const lotEl = document.getElementById('hero-hud-lot');
-      const profitEl = document.getElementById('hero-hud-profit');
-      const riskEl = document.getElementById('hero-hud-risk');
-
-      if (rrEl) rrEl.textContent = '1 : ' + rrRatio;
-      if (lotEl) lotEl.textContent = lot + ' Lots';
-      if (profitEl) profitEl.textContent = '+$' + profitUsd + '.00';
-      if (riskEl) riskEl.textContent = '-$100.00';
-
-      const hintTp = document.getElementById('hint-tp-val');
-      const hintSl = document.getElementById('hint-sl-val');
-      if (hintTp) hintTp.textContent = '+' + rrRatio + 'R / +$' + profitUsd;
-      if (hintSl) hintSl.textContent = '-1.0R / -$100';
-    }
-
-    // Pointer events for dragging lines
-    function getCanvasY(evt) {
-      const rect = canvas.getBoundingClientRect();
-      const clientY = evt.touches ? evt.touches[0].clientY : evt.clientY;
-      return ((clientY - rect.top) / rect.height) * canvas.height;
-    }
-
-    function onPointerDown(evt) {
-      const y = getCanvasY(evt);
-      if (Math.abs(y - tpY) < 16) activeDrag = 'tp';
-      else if (Math.abs(y - entryY) < 16) activeDrag = 'entry';
-      else if (Math.abs(y - slY) < 16) activeDrag = 'sl';
-      if (activeDrag) playSyntheticBeep(480, 'sine', 0.04);
-    }
-
-    function onPointerMove(evt) {
-      if (!activeDrag) return;
-      const y = Math.max(15, Math.min(canvas.height - 15, getCanvasY(evt)));
-      if (activeDrag === 'tp') tpY = Math.min(y, entryY - 12);
-      else if (activeDrag === 'sl') slY = Math.max(y, entryY + 12);
-      else if (activeDrag === 'entry') {
-        const delta = y - entryY;
-        entryY = y;
-        tpY = Math.max(15, tpY + delta);
-        slY = Math.min(canvas.height - 15, slY + delta);
-      }
-      renderHeroChart();
-    }
-
-    function onPointerUp() {
-      activeDrag = null;
-    }
-
-    canvas.addEventListener('mousedown', onPointerDown);
-    window.addEventListener('mousemove', onPointerMove);
-    window.addEventListener('mouseup', onPointerUp);
-
-    canvas.addEventListener('touchstart', onPointerDown, { passive: true });
-    window.addEventListener('touchmove', onPointerMove, { passive: true });
-    window.addEventListener('touchend', onPointerUp);
-
-    // Pair selection buttons
     const pairBtns = document.querySelectorAll('.terminal-pair-btn');
     pairBtns.forEach(btn => {
       btn.addEventListener('click', () => {
         pairBtns.forEach(b => b.classList.remove('active'));
         btn.classList.add('active');
-        currentPair = btn.dataset.pair || 'EUR/USD';
-        candles = generateCandles(pairs[currentPair].base);
-        const livePriceEl = document.getElementById('hero-live-price');
-        if (livePriceEl) livePriceEl.textContent = pairs[currentPair].base.toFixed(pairs[currentPair].decimals);
-        const hintEntry = document.getElementById('hint-entry-val');
-        if (hintEntry) hintEntry.textContent = pairs[currentPair].base.toFixed(pairs[currentPair].decimals);
-        renderHeroChart();
+        const pKey = btn.dataset.pair || 'EUR/USD';
+        const d = pairs[pKey] || pairs['EUR/USD'];
+
+        const elPrice = document.getElementById('hero-live-price');
+        const elTp = document.getElementById('hint-tp-val');
+        const elEntry = document.getElementById('hint-entry-val');
+        const elSl = document.getElementById('hint-sl-val');
+        const elRr = document.getElementById('hero-hud-rr');
+        const elLot = document.getElementById('hero-hud-lot');
+        const elProfit = document.getElementById('hero-hud-profit');
+        const elRisk = document.getElementById('hero-hud-risk');
+
+        if (elPrice) elPrice.textContent = d.price;
+        if (elTp) elTp.textContent = d.tp;
+        if (elEntry) elEntry.textContent = d.price;
+        if (elSl) elSl.textContent = d.sl;
+        if (elRr) elRr.textContent = d.rr;
+        if (elLot) elLot.textContent = d.lot;
+        if (elProfit) elProfit.textContent = d.profit;
+        if (elRisk) elRisk.textContent = d.risk;
+
         playSyntheticBeep(720, 'sine', 0.05);
       });
     });
-
-    // Simulate Next Bar
-    const simBtn = document.getElementById('hero-btn-simulate');
-    if (simBtn) {
-      simBtn.addEventListener('click', () => {
-        const last = candles[candles.length - 1];
-        const delta = (Math.random() - 0.45) * 0.0009;
-        const open = last.close;
-        const close = open + delta;
-        const high = Math.max(open, close) + Math.random() * 0.0004;
-        const low = Math.min(open, close) - Math.random() * 0.0004;
-        candles.shift();
-        candles.push({ open, high, low, close });
-
-        const livePriceEl = document.getElementById('hero-live-price');
-        if (livePriceEl) {
-          livePriceEl.textContent = close.toFixed(pairs[currentPair].decimals);
-          livePriceEl.style.color = delta >= 0 ? '#27c98b' : '#f05252';
-          setTimeout(() => { livePriceEl.style.color = '#fff'; }, 400);
-        }
-        renderHeroChart();
-        playSyntheticBeep(delta >= 0 ? 840 : 420, 'sine', 0.06);
-      });
-    }
-
-    // Log trade to demo journal
-    const logBtn = document.getElementById('hero-btn-log');
-    const toast = document.getElementById('hero-terminal-toast');
-    if (logBtn && toast) {
-      logBtn.addEventListener('click', () => {
-        toast.hidden = false;
-        playSyntheticBeep(880, 'triangle', 0.1, 0.08);
-        setTimeout(() => { toast.hidden = true; }, 2400);
-      });
-    }
-
-    // Reset setup
-    const resetBtn = document.getElementById('hero-btn-reset');
-    if (resetBtn) {
-      resetBtn.addEventListener('click', () => {
-        entryY = 160;
-        tpY = 70;
-        slY = 220;
-        renderHeroChart();
-        playSyntheticBeep(520, 'sine', 0.04);
-      });
-    }
-
-    renderHeroChart();
   })();
 
   /* ========================================================
-     2. INTERACTIVE VIDEO SHOWCASE PLAYER & RECORDER
+     2. PRO WORKSPACE MODULES PREVIEW & MODERN LOADING TAB
      ======================================================== */
-  (function initVideoShowcase() {
-    const canvas = document.getElementById('home-video-canvas');
-    if (!canvas) return;
-    const ctx = canvas.getContext('2d');
-    if (!ctx) return;
-
-    const totalSeconds = 80; // 01:20 total walkthrough
-    let currentTime = 0;
-    let isPlaying = false;
-    let playbackSpeed = 1.0;
-    let lastTimestamp = 0;
-    let mediaRecorder = null;
-    let recordedChunks = [];
-    let isRecording = false;
-
-    const chapters = [
-      { id: 0, title: 'OCR Auto-Scan', start: 0, end: 20 },
-      { id: 1, title: 'Risk Engine', start: 20, end: 40 },
-      { id: 2, title: 'Equity Curve', start: 40, end: 60 },
-      { id: 3, title: 'Macro Catalysts', start: 60, end: 80 }
-    ];
-
-    function getActiveChapterIndex(time) {
-      return chapters.findIndex(c => time >= c.start && time < c.end) || 0;
-    }
-
-    // Canvas Video Drawing Scenes
-    function drawVideoFrame(time) {
-      const w = canvas.width;
-      const h = canvas.height;
-      ctx.clearRect(0, 0, w, h);
-
-      // Deep dark sleek background with subtle gradient
-      const bgGrad = ctx.createLinearGradient(0, 0, w, h);
-      bgGrad.addColorStop(0, '#0a0a0f');
-      bgGrad.addColorStop(1, '#050508');
-      ctx.fillStyle = bgGrad;
-      ctx.fillRect(0, 0, w, h);
-
-      // Subtle background grid
-      ctx.strokeStyle = 'rgba(255, 255, 255, 0.03)';
-      ctx.lineWidth = 1;
-      for (let y = 0; y < h; y += 40) {
-        ctx.beginPath();
-        ctx.moveTo(0, y);
-        ctx.lineTo(w, y);
-        ctx.stroke();
-      }
-      for (let x = 0; x < w; x += 40) {
-        ctx.beginPath();
-        ctx.moveTo(x, 0);
-        ctx.lineTo(x, h);
-        ctx.stroke();
-      }
-
-      // Top video frame brand bar
-      ctx.fillStyle = '#0f0f15';
-      ctx.fillRect(40, 30, w - 80, 52);
-      ctx.strokeStyle = 'rgba(255, 255, 255, 0.08)';
-      ctx.strokeRect(40, 30, w - 80, 52);
-
-      ctx.fillStyle = '#fff';
-      ctx.font = '600 15px Manrope, sans-serif';
-      ctx.fillText('journalingtrade', 60, 62);
-
-      const chIdx = getActiveChapterIndex(time);
-      const ch = chapters[chIdx];
-
-      ctx.fillStyle = '#27c98b';
-      ctx.font = '500 12px "IBM Plex Mono", monospace';
-      ctx.fillText('DEMO TOUR / ' + ch.title.toUpperCase(), 190, 61);
-
-      // Watermark / status
-      ctx.fillStyle = 'rgba(255, 255, 255, 0.35)';
-      ctx.font = '11px "IBM Plex Mono", monospace';
-      ctx.fillText('INSTITUTIONAL WORKSPACE ENGINE', w - 310, 61);
-
-      // Main Scene Renderers
-      if (chIdx === 0) drawOcrScene(time - 0, w, h);
-      else if (chIdx === 1) drawRiskScene(time - 20, w, h);
-      else if (chIdx === 2) drawEquityScene(time - 40, w, h);
-      else if (chIdx === 3) drawMacroScene(time - 60, w, h);
-
-      // Update progress & scrubber UI
-      updatePlayerUI(time);
-    }
-
-    /* Scene 1: OCR Auto-Scan */
-    function drawOcrScene(sceneTime, w, h) {
-      // Main mockup card
-      const cx = 80, cy = 110, cw = w - 160, ch = h - 160;
-      ctx.fillStyle = '#0d0d12';
-      ctx.fillRect(cx, cy, cw, ch);
-      ctx.strokeStyle = 'rgba(255, 255, 255, 0.1)';
-      ctx.strokeRect(cx, cy, cw, ch);
-
-      // Card Header
-      ctx.fillStyle = '#14141c';
-      ctx.fillRect(cx, cy, cw, 42);
-      ctx.fillStyle = '#ccc';
-      ctx.font = '500 13px "IBM Plex Mono", monospace';
-      ctx.fillText('OCR Screenshot Ingestion > TradingView Analysis Mode', cx + 20, cy + 26);
-
-      // Left Preview Screen (Chart Screenshot)
-      const pw = cw * 0.52, ph = ch - 70;
-      const px = cx + 20, py = cy + 54;
-      ctx.fillStyle = '#060609';
-      ctx.fillRect(px, py, pw, ph);
-      ctx.strokeStyle = 'rgba(255, 255, 255, 0.08)';
-      ctx.strokeRect(px, py, pw, ph);
-
-      // Draw simulated candles in preview
-      for (let i = 0; i < 14; i++) {
-        const x = px + 30 + i * 36;
-        const isUp = i % 2 === 0 || i > 9;
-        const color = isUp ? '#27c98b' : '#f05252';
-        const yTop = py + 70 + (i % 4) * 20;
-        const hBox = 30 + (i % 3) * 15;
-        ctx.strokeStyle = color;
-        ctx.lineWidth = 1.5;
-        ctx.beginPath();
-        ctx.moveTo(x, yTop - 15);
-        ctx.lineTo(x, yTop + hBox + 15);
-        ctx.stroke();
-
-        ctx.fillStyle = color;
-        ctx.fillRect(x - 9, yTop, 18, hBox);
-      }
-
-      // Animated Laser Scan Line
-      const laserCycle = (sceneTime % 3.5) / 3.5;
-      const laserY = py + laserCycle * ph;
-      const laserGrad = ctx.createLinearGradient(px, laserY, px + pw, laserY);
-      laserGrad.addColorStop(0, 'rgba(39, 201, 139, 0)');
-      laserGrad.addColorStop(0.5, 'rgba(39, 201, 139, 0.85)');
-      laserGrad.addColorStop(1, 'rgba(39, 201, 139, 0)');
-
-      ctx.fillStyle = laserGrad;
-      ctx.fillRect(px, laserY - 1.5, pw, 3);
-
-      // Scan Bounding Box (Detected Trade)
-      ctx.strokeStyle = '#38bdf8';
-      ctx.setLineDash([4, 4]);
-      ctx.strokeRect(px + 120, py + 80, 240, 140);
-      ctx.setLineDash([]);
-
-      ctx.fillStyle = '#38bdf8';
-      ctx.font = '600 11px "IBM Plex Mono", monospace';
-      ctx.fillText('TARGET: 2674.00 (+3.0R)', px + 124, py + 74);
-      ctx.fillText('ENTRY: 2650.00', px + 124, py + 150);
-      ctx.fillText('STOP: 2642.00 (-1.0R)', px + 124, py + 234);
-
-      // Right Extracted Results Panel
-      const rx = px + pw + 24, ry = py, rw = cw - pw - 60;
-      ctx.fillStyle = '#111117';
-      ctx.fillRect(rx, ry, rw, ph);
-      ctx.strokeStyle = 'rgba(255, 255, 255, 0.08)';
-      ctx.strokeRect(rx, ry, rw, ph);
-
-      ctx.fillStyle = '#fff';
-      ctx.font = '600 15px Manrope, sans-serif';
-      ctx.fillText('Extracted Position Parameters', rx + 20, ry + 36);
-
-      const fields = [
-        { label: 'Market / Asset', val: 'XAU/USD (Gold)' },
-        { label: 'Direction', val: 'LONG / BUY' },
-        { label: 'Entry Price', val: '2,650.00' },
-        { label: 'Stop Loss', val: '2,642.00 (80 pips)' },
-        { label: 'Take Profit', val: '2,674.00 (240 pips)' },
-        { label: 'Risk to Reward', val: '1 : 3.00 Ratio' },
-        { label: 'Confidence Score', val: '99.8% (Tesseract OCR)' }
-      ];
-
-      fields.forEach((f, idx) => {
-        const fy = ry + 75 + idx * 46;
-        ctx.fillStyle = 'rgba(255, 255, 255, 0.03)';
-        ctx.fillRect(rx + 20, fy - 18, rw - 40, 36);
-
-        ctx.fillStyle = '#888';
-        ctx.font = '11px "IBM Plex Mono", monospace';
-        ctx.fillText(f.label, rx + 30, fy + 4);
-
-        ctx.fillStyle = idx === 5 ? '#27c98b' : (idx === 6 ? '#38bdf8' : '#fff');
-        ctx.font = '600 12px "IBM Plex Mono", monospace';
-        ctx.fillText(f.val, rx + rw - 190, fy + 4);
-      });
-    }
-
-    /* Scene 2: Institutional Risk Engine */
-    function drawRiskScene(sceneTime, w, h) {
-      const cx = 80, cy = 110, cw = w - 160, ch = h - 160;
-      ctx.fillStyle = '#0d0d12';
-      ctx.fillRect(cx, cy, cw, ch);
-      ctx.strokeStyle = 'rgba(255, 255, 255, 0.1)';
-      ctx.strokeRect(cx, cy, cw, ch);
-
-      ctx.fillStyle = '#14141c';
-      ctx.fillRect(cx, cy, cw, 42);
-      ctx.fillStyle = '#ccc';
-      ctx.font = '500 13px "IBM Plex Mono", monospace';
-      ctx.fillText('Institutional Risk Management > Dynamic Position Sizer', cx + 20, cy + 26);
-
-      // 3 Dynamic Sliders Visual
-      const sx = cx + 40, sy = cy + 70, sw = cw * 0.48;
-
-      ctx.fillStyle = '#fff';
-      ctx.font = '600 18px Manrope, sans-serif';
-      ctx.fillText('Account Risk Limits & Position Sizing', sx, sy + 10);
-
-      const sliders = [
-        { label: 'Account Balance', val: '$25,000 USD', pct: 0.5 },
-        { label: 'Risk Tolerance', val: '1.0% ($250)', pct: 0.35 },
-        { label: 'Stop Loss Distance', val: '20.0 Pips', pct: 0.4 }
-      ];
-
-      sliders.forEach((s, i) => {
-        const y = sy + 65 + i * 80;
-        ctx.fillStyle = '#888';
-        ctx.font = '12px "IBM Plex Mono", monospace';
-        ctx.fillText(s.label, sx, y);
-        ctx.fillStyle = '#fff';
-        ctx.fillText(s.val, sx + sw - 120, y);
-
-        // Track
-        ctx.fillStyle = 'rgba(255, 255, 255, 0.12)';
-        ctx.fillRect(sx, y + 12, sw, 6);
-
-        // Fill
-        const fillW = sw * (s.pct + Math.sin(sceneTime * 0.8 + i) * 0.05);
-        ctx.fillStyle = i === 1 ? '#27c98b' : '#fff';
-        ctx.fillRect(sx, y + 12, fillW, 6);
-
-        // Knob
-        ctx.fillStyle = '#fff';
-        ctx.beginPath();
-        ctx.arc(sx + fillW, y + 15, 8, 0, Math.PI * 2);
-        ctx.fill();
-      });
-
-      // Big Result Callout Card
-      const rx = sx + sw + 40, ry = cy + 70, rw = cw - sw - 80, rh = ch - 110;
-      ctx.fillStyle = '#111118';
-      ctx.fillRect(rx, ry, rw, rh);
-      ctx.strokeStyle = 'rgba(39, 201, 139, 0.3)';
-      ctx.strokeRect(rx, ry, rw, rh);
-
-      ctx.fillStyle = '#27c98b';
-      ctx.font = '600 11px "IBM Plex Mono", monospace';
-      ctx.fillText('DISCIPLINE CHECK PASSED', rx + 24, ry + 36);
-
-      ctx.fillStyle = '#888';
-      ctx.font = '12px "IBM Plex Mono", monospace';
-      ctx.fillText('RECOMMENDED POSITION SIZE', rx + 24, ry + 75);
-
-      ctx.fillStyle = '#fff';
-      ctx.font = '700 44px "IBM Plex Mono", monospace';
-      ctx.fillText('1.25 LOTS', rx + 24, ry + 130);
-
-      ctx.fillStyle = '#888';
-      ctx.font = '12px "IBM Plex Mono", monospace';
-      ctx.fillText('USD VALUE AT RISK', rx + 24, ry + 180);
-      ctx.fillStyle = '#f05252';
-      ctx.font = '600 22px "IBM Plex Mono", monospace';
-      ctx.fillText('-$250.00 (1.0%)', rx + 24, ry + 210);
-
-      ctx.fillStyle = '#888';
-      ctx.font = '12px "IBM Plex Mono", monospace';
-      ctx.fillText('BANK INDONESIA CONVERSION', rx + 24, ry + 260);
-      ctx.fillStyle = '#38bdf8';
-      ctx.font = '600 20px "IBM Plex Mono", monospace';
-      ctx.fillText('Rp 4,100,000 IDR', rx + 24, ry + 290);
-    }
-
-    /* Scene 3: Probabilistic Equity Curve */
-    function drawEquityScene(sceneTime, w, h) {
-      const cx = 80, cy = 110, cw = w - 160, ch = h - 160;
-      ctx.fillStyle = '#0d0d12';
-      ctx.fillRect(cx, cy, cw, ch);
-      ctx.strokeStyle = 'rgba(255, 255, 255, 0.1)';
-      ctx.strokeRect(cx, cy, cw, ch);
-
-      ctx.fillStyle = '#14141c';
-      ctx.fillRect(cx, cy, cw, 42);
-      ctx.fillStyle = '#ccc';
-      ctx.font = '500 13px "IBM Plex Mono", monospace';
-      ctx.fillText('Performance Intelligence > Probabilistic Equity Curve (50 Trades)', cx + 20, cy + 26);
-
-      // Curve Viewport
-      const gx = cx + 30, gy = cy + 65, gw = cw - 60, gh = ch - 160;
-      ctx.fillStyle = '#07070a';
-      ctx.fillRect(gx, gy, gw, gh);
-      ctx.strokeStyle = 'rgba(255, 255, 255, 0.06)';
-      ctx.strokeRect(gx, gy, gw, gh);
-
-      // Draw grid
-      for (let y = gy + 30; y < gy + gh; y += 40) {
-        ctx.strokeStyle = 'rgba(255, 255, 255, 0.04)';
-        ctx.beginPath();
-        ctx.moveTo(gx, y);
-        ctx.lineTo(gx + gw, y);
-        ctx.stroke();
-      }
-
-      // Equity Line Points
-      const points = [
-        0, 10, 8, 25, 22, 38, 55, 50, 70, 65, 85, 110, 105, 130, 125, 155, 180, 175, 210, 240
-      ];
-
-      const maxPts = Math.min(points.length, Math.floor(sceneTime * 2.5) + 3);
-      ctx.beginPath();
-      ctx.strokeStyle = '#27c98b';
-      ctx.lineWidth = 3;
-
-      for (let i = 0; i < maxPts; i++) {
-        const x = gx + (i / (points.length - 1)) * gw;
-        const y = gy + gh - 20 - (points[i] / 260) * (gh - 40);
-        if (i === 0) ctx.moveTo(x, y);
-        else ctx.lineTo(x, y);
-      }
-      ctx.stroke();
-
-      // Glowing dot at tip
-      if (maxPts > 0) {
-        const lastIdx = maxPts - 1;
-        const lx = gx + (lastIdx / (points.length - 1)) * gw;
-        const ly = gy + gh - 20 - (points[lastIdx] / 260) * (gh - 40);
-        ctx.fillStyle = '#27c98b';
-        ctx.beginPath();
-        ctx.arc(lx, ly, 6, 0, Math.PI * 2);
-        ctx.fill();
-        ctx.strokeStyle = '#fff';
-        ctx.lineWidth = 2;
-        ctx.stroke();
-      }
-
-      // Bottom Metrics Cards
-      const stats = [
-        { label: 'WIN RATE', val: '68.4%' },
-        { label: 'PROFIT FACTOR', val: '2.45' },
-        { label: 'MAX DRAWDOWN', val: '4.2%' },
-        { label: 'TOTAL TRADES', val: '50 Recorded' }
-      ];
-
-      const statW = (gw - 30) / 4;
-      stats.forEach((s, idx) => {
-        const bx = gx + idx * (statW + 10);
-        const by = gy + gh + 14;
-        ctx.fillStyle = 'rgba(255, 255, 255, 0.03)';
-        ctx.fillRect(bx, by, statW, 58);
-        ctx.strokeStyle = 'rgba(255, 255, 255, 0.08)';
-        ctx.strokeRect(bx, by, statW, 58);
-
-        ctx.fillStyle = '#888';
-        ctx.font = '10px "IBM Plex Mono", monospace';
-        ctx.fillText(s.label, bx + 14, by + 22);
-
-        ctx.fillStyle = idx === 0 || idx === 1 ? '#27c98b' : '#fff';
-        ctx.font = '600 16px "IBM Plex Mono", monospace';
-        ctx.fillText(s.val, bx + 14, by + 46);
-      });
-    }
-
-    /* Scene 4: Macroeconomic Events & Bank Indonesia Radar */
-    function drawMacroScene(sceneTime, w, h) {
-      const cx = 80, cy = 110, cw = w - 160, ch = h - 160;
-      ctx.fillStyle = '#0d0d12';
-      ctx.fillRect(cx, cy, cw, ch);
-      ctx.strokeStyle = 'rgba(255, 255, 255, 0.1)';
-      ctx.strokeRect(cx, cy, cw, ch);
-
-      ctx.fillStyle = '#14141c';
-      ctx.fillRect(cx, cy, cw, 42);
-      ctx.fillStyle = '#ccc';
-      ctx.font = '500 13px "IBM Plex Mono", monospace';
-      ctx.fillText('Macro Catalyst Radar > Central Bank Feeds & Economic Releases', cx + 20, cy + 26);
-
-      // Card 1: Bank Indonesia Middle Rate
-      const colW = (cw - 60) / 2;
-      const b1x = cx + 20, b1y = cy + 60, b1h = ch - 80;
-      ctx.fillStyle = '#101017';
-      ctx.fillRect(b1x, b1y, colW, b1h);
-      ctx.strokeStyle = 'rgba(255, 255, 255, 0.08)';
-      ctx.strokeRect(b1x, b1y, colW, b1h);
-
-      ctx.fillStyle = '#38bdf8';
-      ctx.font = '600 12px "IBM Plex Mono", monospace';
-      ctx.fillText('BANK INDONESIA TRANSACTION RATE', b1x + 20, b1y + 36);
-
-      ctx.fillStyle = '#fff';
-      ctx.font = '700 36px "IBM Plex Mono", monospace';
-      ctx.fillText('Rp 16,400.00', b1x + 20, b1y + 86);
-
-      ctx.fillStyle = '#27c98b';
-      ctx.font = '500 13px "IBM Plex Mono", monospace';
-      ctx.fillText('USD/IDR Middle Rate · Official Source', b1x + 20, b1y + 116);
-
-      ctx.fillStyle = 'rgba(255, 255, 255, 0.04)';
-      ctx.fillRect(b1x + 20, b1y + 145, colW - 40, 110);
-      ctx.fillStyle = '#aaa';
-      ctx.font = '12px Manrope, sans-serif';
-      ctx.fillText('Bi-hourly automated audit verifies publisher integrity.', b1x + 36, b1y + 180);
-      ctx.fillText('Middle rates are automatically applied to compute real P&L in IDR.', b1x + 36, b1y + 206);
-      ctx.fillText('Never hallucinates when feed is offline.', b1x + 36, b1y + 232);
-
-      // Card 2: Upcoming High-Impact Releases
-      const b2x = b1x + colW + 20, b2y = cy + 60;
-      ctx.fillStyle = '#101017';
-      ctx.fillRect(b2x, b2y, colW, b1h);
-      ctx.strokeStyle = 'rgba(255, 255, 255, 0.08)';
-      ctx.strokeRect(b2x, b2y, colW, b1h);
-
-      ctx.fillStyle = '#f05252';
-      ctx.font = '600 12px "IBM Plex Mono", monospace';
-      ctx.fillText('UPCOMING HIGH-IMPACT RELEASES', b2x + 20, b2y + 36);
-
-      const events = [
-        { name: 'FOMC Interest Rate Decision', time: 'In 04h 12m', impact: 'HIGH' },
-        { name: 'US Core CPI m/m', time: 'Tomorrow 19:30', impact: 'HIGH' },
-        { name: 'ECB Monetary Policy Statement', time: 'Thursday', impact: 'MEDIUM' }
-      ];
-
-      events.forEach((ev, i) => {
-        const ey = b2y + 60 + i * 72;
-        ctx.fillStyle = 'rgba(255, 255, 255, 0.03)';
-        ctx.fillRect(b2x + 20, ey, colW - 40, 58);
-
-        ctx.fillStyle = '#fff';
-        ctx.font = '600 13px Manrope, sans-serif';
-        ctx.fillText(ev.name, b2x + 36, ey + 26);
-
-        ctx.fillStyle = '#888';
-        ctx.font = '11px "IBM Plex Mono", monospace';
-        ctx.fillText(ev.time, b2x + 36, ey + 46);
-
-        ctx.fillStyle = ev.impact === 'HIGH' ? '#f05252' : '#38bdf8';
-        ctx.font = '600 10px "IBM Plex Mono", monospace';
-        ctx.fillText(ev.impact, b2x + colW - 90, ey + 36);
-      });
-    }
-
-    // Update time readout and scrubber UI
-    function updatePlayerUI(time) {
-      const timeEl = document.getElementById('jt-video-time');
-      if (timeEl) {
-        const m = Math.floor(time / 60);
-        const s = Math.floor(time % 60);
-        const tm = Math.floor(totalSeconds / 60);
-        const ts = Math.floor(totalSeconds % 60);
-        timeEl.textContent =
-          (m < 10 ? '0' : '') + m + ':' + (s < 10 ? '0' : '') + s + ' / ' +
-          (tm < 10 ? '0' : '') + tm + ':' + (ts < 10 ? '0' : '') + ts;
-      }
-
-      const progressEl = document.getElementById('jt-video-progress');
-      const handleEl = document.getElementById('jt-video-handle');
-      const pct = Math.min(100, Math.max(0, (time / totalSeconds) * 100));
-      if (progressEl) progressEl.style.width = pct + '%';
-      if (handleEl) handleEl.style.left = pct + '%';
-
-      // Update chapter pills
-      const curCh = getActiveChapterIndex(time);
-      document.querySelectorAll('.v-chapter-pill').forEach(pill => {
-        pill.classList.toggle('active', parseInt(pill.dataset.chapter, 10) === curCh);
-      });
-
-      // Update hotspots visibility
-      const hsOcr = document.getElementById('hotspot-ocr');
-      const hsRisk = document.getElementById('hotspot-risk');
-      const hsCurve = document.getElementById('hotspot-curve');
-      const hsMacro = document.getElementById('hotspot-macro');
-      if (hsOcr) hsOcr.style.opacity = curCh === 0 ? '1' : '0';
-      if (hsRisk) hsRisk.style.opacity = curCh === 1 ? '1' : '0';
-      if (hsCurve) hsCurve.style.opacity = curCh === 2 ? '1' : '0';
-      if (hsMacro) hsMacro.style.opacity = curCh === 3 ? '1' : '0';
-    }
-
-    // Animation Loop
-    function animationLoop(timestamp) {
-      if (!lastTimestamp) lastTimestamp = timestamp;
-      const deltaSec = (timestamp - lastTimestamp) / 1000;
-      lastTimestamp = timestamp;
-
-      if (isPlaying && !document.hidden && home.classList.contains('active')) {
-        currentTime += deltaSec * playbackSpeed;
-        if (currentTime >= totalSeconds) currentTime = 0;
-      }
-
-      drawVideoFrame(currentTime);
-      requestAnimationFrame(animationLoop);
-    }
-    requestAnimationFrame(animationLoop);
-
-    // Play / Pause toggling
-    function setPlayState(playing) {
-      isPlaying = playing;
-      const overlay = document.getElementById('jt-video-overlay');
-      const iconPlay = document.getElementById('v-icon-play');
-      const iconPause = document.getElementById('v-icon-pause');
-      if (overlay) overlay.style.display = isPlaying ? 'none' : 'flex';
-      if (iconPlay) iconPlay.hidden = isPlaying;
-      if (iconPause) iconPause.hidden = !isPlaying;
-      playSyntheticBeep(isPlaying ? 600 : 360, 'sine', 0.05);
-    }
-
-    const playBtn = document.getElementById('jt-ctrl-play');
-    const overlayPlay = document.getElementById('jt-overlay-play-btn');
-    if (playBtn) playBtn.addEventListener('click', () => setPlayState(!isPlaying));
-    if (overlayPlay) overlayPlay.addEventListener('click', () => setPlayState(true));
-
-    const restartBtn = document.getElementById('jt-ctrl-restart');
-    if (restartBtn) {
-      restartBtn.addEventListener('click', () => {
-        currentTime = 0;
-        setPlayState(true);
-      });
-    }
-
-    // Chapter Navigation Buttons
-    document.querySelectorAll('.v-chapter-pill').forEach(pill => {
-      pill.addEventListener('click', () => {
-        const ch = parseInt(pill.dataset.chapter, 10);
-        if (ch >= 0 && ch < chapters.length) {
-          currentTime = chapters[ch].start;
-          setPlayState(true);
+  (function initProTabsPreview() {
+    const tabBtns = document.querySelectorAll('.tab-preview-btn');
+    const loader = document.getElementById('tab-preview-loader');
+    const content = document.getElementById('tab-preview-content');
+    const loaderTitle = document.getElementById('preview-loader-title');
+    const loaderSub = document.getElementById('preview-loader-sub');
+    const statusLabel = document.getElementById('tab-preview-status-label');
+    const retryBtn = document.getElementById('btn-preview-retry');
+
+    if (!tabBtns.length || !content) return;
+
+    const modules = {
+      'ai-behaviour': {
+        name: 'AI Behaviour Analysis',
+        title: 'Memuat AI Behaviour Analysis...',
+        sub: 'Mengaudit pola psikologis, FOMO, overtrading, dan kedisiplinan rule...',
+        status: 'Modul aktif: AI Behaviour Analysis',
+        metrics: [
+          { label: 'FOMO Index', val: '4.2% (Minimal)', cls: 'highlight-green' },
+          { label: 'Revenge Risk', val: '0.0% (Clean)', cls: 'highlight-green' },
+          { label: 'Rule Discipline', val: '96.8% (Strict)', cls: 'highlight-cyan' },
+          { label: 'Session Adherence', val: '100% (Killzones)', cls: 'highlight-cyan' }
+        ],
+        insight: {
+          icon: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>',
+          title: 'Gemini AI Psychology Audit',
+          text: 'Disiplin eksekusi London Killzone terjaga 100%. Tidak ditemukan transaksi impulsif atau revenge trade setelah pergerakan likuiditas news.'
         }
+      },
+      'analytics': {
+        name: 'Advanced Analytics',
+        title: 'Memuat Advanced Analytics...',
+        sub: 'Menghitung expectancy, profit factor, win rate, dan kurva distribusi...',
+        status: 'Modul aktif: Advanced Analytics',
+        metrics: [
+          { label: 'Win Rate', val: '68.4%', cls: 'highlight-green' },
+          { label: 'Profit Factor', val: '2.45', cls: 'highlight-green' },
+          { label: 'Avg R:R Ratio', val: '1 : 2.8', cls: 'highlight-cyan' },
+          { label: 'Max Drawdown', val: '3.8%', cls: 'highlight-red' }
+        ],
+        insight: {
+          icon: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline></svg>',
+          title: 'Statistical Edge Validation',
+          text: 'Rasio Risk-Reward 1:2.8 menghasilkan reli equity yang konsisten dan stabil. Drawdown maksimum terkontrol ketat di bawah batas toleransi 4%.'
+        }
+      },
+      'heatmap': {
+        name: 'Performance Heatmap',
+        title: 'Memuat Performance Heatmap...',
+        sub: 'Menyusun matriks sesi global & densitas performa berdasarkan jam pasar...',
+        status: 'Modul aktif: Performance Heatmap',
+        metrics: [
+          { label: 'London Session', val: '+7.40R Net', cls: 'highlight-green' },
+          { label: 'NY Open Sweep', val: '+5.20R Net', cls: 'highlight-green' },
+          { label: 'Asian Consolidation', val: '+1.10R Net', cls: 'highlight-cyan' },
+          { label: 'NY Late Close', val: '-0.80R Net', cls: 'highlight-red' }
+        ],
+        insight: {
+          icon: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>',
+          title: 'Global Liquidity Heatmap',
+          text: 'Win-rate tertinggi (75%) terjadi saat London Open (08:00 - 11:00 BST). Sesi akhir New York menghasilkan ekspektansi negatif dan disarankan dihindari.'
+        }
+      },
+      'risk': {
+        name: 'Institutional Risk Engine',
+        title: 'Memuat Institutional Risk Engine...',
+        sub: 'Memvalidasi batas risiko modal per trade, kalkulasi lot pip, dan drawdown cap...',
+        status: 'Modul aktif: Institutional Risk Engine',
+        metrics: [
+          { label: 'Risk Per Trade', val: '1.0% ($100.00)', cls: 'highlight-cyan' },
+          { label: 'Max Lot Cap', val: '0.40 Lots', cls: 'highlight-cyan' },
+          { label: 'Daily Stop Limit', val: '-$300.00 (3R)', cls: 'highlight-red' },
+          { label: 'Circuit Breaker', val: 'Protected', cls: 'highlight-green' }
+        ],
+        insight: {
+          icon: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>',
+          title: 'Capital Preservation Engine',
+          text: 'Setiap posisi dikunci pada batas maksimal risiko 1% balance akun. Perhitungan otomatis konversi USD ke IDR langsung menggunakan kurs Bank Indonesia.'
+        }
+      },
+      'reports': {
+        name: 'Review Reports',
+        title: 'Memuat Automated Review Reports...',
+        sub: 'Menyusun ringkasan mingguan, scorecard eksekusi, dan laporan PDF terverifikasi...',
+        status: 'Modul aktif: Automated Review Reports',
+        metrics: [
+          { label: 'Total Executions', val: '14 Trades', cls: 'highlight-cyan' },
+          { label: 'Net Cumulative', val: '+12.60R', cls: 'highlight-green' },
+          { label: 'Best Setup', val: 'Silver Bullet', cls: 'highlight-green' },
+          { label: 'PDF Status', val: 'Ready to export', cls: 'highlight-cyan' }
+        ],
+        insight: {
+          icon: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line></svg>',
+          title: 'Institutional Trade Journal Review',
+          text: 'Laporan otomatis merangkum snapshot equity mingguan, kepatuhan stop loss 100%, serta rekomendasi perbaikan untuk persiapan trading pekan depan.'
+        }
+      }
+    };
+
+    let currentTab = 'ai-behaviour';
+    let isTransitioning = false;
+
+    function renderModuleContent(key) {
+      const mod = modules[key] || modules['ai-behaviour'];
+      let metricsHtml = '<div class="tab-content-grid">';
+      mod.metrics.forEach(m => {
+        metricsHtml += `
+          <div class="tab-metric-box">
+            <div class="tab-metric-label">${m.label}</div>
+            <div class="tab-metric-val ${m.cls}">${m.val}</div>
+          </div>
+        `;
+      });
+      metricsHtml += '</div>';
+
+      const insightHtml = `
+        <div class="tab-insight-card">
+          <div class="tab-insight-icon">${mod.insight.icon}</div>
+          <div class="tab-insight-body">
+            <h4>${mod.insight.title}</h4>
+            <p>${mod.insight.text}</p>
+          </div>
+        </div>
+      `;
+
+      content.innerHTML = metricsHtml + insightHtml;
+    }
+
+    function switchModule(key) {
+      if (isTransitioning) return;
+      isTransitioning = true;
+      currentTab = key;
+
+      tabBtns.forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.tab === key);
+      });
+
+      const mod = modules[key] || modules['ai-behaviour'];
+      if (loaderTitle) loaderTitle.textContent = mod.title;
+      if (loaderSub) loaderSub.textContent = mod.sub;
+      if (statusLabel) statusLabel.textContent = mod.status;
+
+      content.style.display = 'none';
+      if (loader) loader.style.display = 'flex';
+
+      playSyntheticBeep(640, 'sine', 0.05);
+
+      setTimeout(() => {
+        renderModuleContent(key);
+        if (loader) loader.style.display = 'none';
+        content.style.display = 'block';
+        isTransitioning = false;
+        playSyntheticBeep(880, 'sine', 0.06);
+      }, 500);
+    }
+
+    tabBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const key = btn.dataset.tab;
+        if (key) switchModule(key);
       });
     });
 
-    // Timeline Scrubbing
-    const timeline = document.getElementById('jt-video-timeline');
-    if (timeline) {
-      timeline.addEventListener('click', evt => {
-        const rect = timeline.getBoundingClientRect();
-        const clickRatio = Math.max(0, Math.min(1, (evt.clientX - rect.left) / rect.width));
-        currentTime = clickRatio * totalSeconds;
-        drawVideoFrame(currentTime);
+    if (retryBtn) {
+      retryBtn.addEventListener('click', () => {
+        switchModule(currentTab);
       });
     }
 
-    // Speed Selector
-    const speedBtn = document.getElementById('jt-speed-btn');
-    const speeds = [1.0, 1.25, 1.5, 2.0];
-    let speedIdx = 0;
-    if (speedBtn) {
-      speedBtn.addEventListener('click', () => {
-        speedIdx = (speedIdx + 1) % speeds.length;
-        playbackSpeed = speeds[speedIdx];
-        speedBtn.textContent = playbackSpeed + 'x';
-        playSyntheticBeep(580, 'sine', 0.04);
-      });
-    }
-
-    // Audio Toggle
-    const audioBtn = document.getElementById('jt-ctrl-audio');
-    const iconAudioOn = document.getElementById('v-icon-audio-on');
-    const iconAudioOff = document.getElementById('v-icon-audio-off');
-    if (audioBtn) {
-      audioBtn.addEventListener('click', () => {
-        audioEnabled = !audioEnabled;
-        if (iconAudioOn) iconAudioOn.hidden = !audioEnabled;
-        if (iconAudioOff) iconAudioOff.hidden = audioEnabled;
-        if (audioEnabled) playSyntheticBeep(700, 'sine', 0.08);
-      });
-    }
-
-    // Fullscreen Toggle
-    const fsBtn = document.getElementById('jt-ctrl-fullscreen');
-    const playerWrap = document.querySelector('.home-video-player-wrap');
-    if (fsBtn && playerWrap) {
-      fsBtn.addEventListener('click', () => {
-        if (!document.fullscreenElement) {
-          playerWrap.requestFullscreen?.().catch(() => {});
-        } else {
-          document.exitFullscreen?.().catch(() => {});
-        }
-      });
-    }
-
-    // Interactive Mode Toggle (In-video interactive control)
-    const modeToggleBtn = document.getElementById('jt-video-mode-toggle');
-    const interactiveStage = document.getElementById('jt-interactive-stage');
-    const interactiveBody = document.getElementById('jt-interactive-body');
-    let interactiveActive = false;
-
-    if (modeToggleBtn && interactiveStage && interactiveBody) {
-      modeToggleBtn.addEventListener('click', () => {
-        interactiveActive = !interactiveActive;
-        interactiveStage.hidden = !interactiveActive;
-        modeToggleBtn.classList.toggle('highlight', interactiveActive);
-        if (interactiveActive) {
-          setPlayState(false);
-          interactiveBody.innerHTML = `
-            <div style="display:flex; flex-direction:column; gap:16px;">
-              <p style="color:#aaa; font-size:13px;">Direct Interactive Sandbox: Test how values sync between modules.</p>
-              <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:12px;">
-                <button type="button" class="btn btn-primary" onclick="alert('Simulated OCR Triggered')">Test Live Scan</button>
-                <button type="button" class="btn btn-outline" onclick="alert('Simulated Lot Calculated: 0.40 Lots')">Test 1% Risk Rule</button>
-                <button type="button" class="btn btn-outline" onclick="alert('Simulated Rate: USD/IDR Rp 16,400')">Test BI Rate Feed</button>
-              </div>
-            </div>
-          `;
-        }
-      });
-    }
-
-    // Record / Download Video Demo (.webm) Locally
-    const downloadBtn = document.getElementById('jt-video-download-btn');
-    if (downloadBtn) {
-      downloadBtn.addEventListener('click', () => {
-        if (isRecording) return;
-        try {
-          const stream = canvas.captureStream(60);
-          mediaRecorder = new MediaRecorder(stream, { mimeType: 'video/webm' });
-          recordedChunks = [];
-          isRecording = true;
-          downloadBtn.textContent = 'Recording 10s clip...';
-          downloadBtn.disabled = true;
-
-          mediaRecorder.ondataavailable = e => {
-            if (e.data.size > 0) recordedChunks.push(e.data);
-          };
-
-          mediaRecorder.onstop = () => {
-            const blob = new Blob(recordedChunks, { type: 'video/webm' });
-            const url = URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.style.display = 'none';
-            a.href = url;
-            a.download = 'journalingtrade-interactive-demo.webm';
-            document.body.appendChild(a);
-            a.click();
-            setTimeout(() => {
-              document.body.removeChild(a);
-              URL.revokeObjectURL(url);
-            }, 1000);
-            downloadBtn.textContent = 'Record / Download video (.webm)';
-            downloadBtn.disabled = false;
-            isRecording = false;
-            playSyntheticBeep(920, 'sine', 0.12);
-          };
-
-          mediaRecorder.start();
-          currentTime = 0;
-          setPlayState(true);
-
-          setTimeout(() => {
-            if (mediaRecorder && mediaRecorder.state === 'recording') mediaRecorder.stop();
-          }, 10000);
-        } catch {
-          alert('Local video export is supported in Chromium and modern browsers.');
-          downloadBtn.disabled = false;
-          isRecording = false;
-        }
-      });
-    }
+    renderModuleContent('ai-behaviour');
   })();
-
-  /* ========================================================
+/* ========================================================
      3. INTERACTIVE RISK PLAYGROUND (SECTION 02)
      ======================================================== */
   (function initRiskPlayground() {
@@ -1241,7 +514,7 @@
       const progress = Math.min(1, Math.max(0, -rect.top / scrollable));
       const totalTrackWidth = track.scrollWidth;
       const viewportWidth = window.innerWidth;
-      const maxTranslate = Math.max(0, totalTrackWidth - viewportWidth + (viewportWidth * 0.08));
+      const maxTranslate = Math.max(0, totalTrackWidth - viewportWidth);
       const currentTranslate = progress * maxTranslate;
 
       track.style.transform = 'translate3d(-' + currentTranslate.toFixed(1) + 'px, 0, 0)';
@@ -1249,8 +522,8 @@
       if (railLine) {
         const isMobile = window.innerWidth < 600;
         const baseWidth = isMobile ? 190 : 250;
-        const totalLineSpan = maxTranslate * 0.9;
-        const currentWidth = baseWidth + (progress * totalLineSpan);
+        const targetWidth = Math.max(baseWidth, (totalTrackWidth * 0.90) - 100);
+        const currentWidth = baseWidth + (progress * (targetWidth - baseWidth));
         railLine.style.width = currentWidth.toFixed(0) + 'px';
       }
     }

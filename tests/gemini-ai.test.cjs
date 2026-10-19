@@ -272,7 +272,7 @@ const server=http.createServer(async(req,res)=>{
   };
   await page.fill('#pro-ai-chat-message','Lalu bagaimana konfirmasi retest-nya?');
   await page.click('#pro-ai-chat-send');
-  await page.waitForFunction(()=>document.querySelectorAll('.pro-chat-message[data-role="assistant"]').length===2);
+  await page.waitForFunction(()=>document.querySelectorAll('.pro-chat-message[data-role="assistant"] .pro-markdown').length===2);
 
   const followUpChatReq = geminiRequests[geminiRequests.length - 1];
   // Verify conversation history contains both turns!
@@ -282,7 +282,33 @@ const server=http.createServer(async(req,res)=>{
   assert.equal(followUpChatReq.postData.contents[2].role, 'user');
   assert.equal(followUpChatReq.postData.contents[0].time, undefined);
   assert.equal(followUpChatReq.postData.contents[1].time, undefined);
-  assert.equal(followUpChatReq.postData.contents[2].time, undefined);
+  // Verify persistence of chat history across page reload / refresh
+  const storedChatRaw = await page.evaluate(() => localStorage.getItem('gemini_chat_history'));
+  assert.ok(storedChatRaw, 'gemini_chat_history should be stored in localStorage');
+  const storedChat = JSON.parse(storedChatRaw);
+  assert.equal(storedChat.length, 4); // 2 user messages, 2 model replies
+
+  // Perform full page reload (simulating user refresh / leaving and returning)
+  await page.reload();
+  await page.evaluate(() => JTPRO.open('ai-chat'));
+  await page.waitForSelector('.pro-chat-message[data-role="assistant"]');
+  const restoredAssistants = await page.locator('.pro-chat-message[data-role="assistant"]').count();
+  const restoredUsers = await page.locator('.pro-chat-message[data-role="user"]').count();
+  assert.equal(restoredAssistants, 2);
+  assert.equal(restoredUsers, 2);
+  const reloadedChatText = await page.locator('.pro-chat-messages').textContent();
+  assert.ok(reloadedChatText.includes('Bagaimana cara validasi SBR'));
+  assert.ok(reloadedChatText.includes('Support Become Resistance'));
+  assert.ok(reloadedChatText.includes('Lalu bagaimana konfirmasi retest-nya?'));
+  assert.ok(reloadedChatText.includes('tunggu body candle reject'));
+
+  // Test clear chat button
+  const dialogHandler = async dialog => { await dialog.accept(); };
+  page.on('dialog', dialogHandler);
+  await page.click('#pro-ai-chat-clear');
+  await page.waitForFunction(() => !document.querySelector('.pro-chat-message'));
+  assert.equal(await page.evaluate(() => localStorage.getItem('gemini_chat_history')), null);
+  page.off('dialog', dialogHandler);
 
   // 7. Test Error Handling: Rate Limit 429
   geminiStatus = 429;

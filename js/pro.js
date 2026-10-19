@@ -17,6 +17,7 @@
     return element;
   }
   const GEMINI_STORAGE_KEY='gemini_api_key';
+  const GEMINI_CHAT_STORAGE_KEY='gemini_chat_history';
   const GEMINI_DEFAULT_MODEL='gemini-3.8-flash';
   const GEMINI_MODELS_POOL=[
     'gemini-3.1-pro-preview',
@@ -32,6 +33,36 @@
   const getGeminiApiKey=()=>{try{return sanitizeKey(getStorage()?.getItem(GEMINI_STORAGE_KEY));}catch(_){return '';}};
   const setGeminiApiKey=(key)=>{try{const store=getStorage();if(!store)return false;const clean=sanitizeKey(key);if(!clean)store.removeItem(GEMINI_STORAGE_KEY);else store.setItem(GEMINI_STORAGE_KEY,clean);return true;}catch(_){return false;}};
   const hasGeminiApiKey=()=>Boolean(getGeminiApiKey());
+
+  const getStoredChatHistory=()=>{
+    try{
+      const store=getStorage();
+      if(!store)return [];
+      const raw=store.getItem(GEMINI_CHAT_STORAGE_KEY);
+      if(!raw)return [];
+      const parsed=JSON.parse(raw);
+      return Array.isArray(parsed)?parsed:[];
+    }catch(_){return [];}
+  };
+  const saveStoredChatHistory=(history)=>{
+    try{
+      const store=getStorage();
+      if(!store)return false;
+      if(!history||!history.length)store.removeItem(GEMINI_CHAT_STORAGE_KEY);
+      else store.setItem(GEMINI_CHAT_STORAGE_KEY,JSON.stringify(history));
+      return true;
+    }catch(_){return false;}
+  };
+  const getChatHistoryList=()=>{
+    if(!Array.isArray(global._geminiChatHistory)||!global._geminiChatHistory.length){
+      global._geminiChatHistory=getStoredChatHistory();
+    }
+    return global._geminiChatHistory;
+  };
+  const clearChatHistory=()=>{
+    global._geminiChatHistory=[];
+    saveStoredChatHistory([]);
+  };
 
   function escapeHtml(str) {
     return String(str)
@@ -1371,7 +1402,29 @@ Gaya Komunikasi:
     terminal.append(terminalHeader, messages, inputBar);
 
     const note = node('p', '', 'pro-muted');
-    content.append(terminal, note);
+    const clearChatBtn = node('button', 'Hapus Riwayat Chat', 'btn btn-ghost');
+    clearChatBtn.type = 'button';
+    clearChatBtn.id = 'pro-ai-chat-clear';
+    clearChatBtn.style.fontSize = '12px';
+    clearChatBtn.style.padding = '4px 10px';
+    clearChatBtn.style.color = '#71717a';
+    clearChatBtn.style.cursor = 'pointer';
+    clearChatBtn.addEventListener('click', () => {
+      if (global.confirm('Hapus seluruh riwayat percakapan Kayla AI?')) {
+        clearChatHistory();
+        load();
+      }
+    });
+
+    const chatFooter = node('div', null, 'pro-chat-footer-bar');
+    chatFooter.style.display = 'flex';
+    chatFooter.style.justifyContent = 'space-between';
+    chatFooter.style.alignItems = 'center';
+    chatFooter.style.flexWrap = 'wrap';
+    chatFooter.style.gap = '8px';
+    chatFooter.style.marginTop = '8px';
+    chatFooter.append(note, clearChatBtn);
+    content.append(terminal, chatFooter);
 
     const formatChatTime = (t) => {
       if (!t) return '';
@@ -1387,10 +1440,12 @@ Gaya Komunikasi:
         quota.textContent = '';
         quota.style.display = 'none';
         note.textContent = 'Ditenagai oleh Kayla AI. Mengobrol dan konsultasi seputar strategi, psikologi, teknikal, dan evaluasi jurnal secara interaktif dua arah.';
+        clearChatBtn.style.display = '';
       } else {
         quota.style.display = '';
         quota.textContent = 'AI analyses remaining this month: ' + format(access?.ai?.remaining) + ' / ' + format(access?.ai?.limit || 30);
         note.textContent = 'AI chat uses one shared monthly allowance per successful reply. It does not have live prices or news and does not provide trade signals.';
+        clearChatBtn.style.display = 'none';
       }
     };
 
@@ -1412,7 +1467,7 @@ Gaya Komunikasi:
     const load = async () => {
       if (hasGeminiApiKey()) {
         messages.replaceChildren();
-        const historyList = global._geminiChatHistory || [];
+        const historyList = getChatHistoryList();
         if (!historyList.length) {
           messages.append(node('p', 'Ketik pertanyaan untuk mulai mengobrol dan berkonsultasi seputar trading dengan Kayla AI.', 'pro-muted'));
         } else {
@@ -1428,6 +1483,7 @@ Gaya Komunikasi:
               messages.append(m);
             }
           }
+          messages.scrollTop = messages.scrollHeight;
         }
         return;
       }
@@ -1483,8 +1539,9 @@ Gaya Komunikasi:
       try {
         let replyText = '';
         if (hasGeminiApiKey()) {
-          const historyList = global._geminiChatHistory = global._geminiChatHistory || [];
+          const historyList = getChatHistoryList();
           historyList.push({ role: 'user', parts: [{ text: message }], time: Date.now() });
+          saveStoredChatHistory(historyList);
 
           try {
             replyText = await callGeminiApi({
@@ -1493,8 +1550,10 @@ Gaya Komunikasi:
               signal: controller.signal
             });
             historyList.push({ role: 'model', parts: [{ text: replyText }], time: Date.now() });
+            saveStoredChatHistory(historyList);
           } catch(err) {
             historyList.pop();
+            saveStoredChatHistory(historyList);
             throw err;
           }
         } else {
@@ -1523,6 +1582,7 @@ Gaya Komunikasi:
         }
 
         stopOrb();
+        delete loadingBubble.dataset.loading;
         loadingBubble.replaceChildren();
         loadingBubble.append(node('h3', 'Kayla AI'));
         const contentBox = node('div', null, 'pro-markdown');
@@ -1543,6 +1603,7 @@ Gaya Komunikasi:
         messages.scrollTop = messages.scrollHeight;
       } catch (err) {
         stopOrb();
+        delete loadingBubble.dataset.loading;
         loadingBubble.replaceChildren();
         const isQuota = /kuota kayla telah habis|429|quota|rate limit|resource_exhausted/i.test(err?.message || '');
         const errorText = isQuota
@@ -5754,5 +5815,5 @@ Setiap kali melakukan analisa pada instrumen apa pun, jalankan prosedur sinkroni
     }
   }
   function reset() {if(activeTabLoader){activeTabLoader.stop();activeTabLoader=null;}revision++;controller.abort();controller=new AbortController();clearAccess();current='';filters={};preset={};accounts=[];strategies=[];root?.replaceChildren();status=null;content=null;}
-  global.JTPRO={features,configure(value){reset();options={...value};},open,reset,verifyAccess,request,aggregateSeries,safeLink,getGeminiApiKey,setGeminiApiKey,hasGeminiApiKey,callGeminiApi,getRandomizedModelsPool,modelsPool:GEMINI_MODELS_POOL,renderMarkdown,renderMarkdownInto,openGeminiConfigModal,createLiquidLoader,get access(){return access;},get current(){return current;}};
+  global.JTPRO={features,configure(value){reset();options={...value};},open,reset,verifyAccess,request,aggregateSeries,safeLink,getGeminiApiKey,setGeminiApiKey,hasGeminiApiKey,callGeminiApi,getRandomizedModelsPool,modelsPool:GEMINI_MODELS_POOL,getChatHistoryList,saveStoredChatHistory,clearChatHistory,renderMarkdown,renderMarkdownInto,openGeminiConfigModal,createLiquidLoader,get access(){return access;},get current(){return current;}};
 })(window);
