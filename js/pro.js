@@ -404,70 +404,6 @@
     input.focus();
   }
 
-  function createLiquidLoader({ compact = false, speed = 1 } = {}) {
-    const root = node('div', null, 'pro-liquid-loader' + (compact ? ' compact' : ''));
-    root.setAttribute('role', 'status');
-    root.setAttribute('aria-label', 'Loading AI analysis...');
-
-    const cols = [];
-    for (let i = 0; i < 7; i++) {
-      const col = node('div', null, 'pro-liquid-col pro-liquid-col-' + i);
-      const dropTop = node('div', null, 'pro-liquid-drop-top');
-      const bar = node('div', null, 'pro-liquid-bar');
-      const glossTop = node('div', null, 'pro-liquid-gloss-top');
-      const glossBody = node('div', null, 'pro-liquid-gloss-body');
-      const shimmer = node('div', null, 'pro-liquid-shimmer');
-      bar.append(glossTop, glossBody, shimmer);
-      const dropBottom = node('div', null, 'pro-liquid-drop-bottom');
-      col.append(dropTop, bar, dropBottom);
-      root.append(col);
-      cols.push({ dropTop, bar, dropBottom });
-    }
-
-    let animId = null;
-    let stopped = false;
-    const scale = compact ? 0.45 : 0.9;
-    const startTime = Date.now();
-
-    function renderFrame() {
-      if (stopped) return;
-      const t = (Date.now() - startTime) * 0.001 * speed;
-      for (let i = 0; i < 7; i++) {
-        const offset = i * 0.8;
-        const wave1 = Math.sin(t + offset);
-        const wave2 = Math.sin(t * 4 + offset) * 0.15;
-        const wave3 = Math.sin(t * 8 + offset) * 0.05;
-        const h = 75 * (wave1 + wave2 + wave3);
-        const barH = Math.max(compact ? 10 : 16, Math.abs(h) * scale);
-        const isDroplet = Math.sin(t + offset) > 0.78;
-
-        const { dropTop, bar, dropBottom } = cols[i];
-        bar.style.height = barH + 'px';
-        bar.style.transform = h < 0 ? 'scaleY(-1)' : 'scaleY(1)';
-        dropTop.style.opacity = isDroplet ? '1' : '0';
-        dropTop.style.transform = isDroplet ? 'scale(1)' : 'translateY(6px) scale(0.5)';
-        dropBottom.style.opacity = isDroplet ? '0.8' : '0';
-      }
-      animId = requestAnimationFrame(renderFrame);
-    }
-
-    if (!global.matchMedia?.('(prefers-reduced-motion: reduce)')?.matches && !global.navigator?.webdriver) {
-      animId = requestAnimationFrame(renderFrame);
-    } else {
-      for (let i = 0; i < 7; i++) {
-        cols[i].bar.style.height = (compact ? 22 : 44) + 'px';
-      }
-    }
-
-    return {
-      element: root,
-      stop() {
-        stopped = true;
-        if (animId) cancelAnimationFrame(animId);
-      }
-    };
-  }
-
   const KAYSTRADE_SYSTEM_PROMPT = `Anda adalah AI Market Intelligence profesional berbasis metodologi teknikal Kaystrade (docs/kaystrade/SKILL.md) yang dirumuskan oleh founder journalingtrade, Kaylaa.
 Catatan Identitas:
 - Founder journalingtrade dan perumus metodologi Kaystrade adalah Kaylaa.
@@ -1244,7 +1180,7 @@ Gaya Komunikasi:
   }
 
   function createLiquidLoader(options = {}) {
-    const isCompact = options.compact !== false;
+    const isCompact = Boolean(options.compact);
     const speed = options.speed || 1;
     const maxHeight = options.maxHeight || (isCompact ? 36 : 68);
     const minHeight = options.minHeight || (isCompact ? 8 : 14);
