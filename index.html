@@ -144,6 +144,147 @@
           </div>
         </section>
 
+        <!-- Product Storyline / 6 Years Timeline Roadmap Section -->
+        <section class="home-timeline-section home-section" id="home-product-timeline" aria-labelledby="home-timeline-title">
+          <header class="home-reveal">
+            <p class="home-label">Product roadmap</p>
+            <h2 id="home-timeline-title">Six years, one horizontal scroll.</h2>
+            <p class="home-section-lead">Keep scrolling - the section pins, the track slides sideways, and each milestone draws its stem and reveals its copy as it reaches centre.</p>
+          </header>
+
+          <div class="timeline-interactive-wrap home-reveal" id="timeline-interactive-stage">
+            <div class="timeline-slider-viewport" id="timeline-slider-viewport">
+              <div class="timeline-slider-track" id="timeline-slider-track">
+                <!-- Visual Card -->
+                <div class="timeline-cover-card">
+                  <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=1200&q=80" alt="Modern office workspace" draggable="false" class="timeline-cover-img" loading="lazy">
+                  <div class="timeline-cover-overlay">
+                    <span class="timeline-cover-pill">Product Storyline</span>
+                    <strong class="timeline-cover-years">2020 - 2026</strong>
+                  </div>
+                </div>
+
+                <!-- Timeline Core Canvas & Nodes -->
+                <div class="timeline-nodes-stage">
+                  <!-- Central Active Bar -->
+                  <div class="timeline-center-rail">
+                    <div class="timeline-rail-dot start"></div>
+                    <div class="timeline-rail-fill" id="timeline-rail-fill"></div>
+                    <div class="timeline-rail-dot end"></div>
+                  </div>
+
+                  <!-- Top Milestones -->
+                  <div class="timeline-row timeline-row-top">
+                    <div class="timeline-side-title">
+                      <h2>Product Storyline</h2>
+                    </div>
+                    <div class="timeline-milestones-group">
+                      <div class="timeline-node top-node" data-year="2020" data-month="March">
+                        <div class="timeline-stem-wrap">
+                          <span class="timeline-dot"></span>
+                          <span class="timeline-stem"></span>
+                        </div>
+                        <div class="timeline-copy">
+                          <h4 class="timeline-date">2020 March</h4>
+                          <p class="timeline-desc">Signal research turns scattered notes into a clear product thesis</p>
+                        </div>
+                      </div>
+
+                      <div class="timeline-node top-node" data-year="2021" data-month="July">
+                        <div class="timeline-stem-wrap">
+                          <span class="timeline-dot"></span>
+                          <span class="timeline-stem"></span>
+                        </div>
+                        <div class="timeline-copy">
+                          <h4 class="timeline-date">2021 July</h4>
+                          <p class="timeline-desc">Founding release ships with the first live customer journeys</p>
+                        </div>
+                      </div>
+
+                      <div class="timeline-node top-node" data-year="2023" data-month="April">
+                        <div class="timeline-stem-wrap">
+                          <span class="timeline-dot"></span>
+                          <span class="timeline-stem"></span>
+                        </div>
+                        <div class="timeline-copy">
+                          <h4 class="timeline-date">2023 April</h4>
+                          <p class="timeline-desc">Automation layer connects insight, publishing, and sales motion</p>
+                        </div>
+                      </div>
+
+                      <div class="timeline-node top-node" data-year="2026" data-month="May">
+                        <div class="timeline-stem-wrap">
+                          <span class="timeline-dot"></span>
+                          <span class="timeline-stem"></span>
+                        </div>
+                        <div class="timeline-copy">
+                          <h4 class="timeline-date">2026 May</h4>
+                          <p class="timeline-desc">New markets open with localized launches and faster onboarding</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Bottom Milestones -->
+                  <div class="timeline-row timeline-row-bottom">
+                    <div class="timeline-side-period">
+                      <p>2020 - 2026</p>
+                    </div>
+                    <div class="timeline-milestones-group">
+                      <div class="timeline-node bottom-node" data-year="2020" data-month="November">
+                        <div class="timeline-stem-wrap">
+                          <span class="timeline-stem"></span>
+                          <span class="timeline-dot"></span>
+                        </div>
+                        <div class="timeline-copy">
+                          <h4 class="timeline-date">2020 November</h4>
+                          <p class="timeline-desc">Prototype sprint validates the experience with real operators</p>
+                        </div>
+                      </div>
+
+                      <div class="timeline-node bottom-node" data-year="2022" data-month="October">
+                        <div class="timeline-stem-wrap">
+                          <span class="timeline-stem"></span>
+                          <span class="timeline-dot"></span>
+                        </div>
+                        <div class="timeline-copy">
+                          <h4 class="timeline-date">2022 October</h4>
+                          <p class="timeline-desc">Community feedback reshapes the roadmap into sharper releases</p>
+                        </div>
+                      </div>
+
+                      <div class="timeline-node bottom-node" data-year="2025" data-month="September">
+                        <div class="timeline-stem-wrap">
+                          <span class="timeline-stem"></span>
+                          <span class="timeline-dot"></span>
+                        </div>
+                        <div class="timeline-copy">
+                          <h4 class="timeline-date">2025 September</h4>
+                          <p class="timeline-desc">Companion mobile workflows make the timeline travel-ready</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Timeline Navigation Controls (Arrows & Progress Slider) -->
+            <div class="timeline-controls-bar">
+              <button type="button" class="timeline-nav-arrow" id="timeline-prev-btn" aria-label="Previous timeline milestones">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+              </button>
+              <div class="timeline-progress-track">
+                <div class="timeline-progress-indicator" id="timeline-progress-indicator" style="width: 25%;"></div>
+              </div>
+              <button type="button" class="timeline-nav-arrow" id="timeline-next-btn" aria-label="Next timeline milestones">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+              </button>
+              <span class="timeline-footer-caption">From the first research note to a multi-market launch.</span>
+            </div>
+          </div>
+        </section>
+
         <section class="home-video-section home-section" id="home-video-tour" aria-labelledby="home-video-title">
           <header class="home-reveal">
             <p class="home-label" data-i18n="homeVideoEyebrow">00 / Interactive Video Tour</p>
@@ -1159,7 +1300,7 @@
           </div>
           <div class="tpc-stat-item">
             <span data-i18n="profileAverageRR">Average R:R</span>
-            <b id="tpc-average-rr">—</b>
+            <b id="tpc-average-rr">-</b>
           </div>
         </div>
       </div>
@@ -1254,7 +1395,7 @@
             </div>
             <div class="vs-row">
               <span data-i18n="profileLocalUsage">Local data size</span>
-              <b id="vault-storage-used">—</b>
+              <b id="vault-storage-used">-</b>
             </div>
             <div class="vs-row">
               <span data-i18n="profileRecordCount">Saved trades</span>

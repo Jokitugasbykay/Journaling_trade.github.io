@@ -1223,5 +1223,77 @@
     setInterval(updateSessions, 10000);
   })();
 
+  /* ========================================================
+     6. INTERACTIVE 6-YEAR PRODUCT STORYLINE TIMELINE ROADMAP
+     ======================================================== */
+  (function initTimelineRoadmap() {
+    const viewport = document.getElementById('timeline-slider-viewport');
+    const prevBtn = document.getElementById('timeline-prev-btn');
+    const nextBtn = document.getElementById('timeline-next-btn');
+    const progressIndicator = document.getElementById('timeline-progress-indicator');
+    if (!viewport) return;
+
+    function updateProgress() {
+      const maxScroll = viewport.scrollWidth - viewport.clientWidth;
+      if (maxScroll <= 0) {
+        if (progressIndicator) progressIndicator.style.width = '100%';
+        return;
+      }
+      const ratio = Math.min(1, Math.max(0, viewport.scrollLeft / maxScroll));
+      const pct = Math.round(15 + ratio * 85);
+      if (progressIndicator) {
+        progressIndicator.style.width = pct + '%';
+      }
+    }
+
+    viewport.addEventListener('scroll', updateProgress, { passive: true });
+
+    if (prevBtn) {
+      prevBtn.addEventListener('click', () => {
+        viewport.scrollBy({ left: -340, behavior: 'smooth' });
+      });
+    }
+
+    if (nextBtn) {
+      nextBtn.addEventListener('click', () => {
+        viewport.scrollBy({ left: 340, behavior: 'smooth' });
+      });
+    }
+
+    // Horizontal wheel scroll when hovering over viewport
+    viewport.addEventListener('wheel', (e) => {
+      if (Math.abs(e.deltaY) > Math.abs(e.deltaX) && Math.abs(e.deltaY) > 6) {
+        viewport.scrollLeft += e.deltaY;
+        e.preventDefault();
+      }
+    }, { passive: false });
+
+    // Mouse drag support for smooth desktop scrub
+    let isDown = false;
+    let startX = 0;
+    let scrollStart = 0;
+
+    viewport.addEventListener('mousedown', (e) => {
+      isDown = true;
+      startX = e.pageX - viewport.offsetLeft;
+      scrollStart = viewport.scrollLeft;
+    });
+
+    window.addEventListener('mouseup', () => {
+      isDown = false;
+    });
+
+    viewport.addEventListener('mousemove', (e) => {
+      if (!isDown) return;
+      e.preventDefault();
+      const x = e.pageX - viewport.offsetLeft;
+      const walk = (x - startX) * 1.5;
+      viewport.scrollLeft = scrollStart - walk;
+    });
+
+    updateProgress();
+  })();
+
   updateMotionState();
 })();
+
