@@ -1585,7 +1585,7 @@ Pedoman Identitas Platform & Metodologi:
 
           try {
             replyText = await callGeminiApi({
-              systemInstruction: CHAT_SYSTEM_PROMPT,
+              systemInstruction: getChatSystemPrompt(),
               history: historyList,
               signal: controller.signal
             });
@@ -5901,5 +5901,5 @@ Setiap kali melakukan analisa pada instrumen apa pun, jalankan prosedur sinkroni
     }
   }
   function reset() {if(activeTabLoader){activeTabLoader.stop();activeTabLoader=null;}revision++;controller.abort();controller=new AbortController();clearAccess();current='';filters={};preset={};accounts=[];strategies=[];root?.replaceChildren();status=null;content=null;}
-  global.JTPRO={features,configure(value){reset();options={...value};},open,reset,verifyAccess,request,aggregateSeries,safeLink,getGeminiApiKey,setGeminiApiKey,hasGeminiApiKey,callGeminiApi,getRandomizedModelsPool,modelsPool:GEMINI_MODELS_POOL,getChatHistoryList,saveStoredChatHistory,clearChatHistory,renderMarkdown,renderMarkdownInto,openGeminiConfigModal,createLiquidLoader,createProModernLoader,get access(){return access;},get current(){return current;}};
+  global.JTPRO={features,configure(value){reset();options={...value};},open,reset,verifyAccess,request,aggregateSeries,safeLink,getGeminiApiKey,setGeminiApiKey,hasGeminiApiKey,callGeminiApi,getRandomizedModelsPool,modelsPool:GEMINI_MODELS_POOL,getChatSystemPrompt,getChatHistoryList,saveStoredChatHistory,clearChatHistory,renderMarkdown,renderMarkdownInto,openGeminiConfigModal,createLiquidLoader,createProModernLoader,get access(){return access;},get current(){return current;}};
 })(window);
