@@ -18,9 +18,19 @@
   }
   const GEMINI_STORAGE_KEY='gemini_api_key';
   const GEMINI_DEFAULT_MODEL='gemini-3.8-flash';
+  const GEMINI_MODELS_POOL=[
+    'gemini-3.1-pro-preview',
+    'gemini-3-flash-preview',
+    'gemini-2.5-pro',
+    'gemini-3.5-flash-lite',
+    'gemini-3.8-flash',
+    'gemma-4-31b-it',
+    'gemma-4-26b-a4b-it'
+  ];
+  const sanitizeKey=(k)=>String(k||'').trim().replace(/^["']+|["']+$/g,'').trim();
   const getStorage=()=>{try{return global['local'+'Storage']||null;}catch(_){return null;}};
-  const getGeminiApiKey=()=>{try{return (getStorage()?.getItem(GEMINI_STORAGE_KEY)||'').trim();}catch(_){return '';}};
-  const setGeminiApiKey=(key)=>{try{const store=getStorage();if(!store)return false;if(!key||!key.trim())store.removeItem(GEMINI_STORAGE_KEY);else store.setItem(GEMINI_STORAGE_KEY,key.trim());return true;}catch(_){return false;}};
+  const getGeminiApiKey=()=>{try{return sanitizeKey(getStorage()?.getItem(GEMINI_STORAGE_KEY));}catch(_){return '';}};
+  const setGeminiApiKey=(key)=>{try{const store=getStorage();if(!store)return false;const clean=sanitizeKey(key);if(!clean)store.removeItem(GEMINI_STORAGE_KEY);else store.setItem(GEMINI_STORAGE_KEY,clean);return true;}catch(_){return false;}};
   const hasGeminiApiKey=()=>Boolean(getGeminiApiKey());
 
   function escapeHtml(str) {
@@ -237,23 +247,26 @@
     });
   }
 
-  const BANNED_MODELS_REGEX = /3\.1|pro|argon|gemini-4/i;
-  const isModelAllowed = (m) => typeof m === 'string' && !BANNED_MODELS_REGEX.test(m);
+  function getRandomizedModelsPool(preferredModel) {
+    const pool = [...GEMINI_MODELS_POOL];
+    for (let i = pool.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      const temp = pool[i];
+      pool[i] = pool[j];
+      pool[j] = temp;
+    }
+    if (preferredModel && typeof preferredModel === 'string' && !pool.includes(preferredModel)) {
+      pool.unshift(preferredModel);
+    }
+    return pool;
+  }
 
   async function callGeminiApi({systemInstruction,contents,history,model=GEMINI_DEFAULT_MODEL,signal}) {
     const apiKey=getGeminiApiKey();
     if(!apiKey){
       throw new Error('Google Gemini API Key belum diatur. Klik tombol "Set API Key" di samping status AI untuk memasukkan API Key Anda.');
     }
-    const candidateModels = [
-      model,
-      'gemini-3.8-flash',
-      'gemini-2.5-flash',
-      'gemini-2.0-flash',
-      'gemini-1.5-flash',
-      'gemini-2.5-flash-lite'
-    ].filter(isModelAllowed);
-    const modelsToTry = [...new Set(candidateModels)];
+    const modelsToTry = getRandomizedModelsPool(model);
 
     let contentsPayload;
     if (Array.isArray(history) && history.length > 0) {
@@ -274,34 +287,38 @@
       contentsPayload = [{ role: 'user', parts: [{ text: String(contents || '') }] }];
     }
 
-    const payload={
-      contents:contentsPayload,
-      generationConfig:{temperature:0.2,maxOutputTokens:4096}
-    };
-    if(systemInstruction){
-      payload.systemInstruction={parts:[{text:String(systemInstruction)}]};
-    }
-
     let lastError = null;
     let hadQuotaExhaustion = false;
 
     for (let i = 0; i < modelsToTry.length; i++) {
       const curModel = modelsToTry[i];
-      const endpoint=`https://generativelanguage.googleapis.com/v1beta/models/${encodeURIComponent(curModel)}:generateContent?key=${encodeURIComponent(apiKey)}`;
-      let response;
-      try {
-        response=await fetch(endpoint,{
-          method:'POST',
-          headers:{'Content-Type':'application/json'},
-          body:JSON.stringify(payload),
-          signal
-        });
-      } catch(err) {
-        if(err.name==='AbortError') throw err;
-        throw new Error('Gagal menghubungi Google Gemini: '+(err.message||'Periksa koneksi internet Anda.'));
+      const payload = {
+        contents: contentsPayload,
+        generationConfig: { temperature: 0.2, maxOutputTokens: 4096 }
+      };
+      if (systemInstruction) {
+        payload.systemInstruction = { parts: [{ text: String(systemInstruction) }] };
       }
 
-      if(response.status===429){
+      const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/${encodeURIComponent(curModel)}:generateContent?key=${encodeURIComponent(apiKey)}`;
+      let response;
+      try {
+        response = await fetch(endpoint, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload),
+          signal
+        });
+      } catch (err) {
+        if (err.name === 'AbortError') throw err;
+        lastError = new Error('Gagal menghubungi Google Gemini: ' + (err.message || 'Periksa koneksi internet Anda atau pastikan ekstensi AdBlocker / VPN tidak memblokir akses ke generativelanguage.googleapis.com.'));
+        if (i < modelsToTry.length - 1) {
+          continue;
+        }
+        throw lastError;
+      }
+
+      if (response.status === 429) {
         hadQuotaExhaustion = true;
         lastError = new Error('gagal memproses jawaban, kuota kayla telah habis atau dibatasi. silahkan coba lagi nanti');
         if (i < modelsToTry.length - 1) {
@@ -310,31 +327,33 @@
         throw lastError;
       }
 
-      const data=await response.json().catch(()=>null);
-      if(!response.ok){
-        const errorMsg=data?.error?.message||response.statusText;
+      const data = await response.json().catch(() => null);
+      if (!response.ok) {
+        const errorMsg = data?.error?.message || response.statusText || 'Unknown error';
         const isQuotaErr = /RESOURCE_EXHAUSTED|quota|rate limit/i.test(errorMsg);
         if (isQuotaErr) hadQuotaExhaustion = true;
 
-        if(response.status===400 || response.status===403){
-          throw new Error('Google Gemini API Key tidak valid atau tidak memiliki izin akses (Error: '+errorMsg+'). Periksa kembali API Key Anda di Google AI Studio.');
+        const isApiKeyError = response.status === 400 && (/api[_\s-]?key|key not valid|invalid_argument.*key/i.test(errorMsg) || !errorMsg.includes('model'));
+        if (isApiKeyError || response.status === 403) {
+          throw new Error('Google Gemini API Key tidak valid atau tidak memiliki izin akses (Error: ' + errorMsg + '). Periksa kembali API Key Anda di Google AI Studio.');
         }
 
-        const isTransientOrSwitchable = isQuotaErr || response.status === 503 || response.status === 500 || response.status === 404;
-        if(isTransientOrSwitchable && i < modelsToTry.length - 1){
+        const isTransientOrSwitchable = isQuotaErr || response.status === 503 || response.status === 500 || response.status === 502 || response.status === 504 || response.status === 404 || response.status === 400;
+        if (isTransientOrSwitchable && i < modelsToTry.length - 1) {
           lastError = isQuotaErr
             ? new Error('gagal memproses jawaban, kuota kayla telah habis atau dibatasi. silahkan coba lagi nanti')
-            : new Error('Google Gemini API Error ('+response.status+'): '+errorMsg);
+            : new Error('Google Gemini API Error (' + response.status + '): ' + errorMsg);
           continue;
         }
 
         if (isQuotaErr || hadQuotaExhaustion) {
           throw new Error('gagal memproses jawaban, kuota kayla telah habis atau dibatasi. silahkan coba lagi nanti');
         }
-        throw new Error('Google Gemini API Error ('+response.status+'): '+errorMsg);
+        throw new Error('Google Gemini API Error (' + response.status + '): ' + errorMsg);
       }
-      const textOutput=data?.candidates?.[0]?.content?.parts?.[0]?.text;
-      if(!textOutput){
+
+      const textOutput = data?.candidates?.[0]?.content?.parts?.[0]?.text;
+      if (!textOutput) {
         if (i < modelsToTry.length - 1) continue;
         throw new Error('Google Gemini tidak mengembalikan respon teks yang valid. Silakan coba kembali.');
       }
@@ -5735,5 +5754,5 @@ Setiap kali melakukan analisa pada instrumen apa pun, jalankan prosedur sinkroni
     }
   }
   function reset() {if(activeTabLoader){activeTabLoader.stop();activeTabLoader=null;}revision++;controller.abort();controller=new AbortController();clearAccess();current='';filters={};preset={};accounts=[];strategies=[];root?.replaceChildren();status=null;content=null;}
-  global.JTPRO={features,configure(value){reset();options={...value};},open,reset,verifyAccess,request,aggregateSeries,safeLink,getGeminiApiKey,setGeminiApiKey,hasGeminiApiKey,callGeminiApi,renderMarkdown,renderMarkdownInto,openGeminiConfigModal,createLiquidLoader,get access(){return access;},get current(){return current;}};
+  global.JTPRO={features,configure(value){reset();options={...value};},open,reset,verifyAccess,request,aggregateSeries,safeLink,getGeminiApiKey,setGeminiApiKey,hasGeminiApiKey,callGeminiApi,getRandomizedModelsPool,modelsPool:GEMINI_MODELS_POOL,renderMarkdown,renderMarkdownInto,openGeminiConfigModal,createLiquidLoader,get access(){return access;},get current(){return current;}};
 })(window);

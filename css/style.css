@@ -2364,7 +2364,7 @@
     .text-action:hover { border-color: #fff; }
     .landing-pricing { padding: 56px 0 20px; scroll-margin-top: 100px; }
     .pricing-heading { text-align: center; margin-bottom: 36px; }
-    .pricing-heading h2 { font-family: Georgia, 'Times New Roman', serif; font-weight: 400; font-size: clamp(26px, 3vw, 34px); line-height: 1.3; }
+    .pricing-heading h2 { font-family: Manrope, var(--sans); font-weight: 600; font-size: clamp(28px, 3.2vw, 44px); line-height: 1.15; letter-spacing: -0.03em; }
     .pricing-heading p { color: #b0b0b5; margin-top: 12px; font-size: 14px; }
     .paid-plan-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); align-items: start; gap: 20px; }
     .plan-card { display: flex; flex-direction: column; border: 1px solid #363638; border-radius: 16px; background: #202021; padding: 24px 24px 0; overflow: hidden; }
