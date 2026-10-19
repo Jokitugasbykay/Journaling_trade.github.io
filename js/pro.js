@@ -34,6 +34,10 @@
   const setGeminiApiKey=(key)=>{try{const store=getStorage();if(!store)return false;const clean=sanitizeKey(key);if(!clean)store.removeItem(GEMINI_STORAGE_KEY);else store.setItem(GEMINI_STORAGE_KEY,clean);return true;}catch(_){return false;}};
   const hasGeminiApiKey=()=>Boolean(getGeminiApiKey());
 
+  const isThoughtArtifactText=(text)=>{
+    if(!text||typeof text!=='string')return false;
+    return /^\s*[•\-\*]\s*User says:/i.test(text) && /Context:\s*I am Kayla AI/i.test(text);
+  };
   const getStoredChatHistory=()=>{
     try{
       const store=getStorage();
@@ -41,7 +45,18 @@
       const raw=store.getItem(GEMINI_CHAT_STORAGE_KEY);
       if(!raw)return [];
       const parsed=JSON.parse(raw);
-      return Array.isArray(parsed)?parsed:[];
+      if(!Array.isArray(parsed))return [];
+      const cleaned=parsed.filter(item=>{
+        if(item.role==='model'||item.role==='assistant'){
+          const txt=Array.isArray(item.parts)?item.parts.map(p=>p.text||'').join(''):String(item.text||'');
+          if(isThoughtArtifactText(txt)) return false;
+        }
+        return true;
+      });
+      if(cleaned.length!==parsed.length){
+        saveStoredChatHistory(cleaned);
+      }
+      return cleaned;
     }catch(_){return [];}
   };
   const saveStoredChatHistory=(history)=>{
@@ -292,6 +307,37 @@
     return pool;
   }
 
+  function extractGeminiResponseText(data) {
+    const candidateParts = data?.candidates?.[0]?.content?.parts;
+    let textOutput = '';
+    if (Array.isArray(candidateParts) && candidateParts.length > 0) {
+      // Exclude parts marked as thought (part.thought === true)
+      const answerParts = candidateParts.filter(p => !p.thought && typeof p.text === 'string' && p.text.trim().length > 0);
+      if (answerParts.length > 0) {
+        textOutput = answerParts.map(p => p.text).join('\n\n').trim();
+      } else {
+        const textParts = candidateParts.filter(p => typeof p.text === 'string' && p.text.trim().length > 0);
+        if (textParts.length > 0) {
+          textOutput = textParts[textParts.length - 1].text.trim();
+        }
+      }
+    }
+
+    if (textOutput) {
+      textOutput = textOutput.replace(/<thought>[\s\S]*?<\/thought>/gi, '');
+      textOutput = textOutput.replace(/<think>[\s\S]*?<\/think>/gi, '');
+      if (isThoughtArtifactText(textOutput)) {
+        const match = textOutput.match(/(?:Greeting|Answer|Reply|Identity|Halo|Hai)[\s\S]*$/i);
+        if (match && match[0].trim().length > 10) {
+          let extracted = match[0].replace(/^[A-Za-z]+:\s*"?/i, '').replace(/"?\s*\([^)]*\)\s*$/i, '');
+          textOutput = extracted.trim();
+        }
+      }
+      textOutput = textOutput.trim();
+    }
+    return textOutput;
+  }
+
   async function callGeminiApi({systemInstruction,contents,history,model=GEMINI_DEFAULT_MODEL,signal}) {
     const apiKey=getGeminiApiKey();
     if(!apiKey){
@@ -301,12 +347,20 @@
 
     let contentsPayload;
     if (Array.isArray(history) && history.length > 0) {
-      contentsPayload = history.map(item => ({
-        role: (item.role === 'model' || item.role === 'assistant') ? 'model' : 'user',
-        parts: Array.isArray(item.parts)
-          ? item.parts.map(p => ({ text: String(p.text || '') }))
-          : [{ text: String(item.text || '') }]
-      }));
+      contentsPayload = history
+        .filter(item => {
+          if (item.role === 'model' || item.role === 'assistant') {
+            const txt = Array.isArray(item.parts) ? item.parts.map(p => p.text || '').join('') : String(item.text || '');
+            if (isThoughtArtifactText(txt)) return false;
+          }
+          return true;
+        })
+        .map(item => ({
+          role: (item.role === 'model' || item.role === 'assistant') ? 'model' : 'user',
+          parts: Array.isArray(item.parts)
+            ? item.parts.map(p => ({ text: String(p.text || '') }))
+            : [{ text: String(item.text || '') }]
+        }));
     } else if (Array.isArray(contents)) {
       contentsPayload = contents.map(item => ({
         role: (item.role === 'model' || item.role === 'assistant') ? 'model' : 'user',
@@ -383,7 +437,7 @@
         throw new Error('Google Gemini API Error (' + response.status + '): ' + errorMsg);
       }
 
-      const textOutput = data?.candidates?.[0]?.content?.parts?.[0]?.text;
+      const textOutput = extractGeminiResponseText(data);
       if (!textOutput) {
         if (i < modelsToTry.length - 1) continue;
         throw new Error('Google Gemini tidak mengembalikan respon teks yang valid. Silakan coba kembali.');
@@ -582,7 +636,12 @@ Pedoman Identitas Platform & Metodologi:
 1. Founder & Pencipta platform journalingtrade adalah Kaylaa.
 2. Metodologi analisis teknikal Kaystrade dirancang secara orisinal oleh Founder, Kaylaa (Multi-Timeframe H4/H1/M15, Price Action, SNR/SBR, Supply/Demand Fresh, FVG, dan sentimen FastBull).
 3. TIDAK ADA figur atau mentor bernama "Mas Kays". DILARANG KERAS mengarang, menyebut, atau mengasumsikan adanya sosok tersebut.
-4. Gunakan format Markdown (bold, tabel, bullet points) yang rapi, imut, dan mudah dipahami.`;
+4. Gunakan format Markdown (bold, tabel, bullet points) yang rapi, imut, dan mudah dipahami.
+
+Instruksi Format Output & Larangan Bocor Chain-of-Thought:
+1. Berikan HANYA respon percakapan final langsung kepada pengguna.
+2. DILARANG KERAS mengeluarkan catatan internal, proses berpikir, atau planning outline (seperti "User says:", "Context:", "Identity:", "Tone:", "Acknowledge greeting", dsb) ke dalam chat.
+3. Langsung sapa dan jawab pesan pengguna dengan ceria, manis, dan imut.`;
   }
   const CHAT_SYSTEM_PROMPT = getChatSystemPrompt();
 
@@ -5901,5 +5960,5 @@ Setiap kali melakukan analisa pada instrumen apa pun, jalankan prosedur sinkroni
     }
   }
   function reset() {if(activeTabLoader){activeTabLoader.stop();activeTabLoader=null;}revision++;controller.abort();controller=new AbortController();clearAccess();current='';filters={};preset={};accounts=[];strategies=[];root?.replaceChildren();status=null;content=null;}
-  global.JTPRO={features,configure(value){reset();options={...value};},open,reset,verifyAccess,request,aggregateSeries,safeLink,getGeminiApiKey,setGeminiApiKey,hasGeminiApiKey,callGeminiApi,getRandomizedModelsPool,modelsPool:GEMINI_MODELS_POOL,getChatSystemPrompt,getChatHistoryList,saveStoredChatHistory,clearChatHistory,renderMarkdown,renderMarkdownInto,openGeminiConfigModal,createLiquidLoader,createProModernLoader,get access(){return access;},get current(){return current;}};
+  global.JTPRO={features,configure(value){reset();options={...value};},open,reset,verifyAccess,request,aggregateSeries,safeLink,getGeminiApiKey,setGeminiApiKey,hasGeminiApiKey,callGeminiApi,getRandomizedModelsPool,modelsPool:GEMINI_MODELS_POOL,extractGeminiResponseText,isThoughtArtifactText,getChatSystemPrompt,getChatHistoryList,saveStoredChatHistory,clearChatHistory,renderMarkdown,renderMarkdownInto,openGeminiConfigModal,createLiquidLoader,createProModernLoader,get access(){return access;},get current(){return current;}};
 })(window);

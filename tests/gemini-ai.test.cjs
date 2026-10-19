@@ -231,12 +231,16 @@ const server=http.createServer(async(req,res)=>{
   assert.ok(lastJournalReq.postData.systemInstruction.parts[0].text.includes('Senior Trading Journal Analyst'));
   assert.ok(lastJournalReq.postData.systemInstruction.parts[0].text.includes('Winrate'));
 
-  // 6. Test Module 4: AI Chat (interactive 2-way conversation with context retention)
+  // 6. Test Module 4: AI Chat (interactive 2-way conversation with context retention & thought filtering)
   geminiMockResponse = {
     candidates:[
       {
         content:{
           parts:[
+            {
+              thought: true,
+              text: `• User says: "hi ai chat."\n• Context: I am Kayla AI, a professional AI Trading Assistant & Financial Mentor\n• Tone: Friendly, polite`
+            },
             {
               text:`Halo! Sebagai Asisten AI Trading, saya siap membantu Anda memahami konsep pasar seperti pemetaan **Support Become Resistance (SBR)** atau manajemen risiko.`
             }
@@ -251,6 +255,8 @@ const server=http.createServer(async(req,res)=>{
   await page.waitForSelector('.pro-chat-message[data-role="assistant"] .pro-markdown');
   const chatBubbleText = await page.locator('.pro-chat-message[data-role="assistant"]').textContent();
   assert.ok(chatBubbleText.includes('Support Become Resistance (SBR)'));
+  assert.ok(!chatBubbleText.includes('Context: I am Kayla AI'), 'Internal thought part must be filtered out');
+  assert.ok(!chatBubbleText.includes('• User says:'), 'Bullet thought reasoning must not leak into chat');
 
   const lastChatReq = geminiRequests[geminiRequests.length - 1];
   assert.ok(lastChatReq.postData.systemInstruction.parts[0].text.includes('Asisten AI Trading'));
@@ -258,6 +264,7 @@ const server=http.createServer(async(req,res)=>{
   assert.ok(lastChatReq.postData.systemInstruction.parts[0].text.includes('DILARANG KERAS MEMBAHAS CODING'));
   assert.ok(lastChatReq.postData.systemInstruction.parts[0].text.includes('POLITIK BERBAHAYA'));
   assert.ok(lastChatReq.postData.systemInstruction.parts[0].text.includes('Konteks Lokasi & Waktu Pengguna'));
+  assert.ok(lastChatReq.postData.systemInstruction.parts[0].text.includes('Instruksi Format Output & Larangan Bocor Chain-of-Thought'));
   assert.equal(lastChatReq.postData.contents[0].parts[0].text,'Bagaimana cara validasi SBR menurut Kaystrade?');
 
   // Test chat context preservation on follow-up message
