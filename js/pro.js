@@ -549,6 +549,8 @@ Gaya Komunikasi:
     if (!wrap || !selectEl || wrap.classList.contains('sr-only-compat') || selectEl.id === 'pro-section-selector') return;
     wrap.classList.add('custom-select-container');
     selectEl.classList.add('custom-select-native');
+    selectEl.tabIndex = -1;
+    selectEl.setAttribute('aria-hidden', 'true');
 
     const trigger = node('button', null, 'custom-select-trigger-btn');
     trigger.type = 'button';
@@ -559,6 +561,7 @@ Gaya Komunikasi:
     chevron.classList.add('custom-select-chevron');
     trigger.append(labelSpan, chevron);
 
+    const backdrop = node('div', null, 'custom-select-backdrop');
     const menu = node('div', null, 'custom-select-dropdown-menu');
     menu.setAttribute('role', 'listbox');
 
@@ -575,6 +578,23 @@ Gaya Komunikasi:
 
     function renderOptions() {
       menu.replaceChildren();
+      const sheetHandle = node('div', null, 'custom-select-sheet-handle');
+      const sheetHeader = node('div', null, 'custom-select-sheet-header');
+      const labelText = wrap.querySelector('label, span')?.textContent || 'Pilih Opsi';
+      sheetHeader.append(node('span', labelText, 'custom-select-sheet-title'));
+      const closeBtn = node('button', null, 'custom-select-sheet-close');
+      closeBtn.type = 'button';
+      closeBtn.setAttribute('aria-label', 'Tutup');
+      closeBtn.append(createProSvg('x'));
+      closeBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        closeMenu();
+      });
+      sheetHeader.append(closeBtn);
+      menu.append(sheetHandle, sheetHeader);
+
+      const itemsWrap = node('div', null, 'custom-select-options-list');
       for (const opt of selectEl.options) {
         if (opt.hidden) continue;
         const item = node('button', null, 'custom-select-option');
@@ -593,8 +613,9 @@ Gaya Komunikasi:
           closeMenu();
           selectEl.dispatchEvent(new Event('change', { bubbles: true }));
         });
-        menu.append(item);
+        itemsWrap.append(item);
       }
+      menu.append(itemsWrap);
       syncLabel();
     }
 
@@ -605,15 +626,19 @@ Gaya Komunikasi:
           m.classList.remove('is-open');
           const t = m.parentElement?.querySelector('.custom-select-trigger-btn');
           if (t) t.setAttribute('aria-expanded', 'false');
+          const b = m.parentElement?.querySelector('.custom-select-backdrop');
+          if (b) b.classList.remove('is-open');
         }
       });
       renderOptions();
       menu.classList.add('is-open');
+      backdrop.classList.add('is-open');
       trigger.setAttribute('aria-expanded', 'true');
     }
 
     function closeMenu() {
       menu.classList.remove('is-open');
+      backdrop.classList.remove('is-open');
       trigger.setAttribute('aria-expanded', 'false');
     }
 
@@ -622,6 +647,12 @@ Gaya Komunikasi:
       e.stopPropagation();
       if (menu.classList.contains('is-open')) closeMenu();
       else openMenu();
+    });
+
+    backdrop.addEventListener('click', (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      closeMenu();
     });
 
     document.addEventListener('click', (e) => {
@@ -640,7 +671,7 @@ Gaya Komunikasi:
     }
 
     renderOptions();
-    wrap.append(trigger, menu);
+    wrap.append(trigger, menu, backdrop);
   }
   const PRO_NAV_METADATA = {
     analytics: { group: 'Analysis', icon: 'chart', desc: 'KPI, kurva drawdown & win rate' },
@@ -2274,15 +2305,35 @@ Gaya Komunikasi:
     controlsGrid.append(pairSearchWrapper, instrument.wrap);
 
     // 2. Trading Style Select
-    const styleWrap = node('div');
-    styleWrap.append(node('label', 'Strategi Trading (Intraday & Scalping + FastBull Entry)'));
-    const style = select('Trading style', [['', 'Select trading style'], ['INTRADAY', 'INTRADAY (Max 24h · H4->H1->M30 · RR 1:2.5-3.2)'], ['SCALPING', 'SCALPING (Fast M15/M30 · Tight Base · RR 1:2.0-2.4)'], ['SWING', 'SWING (Hold until TP/SL · H4/D1 · RR 1:3.5-4.0)']], savedStyle, 'pro-market-style');
-    styleWrap.append(style.input);
+    const styleWrap = node('div', null, 'field-group pro-control-field');
+    const styleLabel = node('label', 'Strategi Trading (Intraday & Scalping + FastBull Entry)');
+    styleLabel.setAttribute('for', 'pro-market-style');
+    styleWrap.append(styleLabel);
+    const styleSelect = node('select');
+    styleSelect.id = 'pro-market-style';
+    const styleOptions = [
+      ['', 'Pilih Strategi Trading'],
+      ['INTRADAY', 'INTRADAY (Max 24h · H4->H1->M30 · RR 1:2.5-3.2)'],
+      ['SCALPING', 'SCALPING (Fast M15/M30 · Tight Base · RR 1:2.0-2.4)'],
+      ['SWING', 'SWING (Hold until TP/SL · H4/D1 · RR 1:3.5-4.0)']
+    ];
+    styleOptions.forEach(([val, lbl]) => {
+      const opt = node('option', lbl);
+      opt.value = val;
+      if (val === savedStyle) opt.selected = true;
+      styleSelect.append(opt);
+    });
+    styleSelect.value = savedStyle;
+    styleWrap.append(styleSelect);
+    enhanceProSelect(styleWrap, styleSelect);
+    const style = { wrap: styleWrap, input: styleSelect };
     controlsGrid.append(styleWrap);
 
     // 3. Mode Penentuan Entry FastBull (list-position)
-    const fastbullWrap = node('div');
-    fastbullWrap.append(node('label', 'Mode Penentuan Entry FastBull (list-position)'));
+    const fastbullWrap = node('div', null, 'field-group pro-control-field');
+    const fbLabel = node('label', 'Mode Penentuan Entry FastBull (list-position)');
+    fbLabel.setAttribute('for', 'fastbullModeSelect');
+    fastbullWrap.append(fbLabel);
     const fastbullModeSelect = node('select');
     fastbullModeSelect.id = 'fastbullModeSelect';
     const fbOptions = [
@@ -2297,11 +2348,14 @@ Gaya Komunikasi:
     });
     fastbullModeSelect.addEventListener('change', () => evaluateKaystradeEngine(true));
     fastbullWrap.append(fastbullModeSelect);
+    enhanceProSelect(fastbullWrap, fastbullModeSelect);
     controlsGrid.append(fastbullWrap);
 
     // 4. Chart Mode Select
-    const modeWrap = node('div');
-    modeWrap.append(node('label', 'Mode Tampilan Chart (16:9)'));
+    const modeWrap = node('div', null, 'field-group pro-control-field');
+    const modeLabel = node('label', 'Mode Tampilan Chart (16:9)');
+    modeLabel.setAttribute('for', 'chartModeSelect');
+    modeWrap.append(modeLabel);
     const chartModeSelect = node('select');
     chartModeSelect.id = 'chartModeSelect';
     const optLW = node('option', 'Kaystrade 16:9 Engine (500 Bars)');
@@ -2311,6 +2365,7 @@ Gaya Komunikasi:
     chartModeSelect.append(optLW, optTV);
     chartModeSelect.addEventListener('change', toggleChartMode);
     modeWrap.append(chartModeSelect);
+    enhanceProSelect(modeWrap, chartModeSelect);
     controlsGrid.append(modeWrap);
 
     // Bar Penjelasan Parameter Strategi Aktif
@@ -4273,7 +4328,7 @@ Gunakan data dari https://www.fastbull.com/list-position sebagai filter konfirma
         if (sequence !== contextSequence || selection.instrument !== instrument.input.value || selection.timeframe !== selectedFrame) return;
         context = data;
         freshness.textContent = [data.data_freshness, data.delayed ? 'Delayed ' + data.delay_seconds + ' seconds' : '', data.current_price !== undefined ? 'Last recorded price: ' + data.current_price : '', data.as_of, data.provider].filter(Boolean).join(' · ');
-        activeFeedInfo.textContent = freshness.textContent;
+        activeFeedInfo.textContent = 'Feed: ' + (data.provider || 'Live Stream') + ' (' + selection.instrument + ' · ' + selectedFrame.toUpperCase() + ' · 16:9)';
         evidencePanel.replaceChildren();
         evidencePanel.append(node('h2', 'Technical evidence'));
         disclosure(evidencePanel, 'Closed-bar Kaystrade calculations', data.kaystrade);
@@ -4284,7 +4339,7 @@ Gunakan data dari https://www.fastbull.com/list-position sebagai filter konfirma
         if (sequence !== contextSequence || selection.instrument !== instrument.input.value || selection.timeframe !== selectedFrame) return;
         if (error.name !== 'AbortError') {
           freshness.textContent = 'Live Market Feed Active (' + selection.instrument + ' · ' + selectedFrame.toUpperCase() + ')';
-          activeFeedInfo.textContent = freshness.textContent;
+          activeFeedInfo.textContent = 'Feed: ' + (currentPairObj.provider || 'Live Feed') + ' (' + selection.instrument + ' · ' + selectedFrame.toUpperCase() + ' · 16:9)';
           generate.dataset.unavailable = 'false';
           generate.disabled = false;
         }
