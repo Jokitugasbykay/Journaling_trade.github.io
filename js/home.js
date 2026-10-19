@@ -1227,71 +1227,71 @@
      6. INTERACTIVE 6-YEAR PRODUCT STORYLINE TIMELINE ROADMAP
      ======================================================== */
   (function initTimelineRoadmap() {
-    const viewport = document.getElementById('timeline-slider-viewport');
-    const prevBtn = document.getElementById('timeline-prev-btn');
-    const nextBtn = document.getElementById('timeline-next-btn');
-    const progressIndicator = document.getElementById('timeline-progress-indicator');
-    if (!viewport) return;
+    const section = document.getElementById('home-product-timeline');
+    const viewport = document.getElementById('timeline-sticky-viewport');
+    const track = document.getElementById('timeline-slider-track');
+    const railLine = document.getElementById('timeline-rail-line');
+    if (!section || !viewport || !track) return;
 
-    function updateProgress() {
-      const maxScroll = viewport.scrollWidth - viewport.clientWidth;
-      if (maxScroll <= 0) {
-        if (progressIndicator) progressIndicator.style.width = '100%';
-        return;
+    function updateScrub() {
+      const rect = section.getBoundingClientRect();
+      const scrollable = section.offsetHeight - window.innerHeight;
+      if (scrollable <= 0) return;
+
+      const progress = Math.min(1, Math.max(0, -rect.top / scrollable));
+      const totalTrackWidth = track.scrollWidth;
+      const viewportWidth = window.innerWidth;
+      const maxTranslate = Math.max(0, totalTrackWidth - viewportWidth + (viewportWidth * 0.08));
+      const currentTranslate = progress * maxTranslate;
+
+      track.style.transform = 'translate3d(-' + currentTranslate.toFixed(1) + 'px, 0, 0)';
+
+      if (railLine) {
+        const isMobile = window.innerWidth < 600;
+        const baseWidth = isMobile ? 190 : 250;
+        const totalLineSpan = maxTranslate * 0.9;
+        const currentWidth = baseWidth + (progress * totalLineSpan);
+        railLine.style.width = currentWidth.toFixed(0) + 'px';
       }
-      const ratio = Math.min(1, Math.max(0, viewport.scrollLeft / maxScroll));
-      const pct = Math.round(15 + ratio * 85);
-      if (progressIndicator) {
-        progressIndicator.style.width = pct + '%';
-      }
     }
 
-    viewport.addEventListener('scroll', updateProgress, { passive: true });
+    window.addEventListener('scroll', updateScrub, { passive: true });
+    window.addEventListener('resize', updateScrub);
 
-    if (prevBtn) {
-      prevBtn.addEventListener('click', () => {
-        viewport.scrollBy({ left: -340, behavior: 'smooth' });
-      });
-    }
-
-    if (nextBtn) {
-      nextBtn.addEventListener('click', () => {
-        viewport.scrollBy({ left: 340, behavior: 'smooth' });
-      });
-    }
-
-    // Horizontal wheel scroll when hovering over viewport
+    // Smooth wheel scroll support when hovering over viewport
     viewport.addEventListener('wheel', (e) => {
-      if (Math.abs(e.deltaY) > Math.abs(e.deltaX) && Math.abs(e.deltaY) > 6) {
-        viewport.scrollLeft += e.deltaY;
-        e.preventDefault();
+      if (Math.abs(e.deltaY) > 3) {
+        const rect = section.getBoundingClientRect();
+        if (rect.top <= 2 && rect.bottom >= window.innerHeight - 2) {
+          window.scrollBy({ top: e.deltaY * 1.25, behavior: 'auto' });
+          e.preventDefault();
+        }
       }
     }, { passive: false });
 
-    // Mouse drag support for smooth desktop scrub
-    let isDown = false;
-    let startX = 0;
-    let scrollStart = 0;
+    // Touch swipe support for horizontal scrub on mobile devices
+    let touchStartX = 0;
+    let touchStartY = 0;
 
-    viewport.addEventListener('mousedown', (e) => {
-      isDown = true;
-      startX = e.pageX - viewport.offsetLeft;
-      scrollStart = viewport.scrollLeft;
-    });
+    viewport.addEventListener('touchstart', (e) => {
+      if (e.touches && e.touches.length === 1) {
+        touchStartX = e.touches[0].clientX;
+        touchStartY = e.touches[0].clientY;
+      }
+    }, { passive: true });
 
-    window.addEventListener('mouseup', () => {
-      isDown = false;
-    });
+    viewport.addEventListener('touchmove', (e) => {
+      if (e.touches && e.touches.length === 1) {
+        const dx = touchStartX - e.touches[0].clientX;
+        const dy = touchStartY - e.touches[0].clientY;
+        if (Math.abs(dx) > Math.abs(dy) && Math.abs(dx) > 6) {
+          window.scrollBy({ top: dx * 1.35, behavior: 'auto' });
+        }
+      }
+    }, { passive: true });
 
-    viewport.addEventListener('mousemove', (e) => {
-      if (!isDown) return;
-      e.preventDefault();
-      const x = e.pageX - viewport.offsetLeft;
-      const walk = (x - startX) * 1.5;
-      viewport.scrollLeft = scrollStart - walk;
-    });
-
-    updateProgress();
+    // Initial position on load
+    updateScrub();
   })();
 
   updateMotionState();

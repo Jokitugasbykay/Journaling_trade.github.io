@@ -185,13 +185,13 @@ const allJourneyItems: JourneyItem[] = [
 
 export default function Timeline({
   title = "Product Storyline",
-  periodLabel = "2020-2026",
-  textColor = "var(--color-foreground, #000000)",
-  mutedTextColor = "var(--color-muted-foreground, #3f3f46)",
+  periodLabel = "2020 - 2026",
+  textColor = "var(--color-foreground, #ffffff)",
+  mutedTextColor = "var(--color-muted-foreground, #a1a1aa)",
   activeColor = "#ff5f00",
-  backgroundColor = "var(--color-background, #ffffff)",
-  imageUrl = "https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=1200&q=80",
-  imageAlt = "Modern office workspace",
+  backgroundColor = "var(--color-background, #000000)",
+  imageUrl = "https://cdn.21st.dev/assets/mirror/b0/b0c41784074f76ac5fb6b447da87780c901135841317a096241371f24bc13ddd.jpg",
+  imageAlt = "Product Storyline isometric 3D glass cuboids",
   duration,
   scrollDuration = 1.2,
 }: TimelineProps) {
