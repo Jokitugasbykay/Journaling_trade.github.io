@@ -3690,9 +3690,9 @@
    "countryCode": "EU",
    "nama": "Current Account (Aug)",
    "dmp": 1,
-   "akt": "",
+   "akt": "8.7B",
    "prk": "29.2B",
-   "sbl": "27.6B",
+   "sbl": "27.2B",
    "cat": "",
    "source": "https://www.investing.com/economic-calendar/"
   },
@@ -3704,9 +3704,23 @@
    "countryCode": "EU",
    "nama": "Current Account n.s.a. (Aug)",
    "dmp": 1,
-   "akt": "",
+   "akt": "7.7B",
    "prk": "",
-   "sbl": "36.5B",
+   "sbl": "35.9B",
+   "cat": "",
+   "source": "https://www.investing.com/economic-calendar/"
+  },
+  {
+   "id": "559228",
+   "tgl": "2026-10-20",
+   "jam": "15:00",
+   "neg": "EUR",
+   "countryCode": "ES",
+   "nama": "Spanish Trade Balance (Aug)",
+   "dmp": 1,
+   "akt": "-5.98B",
+   "prk": "",
+   "sbl": "-5.22B",
    "cat": "",
    "source": "https://www.investing.com/economic-calendar/"
   },
@@ -3749,20 +3763,6 @@
    "akt": "",
    "prk": "30.2",
    "sbl": "34.7",
-   "cat": "",
-   "source": "https://www.investing.com/economic-calendar/"
-  },
-  {
-   "id": "559228",
-   "tgl": "2026-10-20",
-   "jam": "16:00",
-   "neg": "EUR",
-   "countryCode": "ES",
-   "nama": "Spanish Trade Balance (Aug)",
-   "dmp": 1,
-   "akt": "",
-   "prk": "",
-   "sbl": "-5.22B",
    "cat": "",
    "source": "https://www.investing.com/economic-calendar/"
   },
@@ -6021,10 +6021,10 @@
    "source": "https://www.forexfactory.com/calendar?day=oct30.2026#detail=150083"
   }
  ],
- "updated": "2026-10-20T08:01:04.619480+00:00",
+ "updated": "2026-10-20T08:57:55.449651+00:00",
  "source": "https://www.forexfactory.com/calendar?month=oct.2026",
  "status": "ok",
- "checkedAt": "2026-10-20T08:01:04.619480+00:00",
+ "checkedAt": "2026-10-20T08:57:55.449651+00:00",
  "coverageStart": "2026-10-01",
  "coverageEnd": "2026-10-31",
  "agenda": [
