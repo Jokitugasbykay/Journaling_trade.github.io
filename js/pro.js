@@ -2817,7 +2817,25 @@ Instruksi Format Output & Larangan Bocor Chain-of-Thought dan Perencanaan Rules 
     const initialBalance = Math.max(10, Number(config.initialBalance) || 1000);
     const riskPercent = Math.max(0.1, Math.min(10, Number(config.riskPercent) || 2.0));
     const tradingStyle = String(config.tradingStyle || 'INTRADAY').toUpperCase();
-    const defaultRR = tradingStyle === 'SCALPING' ? 2.0 : tradingStyle === 'SWING' ? 3.5 : 2.5;
+
+    // Style-specific calibrated parameters according to Kaystrade rules
+    let defaultRR = 2.0;
+    let beTriggerR = 1.2;
+    let maxHoldBars = 48;
+    let slAtrMult = 1.35;
+
+    if (tradingStyle === 'SCALPING') {
+      defaultRR = 1.6;
+      beTriggerR = 1.15;
+      maxHoldBars = 24;
+      slAtrMult = 1.2;
+    } else if (tradingStyle === 'SWING') {
+      defaultRR = 2.6;
+      beTriggerR = 1.35;
+      maxHoldBars = 72;
+      slAtrMult = 1.45;
+    }
+
     const targetRR = Math.max(1.0, Number(config.targetRR) || defaultRR);
     const instrument = String(config.instrument || 'XAUUSD').toUpperCase();
     const timeframe = String(config.timeframe || '15m').toLowerCase();
@@ -2835,6 +2853,55 @@ Instruksi Format Output & Larangan Bocor Chain-of-Thought dan Perencanaan Rules 
       candles = candles.slice(-500);
     }
 
+    // Precalculate EMAs & ATR
+    const closes = candles.map(c => Number(c.close));
+    const calcEmaSeries = (period) => {
+      const k = 2 / (period + 1);
+      const res = [closes[0]];
+      for (let idx = 1; idx < closes.length; idx++) {
+        res.push(closes[idx] * k + res[idx - 1] * (1 - k));
+      }
+      return res;
+    };
+    const ema10 = calcEmaSeries(10);
+    const ema20 = calcEmaSeries(20);
+
+    const atrs = [];
+    for (let idx = 0; idx < candles.length; idx++) {
+      if (idx === 0) {
+        atrs.push(Number(candles[idx].high) - Number(candles[idx].low));
+        continue;
+      }
+      const tr = Math.max(
+        Number(candles[idx].high) - Number(candles[idx].low),
+        Math.abs(Number(candles[idx].high) - Number(candles[idx - 1].close)),
+        Math.abs(Number(candles[idx].low) - Number(candles[idx - 1].close))
+      );
+      atrs.push(atrs[idx - 1] * 0.88 + tr * 0.12);
+    }
+
+    // RSI(14) with SMA(14) series
+    const rsiSeries = [];
+    let gains = 0, lossesArr = 0;
+    for (let idx = 1; idx <= 14; idx++) {
+      const diff = closes[idx] - closes[idx - 1];
+      if (diff >= 0) gains += diff; else lossesArr -= diff;
+    }
+    let ag = gains / 14, al = lossesArr / 14;
+    rsiSeries[14] = al === 0 ? 100 : 100 - (100 / (1 + ag / al));
+    for (let idx = 15; idx < closes.length; idx++) {
+      const diff = closes[idx] - closes[idx - 1];
+      ag = (ag * 13 + (diff > 0 ? diff : 0)) / 14;
+      al = (al * 13 + (diff < 0 ? -diff : 0)) / 14;
+      rsiSeries[idx] = al === 0 ? 100 : 100 - (100 / (1 + ag / al));
+    }
+    const rsiSmaSeries = [];
+    for (let idx = 27; idx < rsiSeries.length; idx++) {
+      let sum = 0;
+      for (let j = 0; j < 14; j++) sum += rsiSeries[idx - j] || 50;
+      rsiSmaSeries[idx] = sum / 14;
+    }
+
     let currentEquity = initialBalance;
     let peakEquity = initialBalance;
     let maxDrawdown = 0;
@@ -2842,47 +2909,54 @@ Instruksi Format Output & Larangan Bocor Chain-of-Thought dan Perencanaan Rules 
     const equityCurve = [{ tradeIndex: 0, time: candles[0]?.time || 0, equity: initialBalance }];
 
     let activeTrade = null;
-    const maxHoldBars = tradingStyle === 'SCALPING' ? 24 : tradingStyle === 'SWING' ? 120 : (timeframe === '15m' ? 96 : 48);
 
     for (let i = 35; i < candles.length; i++) {
       const c = candles[i];
       const prev = candles[i - 1];
+      const curAtr = atrs[i] || (Number(c.close) * 0.002);
 
       if (activeTrade) {
         activeTrade.barsHeld++;
         const isLong = activeTrade.direction === 'BUY';
         let exitPrice = null;
         let outcome = null;
+        const curRiskDist = Math.abs(activeTrade.entry - activeTrade.initialSL) || 0.0001;
+        const favorableDist = isLong ? (Number(c.high) - activeTrade.entry) : (activeTrade.entry - Number(c.low));
+
+        // Breakeven trailing protection when favorable movement reaches beTriggerR
+        if (!activeTrade.beActivated && favorableDist >= curRiskDist * beTriggerR) {
+          activeTrade.beActivated = true;
+          activeTrade.sl = activeTrade.entry;
+        }
 
         if (isLong) {
-          if (c.low <= activeTrade.sl) {
+          if (Number(c.low) <= activeTrade.sl) {
             exitPrice = activeTrade.sl;
-            outcome = 'LOSS';
-          } else if (c.high >= activeTrade.tp) {
+            outcome = activeTrade.beActivated ? 'BE' : 'LOSS';
+          } else if (Number(c.high) >= activeTrade.tp) {
             exitPrice = activeTrade.tp;
             outcome = 'WIN';
           } else if (activeTrade.barsHeld >= maxHoldBars) {
-            exitPrice = c.close;
-            outcome = exitPrice >= activeTrade.entry ? (exitPrice > activeTrade.entry ? 'WIN' : 'BE') : 'LOSS';
+            exitPrice = Number(c.close);
+            outcome = exitPrice > activeTrade.entry ? 'WIN' : (activeTrade.beActivated ? 'BE' : 'LOSS');
           }
         } else {
-          if (c.high >= activeTrade.sl) {
+          if (Number(c.high) >= activeTrade.sl) {
             exitPrice = activeTrade.sl;
-            outcome = 'LOSS';
-          } else if (c.low <= activeTrade.tp) {
+            outcome = activeTrade.beActivated ? 'BE' : 'LOSS';
+          } else if (Number(c.low) <= activeTrade.tp) {
             exitPrice = activeTrade.tp;
             outcome = 'WIN';
           } else if (activeTrade.barsHeld >= maxHoldBars) {
-            exitPrice = c.close;
-            outcome = exitPrice <= activeTrade.entry ? (exitPrice < activeTrade.entry ? 'WIN' : 'BE') : 'LOSS';
+            exitPrice = Number(c.close);
+            outcome = exitPrice < activeTrade.entry ? 'WIN' : (activeTrade.beActivated ? 'BE' : 'LOSS');
           }
         }
 
         if (outcome !== null) {
-          const riskDist = Math.abs(activeTrade.entry - activeTrade.sl) || 0.0001;
           const rewardDist = isLong ? (exitPrice - activeTrade.entry) : (activeTrade.entry - exitPrice);
-          const pnlRatio = rewardDist / riskDist;
-          const pnl = activeTrade.riskAmount * pnlRatio;
+          const pnlRatio = rewardDist / curRiskDist;
+          const pnl = +(activeTrade.riskAmount * pnlRatio).toFixed(2);
 
           currentEquity = +(currentEquity + pnl).toFixed(2);
           if (currentEquity > peakEquity) peakEquity = currentEquity;
@@ -2895,11 +2969,11 @@ Instruksi Format Output & Larangan Bocor Chain-of-Thought dan Perencanaan Rules 
             entryTime: activeTrade.entryTime,
             exitTime: c.time,
             entryPrice: activeTrade.entry,
-            slPrice: activeTrade.sl,
+            slPrice: activeTrade.initialSL,
             tpPrice: activeTrade.tp,
             exitPrice: +exitPrice.toFixed(getDecimals(exitPrice)),
             riskAmount: activeTrade.riskAmount,
-            pnl: +pnl.toFixed(2),
+            pnl,
             returnPct: +((pnl / activeTrade.equityAtEntry) * 100).toFixed(2),
             outcome,
             equity: currentEquity,
@@ -2917,65 +2991,65 @@ Instruksi Format Output & Larangan Bocor Chain-of-Thought dan Perencanaan Rules 
         continue;
       }
 
-      const windowCandles = candles.slice(i - 30, i + 1);
-      const rsiObj = calcRSIWithSMA14(windowCandles);
-      const rsi = rsiObj.rsi;
-      const sma = rsiObj.sma;
+      // Rolling 20-bar structure & Key Pivot
+      const recent20 = candles.slice(i - 20, i);
+      const swingHigh = Math.max(...recent20.map(x => Number(x.high)));
+      const swingLow = Math.min(...recent20.map(x => Number(x.low)));
+      const keyPivot = (swingHigh + swingLow + Number(recent20[recent20.length - 1].close)) / 3;
 
-      const recent15 = candles.slice(i - 15, i);
-      const swingHigh = Math.max(...recent15.map(x => x.high));
-      const swingLow = Math.min(...recent15.map(x => x.low));
-      const baseSpread = swingHigh - swingLow;
-      const avgRange = recent15.reduce((sum, x) => sum + (x.high - x.low), 0) / recent15.length;
+      const curRsi = rsiSeries[i] || 50;
+      const curRsiSma = rsiSmaSeries[i] || 50;
+      const isBull = ema10[i] > ema20[i];
+      const isBear = ema10[i] < ema20[i];
 
-      const sma10 = candles.slice(i - 10, i + 1).reduce((s, x) => s + x.close, 0) / 11;
-      const sma25 = candles.slice(i - 25, i + 1).reduce((s, x) => s + x.close, 0) / 26;
+      const recent6 = candles.slice(i - 6, i);
+      const localH = Math.max(...recent6.map(x => Number(x.high)));
+      const localL = Math.min(...recent6.map(x => Number(x.low)));
+
+      const bodySize = Math.abs(Number(c.close) - Number(c.open));
+      const totalRange = Number(c.high) - Number(c.low) || 0.0001;
+      const strongBody = bodySize / totalRange >= 0.35;
+
+      const buyBreakout = isBull && Number(c.close) >= keyPivot && Number(c.close) > localH && strongBody && curRsi > curRsiSma && curRsi >= 40 && curRsi <= 76;
+      const buyRejection = isBull && Number(c.close) >= keyPivot && Number(c.low) <= (Number(prev.low) + curAtr * 0.25) && Number(c.close) > Number(c.open) && curRsi >= 38 && curRsi <= 72;
+
+      const sellBreakout = isBear && Number(c.close) <= keyPivot && Number(c.close) < localL && strongBody && curRsi < curRsiSma && curRsi <= 60 && curRsi >= 24;
+      const sellRejection = isBear && Number(c.close) <= keyPivot && Number(c.high) >= (Number(prev.high) - curAtr * 0.25) && Number(c.close) < Number(c.open) && curRsi <= 62 && curRsi >= 28;
 
       let signalDir = null;
       let signalReason = '';
 
-      const isBreakoutBuy = c.close > swingHigh && prev.close <= swingHigh && rsi > sma && rsi < 68 && sma10 >= sma25;
-      const isRetestBuy = c.low <= swingLow + baseSpread * 0.25 && c.close > c.open && rsi > 40 && rsi < 65 && sma10 >= sma25;
-
-      const isBreakdownSell = c.close < swingLow && prev.close >= swingLow && rsi < sma && rsi > 32 && sma10 <= sma25;
-      const isRetestSell = c.high >= swingHigh - baseSpread * 0.25 && c.close < c.open && rsi < 60 && rsi > 35 && sma10 <= sma25;
-
-      if (isBreakoutBuy) {
+      if (buyBreakout) {
         signalDir = 'BUY';
-        signalReason = 'Base breakout di atas swing high (' + fmtPrice(swingHigh) + ') + RSI(' + rsi.toFixed(1) + ') > SMA';
-      } else if (isRetestBuy) {
+        signalReason = 'Breakout momentum di atas Key Pivot (' + fmtPrice(keyPivot) + ') + Bullish EMA + RSI(' + curRsi.toFixed(1) + ') > SMA';
+      } else if (buyRejection) {
         signalDir = 'BUY';
-        signalReason = 'Retest demand rejection di level ' + fmtPrice(swingLow) + ' + candle bullish close';
-      } else if (isBreakdownSell) {
+        signalReason = 'Retest demand rejection di atas Key Pivot + Bullish candlestick close';
+      } else if (sellBreakout) {
         signalDir = 'SELL';
-        signalReason = 'Base breakdown di bawah swing low (' + fmtPrice(swingLow) + ') + RSI(' + rsi.toFixed(1) + ') < SMA';
-      } else if (isRetestSell) {
+        signalReason = 'Breakdown momentum di bawah Key Pivot (' + fmtPrice(keyPivot) + ') + Bearish EMA + RSI(' + curRsi.toFixed(1) + ') < SMA';
+      } else if (sellRejection) {
         signalDir = 'SELL';
-        signalReason = 'Retest supply rejection di level ' + fmtPrice(swingHigh) + ' + candle bearish close';
+        signalReason = 'Retest supply rejection di bawah Key Pivot + Bearish candlestick close';
       }
 
       if (signalDir) {
-        const entryPrice = c.close;
+        const entryPrice = Number(c.close);
+        const slDist = Math.max(curAtr * slAtrMult, curAtr * 0.85);
         let slPrice = 0;
         let tpPrice = 0;
 
         if (signalDir === 'BUY') {
-          const rawSL = Math.min(swingLow, entryPrice - avgRange * 1.5);
-          slPrice = rawSL;
-          if (isGold && (entryPrice - slPrice) > 100) {
-            slPrice = entryPrice - 100;
-          }
-          const riskDist = Math.max(entryPrice * 0.001, entryPrice - slPrice);
-          tpPrice = +(entryPrice + riskDist * targetRR).toFixed(getDecimals(entryPrice));
+          slPrice = entryPrice - slDist;
+          if (isGold && (entryPrice - slPrice) > 100) slPrice = entryPrice - 100;
+          const actualRisk = Math.max(entryPrice * 0.001, entryPrice - slPrice);
+          tpPrice = +(entryPrice + actualRisk * targetRR).toFixed(getDecimals(entryPrice));
           slPrice = +(slPrice).toFixed(getDecimals(entryPrice));
         } else {
-          const rawSL = Math.max(swingHigh, entryPrice + avgRange * 1.5);
-          slPrice = rawSL;
-          if (isGold && (slPrice - entryPrice) > 100) {
-            slPrice = entryPrice + 100;
-          }
-          const riskDist = Math.max(entryPrice * 0.001, slPrice - entryPrice);
-          tpPrice = +(entryPrice - riskDist * targetRR).toFixed(getDecimals(entryPrice));
+          slPrice = entryPrice + slDist;
+          if (isGold && (slPrice - entryPrice) > 100) slPrice = entryPrice + 100;
+          const actualRisk = Math.max(entryPrice * 0.001, slPrice - entryPrice);
+          tpPrice = +(entryPrice - actualRisk * targetRR).toFixed(getDecimals(entryPrice));
           slPrice = +(slPrice).toFixed(getDecimals(entryPrice));
         }
 
@@ -2984,12 +3058,14 @@ Instruksi Format Output & Larangan Bocor Chain-of-Thought dan Perencanaan Rules 
         activeTrade = {
           direction: signalDir,
           entry: entryPrice,
+          initialSL: slPrice,
           sl: slPrice,
           tp: tpPrice,
           entryTime: c.time,
           equityAtEntry: currentEquity,
           riskAmount,
           barsHeld: 0,
+          beActivated: false,
           reason: signalReason
         };
       }
@@ -3240,7 +3316,7 @@ Instruksi Format Output & Larangan Bocor Chain-of-Thought dan Perencanaan Rules 
     fStyle.append(node('label', 'Trading Style'));
     const sStyle = node('select');
     sStyle.id = 'btStyleSelect';
-    [['INTRADAY', 'Intraday (RR 1:2.5)'], ['SCALPING', 'Scalping (RR 1:2.0)'], ['SWING', 'Swing (RR 1:3.5)']].forEach(([val, lbl]) => {
+    [['INTRADAY', 'Intraday (RR 1:2.0 - Breakeven Lock)'], ['SCALPING', 'Scalping (RR 1:1.6 - High WR Momentum)'], ['SWING', 'Swing (RR 1:2.6 - Multi-Day Trailing)']].forEach(([val, lbl]) => {
       const opt = node('option', lbl);
       opt.value = val;
       if (val === selectedStyle) opt.selected = true;
@@ -3274,14 +3350,14 @@ Instruksi Format Output & Larangan Bocor Chain-of-Thought dan Perencanaan Rules 
     const inRR = node('input');
     inRR.type = 'number';
     inRR.id = 'btRRInput';
-    inRR.value = selectedStyle === 'SCALPING' ? '2.0' : selectedStyle === 'SWING' ? '3.5' : '2.5';
+    inRR.value = selectedStyle === 'SCALPING' ? '1.6' : selectedStyle === 'SWING' ? '2.6' : '2.0';
     inRR.step = '0.1';
     inRR.min = '1.0';
     fRR.append(inRR);
 
     sStyle.addEventListener('change', () => {
       const cur = sStyle.value;
-      inRR.value = cur === 'SCALPING' ? '2.0' : cur === 'SWING' ? '3.5' : '2.5';
+      inRR.value = cur === 'SCALPING' ? '1.6' : cur === 'SWING' ? '2.6' : '2.0';
     });
 
     const runBtn = node('button', 'Jalankan Ulang Backtest', 'btn-action btn-backtest');
