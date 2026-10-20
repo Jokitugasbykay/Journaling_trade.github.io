@@ -1,5 +1,5 @@
-﻿// Midtrans Snap Checkout – JournalingTrade
-// Handles plan selection, token fetching, and Snap popup lifecycle.
+// Midtrans Snap Checkout - JournalingTrade
+// Handles plan selection, checkout modal ("Atur paket Anda"), token fetching, and Snap popup lifecycle.
 // Depends on: window.JTPRO_CONFIG, Supabase session, Midtrans Snap.js
 
 (function () {
@@ -8,11 +8,25 @@
   const GATEWAY_BASE   = window.JTPRO_CONFIG?.apiBase?.replace('/pro-gateway', '') || 'https://nmddjuqkdyhcobddinkc.supabase.co/functions/v1';
   const TOKEN_ENDPOINT = GATEWAY_BASE + '/midtrans-create-token';
 
-  // Midtrans Client Key (safe to expose – public key only)
+  // Midtrans Client Key (safe to expose - public key only)
   const MIDTRANS_CLIENT_KEY = 'Mid-client-eIKqYJoLSaZC9Sip';
   const SNAP_SCRIPT_URL     = 'https://app.sandbox.midtrans.com/snap/snap.js'; // switch to production later
 
   let snapLoaded = false;
+  let currentPlan = 'pro';
+  let currentInterval = 'monthly';
+
+  // Price Catalog
+  const PRICES = {
+    plus: {
+      monthly: { base: 10,  tax: 1.10, total: 11.10, label: 'Plus bulanan', desc: 'Ditagih bulanan' },
+      annual:  { base: 100, tax: 11.0, total: 111.0, label: 'Plus tahunan', desc: 'Ditagih tahunan' }
+    },
+    pro: {
+      monthly: { base: 20,  tax: 2.20, total: 22.20, label: 'Pro bulanan', desc: 'Ditagih bulanan' },
+      annual:  { base: 200, tax: 22.0, total: 222.0, label: 'Pro tahunan', desc: 'Ditagih tahunan' }
+    }
+  };
 
   // ---- Load Snap.js dynamically ----
   function loadSnap() {
@@ -35,7 +49,6 @@
         const { data } = await sb.auth.getSession();
         return data?.session?.access_token || null;
       }
-      // Fallback: read from localStorage
       const keys = Object.keys(localStorage);
       for (const k of keys) {
         if (k.includes('supabase') && k.includes('auth')) {
@@ -50,102 +63,227 @@
     return null;
   }
 
-  // ---- UI helpers ----
-  function setBtnState(btn, state, originalText) {
-    if (!btn) return;
-    if (state === 'loading') {
-      btn.disabled = true;
-      btn.dataset.originalText = btn.textContent;
-      btn.textContent = 'Preparing checkout...';
-      btn.classList.add('jt-btn-loading');
-    } else if (state === 'idle') {
-      btn.disabled = false;
-      btn.textContent = originalText || btn.dataset.originalText || btn.textContent;
-      btn.classList.remove('jt-btn-loading');
-    } else if (state === 'error') {
-      btn.disabled = false;
-      btn.textContent = btn.dataset.originalText || 'Subscribe';
-      btn.classList.remove('jt-btn-loading');
+  // ---- Format Currency USD with comma ----
+  function fmtUsd(num) {
+    return 'US$' + num.toFixed(2).replace('.', ',');
+  }
+
+  // ---- Format Date DD/MM/YYYY ----
+  function getRenewalDate(interval) {
+    const d = new Date();
+    if (interval === 'annual') {
+      d.setFullYear(d.getFullYear() + 1);
+    } else {
+      d.setMonth(d.getMonth() + 1);
+    }
+    const day = String(d.getDate()).padStart(2, '0');
+    const month = String(d.getMonth() + 1).padStart(2, '0');
+    const year = d.getFullYear();
+    return `${day}/${month}/${year}`;
+  }
+
+  // ---- Open Checkout Modal ("Atur paket Anda") ----
+  window.openCheckoutModal = function (plan, interval) {
+    currentPlan = plan || 'pro';
+    currentInterval = interval || 'monthly';
+
+    const modal = document.getElementById('checkout-modal');
+    if (!modal) return;
+
+    // Pre-fill user profile if logged in
+    try {
+      const nameInput = document.getElementById('jt-bill-name');
+      if (nameInput && !nameInput.value) {
+        const traderName = document.getElementById('nav-trader-name')?.textContent;
+        if (traderName && traderName !== 'Trader') {
+          nameInput.value = traderName;
+        }
+      }
+    } catch {}
+
+    updateCheckoutUI();
+    modal.style.display = 'flex';
+    document.body.style.overflow = 'hidden';
+  };
+
+  // ---- Close Checkout Modal ----
+  window.closeCheckoutModal = function () {
+    const modal = document.getElementById('checkout-modal');
+    if (modal) modal.style.display = 'none';
+    document.body.style.overflow = '';
+    const alert = document.getElementById('jt-checkout-alert');
+    if (alert) alert.style.display = 'none';
+  };
+
+  // ---- Select Interval in Checkout Modal ----
+  window.selectCheckoutInterval = function (interval) {
+    currentInterval = interval;
+    updateCheckoutUI();
+  };
+
+  // ---- Update Modal UI based on currentPlan & currentInterval ----
+  function updateCheckoutUI() {
+    const planCfg = PRICES[currentPlan] || PRICES.pro;
+    const item = planCfg[currentInterval];
+    const isPro = currentPlan === 'pro';
+
+    // Left option cards
+    const cardM = document.getElementById('jt-card-monthly');
+    const cardA = document.getElementById('jt-card-annual');
+    if (cardM && cardA) {
+      cardM.classList.toggle('active', currentInterval === 'monthly');
+      cardA.classList.toggle('active', currentInterval === 'annual');
+    }
+
+    const optNameM = document.getElementById('jt-opt-name-monthly');
+    const optPriceM = document.getElementById('jt-opt-price-monthly');
+    const optNameA = document.getElementById('jt-opt-name-annual');
+    const optPriceA = document.getElementById('jt-opt-price-annual');
+
+    if (optNameM) optNameM.textContent = isPro ? 'Pro bulanan' : 'Plus bulanan';
+    if (optPriceM) optPriceM.textContent = `USD ${planCfg.monthly.base}.00`;
+    if (optNameA) optNameA.textContent = isPro ? 'Pro tahunan' : 'Plus tahunan';
+    if (optPriceA) optPriceA.textContent = `USD ${planCfg.annual.base}.00`;
+
+    // Right summary card
+    const sumTitle = document.getElementById('jt-summary-title');
+    const sumItemLabel = document.getElementById('jt-summary-item-label');
+    const sumItemPrice = document.getElementById('jt-summary-item-price');
+    const sumSubtotal = document.getElementById('jt-summary-subtotal');
+    const sumTax = document.getElementById('jt-summary-tax');
+    const sumTotal = document.getElementById('jt-summary-total');
+    const renDate = document.getElementById('jt-renewal-date');
+    const recText = document.getElementById('jt-recurring-text');
+
+    if (sumTitle) sumTitle.textContent = isPro ? 'Paket Pro' : 'Paket Plus';
+    if (sumItemLabel) sumItemLabel.textContent = item.label;
+    if (sumItemPrice) sumItemPrice.textContent = fmtUsd(item.base);
+    if (sumSubtotal) sumSubtotal.textContent = fmtUsd(item.base);
+    if (sumTax) sumTax.textContent = fmtUsd(item.tax);
+    if (sumTotal) sumTotal.textContent = fmtUsd(item.total);
+
+    if (renDate) renDate.textContent = getRenewalDate(currentInterval);
+    if (recText) {
+      const periodWord = currentInterval === 'annual' ? 'tahun' : 'bulan';
+      recText.textContent = `${fmtUsd(item.base)}/${periodWord} + pajak`;
     }
   }
 
-  function showPricingError(msg) {
-    // Try to find or create a toast / alert near the pricing section
-    let alert = document.getElementById('jt-pricing-alert');
-    if (!alert) {
-      alert = document.createElement('p');
-      alert.id = 'jt-pricing-alert';
-      alert.role = 'alert';
-      alert.style.cssText = 'color:#ff6b6b;font-size:.85rem;text-align:center;margin:.75rem 0;grid-column:1/-1;';
-      const grid = document.querySelector('.paid-plan-grid');
-      if (grid) grid.insertAdjacentElement('afterend', alert);
-    }
-    alert.textContent = msg;
-    setTimeout(() => { if (alert.textContent === msg) alert.textContent = ''; }, 6000);
-  }
+  // ---- Execute Checkout Payment (Click "Berlangganan") ----
+  window.executeCheckoutPayment = async function () {
+    const payBtn = document.getElementById('jt-checkout-pay-btn');
+    const alertEl = document.getElementById('jt-checkout-alert');
+    const agreeEl = document.getElementById('jt-terms-agree');
 
-  // ---- Main checkout flow ----
-  async function startCheckout(plan, interval, btn) {
+    const showAlert = (msg) => {
+      if (!alertEl) return;
+      alertEl.textContent = msg;
+      alertEl.style.display = 'block';
+    };
+
+    if (alertEl) alertEl.style.display = 'none';
+
+    if (agreeEl && !agreeEl.checked) {
+      showAlert('Silakan centang persetujuan ketentuan berlangganan.');
+      return;
+    }
+
     const token = await getAuthToken();
     if (!token) {
-      // Redirect to login with redirect back to pricing
+      // Save pending plan and redirect to login
+      try {
+        sessionStorage.setItem('jt_pending_plan', currentPlan);
+        sessionStorage.setItem('jt_pending_interval', currentInterval);
+      } catch {}
       const base = document.getElementById('site-base')?.href || '/';
       window.location.href = base + 'login/?redirect=home%23pricing';
       return;
     }
 
-    const origText = btn?.textContent || 'Subscribe';
-    setBtnState(btn, 'loading');
+    // Collect billing info
+    const nameVal    = document.getElementById('jt-bill-name')?.value?.trim() || '';
+    const countryVal = document.getElementById('jt-bill-country')?.value || 'ID';
+    const addrVal    = document.getElementById('jt-bill-address')?.value?.trim() || '';
+    const compVal    = document.getElementById('jt-bill-company')?.value?.trim() || '';
+    const taxTypeVal = document.getElementById('jt-bill-tax-type')?.value || '';
+    const taxIdVal   = document.getElementById('jt-bill-tax-id')?.value?.trim() || '';
+    const altNameVal = document.getElementById('jt-bill-alt-name')?.value?.trim() || '';
+
+    const billingData = {
+      name: altNameVal || nameVal,
+      country: countryVal,
+      address: addrVal,
+      company: compVal,
+      tax_type: taxTypeVal,
+      tax_id: taxIdVal,
+    };
+
+    const origText = payBtn ? payBtn.textContent : 'Berlangganan';
+    if (payBtn) {
+      payBtn.disabled = true;
+      payBtn.textContent = 'Menyiapkan pembayaran Midtrans...';
+    }
 
     try {
-      // 1. Load Snap.js in parallel with token fetch
+      // 1. Load Snap.js & fetch token in parallel
       const [_, tokenRes] = await Promise.all([
         loadSnap(),
         fetch(TOKEN_ENDPOINT, {
-          method:  'POST',
+          method: 'POST',
           headers: {
             'Content-Type':  'application/json',
             'Authorization': 'Bearer ' + token,
           },
-          body: JSON.stringify({ plan, interval }),
+          body: JSON.stringify({
+            plan: currentPlan,
+            interval: currentInterval,
+            billing: billingData,
+          }),
         }),
       ]);
 
       const data = await tokenRes.json();
       if (!tokenRes.ok || !data.token) {
-        throw new Error(data.detail || 'Could not create payment session');
+        throw new Error(data.detail || 'Gagal membuat sesi pembayaran Midtrans.');
       }
 
-      setBtnState(btn, 'idle', origText);
+      if (payBtn) {
+        payBtn.disabled = false;
+        payBtn.textContent = origText;
+      }
 
-      // 2. Open Snap popup
+      // 2. Open Midtrans Snap Popup
       window.snap.pay(data.token, {
         onSuccess: function (result) {
           console.log('Payment success:', result);
-          showSuccessModal(plan);
+          closeCheckoutModal();
+          showSuccessModal(currentPlan);
         },
         onPending: function (result) {
           console.log('Payment pending:', result);
-          showPricingError('Your payment is being processed. We will email you once confirmed.');
+          closeCheckoutModal();
+          alert('Pembayaran Anda sedang diproses. Kami akan segera mengaktifkan paket Anda.');
         },
         onError: function (result) {
           console.error('Payment error:', result);
-          showPricingError('Payment could not be completed. Please try again.');
+          showAlert('Pembayaran tidak dapat diselesaikan. Silakan coba lagi.');
         },
         onClose: function () {
-          // User closed popup without paying – no action needed
-          setBtnState(btn, 'idle', origText);
+          console.log('User closed Snap popup');
         },
       });
 
     } catch (err) {
       console.error('Checkout error:', err);
-      showPricingError(err.message || 'Payment service error. Please try again.');
-      setBtnState(btn, 'error', origText);
+      showAlert(err.message || 'Terjadi kesalahan sistem pembayaran. Silakan coba lagi.');
+      if (payBtn) {
+        payBtn.disabled = false;
+        payBtn.textContent = origText;
+      }
     }
-  }
+  };
 
-  // ---- Success modal ----
+  // ---- Success Modal ----
   function showSuccessModal(plan) {
     let modal = document.getElementById('jt-payment-success-modal');
     if (!modal) {
@@ -155,9 +293,9 @@
         <div class="jt-psm-backdrop">
           <div class="jt-psm-card" role="dialog" aria-modal="true" aria-labelledby="jt-psm-title">
             <div class="jt-psm-icon">&#10003;</div>
-            <h2 id="jt-psm-title">Payment Successful</h2>
-            <p id="jt-psm-body">Your <strong id="jt-psm-plan"></strong> plan is now active. Refresh the page to unlock all features.</p>
-            <button class="btn btn-primary" id="jt-psm-close">Refresh &amp; continue</button>
+            <h2 id="jt-psm-title">Pembayaran Berhasil</h2>
+            <p id="jt-psm-body">Paket <strong id="jt-psm-plan"></strong> Anda sekarang telah aktif. Muat ulang halaman untuk membuka seluruh fitur.</p>
+            <button class="btn btn-primary" id="jt-psm-close" style="width:100%; height:44px; font-weight:600;">Muat Ulang &amp; Lanjutkan</button>
           </div>
         </div>`;
       document.body.appendChild(modal);
@@ -167,78 +305,40 @@
     modal.style.display = 'flex';
   }
 
-  // ---- Wire up pricing buttons ----
+  // ---- Wire up pricing buttons in Homepage ----
   function initPricingButtons() {
     const plusBtn = document.getElementById('jt-plus-subscribe-btn');
     const proBtn  = document.getElementById('jt-pro-subscribe-btn');
 
     if (plusBtn) {
       plusBtn.addEventListener('click', function () {
-        const cycle = document.querySelector('[data-cycle="annual"][aria-pressed="true"]') ? 'annual' : 'monthly';
-        startCheckout('plus', cycle, plusBtn);
+        const isAnnual = document.querySelector('[data-cycle="annual"][aria-pressed="true"]');
+        openCheckoutModal('plus', isAnnual ? 'annual' : 'monthly');
       });
     }
 
     if (proBtn) {
       proBtn.addEventListener('click', function () {
-        const cycle = document.querySelector('[data-cycle="annual"][aria-pressed="true"]') ? 'annual' : 'monthly';
-        startCheckout('pro', cycle, proBtn);
+        const isAnnual = document.querySelector('[data-cycle="annual"][aria-pressed="true"]');
+        openCheckoutModal('pro', isAnnual ? 'annual' : 'monthly');
       });
     }
-  }
 
-  // ---- Inject success modal styles ----
-  function injectStyles() {
-    if (document.getElementById('jt-payment-styles')) return;
-    const style = document.createElement('style');
-    style.id = 'jt-payment-styles';
-    style.textContent = `
-      .jt-btn-loading { opacity: .7; cursor: not-allowed; position: relative; }
-      .jt-btn-loading::after {
-        content: '';
-        position: absolute;
-        right: .75rem;
-        top: 50%;
-        transform: translateY(-50%);
-        width: 14px; height: 14px;
-        border: 2px solid currentColor;
-        border-top-color: transparent;
-        border-radius: 50%;
-        animation: jt-spin .6s linear infinite;
+    // Check if there was a pending checkout before login redirect
+    try {
+      const pendingPlan = sessionStorage.getItem('jt_pending_plan');
+      const pendingInt  = sessionStorage.getItem('jt_pending_interval');
+      if (pendingPlan) {
+        sessionStorage.removeItem('jt_pending_plan');
+        sessionStorage.removeItem('jt_pending_interval');
+        setTimeout(() => openCheckoutModal(pendingPlan, pendingInt || 'monthly'), 600);
       }
-      @keyframes jt-spin { to { transform: translateY(-50%) rotate(360deg); } }
-
-      #jt-payment-success-modal {
-        display: none;
-        position: fixed; inset: 0; z-index: 9999;
-        align-items: center; justify-content: center;
-      }
-      .jt-psm-backdrop {
-        position: absolute; inset: 0;
-        background: rgba(0,0,0,.75); backdrop-filter: blur(6px);
-        display: flex; align-items: center; justify-content: center;
-      }
-      .jt-psm-card {
-        background: #1a1a2e; border: 1px solid #2d2d44;
-        border-radius: 16px; padding: 2.5rem 2rem;
-        max-width: 400px; width: 90%; text-align: center;
-        box-shadow: 0 24px 48px rgba(0,0,0,.5);
-      }
-      .jt-psm-icon {
-        width: 56px; height: 56px; border-radius: 50%;
-        background: #22c55e; color: #fff;
-        font-size: 1.75rem; line-height: 56px;
-        margin: 0 auto 1.25rem;
-      }
-      .jt-psm-card h2 { margin: 0 0 .75rem; font-size: 1.4rem; }
-      .jt-psm-card p  { margin: 0 0 1.5rem; color: #9ca3af; line-height: 1.6; }
-    `;
-    document.head.appendChild(style);
+    } catch {}
   }
 
   // ---- Bootstrap ----
   function init() {
-    injectStyles();
+    loadSnap().catch(() => {});
     if (document.readyState === 'loading') {
       document.addEventListener('DOMContentLoaded', initPricingButtons);
     } else {
@@ -248,7 +348,11 @@
 
   init();
 
-  // Expose for use by other scripts
-  window.jtPayment = { startCheckout };
+  window.jtPayment = {
+    openCheckoutModal,
+    closeCheckoutModal,
+    selectCheckoutInterval,
+    executeCheckoutPayment
+  };
 
 })();

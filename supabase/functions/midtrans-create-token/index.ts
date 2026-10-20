@@ -1,4 +1,4 @@
-﻿// Midtrans Snap Token Creator - JournalingTrade
+// Midtrans Snap Token Creator - JournalingTrade
 // Runs as a Supabase Edge Function.
 // Never expose Server Key to the browser.
 
@@ -39,11 +39,13 @@ export async function handler(req: Request): Promise<Response> {
 
     let body: Record<string, unknown> = {};
     const text = await req.text();
-    if (text.length > 4096) throw new Fail(413, 'Request too large');
+    if (text.length > 8192) throw new Fail(413, 'Request too large');
     try { body = JSON.parse(text || '{}'); } catch { throw new Fail(422, 'Invalid JSON'); }
 
     const plan     = (body.plan     as string || '').toLowerCase();
     const interval = (body.interval as string || 'monthly').toLowerCase();
+    const billing  = (body.billing  as Record<string, string> || {});
+
     if (!PLANS[plan]) throw new Fail(422, 'Invalid plan. Must be plus or pro');
     if (!['monthly', 'annual'].includes(interval)) throw new Fail(422, 'Invalid interval. Must be monthly or annual');
 
@@ -56,30 +58,48 @@ export async function handler(req: Request): Promise<Response> {
     const user = await userRes.json();
     if (!user?.id || !user?.email) throw new Fail(401, 'Invalid user data');
 
-    const usdAmount = interval === 'annual' ? PLANS[plan].usdYear : PLANS[plan].usdMonth;
-    const idrAmount = usdAmount * RATE_IDR_PER_USD;
+    const baseUsd = interval === 'annual' ? PLANS[plan].usdYear : PLANS[plan].usdMonth;
+    const taxUsd  = Math.round(baseUsd * 0.11 * 100) / 100; // 11% PPN tax
+    const totalUsd = baseUsd + taxUsd;
+    const idrAmount = Math.round(totalUsd * RATE_IDR_PER_USD);
     const periodLabel = interval === 'annual' ? 'per year' : 'per month';
 
     const orderSuffix = Math.floor(Date.now() / 1000);
     const orderId = `jt-${plan}-${interval}-${user.id.slice(0, 8)}-${orderSuffix}`;
 
     const serverKey = Deno.env.get('MIDTRANS_SERVER_KEY') || '';
+    if (!serverKey) throw new Fail(503, 'Payment provider not configured');
     const authHeader = 'Basic ' + btoa(serverKey + ':');
+
+    const customerName = billing.name?.trim() || user.user_metadata?.full_name || user.email;
 
     const snapPayload = {
       transaction_details: {
         order_id:     orderId,
         gross_amount: idrAmount,
       },
-      item_details: [{
-        id:       `${plan}-${interval}`,
-        price:    idrAmount,
-        quantity: 1,
-        name:     `JournalingTrade ${plan.toUpperCase()} - $${usdAmount} USD ${periodLabel}`,
-      }],
+      item_details: [
+        {
+          id:       `${plan}-${interval}`,
+          price:    Math.round(baseUsd * RATE_IDR_PER_USD),
+          quantity: 1,
+          name:     `JournalingTrade ${plan.toUpperCase()} - $${baseUsd} USD ${periodLabel}`,
+        },
+        {
+          id:       `tax-ppn`,
+          price:    Math.round(taxUsd * RATE_IDR_PER_USD),
+          quantity: 1,
+          name:     `PPN 11% ($${taxUsd} USD)`,
+        }
+      ],
       customer_details: {
         email:      user.email,
-        first_name: (user.user_metadata?.full_name || user.email).split(' ')[0],
+        first_name: customerName.slice(0, 50),
+        billing_address: {
+          first_name: customerName.slice(0, 50),
+          address:    (billing.address || '').slice(0, 100),
+          country_code: billing.country === 'ID' ? 'IDN' : (billing.country || 'IDN'),
+        }
       },
       custom_field1: user.id,
       custom_field2: plan,
