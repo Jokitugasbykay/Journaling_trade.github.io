@@ -1,9 +1,8 @@
-// Midtrans Snap Token Creator - JournalingTrade
+// Midtrans Snap Token Creator - JournalingTrade (Sandbox Environment)
 // Runs as a Supabase Edge Function.
-// Never expose Server Key to the browser.
+// Uses Midtrans Sandbox API to create payment tokens safely.
 
 const PROJECT  = 'https://nmddjuqkdyhcobddinkc.supabase.co';
-const SITE     = 'https://jokitugasbykay.github.io';
 const SNAP_URL = 'https://app.sandbox.midtrans.com/snap/v1/transactions';
 
 class Fail extends Error { constructor(public status: number, msg: string) { super(msg); } }
@@ -14,14 +13,26 @@ const PLANS: Record<string, { usdMonth: number; usdYear: number }> = {
   pro:  { usdMonth: 20, usdYear: 200 },
 };
 
-const cors = (origin: string) => ({
-  'Content-Type': 'application/json',
-  'Cache-Control': 'no-store',
-  'Vary': 'Origin',
-  'Access-Control-Allow-Origin': origin || '*',
-  'Access-Control-Allow-Headers': 'authorization,content-type,apikey',
-  'Access-Control-Allow-Methods': 'POST,OPTIONS',
-});
+const ALLOWED_ORIGINS = [
+  'https://jokitugasbykay.github.io',
+  'https://journalingtrade.com',
+  'http://localhost:5173',
+  'http://127.0.0.1:5173',
+  'http://localhost:3000',
+  'http://127.0.0.1:3000',
+];
+
+const cors = (origin: string) => {
+  const isAllowed = ALLOWED_ORIGINS.includes(origin) || origin.endsWith('.github.io');
+  return {
+    'Content-Type': 'application/json',
+    'Cache-Control': 'no-store',
+    'Vary': 'Origin',
+    'Access-Control-Allow-Origin': isAllowed ? origin : ALLOWED_ORIGINS[0],
+    'Access-Control-Allow-Headers': 'authorization,content-type,apikey',
+    'Access-Control-Allow-Methods': 'POST,OPTIONS',
+  };
+};
 
 const respond = (data: unknown, status = 200, origin = '') =>
   new Response(JSON.stringify(data), { status, headers: cors(origin) });
@@ -67,6 +78,7 @@ export async function handler(req: Request): Promise<Response> {
     const orderSuffix = Math.floor(Date.now() / 1000);
     const orderId = `jt-${plan}-${interval}-${user.id.slice(0, 8)}-${orderSuffix}`;
 
+    // Midtrans Sandbox Server Key
     const serverKey = Deno.env.get('MIDTRANS_SERVER_KEY') || '';
     if (!serverKey) throw new Fail(503, 'Payment provider not configured');
     const authHeader = 'Basic ' + btoa(serverKey + ':');

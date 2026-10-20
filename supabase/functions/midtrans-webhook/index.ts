@@ -1,4 +1,4 @@
-﻿// Midtrans Payment Notification Webhook - JournalingTrade
+// Midtrans Payment Notification Webhook - JournalingTrade (Sandbox Environment)
 // Receives payment status from Midtrans server-to-server.
 // Verifies SHA-512 signature, then calls journal_record_subscription RPC to update user plan.
 
@@ -25,6 +25,16 @@ async function sha256hex(str: string): Promise<string> {
   return Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2, '0')).join('');
 }
 
+// Constant-time string comparison to prevent timing attacks
+function timingSafeEqual(a: string, b: string): boolean {
+  if (a.length !== b.length) return false;
+  let diff = 0;
+  for (let i = 0; i < a.length; i++) {
+    diff |= a.charCodeAt(i) ^ b.charCodeAt(i);
+  }
+  return diff === 0;
+}
+
 const respond = (data: unknown, status = 200) =>
   new Response(JSON.stringify(data), {
     status,
@@ -36,6 +46,7 @@ export async function handler(req: Request): Promise<Response> {
   if (req.method !== 'POST') return respond({ detail: 'Method not allowed' }, 405);
 
   try {
+    // Midtrans Sandbox Server Key
     const serverKey = Deno.env.get('MIDTRANS_SERVER_KEY') || '';
     if (!serverKey) throw new Fail(503, 'Payment provider not configured');
 
@@ -51,7 +62,7 @@ export async function handler(req: Request): Promise<Response> {
             custom_field1: userId, custom_field2: plan, custom_field3: interval } = notif as Record<string, string>;
 
     const expectedSig = await sha512hex(`${order_id}${status_code}${gross_amount}${serverKey}`);
-    if (!signature_key || signature_key.toLowerCase() !== expectedSig.toLowerCase()) {
+    if (!signature_key || !timingSafeEqual(signature_key.toLowerCase(), expectedSig.toLowerCase())) {
       console.error('Signature mismatch for order:', order_id);
       throw new Fail(403, 'Invalid webhook signature');
     }
@@ -75,6 +86,11 @@ export async function handler(req: Request): Promise<Response> {
 
     const payloadHash = await sha256hex(rawBody);
 
+    // SEC-01 & SEC-02 Fix: Use distinct event_id for each lifecycle status
+    // and timestamp of the webhook event arrival to ensure database ordering advances
+    const eventId = `${transaction_id}-${transaction_status}`;
+    const eventTime = now.toISOString();
+
     const serviceKey = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY') || '';
     const rpcRes = await fetch(PROJECT + '/rest/v1/rpc/journal_record_subscription', {
       method: 'POST',
@@ -86,7 +102,7 @@ export async function handler(req: Request): Promise<Response> {
       },
       body: JSON.stringify({
         p_provider:         'midtrans',
-        p_event_id:         transaction_id,
+        p_event_id:         eventId,
         p_payload_hash:     payloadHash,
         p_user_id:          userId,
         p_subscription_id:  order_id,
@@ -95,7 +111,7 @@ export async function handler(req: Request): Promise<Response> {
         p_interval:         interval,
         p_period_start:     periodStart.toISOString(),
         p_period_end:       periodEnd.toISOString(),
-        p_event_at:         periodStart.toISOString(),
+        p_event_at:         eventTime,
         p_countries:        [],
       }),
       signal: AbortSignal.timeout(15_000),
@@ -107,7 +123,7 @@ export async function handler(req: Request): Promise<Response> {
       throw new Fail(502, 'Could not update subscription record');
     }
 
-    return respond({ ok: true });
+    return respond({ ok: true, status: subStatus });
 
   } catch (err) {
     if (err instanceof Fail) return respond({ detail: err.message }, err.status);
