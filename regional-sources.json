@@ -1,5 +1,6 @@
 {
   "global_founder": [
+    {"id":"fnc","name":"Trade With FNC","url":"https://tradewithfnc.com/","tag":"Pasar & Finansial","feed":"https://tradewithfnc.com/berita.json","kind":"json"},
     {"id":"reuters","name":"Reuters","url":"https://www.reuters.com","tag":"Global"},
     {"id":"ap","name":"Associated Press","url":"https://apnews.com","tag":"Global"},
     {"id":"bloomberg","name":"Bloomberg","url":"https://www.bloomberg.com","tag":"Finance"},
