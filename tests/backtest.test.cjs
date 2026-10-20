@@ -1,0 +1,138 @@
+const assert = require('node:assert/strict');
+const path = require('node:path');
+const http = require('node:http');
+const fs = require('node:fs');
+const { chromium } = require(process.env.PLAYWRIGHT_MODULE || 'C:/Users/Maulana Riski/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/node_modules/playwright');
+
+const root = path.join(__dirname, '..');
+const server = http.createServer((req, res) => {
+  const url = new URL(req.url, 'http://127.0.0.1');
+  if (url.pathname.startsWith('/api/v1/')) {
+    res.setHeader('Content-Type', 'application/json');
+    if (url.pathname.includes('/entitlements')) return res.end(JSON.stringify({ plan: 'pro', effective_until: '2099-01-01T00:00:00Z', ai: { remaining: 30, limit: 30 } }));
+    if (url.pathname.includes('/accounts')) return res.end(JSON.stringify({ items: [{ id: '111', name: 'Trading' }] }));
+    if (url.pathname.includes('/strategies')) return res.end(JSON.stringify({ items: [{ id: '222', name: 'Kaystrade Breakout', description: 'Breakout setup' }] }));
+    if (url.pathname.includes('/market/preference')) return res.end(JSON.stringify({ trading_style: 'INTRADAY' }));
+    if (url.pathname.includes('/market/instruments')) return res.end(JSON.stringify({ items: [{ symbol: 'XAUUSD', name: 'Gold', timeframes: ['15m', '4h'] }] }));
+    if (url.pathname.includes('/market/signals')) return res.end(JSON.stringify({ items: [] }));
+    if (url.pathname.includes('/market/alerts')) return res.end(JSON.stringify({ items: [] }));
+    if (url.pathname.includes('/market/notifications')) return res.end(JSON.stringify({ items: [] }));
+    if (url.pathname.includes('/news')) return res.end(JSON.stringify({ items: [] }));
+    return res.end(JSON.stringify({ status: 'ok' }));
+  }
+  if (url.pathname === '/') {
+    res.setHeader('Content-Type', 'text/html');
+    return res.end(`<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="/css/pro.css">
+</head>
+<body>
+  <main><section class="pro-workspace active" id="view-pro-workspace"></section></main>
+  <script src="/js/pro.js"></script>
+  <script>
+    JTPRO.configure({ apiBase: location.origin, getToken: async () => 'test-token', getUserId: () => 'test-user' });
+  </script>
+</body>
+</html>`);
+  }
+  const file = path.resolve(root, '.' + url.pathname);
+  if (!file.startsWith(root + path.sep) || !fs.existsSync(file)) { res.statusCode = 404; return res.end(); }
+  res.setHeader('Content-Type', file.endsWith('.css') ? 'text/css' : 'application/javascript');
+  res.end(fs.readFileSync(file));
+});
+
+(async () => {
+  await new Promise(resolve => server.listen(0, '127.0.0.1', resolve));
+  const port = server.address().port;
+  const browser = await chromium.launch({ channel: 'chrome', headless: true });
+  const page = await browser.newPage({ viewport: { width: 1440, height: 900 } });
+
+  try {
+    await page.goto('http://127.0.0.1:' + port + '/');
+
+    // 1. Direct Engine verification via JTPRO
+    const engineResult = await page.evaluate(() => {
+      return JTPRO.runKaystradeBacktestEngine(null, {
+        instrument: 'XAUUSD',
+        timeframe: '15m',
+        tradingStyle: 'INTRADAY',
+        initialBalance: 1000,
+        riskPercent: 2,
+        targetRR: 2.5
+      });
+    });
+
+    assert.equal(engineResult.initialBalance, 1000);
+    assert.equal(engineResult.instrument, 'XAUUSD');
+    assert.equal(engineResult.maxDrawdownLimit, 30.0, 'GOLD max drawdown limit should be 30% according to SKILL.md Bagian IV.2');
+    assert.ok(typeof engineResult.winRate === 'number');
+    assert.ok(typeof engineResult.profitFactor === 'number');
+    assert.ok(typeof engineResult.finalEquity === 'number');
+    assert.ok(engineResult.equityCurve.length > 0, 'Equity curve must contain data points');
+    console.log('Engine test passed! WinRate: ' + engineResult.winRate + '%, Total Trades: ' + engineResult.totalTrades + ', Final: $' + engineResult.finalEquity);
+
+    // 2. Forex / Crypto Max Drawdown Limit verification (20%)
+    const fxResult = await page.evaluate(() => {
+      return JTPRO.runKaystradeBacktestEngine(null, {
+        instrument: 'EURUSD',
+        timeframe: '15m',
+        tradingStyle: 'INTRADAY'
+      });
+    });
+    assert.equal(fxResult.maxDrawdownLimit, 20.0, 'Forex max drawdown limit should be 20% according to SKILL.md Bagian IV.2');
+    console.log('Forex drawdown limit check passed (20.0%)');
+
+    // 3. UI test: open ai-market and verify Backtest button exists in actionGrid
+    await page.evaluate(() => JTPRO.open('ai-market'));
+    await page.waitForSelector('#pro-btn-backtest');
+    assert.ok(await page.locator('#pro-btn-backtest').isVisible(), 'Backtest button should be visible in actionGrid');
+
+    // 4. Click Backtest button and verify modal opens
+    await page.locator('#pro-btn-backtest').click();
+    await page.waitForSelector('#backtestModalBackdrop');
+    assert.ok(await page.locator('.backtest-modal-dialog').isVisible(), 'Backtest modal dialog should appear');
+    assert.ok(await page.locator('#btSvgContainer svg').isVisible(), 'SVG Equity Curve should render inside modal');
+    assert.ok(await page.locator('#btStatWinRate').isVisible(), 'Win Rate stat card should be visible');
+    assert.ok(await page.locator('#btStatTrades').isVisible(), 'Total Trades stat card should be visible');
+    assert.ok(await page.locator('#btStatProfit').isVisible(), 'Net profit stat card should be visible');
+    assert.ok(await page.locator('#btStatPF').isVisible(), 'Profit factor stat card should be visible');
+    assert.ok(await page.locator('#btStatDD').isVisible(), 'Max Drawdown stat card should be visible');
+    assert.ok(await page.locator('#btStatEquity').isVisible(), 'Final Equity stat card should be visible');
+
+    // 5. Test changing parameters and re-running backtest in modal
+    await page.locator('#btInstrumentSelect').selectOption('BTCUSDT');
+    await page.locator('#btStyleSelect').selectOption('SCALPING');
+    await page.locator('#btRunBtn').click();
+    await page.waitForTimeout(300);
+
+    const updatedSub = await page.locator('#btStatDDLimit').textContent();
+    assert.ok(updatedSub.includes('20%'), 'BTCUSDT should have 20% drawdown limit');
+
+    // 6. Test modal close
+    await page.locator('#btCloseBottomBtn').click();
+    await page.waitForTimeout(200);
+    assert.equal(await page.locator('#backtestModalBackdrop').count(), 0, 'Modal should close after clicking close button');
+
+    // 7. Test strategyComparison view: Backtest button in strategies table
+    await page.evaluate(() => JTPRO.open('strategies'));
+    await page.waitForSelector('table');
+    const stratBtBtn = page.getByRole('button', { name: 'Backtest' }).first();
+    assert.ok(await stratBtBtn.isVisible(), 'Backtest button should exist in strategy comparison table');
+    await stratBtBtn.click();
+    await page.waitForSelector('#backtestModalBackdrop');
+    assert.ok((await page.locator('#backtestModalBackdrop').textContent()).includes('Kaystrade Breakout'), 'Modal should reflect strategy name');
+    await page.locator('#btCloseBottomBtn').click();
+
+    console.log('All 7 Backtest feature assertions passed with 100% success!');
+    await browser.close();
+    server.close();
+    process.exit(0);
+  } catch (err) {
+    console.error('Test failed:', err);
+    await browser.close();
+    server.close();
+    process.exit(1);
+  }
+})();
