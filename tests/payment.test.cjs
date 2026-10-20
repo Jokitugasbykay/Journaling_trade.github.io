@@ -1,4 +1,4 @@
-// Unit tests for Midtrans payment gateway integration
+﻿// Unit tests for Midtrans payment gateway integration
 const assert = require('node:assert/strict');
 const fs = require('node:fs');
 const path = require('node:path');
@@ -23,7 +23,7 @@ console.log('PASS: index.html CSP, subscribe buttons, and script tag verified');
 // 2. Verify payment.js contents
 const paymentJs = fs.readFileSync(path.join(root, 'js', 'payment.js'), 'utf8');
 assert.ok(paymentJs.includes('midtrans-create-token'), 'payment.js must reference token creation endpoint');
-assert.ok(paymentJs.includes('Mid-client-elKqYJoLSaZC9Sip'), 'payment.js must contain Client Key');
+assert.ok(paymentJs.includes('Mid-client-eIKqYJoLSaZC9Sip'), 'payment.js must contain Client Key');
 assert.ok(paymentJs.includes('app.sandbox.midtrans.com/snap/snap.js'), 'payment.js must load Snap.js');
 assert.ok(paymentJs.includes('window.jtPayment'), 'payment.js must export window.jtPayment');
 

@@ -1,17 +1,15 @@
-// Midtrans Payment Notification Webhook – JournalingTrade
+﻿// Midtrans Payment Notification Webhook - JournalingTrade
 // Receives payment status from Midtrans server-to-server.
 // Verifies SHA-512 signature, then calls journal_record_subscription RPC to update user plan.
-// No auth header needed – Midtrans signs the payload.
 
 const PROJECT = 'https://nmddjuqkdyhcobddinkc.supabase.co';
 
 class Fail extends Error { constructor(public status: number, msg: string) { super(msg); } }
 
-// Map Midtrans transaction_status + fraud_status to our subscription status
 function mapStatus(txStatus: string, fraudStatus: string): string {
   if (txStatus === 'capture' && fraudStatus === 'accept') return 'active';
   if (txStatus === 'settlement') return 'active';
-  if (txStatus === 'pending') return 'trialing'; // pending payment
+  if (txStatus === 'pending') return 'trialing';
   if (['cancel', 'deny', 'expire'].includes(txStatus)) return 'cancelled';
   if (txStatus === 'refund') return 'cancelled';
   return 'cancelled';
@@ -41,7 +39,6 @@ export async function handler(req: Request): Promise<Response> {
     const serverKey = Deno.env.get('MIDTRANS_SERVER_KEY') || '';
     if (!serverKey) throw new Fail(503, 'Payment provider not configured');
 
-    // 1. Parse raw body (must keep raw for signature verification)
     const rawBody = await req.text();
     if (rawBody.length > 65536) throw new Fail(413, 'Payload too large');
 
@@ -49,10 +46,8 @@ export async function handler(req: Request): Promise<Response> {
     try { notif = JSON.parse(rawBody); }
     catch { throw new Fail(422, 'Invalid JSON'); }
 
-    // 2. Verify Midtrans signature
-    // signature_key = SHA-512(order_id + status_code + gross_amount + server_key)
     const { order_id, status_code, gross_amount, signature_key, transaction_status, fraud_status,
-            payment_type, transaction_id, transaction_time,
+            transaction_id, transaction_time,
             custom_field1: userId, custom_field2: plan, custom_field3: interval } = notif as Record<string, string>;
 
     const expectedSig = await sha512hex(`${order_id}${status_code}${gross_amount}${serverKey}`);
@@ -61,17 +56,14 @@ export async function handler(req: Request): Promise<Response> {
       throw new Fail(403, 'Invalid webhook signature');
     }
 
-    // 3. Validate required fields
     if (!userId || !plan || !interval || !transaction_id || !order_id) {
       throw new Fail(422, 'Missing required fields in notification');
     }
     if (!['plus', 'pro'].includes(plan)) throw new Fail(422, 'Invalid plan in notification');
     if (!['monthly', 'annual'].includes(interval)) throw new Fail(422, 'Invalid interval in notification');
 
-    // 4. Determine subscription status
     const subStatus = mapStatus(transaction_status, fraud_status || 'accept');
 
-    // 5. Compute period dates
     const now = new Date();
     const periodStart = new Date(transaction_time || now.toISOString());
     const periodEnd   = new Date(periodStart);
@@ -81,10 +73,8 @@ export async function handler(req: Request): Promise<Response> {
       periodEnd.setMonth(periodEnd.getMonth() + 1);
     }
 
-    // 6. Hash payload for idempotency
     const payloadHash = await sha256hex(rawBody);
 
-    // 7. Call journal_record_subscription RPC using service role key
     const serviceKey = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY') || '';
     const rpcRes = await fetch(PROJECT + '/rest/v1/rpc/journal_record_subscription', {
       method: 'POST',
@@ -117,7 +107,6 @@ export async function handler(req: Request): Promise<Response> {
       throw new Fail(502, 'Could not update subscription record');
     }
 
-    console.log(`Subscription updated: user=${userId} plan=${plan} status=${subStatus} order=${order_id}`);
     return respond({ ok: true });
 
   } catch (err) {

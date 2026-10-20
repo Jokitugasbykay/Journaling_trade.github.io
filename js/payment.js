@@ -1,4 +1,4 @@
-// Midtrans Snap Checkout – JournalingTrade
+﻿// Midtrans Snap Checkout – JournalingTrade
 // Handles plan selection, token fetching, and Snap popup lifecycle.
 // Depends on: window.JTPRO_CONFIG, Supabase session, Midtrans Snap.js
 
@@ -9,7 +9,7 @@
   const TOKEN_ENDPOINT = GATEWAY_BASE + '/midtrans-create-token';
 
   // Midtrans Client Key (safe to expose – public key only)
-  const MIDTRANS_CLIENT_KEY = 'Mid-client-elKqYJoLSaZC9Sip';
+  const MIDTRANS_CLIENT_KEY = 'Mid-client-eIKqYJoLSaZC9Sip';
   const SNAP_SCRIPT_URL     = 'https://app.sandbox.midtrans.com/snap/snap.js'; // switch to production later
 
   let snapLoaded = false;
