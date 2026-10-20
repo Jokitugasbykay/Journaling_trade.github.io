@@ -4236,9 +4236,21 @@ body.pro-sheet-open { overflow:hidden !important; }
 
 .bt-controls-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+  grid-template-columns: 1.15fr 0.85fr 1.85fr 1fr 1fr;
   gap: 12px;
   align-items: end;
+}
+
+@media (max-width: 960px) {
+  .bt-controls-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 560px) {
+  .bt-controls-grid {
+    grid-template-columns: 1fr;
+  }
 }
 
 .bt-controls-bar .bt-field,
