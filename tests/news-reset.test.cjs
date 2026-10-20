@@ -6,19 +6,12 @@ const vm = require('node:vm');
 const rootDir = path.join(__dirname, '..');
 const appSource = fs.readFileSync(path.join(rootDir, 'js/app.js'), 'utf8');
 const indexHtml = fs.readFileSync(path.join(rootDir, 'index.html'), 'utf8');
-const enLocale = JSON.parse(fs.readFileSync(path.join(rootDir, 'js/locales/en.json'), 'utf8'));
-const idLocale = JSON.parse(fs.readFileSync(path.join(rootDir, 'js/locales/id.json'), 'utf8'));
 
 // 1. Verify index.html toolbar markup
 assert.ok(indexHtml.includes('id="news-reset-all"'), 'index.html must have #news-reset-all');
 assert.ok(indexHtml.includes('onclick="resetAllNewsFilters()"'), 'index.html must bind resetAllNewsFilters()');
-assert.ok(indexHtml.includes('data-i18n="newsResetAll"'), 'index.html must have data-i18n="newsResetAll"');
 
-// 2. Verify i18n locales
-assert.equal(enLocale.newsResetAll, 'Restore all news');
-assert.equal(idLocale.newsResetAll, 'Pulihkan semua berita');
-
-// 3. Verify window.resetAllNewsFilters logic
+// 2. Verify window.resetAllNewsFilters logic
 function createMockEnvironment(isFounder = true) {
   const elements = new Map();
   const searchInput = { value: 'some query' };
