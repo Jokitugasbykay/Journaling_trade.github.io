@@ -3122,7 +3122,7 @@ Instruksi Format Output & Larangan Bocor Chain-of-Thought dan Perencanaan Rules 
     }
     const width = container.clientWidth || 860;
     const height = 180;
-    const paddingLeft = 60, paddingRight = 20, paddingTop = 20, paddingBottom = 30;
+    const paddingLeft = 60, paddingRight = 24, paddingTop = 20, paddingBottom = 28;
 
     const equities = equityCurve.map(p => p.equity);
     let minEq = Math.min(...equities);
@@ -3144,22 +3144,40 @@ Instruksi Format Output & Larangan Bocor Chain-of-Thought dan Perencanaan Rules 
     svg.setAttribute('viewBox', '0 0 ' + width + ' ' + height);
     svg.style.display = 'block';
 
+    const defs = document.createElementNS(svgNS, 'defs');
+    const grad = document.createElementNS(svgNS, 'linearGradient');
+    const gradId = 'eqAreaGrad_' + Math.random().toString(36).slice(2, 7);
+    grad.setAttribute('id', gradId);
+    grad.setAttribute('x1', '0'); grad.setAttribute('y1', '0');
+    grad.setAttribute('x2', '0'); grad.setAttribute('y2', '1');
+    const stop1 = document.createElementNS(svgNS, 'stop');
+    stop1.setAttribute('offset', '0%');
+    stop1.setAttribute('stop-color', lineColor);
+    stop1.setAttribute('stop-opacity', '0.25');
+    const stop2 = document.createElementNS(svgNS, 'stop');
+    stop2.setAttribute('offset', '100%');
+    stop2.setAttribute('stop-color', lineColor);
+    stop2.setAttribute('stop-opacity', '0.0');
+    grad.append(stop1, stop2);
+    defs.append(grad);
+    svg.append(defs);
+
     const baseLineY = getY(initialBalance);
     const baseLine = document.createElementNS(svgNS, 'line');
     baseLine.setAttribute('x1', String(paddingLeft));
     baseLine.setAttribute('y1', String(baseLineY));
     baseLine.setAttribute('x2', String(width - paddingRight));
     baseLine.setAttribute('y2', String(baseLineY));
-    baseLine.setAttribute('stroke', '#475569');
+    baseLine.setAttribute('stroke', '#334155');
     baseLine.setAttribute('stroke-dasharray', '4 4');
     baseLine.setAttribute('stroke-width', '1');
     svg.append(baseLine);
 
     const textBase = document.createElementNS(svgNS, 'text');
     textBase.setAttribute('x', String(paddingLeft - 8));
-    textBase.setAttribute('y', String(baseLineY + 3));
+    textBase.setAttribute('y', String(baseLineY + 3.5));
     textBase.setAttribute('fill', '#94a3b8');
-    textBase.setAttribute('font-size', '10');
+    textBase.setAttribute('font-size', '10.5');
     textBase.setAttribute('text-anchor', 'end');
     textBase.setAttribute('font-family', 'JetBrains Mono, monospace');
     textBase.textContent = '$' + Math.round(initialBalance);
@@ -3172,11 +3190,20 @@ Instruksi Format Output & Larangan Bocor Chain-of-Thought dan Perencanaan Rules 
       pathD += (i === 0 ? 'M' : 'L') + x.toFixed(1) + ' ' + y.toFixed(1) + ' ';
     });
 
+    const bottomY = height - paddingBottom;
+    const areaD = pathD + ' L ' + getX(equityCurve.length - 1).toFixed(1) + ' ' + bottomY.toFixed(1) + ' L ' + getX(0).toFixed(1) + ' ' + bottomY.toFixed(1) + ' Z';
+    const areaPath = document.createElementNS(svgNS, 'path');
+    areaPath.setAttribute('d', areaD);
+    areaPath.setAttribute('fill', 'url(#' + gradId + ')');
+    svg.append(areaPath);
+
     const path = document.createElementNS(svgNS, 'path');
     path.setAttribute('d', pathD);
     path.setAttribute('fill', 'none');
     path.setAttribute('stroke', lineColor);
     path.setAttribute('stroke-width', '2.5');
+    path.setAttribute('stroke-linecap', 'round');
+    path.setAttribute('stroke-linejoin', 'round');
     svg.append(path);
 
     const startDot = document.createElementNS(svgNS, 'circle');
@@ -3186,16 +3213,26 @@ Instruksi Format Output & Larangan Bocor Chain-of-Thought dan Perencanaan Rules 
     startDot.setAttribute('fill', '#94a3b8');
     svg.append(startDot);
 
+    const endX = getX(equityCurve.length - 1);
+    const endY = getY(finalEq);
+    const halo = document.createElementNS(svgNS, 'circle');
+    halo.setAttribute('cx', String(endX));
+    halo.setAttribute('cy', String(endY));
+    halo.setAttribute('r', '8');
+    halo.setAttribute('fill', lineColor);
+    halo.setAttribute('opacity', '0.2');
+    svg.append(halo);
+
     const endDot = document.createElementNS(svgNS, 'circle');
-    endDot.setAttribute('cx', String(getX(equityCurve.length - 1)));
-    endDot.setAttribute('cy', String(getY(finalEq)));
-    endDot.setAttribute('r', '5');
+    endDot.setAttribute('cx', String(endX));
+    endDot.setAttribute('cy', String(endY));
+    endDot.setAttribute('r', '4.5');
     endDot.setAttribute('fill', lineColor);
     svg.append(endDot);
 
     const textEnd = document.createElementNS(svgNS, 'text');
-    textEnd.setAttribute('x', String(getX(equityCurve.length - 1)));
-    textEnd.setAttribute('y', String(Math.max(14, getY(finalEq) - 8)));
+    textEnd.setAttribute('x', String(endX));
+    textEnd.setAttribute('y', String(Math.max(14, endY - 10)));
     textEnd.setAttribute('fill', lineColor);
     textEnd.setAttribute('font-size', '11');
     textEnd.setAttribute('font-weight', '700');
@@ -3258,41 +3295,94 @@ Instruksi Format Output & Larangan Bocor Chain-of-Thought dan Perencanaan Rules 
     const backdrop = node('div', null, 'pro-modal-backdrop');
     backdrop.id = 'backtestModalBackdrop';
 
+    const closeModal = () => {
+      window.closeActiveSelect?.();
+      backdrop.remove();
+      window.removeEventListener('keydown', onKey);
+    };
+
+    backdrop.addEventListener('click', (e) => {
+      if (e.target === backdrop) closeModal();
+    });
+
+    const onKey = (e) => {
+      if (e.key === 'Escape') closeModal();
+    };
+    window.addEventListener('keydown', onKey);
+
     const dialog = node('div', null, 'backtest-modal-dialog');
     dialog.setAttribute('role', 'dialog');
     dialog.setAttribute('aria-modal', 'true');
 
-    const header = node('div');
-    header.style.display = 'flex';
-    header.style.justifyContent = 'space-between';
-    header.style.alignItems = 'center';
-    header.style.padding = '14px 18px';
-    header.style.backgroundColor = '#1e293b';
-    header.style.borderBottom = '1px solid #334155';
+    // Header with gradient bar, title, subtitle & rounded close button
+    const header = node('div', null, 'backtest-modal-header');
 
-    const headerLeft = node('div');
-    const title = node('div', 'Kaystrade Multi-Market Backtest Engine (500 Bars)', 'backtest-modal-title');
-    const subTitle = node('div', (opts.strategy?.name ? 'Strategi: ' + opts.strategy.name + ' · ' : '') + selectedPair + ' · ' + selectedTF.toUpperCase() + ' · Aturan Kaystrade Bagian IV.2 (Closed Candles Only)', 'backtest-modal-sub');
-    headerLeft.append(title, subTitle);
+    const headerLeft = node('div', null, 'bt-modal-header-left');
+    const iconBox = node('div', null, 'bt-modal-icon');
+    const iconSvg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+    iconSvg.setAttribute('width', '20');
+    iconSvg.setAttribute('height', '20');
+    iconSvg.setAttribute('viewBox', '0 0 24 24');
+    iconSvg.setAttribute('fill', 'none');
+    iconSvg.setAttribute('stroke', 'currentColor');
+    iconSvg.setAttribute('stroke-width', '2.2');
+    iconSvg.setAttribute('stroke-linecap', 'round');
+    iconSvg.setAttribute('stroke-linejoin', 'round');
+    const ip1 = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+    ip1.setAttribute('d', 'M3 3v18h18');
+    const ip2 = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+    ip2.setAttribute('d', 'm19 9-5 5-4-4-3 3');
+    iconSvg.append(ip1, ip2);
+    iconBox.append(iconSvg);
 
-    const closeBtn = node('button', 'X', 'btn btn-ghost');
+    const titleWrap = node('div');
+    const title = node('div', null, 'backtest-modal-title');
+    title.append(
+      document.createTextNode('Kaystrade Multi-Market Backtest Engine (500 Bars)'),
+      node('span', 'Aturan IV.2', 'backtest-modal-badge')
+    );
+    const subTitle = node('div', null, 'backtest-modal-sub');
+    titleWrap.append(title, subTitle);
+    headerLeft.append(iconBox, titleWrap);
+
+    const closeBtn = node('button', null, 'backtest-modal-close');
     closeBtn.type = 'button';
-    closeBtn.style.color = '#ffffff';
-    closeBtn.style.fontSize = '16px';
-    closeBtn.style.fontWeight = '700';
-    closeBtn.style.cursor = 'pointer';
-    closeBtn.addEventListener('click', () => backdrop.remove());
+    closeBtn.setAttribute('aria-label', 'Tutup Backtest Modal');
+    const closeSvg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+    closeSvg.setAttribute('width', '18');
+    closeSvg.setAttribute('height', '18');
+    closeSvg.setAttribute('viewBox', '0 0 24 24');
+    closeSvg.setAttribute('fill', 'none');
+    closeSvg.setAttribute('stroke', 'currentColor');
+    closeSvg.setAttribute('stroke-width', '2.2');
+    closeSvg.setAttribute('stroke-linecap', 'round');
+    closeSvg.setAttribute('stroke-linejoin', 'round');
+    const cl1 = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+    cl1.setAttribute('x1', '18'); cl1.setAttribute('y1', '6');
+    cl1.setAttribute('x2', '6'); cl1.setAttribute('y2', '18');
+    const cl2 = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+    cl2.setAttribute('x1', '6'); cl2.setAttribute('y1', '6');
+    cl2.setAttribute('x2', '18'); cl2.setAttribute('y2', '18');
+    closeSvg.append(cl1, cl2);
+    closeBtn.append(closeSvg);
+    closeBtn.addEventListener('click', closeModal);
 
     header.append(headerLeft, closeBtn);
 
     const body = node('div', null, 'backtest-modal-body');
 
+    // Controls container
     const controls = node('div', null, 'backtest-controls-bar');
+    const topGrid = node('div', null, 'bt-controls-grid');
 
+    // Field 1: Instrumen
     const fPair = node('div', null, 'bt-field');
-    fPair.append(node('label', 'Instrumen'));
+    const lblPair = node('label', 'Instrumen');
+    lblPair.setAttribute('for', 'btInstrumentSelect');
+    fPair.append(lblPair);
     const sPair = node('select');
     sPair.id = 'btInstrumentSelect';
+    sPair.setAttribute('aria-label', 'Instrumen');
     const popularPairs = ['XAUUSD', 'PAXGUSDT', 'BTCUSDT', 'ETHUSDT', 'SOLUSDT', 'EURUSD', 'GBPUSD', 'USDJPY', 'AUDUSD', 'USDCAD', 'NZDUSD', 'GBPJPY', 'EURJPY', 'EURGBP', 'AUDJPY', 'WTIUSD'];
     popularPairs.forEach(p => {
       const opt = node('option', p);
@@ -3302,10 +3392,14 @@ Instruksi Format Output & Larangan Bocor Chain-of-Thought dan Perencanaan Rules 
     });
     fPair.append(sPair);
 
+    // Field 2: Timeframe
     const fTf = node('div', null, 'bt-field');
-    fTf.append(node('label', 'Timeframe'));
+    const lblTf = node('label', 'Timeframe');
+    lblTf.setAttribute('for', 'btTimeframeSelect');
+    fTf.append(lblTf);
     const sTf = node('select');
     sTf.id = 'btTimeframeSelect';
+    sTf.setAttribute('aria-label', 'Timeframe');
     ['1m', '5m', '15m', '30m', '1h', '4h', '1d'].forEach(tf => {
       const opt = node('option', tf.toUpperCase());
       opt.value = tf;
@@ -3314,10 +3408,14 @@ Instruksi Format Output & Larangan Bocor Chain-of-Thought dan Perencanaan Rules 
     });
     fTf.append(sTf);
 
+    // Field 3: Trading Style
     const fStyle = node('div', null, 'bt-field');
-    fStyle.append(node('label', 'Trading Style'));
+    const lblStyle = node('label', 'Trading Style');
+    lblStyle.setAttribute('for', 'btStyleSelect');
+    fStyle.append(lblStyle);
     const sStyle = node('select');
     sStyle.id = 'btStyleSelect';
+    sStyle.setAttribute('aria-label', 'Trading Style');
     [['INTRADAY', 'Intraday (Breakeven Lock)'], ['SCALPING', 'Scalping (High WR Momentum)'], ['SWING', 'Swing (Multi-Day Trailing)']].forEach(([val, lbl]) => {
       const opt = node('option', lbl);
       opt.value = val;
@@ -3326,8 +3424,11 @@ Instruksi Format Output & Larangan Bocor Chain-of-Thought dan Perencanaan Rules 
     });
     fStyle.append(sStyle);
 
+    // Field 4: Modal Awal
     const fCap = node('div', null, 'bt-field');
-    fCap.append(node('label', 'Modal Awal ($)'));
+    const lblCap = node('label', 'Modal Awal ($)');
+    lblCap.setAttribute('for', 'btCapitalInput');
+    fCap.append(lblCap);
     const inCap = node('input');
     inCap.type = 'number';
     inCap.id = 'btCapitalInput';
@@ -3336,24 +3437,29 @@ Instruksi Format Output & Larangan Bocor Chain-of-Thought dan Perencanaan Rules 
     inCap.min = '50';
     fCap.append(inCap);
 
+    // Field 5: Risiko / Trade
     const fRisk = node('div', null, 'bt-field');
-    fRisk.append(node('label', 'Risiko / Trade (%)'));
+    const lblRisk = node('label', 'Risiko / Trade (%)');
+    lblRisk.setAttribute('for', 'btRiskInput');
+    fRisk.append(lblRisk);
     const inRisk = node('input');
     inRisk.type = 'text';
     inRisk.inputMode = 'decimal';
     inRisk.id = 'btRiskInput';
     inRisk.value = '2.0';
-    inRisk.style.width = '75px';
     fRisk.append(inRisk);
 
-    const fRR = node('div', null, 'bt-field');
-    fRR.append(node('label', 'Target RR (1:X)'));
-    const inRRWrap = node('div');
-    inRRWrap.style.display = 'flex';
-    inRRWrap.style.alignItems = 'center';
-    inRRWrap.style.gap = '6px';
-    inRRWrap.style.flexWrap = 'wrap';
+    topGrid.append(fPair, fTf, fStyle, fCap, fRisk);
 
+    // Bottom controls row: Target RR & Jalankan Ulang Button
+    const bottomBar = node('div', null, 'bt-controls-bottom');
+
+    const fRR = node('div', null, 'bt-field');
+    const lblRR = node('label', 'Target RR (1:X)');
+    lblRR.setAttribute('for', 'btRRInput');
+    fRR.append(lblRR);
+
+    const inRRWrap = node('div', null, 'bt-rr-group');
     const inRR = node('input');
     inRR.type = 'text';
     inRR.inputMode = 'decimal';
@@ -3364,9 +3470,6 @@ Instruksi Format Output & Larangan Bocor Chain-of-Thought dan Perencanaan Rules 
     inRR.style.textAlign = 'center';
 
     const rrPresets = node('div', null, 'bt-rr-presets');
-    rrPresets.style.display = 'flex';
-    rrPresets.style.gap = '4px';
-
     const syncPresetButtons = (valStr) => {
       const normalized = String(valStr).replace(/,/g, '.').trim();
       rrPresets.querySelectorAll('.bt-rr-preset-btn').forEach(b => {
@@ -3390,7 +3493,46 @@ Instruksi Format Output & Larangan Bocor Chain-of-Thought dan Perencanaan Rules 
     inRRWrap.append(inRR, rrPresets);
     fRR.append(inRRWrap);
 
+    const runBtn = node('button', null, 'btn-action btn-backtest-run');
+    runBtn.type = 'button';
+    runBtn.id = 'btRunBtn';
+    const runSvg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+    runSvg.setAttribute('width', '15');
+    runSvg.setAttribute('height', '15');
+    runSvg.setAttribute('viewBox', '0 0 24 24');
+    runSvg.setAttribute('fill', 'none');
+    runSvg.setAttribute('stroke', 'currentColor');
+    runSvg.setAttribute('stroke-width', '2.5');
+    runSvg.setAttribute('stroke-linecap', 'round');
+    runSvg.setAttribute('stroke-linejoin', 'round');
+    runSvg.setAttribute('class', 'bt-refresh-icon');
+    const rpl1 = document.createElementNS('http://www.w3.org/2000/svg', 'polyline');
+    rpl1.setAttribute('points', '23 4 23 10 17 10');
+    const rpl2 = document.createElementNS('http://www.w3.org/2000/svg', 'polyline');
+    rpl2.setAttribute('points', '1 20 1 14 7 14');
+    const rpa = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+    rpa.setAttribute('d', 'M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15');
+    runSvg.append(rpl1, rpl2, rpa);
+    runBtn.append(runSvg, node('span', 'Jalankan Ulang Backtest'));
+
+    bottomBar.append(fRR, runBtn);
+    controls.append(topGrid, bottomBar);
+
+    // Event listeners
+    let debounceTimer = null;
+    const triggerDebounced = () => {
+      clearTimeout(debounceTimer);
+      debounceTimer = setTimeout(executeAndRender, 250);
+    };
+
     sStyle.addEventListener('change', () => {
+      const cur = sStyle.value;
+      const def = cur === 'SCALPING' ? '1.6' : cur === 'SWING' ? '2.6' : '2.0';
+      inRR.value = def;
+      syncPresetButtons(def);
+      executeAndRender();
+    });
+    sStyle.addEventListener('input', () => {
       const cur = sStyle.value;
       const def = cur === 'SCALPING' ? '1.6' : cur === 'SWING' ? '2.6' : '2.0';
       inRR.value = def;
@@ -3399,26 +3541,33 @@ Instruksi Format Output & Larangan Bocor Chain-of-Thought dan Perencanaan Rules 
     });
 
     sPair.addEventListener('change', executeAndRender);
+    sPair.addEventListener('input', executeAndRender);
     sTf.addEventListener('change', executeAndRender);
+    sTf.addEventListener('input', executeAndRender);
+
+    inCap.addEventListener('input', triggerDebounced);
     inCap.addEventListener('change', executeAndRender);
+
+    inRisk.addEventListener('input', triggerDebounced);
     inRisk.addEventListener('change', executeAndRender);
 
-    let debounceTimer = null;
     inRR.addEventListener('input', () => {
       syncPresetButtons(inRR.value);
-      clearTimeout(debounceTimer);
-      debounceTimer = setTimeout(executeAndRender, 300);
+      triggerDebounced();
     });
     inRR.addEventListener('change', executeAndRender);
 
-    const runBtn = node('button', 'Jalankan Ulang Backtest', 'btn-action btn-backtest');
-    runBtn.type = 'button';
-    runBtn.id = 'btRunBtn';
-    runBtn.style.alignSelf = 'flex-end';
-    runBtn.style.marginBottom = '2px';
+    runBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      const icon = runBtn.querySelector('.bt-refresh-icon');
+      if (icon) {
+        icon.style.transform = 'rotate(180deg)';
+        setTimeout(() => { icon.style.transform = 'none'; }, 300);
+      }
+      executeAndRender();
+    });
 
-    controls.append(fPair, fTf, fStyle, fCap, fRisk, fRR, runBtn);
-
+    // 6-Card Stats Grid (balanced 3x2)
     const statsGrid = node('div', null, 'backtest-stats-grid');
 
     const cardWinRate = node('div', null, 'backtest-stat-card');
@@ -3467,6 +3616,7 @@ Instruksi Format Output & Larangan Bocor Chain-of-Thought dan Perencanaan Rules 
 
     statsGrid.append(cardWinRate, cardTrades, cardProfit, cardPF, cardDD, cardEquity);
 
+    // Chart Card
     const chartCard = node('div', null, 'backtest-chart-card');
     const chartHeader = node('div', null, 'bt-chart-header');
     chartHeader.append(node('span', 'CLOSED EQUITY CURVE (500 BARS)'));
@@ -3480,6 +3630,7 @@ Instruksi Format Output & Larangan Bocor Chain-of-Thought dan Perencanaan Rules 
     svgWrap.style.height = '180px';
     chartCard.append(chartHeader, svgWrap);
 
+    // Table Card
     const tableCard = node('div', null, 'backtest-table-card');
     const tableHeader = node('div', null, 'bt-table-header');
     const headerTitleBox = node('h4');
@@ -3535,10 +3686,10 @@ Instruksi Format Output & Larangan Bocor Chain-of-Thought dan Perencanaan Rules 
     copyReportBtn.type = 'button';
     copyReportBtn.id = 'btCopyReportBtn';
 
-    const closeBottomBtn = node('button', 'Tutup', 'btn-action');
+    const closeBottomBtn = node('button', 'Tutup', 'btn btn-ghost');
     closeBottomBtn.type = 'button';
     closeBottomBtn.id = 'btCloseBottomBtn';
-    closeBottomBtn.addEventListener('click', () => backdrop.remove());
+    closeBottomBtn.addEventListener('click', closeModal);
 
     actionsRow.append(copyReportBtn, closeBottomBtn);
 
@@ -3546,6 +3697,8 @@ Instruksi Format Output & Larangan Bocor Chain-of-Thought dan Perencanaan Rules 
     dialog.append(header, body);
     backdrop.append(dialog);
     document.body.append(backdrop);
+
+    window.initCustomSelects?.();
 
     let lastResult = null;
 
@@ -3564,7 +3717,16 @@ Instruksi Format Output & Larangan Bocor Chain-of-Thought dan Perencanaan Rules 
       const rsk = parseLocaleNumber(inRisk.value, 2.0);
       const rr = parseLocaleNumber(inRR.value, 2.0);
 
-      subTitle.textContent = (opts.strategy?.name ? 'Strategi: ' + opts.strategy.name + ' · ' : '') + inst + ' · ' + tf.toUpperCase() + ' · Target RR 1:' + rr.toFixed(1) + ' · Aturan Kaystrade Bagian IV.2 (Closed Candles Only)';
+      subTitle.replaceChildren();
+      if (opts.strategy?.name) {
+        const sBadge = node('span', 'Strategi: ' + opts.strategy.name, 'bt-badge-sub');
+        subTitle.append(sBadge);
+      }
+      const pairBadge = node('span', inst, 'bt-badge-sub bold');
+      const tfBadge = node('span', tf.toUpperCase(), 'bt-badge-sub');
+      const rrBadge = node('span', 'RR 1:' + rr.toFixed(1), 'bt-badge-sub');
+      const ruleText = node('span', '· Closed Candles Only', 'bt-sub-muted');
+      subTitle.append(pairBadge, tfBadge, rrBadge, ruleText);
 
       const candInput = (opts.candles && opts.pair === inst && opts.timeframe === tf) ? opts.candles : null;
 
@@ -3714,20 +3876,19 @@ Instruksi Format Output & Larangan Bocor Chain-of-Thought dan Perencanaan Rules 
       renderRows();
     }
 
-    runBtn.addEventListener('click', executeAndRender);
-
     copyReportBtn.addEventListener('click', () => {
       if (!lastResult) return;
       const md = generateBacktestMarkdown(lastResult);
       if (navigator.clipboard) {
         navigator.clipboard.writeText(md);
-        alert('Laporan hasil backtest berhasil disalin ke clipboard!');
+        const originalText = copyReportBtn.textContent;
+        copyReportBtn.textContent = 'Laporan Tersalin!';
+        setTimeout(() => { copyReportBtn.textContent = originalText; }, 2000);
       }
     });
 
     executeAndRender();
   }
-
 
   async function marketIntelligence() {
     filters = {};

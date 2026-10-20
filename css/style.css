@@ -2867,10 +2867,8 @@ a, button, summary, input, select, label { -webkit-tap-highlight-color: transpar
 .app-custom-select-backdrop {
   position: fixed;
   inset: 0;
-  z-index: 99990;
-  background: rgba(5, 8, 16, 0.75);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
+  z-index: 100000;
+  background: transparent;
   opacity: 0;
   visibility: hidden;
   transition: opacity 0.22s ease, visibility 0.22s ease;
@@ -2883,7 +2881,7 @@ a, button, summary, input, select, label { -webkit-tap-highlight-color: transpar
 
 .app-custom-select-panel {
   position: fixed;
-  z-index: 99995;
+  z-index: 100005;
   background: #0c1017;
   border: 1px solid rgba(56, 189, 248, 0.28);
   border-radius: 12px;
@@ -3058,6 +3056,11 @@ a, button, summary, input, select, label { -webkit-tap-highlight-color: transpar
 }
 
 @media (max-width: 768px) {
+  .app-custom-select-backdrop {
+    background: rgba(5, 8, 16, 0.75);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+  }
   .app-custom-select-trigger {
     min-height: 46px;
     font-size: 14.5px;

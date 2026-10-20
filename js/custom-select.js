@@ -79,6 +79,12 @@
     }
   });
 
+  window.addEventListener('scroll', () => {
+    if (activePanel && window.innerWidth > 768 && activePanel._positionFn) {
+      activePanel._positionFn();
+    }
+  }, true);
+
   function enhanceSelect(select) {
     if (!select || select.dataset.customEnhanced === 'true') return;
     // Skip if inside Pro Workspace or already enhanced by news-select
@@ -267,6 +273,8 @@
       if (!backdrop.parentElement) document.body.append(backdrop);
       if (!panel.parentElement) document.body.append(panel);
 
+      backdrop.style.zIndex = '100000';
+      panel.style.zIndex = '100005';
       positionFloatingPanel();
 
       requestAnimationFrame(() => {
@@ -330,4 +338,5 @@
 
   window.initCustomSelects = initAllSelects;
   window.enhanceCustomSelect = enhanceSelect;
+  window.closeActiveSelect = closeActiveSelect;
 })();
