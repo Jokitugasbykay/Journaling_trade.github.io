@@ -3459,34 +3459,6 @@
    "source": "https://www.forexfactory.com/calendar?day=oct19.2026#detail=146562"
   },
   {
-   "id": "ff-150629",
-   "tgl": "2026-10-20",
-   "jam": "",
-   "neg": "GBP",
-   "countryCode": "GB",
-   "nama": "10-y Bond Auction",
-   "dmp": 1,
-   "akt": "",
-   "prk": "",
-   "sbl": "5.38|3.3",
-   "cat": "",
-   "source": "https://www.forexfactory.com/calendar?day=oct20.2026#detail=150629"
-  },
-  {
-   "id": "ff-150215",
-   "tgl": "2026-10-20",
-   "jam": "",
-   "neg": "CNY",
-   "countryCode": "CN",
-   "nama": "Foreign Direct Investment ytd/y",
-   "dmp": 1,
-   "akt": "",
-   "prk": "",
-   "sbl": "-5.3%",
-   "cat": "",
-   "source": "https://www.forexfactory.com/calendar?day=oct20.2026#detail=150215"
-  },
-  {
    "id": "ff-149402",
    "tgl": "2026-10-20",
    "jam": "",
@@ -3725,6 +3697,20 @@
    "source": "https://www.investing.com/economic-calendar/"
   },
   {
+   "id": "559361",
+   "tgl": "2026-10-20",
+   "jam": "16:00",
+   "neg": "GBP",
+   "countryCode": "UK",
+   "nama": "10-Year Treasury Gilt Auction",
+   "dmp": 1,
+   "akt": "5.418%",
+   "prk": "",
+   "sbl": "5.383%",
+   "cat": "",
+   "source": "https://www.investing.com/economic-calendar/"
+  },
+  {
    "id": "558370",
    "tgl": "2026-10-20",
    "jam": "16:00",
@@ -3732,9 +3718,9 @@
    "countryCode": "EU",
    "nama": "Construction Output (Aug)",
    "dmp": 1,
-   "akt": "",
+   "akt": "1.85%",
    "prk": "",
-   "sbl": "0.00%",
+   "sbl": "0.19%",
    "cat": "",
    "source": "https://www.investing.com/economic-calendar/"
   },
@@ -3746,7 +3732,7 @@
    "countryCode": "DE",
    "nama": "German ZEW Current Conditions (Oct)",
    "dmp": 2,
-   "akt": "",
+   "akt": "-35.9",
    "prk": "-45.0",
    "sbl": "-47.1",
    "cat": "",
@@ -3760,7 +3746,7 @@
    "countryCode": "DE",
    "nama": "German ZEW Economic Sentiment (Oct)",
    "dmp": 2,
-   "akt": "",
+   "akt": "28.1",
    "prk": "30.2",
    "sbl": "34.7",
    "cat": "",
@@ -3774,25 +3760,25 @@
    "countryCode": "EU",
    "nama": "ZEW Economic Sentiment (Oct)",
    "dmp": 2,
-   "akt": "",
+   "akt": "18.5",
    "prk": "23.6",
    "sbl": "25.8",
    "cat": "",
    "source": "https://www.investing.com/economic-calendar/"
   },
   {
-   "id": "559361",
+   "id": "ff-150629",
    "tgl": "2026-10-20",
-   "jam": "16:30",
+   "jam": "16:03",
    "neg": "GBP",
-   "countryCode": "UK",
-   "nama": "10-Year Treasury Gilt Auction",
+   "countryCode": "GB",
+   "nama": "10-y Bond Auction",
    "dmp": 1,
-   "akt": "",
+   "akt": "5.42|3.6",
    "prk": "",
-   "sbl": "5.383%",
+   "sbl": "5.38|3.3",
    "cat": "",
-   "source": "https://www.investing.com/economic-calendar/"
+   "source": "https://www.forexfactory.com/calendar?day=oct20.2026#detail=150629"
   },
   {
    "id": "559433",
@@ -3975,6 +3961,20 @@
    "sbl": "3,928.0",
    "cat": "",
    "source": "https://www.investing.com/economic-calendar/"
+  },
+  {
+   "id": "ff-150215",
+   "tgl": "2026-10-21",
+   "jam": "",
+   "neg": "CNY",
+   "countryCode": "CN",
+   "nama": "Foreign Direct Investment ytd/y",
+   "dmp": 1,
+   "akt": "",
+   "prk": "",
+   "sbl": "-5.3%",
+   "cat": "",
+   "source": "https://www.forexfactory.com/calendar?day=oct21.2026#detail=150215"
   },
   {
    "id": "ff-155129",
@@ -6021,10 +6021,10 @@
    "source": "https://www.forexfactory.com/calendar?day=oct30.2026#detail=150083"
   }
  ],
- "updated": "2026-10-20T08:57:55.449651+00:00",
+ "updated": "2026-10-20T10:06:27.484083+00:00",
  "source": "https://www.forexfactory.com/calendar?month=oct.2026",
  "status": "ok",
- "checkedAt": "2026-10-20T08:57:55.449651+00:00",
+ "checkedAt": "2026-10-20T10:06:27.484083+00:00",
  "coverageStart": "2026-10-01",
  "coverageEnd": "2026-10-31",
  "agenda": [
