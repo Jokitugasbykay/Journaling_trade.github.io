@@ -4143,6 +4143,10 @@ body.pro-sheet-open { overflow:hidden !important; }
   gap: 16px;
 }
 
+.backtest-modal-body > * {
+  flex-shrink: 0;
+}
+
 .backtest-controls-bar {
   display: flex;
   flex-wrap: wrap;
@@ -4252,18 +4256,81 @@ body.pro-sheet-open { overflow:hidden !important; }
   border: 1px solid #334155;
   border-radius: 10px;
   overflow: hidden;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
 }
 
 .bt-table-header {
   padding: 12px 14px;
   border-bottom: 1px solid #334155;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
 }
 
 .bt-table-header h4 {
   margin: 0;
-  font-size: 13px;
+  font-size: 13.5px;
   font-weight: 700;
   color: #ffffff;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.bt-filter-group {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.bt-filter-btn {
+  padding: 4px 10px;
+  font-size: 11px;
+  font-weight: 600;
+  border-radius: 6px;
+  border: 1px solid #334155;
+  background-color: #0b0f19;
+  color: #94a3b8;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  font-family: 'JetBrains Mono', monospace;
+}
+
+.bt-filter-btn.active {
+  background-color: #3b82f6;
+  color: #ffffff;
+  border-color: #3b82f6;
+}
+
+.bt-filter-btn:hover:not(.active) {
+  background-color: #334155;
+  color: #ffffff;
+}
+
+.bt-pill-buy {
+  display: inline-block;
+  padding: 2px 7px;
+  background-color: #064e3b;
+  color: #34d399;
+  border: 1px solid #059669;
+  border-radius: 4px;
+  font-size: 10.5px;
+  font-weight: 700;
+}
+
+.bt-pill-sell {
+  display: inline-block;
+  padding: 2px 7px;
+  background-color: #7f1d1d;
+  color: #f87171;
+  border: 1px solid #dc2626;
+  border-radius: 4px;
+  font-size: 10.5px;
+  font-weight: 700;
 }
 
 .bt-badge-win {
@@ -4301,4 +4368,29 @@ body.pro-sheet-open { overflow:hidden !important; }
   justify-content: flex-end;
   gap: 10px;
   margin-top: 8px;
+}
+
+
+.bt-rr-preset-btn {
+  padding: 4px 8px;
+  font-size: 11px;
+  font-weight: 700;
+  border-radius: 4px;
+  border: 1px solid #334155;
+  background-color: #0b0f19;
+  color: #94a3b8;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  font-family: 'JetBrains Mono', monospace;
+}
+
+.bt-rr-preset-btn.active {
+  background-color: #3b82f6;
+  color: #ffffff;
+  border-color: #3b82f6;
+}
+
+.bt-rr-preset-btn:hover:not(.active) {
+  background-color: #1e293b;
+  color: #ffffff;
 }

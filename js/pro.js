@@ -2909,6 +2909,7 @@ Instruksi Format Output & Larangan Bocor Chain-of-Thought dan Perencanaan Rules 
     const equityCurve = [{ tradeIndex: 0, time: candles[0]?.time || 0, equity: initialBalance }];
 
     let activeTrade = null;
+    let lastExitBar = -999;
 
     for (let i = 35; i < candles.length; i++) {
       const c = candles[i];
@@ -2987,6 +2988,7 @@ Instruksi Format Output & Larangan Bocor Chain-of-Thought dan Perencanaan Rules 
           });
 
           activeTrade = null;
+          lastExitBar = i;
         }
         continue;
       }
@@ -2997,24 +2999,24 @@ Instruksi Format Output & Larangan Bocor Chain-of-Thought dan Perencanaan Rules 
       const swingLow = Math.min(...recent20.map(x => Number(x.low)));
       const keyPivot = (swingHigh + swingLow + Number(recent20[recent20.length - 1].close)) / 3;
 
+      if (i - lastExitBar < (tradingStyle === 'SCALPING' ? 2 : 3)) continue;
+
       const curRsi = rsiSeries[i] || 50;
       const curRsiSma = rsiSmaSeries[i] || 50;
-      const isBull = ema10[i] > ema20[i];
-      const isBear = ema10[i] < ema20[i];
-
-      const recent6 = candles.slice(i - 6, i);
-      const localH = Math.max(...recent6.map(x => Number(x.high)));
-      const localL = Math.min(...recent6.map(x => Number(x.low)));
+      const isBull = ema10[i] > ema20[i] && Number(c.close) >= ema20[i];
+      const isBear = ema10[i] < ema20[i] && Number(c.close) <= ema20[i];
 
       const bodySize = Math.abs(Number(c.close) - Number(c.open));
       const totalRange = Number(c.high) - Number(c.low) || 0.0001;
-      const strongBody = bodySize / totalRange >= 0.35;
+      const strongBody = bodySize / totalRange >= 0.38;
+      const lowerWick = Math.min(Number(c.open), Number(c.close)) - Number(c.low);
+      const upperWick = Number(c.high) - Math.max(Number(c.open), Number(c.close));
 
-      const buyBreakout = isBull && Number(c.close) >= keyPivot && Number(c.close) > localH && strongBody && curRsi > curRsiSma && curRsi >= 40 && curRsi <= 76;
-      const buyRejection = isBull && Number(c.close) >= keyPivot && Number(c.low) <= (Number(prev.low) + curAtr * 0.25) && Number(c.close) > Number(c.open) && curRsi >= 38 && curRsi <= 72;
+      const buyBreakout = isBull && Number(c.close) >= keyPivot && Number(c.close) >= swingHigh * 0.9998 && Number(c.close) > Number(c.open) && strongBody && curRsi > curRsiSma && curRsi >= 42 && curRsi <= 76;
+      const buyRejection = isBull && Number(c.close) >= keyPivot && Number(c.low) <= (keyPivot + curAtr * 0.35) && Number(c.close) > Number(c.open) && (lowerWick >= bodySize * 0.45 || Number(c.close) > Number(prev.high)) && curRsi >= 38 && curRsi <= 74;
 
-      const sellBreakout = isBear && Number(c.close) <= keyPivot && Number(c.close) < localL && strongBody && curRsi < curRsiSma && curRsi <= 60 && curRsi >= 24;
-      const sellRejection = isBear && Number(c.close) <= keyPivot && Number(c.high) >= (Number(prev.high) - curAtr * 0.25) && Number(c.close) < Number(c.open) && curRsi <= 62 && curRsi >= 28;
+      const sellBreakout = isBear && Number(c.close) <= keyPivot && Number(c.close) <= swingLow * 1.0002 && Number(c.close) < Number(c.open) && strongBody && curRsi < curRsiSma && curRsi <= 58 && curRsi >= 24;
+      const sellRejection = isBear && Number(c.close) <= keyPivot && Number(c.high) >= (keyPivot - curAtr * 0.35) && Number(c.close) < Number(c.open) && (upperWick >= bodySize * 0.45 || Number(c.close) < Number(prev.low)) && curRsi <= 62 && curRsi >= 26;
 
       let signalDir = null;
       let signalReason = '';
@@ -3316,7 +3318,7 @@ Instruksi Format Output & Larangan Bocor Chain-of-Thought dan Perencanaan Rules 
     fStyle.append(node('label', 'Trading Style'));
     const sStyle = node('select');
     sStyle.id = 'btStyleSelect';
-    [['INTRADAY', 'Intraday (RR 1:2.0 - Breakeven Lock)'], ['SCALPING', 'Scalping (RR 1:1.6 - High WR Momentum)'], ['SWING', 'Swing (RR 1:2.6 - Multi-Day Trailing)']].forEach(([val, lbl]) => {
+    [['INTRADAY', 'Intraday (Breakeven Lock)'], ['SCALPING', 'Scalping (High WR Momentum)'], ['SWING', 'Swing (Multi-Day Trailing)']].forEach(([val, lbl]) => {
       const opt = node('option', lbl);
       opt.value = val;
       if (val === selectedStyle) opt.selected = true;
@@ -3337,28 +3339,77 @@ Instruksi Format Output & Larangan Bocor Chain-of-Thought dan Perencanaan Rules 
     const fRisk = node('div', null, 'bt-field');
     fRisk.append(node('label', 'Risiko / Trade (%)'));
     const inRisk = node('input');
-    inRisk.type = 'number';
+    inRisk.type = 'text';
+    inRisk.inputMode = 'decimal';
     inRisk.id = 'btRiskInput';
     inRisk.value = '2.0';
-    inRisk.step = '0.5';
-    inRisk.min = '0.1';
-    inRisk.max = '10';
+    inRisk.style.width = '75px';
     fRisk.append(inRisk);
 
     const fRR = node('div', null, 'bt-field');
-    fRR.append(node('label', 'Target RR'));
+    fRR.append(node('label', 'Target RR (1:X)'));
+    const inRRWrap = node('div');
+    inRRWrap.style.display = 'flex';
+    inRRWrap.style.alignItems = 'center';
+    inRRWrap.style.gap = '6px';
+    inRRWrap.style.flexWrap = 'wrap';
+
     const inRR = node('input');
-    inRR.type = 'number';
+    inRR.type = 'text';
+    inRR.inputMode = 'decimal';
     inRR.id = 'btRRInput';
-    inRR.value = selectedStyle === 'SCALPING' ? '1.6' : selectedStyle === 'SWING' ? '2.6' : '2.0';
-    inRR.step = '0.1';
-    inRR.min = '1.0';
-    fRR.append(inRR);
+    const initRR = selectedStyle === 'SCALPING' ? '1.6' : selectedStyle === 'SWING' ? '2.6' : '2.0';
+    inRR.value = initRR;
+    inRR.style.width = '75px';
+    inRR.style.textAlign = 'center';
+
+    const rrPresets = node('div', null, 'bt-rr-presets');
+    rrPresets.style.display = 'flex';
+    rrPresets.style.gap = '4px';
+
+    const syncPresetButtons = (valStr) => {
+      const normalized = String(valStr).replace(/,/g, '.').trim();
+      rrPresets.querySelectorAll('.bt-rr-preset-btn').forEach(b => {
+        b.classList.toggle('active', b.dataset.rr === normalized);
+      });
+    };
+
+    ['1.5', '1.8', '2.0', '2.5', '3.0'].forEach(val => {
+      const pBtn = node('button', '1:' + val, 'bt-rr-preset-btn');
+      pBtn.type = 'button';
+      pBtn.dataset.rr = val;
+      if (val === initRR) pBtn.classList.add('active');
+      pBtn.addEventListener('click', () => {
+        inRR.value = val;
+        syncPresetButtons(val);
+        executeAndRender();
+      });
+      rrPresets.append(pBtn);
+    });
+
+    inRRWrap.append(inRR, rrPresets);
+    fRR.append(inRRWrap);
 
     sStyle.addEventListener('change', () => {
       const cur = sStyle.value;
-      inRR.value = cur === 'SCALPING' ? '1.6' : cur === 'SWING' ? '2.6' : '2.0';
+      const def = cur === 'SCALPING' ? '1.6' : cur === 'SWING' ? '2.6' : '2.0';
+      inRR.value = def;
+      syncPresetButtons(def);
+      executeAndRender();
     });
+
+    sPair.addEventListener('change', executeAndRender);
+    sTf.addEventListener('change', executeAndRender);
+    inCap.addEventListener('change', executeAndRender);
+    inRisk.addEventListener('change', executeAndRender);
+
+    let debounceTimer = null;
+    inRR.addEventListener('input', () => {
+      syncPresetButtons(inRR.value);
+      clearTimeout(debounceTimer);
+      debounceTimer = setTimeout(executeAndRender, 300);
+    });
+    inRR.addEventListener('change', executeAndRender);
 
     const runBtn = node('button', 'Jalankan Ulang Backtest', 'btn-action btn-backtest');
     runBtn.type = 'button';
@@ -3431,10 +3482,22 @@ Instruksi Format Output & Larangan Bocor Chain-of-Thought dan Perencanaan Rules 
 
     const tableCard = node('div', null, 'backtest-table-card');
     const tableHeader = node('div', null, 'bt-table-header');
-    tableHeader.append(node('h4', 'Detail Transaksi Historis (Closed Candles Only)'));
+    const headerTitleBox = node('h4');
+    headerTitleBox.append(node('span', 'Detail Transaksi Historis'));
+    const countBadge = node('span', '0 Transaksi', 'bt-badge-be');
+    countBadge.id = 'btTradeCountBadge';
+    headerTitleBox.append(countBadge);
+
+    const filterGroup = node('div', null, 'bt-filter-group');
+    const btnAll = node('button', 'Semua (0)', 'bt-filter-btn active');
+    const btnWin = node('button', 'Menang (0)', 'bt-filter-btn');
+    const btnLoss = node('button', 'Kalah (0)', 'bt-filter-btn');
+    const btnBE = node('button', 'BE (0)', 'bt-filter-btn');
+    filterGroup.append(btnAll, btnWin, btnLoss, btnBE);
+    tableHeader.append(headerTitleBox, filterGroup);
 
     const tableWrap = node('div');
-    tableWrap.style.maxHeight = '240px';
+    tableWrap.style.maxHeight = '320px';
     tableWrap.style.overflowY = 'auto';
 
     const tableEl = node('table');
@@ -3450,9 +3513,13 @@ Instruksi Format Output & Larangan Bocor Chain-of-Thought dan Perencanaan Rules 
     trHead.style.textAlign = 'left';
     trHead.style.borderBottom = '1px solid #334155';
 
-    ['#', 'Arah', 'Entry', 'SL', 'TP', 'Exit', 'PnL ($)', 'Status', 'Konfirmasi Setup'].forEach(col => {
+    ['#', 'Arah', 'Waktu Masuk', 'Entry', 'SL', 'TP', 'Exit', 'PnL ($ / %)', 'Status', 'Konfirmasi Setup'].forEach(col => {
       const th = node('th', col);
       th.style.padding = '8px 10px';
+      th.style.position = 'sticky';
+      th.style.top = '0';
+      th.style.backgroundColor = '#0b0f19';
+      th.style.zIndex = '2';
       trHead.append(th);
     });
     thead.append(trHead);
@@ -3482,15 +3549,22 @@ Instruksi Format Output & Larangan Bocor Chain-of-Thought dan Perencanaan Rules 
 
     let lastResult = null;
 
+    const parseLocaleNumber = (val, fallback = 2.0) => {
+      if (val === null || val === undefined) return fallback;
+      const cleaned = String(val).replace(/,/g, '.').trim();
+      const n = parseFloat(cleaned);
+      return isNaN(n) || n <= 0 ? fallback : n;
+    };
+
     function executeAndRender() {
       const inst = sPair.value;
       const tf = sTf.value;
       const st = sStyle.value;
-      const cap = Number(inCap.value) || 1000;
-      const rsk = Number(inRisk.value) || 2.0;
-      const rr = Number(inRR.value) || 2.5;
+      const cap = parseLocaleNumber(inCap.value, 1000);
+      const rsk = parseLocaleNumber(inRisk.value, 2.0);
+      const rr = parseLocaleNumber(inRR.value, 2.0);
 
-      subTitle.textContent = (opts.strategy?.name ? 'Strategi: ' + opts.strategy.name + ' · ' : '') + inst + ' · ' + tf.toUpperCase() + ' · Aturan Kaystrade Bagian IV.2 (Closed Candles Only)';
+      subTitle.textContent = (opts.strategy?.name ? 'Strategi: ' + opts.strategy.name + ' · ' : '') + inst + ' · ' + tf.toUpperCase() + ' · Target RR 1:' + rr.toFixed(1) + ' · Aturan Kaystrade Bagian IV.2 (Closed Candles Only)';
 
       const candInput = (opts.candles && opts.pair === inst && opts.timeframe === tf) ? opts.candles : null;
 
@@ -3535,28 +3609,72 @@ Instruksi Format Output & Larangan Bocor Chain-of-Thought dan Perencanaan Rules 
       chartSummary.textContent = 'Start: $' + res.initialBalance.toFixed(2) + ' -> End: $' + res.finalEquity.toFixed(2);
       renderEquitySvg(svgWrap, res.equityCurve, res.initialBalance);
 
-      tbody.replaceChildren();
-      if (!res.trades.length) {
-        const emptyTr = node('tr');
-        const emptyTd = node('td', 'Tidak ada sinyal setup yang terpicu dalam 500 bar ini.');
-        emptyTd.colSpan = 9;
-        emptyTd.style.padding = '16px';
-        emptyTd.style.textAlign = 'center';
-        emptyTd.style.color = '#94a3b8';
-        emptyTr.append(emptyTd);
-        tbody.append(emptyTr);
-      } else {
-        res.trades.forEach(t => {
+      countBadge.textContent = res.trades.length + ' Transaksi';
+      btnAll.textContent = 'Semua (' + res.trades.length + ')';
+      btnWin.textContent = 'Menang (' + res.winTrades + ')';
+      btnLoss.textContent = 'Kalah (' + res.lossTrades + ')';
+      btnBE.textContent = 'BE (' + res.beTrades + ')';
+
+      let activeFilter = 'ALL';
+      const filterButtons = [
+        { id: 'ALL', el: btnAll },
+        { id: 'WIN', el: btnWin },
+        { id: 'LOSS', el: btnLoss },
+        { id: 'BE', el: btnBE }
+      ];
+
+      filterButtons.forEach(({ id, el }) => {
+        el.onclick = () => {
+          activeFilter = id;
+          filterButtons.forEach(f => f.el.classList.toggle('active', f.id === id));
+          renderRows();
+        };
+      });
+
+      const fmtTime = (sec) => {
+        if (!sec) return '--';
+        const d = new Date(sec * 1000);
+        return d.toLocaleDateString('id-ID', { day: '2-digit', month: 'short' }) + ' ' + d.toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit', hour12: false });
+      };
+
+      function renderRows() {
+        tbody.replaceChildren();
+        const filteredTrades = res.trades.filter(t => {
+          if (activeFilter === 'WIN') return t.outcome === 'WIN';
+          if (activeFilter === 'LOSS') return t.outcome === 'LOSS';
+          if (activeFilter === 'BE') return t.outcome === 'BE';
+          return true;
+        });
+
+        if (!filteredTrades.length) {
+          const emptyTr = node('tr');
+          const emptyTd = node('td', 'Tidak ada transaksi dengan filter ' + activeFilter + '.');
+          emptyTd.colSpan = 10;
+          emptyTd.style.padding = '18px';
+          emptyTd.style.textAlign = 'center';
+          emptyTd.style.color = '#94a3b8';
+          emptyTr.append(emptyTd);
+          tbody.append(emptyTr);
+          return;
+        }
+
+        filteredTrades.forEach((t, rowIdx) => {
           const tr = node('tr');
           tr.style.borderBottom = '1px solid #1e293b';
+          tr.style.backgroundColor = (rowIdx % 2 === 1) ? 'rgba(15, 23, 42, 0.45)' : 'transparent';
 
           const tdIdx = node('td', String(t.index));
           tdIdx.style.padding = '8px 10px';
 
-          const tdDir = node('td', t.direction);
+          const tdDir = node('td');
           tdDir.style.padding = '8px 10px';
-          tdDir.style.fontWeight = '700';
-          tdDir.style.color = t.direction === 'BUY' ? '#10b981' : '#ef4444';
+          const pillDir = node('span', t.direction, t.direction === 'BUY' ? 'bt-pill-buy' : 'bt-pill-sell');
+          tdDir.append(pillDir);
+
+          const tdTime = node('td', fmtTime(t.entryTime));
+          tdTime.style.padding = '8px 10px';
+          tdTime.style.color = '#94a3b8';
+          tdTime.style.fontSize = '11.5px';
 
           const tdEntry = node('td', fmtPrice(t.entryPrice));
           tdEntry.style.padding = '8px 10px';
@@ -3572,10 +3690,11 @@ Instruksi Format Output & Larangan Bocor Chain-of-Thought dan Perencanaan Rules 
           const tdExit = node('td', fmtPrice(t.exitPrice));
           tdExit.style.padding = '8px 10px';
 
-          const tdPnl = node('td', (t.pnl >= 0 ? '+' : '') + '$' + t.pnl.toFixed(2));
+          const retPctText = typeof t.returnPct === 'number' ? ' (' + (t.returnPct >= 0 ? '+' : '') + t.returnPct.toFixed(2) + '%)' : '';
+          const tdPnl = node('td', (t.pnl >= 0 ? '+' : '') + '$' + t.pnl.toFixed(2) + retPctText);
           tdPnl.style.padding = '8px 10px';
           tdPnl.style.fontWeight = '700';
-          tdPnl.style.color = t.pnl >= 0 ? '#10b981' : '#ef4444';
+          tdPnl.style.color = t.pnl > 0 ? '#10b981' : (t.pnl < 0 ? '#ef4444' : '#94a3b8');
 
           const tdStatus = node('td');
           tdStatus.style.padding = '8px 10px';
@@ -3587,10 +3706,12 @@ Instruksi Format Output & Larangan Bocor Chain-of-Thought dan Perencanaan Rules 
           tdReason.style.color = '#cbd5e1';
           tdReason.style.fontSize = '11px';
 
-          tr.append(tdIdx, tdDir, tdEntry, tdSL, tdTP, tdExit, tdPnl, tdStatus, tdReason);
+          tr.append(tdIdx, tdDir, tdTime, tdEntry, tdSL, tdTP, tdExit, tdPnl, tdStatus, tdReason);
           tbody.append(tr);
         });
       }
+
+      renderRows();
     }
 
     runBtn.addEventListener('click', executeAndRender);
