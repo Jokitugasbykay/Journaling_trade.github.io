@@ -2560,7 +2560,7 @@
    "prk": "",
    "sbl": "",
    "cat": "",
-   "source": "https://www.forexfactory.com/calendar?day=oct15.2026#detail=148530"
+   "source": "https://www.forexfactory.com/calendar?day=oct14.2026#detail=148530"
   },
   {
    "id": "ff-149687",
@@ -2574,7 +2574,7 @@
    "prk": "-1.7%",
    "sbl": "-1.7%",
    "cat": "",
-   "source": "https://www.forexfactory.com/calendar?day=oct15.2026#detail=149687"
+   "source": "https://www.forexfactory.com/calendar?day=oct14.2026#detail=149687"
   },
   {
    "id": "ff-154993",
@@ -2588,7 +2588,7 @@
    "prk": "",
    "sbl": "",
    "cat": "",
-   "source": "https://www.forexfactory.com/calendar?day=oct15.2026#detail=154993"
+   "source": "https://www.forexfactory.com/calendar?day=oct14.2026#detail=154993"
   },
   {
    "id": "ff-151566",
@@ -3036,7 +3036,7 @@
    "prk": "",
    "sbl": "",
    "cat": "",
-   "source": "https://www.forexfactory.com/calendar?day=oct16.2026#detail=154978"
+   "source": "https://www.forexfactory.com/calendar?day=oct15.2026#detail=154978"
   },
   {
    "id": "ff-151321",
@@ -3218,7 +3218,7 @@
    "prk": "",
    "sbl": "",
    "cat": "",
-   "source": "https://www.forexfactory.com/calendar?day=oct17.2026#detail=155000"
+   "source": "https://www.forexfactory.com/calendar?day=oct16.2026#detail=155000"
   },
   {
    "id": "ff-155001",
@@ -3414,7 +3414,7 @@
    "prk": "-0.3%",
    "sbl": "0.4%",
    "cat": "",
-   "source": "https://www.forexfactory.com/calendar?day=oct19.2026#detail=149723"
+   "source": "https://www.forexfactory.com/calendar?day=oct18.2026#detail=149723"
   },
   {
    "id": "ff-149171",
@@ -3844,7 +3844,7 @@
    "countryCode": "UK",
    "nama": "CPI (Sep)",
    "dmp": 2,
-   "akt": "",
+   "akt": "0.4%",
    "prk": "0.3%",
    "sbl": "0.5%",
    "cat": "",
@@ -3858,7 +3858,7 @@
    "countryCode": "GB",
    "nama": "CPI y/y",
    "dmp": 3,
-   "akt": "",
+   "akt": "3.5%",
    "prk": "3.4%",
    "sbl": "3.1%",
    "cat": "",
@@ -3872,7 +3872,7 @@
    "countryCode": "UK",
    "nama": "CPI, n.s.a (Sep)",
    "dmp": 1,
-   "akt": "",
+   "akt": "144.10",
    "prk": "",
    "sbl": "143.60",
    "cat": "",
@@ -3886,7 +3886,7 @@
    "countryCode": "UK",
    "nama": "Core CPI (Sep)",
    "dmp": 1,
-   "akt": "",
+   "akt": "2.8%",
    "prk": "2.8%",
    "sbl": "2.6%",
    "cat": "",
@@ -3900,7 +3900,7 @@
    "countryCode": "GB",
    "nama": "Core CPI y/y",
    "dmp": 1,
-   "akt": "",
+   "akt": "2.8%",
    "prk": "2.8%",
    "sbl": "2.6%",
    "cat": "",
@@ -3914,9 +3914,9 @@
    "countryCode": "UK",
    "nama": "Core PPI Output (Sep)",
    "dmp": 1,
-   "akt": "",
+   "akt": "0.2%",
    "prk": "",
-   "sbl": "0.3%",
+   "sbl": "0.2%",
    "cat": "",
    "source": "https://www.investing.com/economic-calendar/"
   },
@@ -3928,7 +3928,7 @@
    "countryCode": "UK",
    "nama": "Core RPI (Sep)",
    "dmp": 1,
-   "akt": "",
+   "akt": "3.9%",
    "prk": "",
    "sbl": "3.3%",
    "cat": "",
@@ -3942,9 +3942,9 @@
    "countryCode": "UK",
    "nama": "PPI Input (Sep)",
    "dmp": 1,
-   "akt": "",
+   "akt": "8.3%",
    "prk": "7.2%",
-   "sbl": "6.1%",
+   "sbl": "6.7%",
    "cat": "",
    "source": "https://www.investing.com/economic-calendar/"
   },
@@ -3956,7 +3956,7 @@
    "countryCode": "GB",
    "nama": "PPI Input m/m",
    "dmp": 1,
-   "akt": "",
+   "akt": "1.5%",
    "prk": "1.3%",
    "sbl": "0.3%",
    "cat": "",
@@ -3970,7 +3970,7 @@
    "countryCode": "UK",
    "nama": "PPI Output (Sep)",
    "dmp": 1,
-   "akt": "",
+   "akt": "0.8%",
    "prk": "0.7%",
    "sbl": "0.7%",
    "cat": "",
@@ -3984,7 +3984,7 @@
    "countryCode": "GB",
    "nama": "PPI Output m/m",
    "dmp": 1,
-   "akt": "",
+   "akt": "0.8%",
    "prk": "0.7%",
    "sbl": "0.7%",
    "cat": "",
@@ -3998,7 +3998,7 @@
    "countryCode": "UK",
    "nama": "Public Sector Net Borrowing (Sep)",
    "dmp": 1,
-   "akt": "",
+   "akt": "24.50B",
    "prk": "23.80B",
    "sbl": "18.30B",
    "cat": "",
@@ -4012,9 +4012,9 @@
    "countryCode": "UK",
    "nama": "Public Sector Net Cash Requirement (Sep)",
    "dmp": 1,
-   "akt": "",
+   "akt": "16.939B",
    "prk": "",
-   "sbl": "10.005B",
+   "sbl": "9.870B",
    "cat": "",
    "source": "https://www.investing.com/economic-calendar/"
   },
@@ -4026,7 +4026,7 @@
    "countryCode": "UK",
    "nama": "RPI (Sep)",
    "dmp": 1,
-   "akt": "",
+   "akt": "3.9%",
    "prk": "3.9%",
    "sbl": "3.4%",
    "cat": "",
@@ -4040,7 +4040,7 @@
    "countryCode": "GB",
    "nama": "RPI y/y",
    "dmp": 1,
-   "akt": "",
+   "akt": "3.9%",
    "prk": "3.9%",
    "sbl": "3.4%",
    "cat": "",
@@ -4056,7 +4056,7 @@
    "dmp": 1,
    "akt": "",
    "prk": "",
-   "sbl": "1,238,158.0B",
+   "sbl": "1,238.2B",
    "cat": "",
    "source": "https://www.investing.com/economic-calendar/"
   },
@@ -6245,10 +6245,10 @@
    "source": "https://www.forexfactory.com/calendar?day=oct30.2026#detail=150083"
   }
  ],
- "updated": "2026-10-21T05:47:41.661310+00:00",
+ "updated": "2026-10-21T06:02:56.512718+00:00",
  "source": "https://www.forexfactory.com/calendar?month=oct.2026",
  "status": "ok",
- "checkedAt": "2026-10-21T05:47:41.661310+00:00",
+ "checkedAt": "2026-10-21T06:02:56.512718+00:00",
  "coverageStart": "2026-10-01",
  "coverageEnd": "2026-10-31",
  "agenda": [
