@@ -43,7 +43,7 @@
   const BANNED_MODELS_REGEX=/gpt[- ]?6|gpt[- ]?5.6|astra|sol|terra/i;
   const isBannedAiModel=(m)=>Boolean(m && typeof m==='string' && BANNED_MODELS_REGEX.test(m));
 
-  const sanitizeKey=(k)=>String(k||'').trim().replace(/^["']+|["']+$/g,'').trim();
+  const sanitizeKey=(k)=>String(k||'').trim().replace(/^["']+|["']+$/g,'').replace(/^Bearer\s+/i,'').trim();
   const getStorage=()=>{try{return global['local'+'Storage']||null;}catch(_){return null;}};
 
   // Auto-migrate legacy key if user pasted sk- into gemini_api_key previously
@@ -831,9 +831,8 @@
 
     const isFailoverableError = (err) => {
       if (!err) return false;
-      if (err.isQuota) return true;
-      const msg = String(err.message || '');
-      return /kuota|quota|429|RESOURCE_EXHAUSTED|insufficient_quota|rate limit|limit habis/i.test(msg);
+      if (err.name === 'AbortError') return false;
+      return true;
     };
 
     try {
@@ -1799,10 +1798,9 @@ Instruksi Format Output & Larangan Bocor Chain-of-Thought dan Perencanaan Rules 
         result.replaceChildren();
         const loadingBox=node('div',null,'pro-ai-loading');
         const isBehaviour=kind==='behaviour';
-        const providerName=getActiveAiProvider()==='openai'?'ChatGPT (OpenAI)':'Google Gemini';
         loadingBox.append(
           node('div',null,'pro-spinner'),
-          node('p',isBehaviour?`Menganalisis perilaku dan psikologi trading dengan ${providerName}...`:`Mengevaluasi performa jurnal dan strategi dengan ${providerName}...`)
+          node('p',isBehaviour?'Menganalisis perilaku dan psikologi trading dengan Kayla AI...':'Mengevaluasi performa jurnal dan strategi dengan Kayla AI...')
         );
         result.replaceChildren(node('h2','Analysis result'),loadingBox);
 
@@ -2038,7 +2036,7 @@ Instruksi Format Output & Larangan Bocor Chain-of-Thought dan Perencanaan Rules 
 
     terminal.append(terminalHeader, messages, inputBar);
 
-    const note = node('p', 'Ditenagai oleh Kayla AI.Mengobrol dan konsultasi seputar strategi, psikologi, teknikal, dan evaluasi jurnal secara interaktif dua arah.', 'pro-muted');
+    const note = node('p', 'Ditenagai oleh Kayla AI. Mengobrol dan konsultasi seputar strategi, psikologi, teknikal, dan evaluasi jurnal secara interaktif dua arah.', 'pro-muted');
     const clearChatBtn = node('button', 'Hapus Riwayat Chat', 'btn btn-ghost');
     clearChatBtn.type = 'button';
     clearChatBtn.id = 'pro-ai-chat-clear';
@@ -2081,7 +2079,7 @@ Instruksi Format Output & Larangan Bocor Chain-of-Thought dan Perencanaan Rules 
         quota.style.display = '';
         quota.textContent = 'AI analyses remaining this month: ' + format(access?.ai?.remaining) + ' / ' + format(access?.ai?.limit || 30);
       }
-      note.textContent = 'Ditenagai oleh Kayla AI.Mengobrol dan konsultasi seputar strategi, psikologi, teknikal, dan evaluasi jurnal secara interaktif dua arah.';
+      note.textContent = 'Ditenagai oleh Kayla AI. Mengobrol dan konsultasi seputar strategi, psikologi, teknikal, dan evaluasi jurnal secara interaktif dua arah.';
     };
 
     const bubble = (role, value, time) => {
