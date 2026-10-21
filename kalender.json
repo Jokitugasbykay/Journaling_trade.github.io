@@ -3725,20 +3725,6 @@
    "source": "https://www.forexfactory.com/calendar?day=oct20.2026#detail=149402"
   },
   {
-   "id": "ff-150215",
-   "tgl": "2026-10-21",
-   "jam": "",
-   "neg": "CNY",
-   "countryCode": "CN",
-   "nama": "Foreign Direct Investment ytd/y",
-   "dmp": 1,
-   "akt": "",
-   "prk": "",
-   "sbl": "-5.3%",
-   "cat": "",
-   "source": "https://www.forexfactory.com/calendar?day=oct21.2026#detail=150215"
-  },
-  {
    "id": "ff-155129",
    "tgl": "2026-10-21",
    "jam": "00:00",
@@ -4054,9 +4040,9 @@
    "countryCode": "CH",
    "nama": "M3 Money Supply (Sep)",
    "dmp": 1,
-   "akt": "",
+   "akt": "1,238,936.0B",
    "prk": "",
-   "sbl": "1,238.2B",
+   "sbl": "1,239,475.0B",
    "cat": "",
    "source": "https://www.investing.com/economic-calendar/"
   },
@@ -4082,7 +4068,7 @@
    "countryCode": "ZA",
    "nama": "CPI (Sep)",
    "dmp": 1,
-   "akt": "",
+   "akt": "0.4%",
    "prk": "",
    "sbl": "0.0%",
    "cat": "",
@@ -4096,7 +4082,7 @@
    "countryCode": "ZA",
    "nama": "Core CPI (Sep)",
    "dmp": 1,
-   "akt": "",
+   "akt": "4.0%",
    "prk": "",
    "sbl": "4.1%",
    "cat": "",
@@ -4110,7 +4096,7 @@
    "countryCode": "GB",
    "nama": "HPI y/y",
    "dmp": 1,
-   "akt": "",
+   "akt": "0.9%",
    "prk": "1.2%",
    "sbl": "1.4%",
    "cat": "",
@@ -4124,7 +4110,7 @@
    "countryCode": "UK",
    "nama": "House Price Index",
    "dmp": 1,
-   "akt": "",
+   "akt": "0.9%",
    "prk": "1.2%",
    "sbl": "1.4%",
    "cat": "",
@@ -4479,6 +4465,20 @@
    "sbl": "0.9%",
    "cat": "",
    "source": "https://www.investing.com/economic-calendar/"
+  },
+  {
+   "id": "ff-150215",
+   "tgl": "2026-10-22",
+   "jam": "",
+   "neg": "CNY",
+   "countryCode": "CN",
+   "nama": "Foreign Direct Investment ytd/y",
+   "dmp": 1,
+   "akt": "",
+   "prk": "",
+   "sbl": "-5.3%",
+   "cat": "",
+   "source": "https://www.forexfactory.com/calendar?day=oct22.2026#detail=150215"
   },
   {
    "id": "559235",
@@ -6245,10 +6245,10 @@
    "source": "https://www.forexfactory.com/calendar?day=oct30.2026#detail=150083"
   }
  ],
- "updated": "2026-10-21T06:10:01.823147+00:00",
+ "updated": "2026-10-21T09:43:23.026473+00:00",
  "source": "https://www.forexfactory.com/calendar?month=oct.2026",
  "status": "ok",
- "checkedAt": "2026-10-21T06:10:01.823147+00:00",
+ "checkedAt": "2026-10-21T09:43:23.026473+00:00",
  "coverageStart": "2026-10-01",
  "coverageEnd": "2026-10-31",
  "agenda": [
