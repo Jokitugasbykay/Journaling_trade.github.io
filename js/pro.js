@@ -4,7 +4,7 @@
     analytics:'Advanced Analytics', heatmap:'Performance Heatmap', strategies:'Strategy Comparison',
     risk:'Risk Intelligence', reviews:'Weekly & Monthly Review', reports:'PDF Reports',
     'ai-behaviour':'AI Behaviour Analysis', 'ai-market':'AI Market Intelligence',
-    'ai-journal':'AI Journal Analyst', 'ai-chat':'AI Chat', 'global-news':'Gemini API Key'
+    'ai-journal':'AI Journal Analyst', 'ai-chat':'AI Chat', 'global-news':'AI Engine & API Key'
   };
   const timeframes = {'1m':'1','5m':'5','15m':'15','30m':'30','1h':'60','4h':'240','1d':'D'};
   let options={}, revision=0, controller=new AbortController(), access=null, current='', root=null, status=null, content=null, filters={}, preset={}, accounts=[], strategies=[], activeTabLoader=null;
@@ -45,6 +45,20 @@
 
   const sanitizeKey=(k)=>String(k||'').trim().replace(/^["']+|["']+$/g,'').trim();
   const getStorage=()=>{try{return global['local'+'Storage']||null;}catch(_){return null;}};
+
+  // Auto-migrate legacy key if user pasted sk- into gemini_api_key previously
+  try {
+    const store = getStorage();
+    if (store) {
+      const g = sanitizeKey(store.getItem(GEMINI_STORAGE_KEY));
+      const o = sanitizeKey(store.getItem(OPENAI_STORAGE_KEY));
+      if (g && /^sk[-_]/i.test(g)) {
+        if (!o) store.setItem(OPENAI_STORAGE_KEY, g);
+        store.removeItem(GEMINI_STORAGE_KEY);
+        store.setItem(AI_PROVIDER_STORAGE_KEY, 'openai');
+      }
+    }
+  } catch (_) {}
 
   const getOpenAiApiKey=()=>{
     try{
@@ -664,6 +678,11 @@
     if (activeProvider === 'openai') {
       const openAiModel = (model && !model.startsWith('gemini') && !model.startsWith('gemma')) ? model : OPENAI_DEFAULT_MODEL;
       return callOpenAiApi({systemInstruction, contents, history, model: openAiModel, signal});
+    }
+
+    const rawStoredKey = sanitizeKey(getStorage()?.getItem(GEMINI_STORAGE_KEY));
+    if (rawStoredKey && /^sk[-_]/i.test(rawStoredKey)) {
+      return callOpenAiApi({systemInstruction, contents, history, model: OPENAI_DEFAULT_MODEL, signal});
     }
 
     const apiKey=getGeminiApiKey();
@@ -1346,7 +1365,7 @@ Instruksi Format Output & Larangan Bocor Chain-of-Thought dan Perencanaan Rules 
     'ai-behaviour': { group: 'AI assistant', icon: 'brain', isAi: true, desc: 'Psikologi & deteksi FOMO' },
     'ai-journal': { group: 'AI assistant', icon: 'search', isAi: true, desc: 'Analisis konsistensi jurnal' },
     'ai-chat': { group: 'AI assistant', icon: 'chat', isAi: true, desc: 'Asisten trading cerdas interaktif' },
-    'global-news': { group: 'Markets', icon: 'key', desc: 'Konfigurasi terpusat Gemini API' }
+    'global-news': { group: 'Markets', icon: 'key', desc: 'Konfigurasi terpusat OpenAI & Gemini API' }
   };
   function createProMobileNavigator(wrap, selectEl, activeKey, onSelect) {
     wrap.classList.add('pro-section-mobile');
@@ -7765,7 +7784,9 @@ Setiap kali melakukan analisa pada instrumen apa pun, jalankan prosedur sinkroni
     card.style.margin='0 auto';
     card.style.padding='24px';
 
-    const h2=node('h2','Google Gemini API Key','pro-panel-title');
+    let curCardProvider = getActiveAiProvider() || 'gemini';
+
+    const h2=node('h2',curCardProvider==='openai'?'ChatGPT (OpenAI) API Key':'Google Gemini API Key','pro-panel-title');
     h2.style.fontSize='20px';
     h2.style.fontWeight='700';
     h2.style.marginBottom='8px';
@@ -7796,8 +7817,6 @@ Setiap kali melakukan analisa pada instrumen apa pun, jalankan prosedur sinkroni
       statusBadge.append(dot,strong);
     }
     refreshStatusBadge();
-
-    let curCardProvider = getActiveAiProvider() || 'gemini';
 
     const providerToggleWrap=node('div');
     providerToggleWrap.style.display='flex';
@@ -7868,6 +7887,7 @@ Setiap kali melakukan analisa pada instrumen apa pun, jalankan prosedur sinkroni
       if(prov==='openai'){
         tabOpenAi.className='btn btn-primary';
         tabGemini.className='btn btn-outline';
+        h2.textContent='ChatGPT (OpenAI) API Key';
         label.textContent='OpenAI / ChatGPT API Key';
         input.placeholder='sk-... (atau sk-proj-...)';
         input.value=getOpenAiApiKey();
@@ -7877,6 +7897,7 @@ Setiap kali melakukan analisa pada instrumen apa pun, jalankan prosedur sinkroni
       } else {
         tabGemini.className='btn btn-primary';
         tabOpenAi.className='btn btn-outline';
+        h2.textContent='Google Gemini API Key';
         label.textContent='Google Gemini API Key';
         input.placeholder='AIzaSy...';
         input.value=getGeminiApiKey();
