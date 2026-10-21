@@ -2276,10 +2276,12 @@ Instruksi Format Output & Larangan Bocor Chain-of-Thought dan Perencanaan Rules 
     return aggregated;
   }
 
-  function generateMultiYearCandles(instrument = 'XAUUSD', count = 1500) {
+  function generateMultiYearCandles(instrument = 'XAUUSD', count = 1500, timeframe = '30m') {
     const endTimestamp = Math.floor(Date.now() / 1000);
-    const startTimestamp = endTimestamp - (2 * 365 * 86400); // 2 years ago (2024 to 2026)
-    const stepSec = Math.floor((endTimestamp - startTimestamp) / count);
+    const tfSec = tfToSeconds(timeframe);
+    const totalDuration = Math.min(2 * 365 * 86400, count * tfSec);
+    const startTimestamp = endTimestamp - totalDuration;
+    const stepSec = Math.floor(totalDuration / count);
     const candles = [];
     
     const isGold = instrument.includes('XAU') || instrument.includes('GOLD') || instrument === 'PAXGUSDT';
@@ -2302,7 +2304,8 @@ Instruksi Format Output & Larangan Bocor Chain-of-Thought dan Perencanaan Rules 
         targetMacro = p + (baseTarget - p) * 0.002;
       }
       
-      const atr = p * 0.0025;
+      const tfRatio = Math.sqrt(Math.max(60, stepSec) / 1800);
+      const atr = p * 0.0022 * tfRatio;
       const macroPull = (targetMacro - p) * 0.035;
       const noise = (Math.random() - 0.48) * atr * 0.85;
       const change = macroPull + noise;
@@ -2596,16 +2599,17 @@ Instruksi Format Output & Larangan Bocor Chain-of-Thought dan Perencanaan Rules 
       const avgRange = recentCandles.length ? recentCandles.reduce((acc, c) => acc + (Number(c.high) - Number(c.low)), 0) / recentCandles.length : (livePrice * 0.002);
 
       let entryPrice = livePrice, slPrice = livePrice, tpPrice = livePrice;
+      const targetStyleRR = tradingStyle === 'SWING' ? 3.2 : (tradingStyle === 'SCALPING' ? 1.8 : 2.5);
       if (direction === 'SELL' || sellPoints > buyPoints) {
         entryPrice = livePrice + avgRange * 0.35;
         slPrice = Math.max(entryPrice + avgRange * 2.2, tfStruct.swingHigh || (entryPrice + avgRange * 2.2));
         const risk = Math.abs(slPrice - entryPrice) || (livePrice * 0.005);
-        tpPrice = entryPrice - risk * 3.0;
+        tpPrice = entryPrice - risk * targetStyleRR;
       } else {
         entryPrice = livePrice - avgRange * 0.35;
         slPrice = Math.min(entryPrice - avgRange * 2.2, tfStruct.swingLow || (entryPrice - avgRange * 2.2));
         const risk = Math.abs(entryPrice - slPrice) || (livePrice * 0.005);
-        tpPrice = entryPrice + risk * 3.0;
+        tpPrice = entryPrice + risk * targetStyleRR;
       }
 
       const riskDist = Math.abs(entryPrice - slPrice) || 0.0001;
@@ -2931,61 +2935,68 @@ Instruksi Format Output & Larangan Bocor Chain-of-Thought dan Perencanaan Rules 
     const riskPercent = Math.max(0.1, Math.min(10, Number(config.riskPercent) || 2.0));
     const tradingStyle = String(config.tradingStyle || 'INTRADAY').toUpperCase();
     const period = String(config.period || '1-2_YEARS');
+    const instrument = String(config.instrument || 'XAUUSD').toUpperCase();
+    const timeframe = String(config.timeframe || '30m').toLowerCase();
+    const secPerBar = tfToSeconds(timeframe);
 
-    // Style-specific calibrated parameters according to Kaystrade rules
-    let defaultRR = 2.0;
-    let beTriggerR = 1.60;
+    // Style-specific calibrated parameters according to Kaystrade rules (Bagian I.2 & IV.2)
+    let defaultRR = 2.5;
+    let beTriggerR = 1.50;
     let beBufferAtr = 0.20;
-    let maxHoldBars = 64;
+    let maxHoldBars = Math.max(1, Math.round(86400 / secPerBar)); // Intraday: max 24 hours (48 bars on 30m, 24 on 1h, 6 on 4h, 1 on 1d)
     let slBufferAtr = 0.35;
-    let minSlAtr = 1.15;
+    let minSlAtr = 1.25;
+    let lookbackSwingBars = 48;
+    let baseLookback = 12;
+    let minCooldownBars = (period === '1-2_YEARS') ? (timeframe === '1d' ? 3 : (timeframe === '4h' ? 6 : 14)) : 8;
 
     if (tradingStyle === 'SCALPING') {
-      defaultRR = 1.6;
-      beTriggerR = 1.35;
+      defaultRR = 1.8;
+      beTriggerR = 1.30;
       beBufferAtr = 0.15;
-      maxHoldBars = 36;
-      slBufferAtr = 0.30;
+      maxHoldBars = Math.max(4, Math.round(14400 / secPerBar)); // Scalping: max 1-4 hours
+      slBufferAtr = 0.25;
       minSlAtr = 1.0;
+      lookbackSwingBars = 24;
+      baseLookback = 8;
+      minCooldownBars = 10;
     } else if (tradingStyle === 'SWING') {
-      defaultRR = 2.5;
-      beTriggerR = 1.70;
-      beBufferAtr = 0.20;
-      maxHoldBars = 96;
+      defaultRR = 2.8; // Swing target 1:2.5 to 1:3.5
+      beTriggerR = 1.50;
+      beBufferAtr = 0.25;
+      maxHoldBars = 999999; // Swing: Hold sampai menyentuh TP/SL (no artificial 24h cutoff)
       slBufferAtr = 0.40;
-      minSlAtr = 1.25;
+      minSlAtr = 1.40;
+      lookbackSwingBars = (timeframe === '1d') ? 30 : 60; // Major H4/D1 structural swing
+      baseLookback = (timeframe === '1d') ? 8 : 14;
+      minCooldownBars = (period === '1-2_YEARS') ? (timeframe === '1d' ? 4 : (timeframe === '4h' ? 6 : 14)) : 10;
     }
 
     const targetRR = Math.max(1.0, Number(config.targetRR) || defaultRR);
-    const instrument = String(config.instrument || 'XAUUSD').toUpperCase();
-    const timeframe = String(config.timeframe || '30m').toLowerCase();
-
     const isGold = instrument.includes('XAU') || instrument.includes('GOLD') || instrument === 'PAXGUSDT';
     const isCrypto = instrument.includes('BTC') || instrument.includes('ETH') || instrument.includes('SOL') || instrument.endsWith('USDT');
     const maxDrawdownLimit = isGold ? 30.0 : 20.0;
 
     let candles = [];
     if (period === '1-2_YEARS') {
-      // 1-2 Tahun Terakhir (Historis 2024-2026)
-      candles = generateMultiYearCandles(instrument, 1500);
+      const barCount = (timeframe === '1d') ? 730 : 1500;
+      candles = generateMultiYearCandles(instrument, barCount, timeframe);
     } else if (period === '6_MONTHS') {
-      candles = generateMultiYearCandles(instrument, 750);
+      const barCount = (timeframe === '1d') ? 180 : 750;
+      candles = generateMultiYearCandles(instrument, barCount, timeframe);
     } else {
-      // 500 Bars Real-Time
       if (Array.isArray(candlesInput) && candlesInput.length >= 80) {
         candles = [...candlesInput];
       } else {
-        const baseSeed = SEED_PRICES[instrument] || 2720;
-        const stepSec = tfToSeconds(timeframe);
-        candles = generateFallbackCandles(baseSeed, 500, stepSec);
+        candles = generateMultiYearCandles(instrument, 500, timeframe);
       }
       if (candles.length > 500) candles = candles.slice(-500);
     }
 
     // Precalculate EMAs & ATR
     const closes = candles.map(c => Number(c.close));
-    const calcEmaSeries = (period) => {
-      const k = 2 / (period + 1);
+    const calcEmaSeries = (pLen) => {
+      const k = 2 / (pLen + 1);
       const res = [closes[0]];
       for (let idx = 1; idx < closes.length; idx++) {
         res.push(closes[idx] * k + res[idx - 1] * (1 - k));
@@ -3041,7 +3052,6 @@ Instruksi Format Output & Larangan Bocor Chain-of-Thought dan Perencanaan Rules 
     let activeTrade = null;
     let lastExitBar = -999;
     let lastEntryPrice = 0;
-    let lastEntryDir = '';
 
     for (let i = 35; i < candles.length; i++) {
       const c = candles[i];
@@ -3065,11 +3075,18 @@ Instruksi Format Output & Larangan Bocor Chain-of-Thought dan Perencanaan Rules 
           activeTrade.sl = activeTrade.entry + (isLong ? 1 : -1) * (curAtr * beBufferAtr);
         }
 
-        // Dynamic trailing in Swing mode
-        if (tradingStyle === 'SWING' && favorableDist >= curRiskDist * 2.2) {
-          const trailStop = isLong ? Math.max(activeTrade.sl, Number(prev.low) - curAtr * 0.25)
-                                   : Math.min(activeTrade.sl, Number(prev.high) + curAtr * 0.25);
-          activeTrade.sl = trailStop;
+        // Dynamic trailing in Swing mode: Trail behind recent swing structure (last 6 bars) once 2.0R reached
+        if (tradingStyle === 'SWING' && favorableDist >= curRiskDist * 2.0) {
+          const lookbackTrail = candles.slice(Math.max(0, i - 6), i);
+          if (isLong) {
+            const recentLow = Math.min(...lookbackTrail.map(x => Number(x.low)));
+            const trailStop = recentLow - curAtr * 0.35;
+            if (trailStop > activeTrade.sl) activeTrade.sl = trailStop;
+          } else {
+            const recentHigh = Math.max(...lookbackTrail.map(x => Number(x.high)));
+            const trailStop = recentHigh + curAtr * 0.35;
+            if (trailStop < activeTrade.sl) activeTrade.sl = trailStop;
+          }
         }
 
         const isBullCandle = Number(c.close) >= Number(c.open);
@@ -3078,7 +3095,8 @@ Instruksi Format Output & Larangan Bocor Chain-of-Thought dan Perencanaan Rules 
           if (isBullCandle) {
             if (Number(c.low) <= activeTrade.sl) {
               exitPrice = activeTrade.sl;
-              outcome = activeTrade.beActivated ? 'BE' : 'LOSS';
+              const isProfit = exitPrice > activeTrade.entry;
+              outcome = isProfit ? 'WIN' : (activeTrade.beActivated ? 'BE' : 'LOSS');
             } else if (Number(c.high) >= activeTrade.tp) {
               exitPrice = activeTrade.tp;
               outcome = 'WIN';
@@ -3089,7 +3107,8 @@ Instruksi Format Output & Larangan Bocor Chain-of-Thought dan Perencanaan Rules 
               outcome = 'WIN';
             } else if (Number(c.low) <= activeTrade.sl) {
               exitPrice = activeTrade.sl;
-              outcome = activeTrade.beActivated ? 'BE' : 'LOSS';
+              const isProfit = exitPrice > activeTrade.entry;
+              outcome = isProfit ? 'WIN' : (activeTrade.beActivated ? 'BE' : 'LOSS');
             }
           }
         } else {
@@ -3099,12 +3118,14 @@ Instruksi Format Output & Larangan Bocor Chain-of-Thought dan Perencanaan Rules 
               outcome = 'WIN';
             } else if (Number(c.high) >= activeTrade.sl) {
               exitPrice = activeTrade.sl;
-              outcome = activeTrade.beActivated ? 'BE' : 'LOSS';
+              const isProfit = exitPrice < activeTrade.entry;
+              outcome = isProfit ? 'WIN' : (activeTrade.beActivated ? 'BE' : 'LOSS');
             }
           } else {
             if (Number(c.high) >= activeTrade.sl) {
               exitPrice = activeTrade.sl;
-              outcome = activeTrade.beActivated ? 'BE' : 'LOSS';
+              const isProfit = exitPrice < activeTrade.entry;
+              outcome = isProfit ? 'WIN' : (activeTrade.beActivated ? 'BE' : 'LOSS');
             } else if (Number(c.low) <= activeTrade.tp) {
               exitPrice = activeTrade.tp;
               outcome = 'WIN';
@@ -3112,7 +3133,7 @@ Instruksi Format Output & Larangan Bocor Chain-of-Thought dan Perencanaan Rules 
           }
         }
 
-        // Max hold bars exit
+        // Max hold bars exit (For Intraday: max 24 hours. For Swing: hold until TP/SL)
         if (outcome === null && activeTrade.barsHeld >= maxHoldBars) {
           exitPrice = Number(c.close);
           const favorable = isLong ? (exitPrice > activeTrade.entry) : (exitPrice < activeTrade.entry);
@@ -3153,7 +3174,6 @@ Instruksi Format Output & Larangan Bocor Chain-of-Thought dan Perencanaan Rules 
           });
 
           lastEntryPrice = activeTrade.entry;
-          lastEntryDir = activeTrade.direction;
           activeTrade = null;
           lastExitBar = i;
         }
@@ -3161,7 +3181,6 @@ Instruksi Format Output & Larangan Bocor Chain-of-Thought dan Perencanaan Rules 
       }
 
       // ANTI-OVERTRADING FILTER (Larangan trade berulang kali di momen yang sama)
-      const minCooldownBars = period === '1-2_YEARS' ? 18 : 10;
       if (i - lastExitBar < minCooldownBars) continue;
 
       // Zone exhaustion filter: Jangan re-entry di level harga yang sama jika belum ada pergerakan struktural baru
@@ -3170,8 +3189,7 @@ Instruksi Format Output & Larangan Bocor Chain-of-Thought dan Perencanaan Rules 
       }
 
       // 2. BASE AND STRUCTURE DETECTION (Aturan Kaystrade IV.2)
-      const lookback = 10;
-      const baseBars = candles.slice(i - lookback, i);
+      const baseBars = candles.slice(i - baseLookback, i);
       const baseHigh = Math.max(...baseBars.map(x => Number(x.high)));
       const baseLow = Math.min(...baseBars.map(x => Number(x.low)));
       const isInsideBase = Number(c.close) <= baseHigh && Number(c.close) >= baseLow;
@@ -3179,19 +3197,35 @@ Instruksi Format Output & Larangan Bocor Chain-of-Thought dan Perencanaan Rules 
       // Dilarang keras trade di dalam base
       if (isInsideBase) continue;
 
-      const recent20 = candles.slice(i - 20, i);
-      const swingHigh = Math.max(...recent20.map(x => Number(x.high)));
-      const swingLow = Math.min(...recent20.map(x => Number(x.low)));
-      const keyPivot = (swingHigh + swingLow + Number(prev.close)) / 3;
+      // True Kaystrade Structural Swing Analysis (HH/HL vs LH/LL)
+      const recentSwings = candles.slice(Math.max(0, i - lookbackSwingBars), i);
+      const half = Math.floor(recentSwings.length / 2);
+      const firstHalf = recentSwings.slice(0, half);
+      const secondHalf = recentSwings.slice(half);
+
+      const high1 = Math.max(...firstHalf.map(x => Number(x.high)));
+      const low1 = Math.min(...firstHalf.map(x => Number(x.low)));
+      const high2 = Math.max(...secondHalf.map(x => Number(x.high)));
+      const low2 = Math.min(...secondHalf.map(x => Number(x.low)));
+
+      const isBullStructure = (high2 > high1 && low2 >= low1);
+      const isBearStructure = (high2 <= high1 && low2 < low1);
+
+      // Rule: Ketika H4 konsolidasi/netral, tunggu perubahan struktur
+      if (!isBullStructure && !isBearStructure) continue;
+
+      const swingHigh = Math.max(high1, high2);
+      const swingLow = Math.min(low1, low2);
+      const keyPivot = (high2 + low2 + Number(prev.close)) / 3;
 
       const bodySize = Math.abs(Number(c.close) - Number(c.open));
       const range = Number(c.high) - Number(c.low) || 0.0001;
-      const strongBody = bodySize / range >= 0.38;
+      const strongBody = bodySize / range >= 0.35;
 
       // 7 KONFIRMASI MUTLAK KAYSTRADE (Teknikal + Fundamental)
-      // 1. Big Trend H4 (EMA20 vs EMA50)
-      const c1_bull = ema20[i] > ema50[i] && Number(c.close) >= ema50[i];
-      const c1_bear = ema20[i] < ema50[i] && Number(c.close) <= ema50[i];
+      // 1. Big Trend H4 (HH/HL vs LH/LL + EMA20 vs EMA50)
+      const c1_bull = isBullStructure && ema20[i] >= ema50[i];
+      const c1_bear = isBearStructure && ema20[i] <= ema50[i];
 
       // 2. Speedometer Technicals D1 & H4
       const c2_bull = ema10[i] > ema20[i];
@@ -3222,12 +3256,12 @@ Instruksi Format Output & Larangan Bocor Chain-of-Thought dan Perencanaan Rules 
 
       if (c1_bull && c2_bull && c3_bull && c4_bull && c5_bull && c6_bull && c7_safe) {
         signalDir = 'BUY';
-        chosenSL = Math.min(Number(c.low), keyPivot) - (curAtr * slBufferAtr);
-        signalReason = '[7/7 Konfirmasi Kaystrade] 1.H4 Bull 2.Speedometer 3.Key Pivot 4.Fresh Base 5.RSI>SMA 6.FastBull Long 7.Macro Safe';
+        chosenSL = Math.min(Number(c.low), swingLow, keyPivot) - (curAtr * slBufferAtr);
+        signalReason = '[' + tradingStyle + ' 7/7 Konfirmasi Kaystrade] 1.H4 Bull (HH/HL) 2.Speedometer 3.Key Pivot 4.Fresh Base 5.RSI>SMA 6.FastBull Long 7.Macro Safe';
       } else if (c1_bear && c2_bear && c3_bear && c4_bear && c5_bear && c6_bear && c7_safe) {
         signalDir = 'SELL';
-        chosenSL = Math.max(Number(c.high), keyPivot) + (curAtr * slBufferAtr);
-        signalReason = '[7/7 Konfirmasi Kaystrade] 1.H4 Bear 2.Speedometer 3.Key Pivot 4.Fresh Base 5.RSI<SMA 6.FastBull Short 7.Macro Safe';
+        chosenSL = Math.max(Number(c.high), swingHigh, keyPivot) + (curAtr * slBufferAtr);
+        signalReason = '[' + tradingStyle + ' 7/7 Konfirmasi Kaystrade] 1.H4 Bear (LH/LL) 2.Speedometer 3.Key Pivot 4.Fresh Base 5.RSI<SMA 6.FastBull Short 7.Macro Safe';
       }
 
       // 3. EXECUTE POSITION WITH PROPER STRUCTURAL RISK
@@ -3235,7 +3269,7 @@ Instruksi Format Output & Larangan Bocor Chain-of-Thought dan Perencanaan Rules 
         const entryPrice = Number(c.close);
         let actualRisk = signalDir === 'BUY' ? (entryPrice - chosenSL) : (chosenSL - entryPrice);
 
-        // Ensure structural buffer: at least 1.15 ATR
+        // Ensure structural buffer: at least minSlAtr
         if (actualRisk < curAtr * minSlAtr) {
           actualRisk = curAtr * minSlAtr;
           chosenSL = signalDir === 'BUY' ? (entryPrice - actualRisk) : (entryPrice + actualRisk);
@@ -3306,7 +3340,6 @@ Instruksi Format Output & Larangan Bocor Chain-of-Thought dan Perencanaan Rules 
       period
     };
   }
-
   function renderEquitySvg(container, equityCurve, initialBalance) {
     container.replaceChildren();
     if (!equityCurve || equityCurve.length < 2) {
@@ -5638,50 +5671,50 @@ Setiap kali melakukan analisa pada instrumen apa pun, jalankan prosedur sinkroni
       if (styleVal === 'SCALPING') {
         return {
           code: 'SCALPING',
-          badge: 'MODE: SCALPING (M15/M30 + FASTBULL ORDER CLUSTER)',
-          desc: 'Struktur: H1 + Bias H4 | Entry: Retest Base Mikro + Klaster Likuiditas FastBull | Asumsi Durasi: Maks 1-4 Jam (Intrasesi)',
+          badge: 'MODE: SCALPING (M1-M15 TIGHT RETEST)',
+          desc: 'Struktur: H1 + Bias M30 | Entry: Retest Base Mikro + Klaster Likuiditas FastBull | Durasi: Maks 1-4 Jam (Intrasesi)',
           entryLabel: 'ENTRY (FB SCALP RETEST)',
           slLabel: 'SL (MICRO SWING)',
           tpLabel: 'TP (SCALP TARGET)',
           engineTitle: 'KAYSTRADE + FASTBULL SCALPING ENGINE',
-          recommendedTFs: ['5m', '15m', '30m'],
+          recommendedTFs: ['1m', '5m', '15m'],
           retestAtrMult: 0.18,
-          slAtrMult: 1.30,
-          rrTarget: 2.2,
-          lookbackSwingBars: 24,
+          slAtrMult: 1.25,
+          rrTarget: 1.8,
+          lookbackSwingBars: 20,
           weights: { h4: 11, speed: 8, h1Pivot: 11, fvg: 10, rsi: 10 }
         };
       } else if (styleVal === 'SWING') {
         return {
           code: 'SWING',
-          badge: 'MODE: SWING (HOLD UNTIL TP/SL)',
+          badge: 'MODE: SWING (HOLD UNTIL TP/SL · M30-D1)',
           desc: 'Konteks: Trendline D1 | Struktur: H4 HH/HL atau LH/LL + Target Posisi Institusi FastBull | Durasi: Hold sampai menyentuh TP/SL',
-          entryLabel: 'ENTRY (FB H4 ZONE)',
-          slLabel: 'SL (H4 INVALIDATION)',
+          entryLabel: 'ENTRY (FB H4/D1 ZONE)',
+          slLabel: 'SL (H4/D1 INVALIDATION)',
           tpLabel: 'TP (MAJOR SWING)',
           engineTitle: 'KAYSTRADE + FASTBULL SWING ENGINE',
-          recommendedTFs: ['1h', '4h', '1d'],
-          retestAtrMult: 0.50,
-          slAtrMult: 2.80,
-          rrTarget: 3.8,
-          lookbackSwingBars: 90,
-          weights: { h4: 20, speed: 11, h1Pivot: 10, fvg: 6, rsi: 6 }
+          recommendedTFs: ['30m', '1h', '4h', '1d'],
+          retestAtrMult: 0.45,
+          slAtrMult: 2.50,
+          rrTarget: 3.2,
+          lookbackSwingBars: 75,
+          weights: { h4: 20, speed: 12, h1Pivot: 10, fvg: 6, rsi: 6 }
         };
       } else {
         return {
           code: 'INTRADAY',
-          badge: 'MODE: INTRADAY (MAX 24 JAM)',
+          badge: 'MODE: INTRADAY (MAX 24 JAM · M30-H4)',
           desc: 'Arah Utama: Big Trend H4 + Speedometer D1/H4 | Entry: Retest Base H1/M30 + Klaster Posisi FastBull | Durasi Maks: 24 Jam',
           entryLabel: 'ENTRY (FB + BASE RETEST)',
           slLabel: 'SL (SWING INVALIDATION)',
           tpLabel: 'TP (INTRADAY SWING)',
           engineTitle: 'KAYSTRADE + FASTBULL INTRADAY ENGINE',
-          recommendedTFs: ['15m', '30m', '1h'],
-          retestAtrMult: 0.32,
-          slAtrMult: 1.95,
-          rrTarget: 2.8,
+          recommendedTFs: ['30m', '1h', '4h'],
+          retestAtrMult: 0.30,
+          slAtrMult: 1.80,
+          rrTarget: 2.5,
           lookbackSwingBars: 48,
-          weights: { h4: 16, speed: 9, h1Pivot: 10, fvg: 8, rsi: 8 }
+          weights: { h4: 16, speed: 10, h1Pivot: 10, fvg: 8, rsi: 8 }
         };
       }
     }
@@ -6571,14 +6604,21 @@ Setiap kali melakukan analisa pada instrumen apa pun, jalankan prosedur sinkroni
       let modeClass = 'wait-mode';
       let conf = Math.max(buyPoints, sellPoints);
 
-      const isIntradayH4Blocked = (cfg.code === 'INTRADAY' && h4Struct.bias === 'CONSOLIDATION' && conf < 72);
+      const isIntradayH4Blocked = (cfg.code === 'INTRADAY' && h4Struct.bias === 'CONSOLIDATION' && conf < 70);
+      const isSwingH4Blocked = (cfg.code === 'SWING' && (h4Struct.bias === 'CONSOLIDATION' || tfStruct.baseBreakout === 'WAIT BODY CLOSE OUTSIDE BASE'));
 
       // Hysteresis: prevent rapid fluttering between BUY and SELL on minor tick noise
       if (newsCheck.isLocked) {
         signal = 'WAIT (NEWS < 1H)';
         modeClass = 'news-lock-mode';
+      } else if (isSwingH4Blocked) {
+        signal = h4Struct.bias === 'CONSOLIDATION' ? 'WAIT (H4 CONSOLIDATION)' : 'WAIT (BASE)';
+        modeClass = 'wait-mode';
       } else if (isIntradayH4Blocked) {
-        signal = 'WAIT (H4 NEUTRAL)';
+        signal = 'WAIT (H4 CONSOLIDATION)';
+        modeClass = 'wait-mode';
+      } else if (tfStruct.baseBreakout === 'WAIT BODY CLOSE OUTSIDE BASE') {
+        signal = 'WAIT (BASE)';
         modeClass = 'wait-mode';
       } else if (currentEngineSignalState.includes('BUY')) {
         if (sellPoints >= 60 && confirmations >= 3) {
@@ -6730,10 +6770,10 @@ Setiap kali melakukan analisa pada instrumen apa pun, jalankan prosedur sinkroni
       if (tSell) tSell.textContent = sellPoints.toFixed(1) + '%';
 
       const durationNote = cfg.code === 'SCALPING'
-        ? 'Asumsi Maks 1-4 Jam (Tight Retest)'
+        ? 'Asumsi Maks 1-4 Jam (M1-M15 Tight Retest)'
         : cfg.code === 'INTRADAY'
-          ? 'Maksimum 24 Jam (H4->H1->M30)'
-          : 'Hold Sampai Menyentuh TP/SL';
+          ? 'Maksimum 24 Jam (H4 Big Trend -> H1 Struktur -> M30/H1 Retest)'
+          : 'Hold Sampai Menyentuh TP/SL (D1 Context + H4 Structure · M30-D1)';
 
       const evList = document.getElementById('evidenceList');
       if (evList) {
