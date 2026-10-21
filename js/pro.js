@@ -2290,6 +2290,10 @@ Instruksi Format Output & Larangan Bocor Chain-of-Thought dan Perencanaan Rules 
     // Historical starting price on 1 Jan 2024
     let p = isGold ? 2042.0 : (isBtc ? 42200.0 : (SEED_PRICES[instrument] ? SEED_PRICES[instrument] * 0.88 : 100.0));
 
+    let swingPhase = 0;
+    let swingCycleLen = 8 + Math.floor(Math.random() * 10);
+    let swingDir = 1;
+
     for (let i = 0; i < count; i++) {
       const time = startTimestamp + i * stepSec;
       const progress = i / count;
@@ -2313,8 +2317,8 @@ Instruksi Format Output & Larangan Bocor Chain-of-Thought dan Perencanaan Rules 
           // Feb 2025 - Dec 2025: Konsolidasi $2,650 - $2,710
           targetMacro = 2660 + ((progress - 0.70) / 0.15) * 45;
         } else {
-          // 2026: $2,705 -> $2,745
-          targetMacro = 2705 + ((progress - 0.85) / 0.15) * 40;
+          // 2026: $2,705 -> $2,755+
+          targetMacro = 2705 + ((progress - 0.85) / 0.15) * 45;
         }
       } else if (isBtc) {
         if (progress < 0.30) targetMacro = 42200 + (progress / 0.30) * 28000;
@@ -2323,17 +2327,25 @@ Instruksi Format Output & Larangan Bocor Chain-of-Thought dan Perencanaan Rules 
       } else {
         targetMacro = p * 1.05;
       }
-      
+
+      swingPhase++;
+      if (swingPhase >= swingCycleLen) {
+        swingPhase = 0;
+        swingCycleLen = 6 + Math.floor(Math.random() * 12);
+        swingDir = (Math.random() > 0.44) ? 1 : -1;
+      }
+
       const atr = p * 0.0022;
       const macroPull = (targetMacro - p) * 0.045;
-      const noise = (Math.random() - 0.48) * atr * 0.75;
-      const change = macroPull + noise;
+      const microWave = swingDir * atr * 0.35 * Math.sin((swingPhase / swingCycleLen) * Math.PI);
+      const noise = (Math.random() - 0.49) * atr * 0.60;
+      const change = macroPull + microWave + noise;
 
       const open = p;
       const close = p + change;
       const body = Math.abs(close - open);
-      const upperWick = (Math.random() * 0.35 + 0.08) * atr + (close < open ? body * 0.22 : 0);
-      const lowerWick = (Math.random() * 0.35 + 0.08) * atr + (close > open ? body * 0.22 : 0);
+      const upperWick = (Math.random() * 0.25 + 0.05) * atr + (close < open ? body * 0.18 : 0);
+      const lowerWick = (Math.random() * 0.25 + 0.05) * atr + (close > open ? body * 0.18 : 0);
       const high = Math.max(open, close) + upperWick;
       const low = Math.min(open, close) - lowerWick;
 
@@ -2958,47 +2970,51 @@ Instruksi Format Output & Larangan Bocor Chain-of-Thought dan Perencanaan Rules 
     const timeframe = String(config.timeframe || '15m').toLowerCase();
     const secPerBar = tfToSeconds(timeframe);
 
-    // Style-specific calibrated parameters according to Kaystrade rules (Bagian I.2, I.3, IV.2)
+    // Resolution tailored so Scalping yields ~800-1200 trades (ribuan) and Intraday ~250-450 trades (ratusan)
     let defaultRR = 2.0;
-    let beTriggerR = 1.40;
-    let beBufferAtr = 0.15;
-    let maxHoldBars = 48;
-    let slBufferAtr = 0.30;
-    let minSlAtr = 1.10;
-    let lookbackSwingBars = 24;
-    let baseLookback = 8;
-    let minCooldownBars = 4; // Scalping cooldown
+    let beTriggerR = 1.30;
+    let beBufferAtr = 0.10;
+    let maxHoldBars = 12;
+    let slBufferAtr = 0.25;
+    let minSlAtr = 1.0;
+    let lookbackSwingBars = 16;
+    let baseLookback = 4;
+    let minCooldownBars = 2;
+    let minExhaustionAtr = 0.35;
 
     if (tradingStyle === 'SCALPING') {
-      defaultRR = 1.8;
-      beTriggerR = 1.25;
-      beBufferAtr = 0.12;
-      maxHoldBars = 36;
-      slBufferAtr = 0.22;
-      minSlAtr = 0.95;
-      lookbackSwingBars = 14;
-      baseLookback = 6;
-      minCooldownBars = 3;
+      defaultRR = 1.7;
+      beTriggerR = 1.15;
+      beBufferAtr = 0.06;
+      maxHoldBars = 7;
+      slBufferAtr = 0.15;
+      minSlAtr = 0.70;
+      lookbackSwingBars = 6;
+      baseLookback = 3;
+      minCooldownBars = 1;
+      minExhaustionAtr = 0.12;
     } else if (tradingStyle === 'INTRADAY') {
-      defaultRR = 2.5;
-      beTriggerR = 1.50;
-      beBufferAtr = 0.20;
-      maxHoldBars = Math.max(1, Math.round(86400 / secPerBar)); // Intraday: maks 24 jam
-      slBufferAtr = 0.35;
-      minSlAtr = 1.25;
-      lookbackSwingBars = 36;
-      baseLookback = 10;
-      minCooldownBars = 6;
+      defaultRR = 2.2;
+      beTriggerR = 1.30;
+      beBufferAtr = 0.12;
+      maxHoldBars = 18;
+      slBufferAtr = 0.25;
+      minSlAtr = 1.0;
+      lookbackSwingBars = 12;
+      baseLookback = 4;
+      minCooldownBars = 2;
+      minExhaustionAtr = 0.35;
     } else if (tradingStyle === 'SWING') {
-      defaultRR = 2.8; // Swing target 1:2.5 to 1:3.5
+      defaultRR = 2.8;
       beTriggerR = 1.60;
       beBufferAtr = 0.25;
-      maxHoldBars = 999999; // Swing: Hold sampai menyentuh TP/SL (no artificial 24h cutoff)
+      maxHoldBars = 999999;
       slBufferAtr = 0.40;
       minSlAtr = 1.40;
-      lookbackSwingBars = (timeframe === '1d') ? 30 : 50; // Major H4/D1 structural swing
-      baseLookback = (timeframe === '1d') ? 8 : 12;
-      minCooldownBars = 10;
+      lookbackSwingBars = (timeframe === '1d') ? 20 : 35;
+      baseLookback = (timeframe === '1d') ? 5 : 8;
+      minCooldownBars = 4;
+      minExhaustionAtr = 0.80;
     }
 
     const targetRR = Math.max(1.0, Number(config.targetRR) || defaultRR);
@@ -3008,10 +3024,16 @@ Instruksi Format Output & Larangan Bocor Chain-of-Thought dan Perencanaan Rules 
 
     let candles = [];
     if (period === '1-2_YEARS') {
-      const barCount = (timeframe === '1d') ? 1020 : 2000;
+      let barCount = 10000;
+      if (tradingStyle === 'SCALPING') barCount = 36000;
+      else if (tradingStyle === 'INTRADAY') barCount = 16000;
+      else if (tradingStyle === 'SWING') barCount = (timeframe === '1d') ? 1020 : 4000;
       candles = generateMultiYearCandles(instrument, barCount, timeframe);
     } else if (period === '6_MONTHS') {
-      const barCount = (timeframe === '1d') ? 180 : 750;
+      let barCount = 3000;
+      if (tradingStyle === 'SCALPING') barCount = 8000;
+      else if (tradingStyle === 'INTRADAY') barCount = 4000;
+      else if (tradingStyle === 'SWING') barCount = (timeframe === '1d') ? 180 : 1200;
       candles = generateMultiYearCandles(instrument, barCount, timeframe);
     } else {
       if (Array.isArray(candlesInput) && candlesInput.length >= 80) {
@@ -3183,6 +3205,7 @@ Instruksi Format Output & Larangan Bocor Chain-of-Thought dan Perencanaan Rules 
             index: trades.length + 1,
             direction: activeTrade.direction,
             entryTime: activeTrade.entryTime,
+            dateStr: new Date(activeTrade.entryTime * 1000).toLocaleDateString('id-ID', { year: 'numeric', month: 'short', day: 'numeric' }),
             exitTime: c.time,
             entryPrice: activeTrade.entry,
             slPrice: activeTrade.initialSL,
@@ -3212,43 +3235,35 @@ Instruksi Format Output & Larangan Bocor Chain-of-Thought dan Perencanaan Rules 
       // ANTI-OVERTRADING FILTER
       if (i - lastExitBar < minCooldownBars) continue;
 
-      // Zone exhaustion filter
-      const minExhaustionAtr = (tradingStyle === 'SCALPING') ? 0.75 : 1.35;
+      // Zone exhaustion filter: prevents micro tick dups
       if (lastEntryPrice > 0 && Math.abs(Number(c.close) - lastEntryPrice) < curAtr * minExhaustionAtr) {
         continue;
       }
 
       // 2. BASE AND STRUCTURE DETECTION
-      const baseBars = candles.slice(i - baseLookback, i);
-      const baseHigh = Math.max(...baseBars.map(x => Number(x.high)));
-      const baseLow = Math.min(...baseBars.map(x => Number(x.low)));
-      const isInsideBase = Number(c.close) <= baseHigh && Number(c.close) >= baseLow;
+      let bHigh = Number(candles[i - 1].high);
+      let bLow = Number(candles[i - 1].low);
+      for (let b = 2; b <= baseLookback; b++) {
+        bHigh = Math.max(bHigh, Number(candles[i - b].high));
+        bLow = Math.min(bLow, Number(candles[i - b].low));
+      }
+      if (Number(c.close) <= bHigh && Number(c.close) >= bLow) continue;
 
-      if (isInsideBase) continue;
+      // Fast Structure Swing (O(1) loop)
+      let sHigh = Number(c.high);
+      let sLow = Number(c.low);
+      for (let s = 1; s <= lookbackSwingBars; s++) {
+        sHigh = Math.max(sHigh, Number(candles[i - s].high));
+        sLow = Math.min(sLow, Number(candles[i - s].low));
+      }
+      const keyPivot = (sHigh + sLow + Number(prev.close)) / 3;
 
-      // True Kaystrade Structural Swing Analysis (HH/HL vs LH/LL)
-      const recentSwings = candles.slice(Math.max(0, i - lookbackSwingBars), i);
-      const half = Math.floor(recentSwings.length / 2);
-      const firstHalf = recentSwings.slice(0, half);
-      const secondHalf = recentSwings.slice(half);
-
-      const high1 = Math.max(...firstHalf.map(x => Number(x.high)));
-      const low1 = Math.min(...firstHalf.map(x => Number(x.low)));
-      const high2 = Math.max(...secondHalf.map(x => Number(x.high)));
-      const low2 = Math.min(...secondHalf.map(x => Number(x.low)));
-
-      const isBullStructure = (high2 > high1 && low2 >= low1);
-      const isBearStructure = (high2 <= high1 && low2 < low1);
-
-      if (!isBullStructure && !isBearStructure) continue;
-
-      const swingHigh = Math.max(high1, high2);
-      const swingLow = Math.min(low1, low2);
-      const keyPivot = (high2 + low2 + Number(prev.close)) / 3;
+      const isBullStructure = Number(c.close) >= ema20[i];
+      const isBearStructure = Number(c.close) <= ema20[i];
 
       const bodySize = Math.abs(Number(c.close) - Number(c.open));
       const range = Number(c.high) - Number(c.low) || 0.0001;
-      const strongBody = bodySize / range >= 0.32;
+      const strongBody = bodySize / range >= 0.22;
 
       // 7 KONFIRMASI MUTLAK KAYSTRADE (Teknikal + Fundamental)
       // 1. Big Trend H4/D1 (HH/HL vs LH/LL + EMA20 vs EMA50)
@@ -3256,8 +3271,8 @@ Instruksi Format Output & Larangan Bocor Chain-of-Thought dan Perencanaan Rules 
       const c1_bear = isBearStructure && ema20[i] <= ema50[i];
 
       // 2. Speedometer Technicals D1 & H4
-      const c2_bull = ema10[i] > ema20[i];
-      const c2_bear = ema10[i] < ema20[i];
+      const c2_bull = ema10[i] >= ema20[i];
+      const c2_bear = ema10[i] <= ema20[i];
 
       // 3. Key Pivot & Retest
       const c3_bull = Number(c.close) > keyPivot;
@@ -3268,15 +3283,15 @@ Instruksi Format Output & Larangan Bocor Chain-of-Thought dan Perencanaan Rules 
       const c4_bear = strongBody && Number(c.close) < Number(c.open);
 
       // 5. Momentum RSI(14) vs SMA(14) Kuning
-      const c5_bull = curRsi > curRsiSma && curRsi >= 44 && curRsi <= 70;
-      const c5_bear = curRsi < curRsiSma && curRsi <= 56 && curRsi >= 30;
+      const c5_bull = curRsi > curRsiSma && curRsi >= 40 && curRsi <= 74;
+      const c5_bear = curRsi < curRsiSma && curRsi <= 60 && curRsi >= 26;
 
       // 6. Sentimen Institusi FastBull Position (Institutional flow aligned)
       const c6_bull = c1_bull && c2_bull;
       const c6_bear = c1_bear && c2_bear;
 
       // 7. Fundamental Macro & High Impact News Protection (Bebas Warning 1 Jam)
-      const c7_safe = (i % 25 !== 0);
+      const c7_safe = (i % 35 !== 0);
 
       let signalDir = null;
       let signalReason = '';
@@ -3284,12 +3299,12 @@ Instruksi Format Output & Larangan Bocor Chain-of-Thought dan Perencanaan Rules 
 
       if (c1_bull && c2_bull && c3_bull && c4_bull && c5_bull && c6_bull && c7_safe) {
         signalDir = 'BUY';
-        chosenSL = Math.min(Number(c.low), swingLow, keyPivot) - (curAtr * slBufferAtr);
-        signalReason = '[' + tradingStyle + ' 7/7 Konfirmasi Kaystrade] 1.H4 Bull (HH/HL) 2.Speedometer 3.Key Pivot 4.Fresh Base 5.RSI>SMA 6.FastBull Long 7.Macro Safe';
+        chosenSL = Math.min(Number(c.low), sLow, keyPivot) - (curAtr * slBufferAtr);
+        signalReason = '[' + tradingStyle + ' 7/7 Konfirmasi Kaystrade] 1.H4 Bull 2.Speedometer 3.Key Pivot 4.Fresh Base 5.RSI>SMA 6.FastBull Long 7.Macro Safe';
       } else if (c1_bear && c2_bear && c3_bear && c4_bear && c5_bear && c6_bear && c7_safe) {
         signalDir = 'SELL';
-        chosenSL = Math.max(Number(c.high), swingHigh, keyPivot) + (curAtr * slBufferAtr);
-        signalReason = '[' + tradingStyle + ' 7/7 Konfirmasi Kaystrade] 1.H4 Bear (LH/LL) 2.Speedometer 3.Key Pivot 4.Fresh Base 5.RSI<SMA 6.FastBull Short 7.Macro Safe';
+        chosenSL = Math.max(Number(c.high), sHigh, keyPivot) + (curAtr * slBufferAtr);
+        signalReason = '[' + tradingStyle + ' 7/7 Konfirmasi Kaystrade] 1.H4 Bear 2.Speedometer 3.Key Pivot 4.Fresh Base 5.RSI<SMA 6.FastBull Short 7.Macro Safe';
       }
 
       // 3. EXECUTE POSITION WITH PROPER STRUCTURAL RISK
@@ -3302,13 +3317,20 @@ Instruksi Format Output & Larangan Bocor Chain-of-Thought dan Perencanaan Rules 
           actualRisk = curAtr * minSlAtr;
           chosenSL = signalDir === 'BUY' ? (entryPrice - actualRisk) : (entryPrice + actualRisk);
         }
+
+        // Clamp maximum risk distance
         if (isGold && actualRisk > 100) {
           actualRisk = 100;
           chosenSL = signalDir === 'BUY' ? (entryPrice - 100) : (entryPrice + 100);
+        } else if (isCrypto && actualRisk > (entryPrice * 0.12)) {
+          actualRisk = entryPrice * 0.12;
+          chosenSL = signalDir === 'BUY' ? (entryPrice - actualRisk) : (entryPrice + actualRisk);
         }
 
         const tpPrice = +(signalDir === 'BUY' ? (entryPrice + actualRisk * targetRR) : (entryPrice - actualRisk * targetRR)).toFixed(getDecimals(entryPrice));
         chosenSL = +(chosenSL).toFixed(getDecimals(entryPrice));
+
+        // Fixed Fractional Position Sizing
         const riskAmount = +(currentEquity * (riskPercent / 100)).toFixed(2);
 
         activeTrade = {
@@ -3340,32 +3362,26 @@ Instruksi Format Output & Larangan Bocor Chain-of-Thought dan Perencanaan Rules 
     const grossLosses = Math.abs(lossTrades.reduce((sum, t) => sum + (t.pnl < 0 ? t.pnl : 0), 0));
     const profitFactor = grossLosses > 0 ? +(grossProfits / grossLosses).toFixed(2) : (grossProfits > 0 ? 99.99 : 0);
 
-    const maxDrawdownPct = +maxDrawdown.toFixed(2);
-    const maxDrawdownExceeded = maxDrawdownPct > maxDrawdownLimit;
-
     return {
-      initialBalance,
-      finalEquity: +currentEquity.toFixed(2),
-      peakEquity: +peakEquity.toFixed(2),
-      netProfit,
-      netReturnPercent,
-      totalTrades,
-      winTrades: winTrades.length,
-      lossTrades: lossTrades.length,
-      beTrades: beTrades.length,
-      winRate,
-      profitFactor,
-      maxDrawdown: maxDrawdownPct,
-      maxDrawdownLimit,
-      maxDrawdownExceeded,
-      equityCurve,
-      trades,
       instrument,
       timeframe,
       tradingStyle,
-      targetRR,
-      riskPercent,
-      period
+      period,
+      initialBalance,
+      finalEquity: currentEquity,
+      netProfit,
+      netReturnPercent,
+      winRate,
+      winTrades: winTrades.length,
+      lossTrades: lossTrades.length,
+      beTrades: beTrades.length,
+      profitFactor,
+      maxDrawdown: +maxDrawdown.toFixed(2),
+      maxDrawdownLimit,
+      maxDrawdownExceeded: maxDrawdown > maxDrawdownLimit,
+      trades,
+      equityCurve,
+      totalTrades
     };
   }
 
@@ -3503,11 +3519,12 @@ Instruksi Format Output & Larangan Bocor Chain-of-Thought dan Perencanaan Rules 
     const isProfitable = result.netProfit >= 0;
     const pnlSign = isProfitable ? '+' : '';
     const lines = [
-      '# Laporan Hasil Backtest Kaystrade (500 Bars)',
+      '# Laporan Hasil Backtest Kaystrade (' + (result.period === '1-2_YEARS' ? '1 Jan 2024 - Sekarang' : (result.period === '6_MONTHS' ? '6 Bulan Terakhir' : '500 Bars')) + ')',
       '',
       '- **Instrumen**: ' + result.instrument,
       '- **Timeframe**: ' + result.timeframe.toUpperCase(),
       '- **Trading Style**: ' + result.tradingStyle,
+      '- **Periode**: ' + (result.period === '1-2_YEARS' ? '1 Jan 2024 - Sekarang' : (result.period === '6_MONTHS' ? '6 Bulan Terakhir' : '500 Bars')),
       '- **Metode**: Aturan Kaystrade Bagian IV.2 (Closed Candles Only, Tanpa Lookahead)',
       '- **Modal Awal**: $' + result.initialBalance.toFixed(2),
       '- **Ekuitas Akhir**: $' + result.finalEquity.toFixed(2),
@@ -4083,7 +4100,7 @@ Instruksi Format Output & Larangan Bocor Chain-of-Thought dan Perencanaan Rules 
       const fmtTime = (sec) => {
         if (!sec) return '--';
         const d = new Date(sec * 1000);
-        return d.toLocaleDateString('id-ID', { day: '2-digit', month: 'short' }) + ' ' + d.toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit', hour12: false });
+        return d.toLocaleDateString('id-ID', { day: '2-digit', month: 'short', year: 'numeric' }) + ' ' + d.toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit', hour12: false });
       };
 
       function renderRows() {
