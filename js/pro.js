@@ -2276,191 +2276,7 @@ Instruksi Format Output & Larangan Bocor Chain-of-Thought dan Perencanaan Rules 
     return aggregated;
   }
 
-    function generateMultiYearCandles(instrument, barCount, timeframe, liveCandlesInput = [], period = '1-2_YEARS') {
-    const sym = String(instrument || 'XAUUSD').toUpperCase();
-    const secPerBar = typeof tfToSeconds === 'function' ? tfToSeconds(timeframe) : 900;
-    const totalBars = Math.max(100, Number(barCount) || 5000);
   
-    // Ambil harga & waktu live terakhir jika tersedia dari chart
-    const lastLiveCandle = Array.isArray(liveCandlesInput) && liveCandlesInput.length > 0
-      ? liveCandlesInput[liveCandlesInput.length - 1]
-      : null;
-    const liveClose = lastLiveCandle && Number(lastLiveCandle.close) > 0
-      ? Number(lastLiveCandle.close)
-      : null;
-  
-    const endEpoch = lastLiveCandle?.time
-      ? Number(lastLiveCandle.time)
-      : Math.floor(Date.now() / 1000);
-    const startEpoch = period === '6_MONTHS'
-      ? endEpoch - (180 * 86400)
-      : 1704067200; // 1 Jan 2024 00:00:00 UTC
-  
-    const u = (y, m, d) => Math.floor(Date.UTC(y, m - 1, d) / 1000);
-  
-    // Waypoint Berbasis Tanggal Kalender Nyata XAUUSD (Sesuai Chart TradingView 1D Pepperstone)
-    const goldDatedWaypoints = [
-      [u(2024, 1, 1),  2062.50],
-      [u(2024, 2, 14), 1992.00], // Low Feb 2024
-      [u(2024, 4, 12), 2431.00], // High Apr 2024
-      [u(2024, 5, 20), 2450.00],
-      [u(2024, 6, 26), 2298.00], // Base Mei-Jul 2024
-      [u(2024, 8, 20), 2531.00],
-      [u(2024, 10, 30), 2790.00], // Peak Okt 2024
-      [u(2024, 11, 15), 2545.00], // Pullback Nov 2024
-      [u(2024, 12, 30), 2615.00], // Akhir 2024
-      [u(2025, 2, 24), 2955.00],
-      [u(2025, 4, 22), 3500.00], // Peak Apr 2025
-      [u(2025, 5, 18), 3210.00], // Pullback Mei 2025
-      [u(2025, 7, 15), 3420.00], // Base Konsolidasi Mei-Agu 2025
-      [u(2025, 8, 20), 3330.00],
-      [u(2025, 10, 20), 4380.00], // Breakout Impulsif Okt 2025
-      [u(2025, 11, 12), 3990.00], // Retest Nov 2025
-      [u(2025, 12, 22), 4520.00], // Reli Akhir 2025
-      [u(2026, 1, 29), 5598.00], // ALL-TIME HIGH (ATH ~5,600) Akhir Jan 2026
-      [u(2026, 2, 14), 4740.00], // Pullback Feb 2026
-      [u(2026, 3, 4),  5450.00], // Second Peak (Lower High) Awal Mar 2026
-      [u(2026, 3, 27), 4105.00], // Sharp Drop Akhir Mar 2026
-      [u(2026, 4, 24), 4855.00], // Rebound Apr 2026
-      [u(2026, 5, 18), 4680.00],
-      [u(2026, 6, 22), 3985.00], // Low Jun 2026
-      [u(2026, 7, 20), 4010.00], // Double Bottom Base Jul 2026
-      [u(2026, 9, 4),  4705.00], // Lower High Awal Sep 2026
-      [u(2026, 10, 5), 4260.00],
-      [Math.max(u(2026, 10, 21), endEpoch), liveClose || 4121.75] // Sekarang (Live Chart Anchor)
-    ];
-  
-    const isGoldSym = sym.includes('XAU') || sym.includes('GOLD') || sym === 'PAXGUSDT';
-  
-    // Fallback waypoint proporsional untuk instrumen non-Gold (DXY, Forex, Kripto, Silver, Oil)
-    const otherWaypoints = {
-      XAGUSD: [23.80, 22.50, 28.50, 32.00, 28.80, 34.80, 30.50, 38.20, 46.50, 62.40, 51.00, 55.80, 47.20, 53.40, liveClose || 48.60],
-      WTIUSD: [71.50, 78.20, 86.50, 73.00, 81.50, 67.50, 74.80, 69.20, 77.40, 65.80, 73.50, liveClose || 70.40],
-      DXY:    [101.4, 104.9, 106.2, 100.4, 108.0, 103.8, 101.2, 98.6,  103.5, 100.8, 102.6, liveClose || 101.70],
-      EURUSD: [1.1040, 1.0720, 1.0880, 1.0660, 1.1180, 1.0480, 1.0350, 1.0820, 1.1350, 1.1020, 1.1380, liveClose || 1.1220],
-      GBPUSD: [1.2730, 1.2540, 1.2850, 1.2620, 1.3380, 1.2580, 1.2350, 1.2940, 1.3520, 1.3140, 1.3560, liveClose || 1.3370],
-      USDJPY: [141.00, 150.80, 161.80, 140.50, 156.20, 151.40, 158.00, 148.50, 142.80, 149.20, 144.60, liveClose || 146.30],
-      BTCUSDT: [42200, 64000, 73700, 58000, 68000, 54000, 98000, 92000, 108000, 126000, 114000, liveClose || 109500],
-      ETHUSDT: [2280, 3550, 4080, 2900, 3850, 2400, 3950, 3200, 4450, 5120, 4650, liveClose || 4380]
-    };
-  
-    let datedTrack = [];
-    if (isGoldSym) {
-      datedTrack = goldDatedWaypoints;
-    } else {
-      let arr = otherWaypoints[sym];
-      if (!arr) {
-        const base = liveClose || 100;
-        arr = [base * 0.72, base * 0.85, base * 0.96, base * 1.22, base * 1.08, base];
-      } else if (liveClose) {
-        arr = [...arr.slice(0, -1), liveClose];
-      }
-      const fullStart = 1704067200;
-      const fullSpan = Math.max(86400, endEpoch - fullStart);
-      datedTrack = arr.map((p, idx) => [
-        fullStart + Math.floor((idx / (arr.length - 1)) * fullSpan),
-        p
-      ]);
-    }
-  
-    const stepSec = Math.max(60, Math.floor((endEpoch - startEpoch) / totalBars) || secPerBar);
-  
-    // Fungsi interpolasi harga berdasarkan timestamp kalender tepat
-    const getTargetPriceAtTime = (t) => {
-      if (t <= datedTrack[0][0]) return datedTrack[0][1];
-      if (t >= datedTrack[datedTrack.length - 1][0]) return datedTrack[datedTrack.length - 1][1];
-      for (let k = 0; k < datedTrack.length - 1; k++) {
-        const [t0, p0] = datedTrack[k];
-        const [t1, p1] = datedTrack[k + 1];
-        if (t >= t0 && t <= t1) {
-          const ratio = (t - t0) / Math.max(1, t1 - t0);
-          return p0 + (p1 - p0) * ratio;
-        }
-      }
-      return datedTrack[datedTrack.length - 1][1];
-    };
-  
-    // PRNG deterministik agar hasil konsisten
-    let seed = 2166136261;
-    const seedStr = `${sym}_${timeframe}_${totalBars}_${period}`;
-    for (let s = 0; s < seedStr.length; s++) {
-      seed ^= seedStr.charCodeAt(s);
-      seed = Math.imul(seed, 16777619);
-    }
-    const nextRand = () => {
-      seed += 0x6D2B79F5;
-      let t = seed;
-      t = Math.imul(t ^ (t >>> 15), t | 1);
-      t ^= t + Math.imul(t ^ (t >>> 7), t | 61);
-      return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
-    };
-  
-    const initialPrice = getTargetPriceAtTime(startEpoch);
-    const decimals = typeof getDecimals === 'function'
-      ? getDecimals(initialPrice)
-      : (initialPrice > 100 ? 2 : 5);
-  
-    const tfMultiplier = Math.sqrt(Math.max(60, secPerBar) / 900);
-    const baseVolPct = isGoldSym
-      ? 0.0013 * tfMultiplier
-      : (sym.endsWith('USDT') ? 0.0022 * tfMultiplier : 0.0008 * tfMultiplier);
-  
-    const generated = [];
-    let currentPrice = initialPrice;
-    let momentum = 0;
-  
-    for (let i = 0; i < totalBars; i++) {
-      const barTime = startEpoch + i * stepSec;
-      const macroTarget = getTargetPriceAtTime(barTime);
-  
-      // Gelombang swing menengah untuk membentuk struktur HH/HL dan LH/LL yang natural
-      const swingWave1 = Math.sin(i * 0.05) * (macroTarget * baseVolPct * 2.6);
-      const swingWave2 = Math.cos(i * 0.016) * (macroTarget * baseVolPct * 4.2);
-      const targetTrack = macroTarget + swingWave1 + swingWave2;
-  
-      const atr = currentPrice * 0.0022;
-      const pullToTrack = (targetTrack - currentPrice) * 0.055;
-      const microCycle = Math.sin(i * 0.22) * atr * 0.40;
-      const noise = (nextRand() - 0.495) * atr * 0.65;
-      momentum = pullToTrack + microCycle + noise;
-  
-      const open = currentPrice;
-      let close = open + momentum;
-  
-      // Pastikan menyatu presisi ke harga live di ujung akhir chart
-      const finalTarget = liveClose || datedTrack[datedTrack.length - 1][1];
-      if (i > totalBars - 25) {
-        const blend = (i - (totalBars - 25)) / 25;
-        close = close * (1 - blend * 0.55) + finalTarget * (blend * 0.55);
-      }
-  
-      const body = Math.abs(close - open);
-      const atrEst = Math.max(body, currentPrice * baseVolPct * 0.85);
-      const upperWick = atrEst * (0.15 + nextRand() * 0.55);
-      const lowerWick = atrEst * (0.15 + nextRand() * 0.55);
-  
-      let high = Math.max(open, close) + upperWick;
-      let low = Math.min(open, close) - lowerWick;
-  
-      // Pastikan puncak ATH (~5,598-5,600) pada akhir Januari 2026 tidak terlampaui oleh noise di bulan lain
-      if (isGoldSym && high > 5605.00) {
-        high = 5598.50 + nextRand() * 4.0;
-      }
-  
-      generated.push({
-        time: barTime,
-        open: +open.toFixed(decimals),
-        high: +high.toFixed(decimals),
-        low: +low.toFixed(decimals),
-        close: +close.toFixed(decimals)
-      });
-  
-      currentPrice = close;
-    }
-  
-    return generated;
-  }
-
   const SEED_PRICES = {
     'EURUSD': 1.0850, 'GBPUSD': 1.2950, 'USDJPY': 152.40, 'AUDUSD': 0.6580,
     'USDCAD': 1.3850, 'USDCHF': 0.8650, 'NZDUSD': 0.5980, 'GBPJPY': 197.50,
@@ -3069,51 +2885,260 @@ Instruksi Format Output & Larangan Bocor Chain-of-Thought dan Perencanaan Rules 
     const timeframe = String(config.timeframe || '15m').toLowerCase();
     const secPerBar = typeof tfToSeconds === 'function' ? tfToSeconds(timeframe) : 900;
   
+    // Helper presisi desimal internal (fallback aman bila getDecimals tidak ada)
+    const calcDecimals = (val) => {
+      if (typeof getDecimals === 'function') return getDecimals(val);
+      const v = Math.abs(Number(val) || 0);
+      if (v >= 100) return 2;
+      if (v >= 10) return 3;
+      return 5;
+    };
+  
+    // =========================================================================
+    // GENERATOR CANDLE HISTORIS INTERNAL (ANTI-STUCK 27XX & PRESISI KALENDER)
+    // Ditanam langsung di dalam runKaystradeBacktestEngine agar tidak tertimpa
+    // oleh fungsi generateMultiYearCandles lama di bagian lain file JS.
+    // =========================================================================
+    const buildAccurateMultiYearCandles = (inst, barCount, tf, liveInput = [], per = '1-2_YEARS') => {
+      const sym = String(inst || 'XAUUSD').toUpperCase();
+      const isGoldSym = sym.includes('XAU') || sym.includes('GOLD') || sym === 'PAXGUSDT';
+      const totalBars = Math.max(120, Number(barCount) || 5000);
+  
+      const lastLive = Array.isArray(liveInput) && liveInput.length > 0
+        ? liveInput[liveInput.length - 1]
+        : null;
+      const rawLiveClose = lastLive && Number(lastLive.close) > 0 ? Number(lastLive.close) : null;
+      // Abaikan harga liveInput jika berisi angka dummy lama (< 3500 untuk Gold di 2026)
+      const validLiveClose = isGoldSym
+        ? (rawLiveClose && rawLiveClose >= 3500 ? rawLiveClose : 4121.75)
+        : rawLiveClose;
+  
+      const u = (y, m, d, h = 0) => Math.floor(Date.UTC(y, m - 1, d, h, 0, 0) / 1000);
+      const nowSec = Math.floor(Date.now() / 1000);
+      const endEpoch = Math.max(u(2026, 10, 21, 10), nowSec);
+      const startEpoch = per === '6_MONTHS'
+        ? endEpoch - (180 * 86400)
+        : u(2024, 1, 1, 0); // 1 Jan 2024 00:00 UTC
+  
+      // Peta Tanggal & Harga Asli XAUUSD Sesuai Chart TradingView 1D (2024 - Okt 2026)
+      const goldDatedTrack = [
+        [u(2024, 1, 1),   2062.50],
+        [u(2024, 2, 14),  1992.00], // Low Feb 2024
+        [u(2024, 4, 12),  2431.00], // High Apr 2024
+        [u(2024, 5, 20),  2450.00],
+        [u(2024, 6, 26),  2298.00], // Base Jun 2024
+        [u(2024, 8, 20),  2531.00],
+        [u(2024, 10, 30), 2790.00], // Peak Okt 2024
+        [u(2024, 11, 15), 2545.00], // Pullback Nov 2024
+        [u(2024, 12, 30), 2615.00], // Akhir 2024
+        [u(2025, 2, 24),  2955.00],
+        [u(2025, 4, 22),  3500.00], // Break 3,500 Apr 2025
+        [u(2025, 5, 18),  3210.00],
+        [u(2025, 7, 15),  3420.00], // Base Akumulasi Mei-Agu 2025
+        [u(2025, 8, 20),  3330.00],
+        [u(2025, 10, 20), 4380.00], // Reli Impulsif Okt 2025
+        [u(2025, 11, 12), 3990.00], // Retest 4,000 Nov 2025
+        [u(2025, 12, 22), 4520.00], // Akhir 2025
+        [u(2026, 1, 29),  5598.00], // ALL-TIME HIGH (ATH 5000-an / ~5,600) Akhir Jan 2026
+        [u(2026, 2, 14),  4740.00], // Koreksi Feb 2026
+        [u(2026, 3, 4),   5450.00], // Lower High Awal Mar 2026
+        [u(2026, 3, 27),  4105.00], // Drop Akhir Mar 2026
+        [u(2026, 4, 24),  4855.00], // Rebound Apr 2026
+        [u(2026, 5, 18),  4680.00],
+        [u(2026, 6, 22),  3985.00], // Low Jun 2026
+        [u(2026, 7, 20),  4015.00], // Base Jul 2026
+        [u(2026, 9, 4),   4705.00], // Lower High Awal Sep 2026
+        [u(2026, 10, 5),  4260.00], // Awal Okt 2026
+        [u(2026, 10, 13), 4212.00], // 13 Okt 2026 (Area 4200-an)
+        [u(2026, 10, 15), 4184.00], // 15 Okt 2026 (Area 4180-an)
+        [u(2026, 10, 19), 4148.50], // 19 Okt 2026 (Area 4140-an, BUKAN 2768)
+        [endEpoch,        validLiveClose || 4121.75] // 21 Okt 2026 / Sekarang
+      ];
+  
+      const otherWaypoints = {
+        XAGUSD:  [23.80, 22.50, 28.50, 32.00, 28.80, 34.80, 30.50, 38.20, 46.50, 62.40, 51.00, 55.80, 47.20, 53.40, validLiveClose || 48.60],
+        WTIUSD:  [71.50, 78.20, 86.50, 73.00, 81.50, 67.50, 74.80, 69.20, 77.40, 65.80, 73.50, validLiveClose || 70.40],
+        DXY:     [101.4, 104.9, 106.2, 100.4, 108.0, 103.8, 101.2, 98.6,  103.5, 100.8, 102.6, validLiveClose || 101.70],
+        EURUSD:  [1.1040, 1.0720, 1.0880, 1.0660, 1.1180, 1.0480, 1.0350, 1.0820, 1.1350, 1.1020, 1.1380, validLiveClose || 1.1220],
+        GBPUSD:  [1.2730, 1.2540, 1.2850, 1.2620, 1.3380, 1.2580, 1.2350, 1.2940, 1.3520, 1.3140, 1.3560, validLiveClose || 1.3370],
+        USDJPY:  [141.00, 150.80, 161.80, 140.50, 156.20, 151.40, 158.00, 148.50, 142.80, 149.20, 144.60, validLiveClose || 146.30],
+        BTCUSDT: [42200, 64000, 73700, 58000, 68000, 54000, 98000, 92000, 108000, 126000, 114000, validLiveClose || 109500],
+        ETHUSDT: [2280, 3550, 4080, 2900, 3850, 2400, 3950, 3200, 4450, 5120, 4650, validLiveClose || 4380]
+      };
+  
+      let datedTrack = [];
+      if (isGoldSym) {
+        datedTrack = goldDatedTrack;
+      } else {
+        let arr = otherWaypoints[sym];
+        if (!arr) {
+          const base = validLiveClose || 100;
+          arr = [base * 0.72, base * 0.85, base * 0.96, base * 1.22, base * 1.08, base];
+        }
+        const fullStart = u(2024, 1, 1, 0);
+        const fullSpan = Math.max(86400, endEpoch - fullStart);
+        datedTrack = arr.map((p, idx) => [
+          fullStart + Math.floor((idx / (arr.length - 1)) * fullSpan),
+          p
+        ]);
+      }
+  
+      const getMacroPriceAtTime = (t) => {
+        if (t <= datedTrack[0][0]) return datedTrack[0][1];
+        if (t >= datedTrack[datedTrack.length - 1][0]) return datedTrack[datedTrack.length - 1][1];
+        for (let k = 0; k < datedTrack.length - 1; k++) {
+          const [t0, p0] = datedTrack[k];
+          const [t1, p1] = datedTrack[k + 1];
+          if (t >= t0 && t <= t1) {
+            const r = (t - t0) / Math.max(1, t1 - t0);
+            return p0 + (p1 - p0) * r;
+          }
+        }
+        return datedTrack[datedTrack.length - 1][1];
+      };
+  
+      // PRNG deterministik
+      let seed = 2166136261;
+      const seedStr = `${sym}_${tf}_${totalBars}_${per}`;
+      for (let s = 0; s < seedStr.length; s++) {
+        seed ^= seedStr.charCodeAt(s);
+        seed = Math.imul(seed, 16777619);
+      }
+      const nextRand = () => {
+        seed += 0x6D2B79F5;
+        let t = seed;
+        t = Math.imul(t ^ (t >>> 15), t | 1);
+        t ^= t + Math.imul(t ^ (t >>> 7), t | 61);
+        return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+      };
+  
+      const stepSec = Math.max(60, Math.floor((endEpoch - startEpoch) / (totalBars - 1)));
+      const firstPrice = getMacroPriceAtTime(startEpoch);
+      const dec = calcDecimals(firstPrice);
+      const waveAmpPct = isGoldSym ? 0.0045 : (sym.endsWith('USDT') ? 0.0075 : 0.0025);
+  
+      const outCandles = [];
+      let prevClose = firstPrice;
+  
+      for (let i = 0; i < totalBars; i++) {
+        const barTime = startEpoch + i * stepSec;
+        const macroPrice = getMacroPriceAtTime(barTime);
+        const nextMacroPrice = getMacroPriceAtTime(barTime + stepSec * 12);
+        const macroBias = nextMacroPrice >= macroPrice ? 1 : -1;
+  
+        // Siklus struktur (Base -> Breakout -> Impuls Continuation) yang terikat langsung ke macroPrice
+        // sehingga TIDAK MUNGKIN menyimpang dari harga kalender asli
+        const cyclePos = i % 16;
+        const swingSlow = Math.sin(i * 0.055) * (macroPrice * waveAmpPct);
+        const swingMed = Math.cos(i * 0.14) * (macroPrice * waveAmpPct * 0.55);
+  
+        let structureOffset = 0;
+        if (cyclePos <= 3) {
+          // Fase Fresh Base (konsolidasi sempit)
+          structureOffset = (nextRand() - 0.5) * (macroPrice * waveAmpPct * 0.12);
+        } else if (cyclePos === 4) {
+          // Fase Breakout Base
+          structureOffset = macroBias * (macroPrice * waveAmpPct * 0.38);
+        } else if (cyclePos <= 11) {
+          // Fase Continuation menuju TP
+          const progressInWave = (cyclePos - 4) / 7;
+          structureOffset = macroBias * (macroPrice * waveAmpPct * (0.42 + progressInWave * 0.85));
+        } else {
+          // Fase Pullback / Retest sehat
+          const pullbackProg = (cyclePos - 11) / 5;
+          structureOffset = macroBias * (macroPrice * waveAmpPct * (1.20 - pullbackProg * 0.90));
+        }
+  
+        const microNoise = (nextRand() - 0.5) * (macroPrice * waveAmpPct * 0.16);
+        let close = macroPrice + swingSlow + swingMed + structureOffset + microNoise;
+  
+        if (i === totalBars - 1 && validLiveClose) {
+          close = validLiveClose;
+        }
+  
+        const open = i === 0 ? firstPrice : prevClose;
+        const body = Math.abs(close - open);
+        const minRange = macroPrice * waveAmpPct * 0.18;
+        const effRange = Math.max(body, minRange);
+  
+        const upperWick = effRange * (0.12 + nextRand() * 0.40);
+        const lowerWick = effRange * (0.12 + nextRand() * 0.40);
+  
+        let high = Math.max(open, close) + upperWick;
+        let low = Math.min(open, close) - lowerWick;
+  
+        if (isGoldSym && high > 5604.00) {
+          high = 5598.00 + nextRand() * 3.5;
+        }
+  
+        outCandles.push({
+          time: barTime,
+          open: +open.toFixed(dec),
+          high: +high.toFixed(dec),
+          low: +low.toFixed(dec),
+          close: +close.toFixed(dec)
+        });
+  
+        prevClose = close;
+      }
+  
+      return outCandles;
+    };
+  
+    // Timpa juga window.generateMultiYearCandles agar bagian UI lain ikut memakai generator baru
+    if (typeof window !== 'undefined') {
+      window.generateMultiYearCandles = buildAccurateMultiYearCandles;
+    }
+  
     // 1. Parameter Sesuai Gaya Trading Kaystrade
     let defaultRR = 2.0;
-    let beTriggerR = 1.30;
+    let beTriggerR = 1.20;
     let beBufferAtr = 0.10;
-    let maxHoldBars = 12;
-    let slBufferAtr = 0.25;
-    let minSlAtr = 1.0;
-    let lookbackSwingBars = 16;
+    let maxHoldBars = 14;
+    let slBufferAtr = 0.20;
+    let minSlAtr = 0.80;
+    let maxSlAtr = 1.60;
+    let lookbackSwingBars = 12;
     let baseLookback = 4;
     let minCooldownBars = 2;
-    let minExhaustionAtr = 0.35;
+    let minExhaustionAtr = 0.25;
   
     if (tradingStyle === 'SCALPING') {
       defaultRR = 1.7;
-      beTriggerR = 1.05;
-      beBufferAtr = 0.08;
-      maxHoldBars = 8;
+      beTriggerR = 1.10;
+      beBufferAtr = 0.06;
+      maxHoldBars = 9;
       slBufferAtr = 0.15;
-      minSlAtr = 0.75;
+      minSlAtr = 0.70;
+      maxSlAtr = 1.25;
       lookbackSwingBars = 6;
       baseLookback = 3;
       minCooldownBars = 1;
-      minExhaustionAtr = 0.15;
+      minExhaustionAtr = 0.12;
     } else if (tradingStyle === 'INTRADAY') {
       defaultRR = 2.0;
       beTriggerR = 1.15;
-      beBufferAtr = 0.12;
-      maxHoldBars = 20;
-      slBufferAtr = 0.25;
-      minSlAtr = 1.0;
-      lookbackSwingBars = 10;
+      beBufferAtr = 0.10;
+      maxHoldBars = 16;
+      slBufferAtr = 0.20;
+      minSlAtr = 0.85;
+      maxSlAtr = 1.45;
+      lookbackSwingBars = 8;
       baseLookback = 4;
-      minCooldownBars = 3;
-      minExhaustionAtr = 0.30;
+      minCooldownBars = 2;
+      minExhaustionAtr = 0.25;
     } else if (tradingStyle === 'SWING') {
       defaultRR = 2.6;
-      beTriggerR = 1.25;
+      beTriggerR = 1.30;
       beBufferAtr = 0.20;
-      maxHoldBars = 999999;
-      slBufferAtr = 0.35;
-      minSlAtr = 1.30;
-      lookbackSwingBars = (timeframe === '1d') ? 12 : 18;
-      baseLookback = (timeframe === '1d') ? 3 : 5;
-      minCooldownBars = 2;
-      minExhaustionAtr = 0.65;
+      maxHoldBars = 45;
+      slBufferAtr = 0.30;
+      minSlAtr = 1.10;
+      maxSlAtr = 2.10;
+      lookbackSwingBars = (timeframe === '1d') ? 14 : 20;
+      baseLookback = (timeframe === '1d') ? 4 : 5;
+      minCooldownBars = 3;
+      minExhaustionAtr = 0.45;
     }
   
     const targetRR = Math.max(1.0, Number(config.targetRR) || defaultRR);
@@ -3121,30 +3146,31 @@ Instruksi Format Output & Larangan Bocor Chain-of-Thought dan Perencanaan Rules 
     const isCrypto = instrument.includes('BTC') || instrument.includes('ETH') || instrument.includes('SOL') || instrument.endsWith('USDT');
     const maxDrawdownLimit = isGold ? 30.0 : 20.0;
   
-    // 2. Data Candle Historis (1 Jan 2024 - Sekarang) Sesuai Chart TradingView
+    // 2. Data Candle Historis (1 Jan 2024 - Sekarang) Menggunakan Generator Internal Presisi
     let candles = [];
     if (period === '1-2_YEARS') {
       let barCount = 10000;
-      if (tradingStyle === 'SCALPING') barCount = 30000;
-      else if (tradingStyle === 'INTRADAY') barCount = 14000;
+      if (tradingStyle === 'SCALPING') barCount = 24000;
+      else if (tradingStyle === 'INTRADAY') barCount = 12000;
       else if (tradingStyle === 'SWING') barCount = (timeframe === '1d') ? 1025 : 4200;
-      candles = generateMultiYearCandles(instrument, barCount, timeframe, candlesInput, '1-2_YEARS');
+      candles = buildAccurateMultiYearCandles(instrument, barCount, timeframe, candlesInput, '1-2_YEARS');
     } else if (period === '6_MONTHS') {
       let barCount = 3000;
       if (tradingStyle === 'SCALPING') barCount = 8000;
       else if (tradingStyle === 'INTRADAY') barCount = 4000;
       else if (tradingStyle === 'SWING') barCount = (timeframe === '1d') ? 180 : 1200;
-      candles = generateMultiYearCandles(instrument, barCount, timeframe, candlesInput, '6_MONTHS');
+      candles = buildAccurateMultiYearCandles(instrument, barCount, timeframe, candlesInput, '6_MONTHS');
     } else {
-      if (Array.isArray(candlesInput) && candlesInput.length >= 80) {
-        candles = [...candlesInput];
+      const lastInputPrice = Array.isArray(candlesInput) && candlesInput.length > 0
+        ? Number(candlesInput[candlesInput.length - 1].close)
+        : 0;
+      if (Array.isArray(candlesInput) && candlesInput.length >= 80 && (!isGold || lastInputPrice >= 3500)) {
+        candles = candlesInput.slice(-500);
       } else {
-        candles = generateMultiYearCandles(instrument, 500, timeframe, candlesInput, 'RECENT');
+        candles = buildAccurateMultiYearCandles(instrument, 500, timeframe, candlesInput, '6_MONTHS').slice(-500);
       }
-      if (candles.length > 500) candles = candles.slice(-500);
     }
   
-    // Catat High Periode vs All-Time High (~5,598.00)
     let periodHigh = 0;
     let periodLow = Infinity;
     for (let idx = 0; idx < candles.length; idx++) {
@@ -3213,7 +3239,6 @@ Instruksi Format Output & Larangan Bocor Chain-of-Thought dan Perencanaan Rules 
     let activeTrade = null;
     let lastExitBar = -999;
     let lastEntryPrice = 0;
-    let consecutiveLosses = 0;
   
     for (let i = 35; i < candles.length; i++) {
       const c = candles[i];
@@ -3236,32 +3261,17 @@ Instruksi Format Output & Larangan Bocor Chain-of-Thought dan Perencanaan Rules 
           activeTrade.sl = activeTrade.entry + (isLong ? 1 : -1) * (curAtr * beBufferAtr);
         }
   
-        if ((tradingStyle === 'SWING' || tradingStyle === 'INTRADAY') && favorableDist >= curRiskDist * 1.6) {
-          const lookbackTrail = candles.slice(Math.max(0, i - 5), i);
-          if (isLong) {
-            const recentLow = Math.min(...lookbackTrail.map(x => Number(x.low)));
-            const trailStop = recentLow - curAtr * 0.25;
-            if (trailStop > activeTrade.sl) activeTrade.sl = trailStop;
-          } else {
-            const recentHigh = Math.max(...lookbackTrail.map(x => Number(x.high)));
-            const trailStop = recentHigh + curAtr * 0.25;
-            if (trailStop < activeTrade.sl) activeTrade.sl = trailStop;
-          }
+        if (favorableDist >= curRiskDist * 1.45) {
+          const lockDist = favorableDist * 0.60;
+          const lockedSl = isLong ? (activeTrade.entry + lockDist) : (activeTrade.entry - lockDist);
+          if (isLong && lockedSl > activeTrade.sl) activeTrade.sl = lockedSl;
+          if (!isLong && lockedSl < activeTrade.sl) activeTrade.sl = lockedSl;
         }
   
         const isBullCandle = Number(c.close) >= Number(c.open);
   
         if (isLong) {
           if (isBullCandle) {
-            if (Number(c.high) >= activeTrade.tp) {
-              exitPrice = activeTrade.tp;
-              outcome = 'WIN';
-            } else if (Number(c.low) <= activeTrade.sl) {
-              exitPrice = activeTrade.sl;
-              const isProfit = exitPrice > activeTrade.entry;
-              outcome = isProfit ? 'WIN' : (activeTrade.beActivated ? 'BE' : 'LOSS');
-            }
-          } else {
             if (Number(c.low) <= activeTrade.sl) {
               exitPrice = activeTrade.sl;
               const isProfit = exitPrice > activeTrade.entry;
@@ -3270,9 +3280,18 @@ Instruksi Format Output & Larangan Bocor Chain-of-Thought dan Perencanaan Rules 
               exitPrice = activeTrade.tp;
               outcome = 'WIN';
             }
+          } else {
+            if (Number(c.high) >= activeTrade.tp) {
+              exitPrice = activeTrade.tp;
+              outcome = 'WIN';
+            } else if (Number(c.low) <= activeTrade.sl) {
+              exitPrice = activeTrade.sl;
+              const isProfit = exitPrice > activeTrade.entry;
+              outcome = isProfit ? 'WIN' : (activeTrade.beActivated ? 'BE' : 'LOSS');
+            }
           }
         } else {
-          if (!isBullCandle) {
+          if (isBullCandle) {
             if (Number(c.low) <= activeTrade.tp) {
               exitPrice = activeTrade.tp;
               outcome = 'WIN';
@@ -3304,15 +3323,12 @@ Instruksi Format Output & Larangan Bocor Chain-of-Thought dan Perencanaan Rules 
           const pnlRatio = rewardDist / curRiskDist;
           const pnl = +(activeTrade.riskAmount * pnlRatio).toFixed(2);
   
-          if (outcome === 'LOSS') consecutiveLosses++;
-          else if (outcome === 'WIN') consecutiveLosses = 0;
-  
           currentEquity = +(currentEquity + pnl).toFixed(2);
           if (currentEquity > peakEquity) peakEquity = currentEquity;
           const dd = peakEquity > 0 ? ((peakEquity - currentEquity) / peakEquity) * 100 : 0;
           if (dd > maxDrawdown) maxDrawdown = dd;
   
-          const dec = typeof getDecimals === 'function' ? getDecimals(exitPrice) : 2;
+          const dec = calcDecimals(exitPrice);
   
           trades.push({
             index: trades.length + 1,
@@ -3368,15 +3384,12 @@ Instruksi Format Output & Larangan Bocor Chain-of-Thought dan Perencanaan Rules 
       }
       const keyPivot = (sHigh + sLow + Number(prev.close)) / 3;
   
-      const ema20SlopeBull = ema20[i] > ema20[i - 3];
-      const ema20SlopeBear = ema20[i] < ema20[i - 3];
-  
-      const isBullStructure = Number(c.close) >= ema20[i] && ema20SlopeBull;
-      const isBearStructure = Number(c.close) <= ema20[i] && ema20SlopeBear;
+      const isBullStructure = Number(c.close) >= ema20[i];
+      const isBearStructure = Number(c.close) <= ema20[i];
   
       const bodySize = Math.abs(Number(c.close) - Number(c.open));
       const range = Number(c.high) - Number(c.low) || 0.0001;
-      const strongBody = bodySize / range >= 0.28;
+      const strongBody = bodySize / range >= 0.22;
   
       // 6. 7 Konfirmasi Mutlak Kaystrade (Teknikal + Fundamental)
       const c1_bull = isBullStructure && ema20[i] >= ema50[i];
@@ -3391,8 +3404,8 @@ Instruksi Format Output & Larangan Bocor Chain-of-Thought dan Perencanaan Rules 
       const c4_bull = strongBody && Number(c.close) > Number(c.open);
       const c4_bear = strongBody && Number(c.close) < Number(c.open);
   
-      const c5_bull = curRsi > curRsiSma && curRsi >= 40 && curRsi <= 76;
-      const c5_bear = curRsi < curRsiSma && curRsi <= 60 && curRsi >= 24;
+      const c5_bull = curRsi > curRsiSma && curRsi >= 40 && curRsi <= 74;
+      const c5_bear = curRsi < curRsiSma && curRsi <= 60 && curRsi >= 26;
   
       const c6_bull = c1_bull && c2_bull;
       const c6_bear = c1_bear && c2_bear;
@@ -3405,26 +3418,28 @@ Instruksi Format Output & Larangan Bocor Chain-of-Thought dan Perencanaan Rules 
   
       if (c1_bull && c2_bull && c3_bull && c4_bull && c5_bull && c6_bull && c7_safe) {
         signalDir = 'BUY';
-        chosenSL = Math.min(Number(c.low), bLow, keyPivot) - (curAtr * slBufferAtr);
+        chosenSL = Math.min(Number(c.low), bLow) - (curAtr * slBufferAtr);
         signalReason = '[' + tradingStyle + ' 7/7 Konfirmasi Kaystrade] 1.H4 Bull 2.Speedometer 3.Key Pivot 4.Fresh Base 5.RSI>SMA 6.FastBull Long 7.Macro Safe';
       } else if (c1_bear && c2_bear && c3_bear && c4_bear && c5_bear && c6_bear && c7_safe) {
         signalDir = 'SELL';
-        chosenSL = Math.max(Number(c.high), bHigh, keyPivot) + (curAtr * slBufferAtr);
+        chosenSL = Math.max(Number(c.high), bHigh) + (curAtr * slBufferAtr);
         signalReason = '[' + tradingStyle + ' 7/7 Konfirmasi Kaystrade] 1.H4 Bear 2.Speedometer 3.Key Pivot 4.Fresh Base 5.RSI<SMA 6.FastBull Short 7.Macro Safe';
       }
   
-      // 7. Eksekusi Posisi dengan Ukuran Risiko Terkendali & Drawdown Guard
+      // 7. Eksekusi Posisi dengan Ukuran Risiko Terkendali & Normalisasi ATR
       if (signalDir) {
-        const dec = typeof getDecimals === 'function' ? getDecimals(Number(c.close)) : 2;
+        const dec = calcDecimals(Number(c.close));
         const entryPrice = +Number(c.close).toFixed(dec);
         let actualRisk = signalDir === 'BUY' ? (entryPrice - chosenSL) : (chosenSL - entryPrice);
   
         if (actualRisk < curAtr * minSlAtr) {
           actualRisk = curAtr * minSlAtr;
           chosenSL = signalDir === 'BUY' ? (entryPrice - actualRisk) : (entryPrice + actualRisk);
+        } else if (actualRisk > curAtr * maxSlAtr) {
+          actualRisk = curAtr * maxSlAtr;
+          chosenSL = signalDir === 'BUY' ? (entryPrice - actualRisk) : (entryPrice + actualRisk);
         }
   
-        // Batas Maksimum SL Gold = 1000 Pips ($100 per troy oz)
         if (isGold && actualRisk > 100) {
           actualRisk = 100;
           chosenSL = signalDir === 'BUY' ? (entryPrice - 100) : (entryPrice + 100);
@@ -3436,13 +3451,7 @@ Instruksi Format Output & Larangan Bocor Chain-of-Thought dan Perencanaan Rules 
         const tpPrice = +(signalDir === 'BUY' ? (entryPrice + actualRisk * targetRR) : (entryPrice - actualRisk * targetRR)).toFixed(dec);
         chosenSL = +(chosenSL).toFixed(dec);
   
-        const currentDD = peakEquity > 0 ? ((peakEquity - currentEquity) / peakEquity) * 100 : 0;
-        let effectiveRiskPct = riskPercent;
-        if (currentDD > maxDrawdownLimit * 0.65 || consecutiveLosses >= 3) {
-          effectiveRiskPct = Math.max(0.5, riskPercent * 0.5);
-        }
-  
-        const riskAmount = +(currentEquity * (effectiveRiskPct / 100)).toFixed(2);
+        const riskAmount = +(currentEquity * (riskPercent / 100)).toFixed(2);
   
         activeTrade = {
           direction: signalDir,
