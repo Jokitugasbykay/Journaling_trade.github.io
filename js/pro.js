@@ -3369,6 +3369,8 @@ Instruksi Format Output & Larangan Bocor Chain-of-Thought dan Perencanaan Rules 
       period,
       initialBalance,
       finalEquity: currentEquity,
+      peakEquity: +peakEquity.toFixed(2),
+      candlesCount: candles.length,
       netProfit,
       netReturnPercent,
       winRate,
@@ -3874,7 +3876,9 @@ Instruksi Format Output & Larangan Bocor Chain-of-Thought dan Perencanaan Rules 
     cardTrades.append(node('div', 'TOTAL TRANSAKSI', 'bt-stat-label'));
     const valTrades = node('div', '0 Trades', 'bt-stat-value');
     valTrades.id = 'btStatTrades';
-    cardTrades.append(valTrades, node('div', 'Sampel 500 Closed Bars', 'bt-stat-sub'));
+    const subTrades = node('div', '1 Jan 2024 - Sekarang', 'bt-stat-sub');
+    subTrades.id = 'btStatTradesSub';
+    cardTrades.append(valTrades, subTrades);
 
     const cardProfit = node('div', null, 'backtest-stat-card');
     cardProfit.append(node('div', 'NET PROFIT & RETURN', 'bt-stat-label'));
@@ -4049,6 +4053,13 @@ Instruksi Format Output & Larangan Bocor Chain-of-Thought dan Perencanaan Rules 
       subWinRate.textContent = res.winTrades + ' Win / ' + res.lossTrades + ' Loss / ' + res.beTrades + ' BE';
 
       valTrades.textContent = res.totalTrades + ' Trades';
+      if (period === '1-2_YEARS') {
+        subTrades.textContent = '1 Jan 2024 - Sekarang (' + (res.candlesCount ? res.candlesCount.toLocaleString('id-ID') : '16.000+') + ' Bars)';
+      } else if (period === '6_MONTHS') {
+        subTrades.textContent = '6 Bulan Terakhir (' + (res.candlesCount ? res.candlesCount.toLocaleString('id-ID') : '4.000+') + ' Bars)';
+      } else {
+        subTrades.textContent = 'Sampel 500 Closed Bars';
+      }
 
       const profitSign = res.netProfit >= 0 ? '+' : '';
       valProfit.textContent = profitSign + '$' + res.netProfit.toFixed(2);
@@ -4070,7 +4081,8 @@ Instruksi Format Output & Larangan Bocor Chain-of-Thought dan Perencanaan Rules 
 
       valEquity.textContent = '$' + res.finalEquity.toFixed(2);
       valEquity.style.color = res.finalEquity >= res.initialBalance ? '#10b981' : '#ef4444';
-      subPeak.textContent = 'Peak Equity: $' + res.peakEquity.toFixed(2);
+      const peakVal = (res.peakEquity != null && !isNaN(res.peakEquity)) ? res.peakEquity : res.finalEquity;
+      subPeak.textContent = 'Peak Equity: $' + peakVal.toFixed(2);
 
       chartSummary.textContent = 'Start: $' + res.initialBalance.toFixed(2) + ' -> End: $' + res.finalEquity.toFixed(2);
       renderEquitySvg(svgWrap, res.equityCurve, res.initialBalance);
