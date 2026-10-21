@@ -1426,7 +1426,7 @@ Instruksi Format Output & Larangan Bocor Chain-of-Thought dan Perencanaan Rules 
     'ai-behaviour': { group: 'AI assistant', icon: 'brain', isAi: true, desc: 'Psikologi & deteksi FOMO' },
     'ai-journal': { group: 'AI assistant', icon: 'search', isAi: true, desc: 'Analisis konsistensi jurnal' },
     'ai-chat': { group: 'AI assistant', icon: 'chat', isAi: true, desc: 'Asisten trading cerdas interaktif' },
-    'global-news': { group: '', icon: 'key', desc: 'Konfigurasi terpusat API Key' }
+    'global-news': { group: 'AI assistant', icon: 'key', desc: 'Konfigurasi terpusat API Key' }
   };
   function createProMobileNavigator(wrap, selectEl, activeKey, onSelect) {
     wrap.classList.add('pro-section-mobile');
@@ -1490,8 +1490,7 @@ Instruksi Format Output & Larangan Bocor Chain-of-Thought dan Perencanaan Rules 
     const groups = [
       ['Analysis', ['analytics', 'heatmap', 'strategies', 'risk']],
       ['Reviews & reports', ['reviews', 'reports']],
-      ['AI assistant', ['ai-market', 'ai-behaviour', 'ai-journal', 'ai-chat']],
-      ['', ['global-news']]
+      ['AI assistant', ['ai-market', 'ai-behaviour', 'ai-journal', 'ai-chat', 'global-news']]
     ];
 
     for (const [groupTitle, keys] of groups) {
@@ -2039,7 +2038,7 @@ Instruksi Format Output & Larangan Bocor Chain-of-Thought dan Perencanaan Rules 
 
     terminal.append(terminalHeader, messages, inputBar);
 
-    const note = node('p', '', 'pro-muted');
+    const note = node('p', 'Ditenagai oleh Kayla AI.Mengobrol dan konsultasi seputar strategi, psikologi, teknikal, dan evaluasi jurnal secara interaktif dua arah.', 'pro-muted');
     const clearChatBtn = node('button', 'Hapus Riwayat Chat', 'btn btn-ghost');
     clearChatBtn.type = 'button';
     clearChatBtn.id = 'pro-ai-chat-clear';
@@ -2075,16 +2074,14 @@ Instruksi Format Output & Larangan Bocor Chain-of-Thought dan Perencanaan Rules 
 
     const showQuota = () => {
       clearChatBtn.style.display = '';
-      if (hasGeminiApiKey()) {
+      if (hasAiApiKey()) {
         quota.textContent = '';
         quota.style.display = 'none';
-        const providerName = getActiveAiProvider() === 'openai' ? 'Kayla AI (OpenAI ChatGPT)' : 'Kayla AI (Google Gemini)';
-        note.textContent = `Ditenagai oleh ${providerName}. Mengobrol dan konsultasi seputar strategi, psikologi, teknikal, dan evaluasi jurnal secara interaktif dua arah.`;
       } else {
         quota.style.display = '';
         quota.textContent = 'AI analyses remaining this month: ' + format(access?.ai?.remaining) + ' / ' + format(access?.ai?.limit || 30);
-        note.textContent = 'AI chat uses one shared monthly allowance per successful reply. It does not have live prices or news and does not provide trade signals.';
       }
+      note.textContent = 'Ditenagai oleh Kayla AI.Mengobrol dan konsultasi seputar strategi, psikologi, teknikal, dan evaluasi jurnal secara interaktif dua arah.';
     };
 
     const bubble = (role, value, time) => {
@@ -8109,7 +8106,7 @@ Setiap kali melakukan analisa pada instrumen apa pun, jalankan prosedur sinkroni
     root.replaceChildren();const heading=node('header',null,'pro-heading');const title=node('div');title.append(node('h1',text('Title'+feature,features[feature])),node('p',text('WorkspaceDescription','Performance, risk, reports and AI insights from your trading journal.'),'pro-subtitle'));heading.append(title);root.append(heading);
     heading.append(button(text('RetrySection','Retry section'),()=>open(feature,selection),'pro-section-retry'));
     const navigation=node('nav',null,'pro-sections');navigation.setAttribute('aria-label','Pro sections');
-    const groups=[['Analysis',['analytics','heatmap','strategies','risk']],['Reviews & reports',['reviews','reports']],['AI assistant',['ai-market','ai-behaviour','ai-journal','ai-chat']],['', ['global-news']]];
+    const groups=[['Analysis',['analytics','heatmap','strategies','risk']],['Reviews & reports',['reviews','reports']],['AI assistant',['ai-market','ai-behaviour','ai-journal','ai-chat','global-news']]];
     for(const [group,keys] of groups) {const section=node('div',null,'pro-nav-group');if(group)section.append(node('h2',group));navigation.append(section);
     for(const key of keys) {const label=features[key];const item=node('button',label,'btn btn-ghost');item.type='button';item.dataset.section=key;item.dataset.componentId='pro-section-'+key;item.setAttribute('aria-current',key===feature?'page':'false');item.addEventListener('click',()=>open(key));if(key.startsWith('ai-'))item.append(node('span','AI','pro-ai-badge'));section.append(item);}}
     const layout=node('div',null,'pro-layout'),workspace=node('div',null,'pro-content-panel');layout.append(navigation,workspace);root.append(layout);
