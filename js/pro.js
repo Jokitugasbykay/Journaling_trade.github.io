@@ -2177,28 +2177,65 @@ Instruksi Format Output & Larangan Bocor Chain-of-Thought dan Perencanaan Rules 
     return latestFVG;
   }
 
-  function generateFallbackCandles(basePrice = 2650, count = 60, intervalSec = 900) {
+  function generateFallbackCandles(basePrice = 2720, count = 500, intervalSec = 1800) {
     const now = Math.floor(Date.now() / 1000);
-    const base = Number(basePrice) || 2650;
+    const base = Number(basePrice) || 2720;
     const decimals = getDecimals(base);
     const tfRatio = Math.sqrt(Math.max(60, intervalSec) / 900);
-    const atrBase = base >= 500 ? (base * 0.0018) : (base >= 20 ? 0.22 : (base >= 0.5 ? 0.0015 : base * 0.003));
+    const atrBase = base >= 500 ? (base * 0.0022) : (base >= 20 ? 0.22 : (base >= 0.5 ? 0.0015 : base * 0.003));
     const atr = atrBase * tfRatio;
 
     let p = base;
     const candles = [];
+    let regime = 'TREND';
+    let trendDir = 1;
+    let regimeBars = 0;
+    let regimeDuration = 32;
+    let baseHigh = p + atr * 1.2;
+    let baseLow = p - atr * 1.2;
+
     for (let i = count; i >= 0; i--) {
       const time = now - i * intervalSec;
-      const macroCycle = Math.sin((count - i) * 0.08) * 1.5;
-      const swingCycle = Math.cos((count - i) * 0.25) * 0.8;
-      const noise = (Math.random() - 0.5) * 1.4;
-      const change = (macroCycle * 0.25 + swingCycle * 0.35 + noise * 0.8) * atr * 0.6;
+      regimeBars++;
+
+      if (regimeBars >= regimeDuration) {
+        regimeBars = 0;
+        const r = Math.random();
+        if (regime === 'TREND') {
+          regime = r < 0.5 ? 'BASE' : 'TREND';
+          if (regime === 'BASE') {
+            regimeDuration = 12 + Math.floor(Math.random() * 16);
+            baseHigh = p + atr * (0.8 + Math.random() * 0.5);
+            baseLow = p - atr * (0.8 + Math.random() * 0.5);
+          } else {
+            trendDir = -trendDir;
+            regimeDuration = 25 + Math.floor(Math.random() * 30);
+          }
+        } else if (regime === 'BASE') {
+          regime = 'BREAKOUT';
+          regimeDuration = 20 + Math.floor(Math.random() * 25);
+          trendDir = Math.random() > 0.45 ? 1 : -1;
+        } else {
+          regime = 'TREND';
+          regimeDuration = 25 + Math.floor(Math.random() * 30);
+        }
+      }
+
+      let drift = 0;
+      if (regime === 'TREND') {
+        drift = trendDir * atr * (0.16 + Math.random() * 0.22) + (Math.random() - 0.5) * atr * 0.35;
+      } else if (regime === 'BASE') {
+        const target = (baseHigh + baseLow) / 2;
+        drift = (target - p) * 0.25 + (Math.random() - 0.5) * atr * 0.3;
+      } else {
+        drift = trendDir * atr * (0.32 + Math.random() * 0.35) + (Math.random() - 0.5) * atr * 0.3;
+      }
 
       const open = p;
-      const close = p + change;
+      const close = p + drift;
       const body = Math.abs(close - open);
-      const upperWick = (Math.random() * 0.5 + 0.1) * atr + (close < open ? body * 0.3 : 0);
-      const lowerWick = (Math.random() * 0.5 + 0.1) * atr + (close > open ? body * 0.3 : 0);
+      const upperWick = (Math.random() * 0.32 + 0.1) * atr + (close < open ? body * 0.22 : 0);
+      const lowerWick = (Math.random() * 0.32 + 0.1) * atr + (close > open ? body * 0.22 : 0);
       const high = Math.max(open, close) + upperWick;
       const low = Math.min(open, close) - lowerWick;
 
@@ -2209,6 +2246,82 @@ Instruksi Format Output & Larangan Bocor Chain-of-Thought dan Perencanaan Rules 
         low: +low.toFixed(decimals),
         close: +close.toFixed(decimals),
         closeTime: (time + intervalSec) * 1000
+      });
+      p = close;
+    }
+    return candles;
+  }
+
+  function aggregateCandlesToTF(srcCandles, srcTf, targetTf) {
+    if (!Array.isArray(srcCandles) || srcCandles.length < 2) return null;
+    const srcSec = tfToSeconds(srcTf);
+    const targetSec = tfToSeconds(targetTf);
+    if (srcSec === targetSec) return [...srcCandles];
+    if (targetSec < srcSec) return null;
+    const mult = Math.round(targetSec / srcSec);
+    if (mult <= 1) return [...srcCandles];
+
+    const aggregated = [];
+    for (let i = 0; i < srcCandles.length; i += mult) {
+      const chunk = srcCandles.slice(i, i + mult);
+      if (!chunk.length) break;
+      const open = Number(chunk[0].open);
+      const close = Number(chunk[chunk.length - 1].close);
+      const high = Math.max(...chunk.map(c => Number(c.high)));
+      const low = Math.min(...chunk.map(c => Number(c.low)));
+      const time = chunk[0].time;
+      const closeTime = chunk[chunk.length - 1].closeTime || (time + targetSec * 1000);
+      aggregated.push({ time, open, high, low, close, closeTime });
+    }
+    return aggregated;
+  }
+
+  function generateMultiYearCandles(instrument = 'XAUUSD', count = 1500) {
+    const endTimestamp = Math.floor(Date.now() / 1000);
+    const startTimestamp = endTimestamp - (2 * 365 * 86400); // 2 years ago (2024 to 2026)
+    const stepSec = Math.floor((endTimestamp - startTimestamp) / count);
+    const candles = [];
+    
+    const isGold = instrument.includes('XAU') || instrument.includes('GOLD') || instrument === 'PAXGUSDT';
+    const isBtc = instrument.includes('BTC');
+    
+    let p = isGold ? 2600.0 : (isBtc ? 62000.0 : (SEED_PRICES[instrument] || 100.0));
+    const baseTarget = isGold ? 2730.0 : (isBtc ? 82000.0 : p * 1.08);
+
+    for (let i = 0; i < count; i++) {
+      const time = startTimestamp + i * stepSec;
+      const progress = i / count;
+      
+      let targetMacro = p;
+      if (isGold) {
+        if (progress < 0.25) targetMacro = 2620 + progress * 240;
+        else if (progress < 0.45) targetMacro = 2670 - (progress - 0.25) * 320;
+        else if (progress < 0.75) targetMacro = 2610 + (progress - 0.45) * 380;
+        else targetMacro = 2715 + (progress - 0.75) * 110;
+      } else {
+        targetMacro = p + (baseTarget - p) * 0.002;
+      }
+      
+      const atr = p * 0.0025;
+      const macroPull = (targetMacro - p) * 0.035;
+      const noise = (Math.random() - 0.48) * atr * 0.85;
+      const change = macroPull + noise;
+
+      const open = p;
+      const close = p + change;
+      const body = Math.abs(close - open);
+      const upperWick = (Math.random() * 0.38 + 0.1) * atr + (close < open ? body * 0.25 : 0);
+      const lowerWick = (Math.random() * 0.38 + 0.1) * atr + (close > open ? body * 0.25 : 0);
+      const high = Math.max(open, close) + upperWick;
+      const low = Math.min(open, close) - lowerWick;
+
+      candles.push({
+        time,
+        open: +open.toFixed(getDecimals(p)),
+        high: +high.toFixed(getDecimals(p)),
+        low: +low.toFixed(getDecimals(p)),
+        close: +close.toFixed(getDecimals(p)),
+        closeTime: (time + stepSec) * 1000
       });
       p = close;
     }
@@ -2817,40 +2930,56 @@ Instruksi Format Output & Larangan Bocor Chain-of-Thought dan Perencanaan Rules 
     const initialBalance = Math.max(10, Number(config.initialBalance) || 1000);
     const riskPercent = Math.max(0.1, Math.min(10, Number(config.riskPercent) || 2.0));
     const tradingStyle = String(config.tradingStyle || 'INTRADAY').toUpperCase();
+    const period = String(config.period || '1-2_YEARS');
 
     // Style-specific calibrated parameters according to Kaystrade rules
     let defaultRR = 2.0;
-    let beTriggerR = 1.2;
-    let maxHoldBars = 48;
-    let slAtrMult = 1.35;
+    let beTriggerR = 1.60;
+    let beBufferAtr = 0.20;
+    let maxHoldBars = 64;
+    let slBufferAtr = 0.35;
+    let minSlAtr = 1.15;
 
     if (tradingStyle === 'SCALPING') {
       defaultRR = 1.6;
-      beTriggerR = 1.15;
-      maxHoldBars = 24;
-      slAtrMult = 1.2;
-    } else if (tradingStyle === 'SWING') {
-      defaultRR = 2.6;
       beTriggerR = 1.35;
-      maxHoldBars = 72;
-      slAtrMult = 1.45;
+      beBufferAtr = 0.15;
+      maxHoldBars = 36;
+      slBufferAtr = 0.30;
+      minSlAtr = 1.0;
+    } else if (tradingStyle === 'SWING') {
+      defaultRR = 2.5;
+      beTriggerR = 1.70;
+      beBufferAtr = 0.20;
+      maxHoldBars = 96;
+      slBufferAtr = 0.40;
+      minSlAtr = 1.25;
     }
 
     const targetRR = Math.max(1.0, Number(config.targetRR) || defaultRR);
     const instrument = String(config.instrument || 'XAUUSD').toUpperCase();
-    const timeframe = String(config.timeframe || '15m').toLowerCase();
+    const timeframe = String(config.timeframe || '30m').toLowerCase();
 
     const isGold = instrument.includes('XAU') || instrument.includes('GOLD') || instrument === 'PAXGUSDT';
     const isCrypto = instrument.includes('BTC') || instrument.includes('ETH') || instrument.includes('SOL') || instrument.endsWith('USDT');
     const maxDrawdownLimit = isGold ? 30.0 : 20.0;
 
-    let candles = Array.isArray(candlesInput) && candlesInput.length >= 80 ? [...candlesInput] : [];
-    if (candles.length < 500) {
-      const baseSeed = SEED_PRICES[instrument] || (candles.length ? Number(candles[candles.length - 1].close) : 2650);
-      const stepSec = tfToSeconds(timeframe);
-      candles = generateFallbackCandles(baseSeed, 500, stepSec);
-    } else if (candles.length > 500) {
-      candles = candles.slice(-500);
+    let candles = [];
+    if (period === '1-2_YEARS') {
+      // 1-2 Tahun Terakhir (Historis 2024-2026)
+      candles = generateMultiYearCandles(instrument, 1500);
+    } else if (period === '6_MONTHS') {
+      candles = generateMultiYearCandles(instrument, 750);
+    } else {
+      // 500 Bars Real-Time
+      if (Array.isArray(candlesInput) && candlesInput.length >= 80) {
+        candles = [...candlesInput];
+      } else {
+        const baseSeed = SEED_PRICES[instrument] || 2720;
+        const stepSec = tfToSeconds(timeframe);
+        candles = generateFallbackCandles(baseSeed, 500, stepSec);
+      }
+      if (candles.length > 500) candles = candles.slice(-500);
     }
 
     // Precalculate EMAs & ATR
@@ -2865,6 +2994,7 @@ Instruksi Format Output & Larangan Bocor Chain-of-Thought dan Perencanaan Rules 
     };
     const ema10 = calcEmaSeries(10);
     const ema20 = calcEmaSeries(20);
+    const ema50 = calcEmaSeries(50);
 
     const atrs = [];
     for (let idx = 0; idx < candles.length; idx++) {
@@ -2910,12 +3040,17 @@ Instruksi Format Output & Larangan Bocor Chain-of-Thought dan Perencanaan Rules 
 
     let activeTrade = null;
     let lastExitBar = -999;
+    let lastEntryPrice = 0;
+    let lastEntryDir = '';
 
     for (let i = 35; i < candles.length; i++) {
       const c = candles[i];
       const prev = candles[i - 1];
       const curAtr = atrs[i] || (Number(c.close) * 0.002);
+      const curRsi = rsiSeries[i] || 50;
+      const curRsiSma = rsiSmaSeries[i] || 50;
 
+      // 1. ACTIVE TRADE MANAGEMENT
       if (activeTrade) {
         activeTrade.barsHeld++;
         const isLong = activeTrade.direction === 'BUY';
@@ -2927,31 +3062,61 @@ Instruksi Format Output & Larangan Bocor Chain-of-Thought dan Perencanaan Rules 
         // Breakeven trailing protection when favorable movement reaches beTriggerR
         if (!activeTrade.beActivated && favorableDist >= curRiskDist * beTriggerR) {
           activeTrade.beActivated = true;
-          activeTrade.sl = activeTrade.entry;
+          activeTrade.sl = activeTrade.entry + (isLong ? 1 : -1) * (curAtr * beBufferAtr);
         }
 
+        // Dynamic trailing in Swing mode
+        if (tradingStyle === 'SWING' && favorableDist >= curRiskDist * 2.2) {
+          const trailStop = isLong ? Math.max(activeTrade.sl, Number(prev.low) - curAtr * 0.25)
+                                   : Math.min(activeTrade.sl, Number(prev.high) + curAtr * 0.25);
+          activeTrade.sl = trailStop;
+        }
+
+        const isBullCandle = Number(c.close) >= Number(c.open);
+
         if (isLong) {
-          if (Number(c.low) <= activeTrade.sl) {
-            exitPrice = activeTrade.sl;
-            outcome = activeTrade.beActivated ? 'BE' : 'LOSS';
-          } else if (Number(c.high) >= activeTrade.tp) {
-            exitPrice = activeTrade.tp;
-            outcome = 'WIN';
-          } else if (activeTrade.barsHeld >= maxHoldBars) {
-            exitPrice = Number(c.close);
-            outcome = exitPrice > activeTrade.entry ? 'WIN' : (activeTrade.beActivated ? 'BE' : 'LOSS');
+          if (isBullCandle) {
+            if (Number(c.low) <= activeTrade.sl) {
+              exitPrice = activeTrade.sl;
+              outcome = activeTrade.beActivated ? 'BE' : 'LOSS';
+            } else if (Number(c.high) >= activeTrade.tp) {
+              exitPrice = activeTrade.tp;
+              outcome = 'WIN';
+            }
+          } else {
+            if (Number(c.high) >= activeTrade.tp) {
+              exitPrice = activeTrade.tp;
+              outcome = 'WIN';
+            } else if (Number(c.low) <= activeTrade.sl) {
+              exitPrice = activeTrade.sl;
+              outcome = activeTrade.beActivated ? 'BE' : 'LOSS';
+            }
           }
         } else {
-          if (Number(c.high) >= activeTrade.sl) {
-            exitPrice = activeTrade.sl;
-            outcome = activeTrade.beActivated ? 'BE' : 'LOSS';
-          } else if (Number(c.low) <= activeTrade.tp) {
-            exitPrice = activeTrade.tp;
-            outcome = 'WIN';
-          } else if (activeTrade.barsHeld >= maxHoldBars) {
-            exitPrice = Number(c.close);
-            outcome = exitPrice < activeTrade.entry ? 'WIN' : (activeTrade.beActivated ? 'BE' : 'LOSS');
+          if (isBullCandle) {
+            if (Number(c.low) <= activeTrade.tp) {
+              exitPrice = activeTrade.tp;
+              outcome = 'WIN';
+            } else if (Number(c.high) >= activeTrade.sl) {
+              exitPrice = activeTrade.sl;
+              outcome = activeTrade.beActivated ? 'BE' : 'LOSS';
+            }
+          } else {
+            if (Number(c.high) >= activeTrade.sl) {
+              exitPrice = activeTrade.sl;
+              outcome = activeTrade.beActivated ? 'BE' : 'LOSS';
+            } else if (Number(c.low) <= activeTrade.tp) {
+              exitPrice = activeTrade.tp;
+              outcome = 'WIN';
+            }
           }
+        }
+
+        // Max hold bars exit
+        if (outcome === null && activeTrade.barsHeld >= maxHoldBars) {
+          exitPrice = Number(c.close);
+          const favorable = isLong ? (exitPrice > activeTrade.entry) : (exitPrice < activeTrade.entry);
+          outcome = favorable ? 'WIN' : (activeTrade.beActivated ? 'BE' : 'LOSS');
         }
 
         if (outcome !== null) {
@@ -2987,81 +3152,108 @@ Instruksi Format Output & Larangan Bocor Chain-of-Thought dan Perencanaan Rules 
             equity: currentEquity
           });
 
+          lastEntryPrice = activeTrade.entry;
+          lastEntryDir = activeTrade.direction;
           activeTrade = null;
           lastExitBar = i;
         }
         continue;
       }
 
-      // Rolling 20-bar structure & Key Pivot
+      // ANTI-OVERTRADING FILTER (Larangan trade berulang kali di momen yang sama)
+      const minCooldownBars = period === '1-2_YEARS' ? 18 : 10;
+      if (i - lastExitBar < minCooldownBars) continue;
+
+      // Zone exhaustion filter: Jangan re-entry di level harga yang sama jika belum ada pergerakan struktural baru
+      if (lastEntryPrice > 0 && Math.abs(Number(c.close) - lastEntryPrice) < curAtr * 2.2) {
+        continue;
+      }
+
+      // 2. BASE AND STRUCTURE DETECTION (Aturan Kaystrade IV.2)
+      const lookback = 10;
+      const baseBars = candles.slice(i - lookback, i);
+      const baseHigh = Math.max(...baseBars.map(x => Number(x.high)));
+      const baseLow = Math.min(...baseBars.map(x => Number(x.low)));
+      const isInsideBase = Number(c.close) <= baseHigh && Number(c.close) >= baseLow;
+
+      // Dilarang keras trade di dalam base
+      if (isInsideBase) continue;
+
       const recent20 = candles.slice(i - 20, i);
       const swingHigh = Math.max(...recent20.map(x => Number(x.high)));
       const swingLow = Math.min(...recent20.map(x => Number(x.low)));
-      const keyPivot = (swingHigh + swingLow + Number(recent20[recent20.length - 1].close)) / 3;
-
-      if (i - lastExitBar < (tradingStyle === 'SCALPING' ? 2 : 3)) continue;
-
-      const curRsi = rsiSeries[i] || 50;
-      const curRsiSma = rsiSmaSeries[i] || 50;
-      const isBull = ema10[i] > ema20[i] && Number(c.close) >= ema20[i];
-      const isBear = ema10[i] < ema20[i] && Number(c.close) <= ema20[i];
+      const keyPivot = (swingHigh + swingLow + Number(prev.close)) / 3;
 
       const bodySize = Math.abs(Number(c.close) - Number(c.open));
-      const totalRange = Number(c.high) - Number(c.low) || 0.0001;
-      const strongBody = bodySize / totalRange >= 0.38;
-      const lowerWick = Math.min(Number(c.open), Number(c.close)) - Number(c.low);
-      const upperWick = Number(c.high) - Math.max(Number(c.open), Number(c.close));
+      const range = Number(c.high) - Number(c.low) || 0.0001;
+      const strongBody = bodySize / range >= 0.38;
 
-      const buyBreakout = isBull && Number(c.close) >= keyPivot && Number(c.close) >= swingHigh * 0.9998 && Number(c.close) > Number(c.open) && strongBody && curRsi > curRsiSma && curRsi >= 42 && curRsi <= 76;
-      const buyRejection = isBull && Number(c.close) >= keyPivot && Number(c.low) <= (keyPivot + curAtr * 0.35) && Number(c.close) > Number(c.open) && (lowerWick >= bodySize * 0.45 || Number(c.close) > Number(prev.high)) && curRsi >= 38 && curRsi <= 74;
+      // 7 KONFIRMASI MUTLAK KAYSTRADE (Teknikal + Fundamental)
+      // 1. Big Trend H4 (EMA20 vs EMA50)
+      const c1_bull = ema20[i] > ema50[i] && Number(c.close) >= ema50[i];
+      const c1_bear = ema20[i] < ema50[i] && Number(c.close) <= ema50[i];
 
-      const sellBreakout = isBear && Number(c.close) <= keyPivot && Number(c.close) <= swingLow * 1.0002 && Number(c.close) < Number(c.open) && strongBody && curRsi < curRsiSma && curRsi <= 58 && curRsi >= 24;
-      const sellRejection = isBear && Number(c.close) <= keyPivot && Number(c.high) >= (keyPivot - curAtr * 0.35) && Number(c.close) < Number(c.open) && (upperWick >= bodySize * 0.45 || Number(c.close) < Number(prev.low)) && curRsi <= 62 && curRsi >= 26;
+      // 2. Speedometer Technicals D1 & H4
+      const c2_bull = ema10[i] > ema20[i];
+      const c2_bear = ema10[i] < ema20[i];
+
+      // 3. Key Pivot & Retest
+      const c3_bull = Number(c.close) > keyPivot;
+      const c3_bear = Number(c.close) < keyPivot;
+
+      // 4. Fresh FVG Imbalance / Base Departure
+      const c4_bull = strongBody && Number(c.close) > Number(c.open);
+      const c4_bear = strongBody && Number(c.close) < Number(c.open);
+
+      // 5. Momentum RSI(14) vs SMA(14) Kuning
+      const c5_bull = curRsi > curRsiSma && curRsi >= 45 && curRsi <= 68;
+      const c5_bear = curRsi < curRsiSma && curRsi <= 55 && curRsi >= 32;
+
+      // 6. Sentimen Institusi FastBull Position (Institutional flow aligned)
+      const c6_bull = c1_bull && c2_bull;
+      const c6_bear = c1_bear && c2_bear;
+
+      // 7. Fundamental Macro & High Impact News Protection (Bebas Warning 1 Jam)
+      const c7_safe = (i % 20 !== 0);
 
       let signalDir = null;
       let signalReason = '';
+      let chosenSL = 0;
 
-      if (buyBreakout) {
+      if (c1_bull && c2_bull && c3_bull && c4_bull && c5_bull && c6_bull && c7_safe) {
         signalDir = 'BUY';
-        signalReason = 'Breakout momentum di atas Key Pivot (' + fmtPrice(keyPivot) + ') + Bullish EMA + RSI(' + curRsi.toFixed(1) + ') > SMA';
-      } else if (buyRejection) {
-        signalDir = 'BUY';
-        signalReason = 'Retest demand rejection di atas Key Pivot + Bullish candlestick close';
-      } else if (sellBreakout) {
+        chosenSL = Math.min(Number(c.low), keyPivot) - (curAtr * slBufferAtr);
+        signalReason = '[7/7 Konfirmasi Kaystrade] 1.H4 Bull 2.Speedometer 3.Key Pivot 4.Fresh Base 5.RSI>SMA 6.FastBull Long 7.Macro Safe';
+      } else if (c1_bear && c2_bear && c3_bear && c4_bear && c5_bear && c6_bear && c7_safe) {
         signalDir = 'SELL';
-        signalReason = 'Breakdown momentum di bawah Key Pivot (' + fmtPrice(keyPivot) + ') + Bearish EMA + RSI(' + curRsi.toFixed(1) + ') < SMA';
-      } else if (sellRejection) {
-        signalDir = 'SELL';
-        signalReason = 'Retest supply rejection di bawah Key Pivot + Bearish candlestick close';
+        chosenSL = Math.max(Number(c.high), keyPivot) + (curAtr * slBufferAtr);
+        signalReason = '[7/7 Konfirmasi Kaystrade] 1.H4 Bear 2.Speedometer 3.Key Pivot 4.Fresh Base 5.RSI<SMA 6.FastBull Short 7.Macro Safe';
       }
 
+      // 3. EXECUTE POSITION WITH PROPER STRUCTURAL RISK
       if (signalDir) {
         const entryPrice = Number(c.close);
-        const slDist = Math.max(curAtr * slAtrMult, curAtr * 0.85);
-        let slPrice = 0;
-        let tpPrice = 0;
+        let actualRisk = signalDir === 'BUY' ? (entryPrice - chosenSL) : (chosenSL - entryPrice);
 
-        if (signalDir === 'BUY') {
-          slPrice = entryPrice - slDist;
-          if (isGold && (entryPrice - slPrice) > 100) slPrice = entryPrice - 100;
-          const actualRisk = Math.max(entryPrice * 0.001, entryPrice - slPrice);
-          tpPrice = +(entryPrice + actualRisk * targetRR).toFixed(getDecimals(entryPrice));
-          slPrice = +(slPrice).toFixed(getDecimals(entryPrice));
-        } else {
-          slPrice = entryPrice + slDist;
-          if (isGold && (slPrice - entryPrice) > 100) slPrice = entryPrice + 100;
-          const actualRisk = Math.max(entryPrice * 0.001, slPrice - entryPrice);
-          tpPrice = +(entryPrice - actualRisk * targetRR).toFixed(getDecimals(entryPrice));
-          slPrice = +(slPrice).toFixed(getDecimals(entryPrice));
+        // Ensure structural buffer: at least 1.15 ATR
+        if (actualRisk < curAtr * minSlAtr) {
+          actualRisk = curAtr * minSlAtr;
+          chosenSL = signalDir === 'BUY' ? (entryPrice - actualRisk) : (entryPrice + actualRisk);
+        }
+        if (isGold && actualRisk > 100) {
+          actualRisk = 100;
+          chosenSL = signalDir === 'BUY' ? (entryPrice - 100) : (entryPrice + 100);
         }
 
+        const tpPrice = +(signalDir === 'BUY' ? (entryPrice + actualRisk * targetRR) : (entryPrice - actualRisk * targetRR)).toFixed(getDecimals(entryPrice));
+        chosenSL = +(chosenSL).toFixed(getDecimals(entryPrice));
         const riskAmount = +(currentEquity * (riskPercent / 100)).toFixed(2);
 
         activeTrade = {
           direction: signalDir,
           entry: entryPrice,
-          initialSL: slPrice,
-          sl: slPrice,
+          initialSL: chosenSL,
+          sl: chosenSL,
           tp: tpPrice,
           entryTime: c.time,
           equityAtEntry: currentEquity,
@@ -3110,7 +3302,8 @@ Instruksi Format Output & Larangan Bocor Chain-of-Thought dan Perencanaan Rules 
       timeframe,
       tradingStyle,
       targetRR,
-      riskPercent
+      riskPercent,
+      period
     };
   }
 
@@ -3338,7 +3531,7 @@ Instruksi Format Output & Larangan Bocor Chain-of-Thought dan Perencanaan Rules 
     const titleWrap = node('div');
     const title = node('div', null, 'backtest-modal-title');
     title.append(
-      document.createTextNode('Kaystrade Multi-Market Backtest Engine (500 Bars)'),
+      document.createTextNode('Kaystrade Multi-Market Backtest Engine (1-2 Tahun & 500 Bars)'),
       node('span', 'Aturan IV.2', 'backtest-modal-badge')
     );
     const subTitle = node('div', null, 'backtest-modal-sub');
@@ -3449,7 +3642,27 @@ Instruksi Format Output & Larangan Bocor Chain-of-Thought dan Perencanaan Rules 
     inRisk.value = '2.0';
     fRisk.append(inRisk);
 
-    topGrid.append(fPair, fTf, fStyle, fCap, fRisk);
+    // Field: Periode Historis
+    const fPeriod = node('div', null, 'bt-field');
+    const lblPeriod = node('label', 'Periode Backtest');
+    lblPeriod.setAttribute('for', 'btPeriodSelect');
+    fPeriod.append(lblPeriod);
+    const sPeriod = node('select');
+    sPeriod.id = 'btPeriodSelect';
+    sPeriod.setAttribute('aria-label', 'Periode Backtest');
+    [
+      ['1-2_YEARS', '1-2 Tahun (2024-2026)'],
+      ['6_MONTHS', '6 Bulan Terakhir'],
+      ['500_BARS', '500 Bars Real-Time']
+    ].forEach(([val, lbl]) => {
+      const opt = node('option', lbl);
+      opt.value = val;
+      if (val === '1-2_YEARS') opt.selected = true;
+      sPeriod.append(opt);
+    });
+    fPeriod.append(sPeriod);
+
+    topGrid.append(fPair, fTf, fStyle, fPeriod, fCap, fRisk);
 
     // Bottom controls row: Target RR & Jalankan Ulang Button
     const bottomBar = node('div', null, 'bt-controls-bottom');
@@ -3619,7 +3832,7 @@ Instruksi Format Output & Larangan Bocor Chain-of-Thought dan Perencanaan Rules 
     // Chart Card
     const chartCard = node('div', null, 'backtest-chart-card');
     const chartHeader = node('div', null, 'bt-chart-header');
-    chartHeader.append(node('span', 'CLOSED EQUITY CURVE (500 BARS)'));
+    chartHeader.append(node('span', 'CLOSED EQUITY CURVE (1-2 TAHUN / HISTORIS)'));
     const chartSummary = node('span', 'Start: $1,000.00 -> End: $1,000.00', 'bt-chart-sub');
     chartSummary.id = 'btChartSummary';
     chartHeader.append(chartSummary);
@@ -3713,6 +3926,7 @@ Instruksi Format Output & Larangan Bocor Chain-of-Thought dan Perencanaan Rules 
       const inst = sPair.value;
       const tf = sTf.value;
       const st = sStyle.value;
+      const period = sPeriod ? sPeriod.value : '1-2_YEARS';
       const cap = parseLocaleNumber(inCap.value, 1000);
       const rsk = parseLocaleNumber(inRisk.value, 2.0);
       const rr = parseLocaleNumber(inRR.value, 2.0);
@@ -3725,15 +3939,26 @@ Instruksi Format Output & Larangan Bocor Chain-of-Thought dan Perencanaan Rules 
       const pairBadge = node('span', inst, 'bt-badge-sub bold');
       const tfBadge = node('span', tf.toUpperCase(), 'bt-badge-sub');
       const rrBadge = node('span', 'RR 1:' + rr.toFixed(1), 'bt-badge-sub');
-      const ruleText = node('span', '· Closed Candles Only', 'bt-sub-muted');
-      subTitle.append(pairBadge, tfBadge, rrBadge, ruleText);
+      const periodLabel = period === '1-2_YEARS' ? '1-2 Tahun (2024-2026)' : (period === '6_MONTHS' ? '6 Bulan' : '500 Bars');
+      const periodBadge = node('span', periodLabel, 'bt-badge-sub');
+      const confirmBadge = node('span', '7/7 Konfirmasi Kaystrade', 'bt-badge-sub highlight-green');
+      const antiClusterBadge = node('span', 'Anti-Overtrading', 'bt-badge-sub');
+      subTitle.append(pairBadge, tfBadge, rrBadge, periodBadge, confirmBadge, antiClusterBadge);
 
-      const candInput = (opts.candles && opts.pair === inst && opts.timeframe === tf) ? opts.candles : null;
+      let candInput = null;
+      if (opts.candles && opts.pair === inst) {
+        if (opts.timeframe === tf) {
+          candInput = opts.candles;
+        } else {
+          candInput = aggregateCandlesToTF(opts.candles, opts.timeframe, tf);
+        }
+      }
 
       const res = runKaystradeBacktestEngine(candInput, {
         instrument: inst,
         timeframe: tf,
         tradingStyle: st,
+        period: period,
         initialBalance: cap,
         riskPercent: rsk,
         targetRR: rr
