@@ -4,7 +4,7 @@
     analytics:'Advanced Analytics', heatmap:'Performance Heatmap', strategies:'Strategy Comparison',
     risk:'Risk Intelligence', reviews:'Weekly & Monthly Review', reports:'PDF Reports',
     'ai-behaviour':'AI Behaviour Analysis', 'ai-market':'AI Market Intelligence',
-    'ai-journal':'AI Journal Analyst', 'ai-chat':'AI Chat', 'global-news':'AI Engine & API Key'
+    'ai-journal':'AI Journal Analyst', 'ai-chat':'AI Chat', 'global-news':'API'
   };
   const timeframes = {'1m':'1','5m':'5','15m':'15','30m':'30','1h':'60','4h':'240','1d':'D'};
   let options={}, revision=0, controller=new AbortController(), access=null, current='', root=null, status=null, content=null, filters={}, preset={}, accounts=[], strategies=[], activeTabLoader=null;
@@ -673,24 +673,12 @@
     if (lastError) throw lastError;
   }
 
-  async function callGeminiApi({systemInstruction,contents,history,model=GEMINI_DEFAULT_MODEL,signal}) {
-    const activeProvider = getActiveAiProvider();
-    if (activeProvider === 'openai') {
-      const openAiModel = (model && !model.startsWith('gemini') && !model.startsWith('gemma')) ? model : OPENAI_DEFAULT_MODEL;
-      return callOpenAiApi({systemInstruction, contents, history, model: openAiModel, signal});
-    }
-
-    const rawStoredKey = sanitizeKey(getStorage()?.getItem(GEMINI_STORAGE_KEY));
-    if (rawStoredKey && /^sk[-_]/i.test(rawStoredKey)) {
-      return callOpenAiApi({systemInstruction, contents, history, model: OPENAI_DEFAULT_MODEL, signal});
-    }
-
+  async function callGeminiDirectApi({systemInstruction,contents,history,model=GEMINI_DEFAULT_MODEL,signal}) {
     const apiKey=getGeminiApiKey();
     if(!apiKey){
-      if(hasOpenAiApiKey()){
-        return callOpenAiApi({systemInstruction, contents, history, model: OPENAI_DEFAULT_MODEL, signal});
-      }
-      throw new Error('Google Gemini API Key belum diatur. Klik tombol "Set API Key" di samping status AI untuk memasukkan API Key Anda.');
+      const err = new Error('Google Gemini API Key belum diatur.');
+      err.isMissingKey = true;
+      throw err;
     }
     const modelsToTry = getRandomizedModelsPool(model);
 
@@ -754,7 +742,10 @@
 
       if (response.status === 429) {
         hadQuotaExhaustion = true;
-        lastError = new Error('gagal memproses jawaban, kuota kayla telah habis atau dibatasi. silahkan coba lagi nanti');
+        const qErr = new Error('gagal memproses jawaban, kuota kayla telah habis atau dibatasi. silahkan coba lagi nanti');
+        qErr.isQuota = true;
+        qErr.status = 429;
+        lastError = qErr;
         if (i < modelsToTry.length - 1) {
           continue;
         }
@@ -764,24 +755,29 @@
       const data = await response.json().catch(() => null);
       if (!response.ok) {
         const errorMsg = data?.error?.message || response.statusText || 'Unknown error';
-        const isQuotaErr = /RESOURCE_EXHAUSTED|quota|rate limit/i.test(errorMsg);
+        const isQuotaErr = response.status === 429 || /RESOURCE_EXHAUSTED|quota|rate limit/i.test(errorMsg);
         if (isQuotaErr) hadQuotaExhaustion = true;
 
-        const isApiKeyError = response.status === 400 && (/api[_\s-]?key|key not valid|invalid_argument.*key/i.test(errorMsg) || !errorMsg.includes('model'));
+        const isApiKeyError = response.status === 400 && (/api[_s-]?key|key not valid|invalid_argument.*key/i.test(errorMsg) || !errorMsg.includes('model'));
         if (isApiKeyError || response.status === 403) {
           throw new Error('Google Gemini API Key tidak valid atau tidak memiliki izin akses (Error: ' + errorMsg + '). Periksa kembali API Key Anda di Google AI Studio.');
         }
 
         const isTransientOrSwitchable = isQuotaErr || response.status === 503 || response.status === 500 || response.status === 502 || response.status === 504 || response.status === 404 || response.status === 400;
         if (isTransientOrSwitchable && i < modelsToTry.length - 1) {
-          lastError = isQuotaErr
+          const transErr = isQuotaErr
             ? new Error('gagal memproses jawaban, kuota kayla telah habis atau dibatasi. silahkan coba lagi nanti')
             : new Error('Google Gemini API Error (' + response.status + '): ' + errorMsg);
+          if (isQuotaErr) transErr.isQuota = true;
+          lastError = transErr;
           continue;
         }
 
         if (isQuotaErr || hadQuotaExhaustion) {
-          throw new Error('gagal memproses jawaban, kuota kayla telah habis atau dibatasi. silahkan coba lagi nanti');
+          const qErr = new Error('gagal memproses jawaban, kuota kayla telah habis atau dibatasi. silahkan coba lagi nanti');
+          qErr.isQuota = true;
+          qErr.status = 429;
+          throw qErr;
         }
         throw new Error('Google Gemini API Error (' + response.status + '): ' + errorMsg);
       }
@@ -794,9 +790,74 @@
       return textOutput;
     }
     if (hadQuotaExhaustion) {
-      throw new Error('gagal memproses jawaban, kuota kayla telah habis atau dibatasi. silahkan coba lagi nanti');
+      const qErr = new Error('gagal memproses jawaban, kuota kayla telah habis atau dibatasi. silahkan coba lagi nanti');
+      qErr.isQuota = true;
+      qErr.status = 429;
+      throw qErr;
     }
     if (lastError) throw lastError;
+  }
+
+  async function callGeminiApi({systemInstruction,contents,history,model,signal}) {
+    const rawStoredKey = sanitizeKey(getStorage()?.getItem(GEMINI_STORAGE_KEY));
+    if (rawStoredKey && /^sk[-_]/i.test(rawStoredKey)) {
+      setOpenAiApiKey(rawStoredKey);
+      try { getStorage()?.removeItem(GEMINI_STORAGE_KEY); } catch (_) {}
+      setAiProviderPreference('openai');
+    }
+
+    const hasGemini = Boolean(getGeminiApiKey());
+    const hasOpenAi = hasOpenAiApiKey();
+
+    if (!hasGemini && !hasOpenAi) {
+      throw new Error('API Key belum diatur. Masukkan Google Gemini API Key atau ChatGPT (OpenAI) API Key untuk memulai.');
+    }
+
+    const pref = getAiProviderPreference();
+    let primary = 'gemini';
+    if (pref === 'openai' && hasOpenAi) {
+      primary = 'openai';
+    } else if (!hasGemini && hasOpenAi) {
+      primary = 'openai';
+    } else {
+      primary = 'gemini';
+    }
+
+    const secondary = primary === 'gemini' ? 'openai' : 'gemini';
+    const canFailover = secondary === 'openai' ? hasOpenAi : hasGemini;
+
+    const openAiModel = (model && !model.startsWith('gemini') && !model.startsWith('gemma')) ? model : OPENAI_DEFAULT_MODEL;
+    const geminiModel = (model && (model.startsWith('gemini') || model.startsWith('gemma'))) ? model : GEMINI_DEFAULT_MODEL;
+
+    const isFailoverableError = (err) => {
+      if (!err) return false;
+      if (err.isQuota) return true;
+      const msg = String(err.message || '');
+      return /kuota|quota|429|RESOURCE_EXHAUSTED|insufficient_quota|rate limit|limit habis/i.test(msg);
+    };
+
+    try {
+      if (primary === 'openai') {
+        return await callOpenAiApi({systemInstruction, contents, history, model: openAiModel, signal});
+      } else {
+        return await callGeminiDirectApi({systemInstruction, contents, history, model: geminiModel, signal});
+      }
+    } catch (primaryErr) {
+      if (primaryErr.name === 'AbortError') throw primaryErr;
+      if (canFailover && isFailoverableError(primaryErr)) {
+        try {
+          if (secondary === 'openai') {
+            return await callOpenAiApi({systemInstruction, contents, history, model: openAiModel, signal});
+          } else {
+            return await callGeminiDirectApi({systemInstruction, contents, history, model: geminiModel, signal});
+          }
+        } catch (secondaryErr) {
+          if (secondaryErr.name === 'AbortError') throw secondaryErr;
+          throw secondaryErr;
+        }
+      }
+      throw primaryErr;
+    }
   }
 
   function openGeminiConfigModal(onStateChanged) {
@@ -1365,7 +1426,7 @@ Instruksi Format Output & Larangan Bocor Chain-of-Thought dan Perencanaan Rules 
     'ai-behaviour': { group: 'AI assistant', icon: 'brain', isAi: true, desc: 'Psikologi & deteksi FOMO' },
     'ai-journal': { group: 'AI assistant', icon: 'search', isAi: true, desc: 'Analisis konsistensi jurnal' },
     'ai-chat': { group: 'AI assistant', icon: 'chat', isAi: true, desc: 'Asisten trading cerdas interaktif' },
-    'global-news': { group: 'Markets', icon: 'key', desc: 'Konfigurasi terpusat OpenAI & Gemini API' }
+    'global-news': { group: '', icon: 'key', desc: 'Konfigurasi terpusat API Key' }
   };
   function createProMobileNavigator(wrap, selectEl, activeKey, onSelect) {
     wrap.classList.add('pro-section-mobile');
@@ -1430,13 +1491,15 @@ Instruksi Format Output & Larangan Bocor Chain-of-Thought dan Perencanaan Rules 
       ['Analysis', ['analytics', 'heatmap', 'strategies', 'risk']],
       ['Reviews & reports', ['reviews', 'reports']],
       ['AI assistant', ['ai-market', 'ai-behaviour', 'ai-journal', 'ai-chat']],
-      ['Markets', ['global-news']]
+      ['', ['global-news']]
     ];
 
     for (const [groupTitle, keys] of groups) {
       const groupEl = node('div', null, 'pro-nav-group-section');
-      const groupHead = node('div', groupTitle, 'pro-nav-group-title');
-      groupEl.append(groupHead);
+      if (groupTitle) {
+        const groupHead = node('div', groupTitle, 'pro-nav-group-title');
+        groupEl.append(groupHead);
+      }
 
       const itemsGrid = node('div', null, 'pro-nav-items-list');
       for (const k of keys) {
@@ -7784,144 +7847,156 @@ Setiap kali melakukan analisa pada instrumen apa pun, jalankan prosedur sinkroni
     card.style.margin='0 auto';
     card.style.padding='24px';
 
-    let curCardProvider = getActiveAiProvider() || 'gemini';
-
-    const h2=node('h2',curCardProvider==='openai'?'ChatGPT (OpenAI) API Key':'Google Gemini API Key','pro-panel-title');
+    const h2=node('h2','API','pro-panel-title');
     h2.style.fontSize='20px';
     h2.style.fontWeight='700';
     h2.style.marginBottom='8px';
 
-    const desc=node('p','Kelola konfigurasi API Key Anda (Google Gemini atau ChatGPT OpenAI) untuk menghubungkan seluruh modul AI (AI Market Intelligence, AI Behaviour Analysis, AI Journal Analyst, dan Kayla AI Chat) secara terpusat. API Key disimpan aman di browser lokal Anda.','pro-muted');
+    const desc=node('p','Kelola Google Gemini API Key dan ChatGPT (OpenAI) API Key Anda. Jika kuota Google Gemini limit atau habis, sistem otomatis berpindah ke ChatGPT (OpenAI) atau sebaliknya secara cerdas.','pro-muted');
     desc.style.marginBottom='18px';
 
-    const statusBadge=node('div',null,'pro-engine-status-badge');
-    statusBadge.style.display='inline-flex';
-    statusBadge.style.alignItems='center';
-    statusBadge.style.gap='8px';
-    statusBadge.style.padding='6px 14px';
-    statusBadge.style.borderRadius='999px';
-    statusBadge.style.marginBottom='20px';
+    const statusWrap=node('div');
+    statusWrap.style.display='flex';
+    statusWrap.style.flexWrap='wrap';
+    statusWrap.style.gap='10px';
+    statusWrap.style.marginBottom='20px';
 
-    function refreshStatusBadge(){
-      const active=hasGeminiApiKey();
-      const prov=getActiveAiProvider();
-      const labelText = active
-        ? (prov === 'openai' ? 'Status: Terhubung (ChatGPT OpenAI Aktif)' : 'Status: Terhubung (Google Gemini Aktif)')
-        : 'Status: Belum Terhubung';
-      statusBadge.style.background=active?'rgba(16, 185, 129, 0.12)':'rgba(239, 68, 68, 0.12)';
-      statusBadge.style.color=active?'#10B981':'#EF4444';
-      statusBadge.replaceChildren();
-      const dot=node('span');
-      dot.style.cssText='width:8px;height:8px;border-radius:50%;background:'+(active?'#10B981':'#EF4444')+';display:inline-block;';
-      const strong=node('strong',labelText);
-      statusBadge.append(dot,strong);
+    const badgeGemini=node('div',null,'pro-engine-status-badge');
+    badgeGemini.style.display='inline-flex';
+    badgeGemini.style.alignItems='center';
+    badgeGemini.style.gap='8px';
+    badgeGemini.style.padding='6px 14px';
+    badgeGemini.style.borderRadius='999px';
+
+    const badgeOpenAi=node('div',null,'pro-engine-status-badge');
+    badgeOpenAi.style.display='inline-flex';
+    badgeOpenAi.style.alignItems='center';
+    badgeOpenAi.style.gap='8px';
+    badgeOpenAi.style.padding='6px 14px';
+    badgeOpenAi.style.borderRadius='999px';
+
+    const badgeFailover=node('div',null,'pro-engine-status-badge');
+    badgeFailover.style.display='inline-flex';
+    badgeFailover.style.alignItems='center';
+    badgeFailover.style.gap='8px';
+    badgeFailover.style.padding='6px 14px';
+    badgeFailover.style.borderRadius='999px';
+    badgeFailover.style.background='rgba(59, 130, 246, 0.12)';
+    badgeFailover.style.color='#3B82F6';
+    const fDot=node('span');
+    fDot.style.cssText='width:8px;height:8px;border-radius:50%;background:#3B82F6;display:inline-block;';
+    const fText=node('strong','Auto-Failover: Aktif');
+    badgeFailover.append(fDot,fText);
+
+    statusWrap.append(badgeGemini, badgeOpenAi, badgeFailover);
+
+    function refreshStatusBadges(){
+      const hasG=Boolean(getGeminiApiKey());
+      badgeGemini.style.background=hasG?'rgba(16, 185, 129, 0.12)':'rgba(239, 68, 68, 0.12)';
+      badgeGemini.style.color=hasG?'#10B981':'#EF4444';
+      badgeGemini.replaceChildren();
+      const dotG=node('span');
+      dotG.style.cssText='width:8px;height:8px;border-radius:50%;background:'+(hasG?'#10B981':'#EF4444')+';display:inline-block;';
+      badgeGemini.append(dotG, node('strong', hasG?'Gemini: Terhubung (Aktif)':'Gemini: Belum Terhubung'));
+
+      const hasO=hasOpenAiApiKey();
+      badgeOpenAi.style.background=hasO?'rgba(16, 185, 129, 0.12)':'rgba(239, 68, 68, 0.12)';
+      badgeOpenAi.style.color=hasO?'#10B981':'#EF4444';
+      badgeOpenAi.replaceChildren();
+      const dotO=node('span');
+      dotO.style.cssText='width:8px;height:8px;border-radius:50%;background:'+(hasO?'#10B981':'#EF4444')+';display:inline-block;';
+      badgeOpenAi.append(dotO, node('strong', hasO?'ChatGPT: Terhubung (Aktif)':'ChatGPT: Belum Terhubung'));
     }
-    refreshStatusBadge();
+    refreshStatusBadges();
 
-    const providerToggleWrap=node('div');
-    providerToggleWrap.style.display='flex';
-    providerToggleWrap.style.gap='8px';
-    providerToggleWrap.style.marginBottom='14px';
+    // 1. Google Gemini API Key Input
+    const labelGemini=node('label','Google Gemini API Key');
+    labelGemini.style.display='block';
+    labelGemini.style.fontWeight='600';
+    labelGemini.style.marginBottom='6px';
 
-    const tabGemini=node('button','Google Gemini','btn btn-outline');
-    tabGemini.type='button';
-    tabGemini.style.fontSize='13px';
-    tabGemini.style.padding='6px 12px';
+    const inputWrapGemini=node('div');
+    inputWrapGemini.style.display='flex';
+    inputWrapGemini.style.gap='10px';
+    inputWrapGemini.style.marginBottom='6px';
 
-    const tabOpenAi=node('button','ChatGPT (OpenAI)','btn btn-outline');
-    tabOpenAi.type='button';
-    tabOpenAi.style.fontSize='13px';
-    tabOpenAi.style.padding='6px 12px';
+    const inputGemini=node('input',null,'form-input');
+    inputGemini.type='password';
+    inputGemini.value=getGeminiApiKey();
+    inputGemini.placeholder='AIzaSy...';
+    inputGemini.style.flex='1';
+    inputGemini.style.padding='10px 14px';
+    inputGemini.style.borderRadius='8px';
+    inputGemini.style.border='1px solid var(--border-light, #333)';
+    inputGemini.style.background='var(--surface-field, #1e222d)';
+    inputGemini.style.color='inherit';
 
-    providerToggleWrap.append(tabGemini, tabOpenAi);
-
-    const label=node('label',curCardProvider==='openai'?'OpenAI / ChatGPT API Key':'Google Gemini API Key');
-    label.style.display='block';
-    label.style.fontWeight='600';
-    label.style.marginBottom='6px';
-
-    const inputWrap=node('div');
-    inputWrap.style.display='flex';
-    inputWrap.style.gap='10px';
-    inputWrap.style.marginBottom='8px';
-
-    const input=node('input',null,'form-input');
-    input.type='password';
-    input.value=curCardProvider==='openai'?getOpenAiApiKey():getGeminiApiKey();
-    input.placeholder=curCardProvider==='openai'?'sk-... (atau sk-proj-...)':'AIzaSy...';
-    input.style.flex='1';
-    input.style.padding='10px 14px';
-    input.style.borderRadius='8px';
-    input.style.border='1px solid var(--border-light, #333)';
-    input.style.background='var(--surface-field, #1e222d)';
-    input.style.color='inherit';
-
-    const toggleBtn=button('Tampilkan',()=>{
-      if(input.type==='password'){
-        input.type='text';
-        toggleBtn.textContent='Sembunyikan';
-      } else {
-        input.type='password';
-        toggleBtn.textContent='Tampilkan';
-      }
+    const toggleGemini=button('Tampilkan',()=>{
+      if(inputGemini.type==='password'){inputGemini.type='text';toggleGemini.textContent='Sembunyikan';}
+      else {inputGemini.type='password';toggleGemini.textContent='Tampilkan';}
     },'btn btn-outline');
-    toggleBtn.type='button';
+    toggleGemini.type='button';
+    inputWrapGemini.append(inputGemini,toggleGemini);
 
-    inputWrap.append(input,toggleBtn);
+    const linkGemini=node('a','Dapatkan Google Gemini API Key gratis di Google AI Studio →','pro-link');
+    linkGemini.href='https://aistudio.google.com/app/apikey';
+    linkGemini.target='_blank';
+    linkGemini.rel='noopener noreferrer';
+    linkGemini.style.display='inline-block';
+    linkGemini.style.fontSize='12px';
+    linkGemini.style.marginBottom='20px';
+    linkGemini.style.color='var(--accent-blue, #3b82f6)';
 
-    const modelNote=node('div',null,'pro-muted');
-    modelNote.style.fontSize='12px';
-    modelNote.style.marginBottom='12px';
+    // 2. ChatGPT (OpenAI) API Key Input (DIRECTLY UNDERNEATH)
+    const labelOpenAi=node('label','ChatGPT (OpenAI) API Key');
+    labelOpenAi.style.display='block';
+    labelOpenAi.style.fontWeight='600';
+    labelOpenAi.style.marginBottom='6px';
 
-    const link=node('a','Dapatkan Google Gemini API Key gratis di Google AI Studio →','pro-link');
-    link.href='https://aistudio.google.com/app/apikey';
-    link.target='_blank';
-    link.rel='noopener noreferrer';
-    link.style.display='inline-block';
-    link.style.fontSize='13px';
-    link.style.marginBottom='20px';
-    link.style.color='var(--accent-blue, #3b82f6)';
+    const inputWrapOpenAi=node('div');
+    inputWrapOpenAi.style.display='flex';
+    inputWrapOpenAi.style.gap='10px';
+    inputWrapOpenAi.style.marginBottom='6px';
 
-    function updateCardUi(prov){
-      curCardProvider=prov;
-      if(prov==='openai'){
-        tabOpenAi.className='btn btn-primary';
-        tabGemini.className='btn btn-outline';
-        h2.textContent='ChatGPT (OpenAI) API Key';
-        label.textContent='OpenAI / ChatGPT API Key';
-        input.placeholder='sk-... (atau sk-proj-...)';
-        input.value=getOpenAiApiKey();
-        modelNote.textContent='Model resmi OpenAI: gpt-4o (default) / gpt-4o-mini. Seluruh model fiktif atau varian tidak resmi dilarang keras.';
-        link.textContent='Dapatkan OpenAI API Key di OpenAI Platform →';
-        link.href='https://platform.openai.com/api-keys';
-      } else {
-        tabGemini.className='btn btn-primary';
-        tabOpenAi.className='btn btn-outline';
-        h2.textContent='Google Gemini API Key';
-        label.textContent='Google Gemini API Key';
-        input.placeholder='AIzaSy...';
-        input.value=getGeminiApiKey();
-        modelNote.textContent='Model resmi Google Gemini: gemini-3.8-flash.';
-        link.textContent='Dapatkan Google Gemini API Key gratis di Google AI Studio →';
-        link.href='https://aistudio.google.com/app/apikey';
-      }
-    }
+    const inputOpenAi=node('input',null,'form-input');
+    inputOpenAi.type='password';
+    inputOpenAi.value=getOpenAiApiKey();
+    inputOpenAi.placeholder='sk-... (atau sk-proj-...)';
+    inputOpenAi.style.flex='1';
+    inputOpenAi.style.padding='10px 14px';
+    inputOpenAi.style.borderRadius='8px';
+    inputOpenAi.style.border='1px solid var(--border-light, #333)';
+    inputOpenAi.style.background='var(--surface-field, #1e222d)';
+    inputOpenAi.style.color='inherit';
 
-    tabGemini.addEventListener('click',()=>updateCardUi('gemini'));
-    tabOpenAi.addEventListener('click',()=>updateCardUi('openai'));
+    const toggleOpenAi=button('Tampilkan',()=>{
+      if(inputOpenAi.type==='password'){inputOpenAi.type='text';toggleOpenAi.textContent='Sembunyikan';}
+      else {inputOpenAi.type='password';toggleOpenAi.textContent='Tampilkan';}
+    },'btn btn-outline');
+    toggleOpenAi.type='button';
+    inputWrapOpenAi.append(inputOpenAi,toggleOpenAi);
 
-    input.addEventListener('input',()=>{
-      const val=input.value.trim();
-      if(/^sk-/i.test(val) && curCardProvider!=='openai'){
-        updateCardUi('openai');
-        input.value=val;
-      } else if(/^AIza/i.test(val) && curCardProvider!=='gemini'){
-        updateCardUi('gemini');
-        input.value=val;
+    const noteOpenAi=node('div',null,'pro-muted');
+    noteOpenAi.style.fontSize='12px';
+    noteOpenAi.style.marginBottom='4px';
+    noteOpenAi.textContent='Model resmi: gpt-4o (default) / gpt-4o-mini. Seluruh model fiktif dilarang.';
+
+    const linkOpenAi=node('a','Dapatkan OpenAI API Key di OpenAI Platform →','pro-link');
+    linkOpenAi.href='https://platform.openai.com/api-keys';
+    linkOpenAi.target='_blank';
+    linkOpenAi.rel='noopener noreferrer';
+    linkOpenAi.style.display='inline-block';
+    linkOpenAi.style.fontSize='12px';
+    linkOpenAi.style.marginBottom='20px';
+    linkOpenAi.style.color='var(--accent-blue, #3b82f6)';
+
+    inputGemini.addEventListener('input',()=>{
+      const val=inputGemini.value.trim();
+      if(/^sk[-_]/i.test(val)){
+        inputOpenAi.value=val;
+        inputGemini.value='';
       }
     });
-
-    updateCardUi(curCardProvider);
 
     const statusMsg=node('div',null,'pro-modal-status');
     statusMsg.style.marginBottom='16px';
@@ -7933,41 +8008,35 @@ Setiap kali melakukan analisa pada instrumen apa pun, jalankan prosedur sinkroni
     actions.style.gap='10px';
 
     const saveBtn=button('Simpan API Key',()=>{
-      const val=input.value.trim();
-      if(!val){
-        statusMsg.textContent='Masukkan API Key sebelum menyimpan.';
+      const gVal=inputGemini.value.trim();
+      const oVal=inputOpenAi.value.trim();
+      if(!gVal && !oVal){
+        statusMsg.textContent='Masukkan minimal salah satu API Key sebelum menyimpan.';
         statusMsg.style.color='#EF4444';
         return;
       }
-      if(/^sk-/i.test(val) || curCardProvider==='openai'){
-        setOpenAiApiKey(val);
-        setAiProviderPreference('openai');
-        statusMsg.textContent='ChatGPT (OpenAI) API Key berhasil disimpan! Model resmi gpt-4o aktif.';
-      } else {
-        setGeminiApiKey(val);
-        setAiProviderPreference('gemini');
-        statusMsg.textContent='Google Gemini API Key berhasil disimpan! Semua modul AI kini aktif terhubung.';
-      }
+      if(gVal) setGeminiApiKey(gVal);
+      if(oVal) setOpenAiApiKey(oVal);
+
+      statusMsg.textContent='API Key berhasil disimpan! Auto-failover aktif antara Google Gemini dan ChatGPT.';
       statusMsg.style.color='#10B981';
-      refreshStatusBadge();
+      refreshStatusBadges();
     },'btn btn-primary');
     saveBtn.type='button';
 
     const removeBtn=button('Hapus Key',()=>{
-      if(curCardProvider==='openai'){
-        setOpenAiApiKey('');
-      } else {
-        setGeminiApiKey('');
-      }
-      input.value='';
-      statusMsg.textContent='API Key telah dihapus.';
+      setGeminiApiKey('');
+      setOpenAiApiKey('');
+      inputGemini.value='';
+      inputOpenAi.value='';
+      statusMsg.textContent='Seluruh API Key telah dihapus.';
       statusMsg.style.color='#F59E0B';
-      refreshStatusBadge();
+      refreshStatusBadges();
     },'btn btn-ghost');
     removeBtn.type='button';
 
     actions.append(saveBtn,removeBtn);
-    card.append(h2,desc,statusBadge,providerToggleWrap,label,inputWrap,modelNote,link,statusMsg,actions);
+    card.append(h2,desc,statusWrap,labelGemini,inputWrapGemini,linkGemini,labelOpenAi,inputWrapOpenAi,noteOpenAi,linkOpenAi,statusMsg,actions);
     content.append(card);
 
     const newsHost=node('div',null,'pro-news-compat-host');
@@ -8040,8 +8109,8 @@ Setiap kali melakukan analisa pada instrumen apa pun, jalankan prosedur sinkroni
     root.replaceChildren();const heading=node('header',null,'pro-heading');const title=node('div');title.append(node('h1',text('Title'+feature,features[feature])),node('p',text('WorkspaceDescription','Performance, risk, reports and AI insights from your trading journal.'),'pro-subtitle'));heading.append(title);root.append(heading);
     heading.append(button(text('RetrySection','Retry section'),()=>open(feature,selection),'pro-section-retry'));
     const navigation=node('nav',null,'pro-sections');navigation.setAttribute('aria-label','Pro sections');
-    const groups=[['Analysis',['analytics','heatmap','strategies','risk']],['Reviews & reports',['reviews','reports']],['AI assistant',['ai-market','ai-behaviour','ai-journal','ai-chat']],['Markets',['global-news']]];
-    for(const [group,keys] of groups) {const section=node('div',null,'pro-nav-group');section.append(node('h2',group));navigation.append(section);
+    const groups=[['Analysis',['analytics','heatmap','strategies','risk']],['Reviews & reports',['reviews','reports']],['AI assistant',['ai-market','ai-behaviour','ai-journal','ai-chat']],['', ['global-news']]];
+    for(const [group,keys] of groups) {const section=node('div',null,'pro-nav-group');if(group)section.append(node('h2',group));navigation.append(section);
     for(const key of keys) {const label=features[key];const item=node('button',label,'btn btn-ghost');item.type='button';item.dataset.section=key;item.dataset.componentId='pro-section-'+key;item.setAttribute('aria-current',key===feature?'page':'false');item.addEventListener('click',()=>open(key));if(key.startsWith('ai-'))item.append(node('span','AI','pro-ai-badge'));section.append(item);}}
     const layout=node('div',null,'pro-layout'),workspace=node('div',null,'pro-content-panel');layout.append(navigation,workspace);root.append(layout);
     const selector=select('Pro section',Object.entries(features),feature,'pro-section-selector');

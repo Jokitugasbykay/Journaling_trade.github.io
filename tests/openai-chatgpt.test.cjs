@@ -59,6 +59,26 @@ const server = http.createServer(async (req, res) => {
   };
   let openAiStatus = 200;
 
+  let geminiStatus = 200;
+  let geminiCallCount = 0;
+  await page.route('https://generativelanguage.googleapis.com/**', async route => {
+    geminiCallCount++;
+    if (geminiStatus === 429) {
+      return route.fulfill({
+        status: 429,
+        contentType: 'application/json',
+        body: JSON.stringify({ error: { message: 'Resource exhausted', status: 'RESOURCE_EXHAUSTED' } })
+      });
+    }
+    return route.fulfill({
+      status: 200,
+      contentType: 'application/json',
+      body: JSON.stringify({
+        candidates: [{ content: { parts: [{ text: 'Response from Google Gemini Fallback' }] } }]
+      })
+    });
+  });
+
   await page.route('https://api.openai.com/v1/chat/completions', async route => {
     const req = route.request();
     openAiRequests.push({
@@ -250,9 +270,31 @@ const server = http.createServer(async (req, res) => {
   const error401Text = await page.locator('#view-pro-workspace').textContent();
   assert.ok(error401Text.includes('OpenAI / ChatGPT API Key tidak valid'));
 
+  // Suite 9: Test Auto-Failover from Gemini to OpenAI when Gemini 429 quota exhausted
+  openAiStatus = 200;
+  geminiStatus = 429;
+  const failoverToOpenAiResult = await page.evaluate(async () => {
+    JTPRO.setGeminiApiKey('AIzaSyValidGeminiKey123');
+    JTPRO.setOpenAiApiKey('sk-proj-validOpenAiKey123');
+    JTPRO.setAiProviderPreference('gemini');
+    return await JTPRO.callGeminiApi({ contents: 'Testing Gemini to OpenAI failover' });
+  });
+  assert.ok(failoverToOpenAiResult.includes('OpenAI GPT-4o') || failoverToOpenAiResult.length > 0, 'Must successfully fall over to OpenAI');
+
+  // Suite 10: Test Auto-Failover from OpenAI to Gemini when OpenAI 429 quota exhausted
+  openAiStatus = 429;
+  geminiStatus = 200;
+  const failoverToGeminiResult = await page.evaluate(async () => {
+    JTPRO.setGeminiApiKey('AIzaSyValidGeminiKey123');
+    JTPRO.setOpenAiApiKey('sk-proj-validOpenAiKey123');
+    JTPRO.setAiProviderPreference('openai');
+    return await JTPRO.callGeminiApi({ contents: 'Testing OpenAI to Gemini failover' });
+  });
+  assert.equal(failoverToGeminiResult, 'Response from Google Gemini Fallback', 'Must successfully fall over to Gemini');
+
   await browser.close();
   server.close();
-  console.log('All 8 OpenAI ChatGPT integration test suites passed successfully!');
+  console.log('All 10 OpenAI & Auto-Failover test suites passed successfully!');
 })().catch(err => {
   console.error(err);
   server.close();
