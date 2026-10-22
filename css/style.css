@@ -44,6 +44,11 @@
       padding: 0;
     }
 
+    html {
+      overflow-x: hidden;
+      max-width: 100%;
+    }
+
     body {
       background-color: var(--bg-main);
       color: var(--text-main);
@@ -1508,14 +1513,23 @@
       display: flex;
       gap: 5px;
     }
+    .preset-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
     .p-chip {
       font-size: 11px;
       font-family: var(--mono);
       background: var(--bg-card);
       border: 1px solid var(--line);
       color: var(--text-muted);
-      padding: 2px 7px;
-      border-radius: 4px;
+      padding: 4px 8px;
+      min-height: 28px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 6px;
       cursor: pointer;
       transition: var(--transition);
     }
@@ -2357,7 +2371,35 @@
     .nav-dd-item { min-height: 44px; font-size: 13px; }
     .nav-dd-role { color: #b0b0b4; }
     .menu-language { display: grid; grid-template-columns: 1fr 124px; gap: 12px; align-items: center; padding: 8px 10px; }
-    .menu-language select { min-height: 44px; border: 1px solid #3c3c40; background: #222225; border-radius: 8px; padding: 8px; }
+    .menu-language select {
+      min-height: 44px;
+      border: 1px solid #282e37;
+      background-color: #121824;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%2394a3b8' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: calc(100% - 12px) center;
+      background-size: 16px 16px;
+      border-radius: 8px;
+      color: #f1f5f9;
+      font-size: 13.5px;
+      font-weight: 500;
+      padding: 8px 34px 8px 12px;
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      appearance: none;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+    .menu-language select:hover {
+      border-color: rgba(56, 189, 248, 0.5);
+      background-color: #161f30;
+    }
+    .menu-language select:focus,
+    .menu-language select:focus-visible {
+      outline: none;
+      border-color: #38bdf8;
+      box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.22);
+    }
     .btn-outline { background:transparent; border:1px solid #4a4a4e; color:#fff; }
     .btn-outline:hover { background:#1d1e20; }
     .text-action { display: inline-block; border: 0; border-bottom: 1px solid #8c8c91; background: none; padding: 10px 0; min-height: 44px; color: #f5f5f5; font-size: 14px; cursor: pointer; }
@@ -2646,7 +2688,58 @@ body.auth-page .main-wrap { max-width:none; width:100%; margin:0; padding:0; }
 .calendar-filters { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:12px; margin:20px 0; }
 .calendar-filter-label { display:block; font-size:12px; color:var(--text-muted); margin-bottom:8px; }
 .calendar-dropdown { position:relative; min-width:0; }
-.calendar-dropdown summary, #kal-category { width:100%; min-height:44px; padding:12px; background:var(--bg-card); color:var(--text-main); border:1px solid var(--line); border-radius:6px; font:inherit; font-size:13px; cursor:pointer; }
+.calendar-dropdown summary {
+  width: 100%;
+  min-height: 44px;
+  padding: 12px;
+  background: var(--bg-card);
+  color: var(--text-main);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  font: inherit;
+  font-size: 13px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+.calendar-dropdown summary:hover {
+  border-color: rgba(56, 189, 248, 0.5);
+  background: #121824;
+}
+.calendar-dropdown[open] summary {
+  border-color: #38bdf8;
+  box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.22);
+}
+#kal-category {
+  width: 100%;
+  min-height: 44px;
+  padding: 10px 38px 10px 14px;
+  background-color: var(--bg-card);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%2394a3b8' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: calc(100% - 13px) center;
+  background-size: 16px 16px;
+  color: var(--text-main);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  font: inherit;
+  font-size: 13.5px;
+  font-weight: 500;
+  cursor: pointer;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  transition: all 0.15s ease;
+}
+#kal-category:hover {
+  border-color: rgba(56, 189, 248, 0.5);
+  background-color: #121824;
+}
+#kal-category:focus,
+#kal-category:focus-visible {
+  outline: none;
+  border-color: #38bdf8;
+  box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.22);
+}
 .calendar-dropdown summary { display:flex; align-items:center; justify-content:space-between; gap:12px; list-style:none; }
 .calendar-dropdown summary::-webkit-details-marker { display:none; }
 .calendar-dropdown summary::after { content:''; width:7px; height:7px; border-right:1px solid currentColor; border-bottom:1px solid currentColor; transform:rotate(45deg); flex-shrink:0; }
@@ -3098,5 +3191,11 @@ a, button, summary, input, select, label { -webkit-tap-highlight-color: transpar
     min-height: 48px;
     padding: 10px 14px;
     font-size: 14.5px;
+  }
+}
+
+@media (max-width: 360px) {
+  .main-wrap {
+    padding: 14px 10px 32px !important;
   }
 }

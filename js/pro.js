@@ -1749,6 +1749,40 @@ Instruksi Format Output & Larangan Bocor Chain-of-Thought dan Perencanaan Rules 
       else openMenu();
     });
 
+    trigger.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowDown' || e.key === 'ArrowUp' || e.key === ' ' || e.key === 'Enter') {
+        e.preventDefault();
+        e.stopPropagation();
+        if (!menu.classList.contains('is-open')) openMenu();
+      }
+    });
+
+    menu.addEventListener('keydown', (e) => {
+      const options = Array.from(menu.querySelectorAll('.custom-select-option:not([disabled])'));
+      if (!options.length) return;
+      const currentIndex = options.indexOf(document.activeElement);
+
+      if (e.key === 'ArrowDown') {
+        e.preventDefault();
+        const next = currentIndex < options.length - 1 ? currentIndex + 1 : 0;
+        options[next]?.focus();
+      } else if (e.key === 'ArrowUp') {
+        e.preventDefault();
+        const prev = currentIndex > 0 ? currentIndex - 1 : options.length - 1;
+        options[prev]?.focus();
+      } else if (e.key === 'Home') {
+        e.preventDefault();
+        options[0]?.focus();
+      } else if (e.key === 'End') {
+        e.preventDefault();
+        options[options.length - 1]?.focus();
+      } else if (e.key === 'Escape') {
+        e.preventDefault();
+        closeMenu();
+        trigger.focus();
+      }
+    });
+
     backdrop.addEventListener('click', (e) => {
       e.preventDefault();
       e.stopPropagation();
@@ -7129,16 +7163,7 @@ Setiap kali melakukan analisa pada instrumen apa pun, jalankan prosedur sinkroni
       pairDropdown.classList.add('open');
       renderPairDropdownList();
     }
-
-    function setPairCategory(e, cat) {
-      e.stopPropagation();
-      selectedPairCategory = cat;
-      for (const btn of catTabs.children) btn.classList.remove('active');
-      e.target.classList.add('active');
-      renderPairDropdownList();
-    }
-
-    function filterPairDropdown() {
+function filterPairDropdown() {
       openPairDropdown();
       renderPairDropdownList();
     }

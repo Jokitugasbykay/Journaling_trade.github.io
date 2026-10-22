@@ -268,7 +268,26 @@ body:has(#view-beranda.active) .site-footer a { color:#bdbdbd; }
   to { opacity:1; transform:translateY(0); }
 }
 
-.tab-content-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:12px; margin-bottom:16px; }
+.tab-content-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  margin-bottom: 16px;
+}
+@media (max-width: 860px) {
+  .tab-content-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media (max-width: 480px) {
+  .tab-content-grid {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+  .tab-preview-content {
+    padding: 16px 12px;
+  }
+}
 .tab-metric-box { background:rgba(255,255,255,0.025); border:1px solid rgba(255,255,255,0.07); border-radius:12px; padding:14px; }
 .tab-metric-label { font:10px var(--mono); color:#888; text-transform:uppercase; letter-spacing:0.06em; margin-bottom:6px; }
 .tab-metric-val { font:600 18px/1.2 var(--mono); color:#fff; }
@@ -375,10 +394,11 @@ body:has(#view-beranda.active) .navbar {
 .home-timeline-hero-fullscreen {
   position: relative;
   width: 100%;
+  max-width: 100%;
   height: 280vh;
   background: #000000;
   color: #ffffff;
-  overflow: clip;
+  overflow: hidden;
 }
 
 @media (max-width: 600px) {
@@ -391,7 +411,8 @@ body:has(#view-beranda.active) .navbar {
   position: sticky;
   top: 0;
   left: 0;
-  width: 100vw;
+  width: 100%;
+  max-width: 100%;
   height: 100vh;
   height: 100dvh;
   overflow: hidden;
@@ -682,3 +703,46 @@ body:has(#view-beranda.active) .navbar {
 }
 
 
+
+/* Mobile responsive touch targets & grids */
+@media (max-width: 768px) {
+  .terminal-pair-btn {
+    min-height: 38px;
+    padding: 6px 14px;
+    font-size: 12px;
+  }
+  .tab-preview-btn {
+    min-height: 42px;
+    padding: 8px 16px;
+    font-size: 12.5px;
+  }
+}
+@media (max-width: 640px) {
+  .risk-controls-grid {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+  .risk-results-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+@media (max-width: 360px) {
+  .risk-results-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 480px) {
+  .home-tab-preview-card {
+    padding: 16px 12px;
+    border-radius: 16px;
+  }
+  #btn-preview-retry {
+    white-space: normal;
+    text-align: center;
+    max-width: 100%;
+    font-size: 12px;
+    padding: 8px 12px;
+    line-height: 1.3;
+  }
+}

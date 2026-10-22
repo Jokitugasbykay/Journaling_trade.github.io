@@ -4646,6 +4646,14 @@ body.pro-sheet-open { overflow:hidden !important; }
   box-shadow: 0 25px 60px rgba(0, 0, 0, 0.7);
   color: #f3f4f6;
   margin: auto;
+  box-sizing: border-box;
+}
+
+.jt-checkout-left,
+.jt-checkout-right {
+  min-width: 0;
+  max-width: 100%;
+  box-sizing: border-box;
 }
 
 .jt-checkout-close {
@@ -4818,7 +4826,49 @@ body.pro-sheet-open { overflow:hidden !important; }
 
 .jt-select {
   cursor: pointer;
-  appearance: auto;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background-color: #161b26;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%2394a3b8' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: calc(100% - 13px) center;
+  background-size: 16px 16px;
+  border: 1px solid #282e37;
+  border-radius: 10px;
+  color: #f1f5f9;
+  font-size: 13.5px;
+  font-weight: 500;
+  padding: 9px 38px 9px 13px;
+  min-height: 42px;
+  box-sizing: border-box;
+  transition: border-color 0.15s ease, background-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.jt-select:hover:not(:disabled) {
+  border-color: rgba(56, 189, 248, 0.5);
+  background-color: #1c2230;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%2338bdf8' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+}
+
+.jt-select:focus,
+.jt-select:focus-visible {
+  outline: none;
+  border-color: #38bdf8;
+  background-color: #1c2230;
+  box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.22);
+}
+
+.jt-select option {
+  background-color: #12161f;
+  color: #f1f5f9;
+  padding: 10px 14px;
+}
+
+.jt-select optgroup {
+  background-color: #0d1017;
+  color: #94a3b8;
+  font-weight: 700;
 }
 
 .jt-form-row {
@@ -4964,6 +5014,34 @@ body.pro-sheet-open { overflow:hidden !important; }
   }
   .jt-plan-selector-grid {
     grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 600px) {
+  .jt-checkout-overlay {
+    padding: 16px 10px;
+  }
+  .jt-checkout-container {
+    padding: 20px 14px;
+    border-radius: 16px;
+  }
+  .jt-form-row {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+  .jt-checkout-title {
+    font-size: 20px;
+    margin-bottom: 16px;
+  }
+  .jt-summary-heading {
+    font-size: 20px;
+  }
+  .jt-summary-card {
+    padding: 18px 14px;
+  }
+  .jt-select {
+    min-height: 46px;
+    font-size: 15px;
   }
 }
 

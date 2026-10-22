@@ -301,6 +301,42 @@
       else openSelect();
     });
 
+    trigger.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowDown' || e.key === 'ArrowUp' || e.key === ' ' || e.key === 'Enter') {
+        e.preventDefault();
+        e.stopPropagation();
+        if (!panel.classList.contains('is-open')) {
+          openSelect();
+        }
+      }
+    });
+
+    panel.addEventListener('keydown', (e) => {
+      const options = Array.from(optionsContainer.querySelectorAll('.app-custom-select-option:not([disabled])'));
+      if (!options.length) return;
+      const currentIndex = options.indexOf(document.activeElement);
+
+      if (e.key === 'ArrowDown') {
+        e.preventDefault();
+        const next = currentIndex < options.length - 1 ? currentIndex + 1 : 0;
+        options[next]?.focus();
+      } else if (e.key === 'ArrowUp') {
+        e.preventDefault();
+        const prev = currentIndex > 0 ? currentIndex - 1 : options.length - 1;
+        options[prev]?.focus();
+      } else if (e.key === 'Home') {
+        e.preventDefault();
+        options[0]?.focus();
+      } else if (e.key === 'End') {
+        e.preventDefault();
+        options[options.length - 1]?.focus();
+      } else if (e.key === 'Escape') {
+        e.preventDefault();
+        closeActiveSelect();
+        trigger.focus();
+      }
+    });
+
     select.addEventListener('change', syncTriggerLabel);
     select.addEventListener('input', syncTriggerLabel);
 
@@ -330,10 +366,20 @@
 
   // Watch for dynamically added select elements (modals, tabs, etc.)
   if (typeof MutationObserver !== 'undefined') {
-    const bodyObserver = new MutationObserver(() => {
-      initAllSelects();
+    let timer = null;
+    const debouncedInit = () => {
+      if (timer) cancelAnimationFrame(timer);
+      timer = requestAnimationFrame(() => {
+        initAllSelects();
+      });
+    };
+    const bodyObserver = new MutationObserver(debouncedInit);
+    bodyObserver.observe(document.body || document.documentElement, {
+      childList: true,
+      subtree: true,
+      attributes: true,
+      attributeFilter: ['style', 'class', 'hidden']
     });
-    bodyObserver.observe(document.body || document.documentElement, { childList: true, subtree: true });
   }
 
   window.initCustomSelects = initAllSelects;
