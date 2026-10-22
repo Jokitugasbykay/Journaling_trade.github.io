@@ -8421,7 +8421,7 @@ Setiap kali melakukan analisa pada instrumen apa pun, jalankan prosedur sinkroni
 
     // Card 1: AI Gratis (Groq)
     const c1 = node('div', null, 'card st');
-    c1.append(node('span', 'AI Gratis (Groq)'));
+    c1.append(node('span', 'AI Gratis\u00A0'));
     const c1Title = node('b', 'Layanan platform');
     const c1Chip = node('span', null, 'chip ok');
     c1Chip.style.alignSelf = 'flex-start';
@@ -8430,7 +8430,7 @@ Setiap kali melakukan analisa pada instrumen apa pun, jalankan prosedur sinkroni
 
     // Card 2: Key pribadi Groq
     const c2 = node('div', null, 'card st');
-    c2.append(node('span', 'Key pribadi Groq'));
+    c2.append(node('span', 'Key pribadi'));
     const c2Title = node('b', 'Belum diatur');
     const c2Chip = node('span', null, 'chip nt');
     c2Chip.style.alignSelf = 'flex-start';
@@ -8466,7 +8466,7 @@ Setiap kali melakukan analisa pada instrumen apa pun, jalankan prosedur sinkroni
     const rStep1 = node('div', null, 'step');
     const rStep1Em = node('em', '1');
     const rStep1Text = node('div');
-    rStep1Text.append(node('b', 'Key pribadi Anda'), node('span', 'Dipakai lebih dulu jika terhubung dan valid.'));
+    rStep1Text.append(node('b', 'Groq AI Gratis'), node('span', 'Cadangan dari platform bila key pribadi gagal atau kuota habis.'));
     rStep1.append(rStep1Em, rStep1Text);
 
     const rStep2 = node('div', null, 'step');
@@ -8478,7 +8478,7 @@ Setiap kali melakukan analisa pada instrumen apa pun, jalankan prosedur sinkroni
     const rStep3 = node('div', null, 'step');
     const rStep3Em = node('em', '3');
     const rStep3Text = node('div');
-    rStep3Text.append(node('b', 'Groq AI Gratis'), node('span', 'Cadangan dari platform bila key pribadi gagal atau kuota habis.'));
+    rStep3Text.append(node('b', 'Key pribadi Anda'), node('span', 'Dipakai lebih dulu jika terhubung dan valid.'));
     rStep3.append(rStep3Em, rStep3Text);
 
     routeWrap.append(rStep1, rStep2, rStep3);
@@ -8558,7 +8558,7 @@ Setiap kali melakukan analisa pada instrumen apa pun, jalankan prosedur sinkroni
     }, 'bt');
     groqSaveBtn.type = 'button';
 
-    const groqTestBtn = button('Test Koneksi', async () => {
+    const groqTestBtn = button('Test koneksi', async () => {
       const candidate = groqInput.value.trim();
       if (!candidate) {
         groqMsg.className = 'msg er';
@@ -8623,7 +8623,7 @@ Setiap kali melakukan analisa pada instrumen apa pun, jalankan prosedur sinkroni
     const groqFallbackSpan = node('span', 'Fallback otomatis ke Groq AI Gratis jika key pribadi terkena rate limit atau kuota habis');
     groqFallbackWrap.append(groqFallbackCheck, groqFallbackTrack, groqFallbackSpan);
 
-    const groqLink = node('a', 'Dapatkan Groq API Key gratis di console.groq.com/keys ->', 'lk');
+    const groqLink = node('a', 'Dapatkan Groq API Key gratis di console.groq.com/keys \u2192', 'lk');
     groqLink.href = 'https://console.groq.com/keys';
     groqLink.target = '_blank';
     groqLink.rel = 'noopener noreferrer';
@@ -8679,7 +8679,7 @@ Setiap kali melakukan analisa pada instrumen apa pun, jalankan prosedur sinkroni
     }, 'bt');
     gemSaveBtn.type = 'button';
 
-    const gemTestBtn = button('Test Koneksi', async () => {
+    const gemTestBtn = button('Test koneksi', async () => {
       const candidate = gemInput.value.trim();
       if (!candidate) {
         gemMsg.className = 'msg er';
@@ -8731,7 +8731,7 @@ Setiap kali melakukan analisa pada instrumen apa pun, jalankan prosedur sinkroni
     const gemMsg = node('div', null, 'msg');
     gemMsg.style.display = 'none';
 
-    const gemLink = node('a', 'Dapatkan Gemini API Key di Google AI Studio ->', 'lk');
+    const gemLink = node('a', 'Dapatkan Gemini API Key di Google AI Studio \u2192', 'lk');
     gemLink.href = 'https://aistudio.google.com/app/apikey';
     gemLink.target = '_blank';
     gemLink.rel = 'noopener noreferrer';
@@ -8787,7 +8787,7 @@ Setiap kali melakukan analisa pada instrumen apa pun, jalankan prosedur sinkroni
     }, 'bt');
     oaiSaveBtn.type = 'button';
 
-    const oaiTestBtn = button('Test Koneksi', async () => {
+    const oaiTestBtn = button('Test koneksi', async () => {
       const candidate = oaiInput.value.trim();
       if (!candidate) {
         oaiMsg.className = 'msg er';
@@ -8839,7 +8839,7 @@ Setiap kali melakukan analisa pada instrumen apa pun, jalankan prosedur sinkroni
     const oaiMsg = node('div', null, 'msg');
     oaiMsg.style.display = 'none';
 
-    const oaiLink = node('a', 'Dapatkan OpenAI API Key di OpenAI Platform ->', 'lk');
+    const oaiLink = node('a', 'Dapatkan OpenAI API Key di OpenAI Platform \u2192', 'lk');
     oaiLink.href = 'https://platform.openai.com/api-keys';
     oaiLink.target = '_blank';
     oaiLink.rel = 'noopener noreferrer';
@@ -8900,7 +8900,7 @@ Setiap kali melakukan analisa pada instrumen apa pun, jalankan prosedur sinkroni
         c2Chip.className = 'chip nt';
         c2Chip.replaceChildren(node('i'), document.createTextNode('Belum diuji'));
         groqChip.className = 'chip nt';
-        groqChip.replaceChildren(node('i'), document.createTextNode('Belum diatur'));
+        groqChip.replaceChildren(node('i'), document.createTextNode('Belum diuji'));
       }
 
       // 3. Gemini · OpenAI status
@@ -8925,10 +8925,10 @@ Setiap kali melakukan analisa pada instrumen apa pun, jalankan prosedur sinkroni
       }
 
       gemChip.className = hasGm ? 'chip ok' : 'chip nt';
-      gemChip.replaceChildren(node('i'), document.createTextNode(hasGm ? 'Tersambung' : 'Belum diatur'));
+      gemChip.replaceChildren(node('i'), document.createTextNode(hasGm ? 'Tersambung' : 'Belum diuji'));
 
       oaiChip.className = hasOa ? 'chip ok' : 'chip nt';
-      oaiChip.replaceChildren(node('i'), document.createTextNode(hasOa ? 'Tersambung' : 'Belum diatur'));
+      oaiChip.replaceChildren(node('i'), document.createTextNode(hasOa ? 'Tersambung' : 'Belum diuji'));
 
       // 4. Auto-routing status
       const fbOn = getGroqFallbackEnabled();
