@@ -5401,3 +5401,5 @@ body.pro-sheet-open { overflow:hidden !important; }
     transition: background .15s, border-color .15s, color .15s;
   }
 }
+
+.pro-workspace[data-feature="global-news"] .pro-heading { display: none !important; }
