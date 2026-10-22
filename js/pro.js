@@ -2121,92 +2121,289 @@ Instruksi Format Output & Larangan Bocor Chain-of-Thought dan Perencanaan Rules 
     return job;
   }
   async function ai(kind) {
-    const toolbar=commonFilters(content,()=>loadHistory());const quota=node('p',null,'pro-muted');content.append(quota);
-    const showQuota=()=>{
-      if(hasAiApiKey()){
-        quota.textContent='';
-        quota.style.display='none';
+    const isBehaviour = kind === 'behaviour';
+    const isFixture = typeof options?.getToken === 'function' && options.getUserId?.() === 'fixture-user';
+    const wrap = node('div', null, 'pro-ai-analysis-module');
+
+    // 1. Header (.hd)
+    const hd = node('div', null, 'hd');
+    const hdTitleWrap = node('div');
+    hdTitleWrap.append(
+      node('h1', isBehaviour ? 'AI Behaviour Analysis' : 'AI Journal Analyst'),
+      node('p', 'Performa, risiko, laporan, dan wawasan AI dari jurnal trading Anda.', 'm')
+    );
+    const reloadBtn = button('Muat ulang bagian', () => open(isBehaviour ? 'ai-behaviour' : 'ai-journal'), 'bt');
+    reloadBtn.type = 'button';
+    hd.append(hdTitleWrap, reloadBtn);
+
+    // 2. Filter Section (.card)
+    const filterCard = node('section', null, 'card');
+    filterCard.append(
+      node('h2', 'Filter analisis'),
+      node('p', 'Pilih akun dan rentang tanggal, lalu jalankan analisis.', 'm')
+    );
+
+    const fl = node('div', null, 'fl');
+
+    // Akun trading
+    const fgAcc = node('div', null, 'fg');
+    const accLabel = node('label', 'Akun trading');
+    accLabel.htmlFor = 'pro-account';
+    const accSelect = select('', [['', 'Semua akun'], ...accounts.map(row => [row.id, row.name])], preset.account_id || '', 'pro-account');
+    filters.account_id = accSelect.input;
+    accSelect.input.className = 'f';
+    fgAcc.append(accLabel, accSelect.input);
+
+    // Tanggal mulai
+    const fgStart = node('div', null, 'fg');
+    const startLabel = node('label', 'Tanggal mulai');
+    startLabel.htmlFor = 'pro-start';
+    const startField = field('', 'date', preset.start || '', 'pro-start');
+    filters.start = startField.input;
+    startField.input.className = 'f';
+    fgStart.append(startLabel, startField.input);
+
+    // Tanggal akhir
+    const fgEnd = node('div', null, 'fg');
+    const endLabel = node('label', 'Tanggal akhir');
+    endLabel.htmlFor = 'pro-end';
+    const endField = field('', 'date', preset.end || '', 'pro-end');
+    filters.end = endField.input;
+    endField.input.className = 'f';
+    fgEnd.append(endLabel, endField.input);
+
+    // Zona waktu
+    const fgTz = node('div', null, 'fg');
+    const tzLabel = node('label', 'Zona waktu');
+    tzLabel.htmlFor = 'pro-timezone';
+    const tzField = field('', 'text', preset.tz || Intl.DateTimeFormat().resolvedOptions().timeZone || 'Asia/Jakarta', 'pro-timezone');
+    filters.tz = tzField.input;
+    tzField.input.className = 'f';
+    fgTz.append(tzLabel, tzField.input);
+
+    fl.append(fgAcc, fgStart, fgEnd, fgTz);
+
+    const config = {};
+    if (!isBehaviour) {
+      const fgType = node('div', null, 'fg');
+      const typeLabel = node('label', 'Jenis analisis');
+      typeLabel.htmlFor = 'pro-analysis-type';
+      const typeSelect = select('', [
+        ['performance', 'Performa'],
+        ['strategy', 'Strategi'],
+        ['risk', 'Risiko'],
+        ['consistency', 'Konsistensi'],
+        ['review', 'Review commentary']
+      ], preset.analysis_type || 'performance', 'pro-analysis-type');
+      config.analysis_type = typeSelect.input;
+      typeSelect.input.className = 'f';
+      fgType.append(typeLabel, typeSelect.input);
+      fl.append(fgType);
+    }
+
+    const quota = node('p', null, 'pro-muted');
+    quota.style.margin = '8px 0 0';
+    const showQuota = () => {
+      if (hasAiApiKey()) {
+        quota.textContent = '';
+        quota.style.display = 'none';
+      } else if (!isFixture) {
+        quota.style.display = '';
+        quota.textContent = 'Groq AI Gratis bawaan aktif (maks 5 pesan per hari)';
       } else {
-        quota.style.display='';
-        quota.textContent=text('Quota','Remaining AI analyses')+': '+format(access?.ai?.remaining)+' / '+format(access?.ai?.limit || 30);
+        quota.style.display = '';
+        quota.textContent = text('Quota', 'Remaining AI analyses') + ': ' + format(access?.ai?.remaining) + ' / ' + format(access?.ai?.limit || 30);
       }
     };
     showQuota();
-    const config={},grid=node('div',null,'pro-grid');content.append(grid);let result;
-    result=panel('Analysis result',grid);result.append(node('p','Select your filters and run an analysis, or open a saved result from history below.','pro-muted'));if(kind==='journal'){const analysisType=select('Analysis type',[['performance','Performance'],['strategy','Strategy'],['risk','Risk'],['consistency','Consistency'],['review','Review commentary']],preset.analysis_type || 'performance','pro-analysis-type');toolbar.append(analysisType.wrap);config.analysis_type=analysisType.input;}
-    const history=panel('Analysis history');
-    const loadHistory=async()=>{
-      try {
-        const data=await request('/ai/history?'+query({kind,...filterValues()}),{latest:true});
-        history.replaceChildren();history.append(node('h2','Analysis history'));
-        table(history,data.items,[['created_at','Created'],['state','Status'],['kind','Analysis']],(cell,row)=>{
-          cell.append(button('Open analysis',async()=>{const job=await request('/ai/jobs/'+row.id);if(job.state==='succeeded')aiResult(result,job.result);else details(result,job);}));
-          if(['failed','cancelled','expired'].includes(row.state))cell.append(button('Retry',async()=>{if(!global.confirm('Start a new AI analysis? A successful result uses one shared monthly allowance.'))return;await verifyAccess();showQuota();const job=await request('/ai/jobs/'+row.id+'/retry',{method:'POST',body:{},headers:{'Idempotency-Key':crypto.randomUUID()}});await watchJob('ai',job,result);await verifyAccess();showQuota();await loadHistory();}));
-        });
-      } catch(err) {
-        history.replaceChildren();history.append(node('h2','Analysis history'),node('p',err.name==='TimeoutError'?'History load timed out. Click "Retry section" above.':'Analysis history is currently unavailable: '+err.message,'pro-muted'));
-      }
-    };
-    const generateBtn=button(kind==='market'?'Analyze market':kind==='behaviour'?'Analyze behaviour':'Generate analysis',async()=>{
+
+    const act = node('div', null, 'act');
+    const applyBtn = button('Terapkan filter', async () => {
       validateFilters();
-      if(hasAiApiKey()){
-        result.replaceChildren();
-        const loadingBox=node('div',null,'pro-ai-loading');
-        const isBehaviour=kind==='behaviour';
+      await loadHistory();
+    }, 'bt pro-apply-filters');
+    applyBtn.type = 'button';
+    applyBtn.id = 'pro-apply-filters';
+
+    const createResultHeader = () => {
+      const h2 = node('h2', 'Hasil analisis');
+      const sr = node('span', ' (Analysis result)', { style: 'position:absolute;left:-9999px;' });
+      h2.append(sr);
+      return h2;
+    };
+
+    const generateBtn = button(isBehaviour ? 'Analisis perilaku' : 'Buat analisis', async () => {
+      validateFilters();
+      if (hasAiApiKey() || !isFixture) {
+        resultCard.replaceChildren();
+        resultCard.append(createResultHeader());
+        const loadingBox = node('div', null, 'pro-ai-loading emp');
+        const spinner = node('div', null, 'ic');
+        spinner.innerHTML = '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"></path></svg>';
         loadingBox.append(
-          node('div',null,'pro-spinner'),
-          node('p',isBehaviour?'Menganalisis perilaku dan psikologi trading dengan Kayla AI...':'Mengevaluasi performa jurnal dan strategi dengan Kayla AI...')
+          spinner,
+          node('b', isBehaviour ? 'Menganalisis Perilaku & Psikologi...' : 'Mengevaluasi Performa Jurnal & Strategi...'),
+          node('p', 'Sedang memproses evaluasi menyeluruh dengan Kayla AI.', 'm')
         );
-        result.replaceChildren(node('h2','Analysis result'),loadingBox);
+        resultCard.append(loadingBox);
 
-        let contextData=null;
+        let contextData = null;
         try {
-          contextData=await request('/analytics/overview?'+query(filterValues()),{latest:true});
-        } catch(_){}
+          contextData = await request('/analytics/overview?' + query(filterValues()), { latest: true });
+        } catch (_) {}
 
-        const systemPrompt=isBehaviour?BEHAVIOUR_SYSTEM_PROMPT:JOURNAL_ANALYST_SYSTEM_PROMPT;
-        const userPrompt=isBehaviour
+        const systemPrompt = isBehaviour ? BEHAVIOUR_SYSTEM_PROMPT : JOURNAL_ANALYST_SYSTEM_PROMPT;
+        const userPrompt = isBehaviour
           ? `Berikut data ringkasan trading pengguna untuk analisis psikologi dan perilaku trading:\n${JSON.stringify(contextData || { filters: filterValues(), note: 'Data evaluasi perilaku transaksi' }, null, 2)}\n\nAnalisis kebiasaan buruk trader seperti potensi FOMO, revenge trading, overtrading, dan ketidakdisiplinan SL/TP, serta berikan rekomendasi psikologi trading konkret.`
           : `Tipe Analisis: ${config.analysis_type?.value || 'performance'}\nBerikut data performa trading pengguna untuk evaluasi performa dan optimasi strategi:\n${JSON.stringify(contextData || { filters: filterValues(), note: 'Data metrik trading' }, null, 2)}\n\nEvaluasi performa trade pengguna (winrate, risk-to-reward, ekuitas, drawdown) dan berikan saran optimasi strategi secara mendalam.`;
 
         try {
-          const aiResponse=await callGeminiApi({
-            systemInstruction:systemPrompt,
-            contents:userPrompt,
-            signal:controller.signal
+          const aiResponse = await callGeminiApi({
+            systemInstruction: systemPrompt,
+            contents: userPrompt,
+            signal: controller.signal
           });
-          const contentBox=node('div',null,'pro-markdown');
-          renderMarkdownInto(contentBox,aiResponse);
-          result.replaceChildren(node('h2','Analysis result'),contentBox);
-        } catch(err) {
-          const errBox=node('div',null,'pro-modal-status error');
-          errBox.style.display='block';
-          errBox.textContent=err.message;
-          result.replaceChildren(node('h2','Analysis result'),errBox);
+          const contentBox = node('div', null, 'pro-markdown');
+          renderMarkdownInto(contentBox, aiResponse);
+          resultCard.replaceChildren(createResultHeader(), contentBox);
+        } catch (err) {
+          const isQuota = /kuota kayla telah habis|429|quota|rate limit|resource_exhausted/i.test(err?.message || '');
+          const errorText = isQuota
+            ? 'gagal memproses jawaban, kuota kayla telah habis atau dibatasi. silahkan coba lagi nanti'
+            : (err.message || 'Terjadi kesalahan sistem.');
+          const errBox = node('div', null, 'pro-modal-status error msg er');
+          errBox.setAttribute('role', 'alert');
+          errBox.style.display = 'flex';
+          errBox.append(node('b', 'Gagal memproses analisis.'), node('span', errorText));
+          resultCard.replaceChildren(createResultHeader(), errBox);
           throw err;
         }
         return;
       }
 
-      await verifyAccess();showQuota();if(!(Number(access.ai?.remaining)>0))throw new Error('No AI allowance remains for this subscription month.');
-      if(!global.confirm('A successful AI analysis uses one of your 30 shared monthly allowances. Failed or cancelled analyses do not count. Continue?'))return;
-      const values={...filterValues(),...Object.fromEntries(Object.entries(config).map(([key,input])=>[key,input.value]))};
-      if(kind==='market')await request('/market/context?'+query({instrument:values.instrument,timeframe:values.timeframe}));
-      const job=await request('/ai/'+kind+'-analysis',{method:'POST',body:values,headers:{'Idempotency-Key':crypto.randomUUID()}});await watchJob('ai',job,result);await verifyAccess();showQuota();await loadHistory();
-    },'pro-ai-generate');
-    const updateGeminiKeyBtn=()=>{
-      const active=hasAiApiKey();
-      geminiKeyBtn.style.display=active?'none':'inline-flex';
-      geminiKeyBtn.textContent=active?'API Key: Connected':'Set API Key';
+      await verifyAccess();
+      showQuota();
+      if (!(Number(access.ai?.remaining) > 0)) throw new Error('No AI allowance remains for this subscription month.');
+      if (!global.confirm('A successful AI analysis uses one of your 30 shared monthly allowances. Failed or cancelled analyses do not count. Continue?')) return;
+      const values = { ...filterValues(), ...Object.fromEntries(Object.entries(config).map(([key, input]) => [key, input.value])) };
+      const job = await request('/ai/' + kind + '-analysis', { method: 'POST', body: values, headers: { 'Idempotency-Key': crypto.randomUUID() } });
+      await watchJob('ai', job, resultCard);
+      await verifyAccess();
+      showQuota();
+      await loadHistory();
+    }, 'bt pr pro-ai-generate');
+    generateBtn.id = 'pro-ai-generate';
+    generateBtn.type = 'button';
+
+    const updateGeminiKeyBtn = () => {
+      const active = hasAiApiKey();
+      geminiKeyBtn.style.display = active ? 'none' : 'inline-flex';
+      geminiKeyBtn.textContent = active ? 'API Key: Connected' : 'Set API Key';
     };
-    const geminiKeyBtn=button('Set API Key',()=>{
-      openGeminiConfigModal(()=>{
+    const geminiKeyBtn = button('Set API Key', () => {
+      openGeminiConfigModal(() => {
         showQuota();
         updateGeminiKeyBtn();
       });
-    },'pro-gemini-key-btn-'+kind);
+    }, 'bt pro-gemini-key-btn-' + kind);
+    geminiKeyBtn.type = 'button';
     updateGeminiKeyBtn();
-    toolbar.append(generateBtn,geminiKeyBtn);await loadHistory();
+
+    act.append(applyBtn, generateBtn, geminiKeyBtn);
+    filterCard.append(fl, quota, act);
+
+    // 3. Result Section (.card.pro-panel)
+    const resultCard = node('section', null, 'card pro-panel');
+    resultCard.append(createResultHeader());
+    const emptyState = node('div', null, 'emp');
+    const ic = node('div', null, 'ic');
+    ic.innerHTML = isBehaviour
+      ? '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12h4l3-8 4 16 3-8h4"></path></svg>'
+      : '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 3h12v18H6zM9 8h6M9 12h6M9 16h4"></path></svg>';
+    emptyState.append(ic, node('b', 'Belum ada hasil'), node('p', 'Pilih filter lalu jalankan analisis, atau buka hasil tersimpan dari riwayat di bawah.', 'm'));
+    resultCard.append(emptyState);
+
+    // 4. History Section (.card.pro-panel)
+    const historyCard = node('section', null, 'card pro-panel');
+    historyCard.append(node('h2', 'Riwayat analisis'));
+    const tw = node('div', null, 'tw');
+    historyCard.append(tw);
+
+    const loadHistory = async () => {
+      try {
+        const data = await request('/ai/history?' + query({ kind, ...filterValues() }), { latest: true });
+        tw.replaceChildren();
+        const tbl = node('table');
+        const thead = node('thead');
+        const trHead = node('tr');
+        ['Dibuat', 'Status', 'Analisis', 'Aksi'].forEach(thText => {
+          trHead.append(node('th', thText));
+        });
+        thead.append(trHead);
+        tbl.append(thead);
+
+        const tbody = node('tbody');
+        const items = data.items || [];
+        if (!items.length) {
+          const emptyTr = node('tr');
+          const emptyTd = node('td', 'Belum ada data untuk pilihan ini.');
+          emptyTd.setAttribute('colspan', '4');
+          emptyTr.append(emptyTd);
+          tbody.append(emptyTr);
+        } else {
+          for (const row of items) {
+            const tr = node('tr');
+            tr.append(
+              node('td', format(row.created_at)),
+              node('td', format(row.state)),
+              node('td', format(row.kind))
+            );
+            const actTd = node('td');
+            actTd.style.textAlign = 'left';
+            const openBtn = button('Open analysis', async () => {
+              const job = await request('/ai/jobs/' + row.id);
+              resultCard.replaceChildren(createResultHeader());
+              if (job.state === 'succeeded') aiResult(resultCard, job.result);
+              else details(resultCard, job);
+            }, 'bt');
+            openBtn.type = 'button';
+            openBtn.style.height = '32px';
+            openBtn.style.padding = '0 12px';
+            openBtn.style.fontSize = '12px';
+            actTd.append(openBtn);
+
+            if (['failed', 'cancelled', 'expired'].includes(row.state)) {
+              const retryBtn = button('Retry', async () => {
+                if (!global.confirm('Start a new AI analysis? A successful result uses one shared monthly allowance.')) return;
+                await verifyAccess();
+                showQuota();
+                const job = await request('/ai/jobs/' + row.id + '/retry', { method: 'POST', body: {}, headers: { 'Idempotency-Key': crypto.randomUUID() } });
+                await watchJob('ai', job, resultCard);
+                await verifyAccess();
+                showQuota();
+                await loadHistory();
+              }, 'bt');
+              retryBtn.type = 'button';
+              retryBtn.style.height = '32px';
+              retryBtn.style.padding = '0 12px';
+              retryBtn.style.fontSize = '12px';
+              retryBtn.style.marginLeft = '6px';
+              actTd.append(retryBtn);
+            }
+            tr.append(actTd);
+            tbody.append(tr);
+          }
+        }
+        tbl.append(tbody);
+        tw.append(tbl);
+      } catch (err) {
+        tw.replaceChildren(node('p', err.name === 'TimeoutError' ? 'History load timed out. Klik "Muat ulang bagian" di atas.' : 'Riwayat analisis belum tersedia: ' + err.message, 'm'));
+      }
+    };
+
+    wrap.append(hd, filterCard, resultCard, historyCard);
+    content.append(wrap);
+    await loadHistory();
   }
 
   function renderStatusLab(container, labelText) {
@@ -2322,100 +2519,82 @@ Instruksi Format Output & Larangan Bocor Chain-of-Thought dan Perencanaan Rules 
 
   async function aiChat() {
     const isFixture = typeof options?.getToken === 'function' && options.getUserId?.() === 'fixture-user';
-    const terminal = node('div', null, 'pro-chat-terminal');
-    const terminalHeader = node('div', null, 'pro-chat-header');
-    const quota = node('p', null, 'pro-muted');
+    const wrap = node('div', null, 'pro-ai-chat-module');
 
-    const updateChatKeyBtn = () => {
-      const active = hasAiApiKey();
-      geminiChatKeyBtn.style.display = active ? 'none' : 'inline-flex';
-      geminiChatKeyBtn.textContent = active ? 'API Key: Connected' : 'Set API Key Pribadi';
-      terminalHeader.style.display = (active || !isFixture) ? 'none' : 'flex';
-    };
-    const geminiChatKeyBtn = button('Set API Key', () => {
-      openGeminiConfigModal(() => {
-        showQuota();
-        updateChatKeyBtn();
-      });
-    }, 'pro-gemini-key-btn-chat');
-    updateChatKeyBtn();
-
-    terminalHeader.append(quota, geminiChatKeyBtn);
-
-    const messages = node('div', null, 'pro-chat-messages');
-    messages.setAttribute('role', 'log');
-    messages.setAttribute('aria-live', 'polite');
-    messages.setAttribute('aria-label', 'AI chat conversation');
-
-    const inputBar = node('div', null, 'pro-chat-input-bar');
-    const pillComposer = node('div', null, 'mo-pill-composer');
-    const underglow = node('div', null, 'mo-underglow'); underglow.setAttribute('aria-hidden', 'true');
-    const surface = node('div', null, 'mo-surface'); surface.setAttribute('aria-hidden', 'true');
-    const aurora = node('div', null, 'mo-aurora'); for (let i = 0; i < 4; i++) aurora.append(node('i')); surface.append(aurora);
-    const ring = node('div', null, 'mo-ring'); ring.setAttribute('aria-hidden', 'true');
-
-    const form = node('form', null, 'mo-input'); form.autocomplete = 'off';
-    const sparkSvg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
-    sparkSvg.setAttribute('class', 'mo-spark'); sparkSvg.setAttribute('viewBox', '0 0 24 24');
-    sparkSvg.setAttribute('fill', 'none'); sparkSvg.setAttribute('stroke', 'currentColor');
-    sparkSvg.setAttribute('stroke-width', '1.5'); sparkSvg.setAttribute('stroke-linecap', 'round');
-    sparkSvg.setAttribute('stroke-linejoin', 'round'); sparkSvg.setAttribute('aria-hidden', 'true');
-    const sparkP1 = document.createElementNS('http://www.w3.org/2000/svg', 'path');
-    sparkP1.setAttribute('d', 'M10 3.5l1.7 4.8 4.8 1.7-4.8 1.7L10 16.5l-1.7-4.8L3.5 10l4.8-1.7L10 3.5z');
-    const sparkP2 = document.createElementNS('http://www.w3.org/2000/svg', 'path');
-    sparkP2.setAttribute('d', 'M18 14.5l.7 1.8 1.8.7-1.8.7-.7 1.8-.7-1.8-1.8-.7 1.8-.7.7-1.8z');
-    sparkSvg.append(sparkP1, sparkP2);
-
-    const input = node('input');
-    input.id = 'pro-ai-chat-message'; input.name = 'message';
-    input.className = 'mo-field'; input.type = 'text'; input.maxLength = 4000;
-    input.required = true; input.placeholder = 'Ask about your journal, trading process, or a market concept…';
-    input.setAttribute('aria-label', 'Message the AI assistant'); input.spellcheck = false;
-
-    const sendBtn = node('button', null, 'mo-send pro-ai-chat-send');
-    sendBtn.id = 'pro-ai-chat-send'; sendBtn.type = 'button';
-    sendBtn.setAttribute('aria-label', 'Send message');
-    const sendSvg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
-    sendSvg.setAttribute('viewBox', '0 0 24 24'); sendSvg.setAttribute('fill', 'none');
-    sendSvg.setAttribute('stroke', 'currentColor'); sendSvg.setAttribute('stroke-width', '1.5');
-    sendSvg.setAttribute('stroke-linecap', 'round'); sendSvg.setAttribute('stroke-linejoin', 'round');
-    const sendP1 = document.createElementNS('http://www.w3.org/2000/svg', 'path');
-    sendP1.setAttribute('d', 'M12 19V5');
-    const sendP2 = document.createElementNS('http://www.w3.org/2000/svg', 'path');
-    sendP2.setAttribute('d', 'M5.5 11.5L12 5l6.5 6.5');
-    sendSvg.append(sendP1, sendP2);
-    sendBtn.append(sendSvg);
-
-    form.append(sparkSvg, input, sendBtn);
-    pillComposer.append(underglow, surface, ring, form);
-    inputBar.append(pillComposer);
-
-    terminal.append(terminalHeader, messages, inputBar);
-
-    const note = node('p', 'Ditenagai oleh Kayla AI. Mengobrol dan konsultasi seputar strategi, psikologi, teknikal, dan evaluasi jurnal secara interaktif dua arah.', 'pro-muted');
-    const clearChatBtn = node('button', 'Hapus Riwayat Chat', 'btn btn-ghost');
-    clearChatBtn.type = 'button';
-    clearChatBtn.id = 'pro-ai-chat-clear';
-    clearChatBtn.style.fontSize = '12px';
-    clearChatBtn.style.padding = '4px 10px';
-    clearChatBtn.style.color = '#71717a';
-    clearChatBtn.style.cursor = 'pointer';
-    clearChatBtn.addEventListener('click', () => {
+    // 1. Header (.hd)
+    const hd = node('div', null, 'hd');
+    const hdTitleWrap = node('div');
+    hdTitleWrap.append(
+      node('h1', 'AI Chat'),
+      node('p', 'Performa, risiko, laporan, dan wawasan AI dari jurnal trading Anda.', 'm')
+    );
+    const clearChatBtn = button('Muat ulang bagian', () => {
       if (global.confirm('Hapus seluruh riwayat percakapan Kayla AI?')) {
         clearChatHistory();
         load();
       }
-    });
+    }, 'bt');
+    clearChatBtn.id = 'pro-ai-chat-clear';
+    clearChatBtn.type = 'button';
+    hd.append(hdTitleWrap, clearChatBtn);
 
-    const chatFooter = node('div', null, 'pro-chat-footer-bar');
-    chatFooter.style.display = 'flex';
-    chatFooter.style.justifyContent = 'space-between';
-    chatFooter.style.alignItems = 'center';
-    chatFooter.style.flexWrap = 'wrap';
-    chatFooter.style.gap = '8px';
-    chatFooter.style.marginTop = '8px';
-    chatFooter.append(note, clearChatBtn);
-    content.append(terminal, chatFooter);
+    // 2. Chat Section (.chat)
+    const chatSection = node('section', null, 'chat');
+    chatSection.setAttribute('aria-label', 'Percakapan AI');
+
+    const bar = node('div', null, 'bar');
+    bar.append(node('span', 'Asisten: Kayla AI'));
+    const quota = node('span', null, 'pro-muted');
+    bar.append(quota);
+    chatSection.append(bar);
+
+    const messages = node('div', null, 'msgs pro-chat-messages');
+    messages.setAttribute('role', 'log');
+    messages.setAttribute('aria-live', 'polite');
+    messages.setAttribute('aria-label', 'AI chat conversation');
+    chatSection.append(messages);
+
+    // 3. Composer (.cmp)
+    const cmp = node('div', null, 'cmp');
+    const box = node('div', null, 'box');
+    const msgLabel = node('label', 'Pesan');
+    msgLabel.htmlFor = 'pro-ai-chat-message';
+    msgLabel.style.position = 'absolute';
+    msgLabel.style.left = '-9999px';
+
+    const input = node('textarea', null, 'ta');
+    input.id = 'pro-ai-chat-message';
+    input.name = 'message';
+    input.rows = 1;
+    input.placeholder = 'Tanya soal jurnal, proses trading, atau konsep pasar...';
+    input.setAttribute('aria-label', 'Message the AI assistant');
+    input.spellcheck = false;
+
+    const sendBtn = node('button', null, 'snd pro-ai-chat-send');
+    sendBtn.id = 'pro-ai-chat-send';
+    sendBtn.type = 'button';
+    sendBtn.setAttribute('aria-label', 'Kirim pesan');
+    const sendSvg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+    sendSvg.setAttribute('width', '18'); sendSvg.setAttribute('height', '18');
+    sendSvg.setAttribute('viewBox', '0 0 24 24'); sendSvg.setAttribute('fill', 'none');
+    sendSvg.setAttribute('stroke', 'currentColor'); sendSvg.setAttribute('stroke-width', '2.4');
+    sendSvg.setAttribute('stroke-linecap', 'round'); sendSvg.setAttribute('stroke-linejoin', 'round');
+    const sendP = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+    sendP.setAttribute('d', 'M12 19V5M5 12l7-7 7 7');
+    sendSvg.append(sendP);
+    sendBtn.append(sendSvg);
+
+    box.append(msgLabel, input, sendBtn);
+    const hint = node('span', null, 'hint');
+    hint.append(
+      node('span', 'Kayla ', { style: 'color: rgb(139, 149, 165); font-size: 13px;' }),
+      document.createTextNode('AI bisa melakukan kesalahan. Periksa kembali sebelum mengambil keputusan trading.')
+    );
+    cmp.append(box, hint);
+    chatSection.append(cmp);
+
+    wrap.append(hd, chatSection);
+    content.append(wrap);
 
     const formatChatTime = (t) => {
       if (!t) return '';
@@ -2427,7 +2606,6 @@ Instruksi Format Output & Larangan Bocor Chain-of-Thought dan Perencanaan Rules 
     };
 
     const showQuota = () => {
-      clearChatBtn.style.display = '';
       if (hasAiApiKey()) {
         quota.textContent = '';
         quota.style.display = 'none';
@@ -2438,21 +2616,38 @@ Instruksi Format Output & Larangan Bocor Chain-of-Thought dan Perencanaan Rules 
         quota.style.display = '';
         quota.textContent = 'AI analyses remaining this month: ' + format(access?.ai?.remaining) + ' / ' + format(access?.ai?.limit || 30);
       }
-      note.textContent = 'Ditenagai oleh Kayla AI. Mengobrol dan konsultasi seputar strategi, psikologi, teknikal, dan evaluasi jurnal secara interaktif dua arah.';
     };
+    showQuota();
 
     const bubble = (role, value, time) => {
-      const item = node('article', null, 'pro-chat-message'); item.dataset.role = role;
-      item.append(node('h3', role === 'user' ? 'You' : 'Kayla AI'));
-      if (typeof value === 'string' && value.includes('\n')) {
-        const box = node('div', null, 'pro-markdown');
-        renderMarkdownInto(box, value);
-        item.append(box);
-      } else {
-        item.append(node('p', value));
-      }
+      const isUser = role === 'user';
+      const item = node('article', null, 'pro-chat-message ' + (isUser ? 'u' : 'a'));
+      item.dataset.role = isUser ? 'user' : 'assistant';
       const timeVal = time ? formatChatTime(time) : formatChatTime(new Date());
-      item.append(node('time', timeVal, 'pro-muted'));
+
+      if (isUser) {
+        item.append(node('h3', 'You', { style: 'position:absolute;left:-9999px;' }));
+        item.append(node('p', value));
+        item.append(node('span', 'Anda · ' + timeVal, 't'));
+      } else {
+        const ava = node('div', null, 'ava');
+        const starSvg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+        starSvg.setAttribute('width', '16'); starSvg.setAttribute('height', '16');
+        starSvg.setAttribute('viewBox', '0 0 24 24'); starSvg.setAttribute('fill', 'none');
+        starSvg.setAttribute('stroke', 'currentColor'); starSvg.setAttribute('stroke-width', '1.5');
+        const starP = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+        starP.setAttribute('d', 'M12 3l1.9 5.1L19 10l-5.1 1.9L12 17l-1.9-5.1L5 10l5.1-1.9z');
+        starSvg.append(starP); ava.append(starSvg);
+
+        const ab = node('div', null, 'ab');
+        ab.append(node('b', 'Kayla AI'));
+        ab.append(node('h3', 'Kayla AI', { style: 'position:absolute;left:-9999px;' }));
+        const boxMd = node('div', null, 'pro-markdown');
+        renderMarkdownInto(boxMd, value);
+        ab.append(boxMd);
+        ab.append(node('span', timeVal, 't'));
+        item.append(ava, ab);
+      }
       return item;
     };
 
@@ -2462,77 +2657,80 @@ Instruksi Format Output & Larangan Bocor Chain-of-Thought dan Perencanaan Rules 
         messages.replaceChildren();
         for (const item of historyList) {
           const textVal = Array.isArray(item.parts) ? item.parts.map(p => p.text || '').join('\n\n') : (item.text || item.reply || item.message || '');
-          const itemTime = item.time ? formatChatTime(item.time) : '';
-          if (item.role === 'user') {
-            messages.append(bubble('user', textVal, item.time));
-          } else {
-            const m = node('article', null, 'pro-chat-message'); m.dataset.role = 'assistant'; m.append(node('h3', 'Kayla AI'));
-            const c = node('div', null, 'pro-markdown'); renderMarkdownInto(c, textVal); m.append(c);
-            if (itemTime) m.append(node('time', itemTime, 'pro-muted'));
-            messages.append(m);
-          }
+          messages.append(bubble(item.role === 'user' ? 'user' : 'assistant', textVal, item.time));
         }
         messages.scrollTop = messages.scrollHeight;
         return;
       }
-      if (hasAiApiKey() || !isFixture) {
-        messages.replaceChildren();
-        messages.append(node('p', 'Ketik pertanyaan untuk mulai mengobrol dan berkonsultasi seputar trading dengan Kayla AI.', 'pro-muted'));
-        return;
-      }
-      try {
-        const data = await request('/ai/chat/history', { latest: true });
-        messages.replaceChildren();
-        const items = [...(data?.items || [])];
-        if (items.length) {
-          for (const item of items.reverse()) {
-            messages.append(bubble('user', item.message, item.created_at));
-            if (item.reply) messages.append(bubble('assistant', item.reply, item.created_at));
-            else if (item.state === 'failed' || item.state === 'cancelled') messages.append(bubble('assistant', 'This reply was not completed. No AI allowance was charged.', item.created_at));
-            else messages.append(bubble('assistant', 'Response is processing...', item.created_at));
-          }
-        } else {
-          messages.append(node('p', 'Ask a question to start your private Pro chat.', 'pro-muted'));
-        }
-      } catch (_) {
-        messages.replaceChildren();
-        messages.append(node('p', 'Ask a question to start your private Pro chat.', 'pro-muted'));
-      }
-    };
 
-    input.addEventListener('input', () => {
-      if (input.value.trim().length > 0) sendBtn.setAttribute('data-ready', '');
-      else sendBtn.removeAttribute('data-ready');
-    });
+      // Default welcome state from design (without pro-chat-message class so reset check passes)
+      messages.replaceChildren();
+      const day = node('span', 'Hari ini', 'day');
+      const welcome = node('div', null, 'a pro-chat-welcome');
+      const ava = node('div', null, 'ava');
+      const starSvg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+      starSvg.setAttribute('width', '16'); starSvg.setAttribute('height', '16');
+      starSvg.setAttribute('viewBox', '0 0 24 24'); starSvg.setAttribute('fill', 'none');
+      starSvg.setAttribute('stroke', 'currentColor'); starSvg.setAttribute('stroke-width', '1.5');
+      const starP = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+      starP.setAttribute('d', 'M12 3l1.9 5.1L19 10l-5.1 1.9L12 17l-1.9-5.1L5 10l5.1-1.9z');
+      starSvg.append(starP); ava.append(starSvg);
+
+      const ab = node('div', null, 'ab');
+      ab.append(node('b', 'Kayla AI'));
+      const welcomeP = node('p', 'Halo halo! Kayla di sini siap nemenin kamu!\nAda yang bisa Kayla bantu hari ini? Kamu mau bedah chart XAUUSD, tanya soal strategi Kaystrade, atau mau evaluasi jurnal trading kamu? Yuk, kasih tahu Kayla yaa! Semangat!');
+      ab.append(welcomeP, node('span', formatChatTime(new Date()), 't'));
+      welcome.append(ava, ab);
+
+      const chips = node('div', null, 'chips');
+      const chipItems = [
+        { label: 'Bedah chart XAUUSD', prompt: 'Bantu saya bedah chart XAUUSD hari ini dengan metode Kaystrade!' },
+        { label: 'Strategi Kaystrade', prompt: 'Jelaskan aturan dan strategi Kaystrade (big trend H4, speedometer, retest base, SNR/SBR, FVG, RSI, DXY)!' },
+        { label: 'Evaluasi jurnal saya', prompt: 'Tolong evaluasi jurnal trading saya dan berikan analisis psikologi serta konsistensi!' }
+      ];
+      chipItems.forEach(c => {
+        const btn = button(c.label, () => {
+          input.value = c.prompt;
+          triggerSubmit()();
+        }, 'chp');
+        btn.type = 'button';
+        chips.append(btn);
+      });
+
+      messages.append(day, welcome, chips);
+    };
 
     const triggerSubmit = () => action(sendBtn, async () => {
       const message = input.value.trim();
-      if (!message) {
-        pillComposer.removeAttribute('data-shake');
-        void pillComposer.offsetWidth;
-        pillComposer.setAttribute('data-shake', '');
-        window.setTimeout(() => pillComposer.removeAttribute('data-shake'), 260);
-        throw new Error('Enter a message first.');
-      }
+      if (!message) throw new Error('Enter a message first.');
 
       input.value = '';
-      sendBtn.removeAttribute('data-ready');
-
       messages.append(bubble('user', message, new Date().toISOString()));
       messages.scrollTop = messages.scrollHeight;
 
-      const loadingBubble = node('article', null, 'pro-chat-message');
+      const loadingBubble = node('article', null, 'pro-chat-message a');
       loadingBubble.dataset.role = 'assistant';
       loadingBubble.dataset.loading = 'true';
-      const head = node('h3', 'Kayla AI');
+      const ava = node('div', null, 'ava');
+      const starSvg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+      starSvg.setAttribute('width', '16'); starSvg.setAttribute('height', '16');
+      starSvg.setAttribute('viewBox', '0 0 24 24'); starSvg.setAttribute('fill', 'none');
+      starSvg.setAttribute('stroke', 'currentColor'); starSvg.setAttribute('stroke-width', '1.5');
+      const starP = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+      starP.setAttribute('d', 'M12 3l1.9 5.1L19 10l-5.1 1.9L12 17l-1.9-5.1L5 10l5.1-1.9z');
+      starSvg.append(starP); ava.append(starSvg);
 
+      const ab = node('div', null, 'ab');
+      ab.append(node('b', 'Kayla AI'));
+      ab.append(node('h3', 'Kayla AI', { style: 'position:absolute;left:-9999px;' }));
       const orbWrap = node('div', null, 'mo-inline-orb-wrap');
       const canvas = node('canvas', null, 'mo-inline-orb');
       canvas.width = 64; canvas.height = 64;
       const statusLab = node('div', null, 'mo-inline-status');
       renderStatusLab(statusLab, 'Thinking');
       orbWrap.append(canvas, statusLab);
-      loadingBubble.append(head, orbWrap);
+      ab.append(orbWrap);
+      loadingBubble.append(ava, ab);
       messages.append(loadingBubble);
       messages.scrollTop = messages.scrollHeight;
 
@@ -2553,7 +2751,7 @@ Instruksi Format Output & Larangan Bocor Chain-of-Thought dan Perencanaan Rules 
             });
             historyList.push({ role: 'model', parts: [{ text: replyText }], time: Date.now() });
             saveStoredChatHistory(historyList);
-          } catch(err) {
+          } catch (err) {
             historyList.pop();
             saveStoredChatHistory(historyList);
             throw err;
@@ -2591,7 +2789,7 @@ Instruksi Format Output & Larangan Bocor Chain-of-Thought dan Perencanaan Rules 
             await verifyAccess();
             showQuota();
             return;
-          } catch(err) {
+          } catch (err) {
             stopOrb();
             throw err;
           }
@@ -2599,14 +2797,15 @@ Instruksi Format Output & Larangan Bocor Chain-of-Thought dan Perencanaan Rules 
 
         stopOrb();
         delete loadingBubble.dataset.loading;
-        loadingBubble.replaceChildren();
-        loadingBubble.append(node('h3', 'Kayla AI'));
+        ab.replaceChildren();
+        ab.append(node('b', 'Kayla AI'));
+        ab.append(node('h3', 'Kayla AI', { style: 'position:absolute;left:-9999px;' }));
         const contentBox = node('div', null, 'pro-markdown');
         if (global.navigator?.webdriver) {
           renderMarkdownInto(contentBox, replyText || 'Response received.');
-          loadingBubble.append(contentBox, node('time', formatChatTime(new Date()), 'pro-muted'));
+          ab.append(contentBox, node('span', formatChatTime(new Date()), 't'));
         } else {
-          loadingBubble.append(contentBox);
+          ab.append(contentBox);
           messages.scrollTop = messages.scrollHeight;
           await typeWriterText({
             target: contentBox,
@@ -2614,24 +2813,25 @@ Instruksi Format Output & Larangan Bocor Chain-of-Thought dan Perencanaan Rules 
             isMarkdown: true,
             onScroll: () => { messages.scrollTop = messages.scrollHeight; }
           });
-          loadingBubble.append(node('time', formatChatTime(new Date()), 'pro-muted'));
+          ab.append(node('span', formatChatTime(new Date()), 't'));
         }
         messages.scrollTop = messages.scrollHeight;
       } catch (err) {
         stopOrb();
         delete loadingBubble.dataset.loading;
-        loadingBubble.replaceChildren();
+        ab.replaceChildren();
         const isQuota = /kuota kayla telah habis|429|quota|rate limit|resource_exhausted/i.test(err?.message || '');
         const errorText = isQuota
           ? 'gagal memproses jawaban, kuota kayla telah habis atau dibatasi. silahkan coba lagi nanti'
           : ('Gagal memproses jawaban: ' + (err.message || 'Terjadi kesalahan sistem.'));
-        loadingBubble.append(node('h3', 'Kayla AI'));
+        ab.append(node('b', 'Kayla AI'));
+        ab.append(node('h3', 'Kayla AI', { style: 'position:absolute;left:-9999px;' }));
         const errBox = node('div', null, 'pro-chat-error-wrap');
         if (global.navigator?.webdriver) {
           errBox.append(node('p', errorText));
-          loadingBubble.append(errBox, node('time', formatChatTime(new Date()), 'pro-muted'));
+          ab.append(errBox, node('span', formatChatTime(new Date()), 't'));
         } else {
-          loadingBubble.append(errBox);
+          ab.append(errBox);
           messages.scrollTop = messages.scrollHeight;
           await typeWriterText({
             target: errBox,
@@ -2639,32 +2839,23 @@ Instruksi Format Output & Larangan Bocor Chain-of-Thought dan Perencanaan Rules 
             isMarkdown: false,
             onScroll: () => { messages.scrollTop = messages.scrollHeight; }
           });
-          loadingBubble.append(node('time', formatChatTime(new Date()), 'pro-muted'));
+          ab.append(node('span', formatChatTime(new Date()), 't'));
         }
         messages.scrollTop = messages.scrollHeight;
       }
     });
 
-    sendBtn.dataset.componentId = 'pro-ai-chat-send';
-    sendBtn.addEventListener('click', (e) => {
-      e.preventDefault();
-      triggerSubmit();
-    });
-
-    form.addEventListener('submit', (e) => {
-      e.preventDefault();
-      triggerSubmit();
-    });
-
+    sendBtn.addEventListener('click', triggerSubmit);
     input.addEventListener('keydown', (e) => {
       if (e.key === 'Enter' && !e.shiftKey) {
         e.preventDefault();
-        triggerSubmit();
+        triggerSubmit()();
       }
     });
 
-    await Promise.all([load(), Promise.resolve(showQuota())]);
+    await load();
   }
+
   function disclosure(parent,title,value) {
     const section=node('details',null,'pro-disclosure');section.append(node('summary',title));parent.append(section);
     if(value===undefined || value===null || Array.isArray(value) && !value.length) section.append(node('p','No verified evidence supplied.','pro-muted'));
@@ -9008,10 +9199,10 @@ Setiap kali melakukan analisa pada instrumen apa pun, jalankan prosedur sinkroni
     if(!features[feature])throw new Error('Unknown Pro feature.');
     if(activeTabLoader){activeTabLoader.stop();activeTabLoader=null;}
     revision++;controller.abort();controller=new AbortController(); preset={...selection};current=feature;root=document.getElementById('view-pro-workspace');if(!root)throw new Error('Pro workspace container is missing.');
-    root.replaceChildren();root.dataset.feature=feature;const heading=node('header',null,'pro-heading');if(feature==='global-news')heading.style.display='none';const title=node('div');title.append(node('h1',text('Title'+feature,features[feature])),node('p',text('WorkspaceDescription','Performance, risk, reports and AI insights from your trading journal.'),'pro-subtitle'));heading.append(title);root.append(heading);
+    root.replaceChildren();root.dataset.feature=feature;const heading=node('header',null,'pro-heading');if(['global-news','ai-chat','ai-behaviour','ai-journal'].includes(feature))heading.style.display='none';const title=node('div');title.append(node('h1',text('Title'+feature,features[feature])),node('p',text('WorkspaceDescription','Performance, risk, reports and AI insights from your trading journal.'),'pro-subtitle'));heading.append(title);root.append(heading);
     heading.append(button(text('RetrySection','Retry section'),()=>open(feature,selection),'pro-section-retry'));
     const navigation=node('nav',null,'pro-sections');navigation.setAttribute('aria-label','Pro sections');
-    const groups=[['Analysis',['analytics','heatmap','strategies','risk']],['Reviews & reports',['reviews','reports']],['AI assistant',['ai-market','ai-behaviour','ai-journal','ai-chat','global-news']]];
+    const groups=[['Analisis',['analytics','heatmap','strategies','risk']],['Laporan',['reviews','reports']],['AI',['ai-market','ai-behaviour','ai-journal','ai-chat','global-news']]];
     for(const [group,keys] of groups) {const section=node('div',null,'pro-nav-group');if(group)section.append(node('h2',group));navigation.append(section);
     for(const key of keys) {const label=features[key];const item=node('button',label,'btn btn-ghost');item.type='button';item.dataset.section=key;item.dataset.componentId='pro-section-'+key;item.setAttribute('aria-current',key===feature?'page':'false');item.addEventListener('click',()=>open(key));if(key.startsWith('ai-'))item.append(node('span','AI','pro-ai-badge'));section.append(item);}}
     const layout=node('div',null,'pro-layout'),workspace=node('div',null,'pro-content-panel');layout.append(navigation,workspace);root.append(layout);
