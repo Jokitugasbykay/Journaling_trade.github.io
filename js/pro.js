@@ -9204,7 +9204,7 @@ Setiap kali melakukan analisa pada instrumen apa pun, jalankan prosedur sinkroni
     const navigation=node('nav',null,'pro-sections');navigation.setAttribute('aria-label','Pro sections');
     const groups=[['Analisis',['analytics','heatmap','strategies','risk']],['Laporan',['reviews','reports']],['AI',['ai-market','ai-behaviour','ai-journal','ai-chat','global-news']]];
     for(const [group,keys] of groups) {const section=node('div',null,'pro-nav-group');if(group)section.append(node('h2',group));navigation.append(section);
-    for(const key of keys) {const label=features[key];const item=node('button',label,'btn btn-ghost');item.type='button';item.dataset.section=key;item.dataset.componentId='pro-section-'+key;item.setAttribute('aria-current',key===feature?'page':'false');item.addEventListener('click',()=>open(key));if(key.startsWith('ai-'))item.append(node('span','AI','pro-ai-badge'));section.append(item);}}
+    for(const key of keys) {const label=features[key];const item=node('button',label,'pro-section-btn');item.type='button';item.dataset.section=key;item.dataset.componentId='pro-section-'+key;item.setAttribute('aria-current',key===feature?'page':'false');item.addEventListener('click',()=>open(key));section.append(item);}}
     const layout=node('div',null,'pro-layout'),workspace=node('div',null,'pro-content-panel');layout.append(navigation,workspace);root.append(layout);
     const selector=select('Pro section',Object.entries(features),feature,'pro-section-selector');
     createProMobileNavigator(selector.wrap,selector.input,feature,(key)=>open(key));
