@@ -55,19 +55,29 @@ export async function handler(req: Request): Promise<Response> {
     }
     // Groq Public Status
     if (route === '/groq/status' && req.method === 'GET') {
-      const envKey = Deno.env.get('GROQ_FOUNDER_API_KEY') || '';
+      const envKey = Deno.env.get('GROQ_API_KEY') || Deno.env.get('GROQ_FOUNDER_API_KEY') || '';
       let statusData: any = null;
       try {
         statusData = await rpc('journal_groq_public_status');
       } catch (_) {}
       const hasEnv = Boolean(envKey && envKey.trim().length > 0);
       const isAvailable = hasEnv || Boolean(statusData?.available);
+
+      let dailyQuota = { limit: 5, used: 0, remaining: 5, date: new Date().toISOString().slice(0, 10) };
+      try {
+        const qRes = await rpc('journal_get_groq_daily_usage');
+        if (qRes && typeof qRes === 'object' && typeof qRes.limit === 'number') {
+          dailyQuota = qRes;
+        }
+      } catch (_) {}
+
       return respond({
         available: isAvailable,
         default_provider: 'groq',
         model: statusData?.model || 'llama-3.3-70b-versatile',
         fallback_enabled: statusData?.fallback_enabled !== false,
-        status: isAvailable ? (statusData?.status || 'Connected') : 'Not Configured'
+        status: isAvailable ? (statusData?.status || 'Connected') : 'Not Configured',
+        daily_quota: dailyQuota
       });
     }
 
@@ -76,12 +86,21 @@ export async function handler(req: Request): Promise<Response> {
       const allowedGroq = await rpc('journal_rate_limit', { p_bucket: 'groq_ai_user_' + user.id, p_limit: 30, p_window_seconds: 60 });
       if (allowedGroq !== true) throw new Failure(429, 'Terlalu banyak permintaan AI. Coba lagi dalam 1 menit.');
 
+      // Check daily quota: max 5 messages per day per user for Founder Groq API
+      let quotaCheck: any = null;
+      try {
+        quotaCheck = await rpc('journal_get_groq_daily_usage');
+      } catch (_) {}
+      if (quotaCheck && typeof quotaCheck.remaining === 'number' && quotaCheck.remaining <= 0) {
+        throw new Failure(429, 'Kuota harian AI bawaan (5 pesan per hari) telah habis. Silakan gunakan API Key pribadi atau tunggu besok.');
+      }
+
       const reqMessages = Array.isArray(body.messages) ? body.messages : [];
       if (!reqMessages.length) throw new Failure(422, 'Parameter messages diperlukan');
       const allowedModels = ['llama-3.3-70b-versatile', 'llama-3.1-8b-instant', 'mixtral-8x7b-32768'];
       const targetModel = (typeof body.model === 'string' && allowedModels.includes(body.model)) ? body.model : 'llama-3.3-70b-versatile';
 
-      let groqKey = Deno.env.get('GROQ_FOUNDER_API_KEY') || '';
+      let groqKey = Deno.env.get('GROQ_API_KEY') || Deno.env.get('GROQ_FOUNDER_API_KEY') || '';
       if (!groqKey) {
         try {
           const dbKey = await privileged('/rest/v1/rpc/get_founder_groq_key', 'POST', {});
@@ -124,6 +143,17 @@ export async function handler(req: Request): Promise<Response> {
         }
 
         const groqData = await groqRes.json();
+
+        // Atomically consume 1 daily quota message upon successful Groq API response
+        let updatedQuota: any = null;
+        try {
+          updatedQuota = await rpc('journal_consume_groq_daily_usage');
+        } catch (_) {}
+
+        if (groqData && typeof groqData === 'object' && updatedQuota) {
+          groqData.daily_quota = updatedQuota;
+        }
+
         return respond(groqData);
       } catch (err: any) {
         if (err instanceof Failure) throw err;
@@ -139,7 +169,7 @@ export async function handler(req: Request): Promise<Response> {
 
       if (route === '/founder/groq-config') {
         if (req.method === 'GET') {
-          const envKey = Deno.env.get('GROQ_FOUNDER_API_KEY') || '';
+          const envKey = Deno.env.get('GROQ_API_KEY') || Deno.env.get('GROQ_FOUNDER_API_KEY') || '';
           let adminCfg: any = null;
           try {
             adminCfg = await rpc('journal_founder_groq_admin_config');
@@ -197,7 +227,7 @@ export async function handler(req: Request): Promise<Response> {
       if (route === '/founder/groq-test' && req.method === 'POST') {
         let keyToTest = typeof body.api_key === 'string' ? body.api_key.trim() : '';
         if (!keyToTest) {
-          keyToTest = Deno.env.get('GROQ_FOUNDER_API_KEY') || '';
+          keyToTest = Deno.env.get('GROQ_API_KEY') || Deno.env.get('GROQ_FOUNDER_API_KEY') || '';
           if (!keyToTest) {
             try {
               const dbKey = await privileged('/rest/v1/rpc/get_founder_groq_key', 'POST', {});

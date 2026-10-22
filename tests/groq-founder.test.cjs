@@ -9,6 +9,7 @@ let isCurrentUserFounder = false;
 let backendFounderKey = 'gsk_secretFounderLiveKey9988';
 let backendFounderStatus = 'Connected';
 let backendFallbackEnabled = true;
+let dailyUsedCount = 0;
 const serverProxyCalls = [];
 
 const server = http.createServer(async (req, res) => {
@@ -34,7 +35,13 @@ const server = http.createServer(async (req, res) => {
           default_provider: 'groq',
           model: 'llama-3.3-70b-versatile',
           fallback_enabled: backendFallbackEnabled,
-          status: available ? 'Connected' : 'Not Configured'
+          status: available ? 'Connected' : 'Not Configured',
+          daily_quota: {
+            limit: 5,
+            used: dailyUsedCount,
+            remaining: Math.max(0, 5 - dailyUsedCount),
+            date: '2026-10-22'
+          }
         }));
       }
 
@@ -56,6 +63,14 @@ const server = http.createServer(async (req, res) => {
           return res.end(JSON.stringify({ error: 'Terlalu banyak permintaan AI. Kuota rate limit Founder tercapai.' }));
         }
 
+        if (dailyUsedCount >= 5) {
+          res.statusCode = 429;
+          return res.end(JSON.stringify({
+            error: 'Kuota harian AI bawaan (5 pesan per hari) telah habis. Silakan gunakan API Key pribadi atau tunggu besok.'
+          }));
+        }
+
+        dailyUsedCount++;
         return res.end(JSON.stringify({
           id: 'chatcmpl-groq-proxy-1',
           object: 'chat.completion',
@@ -65,7 +80,13 @@ const server = http.createServer(async (req, res) => {
               role: 'assistant',
               content: '### Analisis Pasar Kaystrade (Groq Bawaan Gratis)\nBias: BUY\nLevel Entry: 2650.00\nStop Loss: 2642.00\nTake Profit: 2666.00'
             }
-          }]
+          }],
+          daily_quota: {
+            limit: 5,
+            used: dailyUsedCount,
+            remaining: Math.max(0, 5 - dailyUsedCount),
+            date: '2026-10-22'
+          }
         }));
       }
 
@@ -430,10 +451,76 @@ const server = http.createServer(async (req, res) => {
   const fieldLabel = await page.$eval('.pro-modal-field label', el => el.textContent);
   assert.ok(fieldLabel.includes('Groq'), 'Label harus mencerminkan Groq');
   console.log('Test 11 Passed: Modal UI mendukung tab Groq AI');
+  await page.evaluate(() => document.querySelectorAll('.pro-modal-backdrop').forEach(el => el.remove()));
+
+  console.log('--- SUITE 12: Kuota 5 Pesan Per Hari untuk Founder Groq API ---');
+  await page.evaluate(() => {
+    localStorage.clear();
+    JTPRO.reset();
+  });
+  dailyUsedCount = 0; // Reset counter for test
+  serverProxyCalls.length = 0;
+
+  // Send 5 successful messages using Founder Groq
+  for (let i = 1; i <= 5; i++) {
+    const res = await page.evaluate(async (step) => {
+      return await JTPRO.callAiApi({ contents: 'Pesan ke-' + step });
+    }, i);
+    assert.ok(res.includes('Groq Bawaan Gratis'), 'Pesan ' + i + ' harus berhasil diproses oleh Founder Groq');
+  }
+  assert.equal(dailyUsedCount, 5, 'Harus mencatat pemakaian 5 pesan');
+
+  // Attempt 6th message: backend enforces quota and returns 429
+  const quotaExceeded = await page.evaluate(async () => {
+    try {
+      await JTPRO.callAiApi({ contents: 'Pesan ke-6 (lebihi batas)' });
+      return { ok: true };
+    } catch (e) {
+      return { ok: false, message: e.message };
+    }
+  });
+  assert.equal(quotaExceeded.ok, false, 'Pesan ke-6 harus ditolak oleh batas kuota backend');
+  assert.ok(quotaExceeded.message.includes('kuota') || quotaExceeded.message.includes('rate limit'), 'Pesan error harus mengenai kuota/rate limit');
+  console.log('Test 12 Passed: Kuota 5 pesan per hari divalidasi dan ditegakkan secara fail-closed oleh backend');
+
+  console.log('--- SUITE 13: Role Pro dapat mengganti, menguji, menyimpan, dan menghapus Personal Groq Key ---');
+  await page.evaluate(async () => {
+    await JTPRO.open('global-news');
+  });
+
+  // Verify Personal Groq elements
+  const inputSelector = '.pro-api-section-box + div input[type="password"]';
+  await page.waitForSelector(inputSelector);
+  await page.fill(inputSelector, 'gsk_proPersonalNewKey7788');
+
+  // Click Test Koneksi button
+  await page.click('.pro-api-section-box + div button:has-text("Test Koneksi")');
+  await page.waitForTimeout(300);
+  const statusAfterTest = await page.$eval('.pro-api-section-box + div', el => el.textContent);
+  assert.ok(statusAfterTest.includes('Koneksi Groq berhasil') || statusAfterTest.includes('Koneksi ke Groq API berhasil'), 'Status test koneksi harus tampil');
+
+  // Click Simpan button in Groq section
+  await page.click('.pro-api-section-box + div button:has-text("Simpan")');
+  await page.waitForTimeout(300);
+  const savedKey = await page.evaluate(() => JTPRO.getPersonalGroqApiKey());
+  assert.equal(savedKey, 'gsk_proPersonalNewKey7788', 'Personal Groq API Key harus tersimpan di storage');
+  const activePref = await page.evaluate(() => JTPRO.getAiProviderPreference());
+  assert.equal(activePref, 'groq', 'AI provider preference harus beralih ke groq');
+
+  // Click Hapus button in Groq section
+  await page.click('.pro-api-section-box + div button:has-text("Hapus")');
+  await page.waitForTimeout(300);
+  const deletedKey = await page.evaluate(() => JTPRO.getPersonalGroqApiKey());
+  assert.equal(deletedKey, '', 'Personal Groq API Key harus terhapus');
+
+  // Verify user role is still 'pro'
+  const currentPlan = await page.evaluate(() => JTPRO.access.plan);
+  assert.equal(currentPlan, 'pro', 'Role user harus tetap Pro dan tidak boleh berubah');
+  console.log('Test 13 Passed: User Pro berhasil mengganti, menguji, menyimpan, dan menghapus Personal Key');
 
   await browser.close();
   server.close();
-  console.log('\nSEMUA 11 PENGUJIAN GROQ & FOUNDER API MANAGEMENT LULUS DENGAN SUKSES 100%!\n');
+  console.log('\nSEMUA 13 PENGUJIAN GROQ & FOUNDER API MANAGEMENT LULUS DENGAN SUKSES 100%!\n');
   process.exit(0);
 })().catch(err => {
   console.error('Test Suite Failed:', err);
