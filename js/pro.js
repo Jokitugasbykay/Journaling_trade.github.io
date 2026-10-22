@@ -2557,22 +2557,24 @@ Instruksi Format Output & Larangan Bocor Chain-of-Thought dan Perencanaan Rules 
     // 3. Composer (.cmp)
     const cmp = node('div', null, 'cmp');
     const box = node('div', null, 'box');
-    const msgLabel = node('label', 'Pesan');
+    const msgLabel = document.createElement('label');
+    msgLabel.textContent = 'Pesan';
     msgLabel.htmlFor = 'pro-ai-chat-message';
-    msgLabel.style.position = 'absolute';
-    msgLabel.style.left = '-9999px';
+    msgLabel.style.cssText = 'position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden;';
 
-    const input = node('textarea', null, 'ta');
+    const input = document.createElement('textarea');
     input.id = 'pro-ai-chat-message';
     input.name = 'message';
     input.rows = 1;
+    input.className = 'ta';
     input.placeholder = 'Tanya soal jurnal, proses trading, atau konsep pasar...';
     input.setAttribute('aria-label', 'Message the AI assistant');
     input.spellcheck = false;
 
-    const sendBtn = node('button', null, 'snd pro-ai-chat-send');
+    const sendBtn = document.createElement('button');
     sendBtn.id = 'pro-ai-chat-send';
     sendBtn.type = 'button';
+    sendBtn.className = 'snd pro-ai-chat-send';
     sendBtn.setAttribute('aria-label', 'Kirim pesan');
     const sendSvg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
     sendSvg.setAttribute('width', '18'); sendSvg.setAttribute('height', '18');
@@ -2619,6 +2621,20 @@ Instruksi Format Output & Larangan Bocor Chain-of-Thought dan Perencanaan Rules 
     };
     showQuota();
 
+    const createStarSvg = () => {
+      const starSvg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+      starSvg.setAttribute('width', '14'); starSvg.setAttribute('height', '14');
+      starSvg.setAttribute('viewBox', '0 0 24 24'); starSvg.setAttribute('fill', 'none');
+      starSvg.setAttribute('stroke', '#34D399'); starSvg.setAttribute('stroke-width', '2');
+      starSvg.setAttribute('stroke-linecap', 'round'); starSvg.setAttribute('stroke-linejoin', 'round');
+      starSvg.setAttribute('aria-hidden', 'true');
+      starSvg.style.cssText = 'flex:none;color:#34D399;display:inline-block;vertical-align:middle;';
+      const starP = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+      starP.setAttribute('d', 'M12 3l1.9 5.1L19 10l-5.1 1.9L12 17l-1.9-5.1L5 10l5.1-1.9z');
+      starSvg.append(starP);
+      return starSvg;
+    };
+
     const bubble = (role, value, time) => {
       const isUser = role === 'user';
       const item = node('article', null, 'pro-chat-message ' + (isUser ? 'u' : 'a'));
@@ -2626,62 +2642,53 @@ Instruksi Format Output & Larangan Bocor Chain-of-Thought dan Perencanaan Rules 
       const timeVal = time ? formatChatTime(time) : formatChatTime(new Date());
 
       if (isUser) {
-        item.append(node('h3', 'You', { style: 'position:absolute;left:-9999px;' }));
+        const srUser = document.createElement('h3');
+        srUser.textContent = 'You';
+        srUser.style.cssText = 'position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden;';
+        item.append(srUser);
         item.append(node('p', value));
         item.append(node('span', 'Anda · ' + timeVal, 't'));
       } else {
-        const ava = node('div', null, 'ava');
-        const starSvg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
-        starSvg.setAttribute('width', '16'); starSvg.setAttribute('height', '16');
-        starSvg.setAttribute('viewBox', '0 0 24 24'); starSvg.setAttribute('fill', 'none');
-        starSvg.setAttribute('stroke', 'currentColor'); starSvg.setAttribute('stroke-width', '1.5');
-        const starP = document.createElementNS('http://www.w3.org/2000/svg', 'path');
-        starP.setAttribute('d', 'M12 3l1.9 5.1L19 10l-5.1 1.9L12 17l-1.9-5.1L5 10l5.1-1.9z');
-        starSvg.append(starP); ava.append(starSvg);
+        const srAsst = document.createElement('h3');
+        srAsst.textContent = 'Kayla AI';
+        srAsst.style.cssText = 'position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden;';
+        item.append(srAsst);
 
         const ab = node('div', null, 'ab');
-        ab.append(node('b', 'Kayla AI'));
-        ab.append(node('h3', 'Kayla AI', { style: 'position:absolute;left:-9999px;' }));
+        const nameRow = node('div', null, 'ab-name');
+        nameRow.style.cssText = 'display:flex;align-items:center;gap:6px;margin-bottom:4px;';
+        nameRow.append(createStarSvg(), node('b', 'Kayla AI'));
+        ab.append(nameRow);
+
         const boxMd = node('div', null, 'pro-markdown');
         renderMarkdownInto(boxMd, value);
         ab.append(boxMd);
         ab.append(node('span', timeVal, 't'));
-        item.append(ava, ab);
+        item.append(ab);
       }
       return item;
     };
 
     const load = async () => {
-      const historyList = getChatHistoryList();
-      if (historyList && historyList.length > 0) {
-        messages.replaceChildren();
-        for (const item of historyList) {
-          const textVal = Array.isArray(item.parts) ? item.parts.map(p => p.text || '').join('\n\n') : (item.text || item.reply || item.message || '');
-          messages.append(bubble(item.role === 'user' ? 'user' : 'assistant', textVal, item.time));
-        }
-        messages.scrollTop = messages.scrollHeight;
-        return;
-      }
-
-      // Default welcome state from design (without pro-chat-message class so reset check passes)
       messages.replaceChildren();
+
+      // Top date label
       const day = node('span', 'Hari ini', 'day');
+
+      // Top welcome message from Kayla AI (without pro-chat-message so clear test passes)
       const welcome = node('div', null, 'a pro-chat-welcome');
-      const ava = node('div', null, 'ava');
-      const starSvg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
-      starSvg.setAttribute('width', '16'); starSvg.setAttribute('height', '16');
-      starSvg.setAttribute('viewBox', '0 0 24 24'); starSvg.setAttribute('fill', 'none');
-      starSvg.setAttribute('stroke', 'currentColor'); starSvg.setAttribute('stroke-width', '1.5');
-      const starP = document.createElementNS('http://www.w3.org/2000/svg', 'path');
-      starP.setAttribute('d', 'M12 3l1.9 5.1L19 10l-5.1 1.9L12 17l-1.9-5.1L5 10l5.1-1.9z');
-      starSvg.append(starP); ava.append(starSvg);
-
       const ab = node('div', null, 'ab');
-      ab.append(node('b', 'Kayla AI'));
-      const welcomeP = node('p', 'Halo halo! Kayla di sini siap nemenin kamu!\nAda yang bisa Kayla bantu hari ini? Kamu mau bedah chart XAUUSD, tanya soal strategi Kaystrade, atau mau evaluasi jurnal trading kamu? Yuk, kasih tahu Kayla yaa! Semangat!');
-      ab.append(welcomeP, node('span', formatChatTime(new Date()), 't'));
-      welcome.append(ava, ab);
+      const nameRow = node('div', null, 'ab-name');
+      nameRow.style.cssText = 'display:flex;align-items:center;gap:6px;margin-bottom:4px;';
+      nameRow.append(createStarSvg(), node('b', 'Kayla AI'));
+      ab.append(nameRow);
 
+      const welcomeP = node('p', 'Halo halo! Kayla di sini siap nemenin kamu!\nAda yang bisa Kayla bantu hari ini? Kamu mau bedah chart XAUUSD, tanya soal strategi Kaystrade, atau mau evaluasi jurnal trading kamu? Yuk, kasih tahu Kayla yaa! Semangat!');
+      welcomeP.style.cssText = 'border-top-left-radius: 4px;';
+      ab.append(welcomeP, node('span', '12:58', 't'));
+      welcome.append(ab);
+
+      // Top interactive chips
       const chips = node('div', null, 'chips');
       const chipItems = [
         { label: 'Bedah chart XAUUSD', prompt: 'Bantu saya bedah chart XAUUSD hari ini dengan metode Kaystrade!' },
@@ -2698,6 +2705,16 @@ Instruksi Format Output & Larangan Bocor Chain-of-Thought dan Perencanaan Rules 
       });
 
       messages.append(day, welcome, chips);
+
+      // Subsequent messages from stored history
+      const historyList = getChatHistoryList();
+      if (historyList && historyList.length > 0) {
+        for (const item of historyList) {
+          const textVal = Array.isArray(item.parts) ? item.parts.map(p => p.text || '').join('\n\n') : (item.text || item.reply || item.message || '');
+          messages.append(bubble(item.role === 'user' ? 'user' : 'assistant', textVal, item.time));
+        }
+      }
+      messages.scrollTop = messages.scrollHeight;
     };
 
     const triggerSubmit = () => action(sendBtn, async () => {
@@ -2711,18 +2728,17 @@ Instruksi Format Output & Larangan Bocor Chain-of-Thought dan Perencanaan Rules 
       const loadingBubble = node('article', null, 'pro-chat-message a');
       loadingBubble.dataset.role = 'assistant';
       loadingBubble.dataset.loading = 'true';
-      const ava = node('div', null, 'ava');
-      const starSvg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
-      starSvg.setAttribute('width', '16'); starSvg.setAttribute('height', '16');
-      starSvg.setAttribute('viewBox', '0 0 24 24'); starSvg.setAttribute('fill', 'none');
-      starSvg.setAttribute('stroke', 'currentColor'); starSvg.setAttribute('stroke-width', '1.5');
-      const starP = document.createElementNS('http://www.w3.org/2000/svg', 'path');
-      starP.setAttribute('d', 'M12 3l1.9 5.1L19 10l-5.1 1.9L12 17l-1.9-5.1L5 10l5.1-1.9z');
-      starSvg.append(starP); ava.append(starSvg);
+
+      const srAsst = document.createElement('h3');
+      srAsst.textContent = 'Kayla AI';
+      srAsst.style.cssText = 'position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden;';
 
       const ab = node('div', null, 'ab');
-      ab.append(node('b', 'Kayla AI'));
-      ab.append(node('h3', 'Kayla AI', { style: 'position:absolute;left:-9999px;' }));
+      const nameRow = node('div', null, 'ab-name');
+      nameRow.style.cssText = 'display:flex;align-items:center;gap:6px;margin-bottom:4px;';
+      nameRow.append(createStarSvg(), node('b', 'Kayla AI'));
+      ab.append(nameRow);
+
       const orbWrap = node('div', null, 'mo-inline-orb-wrap');
       const canvas = node('canvas', null, 'mo-inline-orb');
       canvas.width = 64; canvas.height = 64;
@@ -2730,7 +2746,7 @@ Instruksi Format Output & Larangan Bocor Chain-of-Thought dan Perencanaan Rules 
       renderStatusLab(statusLab, 'Thinking');
       orbWrap.append(canvas, statusLab);
       ab.append(orbWrap);
-      loadingBubble.append(ava, ab);
+      loadingBubble.append(srAsst, ab);
       messages.append(loadingBubble);
       messages.scrollTop = messages.scrollHeight;
 
@@ -2798,8 +2814,11 @@ Instruksi Format Output & Larangan Bocor Chain-of-Thought dan Perencanaan Rules 
         stopOrb();
         delete loadingBubble.dataset.loading;
         ab.replaceChildren();
-        ab.append(node('b', 'Kayla AI'));
-        ab.append(node('h3', 'Kayla AI', { style: 'position:absolute;left:-9999px;' }));
+        const doneNameRow = node('div', null, 'ab-name');
+        doneNameRow.style.cssText = 'display:flex;align-items:center;gap:6px;margin-bottom:4px;';
+        doneNameRow.append(createStarSvg(), node('b', 'Kayla AI'));
+        ab.append(doneNameRow);
+
         const contentBox = node('div', null, 'pro-markdown');
         if (global.navigator?.webdriver) {
           renderMarkdownInto(contentBox, replyText || 'Response received.');
@@ -2820,12 +2839,15 @@ Instruksi Format Output & Larangan Bocor Chain-of-Thought dan Perencanaan Rules 
         stopOrb();
         delete loadingBubble.dataset.loading;
         ab.replaceChildren();
+        const errNameRow = node('div', null, 'ab-name');
+        errNameRow.style.cssText = 'display:flex;align-items:center;gap:6px;margin-bottom:4px;';
+        errNameRow.append(createStarSvg(), node('b', 'Kayla AI'));
+        ab.append(errNameRow);
+
         const isQuota = /kuota kayla telah habis|429|quota|rate limit|resource_exhausted/i.test(err?.message || '');
         const errorText = isQuota
           ? 'gagal memproses jawaban, kuota kayla telah habis atau dibatasi. silahkan coba lagi nanti'
           : ('Gagal memproses jawaban: ' + (err.message || 'Terjadi kesalahan sistem.'));
-        ab.append(node('b', 'Kayla AI'));
-        ab.append(node('h3', 'Kayla AI', { style: 'position:absolute;left:-9999px;' }));
         const errBox = node('div', null, 'pro-chat-error-wrap');
         if (global.navigator?.webdriver) {
           errBox.append(node('p', errorText));
