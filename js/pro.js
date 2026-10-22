@@ -1506,6 +1506,14 @@ Pedoman Identitas Platform & Metodologi:
 3. TIDAK ADA figur atau mentor bernama "Mas Kays". DILARANG KERAS mengarang, menyebut, atau mengasumsikan adanya sosok tersebut.
 4. Gunakan format Markdown (bold, tabel, bullet points) yang rapi, imut, dan mudah dipahami.
 
+Panduan Respon Saran Cepat Interaktif (Interactive Suggestions):
+1. Bedah chart XAUUSD:
+   Bantu pengguna menganalisis chart XAUUSD dengan metodologi Kaystrade. Jika belum ada screenshot chart atau data pasar relevan yang diberikan oleh pengguna, tanyakan timeframe yang ingin dianalisis dan minta pengguna mengunggah screenshot chart. Jangan pernah berpura-pura melihat chart yang belum diberikan, dan jangan pernah mengarang harga pasar terkini yang tidak nyata.
+2. Strategi Kaystrade:
+   Bantu pengguna memahami atau mendiskusikan strategi trading Kaystrade (big trend H4, speedometer, retest base, SNR/SBR, fresh Supply/Demand, FVG, RSI, dan konteks DXY). Jika konteks aturan belum spesifik, tanyakan aspek mana dari strategi Kaystrade yang ingin didiskusikan terlebih dahulu. Jangan mengarang aturan tanpa dasar.
+3. Evaluasi jurnal saya:
+   Bantu pengguna mengevaluasi jurnal trading mereka dengan data jurnal aktual yang tersedia melalui integrasi resmi aplikasi. Jika data jurnal belum tersedia di konteks percakapan, jelaskan dengan ramah informasi apa saja yang dibutuhkan (misal: win rate, total trade, pair yang ditradingkan, risk to reward ratio, drawdown, catatan psikologi/alasan entry & exit) agar Kayla AI dapat memberikan evaluasi yang akurat. Jangan pernah mengarang statistik trading atau berpura-pura telah mengakses catatan jurnal yang belum diberikan.
+
 Instruksi Format Output & Larangan Bocor Chain-of-Thought dan Perencanaan Rules (Zero-Leak):
 1. PERINGATAN KERAS TENTANG ZERO-LEAK:
    - DILARANG KERAS mencetak outline perencanaan (planning outline), analisis intensi pengguna (user intent/analysis), evaluasi kepatuhan aturan (constraint check/rules check/checklist), poin verifikasi internal, atau meta-teks bahasa Inggris apa pun ke dalam jawaban!
@@ -2520,6 +2528,8 @@ Instruksi Format Output & Larangan Bocor Chain-of-Thought dan Perencanaan Rules 
   async function aiChat() {
     const isFixture = typeof options?.getToken === 'function' && options.getUserId?.() === 'fixture-user';
     const wrap = node('div', null, 'pro-ai-chat-module');
+    let isSubmitting = false;
+    let chipsContainer = null;
 
     // 1. Header (.hd)
     const hd = node('div', null, 'hd');
@@ -2588,8 +2598,10 @@ Instruksi Format Output & Larangan Bocor Chain-of-Thought dan Perencanaan Rules 
 
     box.append(msgLabel, input, sendBtn);
     const hint = node('span', null, 'hint');
+    const kaylaSpan = node('span', 'Kayla ', 'pro-hint-brand');
+    kaylaSpan.style.cssText = 'color: #8B95A5; font-size: 13px;';
     hint.append(
-      node('span', 'Kayla ', { style: 'color: rgb(139, 149, 165); font-size: 13px;' }),
+      kaylaSpan,
       document.createTextNode('AI bisa melakukan kesalahan. Periksa kembali sebelum mengambil keputusan trading.')
     );
     cmp.append(box, hint);
@@ -2669,13 +2681,27 @@ Instruksi Format Output & Larangan Bocor Chain-of-Thought dan Perencanaan Rules 
       return item;
     };
 
+    const hideChips = () => {
+      if (chipsContainer && chipsContainer.parentNode) {
+        chipsContainer.remove();
+        chipsContainer = null;
+      }
+    };
+
     const load = async () => {
       messages.replaceChildren();
+
+      const historyList = getChatHistoryList();
+      const validHistory = (historyList || []).filter(item => {
+        const t = Array.isArray(item.parts) ? item.parts.map(p => p.text || '').join('\n\n') : (item.text || item.reply || item.message || '');
+        return Boolean(t && t.trim());
+      });
+      const hasHistory = validHistory.length > 0;
 
       // Top date label
       const day = node('span', 'Hari ini', 'day');
 
-      // Top welcome message from Kayla AI (without pro-chat-message so clear test passes)
+      // Top welcome message from Kayla AI
       const welcome = node('div', null, 'a pro-chat-welcome');
       const ab = node('div', null, 'ab');
       const nameRow = node('div', null, 'ab-name');
@@ -2688,28 +2714,33 @@ Instruksi Format Output & Larangan Bocor Chain-of-Thought dan Perencanaan Rules 
       ab.append(welcomeP, node('span', '12:58', 't'));
       welcome.append(ab);
 
-      // Top interactive chips
-      const chips = node('div', null, 'chips');
-      const chipItems = [
-        { label: 'Bedah chart XAUUSD', prompt: 'Bantu saya bedah chart XAUUSD hari ini dengan metode Kaystrade!' },
-        { label: 'Strategi Kaystrade', prompt: 'Jelaskan aturan dan strategi Kaystrade (big trend H4, speedometer, retest base, SNR/SBR, FVG, RSI, DXY)!' },
-        { label: 'Evaluasi jurnal saya', prompt: 'Tolong evaluasi jurnal trading saya dan berikan analisis psikologi serta konsistensi!' }
-      ];
-      chipItems.forEach(c => {
-        const btn = button(c.label, () => {
-          input.value = c.prompt;
-          triggerSubmit()();
-        }, 'chp');
-        btn.type = 'button';
-        chips.append(btn);
-      });
+      messages.append(day, welcome);
 
-      messages.append(day, welcome, chips);
-
-      // Subsequent messages from stored history
-      const historyList = getChatHistoryList();
-      if (historyList && historyList.length > 0) {
-        for (const item of historyList) {
+      // 3 Suggestion buttons: rendered ONLY in initial welcome state (when history is empty)
+      if (!hasHistory) {
+        chipsContainer = node('div', null, 'chips');
+        const chipItems = [
+          { label: 'Bedah chart XAUUSD', prompt: 'Bedah chart XAUUSD' },
+          { label: 'Strategi Kaystrade', prompt: 'Strategi Kaystrade' },
+          { label: 'Evaluasi jurnal saya', prompt: 'Evaluasi jurnal saya' }
+        ];
+        chipItems.forEach(c => {
+          const btn = document.createElement('button');
+          btn.type = 'button';
+          btn.className = 'chp';
+          btn.textContent = c.label;
+          btn.setAttribute('aria-label', c.label);
+          btn.addEventListener('click', () => {
+            if (isSubmitting) return;
+            hideChips();
+            submitMessage(c.prompt);
+          });
+          chipsContainer.append(btn);
+        });
+        messages.append(chipsContainer);
+      } else {
+        // If conversation history exists, render history messages without suggestions
+        for (const item of validHistory) {
           const textVal = Array.isArray(item.parts) ? item.parts.map(p => p.text || '').join('\n\n') : (item.text || item.reply || item.message || '');
           messages.append(bubble(item.role === 'user' ? 'user' : 'assistant', textVal, item.time));
         }
@@ -2717,11 +2748,19 @@ Instruksi Format Output & Larangan Bocor Chain-of-Thought dan Perencanaan Rules 
       messages.scrollTop = messages.scrollHeight;
     };
 
-    const triggerSubmit = () => action(sendBtn, async () => {
-      const message = input.value.trim();
-      if (!message) throw new Error('Enter a message first.');
+    const submitMessage = async (rawMessage) => {
+      if (isSubmitting) return;
+      const message = (rawMessage || '').trim();
+      if (!message) return;
+
+      isSubmitting = true;
+      hideChips();
 
       input.value = '';
+      input.disabled = true;
+      sendBtn.disabled = true;
+      sendBtn.setAttribute('data-running', 'true');
+
       messages.append(bubble('user', message, new Date().toISOString()));
       messages.scrollTop = messages.scrollHeight;
 
@@ -2864,14 +2903,23 @@ Instruksi Format Output & Larangan Bocor Chain-of-Thought dan Perencanaan Rules 
           ab.append(node('span', formatChatTime(new Date()), 't'));
         }
         messages.scrollTop = messages.scrollHeight;
+      } finally {
+        isSubmitting = false;
+        input.disabled = false;
+        sendBtn.disabled = false;
+        delete sendBtn.dataset.running;
+        input.focus();
       }
+    };
+
+    sendBtn.addEventListener('click', () => {
+      submitMessage(input.value);
     });
 
-    sendBtn.addEventListener('click', triggerSubmit);
     input.addEventListener('keydown', (e) => {
       if (e.key === 'Enter' && !e.shiftKey) {
         e.preventDefault();
-        triggerSubmit()();
+        submitMessage(input.value);
       }
     });
 
