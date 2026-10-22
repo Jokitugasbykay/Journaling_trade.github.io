@@ -4782,21 +4782,22 @@ Instruksi Format Output & Larangan Bocor Chain-of-Thought dan Perencanaan Rules 
     };
     window.addEventListener('keydown', onKey);
 
-    const dialog = node('div', null, 'backtest-modal-dialog');
+    // Dialog matching BacktestPremium.dc.html (.md)
+    const dialog = node('div', null, 'backtest-modal-dialog md');
     dialog.setAttribute('role', 'dialog');
     dialog.setAttribute('aria-modal', 'true');
 
-    // Header with gradient bar, title, subtitle & rounded close button
-    const header = node('div', null, 'backtest-modal-header');
+    // Header matching BacktestPremium.dc.html (.mh)
+    const header = node('div', null, 'backtest-modal-header mh');
 
     const headerLeft = node('div', null, 'bt-modal-header-left');
-    const iconBox = node('div', null, 'bt-modal-icon');
+    const iconBox = node('div', null, 'bt-modal-icon mi');
     const iconSvg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
-    iconSvg.setAttribute('width', '20');
-    iconSvg.setAttribute('height', '20');
+    iconSvg.setAttribute('width', '22');
+    iconSvg.setAttribute('height', '22');
     iconSvg.setAttribute('viewBox', '0 0 24 24');
     iconSvg.setAttribute('fill', 'none');
-    iconSvg.setAttribute('stroke', 'currentColor');
+    iconSvg.setAttribute('stroke', '#D9B77A');
     iconSvg.setAttribute('stroke-width', '2.2');
     iconSvg.setAttribute('stroke-linecap', 'round');
     iconSvg.setAttribute('stroke-linejoin', 'round');
@@ -4808,16 +4809,23 @@ Instruksi Format Output & Larangan Bocor Chain-of-Thought dan Perencanaan Rules 
     iconBox.append(iconSvg);
 
     const titleWrap = node('div');
-    const title = node('div', null, 'backtest-modal-title');
+    const title = node('h1', null, 'backtest-modal-title');
+    const stratTitle = opts.strategy ? (opts.strategy.name + ' - ') : '';
     title.append(
-      document.createTextNode('Kaystrade Multi-Market Backtest Engine (1 Jan 2024 - Sekarang)'),
+      document.createTextNode(stratTitle + 'Kaystrade Multi-Market Backtest Engine (1 Jan 2024 - Sekarang)'),
       node('span', 'Aturan IV.2', 'backtest-modal-badge')
     );
-    const subTitle = node('div', null, 'backtest-modal-sub');
+    const subTitle = node('div', null, 'backtest-modal-sub sub');
+    subTitle.id = 'btModalSubtitle';
+    const subB = node('b', '7/7 Konfirmasi Kaystrade Anti-Overtrading');
+    subTitle.append(
+      document.createTextNode(selectedPair + ' · ' + selectedTF.toUpperCase() + ' · RR 1:2.0 · 1 Jan 2024 - Sekarang · '),
+      subB
+    );
     titleWrap.append(title, subTitle);
     headerLeft.append(iconBox, titleWrap);
 
-    const closeBtn = node('button', null, 'backtest-modal-close');
+    const closeBtn = node('button', null, 'backtest-modal-close x');
     closeBtn.type = 'button';
     closeBtn.setAttribute('aria-label', 'Tutup Backtest Modal');
     const closeSvg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
@@ -4841,18 +4849,82 @@ Instruksi Format Output & Larangan Bocor Chain-of-Thought dan Perencanaan Rules 
 
     header.append(headerLeft, closeBtn);
 
-    const body = node('div', null, 'backtest-modal-body');
+    // Modal Body matching BacktestPremium.dc.html (.mb)
+    const body = node('div', null, 'backtest-modal-body mb');
 
-    // Controls container
-    const controls = node('div', null, 'backtest-controls-bar');
-    const topGrid = node('div', null, 'bt-controls-grid');
+    // 1. Hero Win Rate Section (.hero)
+    const heroSection = node('div', null, 'hero');
+    const heroLeft = node('div', null, 'hero-left');
+    heroLeft.append(node('div', 'WIN RATE KAYSTRADE', 'cap'));
+
+    const valWinRate = node('div', '0.0%', 'big');
+    valWinRate.id = 'btStatWinRate';
+
+    const heroPills = node('div', null, 'hero-pills');
+    const subReturn = node('span', '+0.00% NET RETURN', 'pill');
+    subReturn.id = 'btStatReturn';
+    const valProfit = node('span', '$0.00', 'pill');
+    valProfit.id = 'btStatProfit';
+    valProfit.style.color = '#5EE2AE';
+    heroPills.append(subReturn, valProfit);
+
+    const subWinRate = node('div', '0 Win / 0 Loss / 0 BE', 'bt-stat-sub');
+    subWinRate.id = 'btStatWinDetail';
+    subWinRate.style.marginTop = '6px';
+    subWinRate.style.fontSize = '12px';
+    subWinRate.style.color = '#8D958F';
+
+    const heroDesc = node('p', 'Berdasarkan eksekusi murni aturan IV.2 tanpa discretionary. Filter H4 Trend, Speedometer, Key Pivot, Base Retest & Macro Safe.');
+    heroLeft.append(valWinRate, heroPills, subWinRate, heroDesc);
+
+    // Right: Stats row (.stats)
+    const statsRow = node('div', null, 'stats');
+
+    const cardTrades = node('div');
+    cardTrades.append(node('span', 'TOTAL TRANSAKSI', 'cap'));
+    const valTrades = node('b', '0 Trades');
+    valTrades.id = 'btStatTrades';
+    const subTrades = node('small', '1 Jan 2024 - Sekarang');
+    subTrades.id = 'btStatTradesSub';
+    cardTrades.append(valTrades, subTrades);
+
+    const cardPF = node('div');
+    cardPF.append(node('span', 'PROFIT FACTOR', 'cap'));
+    const valPF = node('b', '0.00', 'g');
+    valPF.id = 'btStatPF';
+    cardPF.append(valPF, node('small', 'Gross profit / gross loss'));
+
+    const cardDD = node('div');
+    cardDD.append(node('span', 'MAX DRAWDOWN', 'cap'));
+    const valDD = node('b', '0.00%', 'w');
+    valDD.id = 'btStatDD';
+    const subDD = node('small', 'Batas Toleransi: 30% (GOLD)');
+    subDD.id = 'btStatDDLimit';
+    cardDD.append(valDD, subDD);
+
+    const cardEquity = node('div');
+    cardEquity.append(node('span', 'FINAL EQUITY', 'cap'));
+    const valEquity = node('b', '$1,000.00');
+    valEquity.id = 'btStatEquity';
+    const subPeak = node('small', 'Peak Equity: $1,000.00');
+    subPeak.id = 'btStatPeak';
+    cardEquity.append(valEquity, subPeak);
+
+    statsRow.append(cardTrades, cardPF, cardDD, cardEquity);
+    heroSection.append(heroLeft, statsRow);
+
+    // 2. Parameter Backtest Section (.pn)
+    const controls = node('section', null, 'pn backtest-controls-bar');
+    controls.append(node('span', 'PARAMETER BACKTEST', 'cap'));
+
+    const topGrid = node('div', null, 'fl bt-controls-grid');
 
     // Field 1: Instrumen
-    const fPair = node('div', null, 'bt-field');
+    const fPair = node('div', null, 'fg bt-field');
     const lblPair = node('label', 'Instrumen');
     lblPair.setAttribute('for', 'btInstrumentSelect');
     fPair.append(lblPair);
-    const sPair = node('select');
+    const sPair = node('select', null, 'f');
     sPair.id = 'btInstrumentSelect';
     sPair.setAttribute('aria-label', 'Instrumen');
     const popularPairs = ['XAUUSD', 'PAXGUSDT', 'BTCUSDT', 'ETHUSDT', 'SOLUSDT', 'EURUSD', 'GBPUSD', 'USDJPY', 'AUDUSD', 'USDCAD', 'NZDUSD', 'GBPJPY', 'EURJPY', 'EURGBP', 'AUDJPY', 'WTIUSD'];
@@ -4865,11 +4937,11 @@ Instruksi Format Output & Larangan Bocor Chain-of-Thought dan Perencanaan Rules 
     fPair.append(sPair);
 
     // Field 2: Timeframe
-    const fTf = node('div', null, 'bt-field');
+    const fTf = node('div', null, 'fg bt-field');
     const lblTf = node('label', 'Timeframe');
     lblTf.setAttribute('for', 'btTimeframeSelect');
     fTf.append(lblTf);
-    const sTf = node('select');
+    const sTf = node('select', null, 'f');
     sTf.id = 'btTimeframeSelect';
     sTf.setAttribute('aria-label', 'Timeframe');
     ['1m', '5m', '15m', '30m', '1h', '4h', '1d'].forEach(tf => {
@@ -4881,11 +4953,11 @@ Instruksi Format Output & Larangan Bocor Chain-of-Thought dan Perencanaan Rules 
     fTf.append(sTf);
 
     // Field 3: Trading Style
-    const fStyle = node('div', null, 'bt-field');
+    const fStyle = node('div', null, 'fg bt-field');
     const lblStyle = node('label', 'Trading Style');
     lblStyle.setAttribute('for', 'btStyleSelect');
     fStyle.append(lblStyle);
-    const sStyle = node('select');
+    const sStyle = node('select', null, 'f');
     sStyle.id = 'btStyleSelect';
     sStyle.setAttribute('aria-label', 'Trading Style');
     [['INTRADAY', 'Intraday (Breakeven Lock)'], ['SCALPING', 'Scalping (High WR Momentum)'], ['SWING', 'Swing (Multi-Day Trailing)']].forEach(([val, lbl]) => {
@@ -4896,37 +4968,12 @@ Instruksi Format Output & Larangan Bocor Chain-of-Thought dan Perencanaan Rules 
     });
     fStyle.append(sStyle);
 
-    // Field 4: Modal Awal
-    const fCap = node('div', null, 'bt-field');
-    const lblCap = node('label', 'Modal Awal ($)');
-    lblCap.setAttribute('for', 'btCapitalInput');
-    fCap.append(lblCap);
-    const inCap = node('input');
-    inCap.type = 'number';
-    inCap.id = 'btCapitalInput';
-    inCap.value = '1000';
-    inCap.step = '100';
-    inCap.min = '50';
-    fCap.append(inCap);
-
-    // Field 5: Risiko / Trade
-    const fRisk = node('div', null, 'bt-field');
-    const lblRisk = node('label', 'Risiko / Trade (%)');
-    lblRisk.setAttribute('for', 'btRiskInput');
-    fRisk.append(lblRisk);
-    const inRisk = node('input');
-    inRisk.type = 'text';
-    inRisk.inputMode = 'decimal';
-    inRisk.id = 'btRiskInput';
-    inRisk.value = '2.0';
-    fRisk.append(inRisk);
-
-    // Field: Periode Historis
-    const fPeriod = node('div', null, 'bt-field');
+    // Field 4: Periode Historis
+    const fPeriod = node('div', null, 'fg bt-field');
     const lblPeriod = node('label', 'Periode Backtest');
     lblPeriod.setAttribute('for', 'btPeriodSelect');
     fPeriod.append(lblPeriod);
-    const sPeriod = node('select');
+    const sPeriod = node('select', null, 'f');
     sPeriod.id = 'btPeriodSelect';
     sPeriod.setAttribute('aria-label', 'Periode Backtest');
     [
@@ -4941,51 +4988,78 @@ Instruksi Format Output & Larangan Bocor Chain-of-Thought dan Perencanaan Rules 
     });
     fPeriod.append(sPeriod);
 
+    // Field 5: Modal Awal
+    const fCap = node('div', null, 'fg bt-field');
+    const lblCap = node('label', 'Modal Awal ($)');
+    lblCap.setAttribute('for', 'btCapitalInput');
+    fCap.append(lblCap);
+    const inCap = node('input', null, 'f');
+    inCap.type = 'number';
+    inCap.id = 'btCapitalInput';
+    inCap.value = '1000';
+    inCap.step = '100';
+    inCap.min = '50';
+    fCap.append(inCap);
+
+    // Field 6: Risiko / Trade
+    const fRisk = node('div', null, 'fg bt-field');
+    const lblRisk = node('label', 'Risiko / Trade (%)');
+    lblRisk.setAttribute('for', 'btRiskInput');
+    fRisk.append(lblRisk);
+    const inRisk = node('input', null, 'f');
+    inRisk.type = 'text';
+    inRisk.inputMode = 'decimal';
+    inRisk.id = 'btRiskInput';
+    inRisk.value = '2.0';
+    fRisk.append(inRisk);
+
     topGrid.append(fPair, fTf, fStyle, fPeriod, fCap, fRisk);
 
-    // Bottom controls row: Target RR & Jalankan Ulang Button
-    const bottomBar = node('div', null, 'bt-controls-bottom');
+    // Bottom controls row: Target RR & Jalankan Ulang Button (.rr)
+    const bottomBar = node('div', null, 'rr bt-controls-bottom');
 
-    const fRR = node('div', null, 'bt-field');
-    const lblRR = node('label', 'Target RR (1:X)');
-    lblRR.setAttribute('for', 'btRRInput');
-    fRR.append(lblRR);
+    const fRR = node('div');
+    fRR.append(node('span', 'Target RR (1:X)', 'cap'));
 
-    const inRRWrap = node('div', null, 'bt-rr-group');
-    const inRR = node('input');
+    const inRRWrap = node('div', null, 'chips bt-rr-presets');
+    const inRR = node('input', null, 'f');
     inRR.type = 'text';
     inRR.inputMode = 'decimal';
     inRR.id = 'btRRInput';
     const initRR = selectedStyle === 'SCALPING' ? '1.6' : selectedStyle === 'SWING' ? '2.6' : '2.0';
     inRR.value = initRR;
-    inRR.style.width = '75px';
+    inRR.style.width = '84px';
     inRR.style.textAlign = 'center';
 
-    const rrPresets = node('div', null, 'bt-rr-presets');
     const syncPresetButtons = (valStr) => {
       const normalized = String(valStr).replace(/,/g, '.').trim();
-      rrPresets.querySelectorAll('.bt-rr-preset-btn').forEach(b => {
+      inRRWrap.querySelectorAll('.chp').forEach(b => {
+        b.classList.toggle('on', b.dataset.rr === normalized);
         b.classList.toggle('active', b.dataset.rr === normalized);
       });
     };
 
+    const presetButtonsWrap = [];
     ['1.5', '1.8', '2.0', '2.5', '3.0'].forEach(val => {
-      const pBtn = node('button', '1:' + val, 'bt-rr-preset-btn');
+      const pBtn = node('button', '1:' + val, 'chp bt-rr-preset-btn');
       pBtn.type = 'button';
       pBtn.dataset.rr = val;
-      if (val === initRR) pBtn.classList.add('active');
+      if (val === initRR) {
+        pBtn.classList.add('on');
+        pBtn.classList.add('active');
+      }
       pBtn.addEventListener('click', () => {
         inRR.value = val;
         syncPresetButtons(val);
         executeAndRender();
       });
-      rrPresets.append(pBtn);
+      presetButtonsWrap.push(pBtn);
     });
 
-    inRRWrap.append(inRR, rrPresets);
+    inRRWrap.append(inRR, ...presetButtonsWrap);
     fRR.append(inRRWrap);
 
-    const runBtn = node('button', null, 'btn-action btn-backtest-run');
+    const runBtn = node('button', null, 'bt pr btn-action btn-backtest-run');
     runBtn.type = 'button';
     runBtn.id = 'btRunBtn';
     const runSvg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
@@ -5005,7 +5079,7 @@ Instruksi Format Output & Larangan Bocor Chain-of-Thought dan Perencanaan Rules 
     const rpa = document.createElementNS('http://www.w3.org/2000/svg', 'path');
     rpa.setAttribute('d', 'M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15');
     runSvg.append(rpl1, rpl2, rpa);
-    runBtn.append(runSvg, node('span', 'Jalankan Ulang Backtest'));
+    runBtn.append(runSvg, node('span', 'Jalankan ulang backtest'));
 
     bottomBar.append(fRR, runBtn);
     controls.append(topGrid, bottomBar);
@@ -5059,61 +5133,10 @@ Instruksi Format Output & Larangan Bocor Chain-of-Thought dan Perencanaan Rules 
       executeAndRender();
     });
 
-    // 6-Card Stats Grid (balanced 3x2)
-    const statsGrid = node('div', null, 'backtest-stats-grid');
-
-    const cardWinRate = node('div', null, 'backtest-stat-card');
-    cardWinRate.append(node('div', 'WIN RATE', 'bt-stat-label'));
-    const valWinRate = node('div', '0.0%', 'bt-stat-value');
-    valWinRate.id = 'btStatWinRate';
-    const subWinRate = node('div', '0 Win / 0 Loss / 0 BE', 'bt-stat-sub');
-    subWinRate.id = 'btStatWinDetail';
-    cardWinRate.append(valWinRate, subWinRate);
-
-    const cardTrades = node('div', null, 'backtest-stat-card');
-    cardTrades.append(node('div', 'TOTAL TRANSAKSI', 'bt-stat-label'));
-    const valTrades = node('div', '0 Trades', 'bt-stat-value');
-    valTrades.id = 'btStatTrades';
-    const subTrades = node('div', '1 Jan 2024 - Sekarang', 'bt-stat-sub');
-    subTrades.id = 'btStatTradesSub';
-    cardTrades.append(valTrades, subTrades);
-
-    const cardProfit = node('div', null, 'backtest-stat-card');
-    cardProfit.append(node('div', 'NET PROFIT & RETURN', 'bt-stat-label'));
-    const valProfit = node('div', '$0.00', 'bt-stat-value');
-    valProfit.id = 'btStatProfit';
-    const subReturn = node('div', '0.00% Return', 'bt-stat-sub');
-    subReturn.id = 'btStatReturn';
-    cardProfit.append(valProfit, subReturn);
-
-    const cardPF = node('div', null, 'backtest-stat-card');
-    cardPF.append(node('div', 'PROFIT FACTOR', 'bt-stat-label'));
-    const valPF = node('div', '0.00', 'bt-stat-value');
-    valPF.id = 'btStatPF';
-    cardPF.append(valPF, node('div', 'Gross Profit / Gross Loss', 'bt-stat-sub'));
-
-    const cardDD = node('div', null, 'backtest-stat-card');
-    cardDD.append(node('div', 'MAXIMUM DRAWDOWN', 'bt-stat-label'));
-    const valDD = node('div', '0.00%', 'bt-stat-value');
-    valDD.id = 'btStatDD';
-    const subDD = node('div', 'Batas Toleransi: 30% (GOLD)', 'bt-stat-sub');
-    subDD.id = 'btStatDDLimit';
-    cardDD.append(valDD, subDD);
-
-    const cardEquity = node('div', null, 'backtest-stat-card');
-    cardEquity.append(node('div', 'FINAL EQUITY', 'bt-stat-label'));
-    const valEquity = node('div', '$1,000.00', 'bt-stat-value');
-    valEquity.id = 'btStatEquity';
-    const subPeak = node('div', 'Peak Equity: $1,000.00', 'bt-stat-sub');
-    subPeak.id = 'btStatPeak';
-    cardEquity.append(valEquity, subPeak);
-
-    statsGrid.append(cardWinRate, cardTrades, cardProfit, cardPF, cardDD, cardEquity);
-
-    // Chart Card
-    const chartCard = node('div', null, 'backtest-chart-card');
-    const chartHeader = node('div', null, 'bt-chart-header');
-    chartHeader.append(node('span', 'CLOSED EQUITY CURVE (1 JAN 2024 - SEKARANG)'));
+    // 3. Chart Card (Closed Equity Curve)
+    const chartCard = node('section', null, 'card backtest-chart-card');
+    const chartHeader = node('div', null, 'ph bt-chart-header');
+    chartHeader.append(node('span', 'CLOSED EQUITY CURVE (1 JAN 2024 - SEKARANG)', 'cap'));
     const chartSummary = node('span', 'Start: $1,000.00 -> End: $1,000.00', 'bt-chart-sub');
     chartSummary.id = 'btChartSummary';
     chartHeader.append(chartSummary);
@@ -5124,24 +5147,27 @@ Instruksi Format Output & Larangan Bocor Chain-of-Thought dan Perencanaan Rules 
     svgWrap.style.height = '180px';
     chartCard.append(chartHeader, svgWrap);
 
-    // Table Card
-    const tableCard = node('div', null, 'backtest-table-card');
-    const tableHeader = node('div', null, 'bt-table-header');
-    const headerTitleBox = node('h4');
-    headerTitleBox.append(node('span', 'Detail Transaksi Historis'));
-    const countBadge = node('span', '0 Transaksi', 'bt-badge-be');
+    // 4. Detail Transaksi Historis Table Card
+    const tableCard = node('section', null, 'card backtest-table-card');
+    const tableHeader = node('div', null, 'ph bt-table-header');
+    const headerTitleBox = node('div');
+    headerTitleBox.style.display = 'flex';
+    headerTitleBox.style.alignItems = 'center';
+    headerTitleBox.style.gap = '12px';
+    headerTitleBox.append(node('span', 'Detail transaksi historis', 'cap'));
+    const countBadge = node('span', '0 Transaksi', 'tag bt-badge-be');
     countBadge.id = 'btTradeCountBadge';
     headerTitleBox.append(countBadge);
 
-    const filterGroup = node('div', null, 'bt-filter-group');
-    const btnAll = node('button', 'Semua (0)', 'bt-filter-btn active');
-    const btnWin = node('button', 'Menang (0)', 'bt-filter-btn');
-    const btnLoss = node('button', 'Kalah (0)', 'bt-filter-btn');
-    const btnBE = node('button', 'BE (0)', 'bt-filter-btn');
+    const filterGroup = node('div', null, 'tabs bt-filter-group');
+    const btnAll = node('button', 'Semua (0)', 'tab bt-filter-btn on active');
+    const btnWin = node('button', 'Profit (0)', 'tab bt-filter-btn');
+    const btnLoss = node('button', 'Loss (0)', 'tab bt-filter-btn');
+    const btnBE = node('button', 'BE (0)', 'tab bt-filter-btn');
     filterGroup.append(btnAll, btnWin, btnLoss, btnBE);
     tableHeader.append(headerTitleBox, filterGroup);
 
-    const tableWrap = node('div');
+    const tableWrap = node('div', null, 'tw');
     tableWrap.style.maxHeight = '320px';
     tableWrap.style.overflowY = 'auto';
 
@@ -5175,19 +5201,20 @@ Instruksi Format Output & Larangan Bocor Chain-of-Thought dan Perencanaan Rules 
     tableWrap.append(tableEl);
     tableCard.append(tableHeader, tableWrap);
 
-    const actionsRow = node('div', null, 'backtest-actions-row');
-    const copyReportBtn = node('button', 'Salin Laporan (Markdown)', 'btn-action');
+    // 5. Actions Footer (.mf)
+    const actionsRow = node('div', null, 'mf backtest-actions-row');
+    const copyReportBtn = node('button', 'Salin laporan (Markdown)', 'bt');
     copyReportBtn.type = 'button';
     copyReportBtn.id = 'btCopyReportBtn';
 
-    const closeBottomBtn = node('button', 'Tutup', 'btn btn-ghost');
+    const closeBottomBtn = node('button', 'Tutup', 'bt');
     closeBottomBtn.type = 'button';
     closeBottomBtn.id = 'btCloseBottomBtn';
     closeBottomBtn.addEventListener('click', closeModal);
 
     actionsRow.append(copyReportBtn, closeBottomBtn);
 
-    body.append(controls, statsGrid, chartCard, tableCard, actionsRow);
+    body.append(heroSection, controls, chartCard, tableCard, actionsRow);
     dialog.append(header, body);
     backdrop.append(dialog);
     document.body.append(backdrop);
@@ -5208,45 +5235,33 @@ Instruksi Format Output & Larangan Bocor Chain-of-Thought dan Perencanaan Rules 
       const tf = sTf.value;
       const st = sStyle.value;
       const period = sPeriod ? sPeriod.value : '1-2_YEARS';
-      const cap = parseLocaleNumber(inCap.value, 1000);
-      const rsk = parseLocaleNumber(inRisk.value, 2.0);
-      const rr = parseLocaleNumber(inRR.value, 2.0);
+      const initialCapital = parseLocaleNumber(inCap.value, 1000);
+      const riskPct = parseLocaleNumber(inRisk.value, 2.0);
+      const targetRR = parseLocaleNumber(inRR.value, 2.0);
 
-      subTitle.replaceChildren();
-      if (opts.strategy?.name) {
-        const sBadge = node('span', 'Strategi: ' + opts.strategy.name, 'bt-badge-sub');
-        subTitle.append(sBadge);
-      }
-      const pairBadge = node('span', inst, 'bt-badge-sub bold');
-      const tfBadge = node('span', tf.toUpperCase(), 'bt-badge-sub');
-      const rrBadge = node('span', 'RR 1:' + rr.toFixed(1), 'bt-badge-sub');
-      const periodLabel = period === '1-2_YEARS' ? '1 Jan 2024 - Sekarang' : (period === '6_MONTHS' ? '6 Bulan' : '500 Bars');
-      const periodBadge = node('span', periodLabel, 'bt-badge-sub');
-      const confirmBadge = node('span', '7/7 Konfirmasi Kaystrade', 'bt-badge-sub highlight-green');
-      const antiClusterBadge = node('span', 'Anti-Overtrading', 'bt-badge-sub');
-      subTitle.append(pairBadge, tfBadge, rrBadge, periodBadge, confirmBadge, antiClusterBadge);
+      const candlesToUse = (opts.candles && opts.candles.length) ? opts.candles : (currentCandles.length ? currentCandles : null);
 
-      let candInput = null;
-      if (period === '500_BARS' && opts.candles && opts.pair === inst) {
-        if (opts.timeframe === tf) {
-          candInput = opts.candles;
-        } else {
-          candInput = aggregateCandlesToTF(opts.candles, opts.timeframe, tf);
-        }
-      }
-
-      const res = runKaystradeBacktestEngine(candInput, {
+      const res = runKaystradeBacktestEngine(candlesToUse, {
         instrument: inst,
         timeframe: tf,
         tradingStyle: st,
         period: period,
-        initialBalance: cap,
-        riskPercent: rsk,
-        targetRR: rr
+        initialBalance: initialCapital,
+        riskPercent: riskPct,
+        targetRR: targetRR
       });
 
       lastResult = res;
 
+      // Update subtitle
+      subTitle.replaceChildren();
+      const stratPfx = opts.strategy ? (opts.strategy.name + ' · ') : '';
+      subTitle.append(
+        document.createTextNode(stratPfx + res.instrument + ' · ' + res.timeframe.toUpperCase() + ' · RR 1:' + targetRR.toFixed(1) + ' · 1 Jan 2024 - Sekarang · '),
+        node('b', '7/7 Konfirmasi Kaystrade Anti-Overtrading')
+      );
+
+      // Update stats and hero cards
       valWinRate.textContent = res.winRate.toFixed(1) + '%';
       subWinRate.textContent = res.winTrades + ' Win / ' + res.lossTrades + ' Loss / ' + res.beTrades + ' BE';
 
@@ -5261,24 +5276,19 @@ Instruksi Format Output & Larangan Bocor Chain-of-Thought dan Perencanaan Rules 
 
       const profitSign = res.netProfit >= 0 ? '+' : '';
       valProfit.textContent = profitSign + '$' + res.netProfit.toFixed(2);
-      valProfit.style.color = res.netProfit >= 0 ? '#10b981' : '#ef4444';
+      valProfit.style.color = res.netProfit >= 0 ? '#5EE2AE' : '#F58A8A';
       subReturn.textContent = profitSign + res.netReturnPercent.toFixed(2) + '% Return';
-      subReturn.style.color = res.netProfit >= 0 ? '#10b981' : '#ef4444';
+      subReturn.style.color = res.netProfit >= 0 ? '#5EE2AE' : '#F58A8A';
 
       valPF.textContent = res.profitFactor.toFixed(2);
-      valPF.style.color = res.profitFactor >= 1.5 ? '#10b981' : (res.profitFactor >= 1.0 ? '#facc15' : '#ef4444');
+      valPF.className = res.profitFactor >= 1.5 ? 'g' : (res.profitFactor >= 1.0 ? 'w' : 'r');
 
       valDD.textContent = res.maxDrawdown.toFixed(2) + '%';
-      valDD.style.color = res.maxDrawdownExceeded ? '#ef4444' : '#10b981';
+      valDD.className = res.maxDrawdownExceeded ? 'r' : 'w';
       subDD.textContent = 'Batas Toleransi: ' + res.maxDrawdownLimit + '% (' + (res.instrument.includes('XAU') ? 'GOLD' : 'FOREX/CRYPTO') + ')';
-      if (res.maxDrawdownExceeded) {
-        cardDD.className = 'backtest-stat-card highlight-red';
-      } else {
-        cardDD.className = 'backtest-stat-card';
-      }
 
       valEquity.textContent = '$' + res.finalEquity.toFixed(2);
-      valEquity.style.color = res.finalEquity >= res.initialBalance ? '#10b981' : '#ef4444';
+      valEquity.style.color = res.finalEquity >= res.initialBalance ? '#5EE2AE' : '#F58A8A';
       const peakVal = (res.peakEquity != null && !isNaN(res.peakEquity)) ? res.peakEquity : res.finalEquity;
       subPeak.textContent = 'Peak Equity: $' + peakVal.toFixed(2);
 
@@ -5287,8 +5297,8 @@ Instruksi Format Output & Larangan Bocor Chain-of-Thought dan Perencanaan Rules 
 
       countBadge.textContent = res.trades.length + ' Transaksi';
       btnAll.textContent = 'Semua (' + res.trades.length + ')';
-      btnWin.textContent = 'Menang (' + res.winTrades + ')';
-      btnLoss.textContent = 'Kalah (' + res.lossTrades + ')';
+      btnWin.textContent = 'Profit (' + res.winTrades + ')';
+      btnLoss.textContent = 'Loss (' + res.lossTrades + ')';
       btnBE.textContent = 'BE (' + res.beTrades + ')';
 
       let activeFilter = 'ALL';
@@ -5302,7 +5312,10 @@ Instruksi Format Output & Larangan Bocor Chain-of-Thought dan Perencanaan Rules 
       filterButtons.forEach(({ id, el }) => {
         el.onclick = () => {
           activeFilter = id;
-          filterButtons.forEach(f => f.el.classList.toggle('active', f.id === id));
+          filterButtons.forEach(f => {
+            f.el.classList.toggle('active', f.id === id);
+            f.el.classList.toggle('on', f.id === id);
+          });
           renderRows();
         };
       });
@@ -5344,7 +5357,7 @@ Instruksi Format Output & Larangan Bocor Chain-of-Thought dan Perencanaan Rules 
 
           const tdDir = node('td');
           tdDir.style.padding = '8px 10px';
-          const pillDir = node('span', t.direction, t.direction === 'BUY' ? 'bt-pill-buy' : 'bt-pill-sell');
+          const pillDir = node('span', t.direction, t.direction === 'BUY' ? 'tag wn' : 'tag l');
           tdDir.append(pillDir);
 
           const tdTime = node('td', fmtTime(t.entryTime));
@@ -5370,11 +5383,11 @@ Instruksi Format Output & Larangan Bocor Chain-of-Thought dan Perencanaan Rules 
           const tdPnl = node('td', (t.pnl >= 0 ? '+' : '') + '$' + t.pnl.toFixed(2) + retPctText);
           tdPnl.style.padding = '8px 10px';
           tdPnl.style.fontWeight = '700';
-          tdPnl.style.color = t.pnl > 0 ? '#10b981' : (t.pnl < 0 ? '#ef4444' : '#94a3b8');
+          tdPnl.style.color = t.pnl > 0 ? '#5EE2AE' : (t.pnl < 0 ? '#F58A8A' : '#94a3b8');
 
           const tdStatus = node('td');
           tdStatus.style.padding = '8px 10px';
-          const badge = node('span', t.outcome, t.outcome === 'WIN' ? 'bt-badge-win' : (t.outcome === 'LOSS' ? 'bt-badge-loss' : 'bt-badge-be'));
+          const badge = node('span', t.outcome, t.outcome === 'WIN' ? 'tag wn' : (t.outcome === 'LOSS' ? 'tag l' : 'tag'));
           tdStatus.append(badge);
 
           const tdReason = node('td', t.reason);
@@ -5393,10 +5406,21 @@ Instruksi Format Output & Larangan Bocor Chain-of-Thought dan Perencanaan Rules 
     copyReportBtn.addEventListener('click', () => {
       if (!lastResult) return;
       const md = generateBacktestMarkdown(lastResult);
-      if (navigator.clipboard) {
-        navigator.clipboard.writeText(md);
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(md).then(() => {
+          const originalText = copyReportBtn.textContent;
+          copyReportBtn.textContent = 'Tersalin!';
+          setTimeout(() => { copyReportBtn.textContent = originalText; }, 2000);
+        });
+      } else {
+        const ta = document.createElement('textarea');
+        ta.value = md;
+        document.body.append(ta);
+        ta.select();
+        document.execCommand('copy');
+        ta.remove();
         const originalText = copyReportBtn.textContent;
-        copyReportBtn.textContent = 'Laporan Tersalin!';
+        copyReportBtn.textContent = 'Tersalin!';
         setTimeout(() => { copyReportBtn.textContent = originalText; }, 2000);
       }
     });
@@ -5404,7 +5428,7 @@ Instruksi Format Output & Larangan Bocor Chain-of-Thought dan Perencanaan Rules 
     executeAndRender();
   }
 
-  async function marketIntelligence() {
+    async function marketIntelligence() {
     filters = {};
     let mapped = [], chartOnly = false, selectedFrame = '30m', context = null, stored = null, contextSequence = 0;
     const marketController = controller;
@@ -5479,15 +5503,40 @@ Instruksi Format Output & Larangan Bocor Chain-of-Thought dan Perencanaan Rules 
     const mNavJson = node('button', 'Copy JSON', 'm-nav-btn');
     mNavJson.type = 'button';
     mNavJson.addEventListener('click', exportSignalJSON);
-        const mNavBt = node('button', 'Backtest (500 Bars)', 'm-nav-btn btn-backtest');
+    const mNavBt = node('button', 'Backtest (500 Bars)', 'm-nav-btn btn-backtest');
     mNavBt.type = 'button';
     mNavBt.addEventListener('click', () => openBacktestModal({ pair: currentPairObj.code, timeframe: selectedFrame, candles: currentCandles }));
     mobileQuickNav.append(mNavAi, mNavBt, mNavFb, mNavNews, mNavWarn, mNavSkill, mNavJson);
 
-    const mainCard = node('main', null, 'main-card');
-    content.append(mobileQuickNav, mainCard);
+    // Header section matching AIMarket.dc.html (.hd)
+    const marketHeader = node('div', null, 'hd pro-market-header');
+    const headerTitleWrap = node('div');
+    headerTitleWrap.append(
+      node('h1', 'AI Market Intelligence'),
+      node('p', 'Analisis entry, chart live, dan backtest strategi dalam satu tempat.', 'm')
+    );
+    const headerRefreshBtn = node('button', 'Muat ulang bagian', 'bt');
+    headerRefreshBtn.type = 'button';
+    headerRefreshBtn.id = 'pro-market-refresh';
+    headerRefreshBtn.addEventListener('click', () => handleMarketRefresh());
+    marketHeader.append(headerTitleWrap, headerRefreshBtn);
 
-    // BANNER PERINGATAN 1 JAM SEBELUM HIGH IMPACT NEWS
+    // Alert Box matching AIMarket.dc.html (.al)
+    const marketAlertBox = node('div', null, 'al pro-market-alert');
+    marketAlertBox.id = 'marketAlertBox';
+    marketAlertBox.style.display = 'none';
+    const alTextWrap = node('div');
+    const alTitle = node('b', 'Status Pasar');
+    alTitle.id = 'alTitle';
+    const alMsg = node('span', 'Terhubung ke feed pasar real-time.', 'code');
+    alMsg.id = 'alMsg';
+    alTextWrap.append(alTitle, alMsg);
+    const alRetryBtn = node('button', 'Coba lagi', 'bt wn');
+    alRetryBtn.type = 'button';
+    alRetryBtn.addEventListener('click', () => handleMarketRefresh());
+    marketAlertBox.append(alTextWrap, alRetryBtn);
+
+    // High Impact News Warning Banner
     const newsWarningBanner = node('div', null, 'news-warning-banner');
     newsWarningBanner.id = 'newsWarningBanner';
     const nwLeft = node('div', null, 'nw-left');
@@ -5509,27 +5558,36 @@ Instruksi Format Output & Larangan Bocor Chain-of-Thought dan Perencanaan Rules 
     nwResetBtn.addEventListener('click', clearSimulatedWarning);
     nwRight.append(nwTimer, nwResetBtn);
     newsWarningBanner.append(nwLeft, nwRight);
+
+    // Main Card / Flow Container
+    const mainCard = node('main', null, 'main-card pro-market-flow');
+    content.append(mobileQuickNav, marketHeader, marketAlertBox, mainCard);
     mainCard.append(newsWarningBanner);
 
-    // Controls Grid
-    const controlsGrid = node('div', null, 'controls-grid');
-    mainCard.append(controlsGrid);
+    // =========================================================================
+    // CARD 1: Kontrol & Filter (.card)
+    // =========================================================================
+    const controlsCard = node('section', null, 'card pro-controls-card');
 
-    // 1. Search / Custom Pair Input
-    const pairSearchWrapper = node('div', null, 'pair-search-wrapper');
+    const flGrid = node('div', null, 'fl');
+    flGrid.style.position = 'relative';
+
+    // 1. Custom Pair Search Input
+    const pairSearchWrapper = node('div', null, 'fg pair-search-wrapper');
     pairSearchWrapper.id = 'pairSearchWrapper';
-    const pairLabel = node('label', 'Search / Input Custom Pair (XAUUSD, GBPJPY, SOLUSDT, PEPEUSDT, dll.)');
-    const pairInputGroup = node('div', null, 'pair-input-group');
-    const pairSearchInput = node('input');
+    pairSearchWrapper.append(node('label', 'Pair kustom (XAUUSD, GBPJPY, SOLUSDT, ...)'));
+    const pairRow = node('div', null, 'pairrow');
+    const pairSearchInput = node('input', null, 'f');
     pairSearchInput.type = 'text';
     pairSearchInput.id = 'pairSearchInput';
     pairSearchInput.placeholder = 'Cari atau ketik pair custom...';
     pairSearchInput.value = currentPairObj.code;
     pairSearchInput.autocomplete = 'off';
 
-    const btnUsePair = node('button', 'Pakai', 'btn-use-pair');
+    const btnUsePair = node('button', 'Pakai', 'bt pr btn-use-pair');
     btnUsePair.type = 'button';
-    pairInputGroup.append(pairSearchInput, btnUsePair);
+    pairRow.append(pairSearchInput, btnUsePair);
+    pairSearchWrapper.append(pairRow);
 
     // Synchronized select for test compatibility
     const instrument = select('Preset Instrument', [], '', 'pro-market-instrument');
@@ -5555,21 +5613,20 @@ Instruksi Format Output & Larangan Bocor Chain-of-Thought dan Perencanaan Rules 
     const pairListContainer = node('div', null, 'pair-list');
     pairListContainer.id = 'pairListContainer';
     pairDropdown.append(catTabs, pairListContainer);
-    pairSearchWrapper.append(pairLabel, pairInputGroup, pairDropdown);
-    controlsGrid.append(pairSearchWrapper, instrument.wrap);
+    pairSearchWrapper.append(pairDropdown);
 
     // 2. Trading Style Select
-    const styleWrap = node('div', null, 'field-group pro-control-field');
-    const styleLabel = node('label', 'Strategi Trading (Intraday & Scalping + FastBull Entry)');
+    const styleFg = node('div', null, 'fg field-group pro-control-field');
+    const styleLabel = node('label', 'Strategi trading');
     styleLabel.setAttribute('for', 'pro-market-style');
-    styleWrap.append(styleLabel);
-    const styleSelect = node('select');
+    styleFg.append(styleLabel);
+    const styleSelect = node('select', null, 'f');
     styleSelect.id = 'pro-market-style';
     const styleOptions = [
       ['', 'Pilih Strategi Trading'],
-      ['INTRADAY', 'INTRADAY (Max 24h · H4->H1->M30 · RR 1:2.5-3.2)'],
-      ['SCALPING', 'SCALPING (Fast M15/M30 · Tight Base · RR 1:2.0-2.4)'],
-      ['SWING', 'SWING (Hold until TP/SL · H4/D1 · RR 1:3.5-4.0)']
+      ['INTRADAY', 'INTRADAY (Max 24h · H4)'],
+      ['SCALPING', 'SCALPING (Fast M15/M30)'],
+      ['SWING', 'SWING (Hold until TP/SL · H4/D1)']
     ];
     styleOptions.forEach(([val, lbl]) => {
       const opt = node('option', lbl);
@@ -5578,22 +5635,20 @@ Instruksi Format Output & Larangan Bocor Chain-of-Thought dan Perencanaan Rules 
       styleSelect.append(opt);
     });
     styleSelect.value = savedStyle;
-    styleWrap.append(styleSelect);
-    enhanceProSelect(styleWrap, styleSelect);
-    const style = { wrap: styleWrap, input: styleSelect };
-    controlsGrid.append(styleWrap);
+    styleFg.append(styleSelect);
+    const style = { wrap: styleFg, input: styleSelect };
 
-    // 3. Mode Penentuan Entry FastBull (list-position)
-    const fastbullWrap = node('div', null, 'field-group pro-control-field');
-    const fbLabel = node('label', 'Mode Penentuan Entry FastBull (list-position)');
+    // 3. Mode Penentuan Entry FastBull
+    const fbFg = node('div', null, 'fg field-group pro-control-field');
+    const fbLabel = node('label', 'Mode entry FastBull');
     fbLabel.setAttribute('for', 'fastbullModeSelect');
-    fastbullWrap.append(fbLabel);
-    const fastbullModeSelect = node('select');
+    fbFg.append(fbLabel);
+    const fastbullModeSelect = node('select', null, 'f');
     fastbullModeSelect.id = 'fastbullModeSelect';
     const fbOptions = [
-      ['SMART_BLEND', 'Auto Blend (Institusi Order + Contrarian Ratio)'],
-      ['INSTITUTIONAL_FOLLOW', 'Ikuti Klaster Order Institusi (Bank Positions)'],
-      ['RETAIL_CONTRARIAN', 'Contrarian (Lawan Kerumunan Ritel Ekstrem >65%)']
+      ['SMART_BLEND', 'Auto Blend (Institusi + Orderflow)'],
+      ['INSTITUTIONAL_FOLLOW', 'Ikuti Klaster Posisi Bank'],
+      ['RETAIL_CONTRARIAN', 'Contrarian Kerumunan Ritel']
     ];
     fbOptions.forEach(([val, lbl]) => {
       const opt = node('option', lbl);
@@ -5601,59 +5656,44 @@ Instruksi Format Output & Larangan Bocor Chain-of-Thought dan Perencanaan Rules 
       fastbullModeSelect.append(opt);
     });
     fastbullModeSelect.addEventListener('change', () => evaluateKaystradeEngine(true));
-    fastbullWrap.append(fastbullModeSelect);
-    enhanceProSelect(fastbullWrap, fastbullModeSelect);
-    controlsGrid.append(fastbullWrap);
+    fbFg.append(fastbullModeSelect);
 
-    // 4. Chart Mode Select
-    const modeWrap = node('div', null, 'field-group pro-control-field');
-    const modeLabel = node('label', 'Mode Tampilan Chart (16:9)');
-    modeLabel.setAttribute('for', 'chartModeSelect');
-    modeWrap.append(modeLabel);
-    const chartModeSelect = node('select');
+    // 4. Mode Tampilan Chart (16:9)
+    const chartFg = node('div', null, 'fg field-group pro-control-field');
+    const chartLabel = node('label', 'Tampilan chart (16:9)');
+    chartLabel.setAttribute('for', 'chartModeSelect');
+    chartFg.append(chartLabel);
+    const chartModeSelect = node('select', null, 'f');
     chartModeSelect.id = 'chartModeSelect';
-    const optLW = node('option', 'Kaystrade 16:9 Engine (500 Bars)');
+    const optLW = node('option', 'Kaystrade 16:9 Engine');
     optLW.value = 'LIGHTWEIGHT';
-    const optTV = node('option', 'TradingView Official Widget (16:9)');
+    const optTV = node('option', 'TradingView Official Widget');
     optTV.value = 'TV_WIDGET';
     chartModeSelect.append(optLW, optTV);
     chartModeSelect.addEventListener('change', toggleChartMode);
-    modeWrap.append(chartModeSelect);
-    enhanceProSelect(modeWrap, chartModeSelect);
-    controlsGrid.append(modeWrap);
+    chartFg.append(chartModeSelect);
 
-    // Bar Penjelasan Parameter Strategi Aktif
-    const strategyProfileBar = node('div', null, 'strategy-profile-bar');
+    flGrid.append(pairSearchWrapper, styleFg, fbFg, chartFg, instrument.wrap);
+
+    // Bar Penjelasan Parameter Strategi Aktif (.info)
+    const strategyProfileBar = node('div', null, 'info');
     strategyProfileBar.id = 'strategyProfileBar';
-    const spLeft = node('div');
-    const spBadge = node('span', 'MODE: INTRADAY', 'sp-badge');
+    const spBadge = node('b', 'MODE: INTRADAY');
     spBadge.id = 'spNameBadge';
-    const spRule = node('span', ' Arah Utama: Big Trend H4 + Speedometer D1/H4 | Entry: Retest Base H1/M30 + Klaster Posisi FastBull | Durasi Maks: 24 Jam');
+    const spRule = node('span', 'Arah utama: Big Trend H4 + Speedometer D1/H4 · Entry: Retest Base H1/M30 + klaster posisi FastBull · Durasi maks 24 jam');
     spRule.id = 'spRuleDesc';
-    spRule.style.marginLeft = '8px';
-    spRule.style.color = '#cbd5e1';
-    spLeft.append(spBadge, spRule);
-    const spRisk = node('span', 'FastBull Position Synced · Max SL GOLD: $100/oz');
+    const spRisk = node('i', 'FastBull Position Synced · Max SL GOLD: $180/oz');
     spRisk.id = 'spRiskInfo';
-    spRisk.style.fontFamily = "'JetBrains Mono', monospace";
-    spRisk.style.fontSize = '11px';
-    spRisk.style.color = '#34d399';
-    strategyProfileBar.append(spLeft, spRisk);
-    mainCard.append(strategyProfileBar);
+    strategyProfileBar.append(spBadge, spRule, spRisk);
 
-    // Quick Pairs Bar
-    const quickPairsBar = node('div', null, 'quick-pairs-bar');
-    const qpLabel = node('span', 'Quick Pair:');
-    qpLabel.style.fontSize = '11px';
-    qpLabel.style.color = 'var(--text-muted)';
-    qpLabel.style.fontWeight = '700';
-    qpLabel.style.flexShrink = '0';
-    quickPairsBar.append(qpLabel);
-
+    // Quick Pairs Bar (.pills)
+    const qpLabel = node('span', 'Pair cepat', 'lab');
+    const quickPairsBar = node('div', null, 'pills');
+    quickPairsBar.id = 'quickPairsBar';
     const quickList = ['XAUUSD', 'BTCUSD', 'EURUSD', 'GBPUSD', 'USDJPY', 'GBPJPY', 'EURJPY', 'AUDUSD', 'XAGUSD', 'ETHUSDT', 'SOLUSDT', 'PEPEUSDT'];
     quickList.forEach(code => {
       const label = code === 'ETHUSDT' ? 'ETHUSD' : (code === 'SOLUSDT' ? 'SOLUSD' : (code === 'PEPEUSDT' ? 'PEPEUSD' : code));
-      const chip = node('button', label, 'qp-chip' + (code === 'XAUUSD' ? ' active' : ''));
+      const chip = node('button', label, 'pill' + (code === 'XAUUSD' ? ' on active' : ''));
       chip.type = 'button';
       chip.dataset.code = code;
       chip.setAttribute('aria-label', 'Pilih pair ' + label);
@@ -5664,50 +5704,88 @@ Instruksi Format Output & Larangan Bocor Chain-of-Thought dan Perencanaan Rules 
       });
       quickPairsBar.append(chip);
     });
-    mainCard.append(quickPairsBar);
 
-    // Top Bar Flex (Timeframes & Feed Status)
-    const topBarFlex = node('div', null, 'top-bar-flex');
-    const tfBar = node('div', null, 'tf-bar');
+    // Timeframe Row
+    const tfRow = node('div');
+    tfRow.style.display = 'flex';
+    tfRow.style.justifyContent = 'space-between';
+    tfRow.style.alignItems = 'center';
+    tfRow.style.gap = '12px';
+    tfRow.style.flexWrap = 'wrap';
+
+    const tfLeft = node('div');
+    tfLeft.append(node('span', 'Timeframe', 'lab'));
+    const tfBar = node('div', null, 'tf');
     tfBar.id = 'tfBar';
     const tfList = [['1m', 'M1'], ['5m', 'M5'], ['15m', 'M15'], ['30m', 'M30'], ['1h', 'H1'], ['4h', 'H4'], ['1d', 'D1']];
     tfList.forEach(([frame, label]) => {
       const btn = button(label, () => chooseFrame(frame), 'pro-timeframe-' + frame);
-      btn.className = 'tf-btn' + (frame === selectedFrame ? ' active' : '');
+      btn.className = 'pill tf-btn' + (frame === selectedFrame ? ' on active' : '');
       btn.dataset.frame = frame;
       btn.setAttribute('aria-pressed', frame === selectedFrame ? 'true' : 'false');
       tfBar.append(btn);
     });
+    tfLeft.append(tfBar);
 
-    const activeFeedInfo = node('div', 'Kompilasi Penuh: 500 Bars Teknikal + FastBull list-position + Berita Ekonomi', 'pro-feed-info');
+    const activeFeedInfo = node('span', 'Kompilasi penuh: 500 bar teknikal + posisi FastBull + berita ekonomi', 'm');
     activeFeedInfo.id = 'activeFeedInfo';
-    activeFeedInfo.style.fontSize = '11px';
-    activeFeedInfo.style.color = '#94a3b8';
+    activeFeedInfo.style.fontSize = '12px';
 
-    const freshness = node('p', 'Live Market Feed Active (XAUUSD · 15M · 16:9)', 'pro-muted');
+    const freshness = node('p', 'Live Market Feed Active (XAUUSD · 15M · 16:9)', 'pro-muted sr-only-compat');
     freshness.id = 'pro-market-freshness';
 
-    topBarFlex.append(tfBar, activeFeedInfo);
-    mainCard.append(topBarFlex, freshness);
+    tfRow.append(tfLeft, activeFeedInfo, freshness);
 
-    // Action Buttons Grid
-    const actionGrid = node('div', null, 'action-grid');
-    const generate = button('Analyze Entry (Tech + FastBull)', () => runKaystradeAnalysis(), 'pro-ai-generate');
-    generate.className = 'btn-action btn-primary';
+    // Action Button Groups (.grp)
+    const actionGroups = node('div', null, 'grp');
 
-    const syncFbBtn = button('Sync FastBull list-position', () => syncFastBullPositionData(true), 'btn-action');
+    // Group 1: Analisis
+    const gbAnalisis = node('div', null, 'gb');
+    gbAnalisis.append(node('small', 'Analisis'));
+    const rAnalisis = node('div', null, 'r');
+    const generate = button('Analisis entry (Tech + FastBull)', () => runKaystradeAnalysis(), 'pro-ai-generate');
+    generate.className = 'bt pr btn-action btn-primary';
+    const backtestBtn = button('Backtest strategi (500 bar)', () => openBacktestModal({
+      pair: currentPairObj.code,
+      timeframe: selectedFrame,
+      candles: currentCandles
+    }), 'pro-btn-backtest');
+    backtestBtn.className = 'bt sc btn-action btn-backtest';
+    rAnalisis.append(generate, backtestBtn);
+    gbAnalisis.append(rAnalisis);
 
-    const simWarnBtn = button('Simulasi Warning News < 1 Jam', triggerSimulatedHighImpactWarning, 'btn-danger-sim');
-    simWarnBtn.className = 'btn-action btn-danger-sim';
+    // Group 2: Data
+    const gbData = node('div', null, 'gb');
+    gbData.append(node('small', 'Data'));
+    const rData = node('div', null, 'r');
+    const syncFbBtn = button('Sinkron FastBull', () => syncFastBullPositionData(true), 'pro-sync-fastbull');
+    syncFbBtn.className = 'bt btn-action';
+    const refreshChartBtn = button('Refresh chart', () => handleMarketRefresh(), 'pro-refresh-chart');
+    refreshChartBtn.className = 'bt btn-action';
+    const copyJsonBtn = button('Salin JSON', exportSignalJSON, 'pro-copy-json');
+    copyJsonBtn.className = 'bt btn-action';
+    rData.append(syncFbBtn, refreshChartBtn, copyJsonBtn);
+    gbData.append(rData);
 
-    const refreshBtn = button('Refresh Chart', () => handleMarketRefresh(), 'pro-market-refresh');
-    refreshBtn.className = 'btn-action';
+    // Group 3: Chart
+    const gbChart = node('div', null, 'gb');
+    gbChart.append(node('small', 'Chart'));
+    const rChart = node('div', null, 'r');
+    const resetZoomBtn = button('Reset view', setTVRegularZoom, 'pro-reset-view');
+    resetZoomBtn.className = 'bt btn-action';
+    const fit500Btn = button('Fit 500 bar', fitAll500Bars, 'pro-fit-bars');
+    fit500Btn.className = 'bt btn-action';
+    rChart.append(resetZoomBtn, fit500Btn);
+    gbChart.append(rChart);
 
-    const resetZoomBtn = button('Reset View (16:9 Penuh)', setTVRegularZoom, 'btn-action');
-    const fit500Btn = button('Fit All 500 Bars', fitAll500Bars, 'btn-action');
-    const skillBtn = button('Lihat Full skill.md', () => toggleSkillModal(true), 'btn-action');
+    // Group 4: Alert & panduan
+    const gbAlert = node('div', null, 'gb');
+    gbAlert.append(node('small', 'Alert & panduan'));
+    const rAlert = node('div', null, 'r');
+    const simWarnBtn = button('Simulasi warning news', triggerSimulatedHighImpactWarning, 'pro-simulate-news');
+    simWarnBtn.className = 'bt wn btn-action btn-danger-sim';
 
-    const notificationBtn = button(browserNotifications ? 'Disable price alerts' : 'Enable browser notifications', async () => {
+    const notificationBtn = button(browserNotifications ? 'Nonaktifkan notifikasi' : 'Aktifkan notifikasi browser', async () => {
       const next = !browserNotifications;
       if (next && typeof Notification !== 'undefined' && Notification.permission !== 'granted') {
         const res = await Notification.requestPermission();
@@ -5715,61 +5793,63 @@ Instruksi Format Output & Larangan Bocor Chain-of-Thought dan Perencanaan Rules 
       }
       await request('/market/notification-preference', { method: 'PUT', body: { browser_notifications: next } });
       browserNotifications = next;
-      notificationBtn.textContent = next ? 'Disable price alerts' : 'Enable browser notifications';
+      notificationBtn.textContent = next ? 'Nonaktifkan notifikasi' : 'Aktifkan notifikasi browser';
     }, 'pro-browser-notifications');
-    notificationBtn.className = 'btn-action';
+    notificationBtn.className = 'bt btn-action';
 
-    const copyJsonBtn = button('Copy JSON', exportSignalJSON, 'btn-action');
-
-    const alertsToggleBtn = button('View alerts and notifications', async () => {
+    const alertsToggleBtn = button('Lihat alert', async () => {
       if (typeof loadNotifications === 'function') await loadNotifications();
       notificationsPanel?.scrollIntoView({ behavior: 'smooth' });
     }, 'pro-signal-notifications');
-    alertsToggleBtn.className = 'btn-action';
+    alertsToggleBtn.className = 'bt btn-action';
 
-        const backtestBtn = button('Backtest Strategi (500 Bars)', () => openBacktestModal({
-      pair: currentPairObj.code,
-      timeframe: selectedFrame,
-      candles: currentCandles
-    }), 'pro-btn-backtest');
-    backtestBtn.className = 'btn-action btn-backtest';
+    const skillBtn = button('Lihat skill.md', () => toggleSkillModal(true), 'pro-view-skill');
+    skillBtn.className = 'bt btn-action';
 
-    actionGrid.append(generate, backtestBtn, syncFbBtn, simWarnBtn, refreshBtn, resetZoomBtn, fit500Btn, skillBtn, notificationBtn, copyJsonBtn, alertsToggleBtn);
-    mainCard.append(actionGrid);
+    rAlert.append(simWarnBtn, notificationBtn, alertsToggleBtn, skillBtn);
+    gbAlert.append(rAlert);
 
-    // Chart Box (Full Width 16:9 Canvas)
-    const chartBox = node('div', null, 'chart-box');
-    const chartHeader = node('div', null, 'chart-header');
+    actionGroups.append(gbAnalisis, gbData, gbChart, gbAlert);
+
+    controlsCard.append(flGrid, strategyProfileBar, qpLabel, quickPairsBar, tfRow, actionGroups);
+    mainCard.append(controlsCard);
+
+    // =========================================================================
+    // CARD 2: Chart Section (16:9 Canvas) (.card)
+    // =========================================================================
+    const chartBox = node('section', null, 'card pro-chart-card chart-box');
+    const chartHeader = node('div', null, 'ch chart-header');
     const chartTitleWrap = node('div', null, 'chart-title-wrap');
-    const chartTitle = node('div', currentPairObj.code + ' (' + currentPairObj.name + ') · ' + selectedFrame.toUpperCase(), 'chart-title-main');
+    const chartTitle = node('h2', currentPairObj.code + ' (' + currentPairObj.name + ') · ' + selectedFrame.toUpperCase(), 'chart-title-main');
     chartTitle.id = 'chartTitle';
 
-    const legendPills = node('div', null, 'legend-pills');
+    const legendPills = node('div', null, 'lg legend-pills');
     const legItems = [
-      ['#facc15', 'H4 Key Pivot'],
-      ['#a855f7', 'FastBull + Base Entry'],
-      ['#ff2a5f', 'SL (Invalidation)'],
-      ['#00e676', 'TP (Target)']
+      ['#F2C14E', 'H4 Key Pivot'],
+      ['#A78BFA', 'FastBull + Base Entry'],
+      ['#F87171', 'SL'],
+      ['#34D399', 'TP']
     ];
     legItems.forEach(([color, label]) => {
       const item = node('span', null, 'leg-item');
-      const dot = node('span', null, 'leg-dot');
+      const dot = node('i', null, 'leg-dot');
       dot.style.background = color;
-      item.append(dot, node('span', label));
+      item.append(dot, document.createTextNode(label));
       legendPills.append(item);
     });
     chartTitleWrap.append(chartTitle, legendPills);
 
-    const chartBadgesRight = node('div', null, 'chart-badges-right');
-    const barsBadge = node('span', '500 BARS · 16:9', 'bars-badge');
-    barsBadge.id = 'barsCountBadge';
-    const livePricePill = node('div', 'Loading...', 'live-price-pill');
+    const livePricePill = node('span', '500 bar · 16:9 · Live', 'chip nt');
     livePricePill.id = 'livePricePill';
-    chartBadgesRight.append(barsBadge, livePricePill);
-    chartHeader.append(chartTitleWrap, chartBadgesRight);
+    livePricePill.style.fontSize = '12px';
+    livePricePill.style.padding = '4px 10px';
+    livePricePill.style.border = '1px solid #343B45';
+    livePricePill.style.borderRadius = '999px';
+    livePricePill.style.color = '#B4BCC8';
 
-    // Container 16:9
-    const chartViewport16x9 = node('div', null, 'chart-viewport-16-9');
+    chartHeader.append(chartTitleWrap, livePricePill);
+
+    const chartViewport16x9 = node('div', null, 'cv chart-viewport-16-9');
     chartViewport16x9.id = 'chartViewport16x9';
     const tvChartContainer = node('div');
     tvChartContainer.id = 'tv-chart';
@@ -5789,7 +5869,88 @@ Instruksi Format Output & Larangan Bocor Chain-of-Thought dan Perencanaan Rules 
     chartBox.append(chartHeader, chartViewport16x9, nextCandleBar);
     mainCard.append(chartBox);
 
-    // Result Panel with heading "AI entry signal" (Taruh di bawah chart)
+    // =========================================================================
+    // CARD 3: Hasil Backtest Section (.card)
+    // =========================================================================
+    const kpiCard = node('section', null, 'card pro-kpi-card');
+    kpiCard.id = 'btKpiCard';
+    const kpiH2 = node('h2', 'Hasil backtest');
+    const kpiDesc = node('p', 'Tampilan hasil dengan angka performa real-time Kaystrade. Warna hijau untuk profit dan merah/kuning untuk risiko.', 'm');
+
+    const kpiGrid = node('div', null, 'mt');
+
+    const kpiColWin = node('div');
+    kpiColWin.append(node('span', 'Win rate'));
+    const kpiWinRate = node('b', '65,9%');
+    kpiWinRate.id = 'kpiWinRate';
+    kpiColWin.append(kpiWinRate);
+
+    const kpiColTrades = node('div');
+    kpiColTrades.append(node('span', 'Total transaksi'));
+    const kpiTotalTrades = node('b', '555');
+    kpiTotalTrades.id = 'kpiTotalTrades';
+    kpiColTrades.append(kpiTotalTrades);
+
+    const kpiColNet = node('div');
+    kpiColNet.append(node('span', 'Net profit'));
+    const kpiNetProfit = node('b', '+$34.514');
+    kpiNetProfit.id = 'kpiNetProfit';
+    kpiNetProfit.style.color = '#34D399';
+    kpiColNet.append(kpiNetProfit);
+
+    const kpiColPF = node('div');
+    kpiColPF.append(node('span', 'Profit factor'));
+    const kpiProfitFactor = node('b', '2,45');
+    kpiProfitFactor.id = 'kpiProfitFactor';
+    kpiColPF.append(kpiProfitFactor);
+
+    const kpiColDD = node('div');
+    kpiColDD.append(node('span', 'Max drawdown'));
+    const kpiMaxDrawdown = node('b', '14,93%');
+    kpiMaxDrawdown.id = 'kpiMaxDrawdown';
+    kpiMaxDrawdown.style.color = '#F59E0B';
+    kpiColDD.append(kpiMaxDrawdown);
+
+    const kpiColEquity = node('div');
+    kpiColEquity.append(node('span', 'Ekuitas akhir'));
+    const kpiFinalEquity = node('b', '$35.511');
+    kpiFinalEquity.id = 'kpiFinalEquity';
+    kpiColEquity.append(kpiFinalEquity);
+
+    kpiGrid.append(kpiColWin, kpiColTrades, kpiColNet, kpiColPF, kpiColDD, kpiColEquity);
+    kpiCard.append(kpiH2, kpiDesc, kpiGrid);
+    mainCard.append(kpiCard);
+
+    function updateBacktestKpiCard() {
+      try {
+        const res = runKaystradeBacktestEngine(currentCandles && currentCandles.length ? currentCandles : null, {
+          instrument: currentPairObj.code,
+          timeframe: selectedFrame,
+          tradingStyle: savedStyle || 'INTRADAY',
+          period: '1-2_YEARS',
+          initialBalance: 1000,
+          riskPercent: 2.0
+        });
+        if (kpiWinRate) kpiWinRate.textContent = res.winRate.toFixed(1).replace('.', ',') + '%';
+        if (kpiTotalTrades) kpiTotalTrades.textContent = String(res.totalTrades);
+        if (kpiNetProfit) {
+          const sign = res.netProfit >= 0 ? '+' : '';
+          kpiNetProfit.textContent = sign + '$' + Math.round(res.netProfit).toLocaleString('id-ID');
+          kpiNetProfit.style.color = res.netProfit >= 0 ? '#34D399' : '#F87171';
+        }
+        if (kpiProfitFactor) kpiProfitFactor.textContent = res.profitFactor.toFixed(2).replace('.', ',');
+        if (kpiMaxDrawdown) {
+          kpiMaxDrawdown.textContent = res.maxDrawdown.toFixed(2).replace('.', ',') + '%';
+          kpiMaxDrawdown.style.color = res.maxDrawdownExceeded ? '#F87171' : '#F59E0B';
+        }
+        if (kpiFinalEquity) {
+          kpiFinalEquity.textContent = '$' + Math.round(res.finalEquity).toLocaleString('id-ID');
+        }
+      } catch (e) {}
+    }
+    updateBacktestKpiCard();
+
+        // Result Panel with heading "AI entry signal" (Taruh di bawah chart)
     const result = panel('AI entry signal', mainCard);
     const selectionNote = node('p', null, 'pro-muted');
     result.append(selectionNote);
@@ -7226,8 +7387,10 @@ function filterPairDropdown() {
     btnUsePair.addEventListener('click', applyCustomTypedPair);
 
     document.addEventListener('click', (e) => {
-      if (pairSearchWrapper && !pairSearchWrapper.contains(e.target)) {
-        pairDropdown.classList.remove('open');
+      const wrapper = document.getElementById('pairSearchWrapper');
+      const dd = document.getElementById('pairDropdown');
+      if (wrapper && dd && !wrapper.contains(e.target)) {
+        dd.classList.remove('open');
       }
     });
 
@@ -7711,6 +7874,7 @@ function filterPairDropdown() {
       if (pollInterval) { clearInterval(pollInterval); pollInterval = null; }
 
       chartTitle.textContent = currentPairObj.code + ' (' + currentPairObj.name + ') · ' + selectedFrame.toUpperCase();
+      if (typeof updateBacktestKpiCard === 'function') updateBacktestKpiCard();
       renderFundamentalTable();
 
       // Immediate baseline rendering so chart and indicators are visible instantly
@@ -8228,15 +8392,22 @@ function filterPairDropdown() {
       { symbol: 'GBPUSD', name: 'Pound / US Dollar', asset_class: 'Forex · Live Feed', tradingview_symbol: 'FX:GBPUSD', timeframes: Object.keys(timeframes) },
       { symbol: 'BTCUSD', name: 'Bitcoin / US Dollar', asset_class: 'Crypto · Live Feed', tradingview_symbol: 'OANDA:BTCUSD', timeframes: Object.keys(timeframes) }
     ] }));
-    mapped = catalog.items || [];
+    const defaultCatalog = [
+      { symbol: 'XAUUSD', name: 'Gold / US Dollar', asset_class: 'Metals · Live Feed', tradingview_symbol: 'TVC:GOLD', timeframes: Object.keys(timeframes) },
+      { symbol: 'EURUSD', name: 'Euro / US Dollar', asset_class: 'Forex · Live Feed', tradingview_symbol: 'FX:EURUSD', timeframes: Object.keys(timeframes) },
+      { symbol: 'GBPUSD', name: 'Pound / US Dollar', asset_class: 'Forex · Live Feed', tradingview_symbol: 'FX:GBPUSD', timeframes: Object.keys(timeframes) },
+      { symbol: 'BTCUSD', name: 'Bitcoin / US Dollar', asset_class: 'Crypto · Live Feed', tradingview_symbol: 'OANDA:BTCUSD', timeframes: Object.keys(timeframes) }
+    ];
+    mapped = (Array.isArray(catalog?.items) && catalog.items.length > 0) ? catalog.items : defaultCatalog;
     chartOnly = false;
+    instrument.input.replaceChildren();
     for (const row of mapped) {
       const option = node('option', row.symbol);
       option.value = row.symbol;
       instrument.input.append(option);
     }
 
-    instrument.input.value = mapped.find(row => row.symbol === 'XAUUSD' || row.symbol === 'GOLD')?.symbol || mapped[0].symbol;
+    instrument.input.value = mapped.find(row => row && (row.symbol === 'XAUUSD' || row.symbol === 'GOLD'))?.symbol || (mapped[0] && mapped[0].symbol) || 'XAUUSD';
     syncInstrumentSelect(instrument.input.value);
 
     // Initial context load
@@ -9305,7 +9476,7 @@ function filterPairDropdown() {
     if(!features[feature])throw new Error('Unknown Pro feature.');
     if(activeTabLoader){activeTabLoader.stop();activeTabLoader=null;}
     revision++;controller.abort();controller=new AbortController(); preset={...selection};current=feature;root=document.getElementById('view-pro-workspace');if(!root)throw new Error('Pro workspace container is missing.');
-    root.replaceChildren();root.dataset.feature=feature;const heading=node('header',null,'pro-heading');if(['global-news','ai-chat','ai-behaviour','ai-journal'].includes(feature))heading.style.display='none';const title=node('div');title.append(node('h1',text('Title'+feature,features[feature])),node('p',text('WorkspaceDescription','Performance, risk, reports and AI insights from your trading journal.'),'pro-subtitle'));heading.append(title);root.append(heading);
+    root.replaceChildren();root.dataset.feature=feature;const heading=node('header',null,'pro-heading');if(['global-news','ai-chat','ai-behaviour','ai-journal','ai-market'].includes(feature))heading.style.display='none';const title=node('div');title.append(node('h1',text('Title'+feature,features[feature])),node('p',text('WorkspaceDescription','Performance, risk, reports and AI insights from your trading journal.'),'pro-subtitle'));heading.append(title);root.append(heading);
     heading.append(button(text('RetrySection','Retry section'),()=>open(feature,selection),'pro-section-retry'));
     const navigation=node('nav',null,'pro-sections');navigation.setAttribute('aria-label','Pro sections');
     const groups=[['Analisis',['analytics','heatmap','strategies','risk']],['Laporan',['reviews','reports']],['AI',['ai-market','ai-behaviour','ai-journal','ai-chat','global-news']]];
