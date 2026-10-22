@@ -36,7 +36,7 @@ export async function handler(req: Request): Promise<Response> {
     ]);
     if (!user?.id || !uuid(user.id)) throw new Failure(401,'Invalid authentication token');
     if (allowed !== true) throw new Failure(429,'Try again shortly');
-    const access = {plan:raw.plan,effective_until:raw.effectiveUntil,countries:raw.countries || [],
+    const access = {plan:raw.plan,founder:raw.founder===true,effective_until:raw.effectiveUntil,countries:raw.countries || [],
       ai:{limit:raw.aiLimit,used:raw.aiUsed,reserved:raw.aiReserved,remaining:raw.aiRemaining,period_start:raw.periodStart,period_end:raw.periodEnd}};
     const url = new URL(req.url); let route = url.pathname.replace(/^\/(?:functions\/v1\/)?pro-gateway/,'').replace(/^\/api\/v1/,'');
     if (route === '/entitlements' && req.method === 'GET') return respond(access);
@@ -53,6 +53,182 @@ export async function handler(req: Request): Promise<Response> {
       try {body=JSON.parse(input || '{}');} catch {throw new Failure(422,'Invalid JSON');}
       if (!body || Array.isArray(body) || typeof body !== 'object') throw new Failure(422,'Invalid request');
     }
+    // Groq Public Status
+    if (route === '/groq/status' && req.method === 'GET') {
+      const envKey = Deno.env.get('GROQ_FOUNDER_API_KEY') || '';
+      let statusData: any = null;
+      try {
+        statusData = await rpc('journal_groq_public_status');
+      } catch (_) {}
+      const hasEnv = Boolean(envKey && envKey.trim().length > 0);
+      const isAvailable = hasEnv || Boolean(statusData?.available);
+      return respond({
+        available: isAvailable,
+        default_provider: 'groq',
+        model: statusData?.model || 'llama-3.3-70b-versatile',
+        fallback_enabled: statusData?.fallback_enabled !== false,
+        status: isAvailable ? (statusData?.status || 'Connected') : 'Not Configured'
+      });
+    }
+
+    // Groq Founder AI Chat Proxy (Safe server-side proxy for users without personal key)
+    if (route === '/groq/chat' && req.method === 'POST') {
+      const allowedGroq = await rpc('journal_rate_limit', { p_bucket: 'groq_ai_user_' + user.id, p_limit: 30, p_window_seconds: 60 });
+      if (allowedGroq !== true) throw new Failure(429, 'Terlalu banyak permintaan AI. Coba lagi dalam 1 menit.');
+
+      const reqMessages = Array.isArray(body.messages) ? body.messages : [];
+      if (!reqMessages.length) throw new Failure(422, 'Parameter messages diperlukan');
+      const allowedModels = ['llama-3.3-70b-versatile', 'llama-3.1-8b-instant', 'mixtral-8x7b-32768'];
+      const targetModel = (typeof body.model === 'string' && allowedModels.includes(body.model)) ? body.model : 'llama-3.3-70b-versatile';
+
+      let groqKey = Deno.env.get('GROQ_FOUNDER_API_KEY') || '';
+      if (!groqKey) {
+        try {
+          const dbKey = await privileged('/rest/v1/rpc/get_founder_groq_key', 'POST', {});
+          if (typeof dbKey === 'string' && dbKey.trim()) groqKey = dbKey.trim();
+        } catch (_) {}
+      }
+      if (!groqKey) {
+        throw new Failure(503, 'Layanan Groq AI bawaan belum dikonfigurasi oleh Founder.');
+      }
+
+      const groqPayload = {
+        model: targetModel,
+        messages: reqMessages.map((m: any) => ({
+          role: m.role === 'system' ? 'system' : (m.role === 'model' || m.role === 'assistant') ? 'assistant' : 'user',
+          content: String(m.content || '')
+        })),
+        temperature: typeof body.temperature === 'number' ? Math.max(0, Math.min(2, body.temperature)) : 0.2,
+        max_tokens: typeof body.max_tokens === 'number' ? Math.min(4096, body.max_tokens) : 4096
+      };
+
+      try {
+        const groqRes = await fetch('https://api.groq.com/openai/v1/chat/completions', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + groqKey
+          },
+          body: JSON.stringify(groqPayload),
+          signal: AbortSignal.timeout(30000)
+        });
+
+        if (groqRes.status === 429) {
+          throw new Failure(429, 'gagal memproses jawaban, kuota AI bawaan sedang mencapai batas rate limit. Silakan coba sesaat lagi atau gunakan API Key pribadi.');
+        }
+        if (!groqRes.ok) {
+          const errData = await groqRes.json().catch(() => null);
+          const errMsg = errData?.error?.message || groqRes.statusText;
+          if (groqRes.status === 401) throw new Failure(502, 'Founder Groq API Key tidak valid. Hubungi administrator.');
+          throw new Failure(groqRes.status >= 500 ? 503 : groqRes.status, 'Groq API Error: ' + errMsg);
+        }
+
+        const groqData = await groqRes.json();
+        return respond(groqData);
+      } catch (err: any) {
+        if (err instanceof Failure) throw err;
+        throw new Failure(503, 'Gagal menghubungi server Groq AI: ' + (err?.message || 'Koneksi terputus'));
+      }
+    }
+
+    // Founder API Management Endpoints (Strictly require verified Founder role)
+    if (route.startsWith('/founder/')) {
+      if (raw.founder !== true) {
+        throw new Failure(403, 'Forbidden: Akses Founder diperlukan');
+      }
+
+      if (route === '/founder/groq-config') {
+        if (req.method === 'GET') {
+          const envKey = Deno.env.get('GROQ_FOUNDER_API_KEY') || '';
+          let adminCfg: any = null;
+          try {
+            adminCfg = await rpc('journal_founder_groq_admin_config');
+          } catch (_) {}
+          const isConfigured = Boolean((envKey && envKey.trim()) || adminCfg?.configured);
+          const masked = envKey ? ('gsk_...' + envKey.trim().slice(-4)) : (adminCfg?.masked_key || '');
+          return respond({
+            configured: isConfigured,
+            masked_key: masked,
+            model: adminCfg?.model || 'llama-3.3-70b-versatile',
+            fallback_enabled: adminCfg?.fallback_enabled !== false,
+            status: isConfigured ? (adminCfg?.status || 'Connected') : 'Not Configured',
+            last_tested_at: adminCfg?.last_tested_at || null,
+            env_override: Boolean(envKey && envKey.trim())
+          });
+        }
+
+        if (req.method === 'POST') {
+          const candidateKey = typeof body.api_key === 'string' ? body.api_key.trim() : '';
+          const candidateModel = typeof body.model === 'string' ? body.model.trim() : 'llama-3.3-70b-versatile';
+          const fallbackEnabled = typeof body.fallback_enabled === 'boolean' ? body.fallback_enabled : true;
+
+          let status = 'Connected';
+          if (candidateKey) {
+            try {
+              const testRes = await fetch('https://api.groq.com/openai/v1/models', {
+                headers: { 'Authorization': 'Bearer ' + candidateKey },
+                signal: AbortSignal.timeout(10000)
+              });
+              if (!testRes.ok) {
+                status = testRes.status === 429 ? 'Rate Limited' : 'Invalid Key';
+                throw new Failure(400, 'Kunci Groq tidak valid atau ditolak: ' + testRes.statusText);
+              }
+            } catch (tErr: any) {
+              if (tErr instanceof Failure) throw tErr;
+              throw new Failure(400, 'Gagal menguji kunci Groq: ' + (tErr?.message || 'Timeout'));
+            }
+          }
+
+          const saved = await rpc('journal_founder_set_groq_config', {
+            p_api_key: candidateKey || null,
+            p_model: candidateModel,
+            p_fallback_enabled: fallbackEnabled,
+            p_status: status
+          });
+          return respond(saved);
+        }
+
+        if (req.method === 'DELETE') {
+          const res = await rpc('journal_founder_delete_groq_config');
+          return respond(res);
+        }
+      }
+
+      if (route === '/founder/groq-test' && req.method === 'POST') {
+        let keyToTest = typeof body.api_key === 'string' ? body.api_key.trim() : '';
+        if (!keyToTest) {
+          keyToTest = Deno.env.get('GROQ_FOUNDER_API_KEY') || '';
+          if (!keyToTest) {
+            try {
+              const dbKey = await privileged('/rest/v1/rpc/get_founder_groq_key', 'POST', {});
+              if (typeof dbKey === 'string' && dbKey.trim()) keyToTest = dbKey.trim();
+            } catch (_) {}
+          }
+        }
+        if (!keyToTest) {
+          throw new Failure(400, 'Tidak ada API Key yang dapat diuji. Masukkan API key terlebih dahulu.');
+        }
+
+        const t0 = Date.now();
+        try {
+          const testRes = await fetch('https://api.groq.com/openai/v1/models', {
+            headers: { 'Authorization': 'Bearer ' + keyToTest },
+            signal: AbortSignal.timeout(10000)
+          });
+          const latency = Date.now() - t0;
+          if (testRes.status === 200) {
+            return respond({ ok: true, status: 'Connected', latency_ms: latency, message: 'Koneksi ke Groq API berhasil (' + latency + 'ms).' });
+          } else if (testRes.status === 429) {
+            return respond({ ok: false, status: 'Rate Limited', latency_ms: latency, message: 'Groq API merespon Rate Limit (429).' }, 429);
+          } else {
+            return respond({ ok: false, status: 'Invalid Key', latency_ms: latency, message: 'Groq API menolak key: ' + testRes.statusText }, 400);
+          }
+        } catch (netErr: any) {
+          return respond({ ok: false, status: 'Error', latency_ms: Date.now() - t0, message: 'Gagal terhubung ke api.groq.com: ' + netErr.message }, 503);
+        }
+      }
+    }
+
     const filters = Object.fromEntries(url.searchParams);
     const analytics = (config=filters) => rpc('journal_edge_analytics',{p_filters:config});
     const rows = async (table: string, extra='') => call('/rest/v1/'+table+'?select=*&user_id=eq.'+user.id+'&limit=1000'+extra);
