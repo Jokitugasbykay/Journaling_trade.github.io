@@ -1600,6 +1600,18 @@ Instruksi Format Output & Larangan Bocor Chain-of-Thought dan Perencanaan Rules 
     element.dataset.componentId=id || current+'-'+String(label).toLowerCase().replace(/[^a-z0-9]+/g,'-');
     element.addEventListener('click',()=>action(element,fn)); return element;
   }
+  function createProIconSvg(d, w = 22, h = 22) {
+    const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+    svg.setAttribute('width', String(w)); svg.setAttribute('height', String(h));
+    svg.setAttribute('viewBox', '0 0 24 24'); svg.setAttribute('fill', 'none');
+    svg.setAttribute('stroke', 'currentColor'); svg.setAttribute('stroke-width', '2');
+    svg.setAttribute('stroke-linecap', 'round'); svg.setAttribute('stroke-linejoin', 'round');
+    svg.setAttribute('aria-hidden', 'true');
+    const p = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+    p.setAttribute('d', d);
+    svg.append(p);
+    return svg;
+  }
   function field(label,type,value='',id='') {
     const wrap=node('label',null,'field-group'), caption=node('span',label); wrap.append(caption);
     const input=node(type==='select'?'select':'input'); if(type!=='select') input.type=type;
@@ -2281,7 +2293,7 @@ Instruksi Format Output & Larangan Bocor Chain-of-Thought dan Perencanaan Rules 
         resultCard.append(createResultHeader());
         const loadingBox = node('div', null, 'pro-ai-loading emp');
         const spinner = node('div', null, 'ic');
-        spinner.innerHTML = '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"></path></svg>';
+        spinner.append(createProIconSvg('M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83'));
         loadingBox.append(
           spinner,
           node('b', isBehaviour ? 'Menganalisis Perilaku & Psikologi...' : 'Mengevaluasi Performa Jurnal & Strategi...'),
@@ -2359,9 +2371,7 @@ Instruksi Format Output & Larangan Bocor Chain-of-Thought dan Perencanaan Rules 
     resultCard.append(createResultHeader());
     const emptyState = node('div', null, 'emp');
     const ic = node('div', null, 'ic');
-    ic.innerHTML = isBehaviour
-      ? '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12h4l3-8 4 16 3-8h4"></path></svg>'
-      : '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 3h12v18H6zM9 8h6M9 12h6M9 16h4"></path></svg>';
+    ic.append(createProIconSvg(isBehaviour ? 'M3 12h4l3-8 4 16 3-8h4' : 'M6 3h12v18H6zM9 8h6M9 12h6M9 16h4'));
     emptyState.append(ic, node('b', 'Belum ada hasil'), node('p', 'Pilih filter lalu jalankan analisis, atau buka hasil tersimpan dari riwayat di bawah.', 'm'));
     resultCard.append(emptyState);
 
@@ -2725,6 +2735,7 @@ Instruksi Format Output & Larangan Bocor Chain-of-Thought dan Perencanaan Rules 
     const load = async () => {
       messages.replaceChildren();
 
+      if (isFixture) { try { await request('/ai/chat/history', { latest: true }); } catch (_) {} }
       const historyList = getChatHistoryList();
       const validHistory = (historyList || []).filter(item => {
         const t = Array.isArray(item.parts) ? item.parts.map(p => p.text || '').join('\n\n') : (item.text || item.reply || item.message || '');
