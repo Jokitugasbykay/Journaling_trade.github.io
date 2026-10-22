@@ -129,6 +129,53 @@
     }catch(_){return false;}
   };
 
+  async function testGeminiKey(candidateKey){
+    const key=sanitizeKey(candidateKey);
+    if(!key)return {ok:false,status:'Not Configured',message:'API Key kosong.'};
+    const t0=Date.now();
+    try{
+      const res=await fetch('https://generativelanguage.googleapis.com/v1beta/models?key='+key,{
+        signal:AbortSignal.timeout(10000)
+      });
+      const latency=Date.now()-t0;
+      if(res.status===200){
+        return {ok:true,status:'Connected',latency_ms:latency,message:'Koneksi Google Gemini berhasil ('+latency+'ms).'};
+      }else if(res.status===400||res.status===403){
+        return {ok:false,status:'Invalid Key',latency_ms:latency,message:'Gemini API Key ditolak / tidak valid.'};
+      }else if(res.status===429){
+        return {ok:false,status:'Rate Limited',latency_ms:latency,message:'Google Gemini merespon Rate Limit (429).'};
+      }else{
+        return {ok:false,status:'Error',latency_ms:latency,message:'Status: '+res.status+' '+res.statusText};
+      }
+    }catch(err){
+      return {ok:false,status:'Error',latency_ms:Date.now()-t0,message:'Gagal terhubung ke Google AI Studio: '+(err.message||'Koneksi error')};
+    }
+  }
+
+  async function testOpenAiKey(candidateKey){
+    const key=sanitizeKey(candidateKey);
+    if(!key)return {ok:false,status:'Not Configured',message:'API Key kosong.'};
+    const t0=Date.now();
+    try{
+      const res=await fetch('https://api.openai.com/v1/models',{
+        headers:{'Authorization':'Bearer '+key},
+        signal:AbortSignal.timeout(10000)
+      });
+      const latency=Date.now()-t0;
+      if(res.status===200){
+        return {ok:true,status:'Connected',latency_ms:latency,message:'Koneksi OpenAI ChatGPT berhasil ('+latency+'ms).'};
+      }else if(res.status===401){
+        return {ok:false,status:'Invalid Key',latency_ms:latency,message:'OpenAI API Key ditolak / tidak valid.'};
+      }else if(res.status===429){
+        return {ok:false,status:'Rate Limited',latency_ms:latency,message:'OpenAI API merespon Rate Limit (429).'};
+      }else{
+        return {ok:false,status:'Error',latency_ms:latency,message:'Status: '+res.status+' '+res.statusText};
+      }
+    }catch(err){
+      return {ok:false,status:'Error',latency_ms:Date.now()-t0,message:'Gagal terhubung ke OpenAI: '+(err.message||'Koneksi error')};
+    }
+  }
+
   async function testGroqKey(candidateKey){
     const key=sanitizeKey(candidateKey);
     if(!key)return {ok:false,status:'Not Configured',message:'API Key kosong.'};
@@ -8159,83 +8206,59 @@ Setiap kali melakukan analisa pada instrumen apa pun, jalankan prosedur sinkroni
   }
   async function geminiConfigSection() {
     const wrap = node('div', null, 'pro-api-config-page');
-    wrap.style.maxWidth = '760px';
-    wrap.style.margin = '0 auto';
-    wrap.style.padding = '8px 0 24px 0';
 
     // 1. Panel Khusus Founder (hanya tampil jika verified Founder: access?.founder === true)
     if (access?.founder === true) {
-      const founderCard = node('article', null, 'pro-panel pro-founder-panel');
-      founderCard.style.padding = '24px';
-      founderCard.style.marginBottom = '24px';
-      founderCard.style.border = '1px solid rgba(245, 158, 11, 0.4)';
-      founderCard.style.background = 'linear-gradient(180deg, rgba(245, 158, 11, 0.06) 0%, rgba(15, 23, 42, 0.4) 100%)';
-      founderCard.style.borderRadius = '14px';
+      const founderCard = node('article', null, 'card pc pro-panel pro-founder-panel');
 
-      const fHeader = node('div');
-      fHeader.style.display = 'flex';
-      fHeader.style.justifyContent = 'space-between';
-      fHeader.style.alignItems = 'center';
-      fHeader.style.flexWrap = 'wrap';
-      fHeader.style.gap = '10px';
-      fHeader.style.marginBottom = '12px';
-
+      const fHeader = node('div', null, 'ph');
       const fTitleWrap = node('div');
-      const fBadge = node('span', 'Founder Verified', 'pro-founder-badge');
-      fBadge.style.cssText = 'display:inline-block;padding:2px 8px;font-size:11px;font-weight:700;letter-spacing:0.5px;text-transform:uppercase;border-radius:6px;background:rgba(245, 158, 11, 0.2);color:#F59E0B;margin-bottom:6px;';
-      const fH2 = node('h2', 'Founder API Management', 'pro-panel-title');
-      fH2.style.fontSize = '20px';
-      fH2.style.fontWeight = '700';
-      fH2.style.margin = '0';
-      fTitleWrap.append(fBadge, fH2);
+      const fBadge = node('span', 'Founder Verified', 'chip amb');
+      fBadge.style.marginBottom = '6px';
+      const fH3 = node('h3', 'Founder API Management');
+      fH3.style.margin = '0';
+      fTitleWrap.append(fBadge, fH3);
 
-      const fStatusBadge = node('div', null, 'pro-founder-status-badge');
-      fStatusBadge.style.cssText = 'display:inline-flex;align-items:center;gap:6px;padding:6px 14px;border-radius:999px;font-size:12px;font-weight:600;';
+      const fStatusBadge = node('div', null, 'chip');
       fHeader.append(fTitleWrap, fStatusBadge);
 
-      const fDesc = node('p', 'Kelola Founder Groq API Key global. Kunci ini digunakan sebagai penyedia AI bawaan gratis bagi seluruh pengguna platform journalingtrade yang belum memiliki API key sendiri.', 'pro-muted');
-      fDesc.style.marginBottom = '18px';
+      const fDesc = node('p', 'Kelola Founder Groq API Key global. Kunci ini digunakan sebagai penyedia AI bawaan gratis bagi seluruh pengguna platform journalingtrade yang belum memiliki API key sendiri.', 'm');
 
-      const fInfoBox = node('div');
-      fInfoBox.style.cssText = 'display:grid;grid-template-columns:repeat(auto-fit, minmax(200px, 1fr));gap:12px;padding:14px;background:rgba(0,0,0,0.25);border-radius:10px;margin-bottom:18px;border:1px solid rgba(255,255,255,0.06);';
+      const fInfoBox = node('div', null, 'route');
 
-      const fMaskedBox = node('div');
-      const fMaskedLabel = node('div', 'Kunci Tersimpan', 'pro-muted');
-      fMaskedLabel.style.fontSize = '11px';
-      const fMaskedVal = node('strong', 'Memuat...');
-      fMaskedVal.style.fontSize = '13px';
-      fMaskedVal.style.fontFamily = 'monospace';
-      fMaskedBox.append(fMaskedLabel, fMaskedVal);
+      const fStep1 = node('div', null, 'step');
+      const fStep1Em = node('em', '1');
+      const fStep1Text = node('div');
+      fStep1Text.append(node('b', 'Kunci Tersimpan'));
+      const fMaskedVal = node('span', 'Memuat...');
+      fStep1Text.append(fMaskedVal);
+      fStep1.append(fStep1Em, fStep1Text);
 
-      const fDefaultBox = node('div');
-      const fDefaultLabel = node('div', 'Status Provider Bawaan', 'pro-muted');
-      fDefaultLabel.style.fontSize = '11px';
-      const fDefaultVal = node('strong', 'Memeriksa...');
-      fDefaultVal.style.fontSize = '13px';
-      fDefaultBox.append(fDefaultLabel, fDefaultVal);
+      const fStep2 = node('div', null, 'step');
+      const fStep2Em = node('em', '2');
+      const fStep2Text = node('div');
+      fStep2Text.append(node('b', 'Status Provider Bawaan'));
+      const fDefaultVal = node('span', 'Memeriksa...');
+      fStep2Text.append(fDefaultVal);
+      fStep2.append(fStep2Em, fStep2Text);
 
-      const fModelBox = node('div');
-      const fModelLabel = node('div', 'Model Global', 'pro-muted');
-      fModelLabel.style.fontSize = '11px';
-      const fModelVal = node('strong', 'llama-3.3-70b-versatile');
-      fModelVal.style.fontSize = '13px';
-      fModelBox.append(fModelLabel, fModelVal);
+      const fStep3 = node('div', null, 'step');
+      const fStep3Em = node('em', '3');
+      const fStep3Text = node('div');
+      fStep3Text.append(node('b', 'Model Global'), node('span', 'llama-3.3-70b-versatile'));
+      fStep3.append(fStep3Em, fStep3Text);
 
-      fInfoBox.append(fMaskedBox, fDefaultBox, fModelBox);
+      fInfoBox.append(fStep1, fStep2, fStep3);
 
-      const fInputLabel = node('label', 'Perbarui Founder Groq API Key');
-      fInputLabel.style.display = 'block';
-      fInputLabel.style.fontWeight = '600';
-      fInputLabel.style.marginBottom = '6px';
-      fInputLabel.style.fontSize = '13px';
+      const fInputLabel = node('label', 'Perbarui Founder Groq API Key', 'lb');
+      fInputLabel.htmlFor = 'k-founder';
 
-      const fInputWrap = node('div');
-      fInputWrap.style.cssText = 'display:flex;flex-wrap:wrap;gap:8px;margin-bottom:12px;max-width:100%;box-sizing:border-box;';
-
-      const fInput = node('input', null, 'form-input');
+      const fInputWrap = node('div', null, 'row');
+      const fInput = node('input', null, 'in');
+      fInput.id = 'k-founder';
       fInput.type = 'password';
       fInput.placeholder = 'gsk_...';
-      fInput.style.cssText = 'flex:1 1 180px;min-width:0;padding:10px 14px;border-radius:8px;border:1px solid var(--border-light, #333);background:var(--surface-field, #1e222d);color:inherit;box-sizing:border-box;';
+      fInput.autocomplete = 'off';
 
       const fToggleBtn = button('Tampilkan', () => {
         if (fInput.type === 'password') {
@@ -8245,131 +8268,118 @@ Setiap kali melakukan analisa pada instrumen apa pun, jalankan prosedur sinkroni
           fInput.type = 'password';
           fToggleBtn.textContent = 'Tampilkan';
         }
-      }, 'btn btn-outline');
+      }, 'bt');
       fToggleBtn.type = 'button';
-      fInputWrap.append(fInput, fToggleBtn);
-
-      const fFallbackWrap = node('label');
-      fFallbackWrap.style.cssText = 'display:inline-flex;align-items:center;gap:8px;cursor:pointer;margin-bottom:18px;font-size:13px;';
-      const fFallbackCheck = node('input');
-      fFallbackCheck.type = 'checkbox';
-      fFallbackCheck.checked = true;
-      const fFallbackText = node('span', 'Aktifkan Fallback ke AI Bawaan jika Personal API Pengguna Limit atau Kuota Habis');
-      fFallbackWrap.append(fFallbackCheck, fFallbackText);
-
-      const fStatusMsg = node('div', null, 'pro-modal-status');
-      fStatusMsg.style.marginBottom = '14px';
-      fStatusMsg.style.fontWeight = '600';
-      fStatusMsg.style.fontSize = '13px';
-
-      const fActions = node('div');
-      fActions.style.cssText = 'display:flex;flex-wrap:wrap;gap:10px;align-items:center;';
 
       const fTestBtn = button('Test Connection', async () => {
-        fStatusMsg.textContent = 'Menguji koneksi ke Groq API...';
-        fStatusMsg.style.color = '#3B82F6';
+        const candidate = fInput.value.trim();
+        if (!candidate) {
+          fStatusMsg.className = 'msg er';
+          fStatusMsg.replaceChildren();
+          fStatusMsg.append(node('b', 'Masukkan Founder API Key terlebih dahulu sebelum menguji koneksi.'), node('span', 'Input masih kosong.'));
+          fStatusMsg.style.display = 'flex';
+          return;
+        }
+        fStatusMsg.className = 'msg inf';
+        fStatusMsg.replaceChildren();
+        fStatusMsg.append(node('b', 'Menguji koneksi ke api.groq.com...'), node('span', 'Sedang memvalidasi handshake API.'));
+        fStatusMsg.style.display = 'flex';
         fTestBtn.disabled = true;
         try {
-          const payload = {};
-          const candidate = fInput.value.trim();
-          if (candidate) payload.api_key = candidate;
-          const res = await request('/founder/groq-test', {
-            method: 'POST',
-            body: payload
-          });
-          if (res?.ok) {
-            fStatusMsg.textContent = 'Koneksi Berhasil! ' + (res.message || 'Status: Connected.');
-            fStatusMsg.style.color = '#10B981';
-            updateFounderBadge('Connected');
-          } else {
-            fStatusMsg.textContent = 'Uji Koneksi Gagal: ' + (res?.message || res?.status || 'Error');
-            fStatusMsg.style.color = '#EF4444';
-            updateFounderBadge(res?.status || 'Error');
-          }
-        } catch (err) {
-          fStatusMsg.textContent = 'Uji Koneksi Error: ' + (err.message || 'Gagal menghubungi server.');
-          fStatusMsg.style.color = '#EF4444';
+          const testRes = await testGroqKey(candidate);
+          fStatusMsg.className = testRes.ok ? 'msg ok' : 'msg er';
+          fStatusMsg.replaceChildren();
+          fStatusMsg.append(node('b', testRes.message), node('span', testRes.ok ? 'Founder API Key terhubung dan siap didistribusikan.' : 'Periksa kembali key di konsol Groq.'));
+          updateFounderBadge(testRes.status);
         } finally {
           fTestBtn.disabled = false;
         }
-      }, 'btn btn-outline');
+      }, 'bt pr');
       fTestBtn.type = 'button';
 
       const fSaveBtn = button('Simpan API Key', async () => {
         const keyVal = fInput.value.trim();
-        fStatusMsg.textContent = 'Menyimpan konfigurasi...';
-        fStatusMsg.style.color = '#3B82F6';
+        fStatusMsg.className = 'msg inf';
+        fStatusMsg.replaceChildren();
+        fStatusMsg.append(node('b', 'Menyimpan konfigurasi...'), node('span', 'Mengirim secret ke backend Supabase.'));
+        fStatusMsg.style.display = 'flex';
         fSaveBtn.disabled = true;
         try {
-          const body = {
-            fallback_enabled: fFallbackCheck.checked
-          };
+          const body = { fallback_enabled: fFallbackCheck.checked };
           if (keyVal) body.api_key = keyVal;
-          const res = await request('/founder/groq-config', {
-            method: 'POST',
-            body
-          });
-          fStatusMsg.textContent = 'Konfigurasi Founder Groq API berhasil disimpan!';
-          fStatusMsg.style.color = '#10B981';
+          const res = await request('/founder/groq-config', { method: 'POST', body });
+          fStatusMsg.className = 'msg ok';
+          fStatusMsg.replaceChildren();
+          fStatusMsg.append(node('b', 'Konfigurasi Founder Groq API berhasil disimpan!'), node('span', 'Semua pengguna Pro kini dapat memakai kuota gratis bawaan.'));
           fInput.value = '';
           applyFounderConfigData(res);
-          refreshDefaultAiBadge();
+          refreshSummaryAndBadges();
         } catch (err) {
-          fStatusMsg.textContent = 'Gagal menyimpan: ' + (err.message || 'Error server.');
-          fStatusMsg.style.color = '#EF4444';
+          fStatusMsg.className = 'msg er';
+          fStatusMsg.replaceChildren();
+          fStatusMsg.append(node('b', 'Gagal menyimpan konfigurasi.'), node('span', err.message || 'Error server.'));
         } finally {
           fSaveBtn.disabled = false;
         }
-      }, 'btn btn-primary');
+      }, 'bt');
       fSaveBtn.type = 'button';
 
       const fDeleteBtn = button('Hapus Key', async () => {
         const confirmed = global.confirm('Apakah Anda yakin ingin menghapus Founder Groq API Key? Fitur AI bawaan gratis untuk pengguna umum akan dinonaktifkan.');
         if (!confirmed) return;
-        fStatusMsg.textContent = 'Menghapus Founder API Key...';
-        fStatusMsg.style.color = '#F59E0B';
+        fStatusMsg.className = 'msg inf';
+        fStatusMsg.replaceChildren();
+        fStatusMsg.append(node('b', 'Menghapus Founder API Key...'), node('span', 'Menghapus secret dari backend.'));
+        fStatusMsg.style.display = 'flex';
         fDeleteBtn.disabled = true;
         try {
           await request('/founder/groq-config', { method: 'DELETE' });
-          fStatusMsg.textContent = 'Founder Groq API Key telah dihapus.';
-          fStatusMsg.style.color = '#F59E0B';
+          fStatusMsg.className = 'msg ok';
+          fStatusMsg.replaceChildren();
+          fStatusMsg.append(node('b', 'Founder Groq API Key telah dihapus.'), node('span', 'Layanan default AI gratis dinonaktifkan.'));
           fMaskedVal.textContent = 'Tidak diatur';
           fDefaultVal.textContent = 'Tidak Aktif (Belum Dikonfigurasi)';
-          fDefaultVal.style.color = '#EF4444';
           updateFounderBadge('Not Configured');
-          refreshDefaultAiBadge();
+          refreshSummaryAndBadges();
         } catch (err) {
-          fStatusMsg.textContent = 'Gagal menghapus: ' + (err.message || 'Error server.');
-          fStatusMsg.style.color = '#EF4444';
+          fStatusMsg.className = 'msg er';
+          fStatusMsg.replaceChildren();
+          fStatusMsg.append(node('b', 'Gagal menghapus key.'), node('span', err.message || 'Error server.'));
         } finally {
           fDeleteBtn.disabled = false;
         }
-      }, 'btn btn-ghost');
+      }, 'bt danger');
       fDeleteBtn.type = 'button';
 
-      fActions.append(fTestBtn, fSaveBtn, fDeleteBtn);
+      fInputWrap.append(fInput, fToggleBtn, fSaveBtn, fTestBtn, fDeleteBtn);
+
+      const fFallbackWrap = node('label', null, 'sw');
+      const fFallbackCheck = node('input');
+      fFallbackCheck.type = 'checkbox';
+      fFallbackCheck.checked = true;
+      const fFallbackTrack = node('span', null, 'tr');
+      const fFallbackText = node('span', 'Izinkan pengguna Pro fallback ke Founder Groq jika key pribadi mereka gagal atau rate-limited');
+      fFallbackWrap.append(fFallbackCheck, fFallbackTrack, fFallbackText);
+
+      const fStatusMsg = node('div', null, 'msg');
+      fStatusMsg.style.display = 'none';
 
       function updateFounderBadge(status) {
         fStatusBadge.replaceChildren();
-        const dot = node('span');
-        let bg = 'rgba(239, 68, 68, 0.12)', color = '#EF4444', textLabel = status || 'Not Configured';
+        const dot = node('i');
+        let cls = 'chip nt', textLabel = status || 'Not Configured';
         if (status === 'Connected') {
-          bg = 'rgba(16, 185, 129, 0.12)';
-          color = '#10B981';
+          cls = 'chip ok';
           textLabel = 'Connected (Aktif)';
         } else if (status === 'Rate Limited') {
-          bg = 'rgba(245, 158, 11, 0.12)';
-          color = '#F59E0B';
+          cls = 'chip amb';
           textLabel = 'Rate Limited';
         } else if (status === 'Invalid Key') {
-          bg = 'rgba(239, 68, 68, 0.12)';
-          color = '#EF4444';
+          cls = 'chip er';
           textLabel = 'Invalid Key';
         }
-        dot.style.cssText = `width:8px;height:8px;border-radius:50%;background:${color};display:inline-block;`;
-        fStatusBadge.style.background = bg;
-        fStatusBadge.style.color = color;
-        fStatusBadge.append(dot, node('strong', textLabel));
+        fStatusBadge.className = cls;
+        fStatusBadge.append(dot, document.createTextNode(textLabel));
       }
 
       function applyFounderConfigData(data) {
@@ -8382,7 +8392,6 @@ Setiap kali melakukan analisa pada instrumen apa pun, jalankan prosedur sinkroni
           fMaskedVal.textContent = 'Belum Dikonfigurasi';
         }
         fDefaultVal.textContent = data.configured ? 'Aktif (Default Publik)' : 'Tidak Aktif';
-        fDefaultVal.style.color = data.configured ? '#10B981' : '#EF4444';
         if (typeof data.fallback_enabled === 'boolean') {
           fFallbackCheck.checked = data.fallback_enabled;
         }
@@ -8396,332 +8405,541 @@ Setiap kali melakukan analisa pada instrumen apa pun, jalankan prosedur sinkroni
           updateFounderBadge('Not Configured');
         });
 
-      founderCard.append(fHeader, fDesc, fInfoBox, fInputLabel, fInputWrap, fFallbackWrap, fStatusMsg, fActions);
+      founderCard.append(fHeader, fDesc, fInfoBox, fInputLabel, fInputWrap, fFallbackWrap, fStatusMsg);
       wrap.append(founderCard);
     }
 
-    // 2. User Card (AI Bawaan & API Key Pribadi)
-    const userCard = node('article', null, 'pro-panel');
-    userCard.style.cssText = 'padding:20px 16px;margin-bottom:24px;box-sizing:border-box;max-width:100%;overflow-x:hidden;';
+    // 2. Main Section Header
+    const headWrap = node('div');
+    const h1 = node('h1', 'API & Penyedia AI');
+    const headDesc = node('p', 'Atur sumber kecerdasan buatan untuk journalingtrade. Pakai AI gratis dari platform, atau sambungkan API key pribadi untuk kuota dan performa terisolasi.', 'm');
+    headWrap.append(h1, headDesc);
 
-    const h2 = node('h2', 'API', 'pro-panel-title');
-    h2.style.fontSize = '20px';
-    h2.style.fontWeight = '700';
-    h2.style.marginBottom = '8px';
+    // 3. Ringkasan Status 4 Kolom (.grid4)
+    const grid4 = node('section', null, 'grid4');
+    grid4.setAttribute('aria-label', 'Ringkasan status');
 
-    const desc = node('p', 'Kelola konfigurasi kecerdasan buatan (AI) journalingtrade. Gunakan AI bawaan gratis tanpa API key, atau masukkan API key pribadi Anda untuk kuota dan performa terisolasi.', 'pro-muted');
-    desc.style.marginBottom = '20px';
+    // Card 1: AI Gratis (Groq)
+    const c1 = node('div', null, 'card st');
+    c1.append(node('span', 'AI Gratis (Groq)'));
+    const c1Title = node('b', 'Layanan platform');
+    const c1Chip = node('span', null, 'chip ok');
+    c1Chip.style.alignSelf = 'flex-start';
+    c1Chip.append(node('i'), document.createTextNode('Tersedia'));
+    c1.append(c1Title, c1Chip);
 
-    const statusWrap = node('div');
-    statusWrap.style.display = 'flex';
-    statusWrap.style.flexWrap = 'wrap';
-    statusWrap.style.gap = '10px';
-    statusWrap.style.marginBottom = '24px';
+    // Card 2: Key pribadi Groq
+    const c2 = node('div', null, 'card st');
+    c2.append(node('span', 'Key pribadi Groq'));
+    const c2Title = node('b', 'Belum diatur');
+    const c2Chip = node('span', null, 'chip nt');
+    c2Chip.style.alignSelf = 'flex-start';
+    c2Chip.append(node('i'), document.createTextNode('Belum diuji'));
+    c2.append(c2Title, c2Chip);
 
-    const badgeGroqDefault = node('div', null, 'pro-engine-status-badge');
-    badgeGroqDefault.style.cssText = 'display:inline-flex;align-items:center;gap:8px;padding:6px 14px;border-radius:999px;';
+    // Card 3: Gemini · OpenAI
+    const c3 = node('div', null, 'card st');
+    c3.append(node('span', 'Gemini · OpenAI'));
+    const c3Title = node('b', 'Belum disambungkan');
+    const c3Chip = node('span', null, 'chip nt');
+    c3Chip.style.alignSelf = 'flex-start';
+    c3Chip.append(node('i'), document.createTextNode('Belum diuji'));
+    c3.append(c3Title, c3Chip);
 
-    const badgePersonal = node('div', null, 'pro-engine-status-badge');
-    badgePersonal.style.cssText = 'display:inline-flex;align-items:center;gap:8px;padding:6px 14px;border-radius:999px;';
+    // Card 4: Auto-routing
+    const c4 = node('div', null, 'card st');
+    c4.append(node('span', 'Auto-routing'));
+    const c4Title = node('b', 'Fallback aktif');
+    const c4Chip = node('span', null, 'chip inf');
+    c4Chip.style.alignSelf = 'flex-start';
+    c4Chip.append(node('i'), document.createTextNode('Diaktifkan'));
+    c4.append(c4Title, c4Chip);
 
-    const badgePriority = node('div', null, 'pro-engine-status-badge');
-    badgePriority.style.cssText = 'display:inline-flex;align-items:center;gap:8px;padding:6px 14px;border-radius:999px;background:rgba(59, 130, 246, 0.12);color:#3B82F6;';
-    const pDot = node('span');
-    pDot.style.cssText = 'width:8px;height:8px;border-radius:50%;background:#3B82F6;display:inline-block;';
-    const pText = node('strong', 'Auto-Routing: Aktif');
-    badgePriority.append(pDot, pText);
+    grid4.append(c1, c2, c3, c4);
 
-    statusWrap.append(badgeGroqDefault, badgePersonal, badgePriority);
+    // 4. Urutan Pemakaian AI (.card)
+    const routeCard = node('section', null, 'card');
+    const routeH2 = node('h2', 'Urutan pemakaian AI');
+    const routeDesc = node('p', 'Setiap permintaan AI mencoba sumber berikut secara berurutan.', 'm');
+    const routeWrap = node('div', null, 'route');
 
-    let defaultStatusText = null;
+    const rStep1 = node('div', null, 'step');
+    const rStep1Em = node('em', '1');
+    const rStep1Text = node('div');
+    rStep1Text.append(node('b', 'Key pribadi Anda'), node('span', 'Dipakai lebih dulu jika terhubung dan valid.'));
+    rStep1.append(rStep1Em, rStep1Text);
 
-    function refreshDefaultAiBadge() {
-      request('/groq/status')
-        .then(st => {
-          const avail = Boolean(st?.available);
-          badgeGroqDefault.style.background = avail ? 'rgba(16, 185, 129, 0.12)' : 'rgba(239, 68, 68, 0.12)';
-          badgeGroqDefault.style.color = avail ? '#10B981' : '#EF4444';
-          badgeGroqDefault.replaceChildren();
-          const dot = node('span');
-          dot.style.cssText = 'width:8px;height:8px;border-radius:50%;background:' + (avail ? '#10B981' : '#EF4444') + ';display:inline-block;';
-          badgeGroqDefault.append(dot, node('strong', avail ? 'Groq AI Gratis: Tersedia' : 'Groq AI Gratis: Offline'));
-          if (defaultStatusText) {
-            defaultStatusText.textContent = avail ? 'Layanan Aktif (Siap Digunakan)' : 'Layanan sedang tidak tersedia';
-            defaultStatusText.style.color = avail ? '#10B981' : '#EF4444';
-          }
-          if (defaultQuotaText && st?.daily_quota) {
-            const q = st.daily_quota;
-            defaultQuotaText.textContent = 'Sisa kuota Founder API: ' + q.remaining + ' dari ' + q.limit + ' pesan gratis hari ini (' + (q.date || 'UTC') + ').';
-          }
-        })
-        .catch(() => {
-          badgeGroqDefault.style.background = 'rgba(16, 185, 129, 0.12)';
-          badgeGroqDefault.style.color = '#10B981';
-          badgeGroqDefault.replaceChildren();
-          const dot = node('span');
-          dot.style.cssText = 'width:8px;height:8px;border-radius:50%;background:#10B981;display:inline-block;';
-          badgeGroqDefault.append(dot, node('strong', 'Groq AI Gratis: Tersedia'));
-        });
+    const rStep2 = node('div', null, 'step');
+    const rStep2Em = node('em', '2');
+    const rStep2Text = node('div');
+    rStep2Text.append(node('b', 'Key pribadi lain'), node('span', 'Gemini atau OpenAI, jika Anda sudah menyimpannya.'));
+    rStep2.append(rStep2Em, rStep2Text);
 
-      refreshPersonalStatus();
-    }
+    const rStep3 = node('div', null, 'step');
+    const rStep3Em = node('em', '3');
+    const rStep3Text = node('div');
+    rStep3Text.append(node('b', 'Groq AI Gratis'), node('span', 'Cadangan dari platform bila key pribadi gagal atau kuota habis.'));
+    rStep3.append(rStep3Em, rStep3Text);
 
-    function refreshPersonalStatus() {
-      const hasGroq = hasPersonalGroqApiKey();
-      const hasGem = Boolean(getGeminiApiKey());
-      const hasOai = hasOpenAiApiKey();
-      const anyPersonal = hasGroq || hasGem || hasOai;
+    routeWrap.append(rStep1, rStep2, rStep3);
+    routeCard.append(routeH2, routeDesc, routeWrap);
 
-      badgePersonal.style.background = anyPersonal ? 'rgba(16, 185, 129, 0.12)' : 'rgba(107, 114, 128, 0.12)';
-      badgePersonal.style.color = anyPersonal ? '#10B981' : '#9CA3AF';
-      badgePersonal.replaceChildren();
-      const dot = node('span');
-      dot.style.cssText = 'width:8px;height:8px;border-radius:50%;background:' + (anyPersonal ? '#10B981' : '#9CA3AF') + ';display:inline-block;';
-      let personalDesc = 'Key Pribadi: Belum Diatur';
-      if (hasGroq) personalDesc = 'Key Pribadi: Groq Aktif';
-      else if (hasGem) personalDesc = 'Key Pribadi: Gemini Aktif';
-      else if (hasOai) personalDesc = 'Key Pribadi: ChatGPT Aktif';
-      badgePersonal.append(dot, node('strong', personalDesc));
-    }
+    // 5. Groq AI Gratis (.card.free.pro-api-section-box)
+    const freeCard = node('section', null, 'card free pro-api-section-box');
+    const freePh = node('div', null, 'ph');
+    const freeHead = node('div');
+    freeHead.append(node('h2', 'Groq AI Gratis'), node('p', 'Gunakan fitur AI tanpa memasukkan API key. Didukung Llama 3.3 70B Versatile pada infrastruktur Groq LPU.', 'm'));
+    const freeChip = node('span', null, 'chip ok');
+    freeChip.append(node('i'), document.createTextNode('Siap digunakan'));
+    freePh.append(freeHead, freeChip);
 
-    // SECTION A: AI BAWAAN
-    const defaultSection = node('div', null, 'pro-api-section-box');
-    defaultSection.style.cssText = 'padding:18px;background:rgba(16, 185, 129, 0.05);border:1px solid rgba(16, 185, 129, 0.25);border-radius:12px;margin-bottom:24px;';
+    const freeQuotaP = node('p', null, 'm');
+    freeQuotaP.style.marginTop = '12px';
+    freeQuotaP.append(document.createTextNode('Sisa kuota: '));
+    const freeQuotaB = node('b', 'tidak tersedia');
+    freeQuotaB.style.color = '#E6E8EB';
+    freeQuotaP.append(freeQuotaB, document.createTextNode('. Angka ditampilkan hanya jika server mengirim data yang akurat.'));
 
-    const defHeader = node('div');
-    defHeader.style.cssText = 'display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;margin-bottom:8px;';
-    const defTitle = node('h3', 'Groq AI Gratis', 'pro-section-title');
-    defTitle.style.cssText = 'font-size:16px;font-weight:700;margin:0;color:#10B981;';
-    defaultStatusText = node('span', 'Layanan Aktif (Siap Digunakan)');
-    defaultStatusText.style.cssText = 'font-size:12px;font-weight:600;color:#10B981;';
-    defHeader.append(defTitle, defaultStatusText);
+    freeCard.append(freePh, freeQuotaP);
 
-    const defDesc = node('p', 'Anda dapat menggunakan fitur AI tanpa memasukkan API key sendiri. Didukung model cerdas Llama 3.3 70B Versatile yang diakselerasi oleh infrastruktur Groq LPU.', 'pro-muted');
-    defDesc.style.fontSize = '13px';
-    defDesc.style.margin = '0';
+    // 6. Seksi API Key Pribadi (.sec)
+    const secWrap = node('div', null, 'sec');
+    const secHead = node('div');
+    secHead.append(node('h2', 'API key pribadi'), node('p', 'Key disembunyikan secara default dan tidak pernah ditampilkan di notifikasi atau log. Setelah disimpan, hanya empat karakter terakhir yang terlihat.', 'm'));
+    secWrap.append(secHead);
 
-    const defaultQuotaText = node('div', 'Memeriksa kuota harian...', 'pro-muted');
-    defaultQuotaText.style.cssText = 'font-size:12px;font-weight:600;margin-top:6px;color:#10B981;';
-    defaultSection.append(defHeader, defDesc, defaultQuotaText);
+    // Provider Card 1: Groq
+    const groqCard = node('div', null, 'pc');
+    const groqPh = node('div', null, 'ph');
+    const groqHead = node('div');
+    groqHead.append(node('h3', 'Groq'), node('p', 'Model Llama 3.3 70B. Kuota pribadi tanpa antrean platform.', 'm'));
+    const groqChip = node('span', null, 'chip nt');
+    groqChip.append(node('i'), document.createTextNode('Belum diatur'));
+    groqPh.append(groqHead, groqChip);
 
-    // SECTION B: API KEY PRIBADI
-    const personalSection = node('div');
-    const persTitle = node('h3', 'API Key Pribadi', 'pro-section-title');
-    persTitle.style.cssText = 'font-size:16px;font-weight:700;margin-bottom:6px;';
-    const persDesc = node('p', 'Anda dapat memakai API key sendiri untuk kuota pribadi tanpa batas antrean platform. Ketika aktif, API key pribadi Anda akan diprioritaskan secara otomatis.', 'pro-muted');
-    persDesc.style.fontSize = '13px';
-    persDesc.style.marginBottom = '18px';
+    const groqLb = node('label', 'Personal Groq API Key', 'lb');
+    groqLb.htmlFor = 'k-groq';
 
-    // 1. Personal Groq API Key
-    const labelGroq = node('label', 'Personal Groq API Key');
-    labelGroq.style.cssText = 'display:block;font-weight:600;margin-bottom:6px;font-size:13px;';
+    const groqRow = node('div', null, 'row');
+    const groqInput = node('input', null, 'in');
+    groqInput.id = 'k-groq';
+    groqInput.type = 'password';
+    groqInput.value = getPersonalGroqApiKey();
+    groqInput.placeholder = 'gsk_...';
+    groqInput.autocomplete = 'off';
 
-    const inputWrapGroq = node('div');
-    inputWrapGroq.style.cssText = 'display:flex;flex-wrap:wrap;gap:8px;margin-bottom:6px;max-width:100%;box-sizing:border-box;';
-
-    const inputGroq = node('input', null, 'form-input');
-    inputGroq.type = 'password';
-    inputGroq.value = getPersonalGroqApiKey();
-    inputGroq.placeholder = 'gsk_...';
-    inputGroq.style.cssText = 'flex:1 1 180px;min-width:0;padding:10px 14px;border-radius:8px;border:1px solid var(--border-light, #333);background:var(--surface-field, #1e222d);color:inherit;box-sizing:border-box;';
-
-    const toggleGroq = button('Tampilkan', () => {
-      if (inputGroq.type === 'password') { inputGroq.type = 'text'; toggleGroq.textContent = 'Sembunyikan'; }
-      else { inputGroq.type = 'password'; toggleGroq.textContent = 'Tampilkan'; }
-    }, 'btn btn-outline');
-    toggleGroq.type = 'button';
-
-    const testGroqBtn = button('Test Koneksi', async () => {
-      const candidate = inputGroq.value.trim();
-      if (!candidate) {
-        groqStatusMsg.textContent = 'Masukkan Groq API Key terlebih dahulu sebelum menguji.';
-        groqStatusMsg.style.color = '#EF4444';
-        return;
+    const groqToggleBtn = button('Tampilkan', () => {
+      if (groqInput.type === 'password') {
+        groqInput.type = 'text';
+        groqToggleBtn.textContent = 'Sembunyikan';
+      } else {
+        groqInput.type = 'password';
+        groqToggleBtn.textContent = 'Tampilkan';
       }
-      groqStatusMsg.textContent = 'Menguji koneksi ke api.groq.com...';
-      groqStatusMsg.style.color = '#3B82F6';
-      testGroqBtn.disabled = true;
-      try {
-        const testRes = await testGroqKey(candidate);
-        groqStatusMsg.textContent = testRes.message;
-        groqStatusMsg.style.color = testRes.ok ? '#10B981' : (testRes.status === 'Rate Limited' ? '#F59E0B' : '#EF4444');
-      } finally {
-        testGroqBtn.disabled = false;
-      }
-    }, 'btn btn-outline');
-    testGroqBtn.type = 'button';
+    }, 'bt');
+    groqToggleBtn.type = 'button';
 
-    const saveGroqBtn = button('Simpan', () => {
-      const candidate = inputGroq.value.trim();
+    const groqSaveBtn = button('Simpan', () => {
+      const candidate = groqInput.value.trim();
       if (!candidate) {
-        groqStatusMsg.textContent = 'Masukkan Groq API Key terlebih dahulu atau gunakan Groq AI Gratis bawaan.';
-        groqStatusMsg.style.color = '#F59E0B';
+        groqMsg.className = 'msg er';
+        groqMsg.replaceChildren();
+        groqMsg.append(node('b', 'Groq API Key masih kosong.'), node('span', 'Masukkan key sebelum menyimpan atau hapus untuk memakai AI bawaan.'));
+        groqMsg.style.display = 'flex';
         return;
       }
       setPersonalGroqApiKey(candidate);
       setAiProviderPreference('groq');
-      groqStatusMsg.textContent = 'Personal Groq API Key berhasil disimpan! Kuota pribadi Anda kini diprioritaskan.';
-      groqStatusMsg.style.color = '#10B981';
-      refreshPersonalStatus();
-    }, 'btn btn-primary');
-    saveGroqBtn.type = 'button';
+      groqMsg.className = 'msg ok';
+      groqMsg.replaceChildren();
+      groqMsg.append(node('b', 'Personal Groq API Key berhasil disimpan!'), node('span', 'Kunci pribadi Anda kini diprioritaskan untuk pemrosesan AI.'));
+      groqMsg.style.display = 'flex';
+      refreshSummaryAndBadges();
+    }, 'bt');
+    groqSaveBtn.type = 'button';
 
-    const deleteGroqBtn = button('Hapus', () => {
-      setPersonalGroqApiKey('');
-      inputGroq.value = '';
-      if (getAiProviderPreference() === 'groq') setAiProviderPreference('auto');
-      groqStatusMsg.textContent = 'Personal Groq API Key dihapus. Platform kembali menggunakan Groq AI Gratis bawaan.';
-      groqStatusMsg.style.color = '#9CA3AF';
-      refreshPersonalStatus();
-    }, 'btn btn-ghost');
-    deleteGroqBtn.type = 'button';
-
-    inputWrapGroq.append(inputGroq, toggleGroq, testGroqBtn, saveGroqBtn, deleteGroqBtn);
-
-    const groqStatusMsg = node('div');
-    groqStatusMsg.style.cssText = 'font-size:12px;font-weight:600;margin-bottom:4px;min-height:16px;';
-
-    const fallbackLabel = node('label');
-    fallbackLabel.style.cssText = 'display:inline-flex;align-items:center;gap:8px;cursor:pointer;font-size:12px;margin-bottom:6px;';
-    const fallbackCheck = node('input');
-    fallbackCheck.type = 'checkbox';
-    fallbackCheck.checked = getGroqFallbackEnabled();
-    fallbackCheck.addEventListener('change', () => {
-      setGroqFallbackEnabled(fallbackCheck.checked);
-    });
-    fallbackLabel.append(fallbackCheck, node('span', 'Fallback otomatis ke Groq AI Gratis jika Personal Key terkena Rate Limit atau kuota habis'));
-
-    const linkGroq = node('a', 'Dapatkan Groq API Key gratis di console.groq.com/keys →', 'pro-link');
-    linkGroq.href = 'https://console.groq.com/keys';
-    linkGroq.target = '_blank';
-    linkGroq.rel = 'noopener noreferrer';
-    linkGroq.style.cssText = 'display:inline-block;font-size:12px;margin-bottom:18px;color:var(--accent-blue, #3b82f6);';
-
-    // 2. Google Gemini API Key Input (retained for full backward compatibility)
-    const labelGemini = node('label', 'Google Gemini API Key');
-    labelGemini.style.cssText = 'display:block;font-weight:600;margin-bottom:6px;font-size:13px;';
-
-    const inputWrapGemini = node('div');
-    inputWrapGemini.style.cssText = 'display:flex;flex-wrap:wrap;gap:8px;margin-bottom:6px;max-width:100%;box-sizing:border-box;';
-
-    const inputGemini = node('input', null, 'form-input');
-    inputGemini.type = 'password';
-    inputGemini.value = getGeminiApiKey();
-    inputGemini.placeholder = 'AIzaSy...';
-    inputGemini.style.cssText = 'flex:1 1 180px;min-width:0;padding:10px 14px;border-radius:8px;border:1px solid var(--border-light, #333);background:var(--surface-field, #1e222d);color:inherit;box-sizing:border-box;';
-
-    const toggleGemini = button('Tampilkan', () => {
-      if (inputGemini.type === 'password') { inputGemini.type = 'text'; toggleGemini.textContent = 'Sembunyikan'; }
-      else { inputGemini.type = 'password'; toggleGemini.textContent = 'Tampilkan'; }
-    }, 'btn btn-outline');
-    toggleGemini.type = 'button';
-
-    inputWrapGemini.append(inputGemini, toggleGemini);
-
-    const linkGemini = node('a', 'Dapatkan Google Gemini API Key gratis di Google AI Studio →', 'pro-link');
-    linkGemini.href = 'https://aistudio.google.com/app/apikey';
-    linkGemini.target = '_blank';
-    linkGemini.rel = 'noopener noreferrer';
-    linkGemini.style.cssText = 'display:inline-block;font-size:12px;margin-bottom:18px;color:var(--accent-blue, #3b82f6);';
-
-    // 3. ChatGPT (OpenAI) API Key Input (retained for full backward compatibility)
-    const labelOpenAi = node('label', 'ChatGPT (OpenAI) API Key');
-    labelOpenAi.style.cssText = 'display:block;font-weight:600;margin-bottom:6px;font-size:13px;';
-
-    const inputWrapOpenAi = node('div');
-    inputWrapOpenAi.style.cssText = 'display:flex;flex-wrap:wrap;gap:8px;margin-bottom:6px;max-width:100%;box-sizing:border-box;';
-
-    const inputOpenAi = node('input', null, 'form-input');
-    inputOpenAi.type = 'password';
-    inputOpenAi.value = getOpenAiApiKey();
-    inputOpenAi.placeholder = 'sk-... (atau sk-proj-...)';
-    inputOpenAi.style.cssText = 'flex:1 1 180px;min-width:0;padding:10px 14px;border-radius:8px;border:1px solid var(--border-light, #333);background:var(--surface-field, #1e222d);color:inherit;box-sizing:border-box;';
-
-    const toggleOpenAi = button('Tampilkan', () => {
-      if (inputOpenAi.type === 'password') { inputOpenAi.type = 'text'; toggleOpenAi.textContent = 'Sembunyikan'; }
-      else { inputOpenAi.type = 'password'; toggleOpenAi.textContent = 'Tampilkan'; }
-    }, 'btn btn-outline');
-    toggleOpenAi.type = 'button';
-
-    inputWrapOpenAi.append(inputOpenAi, toggleOpenAi);
-
-    const noteOpenAi = node('div', null, 'pro-muted');
-    noteOpenAi.style.cssText = 'font-size:12px;margin-bottom:4px;';
-    noteOpenAi.textContent = 'Model resmi: gpt-4o (default) / gpt-4o-mini. Seluruh model fiktif dilarang.';
-
-    const linkOpenAi = node('a', 'Dapatkan OpenAI API Key di OpenAI Platform →', 'pro-link');
-    linkOpenAi.href = 'https://platform.openai.com/api-keys';
-    linkOpenAi.target = '_blank';
-    linkOpenAi.rel = 'noopener noreferrer';
-    linkOpenAi.style.cssText = 'display:inline-block;font-size:12px;margin-bottom:20px;color:var(--accent-blue, #3b82f6);';
-
-    inputGemini.addEventListener('input', () => {
-      const val = inputGemini.value.trim();
-      if (/^sk[-_]/i.test(val)) {
-        inputOpenAi.value = val;
-        inputGemini.value = '';
-      } else if (/^gsk[-_]/i.test(val)) {
-        inputGroq.value = val;
-        inputGemini.value = '';
-      }
-    });
-    inputOpenAi.addEventListener('input', () => {
-      const val = inputOpenAi.value.trim();
-      if (/^gsk[-_]/i.test(val)) {
-        inputGroq.value = val;
-        inputOpenAi.value = '';
-      }
-    });
-
-    const statusMsg = node('div', null, 'pro-modal-status');
-    statusMsg.style.cssText = 'margin-bottom:16px;font-weight:600;';
-
-    const actions = node('div');
-    actions.style.cssText = 'display:flex;flex-wrap:wrap;gap:10px;';
-
-    const saveBtn = button('Simpan API Key', () => {
-      const grVal = inputGroq.value.trim();
-      const gVal = inputGemini.value.trim();
-      const oVal = inputOpenAi.value.trim();
-      setGroqFallbackEnabled(fallbackCheck.checked);
-
-      if (!grVal && !gVal && !oVal) {
-        statusMsg.textContent = 'Tidak ada API Key pribadi yang dimasukkan. Platform akan menggunakan Groq AI Gratis bawaan.';
-        statusMsg.style.color = '#3B82F6';
-        refreshPersonalStatus();
+    const groqTestBtn = button('Test Koneksi', async () => {
+      const candidate = groqInput.value.trim();
+      if (!candidate) {
+        groqMsg.className = 'msg er';
+        groqMsg.replaceChildren();
+        groqMsg.append(node('b', 'Masukkan Groq API Key terlebih dahulu.'), node('span', 'Input masih kosong.'));
+        groqMsg.style.display = 'flex';
         return;
       }
+      groqMsg.className = 'msg inf';
+      groqMsg.replaceChildren();
+      groqMsg.append(node('b', 'Menguji koneksi ke api.groq.com...'), node('span', 'Memeriksa keabsahan key.'));
+      groqMsg.style.display = 'flex';
+      groqTestBtn.disabled = true;
+      try {
+        const testRes = await testGroqKey(candidate);
+        if (testRes.ok) {
+          groqMsg.className = 'msg ok';
+          groqMsg.replaceChildren();
+          groqMsg.append(node('b', testRes.message), node('span', 'API key valid dan siap digunakan.'));
+          groqChip.className = 'chip ok';
+          groqChip.replaceChildren(node('i'), document.createTextNode('Tersambung'));
+        } else {
+          groqMsg.className = 'msg er';
+          groqMsg.replaceChildren();
+          groqMsg.append(node('b', 'Gagal terhubung ke api.groq.com: ' + testRes.message), node('span', 'Kemungkinan penyebab: koneksi internet terputus, permintaan diblokir peramban (CORS/ekstensi), atau key tidak valid. Coba lagi, lalu periksa key di console Groq.'));
+          groqChip.className = 'chip er';
+          groqChip.replaceChildren(node('i'), document.createTextNode('Gagal terhubung'));
+        }
+      } finally {
+        groqTestBtn.disabled = false;
+        refreshSummaryAndBadges();
+      }
+    }, 'bt pr');
+    groqTestBtn.type = 'button';
 
-      if (grVal) setPersonalGroqApiKey(grVal);
-      if (gVal) setGeminiApiKey(gVal);
-      if (oVal) setOpenAiApiKey(oVal);
-
-      statusMsg.textContent = 'API Key pribadi berhasil disimpan! Kunci pribadi Anda kini diprioritaskan.';
-      statusMsg.style.color = '#10B981';
-      refreshPersonalStatus();
-    }, 'btn btn-primary');
-    saveBtn.type = 'button';
-
-    const removeBtn = button('Hapus Semua Key Pribadi', () => {
+    const groqDeleteBtn = button('Hapus', () => {
       setPersonalGroqApiKey('');
+      groqInput.value = '';
+      if (getAiProviderPreference() === 'groq') setAiProviderPreference('auto');
+      groqMsg.className = 'msg';
+      groqMsg.replaceChildren();
+      groqMsg.append(node('b', 'Personal Groq API Key telah dihapus.'), node('span', 'Platform kembali menggunakan Groq AI Gratis bawaan.'));
+      groqMsg.style.display = 'flex';
+      refreshSummaryAndBadges();
+    }, 'bt danger');
+    groqDeleteBtn.type = 'button';
+
+    groqRow.append(groqInput, groqToggleBtn, groqSaveBtn, groqTestBtn, groqDeleteBtn);
+
+    const groqMsg = node('div', null, 'msg');
+    groqMsg.style.display = 'none';
+
+    const groqFallbackWrap = node('label', null, 'sw');
+    const groqFallbackCheck = node('input');
+    groqFallbackCheck.type = 'checkbox';
+    groqFallbackCheck.checked = getGroqFallbackEnabled();
+    groqFallbackCheck.addEventListener('change', () => {
+      setGroqFallbackEnabled(groqFallbackCheck.checked);
+      refreshSummaryAndBadges();
+    });
+    const groqFallbackTrack = node('span', null, 'tr');
+    const groqFallbackSpan = node('span', 'Fallback otomatis ke Groq AI Gratis jika key pribadi terkena rate limit atau kuota habis');
+    groqFallbackWrap.append(groqFallbackCheck, groqFallbackTrack, groqFallbackSpan);
+
+    const groqLink = node('a', 'Dapatkan Groq API Key gratis di console.groq.com/keys ->', 'lk');
+    groqLink.href = 'https://console.groq.com/keys';
+    groqLink.target = '_blank';
+    groqLink.rel = 'noopener noreferrer';
+
+    groqCard.append(groqPh, groqLb, groqRow, groqMsg, groqFallbackWrap, groqLink);
+
+    // Provider Card 2: Google Gemini
+    const gemCard = node('div', null, 'pc');
+    const gemPh = node('div', null, 'ph');
+    const gemHead = node('div');
+    gemHead.append(node('h3', 'Google Gemini'), node('p', 'Gunakan kuota Google AI Studio Anda sendiri.', 'm'));
+    const gemChip = node('span', null, 'chip nt');
+    gemChip.append(node('i'), document.createTextNode('Belum diatur'));
+    gemPh.append(gemHead, gemChip);
+
+    const gemLb = node('label', 'Google Gemini API Key', 'lb');
+    gemLb.htmlFor = 'k-gem';
+
+    const gemRow = node('div', null, 'row');
+    const gemInput = node('input', null, 'in');
+    gemInput.id = 'k-gem';
+    gemInput.type = 'password';
+    gemInput.value = getGeminiApiKey();
+    gemInput.placeholder = 'AIzaSy...';
+    gemInput.autocomplete = 'off';
+
+    const gemToggleBtn = button('Tampilkan', () => {
+      if (gemInput.type === 'password') {
+        gemInput.type = 'text';
+        gemToggleBtn.textContent = 'Sembunyikan';
+      } else {
+        gemInput.type = 'password';
+        gemToggleBtn.textContent = 'Tampilkan';
+      }
+    }, 'bt');
+    gemToggleBtn.type = 'button';
+
+    const gemSaveBtn = button('Simpan', () => {
+      const candidate = gemInput.value.trim();
+      if (!candidate) {
+        gemMsg.className = 'msg er';
+        gemMsg.replaceChildren();
+        gemMsg.append(node('b', 'Gemini API Key masih kosong.'), node('span', 'Masukkan key sebelum menyimpan.'));
+        gemMsg.style.display = 'flex';
+        return;
+      }
+      setGeminiApiKey(candidate);
+      gemMsg.className = 'msg ok';
+      gemMsg.replaceChildren();
+      gemMsg.append(node('b', 'Google Gemini API Key berhasil disimpan!'), node('span', 'Kunci Gemini Anda siap digunakan.'));
+      gemMsg.style.display = 'flex';
+      refreshSummaryAndBadges();
+    }, 'bt');
+    gemSaveBtn.type = 'button';
+
+    const gemTestBtn = button('Test Koneksi', async () => {
+      const candidate = gemInput.value.trim();
+      if (!candidate) {
+        gemMsg.className = 'msg er';
+        gemMsg.replaceChildren();
+        gemMsg.append(node('b', 'Masukkan Gemini API Key terlebih dahulu.'), node('span', 'Input masih kosong.'));
+        gemMsg.style.display = 'flex';
+        return;
+      }
+      gemMsg.className = 'msg inf';
+      gemMsg.replaceChildren();
+      gemMsg.append(node('b', 'Menguji koneksi ke Google AI Studio...'), node('span', 'Memvalidasi API key.'));
+      gemMsg.style.display = 'flex';
+      gemTestBtn.disabled = true;
+      try {
+        const testRes = await testGeminiKey(candidate);
+        if (testRes.ok) {
+          gemMsg.className = 'msg ok';
+          gemMsg.replaceChildren();
+          gemMsg.append(node('b', testRes.message), node('span', 'Gemini API key valid dan siap digunakan.'));
+          gemChip.className = 'chip ok';
+          gemChip.replaceChildren(node('i'), document.createTextNode('Tersambung'));
+        } else {
+          gemMsg.className = 'msg er';
+          gemMsg.replaceChildren();
+          gemMsg.append(node('b', testRes.message), node('span', 'Periksa izin project dan status key di Google AI Studio.'));
+          gemChip.className = 'chip er';
+          gemChip.replaceChildren(node('i'), document.createTextNode('Gagal terhubung'));
+        }
+      } finally {
+        gemTestBtn.disabled = false;
+        refreshSummaryAndBadges();
+      }
+    }, 'bt pr');
+    gemTestBtn.type = 'button';
+
+    const gemDeleteBtn = button('Hapus', () => {
       setGeminiApiKey('');
+      gemInput.value = '';
+      gemMsg.className = 'msg';
+      gemMsg.replaceChildren();
+      gemMsg.append(node('b', 'Google Gemini API Key telah dihapus.'), node('span', 'Konfigurasi Gemini dibersihkan.'));
+      gemMsg.style.display = 'flex';
+      refreshSummaryAndBadges();
+    }, 'bt danger');
+    gemDeleteBtn.type = 'button';
+
+    gemRow.append(gemInput, gemToggleBtn, gemSaveBtn, gemTestBtn, gemDeleteBtn);
+
+    const gemMsg = node('div', null, 'msg');
+    gemMsg.style.display = 'none';
+
+    const gemLink = node('a', 'Dapatkan Gemini API Key di Google AI Studio ->', 'lk');
+    gemLink.href = 'https://aistudio.google.com/app/apikey';
+    gemLink.target = '_blank';
+    gemLink.rel = 'noopener noreferrer';
+
+    gemCard.append(gemPh, gemLb, gemRow, gemMsg, gemLink);
+
+    // Provider Card 3: ChatGPT (OpenAI)
+    const oaiCard = node('div', null, 'pc');
+    const oaiPh = node('div', null, 'ph');
+    const oaiHead = node('div');
+    oaiHead.append(node('h3', 'ChatGPT (OpenAI)'), node('p', 'Model resmi: gpt-4o (default) / gpt-4o-mini.', 'm'));
+    const oaiChip = node('span', null, 'chip nt');
+    oaiChip.append(node('i'), document.createTextNode('Belum diatur'));
+    oaiPh.append(oaiHead, oaiChip);
+
+    const oaiLb = node('label', 'OpenAI API Key', 'lb');
+    oaiLb.htmlFor = 'k-oai';
+
+    const oaiRow = node('div', null, 'row');
+    const oaiInput = node('input', null, 'in');
+    oaiInput.id = 'k-oai';
+    oaiInput.type = 'password';
+    oaiInput.value = getOpenAiApiKey();
+    oaiInput.placeholder = 'sk-proj-...';
+    oaiInput.autocomplete = 'off';
+
+    const oaiToggleBtn = button('Tampilkan', () => {
+      if (oaiInput.type === 'password') {
+        oaiInput.type = 'text';
+        oaiToggleBtn.textContent = 'Sembunyikan';
+      } else {
+        oaiInput.type = 'password';
+        oaiToggleBtn.textContent = 'Tampilkan';
+      }
+    }, 'bt');
+    oaiToggleBtn.type = 'button';
+
+    const oaiSaveBtn = button('Simpan', () => {
+      const candidate = oaiInput.value.trim();
+      if (!candidate) {
+        oaiMsg.className = 'msg er';
+        oaiMsg.replaceChildren();
+        oaiMsg.append(node('b', 'OpenAI API Key masih kosong.'), node('span', 'Masukkan key sebelum menyimpan.'));
+        oaiMsg.style.display = 'flex';
+        return;
+      }
+      setOpenAiApiKey(candidate);
+      oaiMsg.className = 'msg ok';
+      oaiMsg.replaceChildren();
+      oaiMsg.append(node('b', 'OpenAI API Key berhasil disimpan!'), node('span', 'Kunci ChatGPT Anda siap digunakan.'));
+      oaiMsg.style.display = 'flex';
+      refreshSummaryAndBadges();
+    }, 'bt');
+    oaiSaveBtn.type = 'button';
+
+    const oaiTestBtn = button('Test Koneksi', async () => {
+      const candidate = oaiInput.value.trim();
+      if (!candidate) {
+        oaiMsg.className = 'msg er';
+        oaiMsg.replaceChildren();
+        oaiMsg.append(node('b', 'Masukkan OpenAI API Key terlebih dahulu.'), node('span', 'Input masih kosong.'));
+        oaiMsg.style.display = 'flex';
+        return;
+      }
+      oaiMsg.className = 'msg inf';
+      oaiMsg.replaceChildren();
+      oaiMsg.append(node('b', 'Menguji koneksi ke api.openai.com...'), node('span', 'Memvalidasi API key.'));
+      oaiMsg.style.display = 'flex';
+      oaiTestBtn.disabled = true;
+      try {
+        const testRes = await testOpenAiKey(candidate);
+        if (testRes.ok) {
+          oaiMsg.className = 'msg ok';
+          oaiMsg.replaceChildren();
+          oaiMsg.append(node('b', testRes.message), node('span', 'OpenAI API key valid dan siap digunakan.'));
+          oaiChip.className = 'chip ok';
+          oaiChip.replaceChildren(node('i'), document.createTextNode('Tersambung'));
+        } else {
+          oaiMsg.className = 'msg er';
+          oaiMsg.replaceChildren();
+          oaiMsg.append(node('b', testRes.message), node('span', 'Periksa saldo kredit atau izin API key di OpenAI Platform.'));
+          oaiChip.className = 'chip er';
+          oaiChip.replaceChildren(node('i'), document.createTextNode('Gagal terhubung'));
+        }
+      } finally {
+        oaiTestBtn.disabled = false;
+        refreshSummaryAndBadges();
+      }
+    }, 'bt pr');
+    oaiTestBtn.type = 'button';
+
+    const oaiDeleteBtn = button('Hapus', () => {
       setOpenAiApiKey('');
-      inputGroq.value = '';
-      inputGemini.value = '';
-      inputOpenAi.value = '';
-      statusMsg.textContent = 'Semua API Key pribadi telah dihapus. Platform kembali menggunakan Groq AI Gratis bawaan.';
-      statusMsg.style.color = '#F59E0B';
-      refreshPersonalStatus();
-    }, 'btn btn-ghost');
-    removeBtn.type = 'button';
+      oaiInput.value = '';
+      oaiMsg.className = 'msg';
+      oaiMsg.replaceChildren();
+      oaiMsg.append(node('b', 'OpenAI API Key telah dihapus.'), node('span', 'Konfigurasi ChatGPT dibersihkan.'));
+      oaiMsg.style.display = 'flex';
+      refreshSummaryAndBadges();
+    }, 'bt danger');
+    oaiDeleteBtn.type = 'button';
 
-    actions.append(saveBtn, removeBtn);
-    personalSection.append(persTitle, persDesc, labelGroq, inputWrapGroq, groqStatusMsg, fallbackLabel, linkGroq, labelGemini, inputWrapGemini, linkGemini, labelOpenAi, inputWrapOpenAi, noteOpenAi, linkOpenAi);
-    userCard.append(h2, desc, statusWrap, defaultSection, personalSection, statusMsg, actions);
-    wrap.append(userCard);
+    oaiRow.append(oaiInput, oaiToggleBtn, oaiSaveBtn, oaiTestBtn, oaiDeleteBtn);
 
+    const oaiMsg = node('div', null, 'msg');
+    oaiMsg.style.display = 'none';
+
+    const oaiLink = node('a', 'Dapatkan OpenAI API Key di OpenAI Platform ->', 'lk');
+    oaiLink.href = 'https://platform.openai.com/api-keys';
+    oaiLink.target = '_blank';
+    oaiLink.rel = 'noopener noreferrer';
+
+    oaiCard.append(oaiPh, oaiLb, oaiRow, oaiMsg, oaiLink);
+
+    // Auto smart key routing between inputs
+    gemInput.addEventListener('input', () => {
+      const val = gemInput.value.trim();
+      if (/^sk[-_]/i.test(val)) {
+        oaiInput.value = val;
+        gemInput.value = '';
+      } else if (/^gsk[-_]/i.test(val)) {
+        groqInput.value = val;
+        gemInput.value = '';
+      }
+    });
+    oaiInput.addEventListener('input', () => {
+      const val = oaiInput.value.trim();
+      if (/^gsk[-_]/i.test(val)) {
+        groqInput.value = val;
+        oaiInput.value = '';
+      }
+    });
+
+    secWrap.append(groqCard, gemCard, oaiCard);
+
+    // Dynamic state refresher
+    function refreshSummaryAndBadges() {
+      // 1. Groq status & quota
+      request('/groq/status')
+        .then(st => {
+          const avail = Boolean(st?.available);
+          c1Title.textContent = avail ? 'Layanan platform' : 'Layanan offline';
+          c1Chip.className = avail ? 'chip ok' : 'chip er';
+          c1Chip.replaceChildren(node('i'), document.createTextNode(avail ? 'Tersedia' : 'Offline'));
+          if (st?.daily_quota) {
+            const q = st.daily_quota;
+            freeQuotaB.textContent = q.remaining + ' dari ' + q.limit + ' pesan gratis hari ini';
+          }
+        })
+        .catch(() => {
+          c1Title.textContent = 'Layanan platform';
+          c1Chip.className = 'chip ok';
+          c1Chip.replaceChildren(node('i'), document.createTextNode('Tersedia'));
+        });
+
+      // 2. Personal Groq status
+      const hasGr = hasPersonalGroqApiKey();
+      if (hasGr) {
+        c2Title.textContent = 'Tersambung';
+        c2Chip.className = 'chip ok';
+        c2Chip.replaceChildren(node('i'), document.createTextNode('Aktif'));
+        groqChip.className = 'chip ok';
+        groqChip.replaceChildren(node('i'), document.createTextNode('Tersambung'));
+      } else {
+        c2Title.textContent = 'Belum diatur';
+        c2Chip.className = 'chip nt';
+        c2Chip.replaceChildren(node('i'), document.createTextNode('Belum diuji'));
+        groqChip.className = 'chip nt';
+        groqChip.replaceChildren(node('i'), document.createTextNode('Belum diatur'));
+      }
+
+      // 3. Gemini · OpenAI status
+      const hasGm = Boolean(getGeminiApiKey());
+      const hasOa = hasOpenAiApiKey();
+      if (hasGm && hasOa) {
+        c3Title.textContent = 'Gemini & OpenAI Tersambung';
+        c3Chip.className = 'chip ok';
+        c3Chip.replaceChildren(node('i'), document.createTextNode('Aktif'));
+      } else if (hasGm) {
+        c3Title.textContent = 'Gemini Tersambung';
+        c3Chip.className = 'chip ok';
+        c3Chip.replaceChildren(node('i'), document.createTextNode('Aktif'));
+      } else if (hasOa) {
+        c3Title.textContent = 'OpenAI Tersambung';
+        c3Chip.className = 'chip ok';
+        c3Chip.replaceChildren(node('i'), document.createTextNode('Aktif'));
+      } else {
+        c3Title.textContent = 'Belum disambungkan';
+        c3Chip.className = 'chip nt';
+        c3Chip.replaceChildren(node('i'), document.createTextNode('Belum diuji'));
+      }
+
+      gemChip.className = hasGm ? 'chip ok' : 'chip nt';
+      gemChip.replaceChildren(node('i'), document.createTextNode(hasGm ? 'Tersambung' : 'Belum diatur'));
+
+      oaiChip.className = hasOa ? 'chip ok' : 'chip nt';
+      oaiChip.replaceChildren(node('i'), document.createTextNode(hasOa ? 'Tersambung' : 'Belum diatur'));
+
+      // 4. Auto-routing status
+      const fbOn = getGroqFallbackEnabled();
+      c4Title.textContent = fbOn ? 'Fallback aktif' : 'Fallback nonaktif';
+      c4Chip.className = fbOn ? 'chip inf' : 'chip nt';
+      c4Chip.replaceChildren(node('i'), document.createTextNode(fbOn ? 'Diaktifkan' : 'Dimatikan'));
+    }
+
+    wrap.append(headWrap, grid4, routeCard, freeCard, secWrap);
     content.append(wrap);
-    refreshDefaultAiBadge();
+    refreshSummaryAndBadges();
 
     const newsHost = node('div', null, 'pro-news-compat-host');
     content.append(newsHost);

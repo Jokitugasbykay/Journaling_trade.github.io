@@ -4990,3 +4990,414 @@ body.pro-sheet-open { overflow:hidden !important; }
   margin-bottom: 24px;
 }
 
+
+
+/* Tab API New Visual Specification */
+.pro-api-config-page {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  min-width: 0;
+  width: 100%;
+  max-width: 960px;
+  margin: 0 auto;
+  box-sizing: border-box;
+  color: #E6E8EB;
+}
+
+.pro-api-config-page h1 {
+  margin: 0;
+  font-size: 28px;
+  letter-spacing: -0.02em;
+  font-weight: 700;
+  color: #E6E8EB;
+}
+
+.pro-api-config-page h2 {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 600;
+  color: #E6E8EB;
+}
+
+.pro-api-config-page h3 {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 600;
+  color: #E6E8EB;
+}
+
+.pro-api-config-page .m {
+  margin: 4px 0 0;
+  color: #9AA3AF;
+  font-size: 14px;
+  line-height: 1.55;
+}
+
+.pro-api-config-page .grid4 {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 200px), 1fr));
+  gap: 12px;
+}
+
+.pro-api-config-page .card {
+  background: #161A20;
+  border: 1px solid #262B33;
+  border-radius: 12px;
+  padding: 20px;
+  box-sizing: border-box;
+  min-width: 0;
+}
+
+.pro-api-config-page .st {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.pro-api-config-page .st span {
+  font-size: 12px;
+  color: #9AA3AF;
+}
+
+.pro-api-config-page .st b {
+  font-size: 15px;
+  color: #E6E8EB;
+}
+
+.pro-api-config-page .chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  padding: 4px 10px;
+  border-radius: 999px;
+  white-space: nowrap;
+  border: 1px solid;
+}
+
+.pro-api-config-page .chip i {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: currentColor;
+  display: inline-block;
+  flex-shrink: 0;
+}
+
+.pro-api-config-page .chip.ok {
+  color: #34D399;
+  border-color: #1E5A45;
+  background: #12261F;
+}
+
+.pro-api-config-page .chip.er {
+  color: #FCA5A5;
+  border-color: #6B2A2A;
+  background: #2A1616;
+}
+
+.pro-api-config-page .chip.nt {
+  color: #B4BCC8;
+  border-color: #343B45;
+  background: #1A1F26;
+}
+
+.pro-api-config-page .chip.inf {
+  color: #93C5FD;
+  border-color: #27456E;
+  background: #13202F;
+}
+
+.pro-api-config-page .chip.amb {
+  color: #F59E0B;
+  border-color: rgba(245, 158, 11, 0.4);
+  background: rgba(245, 158, 11, 0.12);
+}
+
+.pro-api-config-page .route {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr));
+  gap: 12px;
+  margin-top: 16px;
+}
+
+.pro-api-config-page .step {
+  border: 1px solid #262B33;
+  border-radius: 10px;
+  padding: 14px;
+  background: #12151A;
+  display: flex;
+  gap: 12px;
+  box-sizing: border-box;
+  min-width: 0;
+}
+
+.pro-api-config-page .step em {
+  font-style: normal;
+  font-family: 'JetBrains Mono', monospace;
+  color: #34D399;
+  font-size: 13px;
+  width: 24px;
+  height: 24px;
+  border: 1px solid #1E5A45;
+  border-radius: 6px;
+  display: grid;
+  place-items: center;
+  flex: none;
+}
+
+.pro-api-config-page .step b {
+  display: block;
+  font-size: 14px;
+  color: #E6E8EB;
+}
+
+.pro-api-config-page .step span {
+  font-size: 13px;
+  color: #9AA3AF;
+  line-height: 1.5;
+}
+
+.pro-api-config-page .card.free {
+  border-color: #1E5A45;
+  background: linear-gradient(180deg, #13221C, #161A20);
+}
+
+.pro-api-config-page .sec {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  min-width: 0;
+}
+
+.pro-api-config-page .sec > p {
+  margin: 0;
+}
+
+.pro-api-config-page .pc {
+  background: #161A20;
+  border: 1px solid #262B33;
+  border-radius: 12px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  box-sizing: border-box;
+  min-width: 0;
+}
+
+.pro-api-config-page .ph {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  align-items: flex-start;
+  flex-wrap: wrap;
+}
+
+.pro-api-config-page .lb {
+  font-size: 13px;
+  font-weight: 600;
+  color: #E6E8EB;
+}
+
+.pro-api-config-page .row {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.pro-api-config-page .in {
+  flex: 1 1 180px;
+  min-width: 0;
+  height: 44px;
+  box-sizing: border-box;
+  background: #0F1115;
+  border: 1px solid #2F3640;
+  border-radius: 8px;
+  padding: 0 14px;
+  color: #E6E8EB;
+  font: 500 14px 'JetBrains Mono', monospace;
+  letter-spacing: 0.08em;
+}
+
+.pro-api-config-page .in:focus,
+.pro-api-config-page .bt:focus-visible,
+.pro-api-config-page a:focus-visible,
+.pro-api-config-page .sw input:focus-visible + .tr {
+  outline: 2px solid #60A5FA;
+  outline-offset: 2px;
+}
+
+.pro-api-config-page .bt {
+  height: 44px;
+  padding: 0 16px;
+  border-radius: 8px;
+  border: 1px solid #2F3640;
+  background: #1A1F26;
+  color: #E6E8EB;
+  font: 600 13px Inter, sans-serif;
+  cursor: pointer;
+  box-sizing: border-box;
+  white-space: nowrap;
+}
+
+.pro-api-config-page .bt:hover {
+  background: #222831;
+}
+
+.pro-api-config-page .bt.pr {
+  background: #34D399;
+  border-color: #34D399;
+  color: #06281D;
+}
+
+.pro-api-config-page .bt.pr:hover {
+  background: #6EE7B7;
+}
+
+.pro-api-config-page .bt.danger {
+  background: #2A1616;
+  border-color: #6B2A2A;
+  color: #FCA5A5;
+}
+
+.pro-api-config-page .bt.danger:hover {
+  background: #3D1C1C;
+}
+
+.pro-api-config-page .msg {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-size: 13px;
+  line-height: 1.5;
+  padding: 12px 14px;
+  border-radius: 8px;
+  box-sizing: border-box;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+
+.pro-api-config-page .msg.er {
+  border: 1px solid #6B2A2A;
+  background: #2A1616;
+}
+
+.pro-api-config-page .msg.er b {
+  color: #FCA5A5;
+}
+
+.pro-api-config-page .msg.er span {
+  color: #E4B4B4;
+}
+
+.pro-api-config-page .msg.ok {
+  border: 1px solid #1E5A45;
+  background: #12261F;
+}
+
+.pro-api-config-page .msg.ok b {
+  color: #34D399;
+}
+
+.pro-api-config-page .msg.ok span {
+  color: #A7F3D0;
+}
+
+.pro-api-config-page .msg.inf {
+  border: 1px solid #27456E;
+  background: #13202F;
+}
+
+.pro-api-config-page .msg.inf b {
+  color: #93C5FD;
+}
+
+.pro-api-config-page .msg.inf span {
+  color: #BFDBFE;
+}
+
+.pro-api-config-page .sw {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  font-size: 13px;
+  color: #B4BCC8;
+  line-height: 1.5;
+  cursor: pointer;
+  position: relative;
+}
+
+.pro-api-config-page .sw input {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.pro-api-config-page .tr {
+  width: 40px;
+  height: 22px;
+  border-radius: 999px;
+  background: #343B45;
+  position: relative;
+  flex: none;
+  transition: background 0.15s;
+}
+
+.pro-api-config-page .tr:after {
+  content: "";
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: #E6E8EB;
+  transition: left 0.15s;
+}
+
+.pro-api-config-page .sw input:checked + .tr {
+  background: #34D399;
+}
+
+.pro-api-config-page .sw input:checked + .tr:after {
+  left: 21px;
+  background: #06281D;
+}
+
+.pro-api-config-page .lk {
+  font-size: 13px;
+  color: #93C5FD;
+  text-decoration: none;
+  display: inline-block;
+  margin-top: 4px;
+}
+
+.pro-api-config-page .lk:hover {
+  text-decoration: underline;
+}
+
+@media (max-width: 640px) {
+  .pro-api-config-page {
+    gap: 18px;
+    padding: 0 4px;
+  }
+  .pro-api-config-page .card,
+  .pro-api-config-page .pc {
+    padding: 16px;
+  }
+  .pro-api-config-page .grid4,
+  .pro-api-config-page .route {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media(prefers-reduced-motion:no-preference){
+  .pro-api-config-page .bt {
+    transition: background .15s, border-color .15s, color .15s;
+  }
+}
