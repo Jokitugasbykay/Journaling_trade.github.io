@@ -4585,132 +4585,167 @@ Instruksi Format Output & Larangan Bocor Chain-of-Thought dan Perencanaan Rules 
     };
   }
 
-  function renderEquitySvg(container, equityCurve, initialBalance) {
+    function renderEquitySvg(container, equityCurve, initialBalance) {
     container.replaceChildren();
     if (!equityCurve || equityCurve.length < 2) {
       container.append(node('p', 'Data ekuitas tidak mencukupi untuk membuat kurva.', 'pro-muted'));
       return;
     }
-    const width = container.clientWidth || 860;
-    const height = 180;
-    const paddingLeft = 60, paddingRight = 24, paddingTop = 20, paddingBottom = 28;
+    const width = 960;
+    const height = 290;
+    const startX = 30;
+    const endX = 930;
+    const topY = 40;
+    const baseY = 250;
 
     const equities = equityCurve.map(p => p.equity);
-    let minEq = Math.min(...equities);
-    let maxEq = Math.max(...equities);
+    const finalEq = equities[equities.length - 1];
+    let minEq = Math.min(initialBalance, ...equities);
+    let maxEq = Math.max(initialBalance, ...equities);
     if (minEq === maxEq) { minEq -= 50; maxEq += 50; }
     const range = maxEq - minEq;
 
-    const getX = (idx) => paddingLeft + (idx / (equityCurve.length - 1)) * (width - paddingLeft - paddingRight);
-    const getY = (val) => paddingTop + (height - paddingTop - paddingBottom) * (1 - (val - minEq) / range);
-
-    const finalEq = equities[equities.length - 1];
     const isProfitable = finalEq >= initialBalance;
-    const lineColor = isProfitable ? '#10b981' : '#ef4444';
+    const colorStart = isProfitable ? '#2FBF8F' : '#F87171';
+    const colorEnd = isProfitable ? '#7EE8B8' : '#EF4444';
+    const fillStopColor = isProfitable ? '#34D399' : '#F87171';
 
     const svgNS = 'http://www.w3.org/2000/svg';
     const svg = document.createElementNS(svgNS, 'svg');
-    svg.setAttribute('width', '100%');
-    svg.setAttribute('height', String(height));
     svg.setAttribute('viewBox', '0 0 ' + width + ' ' + height);
+    svg.setAttribute('width', '100%');
+    svg.setAttribute('role', 'img');
+    svg.setAttribute('aria-label', 'Kurva ekuitas hasil backtest');
     svg.style.display = 'block';
 
     const defs = document.createElementNS(svgNS, 'defs');
-    const grad = document.createElementNS(svgNS, 'linearGradient');
-    const gradId = 'eqAreaGrad_' + Math.random().toString(36).slice(2, 7);
-    grad.setAttribute('id', gradId);
-    grad.setAttribute('x1', '0'); grad.setAttribute('y1', '0');
-    grad.setAttribute('x2', '0'); grad.setAttribute('y2', '1');
-    const stop1 = document.createElementNS(svgNS, 'stop');
-    stop1.setAttribute('offset', '0%');
-    stop1.setAttribute('stop-color', lineColor);
-    stop1.setAttribute('stop-opacity', '0.25');
-    const stop2 = document.createElementNS(svgNS, 'stop');
-    stop2.setAttribute('offset', '100%');
-    stop2.setAttribute('stop-color', lineColor);
-    stop2.setAttribute('stop-opacity', '0.0');
-    grad.append(stop1, stop2);
-    defs.append(grad);
+    const gradId = 'ag_' + Math.random().toString(36).slice(2, 7);
+    const lineGradId = 'lg_' + Math.random().toString(36).slice(2, 7);
+
+    // Area fill gradient
+    const ag = document.createElementNS(svgNS, 'linearGradient');
+    ag.setAttribute('id', gradId);
+    ag.setAttribute('x1', '0'); ag.setAttribute('y1', '0');
+    ag.setAttribute('x2', '0'); ag.setAttribute('y2', '1');
+    const agStop1 = document.createElementNS(svgNS, 'stop');
+    agStop1.setAttribute('offset', '0');
+    agStop1.setAttribute('stop-color', fillStopColor);
+    agStop1.setAttribute('stop-opacity', '.28');
+    const agStop2 = document.createElementNS(svgNS, 'stop');
+    agStop2.setAttribute('offset', '1');
+    agStop2.setAttribute('stop-color', fillStopColor);
+    agStop2.setAttribute('stop-opacity', '0');
+    ag.append(agStop1, agStop2);
+
+    // Line stroke gradient
+    const lg = document.createElementNS(svgNS, 'linearGradient');
+    lg.setAttribute('id', lineGradId);
+    lg.setAttribute('x1', '0'); lg.setAttribute('x2', '1');
+    const lgStop1 = document.createElementNS(svgNS, 'stop');
+    lgStop1.setAttribute('offset', '0');
+    lgStop1.setAttribute('stop-color', colorStart);
+    const lgStop2 = document.createElementNS(svgNS, 'stop');
+    lgStop2.setAttribute('offset', '1');
+    lgStop2.setAttribute('stop-color', colorEnd);
+    lg.append(lgStop1, lgStop2);
+
+    defs.append(ag, lg);
     svg.append(defs);
 
-    const baseLineY = getY(initialBalance);
+    // Grid lines
+    const gGrid = document.createElementNS(svgNS, 'g');
+    gGrid.setAttribute('stroke', '#1F2421');
+    gGrid.setAttribute('stroke-width', '1');
+    [40, 110, 180].forEach(y => {
+      const gl = document.createElementNS(svgNS, 'line');
+      gl.setAttribute('x1', String(startX));
+      gl.setAttribute('y1', String(y));
+      gl.setAttribute('x2', String(endX));
+      gl.setAttribute('y2', String(y));
+      gGrid.append(gl);
+    });
+    svg.append(gGrid);
+
+    // Baseline (initial balance dashed)
     const baseLine = document.createElementNS(svgNS, 'line');
-    baseLine.setAttribute('x1', String(paddingLeft));
-    baseLine.setAttribute('y1', String(baseLineY));
-    baseLine.setAttribute('x2', String(width - paddingRight));
-    baseLine.setAttribute('y2', String(baseLineY));
-    baseLine.setAttribute('stroke', '#334155');
-    baseLine.setAttribute('stroke-dasharray', '4 4');
-    baseLine.setAttribute('stroke-width', '1');
+    baseLine.setAttribute('x1', String(startX));
+    baseLine.setAttribute('y1', String(baseY));
+    baseLine.setAttribute('x2', String(endX));
+    baseLine.setAttribute('y2', String(baseY));
+    baseLine.setAttribute('stroke', '#8A7340');
+    baseLine.setAttribute('stroke-dasharray', '3 5');
     svg.append(baseLine);
 
-    const textBase = document.createElementNS(svgNS, 'text');
-    textBase.setAttribute('x', String(paddingLeft - 8));
-    textBase.setAttribute('y', String(baseLineY + 3.5));
-    textBase.setAttribute('fill', '#94a3b8');
-    textBase.setAttribute('font-size', '10.5');
-    textBase.setAttribute('text-anchor', 'end');
-    textBase.setAttribute('font-family', 'JetBrains Mono, monospace');
-    textBase.textContent = '$' + Math.round(initialBalance);
-    svg.append(textBase);
-
-    let pathD = '';
-    equityCurve.forEach((pt, i) => {
-      const x = getX(i);
-      const y = getY(pt.equity);
-      pathD += (i === 0 ? 'M' : 'L') + x.toFixed(1) + ' ' + y.toFixed(1) + ' ';
+    // Calculate curve points
+    const pts = equityCurve.map((pt, i) => {
+      const x = startX + (i / (equityCurve.length - 1)) * (endX - startX);
+      const y = baseY - ((pt.equity - minEq) / range) * (baseY - topY);
+      return { x, y };
     });
 
-    const bottomY = height - paddingBottom;
-    const areaD = pathD + ' L ' + getX(equityCurve.length - 1).toFixed(1) + ' ' + bottomY.toFixed(1) + ' L ' + getX(0).toFixed(1) + ' ' + bottomY.toFixed(1) + ' Z';
-    const areaPath = document.createElementNS(svgNS, 'path');
-    areaPath.setAttribute('d', areaD);
-    areaPath.setAttribute('fill', 'url(#' + gradId + ')');
-    svg.append(areaPath);
+    const ptsStr = pts.map(p => p.x.toFixed(1) + ',' + p.y.toFixed(1)).join(' ');
+    const polyPoints = startX + ',' + baseY + ' ' + ptsStr + ' ' + endX + ',' + baseY;
 
-    const path = document.createElementNS(svgNS, 'path');
-    path.setAttribute('d', pathD);
-    path.setAttribute('fill', 'none');
-    path.setAttribute('stroke', lineColor);
-    path.setAttribute('stroke-width', '2.5');
-    path.setAttribute('stroke-linecap', 'round');
-    path.setAttribute('stroke-linejoin', 'round');
-    svg.append(path);
+    // Fill polygon
+    const polygon = document.createElementNS(svgNS, 'polygon');
+    polygon.setAttribute('points', polyPoints);
+    polygon.setAttribute('fill', 'url(#' + gradId + ')');
+    svg.append(polygon);
 
-    const startDot = document.createElementNS(svgNS, 'circle');
-    startDot.setAttribute('cx', String(getX(0)));
-    startDot.setAttribute('cy', String(getY(equityCurve[0].equity)));
-    startDot.setAttribute('r', '4');
-    startDot.setAttribute('fill', '#94a3b8');
-    svg.append(startDot);
+    // Stroke polyline
+    const polyline = document.createElementNS(svgNS, 'polyline');
+    polyline.setAttribute('points', ptsStr);
+    polyline.setAttribute('fill', 'none');
+    polyline.setAttribute('stroke', 'url(#' + lineGradId + ')');
+    polyline.setAttribute('stroke-width', '2.4');
+    polyline.setAttribute('stroke-linejoin', 'round');
+    svg.append(polyline);
 
-    const endX = getX(equityCurve.length - 1);
-    const endY = getY(finalEq);
+    // Last point indicator (gold circles)
+    const lastP = pts[pts.length - 1];
     const halo = document.createElementNS(svgNS, 'circle');
-    halo.setAttribute('cx', String(endX));
-    halo.setAttribute('cy', String(endY));
-    halo.setAttribute('r', '8');
-    halo.setAttribute('fill', lineColor);
-    halo.setAttribute('opacity', '0.2');
-    svg.append(halo);
+    halo.setAttribute('cx', String(lastP.x));
+    halo.setAttribute('cy', String(lastP.y));
+    halo.setAttribute('r', '9');
+    halo.setAttribute('fill', '#D9B77A');
+    halo.setAttribute('opacity', '.25');
 
-    const endDot = document.createElementNS(svgNS, 'circle');
-    endDot.setAttribute('cx', String(endX));
-    endDot.setAttribute('cy', String(endY));
-    endDot.setAttribute('r', '4.5');
-    endDot.setAttribute('fill', lineColor);
-    svg.append(endDot);
+    const dot = document.createElementNS(svgNS, 'circle');
+    dot.setAttribute('cx', String(lastP.x));
+    dot.setAttribute('cy', String(lastP.y));
+    dot.setAttribute('r', '4.5');
+    dot.setAttribute('fill', '#D9B77A');
+    svg.append(halo, dot);
 
-    const textEnd = document.createElementNS(svgNS, 'text');
-    textEnd.setAttribute('x', String(endX));
-    textEnd.setAttribute('y', String(Math.max(14, endY - 10)));
-    textEnd.setAttribute('fill', lineColor);
-    textEnd.setAttribute('font-size', '11');
-    textEnd.setAttribute('font-weight', '700');
-    textEnd.setAttribute('text-anchor', 'end');
-    textEnd.setAttribute('font-family', 'JetBrains Mono, monospace');
-    textEnd.textContent = '$' + finalEq.toFixed(2);
-    svg.append(textEnd);
+    // Labels
+    const txtEnd = document.createElementNS(svgNS, 'text');
+    txtEnd.setAttribute('x', String(lastP.x - 12));
+    txtEnd.setAttribute('y', String(Math.max(25, lastP.y - 4)));
+    txtEnd.setAttribute('fill', '#D9B77A');
+    txtEnd.setAttribute('font-size', '13');
+    txtEnd.setAttribute('text-anchor', 'end');
+    txtEnd.setAttribute('font-family', 'JetBrains Mono, monospace');
+    txtEnd.textContent = '$' + Math.round(finalEq).toLocaleString('id-ID');
+    svg.append(txtEnd);
+
+    const txtStart = document.createElementNS(svgNS, 'text');
+    txtStart.setAttribute('x', String(startX));
+    txtStart.setAttribute('y', '276');
+    txtStart.setAttribute('fill', '#8D958F');
+    txtStart.setAttribute('font-size', '12');
+    txtStart.setAttribute('font-family', 'JetBrains Mono, monospace');
+    txtStart.textContent = 'Mulai $' + Math.round(initialBalance).toLocaleString('id-ID');
+    svg.append(txtStart);
+
+    const txtRight = document.createElementNS(svgNS, 'text');
+    txtRight.setAttribute('x', String(endX));
+    txtRight.setAttribute('y', '276');
+    txtRight.setAttribute('fill', '#8D958F');
+    txtRight.setAttribute('font-size', '12');
+    txtRight.setAttribute('text-anchor', 'end');
+    txtRight.setAttribute('font-family', 'JetBrains Mono, monospace');
+    txtRight.textContent = 'Sekarang';
+    svg.append(txtRight);
 
     container.append(svg);
   }
@@ -4764,7 +4799,7 @@ Instruksi Format Output & Larangan Bocor Chain-of-Thought dan Perencanaan Rules 
     const selectedTF = opts.timeframe || '15m';
     const selectedStyle = opts.tradingStyle || 'INTRADAY';
 
-    const backdrop = node('div', null, 'pro-modal-backdrop');
+    const backdrop = node('div', null, 'pro-modal-backdrop app');
     backdrop.id = 'backtestModalBackdrop';
 
     const closeModal = () => {
@@ -4786,64 +4821,67 @@ Instruksi Format Output & Larangan Bocor Chain-of-Thought dan Perencanaan Rules 
     const dialog = node('div', null, 'backtest-modal-dialog md');
     dialog.setAttribute('role', 'dialog');
     dialog.setAttribute('aria-modal', 'true');
+    dialog.setAttribute('aria-labelledby', 'mt');
 
     // Header matching BacktestPremium.dc.html (.mh)
     const header = node('div', null, 'backtest-modal-header mh');
 
     const headerLeft = node('div', null, 'bt-modal-header-left');
+    headerLeft.style.display = 'flex';
+    headerLeft.style.alignItems = 'center';
+    headerLeft.style.gap = '16px';
+
     const iconBox = node('div', null, 'bt-modal-icon mi');
     const iconSvg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
     iconSvg.setAttribute('width', '22');
     iconSvg.setAttribute('height', '22');
     iconSvg.setAttribute('viewBox', '0 0 24 24');
     iconSvg.setAttribute('fill', 'none');
-    iconSvg.setAttribute('stroke', '#D9B77A');
-    iconSvg.setAttribute('stroke-width', '2.2');
+    iconSvg.setAttribute('stroke', 'currentColor');
+    iconSvg.setAttribute('stroke-width', '1.8');
     iconSvg.setAttribute('stroke-linecap', 'round');
     iconSvg.setAttribute('stroke-linejoin', 'round');
+    iconSvg.setAttribute('aria-hidden', 'true');
     const ip1 = document.createElementNS('http://www.w3.org/2000/svg', 'path');
     ip1.setAttribute('d', 'M3 3v18h18');
     const ip2 = document.createElementNS('http://www.w3.org/2000/svg', 'path');
-    ip2.setAttribute('d', 'm19 9-5 5-4-4-3 3');
+    ip2.setAttribute('d', 'M7 15l4-4 3 3 5-6');
     iconSvg.append(ip1, ip2);
     iconBox.append(iconSvg);
 
     const titleWrap = node('div');
     const title = node('h1', null, 'backtest-modal-title');
+    title.id = 'mt';
     const stratTitle = opts.strategy ? (opts.strategy.name + ' - ') : '';
     title.append(
-      document.createTextNode(stratTitle + 'Kaystrade Multi-Market Backtest Engine (1 Jan 2024 - Sekarang)'),
-      node('span', 'Aturan IV.2', 'backtest-modal-badge')
+      document.createTextNode(stratTitle + 'Kaystrade Multi-Market Backtest Engine')
     );
     const subTitle = node('div', null, 'backtest-modal-sub sub');
     subTitle.id = 'btModalSubtitle';
-    const subB = node('b', '7/7 Konfirmasi Kaystrade Anti-Overtrading');
+    const subB = node('b', '7/7 Konfirmasi');
     subTitle.append(
       document.createTextNode(selectedPair + ' · ' + selectedTF.toUpperCase() + ' · RR 1:2.0 · 1 Jan 2024 - Sekarang · '),
-      subB
+      subB,
+      document.createTextNode(' · Aturan IV.2')
     );
     titleWrap.append(title, subTitle);
     headerLeft.append(iconBox, titleWrap);
 
     const closeBtn = node('button', null, 'backtest-modal-close x');
     closeBtn.type = 'button';
-    closeBtn.setAttribute('aria-label', 'Tutup Backtest Modal');
+    closeBtn.setAttribute('aria-label', 'Tutup');
     const closeSvg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
-    closeSvg.setAttribute('width', '18');
-    closeSvg.setAttribute('height', '18');
+    closeSvg.setAttribute('width', '16');
+    closeSvg.setAttribute('height', '16');
     closeSvg.setAttribute('viewBox', '0 0 24 24');
     closeSvg.setAttribute('fill', 'none');
     closeSvg.setAttribute('stroke', 'currentColor');
     closeSvg.setAttribute('stroke-width', '2.2');
     closeSvg.setAttribute('stroke-linecap', 'round');
-    closeSvg.setAttribute('stroke-linejoin', 'round');
-    const cl1 = document.createElementNS('http://www.w3.org/2000/svg', 'line');
-    cl1.setAttribute('x1', '18'); cl1.setAttribute('y1', '6');
-    cl1.setAttribute('x2', '6'); cl1.setAttribute('y2', '18');
-    const cl2 = document.createElementNS('http://www.w3.org/2000/svg', 'line');
-    cl2.setAttribute('x1', '6'); cl2.setAttribute('y1', '6');
-    cl2.setAttribute('x2', '18'); cl2.setAttribute('y2', '18');
-    closeSvg.append(cl1, cl2);
+    closeSvg.setAttribute('aria-hidden', 'true');
+    const cl1 = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+    cl1.setAttribute('d', 'M6 6l12 12M18 6L6 18');
+    closeSvg.append(cl1);
     closeBtn.append(closeSvg);
     closeBtn.addEventListener('click', closeModal);
 
@@ -4852,70 +4890,81 @@ Instruksi Format Output & Larangan Bocor Chain-of-Thought dan Perencanaan Rules 
     // Modal Body matching BacktestPremium.dc.html (.mb)
     const body = node('div', null, 'backtest-modal-body mb');
 
-    // 1. Hero Win Rate Section (.hero)
-    const heroSection = node('div', null, 'hero');
-    const heroLeft = node('div', null, 'hero-left');
-    heroLeft.append(node('div', 'WIN RATE KAYSTRADE', 'cap'));
+    // 1. Hero Section: Left = Net Profit, Right = Equity curve SVG
+    const heroSection = node('section', null, 'hero');
 
-    const valWinRate = node('div', '0.0%', 'big');
-    valWinRate.id = 'btStatWinRate';
+    const heroLeft = node('div');
+    heroLeft.append(node('span', 'Net profit', 'cap'));
 
-    const heroPills = node('div', null, 'hero-pills');
-    const subReturn = node('span', '+0.00% NET RETURN', 'pill');
-    subReturn.id = 'btStatReturn';
-    const valProfit = node('span', '$0.00', 'pill');
+    const valProfit = node('div', '+$0.00', 'big');
     valProfit.id = 'btStatProfit';
-    valProfit.style.color = '#5EE2AE';
-    heroPills.append(subReturn, valProfit);
 
-    const subWinRate = node('div', '0 Win / 0 Loss / 0 BE', 'bt-stat-sub');
+    const subReturn = node('span', '▲ +0.00% return', 'pill');
+    subReturn.id = 'btStatReturn';
+
+    const heroDesc = node('p', 'Dari modal $1.000 menjadi $1.000 dalam 0 transaksi.');
+    heroDesc.id = 'btHeroDesc';
+
+    heroLeft.append(valProfit, subReturn, heroDesc);
+
+    const svgWrap = node('div');
+    svgWrap.id = 'btSvgContainer';
+    svgWrap.style.width = '100%';
+    svgWrap.style.display = 'block';
+
+    heroSection.append(heroLeft, svgWrap);
+
+    // 2. Stats Section (.stats): 5 horizontal metric columns
+    const statsSection = node('section', null, 'stats');
+
+    const cardWin = node('div');
+    const capWin = node('span', 'Win rate', 'cap');
+    capWin.style.color = '#8D958F';
+    const valWinRate = node('b', '0,0%');
+    valWinRate.id = 'btStatWinRate';
+    const subWinRate = node('small', '0 menang · 0 kalah · 0 BE');
     subWinRate.id = 'btStatWinDetail';
-    subWinRate.style.marginTop = '6px';
-    subWinRate.style.fontSize = '12px';
-    subWinRate.style.color = '#8D958F';
-
-    const heroDesc = node('p', 'Berdasarkan eksekusi murni aturan IV.2 tanpa discretionary. Filter H4 Trend, Speedometer, Key Pivot, Base Retest & Macro Safe.');
-    heroLeft.append(valWinRate, heroPills, subWinRate, heroDesc);
-
-    // Right: Stats row (.stats)
-    const statsRow = node('div', null, 'stats');
+    cardWin.append(capWin, valWinRate, subWinRate);
 
     const cardTrades = node('div');
-    cardTrades.append(node('span', 'TOTAL TRANSAKSI', 'cap'));
-    const valTrades = node('b', '0 Trades');
+    const capTrades = node('span', 'Total transaksi', 'cap');
+    capTrades.style.color = '#8D958F';
+    const valTrades = node('b', '0');
     valTrades.id = 'btStatTrades';
-    const subTrades = node('small', '1 Jan 2024 - Sekarang');
+    const subTrades = node('small', '12.000 bar');
     subTrades.id = 'btStatTradesSub';
-    cardTrades.append(valTrades, subTrades);
+    cardTrades.append(capTrades, valTrades, subTrades);
 
     const cardPF = node('div');
-    cardPF.append(node('span', 'PROFIT FACTOR', 'cap'));
-    const valPF = node('b', '0.00', 'g');
+    const capPF = node('span', 'Profit factor', 'cap');
+    capPF.style.color = '#8D958F';
+    const valPF = node('b', '0,00', 'g');
     valPF.id = 'btStatPF';
-    cardPF.append(valPF, node('small', 'Gross profit / gross loss'));
+    cardPF.append(capPF, valPF, node('small', 'Gross profit / gross loss'));
 
     const cardDD = node('div');
-    cardDD.append(node('span', 'MAX DRAWDOWN', 'cap'));
-    const valDD = node('b', '0.00%', 'w');
+    const capDD = node('span', 'Max drawdown', 'cap');
+    capDD.style.color = '#8D958F';
+    const valDD = node('b', '0,00%', 'w');
     valDD.id = 'btStatDD';
-    const subDD = node('small', 'Batas Toleransi: 30% (GOLD)');
+    const subDD = node('small', 'Batas toleransi 30% (GOLD)');
     subDD.id = 'btStatDDLimit';
-    cardDD.append(valDD, subDD);
+    cardDD.append(capDD, valDD, subDD);
 
     const cardEquity = node('div');
-    cardEquity.append(node('span', 'FINAL EQUITY', 'cap'));
-    const valEquity = node('b', '$1,000.00');
+    const capEquity = node('span', 'Final equity', 'cap');
+    capEquity.style.color = '#8D958F';
+    const valEquity = node('b', '$1.000');
     valEquity.id = 'btStatEquity';
-    const subPeak = node('small', 'Peak Equity: $1,000.00');
+    const subPeak = node('small', 'Puncak $1.000,00');
     subPeak.id = 'btStatPeak';
-    cardEquity.append(valEquity, subPeak);
+    cardEquity.append(capEquity, valEquity, subPeak);
 
-    statsRow.append(cardTrades, cardPF, cardDD, cardEquity);
-    heroSection.append(heroLeft, statsRow);
+    statsSection.append(cardWin, cardTrades, cardPF, cardDD, cardEquity);
 
-    // 2. Parameter Backtest Section (.pn)
+    // 3. Parameter Section (.pn)
     const controls = node('section', null, 'pn backtest-controls-bar');
-    controls.append(node('span', 'PARAMETER BACKTEST', 'cap'));
+    controls.append(node('span', 'Parameter backtest', 'cap'));
 
     const topGrid = node('div', null, 'fl bt-controls-grid');
 
@@ -4954,12 +5003,12 @@ Instruksi Format Output & Larangan Bocor Chain-of-Thought dan Perencanaan Rules 
 
     // Field 3: Trading Style
     const fStyle = node('div', null, 'fg bt-field');
-    const lblStyle = node('label', 'Trading Style');
+    const lblStyle = node('label', 'Trading style');
     lblStyle.setAttribute('for', 'btStyleSelect');
     fStyle.append(lblStyle);
     const sStyle = node('select', null, 'f');
     sStyle.id = 'btStyleSelect';
-    sStyle.setAttribute('aria-label', 'Trading Style');
+    sStyle.setAttribute('aria-label', 'Trading style');
     [['INTRADAY', 'Intraday (Breakeven Lock)'], ['SCALPING', 'Scalping (High WR Momentum)'], ['SWING', 'Swing (Multi-Day Trailing)']].forEach(([val, lbl]) => {
       const opt = node('option', lbl);
       opt.value = val;
@@ -4968,16 +5017,16 @@ Instruksi Format Output & Larangan Bocor Chain-of-Thought dan Perencanaan Rules 
     });
     fStyle.append(sStyle);
 
-    // Field 4: Periode Historis
+    // Field 4: Periode
     const fPeriod = node('div', null, 'fg bt-field');
-    const lblPeriod = node('label', 'Periode Backtest');
+    const lblPeriod = node('label', 'Periode');
     lblPeriod.setAttribute('for', 'btPeriodSelect');
     fPeriod.append(lblPeriod);
     const sPeriod = node('select', null, 'f');
     sPeriod.id = 'btPeriodSelect';
-    sPeriod.setAttribute('aria-label', 'Periode Backtest');
+    sPeriod.setAttribute('aria-label', 'Periode');
     [
-      ['1-2_YEARS', '1 Jan 2024 - Sekarang (Historis Lengkap)'],
+      ['1-2_YEARS', '1 Jan 2024 - Sekarang'],
       ['6_MONTHS', '6 Bulan Terakhir'],
       ['500_BARS', '500 Bars Real-Time']
     ].forEach(([val, lbl]) => {
@@ -4988,9 +5037,9 @@ Instruksi Format Output & Larangan Bocor Chain-of-Thought dan Perencanaan Rules 
     });
     fPeriod.append(sPeriod);
 
-    // Field 5: Modal Awal
+    // Field 5: Modal awal ($)
     const fCap = node('div', null, 'fg bt-field');
-    const lblCap = node('label', 'Modal Awal ($)');
+    const lblCap = node('label', 'Modal awal ($)');
     lblCap.setAttribute('for', 'btCapitalInput');
     fCap.append(lblCap);
     const inCap = node('input', null, 'f');
@@ -5001,9 +5050,9 @@ Instruksi Format Output & Larangan Bocor Chain-of-Thought dan Perencanaan Rules 
     inCap.min = '50';
     fCap.append(inCap);
 
-    // Field 6: Risiko / Trade
+    // Field 6: Risiko / trade (%)
     const fRisk = node('div', null, 'fg bt-field');
-    const lblRisk = node('label', 'Risiko / Trade (%)');
+    const lblRisk = node('label', 'Risiko / trade (%)');
     lblRisk.setAttribute('for', 'btRiskInput');
     fRisk.append(lblRisk);
     const inRisk = node('input', null, 'f');
@@ -5019,7 +5068,9 @@ Instruksi Format Output & Larangan Bocor Chain-of-Thought dan Perencanaan Rules 
     const bottomBar = node('div', null, 'rr bt-controls-bottom');
 
     const fRR = node('div');
-    fRR.append(node('span', 'Target RR (1:X)', 'cap'));
+    const capRR = node('span', 'Target RR (1:X)', 'cap');
+    capRR.style.color = '#8D958F';
+    fRR.append(capRR);
 
     const inRRWrap = node('div', null, 'chips bt-rr-presets');
     const inRR = node('input', null, 'f');
@@ -5030,6 +5081,7 @@ Instruksi Format Output & Larangan Bocor Chain-of-Thought dan Perencanaan Rules 
     inRR.value = initRR;
     inRR.style.width = '84px';
     inRR.style.textAlign = 'center';
+    inRR.setAttribute('aria-label', 'Target RR kustom');
 
     const syncPresetButtons = (valStr) => {
       const normalized = String(valStr).replace(/,/g, '.').trim();
@@ -5059,139 +5111,51 @@ Instruksi Format Output & Larangan Bocor Chain-of-Thought dan Perencanaan Rules 
     inRRWrap.append(inRR, ...presetButtonsWrap);
     fRR.append(inRRWrap);
 
-    const runBtn = node('button', null, 'bt pr btn-action btn-backtest-run');
+    const runBtn = node('button', 'Jalankan ulang backtest', 'bt pr btn-action btn-backtest-run');
     runBtn.type = 'button';
     runBtn.id = 'btRunBtn';
-    const runSvg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
-    runSvg.setAttribute('width', '15');
-    runSvg.setAttribute('height', '15');
-    runSvg.setAttribute('viewBox', '0 0 24 24');
-    runSvg.setAttribute('fill', 'none');
-    runSvg.setAttribute('stroke', 'currentColor');
-    runSvg.setAttribute('stroke-width', '2.5');
-    runSvg.setAttribute('stroke-linecap', 'round');
-    runSvg.setAttribute('stroke-linejoin', 'round');
-    runSvg.setAttribute('class', 'bt-refresh-icon');
-    const rpl1 = document.createElementNS('http://www.w3.org/2000/svg', 'polyline');
-    rpl1.setAttribute('points', '23 4 23 10 17 10');
-    const rpl2 = document.createElementNS('http://www.w3.org/2000/svg', 'polyline');
-    rpl2.setAttribute('points', '1 20 1 14 7 14');
-    const rpa = document.createElementNS('http://www.w3.org/2000/svg', 'path');
-    rpa.setAttribute('d', 'M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15');
-    runSvg.append(rpl1, rpl2, rpa);
-    runBtn.append(runSvg, node('span', 'Jalankan ulang backtest'));
 
     bottomBar.append(fRR, runBtn);
     controls.append(topGrid, bottomBar);
 
-    // Event listeners
-    let debounceTimer = null;
-    const triggerDebounced = () => {
-      clearTimeout(debounceTimer);
-      debounceTimer = setTimeout(executeAndRender, 250);
-    };
-
-    sStyle.addEventListener('change', () => {
-      const cur = sStyle.value;
-      const def = cur === 'SCALPING' ? '1.6' : cur === 'SWING' ? '2.6' : '2.0';
-      inRR.value = def;
-      syncPresetButtons(def);
-      executeAndRender();
-    });
-    sStyle.addEventListener('input', () => {
-      const cur = sStyle.value;
-      const def = cur === 'SCALPING' ? '1.6' : cur === 'SWING' ? '2.6' : '2.0';
-      inRR.value = def;
-      syncPresetButtons(def);
-      executeAndRender();
-    });
-
-    sPair.addEventListener('change', executeAndRender);
-    sPair.addEventListener('input', executeAndRender);
-    sTf.addEventListener('change', executeAndRender);
-    sTf.addEventListener('input', executeAndRender);
-
-    inCap.addEventListener('input', triggerDebounced);
-    inCap.addEventListener('change', executeAndRender);
-
-    inRisk.addEventListener('input', triggerDebounced);
-    inRisk.addEventListener('change', executeAndRender);
-
-    inRR.addEventListener('input', () => {
-      syncPresetButtons(inRR.value);
-      triggerDebounced();
-    });
-    inRR.addEventListener('change', executeAndRender);
-
-    runBtn.addEventListener('click', (e) => {
-      e.preventDefault();
-      const icon = runBtn.querySelector('.bt-refresh-icon');
-      if (icon) {
-        icon.style.transform = 'rotate(180deg)';
-        setTimeout(() => { icon.style.transform = 'none'; }, 300);
-      }
-      executeAndRender();
-    });
-
-    // 3. Chart Card (Closed Equity Curve)
-    const chartCard = node('section', null, 'card backtest-chart-card');
-    const chartHeader = node('div', null, 'ph bt-chart-header');
-    chartHeader.append(node('span', 'CLOSED EQUITY CURVE (1 JAN 2024 - SEKARANG)', 'cap'));
-    const chartSummary = node('span', 'Start: $1,000.00 -> End: $1,000.00', 'bt-chart-sub');
-    chartSummary.id = 'btChartSummary';
-    chartHeader.append(chartSummary);
-
-    const svgWrap = node('div');
-    svgWrap.id = 'btSvgContainer';
-    svgWrap.style.width = '100%';
-    svgWrap.style.height = '180px';
-    chartCard.append(chartHeader, svgWrap);
-
-    // 4. Detail Transaksi Historis Table Card
-    const tableCard = node('section', null, 'card backtest-table-card');
+    // 4. Detail Transaksi Historis Section
+    const tableSection = node('section', null, 'backtest-table-section');
     const tableHeader = node('div', null, 'ph bt-table-header');
+
     const headerTitleBox = node('div');
     headerTitleBox.style.display = 'flex';
     headerTitleBox.style.alignItems = 'center';
     headerTitleBox.style.gap = '12px';
     headerTitleBox.append(node('span', 'Detail transaksi historis', 'cap'));
-    const countBadge = node('span', '0 Transaksi', 'tag bt-badge-be');
+    const countBadge = node('span', '0', 'tag');
     countBadge.id = 'btTradeCountBadge';
     headerTitleBox.append(countBadge);
 
     const filterGroup = node('div', null, 'tabs bt-filter-group');
-    const btnAll = node('button', 'Semua (0)', 'tab bt-filter-btn on active');
-    const btnWin = node('button', 'Profit (0)', 'tab bt-filter-btn');
-    const btnLoss = node('button', 'Loss (0)', 'tab bt-filter-btn');
-    const btnBE = node('button', 'BE (0)', 'tab bt-filter-btn');
+    filterGroup.setAttribute('role', 'tablist');
+    const btnAll = node('button', 'Semua (0)', 'tab on active');
+    btnAll.type = 'button';
+    btnAll.setAttribute('role', 'tab');
+    const btnWin = node('button', 'Profit (0)', 'tab');
+    btnWin.type = 'button';
+    btnWin.setAttribute('role', 'tab');
+    const btnLoss = node('button', 'Loss (0)', 'tab');
+    btnLoss.type = 'button';
+    btnLoss.setAttribute('role', 'tab');
+    const btnBE = node('button', 'BE (0)', 'tab');
+    btnBE.type = 'button';
+    btnBE.setAttribute('role', 'tab');
+
     filterGroup.append(btnAll, btnWin, btnLoss, btnBE);
     tableHeader.append(headerTitleBox, filterGroup);
 
-    const tableWrap = node('div', null, 'tw');
-    tableWrap.style.maxHeight = '320px';
-    tableWrap.style.overflowY = 'auto';
-
-    const tableEl = node('table');
-    tableEl.style.width = '100%';
-    tableEl.style.borderCollapse = 'collapse';
-    tableEl.style.fontSize = '12px';
-    tableEl.style.fontFamily = "'JetBrains Mono', monospace";
-
+    const tableWrap = node('div', null, 'tw bt-table-container');
+    const tableEl = node('table', null, 'bt-table');
+    tableEl.id = 'btTable';
     const thead = node('thead');
     const trHead = node('tr');
-    trHead.style.backgroundColor = '#0b0f19';
-    trHead.style.color = '#94a3b8';
-    trHead.style.textAlign = 'left';
-    trHead.style.borderBottom = '1px solid #334155';
-
-    ['#', 'Arah', 'Waktu Masuk', 'Entry', 'SL', 'TP', 'Exit', 'PnL ($ / %)', 'Status', 'Konfirmasi Setup'].forEach(col => {
-      const th = node('th', col);
-      th.style.padding = '8px 10px';
-      th.style.position = 'sticky';
-      th.style.top = '0';
-      th.style.backgroundColor = '#0b0f19';
-      th.style.zIndex = '2';
-      trHead.append(th);
+    ['#', 'Arah', 'Waktu masuk', 'Entry', 'SL', 'TP', 'Exit', 'PnL ($ / %)', 'Status', 'Konfirmasi setup'].forEach(h => {
+      trHead.append(node('th', h));
     });
     thead.append(trHead);
 
@@ -5199,7 +5163,7 @@ Instruksi Format Output & Larangan Bocor Chain-of-Thought dan Perencanaan Rules 
     tbody.id = 'btTableBody';
     tableEl.append(thead, tbody);
     tableWrap.append(tableEl);
-    tableCard.append(tableHeader, tableWrap);
+    tableSection.append(tableHeader, tableWrap);
 
     // 5. Actions Footer (.mf)
     const actionsRow = node('div', null, 'mf backtest-actions-row');
@@ -5214,8 +5178,8 @@ Instruksi Format Output & Larangan Bocor Chain-of-Thought dan Perencanaan Rules 
 
     actionsRow.append(copyReportBtn, closeBottomBtn);
 
-    body.append(heroSection, controls, chartCard, tableCard, actionsRow);
-    dialog.append(header, body);
+    body.append(heroSection, statsSection, controls, tableSection);
+    dialog.append(header, body, actionsRow);
     backdrop.append(dialog);
     document.body.append(backdrop);
 
@@ -5258,44 +5222,44 @@ Instruksi Format Output & Larangan Bocor Chain-of-Thought dan Perencanaan Rules 
       const stratPfx = opts.strategy ? (opts.strategy.name + ' · ') : '';
       subTitle.append(
         document.createTextNode(stratPfx + res.instrument + ' · ' + res.timeframe.toUpperCase() + ' · RR 1:' + targetRR.toFixed(1) + ' · 1 Jan 2024 - Sekarang · '),
-        node('b', '7/7 Konfirmasi Kaystrade Anti-Overtrading')
+        node('b', '7/7 Konfirmasi'),
+        document.createTextNode(' · Aturan IV.2')
       );
 
-      // Update stats and hero cards
-      valWinRate.textContent = res.winRate.toFixed(1) + '%';
-      subWinRate.textContent = res.winTrades + ' Win / ' + res.lossTrades + ' Loss / ' + res.beTrades + ' BE';
-
-      valTrades.textContent = res.totalTrades + ' Trades';
-      if (period === '1-2_YEARS') {
-        subTrades.textContent = '1 Jan 2024 - Sekarang (' + (res.candlesCount ? res.candlesCount.toLocaleString('id-ID') : '16.000+') + ' Bars)';
-      } else if (period === '6_MONTHS') {
-        subTrades.textContent = '6 Bulan Terakhir (' + (res.candlesCount ? res.candlesCount.toLocaleString('id-ID') : '4.000+') + ' Bars)';
-      } else {
-        subTrades.textContent = 'Sampel 500 Closed Bars';
-      }
-
+      // Hero Section Update
       const profitSign = res.netProfit >= 0 ? '+' : '';
-      valProfit.textContent = profitSign + '$' + res.netProfit.toFixed(2);
+      valProfit.textContent = profitSign + '$' + Math.round(res.netProfit).toLocaleString('id-ID');
       valProfit.style.color = res.netProfit >= 0 ? '#5EE2AE' : '#F58A8A';
-      subReturn.textContent = profitSign + res.netReturnPercent.toFixed(2) + '% Return';
+
+      const returnSign = res.netReturnPercent >= 0 ? '▲ +' : '▼ ';
+      subReturn.textContent = returnSign + res.netReturnPercent.toFixed(2).replace('.', ',') + '% return';
       subReturn.style.color = res.netProfit >= 0 ? '#5EE2AE' : '#F58A8A';
 
-      valPF.textContent = res.profitFactor.toFixed(2);
+      heroDesc.textContent = 'Dari modal $' + Math.round(res.initialBalance).toLocaleString('id-ID') + ' menjadi $' + Math.round(res.finalEquity).toLocaleString('id-ID') + ' dalam ' + res.totalTrades + ' transaksi (' + (res.candlesCount ? res.candlesCount.toLocaleString('id-ID') : '12.000') + ' bar).';
+
+      // Stats Section Update
+      valWinRate.textContent = res.winRate.toFixed(1).replace('.', ',') + '%';
+      subWinRate.textContent = res.winTrades + ' menang · ' + res.lossTrades + ' kalah · ' + res.beTrades + ' BE';
+
+      valTrades.textContent = String(res.totalTrades);
+      subTrades.textContent = (res.candlesCount ? res.candlesCount.toLocaleString('id-ID') : '12.000') + ' bar';
+
+      valPF.textContent = res.profitFactor.toFixed(2).replace('.', ',');
       valPF.className = res.profitFactor >= 1.5 ? 'g' : (res.profitFactor >= 1.0 ? 'w' : 'r');
 
-      valDD.textContent = res.maxDrawdown.toFixed(2) + '%';
+      valDD.textContent = res.maxDrawdown.toFixed(2).replace('.', ',') + '%';
       valDD.className = res.maxDrawdownExceeded ? 'r' : 'w';
-      subDD.textContent = 'Batas Toleransi: ' + res.maxDrawdownLimit + '% (' + (res.instrument.includes('XAU') ? 'GOLD' : 'FOREX/CRYPTO') + ')';
+      subDD.textContent = 'Batas toleransi ' + res.maxDrawdownLimit + '% (' + (res.instrument.includes('XAU') ? 'GOLD' : 'FOREX/CRYPTO') + ')';
 
-      valEquity.textContent = '$' + res.finalEquity.toFixed(2);
-      valEquity.style.color = res.finalEquity >= res.initialBalance ? '#5EE2AE' : '#F58A8A';
+      valEquity.textContent = '$' + Math.round(res.finalEquity).toLocaleString('id-ID');
       const peakVal = (res.peakEquity != null && !isNaN(res.peakEquity)) ? res.peakEquity : res.finalEquity;
-      subPeak.textContent = 'Peak Equity: $' + peakVal.toFixed(2);
+      subPeak.textContent = 'Puncak $' + Math.round(peakVal).toLocaleString('id-ID');
 
-      chartSummary.textContent = 'Start: $' + res.initialBalance.toFixed(2) + ' -> End: $' + res.finalEquity.toFixed(2);
+      // SVG Curve Update
       renderEquitySvg(svgWrap, res.equityCurve, res.initialBalance);
 
-      countBadge.textContent = res.trades.length + ' Transaksi';
+      // Table count & tabs
+      countBadge.textContent = String(res.trades.length);
       btnAll.textContent = 'Semua (' + res.trades.length + ')';
       btnWin.textContent = 'Profit (' + res.winTrades + ')';
       btnLoss.textContent = 'Loss (' + res.lossTrades + ')';
@@ -5320,80 +5284,74 @@ Instruksi Format Output & Larangan Bocor Chain-of-Thought dan Perencanaan Rules 
         };
       });
 
-      const fmtTime = (sec) => {
-        if (!sec) return '--';
-        const d = new Date(sec * 1000);
-        return d.toLocaleDateString('id-ID', { day: '2-digit', month: 'short', year: 'numeric' }) + ' ' + d.toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit', hour12: false });
+      const fmtPrice = (p) => {
+        if (p === null || p === undefined) return '-';
+        return (res.instrument.includes('XAU') || res.instrument.includes('BTC') || res.instrument.includes('ETH'))
+          ? Number(p).toFixed(2)
+          : Number(p).toFixed(5);
+      };
+
+      const fmtTime = (iso) => {
+        if (!iso) return '-';
+        try {
+          const d = new Date(iso);
+          if (isNaN(d.getTime())) return iso;
+          return d.toLocaleDateString('id-ID', { day: '2-digit', month: 'short', year: 'numeric' }) + ' ' +
+                 d.toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' }).replace(':', '.');
+        } catch (e) {
+          return iso;
+        }
       };
 
       function renderRows() {
         tbody.replaceChildren();
         const filteredTrades = res.trades.filter(t => {
-          if (activeFilter === 'WIN') return t.outcome === 'WIN';
-          if (activeFilter === 'LOSS') return t.outcome === 'LOSS';
-          if (activeFilter === 'BE') return t.outcome === 'BE';
-          return true;
+          if (activeFilter === 'ALL') return true;
+          return t.outcome === activeFilter;
         });
 
         if (!filteredTrades.length) {
-          const emptyTr = node('tr');
-          const emptyTd = node('td', 'Tidak ada transaksi dengan filter ' + activeFilter + '.');
-          emptyTd.colSpan = 10;
-          emptyTd.style.padding = '18px';
-          emptyTd.style.textAlign = 'center';
-          emptyTd.style.color = '#94a3b8';
-          emptyTr.append(emptyTd);
-          tbody.append(emptyTr);
+          const trEmpty = node('tr');
+          const tdEmpty = node('td', 'Tidak ada data transaksi untuk filter ini.', 'pro-muted');
+          tdEmpty.setAttribute('colspan', '10');
+          tdEmpty.style.textAlign = 'center';
+          tdEmpty.style.padding = '24px';
+          trEmpty.append(tdEmpty);
+          tbody.append(trEmpty);
           return;
         }
 
-        filteredTrades.forEach((t, rowIdx) => {
+        filteredTrades.forEach((t) => {
           const tr = node('tr');
-          tr.style.borderBottom = '1px solid #1e293b';
-          tr.style.backgroundColor = (rowIdx % 2 === 1) ? 'rgba(15, 23, 42, 0.45)' : 'transparent';
 
           const tdIdx = node('td', String(t.index));
-          tdIdx.style.padding = '8px 10px';
 
           const tdDir = node('td');
-          tdDir.style.padding = '8px 10px';
-          const pillDir = node('span', t.direction, t.direction === 'BUY' ? 'tag wn' : 'tag l');
+          const pillDir = node('span', t.direction, 'tag');
           tdDir.append(pillDir);
 
           const tdTime = node('td', fmtTime(t.entryTime));
-          tdTime.style.padding = '8px 10px';
-          tdTime.style.color = '#94a3b8';
-          tdTime.style.fontSize = '11.5px';
+          tdTime.style.color = '#8D958F';
 
           const tdEntry = node('td', fmtPrice(t.entryPrice));
-          tdEntry.style.padding = '8px 10px';
 
-          const tdSL = node('td', fmtPrice(t.slPrice));
-          tdSL.style.padding = '8px 10px';
-          tdSL.style.color = '#fda4af';
+          const tdSL = node('td', fmtPrice(t.slPrice), 'r');
 
-          const tdTP = node('td', fmtPrice(t.tpPrice));
-          tdTP.style.padding = '8px 10px';
-          tdTP.style.color = '#6ee7b7';
+          const tdTP = node('td', fmtPrice(t.tpPrice), 'g');
 
           const tdExit = node('td', fmtPrice(t.exitPrice));
-          tdExit.style.padding = '8px 10px';
 
           const retPctText = typeof t.returnPct === 'number' ? ' (' + (t.returnPct >= 0 ? '+' : '') + t.returnPct.toFixed(2) + '%)' : '';
-          const tdPnl = node('td', (t.pnl >= 0 ? '+' : '') + '$' + t.pnl.toFixed(2) + retPctText);
-          tdPnl.style.padding = '8px 10px';
-          tdPnl.style.fontWeight = '700';
-          tdPnl.style.color = t.pnl > 0 ? '#5EE2AE' : (t.pnl < 0 ? '#F58A8A' : '#94a3b8');
+          const pnlSign = t.pnl >= 0 ? '+' : '';
+          const tdPnl = node('td', pnlSign + '$' + t.pnl.toFixed(2) + retPctText, t.pnl >= 0 ? 'g' : 'r');
 
           const tdStatus = node('td');
-          tdStatus.style.padding = '8px 10px';
-          const badge = node('span', t.outcome, t.outcome === 'WIN' ? 'tag wn' : (t.outcome === 'LOSS' ? 'tag l' : 'tag'));
+          const badgeClass = t.outcome === 'WIN' ? 'tag wn' : (t.outcome === 'LOSS' ? 'tag l' : 'tag');
+          const badge = node('span', t.outcome === 'WIN' ? 'Profit' : (t.outcome === 'LOSS' ? 'LOSS' : 'BE'), badgeClass);
           tdStatus.append(badge);
 
-          const tdReason = node('td', t.reason);
-          tdReason.style.padding = '8px 10px';
-          tdReason.style.color = '#cbd5e1';
-          tdReason.style.fontSize = '11px';
+          const tdReason = node('td', t.reason, 'sp');
+          tdReason.title = t.reason || '';
 
           tr.append(tdIdx, tdDir, tdTime, tdEntry, tdSL, tdTP, tdExit, tdPnl, tdStatus, tdReason);
           tbody.append(tr);
@@ -5423,6 +5381,51 @@ Instruksi Format Output & Larangan Bocor Chain-of-Thought dan Perencanaan Rules 
         copyReportBtn.textContent = 'Tersalin!';
         setTimeout(() => { copyReportBtn.textContent = originalText; }, 2000);
       }
+    });
+
+    sStyle.addEventListener('change', () => {
+      const cur = sStyle.value;
+      const def = cur === 'SCALPING' ? '1.6' : cur === 'SWING' ? '2.6' : '2.0';
+      inRR.value = def;
+      syncPresetButtons(def);
+      executeAndRender();
+    });
+    sStyle.addEventListener('input', () => {
+      const cur = sStyle.value;
+      const def = cur === 'SCALPING' ? '1.6' : cur === 'SWING' ? '2.6' : '2.0';
+      inRR.value = def;
+      syncPresetButtons(def);
+      executeAndRender();
+    });
+
+    sPair.addEventListener('change', executeAndRender);
+    sPair.addEventListener('input', executeAndRender);
+    sTf.addEventListener('change', executeAndRender);
+    sTf.addEventListener('input', executeAndRender);
+    sPeriod.addEventListener('change', executeAndRender);
+    sPeriod.addEventListener('input', executeAndRender);
+
+    let debounceTimer = null;
+    const triggerDebounced = () => {
+      clearTimeout(debounceTimer);
+      debounceTimer = setTimeout(executeAndRender, 250);
+    };
+
+    inCap.addEventListener('input', triggerDebounced);
+    inCap.addEventListener('change', executeAndRender);
+
+    inRisk.addEventListener('input', triggerDebounced);
+    inRisk.addEventListener('change', executeAndRender);
+
+    inRR.addEventListener('input', () => {
+      syncPresetButtons(inRR.value);
+      triggerDebounced();
+    });
+    inRR.addEventListener('change', executeAndRender);
+
+    runBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      executeAndRender();
     });
 
     executeAndRender();

@@ -6864,3 +6864,426 @@ body.pro-sheet-open { overflow:hidden !important; }
   border-top: 1px solid #1D2420 !important;
   background: #0A0D0B !important;
 }
+
+/* ==========================================================================
+   KAYSTRADE BACKTEST ENGINE MODAL (PREMIUM UI/UX - MATCHING BacktestPremium.dc.html)
+   ========================================================================== */
+.pro-modal-backdrop {
+  position: fixed !important;
+  inset: 0 !important;
+  background: radial-gradient(900px 500px at 50% -100px, rgba(19, 32, 27, 0.95), rgba(7, 9, 10, 0.96) 70%) !important;
+  backdrop-filter: blur(10px) !important;
+  -webkit-backdrop-filter: blur(10px) !important;
+  z-index: 99999 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  padding: 40px 20px !important;
+  box-sizing: border-box !important;
+  overflow-y: auto !important;
+}
+
+.backtest-modal-dialog,
+.backtest-modal-dialog.md {
+  width: 100% !important;
+  max-width: 1080px !important;
+  background: linear-gradient(180deg, #0E1210, #0A0D0B) !important;
+  border: 1px solid #232A25 !important;
+  border-radius: 18px !important;
+  position: relative !important;
+  box-shadow: 0 30px 90px rgba(0, 0, 0, .85) !important;
+  color: #ECEFEA !important;
+  font-family: Inter, system-ui, -apple-system, sans-serif !important;
+  overflow: hidden !important;
+  display: flex !important;
+  flex-direction: column !important;
+  max-height: 94vh !important;
+}
+
+.backtest-modal-dialog::before,
+.backtest-modal-dialog.md::before {
+  content: "" !important;
+  position: absolute !important;
+  left: 24px !important;
+  right: 24px !important;
+  top: -1px !important;
+  height: 1px !important;
+  background: linear-gradient(90deg, transparent, #D9B77A, #34D399, transparent) !important;
+  z-index: 10 !important;
+}
+
+.backtest-modal-dialog .mh {
+  display: flex !important;
+  gap: 16px !important;
+  align-items: center !important;
+  padding: 24px 32px !important;
+  border-bottom: 1px solid #1D2420 !important;
+  background: #0E1210 !important;
+  flex-shrink: 0 !important;
+}
+
+.backtest-modal-dialog .mi {
+  width: 44px !important;
+  height: 44px !important;
+  border-radius: 12px !important;
+  border: 1px solid #6F5C34 !important;
+  color: #D9B77A !important;
+  display: grid !important;
+  place-items: center !important;
+  flex: none !important;
+  background: #14110A !important;
+}
+
+.backtest-modal-dialog h1 {
+  font: 600 22px 'Playfair Display', Georgia, serif !important;
+  margin: 0 !important;
+  letter-spacing: .01em !important;
+  color: #ECEFEA !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+}
+
+.backtest-modal-dialog .sub {
+  font: 500 12px 'JetBrains Mono', monospace !important;
+  color: #8D958F !important;
+  margin-top: 6px !important;
+}
+
+.backtest-modal-dialog .sub b {
+  color: #D9B77A !important;
+  font-weight: 500 !important;
+}
+
+.backtest-modal-dialog .x {
+  margin-left: auto !important;
+  width: 44px !important;
+  height: 44px !important;
+  border-radius: 50% !important;
+  border: 1px solid #2A322D !important;
+  background: transparent !important;
+  color: #ECEFEA !important;
+  cursor: pointer !important;
+  display: grid !important;
+  place-items: center !important;
+  transition: border-color .15s, color .15s !important;
+  flex-shrink: 0 !important;
+}
+
+.backtest-modal-dialog .x:hover {
+  border-color: #D9B77A !important;
+  color: #D9B77A !important;
+}
+
+.backtest-modal-dialog .mb {
+  padding: 28px 32px !important;
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 28px !important;
+  overflow-y: auto !important;
+  flex: 1 1 auto !important;
+  background: transparent !important;
+}
+
+.backtest-modal-dialog .cap {
+  font-size: 11px !important;
+  font-weight: 600 !important;
+  letter-spacing: .14em !important;
+  text-transform: uppercase !important;
+  color: #D9B77A !important;
+  display: block !important;
+}
+
+.backtest-modal-dialog .hero {
+  display: grid !important;
+  grid-template-columns: minmax(240px, .8fr) 2fr !important;
+  gap: 32px !important;
+  align-items: center !important;
+}
+
+.backtest-modal-dialog .big {
+  font: 600 52px 'JetBrains Mono', monospace !important;
+  color: #5EE2AE !important;
+  letter-spacing: -.03em !important;
+  margin: 10px 0 12px !important;
+  line-height: 1 !important;
+}
+
+.backtest-modal-dialog .pill {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 6px !important;
+  font: 600 13px 'JetBrains Mono', monospace !important;
+  color: #5EE2AE !important;
+  border: 1px solid #1E5A45 !important;
+  background: #0F2019 !important;
+  border-radius: 999px !important;
+  padding: 5px 12px !important;
+}
+
+.backtest-modal-dialog .hero p {
+  margin: 14px 0 0 !important;
+  font-size: 13px !important;
+  color: #8D958F !important;
+  line-height: 1.6 !important;
+}
+
+.backtest-modal-dialog .stats {
+  display: grid !important;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)) !important;
+  border-top: 1px solid #1D2420 !important;
+  border-bottom: 1px solid #1D2420 !important;
+}
+
+.backtest-modal-dialog .stats div {
+  padding: 20px 20px !important;
+  border-left: 1px solid #1D2420 !important;
+}
+
+.backtest-modal-dialog .stats div:first-child {
+  border-left: 0 !important;
+  padding-left: 0 !important;
+}
+
+.backtest-modal-dialog .stats b {
+  display: block !important;
+  font: 600 24px 'JetBrains Mono', monospace !important;
+  margin: 8px 0 4px !important;
+  color: #ECEFEA !important;
+}
+
+.backtest-modal-dialog .stats small {
+  font-size: 12px !important;
+  color: #8D958F !important;
+}
+
+.backtest-modal-dialog .g { color: #5EE2AE !important; }
+.backtest-modal-dialog .w { color: #E8B94F !important; }
+.backtest-modal-dialog .r { color: #F58A8A !important; }
+
+.backtest-modal-dialog .pn {
+  border: 1px solid #1D2420 !important;
+  border-radius: 14px !important;
+  padding: 24px !important;
+  background: #0C100E !important;
+}
+
+.backtest-modal-dialog .fl {
+  display: grid !important;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)) !important;
+  gap: 16px !important;
+  margin-top: 16px !important;
+}
+
+.backtest-modal-dialog .fg {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 6px !important;
+}
+
+.backtest-modal-dialog .fg label {
+  font-size: 11px !important;
+  font-weight: 600 !important;
+  letter-spacing: .08em !important;
+  text-transform: uppercase !important;
+  color: #8D958F !important;
+}
+
+.backtest-modal-dialog .f {
+  height: 44px !important;
+  box-sizing: border-box !important;
+  background: #080B09 !important;
+  border: 1px solid #28302A !important;
+  border-radius: 10px !important;
+  padding: 0 12px !important;
+  color: #ECEFEA !important;
+  font: 500 14px 'JetBrains Mono', monospace !important;
+  min-width: 0 !important;
+  width: 100% !important;
+}
+
+.backtest-modal-dialog .f:hover {
+  border-color: #4A5A4F !important;
+}
+
+.backtest-modal-dialog .rr {
+  display: flex !important;
+  gap: 16px !important;
+  align-items: flex-end !important;
+  justify-content: space-between !important;
+  flex-wrap: wrap !important;
+  margin-top: 20px !important;
+}
+
+.backtest-modal-dialog .chips {
+  display: flex !important;
+  gap: 6px !important;
+  flex-wrap: wrap !important;
+  margin-top: 8px !important;
+}
+
+.backtest-modal-dialog .chp {
+  min-height: 44px !important;
+  padding: 0 14px !important;
+  border-radius: 10px !important;
+  border: 1px solid #28302A !important;
+  background: transparent !important;
+  color: #B7BFB8 !important;
+  font: 500 13px 'JetBrains Mono', monospace !important;
+  cursor: pointer !important;
+  transition: background .15s, border-color .15s, color .15s !important;
+}
+
+.backtest-modal-dialog .chp.on,
+.backtest-modal-dialog .chp.active {
+  border-color: #D9B77A !important;
+  color: #D9B77A !important;
+  background: #17130B !important;
+}
+
+.backtest-modal-dialog .bt {
+  min-height: 44px !important;
+  padding: 0 20px !important;
+  border-radius: 10px !important;
+  border: 1px solid #2A322D !important;
+  background: transparent !important;
+  color: #ECEFEA !important;
+  font: 600 13px Inter, sans-serif !important;
+  cursor: pointer !important;
+  transition: background .15s, border-color .15s, color .15s !important;
+}
+
+.backtest-modal-dialog .bt:hover {
+  border-color: #D9B77A !important;
+}
+
+.backtest-modal-dialog .bt.pr {
+  border: 0 !important;
+  background: linear-gradient(135deg, #5EE2AE, #2FBF8F) !important;
+  color: #04231A !important;
+  box-shadow: 0 6px 24px rgba(52, 211, 153, .25) !important;
+}
+
+.backtest-modal-dialog .bt.pr:hover {
+  background: linear-gradient(135deg, #8CF0C8, #4FD2A4) !important;
+}
+
+.backtest-modal-dialog .ph {
+  display: flex !important;
+  justify-content: space-between !important;
+  gap: 12px !important;
+  flex-wrap: wrap !important;
+  align-items: center !important;
+  margin-bottom: 16px !important;
+}
+
+.backtest-modal-dialog .tabs {
+  display: flex !important;
+  gap: 4px !important;
+}
+
+.backtest-modal-dialog .tab {
+  min-height: 44px !important;
+  padding: 0 14px !important;
+  background: transparent !important;
+  border: 0 !important;
+  border-bottom: 2px solid transparent !important;
+  color: #8D958F !important;
+  font: 500 13px 'JetBrains Mono', monospace !important;
+  cursor: pointer !important;
+  transition: color .15s, border-color .15s !important;
+}
+
+.backtest-modal-dialog .tab.on,
+.backtest-modal-dialog .tab.active {
+  color: #D9B77A !important;
+  border-color: #D9B77A !important;
+}
+
+.backtest-modal-dialog .tw {
+  overflow-x: auto !important;
+}
+
+.backtest-modal-dialog table {
+  width: 100% !important;
+  border-collapse: collapse !important;
+  font-size: 13px !important;
+  min-width: 860px !important;
+}
+
+.backtest-modal-dialog th {
+  text-align: left !important;
+  font-size: 11px !important;
+  letter-spacing: .1em !important;
+  text-transform: uppercase !important;
+  color: #8D958F !important;
+  padding: 10px 12px !important;
+  border-bottom: 1px solid #28302A !important;
+  font-weight: 600 !important;
+}
+
+.backtest-modal-dialog td {
+  padding: 14px 12px !important;
+  border-bottom: 1px solid #171D19 !important;
+  font-family: 'JetBrains Mono', monospace !important;
+  white-space: nowrap !important;
+  color: #ECEFEA !important;
+}
+
+.backtest-modal-dialog tr:last-child td {
+  border-bottom: 0 !important;
+}
+
+.backtest-modal-dialog .sp {
+  max-width: 240px !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  color: #8D958F !important;
+}
+
+.backtest-modal-dialog .tag {
+  font: 600 11px 'JetBrains Mono', monospace !important;
+  padding: 3px 8px !important;
+  border-radius: 4px !important;
+  border: 1px solid #343B35 !important;
+  color: #B7BFB8 !important;
+  display: inline-block !important;
+}
+
+.backtest-modal-dialog .tag.l {
+  background: #2A1616 !important;
+  border-color: #6B2A2A !important;
+  color: #F9B4B4 !important;
+}
+
+.backtest-modal-dialog .tag.wn {
+  background: #0F2019 !important;
+  border-color: #1E5A45 !important;
+  color: #5EE2AE !important;
+}
+
+.backtest-modal-dialog .mf {
+  display: flex !important;
+  justify-content: flex-end !important;
+  gap: 10px !important;
+  padding: 20px 32px !important;
+  border-top: 1px solid #1D2420 !important;
+  flex-wrap: wrap !important;
+  background: #0A0D0B !important;
+  flex-shrink: 0 !important;
+}
+
+@media (max-width: 860px) {
+  .backtest-modal-dialog .hero {
+    grid-template-columns: 1fr !important;
+  }
+  .backtest-modal-dialog .mh,
+  .backtest-modal-dialog .mb,
+  .backtest-modal-dialog .mf {
+    padding-left: 16px !important;
+    padding-right: 16px !important;
+  }
+  .backtest-modal-dialog .big {
+    font-size: 40px !important;
+  }
+}
