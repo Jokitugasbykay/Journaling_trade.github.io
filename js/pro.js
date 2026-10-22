@@ -5564,7 +5564,7 @@ Instruksi Format Output & Larangan Bocor Chain-of-Thought dan Perencanaan Rules 
 
     // Main Card / Flow Container
     const mainCard = node('main', null, 'main-card pro-market-flow');
-    content.append(mobileQuickNav, marketHeader, marketAlertBox, mainCard);
+    content.append(marketHeader, marketAlertBox, mainCard);
     mainCard.append(newsWarningBanner);
 
     // =========================================================================
@@ -7215,7 +7215,8 @@ Setiap kali melakukan analisa pada instrumen apa pun, jalankan prosedur sinkroni
 
           if (upcoming.length > 0) {
             economicEvents = upcoming;
-            fundaFeedStatus.textContent = 'Live Economic Calendar Synced';
+            const fundaFeedStatusEl = document.getElementById('fundaFeedStatus');
+            if (fundaFeedStatusEl) fundaFeedStatusEl.textContent = 'Live Economic Calendar Synced';
           }
         }
       } catch (e) {}
@@ -7654,7 +7655,8 @@ function filterPairDropdown() {
       h4Candles = h4Data || [];
       d1Candles = d1Data || [];
 
-      barsBadge.textContent = currentCandles.length + ' BARS · 16:9';
+      const barsBadgeEl = document.getElementById('barsBadge');
+      if (barsBadgeEl) barsBadgeEl.textContent = currentCandles.length + ' BARS · 16:9';
 
       if (!chart && typeof LightweightCharts !== 'undefined') {
         initChart();
@@ -7816,7 +7818,8 @@ function filterPairDropdown() {
           } else {
             currentCandles.push(liveCandle);
             if (currentCandles.length > 500) currentCandles.shift();
-            barsBadge.textContent = currentCandles.length + ' BARS · 16:9';
+            const barsBadgeEl = document.getElementById('barsBadge');
+            if (barsBadgeEl) barsBadgeEl.textContent = currentCandles.length + ' BARS · 16:9';
           }
 
           updateLiveHeader(liveCandle);
@@ -9509,6 +9512,7 @@ function filterPairDropdown() {
         modernLoader.element.remove();
         content.style.display='';
         content.classList.add('pro-tab-fade-in');
+        window.dispatchEvent(new Event('resize'));
         status.style.display='';
         if(status.textContent===text('Loading','Loading…'))status.textContent='';
       }
@@ -9519,6 +9523,7 @@ function filterPairDropdown() {
         modernLoader.element.remove();
         content.style.display='';
         content.classList.add('pro-tab-fade-in');
+        window.dispatchEvent(new Event('resize'));
         status.style.display='';
         showError(error);
       }

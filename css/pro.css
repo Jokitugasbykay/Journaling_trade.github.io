@@ -59,6 +59,7 @@
 .pro-workspace[data-feature="global-news"] .pro-content-panel,
 .pro-workspace[data-feature="ai-chat"] .pro-content-panel,
 .pro-workspace[data-feature="ai-behaviour"] .pro-content-panel,
+.pro-workspace[data-feature="ai-market"] .pro-content-panel,
 .pro-workspace[data-feature="ai-journal"] .pro-content-panel { background:transparent !important; border:0 !important; padding:0 !important; border-radius:0 !important; }
 .pro-workspace .pro-status:empty { display:none; }
 .pro-workspace .pro-status[role="alert"] { padding:18px 20px; border:1px solid var(--line); border-inline-start:3px solid var(--text-muted); border-radius:12px; background:var(--bg-main); line-height:1.6; }
@@ -2542,7 +2543,7 @@ body.pro-sheet-open { overflow:hidden !important; }
    ========================================================================= */
 @media (max-width: 1080px) {
   .mobile-quick-nav {
-    display: flex;
+    display: none !important;
   }
 
   .workspace-split {
@@ -7285,5 +7286,169 @@ body.pro-sheet-open { overflow:hidden !important; }
   }
   .backtest-modal-dialog .big {
     font-size: 40px !important;
+  }
+}
+
+/* =========================================================================
+   PRO TAB MOBILE FIXES (Chart, Action Buttons, Header Clutter)
+   ========================================================================= */
+
+@media (max-width: 860px) {
+  .pro-workspace .pro-layout {
+    display: flex !important;
+    flex-direction: column !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+    box-sizing: border-box !important;
+  }
+
+  .pro-workspace .pro-content-panel {
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+    box-sizing: border-box !important;
+    padding: 16px 0 !important;
+  }
+
+  .pro-tab-content-container {
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+    box-sizing: border-box !important;
+  }
+
+  #view-pro-workspace[data-feature="ai-market"] .main-card.pro-market-flow {
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+    box-sizing: border-box !important;
+  }
+
+  #view-pro-workspace[data-feature="ai-market"] .card {
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+    box-sizing: border-box !important;
+    padding: 16px 12px !important;
+  }
+
+  #view-pro-workspace[data-feature="ai-market"] .fl {
+    display: flex !important;
+    flex-direction: column !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+    box-sizing: border-box !important;
+  }
+
+  #view-pro-workspace[data-feature="ai-market"] .fg,
+  #view-pro-workspace[data-feature="ai-market"] .pairrow,
+  #view-pro-workspace[data-feature="ai-market"] .f {
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+    box-sizing: border-box !important;
+  }
+
+  /* 1. Prevent Chart Viewport horizontal overflow on mobile */
+  #view-pro-workspace[data-feature="ai-market"] .cv {
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+    min-height: 200px !important;
+    height: auto !important;
+    aspect-ratio: 16/9 !important;
+    box-sizing: border-box !important;
+  }
+
+  #tv-chart,
+  #tv-iframe-container {
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+    box-sizing: border-box !important;
+  }
+
+  /* 2. Hide obsolete quick nav */
+  .mobile-quick-nav {
+    display: none !important;
+  }
+
+  /* 3. Remove duplicate module titles beneath mobile module selector */
+  #view-pro-workspace .pro-tab-content-container > .hd h1,
+  #view-pro-workspace .pro-tab-content-container > .hd p.m,
+  .pro-ai-chat-module .hd h1,
+  .pro-ai-chat-module .hd p.m,
+  .pro-ai-analysis-module .hd h1,
+  .pro-ai-analysis-module .hd p.m,
+  #view-pro-workspace[data-feature="ai-market"] .hd.pro-market-header h1,
+  #view-pro-workspace[data-feature="ai-market"] .hd.pro-market-header p.m {
+    display: none !important;
+  }
+
+  #view-pro-workspace .pro-tab-content-container > .hd,
+  .pro-ai-chat-module .hd,
+  .pro-ai-analysis-module .hd,
+  #view-pro-workspace[data-feature="ai-market"] .hd.pro-market-header {
+    margin-bottom: 12px !important;
+    justify-content: flex-end !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+  }
+
+  /* 4. Fix full screen loader on mobile */
+  .pro-modern-tab-loader {
+    min-height: calc(100vh - 240px) !important;
+    padding: 32px 16px !important;
+    box-sizing: border-box !important;
+  }
+}
+
+@media (max-width: 640px) {
+  /* 5. Fix action buttons clipping: full-width rows with clear wrapping */
+  #view-pro-workspace[data-feature="ai-market"] .gb .r {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 8px !important;
+    width: 100% !important;
+  }
+
+  #view-pro-workspace[data-feature="ai-market"] .gb .bt {
+    width: 100% !important;
+    min-height: 44px !important;
+    white-space: normal !important;
+    text-align: center !important;
+    justify-content: center !important;
+    padding: 10px 14px !important;
+    font-size: 13px !important;
+    line-height: 1.3 !important;
+  }
+
+  /* 6. Quick pills overflow handling */
+  #view-pro-workspace[data-feature="ai-market"] .pills {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    gap: 6px !important;
+  }
+
+  #view-pro-workspace[data-feature="ai-market"] .pill {
+    flex: 0 0 auto !important;
+    min-height: 36px !important;
+    padding: 0 10px !important;
+  }
+
+  /* 7. Timeframe buttons row */
+  #view-pro-workspace[data-feature="ai-market"] .tf {
+    display: flex !important;
+    overflow-x: auto !important;
+    max-width: 100% !important;
+    -webkit-overflow-scrolling: touch !important;
+  }
+
+  #view-pro-workspace[data-feature="ai-market"] .tf .pill {
+    flex: 1 0 auto !important;
+    min-width: 40px !important;
   }
 }
