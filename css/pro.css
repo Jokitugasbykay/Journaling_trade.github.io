@@ -6309,7 +6309,11 @@ body.pro-sheet-open { overflow:hidden !important; }
 
 #view-pro-workspace[data-feature="ai-market"] .gb .bt {
   flex: 1;
-  white-space: nowrap;
+  white-space: normal;
+  text-align: center;
+  line-height: 1.35;
+  padding: 10px 14px;
+  min-width: 0;
 }
 
 #view-pro-workspace[data-feature="ai-market"] .bt {
