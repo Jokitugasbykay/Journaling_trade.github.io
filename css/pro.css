@@ -5574,7 +5574,9 @@ body.pro-sheet-open { overflow:hidden !important; }
   background: #13171D;
   border: 1px solid #232932;
   border-radius: 14px;
-  min-height: 680px;
+  height: calc(100vh - 220px);
+  min-height: 480px;
+  max-height: 820px;
   box-sizing: border-box;
   width: 100%;
 }
@@ -5592,11 +5594,13 @@ body.pro-sheet-open { overflow:hidden !important; }
 
 .pro-ai-chat-module .msgs {
   flex: 1;
+  min-height: 0;
   display: flex;
   flex-direction: column;
   gap: 20px;
   padding: 24px 24px;
   overflow-y: auto;
+  scroll-behavior: smooth;
 }
 
 .pro-ai-chat-module .day {
@@ -5810,6 +5814,13 @@ body.pro-sheet-open { overflow:hidden !important; }
   }
   .pro-ai-chat-module .chips {
     margin-left: 0;
+  }
+  .pro-ai-chat-module .chat {
+    height: calc(100vh - 160px);
+    max-height: none;
+  }
+  .pro-ai-chat-module .msgs {
+    padding: 16px;
   }
 }
 

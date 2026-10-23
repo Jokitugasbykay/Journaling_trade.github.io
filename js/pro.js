@@ -2608,6 +2608,38 @@ Instruksi Format Output & Larangan Bocor Chain-of-Thought dan Perencanaan Rules 
     messages.setAttribute('aria-label', 'AI chat conversation');
     chatSection.append(messages);
 
+    // Smart scroll state
+    let userScrolledUp = false;
+    const SCROLL_THRESHOLD = 80;
+
+    const scrollToBottom = (force = false) => {
+      if (force || !userScrolledUp) {
+        messages.scrollTop = messages.scrollHeight;
+      }
+    };
+
+    // Scroll-to-bottom floating button
+    const scrollDownBtn = node('button', null, 'chat-scroll-down');
+    scrollDownBtn.setAttribute('aria-label', 'Gulir ke pesan terbaru');
+    scrollDownBtn.setAttribute('title', 'Gulir ke pesan terbaru');
+    scrollDownBtn.type = 'button';
+    scrollDownBtn.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>';
+    scrollDownBtn.style.cssText = 'display:none;position:absolute;bottom:90px;right:20px;z-index:10;background:#1B2230;border:1px solid #2D3748;border-radius:50%;width:36px;height:36px;cursor:pointer;color:#9AA3AF;align-items:center;justify-content:center;box-shadow:0 2px 8px rgba(0,0,0,.4);transition:opacity .2s;';
+    scrollDownBtn.addEventListener('click', () => {
+      userScrolledUp = false;
+      messages.scrollTop = messages.scrollHeight;
+      scrollDownBtn.style.display = 'none';
+    });
+    chatSection.style.position = 'relative';
+    chatSection.append(scrollDownBtn);
+
+    // Detect user scrolling up
+    messages.addEventListener('scroll', () => {
+      const distFromBottom = messages.scrollHeight - messages.scrollTop - messages.clientHeight;
+      userScrolledUp = distFromBottom > SCROLL_THRESHOLD;
+      scrollDownBtn.style.display = userScrolledUp ? 'flex' : 'none';
+    });
+
     // 3. Composer (.cmp)
     const cmp = node('div', null, 'cmp');
     const box = node('div', null, 'box');
@@ -2790,7 +2822,7 @@ Instruksi Format Output & Larangan Bocor Chain-of-Thought dan Perencanaan Rules 
           messages.append(bubble(item.role === 'user' ? 'user' : 'assistant', textVal, item.time));
         }
       }
-      messages.scrollTop = messages.scrollHeight;
+      scrollToBottom(true);
     };
 
     const submitMessage = async (rawMessage) => {
@@ -2807,7 +2839,7 @@ Instruksi Format Output & Larangan Bocor Chain-of-Thought dan Perencanaan Rules 
       sendBtn.setAttribute('data-running', 'true');
 
       messages.append(bubble('user', message, new Date().toISOString()));
-      messages.scrollTop = messages.scrollHeight;
+      scrollToBottom(true);
 
       const loadingBubble = node('article', null, 'pro-chat-message a');
       loadingBubble.dataset.role = 'assistant';
@@ -2832,7 +2864,7 @@ Instruksi Format Output & Larangan Bocor Chain-of-Thought dan Perencanaan Rules 
       ab.append(orbWrap);
       loadingBubble.append(srAsst, ab);
       messages.append(loadingBubble);
-      messages.scrollTop = messages.scrollHeight;
+      scrollToBottom(true);
 
       const stopOrb = startInlineOrb(canvas, statusLab);
 
@@ -2909,16 +2941,16 @@ Instruksi Format Output & Larangan Bocor Chain-of-Thought dan Perencanaan Rules 
           ab.append(contentBox, node('span', formatChatTime(new Date()), 't'));
         } else {
           ab.append(contentBox);
-          messages.scrollTop = messages.scrollHeight;
+          scrollToBottom(true);
           await typeWriterText({
             target: contentBox,
             text: replyText || 'Response received.',
             isMarkdown: true,
-            onScroll: () => { messages.scrollTop = messages.scrollHeight; }
+            onScroll: () => { scrollToBottom(true); }
           });
           ab.append(node('span', formatChatTime(new Date()), 't'));
         }
-        messages.scrollTop = messages.scrollHeight;
+        scrollToBottom();
       } catch (err) {
         stopOrb();
         delete loadingBubble.dataset.loading;
@@ -2938,16 +2970,16 @@ Instruksi Format Output & Larangan Bocor Chain-of-Thought dan Perencanaan Rules 
           ab.append(errBox, node('span', formatChatTime(new Date()), 't'));
         } else {
           ab.append(errBox);
-          messages.scrollTop = messages.scrollHeight;
+          scrollToBottom(true);
           await typeWriterText({
             target: errBox,
             text: errorText,
             isMarkdown: false,
-            onScroll: () => { messages.scrollTop = messages.scrollHeight; }
+            onScroll: () => { scrollToBottom(true); }
           });
           ab.append(node('span', formatChatTime(new Date()), 't'));
         }
-        messages.scrollTop = messages.scrollHeight;
+        scrollToBottom();
       } finally {
         isSubmitting = false;
         input.disabled = false;
