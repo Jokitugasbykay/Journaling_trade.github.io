@@ -13,8 +13,12 @@
   const normalize = text => text.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
   const uiText = (id, en) => window.JTI18n?.text(id, en) ?? (document.documentElement.lang === 'id' ? id : en);
   const words = id => id === 'news-region' ? uiText('Cari region…', 'Search regions…') : uiText('Cari penerbit…', 'Search publishers…');
-  // Mobile/touch: avoid auto keyboard when opening the bottom sheet.
-  const isTouchUI = () => window.innerWidth <= 768 || ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
+  // Treat phones/tablets and any touch-primary device as touch UI.
+  const isTouchUI = () =>
+    window.matchMedia('(pointer: coarse)').matches ||
+    window.innerWidth <= 768 ||
+    ('ontouchstart' in window) ||
+    (navigator.maxTouchPoints > 0);
 
   for (const id of ['news-region', 'news-source']) {
     const select = document.getElementById(id);
@@ -34,7 +38,7 @@
           '<button type="button" class="news-select-close" aria-label="' + uiText('Tutup', 'Close') + '">' + closeIcon + '</button>' +
         '</div>' +
       '</div>' +
-      '<div class="news-select-search">' + searchIcon + '<input type="search" role="combobox" aria-autocomplete="list" autocomplete="off" spellcheck="false" inputmode="search"></div>' +
+      '<div class="news-select-search">' + searchIcon + '<input type="search" role="combobox" aria-autocomplete="list" autocomplete="off" spellcheck="false" inputmode="none" readonly tabindex="-1"></div>' +
       '<div class="news-select-options" role="listbox"></div>' +
       '<p class="news-select-empty" role="status" hidden></p>';
     const input = panel.querySelector('input'), list = panel.querySelector('[role="listbox"]'), empty = panel.querySelector('p');
@@ -48,32 +52,56 @@
     if (select.getAttribute('aria-describedby')) trigger.setAttribute('aria-describedby', select.getAttribute('aria-describedby'));
     if (label) label.htmlFor = trigger.id;
     select.after(trigger, panel); select.hidden = true;
-    let rows = [], active = -1;
+    let rows = [], active = -1, searchEnabled = false;
     const isOpen = () => panel.matches(':popover-open');
 
     function lockSearchInput() {
-      // Prevent Popover/browser from auto-focusing the search field on mobile.
+      searchEnabled = false;
       input.setAttribute('readonly', 'readonly');
+      input.setAttribute('inputmode', 'none');
       input.tabIndex = -1;
-      input.blur();
+      if (document.activeElement === input) {
+        try { input.blur(); } catch (_) {}
+      }
     }
     function unlockSearchInput() {
+      searchEnabled = true;
       input.removeAttribute('readonly');
+      input.setAttribute('inputmode', 'search');
       input.tabIndex = 0;
     }
     function enableSearchAndFocus() {
       unlockSearchInput();
-      // Defer focus so the current pointer event finishes without re-triggering keyboard races.
       requestAnimationFrame(() => {
-        try { input.focus({ preventScroll: true }); } catch (_) { input.focus(); }
+        try { input.focus({ preventScroll: true }); } catch (_) { try { input.focus(); } catch (__) {} }
       });
     }
 
-    // User must deliberately tap the search row to open the keyboard on touch devices.
-    searchWrap.addEventListener('pointerdown', event => {
-      if (!isTouchUI()) return;
-      if (input.hasAttribute('readonly')) {
+    // Block browser/popover auto-focus that would open the keyboard.
+    input.addEventListener('focus', event => {
+      if (!searchEnabled && isTouchUI()) {
         event.preventDefault();
+        event.stopPropagation();
+        try { input.blur(); } catch (_) {}
+        // Keep focus on the trigger so the sheet stays usable without a keyboard.
+        try { trigger.focus({ preventScroll: true }); } catch (_) {}
+      }
+    }, true);
+
+    // Only open the keyboard when the user deliberately taps the search row.
+    searchWrap.addEventListener('pointerup', event => {
+      if (!isTouchUI()) return;
+      if (!searchEnabled) {
+        event.preventDefault();
+        event.stopPropagation();
+        enableSearchAndFocus();
+      }
+    });
+    searchWrap.addEventListener('click', event => {
+      if (!isTouchUI()) return;
+      if (!searchEnabled) {
+        event.preventDefault();
+        event.stopPropagation();
         enableSearchAndFocus();
       }
     });
@@ -88,7 +116,6 @@
     }
     function choose(row) {
       if (!row || select.disabled || trigger.disabled || row.disabled) return;
-      // The backing select retains the application's access validation and change handler.
       select.value = row.dataset.value;
       document.body.classList.remove('news-select-locked');
       panel.hidePopover(); trigger.focus();
@@ -171,21 +198,25 @@
         document.body.classList.add('news-select-locked');
       }
       input.value = ''; active = -1; rows = [];
-      if (isTouchUI()) lockSearchInput();
-      else unlockSearchInput();
+      lockSearchInput();
       sync(); render(); list.scrollTop = 0; position();
     });
     panel.addEventListener('toggle', () => {
       const open = String(isOpen()); trigger.setAttribute('aria-expanded', open); input.setAttribute('aria-expanded', open);
       if (isOpen()) {
         if (isTouchUI()) {
-          // Keep keyboard closed until the user taps the search field.
           lockSearchInput();
-          // If the browser already moved focus into the panel, push it away from the input.
-          if (document.activeElement === input) {
-            input.blur();
-            trigger.focus({ preventScroll: true });
-          }
+          // Popover API may focus the first focusable control; bounce focus off the input.
+          const bounce = () => {
+            if (document.activeElement === input || searchWrap.contains(document.activeElement)) {
+              try { input.blur(); } catch (_) {}
+              try { trigger.focus({ preventScroll: true }); } catch (_) {}
+            }
+          };
+          bounce();
+          requestAnimationFrame(bounce);
+          setTimeout(bounce, 50);
+          setTimeout(bounce, 150);
         } else {
           unlockSearchInput();
           input.focus();
@@ -211,14 +242,13 @@
       if (event.key === 'Escape') { event.preventDefault(); panel.hidePopover(); trigger.focus(); return; }
       if (event.key === 'Enter') { event.preventDefault(); choose(rows[active]); return; }
       if (!['ArrowDown', 'ArrowUp', 'Home', 'End', 'PageDown', 'PageUp'].includes(event.key)) return;
-      // Home/End retain text editing unless the query is empty; arrows browse the results.
       if (input.value && ['Home', 'End'].includes(event.key)) return;
       event.preventDefault();
       const next = event.key === 'Home' ? 0 : event.key === 'End' ? rows.length - 1 : active + (event.key === 'ArrowDown' ? 1 : event.key === 'ArrowUp' ? -1 : event.key === 'PageDown' ? 8 : -8);
       highlight(Math.max(0, Math.min(rows.length - 1, next)));
     });
     select.addEventListener('change', sync);
-    controls.push({sync, panel}); sync();
+    controls.push({sync, panel, position}); sync();
   }
   window.syncNewsSelects = () => controls.forEach(control => control.sync());
   const close = () => {
@@ -227,7 +257,7 @@
   };
   window.addEventListener('resize', () => {
     if (window.innerWidth <= 768) {
-      controls.forEach(({panel}) => { if (panel.matches(':popover-open')) position(); });
+      controls.forEach(control => { if (control.panel.matches(':popover-open')) control.position(); });
     } else {
       close();
     }
