@@ -4,10 +4,10 @@
   const controls = [];
   const icon = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c5 5 5 13 0 18-5-5-5-13 0-18Z"/></svg>';
   const searchIcon = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 5 5"/></svg>';
+  const closeIcon = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6L6 18M6 6l12 12"/></svg>';
   const regionShapes = {
     AUTO:'M12 2v4m0 12v4M2 12h4m12 0h4M18 12a6 6 0 1 1-12 0 6 6 0 0 1 12 0Z',
     ALL:'m12 3 9 5-9 5-9-5 9-5Zm-9 9 9 5 9-5M3 16l9 5 9-5'
-
   };
   const mapRegions = ['AFRICA','ANTARCTICA','ASIA','EUROPE','MIDDLE_EAST','NORTH_AMERICA','OCEANIA','SOUTH_AMERICA'];
   const normalize = text => text.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
@@ -23,8 +23,21 @@
     trigger.innerHTML = icon + '<span></span><svg class="news-select-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="m7 10 5 5 5-5"/></svg>';
     const panel = document.createElement('div');
     panel.id = id + '-menu'; panel.className = 'news-select-menu'; panel.setAttribute('popover', 'auto');
-    panel.innerHTML = '<div class="news-select-search">' + searchIcon + '<input type="search" role="combobox" aria-autocomplete="list" autocomplete="off" spellcheck="false" autofocus></div><div class="news-select-options" role="listbox"></div><p class="news-select-empty" role="status" hidden></p>';
+    const selectTitle = label?.textContent || (id === 'news-region' ? uiText('Region berita', 'News region') : uiText('Sumber berita', 'News source'));
+    panel.innerHTML =
+      '<div class="news-select-header">' +
+        '<div class="news-select-handle" aria-hidden="true"></div>' +
+        '<div class="news-select-header-content">' +
+          '<span class="news-select-title">' + selectTitle + '</span>' +
+          '<button type="button" class="news-select-close" aria-label="' + uiText('Tutup', 'Close') + '">' + closeIcon + '</button>' +
+        '</div>' +
+      '</div>' +
+      '<div class="news-select-search">' + searchIcon + '<input type="search" role="combobox" aria-autocomplete="list" autocomplete="off" spellcheck="false"></div>' +
+      '<div class="news-select-options" role="listbox"></div>' +
+      '<p class="news-select-empty" role="status" hidden></p>';
     const input = panel.querySelector('input'), list = panel.querySelector('[role="listbox"]'), empty = panel.querySelector('p');
+    const closeBtn = panel.querySelector('.news-select-close');
+    if (closeBtn) closeBtn.addEventListener('click', () => panel.hidePopover());
     list.id = id + '-options';
     input.setAttribute('aria-controls', list.id); input.setAttribute('aria-expanded', 'false');
     trigger.setAttribute('popovertarget', panel.id); trigger.setAttribute('aria-haspopup', 'listbox');
@@ -46,6 +59,7 @@
       if (!row || select.disabled || trigger.disabled || row.disabled) return;
       // The backing select retains the application's access validation and change handler.
       select.value = row.dataset.value;
+      document.body.classList.remove('news-select-locked');
       panel.hidePopover(); trigger.focus();
       select.dispatchEvent(new Event('change', {bubbles:true}));
     }
@@ -76,7 +90,9 @@
         if (id === 'news-region' && mapRegions.includes(option.value)) marker.style.backgroundImage = 'url("css/maps/' + option.value.toLowerCase() + '.svg")';
         row.append(marker);
         row.addEventListener('click', () => choose(row));
-        row.addEventListener('pointermove', () => highlight(rows.indexOf(row), false));
+        row.addEventListener('pointermove', e => {
+          if (e.pointerType !== 'touch') highlight(rows.indexOf(row), false);
+        });
         list.append(row); rows.push(row);
       }
       empty.hidden = rows.length > 0;
@@ -84,6 +100,18 @@
       highlight(Math.max(0, rows.findIndex(row => row.dataset.value === (previous ?? select.value))), false);
     }
     function position() {
+      if (window.innerWidth <= 768) {
+        panel.style.width = '100%';
+        panel.style.maxWidth = '100%';
+        panel.style.left = '0';
+        panel.style.right = '0';
+        panel.style.top = 'auto';
+        panel.style.bottom = '0';
+        panel.style.maxHeight = '85vh';
+        return;
+      }
+      panel.style.right = 'auto';
+      panel.style.maxWidth = 'none';
       const box = trigger.getBoundingClientRect(), below = innerHeight - box.bottom - 12;
       const above = below < 240 && box.top > below;
       const width = Math.min(Math.max(box.width, 440), innerWidth - 24);
@@ -103,14 +131,27 @@
       if (isOpen()) { render(); position(); }
     }
     panel.addEventListener('beforetoggle', event => {
-      if (event.newState !== 'open') return;
+      if (event.newState !== 'open') {
+        document.body.classList.remove('news-select-locked');
+        return;
+      }
+      if (window.innerWidth <= 768) {
+        document.body.classList.add('news-select-locked');
+      }
       input.value = ''; active = -1; rows = []; sync(); render(); list.scrollTop = 0; position();
     });
     panel.addEventListener('toggle', () => {
       const open = String(isOpen()); trigger.setAttribute('aria-expanded', open); input.setAttribute('aria-expanded', open);
-      if (isOpen()) input.focus();
+      if (isOpen()) {
+        if (window.innerWidth > 768 && !('ontouchstart' in window)) {
+          input.focus();
+        }
+      } else {
+        document.body.classList.remove('news-select-locked');
+      }
     });
     panel.addEventListener('focusout', event => {
+      if (window.innerWidth <= 768) return;
       const next = event.relatedTarget;
       if (isOpen() && next && !panel.contains(next) && next !== trigger) panel.hidePopover();
     });
@@ -135,7 +176,16 @@
     controls.push({sync, panel}); sync();
   }
   window.syncNewsSelects = () => controls.forEach(control => control.sync());
-  const close = () => controls.forEach(({panel}) => { if (panel.matches(':popover-open')) panel.hidePopover(); });
-  window.addEventListener('resize', close);
-  window.addEventListener('scroll', close);
+  const close = () => {
+    if (window.innerWidth <= 768) return;
+    controls.forEach(({panel}) => { if (panel.matches(':popover-open')) panel.hidePopover(); });
+  };
+  window.addEventListener('resize', () => {
+    if (window.innerWidth <= 768) {
+      controls.forEach(({panel}) => { if (panel.matches(':popover-open')) position(); });
+    } else {
+      close();
+    }
+  });
+  window.addEventListener('scroll', close, { passive: true });
 })();
