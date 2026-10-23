@@ -5696,7 +5696,7 @@ Instruksi Format Output & Larangan Bocor Chain-of-Thought dan Perencanaan Rules 
     const quickList = ['XAUUSD', 'BTCUSD', 'EURUSD', 'GBPUSD', 'USDJPY', 'GBPJPY', 'EURJPY', 'AUDUSD', 'XAGUSD', 'ETHUSDT', 'SOLUSDT', 'PEPEUSDT'];
     quickList.forEach(code => {
       const label = code === 'ETHUSDT' ? 'ETHUSD' : (code === 'SOLUSDT' ? 'SOLUSD' : (code === 'PEPEUSDT' ? 'PEPEUSD' : code));
-      const chip = node('button', label, 'pill' + (code === 'XAUUSD' ? ' on active' : ''));
+      const chip = node('button', label, 'pill qp-chip' + (code === 'XAUUSD' ? ' on active' : ''));
       chip.type = 'button';
       chip.dataset.code = code;
       chip.setAttribute('aria-label', 'Pilih pair ' + label);
@@ -7512,6 +7512,7 @@ function filterPairDropdown() {
           const isFallbackMatch = !hasDistinctSibling && (chipNormNoT === norm || chipNormNoT === normNoT || chip.textContent === normNoT);
           const isActive = isExact || isFallbackMatch;
           chip.classList.toggle('active', isActive);
+          chip.classList.toggle('on', isActive);
           chip.setAttribute('aria-pressed', isActive ? 'true' : 'false');
         }
       }
@@ -7576,6 +7577,7 @@ function filterPairDropdown() {
         if (btn.dataset.frame) {
           const active = btn.dataset.frame === selectedFrame;
           btn.classList.toggle('active', active);
+          btn.classList.toggle('on', active);
           btn.setAttribute('aria-pressed', active ? 'true' : 'false');
         }
       }
@@ -7584,8 +7586,8 @@ function filterPairDropdown() {
 
     async function chooseFrame(frame) {
       const row = mapped.find(item => item.symbol === instrument.input.value);
-      if (row && !row.timeframes.includes(frame)) {
-        throw new Error('This instrument does not support that timeframe.');
+      if (row && Array.isArray(row.timeframes) && row.timeframes.length > 0 && !row.timeframes.includes(frame)) {
+        // Allow switching frame anyway for live analysis feed
       }
       selectedFrame = frame;
       updateTFButtons();
