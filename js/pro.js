@@ -1481,7 +1481,7 @@ Prinsip Anti-Yapping & Efisiensi Maksimal (Skill Ponytail / Zero-Fluff Standard)
 \`\`\`
 
 Larangan Simbol & Karakter (Ketat & Mutlak):
-1. DILARANG KERAS menggunakan emotikon/emoji tengkorak (💀 atau simbol tengkorak lainnya dalam bentuk apa pun).
+1. DILARANG KERAS menggunakan emotikon/emoji tengkorak atau simbol tengkorak dalam bentuk apa pun.
 2. DILARANG KERAS menggunakan tanda hubung panjang em dash maupun en dash. Wajib selalu gunakan tanda hubung biasa (-) atau titik dua (:).
 
 Aturan Sensor & Batasan Topik (Wajib Langsung Sangkal / Tolak):
@@ -7729,7 +7729,7 @@ function filterPairDropdown() {
       if (crossPairs.includes(symbol)) {
         activeFeedInfo.textContent = 'Feed: Binance Real-Time Cross (' + symbol + ' · 16:9)';
         const feedLabel = document.getElementById('feedSourceLabel');
-        if (feedLabel) feedLabel.textContent = '⚡ STREAM: BINANCE CROSS (' + symbol + ')';
+        if (feedLabel) { feedLabel.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 24 24" fill="currentColor" style="vertical-align:-1px;margin-right:3px"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg> STREAM: BINANCE CROSS (' + symbol + ')'; }
 
         const pollCross = async () => {
           try {
@@ -7789,7 +7789,7 @@ function filterPairDropdown() {
         if (pollInterval) return;
         activeFeedInfo.textContent = 'Feed: Binance REST Poller (' + currentPairObj.code + ' · 16:9)';
         const feedLabel = document.getElementById('feedSourceLabel');
-        if (feedLabel) feedLabel.textContent = '⚡ STREAM: BINANCE REST (' + currentPairObj.code + ')';
+        if (feedLabel) { feedLabel.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 24 24" fill="currentColor" style="vertical-align:-1px;margin-right:3px"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg> STREAM: BINANCE REST (' + currentPairObj.code + ')'; }
 
         pollInterval = setInterval(async () => {
           try {
@@ -7937,7 +7937,7 @@ function filterPairDropdown() {
           const sym = currentPairObj.apiSym;
           activeFeedInfo.textContent = 'Feed: Binance WS (' + sym + ' · 500 Bars · 16:9)';
           const feedLabel = document.getElementById('feedSourceLabel');
-          if (feedLabel) feedLabel.textContent = '⚡ STREAM: BINANCE WS (' + sym + ')';
+          if (feedLabel) { feedLabel.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 24 24" fill="currentColor" style="vertical-align:-1px;margin-right:3px"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg> STREAM: BINANCE WS (' + sym + ')'; }
 
           const [activeData, h1Data, h4Data, d1Data] = await Promise.all([
             fetchBinanceKlines(sym, selectedFrame, 500, controller.signal),
@@ -7953,7 +7953,7 @@ function filterPairDropdown() {
           const tsym = currentPairObj.tsym || 'USD';
           activeFeedInfo.textContent = 'Feed: Forex/Spot Live (' + fsym + '/' + tsym + ' · 500 Bars · 16:9)';
           const feedLabel = document.getElementById('feedSourceLabel');
-          if (feedLabel) feedLabel.textContent = '⚡ STREAM: FOREX LIVE (' + fsym + '/' + tsym + ')';
+          if (feedLabel) { feedLabel.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 24 24" fill="currentColor" style="vertical-align:-1px;margin-right:3px"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg> STREAM: FOREX LIVE (' + fsym + '/' + tsym + ')'; }
 
           const [activeData, h1Data, h4Data, d1Data] = await Promise.all([
             fetchForexOrMetalCC(fsym, tsym, selectedFrame, 500, controller.signal),
