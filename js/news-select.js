@@ -13,6 +13,8 @@
   const normalize = text => text.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
   const uiText = (id, en) => window.JTI18n?.text(id, en) ?? (document.documentElement.lang === 'id' ? id : en);
   const words = id => id === 'news-region' ? uiText('Cari region…', 'Search regions…') : uiText('Cari penerbit…', 'Search publishers…');
+  // Mobile/touch: avoid auto keyboard when opening the bottom sheet.
+  const isTouchUI = () => window.innerWidth <= 768 || ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
 
   for (const id of ['news-region', 'news-source']) {
     const select = document.getElementById(id);
@@ -32,10 +34,11 @@
           '<button type="button" class="news-select-close" aria-label="' + uiText('Tutup', 'Close') + '">' + closeIcon + '</button>' +
         '</div>' +
       '</div>' +
-      '<div class="news-select-search">' + searchIcon + '<input type="search" role="combobox" aria-autocomplete="list" autocomplete="off" spellcheck="false"></div>' +
+      '<div class="news-select-search">' + searchIcon + '<input type="search" role="combobox" aria-autocomplete="list" autocomplete="off" spellcheck="false" inputmode="search"></div>' +
       '<div class="news-select-options" role="listbox"></div>' +
       '<p class="news-select-empty" role="status" hidden></p>';
     const input = panel.querySelector('input'), list = panel.querySelector('[role="listbox"]'), empty = panel.querySelector('p');
+    const searchWrap = panel.querySelector('.news-select-search');
     const closeBtn = panel.querySelector('.news-select-close');
     if (closeBtn) closeBtn.addEventListener('click', () => panel.hidePopover());
     list.id = id + '-options';
@@ -47,6 +50,34 @@
     select.after(trigger, panel); select.hidden = true;
     let rows = [], active = -1;
     const isOpen = () => panel.matches(':popover-open');
+
+    function lockSearchInput() {
+      // Prevent Popover/browser from auto-focusing the search field on mobile.
+      input.setAttribute('readonly', 'readonly');
+      input.tabIndex = -1;
+      input.blur();
+    }
+    function unlockSearchInput() {
+      input.removeAttribute('readonly');
+      input.tabIndex = 0;
+    }
+    function enableSearchAndFocus() {
+      unlockSearchInput();
+      // Defer focus so the current pointer event finishes without re-triggering keyboard races.
+      requestAnimationFrame(() => {
+        try { input.focus({ preventScroll: true }); } catch (_) { input.focus(); }
+      });
+    }
+
+    // User must deliberately tap the search row to open the keyboard on touch devices.
+    searchWrap.addEventListener('pointerdown', event => {
+      if (!isTouchUI()) return;
+      if (input.hasAttribute('readonly')) {
+        event.preventDefault();
+        enableSearchAndFocus();
+      }
+    });
+
     function highlight(index, scroll = true) {
       active = index;
       rows.forEach((row, n) => row.classList.toggle('is-active', n === index));
@@ -133,21 +164,35 @@
     panel.addEventListener('beforetoggle', event => {
       if (event.newState !== 'open') {
         document.body.classList.remove('news-select-locked');
+        lockSearchInput();
         return;
       }
       if (window.innerWidth <= 768) {
         document.body.classList.add('news-select-locked');
       }
-      input.value = ''; active = -1; rows = []; sync(); render(); list.scrollTop = 0; position();
+      input.value = ''; active = -1; rows = [];
+      if (isTouchUI()) lockSearchInput();
+      else unlockSearchInput();
+      sync(); render(); list.scrollTop = 0; position();
     });
     panel.addEventListener('toggle', () => {
       const open = String(isOpen()); trigger.setAttribute('aria-expanded', open); input.setAttribute('aria-expanded', open);
       if (isOpen()) {
-        if (window.innerWidth > 768 && !('ontouchstart' in window)) {
+        if (isTouchUI()) {
+          // Keep keyboard closed until the user taps the search field.
+          lockSearchInput();
+          // If the browser already moved focus into the panel, push it away from the input.
+          if (document.activeElement === input) {
+            input.blur();
+            trigger.focus({ preventScroll: true });
+          }
+        } else {
+          unlockSearchInput();
           input.focus();
         }
       } else {
         document.body.classList.remove('news-select-locked');
+        lockSearchInput();
       }
     });
     panel.addEventListener('focusout', event => {
