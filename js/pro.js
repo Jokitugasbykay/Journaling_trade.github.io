@@ -2029,14 +2029,6 @@ Instruksi Format Output & Larangan Bocor Chain-of-Thought dan Perencanaan Rules 
   })) ); }
   function query(data) { const params=new URLSearchParams(); for(const [key,value] of Object.entries(data)) if(value!=='' && value!==undefined && value!==null) params.set(key,String(value)); return params.toString(); }
   function filterValues() { return Object.fromEntries(Object.entries(filters).map(([key,item])=>[key,item.value]).filter(([,value])=>value!=='')); }
-  function commonFilters(parent,onChange,{dates=true,account=true}={}) {
-    filters={}; const toolbar=node('form',null,'pro-toolbar'); parent.append(toolbar);
-    if(account) { const entry=select(text('Account','Trading account'),[['',text('AllAccounts','All accounts')],...accounts.map(row=>[row.id,row.name])],preset.account_id || '','pro-account'); filters.account_id=entry.input; toolbar.append(entry.wrap); }
-    if(dates) for(const key of ['start','end']) { const entry=field(key==='start'?text('Start','Start date'):text('End','End date'),'date',preset[key] || '','pro-'+key); filters[key]=entry.input; toolbar.append(entry.wrap); }
-    const zone=field(text('Timezone','Timezone'),'text',preset.tz || Intl.DateTimeFormat().resolvedOptions().timeZone || 'UTC','pro-timezone'); filters.tz=zone.input; toolbar.append(zone.wrap);
-    const apply=button(text('Apply','Apply filters'),async()=>{validateFilters(); await onChange();},'pro-apply-filters'); toolbar.append(apply);
-    toolbar.addEventListener('submit',event=>{event.preventDefault(); apply.click();}); return toolbar;
-  }
   function validateFilters() { const values=filterValues(); if(values.start && values.end && values.start>values.end) throw new Error(text('DateError','Start date must not be after end date.')); try {new Intl.DateTimeFormat('en',{timeZone:values.tz || 'UTC'});} catch {throw new Error(text('TimezoneError','Enter a valid IANA timezone.'));} }
   function chart(parent,title,series,key) {
     const section=panel(title,parent), data=(series || []).filter(item=>item[key]!==null && item[key]!=='' && Number.isFinite(Number(item[key])));
@@ -6092,30 +6084,6 @@ Instruksi Format Output & Larangan Bocor Chain-of-Thought dan Perencanaan Rules 
       }
     }
     return candles;
-  }
-
-  function aggregateCandlesToTF(srcCandles, srcTf, targetTf) {
-    if (!Array.isArray(srcCandles) || srcCandles.length < 2) return null;
-    const srcSec = tfToSeconds(srcTf);
-    const targetSec = tfToSeconds(targetTf);
-    if (srcSec === targetSec) return [...srcCandles];
-    if (targetSec < srcSec) return null;
-    const mult = Math.round(targetSec / srcSec);
-    if (mult <= 1) return [...srcCandles];
-
-    const aggregated = [];
-    for (let i = 0; i < srcCandles.length; i += mult) {
-      const chunk = srcCandles.slice(i, i + mult);
-      if (!chunk.length) break;
-      const open = Number(chunk[0].open);
-      const close = Number(chunk[chunk.length - 1].close);
-      const high = Math.max(...chunk.map(c => Number(c.high)));
-      const low = Math.min(...chunk.map(c => Number(c.low)));
-      const time = chunk[0].time;
-      const closeTime = chunk[chunk.length - 1].closeTime || (time + targetSec * 1000);
-      aggregated.push({ time, open, high, low, close, closeTime });
-    }
-    return aggregated;
   }
 
   
