@@ -9724,3 +9724,319 @@ body.pro-sheet-open { overflow:hidden !important; }
     grid-template-columns: 1fr;
   }
 }
+
+
+/* ==========================================================
+   MOBILE AUDIT & OPTIMISATION — All Three New Modules
+   Target breakpoints: 860px (tablet), 600px (large mobile),
+   400px (small mobile)
+   ========================================================== */
+
+/* ---- Shared utility: make all module tables scroll horizontally ---- */
+.pro-analytics-module .tw,
+.pro-heatmap-module .tw,
+.pro-strategy-module .tw {
+  -webkit-overflow-scrolling: touch;
+  overflow-x: auto;
+  max-width: 100%;
+}
+
+/* ---- All module panels padding compression on small screens ---- */
+@media (max-width: 860px) {
+  .pro-analytics-module .pn,
+  .pro-heatmap-module .pn,
+  .pro-strategy-module .pn {
+    padding: 16px;
+    gap: 12px;
+    border-radius: 12px;
+  }
+
+  /* Analytics KPI cards: 2 per row on tablet */
+  .pro-analytics-module .kp {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .pro-analytics-module .kp b {
+    font-size: 22px;
+  }
+
+  /* Analytics charts: stack vertically */
+  .pro-analytics-module .two {
+    grid-template-columns: 1fr;
+  }
+
+  /* Analytics breakdown tables: stack */
+  .pro-analytics-module > .two {
+    grid-template-columns: 1fr;
+  }
+
+  /* Heatmap: calendar months go to 1-col on tablet */
+  .pro-heatmap-module .mg {
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  }
+
+  /* Heatmap: detail dt grid overflow */
+  .pro-heatmap-module .dt {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    overflow-x: auto;
+  }
+
+  /* Heatmap: year nav row */
+  .pro-heatmap-module .yr {
+    flex-wrap: nowrap;
+  }
+
+  /* Strategy module: header row stacks */
+  .pro-strategy-module .hd {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+  .pro-strategy-module .hd .bt {
+    width: 100%;
+  }
+
+  /* Analytics: header row stacks */
+  .pro-analytics-module .hd {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  /* Heatmap: header row stacks */
+  .pro-heatmap-module .hd {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  /* All modules: pnh (panel header row) stacks nicely */
+  .pro-analytics-module .pnh,
+  .pro-heatmap-module .pnh,
+  .pro-strategy-module .pnh {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  /* Strategy comparison: action bar stays horizontal on tablet */
+  .pro-strategy-module .cta {
+    flex-wrap: wrap;
+  }
+  .pro-strategy-module .cta .bt {
+    flex: 1 1 auto;
+    min-width: 120px;
+  }
+}
+
+@media (max-width: 600px) {
+  /* Shared: all headings smaller */
+  .pro-analytics-module h1,
+  .pro-heatmap-module h1,
+  .pro-strategy-module h1 {
+    font-size: 22px;
+    line-height: 1.25;
+  }
+
+  /* Analytics KPIs: 1 per row on small phones */
+  .pro-analytics-module .kp {
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+  }
+  .pro-analytics-module .kp .pro-panel,
+  .pro-analytics-module .kp div {
+    padding: 14px;
+  }
+  .pro-analytics-module .kp b {
+    font-size: 20px;
+  }
+
+  /* Analytics distribution dt: 3 col on small screens */
+  .pro-analytics-module .dt {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    overflow-x: auto;
+  }
+  .pro-analytics-module .dt b {
+    font-size: 16px;
+  }
+
+  /* Heatmap: calendar to single column on phones */
+  .pro-heatmap-module .mg {
+    grid-template-columns: 1fr;
+  }
+
+  /* Heatmap: detail dt strip to 2 col */
+  .pro-heatmap-module .dt {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .pro-heatmap-module .dt b {
+    font-size: 15px;
+  }
+
+  /* Heatmap: legend wraps tightly */
+  .pro-heatmap-module .lg {
+    gap: 10px;
+    font-size: 11px;
+  }
+
+  /* Heatmap: day cells slightly smaller */
+  .pro-heatmap-module .d {
+    min-height: 28px;
+    font-size: 11px;
+    border-radius: 5px;
+  }
+
+  /* Strategy: full-width action buttons */
+  .pro-strategy-module .cta {
+    flex-direction: column;
+  }
+  .pro-strategy-module .cta .bt {
+    width: 100%;
+    justify-content: center;
+  }
+
+  /* Strategy table: hide 'Detail' column on phones to save space */
+  .pro-strategy-module table th:nth-child(3),
+  .pro-strategy-module table td:nth-child(3) {
+    display: none;
+  }
+
+  /* All modules: filter bar full-column */
+  .pro-analytics-module .fl4,
+  .pro-heatmap-module .fl4,
+  .pro-strategy-module .fl4 {
+    grid-template-columns: 1fr;
+  }
+
+  /* All modules: act (button row) stacks vertically */
+  .pro-analytics-module .act,
+  .pro-heatmap-module .act,
+  .pro-strategy-module .act {
+    flex-direction: column;
+  }
+  .pro-analytics-module .act .bt,
+  .pro-heatmap-module .act .bt,
+  .pro-strategy-module .act .bt {
+    width: 100%;
+  }
+
+  /* Analytics chart cc placeholder height shrinks */
+  .pro-analytics-module .cc {
+    height: 140px;
+  }
+
+  /* Heatmap: calendar month card slightly less padding */
+  .pro-heatmap-module .mo {
+    padding: 12px;
+  }
+
+  /* Strategy: editor form grid single column */
+  .pro-strategy-module .fgrid {
+    grid-template-columns: 1fr;
+  }
+
+  /* Analytics: chart two grid always single column */
+  .pro-analytics-module .two {
+    grid-template-columns: 1fr;
+  }
+  .pro-analytics-module > .two {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 400px) {
+  /* Very small phones: KPIs become single column */
+  .pro-analytics-module .kp {
+    grid-template-columns: 1fr;
+  }
+
+  /* Heatmap dt: single col on very small screens */
+  .pro-heatmap-module .dt {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  /* All modules: panel padding minimal */
+  .pro-analytics-module .pn,
+  .pro-heatmap-module .pn,
+  .pro-strategy-module .pn {
+    padding: 12px;
+    gap: 10px;
+  }
+
+  /* Strategy: comparison result cards single column */
+  .pro-strategy-module .res {
+    padding: 20px 10px;
+  }
+}
+
+/* ---- Touch interaction improvements ---- */
+.pro-analytics-module .bt,
+.pro-heatmap-module .bt,
+.pro-strategy-module .bt {
+  -webkit-tap-highlight-color: transparent;
+}
+
+.pro-heatmap-module .d {
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+}
+
+.pro-analytics-module .dd summary,
+.pro-heatmap-module .dd summary,
+.pro-strategy-module .dd summary {
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+}
+
+/* ---- Focus states (keyboard nav on both desktop & mobile) ---- */
+.pro-analytics-module .f:focus-visible,
+.pro-analytics-module .bt:focus-visible,
+.pro-heatmap-module .f:focus-visible,
+.pro-heatmap-module .bt:focus-visible,
+.pro-heatmap-module .d:focus-visible,
+.pro-strategy-module .f:focus-visible,
+.pro-strategy-module .bt:focus-visible {
+  outline: 2px solid #34D399;
+  outline-offset: 2px;
+}
+
+/* ---- Overflow safety for all new modules ---- */
+.pro-analytics-module,
+.pro-heatmap-module,
+.pro-strategy-module {
+  overflow-x: hidden;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+/* ---- Scrollable table wrapper on mobile ---- */
+.pro-analytics-module .tw table,
+.pro-heatmap-module .tw table,
+.pro-strategy-module .tw table {
+  min-width: 480px;
+}
+
+/* ---- Sticky bottom action bar (strategy) on mobile ---- */
+@media (max-width: 600px) {
+  .pro-strategy-module .cta {
+    position: sticky;
+    bottom: 0;
+    background: rgba(15, 17, 21, 0.95);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    padding: 12px 0 env(safe-area-inset-bottom, 12px);
+    margin: 0 -16px;
+    padding-left: 16px;
+    padding-right: 16px;
+    border-top: 1px solid #262B33;
+    z-index: 10;
+  }
+}
+
+/* ---- Safe area insets (notch/home bar on iOS) ---- */
+@supports (padding: env(safe-area-inset-bottom)) {
+  @media (max-width: 600px) {
+    .pro-strategy-module .cta {
+      padding-bottom: calc(12px + env(safe-area-inset-bottom));
+    }
+  }
+}
