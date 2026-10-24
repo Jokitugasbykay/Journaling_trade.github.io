@@ -1,0 +1,35 @@
+name: Cache-bust CSS
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/cache-bust-css.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  bust:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Bump CSS query strings
+        run: |
+          python3 -c "
+          from pathlib import Path
+          import re
+          p = Path('index.html')
+          t = p.read_text()
+          t2 = re.sub(r'(css/(?:style|home|shell|pro|journal)\.css)\?v=[^\"\']+', lambda m: m.group(1)+'?v=20261024-neutral-palette', t)
+          t2 = re.sub(r'(js/custom-select\.js)\?v=[^\"\']+', r'\1?v=20261024-neutral-palette', t2)
+          p.write_text(t2)
+          print('done')
+          "
+          git config user.name github-actions[bot]
+          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+          git add index.html
+          git diff --cached --quiet && exit 0
+          git commit -m "chore: cache-bust CSS to v20261024-neutral-palette"
+          git push
