@@ -5324,7 +5324,7 @@ Instruksi Format Output & Larangan Bocor Chain-of-Thought dan Perencanaan Rules 
       };
 
       const fmtTime = (ts) => {
-        if (!iso) return '-';
+        if (ts == null || ts === '') return '-';
         try {
           const n = Number(ts); const d = (typeof ts === "string" && Number.isNaN(n)) ? new Date(ts) : new Date(n > 0 && n < 1e12 ? n * 1000 : n);
           if (isNaN(d.getTime())) return String(ts);
