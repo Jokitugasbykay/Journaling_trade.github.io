@@ -2044,22 +2044,432 @@ Instruksi Format Output & Larangan Bocor Chain-of-Thought dan Perencanaan Rules 
   }
   function warnings(parent,items) { for(const warning of items || []) parent.append(node('p',format(warning),'pro-muted')); }
   async function analytics() {
-    const load=async()=>{
-      const data=await request('/analytics/overview?'+query(filterValues()),{latest:true}); output.replaceChildren();
-      const kpis=node('div',null,'pro-grid pro-kpis'); output.append(kpis);
-      for(const [key,label] of [['expectancy','Expectancy'],['profit_factor','Profit Factor'],['maximum_drawdown','Maximum Drawdown'],['average_risk_reward','Average Risk Reward']]) {const card=panel(label,kpis);card.append(node('div',format(data.metrics?.[key]),'pro-value'));}
-      const aggregation=select(text('Aggregation','Chart period'),[['trade','Per trade'],['day','Daily'],['week','Weekly'],['month','Monthly']],'trade','pro-chart-period'); output.append(aggregation.wrap);
-      const charts=node('div',null,'pro-grid');output.append(charts);
-      const draw=()=>{charts.replaceChildren(); const items=aggregateSeries(data.equity || [],aggregation.input.value);chart(charts,text('Equity','Equity curve'),items,'equity');chart(charts,text('Drawdown','Drawdown chart'),items,'drawdown');}; aggregation.input.addEventListener('change',draw);draw();
-      const distribution=panel(text('Distribution','Win/loss distribution'),output);details(distribution,{...data.distribution,average_win:data.metrics?.average_win,average_loss:data.metrics?.average_loss,trade_count:data.metrics?.trade_count});
-      const grouped=node('div',null,'pro-grid'); output.append(grouped);
-      for(const key of ['instrument','strategy','weekday','hour','session']) group(panel(text('By'+key,'Performance by '+key),grouped),data.groups?.[key],key);
-      warnings(output,data.warnings); output.append(node('p',text('Currency','Account currency')+': '+format(data.currency),'pro-muted'));
+    content.replaceChildren();
+
+    const root = node('div', null, 'pro-analytics-module');
+    content.append(root);
+
+    // 1. Header
+    const hd = node('div', null, 'hd');
+    const hdText = node('div');
+    const h1 = node('h1', 'Advanced Analytics');
+    const hdSub = node('p', 'Ukuran performa lanjutan untuk menilai kualitas strategi dan risiko trading Anda. Mata uang akun: USD.', 'm');
+    hdText.append(h1, hdSub);
+
+    const reloadBtn = button('Muat ulang bagian', async () => {
+      await load();
+    }, 'bt');
+    reloadBtn.type = 'button';
+    reloadBtn.id = 'pro-analytics-reload';
+    hd.append(hdText, reloadBtn);
+    root.append(hd);
+
+    // 2. Filter Bar
+    const filterSection = node('section', null, 'pn');
+    filterSection.setAttribute('aria-label', 'Filter');
+
+    const fl4 = node('div', null, 'fl4');
+
+    // Account selector
+    const fgAcc = node('div', null, 'fg');
+    const accLbl = node('span', text('Account', 'Akun trading'), 'lbl');
+    const accDetails = node('details', null, 'dd');
+    const accSummary = node('summary');
+    accSummary.setAttribute('aria-haspopup', 'listbox');
+    const accVal = node('span', preset.account_id ? (accounts.find(a => a.id === preset.account_id)?.name || preset.account_id) : 'Semua akun');
+    const accSvg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+    accSvg.setAttribute('width', '16');
+    accSvg.setAttribute('height', '16');
+    accSvg.setAttribute('viewBox', '0 0 24 24');
+    accSvg.setAttribute('fill', 'none');
+    accSvg.setAttribute('stroke', 'currentColor');
+    accSvg.setAttribute('stroke-width', '2');
+    accSvg.setAttribute('stroke-linecap', 'round');
+    accSvg.setAttribute('stroke-linejoin', 'round');
+    const accPath = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+    accPath.setAttribute('d', 'M6 9l6 6 6-6');
+    accSvg.append(accPath);
+    accSummary.append(accVal, accSvg);
+
+    const accUl = node('ul');
+    accUl.setAttribute('role', 'listbox');
+    const allLi = node('li', 'Semua akun');
+    allLi.setAttribute('role', 'option');
+    allLi.setAttribute('aria-selected', !preset.account_id ? 'true' : 'false');
+    allLi.addEventListener('click', () => {
+      filters.account_id = { value: '' };
+      accVal.textContent = 'Semua akun';
+      accUl.querySelectorAll('li').forEach(l => l.setAttribute('aria-selected', 'false'));
+      allLi.setAttribute('aria-selected', 'true');
+      accDetails.removeAttribute('open');
+    });
+    accUl.append(allLi);
+
+    for (const acc of accounts) {
+      const accLi = node('li', acc.name);
+      accLi.setAttribute('role', 'option');
+      if (preset.account_id === acc.id) accLi.setAttribute('aria-selected', 'true');
+      accLi.addEventListener('click', () => {
+        filters.account_id = { value: acc.id };
+        accVal.textContent = acc.name;
+        accUl.querySelectorAll('li').forEach(l => l.setAttribute('aria-selected', 'false'));
+        accLi.setAttribute('aria-selected', 'true');
+        accDetails.removeAttribute('open');
+      });
+      accUl.append(accLi);
+    }
+    accDetails.append(accSummary, accUl);
+    fgAcc.append(accLbl, accDetails);
+    filters.account_id = { value: preset.account_id || '' };
+
+    // Start date (#pro-start)
+    const fgStart = node('div', null, 'fg');
+    const startLbl = node('label', text('Start', 'Tanggal mulai'));
+    startLbl.htmlFor = 'pro-start';
+    const startInput = node('input', null, 'f');
+    startInput.id = 'pro-start';
+    startInput.type = 'date';
+    startInput.value = preset.start || '';
+    filters.start = startInput;
+    fgStart.append(startLbl, startInput);
+
+    // End date (#pro-end)
+    const fgEnd = node('div', null, 'fg');
+    const endLbl = node('label', text('End', 'Tanggal akhir'));
+    endLbl.htmlFor = 'pro-end';
+    const endInput = node('input', null, 'f');
+    endInput.id = 'pro-end';
+    endInput.type = 'date';
+    endInput.value = preset.end || '';
+    filters.end = endInput;
+    fgEnd.append(endLbl, endInput);
+
+    // Timezone (#pro-timezone)
+    const fgTz = node('div', null, 'fg');
+    const tzLbl = node('label', text('Timezone', 'Zona waktu'));
+    tzLbl.htmlFor = 'pro-timezone';
+    const tzInput = node('input', null, 'f');
+    tzInput.id = 'pro-timezone';
+    tzInput.value = preset.tz || Intl.DateTimeFormat().resolvedOptions().timeZone || 'Asia/Jakarta';
+    filters.tz = tzInput;
+    fgTz.append(tzLbl, tzInput);
+
+    // Actions (Terapkan filter + Ekspor laporan)
+    const actFilter = node('div', null, 'act');
+    const applyBtn = button(text('Apply', 'Terapkan filter'), async () => {
+      validateFilters();
+      await load();
+    }, 'bt');
+    applyBtn.type = 'button';
+    applyBtn.id = 'pro-apply-filters';
+
+    const exportBtn = button(text('ExportReport', 'Ekspor laporan'), () => {
+      open('reports', filterValues());
+    }, 'bt pr pro-analytics-export');
+    exportBtn.type = 'button';
+    exportBtn.id = 'pro-analytics-export';
+
+    actFilter.append(applyBtn, exportBtn);
+    fl4.append(fgAcc, fgStart, fgEnd, fgTz, actFilter);
+    filterSection.append(fl4);
+    root.append(filterSection);
+
+    // 3. Primary Metrics Section (.kp .pro-kpis)
+    const kpiSection = node('section', null, 'kp pro-kpis');
+    kpiSection.setAttribute('aria-label', 'Metrik utama');
+    root.append(kpiSection);
+
+    // 4. Performance Charts Section
+    const chartSection = node('section', null, 'pn');
+    const chartPnh = node('div', null, 'pnh');
+    const chartCap = node('span', 'Grafik performa', 'cap');
+
+    const periodWrap = node('div');
+    periodWrap.style.minWidth = '220px';
+    const fgPeriod = node('div', null, 'fg');
+    const periodLbl = node('label', text('Aggregation', 'Periode grafik'), 'lbl');
+    periodLbl.htmlFor = 'pro-chart-period';
+    const periodSelect = node('select', null, 'f');
+    periodSelect.id = 'pro-chart-period';
+    periodSelect.append(
+      node('option', 'Per trade', null),
+      node('option', 'Daily', null),
+      node('option', 'Weekly', null),
+      node('option', 'Monthly', null)
+    );
+    periodSelect.options[0].value = 'trade';
+    periodSelect.options[1].value = 'day';
+    periodSelect.options[2].value = 'week';
+    periodSelect.options[3].value = 'month';
+    fgPeriod.append(periodLbl, periodSelect);
+    periodWrap.append(fgPeriod);
+    chartPnh.append(chartCap, periodWrap);
+
+    const chartTwo = node('div', null, 'two');
+    const cellEquity = node('div', null, 'cell');
+    cellEquity.append(node('p', text('Equity', 'Kurva ekuitas'), 'sub'));
+    const wrapEquity = node('div');
+    cellEquity.append(wrapEquity);
+
+    const cellDrawdown = node('div', null, 'cell');
+    cellDrawdown.append(node('p', text('Drawdown', 'Grafik drawdown'), 'sub'));
+    const wrapDrawdown = node('div');
+    cellDrawdown.append(wrapDrawdown);
+
+    chartTwo.append(cellEquity, cellDrawdown);
+    chartSection.append(chartPnh, chartTwo);
+    root.append(chartSection);
+
+    // 5. Win / Loss Distribution Section
+    const distSection = node('section', null, 'pn');
+    distSection.append(node('span', text('Distribution', 'Distribusi menang / kalah'), 'cap'));
+
+    const distBar = node('div', null, 'bar');
+    distBar.setAttribute('role', 'img');
+    distBar.setAttribute('aria-label', 'Distribusi');
+
+    const distLg = node('div', null, 'lg');
+    const lgWin = node('span');
+    const iWin = node('i');
+    iWin.style.background = '#34D399';
+    lgWin.append(iWin, document.createTextNode('Menang'));
+
+    const lgLoss = node('span');
+    const iLoss = node('i');
+    iLoss.style.background = '#F87171';
+    lgLoss.append(iLoss, document.createTextNode('Kalah'));
+
+    const lgBe = node('span');
+    const iBe = node('i');
+    iBe.style.background = '#9AA3AF';
+    lgBe.append(iBe, document.createTextNode('Breakeven'));
+    distLg.append(lgWin, lgLoss, lgBe);
+
+    const distDt = node('div', null, 'dt');
+    distSection.append(distBar, distLg, distDt);
+    root.append(distSection);
+
+    // 6. Breakdown Tables Section
+    const tablesContainer = node('div', null, 'two');
+    root.append(tablesContainer);
+
+    // Helper: render single SVG chart
+    const renderChart = (container, title, series, key) => {
+      container.replaceChildren();
+      const data = (series || []).filter(item => item[key] !== null && item[key] !== '' && Number.isFinite(Number(item[key])));
+      if (!data.length) {
+        const emptyDiv = node('div', 'Belum ada data untuk pilihan ini.', 'cc');
+        container.append(emptyDiv);
+        return;
+      }
+      const values = data.map(item => Number(item[key]));
+      const low = Math.min(...values);
+      const high = Math.max(...values);
+      const span = high - low || 1;
+
+      const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+      svg.setAttribute('viewBox', '0 0 640 200');
+      svg.setAttribute('class', 'pro-chart');
+      svg.setAttribute('role', 'img');
+      svg.setAttribute('aria-label', title);
+      svg.style.width = '100%';
+      svg.style.height = '220px';
+      svg.style.background = '#12151A';
+      svg.style.border = '1px solid #262B33';
+      svg.style.borderRadius = '10px';
+      svg.style.padding = '12px';
+      svg.style.boxSizing = 'border-box';
+
+      const polyline = document.createElementNS(svg.namespaceURI, 'polyline');
+      polyline.setAttribute('class', 'pro-chart-line');
+      polyline.setAttribute('fill', 'none');
+      polyline.setAttribute('stroke', '#34D399');
+      polyline.setAttribute('stroke-width', '2');
+      polyline.setAttribute('points', values.map((val, idx) => `${20 + idx / (Math.max(1, values.length - 1)) * 600},${175 - (val - low) / span * 145}`).join(' '));
+      svg.append(polyline);
+
+      for (const [lbl, x, y] of [[format(high), 20, 24], [format(low), 20, 192]]) {
+        const txt = document.createElementNS(svg.namespaceURI, 'text');
+        txt.setAttribute('class', 'pro-chart-label');
+        txt.setAttribute('x', x);
+        txt.setAttribute('y', y);
+        txt.setAttribute('fill', '#9AA3AF');
+        txt.setAttribute('font-family', "'JetBrains Mono', monospace");
+        txt.setAttribute('font-size', '11');
+        txt.textContent = lbl;
+        svg.append(txt);
+      }
+      container.append(svg);
+
+      const disclosure = node('details');
+      disclosure.style.marginTop = '8px';
+      disclosure.append(node('summary', text('ChartData', 'Lihat data grafik')));
+      disclosure.querySelector('summary').style.fontSize = '12px';
+      disclosure.querySelector('summary').style.color = '#9AA3AF';
+      disclosure.querySelector('summary').style.cursor = 'pointer';
+      table(disclosure, data, [['date', text('Date', 'Date')], [key, title]]);
+      container.append(disclosure);
     };
-    const toolbar=commonFilters(content,load); toolbar.append(button(text('ExportReport','Export report'),()=>open('reports',filterValues()),'pro-analytics-export'));
-    const output=node('div');content.append(output); await load();
+
+    const renderBreakdownTable = (container, title, rows, kind) => {
+      const section = node('section', null, 'pn');
+      section.append(node('span', title, 'cap'));
+      const tw = node('div', null, 'tw');
+      const tbl = node('table');
+      const thead = node('thead');
+      const trH = node('tr');
+      for (const col of ['Grup', 'Trade', 'Net PnL', 'Win rate', 'Aksi']) {
+        trH.append(node('th', col));
+      }
+      thead.append(trH);
+      tbl.append(thead);
+
+      const tbody = node('tbody');
+      if (!rows || !rows.length) {
+        const trEmpty = node('tr');
+        const tdEmpty = node('td', 'Belum ada data untuk pilihan ini.');
+        tdEmpty.colSpan = 5;
+        trEmpty.append(tdEmpty);
+        tbody.append(trEmpty);
+      } else {
+        for (const row of rows) {
+          const tr = node('tr');
+          const tdLabel = node('td', format(row.label), 'tl');
+          const tdCount = node('td', format(row.trade_count));
+          const tdPnl = node('td', format(row.net_pnl));
+          const tdWin = node('td', format(row.win_rate));
+          const tdAct = node('td');
+          const vtBtn = button(text('ViewTrades', 'View trades'), () => {
+            let selection;
+            if (kind === 'instrument') selection = { instrument: row.label };
+            else if (kind === 'strategy') selection = { strategy_id: row.id || strategies.find(item => item.name === row.label)?.id, strategy: row.label };
+            else if (kind === 'weekday') selection = { weekday: row.label };
+            else if (kind === 'hour') selection = { hour: row.label };
+            else if (kind === 'session') selection = { session: row.label };
+            else selection = { [kind]: row.label };
+            journal({ ...selection, trade_ids: row.trade_ids });
+          }, 'bt');
+          vtBtn.type = 'button';
+          tdAct.append(vtBtn);
+          tr.append(tdLabel, tdCount, tdPnl, tdWin, tdAct);
+          tbody.append(tr);
+        }
+      }
+      tbl.append(tbody);
+      tw.append(tbl);
+      section.append(tw);
+      container.append(section);
+    };
+
+    const load = async () => {
+      const data = await request('/analytics/overview?' + query(filterValues()), { latest: true });
+
+      // Update subtitle currency
+      hdSub.textContent = `Ukuran performa lanjutan untuk menilai kualitas strategi dan risiko trading Anda. Mata uang akun: ${format(data.currency || 'USD')}.`;
+
+      // 1. Primary Metrics (4 cards with .pro-panel)
+      kpiSection.replaceChildren();
+      const kpiDefs = [
+        ['expectancy', 'Expectancy'],
+        ['profit_factor', 'Profit Factor'],
+        ['maximum_drawdown', 'Maximum Drawdown'],
+        ['average_risk_reward', 'Average Risk Reward']
+      ];
+      for (const [key, label] of kpiDefs) {
+        const card = node('div', null, 'pro-panel');
+        card.append(node('span', label, 'cap'));
+        const val = data.metrics?.[key];
+        const valElem = node('b', format(val), 'pro-value');
+        card.append(valElem);
+        kpiSection.append(card);
+      }
+
+      // 2. Performance Charts
+      const draw = () => {
+        const items = aggregateSeries(data.equity || [], periodSelect.value);
+        renderChart(wrapEquity, text('Equity', 'Kurva ekuitas'), items, 'equity');
+        renderChart(wrapDrawdown, text('Drawdown', 'Grafik drawdown'), items, 'drawdown');
+      };
+      periodSelect.onchange = draw;
+      draw();
+
+      // 3. Distribution
+      distBar.replaceChildren();
+      const wins = Number(data.distribution?.wins || 0);
+      const losses = Number(data.distribution?.losses || 0);
+      const be = Number(data.distribution?.breakeven || 0);
+      const totalTrades = wins + losses + be;
+
+      if (totalTrades > 0) {
+        const winW = (wins / totalTrades) * 100;
+        const lossW = (losses / totalTrades) * 100;
+        const beW = (be / totalTrades) * 100;
+
+        if (winW > 0) {
+          const segWin = node('div');
+          segWin.style.background = '#34D399';
+          segWin.style.width = winW + '%';
+          distBar.append(segWin);
+        }
+        if (lossW > 0) {
+          const segLoss = node('div');
+          segLoss.style.background = '#F87171';
+          segLoss.style.width = lossW + '%';
+          distBar.append(segLoss);
+        }
+        if (beW > 0) {
+          const segBe = node('div');
+          segBe.style.background = '#9AA3AF';
+          segBe.style.width = beW + '%';
+          distBar.append(segBe);
+        }
+      }
+
+      distDt.replaceChildren();
+      const dtItems = [
+        ['Menang', wins],
+        ['Kalah', losses],
+        ['Breakeven', be],
+        ['Rata-rata menang', format(data.metrics?.average_win)],
+        ['Rata-rata kalah', format(data.metrics?.average_loss)],
+        ['Jumlah trade', data.metrics?.trade_count !== undefined ? String(data.metrics.trade_count) : String(totalTrades)]
+      ];
+      for (const [lbl, val] of dtItems) {
+        const col = node('div');
+        col.append(node('span', lbl, 'cap'));
+        col.append(node('b', String(val)));
+        distDt.append(col);
+      }
+
+      // 4. Breakdown Tables
+      tablesContainer.replaceChildren();
+      const breakdownDefs = [
+        ['instrument', 'Performa per instrumen'],
+        ['strategy', 'Performa per strategi'],
+        ['weekday', 'Performa per hari'],
+        ['hour', 'Performa per jam'],
+        ['session', 'Performa per sesi']
+      ];
+      for (const [key, title] of breakdownDefs) {
+        renderBreakdownTable(tablesContainer, title, data.groups?.[key], key);
+      }
+
+      // Warnings
+      if (data.warnings && data.warnings.length) {
+        const wBox = node('div', null, 'note');
+        wBox.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>';
+        const wList = node('div');
+        for (const w of data.warnings) {
+          wList.append(node('div', format(w)));
+        }
+        wBox.append(wList);
+        root.append(wBox);
+      }
+    };
+
+    await load();
   }
-  function aggregateSeries(rows,period) {
+    function aggregateSeries(rows,period) {
     if(period==='trade') return rows;
     const buckets=new Map();
     for(const row of rows) { const date=String(row.date || '').slice(0,10); if(!/^\d{4}-\d{2}-\d{2}$/.test(date)) continue;
@@ -11694,7 +12104,7 @@ function filterPairDropdown() {
     if(!features[feature])throw new Error('Unknown Pro feature.');
     if(activeTabLoader){activeTabLoader.stop();activeTabLoader=null;}
     revision++;controller.abort();controller=new AbortController(); preset={...selection};current=feature;root=document.getElementById('view-pro-workspace');if(!root)throw new Error('Pro workspace container is missing.');
-    root.replaceChildren();root.dataset.feature=feature;const heading=node('header',null,'pro-heading');if(['global-news','ai-chat','ai-behaviour','ai-journal','ai-market','risk','reviews','reports','strategies','heatmap'].includes(feature))heading.style.display='none';const title=node('div');title.append(node('h1',text('Title'+feature,features[feature])),node('p',text('WorkspaceDescription','Performance, risk, reports and AI insights from your trading journal.'),'pro-subtitle'));heading.append(title);root.append(heading);
+    root.replaceChildren();root.dataset.feature=feature;const heading=node('header',null,'pro-heading');if(['global-news','ai-chat','ai-behaviour','ai-journal','ai-market','risk','reviews','reports','strategies','heatmap','analytics'].includes(feature))heading.style.display='none';const title=node('div');title.append(node('h1',text('Title'+feature,features[feature])),node('p',text('WorkspaceDescription','Performance, risk, reports and AI insights from your trading journal.'),'pro-subtitle'));heading.append(title);root.append(heading);
     heading.append(button(text('RetrySection','Retry section'),()=>open(feature,selection),'pro-section-retry'));
     const navigation=node('nav',null,'pro-sections');navigation.setAttribute('aria-label','Pro sections');
     const groups=[['Analisis',['analytics','heatmap','strategies','risk']],['Laporan',['reviews','reports']],['AI',['ai-market','ai-behaviour','ai-journal','ai-chat','global-news']]];
