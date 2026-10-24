@@ -2071,25 +2071,422 @@ Instruksi Format Output & Larangan Bocor Chain-of-Thought dan Perencanaan Rules 
     return [...buckets.values()];
   }
   async function heatmap() {
-    let year=new Date().getFullYear(), metric='pnl';
-    const load=async()=>{
-      year=Number(yearInput.input.value); if(!Number.isInteger(year)||year<1900||year>2200) throw new Error('Select a valid year.');
-      const data=await request('/analytics/heatmap?'+query({...filterValues(),year}),{latest:true}); output.replaceChildren();
-      output.append(node('p',text('HeatmapLegend','Solid border: positive. Dashed border: negative. Dark: zero. Faded: no activity.'),'pro-muted'));
-      const months=new Map(); for(const row of data.days || []) {const key=String(row.date).slice(0,7); if(!months.has(key))months.set(key,[]);months.get(key).push(row);}
-      const grid=node('div',null,'pro-grid');output.append(grid);
-      for(const [month,days] of months) {const section=panel(month,grid), cells=node('div',null,'pro-heatmap');section.append(cells);
-        for(const day of days) {const cell=button(String(day.date).slice(8)+' · '+format(day[metric]),async()=>{detail.replaceChildren();details(detail,day);detail.append(button(text('ViewTrades','View trades'),()=>journal({start:day.date,end:day.date,trade_ids:day.trade_ids})));});cell.className='pro-day';cell.dataset.sign=day.state==='no_activity'?'none':day.state;cell.setAttribute('aria-label',`${day.date}: ${format(day[metric])}; ${day.state}`);cells.append(cell);}
+    let year = new Date().getFullYear(), metric = 'pnl';
+    content.replaceChildren();
+
+    const root = node('div', null, 'pro-heatmap-module');
+    content.append(root);
+
+    // 1. Header
+    const hd = node('div', null, 'hd');
+    const hdText = node('div');
+    const h1 = node('h1', 'Performance Heatmap');
+    const hdSub = node('p', 'Lihat pola profit dan loss harian sepanjang tahun, lalu telusuri trade di balik setiap hari.', 'm');
+    hdText.append(h1, hdSub);
+
+    const reloadBtn = button('Muat ulang bagian', async () => {
+      await load();
+    }, 'bt');
+    reloadBtn.type = 'button';
+    reloadBtn.id = 'pro-heatmap-reload';
+    hd.append(hdText, reloadBtn);
+    root.append(hd);
+
+    // 2. Filter Bar
+    const filterSection = node('section', null, 'pn');
+    filterSection.setAttribute('aria-label', 'Filter');
+
+    const fl4 = node('div', null, 'fl4');
+
+    // Account selector
+    const fgAcc = node('div', null, 'fg');
+    const accLbl = node('span', text('Account', 'Akun trading'), 'lbl');
+    const accDetails = node('details', null, 'dd');
+    const accSummary = node('summary');
+    accSummary.setAttribute('aria-haspopup', 'listbox');
+    const accVal = node('span', preset.account_id ? (accounts.find(a => a.id === preset.account_id)?.name || preset.account_id) : 'Semua akun');
+    const accSvg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+    accSvg.setAttribute('width', '16');
+    accSvg.setAttribute('height', '16');
+    accSvg.setAttribute('viewBox', '0 0 24 24');
+    accSvg.setAttribute('fill', 'none');
+    accSvg.setAttribute('stroke', 'currentColor');
+    accSvg.setAttribute('stroke-width', '2');
+    accSvg.setAttribute('stroke-linecap', 'round');
+    accSvg.setAttribute('stroke-linejoin', 'round');
+    const accPath = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+    accPath.setAttribute('d', 'M6 9l6 6 6-6');
+    accSvg.append(accPath);
+    accSummary.append(accVal, accSvg);
+
+    const accUl = node('ul');
+    accUl.setAttribute('role', 'listbox');
+    const allLi = node('li', 'Semua akun');
+    allLi.setAttribute('role', 'option');
+    allLi.setAttribute('aria-selected', !preset.account_id ? 'true' : 'false');
+    allLi.addEventListener('click', () => {
+      filters.account_id = { value: '' };
+      accVal.textContent = 'Semua akun';
+      accUl.querySelectorAll('li').forEach(l => l.setAttribute('aria-selected', 'false'));
+      allLi.setAttribute('aria-selected', 'true');
+      accDetails.removeAttribute('open');
+    });
+    accUl.append(allLi);
+
+    for (const acc of accounts) {
+      const accLi = node('li', acc.name);
+      accLi.setAttribute('role', 'option');
+      if (preset.account_id === acc.id) accLi.setAttribute('aria-selected', 'true');
+      accLi.addEventListener('click', () => {
+        filters.account_id = { value: acc.id };
+        accVal.textContent = acc.name;
+        accUl.querySelectorAll('li').forEach(l => l.setAttribute('aria-selected', 'false'));
+        accLi.setAttribute('aria-selected', 'true');
+        accDetails.removeAttribute('open');
+      });
+      accUl.append(accLi);
+    }
+    accDetails.append(accSummary, accUl);
+    fgAcc.append(accLbl, accDetails);
+    filters.account_id = { value: preset.account_id || '' };
+
+    // Timezone input
+    const fgTz = node('div', null, 'fg');
+    const tzLabel = node('label', text('Timezone', 'Zona waktu'));
+    tzLabel.htmlFor = 'tz';
+    const tzInput = node('input', null, 'f');
+    tzInput.id = 'tz';
+    tzInput.value = preset.tz || Intl.DateTimeFormat().resolvedOptions().timeZone || 'Asia/Jakarta';
+    filters.tz = tzInput;
+    fgTz.append(tzLabel, tzInput);
+
+    // Metric selector (id="pro-heatmap-metric" is required for tests)
+    const fgMetric = node('div', null, 'fg');
+    const metricLabel = node('label', text('Metric', 'Metrik'));
+    metricLabel.htmlFor = 'pro-heatmap-metric';
+    const metricSelect = node('select', null, 'f');
+    metricSelect.id = 'pro-heatmap-metric';
+    const optPnl = node('option', 'PnL');
+    optPnl.value = 'pnl';
+    const optCount = node('option', 'Trade count');
+    optCount.value = 'trade_count';
+    metricSelect.append(optPnl, optCount);
+    metricSelect.value = metric;
+    metricSelect.addEventListener('change', () => {
+      metric = metricSelect.value;
+      action(metricSelect, load);
+    });
+    fgMetric.append(metricLabel, metricSelect);
+
+    // Year selector
+    const fgYear = node('div', null, 'fg');
+    const yearLabel = node('span', text('Year', 'Tahun'), 'lbl');
+    const yearWrap = node('div', null, 'yr');
+    const prevYearBtn = button('‹', async () => {
+      yearInput.value = --year;
+      await load();
+    }, 'bt');
+    prevYearBtn.type = 'button';
+    prevYearBtn.setAttribute('aria-label', 'Previous year');
+
+    const yearInput = node('input', null, 'f');
+    yearInput.id = 'pro-year';
+    yearInput.type = 'number';
+    yearInput.style.width = '84px';
+    yearInput.style.textAlign = 'center';
+    yearInput.value = year;
+    yearInput.setAttribute('aria-label', text('Year', 'Tahun'));
+    yearInput.addEventListener('change', async () => {
+      const val = Number(yearInput.value);
+      if (Number.isInteger(val) && val >= 1900 && val <= 2200) {
+        year = val;
+        await load();
       }
-      const detail=panel(text('DateDetails','Date details'),output); detail.append(node('p',text('SelectDate','Select a calendar cell to view its trades.')));
-      for(const [key,title] of [['months','Monthly performance'],['hours','Hourly performance'],['sessions','Session performance']]) group(panel(title,output),data[key],key==='hours'?'hour':key==='sessions'?'session':'month');
+    });
+
+    const nextYearBtn = button('›', async () => {
+      yearInput.value = ++year;
+      await load();
+    }, 'bt');
+    nextYearBtn.type = 'button';
+    nextYearBtn.setAttribute('aria-label', 'Next year');
+
+    yearWrap.append(prevYearBtn, yearInput, nextYearBtn);
+    fgYear.append(yearLabel, yearWrap);
+
+    // Apply button
+    const fgApply = node('div');
+    const applyBtn = button(text('Apply', 'Terapkan filter'), async () => {
+      validateFilters();
+      await load();
+    }, 'bt');
+    applyBtn.type = 'button';
+    applyBtn.id = 'pro-apply-filters';
+    applyBtn.style.width = '100%';
+    fgApply.append(applyBtn);
+
+    fl4.append(fgAcc, fgTz, fgMetric, fgYear, fgApply);
+
+    // Legend
+    const legend = node('div', null, 'lg');
+    legend.setAttribute('role', 'list');
+    legend.setAttribute('aria-label', 'Legenda');
+
+    const leg1 = node('span');
+    leg1.setAttribute('role', 'listitem');
+    const sw1 = node('i', null, 'sw p');
+    leg1.append(sw1, document.createTextNode('Border solid: positif'));
+
+    const leg2 = node('span');
+    leg2.setAttribute('role', 'listitem');
+    const sw2 = node('i', null, 'sw n');
+    leg2.append(sw2, document.createTextNode('Border putus-putus: negatif'));
+
+    const leg3 = node('span');
+    leg3.setAttribute('role', 'listitem');
+    const sw3 = node('i', null, 'sw z');
+    leg3.append(sw3, document.createTextNode('Gelap: nol'));
+
+    const leg4 = node('span');
+    leg4.setAttribute('role', 'listitem');
+    const sw4 = node('i', null, 'sw x');
+    leg4.append(sw4, document.createTextNode('Pudar: tidak ada aktivitas'));
+
+    legend.append(leg1, leg2, leg3, leg4);
+    filterSection.append(fl4, legend);
+    root.append(filterSection);
+
+    // 3. Heatmap calendar section
+    const heatSection = node('section', null, 'pn');
+    const heatCap = node('span', `Heatmap ${year}`, 'cap');
+    const mg = node('div', null, 'mg');
+    heatSection.append(heatCap, mg);
+    root.append(heatSection);
+
+    // 4. Detail Hari Section
+    const detailSection = node('section', null, 'pn');
+    detailSection.setAttribute('aria-label', 'Detail hari');
+
+    const pnh = node('div', null, 'pnh');
+    const dtCap = node('span', 'Detail hari', 'cap');
+    const dtDate = node('span', '–', 'm');
+    dtDate.style.margin = '0';
+    dtDate.style.font = "500 13px 'JetBrains Mono', monospace";
+    dtDate.style.color = '#E6E8EB';
+    pnh.append(dtCap, dtDate);
+
+    const dtGrid = node('div', null, 'dt');
+
+    const colStatus = node('div');
+    colStatus.append(node('span', 'Status', 'cap'));
+    const bStatus = node('b', 'Belum ada hari yang dipilih');
+    colStatus.append(bStatus);
+
+    const colPnl = node('div');
+    colPnl.append(node('span', 'PnL', 'cap'));
+    const bPnl = node('b', '0');
+    colPnl.append(bPnl);
+
+    const colCount = node('div');
+    colCount.append(node('span', 'Jumlah trade', 'cap'));
+    const bCount = node('b', '0');
+    colCount.append(bCount);
+
+    const colIds = node('div');
+    colIds.append(node('span', 'ID trade', 'cap'));
+    const bIds = node('b', '–');
+    colIds.append(bIds);
+
+    dtGrid.append(colStatus, colPnl, colCount, colIds);
+
+    const dtAct = node('div', null, 'act');
+    const viewTradesBtn = button(text('ViewTrades', 'View trades'), () => {}, 'bt');
+    viewTradesBtn.type = 'button';
+    viewTradesBtn.setAttribute('aria-disabled', 'true');
+    viewTradesBtn.disabled = true;
+    dtAct.append(viewTradesBtn);
+
+    detailSection.append(pnh, dtGrid, dtAct);
+    root.append(detailSection);
+
+    // 5. Performa Berdasarkan Waktu Section
+    const perfSection = node('section', null, 'pn');
+    const perfCap = node('span', 'Performa berdasarkan waktu', 'cap');
+    perfSection.append(perfCap);
+
+    const wrapMonths = node('div');
+    wrapMonths.append(node('p', 'Bulanan', 'sub'));
+    const twMonths = node('div', null, 'tw');
+    wrapMonths.append(twMonths);
+
+    const wrapHours = node('div');
+    wrapHours.append(node('p', 'Per jam', 'sub'));
+    const twHours = node('div', null, 'tw');
+    wrapHours.append(twHours);
+
+    const wrapSessions = node('div');
+    wrapSessions.append(node('p', 'Per sesi', 'sub'));
+    const twSessions = node('div', null, 'tw');
+    wrapSessions.append(twSessions);
+
+    perfSection.append(wrapMonths, wrapHours, wrapSessions);
+    root.append(perfSection);
+
+    const monthNames = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
+
+    const renderPerfTable = (container, rows, kind) => {
+      container.replaceChildren();
+      const tbl = node('table');
+      const thead = node('thead');
+      const trH = node('tr');
+      for (const col of ['Grup', 'Trade', 'Net PnL', 'Win rate', 'Aksi']) {
+        trH.append(node('th', col));
+      }
+      thead.append(trH);
+      tbl.append(thead);
+
+      const tbody = node('tbody');
+      if (!rows || !rows.length) {
+        const trEmpty = node('tr');
+        const tdEmpty = node('td', 'Belum ada data untuk pilihan ini.');
+        tdEmpty.colSpan = 5;
+        trEmpty.append(tdEmpty);
+        tbody.append(trEmpty);
+      } else {
+        for (const row of rows) {
+          const tr = node('tr');
+          const tdLabel = node('td', format(row.label), 'tl');
+          const tdCount = node('td', format(row.trade_count));
+          const tdPnl = node('td', format(row.net_pnl));
+          const tdWin = node('td', format(row.win_rate));
+          const tdAct = node('td');
+          const vtBtn = button(text('ViewTrades', 'View trades'), () => {
+            let selection;
+            if (kind === 'instrument') selection = { instrument: row.label };
+            else if (kind === 'strategy') selection = { strategy_id: row.id || strategies.find(item => item.name === row.label)?.id, strategy: row.label };
+            else if (kind === 'month' && /^\d{4}-\d{2}$/.test(row.label)) {
+              const [y, m] = row.label.split('-').map(Number);
+              selection = { start: row.label + '-01', end: new Date(Date.UTC(y, m, 0)).toISOString().slice(0, 10) };
+            } else selection = { [kind]: row.label };
+            journal({ ...selection, trade_ids: row.trade_ids });
+          }, 'bt');
+          vtBtn.type = 'button';
+          tdAct.append(vtBtn);
+          tr.append(tdLabel, tdCount, tdPnl, tdWin, tdAct);
+          tbody.append(tr);
+        }
+      }
+      tbl.append(tbody);
+      container.append(tbl);
     };
-    const toolbar=commonFilters(content,load,{dates:false}); const yearInput=field(text('Year','Year'),'number',year,'pro-year');toolbar.append(yearInput.wrap);
-    const selection=select(text('Metric','Metric'),[['pnl','PnL'],['trade_count','Trade count']],metric,'pro-heatmap-metric');toolbar.append(selection.wrap);selection.input.addEventListener('change',()=>{metric=selection.input.value; action(selection.input,load);});
-    toolbar.append(button(text('PreviousYear','Previous year'),async()=>{yearInput.input.value=--year;await load();}),button(text('NextYear','Next year'),async()=>{yearInput.input.value=++year;await load();}));
-    const output=node('div');content.append(output);await load();
+
+    const updateDetail = (day) => {
+      dtDate.textContent = day.date || '–';
+      bStatus.textContent = day.state === 'positive' ? 'Positif' : day.state === 'negative' ? 'Negatif' : day.state === 'zero' ? 'Nol' : 'Tidak ada aktivitas';
+      bPnl.textContent = format(day.pnl);
+      bCount.textContent = String(day.trade_count ?? 0);
+      bIds.textContent = (day.trade_ids && day.trade_ids.length) ? day.trade_ids.join(', ') : '–';
+      viewTradesBtn.removeAttribute('aria-disabled');
+      viewTradesBtn.disabled = false;
+      viewTradesBtn.onclick = () => journal({ start: day.date, end: day.date, trade_ids: day.trade_ids });
+    };
+
+    const load = async () => {
+      year = Number(yearInput.value);
+      if (!Number.isInteger(year) || year < 1900 || year > 2200) throw new Error('Select a valid year.');
+      heatCap.textContent = `Heatmap ${year}`;
+
+      const data = await request('/analytics/heatmap?' + query({ ...filterValues(), year }), { latest: true });
+      mg.replaceChildren();
+
+      // Reset detail
+      dtDate.textContent = '–';
+      bStatus.textContent = 'Belum ada hari yang dipilih';
+      bPnl.textContent = '0';
+      bCount.textContent = '0';
+      bIds.textContent = '–';
+      viewTradesBtn.setAttribute('aria-disabled', 'true');
+      viewTradesBtn.disabled = true;
+      viewTradesBtn.onclick = null;
+
+      const months = new Map();
+      for (const row of data.days || []) {
+        const key = String(row.date).slice(0, 7);
+        if (!months.has(key)) months.set(key, []);
+        months.get(key).push(row);
+      }
+
+      if (months.size === 0) {
+        const emp = node('div', null, 'emp');
+        const ic = node('div', null, 'ic');
+        ic.innerHTML = '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>';
+        const p = node('p', `Belum ada data heatmap untuk tahun ${year}.`);
+        emp.append(ic, p);
+        mg.append(emp);
+      } else {
+        for (const [monthKey, days] of months) {
+          const mIndex = parseInt(monthKey.slice(5, 7), 10) - 1;
+          const mTitle = monthNames[mIndex] || monthKey;
+
+          const mo = node('div', null, 'mo');
+          const h3 = node('h3');
+          h3.append(document.createTextNode(mTitle));
+          const h3Span = node('span', monthKey);
+          h3.append(h3Span);
+          mo.append(h3);
+
+          const cal = node('div', null, 'cal');
+          for (const dName of ['S', 'S', 'R', 'K', 'J', 'S', 'M']) {
+            cal.append(node('i', dName));
+          }
+
+          if (days.length > 0) {
+            const firstDNum = parseInt(days[0].date.slice(8), 10) || 1;
+            const firstDateObj = new Date(year, mIndex, firstDNum);
+            const padCount = (firstDateObj.getDay() + 6) % 7; // Monday = 0
+            for (let i = 0; i < padCount; i++) {
+              cal.append(node('span'));
+            }
+          }
+
+          for (const day of days) {
+            const cell = node('button', null, 'd pro-day');
+            cell.type = 'button';
+            cell.dataset.sign = day.state === 'no_activity' ? 'none' : day.state;
+            cell.setAttribute('aria-label', `${day.date}: ${format(day[metric])}; ${day.state}`);
+            cell.textContent = String(parseInt(day.date.slice(8), 10));
+            cell.title = `${day.date}: ${format(day[metric])} (${day.state})`;
+
+            if (day.state === 'positive') cell.classList.add('sw-p');
+            else if (day.state === 'negative') cell.classList.add('sw-n');
+            else if (day.state === 'zero') cell.classList.add('sw-z');
+            else cell.classList.add('sw-x');
+
+            cell.addEventListener('click', () => {
+              root.querySelectorAll('.pro-day.sel').forEach(el => {
+                el.classList.remove('sel');
+                el.removeAttribute('aria-pressed');
+              });
+              cell.classList.add('sel');
+              cell.setAttribute('aria-pressed', 'true');
+              updateDetail(day);
+            });
+            cal.append(cell);
+          }
+          mo.append(cal);
+          mg.append(mo);
+        }
+      }
+
+      // Performa berdasarkan waktu
+      renderPerfTable(twMonths, data.months, 'month');
+      renderPerfTable(twHours, data.hours, 'hour');
+      renderPerfTable(twSessions, data.sessions, 'session');
+    };
+
+    await load();
   }
-  function strategyForm(parent, row, onSave) {
+    function strategyForm(parent, row, onSave) {
     parent.replaceChildren();
     const formWrap = node('div');
     formWrap.style.display = 'flex';
@@ -11297,7 +11694,7 @@ function filterPairDropdown() {
     if(!features[feature])throw new Error('Unknown Pro feature.');
     if(activeTabLoader){activeTabLoader.stop();activeTabLoader=null;}
     revision++;controller.abort();controller=new AbortController(); preset={...selection};current=feature;root=document.getElementById('view-pro-workspace');if(!root)throw new Error('Pro workspace container is missing.');
-    root.replaceChildren();root.dataset.feature=feature;const heading=node('header',null,'pro-heading');if(['global-news','ai-chat','ai-behaviour','ai-journal','ai-market','risk','reviews','reports','strategies'].includes(feature))heading.style.display='none';const title=node('div');title.append(node('h1',text('Title'+feature,features[feature])),node('p',text('WorkspaceDescription','Performance, risk, reports and AI insights from your trading journal.'),'pro-subtitle'));heading.append(title);root.append(heading);
+    root.replaceChildren();root.dataset.feature=feature;const heading=node('header',null,'pro-heading');if(['global-news','ai-chat','ai-behaviour','ai-journal','ai-market','risk','reviews','reports','strategies','heatmap'].includes(feature))heading.style.display='none';const title=node('div');title.append(node('h1',text('Title'+feature,features[feature])),node('p',text('WorkspaceDescription','Performance, risk, reports and AI insights from your trading journal.'),'pro-subtitle'));heading.append(title);root.append(heading);
     heading.append(button(text('RetrySection','Retry section'),()=>open(feature,selection),'pro-section-retry'));
     const navigation=node('nav',null,'pro-sections');navigation.setAttribute('aria-label','Pro sections');
     const groups=[['Analisis',['analytics','heatmap','strategies','risk']],['Laporan',['reviews','reports']],['AI',['ai-market','ai-behaviour','ai-journal','ai-chat','global-news']]];
