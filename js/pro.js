@@ -3031,7 +3031,7 @@ Instruksi Format Output & Larangan Bocor Chain-of-Thought dan Perencanaan Rules 
     { code: 'AUDJPY', name: 'Australian Dollar / Japanese Yen', cat: 'FOREX', provider: 'BINANCE', apiSym: 'AUDJPY', tvSym: 'FX:AUDJPY', ccy: ['AUD', 'JPY'] },
 
     // 3. Indeks Makro
-    { code: 'DXY', name: 'US Dollar Index Context', cat: 'INDICES', provider: 'CC', fsym: 'USD', tsym: 'EUR', tvSym: 'TVC:DXY', ccy: ['USD', 'EUR'] },
+    { code: 'DXY', name: 'US Dollar Index Context', cat: 'INDICES', provider: 'DXY', fsym: 'USD', tsym: 'EUR', tvSym: 'TVC:DXY', ccy: ['USD', 'EUR'] },
 
     // 4. Kripto Pilihan & Altcoin Binance
     // Bitcoin (OANDA & Binance)
@@ -3532,6 +3532,41 @@ Instruksi Format Output & Larangan Bocor Chain-of-Thought dan Perencanaan Rules 
       const basePrice = SEED_PRICES[sym] || SEED_PRICES[cleanFsym] || 100;
       return generateFallbackCandles(basePrice, Math.min(limit, 250), tfToSeconds(interval));
     }
+  }
+
+
+  /** Approximate ICE DXY from major FX (CORS-friendly). Not 1:1 with futures print. */
+  async function fetchApproxDXYPrice(signal = null) {
+    try {
+      const res = await fetch('https://open.er-api.com/v6/latest/USD', { signal: signal || undefined });
+      if (!res.ok) return null;
+      const data = await res.json();
+      const r = data.rates || {};
+      const eurusd = r.EUR ? (1 / Number(r.EUR)) : NaN;
+      const usdjpy = Number(r.JPY);
+      const gbpusd = r.GBP ? (1 / Number(r.GBP)) : NaN;
+      const usdcad = Number(r.CAD);
+      const usdsek = Number(r.SEK);
+      const usdchf = Number(r.CHF);
+      if (![eurusd, usdjpy, gbpusd, usdcad, usdsek, usdchf].every((x) => Number.isFinite(x) && x > 0)) return null;
+      const dxy = 50.14348112
+        * Math.pow(eurusd, -0.576)
+        * Math.pow(usdjpy, 0.136)
+        * Math.pow(gbpusd, -0.119)
+        * Math.pow(usdcad, 0.091)
+        * Math.pow(usdsek, 0.042)
+        * Math.pow(usdchf, 0.036);
+      return +dxy.toFixed(3);
+    } catch (_) {
+      return null;
+    }
+  }
+
+  async function fetchDXYCandles(tf, limit = 500, signal = null) {
+    const stepSec = tfToSeconds(tf);
+    const live = await fetchApproxDXYPrice(signal);
+    const base = (live && live > 50 && live < 200) ? live : (SEED_PRICES.DXY || 104.2);
+    return generateFallbackCandles(base, Math.min(limit, 500), stepSec);
   }
 
   async function fetchForexOrMetalCC(fsym, tsym, tf, limit = 500, signal = null) {
@@ -7948,6 +7983,35 @@ function filterPairDropdown() {
 
           applyLoadedCandles(activeData, h1Data, h4Data, d1Data);
           connectBinanceWS(sym, selectedFrame);
+        } else if (currentPairObj.code === 'DXY' || currentPairObj.provider === 'DXY') {
+          activeFeedInfo.textContent = 'Feed: DXY Approx (majors basket · 500 Bars · 16:9)';
+          const feedLabel = document.getElementById('feedSourceLabel');
+          if (feedLabel) { feedLabel.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 24 24" fill="currentColor" style="vertical-align:-1px;margin-right:3px"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg> STREAM: DXY APPROX (MAJORS)'; }
+
+          const [activeData, h1Data, h4Data, d1Data] = await Promise.all([
+            fetchDXYCandles(selectedFrame, 500, controller.signal),
+            fetchDXYCandles('1h', 500, controller.signal),
+            fetchDXYCandles('4h', 500, controller.signal),
+            fetchDXYCandles('1d', 500, controller.signal)
+          ]);
+
+          applyLoadedCandles(activeData, h1Data, h4Data, d1Data);
+
+          pollInterval = setInterval(async () => {
+            try {
+              const livePrice = await fetchApproxDXYPrice();
+              if (!livePrice || currentCandles.length === 0) return;
+              if (livePrice < 50 || livePrice > 200) return;
+              const last = { ...currentCandles[currentCandles.length - 1] };
+              last.close = livePrice;
+              if (livePrice > last.high) last.high = livePrice;
+              if (livePrice < last.low) last.low = livePrice;
+              currentCandles[currentCandles.length - 1] = last;
+              if (candleSeries) candleSeries.update(last);
+              updateLiveHeader(last);
+              evaluateKaystradeEngine(false);
+            } catch (_) {}
+          }, 5000);
         } else {
           const fsym = currentPairObj.fsym || 'EUR';
           const tsym = currentPairObj.tsym || 'USD';
