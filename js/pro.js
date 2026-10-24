@@ -2711,11 +2711,339 @@ Instruksi Format Output & Larangan Bocor Chain-of-Thought dan Perencanaan Rules 
     await load();
   }
   async function reviews() {
-    let period='weekly';const output=node('div');
-    const load=async()=>{const data=await request('/reviews?'+query({...filterValues(),period}),{latest:true});output.replaceChildren();if(data.preview)details(panel(text('ReviewPreview','Current period preview'),output),data.preview);table(panel(text('ReviewHistory','Review history'),output),data.items,[['created_at','Created'],['period','Period'],['period_start','Start']],(cell,row)=>cell.append(button('Open review',()=>{const section=panel('Review',output);details(section,row.summary || row.result || row);evidence(section,(row.summary || row.result)?.evidence_ids);}),button('View evidence',()=>journal({trade_ids:row.summary?.evidence_ids,start:row.period_start || row.start,end:row.end})),button('Export PDF',()=>open('reports'))));};
-    const bar=commonFilters(content,load); filters.start.value=preset.start || new Date().toISOString().slice(0,10);const toggle=select(text('Period','Period'),[['weekly','Weekly'],['monthly','Monthly']],period,'pro-review-period');bar.append(toggle.wrap);toggle.input.addEventListener('change',()=>{period=toggle.input.value;action(toggle.input,load);});
-    const shift=async(direction)=>{const date=new Date(filters.start.value+'T12:00:00Z');if(!Number.isFinite(date.getTime()))throw new Error('Select a start date.');if(period==='weekly')date.setUTCDate(date.getUTCDate()+direction*7);else {date.setUTCDate(1);date.setUTCMonth(date.getUTCMonth()+direction);}filters.start.value=date.toISOString().slice(0,10);await load();};
-    bar.append(button('Previous period',()=>shift(-1)),button('Next period',()=>shift(1)),button('Generate review',async()=>{validateFilters();const job=await request('/reviews',{method:'POST',body:{...filterValues(),period},headers:{'Idempotency-Key':crypto.randomUUID()}});await watchJob('reviews',job,output);await load();},'pro-review-generate'),button('Generate AI commentary',()=>open('ai-journal',{...filterValues(),analysis_type:'review'}),'pro-review-ai'),button('Export PDF',()=>open('reports',filterValues())));content.append(output);await load();
+    let period = 'weekly';
+    const wrap = node('div', null, 'pro-review-module');
+
+    // 1. Header (.hd)
+    const hd = node('div', null, 'hd');
+    const hdTitleWrap = node('div');
+    hdTitleWrap.append(
+      node('h1', 'Weekly & Monthly Review'),
+      node('p', 'Tinjau performa, risiko, dan kebiasaan trading Anda per minggu atau per bulan.', 'm')
+    );
+    const reloadBtn = button('Muat ulang bagian', () => open('reviews'), 'bt');
+    reloadBtn.type = 'button';
+    reloadBtn.id = 'pro-review-reload';
+    hd.append(hdTitleWrap, reloadBtn);
+
+    // 2. Filter Bar (.pn)
+    const filterSection = node('section', null, 'pn');
+    filterSection.setAttribute('aria-label', 'Filter review');
+    filterSection.append(node('span', 'Periode review', 'cap'));
+
+    const fl5 = node('div', null, 'fl5');
+    filters = {};
+
+    // 2a. Account selector
+    const fgAcc = node('div', null, 'fg');
+    const accLbl = node('span', 'Akun trading', 'lbl');
+    accLbl.id = 'pro-review-account-lbl';
+
+    const accDetails = node('details', null, 'dd');
+    const accSummary = node('summary');
+    accSummary.setAttribute('aria-haspopup', 'listbox');
+    accSummary.setAttribute('aria-labelledby', 'pro-review-account-lbl pro-review-account-val');
+    const accValSpan = node('span', 'Semua akun');
+    accValSpan.id = 'pro-review-account-val';
+
+    const accArrowSvg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+    accArrowSvg.setAttribute('width', '16');
+    accArrowSvg.setAttribute('height', '16');
+    accArrowSvg.setAttribute('viewBox', '0 0 24 24');
+    accArrowSvg.setAttribute('fill', 'none');
+    accArrowSvg.setAttribute('stroke', 'currentColor');
+    accArrowSvg.setAttribute('stroke-width', '2');
+    accArrowSvg.setAttribute('stroke-linecap', 'round');
+    accArrowSvg.setAttribute('stroke-linejoin', 'round');
+    accArrowSvg.setAttribute('aria-hidden', 'true');
+    const accArrowPath = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+    accArrowPath.setAttribute('d', 'M6 9l6 6 6-6');
+    accArrowSvg.append(accArrowPath);
+    accSummary.append(accValSpan, accArrowSvg);
+
+    const accUl = node('ul');
+    accUl.setAttribute('role', 'listbox');
+    accUl.setAttribute('aria-labelledby', 'pro-review-account-lbl');
+
+    const hiddenAccInput = node('input');
+    hiddenAccInput.type = 'hidden';
+    hiddenAccInput.id = 'pro-account';
+    hiddenAccInput.value = preset.account_id || '';
+    filters.account_id = hiddenAccInput;
+
+    const updateAccountSelection = (id, name) => {
+      hiddenAccInput.value = id;
+      accValSpan.textContent = name;
+      accUl.querySelectorAll('li').forEach(li => {
+        li.setAttribute('aria-selected', li.dataset.value === id ? 'true' : 'false');
+      });
+      accDetails.removeAttribute('open');
+    };
+
+    const defaultLi = node('li', 'Semua akun');
+    defaultLi.setAttribute('role', 'option');
+    defaultLi.dataset.value = '';
+    defaultLi.setAttribute('aria-selected', !preset.account_id ? 'true' : 'false');
+    defaultLi.addEventListener('click', () => updateAccountSelection('', 'Semua akun'));
+    accUl.append(defaultLi);
+
+    for (const acc of accounts) {
+      const li = node('li', acc.name);
+      li.setAttribute('role', 'option');
+      li.dataset.value = acc.id;
+      li.setAttribute('aria-selected', preset.account_id === acc.id ? 'true' : 'false');
+      if (preset.account_id === acc.id) accValSpan.textContent = acc.name;
+      li.addEventListener('click', () => updateAccountSelection(acc.id, acc.name));
+      accUl.append(li);
+    }
+    accDetails.append(accSummary, accUl);
+    fgAcc.append(accLbl, accDetails, hiddenAccInput);
+
+    // 2b. Start date
+    const fgStart = node('div', null, 'fg');
+    const startLabel = node('label', 'Tanggal mulai');
+    startLabel.htmlFor = 'pro-start';
+    const startInput = node('input', null, 'f');
+    startInput.type = 'date';
+    startInput.id = 'pro-start';
+    startInput.value = preset.start || new Date().toISOString().slice(0, 10);
+    filters.start = startInput;
+    fgStart.append(startLabel, startInput);
+
+    // 2c. End date
+    const fgEnd = node('div', null, 'fg');
+    const endLabel = node('label', 'Tanggal akhir');
+    endLabel.htmlFor = 'pro-end';
+    const endInput = node('input', null, 'f');
+    endInput.type = 'date';
+    endInput.id = 'pro-end';
+    endInput.value = preset.end || '';
+    filters.end = endInput;
+    fgEnd.append(endLabel, endInput);
+
+    // 2d. Timezone
+    const fgTz = node('div', null, 'fg');
+    const tzLabel = node('label', 'Zona waktu');
+    tzLabel.htmlFor = 'pro-timezone';
+    const tzInput = node('input', null, 'f');
+    tzInput.type = 'text';
+    tzInput.id = 'pro-timezone';
+    tzInput.value = preset.tz || Intl.DateTimeFormat().resolvedOptions().timeZone || 'Asia/Jakarta';
+    filters.tz = tzInput;
+    fgTz.append(tzLabel, tzInput);
+
+    // 2e. Period Selector (.seg + select)
+    const fgPeriod = node('div', null, 'fg');
+    const periodLabel = node('span', 'Periode', 'cap');
+    periodLabel.style.color = '#9AA3AF';
+    periodLabel.style.letterSpacing = '.08em';
+
+    const segGroup = node('div', null, 'seg');
+    segGroup.setAttribute('role', 'group');
+    segGroup.setAttribute('aria-label', 'Jenis periode');
+
+    const btnWeekly = node('button', 'Mingguan');
+    btnWeekly.type = 'button';
+    btnWeekly.setAttribute('aria-pressed', period === 'weekly' ? 'true' : 'false');
+
+    const btnMonthly = node('button', 'Bulanan');
+    btnMonthly.type = 'button';
+    btnMonthly.setAttribute('aria-pressed', period === 'monthly' ? 'true' : 'false');
+
+    // Compatibility select for tests
+    const periodSelect = node('select', null, 'pro-section-selector-compat');
+    periodSelect.id = 'pro-review-period';
+    periodSelect.setAttribute('aria-label', 'Period');
+    const optWeekly = node('option', 'Weekly');
+    optWeekly.value = 'weekly';
+    const optMonthly = node('option', 'Monthly');
+    optMonthly.value = 'monthly';
+    periodSelect.append(optWeekly, optMonthly);
+    periodSelect.value = period;
+
+    const setPeriod = async (newPeriod, reloadData = true) => {
+      period = newPeriod;
+      periodSelect.value = newPeriod;
+      btnWeekly.setAttribute('aria-pressed', newPeriod === 'weekly' ? 'true' : 'false');
+      btnMonthly.setAttribute('aria-pressed', newPeriod === 'monthly' ? 'true' : 'false');
+      updateCurPeriodDisplay();
+      if (reloadData) await load();
+    };
+
+    btnWeekly.addEventListener('click', () => setPeriod('weekly'));
+    btnMonthly.addEventListener('click', () => setPeriod('monthly'));
+    periodSelect.addEventListener('change', () => setPeriod(periodSelect.value));
+
+    segGroup.append(btnWeekly, btnMonthly);
+    fgPeriod.append(periodLabel, segGroup, periodSelect);
+
+    fl5.append(fgAcc, fgStart, fgEnd, fgTz, fgPeriod);
+
+    // 2f. Action Bar (.bar)
+    const bar = node('div', null, 'bar');
+
+    // Left nav: shift buttons & cur period indicator
+    const nvLeft = node('div', null, 'nv');
+    const prevBtn = button('‹ Periode sebelumnya', () => shift(-1), 'bt');
+    prevBtn.type = 'button';
+    prevBtn.setAttribute('aria-label', 'Previous period');
+    prevBtn.setAttribute('title', 'Previous period');
+
+    const curSpan = node('span', '', 'cur');
+    const updateCurPeriodDisplay = () => {
+      const typeLabel = period === 'weekly' ? 'Mingguan' : 'Bulanan';
+      curSpan.textContent = typeLabel + ' : mulai ' + (filters.start.value || '-');
+    };
+    updateCurPeriodDisplay();
+
+    const nextBtn = button('Periode berikutnya ›', () => shift(1), 'bt');
+    nextBtn.type = 'button';
+    nextBtn.setAttribute('aria-label', 'Next period');
+    nextBtn.setAttribute('title', 'Next period');
+
+    nvLeft.append(prevBtn, curSpan, nextBtn);
+
+    // Right nav: filter, AI, export, generate review
+    const nvRight = node('div', null, 'nv');
+    const applyBtn = button('Terapkan filter', async () => {
+      validateFilters();
+      await load();
+    }, 'bt');
+    applyBtn.type = 'button';
+    applyBtn.id = 'pro-apply-filters';
+
+    const aiBtn = button('Buat komentar AI', () => open('ai-journal', { ...filterValues(), analysis_type: 'review' }), 'bt ai');
+    aiBtn.type = 'button';
+    aiBtn.id = 'pro-review-ai';
+
+    const exportBtn = button('Ekspor PDF', () => open('reports', filterValues()), 'bt');
+    exportBtn.type = 'button';
+    exportBtn.id = 'pro-review-export-pdf';
+
+    const generateBtn = button('Buat review', async () => {
+      validateFilters();
+      const job = await request('/reviews', {
+        method: 'POST',
+        body: { ...filterValues(), period },
+        headers: { 'Idempotency-Key': crypto.randomUUID() }
+      });
+      await watchJob('reviews', job, outputArea);
+      await load();
+    }, 'bt pr');
+    generateBtn.type = 'button';
+    generateBtn.id = 'pro-review-generate';
+
+    nvRight.append(applyBtn, aiBtn, exportBtn, generateBtn);
+    bar.append(nvLeft, nvRight);
+
+    filterSection.append(fl5, bar);
+
+    // 3. Output Containers
+    const previewContainer = node('div');
+    const reviewDetailContainer = node('div');
+    const outputArea = node('div');
+
+    // 4. Review History Section
+    const historySection = node('section', null, 'pn');
+    historySection.append(node('span', 'Riwayat review', 'cap'));
+
+    const twHistory = node('div', null, 'tw');
+    const tblHistory = node('table');
+    const theadHistory = node('thead');
+    theadHistory.innerHTML = '<tr><th>Dibuat</th><th>Periode</th><th>Mulai</th><th style="text-align:right">Aksi</th></tr>';
+    const tbodyHistory = node('tbody');
+    tblHistory.append(theadHistory, tbodyHistory);
+    twHistory.append(tblHistory);
+    historySection.append(twHistory);
+
+    // 5. Shift Dates
+    const shift = async (direction) => {
+      const date = new Date(filters.start.value + 'T12:00:00Z');
+      if (!Number.isFinite(date.getTime())) throw new Error('Select a start date.');
+      if (period === 'weekly') {
+        date.setUTCDate(date.getUTCDate() + direction * 7);
+      } else {
+        date.setUTCDate(1);
+        date.setUTCMonth(date.getUTCMonth() + direction);
+      }
+      filters.start.value = date.toISOString().slice(0, 10);
+      updateCurPeriodDisplay();
+      await load();
+    };
+
+    // 6. Load Data
+    const load = async () => {
+      const data = await request('/reviews?' + query({ ...filterValues(), period }), { latest: true });
+
+      // Preview section
+      previewContainer.replaceChildren();
+      if (data.preview) {
+        const previewSec = node('section', null, 'pn');
+        previewSec.append(node('span', text('ReviewPreview', 'Pratinjau periode saat ini'), 'cap'));
+        details(previewSec, data.preview);
+        previewContainer.append(previewSec);
+      }
+
+      // Review history table
+      tbodyHistory.replaceChildren();
+      const items = data.items || [];
+      if (items.length === 0) {
+        const tr = node('tr');
+        const td = node('td', 'Belum ada review untuk pilihan ini.');
+        td.colSpan = 4;
+        tr.append(td);
+        tbodyHistory.append(tr);
+      } else {
+        for (const row of items) {
+          const tr = node('tr');
+          const tdCreated = node('td', row.created_at || '-');
+          const tdPeriod = node('td', row.period || period);
+          const tdStart = node('td', row.period_start || row.start || '-');
+          const tdAct = node('td');
+          tdAct.style.textAlign = 'right';
+
+          const openBtn = button('Open review', () => {
+            reviewDetailContainer.replaceChildren();
+            const detailCard = node('section', null, 'pn');
+            detailCard.append(node('span', 'Review Detail (' + (row.period || period) + ')', 'cap'));
+            details(detailCard, row.summary || row.result || row);
+            evidence(detailCard, (row.summary || row.result)?.evidence_ids);
+            reviewDetailContainer.append(detailCard);
+            detailCard.scrollIntoView({ behavior: 'smooth' });
+          }, 'bt');
+          openBtn.type = 'button';
+          openBtn.setAttribute('aria-label', 'Open review');
+          openBtn.style.padding = '4px 12px';
+          openBtn.style.minHeight = '32px';
+
+          const evidenceBtn = button('View evidence', () => journal({
+            trade_ids: row.summary?.evidence_ids,
+            start: row.period_start || row.start,
+            end: row.end
+          }), 'bt');
+          evidenceBtn.type = 'button';
+          evidenceBtn.setAttribute('aria-label', 'View evidence');
+          evidenceBtn.style.padding = '4px 12px';
+          evidenceBtn.style.minHeight = '32px';
+          evidenceBtn.style.marginLeft = '8px';
+
+          const exportPdfBtn = button('Export PDF', () => open('reports'), 'bt');
+          exportPdfBtn.type = 'button';
+          exportPdfBtn.setAttribute('aria-label', 'Export PDF');
+          exportPdfBtn.style.padding = '4px 12px';
+          exportPdfBtn.style.minHeight = '32px';
+          exportPdfBtn.style.marginLeft = '8px';
+
+          tdAct.append(openBtn, evidenceBtn, exportPdfBtn);
+          tr.append(tdCreated, tdPeriod, tdStart, tdAct);
+          tbodyHistory.append(tr);
+        }
+      }
+    };
+
+    wrap.append(hd, filterSection, previewContainer, reviewDetailContainer, outputArea, historySection);
+    content.replaceChildren(wrap);
+    await load();
   }
   async function reports() {
     const grid=node('div',null,'pro-grid');content.append(grid);const config=panel(text('ReportConfiguration','Report configuration'),grid),preview=panel(text('Preview','Report preview'),grid),history=panel(text('ReportHistory','Report history'));
@@ -10184,7 +10512,7 @@ function filterPairDropdown() {
     if(!features[feature])throw new Error('Unknown Pro feature.');
     if(activeTabLoader){activeTabLoader.stop();activeTabLoader=null;}
     revision++;controller.abort();controller=new AbortController(); preset={...selection};current=feature;root=document.getElementById('view-pro-workspace');if(!root)throw new Error('Pro workspace container is missing.');
-    root.replaceChildren();root.dataset.feature=feature;const heading=node('header',null,'pro-heading');if(['global-news','ai-chat','ai-behaviour','ai-journal','ai-market','risk'].includes(feature))heading.style.display='none';const title=node('div');title.append(node('h1',text('Title'+feature,features[feature])),node('p',text('WorkspaceDescription','Performance, risk, reports and AI insights from your trading journal.'),'pro-subtitle'));heading.append(title);root.append(heading);
+    root.replaceChildren();root.dataset.feature=feature;const heading=node('header',null,'pro-heading');if(['global-news','ai-chat','ai-behaviour','ai-journal','ai-market','risk','reviews'].includes(feature))heading.style.display='none';const title=node('div');title.append(node('h1',text('Title'+feature,features[feature])),node('p',text('WorkspaceDescription','Performance, risk, reports and AI insights from your trading journal.'),'pro-subtitle'));heading.append(title);root.append(heading);
     heading.append(button(text('RetrySection','Retry section'),()=>open(feature,selection),'pro-section-retry'));
     const navigation=node('nav',null,'pro-sections');navigation.setAttribute('aria-label','Pro sections');
     const groups=[['Analisis',['analytics','heatmap','strategies','risk']],['Laporan',['reviews','reports']],['AI',['ai-market','ai-behaviour','ai-journal','ai-chat','global-news']]];
