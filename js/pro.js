@@ -2109,17 +2109,606 @@ Instruksi Format Output & Larangan Bocor Chain-of-Thought dan Perencanaan Rules 
     const bar=node('div',null,'pro-toolbar');bar.append(button(text('Compare','Compare strategies'),compare,'pro-strategy-compare'),button(text('AddStrategy','Add strategy'),()=>strategyForm(editor,null,load)),button(text('Reset','Reset'),()=>{selector.querySelectorAll('input').forEach(item=>item.checked=false);output.replaceChildren();}));content.append(bar,output);await load();
   }
   async function risk() {
-    const output=node('div');
-    const load=async()=>{const data=await request('/analytics/risk?'+query(filterValues()),{latest:true});output.replaceChildren();details(panel(text('RiskOverview','Risk overview'),output),data.overview);table(panel(text('Rules','Risk rules'),output),data.rules,[['name','Name'],['kind','Rule'],['threshold','Threshold']],(cell,row)=>cell.append(button(text('Edit','Edit'),()=>editRule(row)),button(text('Delete','Delete'),async()=>{if(!global.confirm('Delete this risk rule?'))return;await request('/risk/rules/'+row.id,{method:'DELETE'});await load();})));table(panel(text('Violations','Risk violation history'),output),data.violations,[['date','Date'],['observed','Observed'],['threshold','Threshold']],(cell,row)=>cell.append(button(text('ViewTrade','View trade'),()=>journal({trade_id:row.trade_id}))));table(panel(text('Compliance','Compliance trends'),output),data.compliance,[['date','Date'],['checked','Checked'],['violations','Violations']]);warnings(output,data.warnings);};
-    commonFilters(content,load);const tools=node('div',null,'pro-grid');content.append(tools);
-    const calculator=panel(text('PositionSize','Position size calculator'),tools), entries={};
-    const instrument=field(text('Instrument','Instrument'),'text','','pro-risk-instrument');calculator.append(instrument.wrap);
-    for(const [key,label,value] of [['balance','Account balance',''],['risk_percent','Risk percentage','1'],['entry','Entry price',''],['stop','Stop loss',''],['contract_size','Contract size',''],['quantity_step','Minimum quantity step',''],['quote_to_account_rate','Quote-to-account currency rate','']]) {const item=field(label,'number',value,'pro-risk-'+key);item.input.step='any';entries[key]=item.input;calculator.append(item.wrap);}
-    calculator.append(node('p',text('ContractHint','Enter your broker’s contract specifications and currency conversion rate. No symbol defaults are assumed.'),'pro-muted'));const calculation=node('div');
-    calculator.append(button(text('Calculate','Calculate'),async()=>{const body=Object.fromEntries(Object.entries(entries).map(([key,item])=>[key,item.value]));if(Object.values(body).some(value=>value===''||!Number.isFinite(Number(value))))throw new Error('Complete every numeric input.');if(instrument.input.value.trim())body.instrument=instrument.input.value.trim();const result=await request('/risk/calculate',{method:'POST',body});calculation.replaceChildren();details(calculation,result);},'pro-risk-calculate'),button(text('Reset','Reset'),()=>{Object.values(entries).forEach(item=>item.value='');instrument.input.value='';calculation.replaceChildren();}),calculation);
-    const editor=panel(text('RiskRule','Risk rule'),tools);
-    function editRule(row) {editor.replaceChildren();editor.append(node('h2',text('RiskRule','Risk rule')));const name=field('Rule name','text',row?.name||''),kind=select('Rule type',[['max_risk_percent','Risk per trade (%)'],['max_daily_loss','Daily loss'],['max_weekly_loss','Weekly loss'],['max_trades_per_day','Daily trade count']],row?.kind||'max_risk_percent'),threshold=field('Threshold','number',row?.threshold||'');threshold.input.step='any';editor.append(name.wrap,kind.wrap,threshold.wrap,button('Save rule',async()=>{if(!name.input.value.trim()||!(Number(threshold.input.value)>0))throw new Error('Enter a name and positive threshold.');await request('/risk/rules'+(row?'/'+row.id:''),{method:row?'PATCH':'POST',body:{name:name.input.value,kind:kind.input.value,threshold:threshold.input.value}});await load();},'pro-risk-rule-save'));}
-    editor.append(button(text('AddRule','Add rule'),()=>editRule(null)));content.append(output);await load();
+    const wrap = node('div', null, 'pro-risk-module');
+
+    // 1. Header (.hd)
+    const hd = node('div', null, 'hd');
+    const hdTitleWrap = node('div');
+    hdTitleWrap.append(
+      node('h1', 'Risk Intelligence'),
+      node('p', 'Hitung ukuran posisi, atur aturan risiko, dan pantau kepatuhan trading Anda.', 'm')
+    );
+    const reloadBtn = button('Muat ulang bagian', () => open('risk'), 'bt');
+    reloadBtn.type = 'button';
+    reloadBtn.id = 'pro-risk-reload';
+    hd.append(hdTitleWrap, reloadBtn);
+
+    // 2. Filter Bar (.pn)
+    const filterSection = node('section', null, 'pn');
+    filterSection.setAttribute('aria-label', 'Filter');
+    const fl4 = node('div', null, 'fl4');
+
+    filters = {};
+
+    // Account selector
+    const fgAcc = node('div', null, 'fg');
+    const accLbl = node('span', 'Akun trading', 'lbl');
+    accLbl.id = 'pro-risk-account-lbl';
+
+    const accDetails = node('details', null, 'dd');
+    const accSummary = node('summary');
+    accSummary.setAttribute('aria-haspopup', 'listbox');
+    accSummary.setAttribute('aria-labelledby', 'pro-risk-account-lbl pro-risk-account-val');
+    const accValSpan = node('span', 'Semua akun');
+    accValSpan.id = 'pro-risk-account-val';
+
+    const accArrowSvg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+    accArrowSvg.setAttribute('width', '16');
+    accArrowSvg.setAttribute('height', '16');
+    accArrowSvg.setAttribute('viewBox', '0 0 24 24');
+    accArrowSvg.setAttribute('fill', 'none');
+    accArrowSvg.setAttribute('stroke', 'currentColor');
+    accArrowSvg.setAttribute('stroke-width', '2');
+    accArrowSvg.setAttribute('stroke-linecap', 'round');
+    accArrowSvg.setAttribute('stroke-linejoin', 'round');
+    accArrowSvg.setAttribute('aria-hidden', 'true');
+    const accArrowPath = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+    accArrowPath.setAttribute('d', 'M6 9l6 6 6-6');
+    accArrowSvg.append(accArrowPath);
+    accSummary.append(accValSpan, accArrowSvg);
+
+    const accUl = node('ul');
+    accUl.setAttribute('role', 'listbox');
+    accUl.setAttribute('aria-labelledby', 'pro-risk-account-lbl');
+
+    const hiddenAccInput = node('input');
+    hiddenAccInput.type = 'hidden';
+    hiddenAccInput.id = 'pro-account';
+    hiddenAccInput.value = preset.account_id || '';
+    filters.account_id = hiddenAccInput;
+
+    const updateAccountSelection = (id, name) => {
+      hiddenAccInput.value = id;
+      accValSpan.textContent = name;
+      accUl.querySelectorAll('li').forEach(li => {
+        li.setAttribute('aria-selected', li.dataset.value === id ? 'true' : 'false');
+      });
+      accDetails.removeAttribute('open');
+    };
+
+    const defaultLi = node('li', 'Semua akun');
+    defaultLi.setAttribute('role', 'option');
+    defaultLi.dataset.value = '';
+    defaultLi.setAttribute('aria-selected', !preset.account_id ? 'true' : 'false');
+    defaultLi.addEventListener('click', () => updateAccountSelection('', 'Semua akun'));
+    accUl.append(defaultLi);
+
+    for (const acc of accounts) {
+      const li = node('li', acc.name);
+      li.setAttribute('role', 'option');
+      li.dataset.value = acc.id;
+      li.setAttribute('aria-selected', preset.account_id === acc.id ? 'true' : 'false');
+      if (preset.account_id === acc.id) accValSpan.textContent = acc.name;
+      li.addEventListener('click', () => updateAccountSelection(acc.id, acc.name));
+      accUl.append(li);
+    }
+    accDetails.append(accSummary, accUl);
+    fgAcc.append(accLbl, accDetails, hiddenAccInput);
+
+    // Start date
+    const fgStart = node('div', null, 'fg');
+    const startLabel = node('label', 'Tanggal mulai');
+    startLabel.htmlFor = 'pro-start';
+    const startInput = node('input', null, 'f');
+    startInput.type = 'date';
+    startInput.id = 'pro-start';
+    startInput.value = preset.start || '';
+    filters.start = startInput;
+    fgStart.append(startLabel, startInput);
+
+    // End date
+    const fgEnd = node('div', null, 'fg');
+    const endLabel = node('label', 'Tanggal akhir');
+    endLabel.htmlFor = 'pro-end';
+    const endInput = node('input', null, 'f');
+    endInput.type = 'date';
+    endInput.id = 'pro-end';
+    endInput.value = preset.end || '';
+    filters.end = endInput;
+    fgEnd.append(endLabel, endInput);
+
+    // Timezone
+    const fgTz = node('div', null, 'fg');
+    const tzLabel = node('label', 'Zona waktu');
+    tzLabel.htmlFor = 'pro-timezone';
+    const tzInput = node('input', null, 'f');
+    tzInput.type = 'text';
+    tzInput.id = 'pro-timezone';
+    tzInput.value = preset.tz || Intl.DateTimeFormat().resolvedOptions().timeZone || 'Asia/Jakarta';
+    filters.tz = tzInput;
+    fgTz.append(tzLabel, tzInput);
+
+    // Apply button
+    const fgApply = node('div');
+    const applyBtn = button('Terapkan filter', async () => {
+      validateFilters();
+      await load();
+    }, 'bt');
+    applyBtn.type = 'button';
+    applyBtn.id = 'pro-apply-filters';
+    applyBtn.style.width = '100%';
+    fgApply.append(applyBtn);
+
+    fl4.append(fgAcc, fgStart, fgEnd, fgTz, fgApply);
+    filterSection.append(fl4);
+
+    // 3. KPI Section
+    const kpiSection = node('section');
+    const kpiHdr = node('div', null, 'pnh');
+    kpiHdr.style.marginBottom = '12px';
+    kpiHdr.append(node('span', 'Ringkasan risiko', 'cap'));
+
+    const kp = node('div', null, 'kp');
+    let kpiOpen, kpiDaily, kpiWeekly, kpiRpt, kpiUnknown;
+    const kpOpenBox = node('div');
+    kpOpenBox.append(node('span', 'Open exposure', 'cap'), (kpiOpen = node('b', '0')));
+    const kpDailyBox = node('div');
+    kpDailyBox.append(node('span', 'Daily exposure', 'cap'), (kpiDaily = node('b', '0')));
+    const kpWeeklyBox = node('div');
+    kpWeeklyBox.append(node('span', 'Weekly exposure', 'cap'), (kpiWeekly = node('b', '0')));
+    const kpRptBox = node('div');
+    kpRptBox.append(node('span', 'Risk per trade', 'cap'), (kpiRpt = node('b', '-')));
+    const kpUnknownBox = node('div');
+    kpUnknownBox.append(node('span', 'Posisi tanpa data', 'cap'), (kpiUnknown = node('b', '0')));
+    kp.append(kpOpenBox, kpDailyBox, kpWeeklyBox, kpRptBox, kpUnknownBox);
+
+    const note = node('div', null, 'note');
+    note.style.marginTop = '16px';
+    const noteSvg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+    noteSvg.setAttribute('width', '16');
+    noteSvg.setAttribute('height', '16');
+    noteSvg.setAttribute('viewBox', '0 0 24 24');
+    noteSvg.setAttribute('fill', 'none');
+    noteSvg.setAttribute('stroke', 'currentColor');
+    noteSvg.setAttribute('stroke-width', '2');
+    noteSvg.setAttribute('stroke-linecap', 'round');
+    noteSvg.setAttribute('aria-hidden', 'true');
+    const noteCircle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+    noteCircle.setAttribute('cx', '12'); noteCircle.setAttribute('cy', '12'); noteCircle.setAttribute('r', '9');
+    const notePath = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+    notePath.setAttribute('d', 'M12 8h.01M11 12h1v5h1');
+    noteSvg.append(noteCircle, notePath);
+    note.append(noteSvg, node('span', 'Posisi terbuka tanpa nominal risiko tercatat dihitung sebagai eksposur tidak diketahui.'));
+    kpiSection.append(kpiHdr, kp, note);
+
+    // 4. Two Columns (.two)
+    const twoCol = node('div', null, 'two');
+
+    function createShieldIcon(size = 36) {
+      const iconWrap = node('div', null, 'mi');
+      iconWrap.style.width = size + 'px';
+      iconWrap.style.height = size + 'px';
+      iconWrap.style.borderRadius = '10px';
+      iconWrap.style.border = '1px solid #1E5A45';
+      iconWrap.style.color = '#34D399';
+      iconWrap.style.display = 'grid';
+      iconWrap.style.placeItems = 'center';
+      const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+      svg.setAttribute('width', '20');
+      svg.setAttribute('height', '20');
+      svg.setAttribute('viewBox', '0 0 24 24');
+      svg.setAttribute('fill', 'none');
+      svg.setAttribute('stroke', 'currentColor');
+      svg.setAttribute('stroke-width', '1.8');
+      svg.setAttribute('stroke-linecap', 'round');
+      svg.setAttribute('stroke-linejoin', 'round');
+      svg.setAttribute('aria-hidden', 'true');
+      const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+      path.setAttribute('d', 'M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z');
+      svg.append(path);
+      iconWrap.append(svg);
+      return iconWrap;
+    }
+
+    // 4a. Left: Position Size Calculator
+    const calcSection = node('section', null, 'pn');
+    calcSection.setAttribute('aria-label', 'Kalkulator ukuran posisi');
+    const calcHdr = node('div', null, 'pnh');
+    calcHdr.append(
+      node('span', 'Kalkulator ukuran posisi', 'cap'),
+      createShieldIcon(36)
+    );
+
+    const fgrid = node('div', null, 'fgrid');
+    const entries = {};
+
+    const fgInst = node('div', null, 'fg');
+    const instLabel = node('label', 'Instrumen');
+    instLabel.htmlFor = 'pro-risk-instrument';
+    const instInput = node('input', null, 'f');
+    instInput.id = 'pro-risk-instrument';
+    instInput.placeholder = 'mis. XAUUSD';
+    fgInst.append(instLabel, instInput);
+
+    const fgBal = node('div', null, 'fg');
+    const balLabel = node('label', 'Saldo akun');
+    balLabel.htmlFor = 'pro-risk-balance';
+    const balU = node('div', null, 'u');
+    const balInput = node('input', null, 'f');
+    balInput.type = 'number'; balInput.step = 'any'; balInput.inputMode = 'decimal'; balInput.id = 'pro-risk-balance';
+    balU.append(balInput, node('span', 'USD'));
+    fgBal.append(balLabel, balU);
+    entries.balance = balInput;
+
+    const fgRiskPct = node('div', null, 'fg');
+    const riskPctLabel = node('label', 'Persentase risiko');
+    riskPctLabel.htmlFor = 'pro-risk-risk_percent';
+    const riskPctU = node('div', null, 'u');
+    const riskPctInput = node('input', null, 'f');
+    riskPctInput.type = 'number'; riskPctInput.step = 'any'; riskPctInput.inputMode = 'decimal'; riskPctInput.id = 'pro-risk-risk_percent';
+    riskPctInput.value = '1';
+    riskPctU.append(riskPctInput, node('span', '%'));
+    fgRiskPct.append(riskPctLabel, riskPctU);
+    entries.risk_percent = riskPctInput;
+
+    const fgEntry = node('div', null, 'fg');
+    const entryLabel = node('label', 'Harga entry');
+    entryLabel.htmlFor = 'pro-risk-entry';
+    const entryInput = node('input', null, 'f');
+    entryInput.type = 'number'; entryInput.step = 'any'; entryInput.inputMode = 'decimal'; entryInput.id = 'pro-risk-entry';
+    fgEntry.append(entryLabel, entryInput);
+    entries.entry = entryInput;
+
+    const fgStop = node('div', null, 'fg');
+    const stopLabel = node('label', 'Stop loss');
+    stopLabel.htmlFor = 'pro-risk-stop';
+    const stopInput = node('input', null, 'f');
+    stopInput.type = 'number'; stopInput.step = 'any'; stopInput.inputMode = 'decimal'; stopInput.id = 'pro-risk-stop';
+    fgStop.append(stopLabel, stopInput);
+    entries.stop = stopInput;
+
+    const fgContract = node('div', null, 'fg');
+    const contractLabel = node('label', 'Ukuran kontrak');
+    contractLabel.htmlFor = 'pro-risk-contract_size';
+    const contractInput = node('input', null, 'f');
+    contractInput.type = 'number'; contractInput.step = 'any'; contractInput.inputMode = 'decimal'; contractInput.id = 'pro-risk-contract_size';
+    fgContract.append(contractLabel, contractInput);
+    entries.contract_size = contractInput;
+
+    const fgStep = node('div', null, 'fg');
+    const stepLabel = node('label', 'Langkah kuantitas minimum');
+    stepLabel.htmlFor = 'pro-risk-quantity_step';
+    const stepInput = node('input', null, 'f');
+    stepInput.type = 'number'; stepInput.step = 'any'; stepInput.inputMode = 'decimal'; stepInput.id = 'pro-risk-quantity_step';
+    fgStep.append(stepLabel, stepInput);
+    entries.quantity_step = stepInput;
+
+    const fgRate = node('div', null, 'fg');
+    const rateLabel = node('label', 'Kurs mata uang quote ke akun');
+    rateLabel.htmlFor = 'pro-risk-quote_to_account_rate';
+    const rateInput = node('input', null, 'f');
+    rateInput.type = 'number'; rateInput.step = 'any'; rateInput.inputMode = 'decimal'; rateInput.id = 'pro-risk-quote_to_account_rate';
+    fgRate.append(rateLabel, rateInput);
+    entries.quote_to_account_rate = rateInput;
+
+    fgrid.append(fgInst, fgBal, fgRiskPct, fgEntry, fgStop, fgContract, fgStep, fgRate);
+    const hint = node('p', 'Masukkan spesifikasi kontrak broker dan kurs konversi. Aplikasi tidak mengasumsikan nilai default untuk simbol apa pun.', 'hint');
+
+    const calcAct = node('div', null, 'act');
+    const calcResultContainer = node('div', null, 'pro-risk-calc-result');
+
+    const calcBtn = button('Hitung', async () => {
+      const body = Object.fromEntries(Object.entries(entries).map(([key, item]) => [key, item.value]));
+      if (Object.values(body).some(v => v === '' || !Number.isFinite(Number(v)))) {
+        throw new Error('Complete every numeric input.');
+      }
+      if (instInput.value.trim()) body.instrument = instInput.value.trim();
+      const result = await request('/risk/calculate', { method: 'POST', body });
+      calcResultContainer.replaceChildren();
+
+      const grid = node('div', null, 'calc-res-grid');
+      const lotCard = node('div', null, 'calc-res-card');
+      lotCard.append(node('span', 'Ukuran posisi (Lot)', 'lbl'), node('b', String(result.quantity ?? result.position_size ?? '-'), 'val'));
+
+      const lossCard = node('div', null, 'calc-res-card');
+      lossCard.append(node('span', 'Risiko maksimum', 'lbl'), node('b', (result.maximum_loss ?? result.risk_amount ?? '-') + ' USD', 'val'));
+
+      grid.append(lotCard, lossCard);
+      calcResultContainer.append(grid);
+    }, 'bt pr');
+    calcBtn.type = 'button';
+    calcBtn.id = 'pro-risk-calculate';
+
+    const resetCalcBtn = button('Reset', () => {
+      Object.values(entries).forEach(input => input.value = '');
+      entries.risk_percent.value = '1';
+      instInput.value = '';
+      calcResultContainer.replaceChildren();
+    }, 'bt');
+    resetCalcBtn.type = 'button';
+
+    calcAct.append(calcBtn, resetCalcBtn);
+    calcSection.append(calcHdr, fgrid, hint, calcAct, calcResultContainer);
+
+    // 4b. Right: Aturan risiko
+    const ruleSection = node('section', null, 'pn');
+    ruleSection.setAttribute('aria-label', 'Aturan risiko');
+    const ruleHdr = node('div', null, 'pnh');
+    const addRuleBtn = button('Add rule', () => editRule(null), 'bt');
+    addRuleBtn.type = 'button';
+    addRuleBtn.setAttribute('aria-label', 'Add rule');
+    ruleHdr.append(node('span', 'Aturan risiko', 'cap'), addRuleBtn);
+
+    const ruleBody = node('div');
+
+    function showEmptyRuleState() {
+      ruleBody.replaceChildren();
+      const emp = node('div', null, 'emp');
+      const ic = createShieldIcon(40);
+      ic.className = 'ic';
+      const title = node('b', 'Belum ada aturan');
+      title.style.color = '#E6E8EB';
+      const desc = node('span', 'Tambahkan batas risiko harian, mingguan, atau per trade untuk memantau kepatuhan.');
+      emp.append(ic, title, desc);
+      ruleBody.append(emp);
+    }
+
+    function editRule(row) {
+      ruleBody.replaceChildren();
+      const formWrap = node('div');
+      formWrap.style.display = 'flex';
+      formWrap.style.flexDirection = 'column';
+      formWrap.style.gap = '12px';
+
+      const fgName = node('div', null, 'fg');
+      const nameLabel = node('label', 'Rule name');
+      const nameInput = node('input', null, 'f');
+      nameInput.type = 'text';
+      nameInput.value = row?.name || '';
+      fgName.append(nameLabel, nameInput);
+
+      const fgKind = node('div', null, 'fg');
+      const kindLabel = node('label', 'Rule type');
+      const kindSelect = node('select', null, 'f');
+      const kindOptions = [
+        ['max_risk_percent', 'Risk per trade (%)'],
+        ['max_daily_loss', 'Daily loss'],
+        ['max_weekly_loss', 'Weekly loss'],
+        ['max_trades_per_day', 'Daily trade count']
+      ];
+      for (const [val, lbl] of kindOptions) {
+        const opt = node('option', lbl);
+        opt.value = val;
+        if ((row?.kind || 'max_risk_percent') === val) opt.selected = true;
+        kindSelect.append(opt);
+      }
+      fgKind.append(kindLabel, kindSelect);
+
+      const fgThresh = node('div', null, 'fg');
+      const threshLabel = node('label', 'Threshold');
+      const threshInput = node('input', null, 'f');
+      threshInput.type = 'number';
+      threshInput.step = 'any';
+      threshInput.value = row?.threshold || '';
+      fgThresh.append(threshLabel, threshInput);
+
+      const actDiv = node('div', null, 'act');
+      actDiv.style.marginTop = '6px';
+
+      const saveBtn = button('Save rule', async () => {
+        const nameVal = nameInput.value.trim();
+        const threshVal = Number(threshInput.value);
+        if (!nameVal || !(threshVal > 0)) {
+          throw new Error('Enter a name and positive threshold.');
+        }
+        await request('/risk/rules' + (row ? '/' + row.id : ''), {
+          method: row ? 'PATCH' : 'POST',
+          body: {
+            name: nameVal,
+            kind: kindSelect.value,
+            threshold: threshInput.value
+          }
+        });
+        await load();
+        showEmptyRuleState();
+      }, 'bt pr');
+      saveBtn.type = 'button';
+      saveBtn.id = 'pro-risk-rule-save';
+
+      const cancelBtn = button('Batal', () => {
+        showEmptyRuleState();
+      }, 'bt');
+      cancelBtn.type = 'button';
+
+      actDiv.append(saveBtn, cancelBtn);
+      formWrap.append(fgName, fgKind, fgThresh, actDiv);
+      ruleBody.append(formWrap);
+      nameInput.focus();
+    }
+
+    ruleSection.append(ruleHdr, ruleBody);
+    showEmptyRuleState();
+
+    twoCol.append(calcSection, ruleSection);
+
+    // 5. Tables Section
+    // 5a. Active Rules Table
+    const activeRulesSection = node('section', null, 'pn');
+    activeRulesSection.append(node('span', 'Aturan risiko aktif', 'cap'));
+    const twRules = node('div', null, 'tw');
+    const tblRules = node('table');
+    const theadRules = node('thead');
+    theadRules.innerHTML = '<tr><th>Nama</th><th>Aturan</th><th>Ambang batas</th><th style="text-align:right">Aksi</th></tr>';
+    const tbodyRules = node('tbody');
+    tblRules.append(theadRules, tbodyRules);
+    twRules.append(tblRules);
+    activeRulesSection.append(twRules);
+
+    // 5b. Risk Violations Table
+    const violationsSection = node('section', null, 'pn');
+    violationsSection.append(node('span', 'Riwayat pelanggaran risiko', 'cap'));
+    const twViolations = node('div', null, 'tw');
+    const tblViolations = node('table');
+    const theadViolations = node('thead');
+    theadViolations.innerHTML = '<tr><th>Tanggal</th><th>Terobservasi</th><th>Ambang batas</th><th style="text-align:right">Aksi</th></tr>';
+    const tbodyViolations = node('tbody');
+    tblViolations.append(theadViolations, tbodyViolations);
+    twViolations.append(tblViolations);
+    violationsSection.append(twViolations);
+
+    // 5c. Compliance Trends Table
+    const complianceSection = node('section', null, 'pn');
+    complianceSection.append(node('span', 'Tren kepatuhan', 'cap'));
+    const twCompliance = node('div', null, 'tw');
+    const tblCompliance = node('table');
+    const theadCompliance = node('thead');
+    theadCompliance.innerHTML = '<tr><th>Tanggal</th><th>Diperiksa</th><th style="text-align:right">Pelanggaran</th></tr>';
+    const tbodyCompliance = node('tbody');
+    tblCompliance.append(theadCompliance, tbodyCompliance);
+    twCompliance.append(tblCompliance);
+    complianceSection.append(twCompliance);
+
+    // 5d. Warnings Container
+    const warningsContainer = node('div');
+
+    // 6. Load Data
+    const load = async () => {
+      const data = await request('/analytics/risk?' + query(filterValues()), { latest: true });
+
+      kpiOpen.textContent = String(data.overview?.open_exposure ?? 0);
+      kpiDaily.textContent = String(data.overview?.daily_exposure ?? 0);
+      kpiWeekly.textContent = String(data.overview?.weekly_exposure ?? 0);
+      kpiRpt.textContent = data.overview?.risk_per_trade ? data.overview.risk_per_trade + '%' : '-';
+      kpiUnknown.textContent = String(data.overview?.unknown_risk_positions_count ?? 0);
+
+      tbodyRules.replaceChildren();
+      const rulesList = data.rules || [];
+      if (rulesList.length === 0) {
+        const tr = node('tr');
+        const td = node('td', 'Belum ada data untuk pilihan ini.');
+        td.colSpan = 4;
+        tr.append(td);
+        tbodyRules.append(tr);
+      } else {
+        const kindMap = {
+          max_risk_percent: 'Risk per trade (%)',
+          max_daily_loss: 'Daily loss',
+          max_weekly_loss: 'Weekly loss',
+          max_trades_per_day: 'Daily trade count'
+        };
+        for (const r of rulesList) {
+          const tr = node('tr');
+          const tdName = node('td', r.name || '-');
+          const tdKind = node('td', kindMap[r.kind] || r.kind || '-');
+          const tdThresh = node('td', String(r.threshold ?? '-'));
+          const tdAct = node('td');
+          tdAct.style.textAlign = 'right';
+
+          const editBtn = button('Edit', () => editRule(r), 'bt');
+          editBtn.type = 'button';
+          editBtn.setAttribute('aria-label', 'Edit');
+          editBtn.style.padding = '4px 12px';
+          editBtn.style.minHeight = '32px';
+
+          const delBtn = button('Delete', async () => {
+            if (global.confirm && !global.confirm('Delete this risk rule?')) return;
+            await request('/risk/rules/' + r.id, { method: 'DELETE' });
+            await load();
+          }, 'bt');
+          delBtn.type = 'button';
+          delBtn.dataset.componentId = 'risk-delete';
+          delBtn.setAttribute('aria-label', 'Delete');
+          delBtn.style.padding = '4px 12px';
+          delBtn.style.minHeight = '32px';
+          delBtn.style.marginLeft = '8px';
+
+          tdAct.append(editBtn, delBtn);
+          tr.append(tdName, tdKind, tdThresh, tdAct);
+          tbodyRules.append(tr);
+        }
+      }
+
+      tbodyViolations.replaceChildren();
+      const violationsList = data.violations || [];
+      if (violationsList.length === 0) {
+        const tr = node('tr');
+        const td = node('td', 'Belum ada data untuk pilihan ini.');
+        td.colSpan = 4;
+        tr.append(td);
+        tbodyViolations.append(tr);
+      } else {
+        for (const v of violationsList) {
+          const tr = node('tr');
+          const tdDate = node('td', v.date || '-');
+          const tdObs = node('td', String(v.observed ?? '-'));
+          const tdThresh = node('td', String(v.threshold ?? '-'));
+          const tdAct = node('td');
+          tdAct.style.textAlign = 'right';
+
+          const viewBtn = button('View trade', () => journal({ trade_id: v.trade_id }), 'bt');
+          viewBtn.type = 'button';
+          viewBtn.style.padding = '4px 12px';
+          viewBtn.style.minHeight = '32px';
+
+          tdAct.append(viewBtn);
+          tr.append(tdDate, tdObs, tdThresh, tdAct);
+          tbodyViolations.append(tr);
+        }
+      }
+
+      tbodyCompliance.replaceChildren();
+      const compList = data.compliance || [];
+      if (compList.length === 0) {
+        const tr = node('tr');
+        const td = node('td', 'Belum ada data untuk pilihan ini.');
+        td.colSpan = 3;
+        tr.append(td);
+        tbodyCompliance.append(tr);
+      } else {
+        for (const c of compList) {
+          const tr = node('tr');
+          const tdDate = node('td', c.date || '-');
+          const tdChecked = node('td', String(c.checked ?? '-'));
+          const tdViolations = node('td', String(c.violations ?? '-'));
+          tdViolations.style.textAlign = 'right';
+          tr.append(tdDate, tdChecked, tdViolations);
+          tbodyCompliance.append(tr);
+        }
+      }
+
+      warningsContainer.replaceChildren();
+      if (data.warnings && data.warnings.length) {
+        for (const w of data.warnings) {
+          const warnDiv = node('div', null, 'note');
+          warnDiv.style.marginTop = '12px';
+          warnDiv.style.borderColor = '#F59E0B';
+          warnDiv.style.background = '#261E14';
+          warnDiv.style.color = '#FDE68A';
+
+          const wSvg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+          wSvg.setAttribute('width', '16');
+          wSvg.setAttribute('height', '16');
+          wSvg.setAttribute('viewBox', '0 0 24 24');
+          wSvg.setAttribute('fill', 'none');
+          wSvg.setAttribute('stroke', '#F59E0B');
+          wSvg.setAttribute('stroke-width', '2');
+          wSvg.setAttribute('stroke-linecap', 'round');
+          wSvg.setAttribute('aria-hidden', 'true');
+          const wCircle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+          wCircle.setAttribute('cx', '12'); wCircle.setAttribute('cy', '12'); wCircle.setAttribute('r', '9');
+          const wPath = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+          wPath.setAttribute('d', 'M12 8h.01M11 12h1v5h1');
+          wSvg.append(wCircle, wPath);
+
+          warnDiv.append(wSvg, node('span', w));
+          warningsContainer.append(warnDiv);
+        }
+      }
+    };
+
+    wrap.append(hd, filterSection, kpiSection, twoCol, activeRulesSection, violationsSection, complianceSection, warningsContainer);
+    content.replaceChildren(wrap);
+    await load();
   }
   async function reviews() {
     let period='weekly';const output=node('div');
@@ -9595,7 +10184,7 @@ function filterPairDropdown() {
     if(!features[feature])throw new Error('Unknown Pro feature.');
     if(activeTabLoader){activeTabLoader.stop();activeTabLoader=null;}
     revision++;controller.abort();controller=new AbortController(); preset={...selection};current=feature;root=document.getElementById('view-pro-workspace');if(!root)throw new Error('Pro workspace container is missing.');
-    root.replaceChildren();root.dataset.feature=feature;const heading=node('header',null,'pro-heading');if(['global-news','ai-chat','ai-behaviour','ai-journal','ai-market'].includes(feature))heading.style.display='none';const title=node('div');title.append(node('h1',text('Title'+feature,features[feature])),node('p',text('WorkspaceDescription','Performance, risk, reports and AI insights from your trading journal.'),'pro-subtitle'));heading.append(title);root.append(heading);
+    root.replaceChildren();root.dataset.feature=feature;const heading=node('header',null,'pro-heading');if(['global-news','ai-chat','ai-behaviour','ai-journal','ai-market','risk'].includes(feature))heading.style.display='none';const title=node('div');title.append(node('h1',text('Title'+feature,features[feature])),node('p',text('WorkspaceDescription','Performance, risk, reports and AI insights from your trading journal.'),'pro-subtitle'));heading.append(title);root.append(heading);
     heading.append(button(text('RetrySection','Retry section'),()=>open(feature,selection),'pro-section-retry'));
     const navigation=node('nav',null,'pro-sections');navigation.setAttribute('aria-label','Pro sections');
     const groups=[['Analisis',['analytics','heatmap','strategies','risk']],['Laporan',['reviews','reports']],['AI',['ai-market','ai-behaviour','ai-journal','ai-chat','global-news']]];
