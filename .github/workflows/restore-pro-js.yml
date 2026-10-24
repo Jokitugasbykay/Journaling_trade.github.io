@@ -2,9 +2,17 @@ name: Restore pro.js
 
 on:
   workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/restore-pro-js.yml'
 
 permissions:
   contents: write
+
+concurrency:
+  group: restore-pro-js
+  cancel-in-progress: true
 
 jobs:
   restore:
@@ -21,34 +29,22 @@ jobs:
           echo "restored size: $(wc -c < js/pro.js)"
           test $(wc -c < js/pro.js) -gt 100000
 
-      - name: Apply entryTime date fix
+      - name: Apply entryTime date fix with sed
         run: |
           set -e
-          python3 <<'PY'
+          # Replace the broken fmtTime block using a Python script file
+          cat > /tmp/fix_fmt.py << 'ENDPY'
           from pathlib import Path
           p = Path("js/pro.js")
           t = p.read_text()
-          needle = "const d = new Date(iso);"
-          if needle not in t:
-              raise SystemExit("expected fmtTime pattern not found")
-          t2 = t.replace(
-              "const fmtTime = (iso) => {",
-              "const fmtTime = (ts) => {",
-              1,
-          )
-          t2 = t2.replace(
-              """      const fmtTime = (ts) => {
-        if (!iso) return '-';
-        try {
-          const d = new Date(iso);
-          if (isNaN(d.getTime())) return iso;
-          return d.toLocaleDateString('id-ID', { day: '2-digit', month: 'short', year: 'numeric' }) + ' ' +
-                 d.toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' }).replace(':', '.');
-        } catch (e) {
-          return iso;
-        }
-      };""",
-              """      const fmtTime = (ts) => {
+          start = t.find("      const fmtTime = (iso) => {")
+          if start < 0:
+              raise SystemExit("fmtTime start not found")
+          end = t.find("      };", start)
+          if end < 0:
+              raise SystemExit("fmtTime end not found")
+          end = end + len("      };")
+          new_fn = """      const fmtTime = (ts) => {
         if (ts === null || ts === undefined || ts === '') return '-';
         try {
           const n = Number(ts);
@@ -61,16 +57,15 @@ jobs:
         } catch (e) {
           return String(ts);
         }
-      };""",
-              1,
-          )
-          if t2 == t:
-              raise SystemExit("fmtTime replace failed")
+      };"""
+          t2 = t[:start] + new_fn + t[end:]
           p.write_text(t2)
           print("fixed size", p.stat().st_size)
-          PY
+          assert "n < 1e12 ? n * 1000" in t2
+          ENDPY
+          python3 /tmp/fix_fmt.py
 
-      - name: Cleanup chunk files and commit
+      - name: Cleanup and push
         run: |
           set -e
           rm -f js/pro.chunk.*.js || true
@@ -78,5 +73,9 @@ jobs:
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add -A
           git status
-          git commit -m "fix: restore full pro.js + fix backtest entryTime dates" || echo "nothing to commit"
+          if git diff --cached --quiet; then
+            echo "No changes to commit"
+            exit 0
+          fi
+          git commit -m "fix: restore full pro.js + fix backtest entryTime dates"
           git push origin HEAD:main
