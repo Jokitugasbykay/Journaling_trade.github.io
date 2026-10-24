@@ -16,25 +16,20 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Patch fmtTime
+      - name: Patch remaining iso reference
         run: |
           python3 -c '
           from pathlib import Path
           p = Path("js/pro.js")
           t = p.read_text()
-          a = "const fmtTime = (iso) =>"
-          b = "const fmtTime = (ts) =>"
-          if a not in t:
-            raise SystemExit("pattern A missing")
-          t = t.replace(a, b, 1)
-          t = t.replace("if (!iso) return \"-\";", "if (ts === null || ts === undefined || ts === \"\") return \"-\";", 1)
-          t = t.replace("const d = new Date(iso);", "const n = Number(ts); const d = (typeof ts === \"string\" && Number.isNaN(n)) ? new Date(ts) : new Date(n > 0 && n < 1e12 ? n * 1000 : n);", 1)
-          t = t.replace("if (isNaN(d.getTime())) return iso;", "if (isNaN(d.getTime())) return String(ts);", 1)
-          t = t.replace("return iso;", "return String(ts);", 1)
-          if "n < 1e12 ? n * 1000" not in t:
-            raise SystemExit("fix not applied")
-          p.write_text(t)
-          print("ok", p.stat().st_size)
+          old = "if (!iso) return \"-\";"
+          new = "if (ts === null || ts === undefined || ts === \"\") return \"-\";"
+          if old not in t:
+            print("already fixed or pattern missing")
+          else:
+            t = t.replace(old, new, 1)
+            p.write_text(t)
+            print("patched", p.stat().st_size)
           '
 
       - name: Commit
@@ -43,5 +38,5 @@ jobs:
           git config user.email 41898282+github-actions[bot]@users.noreply.github.com
           git add js/pro.js
           git diff --cached --quiet && exit 0
-          git commit -m "fix(backtest): entryTime Unix seconds display (stop 22 Jan 1970)"
+          git commit -m "fix(backtest): complete fmtTime null check"
           git push
