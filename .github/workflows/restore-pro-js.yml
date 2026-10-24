@@ -1,18 +1,14 @@
 name: Restore pro.js
 
 on:
-  workflow_dispatch:
   push:
     branches: [main]
     paths:
       - '.github/workflows/restore-pro-js.yml'
+  workflow_dispatch:
 
 permissions:
   contents: write
-
-concurrency:
-  group: restore-pro-js
-  cancel-in-progress: true
 
 jobs:
   restore:
@@ -22,60 +18,14 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Restore pro.js from good commit
+      - name: Restore pro.js
         run: |
-          set -e
           git checkout 574a07a4626abb9f8598dce9c47910202d8c17f5 -- js/pro.js
-          echo "restored size: $(wc -c < js/pro.js)"
-          test $(wc -c < js/pro.js) -gt 100000
-
-      - name: Apply entryTime date fix with sed
-        run: |
-          set -e
-          # Replace the broken fmtTime block using a Python script file
-          cat > /tmp/fix_fmt.py << 'ENDPY'
-          from pathlib import Path
-          p = Path("js/pro.js")
-          t = p.read_text()
-          start = t.find("      const fmtTime = (iso) => {")
-          if start < 0:
-              raise SystemExit("fmtTime start not found")
-          end = t.find("      };", start)
-          if end < 0:
-              raise SystemExit("fmtTime end not found")
-          end = end + len("      };")
-          new_fn = """      const fmtTime = (ts) => {
-        if (ts === null || ts === undefined || ts === '') return '-';
-        try {
-          const n = Number(ts);
-          const d = (typeof ts === 'string' && Number.isNaN(n))
-            ? new Date(ts)
-            : new Date(n > 0 && n < 1e12 ? n * 1000 : n);
-          if (isNaN(d.getTime())) return String(ts);
-          return d.toLocaleDateString('id-ID', { day: '2-digit', month: 'short', year: 'numeric' }) + ' ' +
-                 d.toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' }).replace(':', '.');
-        } catch (e) {
-          return String(ts);
-        }
-      };"""
-          t2 = t[:start] + new_fn + t[end:]
-          p.write_text(t2)
-          print("fixed size", p.stat().st_size)
-          assert "n < 1e12 ? n * 1000" in t2
-          ENDPY
-          python3 /tmp/fix_fmt.py
-
-      - name: Cleanup and push
-        run: |
-          set -e
-          rm -f js/pro.chunk.*.js || true
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add -A
-          git status
-          if git diff --cached --quiet; then
-            echo "No changes to commit"
-            exit 0
-          fi
-          git commit -m "fix: restore full pro.js + fix backtest entryTime dates"
-          git push origin HEAD:main
+          wc -c js/pro.js
+          rm -f js/pro.chunk.*.js
+          git config user.name github-actions[bot]
+          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+          git add js/pro.js
+          git add -u js/pro.chunk.*.js || true
+          git commit -m "fix: restore full pro.js from 574a07a" || exit 0
+          git push
