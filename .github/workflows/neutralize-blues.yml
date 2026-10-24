@@ -1,0 +1,52 @@
+name: Neutralize blues
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/neutralize-blues.yml'
+      - 'scripts/neutralize_blues.py'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Neutralize blue tokens
+        run: python3 scripts/neutralize_blues.py
+
+      - name: Cache-bust CSS/JS in index.html
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          import re
+          p = Path('index.html')
+          t = p.read_text(encoding='utf-8')
+          t2 = re.sub(
+            r'(css/(?:style|home|shell|pro|journal)\.css)\?v=[^"\']+',
+            lambda m: m.group(1) + '?v=20261024-no-blue',
+            t,
+          )
+          t2 = re.sub(
+            r'(js/(?:pro|home|app|custom-select|news-select)\.js)\?v=[^"\']+',
+            lambda m: m.group(1) + '?v=20261024-no-blue',
+            t2,
+          )
+          p.write_text(t2, encoding='utf-8')
+          print('cache busted')
+          PY
+
+      - name: Commit
+        run: |
+          git config user.name github-actions[bot]
+          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+          git add -A
+          git status
+          git diff --cached --quiet && exit 0
+          git commit -m "style: neutralize all remaining blue/sky/cyan accents to slate palette"
+          git push
