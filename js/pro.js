@@ -3046,19 +3046,426 @@ Instruksi Format Output & Larangan Bocor Chain-of-Thought dan Perencanaan Rules 
     await load();
   }
   async function reports() {
-    const grid=node('div',null,'pro-grid');content.append(grid);const config=panel(text('ReportConfiguration','Report configuration'),grid),preview=panel(text('Preview','Report preview'),grid),history=panel(text('ReportHistory','Report history'));
-    commonFilters(config,()=>previewReport()); const choices={};
-    for(const [key,label] of [['analytics','Include analytics'],['heatmap','Include heatmap'],['risk','Include risk'],['reviews','Include reviews']]) {const line=node('label',null,'pro-check'),input=node('input');input.type='checkbox';input.checked=true;choices[key]=input;line.append(input,node('span',label));config.append(line);}
-    const strategy=select(text('Strategy','Strategy'),[['','All strategies'],...strategies.map(row=>[row.id,row.name])],'','pro-report-strategy');config.append(strategy.wrap);
-    const configuration=()=>{validateFilters();return {...filterValues(),strategy_id:strategy.input.value || undefined,sections:Object.entries(choices).filter(([,item])=>item.checked).map(([key])=>key)};};
-    const previewReport=async()=>{const data=await request('/reports/preview',{method:'POST',body:configuration()});preview.replaceChildren();preview.append(node('h2','Report preview'));details(preview,data);};
-    const load=async()=>{const data=await request('/reports');history.replaceChildren();history.append(node('h2','Report history'));table(history,data.items,[['created_at','Created'],['state','Status']],(cell,row)=>{
-      cell.append(button('View status',async()=>{const job=await request('/reports/'+row.id);preview.replaceChildren();details(preview,job);}));
-      if(row.state==='succeeded')cell.append(button('Download',async()=>{const data=await request('/reports/'+row.id+'/download');const url=safeLink(data.url || data.download_url);if(!url)throw new Error('Invalid download URL.');const link=node('a','Download PDF');link.href=url;link.target='_blank';link.rel='noopener noreferrer';link.className='btn btn-ghost';preview.append(link);link.focus();}));
-      if(['failed','expired'].includes(row.state))cell.append(button('Retry',async()=>{const job=await request('/reports/'+row.id+'/retry',{method:'POST',body:{},headers:{'Idempotency-Key':crypto.randomUUID()}});await watchJob('reports',job,preview);await load();}));
-      cell.append(button('Delete',async()=>{if(!global.confirm('Delete this report?'))return;await request('/reports/'+row.id,{method:'DELETE'});await load();}));
-    });};
-    config.append(button('Preview',previewReport,'pro-report-preview'),button('Generate PDF',async()=>{const body=configuration();if(!body.sections.length)throw new Error('Select at least one report section.');const job=await request('/reports',{method:'POST',body,headers:{'Idempotency-Key':crypto.randomUUID()}});await watchJob('reports',job,preview);await load();},'pro-report-generate'));await load();
+    const wrap = node('div', null, 'pro-reports-module');
+
+    // 1. Header (.hd)
+    const hd = node('div', null, 'hd');
+    const hdTitleWrap = node('div');
+    hdTitleWrap.append(
+      node('h1', 'PDF Reports'),
+      node('p', 'Susun laporan performa, risiko, dan ulasan dari jurnal trading Anda menjadi PDF.', 'm')
+    );
+    const reloadBtn = button('Muat ulang bagian', () => open('reports'), 'bt');
+    reloadBtn.type = 'button';
+    reloadBtn.id = 'pro-reports-reload';
+    hd.append(hdTitleWrap, reloadBtn);
+
+    // 2. Two Columns (.two)
+    const twoCol = node('div', null, 'two');
+
+    // 2a. Left Column: Report Configuration
+    const configSection = node('section', null, 'pn');
+    configSection.setAttribute('aria-label', 'Konfigurasi laporan');
+    configSection.append(node('span', 'Konfigurasi laporan', 'cap'));
+
+    filters = {};
+
+    const flGrid = node('div', null, 'fl');
+
+    // Account selector
+    const fgAcc = node('div', null, 'fg');
+    const accLbl = node('span', 'Akun trading', 'lbl');
+    accLbl.id = 'pro-report-account-lbl';
+
+    const accDetails = node('details', null, 'dd');
+    const accSummary = node('summary');
+    accSummary.setAttribute('aria-haspopup', 'listbox');
+    accSummary.setAttribute('aria-labelledby', 'pro-report-account-lbl pro-report-account-val');
+    const accValSpan = node('span', 'Semua akun');
+    accValSpan.id = 'pro-report-account-val';
+
+    const accArrowSvg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+    accArrowSvg.setAttribute('width', '16');
+    accArrowSvg.setAttribute('height', '16');
+    accArrowSvg.setAttribute('viewBox', '0 0 24 24');
+    accArrowSvg.setAttribute('fill', 'none');
+    accArrowSvg.setAttribute('stroke', 'currentColor');
+    accArrowSvg.setAttribute('stroke-width', '2');
+    accArrowSvg.setAttribute('stroke-linecap', 'round');
+    accArrowSvg.setAttribute('stroke-linejoin', 'round');
+    accArrowSvg.setAttribute('aria-hidden', 'true');
+    const accArrowPath = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+    accArrowPath.setAttribute('d', 'M6 9l6 6 6-6');
+    accArrowSvg.append(accArrowPath);
+    accSummary.append(accValSpan, accArrowSvg);
+
+    const accUl = node('ul');
+    accUl.setAttribute('role', 'listbox');
+    accUl.setAttribute('aria-labelledby', 'pro-report-account-lbl');
+
+    const hiddenAccInput = node('input');
+    hiddenAccInput.type = 'hidden';
+    hiddenAccInput.id = 'pro-account';
+    hiddenAccInput.value = preset.account_id || '';
+    filters.account_id = hiddenAccInput;
+
+    const updateAccountSelection = (id, name) => {
+      hiddenAccInput.value = id;
+      accValSpan.textContent = name;
+      accUl.querySelectorAll('li').forEach(li => {
+        li.setAttribute('aria-selected', li.dataset.value === id ? 'true' : 'false');
+      });
+      accDetails.removeAttribute('open');
+    };
+
+    const defaultAccLi = node('li', 'Semua akun');
+    defaultAccLi.setAttribute('role', 'option');
+    defaultAccLi.dataset.value = '';
+    defaultAccLi.setAttribute('aria-selected', !preset.account_id ? 'true' : 'false');
+    defaultAccLi.addEventListener('click', () => updateAccountSelection('', 'Semua akun'));
+    accUl.append(defaultAccLi);
+
+    for (const acc of accounts) {
+      const li = node('li', acc.name);
+      li.setAttribute('role', 'option');
+      li.dataset.value = acc.id;
+      li.setAttribute('aria-selected', preset.account_id === acc.id ? 'true' : 'false');
+      if (preset.account_id === acc.id) accValSpan.textContent = acc.name;
+      li.addEventListener('click', () => updateAccountSelection(acc.id, acc.name));
+      accUl.append(li);
+    }
+    accDetails.append(accSummary, accUl);
+    fgAcc.append(accLbl, accDetails, hiddenAccInput);
+
+    // Timezone
+    const fgTz = node('div', null, 'fg');
+    const tzLabel = node('label', 'Zona waktu');
+    tzLabel.htmlFor = 'pro-timezone';
+    const tzInput = node('input', null, 'f');
+    tzInput.type = 'text';
+    tzInput.id = 'pro-timezone';
+    tzInput.value = preset.tz || Intl.DateTimeFormat().resolvedOptions().timeZone || 'Asia/Jakarta';
+    filters.tz = tzInput;
+    fgTz.append(tzLabel, tzInput);
+
+    // Start date
+    const fgStart = node('div', null, 'fg');
+    const startLabel = node('label', 'Tanggal mulai');
+    startLabel.htmlFor = 'pro-start';
+    const startInput = node('input', null, 'f');
+    startInput.type = 'date';
+    startInput.id = 'pro-start';
+    startInput.value = preset.start || '';
+    filters.start = startInput;
+    fgStart.append(startLabel, startInput);
+
+    // End date
+    const fgEnd = node('div', null, 'fg');
+    const endLabel = node('label', 'Tanggal akhir');
+    endLabel.htmlFor = 'pro-end';
+    const endInput = node('input', null, 'f');
+    endInput.type = 'date';
+    endInput.id = 'pro-end';
+    endInput.value = preset.end || '';
+    filters.end = endInput;
+    fgEnd.append(endLabel, endInput);
+
+    flGrid.append(fgAcc, fgTz, fgStart, fgEnd);
+
+    // Report sections checkboxes (.chk)
+    const chkSection = node('div');
+    const chkCap = node('span', 'Isi laporan', 'cap');
+    chkCap.style.color = '#9AA3AF';
+    const chkGrid = node('div', null, 'chk');
+    const choices = {};
+    const sectionList = [
+      ['analytics', 'Sertakan analitik'],
+      ['heatmap', 'Sertakan heatmap'],
+      ['risk', 'Sertakan risiko'],
+      ['reviews', 'Sertakan ulasan']
+    ];
+    for (const [key, label] of sectionList) {
+      const line = node('label', null, 'pro-check');
+      const input = node('input');
+      input.type = 'checkbox';
+      input.checked = true;
+      choices[key] = input;
+      line.append(input, node('span', label));
+      chkGrid.append(line);
+    }
+    chkSection.append(chkCap, chkGrid);
+
+    // Strategy selector
+    const fgStrat = node('div', null, 'fg');
+    const stratLbl = node('span', 'Strategi', 'lbl');
+    stratLbl.id = 'pro-report-strat-lbl';
+
+    const stratDetails = node('details', null, 'dd');
+    const stratSummary = node('summary');
+    stratSummary.setAttribute('aria-haspopup', 'listbox');
+    stratSummary.setAttribute('aria-labelledby', 'pro-report-strat-lbl pro-report-strat-val');
+    const stratValSpan = node('span', 'Semua strategi');
+    stratValSpan.id = 'pro-report-strat-val';
+
+    const stratArrowSvg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+    stratArrowSvg.setAttribute('width', '16');
+    stratArrowSvg.setAttribute('height', '16');
+    stratArrowSvg.setAttribute('viewBox', '0 0 24 24');
+    stratArrowSvg.setAttribute('fill', 'none');
+    stratArrowSvg.setAttribute('stroke', 'currentColor');
+    stratArrowSvg.setAttribute('stroke-width', '2');
+    stratArrowSvg.setAttribute('stroke-linecap', 'round');
+    stratArrowSvg.setAttribute('stroke-linejoin', 'round');
+    stratArrowSvg.setAttribute('aria-hidden', 'true');
+    const stratArrowPath = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+    stratArrowPath.setAttribute('d', 'M6 9l6 6 6-6');
+    stratArrowSvg.append(stratArrowPath);
+    stratSummary.append(stratValSpan, stratArrowSvg);
+
+    const stratUl = node('ul');
+    stratUl.setAttribute('role', 'listbox');
+    stratUl.setAttribute('aria-labelledby', 'pro-report-strat-lbl');
+
+    const strategySelect = node('select', null, 'pro-section-selector-compat');
+    strategySelect.id = 'pro-report-strategy';
+    strategySelect.setAttribute('aria-label', 'Strategy');
+    const defaultOpt = node('option', 'All strategies');
+    defaultOpt.value = '';
+    strategySelect.append(defaultOpt);
+
+    const updateStrategySelection = (id, name) => {
+      strategySelect.value = id;
+      stratValSpan.textContent = name;
+      stratUl.querySelectorAll('li').forEach(li => {
+        li.setAttribute('aria-selected', li.dataset.value === id ? 'true' : 'false');
+      });
+      stratDetails.removeAttribute('open');
+    };
+
+    const defaultStratLi = node('li', 'Semua strategi');
+    defaultStratLi.setAttribute('role', 'option');
+    defaultStratLi.dataset.value = '';
+    defaultStratLi.setAttribute('aria-selected', 'true');
+    defaultStratLi.addEventListener('click', () => updateStrategySelection('', 'Semua strategi'));
+    stratUl.append(defaultStratLi);
+
+    for (const st of strategies) {
+      const opt = node('option', st.name);
+      opt.value = st.id;
+      strategySelect.append(opt);
+
+      const li = node('li', st.name);
+      li.setAttribute('role', 'option');
+      li.dataset.value = st.id;
+      li.setAttribute('aria-selected', 'false');
+      li.addEventListener('click', () => updateStrategySelection(st.id, st.name));
+      stratUl.append(li);
+    }
+    strategySelect.addEventListener('change', () => {
+      const selected = strategies.find(s => s.id === strategySelect.value);
+      updateStrategySelection(strategySelect.value, selected ? selected.name : 'Semua strategi');
+    });
+
+    stratDetails.append(stratSummary, stratUl);
+    fgStrat.append(stratLbl, stratDetails, strategySelect);
+
+    // Configuration actions
+    const actBar = node('div', null, 'act');
+
+    const configuration = () => {
+      validateFilters();
+      return {
+        ...filterValues(),
+        strategy_id: strategySelect.value || undefined,
+        sections: Object.entries(choices).filter(([, item]) => item.checked).map(([key]) => key)
+      };
+    };
+
+    const applyBtn = button('Terapkan filter', async () => {
+      validateFilters();
+      await previewReport();
+    }, 'bt');
+    applyBtn.type = 'button';
+    applyBtn.id = 'pro-apply-filters';
+
+    const previewBtn = button('Pratinjau', async () => {
+      await previewReport();
+    }, 'bt');
+    previewBtn.type = 'button';
+    previewBtn.id = 'pro-report-preview';
+
+    const generateBtn = button('Buat PDF', async () => {
+      const body = configuration();
+      if (!body.sections.length) throw new Error('Select at least one report section.');
+      const job = await request('/reports', {
+        method: 'POST',
+        body,
+        headers: { 'Idempotency-Key': crypto.randomUUID() }
+      });
+      await watchJob('reports', job, previewContainer);
+      await load();
+    }, 'bt pr');
+    generateBtn.type = 'button';
+    generateBtn.id = 'pro-report-generate';
+
+    actBar.append(applyBtn, previewBtn, generateBtn);
+    configSection.append(flGrid, chkSection, fgStrat, actBar);
+
+    // 2b. Right Column: Preview
+    const previewSection = node('section', null, 'pn');
+    previewSection.setAttribute('aria-label', 'Pratinjau laporan');
+    previewSection.append(node('span', 'Pratinjau laporan', 'cap'));
+
+    const previewContainer = node('div');
+
+    function showEmptySheet() {
+      previewContainer.replaceChildren();
+      const sheet = node('div', null, 'sheet');
+      const placeholder = node('div', null, 'sheet-placeholder');
+
+      const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+      svg.setAttribute('width', '30');
+      svg.setAttribute('height', '30');
+      svg.setAttribute('viewBox', '0 0 24 24');
+      svg.setAttribute('fill', 'none');
+      svg.setAttribute('stroke', 'currentColor');
+      svg.setAttribute('stroke-width', '1.6');
+      svg.setAttribute('stroke-linecap', 'round');
+      svg.setAttribute('stroke-linejoin', 'round');
+      svg.setAttribute('aria-hidden', 'true');
+
+      const p1 = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+      p1.setAttribute('d', 'M14 3H6v18h12V7z');
+      const p2 = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+      p2.setAttribute('d', 'M14 3v4h4M9 12h6M9 16h4');
+      svg.append(p1, p2);
+
+      placeholder.append(svg, node('span', 'Pratinjau muncul di sini setelah Anda menekan Pratinjau.'));
+      sheet.append(placeholder);
+      previewContainer.append(sheet);
+    }
+    showEmptySheet();
+
+    const previewReport = async () => {
+      const data = await request('/reports/preview', { method: 'POST', body: configuration() });
+      previewContainer.replaceChildren();
+      const box = node('div', null, 'preview-content-box');
+      box.append(node('h2', 'Report preview'));
+      details(box, data);
+      previewContainer.append(box);
+    };
+
+    previewSection.append(previewContainer);
+    twoCol.append(configSection, previewSection);
+
+    // 3. Report History Section
+    const historySection = node('section', null, 'pn');
+    historySection.append(node('span', 'Riwayat laporan', 'cap'));
+
+    const twHistory = node('div', null, 'tw');
+    const tblHistory = node('table');
+    const theadHistory = node('thead');
+    theadHistory.innerHTML = '<tr><th>Dibuat</th><th>Status</th><th style="text-align:right">Aksi</th></tr>';
+    const tbodyHistory = node('tbody');
+    tblHistory.append(theadHistory, tbodyHistory);
+    twHistory.append(tblHistory);
+    historySection.append(twHistory);
+
+    // 4. Load Data
+    const load = async () => {
+      const data = await request('/reports');
+      tbodyHistory.replaceChildren();
+      const items = data.items || [];
+      if (items.length === 0) {
+        const tr = node('tr');
+        const td = node('td', 'Belum ada laporan untuk pilihan ini.');
+        td.colSpan = 3;
+        tr.append(td);
+        tbodyHistory.append(tr);
+      } else {
+        for (const row of items) {
+          const tr = node('tr');
+          const tdCreated = node('td', row.created_at || '-');
+          const tdState = node('td', row.state || '-');
+          const tdAct = node('td');
+          tdAct.style.textAlign = 'right';
+
+          const viewBtn = button('View status', async () => {
+            const job = await request('/reports/' + row.id);
+            previewContainer.replaceChildren();
+            const box = node('div', null, 'preview-content-box');
+            box.append(node('h2', 'Report status: ' + (job.state || '-')));
+            details(box, job);
+            previewContainer.append(box);
+          }, 'bt');
+          viewBtn.type = 'button';
+          viewBtn.setAttribute('aria-label', 'View status');
+          viewBtn.style.padding = '4px 12px';
+          viewBtn.style.minHeight = '32px';
+          tdAct.append(viewBtn);
+
+          if (row.state === 'succeeded') {
+            const dlBtn = button('Download', async () => {
+              const res = await request('/reports/' + row.id + '/download');
+              const url = safeLink(res.url || res.download_url);
+              if (!url) throw new Error('Invalid download URL.');
+              const link = node('a', 'Download PDF');
+              link.href = url;
+              link.target = '_blank';
+              link.rel = 'noopener noreferrer';
+              link.className = 'btn btn-ghost bt pr';
+              link.style.display = 'inline-block';
+              link.style.marginTop = '12px';
+              previewContainer.append(link);
+              link.focus();
+            }, 'bt');
+            dlBtn.type = 'button';
+            dlBtn.setAttribute('aria-label', 'Download');
+            dlBtn.style.padding = '4px 12px';
+            dlBtn.style.minHeight = '32px';
+            dlBtn.style.marginLeft = '8px';
+            tdAct.append(dlBtn);
+          }
+
+          if (['failed', 'expired'].includes(row.state)) {
+            const retryBtn = button('Retry', async () => {
+              const job = await request('/reports/' + row.id + '/retry', {
+                method: 'POST',
+                body: {},
+                headers: { 'Idempotency-Key': crypto.randomUUID() }
+              });
+              await watchJob('reports', job, previewContainer);
+              await load();
+            }, 'bt');
+            retryBtn.type = 'button';
+            retryBtn.setAttribute('aria-label', 'Retry');
+            retryBtn.style.padding = '4px 12px';
+            retryBtn.style.minHeight = '32px';
+            retryBtn.style.marginLeft = '8px';
+            tdAct.append(retryBtn);
+          }
+
+          const delBtn = button('Delete', async () => {
+            if (global.confirm && !global.confirm('Delete this report?')) return;
+            await request('/reports/' + row.id, { method: 'DELETE' });
+            await load();
+          }, 'bt');
+          delBtn.type = 'button';
+          delBtn.setAttribute('aria-label', 'Delete');
+          delBtn.style.padding = '4px 12px';
+          delBtn.style.minHeight = '32px';
+          delBtn.style.marginLeft = '8px';
+          tdAct.append(delBtn);
+
+          tr.append(tdCreated, tdState, tdAct);
+          tbodyHistory.append(tr);
+        }
+      }
+    };
+
+    wrap.append(hd, twoCol, historySection);
+    content.replaceChildren(wrap);
+    await load();
   }
   function safeLink(value) { try {const url=new URL(value);return url.protocol==='https:'&&!url.username&&!url.password?url.href:null;} catch {return null;} }
   function evidence(parent,ids) {if(!Array.isArray(ids))return;const bar=node('div',null,'pro-evidence');for(const id of ids.slice(0,100))if(/^[a-f0-9]{8}-[a-f0-9-]{27}$/i.test(String(id)))bar.append(button('View trade '+String(id).slice(0,8),()=>journal({trade_id:id})));else bar.append(node('span','Evidence: '+id));parent.append(bar);}
@@ -10512,7 +10919,7 @@ function filterPairDropdown() {
     if(!features[feature])throw new Error('Unknown Pro feature.');
     if(activeTabLoader){activeTabLoader.stop();activeTabLoader=null;}
     revision++;controller.abort();controller=new AbortController(); preset={...selection};current=feature;root=document.getElementById('view-pro-workspace');if(!root)throw new Error('Pro workspace container is missing.');
-    root.replaceChildren();root.dataset.feature=feature;const heading=node('header',null,'pro-heading');if(['global-news','ai-chat','ai-behaviour','ai-journal','ai-market','risk','reviews'].includes(feature))heading.style.display='none';const title=node('div');title.append(node('h1',text('Title'+feature,features[feature])),node('p',text('WorkspaceDescription','Performance, risk, reports and AI insights from your trading journal.'),'pro-subtitle'));heading.append(title);root.append(heading);
+    root.replaceChildren();root.dataset.feature=feature;const heading=node('header',null,'pro-heading');if(['global-news','ai-chat','ai-behaviour','ai-journal','ai-market','risk','reviews','reports'].includes(feature))heading.style.display='none';const title=node('div');title.append(node('h1',text('Title'+feature,features[feature])),node('p',text('WorkspaceDescription','Performance, risk, reports and AI insights from your trading journal.'),'pro-subtitle'));heading.append(title);root.append(heading);
     heading.append(button(text('RetrySection','Retry section'),()=>open(feature,selection),'pro-section-retry'));
     const navigation=node('nav',null,'pro-sections');navigation.setAttribute('aria-label','Pro sections');
     const groups=[['Analisis',['analytics','heatmap','strategies','risk']],['Laporan',['reviews','reports']],['AI',['ai-market','ai-behaviour','ai-journal','ai-chat','global-news']]];
