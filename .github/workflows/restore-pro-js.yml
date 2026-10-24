@@ -1,31 +1,11 @@
 name: Restore pro.js
 
+# One-shot restore completed. Kept disabled to avoid overwriting fixes.
 on:
-  push:
-    branches: [main]
-    paths:
-      - '.github/workflows/restore-pro-js.yml'
   workflow_dispatch:
 
-permissions:
-  contents: write
-
 jobs:
-  restore:
+  noop:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-
-      - name: Restore pro.js
-        run: |
-          git checkout 574a07a4626abb9f8598dce9c47910202d8c17f5 -- js/pro.js
-          wc -c js/pro.js
-          rm -f js/pro.chunk.*.js
-          git config user.name github-actions[bot]
-          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
-          git add js/pro.js
-          git add -u js/pro.chunk.*.js || true
-          git commit -m "fix: restore full pro.js from 574a07a" || exit 0
-          git push
+      - run: echo "Restore already done. pro.js is healthy."
