@@ -4531,13 +4531,220 @@ Instruksi Format Output & Larangan Bocor Chain-of-Thought dan Perencanaan Rules 
     }
     showEmptySheet();
 
+    const renderPdfPreview = (container, data) => {
+      const overview = data.analytics || data.overview || {};
+      const metrics = overview.metrics || overview || {};
+      const groups = overview.groups || data.groups || {};
+      const heatmap = data.heatmap || [];
+      const risk = data.risk || {};
+      const reviews = data.reviews || [];
+      const period = data.period || 'Awal - Sekarang';
+      const currency = metrics.currency || 'USD';
+
+      const wrap = node('div', null, 'pro-pdf-preview-wrap');
+      const bg = node('div', null, 'pro-pdf-bg');
+
+      const valOrNa = (val, suffix = '', fallback = 'Tidak tersedia') => {
+        if (val === null || val === undefined || val === '' || val === 'Unavailable' || val === 'Unknown') {
+          return { text: fallback, na: true };
+        }
+        return { text: String(val) + suffix, na: false };
+      };
+
+      // Page 1
+      const page1 = node('section', null, 'pro-pdf-pg');
+      page1.setAttribute('aria-label', 'Halaman 1');
+
+      const top1 = node('div', null, 'pro-pdf-top');
+      const brand1 = node('div', null, 'pro-pdf-brand');
+      const lm1 = node('div', null, 'pro-pdf-lm');
+      lm1.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 3h8l4 4v14H7z"></path><path d="M10 17v-4M13 17v-6M16 17v-2"></path></svg>';
+      brand1.append(lm1, document.createTextNode('journalingtrade'));
+      const tag1 = node('span', 'Laporan performa', 'pro-pdf-tag');
+      top1.append(brand1, tag1);
+
+      const titleBox1 = node('div');
+      titleBox1.append(node('h1', 'Laporan Performa'));
+      const meta1 = node('div', null, 'pro-pdf-meta');
+      meta1.append(
+        node('span', 'Periode: ' + period, 'pro-pdf-chip'),
+        node('span', 'Mata uang: ' + currency, 'pro-pdf-chip')
+      );
+      titleBox1.append(meta1);
+
+      const rule1 = node('div', null, 'pro-pdf-rule');
+
+      const summarySec = node('div');
+      summarySec.append(node('h2', 'Ringkasan'));
+      const kp = node('div', null, 'pro-pdf-kp');
+
+      const netPnlObj = valOrNa(metrics.net_pnl, '', '0');
+      const kpNet = node('div');
+      kpNet.append(node('span', 'Net PnL'), node('b', netPnlObj.text, netPnlObj.na ? 'na' : ''), node('small', currency));
+
+      const winRateObj = valOrNa(metrics.win_rate, '%', '-');
+      const kpWin = node('div');
+      kpWin.append(node('span', 'Win rate'), node('b', winRateObj.text, winRateObj.na ? 'na' : ''), node('small', winRateObj.na ? 'Tidak tersedia' : 'Persentase menang'));
+
+      const pfObj = valOrNa(metrics.profit_factor, '', '-');
+      const kpPf = node('div');
+      kpPf.append(node('span', 'Profit factor'), node('b', pfObj.text, pfObj.na ? 'na' : ''), node('small', pfObj.na ? 'Tidak tersedia' : 'Rasio profit'));
+
+      const ddObj = valOrNa(metrics.max_drawdown, '', '0');
+      const kpDd = node('div');
+      kpDd.append(node('span', 'Maximum drawdown'), node('b', ddObj.text, ddObj.na ? 'na' : ''), node('small', currency));
+
+      kp.append(kpNet, kpWin, kpPf, kpDd);
+      summarySec.append(kp);
+
+      const analyticsSec = node('div');
+      analyticsSec.append(node('h2', 'Analitik performa'));
+      const rows = node('div', null, 'pro-pdf-rows');
+
+      const analyticsItems = [
+        ['Expectancy', valOrNa(metrics.expectancy)],
+        ['Jumlah trade', valOrNa(metrics.total_trades ?? metrics.trade_count, '', '0')],
+        ['Konsistensi', valOrNa(metrics.consistency_score, '%')],
+        ['Rata-rata menang', valOrNa(metrics.avg_win)],
+        ['Rata-rata kalah', valOrNa(metrics.avg_loss)],
+        ['Average risk reward', valOrNa(metrics.avg_risk_reward, 'R')],
+        ['Maximum drawdown (%)', valOrNa(metrics.max_drawdown_percent, '%')],
+        ['Mata uang', { text: currency, na: false }]
+      ];
+
+      for (const [lbl, item] of analyticsItems) {
+        const row = node('div');
+        row.append(node('span', lbl), node('b', item.text, item.na ? 'na' : ''));
+        rows.append(row);
+      }
+      analyticsSec.append(rows);
+
+      const g2 = node('div', null, 'pro-pdf-g2');
+      const groupDefs = [
+        { title: 'Per jam', key: 'hour' },
+        { title: 'Per sesi', key: 'session' },
+        { title: 'Per hari', key: 'day' },
+        { title: 'Per strategi', key: 'strategy' },
+        { title: 'Per instrumen', key: 'instrument' }
+      ];
+
+      for (const def of groupDefs) {
+        const box = node('div');
+        box.append(node('h2', def.title));
+        const tbl = node('table');
+        tbl.innerHTML = '<thead><tr><th>Grup</th><th>Trade</th><th>Net PnL</th><th>Win rate</th></tr></thead>';
+        const tb = node('tbody');
+        const rowsData = groups[def.key] || [];
+        if (!Array.isArray(rowsData) || rowsData.length === 0) {
+          const tr = node('tr');
+          const td = node('td', 'Tidak ada data untuk periode ini.', 'empty');
+          td.colSpan = 4;
+          tr.append(td);
+          tb.append(tr);
+        } else {
+          for (const row of rowsData.slice(0, 5)) {
+            const tr = node('tr');
+            tr.append(
+              node('td', row.group || row.name || '-'),
+              node('td', String(row.trades ?? row.count ?? '-')),
+              node('td', String(row.net_pnl ?? '-')),
+              node('td', row.win_rate !== undefined ? row.win_rate + '%' : '-')
+            );
+            tb.append(tr);
+          }
+        }
+        tbl.append(tb);
+        box.append(tbl);
+        g2.append(box);
+      }
+
+      const foot1 = node('div', null, 'pro-pdf-foot');
+      foot1.append(
+        node('span', 'journalingtrade : Laporan performa'),
+        node('span', 'Halaman 1 / 2')
+      );
+
+      page1.append(top1, titleBox1, rule1, summarySec, analyticsSec, g2, foot1);
+
+      // Page 2
+      const page2 = node('section', null, 'pro-pdf-pg');
+      page2.setAttribute('aria-label', 'Halaman 2');
+
+      const top2 = node('div', null, 'pro-pdf-top');
+      const brand2 = node('div', null, 'pro-pdf-brand');
+      const lm2 = node('div', null, 'pro-pdf-lm');
+      lm2.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 3h8l4 4v14H7z"></path><path d="M10 17v-4M13 17v-6M16 17v-2"></path></svg>';
+      brand2.append(lm2, document.createTextNode('journalingtrade'));
+      const tag2 = node('span', 'Laporan performa', 'pro-pdf-tag');
+      top2.append(brand2, tag2);
+
+      const heatSec = node('div');
+      heatSec.append(node('h2', 'Aktivitas trading harian'));
+      if (!Array.isArray(heatmap) || heatmap.length === 0) {
+        heatSec.append(node('div', 'Belum ada aktivitas trading pada periode ini.', 'pro-pdf-box'));
+      } else {
+        const heatBox = node('div', null, 'pro-pdf-box');
+        heatBox.style.padding = '16px';
+        heatBox.textContent = heatmap.length + ' hari aktivitas trading tercatat pada periode ini.';
+        heatSec.append(heatBox);
+      }
+
+      const riskSec = node('div');
+      riskSec.append(node('h2', 'Kepatuhan risiko'));
+      const tiles = node('div', null, 'pro-pdf-tiles');
+
+      const riskTiles = [
+        ['Open exposure', risk.open_exposure ?? 0],
+        ['Daily exposure', risk.daily_exposure ?? 0],
+        ['Weekly exposure', risk.weekly_exposure ?? 0],
+        ['Risk per trade', risk.risk_per_trade ? risk.risk_per_trade + '%' : 'Tidak diketahui'],
+        ['Posisi tanpa data', risk.unknown_risk_count ?? 0]
+      ];
+
+      for (const [title, val] of riskTiles) {
+        const tile = node('div');
+        const isNa = val === 'Tidak diketahui' || val === null || val === undefined;
+        tile.append(node('span', title), node('b', String(val ?? '-'), isNa ? 'na' : ''));
+        tiles.append(tile);
+      }
+      riskSec.append(tiles);
+
+      const noteBox = node('div', null, 'pro-pdf-note');
+      noteBox.innerHTML = '<span aria-hidden="true">(i)</span><span>Posisi terbuka tanpa nominal risiko tercatat dihitung sebagai eksposur tidak diketahui.</span>';
+      riskSec.append(noteBox);
+
+      const revSec = node('div');
+      revSec.append(node('h2', 'Ulasan tersimpan'));
+      if (!Array.isArray(reviews) || reviews.length === 0) {
+        revSec.append(node('div', 'Belum ada ulasan tersimpan untuk periode ini.', 'pro-pdf-box'));
+      } else {
+        const revBox = node('div', null, 'pro-pdf-box');
+        revBox.style.padding = '16px';
+        revBox.textContent = reviews.length + ' ulasan tersimpan untuk periode ini.';
+        revSec.append(revBox);
+      }
+
+      const foot2 = node('div', null, 'pro-pdf-foot');
+      foot2.append(
+        node('span', 'Hanya hasil trading yang tercatat. Tidak ada kuota analisis AI yang terpakai.'),
+        node('span', 'Halaman 2 / 2')
+      );
+
+      page2.append(top2, heatSec, riskSec, revSec, foot2);
+
+      bg.append(page1, page2);
+      wrap.append(bg);
+
+      const box = node('div', null, 'preview-content-box');
+      box.append(node('h2', 'Report preview'));
+      box.append(wrap);
+      container.append(box);
+    };
+
     const previewReport = async () => {
       const data = await request('/reports/preview', { method: 'POST', body: configuration() });
       previewContainer.replaceChildren();
-      const box = node('div', null, 'preview-content-box');
-      box.append(node('h2', 'Report preview'));
-      details(box, data);
-      previewContainer.append(box);
+      renderPdfPreview(previewContainer, data);
     };
 
     previewSection.append(previewContainer);
