@@ -931,6 +931,31 @@
       text-align: right;
     }
 
+    /* Lock background screen ("tab utama") scroll when any popup or modal is active */
+    html.modal-open,
+    body.modal-open,
+    body.pro-modal-open,
+    body.pro-sheet-open,
+    body.custom-select-locked,
+    html:has(.modal-overlay.open),
+    body:has(.modal-overlay.open),
+    html:has(.pro-modal-backdrop),
+    body:has(.pro-modal-backdrop),
+    html:has(#backtestModalBackdrop),
+    body:has(#backtestModalBackdrop),
+    html:has(.jt-checkout-overlay:not([style*="display: none"]):not([style*="display:none"])),
+    body:has(.jt-checkout-overlay:not([style*="display: none"]):not([style*="display:none"])),
+    html:has(#checkout-modal:not([style*="display: none"]):not([style*="display:none"])),
+    body:has(#checkout-modal:not([style*="display: none"]):not([style*="display:none"])),
+    html:has(.pro-nav-modal.is-open),
+    body:has(.pro-nav-modal.is-open),
+    html:has(.app-custom-select-backdrop.is-open),
+    body:has(.app-custom-select-backdrop.is-open) {
+      overflow: hidden !important;
+      height: 100% !important;
+      overscroll-behavior: none !important;
+    }
+
     .modal-overlay {
       position: fixed;
       inset: 0;
@@ -941,6 +966,9 @@
       display: none;
       place-items: center;
       padding: 16px;
+      overflow-y: auto;
+      overscroll-behavior: contain;
+      -webkit-overflow-scrolling: touch;
     }
     .modal-overlay.open {
       display: grid;

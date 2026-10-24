@@ -1364,7 +1364,12 @@
 
     const btnClose=node('button','Tutup','btn btn-ghost');
     btnClose.type='button';
-    btnClose.addEventListener('click',()=>backdrop.remove());
+    btnClose.addEventListener('click',()=>{
+      backdrop.remove();
+      document.documentElement.classList.remove('modal-open');
+      document.body.classList.remove('modal-open');
+      window.syncModalScrollLock?.();
+    });
     actions.append(btnRemove,btnClose,btnSave);
     dialog.append(title,desc,tabWrap,fieldWrap,modelInfo,link,statusMsg,actions);
     backdrop.addEventListener('click',(e)=>{if(e.target===backdrop)backdrop.remove();});

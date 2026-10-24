@@ -668,7 +668,28 @@
 .pro-chat-message[data-role="user"] time { text-align:right; align-self:flex-end; }
 .pro-workspace .pro-chat-message[data-role="assistant"] time,
 .pro-chat-message[data-role="assistant"] time { text-align:left; align-self:flex-start; }
-body.pro-sheet-open { overflow:hidden !important; }
+/* Lock background screen ("tab utama") scroll when any popup or modal is active */
+html.modal-open,
+body.modal-open,
+body.pro-modal-open,
+body.pro-sheet-open,
+body.custom-select-locked,
+html:has(.modal-overlay.open),
+body:has(.modal-overlay.open),
+html:has(.pro-modal-backdrop),
+body:has(.pro-modal-backdrop),
+html:has(#backtestModalBackdrop),
+body:has(#backtestModalBackdrop),
+html:has(.jt-checkout-overlay:not([style*="display: none"]):not([style*="display:none"])),
+body:has(.jt-checkout-overlay:not([style*="display: none"]):not([style*="display:none"])),
+html:has(#checkout-modal:not([style*="display: none"]):not([style*="display:none"])),
+body:has(#checkout-modal:not([style*="display: none"]):not([style*="display:none"])),
+html:has(.pro-nav-modal.is-open),
+body:has(.pro-nav-modal.is-open) {
+  overflow: hidden !important;
+  height: 100% !important;
+  overscroll-behavior: none !important;
+}
 @media(max-width:600px) { .pro-workspace .pro-chat-message { max-width:100%; } }
 @media(max-width:600px) { .pro-workspace .pro-signal-cells { grid-template-columns:repeat(2,minmax(0,1fr)); } .pro-workspace iframe { min-height:360px; } }
 .pro-workspace .pro-market-toolbar .field-group { flex:1 1 100%; max-width:360px; }

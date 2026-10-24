@@ -1440,6 +1440,7 @@
         scanJob++;
         currentScan = null;
         $('upload-modal').classList.add('open');
+        syncModalScrollLock();
         $('upload-preview-area').style.display = 'none';
         $('btn-confirm-import').style.display = 'none';
         $('scan-result').hidden = true;
@@ -1456,6 +1457,7 @@
       window.closeUploadModal = function () {
         scanJob++;
         $('upload-modal').classList.remove('open');
+        syncModalScrollLock();
         if (uploadTrigger) uploadTrigger.focus();
       };
 
@@ -2499,6 +2501,7 @@
 
       window.openNewAccountModal = function () {
         $('account-modal').classList.add('open');
+        syncModalScrollLock();
         $('acc-name').value = '';
         $('acc-broker').value = 'EXNESS';
         $('acc-balance').value = '1000';
@@ -2506,6 +2509,7 @@
 
       window.closeAccountModal = function () {
         $('account-modal').classList.remove('open');
+        syncModalScrollLock();
       };
 
       window.saveAccountRecord = function () {
@@ -2683,6 +2687,7 @@
         if (modal && !modal.classList.contains('open')) {
           tvOpener = document.activeElement;
           modal.classList.add('open');
+          syncModalScrollLock();
           modal.querySelector('.modal-close').focus();
         }
 
@@ -2721,6 +2726,7 @@
       window.closeTradingView = function () {
         const modal = $('tv-modal');
         if (modal) modal.classList.remove('open');
+        syncModalScrollLock();
         const box = $('tv-iframe-box');
         if (box) box.innerHTML = '';
         if (tvOpener?.isConnected) tvOpener.focus();
@@ -4011,5 +4017,71 @@
           });
         }
       });
+
+
+      /* Global Modal Background Scroll Lock Manager */
+      function isAnyModalActive() {
+        const uploadModal = document.getElementById('upload-modal');
+        const tvModal = document.getElementById('tv-modal');
+        const accountModal = document.getElementById('account-modal');
+        const checkoutModal = document.getElementById('checkout-modal');
+        const backtestModal = document.getElementById('backtestModalBackdrop');
+        const geminiModal = document.getElementById('pro-gemini-modal');
+        const proBackdrop = document.querySelector('.pro-modal-backdrop');
+        const navModal = document.querySelector('.pro-nav-modal.is-open');
+
+        return Boolean(
+          (uploadModal && uploadModal.classList.contains('open')) ||
+          (tvModal && tvModal.classList.contains('open')) ||
+          (accountModal && accountModal.classList.contains('open')) ||
+          (checkoutModal && checkoutModal.style.display && checkoutModal.style.display !== 'none') ||
+          backtestModal ||
+          geminiModal ||
+          proBackdrop ||
+          navModal ||
+          document.body.classList.contains('pro-sheet-open') ||
+          document.body.classList.contains('pro-modal-open') ||
+          document.body.classList.contains('custom-select-locked')
+        );
+      }
+
+      function syncModalScrollLock() {
+        const active = isAnyModalActive();
+        if (active) {
+          document.documentElement.classList.add('modal-open');
+          document.body.classList.add('modal-open');
+        } else {
+          document.documentElement.classList.remove('modal-open');
+          document.body.classList.remove('modal-open');
+        }
+      }
+
+      window.syncModalScrollLock = syncModalScrollLock;
+      window.isAnyModalActive = isAnyModalActive;
+
+      if (typeof MutationObserver !== 'undefined') {
+        const modalObserver = new MutationObserver(() => {
+          syncModalScrollLock();
+        });
+        modalObserver.observe(document.documentElement, {
+          childList: true,
+          subtree: true,
+          attributes: true,
+          attributeFilter: ['class', 'style', 'hidden', 'open']
+        });
+      }
+
+      function blockBackgroundScroll(e) {
+        if (!isAnyModalActive()) return;
+        const scrollable = e.target.closest(
+          '.modal-card, .backtest-modal-dialog, .pro-modal-dialog, .jt-checkout-container, .pro-nav-sheet, .custom-select-options-list, .sheet, .tw'
+        );
+        if (!scrollable) {
+          if (e.cancelable) e.preventDefault();
+        }
+      }
+
+      window.addEventListener('wheel', blockBackgroundScroll, { passive: false });
+      window.addEventListener('touchmove', blockBackgroundScroll, { passive: false });
 
     })();

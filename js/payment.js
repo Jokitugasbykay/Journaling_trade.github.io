@@ -104,6 +104,9 @@
     updateCheckoutUI();
     modal.style.display = 'flex';
     document.body.style.overflow = 'hidden';
+    document.documentElement.classList.add('modal-open');
+    document.body.classList.add('modal-open');
+    window.syncModalScrollLock?.();
   };
 
   // ---- Close Checkout Modal ----
@@ -111,6 +114,9 @@
     const modal = document.getElementById('checkout-modal');
     if (modal) modal.style.display = 'none';
     document.body.style.overflow = '';
+    document.documentElement.classList.remove('modal-open');
+    document.body.classList.remove('modal-open');
+    window.syncModalScrollLock?.();
     const alert = document.getElementById('jt-checkout-alert');
     if (alert) alert.style.display = 'none';
   };
