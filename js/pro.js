@@ -6246,7 +6246,7 @@ Instruksi Format Output & Larangan Bocor Chain-of-Thought dan Perencanaan Rules 
           <button class="f-tab-btn" id="tabBtnHeadlines" type="button">Berita Ekonomi Terkini</button>
           <button class="f-tab-btn" id="tabBtnCalendar" type="button">Kalender Ekonomi (&lt;1H Guard)</button>
         </div>
-        <a href="https://www.fastbull.com/list-position" target="_blank" rel="noopener" style="font-size:10.5px; color:#38bdf8; text-decoration:none; font-weight:700;">
+        <a href="https://www.fastbull.com/list-position" target="_blank" rel="noopener" style="font-size:10.5px; color:#f1f5f9; text-decoration:none; font-weight:700;">
           Sumber: fastbull.com/list-position -&gt;
         </a>
       </div>
@@ -7063,7 +7063,7 @@ Setiap kali melakukan analisa pada instrumen apa pun, jalankan prosedur sinkroni
         const td2Entry = node('td', 'Pivot: ' + fmtPrice(h4Struct.pivot));
         const td2Levels = node('td', 'Sweep Zone: ' + fmtPrice(fbScoreDelta >= 0 ? tfStruct.swingLow : tfStruct.swingHigh));
         const td2Conf = node('td', shortPct >= 55 ? 'Bullish Contrarian Edge' : longPct >= 55 ? 'Bearish Contrarian Edge' : 'Balanced Liquidity');
-        td2Conf.style.color = '#38bdf8';
+        td2Conf.style.color = '#f1f5f9';
         tr2.append(td2Name, td2Pair, td2Pos, td2Entry, td2Levels, td2Conf);
 
         tbody.append(tr1, tr2);

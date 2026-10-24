@@ -108,7 +108,7 @@
   position: absolute;
   inset: 0;
   pointer-events: none;
-  background: radial-gradient(circle at 50% 55%, rgba(59, 130, 246, 0.09) 0%, rgba(15, 23, 42, 0) 70%);
+  background: radial-gradient(circle at 50% 55%, rgba(241, 245, 249, 0.09) 0%, rgba(15, 23, 42, 0) 70%);
 }
 
 .mo-halo {
@@ -120,7 +120,7 @@
   height: 340px;
   border-radius: 50%;
   pointer-events: none;
-  background: radial-gradient(circle, rgba(52, 211, 153, 0.15) 0%, rgba(59, 130, 246, 0.08) 45%, transparent 70%);
+  background: radial-gradient(circle, rgba(52, 211, 153, 0.15) 0%, rgba(241, 245, 249, 0.08) 45%, transparent 70%);
   opacity: var(--oCenter, 0);
   filter: blur(28px);
   transition: opacity 0.4s ease;
@@ -173,7 +173,7 @@
   pointer-events: none;
   opacity: var(--oGlow, 1);
   filter: blur(14px);
-  background: radial-gradient(ellipse at center, rgba(59, 130, 246, 0.4) 0%, rgba(99, 102, 241, 0.2) 60%, transparent 80%);
+  background: radial-gradient(ellipse at center, rgba(241, 245, 249, 0.4) 0%, rgba(226, 232, 240, 0.2) 60%, transparent 80%);
 }
 
 .mo-halo-green {
@@ -215,10 +215,10 @@
   animation: mo-drift 8s ease-in-out infinite alternate;
 }
 
-.mo-aurora i:nth-child(1) { background: #3b82f6; left: -10%; animation-delay: 0s; }
+.mo-aurora i:nth-child(1) { background: #f1f5f9; left: -10%; animation-delay: 0s; }
 .mo-aurora i:nth-child(2) { background: #8b5cf6; left: 20%; animation-delay: -2s; }
 .mo-aurora i:nth-child(3) { background: #10b981; left: 50%; animation-delay: -4s; }
-.mo-aurora i:nth-child(4) { background: #06b6d4; left: 75%; animation-delay: -6s; }
+.mo-aurora i:nth-child(4) { background: #94a3b8; left: 75%; animation-delay: -6s; }
 
 .mo-ball {
   position: absolute;
@@ -282,7 +282,7 @@
 .mo-spark {
   width: 20px;
   height: 20px;
-  color: #93c5fd;
+  color: #cbd5e1;
   flex-shrink: 0;
   pointer-events: none;
 }
@@ -307,7 +307,7 @@
   width: 44px;
   height: 44px;
   border-radius: 50%;
-  background: #2563eb;
+  background: #e2e8f0;
   border: none;
   color: #ffffff;
   display: flex;
@@ -323,8 +323,8 @@
 .mo-send[data-ready], .mo-send:focus-visible {
   opacity: 1;
   transform: scale(1);
-  background: #3b82f6;
-  box-shadow: 0 0 14px rgba(59, 130, 246, 0.6);
+  background: #f1f5f9;
+  box-shadow: 0 0 14px rgba(241, 245, 249, 0.6);
 }
 
 .mo-send svg {
