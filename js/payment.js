@@ -103,6 +103,8 @@
 
     updateCheckoutUI();
     modal.style.display = 'flex';
+    modal.classList.add('is-open');
+    modal.removeAttribute('hidden');
     document.body.style.overflow = 'hidden';
     document.documentElement.classList.add('modal-open');
     document.body.classList.add('modal-open');
@@ -112,10 +114,16 @@
   // ---- Close Checkout Modal ----
   window.closeCheckoutModal = function () {
     const modal = document.getElementById('checkout-modal');
-    if (modal) modal.style.display = 'none';
+    if (modal) {
+      modal.style.display = 'none';
+      modal.classList.remove('is-open');
+      modal.setAttribute('hidden', '');
+    }
     document.body.style.overflow = '';
+    document.documentElement.style.overflow = '';
     document.documentElement.classList.remove('modal-open');
     document.body.classList.remove('modal-open');
+    document.body.classList.remove('pro-modal-open', 'pro-sheet-open', 'custom-select-locked', 'news-select-locked');
     window.syncModalScrollLock?.();
     const alert = document.getElementById('jt-checkout-alert');
     if (alert) alert.style.display = 'none';

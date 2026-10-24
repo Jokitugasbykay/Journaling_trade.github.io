@@ -931,29 +931,32 @@
       text-align: right;
     }
 
-    /* Lock background screen ("tab utama") scroll when any popup or modal is active */
+    /* Lock background ("tab utama") ONLY while a popup is actually open.
+       Do NOT use bare :has(#checkout-modal) / :has(.pro-modal-backdrop) — those
+       elements stay in the DOM when closed and permanently freeze page scroll. */
     html.modal-open,
     body.modal-open,
     body.pro-modal-open,
     body.pro-sheet-open,
     body.custom-select-locked,
+    body.news-select-locked,
     html:has(.modal-overlay.open),
     body:has(.modal-overlay.open),
-    html:has(.pro-modal-backdrop),
-    body:has(.pro-modal-backdrop),
+    html:has(.pro-modal-backdrop:not([hidden])),
+    body:has(.pro-modal-backdrop:not([hidden])),
     html:has(#backtestModalBackdrop),
     body:has(#backtestModalBackdrop),
-    html:has(.jt-checkout-overlay:not([style*="display: none"]):not([style*="display:none"])),
-    body:has(.jt-checkout-overlay:not([style*="display: none"]):not([style*="display:none"])),
-    html:has(#checkout-modal:not([style*="display: none"]):not([style*="display:none"])),
-    body:has(#checkout-modal:not([style*="display: none"]):not([style*="display:none"])),
+    html:has(#checkout-modal.is-open),
+    body:has(#checkout-modal.is-open),
+    html:has(.jt-checkout-overlay.is-open),
+    body:has(.jt-checkout-overlay.is-open),
     html:has(.pro-nav-modal.is-open),
     body:has(.pro-nav-modal.is-open),
     html:has(.app-custom-select-backdrop.is-open),
     body:has(.app-custom-select-backdrop.is-open) {
       overflow: hidden !important;
-      height: 100% !important;
       overscroll-behavior: none !important;
+      /* do NOT set height:100% — it traps body scroll after unlock on mobile */
     }
 
     .modal-overlay {

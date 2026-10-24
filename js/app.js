@@ -4021,10 +4021,14 @@
 
       /* Global Modal Background Scroll Lock Manager */
       function isAnyModalActive() {
-        const isOpenOverlay = (el) => {
+        const isVisiblyOpen = (el) => {
           if (!el) return false;
+          if (el.hasAttribute('hidden')) return false;
+          const disp = (el.style && el.style.display) || '';
+          if (disp === 'none') return false;
           if (el.classList.contains('open') || el.classList.contains('is-open')) return true;
-          const disp = el.style && el.style.display;
+          // Dynamic backdrops are only in the DOM while open
+          if (el.id === 'backtestModalBackdrop' || el.id === 'pro-gemini-modal') return true;
           if (disp && disp !== 'none') return true;
           return false;
         };
@@ -4034,23 +4038,20 @@
         const checkoutModal = document.getElementById('checkout-modal');
         const backtestModal = document.getElementById('backtestModalBackdrop');
         const geminiModal = document.getElementById('pro-gemini-modal');
-        const proBackdrop = document.querySelector('.pro-modal-backdrop.is-open, .pro-modal-backdrop.app');
         const navModal = document.querySelector('.pro-nav-modal.is-open');
-        // Only treat dynamic backdrops as active when they are actually in the open tree
-        // (they are removed on close). Static overlays need .open / display check.
 
         return Boolean(
           (uploadModal && uploadModal.classList.contains('open')) ||
           (tvModal && tvModal.classList.contains('open')) ||
           (accountModal && accountModal.classList.contains('open')) ||
-          (checkoutModal && isOpenOverlay(checkoutModal)) ||
+          isVisiblyOpen(checkoutModal) ||
           !!backtestModal ||
           !!geminiModal ||
-          !!proBackdrop ||
           !!navModal ||
           document.body.classList.contains('pro-sheet-open') ||
           document.body.classList.contains('pro-modal-open') ||
-          document.body.classList.contains('custom-select-locked')
+          document.body.classList.contains('custom-select-locked') ||
+          document.body.classList.contains('news-select-locked')
         );
       }
 
@@ -4058,15 +4059,31 @@
         const active = isAnyModalActive();
         const root = document.documentElement;
         const body = document.body;
-        // Avoid redundant classList writes (they re-trigger observers / layout).
         if (active) {
           if (!root.classList.contains('modal-open')) root.classList.add('modal-open');
           if (!body.classList.contains('modal-open')) body.classList.add('modal-open');
         } else {
-          if (root.classList.contains('modal-open')) root.classList.remove('modal-open');
-          if (body.classList.contains('modal-open')) body.classList.remove('modal-open');
+          // Fully release scroll lock (class + inline styles left by payment/pro).
+          root.classList.remove('modal-open');
+          body.classList.remove('modal-open', 'pro-modal-open', 'pro-sheet-open');
+          if (body.style.overflow === 'hidden') body.style.overflow = '';
+          if (root.style.overflow === 'hidden') root.style.overflow = '';
         }
       }
+
+      /** Emergency unlock — call if tab utama stays frozen after popup close */
+      window.forceUnlockPageScroll = function () {
+        const root = document.documentElement;
+        const body = document.body;
+        root.classList.remove('modal-open');
+        body.classList.remove('modal-open', 'pro-modal-open', 'pro-sheet-open', 'custom-select-locked', 'news-select-locked');
+        body.style.overflow = '';
+        root.style.overflow = '';
+        document.querySelectorAll('.app-custom-select-backdrop.is-open, .app-custom-select-panel.is-open').forEach((el) => {
+          el.classList.remove('is-open');
+        });
+        window.closeActiveSelect?.();
+      };
 
       window.syncModalScrollLock = syncModalScrollLock;
       window.isAnyModalActive = isAnyModalActive;
