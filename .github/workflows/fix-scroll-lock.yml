@@ -1,0 +1,43 @@
+name: Fix scroll lock
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/fix-scroll-lock.yml'
+      - 'scripts/fix_scroll_lock.py'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  fix:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: python3 scripts/fix_scroll_lock.py
+      - name: Cache bust
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          import re
+          ver = '20261024-scroll-unlock'
+          for path in list(Path('.').rglob('index.html')) + [Path('404.html')]:
+              if not path.exists() or 'node_modules' in path.parts:
+                  continue
+              t = path.read_text(encoding='utf-8')
+              t2 = re.sub(r'(css/style\.css)\?v=[^"\']+', lambda m: m.group(1)+'?v='+ver, t)
+              t2 = re.sub(r'(js/(?:app|payment)\.js)\?v=[^"\']+', lambda m: m.group(1)+'?v='+ver, t2)
+              if t2 != t:
+                  path.write_text(t2, encoding='utf-8')
+                  print('bust', path)
+          PY
+      - name: Commit
+        run: |
+          git config user.name github-actions[bot]
+          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+          git add -A
+          git diff --cached --quiet && exit 0
+          git commit -m "fix(ui): unlock main tab scroll after popup close (bad :has checkout CSS)"
+          git push
