@@ -1,0 +1,50 @@
+name: Fix modal freeze
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/fix-modal-freeze.yml'
+      - 'scripts/fix_modal_freeze.py'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  fix:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: python3 scripts/fix_modal_freeze.py
+      - name: Cache-bust JS
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          import re
+          p = Path('index.html')
+          t = p.read_text(encoding='utf-8')
+          t2 = re.sub(r'(js/(?:app|custom-select)\.js)\?v=[^"\']+', lambda m: m.group(1)+'?v=20261024-modal-freeze', t)
+          # also stub copies
+          p.write_text(t2, encoding='utf-8')
+          for stub in Path('.').rglob('index.html'):
+              if stub.as_posix() == 'index.html':
+                  continue
+              if 'node_modules' in stub.parts: continue
+              s = stub.read_text(encoding='utf-8')
+              s2 = re.sub(r'(js/(?:app|custom-select)\.js)\?v=[^"\']+', lambda m: m.group(1)+'?v=20261024-modal-freeze', s)
+              if s2 != s: stub.write_text(s2, encoding='utf-8')
+          if Path('404.html').exists():
+              s = Path('404.html').read_text(encoding='utf-8')
+              s2 = re.sub(r'(js/(?:app|custom-select)\.js)\?v=[^"\']+', lambda m: m.group(1)+'?v=20261024-modal-freeze', s)
+              Path('404.html').write_text(s2, encoding='utf-8')
+          print('cache busted')
+          PY
+      - name: Commit
+        run: |
+          git config user.name github-actions[bot]
+          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+          git add -A
+          git diff --cached --quiet && exit 0
+          git commit -m "fix(ui): stop popup freeze (remove document-wide modal MutationObserver)"
+          git push
