@@ -368,7 +368,7 @@ export async function pdfBytes(preview: Record<string, any>): Promise<Uint8Array
   renderMiniTable('PER STRATEGI', groups.strategy || [], M + colW + 24, curRightY, colW);
 
   // Page 1 Footer
-  drawFooter(page1, 'journalingtrade * Laporan performa', 'Halaman 1 / 2');
+  drawFooter(page1, 'journalingtrade - Laporan performa', 'Halaman 1 / 2');
 
   // =========================================================================
   // PAGE 2
