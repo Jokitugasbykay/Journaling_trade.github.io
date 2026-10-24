@@ -13,18 +13,31 @@ jobs:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
-          token: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Restore and fix pro.js
+      - name: Restore pro.js from good commit
         run: |
           set -e
           git checkout 574a07a4626abb9f8598dce9c47910202d8c17f5 -- js/pro.js
           echo "restored size: $(wc -c < js/pro.js)"
-          python3 -c "
+          test $(wc -c < js/pro.js) -gt 100000
+
+      - name: Apply entryTime date fix
+        run: |
+          set -e
+          python3 <<'PY'
           from pathlib import Path
-          p = Path('js/pro.js')
+          p = Path("js/pro.js")
           t = p.read_text()
-          old = '''      const fmtTime = (iso) => {
+          needle = "const d = new Date(iso);"
+          if needle not in t:
+              raise SystemExit("expected fmtTime pattern not found")
+          t2 = t.replace(
+              "const fmtTime = (iso) => {",
+              "const fmtTime = (ts) => {",
+              1,
+          )
+          t2 = t2.replace(
+              """      const fmtTime = (ts) => {
         if (!iso) return '-';
         try {
           const d = new Date(iso);
@@ -34,32 +47,36 @@ jobs:
         } catch (e) {
           return iso;
         }
-      };'''
-          new = '''      const fmtTime = (ts) => {
+      };""",
+              """      const fmtTime = (ts) => {
         if (ts === null || ts === undefined || ts === '') return '-';
         try {
           const n = Number(ts);
-          const d = (typeof ts === 'string' and Number.isNaN(n))
+          const d = (typeof ts === 'string' && Number.isNaN(n))
             ? new Date(ts)
-            : new Date(n > 0 and n < 1e12 ? n * 1000 : n);
+            : new Date(n > 0 && n < 1e12 ? n * 1000 : n);
           if (isNaN(d.getTime())) return String(ts);
           return d.toLocaleDateString('id-ID', { day: '2-digit', month: 'short', year: 'numeric' }) + ' ' +
                  d.toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' }).replace(':', '.');
         } catch (e) {
           return String(ts);
         }
-      };'''
-          # Fix Python and -> &&
-          new = new.replace(' and ', ' && ')
-          if old not in t:
-            raise SystemExit('fmtTime block not found')
-          p.write_text(t.replace(old, new, 1))
-          print('fixed', p.stat().st_size)
-          "
+      };""",
+              1,
+          )
+          if t2 == t:
+              raise SystemExit("fmtTime replace failed")
+          p.write_text(t2)
+          print("fixed size", p.stat().st_size)
+          PY
+
+      - name: Cleanup chunk files and commit
+        run: |
+          set -e
           rm -f js/pro.chunk.*.js || true
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add -A js/pro.js js/pro.chunk.*.js 2>/dev/null || git add js/pro.js
+          git add -A
           git status
-          git commit -m "fix: restore full pro.js + fix backtest entryTime dates" || exit 0
-          git push
+          git commit -m "fix: restore full pro.js + fix backtest entryTime dates" || echo "nothing to commit"
+          git push origin HEAD:main
