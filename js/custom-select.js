@@ -365,20 +365,26 @@
   }
 
   // Watch for dynamically added select elements (modals, tabs, etc.)
+  // Only childList — attribute watching caused freezes when modals toggled class/style.
   if (typeof MutationObserver !== 'undefined') {
     let timer = null;
     const debouncedInit = () => {
-      if (timer) cancelAnimationFrame(timer);
-      timer = requestAnimationFrame(() => {
+      if (timer) clearTimeout(timer);
+      timer = setTimeout(() => {
         initAllSelects();
-      });
+      }, 120);
     };
-    const bodyObserver = new MutationObserver(debouncedInit);
+    const bodyObserver = new MutationObserver((mutations) => {
+      for (const m of mutations) {
+        if (m.type === 'childList' && (m.addedNodes.length || m.removedNodes.length)) {
+          debouncedInit();
+          break;
+        }
+      }
+    });
     bodyObserver.observe(document.body || document.documentElement, {
       childList: true,
-      subtree: true,
-      attributes: true,
-      attributeFilter: ['style', 'class', 'hidden']
+      subtree: true
     });
   }
 

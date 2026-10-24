@@ -4021,24 +4021,33 @@
 
       /* Global Modal Background Scroll Lock Manager */
       function isAnyModalActive() {
+        const isOpenOverlay = (el) => {
+          if (!el) return false;
+          if (el.classList.contains('open') || el.classList.contains('is-open')) return true;
+          const disp = el.style && el.style.display;
+          if (disp && disp !== 'none') return true;
+          return false;
+        };
         const uploadModal = document.getElementById('upload-modal');
         const tvModal = document.getElementById('tv-modal');
         const accountModal = document.getElementById('account-modal');
         const checkoutModal = document.getElementById('checkout-modal');
         const backtestModal = document.getElementById('backtestModalBackdrop');
         const geminiModal = document.getElementById('pro-gemini-modal');
-        const proBackdrop = document.querySelector('.pro-modal-backdrop');
+        const proBackdrop = document.querySelector('.pro-modal-backdrop.is-open, .pro-modal-backdrop.app');
         const navModal = document.querySelector('.pro-nav-modal.is-open');
+        // Only treat dynamic backdrops as active when they are actually in the open tree
+        // (they are removed on close). Static overlays need .open / display check.
 
         return Boolean(
           (uploadModal && uploadModal.classList.contains('open')) ||
           (tvModal && tvModal.classList.contains('open')) ||
           (accountModal && accountModal.classList.contains('open')) ||
-          (checkoutModal && checkoutModal.style.display && checkoutModal.style.display !== 'none') ||
-          backtestModal ||
-          geminiModal ||
-          proBackdrop ||
-          navModal ||
+          (checkoutModal && isOpenOverlay(checkoutModal)) ||
+          !!backtestModal ||
+          !!geminiModal ||
+          !!proBackdrop ||
+          !!navModal ||
           document.body.classList.contains('pro-sheet-open') ||
           document.body.classList.contains('pro-modal-open') ||
           document.body.classList.contains('custom-select-locked')
@@ -4047,29 +4056,24 @@
 
       function syncModalScrollLock() {
         const active = isAnyModalActive();
+        const root = document.documentElement;
+        const body = document.body;
+        // Avoid redundant classList writes (they re-trigger observers / layout).
         if (active) {
-          document.documentElement.classList.add('modal-open');
-          document.body.classList.add('modal-open');
+          if (!root.classList.contains('modal-open')) root.classList.add('modal-open');
+          if (!body.classList.contains('modal-open')) body.classList.add('modal-open');
         } else {
-          document.documentElement.classList.remove('modal-open');
-          document.body.classList.remove('modal-open');
+          if (root.classList.contains('modal-open')) root.classList.remove('modal-open');
+          if (body.classList.contains('modal-open')) body.classList.remove('modal-open');
         }
       }
 
       window.syncModalScrollLock = syncModalScrollLock;
       window.isAnyModalActive = isAnyModalActive;
 
-      if (typeof MutationObserver !== 'undefined') {
-        const modalObserver = new MutationObserver(() => {
-          syncModalScrollLock();
-        });
-        modalObserver.observe(document.documentElement, {
-          childList: true,
-          subtree: true,
-          attributes: true,
-          attributeFilter: ['class', 'style', 'hidden', 'open']
-        });
-      }
+      // Do NOT observe the whole document for class/style changes — that freezes the UI
+      // when modals open (chart/ticker/class toggles flood the observer).
+      // Call syncModalScrollLock() explicitly from open/close handlers instead.
 
       function blockBackgroundScroll(e) {
         if (!isAnyModalActive()) return;
