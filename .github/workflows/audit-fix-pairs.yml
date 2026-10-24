@@ -1,0 +1,28 @@
+name: Audit fix pairs
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/audit-fix-pairs.yml'
+      - 'scripts/audit_fix_pairs.py'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  fix:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Patch pro.js pair feeds
+        run: python3 scripts/audit_fix_pairs.py
+      - name: Commit
+        run: |
+          git config user.name github-actions[bot]
+          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+          git add js/pro.js
+          git diff --cached --quiet && exit 0
+          git commit -m "fix(market): repair CC/FX/XAG feeds; drop delisted KAS+AKT"
+          git push
