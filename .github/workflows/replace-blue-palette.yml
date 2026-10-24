@@ -1,0 +1,71 @@
+name: Replace blue palette
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/replace-blue-palette.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  replace:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Replace sky-blue with neutral slate/white
+        run: |
+          set -e
+          python3 << 'PY'
+          from pathlib import Path
+          # Palette-aligned replacements (dark UI, accent white, slate neutrals)
+          # Old sky-400 #38bdf8 / rgba(56,189,248,*) clashes with monochrome + green/red/orange system.
+          replacements = [
+            # hex
+            ('#38bdf8', '#f1f5f9'),
+            ('#38BDF8', '#f1f5f9'),
+            ('#7cb9ff', '#cbd5e1'),
+            ('#7CB9FF', '#cbd5e1'),
+            # url-encoded SVG stroke
+            ('%2338bdf8', '%23f1f5f9'),
+            ('%2338BDF8', '%23f1f5f9'),
+            # rgba variants (keep alpha)
+            ('rgba(56, 189, 248,', 'rgba(241, 245, 249,'),
+            ('rgba(56,189,248,', 'rgba(241,245,249,'),
+            ('rgba(56, 189, 248,', 'rgba(241, 245, 249,'),
+          ]
+          files = list(Path('css').rglob('*.css')) + list(Path('.').glob('*.html'))
+          changed = []
+          for path in files:
+            text = path.read_text(encoding='utf-8')
+            orig = text
+            for a, b in replacements:
+              text = text.replace(a, b)
+            if text != orig:
+              path.write_text(text, encoding='utf-8')
+              changed.append(str(path))
+          print('changed', len(changed))
+          for c in changed:
+            print(' ', c)
+          if not changed:
+            raise SystemExit('no blue tokens found')
+          # sanity: no leftover primary blue tokens in css
+          left = 0
+          for path in Path('css').rglob('*.css'):
+            t = path.read_text(encoding='utf-8')
+            left += t.lower().count('38bdf8') + t.count('56, 189, 248') + t.count('56,189,248')
+          print('leftover blue tokens', left)
+          PY
+
+      - name: Commit
+        run: |
+          git config user.name github-actions[bot]
+          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+          git add -A css index.html 2>/dev/null || git add -A
+          git status
+          git diff --cached --quiet && exit 0
+          git commit -m "style: replace sky-blue (#38bdf8) with neutral slate (#f1f5f9) per palette"
+          git push
