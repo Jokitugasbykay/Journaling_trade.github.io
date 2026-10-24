@@ -16,27 +16,27 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Patch remaining iso reference
+      - name: Fix undeclared iso
         run: |
-          python3 -c '
+          python3 << 'PY'
           from pathlib import Path
-          p = Path("js/pro.js")
+          p = Path('js/pro.js')
           t = p.read_text()
-          old = "if (!iso) return \"-\";"
-          new = "if (ts === null || ts === undefined || ts === \"\") return \"-\";"
-          if old not in t:
-            print("already fixed or pattern missing")
-          else:
-            t = t.replace(old, new, 1)
-            p.write_text(t)
-            print("patched", p.stat().st_size)
-          '
+          t2 = t.replace('if (!iso) return \'-\';', 'if (ts == null || ts === \'\') return \'-\';')
+          if t2 == t:
+              # try double-quote variant from previous edits
+              t2 = t.replace('if (!iso) return "-";', 'if (ts == null || ts === "") return "-";')
+          if t2 == t:
+              raise SystemExit('pattern not found')
+          p.write_text(t2)
+          print('fixed', p.stat().st_size)
+          assert 'if (!iso)' not in t2
+          PY
 
       - name: Commit
         run: |
           git config user.name github-actions[bot]
           git config user.email 41898282+github-actions[bot]@users.noreply.github.com
           git add js/pro.js
-          git diff --cached --quiet && exit 0
-          git commit -m "fix(backtest): complete fmtTime null check"
+          git commit -m "fix(backtest): remove undeclared iso in fmtTime"
           git push
