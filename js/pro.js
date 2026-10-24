@@ -2089,24 +2089,402 @@ Instruksi Format Output & Larangan Bocor Chain-of-Thought dan Perencanaan Rules 
     toolbar.append(button(text('PreviousYear','Previous year'),async()=>{yearInput.input.value=--year;await load();}),button(text('NextYear','Next year'),async()=>{yearInput.input.value=++year;await load();}));
     const output=node('div');content.append(output);await load();
   }
-  function strategyForm(parent,row,onSave) {
-    parent.replaceChildren(); const name=field(text('Name','Strategy name'),'text',row?.name || '','pro-strategy-name'),description=field(text('Description','Description'),'text',row?.description || '','pro-strategy-description');name.input.maxLength=200;description.input.maxLength=2000;parent.append(name.wrap,description.wrap);
-    parent.append(button(text('Save','Save strategy'),async()=>{if(!name.input.value.trim())throw new Error('Enter a strategy name.'); await request('/strategies'+(row?'/'+row.id:''),{method:row?'PATCH':'POST',body:{name:name.input.value.trim(),description:description.input.value}});parent.replaceChildren();await onSave();},'pro-strategy-save'),button(text('Cancel','Cancel'),()=>parent.replaceChildren())); name.input.focus();
+  function strategyForm(parent, row, onSave) {
+    parent.replaceChildren();
+    const formWrap = node('div');
+    formWrap.style.display = 'flex';
+    formWrap.style.flexDirection = 'column';
+    formWrap.style.gap = '12px';
+
+    const fgrid = node('div', null, 'fgrid');
+
+    const fgName = node('div', null, 'fg');
+    const nameLabel = node('label', text('Name', 'Strategy name'));
+    nameLabel.htmlFor = 'pro-strategy-name';
+    const nameInput = node('input', null, 'f');
+    nameInput.id = 'pro-strategy-name';
+    nameInput.type = 'text';
+    nameInput.maxLength = 200;
+    nameInput.value = row?.name || '';
+    fgName.append(nameLabel, nameInput);
+
+    const fgDesc = node('div', null, 'fg');
+    const descLabel = node('label', text('Description', 'Description'));
+    descLabel.htmlFor = 'pro-strategy-description';
+    const descInput = node('input', null, 'f');
+    descInput.id = 'pro-strategy-description';
+    descInput.type = 'text';
+    descInput.maxLength = 2000;
+    descInput.value = row?.description || '';
+    fgDesc.append(descLabel, descInput);
+
+    fgrid.append(fgName, fgDesc);
+
+    const actDiv = node('div', null, 'act');
+    actDiv.style.marginTop = '6px';
+
+    const saveBtn = button(text('Save', 'Save strategy'), async () => {
+      if (!nameInput.value.trim()) throw new Error('Enter a strategy name.');
+      await request('/strategies' + (row ? '/' + row.id : ''), {
+        method: row ? 'PATCH' : 'POST',
+        body: { name: nameInput.value.trim(), description: descInput.value }
+      });
+      parent.replaceChildren();
+      await onSave();
+    }, 'bt pr');
+    saveBtn.type = 'button';
+    saveBtn.id = 'pro-strategy-save';
+
+    const cancelBtn = button(text('Cancel', 'Cancel'), () => {
+      parent.replaceChildren();
+      if (typeof parent.__showEmptyState === 'function') parent.__showEmptyState();
+    }, 'bt');
+    cancelBtn.type = 'button';
+
+    actDiv.append(saveBtn, cancelBtn);
+    formWrap.append(fgrid, actDiv);
+    parent.append(formWrap);
+    nameInput.focus();
   }
+
   async function strategyComparison() {
-    const load=async()=>{
-      strategies=(await request('/strategies')).items || []; selector.replaceChildren();
-      for(const row of strategies) {const label=node('label',null,'pro-check'),input=node('input');input.type='checkbox';input.value=row.id; label.append(input,node('span',row.name));selector.append(label);}
-      list.replaceChildren();table(list,strategies,[['name',text('Name','Name')],['description',text('Description','Description')]],(cell,row)=>cell.append(button(text('Edit','Edit'),()=>strategyForm(editor,row,load)),button(text('Delete','Delete'),async()=>{if(!global.confirm(text('DeleteStrategy','Delete this strategy? Existing trades are retained.')))return;await request('/strategies/'+row.id,{method:'DELETE'});await load();}),button(text('ViewTrades','View trades'),()=>journal({strategy_id:row.id})),button('Backtest',()=>openBacktestModal({strategy:row}))));
+    const wrap = node('div', null, 'pro-strategy-module');
+
+    // 1. Header (.hd)
+    const hd = node('div', null, 'hd');
+    const hdTitleWrap = node('div');
+    hdTitleWrap.append(
+      node('h1', 'Strategy Comparison'),
+      node('p', 'Bandingkan performa strategi trading Anda dengan data jurnal yang sama.', 'm')
+    );
+    const reloadBtn = button('Muat ulang bagian', () => open('strategies'), 'bt');
+    reloadBtn.type = 'button';
+    reloadBtn.id = 'pro-strategy-reload';
+    hd.append(hdTitleWrap, reloadBtn);
+
+    // 2. Filter Bar (.pn)
+    const filterSection = node('section', null, 'pn');
+    filterSection.setAttribute('aria-label', 'Filter');
+    const fl4 = node('div', null, 'fl4');
+
+    filters = {};
+
+    // Account selector
+    const fgAcc = node('div', null, 'fg');
+    const accLbl = node('span', 'Akun trading', 'lbl');
+    accLbl.id = 'pro-strategy-account-lbl';
+
+    const accDetails = node('details', null, 'dd');
+    const accSummary = node('summary');
+    accSummary.setAttribute('aria-haspopup', 'listbox');
+    accSummary.setAttribute('aria-labelledby', 'pro-strategy-account-lbl pro-strategy-account-val');
+    const accValSpan = node('span', 'Semua akun');
+    accValSpan.id = 'pro-strategy-account-val';
+
+    const accArrowSvg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+    accArrowSvg.setAttribute('width', '16');
+    accArrowSvg.setAttribute('height', '16');
+    accArrowSvg.setAttribute('viewBox', '0 0 24 24');
+    accArrowSvg.setAttribute('fill', 'none');
+    accArrowSvg.setAttribute('stroke', 'currentColor');
+    accArrowSvg.setAttribute('stroke-width', '2');
+    accArrowSvg.setAttribute('stroke-linecap', 'round');
+    accArrowSvg.setAttribute('stroke-linejoin', 'round');
+    accArrowSvg.setAttribute('aria-hidden', 'true');
+    const accArrowPath = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+    accArrowPath.setAttribute('d', 'M6 9l6 6 6-6');
+    accArrowSvg.append(accArrowPath);
+    accSummary.append(accValSpan, accArrowSvg);
+
+    const accUl = node('ul');
+    accUl.setAttribute('role', 'listbox');
+    accUl.setAttribute('aria-labelledby', 'pro-strategy-account-lbl');
+
+    const hiddenAccInput = node('input');
+    hiddenAccInput.type = 'hidden';
+    hiddenAccInput.id = 'pro-account';
+    hiddenAccInput.value = preset.account_id || '';
+    filters.account_id = hiddenAccInput;
+
+    const updateAccountSelection = (id, name) => {
+      hiddenAccInput.value = id;
+      accValSpan.textContent = name;
+      accUl.querySelectorAll('li').forEach(li => {
+        li.setAttribute('aria-selected', li.dataset.value === id ? 'true' : 'false');
+      });
+      accDetails.removeAttribute('open');
     };
-    commonFilters(content,()=>compare());
-    const selector=panel(text('SelectStrategies','Select strategies to compare')),editor=panel(text('StrategyEditor','Strategy editor')),output=node('div'),list=panel(text('Strategies','Strategies'));
-    const compare=async()=>{
-      const ids=[...selector.querySelectorAll('input:checked')].map(item=>item.value);if(ids.length<2 || ids.length>6)throw new Error(text('SelectTwo','Select between two and six strategies.'));
-      const data=await request('/analytics/strategies?'+query({...filterValues(),strategy_ids:ids.join(',')}),{latest:true});output.replaceChildren();
-      for(const row of data.strategies || []) {const card=panel(row.name,output);details(card,row.metrics);if(row.sample_warning)warnings(card,[row.sample_warning]);chart(card,text('Equity','Equity curve'),row.equity,'equity');card.append(button(text('ViewTrades','View trades'),()=>journal({strategy_id:row.id})));}
+
+    const defaultLi = node('li', 'Semua akun');
+    defaultLi.setAttribute('role', 'option');
+    defaultLi.dataset.value = '';
+    defaultLi.setAttribute('aria-selected', !preset.account_id ? 'true' : 'false');
+    defaultLi.addEventListener('click', () => updateAccountSelection('', 'Semua akun'));
+    accUl.append(defaultLi);
+
+    for (const acc of accounts) {
+      const li = node('li', acc.name);
+      li.setAttribute('role', 'option');
+      li.dataset.value = acc.id;
+      li.setAttribute('aria-selected', preset.account_id === acc.id ? 'true' : 'false');
+      if (preset.account_id === acc.id) accValSpan.textContent = acc.name;
+      li.addEventListener('click', () => updateAccountSelection(acc.id, acc.name));
+      accUl.append(li);
+    }
+    accDetails.append(accSummary, accUl);
+    fgAcc.append(accLbl, accDetails, hiddenAccInput);
+
+    // Start date
+    const fgStart = node('div', null, 'fg');
+    const startLabel = node('label', 'Tanggal mulai');
+    startLabel.htmlFor = 'pro-start';
+    const startInput = node('input', null, 'f');
+    startInput.type = 'date';
+    startInput.id = 'pro-start';
+    startInput.value = preset.start || '';
+    filters.start = startInput;
+    fgStart.append(startLabel, startInput);
+
+    // End date
+    const fgEnd = node('div', null, 'fg');
+    const endLabel = node('label', 'Tanggal akhir');
+    endLabel.htmlFor = 'pro-end';
+    const endInput = node('input', null, 'f');
+    endInput.type = 'date';
+    endInput.id = 'pro-end';
+    endInput.value = preset.end || '';
+    filters.end = endInput;
+    fgEnd.append(endLabel, endInput);
+
+    // Timezone
+    const fgTz = node('div', null, 'fg');
+    const tzLabel = node('label', 'Zona waktu');
+    tzLabel.htmlFor = 'pro-timezone';
+    const tzInput = node('input', null, 'f');
+    tzInput.type = 'text';
+    tzInput.id = 'pro-timezone';
+    tzInput.value = preset.tz || Intl.DateTimeFormat().resolvedOptions().timeZone || 'Asia/Jakarta';
+    filters.tz = tzInput;
+    fgTz.append(tzLabel, tzInput);
+
+    // Apply button
+    const fgApply = node('div');
+    const applyBtn = button('Terapkan filter', async () => {
+      validateFilters();
+      await compare();
+    }, 'bt');
+    applyBtn.type = 'button';
+    applyBtn.id = 'pro-apply-filters';
+    applyBtn.style.width = '100%';
+    fgApply.append(applyBtn);
+
+    fl4.append(fgAcc, fgStart, fgEnd, fgTz, fgApply);
+    filterSection.append(fl4);
+
+    function createChartIcon() {
+      const ic = node('div', null, 'ic');
+      const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+      svg.setAttribute('width', '22');
+      svg.setAttribute('height', '22');
+      svg.setAttribute('viewBox', '0 0 24 24');
+      svg.setAttribute('fill', 'none');
+      svg.setAttribute('stroke', 'currentColor');
+      svg.setAttribute('stroke-width', '1.8');
+      svg.setAttribute('stroke-linecap', 'round');
+      svg.setAttribute('stroke-linejoin', 'round');
+      svg.setAttribute('aria-hidden', 'true');
+      const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+      path.setAttribute('d', 'M4 20V10M10 20V4M16 20v-8M22 20H2');
+      svg.append(path);
+      ic.append(svg);
+      return ic;
+    }
+
+    // 3. Strategy List Section (.pn)
+    const listSection = node('section', null, 'pn');
+    const listHdr = node('div', null, 'pnh');
+    const addBtnTop = button('Tambah strategi', () => strategyForm(editorBody, null, load), 'bt');
+    addBtnTop.type = 'button';
+        listHdr.append(node('span', 'Daftar strategi', 'cap'), addBtnTop);
+
+    const twList = node('div', null, 'tw');
+    const tblList = node('table');
+    const theadList = node('thead');
+    theadList.innerHTML = '<tr><th style="width:44px">Pilih</th><th>Nama</th><th>Detail</th><th style="text-align:right">Aksi</th></tr>';
+    const tbodyList = node('tbody');
+    tblList.append(theadList, tbodyList);
+    twList.append(tblList);
+    listSection.append(listHdr, twList);
+
+    // 4. Strategy Editor Section (.pn)
+    const editorSection = node('section', null, 'pn');
+    editorSection.setAttribute('aria-label', 'Editor strategi');
+    editorSection.append(node('span', 'Editor strategi', 'cap'));
+
+    const editorBody = node('div');
+
+    function showEmptyEditorState() {
+      editorBody.replaceChildren();
+      const res = node('div', null, 'res');
+      const ic = createChartIcon();
+      const title = node('b', 'Belum ada strategi yang dipilih');
+      title.style.color = '#E6E8EB';
+      const desc = node('span', 'Pilih strategi dari daftar untuk mengedit, atau tambahkan strategi baru.');
+      res.append(ic, title, desc);
+      editorBody.append(res);
+    }
+    editorBody.__showEmptyState = showEmptyEditorState;
+    showEmptyEditorState();
+    editorSection.append(editorBody);
+
+    // 5. Comparison Results Section (.pn)
+    const resultsSection = node('section', null, 'pn');
+    resultsSection.setAttribute('aria-label', 'Hasil perbandingan');
+    resultsSection.append(node('span', 'Hasil perbandingan', 'cap'));
+
+    const resultsBody = node('div');
+
+    function showEmptyResultsState() {
+      resultsBody.replaceChildren();
+      const res = node('div', null, 'res');
+      const ic = createChartIcon();
+      const title = node('b', 'Belum ada perbandingan');
+      title.style.color = '#E6E8EB';
+      const desc = node('span', 'Pilih minimal dua strategi, lalu tekan Bandingkan strategi.');
+      res.append(ic, title, desc);
+      resultsBody.append(res);
+    }
+    showEmptyResultsState();
+    resultsSection.append(resultsBody);
+
+    // 6. Action Toolbar (.cta)
+    const ctaBar = node('div', null, 'cta');
+    const compareBtn = button('Bandingkan strategi', () => compare(), 'bt pr');
+    compareBtn.type = 'button';
+    compareBtn.id = 'pro-strategy-compare';
+
+    const addBtnBottom = button('Tambah strategi', () => strategyForm(editorBody, null, load), 'bt');
+    addBtnBottom.type = 'button';
+    addBtnBottom.setAttribute('aria-label', 'Add strategy');
+
+    const resetBtn = button('Reset', () => {
+      tbodyList.querySelectorAll('input[type="checkbox"]').forEach(input => input.checked = false);
+      showEmptyResultsState();
+    }, 'bt');
+    resetBtn.type = 'button';
+
+    ctaBar.append(compareBtn, addBtnBottom, resetBtn);
+
+    // 7. Compare function
+    const compare = async () => {
+      const checkedInputs = [...tbodyList.querySelectorAll('input:checked')];
+      const ids = checkedInputs.map(item => item.value);
+      if (ids.length < 2 || ids.length > 6) {
+        throw new Error(text('SelectTwo', 'Select between two and six strategies.'));
+      }
+      const data = await request('/analytics/strategies?' + query({ ...filterValues(), strategy_ids: ids.join(',') }), { latest: true });
+      resultsBody.replaceChildren();
+
+      const cardsContainer = node('div');
+      cardsContainer.style.display = 'grid';
+      cardsContainer.style.gridTemplateColumns = 'repeat(auto-fit, minmax(320px, 1fr))';
+      cardsContainer.style.gap = '20px';
+
+      for (const row of data.strategies || []) {
+        const card = node('div', null, 'strategy-card');
+        card.append(node('h3', row.name));
+        details(card, row.metrics);
+        if (row.sample_warning) warnings(card, [row.sample_warning]);
+        chart(card, text('Equity', 'Equity curve'), row.equity, 'equity');
+        const cardAct = node('div', null, 'act');
+        cardAct.style.marginTop = '12px';
+        const vtBtn = button(text('ViewTrades', 'View trades'), () => journal({ strategy_id: row.id }), 'bt');
+        vtBtn.type = 'button';
+        cardAct.append(vtBtn);
+        card.append(cardAct);
+        cardsContainer.append(card);
+      }
+      resultsBody.append(cardsContainer);
     };
-    const bar=node('div',null,'pro-toolbar');bar.append(button(text('Compare','Compare strategies'),compare,'pro-strategy-compare'),button(text('AddStrategy','Add strategy'),()=>strategyForm(editor,null,load)),button(text('Reset','Reset'),()=>{selector.querySelectorAll('input').forEach(item=>item.checked=false);output.replaceChildren();}));content.append(bar,output);await load();
+
+    // 8. Load function
+    const load = async () => {
+      strategies = (await request('/strategies')).items || [];
+      tbodyList.replaceChildren();
+
+      if (strategies.length === 0) {
+        const tr = node('tr');
+        const td = node('td', 'Belum ada strategi untuk pilihan ini.');
+        td.colSpan = 4;
+        tr.append(td);
+        tbodyList.append(tr);
+      } else {
+        for (const row of strategies) {
+          const tr = node('tr');
+
+          // Checkbox column
+          const tdChk = node('td');
+          const chkLabel = node('label', null, 'pro-check');
+          const chkInput = node('input');
+          chkInput.type = 'checkbox';
+          chkInput.value = row.id;
+          chkLabel.append(chkInput);
+          tdChk.append(chkLabel);
+
+          // Name column
+          const tdName = node('td', row.name || '-');
+          tdName.style.fontWeight = '600';
+          tdName.style.color = '#E6E8EB';
+
+          // Detail column
+          const tdDesc = node('td', row.description || '-');
+
+          // Actions column
+          const tdAct = node('td');
+          tdAct.style.textAlign = 'right';
+
+          const editBtn = button('Edit', () => strategyForm(editorBody, row, async () => {
+            showEmptyEditorState();
+            await load();
+          }), 'bt');
+          editBtn.type = 'button';
+          editBtn.setAttribute('aria-label', 'Edit');
+          editBtn.style.padding = '4px 12px';
+          editBtn.style.minHeight = '32px';
+
+          const delBtn = button('Delete', async () => {
+            if (global.confirm && !global.confirm(text('DeleteStrategy', 'Delete this strategy? Existing trades are retained.'))) return;
+            await request('/strategies/' + row.id, { method: 'DELETE' });
+            await load();
+          }, 'bt');
+          delBtn.type = 'button';
+          delBtn.setAttribute('aria-label', 'Delete');
+          delBtn.style.padding = '4px 12px';
+          delBtn.style.minHeight = '32px';
+          delBtn.style.marginLeft = '8px';
+
+          const viewBtn = button(text('ViewTrades', 'View trades'), () => journal({ strategy_id: row.id }), 'bt');
+          viewBtn.type = 'button';
+          viewBtn.style.padding = '4px 12px';
+          viewBtn.style.minHeight = '32px';
+          viewBtn.style.marginLeft = '8px';
+
+          const btBtn = button('Backtest', () => openBacktestModal({ strategy: row }), 'bt');
+          btBtn.type = 'button';
+          btBtn.style.padding = '4px 12px';
+          btBtn.style.minHeight = '32px';
+          btBtn.style.marginLeft = '8px';
+
+          tdAct.append(editBtn, delBtn, viewBtn, btBtn);
+          tr.append(tdChk, tdName, tdDesc, tdAct);
+          tbodyList.append(tr);
+        }
+      }
+    };
+
+    wrap.append(hd, filterSection, listSection, editorSection, resultsSection, ctaBar);
+    content.replaceChildren(wrap);
+    await load();
   }
   async function risk() {
     const wrap = node('div', null, 'pro-risk-module');
@@ -10919,7 +11297,7 @@ function filterPairDropdown() {
     if(!features[feature])throw new Error('Unknown Pro feature.');
     if(activeTabLoader){activeTabLoader.stop();activeTabLoader=null;}
     revision++;controller.abort();controller=new AbortController(); preset={...selection};current=feature;root=document.getElementById('view-pro-workspace');if(!root)throw new Error('Pro workspace container is missing.');
-    root.replaceChildren();root.dataset.feature=feature;const heading=node('header',null,'pro-heading');if(['global-news','ai-chat','ai-behaviour','ai-journal','ai-market','risk','reviews','reports'].includes(feature))heading.style.display='none';const title=node('div');title.append(node('h1',text('Title'+feature,features[feature])),node('p',text('WorkspaceDescription','Performance, risk, reports and AI insights from your trading journal.'),'pro-subtitle'));heading.append(title);root.append(heading);
+    root.replaceChildren();root.dataset.feature=feature;const heading=node('header',null,'pro-heading');if(['global-news','ai-chat','ai-behaviour','ai-journal','ai-market','risk','reviews','reports','strategies'].includes(feature))heading.style.display='none';const title=node('div');title.append(node('h1',text('Title'+feature,features[feature])),node('p',text('WorkspaceDescription','Performance, risk, reports and AI insights from your trading journal.'),'pro-subtitle'));heading.append(title);root.append(heading);
     heading.append(button(text('RetrySection','Retry section'),()=>open(feature,selection),'pro-section-retry'));
     const navigation=node('nav',null,'pro-sections');navigation.setAttribute('aria-label','Pro sections');
     const groups=[['Analisis',['analytics','heatmap','strategies','risk']],['Laporan',['reviews','reports']],['AI',['ai-market','ai-behaviour','ai-journal','ai-chat','global-news']]];
