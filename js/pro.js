@@ -5323,15 +5323,15 @@ Instruksi Format Output & Larangan Bocor Chain-of-Thought dan Perencanaan Rules 
           : Number(p).toFixed(5);
       };
 
-      const fmtTime = (iso) => {
+      const fmtTime = (ts) => {
         if (!iso) return '-';
         try {
-          const d = new Date(iso);
-          if (isNaN(d.getTime())) return iso;
+          const n = Number(ts); const d = (typeof ts === "string" && Number.isNaN(n)) ? new Date(ts) : new Date(n > 0 && n < 1e12 ? n * 1000 : n);
+          if (isNaN(d.getTime())) return String(ts);
           return d.toLocaleDateString('id-ID', { day: '2-digit', month: 'short', year: 'numeric' }) + ' ' +
                  d.toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' }).replace(':', '.');
         } catch (e) {
-          return iso;
+          return String(ts);
         }
       };
 
