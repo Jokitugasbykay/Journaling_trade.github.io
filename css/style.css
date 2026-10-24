@@ -2630,11 +2630,11 @@
     box-shadow:0 -12px 48px rgba(0,0,0,0.8) !important;
     padding:4px 16px env(safe-area-inset-bottom, 16px) !important;
     margin:0 !important;
-    display:flex !important;
+    /* CRITICAL: closed popover must stay hidden (no always-on flex = stuck footer sheet) */
+    display:none !important;
     flex-direction:column !important;
     gap:8px !important;
     overflow:hidden !important;
-    /* slide starts off-screen; .is-sheet-in brings it up */
     transform:translate3d(0, 100%, 0);
     transition:transform .32s cubic-bezier(0.32, 0.72, 0, 1);
     touch-action:none;

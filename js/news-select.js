@@ -379,4 +379,12 @@
     }
   });
   window.addEventListener('scroll', close, { passive: true });
+  window.addEventListener('pageshow', () => {
+    controls.forEach(({panel}) => {
+      panel.classList.remove('is-sheet-in', 'is-sheet-dragging');
+      panel.style.transform = '';
+      try { if (panel.matches(':popover-open')) panel.hidePopover(); } catch (_) {}
+    });
+    document.body.classList.remove('news-select-locked');
+  });
 })();
