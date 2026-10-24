@@ -1,6 +1,117 @@
 (function () {
   'use strict';
   if (!('showPopover' in HTMLElement.prototype)) return;
+
+  function isMobileSheet() {
+    return window.innerWidth <= 768;
+  }
+
+  function animateSheetOpen(panel) {
+    if (!isMobileSheet()) {
+      panel.classList.add('is-sheet-in');
+      return;
+    }
+    panel.classList.remove('is-sheet-in', 'is-sheet-dragging');
+    panel.style.transform = '';
+    // force reflow then slide up
+    void panel.offsetHeight;
+    requestAnimationFrame(() => {
+      panel.classList.add('is-sheet-in');
+    });
+  }
+
+  function animateSheetClose(panel) {
+    return new Promise((resolve) => {
+      if (!isMobileSheet() || !panel.matches(':popover-open')) {
+        panel.classList.remove('is-sheet-in', 'is-sheet-dragging');
+        panel.style.transform = '';
+        resolve();
+        return;
+      }
+      const finish = () => {
+        panel.removeEventListener('transitionend', onEnd);
+        panel.classList.remove('is-sheet-in', 'is-sheet-dragging');
+        panel.style.transform = '';
+        resolve();
+      };
+      const onEnd = (e) => {
+        if (e.target !== panel || (e.propertyName && e.propertyName !== 'transform')) return;
+        finish();
+      };
+      panel.addEventListener('transitionend', onEnd);
+      panel.classList.remove('is-sheet-in');
+      // safety timeout
+      setTimeout(finish, 380);
+    });
+  }
+
+  function bindSheetDrag(panel, handleEl) {
+    if (!handleEl || handleEl.dataset.dragBound === '1') return;
+    handleEl.dataset.dragBound = '1';
+    let startY = 0;
+    let currentY = 0;
+    let dragging = false;
+
+    const onStart = (clientY) => {
+      if (!isMobileSheet() || !panel.matches(':popover-open')) return;
+      dragging = true;
+      startY = clientY;
+      currentY = 0;
+      panel.classList.add('is-sheet-dragging');
+    };
+    const onMove = (clientY) => {
+      if (!dragging) return;
+      currentY = Math.max(0, clientY - startY);
+      panel.style.transform = 'translate3d(0, ' + currentY + 'px, 0)';
+    };
+    const onEnd = async () => {
+      if (!dragging) return;
+      dragging = false;
+      panel.classList.remove('is-sheet-dragging');
+      const threshold = Math.min(140, panel.offsetHeight * 0.22);
+      if (currentY > threshold) {
+        // dismiss
+        panel.style.transform = 'translate3d(0, 100%, 0)';
+        panel.classList.remove('is-sheet-in');
+        setTimeout(() => {
+          try { panel.hidePopover(); } catch (_) {}
+          panel.style.transform = '';
+        }, 280);
+      } else {
+        // snap back up
+        panel.style.transform = '';
+        panel.classList.add('is-sheet-in');
+      }
+      currentY = 0;
+    };
+
+    handleEl.addEventListener('touchstart', (e) => {
+      if (e.touches[0]) onStart(e.touches[0].clientY);
+    }, { passive: true });
+    handleEl.addEventListener('touchmove', (e) => {
+      if (!dragging) return;
+      if (e.cancelable) e.preventDefault();
+      if (e.touches[0]) onMove(e.touches[0].clientY);
+    }, { passive: false });
+    handleEl.addEventListener('touchend', onEnd);
+    handleEl.addEventListener('touchcancel', onEnd);
+
+    handleEl.addEventListener('pointerdown', (e) => {
+      if (e.pointerType === 'touch') return;
+      handleEl.setPointerCapture?.(e.pointerId);
+      onStart(e.clientY);
+    });
+    handleEl.addEventListener('pointermove', (e) => {
+      if (e.pointerType === 'touch') return;
+      onMove(e.clientY);
+    });
+    handleEl.addEventListener('pointerup', (e) => {
+      if (e.pointerType === 'touch') return;
+      onEnd();
+    });
+  }
+
+
   const controls = [];
   const icon = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c5 5 5 13 0 18-5-5-5-13 0-18Z"/></svg>';
   const searchIcon = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 5 5"/></svg>';
@@ -191,6 +302,8 @@
     panel.addEventListener('beforetoggle', event => {
       if (event.newState !== 'open') {
         document.body.classList.remove('news-select-locked');
+        panel.classList.remove('is-sheet-in', 'is-sheet-dragging');
+        panel.style.transform = '';
         lockSearchInput();
         return;
       }
@@ -200,6 +313,9 @@
       input.value = ''; active = -1; rows = [];
       lockSearchInput();
       sync(); render(); list.scrollTop = 0; position();
+      // slide-up after popover paints
+      panel.classList.remove('is-sheet-in');
+      requestAnimationFrame(() => animateSheetOpen(panel));
     });
     panel.addEventListener('toggle', () => {
       const open = String(isOpen()); trigger.setAttribute('aria-expanded', open); input.setAttribute('aria-expanded', open);

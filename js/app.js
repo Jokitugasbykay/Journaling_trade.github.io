@@ -4095,7 +4095,7 @@
       function blockBackgroundScroll(e) {
         if (!isAnyModalActive()) return;
         const scrollable = e.target.closest(
-          '.modal-card, .backtest-modal-dialog, .pro-modal-dialog, .jt-checkout-container, .pro-nav-sheet, .custom-select-options-list, .sheet, .tw'
+          '.modal-card, .backtest-modal-dialog, .pro-modal-dialog, .jt-checkout-container, .pro-nav-sheet, .custom-select-options-list, .app-custom-select-panel, .news-select-menu, .news-select-options, .sheet, .tw'
         );
         if (!scrollable) {
           if (e.cancelable) e.preventDefault();
