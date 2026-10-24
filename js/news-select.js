@@ -15,7 +15,7 @@
   const words = id => id === 'news-region' ? uiText('Cari region…', 'Search regions…') : uiText('Cari penerbit…', 'Search publishers…');
   // Treat phones/tablets and any touch-primary device as touch UI.
   const isTouchUI = () =>
-    window.matchMedia('(pointer: coarse)').matches ||
+    (typeof window.matchMedia === 'function' && window.matchMedia('(pointer: coarse)').matches) ||
     window.innerWidth <= 768 ||
     ('ontouchstart' in window) ||
     (navigator.maxTouchPoints > 0);

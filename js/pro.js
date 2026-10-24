@@ -3355,6 +3355,21 @@ Instruksi Format Output & Larangan Bocor Chain-of-Thought dan Perencanaan Rules 
       });
       p = close;
     }
+    if (candles.length > 0) {
+      const lastCandle = candles[candles.length - 1];
+      const shift = base - lastCandle.close;
+      if (Math.abs(shift) > 0.000001) {
+        for (let i = 0; i < candles.length; i++) {
+          const cand = candles[i];
+          cand.open = Math.max(0.00001, +(cand.open + shift).toFixed(decimals));
+          cand.high = Math.max(cand.open, +(cand.high + shift).toFixed(decimals));
+          cand.low = Math.max(0.00001, Math.min(cand.open, +(cand.low + shift).toFixed(decimals)));
+          cand.close = Math.max(0.00001, +(cand.close + shift).toFixed(decimals));
+          if (cand.high < Math.max(cand.open, cand.close)) cand.high = Math.max(cand.open, cand.close);
+          if (cand.low > Math.min(cand.open, cand.close)) cand.low = Math.min(cand.open, cand.close);
+        }
+      }
+    }
     return candles;
   }
 
