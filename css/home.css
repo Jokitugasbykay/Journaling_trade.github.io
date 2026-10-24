@@ -206,7 +206,7 @@ body:has(#view-beranda.active) .site-footer a { color:#bdbdbd; }
 .terminal-hud-stat { background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.06); border-radius:10px; padding:10px; text-align:left; }
 .hud-label { display:block; font:9px var(--mono); color:#888; text-transform:uppercase; margin-bottom:4px; letter-spacing:0.06em; }
 .hud-val { display:block; font:13px/1.2 var(--mono); font-weight:600; color:#fff; }
-.highlight-cyan { color:#38bdf8; }
+.highlight-cyan { color:#f1f5f9; }
 .highlight-green { color:#27c98b; }
 .highlight-red { color:#f05252; }
 
@@ -342,7 +342,7 @@ body:has(#view-beranda.active) .site-footer a { color:#bdbdbd; }
 /* Session radar */
 .session-radar-container { width:100%; display:flex; flex-direction:column; gap:14px; }
 .session-radar-header { display:flex; justify-content:space-between; align-items:center; }
-.session-overlap-badge { font:10px var(--mono); color:#38bdf8; background:rgba(56,189,248,0.12); border:1px solid rgba(56,189,248,0.25); padding:3px 8px; border-radius:99px; }
+.session-overlap-badge { font:10px var(--mono); color:#f1f5f9; background:rgba(241,245,249,0.12); border:1px solid rgba(241,245,249,0.25); padding:3px 8px; border-radius:99px; }
 .session-cards-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:10px; }
 .session-card { background:rgba(255,255,255,0.02); border:1px solid rgba(255,255,255,0.08); border-radius:12px; padding:12px; display:flex; flex-direction:column; gap:6px; }
 .session-card.active { border-color:#27c98b; background:rgba(39,201,139,0.04); }
