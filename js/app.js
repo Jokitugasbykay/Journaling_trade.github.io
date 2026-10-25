@@ -4213,12 +4213,58 @@
         root.classList.remove('modal-open');
         body.classList.remove('modal-open', 'pro-modal-open', 'pro-sheet-open', 'custom-select-locked', 'news-select-locked');
         body.style.overflow = '';
+        body.style.touchAction = '';
         root.style.overflow = '';
+        root.style.touchAction = '';
+        // Close every known overlay that can sit on top of the app
         document.querySelectorAll('.app-custom-select-backdrop.is-open, .app-custom-select-panel.is-open').forEach((el) => {
           el.classList.remove('is-open');
         });
+        document.querySelectorAll('.modal-overlay.open').forEach((el) => el.classList.remove('open'));
+        const checkout = document.getElementById('checkout-modal');
+        if (checkout) {
+          checkout.style.display = 'none';
+          checkout.classList.remove('is-open');
+          checkout.setAttribute('hidden', '');
+        }
+        document.querySelectorAll('.news-select-menu').forEach((panel) => {
+          try {
+            if (panel.matches && panel.matches(':popover-open')) panel.hidePopover();
+          } catch (_) {}
+          panel.classList.remove('is-sheet-in', 'is-sheet-dragging');
+          panel.style.transform = '';
+        });
+        document.querySelectorAll('.pro-modal-backdrop, #backtestModalBackdrop, #pro-gemini-modal').forEach((el) => {
+          try { el.remove(); } catch (_) {}
+        });
+        document.querySelectorAll('.pro-nav-modal.is-open').forEach((el) => el.classList.remove('is-open'));
         window.closeActiveSelect?.();
+        window.closeAllCustomSelects?.();
+        window.syncModalScrollLock?.();
       };
+
+      // Auto-heal: if lock class is on but nothing is actually open, unlock
+      function healStuckUiLocks() {
+        const body = document.body;
+        const hasOpenSelect = document.querySelector('.app-custom-select-panel.is-open, .app-custom-select-backdrop.is-open');
+        const hasOpenNews = Array.from(document.querySelectorAll('.news-select-menu')).some((p) => {
+          try { return p.matches(':popover-open'); } catch (_) { return false; }
+        });
+        const hasOpenModal = document.querySelector('.modal-overlay.open, #checkout-modal.is-open, .pro-modal-backdrop, #backtestModalBackdrop');
+        if (!hasOpenSelect && body.classList.contains('custom-select-locked')) {
+          body.classList.remove('custom-select-locked');
+        }
+        if (!hasOpenNews && body.classList.contains('news-select-locked')) {
+          body.classList.remove('news-select-locked');
+        }
+        if (!hasOpenSelect && !hasOpenNews && !hasOpenModal && !body.classList.contains('pro-sheet-open') && !body.classList.contains('pro-modal-open')) {
+          if (body.classList.contains('modal-open') || document.documentElement.classList.contains('modal-open')) {
+            window.forceUnlockPageScroll();
+          }
+        }
+      }
+      window.healStuckUiLocks = healStuckUiLocks;
+
 
       window.syncModalScrollLock = syncModalScrollLock;
       window.isAnyModalActive = isAnyModalActive;
@@ -4239,5 +4285,18 @@
 
       window.addEventListener('wheel', blockBackgroundScroll, { passive: false });
       window.addEventListener('touchmove', blockBackgroundScroll, { passive: false });
+
+      // Clear any leftover overlay lock from previous session / bfcache
+      try { window.forceUnlockPageScroll(); } catch (_) {}
+      window.addEventListener('pageshow', () => { try { window.forceUnlockPageScroll(); } catch (_) {} });
+      window.addEventListener('visibilitychange', () => {
+        if (document.visibilityState === 'visible') try { healStuckUiLocks(); } catch (_) {}
+      });
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') try { window.forceUnlockPageScroll(); } catch (_) {}
+      });
+      // Periodic safety net (cheap): orphan locks
+      setInterval(() => { try { healStuckUiLocks(); } catch (_) {} }, 2500);
+
 
     })();

@@ -58,8 +58,18 @@
       activeBackdrop.classList.remove('is-open');
       activeBackdrop = null;
     }
+    // Sweep all instances (prevents orphan backdrops blocking the whole UI)
+    document.querySelectorAll('.app-custom-select-backdrop.is-open').forEach((el) => el.classList.remove('is-open'));
+    document.querySelectorAll('.app-custom-select-panel.is-open').forEach((el) => el.classList.remove('is-open'));
+    document.querySelectorAll('.app-custom-select-trigger[aria-expanded="true"]').forEach((el) => el.setAttribute('aria-expanded', 'false'));
     document.body.classList.remove('custom-select-locked');
   }
+
+  function closeAllCustomSelects() {
+    closeActiveSelect();
+  }
+  window.closeAllCustomSelects = closeAllCustomSelects;
+
 
   document.addEventListener('click', (e) => {
     if (activePanel && !activePanel.contains(e.target) && (!activePanel._trigger || !activePanel._trigger.contains(e.target))) {

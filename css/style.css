@@ -2611,7 +2611,7 @@
   .news-source-field .news-select-trigger { width:100%; }
 }
 @media(max-width:768px) {
-  body.news-select-locked { overflow:hidden !important; touch-action:none; }
+  body.news-select-locked { overflow:hidden !important; }
   .news-select-menu {
     position:fixed !important;
     inset:auto 0 0 0 !important;
@@ -2637,7 +2637,6 @@
     overflow:hidden !important;
     transform:translate3d(0, 100%, 0);
     transition:transform .32s cubic-bezier(0.32, 0.72, 0, 1);
-    touch-action:none;
     will-change:transform;
   }
   .news-select-menu:popover-open {
@@ -3136,12 +3135,14 @@ a, button, summary, input, select, label { -webkit-tap-highlight-color: transpar
   background: transparent;
   opacity: 0;
   visibility: hidden;
+  pointer-events: none; /* critical: closed backdrop must never steal clicks */
   transition: opacity 0.22s ease, visibility 0.22s ease;
 }
 
 .app-custom-select-backdrop.is-open {
   opacity: 1;
   visibility: visible;
+  pointer-events: auto;
 }
 
 .app-custom-select-panel {
@@ -3502,4 +3503,17 @@ input[type="date"]::-webkit-calendar-picker-indicator:hover {
   border: 1px solid rgba(255,255,255,0.12);
 }
 .shell-account-avatar-img[hidden] { display: none; }
+
+/* Safety: invisible layers must never trap clicks */
+.app-custom-select-backdrop:not(.is-open),
+.news-select-menu:not(:popover-open),
+.modal-overlay:not(.open),
+.jt-checkout-overlay:not(.is-open) {
+  pointer-events: none !important;
+}
+body.modal-open .main-wrap,
+body.custom-select-locked .main-wrap,
+body.news-select-locked .main-wrap {
+  /* do not set pointer-events on main — only scroll lock */
+}
 
