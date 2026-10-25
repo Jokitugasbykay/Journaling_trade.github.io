@@ -6,6 +6,7 @@ on:
     branches: [main]
     paths:
       - '.github/workflows/audit-min.yml'
+      - 'scripts/audit_min.py'
 
 permissions:
   contents: write
@@ -20,8 +21,20 @@ jobs:
       - run: node --check js/app.js && node --check js/payment.js && node --check js/pro.js && node --check js/home.js
       - name: Bust
         run: |
-          python3 -c "from pathlib import Path; import re; ver='20261025-amin';
-[Path(p).write_text(re.sub(r'(js/(?:app|payment|pro|home)\\.js)\\?v=[^\"\\']+', lambda m: m.group(1)+'?v='+ver, Path(p).read_text()), encoding='utf-8') for p in list(map(str, Path('.').rglob('index.html')))+['404.html'] if Path(p).exists()]"
+          python3 <<'PY'
+          from pathlib import Path
+          import re
+          ver = '20261025-amin'
+          for path in list(Path('.').rglob('index.html')) + [Path('404.html')]:
+            if not path.exists() or 'node_modules' in path.parts:
+              continue
+            t = path.read_text(encoding='utf-8')
+            t2 = re.sub(r'(js/(?:app|payment|pro|home)\.js)\?v=[^"\']+', lambda m: m.group(1) + '?v=' + ver, t)
+            t2 = re.sub(r'(css/(?:home|style)\.css)\?v=[^"\']+', lambda m: m.group(1) + '?v=' + ver, t2)
+            if t2 != t:
+              path.write_text(t2, encoding='utf-8')
+              print('bust', path)
+          PY
       - name: Commit
         run: |
           git config user.name github-actions[bot]
