@@ -26,6 +26,7 @@
       let onboarding = { name: '', started: false };
       let language = 'en';
       const cloudClient = window.supabase?.createClient(SUPABASE_URL, SUPABASE_KEY, { auth: { storageKey: 'journalingtrade_nmddjuqkdyhcobddinkc_auth', flowType: 'pkce' } });
+      window.cloudClient = cloudClient;
       let cloudUser = null, cloudSession = null, cloudReady = false, cloudBusy = false, cloudTimer = null, localRevision = 0;
       const FOUNDER_EMAILS = ['kaylafisika24@gmail.com', 'gamingyoga14@gmail.com'];
       let founderUserId = '', verifiedNewsUserId = '', cloudAuthRevision = 0;
@@ -4057,7 +4058,7 @@
           else await verifyNewsIdentity(user.id, revision);
         } catch {}
       }
-      setInterval(() => { if (!document.hidden) reloadPublisherNews(); }, 300000);
+      setInterval(() => { if (!document.hidden) reloadPublisherNews(); }, 60000);
       document.addEventListener('visibilitychange', () => { if (!document.hidden) reloadPublisherNews(); });
 
       /* Sub-view Switcher */

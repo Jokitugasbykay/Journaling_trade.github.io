@@ -44,22 +44,23 @@
   // ---- Get current Supabase auth token ----
   async function getAuthToken() {
     try {
-      const sb = window._supabaseClient || window.supabaseClient;
-      if (sb) {
+      const sb = window.cloudClient || window._supabaseClient || window.supabaseClient;
+      if (sb && sb.auth && sb.auth.getSession) {
         const { data } = await sb.auth.getSession();
-        return data?.session?.access_token || null;
+        if (data && data.session && data.session.access_token) return data.session.access_token;
       }
-      const keys = Object.keys(localStorage);
-      for (const k of keys) {
-        if (k.includes('supabase') && k.includes('auth')) {
-          try {
-            const parsed = JSON.parse(localStorage.getItem(k) || '{}');
-            const token  = parsed?.access_token || parsed?.currentSession?.access_token;
-            if (token) return token;
-          } catch { /* continue */ }
-        }
+      const STORAGE_KEY = 'journalingtrade_nmddjuqkdyhcobddinkc_auth';
+      const keys = [STORAGE_KEY].concat(Object.keys(localStorage).filter(function (k) { return /supabase|auth/i.test(k); }));
+      for (var i = 0; i < keys.length; i++) {
+        try {
+          var raw = localStorage.getItem(keys[i]);
+          if (!raw) continue;
+          var parsed = JSON.parse(raw);
+          var token = parsed && (parsed.access_token || (parsed.currentSession && parsed.currentSession.access_token) || (parsed.session && parsed.session.access_token));
+          if (typeof token === 'string' && token.length > 20) return token;
+        } catch (e) {}
       }
-    } catch { /* ignore */ }
+    } catch (e) { console.warn('getAuthToken', e); }
     return null;
   }
 
