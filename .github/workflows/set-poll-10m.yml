@@ -1,0 +1,41 @@
+name: Set 10m client poll
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'scripts/set_news_poll_10m.py'
+      - '.github/workflows/set-poll-10m.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  fix:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: python3 scripts/set_news_poll_10m.py
+      - run: node --check js/app.js
+      - name: Cache bust
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          import re
+          ver='20261025-poll10m'
+          for path in list(Path('.').rglob('index.html'))+[Path('404.html')]:
+            if not path.exists() or 'node_modules' in path.parts: continue
+            t=path.read_text(encoding='utf-8')
+            t2=re.sub(r'(js/app\.js)\?v=[^"\']+', lambda m: m.group(1)+'?v='+ver, t)
+            if t2!=t:
+              path.write_text(t2,encoding='utf-8'); print('bust',path)
+          PY
+      - name: Commit
+        run: |
+          git config user.name github-actions[bot]
+          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+          git add -A
+          git diff --cached --quiet && exit 0
+          git commit -m "chore: client poll news and BI every 10 minutes"
+          git push
