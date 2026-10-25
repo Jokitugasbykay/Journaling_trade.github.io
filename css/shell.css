@@ -181,3 +181,20 @@ body.auth-page .shell-header,body.auth-page .shell-footer { display:none; }
   .shell-header .nav-dropdown-menu { animation:none; }
   .shell-header *, .shell-footer * { transition:none; }
 }
+
+/* Top-right account photo */
+.shell-header .shell-account-avatar-img {
+  display: block;
+  flex-shrink: 0;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 1px solid rgba(255,255,255,0.14);
+  background: #1a1f2a;
+}
+.shell-header .shell-account-avatar-img[hidden] { display: none !important; }
+.shell-header .nav-btn-masuk:has(#nav-avatar-img:not([hidden])) {
+  padding: 4px 12px 4px 5px;
+  background: #11141a;
+}

@@ -3499,10 +3499,12 @@ input[type="date"]::-webkit-calendar-picker-indicator:hover {
   display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-top: 10px;
 }
 .shell-account-avatar-img {
-  width: 28px; height: 28px; border-radius: 999px; object-fit: cover;
-  border: 1px solid rgba(255,255,255,0.12);
+  width: 34px; height: 34px; border-radius: 999px; object-fit: cover;
+  border: 1px solid rgba(255,255,255,0.14);
+  background: #1a1f2a;
+  flex-shrink: 0;
 }
-.shell-account-avatar-img[hidden] { display: none; }
+.shell-account-avatar-img[hidden] { display: none !important; }
 
 /* Safety: invisible layers must never trap clicks */
 .app-custom-select-backdrop:not(.is-open),

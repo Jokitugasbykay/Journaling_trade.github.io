@@ -600,6 +600,21 @@
         $('nav-account-plan').textContent = plan;
         $('nav-dd-plan').textContent = plan;
         for (const id of ['nav-avatar-initials', 'nav-account-copy', 'nav-dd-plan', 'nav-account-storage']) $(id).hidden = !hasProfile;
+        // Top-right photo: custom upload > Google photo > initials
+        try {
+          let navPhoto = profileAvatarUrl();
+          if (!navPhoto && cloudUser) {
+            try { navPhoto = localStorage.getItem('fncjt_avatar_' + cloudUser.id) || ''; if (navPhoto) profile.avatarUrl = navPhoto; } catch (_) {}
+          }
+          setProfileAvatarDisplay(navPhoto || '');
+          // If no photo URL, ensure initials are visible when profile is shown
+          if (!navPhoto && !googleAccountProfile()?.avatar && hasProfile) {
+            const navInit = $('nav-avatar-initials');
+            const navImg = $('nav-avatar-img');
+            if (navInit) navInit.hidden = false;
+            if (navImg) navImg.hidden = true;
+          }
+        } catch (_) {}
         for (const id of ['nav-login-label', 'nav-guest-badge', 'nav-try']) $(id).hidden = hasProfile;
         $('upload-quota-note').textContent = uploadAllowanceText();
         $('news-content').hidden = !canReadNews();
@@ -2401,34 +2416,54 @@
       }
 
       function setProfileAvatarDisplay(url) {
+        // nav photo preference: custom upload > google > initials
         const userImg = $('tpc-user-avatar');
         const googleImg = $('tpc-google-avatar');
         const navImg = $('nav-avatar-img');
         const navInit = $('nav-avatar-initials');
         const removeBtn = $('profile-avatar-remove-btn');
-        const has = !!(url && String(url).trim());
+        const google = (typeof googleAccountProfile === 'function') ? googleAccountProfile() : null;
+        const custom = !!(url && String(url).trim());
+        const googleUrl = (!custom && google && google.avatar) ? google.avatar : '';
+        const shown = custom ? String(url).trim() : googleUrl;
+
         if (userImg) {
-          userImg.hidden = !has;
-          if (has) {
+          userImg.hidden = !custom;
+          if (custom) {
             userImg.onerror = () => { userImg.hidden = true; };
             if (userImg.src !== url) userImg.src = url;
           } else {
             userImg.removeAttribute('src');
           }
         }
-        // Prefer custom avatar over Google photo
-        if (googleImg && has) googleImg.hidden = true;
+        if (googleImg) {
+          // Profile card: custom hides google photo
+          if (custom) {
+            googleImg.hidden = true;
+          } else if (googleUrl) {
+            googleImg.hidden = false;
+            googleImg.onerror = () => { googleImg.hidden = true; };
+            if (googleImg.src !== googleUrl) googleImg.src = googleUrl;
+          } else {
+            googleImg.hidden = true;
+            googleImg.removeAttribute('src');
+          }
+        }
         if (navImg) {
-          navImg.hidden = !has;
-          if (has) {
-            navImg.onerror = () => { navImg.hidden = true; if (navInit) navInit.hidden = false; };
-            if (navImg.src !== url) navImg.src = url;
+          if (shown) {
+            navImg.hidden = false;
+            navImg.onerror = () => {
+              navImg.hidden = true;
+              if (navInit) navInit.hidden = false;
+            };
+            if (navImg.src !== shown) navImg.src = shown;
             if (navInit) navInit.hidden = true;
           } else {
+            navImg.hidden = true;
             navImg.removeAttribute('src');
           }
         }
-        if (removeBtn) removeBtn.hidden = !has || !cloudUser;
+        if (removeBtn) removeBtn.hidden = !custom || !cloudUser;
       }
 
       async function uploadProfileAvatarFile(file) {
@@ -4145,7 +4180,7 @@
           const userId = cloudUser.id;
           cloudClient.from('profiles').select('display_name,nickname_set,avatar_url').eq('id', userId).maybeSingle().then(({ data, error }) => {
             if (error || cloudUser?.id !== userId || !data?.nickname_set || !data.display_name?.trim()) return;
-            nicknameReady = true; if (data.avatar_url) profile.avatarUrl = data.avatar_url;
+            nicknameReady = true; if (data.avatar_url) profile.avatarUrl = data.avatar_url; try { renderAccountAccess(); } catch (_) {}
             profile.name = data.display_name; onboarding.name = data.display_name;
             persistOnboarding(); updateAccess();
             if ($('view-login').classList.contains('active')) switchTab('jurnal');
