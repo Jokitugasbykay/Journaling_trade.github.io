@@ -15,7 +15,7 @@
       let accounts = [];
       let trades = [];
       let settings = { kurs: 17000, billingAnnual: false };
-      let profile = { name: 'Trader', currentAccount: 'demo_acc'  avatarUrl: '',};
+      let profile = { name: 'Trader', currentAccount: 'demo_acc', avatarUrl: '' };
       let currentEditingTradeId = null;
       let parsedTradesToImport = [];
       let scanJob = 0;
