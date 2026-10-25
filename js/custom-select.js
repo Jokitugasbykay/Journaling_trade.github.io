@@ -87,9 +87,8 @@
 
   function enhanceSelect(select) {
     if (!select || select.dataset.customEnhanced === 'true') return;
-    // Skip if inside Pro Workspace or already enhanced by news-select
+    // Skip only selects that have their own custom UI (news popover / pro mobile nav)
     if (select.id === 'pro-section-selector' || select.id === 'news-region' || select.id === 'news-source') return;
-    if (select.closest && select.closest('.pro-workspace')) return;
     // Skip if explicitly hidden in markup
     if (select.style.display === 'none' || select.hidden) return;
 

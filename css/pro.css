@@ -10359,3 +10359,17 @@ body:has(.pro-nav-modal.is-open) {
     }
   }
 }
+
+.pro-workspace input[type="date"],
+.pro-workspace input[type="datetime-local"],
+.pro-workspace input[type="month"],
+.pro-workspace input[type="time"] {
+  color-scheme: dark;
+}
+.pro-workspace select.app-custom-select-native {
+  position: absolute !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+  width: 1px !important;
+  height: 1px !important;
+}

@@ -12403,6 +12403,7 @@ function filterPairDropdown() {
         content.style.display='';
         content.classList.add('pro-tab-fade-in');
         window.dispatchEvent(new Event('resize'));
+        window.initCustomSelects?.();
         status.style.display='';
         if(status.textContent===text('Loading','Loading…'))status.textContent='';
       }

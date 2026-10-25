@@ -3371,3 +3371,113 @@ a, button, summary, input, select, label { -webkit-tap-highlight-color: transpar
     padding: 14px 10px 32px !important;
   }
 }
+
+/* Unified dark date / calendar controls (avoid default Chrome white picker chrome) */
+input[type="date"],
+input[type="datetime-local"],
+input[type="month"],
+input[type="time"],
+input[type="week"] {
+  color-scheme: dark;
+  -webkit-appearance: none;
+  appearance: none;
+  background-color: #0d121c;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 10px;
+  color: #f1f5f9;
+  font: inherit;
+  font-size: 13.5px;
+  font-weight: 500;
+  min-height: 42px;
+  padding: 9px 13px;
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 100%;
+}
+input[type="date"]:hover,
+input[type="datetime-local"]:hover,
+input[type="month"]:hover,
+input[type="time"]:hover {
+  border-color: rgba(241, 245, 249, 0.5);
+  background-color: #121824;
+}
+input[type="date"]:focus,
+input[type="datetime-local"]:focus,
+input[type="month"]:focus,
+input[type="time"]:focus {
+  outline: none;
+  border-color: #f1f5f9;
+  box-shadow: 0 0 0 3px rgba(241, 245, 249, 0.22);
+}
+input[type="date"]::-webkit-calendar-picker-indicator,
+input[type="datetime-local"]::-webkit-calendar-picker-indicator,
+input[type="month"]::-webkit-calendar-picker-indicator,
+input[type="time"]::-webkit-calendar-picker-indicator {
+  cursor: pointer;
+  opacity: 0.7;
+  filter: invert(1) brightness(1.2);
+}
+input[type="date"]::-webkit-calendar-picker-indicator:hover {
+  opacity: 1;
+}
+
+/* Economic calendar filter dropdowns (details) */
+.calendar-dropdown {
+  position: relative;
+  width: 100%;
+}
+.calendar-dropdown > summary {
+  list-style: none;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  min-height: 42px;
+  padding: 9px 13px;
+  background: #0d121c;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 10px;
+  color: #f1f5f9;
+  font-size: 13.5px;
+  font-weight: 500;
+  cursor: pointer;
+  user-select: none;
+}
+.calendar-dropdown > summary::-webkit-details-marker { display: none; }
+.calendar-dropdown > summary::after {
+  content: '';
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%2394a3b8' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E") center / 16px no-repeat;
+  transition: transform 0.15s ease;
+}
+.calendar-dropdown[open] > summary {
+  border-color: rgba(241, 245, 249, 0.45);
+  background: #121824;
+}
+.calendar-dropdown[open] > summary::after {
+  transform: rotate(180deg);
+}
+.calendar-dropdown-panel {
+  margin-top: 8px;
+  padding: 10px;
+  background: #0d121c;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 12px;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.55);
+  max-height: 280px;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+@media (max-width: 768px) {
+  input[type="date"],
+  input[type="datetime-local"],
+  input[type="month"],
+  input[type="time"],
+  .calendar-dropdown > summary {
+    min-height: 48px;
+    font-size: 16px;
+  }
+}
+
