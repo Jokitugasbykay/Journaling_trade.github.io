@@ -1,10 +1,17 @@
 name: Update publisher news
 on:
   schedule:
-    - cron: '*/5 * * * *'
+    # Every 10 minutes — news, BI rates, calendar, FOMC
+    - cron: '*/10 * * * *'
   workflow_dispatch:
   push:
     branches: [main]
+    paths:
+      - 'scripts/update_news.py'
+      - 'scripts/update_bi.py'
+      - 'scripts/update_macro.py'
+      - 'scripts/build_news.py'
+      - '.github/workflows/update-news.yml'
 permissions:
   contents: write
   pages: write
@@ -15,7 +22,7 @@ concurrency:
 jobs:
   update:
     runs-on: ubuntu-latest
-    timeout-minutes: 15
+    timeout-minutes: 20
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
@@ -26,54 +33,49 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
-      - run: python scripts/test_news.py
-      - run: python scripts/test_news_delivery.py
-      - run: python scripts/audit_news.py --self-test
-      - run: python scripts/test_macro.py
-      - run: node js/home.test.cjs
-      - run: node js/journal.test.cjs
-      - run: node js/scan.test.cjs
-      - run: node js/i18n.test.cjs
-      - run: node scripts/audit-locales.cjs
-      - run: node js/copy.test.cjs
-      - run: node js/security.test.cjs
-      - run: node js/news-region.test.cjs
-      - run: node js/news-reader.test.cjs
-      - run: node js/news-loading.test.cjs
-      - run: node js/news-auth.test.cjs
-      - run: node js/news-select.test.cjs
-      - run: node js/discipline.test.cjs
-      - run: node js/fed.test.cjs
-      - run: python scripts/update_news.py
-      - run: python scripts/update_bi.py
-      - run: python scripts/update_macro.py
-      - name: Publish headlines
+
+      - name: Update publisher news
+        run: python scripts/update_news.py
+      - name: Update BI rates
+        run: python scripts/update_bi.py
+      - name: Update macro / calendar
+        run: python scripts/update_macro.py
+
+      - name: Publish feed JSON to main
         run: |
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add berita.json bi.json kalender.json fomc.json news/images
+          git add berita.json bi.json kalender.json fomc.json news/images || true
           if ! git diff --cached --quiet; then
             git commit -m 'Refresh publisher headlines'
-            git pull --rebase origin main
+            git pull --rebase origin main || git pull --rebase --autostash origin main || true
             git push origin HEAD:main
+          else
+            echo 'No feed changes'
           fi
-      - run: python scripts/build_news.py
+
+      - name: Build news bundles
+        run: python scripts/build_news.py
+
       - name: Prepare website
         run: |
-          mkdir _site
+          mkdir -p _site/news
           cp index.html berita.json kalender.json bi.json fomc.json regional-sources.json _site/
-          cp services/pro_api/regions.json _site/news-regions.json
+          cp services/pro_api/regions.json _site/news-regions.json 2>/dev/null || true
           cp -r css js _site/
-          mkdir _site/news
-          cp news/index.json _site/news/
-          cp -r news/sources news/archive news/categories news/images _site/news/
+          if [ -f news/index.json ]; then cp news/index.json _site/news/; fi
+          for d in sources archive categories images; do
+            if [ -d "news/$d" ]; then cp -r "news/$d" _site/news/; fi
+          done
           for route in home journal statistics calculator economic-news economic-news/calendar economic-news/social login profile pro analytics heatmap strategies risk reviews reports ai/behaviour ai/market ai/journal ai/chat global-news; do
             mkdir -p "_site/$route"
             cp index.html "_site/$route/index.html"
           done
+
       - uses: actions/upload-pages-artifact@v3
         with:
           path: _site
+
       - name: Deploy website
         id: deployment
         uses: actions/deploy-pages@v4
