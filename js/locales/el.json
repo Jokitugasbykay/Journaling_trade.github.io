@@ -1122,5 +1122,16 @@
   "homeSessionNewYork": "New York",
   "homeSessionOpen": "Open",
   "homeSessionClosed": "Closed",
-  "homeSessionActivePairs": "Active pairs"
+  "homeSessionActivePairs": "Active pairs",
+  "profileUploadPhoto": "Upload photo",
+  "profileRemovePhoto": "Remove photo",
+  "profileUploadSignIn": "Sign in to upload a profile photo.",
+  "profileUploadFileType": "Use a JPG, PNG, WebP, or GIF file.",
+  "profileUploadMaxSize": "Maximum size is 2 MB.",
+  "profileUploading": "Uploading…",
+  "profileUploadSaved": "Profile photo saved.",
+  "profileUploadFailed": "Upload failed: ",
+  "profileRemoving": "Removing…",
+  "profilePhotoRemoved": "Photo removed.",
+  "profilePhotoRemoveFailed": "Could not remove photo."
 }
