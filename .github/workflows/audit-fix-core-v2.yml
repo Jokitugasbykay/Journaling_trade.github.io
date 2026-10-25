@@ -1,0 +1,79 @@
+name: Audit fix core v2
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/audit-fix-core-v2.yml'
+      - 'scripts/audit_fix_core_v2.py'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  fix:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Patch
+        run: |
+          python3 scripts/audit_fix_core_v2.py
+          # Force correct JS newline concatenations (avoid broken quote newlines)
+          python3 - <<'PY'
+          from pathlib import Path
+          import re
+          p = Path('js/pro.js')
+          t = p.read_text(encoding='utf-8')
+          t = re.sub(
+              r'systemInstruction:\s*KAYSTRADE_SYSTEM_PROMPT(?!\s*\+)',
+              'systemInstruction: KAYSTRADE_SYSTEM_PROMPT + String.fromCharCode(10) + aiLanguageDirective()',
+              t,
+          )
+          t = re.sub(
+              r'systemInstruction:\s*getChatSystemPrompt\(\)(?!\s*\+)',
+              'systemInstruction: getChatSystemPrompt() + String.fromCharCode(10) + aiLanguageDirective()',
+              t,
+          )
+          t = re.sub(
+              r'systemInstruction:\s*systemPrompt(?!\s*\+)',
+              'systemInstruction: systemPrompt + String.fromCharCode(10) + aiLanguageDirective()',
+              t,
+          )
+          # remove any broken multi-line + '  patterns from v1
+          t = re.sub(
+              r"systemInstruction:\s*([^\n]+?)\s*\+\s*'\s*\n\s*'\s*\+\s*aiLanguageDirective\(\)",
+              r'systemInstruction: \1 + String.fromCharCode(10) + aiLanguageDirective()',
+              t,
+          )
+          p.write_text(t, encoding='utf-8')
+          print('pro call-site normalize done')
+          PY
+      - name: Syntax check
+        run: |
+          node --check js/app.js
+          node --check js/payment.js
+          node --check js/pro.js
+          node --check js/home.js
+      - name: Cache bust
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          import re
+          ver='20261025-auditcore2'
+          for path in list(Path('.').rglob('index.html'))+[Path('404.html')]:
+            if not path.exists() or 'node_modules' in path.parts: continue
+            t=path.read_text(encoding='utf-8')
+            t2=re.sub(r'(js/(?:app|payment|pro|home)\.js)\?v=[^"\']+', lambda m: m.group(1)+'?v='+ver, t)
+            t2=re.sub(r'(css/(?:home|style)\.css)\?v=[^"\']+', lambda m: m.group(1)+'?v='+ver, t2)
+            if t2!=t:
+              path.write_text(t2,encoding='utf-8'); print('bust',path)
+          PY
+      - name: Commit
+        run: |
+          git config user.name github-actions[bot]
+          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+          git add -A
+          git diff --cached --quiet && exit 0
+          git commit -m "fix: Midtrans session auth, multilingual Kayla AI, news 60s, home layout"
+          git push
