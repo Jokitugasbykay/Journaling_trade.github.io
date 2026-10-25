@@ -4058,7 +4058,7 @@
           else await verifyNewsIdentity(user.id, revision);
         } catch {}
       }
-      setInterval(() => { if (!document.hidden) reloadPublisherNews(); }, 60000);
+      setInterval(() => { if (!document.hidden) reloadPublisherNews(); }, 600000); // 10 minutes
       document.addEventListener('visibilitychange', () => { if (!document.hidden) reloadPublisherNews(); });
 
       /* Sub-view Switcher */
@@ -4169,8 +4169,8 @@
       window.addEventListener('popstate', restoreRoute);
       window.addEventListener('hashchange', () => { if (location.pathname === pagePath('login')) restoreRoute(); });
       refreshExchangeRate();
-      setInterval(() => { if (!document.hidden) refreshExchangeRate(); }, 3600000);
-      document.addEventListener('visibilitychange', () => { if (!document.hidden && Date.now() - exchangeCheckedAt >= 3600000) refreshExchangeRate(); });
+      setInterval(() => { if (!document.hidden) refreshExchangeRate(); }, 600000); // 10 minutes
+      document.addEventListener('visibilitychange', () => { if (!document.hidden && Date.now() - exchangeCheckedAt >= 600000) refreshExchangeRate(); });
       window.addEventListener('online', scheduleCloudSave);
       window.addEventListener('online', () => { if (!document.hidden) retryNewsConnection(); });
       window.addEventListener('storage', event => {
