@@ -14,8 +14,6 @@ on:
       - '.github/workflows/update-news.yml'
 permissions:
   contents: write
-  pages: write
-  id-token: write
 concurrency:
   group: publisher-news
   cancel-in-progress: false
@@ -23,9 +21,6 @@ jobs:
   update:
     runs-on: ubuntu-latest
     timeout-minutes: 20
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - uses: actions/checkout@v4
         with:
@@ -48,34 +43,8 @@ jobs:
           git add berita.json bi.json kalender.json fomc.json news/images || true
           if ! git diff --cached --quiet; then
             git commit -m 'Refresh publisher headlines'
-            git pull --rebase origin main || git pull --rebase --autostash origin main || true
+            git pull --rebase origin main
             git push origin HEAD:main
           else
             echo 'No feed changes'
           fi
-
-      - name: Build news bundles
-        run: python scripts/build_news.py
-
-      - name: Prepare website
-        run: |
-          mkdir -p _site/news
-          cp index.html berita.json kalender.json bi.json fomc.json regional-sources.json _site/
-          cp services/pro_api/regions.json _site/news-regions.json 2>/dev/null || true
-          cp -r css js _site/
-          if [ -f news/index.json ]; then cp news/index.json _site/news/; fi
-          for d in sources archive categories images; do
-            if [ -d "news/$d" ]; then cp -r "news/$d" _site/news/; fi
-          done
-          for route in home journal statistics calculator economic-news economic-news/calendar economic-news/social login profile pro analytics heatmap strategies risk reviews reports ai/behaviour ai/market ai/journal ai/chat global-news; do
-            mkdir -p "_site/$route"
-            cp index.html "_site/$route/index.html"
-          done
-
-      - uses: actions/upload-pages-artifact@v3
-        with:
-          path: _site
-
-      - name: Deploy website
-        id: deployment
-        uses: actions/deploy-pages@v4

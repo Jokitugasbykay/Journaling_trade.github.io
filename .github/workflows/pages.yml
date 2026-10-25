@@ -4,6 +4,10 @@ on:
   push:
     branches: [main]
   workflow_dispatch:
+  workflow_run:
+    workflows: [Update publisher news]
+    types: [completed]
+    branches: [main]
 
 permissions:
   contents: read
@@ -16,6 +20,7 @@ concurrency:
 
 jobs:
   deploy:
+    if: github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success'
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
@@ -23,6 +28,27 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          ref: main
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Build current news bundles
+        run: python scripts/build_news.py
+
+      - name: Prepare website
+        run: |
+          mkdir -p _site
+          cp index.html berita.json kalender.json bi.json fomc.json regional-sources.json .nojekyll _site/
+          cp index.html _site/404.html
+          cp services/pro_api/regions.json _site/news-regions.json
+          cp -r css js assets news _site/
+          for route in home journal statistics calculator economic-news economic-news/calendar economic-news/social login profile pro analytics heatmap strategies risk reviews reports ai ai/behaviour ai/market ai/journal ai/chat global-news; do
+            mkdir -p "_site/$route"
+            cp index.html "_site/$route/index.html"
+          done
 
       - name: Setup Pages
         uses: actions/configure-pages@v5
@@ -30,7 +56,7 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: .
+          path: _site
 
       - name: Deploy to GitHub Pages
         id: deployment

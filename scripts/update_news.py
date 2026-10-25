@@ -548,7 +548,7 @@ def main():
         list(pool.map(add_article_image, missing[:96]))
     items = merge_items(previous.get('items', []), items)
     items = prune_archive(items)
-    output = {"version": 1, "checkedAt": dt.datetime.now(dt.timezone.utc).isoformat(), "intervalMinutes": 5, "sources": sources, "items": items}
+    output = {"version": 1, "checkedAt": dt.datetime.now(dt.timezone.utc).isoformat(), "intervalMinutes": 10, "sources": sources, "items": items}
     temporary = path.with_suffix(".json.tmp")
     temporary.write_text(json.dumps(output, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     temporary.replace(path)
