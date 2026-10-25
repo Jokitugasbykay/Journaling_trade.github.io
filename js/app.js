@@ -15,7 +15,7 @@
       let accounts = [];
       let trades = [];
       let settings = { kurs: 17000, billingAnnual: false };
-      let profile = { name: 'Trader', currentAccount: 'demo_acc' };
+      let profile = { name: 'Trader', currentAccount: 'demo_acc'  avatarUrl: '',};
       let currentEditingTradeId = null;
       let parsedTradesToImport = [];
       let scanJob = 0;
@@ -359,7 +359,7 @@
             for (const [a, b] of saved.strategies || []) cloudStrategyIds.set(a, b);
             cloudSnapshot = saved.snapshot || '';
           } catch {}
-          const profileRequest = cloudClient.from('profiles').select('display_name,nickname_set').eq('id', user.id).maybeSingle();
+          const profileRequest = cloudClient.from('profiles').select('display_name,nickname_set,avatar_url').eq('id', user.id).maybeSingle();
           const journalRequest = Promise.allSettled([
             cloudClient.from('trading_accounts').select('*').eq('user_id', user.id),
             cloudClient.from('strategies').select('*').eq('user_id', user.id),
@@ -2395,6 +2395,133 @@
       };
 
       /* Profil & multi-account management */
+
+      function profileAvatarUrl() {
+        return (profile && profile.avatarUrl) || '';
+      }
+
+      function setProfileAvatarDisplay(url) {
+        const userImg = $('tpc-user-avatar');
+        const googleImg = $('tpc-google-avatar');
+        const navImg = $('nav-avatar-img');
+        const navInit = $('nav-avatar-initials');
+        const removeBtn = $('profile-avatar-remove-btn');
+        const has = !!(url && String(url).trim());
+        if (userImg) {
+          userImg.hidden = !has;
+          if (has) {
+            userImg.onerror = () => { userImg.hidden = true; };
+            if (userImg.src !== url) userImg.src = url;
+          } else {
+            userImg.removeAttribute('src');
+          }
+        }
+        // Prefer custom avatar over Google photo
+        if (googleImg && has) googleImg.hidden = true;
+        if (navImg) {
+          navImg.hidden = !has;
+          if (has) {
+            navImg.onerror = () => { navImg.hidden = true; if (navInit) navInit.hidden = false; };
+            if (navImg.src !== url) navImg.src = url;
+            if (navInit) navInit.hidden = true;
+          } else {
+            navImg.removeAttribute('src');
+          }
+        }
+        if (removeBtn) removeBtn.hidden = !has || !cloudUser;
+      }
+
+      async function uploadProfileAvatarFile(file) {
+        const status = $('profile-avatar-status');
+        const setStatus = (msg) => { if (status) status.textContent = msg || ''; };
+        if (!cloudUser || !cloudClient || !cloudReady) {
+          setStatus(uiText('Masuk dulu untuk mengunggah foto profil.', 'Sign in to upload a profile photo.'));
+          return;
+        }
+        if (!file || !file.type || !/^image\/(jpeg|png|webp|gif)$/i.test(file.type)) {
+          setStatus(uiText('Gunakan file JPG, PNG, WebP, atau GIF.', 'Use a JPG, PNG, WebP, or GIF file.'));
+          return;
+        }
+        if (file.size > 2 * 1024 * 1024) {
+          setStatus(uiText('Ukuran maksimal 2 MB.', 'Maximum size is 2 MB.'));
+          return;
+        }
+        setStatus(uiText('Mengunggah…', 'Uploading…'));
+        const ext = file.type === 'image/png' ? 'png' : file.type === 'image/webp' ? 'webp' : file.type === 'image/gif' ? 'gif' : 'jpg';
+        const path = cloudUser.id + '/avatar.' + ext;
+        try {
+          const { error: upErr } = await cloudClient.storage.from('avatars').upload(path, file, {
+            upsert: true,
+            contentType: file.type,
+            cacheControl: '3600'
+          });
+          if (upErr) throw upErr;
+          const { data: pub } = cloudClient.storage.from('avatars').getPublicUrl(path);
+          const url = (pub && pub.publicUrl ? pub.publicUrl : '') + '?v=' + Date.now();
+          const { error: dbErr } = await cloudClient.from('profiles').upsert(
+            { id: cloudUser.id, avatar_url: url, updated_at: new Date().toISOString() },
+            { onConflict: 'id' }
+          );
+          if (dbErr) throw dbErr;
+          profile.avatarUrl = url;
+          try { localStorage.setItem('fncjt_avatar_' + cloudUser.id, url); } catch (_) {}
+          setProfileAvatarDisplay(url);
+          setStatus(uiText('Foto profil disimpan.', 'Profile photo saved.'));
+          if (typeof updateAccess === 'function') updateAccess();
+        } catch (err) {
+          console.error(err);
+          setStatus(uiText('Gagal mengunggah: ', 'Upload failed: ') + (err.message || err.error_description || String(err)));
+        }
+      }
+
+      window.removeProfileAvatar = async function () {
+        const status = $('profile-avatar-status');
+        if (!cloudUser || !cloudClient) return;
+        if (status) status.textContent = uiText('Menghapus…', 'Removing…');
+        try {
+          await cloudClient.storage.from('avatars').remove([
+            cloudUser.id + '/avatar.jpg',
+            cloudUser.id + '/avatar.png',
+            cloudUser.id + '/avatar.webp',
+            cloudUser.id + '/avatar.gif'
+          ]);
+          await cloudClient.from('profiles').upsert(
+            { id: cloudUser.id, avatar_url: null, updated_at: new Date().toISOString() },
+            { onConflict: 'id' }
+          );
+          profile.avatarUrl = '';
+          try { localStorage.removeItem('fncjt_avatar_' + cloudUser.id); } catch (_) {}
+          setProfileAvatarDisplay('');
+          if (status) status.textContent = uiText('Foto dihapus.', 'Photo removed.');
+          if (typeof updateAccess === 'function') updateAccess();
+          if (typeof renderProfileView === 'function') renderProfileView();
+        } catch (err) {
+          if (status) status.textContent = uiText('Gagal menghapus.', 'Could not remove photo.');
+        }
+      };
+
+      window.initProfileAvatarControls = function () {
+        const input = $('profile-avatar-input');
+        const btn = $('profile-avatar-upload-btn');
+        const removeBtn = $('profile-avatar-remove-btn');
+        if (input && !input.dataset.bound) {
+          input.dataset.bound = '1';
+          input.addEventListener('change', () => {
+            const file = input.files && input.files[0];
+            input.value = '';
+            if (file) uploadProfileAvatarFile(file);
+          });
+        }
+        if (btn && !btn.dataset.bound) {
+          btn.dataset.bound = '1';
+          btn.addEventListener('click', () => input && input.click());
+        }
+        if (removeBtn && !removeBtn.dataset.bound) {
+          removeBtn.dataset.bound = '1';
+          removeBtn.addEventListener('click', () => window.removeProfileAvatar());
+        }
+      };
+
       function googleAccountProfile() {
         const user = cloudUser;
         if (!user || (user.app_metadata?.provider !== 'google' && !user.identities?.some(identity => identity.provider === 'google'))) return null;
@@ -2428,6 +2555,13 @@
         if ($('tpc-profile-alias')) { $('tpc-profile-alias').hidden = !google || !profile.name || profile.name === google.name; $('tpc-profile-alias').textContent = google && profile.name && profile.name !== google.name ? (uiText('Nama panggilan: ', 'Nickname: ')) + profile.name : ''; }
         const avatar = $('tpc-google-avatar');
         if (avatar) { avatar.hidden = !google?.avatar; avatar.onerror = () => { avatar.hidden = true; }; if (google?.avatar && avatar.src !== google.avatar) avatar.src = google.avatar; if (!google?.avatar) avatar.removeAttribute('src'); }
+                initProfileAvatarControls();
+        // Custom uploaded avatar wins over Google photo
+        let customAvatar = profileAvatarUrl();
+        if (!customAvatar && cloudUser) {
+          try { customAvatar = localStorage.getItem('fncjt_avatar_' + cloudUser.id) || ''; profile.avatarUrl = customAvatar || profile.avatarUrl || ''; } catch (_) {}
+        }
+        setProfileAvatarDisplay(customAvatar);
         if ($('tpc-avatar-initials')) {
           const initials = traderName.split(' ').map(s => s[0]).join('').slice(0, 2).toUpperCase() || 'TR';
           $('tpc-avatar-initials').textContent = initials;
@@ -4009,9 +4143,10 @@
         }
         if (event.key === K_PROFILE && cloudUser && !nicknameReady) {
           const userId = cloudUser.id;
-          cloudClient.from('profiles').select('display_name,nickname_set').eq('id', userId).maybeSingle().then(({ data, error }) => {
+          cloudClient.from('profiles').select('display_name,nickname_set,avatar_url').eq('id', userId).maybeSingle().then(({ data, error }) => {
             if (error || cloudUser?.id !== userId || !data?.nickname_set || !data.display_name?.trim()) return;
-            nicknameReady = true; profile.name = data.display_name; onboarding.name = data.display_name;
+            nicknameReady = true; if (data.avatar_url) profile.avatarUrl = data.avatar_url;
+            profile.name = data.display_name; onboarding.name = data.display_name;
             persistOnboarding(); updateAccess();
             if ($('view-login').classList.contains('active')) switchTab('jurnal');
           });

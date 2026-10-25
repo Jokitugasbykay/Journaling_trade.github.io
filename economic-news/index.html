@@ -25,7 +25,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&family=Manrope:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&family=Playfair+Display:wght@600&display=swap" rel="stylesheet">
 
-  <link rel="stylesheet" href="css/style.css?v=20261025-dropdowns">
+  <link rel="stylesheet" href="css/style.css?v=20261025-avatar">
   <link rel="stylesheet" href="css/home.css?v=20261024-no-blue">
   <link rel="stylesheet" href="css/journal.css?v=20261024-no-blue">
   <link rel="stylesheet" href="css/shell.css?v=20261024-no-blue">
@@ -1227,6 +1227,12 @@
           <div class="tpc-avatar" id="tpc-avatar">
             <span id="tpc-avatar-initials">TR</span>
             <img id="tpc-google-avatar" alt="" hidden referrerpolicy="no-referrer">
+            <img id="tpc-user-avatar" alt="" hidden referrerpolicy="no-referrer">
+            <label class="tpc-avatar-upload" for="profile-avatar-input" title="Upload photo">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
+              <span class="shell-visually-hidden" data-i18n="profileUploadPhoto">Upload photo</span>
+            </label>
+            <input type="file" id="profile-avatar-input" accept="image/jpeg,image/png,image/webp,image/gif" hidden>
           </div>
           <div class="tpc-info">
             <div class="tpc-title-row">
@@ -1730,7 +1736,7 @@
   <script src="js/pro-config.js?v=20261010-hosted-gateway"></script>
   <script src="js/pro-import.js?v=20261010-pro"></script>
   <script src="js/pro.js?v=20261025-dropdowns"></script>
-  <script src="js/app.js?v=20261025-dropdowns"></script>
+  <script src="js/app.js?v=20261025-avatar"></script>
   <script src="js/home.js?v=20261024-no-blue"></script>
   <script src="js/fed.js?v=20261010-locales"></script>
   <script src="js/payment.js?v=20261024-scroll-unlock"></script>

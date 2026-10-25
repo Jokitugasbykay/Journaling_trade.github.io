@@ -3481,3 +3481,25 @@ input[type="date"]::-webkit-calendar-picker-indicator:hover {
   }
 }
 
+/* Profile avatar upload */
+.tpc-avatar { position: relative; overflow: hidden; }
+.tpc-avatar #tpc-user-avatar {
+  position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; border-radius: inherit;
+}
+.tpc-avatar #tpc-user-avatar[hidden] { display: none; }
+.tpc-avatar-upload {
+  position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
+  background: rgba(0,0,0,0.45); color: #fff; opacity: 0; cursor: pointer;
+  transition: opacity 0.15s ease; border-radius: inherit; z-index: 2;
+}
+.tpc-avatar:hover .tpc-avatar-upload,
+.tpc-avatar:focus-within .tpc-avatar-upload { opacity: 1; }
+.profile-avatar-actions {
+  display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-top: 10px;
+}
+.shell-account-avatar-img {
+  width: 28px; height: 28px; border-radius: 999px; object-fit: cover;
+  border: 1px solid rgba(255,255,255,0.12);
+}
+.shell-account-avatar-img[hidden] { display: none; }
+
