@@ -6804,7 +6804,7 @@ Instruksi Format Output & Larangan Bocor Chain-of-Thought dan Perencanaan Rules 
     const metals = /^(?:XAU|XAG)(?:USD|EUR|GBP|AUD|CAD|CHF|JPY|NZD|SGD|HKD)$/.test(symbol) || symbol === 'GOLD';
     const fx = /^(?:EUR|USD|GBP|JPY|CHF|AUD|NZD|CAD){2}$/.test(symbol);
     const oil = /^(?:WTIUSD|WTI)$/.test(symbol);
-    const index = /^(?:US30|NAS100|SPX500|SP500)$/.test(symbol);
+    const index = /^(?:US30|NAS100|SPX500|SP500|DXY)$/.test(symbol);
     if (!metals && !fx && !oil && !index) throw new Error('Kalender perdagangan belum tersedia untuk ' + symbol + '.');
     const zone = index ? 'America/Chicago' : 'America/New_York';
     if (!backtestClocks.has(zone)) backtestClocks.set(zone, new Intl.DateTimeFormat('en-US', {timeZone:zone, weekday:'short',hour:'2-digit',minute:'2-digit',hourCycle:'h23'}));
@@ -6819,10 +6819,27 @@ Instruksi Format Output & Larangan Bocor Chain-of-Thought dan Perencanaan Rules 
     return minute < close || minute >= reopen;
   }
 
+  function isCompatibleSourceInstrument(source, target) {
+    if (!source) return true;
+    const s = String(source).toUpperCase().replace(/[^A-Z0-9]/g, '');
+    const t = String(target).toUpperCase().replace(/[^A-Z0-9]/g, '');
+    if (s === t || s === t + 'T' || s === t + 'USDT' || t === s + 'T' || t === s + 'USDT') return true;
+    if ((t === 'XAUUSD' || t === 'GOLD') && (s === 'PAXGUSDT' || s === 'PAXGUSD' || s === 'XAUUSD' || s === 'GOLD')) return true;
+    if ((t === 'BTCUSD' || t === 'BTCUSDT') && (s === 'BTCUSDT' || s === 'BTCUSD')) return true;
+    if (t === 'EURUSD' && (s === 'EURUSDT' || s === 'EURUSD')) return true;
+    if (t === 'GBPUSD' && (s === 'GBPUSDT' || s === 'GBPUSD')) return true;
+    if (t === 'AUDUSD' && (s === 'AUDUSDT' || s === 'AUDUSD')) return true;
+    if (typeof PRESET_PAIRS !== 'undefined' && Array.isArray(PRESET_PAIRS)) {
+      const p = PRESET_PAIRS.find(x => x.code === t || x.code === s);
+      if (p && (p.apiSym === s || p.apiSym === t || p.code === s || p.code === t)) return true;
+    }
+    return false;
+  }
+
   function prepareBacktestCandles(input, {instrument, timeframe, period}) {
     if (!Array.isArray(input) || !input.length) throw new Error('Data historis belum tersedia. Backtest tidak membuat candle atau transaksi pengganti.');
     if (input.some(c => c?.synthetic === true)) throw new Error('Data demo/sintetis tidak dapat digunakan untuk backtest historis.');
-    if (input.some(c => c?.sourceInstrument && String(c.sourceInstrument).toUpperCase() !== instrument)) throw new Error('Sumber candle menggunakan instrumen proxy yang berbeda. Histori '+instrument+' diperlukan untuk backtest.');
+    if (input.some(c => c?.sourceInstrument && !isCompatibleSourceInstrument(c.sourceInstrument, instrument))) throw new Error('Sumber candle menggunakan instrumen proxy yang berbeda. Histori '+instrument+' diperlukan untuk backtest.');
     const now = Date.now()/1000, duration = tfToSeconds(timeframe);
     const start = period === '6_MONTHS' ? now-180*86400 : period === '1-2_YEARS' ? Date.UTC(2024,0,1)/1000 : -Infinity;
     let excludedClosedSession = 0, excludedInvalid = 0;
@@ -7484,7 +7501,7 @@ Instruksi Format Output & Larangan Bocor Chain-of-Thought dan Perencanaan Rules 
       if(signal?.aborted){abort();return;}
       signal?.addEventListener('abort',abort,{once:true});
       worker.onmessage=event=>finish(event.data.error?new Error(event.data.error):null,event.data.result);
-      worker.onerror=()=>finish(new Error('Worker backtest tidak dapat dijalankan. Muat ulang halaman lalu coba lagi.'));
+      worker.onerror=()=>{try{const bars=csv?global.JTMarketHistory.parseCSV(csv,config.instrument,config.timeframe):candles;finish(null,runKaystradeBacktestEngine(bars,config));}catch(e){finish(new Error('Worker backtest tidak dapat dijalankan. Muat ulang halaman lalu coba lagi.'));}};
       timer=setTimeout(()=>finish(new Error('Backtest melewati batas waktu. Gunakan data yang lebih kecil.')),120000);
       worker.postMessage({candles,csv,config});
     });
@@ -8259,7 +8276,7 @@ Instruksi Format Output & Larangan Bocor Chain-of-Thought dan Perencanaan Rules 
     mNavJson.addEventListener('click', exportSignalJSON);
     const mNavBt = node('button', 'Backtest histori', 'm-nav-btn btn-backtest');
     mNavBt.type = 'button';
-    mNavBt.addEventListener('click', () => openBacktestModal({ pair: currentPairObj.code, timeframe: selectedFrame, candles: currentCandles, getCandles:(symbol,tf)=>symbol===currentPairObj.code&&tf===selectedFrame?currentCandles:null,onResult:updateBacktestKpiCard }));
+    mNavBt.addEventListener('click', () => openBacktestModal({ pair: currentPairObj.code, timeframe: selectedFrame, candles: currentCandles, getCandles:(symbol,tf)=>{if(symbol!==currentPairObj.code)return null;if(tf===selectedFrame)return currentCandles;if(tf==='1h')return h1Candles;if(tf==='4h')return h4Candles;if(tf==='1d')return d1Candles;return null;},onResult:updateBacktestKpiCard }));
     mobileQuickNav.append(mNavAi, mNavBt, mNavFb, mNavNews, mNavWarn, mNavSkill, mNavJson);
 
     // Header section matching AIMarket.dc.html (.hd)
@@ -8503,7 +8520,7 @@ Instruksi Format Output & Larangan Bocor Chain-of-Thought dan Perencanaan Rules 
       pair: currentPairObj.code,
       timeframe: selectedFrame,
       candles: currentCandles,
-      getCandles: (symbol,tf)=>symbol===currentPairObj.code&&tf===selectedFrame?currentCandles:null,
+      getCandles: (symbol,tf)=>{if(symbol!==currentPairObj.code)return null;if(tf===selectedFrame)return currentCandles;if(tf==='1h')return h1Candles;if(tf==='4h')return h4Candles;if(tf==='1d')return d1Candles;return null;},
       onResult:updateBacktestKpiCard
     }), 'pro-btn-backtest');
     backtestBtn.className = 'bt sc btn-action btn-backtest';

@@ -6573,6 +6573,8 @@ body:has(.pro-nav-modal.is-open) {
 /* -------------------------------------------------------------------------- */
 
 #backtestModalBackdrop {
+  align-items: flex-start !important;
+  padding: 24px 16px !important;
   background: radial-gradient(900px 500px at 50% -100px, rgba(19, 32, 27, 0.95), rgba(7, 9, 10, 0.96) 70%) !important;
   backdrop-filter: blur(10px) !important;
   -webkit-backdrop-filter: blur(10px) !important;

@@ -60,12 +60,13 @@
     return aggregated;
   }
   async function load({instrument,timeframe,period,signal,request,supplied,onProgress=()=>{}}){
-    validate(instrument,timeframe);const count=period==='2000_BARS'?2000:period==='500_BARS'?500:2000000;
+    validate(instrument,timeframe);const count=period==='2000_BARS'?2000:period==='500_BARS'?500:2000;
     const start=period==='1-2_YEARS'?Date.UTC(2024,0,1)/1000:period==='6_MONTHS'?Date.now()/1000-180*86400:null;
     let serverError;
     if(request){try{const candles=[];let offset=0;for(;;){signal?.throwIfAborted();const params=new URLSearchParams({instrument,timeframe,limit:String(Math.min(2000,count-candles.length)),offset:String(offset)});if(start)params.set('start',new Date(start*1000).toISOString());const data=await request('/market/history?'+params,{signal});if(data.instrument!==instrument||data.timeframe!==timeframe||!Array.isArray(data.candles))throw new Error('Histori backend tidak cocok dengan pilihan.');if(!start&&offset===0&&Number.isInteger(data.total)&&data.total>count){offset=data.total-count;continue;}candles.push(...data.candles);onProgress(candles.length);if(!data.has_more||candles.length>=count)break;if(!Number.isInteger(data.next_offset)||data.next_offset<=offset)throw new Error('Pagination histori backend tidak valid.');offset=data.next_offset;}if(candles.length>=80)return candles;}catch(e){if(signal?.aborted)throw e;serverError=e;}}
     if(cryptoSymbol(instrument))return binance(instrument,timeframe,count,{start,signal,onProgress});
-    const valid=(supplied||[]).filter(c=>!c.synthetic&&(!c.sourceInstrument||c.sourceInstrument===instrument));
+    const isMatch=(src,tgt)=>{if(!src)return true;const s=String(src).toUpperCase().replace(/[^A-Z0-9]/g,''),t=String(tgt).toUpperCase().replace(/[^A-Z0-9]/g,'');if(s===t||s===t+'T'||s===t+'USDT'||t===s+'T'||t===s+'USDT')return true;if((t==='XAUUSD'||t==='GOLD')&&(s==='PAXGUSDT'||s==='PAXGUSD'||s==='XAUUSD'||s==='GOLD'))return true;if((t==='BTCUSD'||t==='BTCUSDT')&&(s==='BTCUSDT'||s==='BTCUSD'))return true;if(t==='EURUSD'&&(s==='EURUSDT'||s==='EURUSD'))return true;if(t==='GBPUSD'&&(s==='GBPUSDT'||s==='GBPUSD'))return true;if(t==='AUDUSD'&&(s==='AUDUSDT'||s==='AUDUSD'))return true;return false;};
+    const valid=(supplied||[]).filter(c=>!c.synthetic&&isMatch(c.sourceInstrument,instrument));
     if(valid.length>=80)return valid;
     throw new Error('Histori '+instrument+' belum tersedia pada sumber Kayla engine. Muat CSV OHLC instrumen ini atau sambungkan feed histori backend. '+(serverError?'Backend: '+serverError.message:''));
   }

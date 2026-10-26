@@ -1,6 +1,6 @@
 self.window=self;
 self.document={baseURI:new URL('../',self.location.href).href};
-importScripts('pro-import.js?v=20261026-history-2000','market-history.js?v=20261026-history-2000','pro.js?v=20261026-history-2000');
+importScripts('pro-import.js?v=20261026-backtest-fixed','market-history.js?v=20261026-backtest-fixed','pro.js?v=20261026-backtest-fixed');
 self.onmessage=event=>{
   try{
     const {candles,csv,config}=event.data;
