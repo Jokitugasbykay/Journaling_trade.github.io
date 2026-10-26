@@ -37,7 +37,7 @@ jobs:
         env:
           JT_TEST_PSQL: /usr/bin/psql
           JT_TEST_PGPORT: '5432'
-      - run: node tests/site-routing.cjs && node tests/backtest-calendar.cjs && node js/pro.test.cjs && node js/pro-import.test.cjs && node js/security.test.cjs && node js/copy.test.cjs && node js/discipline.test.cjs && node js/news-auth.test.cjs
+      - run: node tests/market-history.test.cjs && node tests/site-routing.cjs && node tests/backtest-calendar.cjs && node js/pro.test.cjs && node js/pro-import.test.cjs && node js/security.test.cjs && node js/copy.test.cjs && node js/discipline.test.cjs && node js/news-auth.test.cjs
       - run: node --experimental-transform-types tests/payment-core.cjs && node tests/payment.test.cjs
       - run: npm install --prefix /tmp/jt-db @electric-sql/pglite@0.3.10
       - run: node tests/groq-quota-sql.cjs && node tests/payment-sql.cjs
@@ -48,6 +48,6 @@ jobs:
       - run: node tests/payment-ui.cjs
         env:
           PLAYWRIGHT_MODULE: /tmp/jt-browser/node_modules/playwright
-      - run: node tests/frontend-pro.cjs
+      - run: node tests/backtest.test.cjs && node tests/frontend-pro.cjs
         env:
           PLAYWRIGHT_MODULE: /tmp/jt-browser/node_modules/playwright

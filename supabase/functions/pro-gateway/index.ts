@@ -348,7 +348,7 @@ export async function handler(req: Request): Promise<Response> {
       return respond(await rpc('journal_market_preference',{p_style:req.method==='PUT'?body.trading_style:null}) || {});
     }
     const pythonApi = (Deno.env.get('PRO_PYTHON_API_URL') || '').replace(/\/+$/, '');
-    if (pythonApi && (route==='/market/instruments' || route.startsWith('/market/context') || route==='/market/refresh' || route==='/ai/engine' || route==='/ai/market-analysis' || route==='/ai/chat' || route==='/ai/behaviour-analysis' || route==='/ai/journal-analysis' || /^\/ai\/jobs\/[^/]+\/retry$/.test(route) || (route==='/market/signals' && req.method==='POST' && body.action!=='dismiss'))) {
+    if (pythonApi && (route==='/market/instruments' || route==='/market/history' || route.startsWith('/market/context') || route==='/market/refresh' || route==='/ai/engine' || route==='/ai/market-analysis' || route==='/ai/chat' || route==='/ai/behaviour-analysis' || route==='/ai/journal-analysis' || /^\/ai\/jobs\/[^/]+\/retry$/.test(route) || (route==='/market/signals' && req.method==='POST' && body.action!=='dismiss'))) {
       const targetUrl = pythonApi + '/api/v1' + route + (url.search || '');
       const fwdHeaders: Record<string, string> = {'Authorization': auth, 'Content-Type': 'application/json'};
       const idemp = req.headers.get('Idempotency-Key');
@@ -368,6 +368,7 @@ export async function handler(req: Request): Promise<Response> {
       }
     }
     if(route==='/market/instruments' && req.method==='GET')return respond({items:[],status:'No authorized backend market feed is configured'});
+    if(route==='/market/history')throw new Failure(503,'Histori Kayla engine belum dikonfigurasi pada backend. Gunakan CSV OHLC untuk data historis.');
     if(route==='/market/notification-preference' && req.method==='PUT'){if(typeof body.browser_notifications!=='boolean')throw new Failure(422,'Invalid notification preference');return respond(await rpc('journal_notification_preference',{p_enabled:body.browser_notifications}));}
     if(route==='/market/signals' && req.method==='GET')return respond({items:await rows('market_signals','&order=created_at.desc')});
     if(route==='/market/signals' && req.method==='POST' && body.action==='dismiss'){

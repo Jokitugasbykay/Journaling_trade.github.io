@@ -5,6 +5,8 @@ const fs = require('node:fs');
 const { chromium } = require(process.env.PLAYWRIGHT_MODULE || 'C:/Users/Maulana Riski/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/node_modules/playwright');
 
 const root = path.join(__dirname, '..');
+let historyEnabled=false,historyCalls=0;
+const historyRows=Array.from({length:2000},(_,i)=>({time:Date.parse('2024-01-08T08:00:00Z')/1000+i*60,open:2000,high:2001,low:1999,close:2000}));
 const server = http.createServer((req, res) => {
   const url = new URL(req.url, 'http://127.0.0.1');
   if (url.pathname.startsWith('/api/v1/')) {
@@ -13,6 +15,7 @@ const server = http.createServer((req, res) => {
     if (url.pathname.includes('/accounts')) return res.end(JSON.stringify({ items: [{ id: '111', name: 'Trading' }] }));
     if (url.pathname.includes('/strategies')) return res.end(JSON.stringify({ items: [{ id: '222', name: 'Kaystrade Breakout', description: 'Breakout setup' }] }));
     if (url.pathname.includes('/market/preference')) return res.end(JSON.stringify({ trading_style: 'INTRADAY' }));
+    if (url.pathname.includes('/market/history')) {historyCalls++;if(!historyEnabled){res.statusCode=503;return res.end(JSON.stringify({detail:'Fixture history unavailable'}));}return res.end(JSON.stringify({instrument:url.searchParams.get('instrument'),timeframe:url.searchParams.get('timeframe'),candles:historyRows,has_more:false}));}
     if (url.pathname.includes('/market/instruments')) return res.end(JSON.stringify({ items: [{ symbol: 'XAUUSD', name: 'Gold', timeframes: ['15m', '4h'] }] }));
     if (url.pathname.includes('/market/signals')) return res.end(JSON.stringify({ items: [] }));
     if (url.pathname.includes('/market/alerts')) return res.end(JSON.stringify({ items: [] }));
@@ -30,6 +33,8 @@ const server = http.createServer((req, res) => {
 </head>
 <body>
   <main><section class="pro-workspace active" id="view-pro-workspace"></section></main>
+  <script src="/js/pro-import.js"></script>
+  <script src="/js/market-history.js"></script>
   <script src="/js/pro.js"></script>
   <script>
     JTPRO.configure({ apiBase: location.origin, getToken: async () => 'test-token', getUserId: () => 'test-user' });
@@ -50,6 +55,8 @@ const server = http.createServer((req, res) => {
   const page = await browser.newPage({ viewport: { width: 1440, height: 900 } });
 
   try {
+    await page.route('https://data-api.binance.vision/**',route=>route.abort());
+    await page.route('https://api.binance.com/**',route=>route.abort());
     await page.goto('http://127.0.0.1:' + port + '/');
 
     await page.evaluate(() => {
@@ -92,6 +99,7 @@ const server = http.createServer((req, res) => {
 
     // Valid explicit fixture history renders actual sample coverage without full-method claims.
     await page.evaluate(() => JTPRO.openBacktestModal({pair:'XAUUSD',timeframe:'1m',candles:window.backtestFixture}));
+    await page.waitForFunction(()=>document.querySelector('.backtest-modal-sub').textContent.includes('Backtest parsial'));
     assert.ok((await page.locator('.backtest-modal-sub').textContent()).includes('Backtest parsial'));
     assert.ok(!(await page.locator('.backtest-modal-sub').textContent()).includes('7/7'));
     assert.equal(await page.locator('#btCopyReportBtn').isEnabled(), true);
@@ -106,6 +114,7 @@ const server = http.createServer((req, res) => {
     await page.locator('#pro-btn-backtest').click();
     await page.waitForSelector('#backtestModalBackdrop');
     assert.ok(await page.locator('.backtest-modal-dialog').isVisible(), 'Backtest modal dialog should appear');
+    await page.waitForFunction(()=>!document.querySelector('#btRunBtn').disabled);
     assert.ok((await page.locator('#backtestModalBackdrop').textContent()).includes('Backtest belum tersedia'), 'Missing real feed must display an unavailable state');
     assert.equal(await page.locator('#btCopyReportBtn').isDisabled(), true);
     assert.ok(await page.locator('#btStatWinRate').isVisible(), 'Win Rate stat card should be visible');
@@ -121,8 +130,25 @@ const server = http.createServer((req, res) => {
     await page.locator('#btRunBtn').click();
     await page.waitForTimeout(300);
 
-    assert.ok((await page.locator('#backtestModalBackdrop').textContent()).includes('Data historis belum tersedia'), 'Switching instruments must not reuse unrelated candle history');
+    await page.waitForFunction(()=>!document.querySelector('#btRunBtn').disabled);
+    assert.ok((await page.locator('#backtestModalBackdrop').textContent()).includes('Backtest belum tersedia'), 'Switching instruments must not reuse unrelated candle history');
     assert.equal(await page.locator('#btCopyReportBtn').isDisabled(), true);
+
+    // A fresh rerun must request the current selection, not the modal's original array.
+    historyEnabled=true;
+    await page.evaluate(()=>{document.querySelector('#btTimeframeSelect').value='1m';document.querySelector('#btPeriodSelect').value='2000_BARS';});
+    await page.locator('#btRunBtn').click();
+    await page.waitForFunction(()=>!document.querySelector('#btRunBtn').disabled);
+    assert.equal(await page.locator('#btCopyReportBtn').isEnabled(),true);
+    assert.ok((await page.locator('#btStatTrades').textContent())!=='—');
+    const beforeRerun=historyCalls;
+    await page.locator('#btRunBtn').click();await page.waitForFunction(()=>!document.querySelector('#btRunBtn').disabled);
+    assert.ok(historyCalls>beforeRerun,'Rerun must reload history');
+    const csv='time,open,high,low,close\n'+historyRows.map(r=>[r.time,r.open,r.high,r.low,r.close].join(',')).join('\n');
+    await page.locator('#btHistoryFile').setInputFiles({name:'ohlc-2024.csv',mimeType:'text/csv',buffer:Buffer.from(csv)});
+    await page.waitForFunction(()=>!document.querySelector('#btRunBtn').disabled&&document.querySelector('#btCopyReportBtn').disabled===false);
+    assert.ok((await page.locator('.backtest-modal-sub').textContent()).includes('2024'));
+    assert.ok((await page.locator('#backtestModalBackdrop').textContent()).includes('CSV pengguna'));
 
     // 6. Test modal close
     await page.locator('#btCloseBottomBtn').click();
@@ -139,7 +165,12 @@ const server = http.createServer((req, res) => {
     assert.ok((await page.locator('#backtestModalBackdrop').textContent()).includes('Kaystrade Breakout'), 'Modal should reflect strategy name');
     await page.locator('#btCloseBottomBtn').click();
 
-    console.log('All 7 Backtest feature assertions passed with 100% success!');
+    await page.evaluate(()=>JTPRO.openBacktestModal({pair:'BTCUSDT',timeframe:'1m'}));
+    await page.waitForSelector('#backtestModalBackdrop');
+    await page.evaluate(()=>JTPRO.reset());
+    assert.equal(await page.locator('#backtestModalBackdrop').count(),0,'Account reset must close and cancel the historical job');
+
+    console.log('Backtest engine, rerun, 2000 bars, CSV 2024, strategy entry and account cancellation passed using explicit fixtures.');
     await browser.close();
     server.close();
     process.exit(0);

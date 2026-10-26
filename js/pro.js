@@ -1580,7 +1580,7 @@ Instruksi Format Output & Larangan Bocor Chain-of-Thought dan Perencanaan Rules 
     if(latestKey) latestReads.set(latestKey,sequence);
     const stale=()=>epoch!==revision || owner!==options.getUserId?.() || latestKey && latestReads.get(latestKey)!==sequence;
     if(!owner) throw new Error(text('SignIn','Sign in to use this feature.'));
-    const signal=AbortSignal.any([controller.signal,AbortSignal.timeout(options.requestTimeout || 45000)]);
+    const signal=AbortSignal.any([controller.signal,AbortSignal.timeout(options.requestTimeout || 45000),...(settings.signal?[settings.signal]:[])]);
     const base=apiBase(options.apiBase), token=await abortable(Promise.resolve(options.getToken?.()),signal);
     if(!token) throw new Error(text('SignIn','Sign in to use this feature.'));
     if(stale()) throw new DOMException('Selection changed','AbortError');
@@ -6136,6 +6136,7 @@ Instruksi Format Output & Larangan Bocor Chain-of-Thought dan Perencanaan Rules 
   }
 
   async function fetchBinanceRaw(binanceSym, interval, limit = 500, signal = null) {
+    if (limit > 1000 && global.JTMarketHistory) return global.JTMarketHistory.binance(binanceSym, interval, limit, {signal});
     const endpoints = [
       'https://data-api.binance.vision/api/v3/klines?symbol=' + binanceSym + '&interval=' + interval + '&limit=' + limit,
       'https://api.binance.com/api/v3/klines?symbol=' + binanceSym + '&interval=' + interval + '&limit=' + limit
@@ -6834,7 +6835,7 @@ Instruksi Format Output & Larangan Bocor Chain-of-Thought dan Perencanaan Rules 
       if (!isBacktestSessionOpen(instrument,c.time)) {excludedClosedSession++; continue;}
       candles.push(c);
     }
-    const selected = period === '500_BARS' ? candles.slice(-500) : candles;
+    const selected = period === '500_BARS' ? candles.slice(-500) : period === '2000_BARS' ? candles.slice(-2000) : candles;
     if (selected.length < 80) throw new Error('Data historis valid tidak cukup: '+selected.length+' candle tertutup pada sesi perdagangan (minimal 80).');
     return {candles:selected,excludedClosedSession,excludedInvalid};
   }
@@ -7473,23 +7474,46 @@ Instruksi Format Output & Larangan Bocor Chain-of-Thought dan Perencanaan Rules 
     return lines.join('\n');
   }
 
+  function runHistoricalBacktest(candles,csv,config,signal) {
+    if(!global.Worker)return Promise.resolve().then(()=>runKaystradeBacktestEngine(csv?global.JTMarketHistory.parseCSV(csv,config.instrument,config.timeframe):candles,config));
+    return new Promise((resolve,reject)=>{
+      const worker=new global.Worker(new URL('js/backtest-worker.js?v=20261026-history-2000',document.baseURI));
+      let timer;
+      const finish=(error,result)=>{clearTimeout(timer);signal?.removeEventListener('abort',abort);worker.terminate();error?reject(error):resolve(result);};
+      const abort=()=>finish(new DOMException('Backtest dibatalkan','AbortError'));
+      if(signal?.aborted){abort();return;}
+      signal?.addEventListener('abort',abort,{once:true});
+      worker.onmessage=event=>finish(event.data.error?new Error(event.data.error):null,event.data.result);
+      worker.onerror=()=>finish(new Error('Worker backtest tidak dapat dijalankan. Muat ulang halaman lalu coba lagi.'));
+      timer=setTimeout(()=>finish(new Error('Backtest melewati batas waktu. Gunakan data yang lebih kecil.')),120000);
+      worker.postMessage({candles,csv,config});
+    });
+  }
+
   function openBacktestModal(opts = {}) {
     const existing = document.getElementById('backtestModalBackdrop');
+    existing?.querySelector('#btCloseBottomBtn')?.click();
     if (existing) existing.remove();
 
     const selectedPair = opts.pair || (opts.strategy ? 'XAUUSD' : 'XAUUSD');
     const selectedTF = opts.timeframe || '15m';
     const selectedStyle = opts.tradingStyle || 'INTRADAY';
+    let historyRequest=null,runSequence=0,importedHistory=null,debounceTimer=null;
+    const parentSignal=controller.signal;
 
     const backdrop = node('div', null, 'pro-modal-backdrop app');
     backdrop.id = 'backtestModalBackdrop';
 
     const closeModal = () => {
+      runSequence++;historyRequest?.abort();
+      clearTimeout(debounceTimer);
+      parentSignal.removeEventListener('abort',closeModal);
       window.closeActiveSelect?.();
       backdrop.remove();
       window.removeEventListener('keydown', onKey);
     };
 
+    parentSignal.addEventListener('abort',closeModal,{once:true});
     backdrop.addEventListener('click', (e) => {
       if (e.target === backdrop) closeModal();
     });
@@ -7710,7 +7734,8 @@ Instruksi Format Output & Larangan Bocor Chain-of-Thought dan Perencanaan Rules 
     [
       ['1-2_YEARS', '1 Jan 2024 - Sekarang'],
       ['6_MONTHS', '6 Bulan Terakhir'],
-      ['500_BARS', '500 Bars Real-Time']
+      ['2000_BARS', '2.000 candle terbaru'],
+      ['500_BARS', '500 candle terbaru']
     ].forEach(([val, lbl]) => {
       const opt = node('option', lbl);
       opt.value = val;
@@ -7797,8 +7822,24 @@ Instruksi Format Output & Larangan Bocor Chain-of-Thought dan Perencanaan Rules 
     runBtn.type = 'button';
     runBtn.id = 'btRunBtn';
 
-    bottomBar.append(fRR, runBtn);
-    controls.append(topGrid, bottomBar);
+    const historyInput=node('input');historyInput.type='file';historyInput.accept='.csv,.txt';historyInput.id='btHistoryFile';historyInput.hidden=true;
+    const importHistoryBtn=node('button','Muat CSV OHLC','bt');importHistoryBtn.type='button';importHistoryBtn.id='btImportHistory';
+    importHistoryBtn.addEventListener('click',()=>historyInput.click());
+    historyInput.addEventListener('change',async()=>{
+      const file=historyInput.files?.[0];if(!file)return;
+      if(file.size>100*1024*1024){heroDesc.textContent='CSV maksimum 100 MB.';return;}
+      const instrument=sPair.value,timeframe=sTf.value;
+      let csv;
+      try{csv=await file.text();}catch{heroDesc.textContent='CSV tidak dapat dibaca. Pilih ulang file.';return;}
+      historyInput.value='';
+      if(!backdrop.isConnected||instrument!==sPair.value||timeframe!==sTf.value)return;
+      importedHistory={csv,instrument,timeframe,name:file.name};
+      executeAndRender();
+    });
+    const historyHelp=node('p','Histori dari 2024 memakai candle asli yang tersedia pada Kayla engine. CSV: time/open/high/low/close; waktu Unix atau ISO8601 dengan zona waktu. Data CSV tetap di browser.','pro-muted');
+    historyHelp.id='btHistoryHelp';
+    bottomBar.append(fRR, runBtn, importHistoryBtn, historyInput);
+    controls.append(topGrid, bottomBar, historyHelp);
 
     // 4. Detail Transaksi Historis Section
     const tableSection = node('section', null, 'backtest-table-section');
@@ -7876,7 +7917,11 @@ Instruksi Format Output & Larangan Bocor Chain-of-Thought dan Perencanaan Rules 
       return isNaN(n) || n <= 0 ? fallback : n;
     };
 
-    function executeAndRender() {
+    async function executeAndRender() {
+      if(!backdrop.isConnected)return;
+      const sequence=++runSequence;historyRequest?.abort();historyRequest=new AbortController();
+      const signal=historyRequest.signal;
+      runBtn.disabled=true;runBtn.textContent='Memuat histori…';copyReportBtn.disabled=true;
       const inst = sPair.value;
       const tf = sTf.value;
       const st = sStyle.value;
@@ -7885,10 +7930,18 @@ Instruksi Format Output & Larangan Bocor Chain-of-Thought dan Perencanaan Rules 
       const riskPct = parseLocaleNumber(inRisk.value, 2.0);
       const targetRR = parseLocaleNumber(inRR.value, 2.0);
 
-      const candlesToUse = inst === selectedPair && tf === selectedTF ? opts.candles : null;
+      let candlesToUse = opts.getCandles?.(inst,tf) || (inst === selectedPair && tf === selectedTF ? opts.candles : null);
+      const csv=importedHistory?.instrument===inst ? importedHistory.csv : null;
 
       let res;
-      try { res = runKaystradeBacktestEngine(candlesToUse, {
+      try {
+        heroDesc.textContent='Memuat histori '+inst+' '+tf.toUpperCase()+'…';
+        if(!csv){
+          if(!global.JTMarketHistory)throw new Error('Modul histori belum dimuat. Muat ulang halaman.');
+          candlesToUse=await global.JTMarketHistory.load({instrument:inst,timeframe:tf,period,signal,request,supplied:candlesToUse,onProgress:count=>{if(sequence===runSequence)heroDesc.textContent='Memuat '+count.toLocaleString('id-ID')+' candle '+inst+'…';}});
+        }
+        runBtn.textContent='Menghitung backtest…';
+        res = await runHistoricalBacktest(candlesToUse,csv, {
         instrument: inst,
         timeframe: tf,
         tradingStyle: st,
@@ -7896,7 +7949,10 @@ Instruksi Format Output & Larangan Bocor Chain-of-Thought dan Perencanaan Rules 
         initialBalance: initialCapital,
         riskPercent: riskPct,
         targetRR: targetRR
-      }); } catch (error) {
+      },signal);
+        if(sequence!==runSequence||!backdrop.isConnected)return;
+      } catch (error) {
+        if(sequence!==runSequence||signal.aborted)return;
         lastResult = null;
         copyReportBtn.disabled = true;
         subTitle.textContent = inst + ' · ' + tf.toUpperCase() + ' · Backtest belum tersedia';
@@ -7907,9 +7963,10 @@ Instruksi Format Output & Larangan Bocor Chain-of-Thought dan Perencanaan Rules 
         tbody.replaceChildren();
         btnAll.textContent = 'Semua (0)'; btnWin.textContent = 'Profit (0)'; btnLoss.textContent = 'Loss (0)'; btnBE.textContent = 'BE (0)';
         return;
-      }
+      } finally {if(sequence===runSequence){runBtn.disabled=false;runBtn.textContent='Jalankan ulang backtest';}}
 
       lastResult = res;
+      opts.onResult?.(res);
       copyReportBtn.disabled = false;
 
       // Update subtitle
@@ -7930,7 +7987,7 @@ Instruksi Format Output & Larangan Bocor Chain-of-Thought dan Perencanaan Rules 
       subReturn.textContent = returnSign + res.netReturnPercent.toFixed(2).replace('.', ',') + '% return';
       subReturn.style.color = res.netProfit >= 0 ? '#5EE2AE' : '#F58A8A';
 
-      heroDesc.textContent = res.warnings.join(' ') + ' ' + res.excludedClosedSession + ' candle di luar sesi dikeluarkan. Dari modal $' + Math.round(res.initialBalance).toLocaleString('id-ID') + ' menjadi $' + Math.round(res.finalEquity).toLocaleString('id-ID') + ' dalam ' + res.totalTrades + ' transaksi (' + (res.candlesCount ? res.candlesCount.toLocaleString('id-ID') : '12.000') + ' bar).';
+      heroDesc.textContent = (csv?'Sumber: CSV pengguna '+importedHistory.name+'. ':'Sumber: histori Kayla engine. ') + (period==='1-2_YEARS'&&res.coverageStart>Date.UTC(2024,0,5)/1000?'Histori penuh sejak 2024 belum tersedia; hasil hanya mencakup periode data berikut. ':'') + res.warnings.join(' ') + ' ' + res.excludedClosedSession + ' candle di luar sesi dikeluarkan. Dari modal $' + Math.round(res.initialBalance).toLocaleString('id-ID') + ' menjadi $' + Math.round(res.finalEquity).toLocaleString('id-ID') + ' dalam ' + res.totalTrades + ' transaksi (' + (res.candlesCount ? res.candlesCount.toLocaleString('id-ID') : '12.000') + ' bar).';
 
       // Stats Section Update
       valWinRate.textContent = res.winRate.toFixed(1).replace('.', ',') + '%';
@@ -8100,7 +8157,6 @@ Instruksi Format Output & Larangan Bocor Chain-of-Thought dan Perencanaan Rules 
     sPeriod.addEventListener('change', executeAndRender);
     sPeriod.addEventListener('input', executeAndRender);
 
-    let debounceTimer = null;
     const triggerDebounced = () => {
       clearTimeout(debounceTimer);
       debounceTimer = setTimeout(executeAndRender, 250);
@@ -8201,9 +8257,9 @@ Instruksi Format Output & Larangan Bocor Chain-of-Thought dan Perencanaan Rules 
     const mNavJson = node('button', 'Copy JSON', 'm-nav-btn');
     mNavJson.type = 'button';
     mNavJson.addEventListener('click', exportSignalJSON);
-    const mNavBt = node('button', 'Backtest (500 Bars)', 'm-nav-btn btn-backtest');
+    const mNavBt = node('button', 'Backtest histori', 'm-nav-btn btn-backtest');
     mNavBt.type = 'button';
-    mNavBt.addEventListener('click', () => openBacktestModal({ pair: currentPairObj.code, timeframe: selectedFrame, candles: currentCandles }));
+    mNavBt.addEventListener('click', () => openBacktestModal({ pair: currentPairObj.code, timeframe: selectedFrame, candles: currentCandles, getCandles:(symbol,tf)=>symbol===currentPairObj.code&&tf===selectedFrame?currentCandles:null,onResult:updateBacktestKpiCard }));
     mobileQuickNav.append(mNavAi, mNavBt, mNavFb, mNavNews, mNavWarn, mNavSkill, mNavJson);
 
     // Header section matching AIMarket.dc.html (.hd)
@@ -8425,7 +8481,7 @@ Instruksi Format Output & Larangan Bocor Chain-of-Thought dan Perencanaan Rules 
     });
     tfLeft.append(tfBar);
 
-    const activeFeedInfo = node('span', 'Kompilasi penuh: 500 bar teknikal + posisi FastBull + berita ekonomi', 'm');
+    const activeFeedInfo = node('span', 'Memuat candle dan sumber data…', 'm');
     activeFeedInfo.id = 'activeFeedInfo';
     activeFeedInfo.style.fontSize = '12px';
 
@@ -8443,10 +8499,12 @@ Instruksi Format Output & Larangan Bocor Chain-of-Thought dan Perencanaan Rules 
     const rAnalisis = node('div', null, 'r');
     const generate = button('Analisis entry (Tech + FastBull)', () => runKaystradeAnalysis(), 'pro-ai-generate');
     generate.className = 'bt pr btn-action btn-primary';
-    const backtestBtn = button('Backtest strategi (500 bar)', () => openBacktestModal({
+    const backtestBtn = button('Backtest histori (hingga 2.000 bar)', () => openBacktestModal({
       pair: currentPairObj.code,
       timeframe: selectedFrame,
-      candles: currentCandles
+      candles: currentCandles,
+      getCandles: (symbol,tf)=>symbol===currentPairObj.code&&tf===selectedFrame?currentCandles:null,
+      onResult:updateBacktestKpiCard
     }), 'pro-btn-backtest');
     backtestBtn.className = 'bt sc btn-action btn-backtest';
     rAnalisis.append(generate, backtestBtn);
@@ -8471,7 +8529,7 @@ Instruksi Format Output & Larangan Bocor Chain-of-Thought dan Perencanaan Rules 
     const rChart = node('div', null, 'r');
     const resetZoomBtn = button('Reset view', setTVRegularZoom, 'pro-reset-view');
     resetZoomBtn.className = 'bt btn-action';
-    const fit500Btn = button('Fit 500 bar', fitAll500Bars, 'pro-fit-bars');
+    const fit500Btn = button('Fit semua candle', fitAll500Bars, 'pro-fit-bars');
     fit500Btn.className = 'bt btn-action';
     rChart.append(resetZoomBtn, fit500Btn);
     gbChart.append(rChart);
@@ -8537,7 +8595,7 @@ Instruksi Format Output & Larangan Bocor Chain-of-Thought dan Perencanaan Rules 
     });
     chartTitleWrap.append(chartTitle, legendPills);
 
-    const livePricePill = node('span', '500 bar · 16:9 · Live', 'chip nt');
+    const livePricePill = node('span', 'Memuat harga…', 'chip nt');
     livePricePill.id = 'livePricePill';
     livePricePill.style.fontSize = '12px';
     livePricePill.style.padding = '4px 10px';
@@ -8619,9 +8677,12 @@ Instruksi Format Output & Larangan Bocor Chain-of-Thought dan Perencanaan Rules 
     kpiCard.append(kpiH2, kpiDesc, kpiGrid);
     mainCard.append(kpiCard);
 
-    function updateBacktestKpiCard() {
+    let displayedBacktest=null;
+    function updateBacktestKpiCard(provided=null) {
       try {
-        const res = runKaystradeBacktestEngine(currentCandles && currentCandles.length ? currentCandles : null, {
+        if(provided)displayedBacktest=provided;
+        const matching=displayedBacktest?.instrument===currentPairObj.code&&displayedBacktest?.timeframe===selectedFrame;
+        const res = matching?displayedBacktest:runKaystradeBacktestEngine(currentCandles && currentCandles.length ? currentCandles : null, {
           instrument: currentPairObj.code,
           timeframe: selectedFrame,
           tradingStyle: savedStyle || 'INTRADAY',
@@ -8629,6 +8690,7 @@ Instruksi Format Output & Larangan Bocor Chain-of-Thought dan Perencanaan Rules 
           initialBalance: 1000,
           riskPercent: 2.0
         });
+        kpiDesc.textContent='Backtest parsial: '+new Date(res.coverageStart*1000).toLocaleDateString('id-ID')+' - '+new Date(res.coverageEnd*1000).toLocaleDateString('id-ID')+' · '+res.tradingStyle+' · '+res.candlesCount.toLocaleString('id-ID')+' candle tersedia.';
         if (kpiWinRate) kpiWinRate.textContent = res.winRate.toFixed(1).replace('.', ',') + '%';
         if (kpiTotalTrades) kpiTotalTrades.textContent = String(res.totalTrades);
         if (kpiNetProfit) {
@@ -10384,6 +10446,7 @@ function filterPairDropdown() {
         }
       }
 
+      if (typeof updateBacktestKpiCard === 'function') updateBacktestKpiCard();
       evaluateKaystradeEngine(true);
     }
 
@@ -10507,7 +10570,8 @@ function filterPairDropdown() {
             high: parseFloat(k.h),
             low: parseFloat(k.l),
             close: parseFloat(k.c),
-            closeTime: k.T
+            closeTime: k.T,
+            sourceInstrument: symbol
           };
 
           currentCandleCloseTime = k.T;
@@ -10517,7 +10581,7 @@ function filterPairDropdown() {
             currentCandles[currentCandles.length - 1] = liveCandle;
           } else {
             currentCandles.push(liveCandle);
-            if (currentCandles.length > 500) currentCandles.shift();
+            while (currentCandles.length > (global.JTMarketHistory?.targetBars(selectedFrame)||500)) currentCandles.shift();
             const barsBadgeEl = document.getElementById('barsBadge');
             if (barsBadgeEl) barsBadgeEl.textContent = currentCandles.length + ' BARS · 16:9';
           }
@@ -10601,12 +10665,12 @@ function filterPairDropdown() {
       try {
         if (currentPairObj.provider === 'BINANCE') {
           const sym = currentPairObj.apiSym;
-          activeFeedInfo.textContent = 'Feed: Binance WS (' + sym + ' · 500 Bars · 16:9)';
+          activeFeedInfo.textContent = 'Feed: Binance WS (' + sym + ' · '+(global.JTMarketHistory?.targetBars(selectedFrame)||500)+' Bars · 16:9)';
           const feedLabel = document.getElementById('feedSourceLabel');
           if (feedLabel) { feedLabel.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 24 24" fill="currentColor" style="vertical-align:-1px;margin-right:3px"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg> STREAM: BINANCE WS (' + sym + ')'; }
 
           const [activeData, h1Data, h4Data, d1Data] = await Promise.all([
-            fetchBinanceKlines(sym, selectedFrame, 500, controller.signal),
+            fetchBinanceKlines(sym, selectedFrame, global.JTMarketHistory?.targetBars(selectedFrame)||500, controller.signal),
             fetchBinanceKlines(sym, '1h', 500, controller.signal),
             fetchBinanceKlines(sym, '4h', 500, controller.signal),
             fetchBinanceKlines(sym, '1d', 500, controller.signal)
@@ -10674,12 +10738,12 @@ function filterPairDropdown() {
         } else {
           const fsym = currentPairObj.fsym || 'EUR';
           const tsym = currentPairObj.tsym || 'USD';
-          activeFeedInfo.textContent = 'Feed: Forex/Spot Live (' + fsym + '/' + tsym + ' · 500 Bars · 16:9)';
+          activeFeedInfo.textContent = 'Feed: Forex/Spot Live (' + fsym + '/' + tsym + ' · '+(global.JTMarketHistory?.targetBars(selectedFrame)||500)+' Bars · 16:9)';
           const feedLabel = document.getElementById('feedSourceLabel');
           if (feedLabel) { feedLabel.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 24 24" fill="currentColor" style="vertical-align:-1px;margin-right:3px"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg> STREAM: FOREX LIVE (' + fsym + '/' + tsym + ')'; }
 
           const [activeData, h1Data, h4Data, d1Data] = await Promise.all([
-            fetchForexOrMetalCC(fsym, tsym, selectedFrame, 500, controller.signal),
+            fetchForexOrMetalCC(fsym, tsym, selectedFrame, global.JTMarketHistory?.targetBars(selectedFrame)||500, controller.signal),
             fetchForexOrMetalCC(fsym, tsym, '1h', 500, controller.signal),
             fetchForexOrMetalCC(fsym, tsym, '4h', 500, controller.signal),
             fetchForexOrMetalCC(fsym, tsym, '1d', 500, controller.signal)

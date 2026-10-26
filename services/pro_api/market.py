@@ -255,3 +255,37 @@ def load_market(settings, instrument, timeframe, now=None, trading_style=None):
         raise
     except (ValueError, KeyError, TypeError) as exc:
         raise HTTPException(503, "The configured market snapshot failed validation") from exc
+
+
+def historical_candles(settings, instrument, timeframe, offset=0, limit=2000, start=None, now=None):
+    """Read operator-authorized history without treating an expired live snapshot as fabricated data."""
+    mapped = next((item for item in instrument_catalog(settings)["items"] if item["symbol"] == instrument), None)
+    if mapped is None or timeframe not in mapped["timeframes"]:
+        raise HTTPException(422, "Instrument/timeframe history is not configured")
+    if not 0 <= offset <= 2000000 or not 1 <= limit <= 2000:
+        raise HTTPException(422, "Invalid history page")
+    if start and (start.tzinfo is None or start.utcoffset() is None):
+        raise HTTPException(422, "History start requires a timezone")
+    path = (settings.market_root / f"{instrument}_{timeframe}.json").resolve()
+    if path.parent != settings.market_root.resolve() or not path.is_file() or path.stat().st_size > 5000000:
+        raise HTTPException(503, "Authorized historical candles are unavailable")
+    try:
+        snapshot = Snapshot.model_validate_json(path.read_bytes())
+        if snapshot.instrument != instrument or snapshot.timeframe != timeframe:
+            raise ValueError("History identity mismatch")
+        now = now or datetime.now(timezone.utc)
+        cutoff = min(now, snapshot.as_of)
+        duration = TIMEFRAMES[timeframe]
+        rows = [bar for bar in snapshot.candles if bar.timestamp + timedelta(seconds=duration) <= cutoff
+                and (start is None or bar.timestamp >= start)]
+        page = rows[offset:offset+limit]
+        return {"instrument": instrument, "timeframe": timeframe, "provider": snapshot.provider,
+                "license_reference": snapshot.license_reference, "as_of": snapshot.as_of.isoformat(),
+                "total": len(rows), "has_more": offset+len(page) < len(rows),
+                "next_offset": offset+len(page), "available_from": rows[0].timestamp.isoformat() if rows else None,
+                "requested_from": start.isoformat() if start else None,
+                "candles": [{"time": int(bar.timestamp.timestamp()), "open": str(bar.open),
+                             "high": str(bar.high), "low": str(bar.low), "close": str(bar.close),
+                             "sourceInstrument": instrument, "provider": snapshot.provider} for bar in page]}
+    except (ValueError, OSError, TypeError) as exc:
+        raise HTTPException(503, "Historical dataset is invalid or does not match the selection") from exc

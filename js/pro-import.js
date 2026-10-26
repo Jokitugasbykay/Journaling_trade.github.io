@@ -46,6 +46,6 @@
       return {id:global.crypto.randomUUID(),accountId,market,posisi:['buy','long'].includes(side)?'Buy':'Sell',openedAt,date,jam:openedAt.slice(11,16),entry:number(value('entry'),true),exit:number(value('exit'),true),sl:number(value('sl'),true),tp:number(value('tp'),true),vol:number(value('vol'),true),riskPct,actualPnl,result:actualPnl===null?'':Number(actualPnl)>0?'Win':Number(actualPnl)<0?'Loss':'BE',strategy:value('strategy').slice(0,160),reason:value('reason').slice(0,10000),tf:''};
     });
   }
-  global.JTPRO_IMPORT={parse};
+  global.JTPRO_IMPORT={parse,cells};
   if(typeof module!=='undefined')module.exports=global.JTPRO_IMPORT;
 })(globalThis);

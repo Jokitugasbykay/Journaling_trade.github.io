@@ -30,6 +30,7 @@ Deno.test('Gateway authentication, ownership, contracts and real PDF generation 
     if(path.endsWith('/regional-sources.json'))return Promise.resolve(Response.json({ID:[{id:'publisher'}]}));
     if(path.endsWith('/news-regions.json'))return Promise.resolve(Response.json({asia:['ID']}));
     if(path==='/api/v1/market/instruments')return Promise.resolve(Response.json({items:[{symbol:'XAUUSD'}]}));
+    if(path==='/api/v1/market/history'){assert(String(input).includes('timeframe=1m')&&init?.headers&&new Headers(init.headers).get('Authorization')==='Bearer fixture-token-not-real');return Promise.resolve(Response.json({instrument:'XAUUSD',timeframe:'1m',candles:[],has_more:false}));}
     throw new Error('Unexpected dependency '+path);
   };
   try {
@@ -37,16 +38,18 @@ Deno.test('Gateway authentication, ownership, contracts and real PDF generation 
     assert((await handler(new Request(url+'/entitlements',{headers:{Origin:'https://foreign.invalid'}}))).status===403);
     assert((await send('/entitlements')).status===200);
     assert((await handler(new Request('https://example.invalid/pro-gateway/api/v1/entitlements',{headers:{Origin:origin,Authorization:'Bearer fixture-token-not-real'}}))).status===200);
-    pro=false;assert((await send('/analytics/overview')).status===403);pro=true;
+    pro=false;assert((await send('/analytics/overview')).status===403);assert((await send('/market/history?instrument=XAUUSD&timeframe=1m')).status===403);pro=true;
     assert((await (await send('/analytics/overview')).json()).metrics.expectancy===5);
     assert((await (await send('/accounts')).json()).items[0].name==='Owned');
     assert((await send('/ai/history?kind=unexpected')).status===422);
     assert((await send('/reports/preview','POST',{sections:['unexpected']})).status===422);
     assert((await send('/ai/chat','POST',{message:'Hi'})).status===503);
+    assert((await send('/market/history?instrument=XAUUSD&timeframe=1m')).status===503);
     assert(!calls.some(path=>path.endsWith('/journal_create_job')),'Unavailable inference reserved quota');
     Deno.env.set('PRO_PYTHON_API_URL','https://python.test');
     const proxied=await send('/market/instruments');
     assert(proxied.status===200 && (await proxied.json()).items[0].symbol==='XAUUSD','Python API proxy failed');
+    const history=await send('/market/history?instrument=XAUUSD&timeframe=1m');assert(history.status===200&&(await history.json()).instrument==='XAUUSD','History proxy failed');
     Deno.env.delete('PRO_PYTHON_API_URL');
     assert((await send('/reports','POST',{sections:['analytics']})).status===202);await Promise.all(background);
     assert(calls.some(path=>path.endsWith('/journal_finish_job')),'PDF completion not persisted');

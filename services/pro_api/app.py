@@ -25,7 +25,7 @@ from fastapi.security import HTTPAuthorizationCredentials, HTTPBearer
 from .ai import model_available
 from .analytics import heatmap, number, open_exposure, overview, position_size, records, review, risk_analysis, wire
 from .kaystrade import VERSION
-from .market import instrument_catalog, load_market
+from .market import historical_candles, instrument_catalog, load_market
 from .models import AlertChange, Analysis, ChatPrompt, ExecutionConfirmation, Filters, Import, MarketPreference, NotificationPreference, Position, Report, Review, RiskRule, SignalAction, Strategy
 from .store import Settings, Store, entitlements
 
@@ -526,6 +526,13 @@ def create_app(settings=None, transport=None):
             return {"available": True, "status": "ready", "name": model["name"], "version": model["digest"], "methodology": VERSION, "market_feed": "configured" if market_feed_configured else "unavailable", "forecasting_model": None}
         except HTTPException as exc:
             return {"available": False, "status": "unavailable", "detail": exc.detail, "methodology": VERSION, "market_feed": "configured" if market_feed_configured else "unavailable", "forecasting_model": None}
+
+    @app.get("/api/v1/market/history")
+    async def market_history(user: ProDep, instrument: str = Query(pattern=r"^[A-Z0-9_]{1,30}$"),
+                             timeframe: str = Query(pattern=r"^(1m|5m|15m|30m|1h|4h|1d)$"),
+                             offset: int = Query(default=0, ge=0, le=2000000),
+                             limit: int = Query(default=2000, ge=1, le=2000), start: datetime | None = None):
+        return await asyncio.to_thread(historical_candles, settings, instrument, timeframe, offset, limit, start)
 
     @app.get("/api/v1/market/context")
     async def market_context(user: ProDep, instrument: str = Query(pattern=r"^[A-Z0-9_]{1,30}$"), timeframe: str = Query(pattern=r"^(1m|5m|15m|30m|1h|4h|1d)$"), trading_style: str | None = Query(default=None, pattern=r"^(SCALPING|INTRADAY|SWING)$")):
