@@ -226,6 +226,8 @@
 
     modal.classList.add('is-open');
     modal.style.display = 'flex';
+    modal.classList.add('is-open');
+    modal.scrollTop = 0;
     modal.removeAttribute('hidden');
     document.body.style.overflow = 'hidden';
     document.documentElement.classList.add('modal-open');
@@ -238,6 +240,7 @@
     if (modal) {
       modal.classList.remove('is-open');
       modal.style.display = 'none';
+      modal.classList.remove('is-open');
       modal.setAttribute('hidden', '');
     }
     if (snapCountdownInterval) {

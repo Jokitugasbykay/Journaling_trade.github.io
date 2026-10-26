@@ -4658,11 +4658,15 @@ body:has(.pro-nav-modal.is-open) {
   background: rgba(7, 8, 10, 0.88);
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
-  overflow-y: auto;
+  overflow-x: hidden;
+  overflow-y: auto !important;
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
   padding: 40px 16px;
   box-sizing: border-box;
+  pointer-events: auto !important;
 }
 
 .jt-checkout-container {
@@ -4676,7 +4680,7 @@ body:has(.pro-nav-modal.is-open) {
   position: relative;
   align-self: center;
   color: #E6E8EB;
-  margin: auto;
+  margin: 0 auto; flex-shrink: 0;
   box-sizing: border-box;
   font-family: Inter, system-ui, -apple-system, sans-serif;
 }
