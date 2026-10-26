@@ -1,5 +1,6 @@
 const assert=require('node:assert/strict');
-globalThis.Deno={env:{get:key=>({MIDTRANS_SERVER_KEY:'fixture-sandbox-secret',SUPABASE_ANON_KEY:'fixture-public',SUPABASE_SERVICE_ROLE_KEY:'fixture-service'}[key] || '')}};
+let allowSandbox='true';
+globalThis.Deno={env:{get:key=>key==='MIDTRANS_SANDBOX_ALLOW_ENTITLEMENTS'?allowSandbox:({MIDTRANS_SERVER_KEY:'fixture-sandbox-secret',SUPABASE_ANON_KEY:'fixture-public',SUPABASE_SERVICE_ROLE_KEY:'fixture-service'}[key] || '')}};
 const uid='11111111-1111-4111-8111-111111111111',other='22222222-2222-4222-8222-222222222222',key='33333333-3333-4333-8333-333333333333';
 (async()=>{
   const {handler}=await import('../supabase/functions/midtrans-create-token/index.ts');
@@ -39,6 +40,7 @@ const uid='11111111-1111-4111-8111-111111111111',other='22222222-2222-4222-8222-
   assert.equal((await notify()).status,200);assert.equal(events.length,0,'Pending payment modified subscription');
   paid=true;assert.equal((await notify()).status,200);assert.equal(events.length,1);assert.equal(events[0].user_id,uid);assert.equal(events[0].plan,'pro');assert.equal(events[0].interval,'monthly');
   assert.equal(events[0].period_start,'2026-01-31T03:01:00.000Z');assert.equal(events[0].period_end,'2026-02-28T03:01:00.000Z');
+  allowSandbox='';const simulation=await notify();assert.equal((await simulation.json()).subscription_applied,false);assert.equal(events.length,1,'Sandbox simulation granted production access');
   assert.equal((await webhook(new Request('https://example.test/webhook',{method:'POST',body:JSON.stringify({order_id:order.order_id,signature_key:'invalid'})}))).status,403);
   console.log('Custom checkout: server quote, sandbox charge, retry idempotency, cross-user denial, method conflict, verified subscription event and pending safety passed (provider fixtures).');
 })().catch(error=>{console.error(error);process.exitCode=1;});

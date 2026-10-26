@@ -443,7 +443,7 @@
         onPending: function (result) {
           console.log('Payment pending:', result);
           closeCheckoutModal();
-          alert('Pembayaran Anda sedang diproses. Kami akan segera mengaktifkan paket Anda.');
+          alert('Pembayaran uji berstatus pending. Ini tidak mengaktifkan paket berbayar produksi.');
         },
         onError: function (result) {
           console.error('Payment error:', result);
@@ -475,7 +475,7 @@
           <div class="jt-psm-card" role="dialog" aria-modal="true" aria-labelledby="jt-psm-title">
             <div class="jt-psm-icon">&#10003;</div>
             <h2 id="jt-psm-title">Pembayaran Berhasil</h2>
-            <p id="jt-psm-body">Pembayaran untuk paket <strong id="jt-psm-plan"></strong> diterima. Akses diperbarui setelah status diverifikasi oleh server.</p>
+            <p id="jt-psm-body">Pembayaran uji untuk paket <strong id="jt-psm-plan"></strong> diterima. Mode sandbox tidak mengaktifkan langganan berbayar produksi.</p>
             <button class="btn btn-primary" id="jt-psm-close" style="width:100%; height:44px; font-weight:600;">Muat Ulang &amp; Lanjutkan</button>
           </div>
         </div>`;

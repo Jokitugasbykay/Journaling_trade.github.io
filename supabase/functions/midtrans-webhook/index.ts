@@ -91,6 +91,8 @@ export async function handler(req: Request): Promise<Response> {
     if (!['monthly', 'annual'].includes(interval)) throw new Fail(422, 'Invalid interval in notification');
 
     const subStatus = mapStatus(transaction_status, fraud_status || 'accept');
+    // Sandbox simulations must not grant paid access on the live application's database by default.
+    if(Deno.env.get('MIDTRANS_SANDBOX_ALLOW_ENTITLEMENTS')!=='true')return respond({ok:true,status:subStatus,environment:'sandbox',subscription_applied:false});
 
     const now = new Date();
     const dated=transaction_time && /^\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}$/.test(transaction_time)?transaction_time.replace(' ','T')+'+07:00':transaction_time;

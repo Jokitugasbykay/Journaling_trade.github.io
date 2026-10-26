@@ -37,7 +37,7 @@ const server=http.createServer((req,res)=>{
   await page.evaluate(()=>Object.defineProperty(navigator,'clipboard',{configurable:true,value:{writeText:async value=>{window.fixtureCopied=value;}}}));
   await page.locator('#jt-payment-copy').evaluate(el=>el.click());await page.waitForFunction(()=>window.fixtureCopied==='000000000000');
   paid=true;await page.locator('#jt-payment-check').evaluate(el=>el.click());await page.waitForFunction(()=>document.querySelector('#jt-payment-status').textContent.includes('diterima Midtrans'));
-  assert.ok((await page.locator('#jt-payment-status').textContent()).includes('verifikasi server'));
+  assert.ok((await page.locator('#jt-payment-status').textContent()).includes('tidak mengaktifkan langganan berbayar produksi'));
   await page.evaluate(()=>window.changeFixtureOwner('22222222-2222-4222-8222-222222222222'));
   assert.equal(await page.locator('#checkout-modal').isVisible(),false);assert.equal(await page.locator('#jt-payment-va').textContent(),'');
   await page.setViewportSize({width:390,height:844});await page.evaluate(()=>openCheckoutModal('plus','annual'));await page.locator('#jt-terms-agree').check();await page.locator('#jt-checkout-pay-btn').evaluate(el=>el.click());

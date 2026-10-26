@@ -34,8 +34,9 @@
     $('jt-payment-merchant').textContent=payment.merchant_id?'Merchant Midtrans: '+payment.merchant_id:'';
     const pending=payment.status==='pending',paid=['settlement','capture'].includes(payment.status);
     $('jt-payment-status').setAttribute('role','status');
-    const msg = paid?'Pembayaran diterima Midtrans. Akses paket diperbarui setelah verifikasi server.':pending?'Menunggu pembayaran. Status diperiksa otomatis selama halaman ini terbuka.':'Status pembayaran: '+payment.status+'. Anda dapat kembali untuk membuat pembayaran baru.';
-    $('jt-payment-status').innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="M12 8h.01M11 12h1v5h1"></path></svg><span>' + msg + '</span>';
+    const msg = paid?'Pembayaran uji diterima Midtrans. Ini tidak mengaktifkan langganan berbayar produksi.':pending?'Menunggu pembayaran. Status diperiksa otomatis selama halaman ini terbuka.':'Status pembayaran: '+payment.status+'. Anda dapat kembali untuk membuat pembayaran baru.';
+    $('jt-payment-status').innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="M12 8h.01M11 12h1v5h1"></path></svg>';
+    const statusLabel=document.createElement('span');statusLabel.textContent=msg;$('jt-payment-status').append(statusLabel);
     const image=$('jt-payment-qr');image.hidden=!pending || !payment.qr_url;if(!image.hidden)image.src=payment.qr_url;else image.removeAttribute('src');
     $('jt-payment-va-box').hidden=!pending || !payment.va_number;$('jt-payment-va').textContent=payment.va_number || '';
     $('jt-payment-expiry').textContent=payment.expires_at && Number.isFinite(Date.parse(payment.expires_at))?'Batas pembayaran: '+new Date(payment.expires_at).toLocaleString('id-ID'):'';

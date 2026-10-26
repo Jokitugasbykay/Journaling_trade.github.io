@@ -20,6 +20,7 @@ QRIS dan VA adalah pembayaran satu kali untuk periode paket; UI tidak mengklaim 
 - `MIDTRANS_SERVER_KEY` di environment mendapat prioritas. Kredensial sandbox yang sebelumnya ada di source function dipindahkan ke Vault dengan nama `journalingtrade_midtrans_sandbox`.
 - Getter Vault `journal_midtrans_sandbox_key()` hanya dapat dieksekusi `service_role`; tidak dikirim ke frontend atau repository.
 - Migration `20261026010000_custom_checkout_events.sql` menambahkan getter dan wrapper event. Tidak mereset tabel, mengubah RLS data jurnal, atau mengganti merchant.
+- Webhook mengabaikan perubahan entitlement dari simulasi sandbox secara default. `MIDTRANS_SANDBOX_ALLOW_ENTITLEMENTS=true` hanya untuk pengujian eksplisit pada lingkungan terisolasi; tidak diaktifkan dalam sesi ini.
 - Semua URL transaksi tetap `api.sandbox.midtrans.com`; tidak ada aktivasi pembayaran produksi.
 
 ## Pemeriksaan yang dijalankan
