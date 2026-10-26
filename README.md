@@ -8,17 +8,15 @@
 ##  Struktur Repositori
 
 ```text
-Journaling trade/
-├── css/
-│   └── style.css            # Stylesheet tema gelap modern (OpenAI Astra & Minimalist Glassmorphism)
-├── js/
-│   └── app.js               # Logika kalkulasi, penyimpanan lokal (localStorage), dan manajemen UI
-├── scripts/                # Kolektor berita, data makro, dan audit feed
-├── supabase/               # SQL ownership, paket, kuota, dan pengujian rollback
-├── regional-sources.json   # Registry portal berita per negara
-├── index.html               # Halaman antarmuka utama (Entry point)
-├── .gitignore               # Konfigurasi pengabaian berkas sistem & backup
-└── README.md                # Dokumentasi proyek
+index.html                  # Satu sumber HTML untuk seluruh halaman
+js/                         # Frontend, navigasi, jurnal, Pro dan pembayaran
+css/                        # Stylesheet yang dipakai bersama
+services/pro_api/           # Backend Python: API, analitik, worker dan monitoring
+supabase/                   # SQL/RLS dan Edge Functions untuk layanan hosted
+scripts/build_site.py       # Build website lokal dan GitHub Pages
+scripts/spa_404_fallback.py  # Pembuat route dari index.html saat build
+scripts/                    # Kolektor berita, data makro dan pemeriksaan
+_site/                      # Hasil build otomatis; tidak disimpan di Git
 ```
 
 ---
@@ -27,11 +25,20 @@ Journaling trade/
 
 Aplikasi ini dibangun menggunakan arsitektur **Client-Side Open Source**. Jurnal tamu tersimpan lokal; login dan sinkronisasi memakai Supabase.
 
-1. **Jalankan server lokal** agar file JSON, auth, dan modul dapat dimuat:
+1. Buat website dari satu sumber HTML:
    ```bash
-   npx serve .
+   python scripts/build_news.py
+   python scripts/build_site.py
    ```
-2. Buka alamat HTTP yang ditampilkan server. Membuka `index.html` langsung melalui `file://` tidak mendukung seluruh fitur.
+2. Jalankan hasil build:
+   ```bash
+   python -m http.server 8778 --directory _site
+   ```
+3. Buka `http://localhost:8778/home/`. Route seperti `/journal/` dan `/pro/` tersedia dari hasil build yang sama. Membuka HTML melalui `file://` tidak mendukung seluruh fitur.
+
+`home/index.html`, `journal/index.html`, dan route lain dibuat hanya di `_site/` saat build. Jangan mengedit atau menambahkan salinannya ke sumber Git. Satu-satunya sumber markup aplikasi adalah root `index.html`; JavaScript menangani navigasi dan interaksi.
+
+Backend Python di `services/pro_api/` tetap layanan terpisah: server statis di atas hanya menjalankan frontend. Login, API Pro, model AI dan database tetap membutuhkan konfigurasi/runtime masing-masing; build frontend tidak mengaktifkan backend secara otomatis.
 
 ---
 

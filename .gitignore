@@ -15,3 +15,29 @@ __pycache__/
 /scratch/
 docs.zip
 
+
+# Route HTML is generated only in the deployment artifact.
+/_site/
+/404.html
+/home/index.html
+/journal/index.html
+/statistics/index.html
+/calculator/index.html
+/economic-news/index.html
+/economic-news/calendar/index.html
+/economic-news/social/index.html
+/profile/index.html
+/login/index.html
+/pro/index.html
+/analytics/index.html
+/heatmap/index.html
+/strategies/index.html
+/risk/index.html
+/reviews/index.html
+/reports/index.html
+/ai/index.html
+/ai/behaviour/index.html
+/ai/market/index.html
+/ai/journal/index.html
+/ai/chat/index.html
+/global-news/index.html

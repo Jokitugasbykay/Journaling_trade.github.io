@@ -2,9 +2,9 @@ name: Pro platform checks
 on:
   push:
     branches: [main]
-    paths: ["services/**", "supabase/**", "js/**", "css/pro.css", "index.html", "tests/**", ".github/workflows/pro-tests.yml"]
+    paths: ["services/**", "supabase/**", "js/**", "css/**", "index.html", "tests/**", "scripts/spa_404_fallback.py", "scripts/build_site.py", ".github/workflows/pro-tests.yml"]
   pull_request:
-    paths: ["services/**", "supabase/**", "js/**", "css/pro.css", "index.html", "tests/**", ".github/workflows/pro-tests.yml"]
+    paths: ["services/**", "supabase/**", "js/**", "css/**", "index.html", "tests/**", "scripts/spa_404_fallback.py", "scripts/build_site.py", ".github/workflows/pro-tests.yml"]
   workflow_dispatch:
 permissions:
   contents: read
@@ -32,11 +32,12 @@ jobs:
       - run: sudo apt-get update && sudo apt-get install -y postgresql-client
       - run: psql -h 127.0.0.1 -U jt_test -d postgres -v ON_ERROR_STOP=1 -f supabase/test_platform_base.sql -f supabase/access.sql -f supabase/migrations/20261010003143_pro_platform.sql -f supabase/migrations/20261010115426_kaystrade_intelligence.sql -f supabase/migrations/20261010141712_founder_pro_entitlement.sql -f supabase/migrations/20261010155806_pro_hosted_gateway.sql -f supabase/test_founder_access.sql -f supabase/test_platform.sql -f supabase/test_intelligence.sql -f supabase/test_security.sql -f supabase/test_gateway.sql
       - run: npx --yes deno test --allow-env --allow-read supabase/functions/pro-gateway/index.test.ts
+      - run: python -m unittest discover -s tests/build -v
       - run: python -m unittest discover -s tests/pro -v
         env:
           JT_TEST_PSQL: /usr/bin/psql
           JT_TEST_PGPORT: '5432'
-      - run: node js/pro.test.cjs && node js/pro-import.test.cjs && node js/security.test.cjs && node js/copy.test.cjs && node js/discipline.test.cjs && node js/news-auth.test.cjs
+      - run: node tests/site-routing.cjs && node tests/backtest-calendar.cjs && node js/pro.test.cjs && node js/pro-import.test.cjs && node js/security.test.cjs && node js/copy.test.cjs && node js/discipline.test.cjs && node js/news-auth.test.cjs
       - run: node --experimental-transform-types tests/payment-core.cjs && node tests/payment.test.cjs
       - run: npm install --prefix /tmp/jt-browser playwright@1.62.1
       - run: /tmp/jt-browser/node_modules/.bin/playwright install --with-deps chrome
