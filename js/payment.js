@@ -192,6 +192,142 @@
   }
 
   // ---- Execute Checkout Payment (Click "Berlangganan") ----
+  
+  // ---- Midtrans Method List Modal (MidtransList.dc Logic) ----
+  let snapCountdownInterval = null;
+  let activeSnapToken = null;
+
+  window.openMidtransListModal = function (plan, interval, orderId, token) {
+    activeSnapToken = token || null;
+    const p = plan || currentPlan || 'pro';
+    const inv = interval || currentInterval || 'monthly';
+    const planCfg = PRICES[p] || PRICES.pro;
+    const item = planCfg[inv];
+    const totalIdr = Math.round(item.base * 16000);
+    const formattedIdr = 'Rp' + totalIdr.toLocaleString('id-ID');
+
+    const modal = document.getElementById('midtrans-list-modal');
+    if (!modal) return;
+
+    const amtEl = document.getElementById('jt-snap-amount');
+    const orderEl = document.getElementById('jt-snap-order-id');
+    const planEl = document.getElementById('jt-snap-detail-plan');
+    const usdEl = document.getElementById('jt-snap-detail-usd');
+    const idrEl = document.getElementById('jt-snap-detail-idr');
+
+    if (amtEl) amtEl.textContent = formattedIdr;
+    if (orderEl) orderEl.textContent = orderId ? (orderId.startsWith('#') ? orderId : '#' + orderId) : '#jt-' + p + '-' + inv;
+    if (planEl) planEl.textContent = (p === 'pro' ? 'Pro ' : 'Plus ') + (inv === 'annual' ? 'tahunan' : 'bulanan');
+    if (usdEl) usdEl.textContent = fmtUsd(item.base);
+    if (idrEl) idrEl.textContent = formattedIdr;
+
+    // Start 24h countdown
+    startSnapCountdown();
+
+    modal.style.display = 'flex';
+    modal.removeAttribute('hidden');
+    document.body.style.overflow = 'hidden';
+    document.documentElement.classList.add('modal-open');
+    document.body.classList.add('modal-open');
+    window.syncModalScrollLock?.();
+  };
+
+  window.closeMidtransListModal = function () {
+    const modal = document.getElementById('midtrans-list-modal');
+    if (modal) {
+      modal.style.display = 'none';
+      modal.setAttribute('hidden', '');
+    }
+    if (snapCountdownInterval) {
+      clearInterval(snapCountdownInterval);
+      snapCountdownInterval = null;
+    }
+    window.syncModalScrollLock?.();
+  };
+
+  function startSnapCountdown() {
+    if (snapCountdownInterval) clearInterval(snapCountdownInterval);
+    let secondsLeft = 24 * 3600 - 1;
+    const timerEl = document.getElementById('jt-snap-timer');
+
+    const updateTimer = () => {
+      if (!timerEl) return;
+      const h = String(Math.floor(secondsLeft / 3600)).padStart(2, '0');
+      const m = String(Math.floor((secondsLeft % 3600) / 60)).padStart(2, '0');
+      const s = String(secondsLeft % 60).padStart(2, '0');
+      timerEl.textContent = `${h}:${m}:${s}`;
+      if (secondsLeft > 0) secondsLeft--;
+    };
+
+    updateTimer();
+    snapCountdownInterval = setInterval(updateTimer, 1000);
+  }
+
+  window.copySnapAmount = function () {
+    const amtEl = document.getElementById('jt-snap-amount');
+    if (amtEl) {
+      const text = amtEl.textContent.replace(/[^0-9]/g, '');
+      navigator.clipboard?.writeText(text);
+      const btn = amtEl.parentElement?.querySelector('.jt-ml-ic');
+      if (btn) {
+        const origSvg = btn.innerHTML;
+        btn.innerHTML = '<span style="font-size:12px;color:#34D399;font-weight:700">OK</span>';
+        setTimeout(() => { btn.innerHTML = origSvg; }, 1500);
+      }
+    }
+  };
+
+  window.copySnapOrderId = function () {
+    const orderEl = document.getElementById('jt-snap-order-id');
+    if (orderEl) {
+      const text = orderEl.textContent.trim().replace(/^#/, '');
+      navigator.clipboard?.writeText(text);
+      const btn = orderEl.parentElement?.querySelector('.jt-ml-ic');
+      if (btn) {
+        const origSvg = btn.innerHTML;
+        btn.innerHTML = '<span style="font-size:12px;color:#34D399;font-weight:700">OK</span>';
+        setTimeout(() => { btn.innerHTML = origSvg; }, 1500);
+      }
+    }
+  };
+
+  window.selectMidtransListItem = function (method) {
+    closeMidtransListModal();
+    if (method === 'va') {
+      // Switch back to custom checkout VA step
+      const checkoutModal = document.getElementById('checkout-modal');
+      if (checkoutModal) {
+        checkoutModal.style.display = 'flex';
+        checkoutModal.removeAttribute('hidden');
+        const payStep = document.getElementById('jt-payment-step');
+        if (payStep) {
+          payStep.removeAttribute('hidden');
+          const vaRadio = document.querySelector('input[name="jt-payment-method"][value="bca"]');
+          if (vaRadio) vaRadio.checked = true;
+          document.getElementById('jt-payment-create')?.removeAttribute('disabled');
+        }
+      }
+    } else if (method === 'qris') {
+      const checkoutModal = document.getElementById('checkout-modal');
+      if (checkoutModal) {
+        checkoutModal.style.display = 'flex';
+        checkoutModal.removeAttribute('hidden');
+        const payStep = document.getElementById('jt-payment-step');
+        if (payStep) {
+          payStep.removeAttribute('hidden');
+          const qrisRadio = document.querySelector('input[name="jt-payment-method"][value="qris"]');
+          if (qrisRadio) qrisRadio.checked = true;
+          document.getElementById('jt-payment-create')?.removeAttribute('disabled');
+        }
+      }
+    } else {
+      // Direct Midtrans channel
+      if (activeSnapToken && window.snap?.pay) {
+        window.snap.pay(activeSnapToken);
+      }
+    }
+  };
+
   window.executeCheckoutPayment = async function (useSnap = false) {
     const payBtn = document.getElementById('jt-checkout-pay-btn');
     const alertEl = document.getElementById('jt-checkout-alert');

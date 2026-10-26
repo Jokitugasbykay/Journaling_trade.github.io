@@ -389,3 +389,363 @@
     grid-template-columns: 1fr;
   }
 }
+
+/* Midtrans Payment Methods List Modal (MidtransList.dc Design) */
+#midtrans-list-modal {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 10002;
+  background: rgba(7, 8, 10, 0.88);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  align-items: center;
+  justify-content: center;
+  overflow-y: auto;
+  padding: 32px 16px;
+  box-sizing: border-box;
+}
+
+#midtrans-list-modal .jt-midtrans-container {
+  width: 100%;
+  max-width: 480px;
+  background: #12151A;
+  border: 1px solid #262B33;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 24px 80px rgba(0, 0, 0, 0.6);
+  color: #E6E8EB;
+  margin: auto;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  font-family: Inter, system-ui, -apple-system, sans-serif;
+}
+
+.jt-ml-hd {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 16px 20px;
+  border-bottom: 1px solid #262B33;
+}
+
+.jt-ml-lm {
+  width: 32px;
+  height: 32px;
+  border-radius: 9px;
+  background: #12261F;
+  border: 1px solid #1E5A45;
+  color: #34D399;
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+}
+
+.jt-ml-br {
+  font-weight: 700;
+  font-size: 16px;
+  letter-spacing: -0.02em;
+  color: #E6E8EB;
+}
+
+.jt-ml-x {
+  margin-left: auto;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 1px solid #2F3640;
+  background: transparent;
+  color: #E6E8EB;
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+  transition: background 0.15s;
+}
+
+.jt-ml-x:hover {
+  background: #1A1F26;
+}
+
+.jt-ml-x:focus-visible {
+  outline: 2px solid #34D399;
+  outline-offset: 2px;
+}
+
+/* Summary */
+.jt-ml-sum {
+  padding: 20px;
+  background: #161A20;
+  border-bottom: 1px solid #262B33;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.jt-ml-am {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.jt-ml-am b {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 30px;
+  font-weight: 600;
+  letter-spacing: -0.03em;
+  color: #E6E8EB;
+}
+
+.jt-ml-ic {
+  width: 44px;
+  height: 44px;
+  border-radius: 8px;
+  border: 0;
+  background: transparent;
+  color: #9AA3AF;
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+  transition: color 0.15s, background 0.15s;
+}
+
+.jt-ml-ic:hover {
+  color: #34D399;
+  background: #1A1F26;
+}
+
+.jt-ml-ic:focus-visible {
+  outline: 2px solid #34D399;
+  outline-offset: 2px;
+}
+
+.jt-ml-id {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 12px;
+  color: #9AA3AF;
+  margin-top: -6px;
+}
+
+.jt-ml-id span {
+  font-family: 'JetBrains Mono', monospace;
+  color: #E6E8EB;
+}
+
+.jt-ml-rw {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.jt-ml-tm {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  color: #B4BCC8;
+  border: 1px solid #2F3640;
+  border-radius: 999px;
+  padding: 6px 12px;
+}
+
+.jt-ml-tm b {
+  font-family: 'JetBrains Mono', monospace;
+  color: #34D399;
+}
+
+details.jt-ml-dt summary {
+  list-style: none;
+  cursor: pointer;
+  color: #34D399;
+  font-size: 13px;
+  font-weight: 600;
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 0 4px;
+}
+
+details.jt-ml-dt summary::-webkit-details-marker {
+  display: none;
+}
+
+details.jt-ml-dt summary svg {
+  transition: transform 0.2s ease;
+}
+
+details.jt-ml-dt[open] summary svg {
+  transform: rotate(180deg);
+}
+
+details.jt-ml-dt summary:focus-visible {
+  outline: 2px solid #34D399;
+  outline-offset: 2px;
+}
+
+.jt-ml-dl {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  font-size: 13px;
+  color: #B4BCC8;
+  padding: 8px 0 0;
+  border-top: 1px solid #262B33;
+}
+
+.jt-ml-dl div {
+  display: flex;
+  justify-content: space-between;
+}
+
+.jt-ml-dl b {
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 500;
+  color: #E6E8EB;
+}
+
+/* Sections */
+.jt-ml-sec {
+  padding: 8px 12px 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.jt-ml-sh {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #7C8693;
+  padding: 14px 8px 6px;
+}
+
+.jt-ml-row {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  width: 100%;
+  min-height: 60px;
+  padding: 8px 12px;
+  box-sizing: border-box;
+  border: 0;
+  border-radius: 12px;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.jt-ml-row:hover {
+  background: #1A1F26;
+}
+
+.jt-ml-row:focus-visible {
+  outline: 2px solid #34D399;
+  outline-offset: 2px;
+}
+
+.jt-ml-mk {
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  border: 1px solid #2F3640;
+  background: #161A20;
+  display: grid;
+  place-items: center;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  font-weight: 600;
+  color: #B4BCC8;
+  flex: none;
+}
+
+.jt-ml-tx {
+  flex: 1;
+  min-width: 0;
+}
+
+.jt-ml-tx b {
+  display: flex;
+  align-items: center;
+  font-size: 14px;
+  font-weight: 600;
+  color: #E6E8EB;
+}
+
+.jt-ml-tx small {
+  display: block;
+  font-size: 12px;
+  color: #9AA3AF;
+  margin-top: 2px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.jt-ml-row svg {
+  color: #7C8693;
+  flex: none;
+}
+
+.jt-ml-chip {
+  font-size: 11px;
+  font-weight: 600;
+  color: #34D399;
+  background: #12261F;
+  border: 1px solid #1E5A45;
+  border-radius: 999px;
+  padding: 2px 8px;
+  margin-left: 8px;
+  white-space: nowrap;
+}
+
+.jt-ml-row.last {
+  border: 1px solid #1E5A45;
+  background: #0F2019;
+}
+
+/* Footer */
+.jt-ml-ft {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 20px;
+  border-top: 1px solid #262B33;
+  margin-top: 12px;
+  font-size: 12px;
+  color: #9AA3AF;
+}
+
+.jt-ml-lg {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: none;
+  border: 1px solid #2F3640;
+  border-radius: 8px;
+  color: #B4BCC8;
+  min-height: 44px;
+  padding: 0 12px;
+  font-family: Inter, system-ui, sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: border-color 0.15s, color 0.15s;
+}
+
+.jt-ml-lg:hover {
+  border-color: #454E5A;
+  color: #E6E8EB;
+}
+
+.jt-ml-lg:focus-visible {
+  outline: 2px solid #34D399;
+  outline-offset: 2px;
+}
