@@ -179,3 +179,20 @@ Every control below is inside AI Market Intelligence, requires owner authenticat
 | Component ID / label | Frontend handler | API operation | Authentication / subscription | State / test |
 |---|---|---|---|---|
 | founder-pro-entitlement / Pro navigation | `verifyProAccess` → `JTPRO.verifyAccess` → `getEntitlements` | Authenticated RPC `journal_founder_entitlements()` when Python gateway is unset; otherwise gateway `/entitlements` | Supabase derives Founder from verified email allowlist server-side; RLS/session owns `auth.uid()`; Pro RPC enforces Pro | Pro nav appears after verified entitlement; unverified/ordinary accounts remain on existing tier; `js/pro.test.cjs`, `supabase/test_founder_access.sql`; gateway-dependent feature actions still unavailable until Python service is deployed |
+
+
+## Custom Midtrans sandbox checkout (2026-10-26)
+
+All requests below require Supabase Auth, are ownership-scoped, and use `midtrans-custom-checkout`; opening checkout does not create a payment. Paid callbacks never grant subscriptions directly. See `CUSTOM_CHECKOUT.md` for verified scope and release gates.
+
+| Component ID | Label / frontend handler | Backend action | Loading / success / error | Test |
+| --- | --- | --- | --- | --- |
+| jt-checkout-pay-btn | Continue; `executeCheckoutPayment` -> `JTCustomCheckout.open` | POST quote | Quote loading; server IDR total; error with fallback choice | payment-ui.cjs; payment-core.cjs |
+| jt-payment-options | Select QRIS or bank; change handler | None until explicit create | Enables create after quote and selection | payment-ui.cjs |
+| jt-payment-create | Create test payment; `working` -> request | POST charge, UUID idempotency key | Disabled while running; provider QR/VA; error and retry | payment-core.cjs; payment-ui.cjs |
+| jt-payment-check | Check status; `checkStatus` | POST status, owned order | Loading; pending/paid/expired; bounded error | payment-core.cjs; payment-ui.cjs |
+| jt-payment-copy | Copy VA; clipboard handler | None; authorized detail already loaded | Copy success; clipboard failure message | payment-ui.cjs (clipboard fixture; browser permission still required) |
+| jt-payment-back | Back; `back` | No cancellation; order expires at provider | Abort polling, clear private detail, restore form | payment-ui.cjs |
+| jt-payment-other | Card and other methods | Existing Snap endpoint | User explicitly opens provider checkout | payment.test.cjs |
+| checkout close / Escape / account change | `closeCheckoutModal`, auth listener | Abort pending requests | Clear detail/polling; restore focus | payment-ui.cjs |
+| midtrans-webhook | Verified provider notification | Provider status, service-only event RPC | No access on pending; idempotent paid event; reject invalid signature | payment-core.cjs; payment-sql.cjs |

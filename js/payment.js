@@ -15,6 +15,7 @@
   let snapLoaded = false;
   let currentPlan = 'pro';
   let currentInterval = 'monthly';
+  let checkoutOpener = null;
 
   // Price Catalog
   const PRICES = {
@@ -49,17 +50,6 @@
         const { data } = await sb.auth.getSession();
         if (data && data.session && data.session.access_token) return data.session.access_token;
       }
-      const STORAGE_KEY = 'journalingtrade_nmddjuqkdyhcobddinkc_auth';
-      const keys = [STORAGE_KEY].concat(Object.keys(localStorage).filter(function (k) { return /supabase|auth/i.test(k); }));
-      for (var i = 0; i < keys.length; i++) {
-        try {
-          var raw = localStorage.getItem(keys[i]);
-          if (!raw) continue;
-          var parsed = JSON.parse(raw);
-          var token = parsed && (parsed.access_token || (parsed.currentSession && parsed.currentSession.access_token) || (parsed.session && parsed.session.access_token));
-          if (typeof token === 'string' && token.length > 20) return token;
-        } catch (e) {}
-      }
     } catch (e) { console.warn('getAuthToken', e); }
     return null;
   }
@@ -90,6 +80,11 @@
 
     const modal = document.getElementById('checkout-modal');
     if (!modal) return;
+    if(!modal.contains(document.activeElement))checkoutOpener=document.activeElement;
+
+    window.JTCustomCheckout?.close();
+    modal.querySelector('.jt-checkout-layout').hidden = false;
+    const agreement=document.getElementById('jt-terms-agree');if(agreement)agreement.checked=false;
 
     // Pre-fill user profile if logged in
     try {
@@ -114,6 +109,7 @@
 
   // ---- Close Checkout Modal ----
   window.closeCheckoutModal = function () {
+    window.JTCustomCheckout?.close();
     const modal = document.getElementById('checkout-modal');
     if (modal) {
       modal.style.display = 'none';
@@ -128,6 +124,7 @@
     window.syncModalScrollLock?.();
     const alert = document.getElementById('jt-checkout-alert');
     if (alert) alert.style.display = 'none';
+    checkoutOpener?.focus?.();
   };
 
   // ---- Select Interval in Checkout Modal ----
@@ -185,7 +182,7 @@
   }
 
   // ---- Execute Checkout Payment (Click "Berlangganan") ----
-  window.executeCheckoutPayment = async function () {
+  window.executeCheckoutPayment = async function (useSnap = false) {
     const payBtn = document.getElementById('jt-checkout-pay-btn');
     const alertEl = document.getElementById('jt-checkout-alert');
     const agreeEl = document.getElementById('jt-terms-agree');
@@ -240,6 +237,11 @@
     }
 
     try {
+      if (!useSnap && window.JTCustomCheckout) {
+        await window.JTCustomCheckout.open({plan: currentPlan, interval: currentInterval, billing: billingData});
+        if (payBtn) { payBtn.disabled = false; payBtn.textContent = origText; }
+        return;
+      }
       // 1. Load Snap.js & fetch token in parallel
       const [_, tokenRes] = await Promise.all([
         loadSnap(),
@@ -309,7 +311,7 @@
           <div class="jt-psm-card" role="dialog" aria-modal="true" aria-labelledby="jt-psm-title">
             <div class="jt-psm-icon">&#10003;</div>
             <h2 id="jt-psm-title">Pembayaran Berhasil</h2>
-            <p id="jt-psm-body">Paket <strong id="jt-psm-plan"></strong> Anda sekarang telah aktif. Muat ulang halaman untuk membuka seluruh fitur.</p>
+            <p id="jt-psm-body">Pembayaran untuk paket <strong id="jt-psm-plan"></strong> diterima. Akses diperbarui setelah status diverifikasi oleh server.</p>
             <button class="btn btn-primary" id="jt-psm-close" style="width:100%; height:44px; font-weight:600;">Muat Ulang &amp; Lanjutkan</button>
           </div>
         </div>`;
@@ -353,7 +355,6 @@
 
   // ---- Bootstrap ----
   function init() {
-    loadSnap().catch(() => {});
     if (document.readyState === 'loading') {
       document.addEventListener('DOMContentLoaded', initPricingButtons);
     } else {

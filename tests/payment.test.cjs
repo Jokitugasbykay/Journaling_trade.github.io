@@ -36,7 +36,9 @@ console.log('PASS: js/payment.js client setup and checkout modal logic verified'
 
 // 3. Verify Edge Function: midtrans-create-token
 const createTokenTs = fs.readFileSync(path.join(root, 'supabase', 'functions', 'midtrans-create-token', 'index.ts'), 'utf8');
-assert.ok(createTokenTs.includes('MIDTRANS_SERVER_KEY'), 'midtrans-create-token must reference MIDTRANS_SERVER_KEY');
+const coreTs=fs.readFileSync(path.join(root,'supabase/functions/midtrans-create-token/core.ts'),'utf8');
+assert.ok(createTokenTs.includes('await sandboxKey()') && coreTs.includes('MIDTRANS_SERVER_KEY'), 'checkout must use the backend secret loader');
+assert.ok(!/Mid-server-[A-Za-z0-9_-]+/.test(createTokenTs+coreTs), 'sandbox server keys must not be embedded in source');
 assert.ok(createTokenTs.includes('app.sandbox.midtrans.com/snap/v1/transactions'), 'midtrans-create-token must call Snap API');
 assert.ok(createTokenTs.includes('taxUsd'), 'midtrans-create-token must calculate 11% PPN tax');
 
@@ -44,7 +46,7 @@ console.log('PASS: supabase/functions/midtrans-create-token verified');
 
 // 4. Verify Edge Function: midtrans-webhook
 const webhookTs = fs.readFileSync(path.join(root, 'supabase', 'functions', 'midtrans-webhook', 'index.ts'), 'utf8');
-assert.ok(webhookTs.includes('MIDTRANS_SERVER_KEY'), 'midtrans-webhook must reference MIDTRANS_SERVER_KEY');
+assert.ok(webhookTs.includes('await sandboxKey()'), 'midtrans-webhook must use the same backend secret loader');
 assert.ok(webhookTs.includes('SHA-512'), 'midtrans-webhook must verify SHA-512 signature');
 assert.ok(webhookTs.includes('journal_record_subscription'), 'midtrans-webhook must invoke journal_record_subscription RPC');
 

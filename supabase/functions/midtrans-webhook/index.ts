@@ -2,6 +2,7 @@
 // Receives payment status from Midtrans server-to-server.
 // Verifies SHA-512 signature, then calls journal_record_subscription RPC to update user plan.
 
+import {decodeOrder,sandboxKey} from '../midtrans-create-token/core.ts';
 const PROJECT = 'https://nmddjuqkdyhcobddinkc.supabase.co';
 
 class Fail extends Error { constructor(public status: number, msg: string) { super(msg); } }
@@ -47,7 +48,7 @@ export async function handler(req: Request): Promise<Response> {
 
   try {
     // Midtrans Sandbox Server Key
-    const serverKey = Deno.env.get('MIDTRANS_SERVER_KEY') || '';
+    const serverKey = await sandboxKey();
     if (!serverKey) throw new Fail(503, 'Payment provider not configured');
 
     const rawBody = await req.text();
@@ -57,7 +58,7 @@ export async function handler(req: Request): Promise<Response> {
     try { notif = JSON.parse(rawBody); }
     catch { throw new Fail(422, 'Invalid JSON'); }
 
-    const { order_id, status_code, gross_amount, signature_key, transaction_status, fraud_status,
+    let { order_id, status_code, gross_amount, signature_key, transaction_status, fraud_status,
             transaction_id, transaction_time,
             custom_field1: userId, custom_field2: plan, custom_field3: interval } = notif as Record<string, string>;
 
@@ -66,6 +67,22 @@ export async function handler(req: Request): Promise<Response> {
       console.error('Signature mismatch for order:', order_id);
       throw new Fail(403, 'Invalid webhook signature');
     }
+
+    const decoded=decodeOrder(String(order_id));
+    if(String(order_id).startsWith('jtc_') && !decoded)throw new Fail(422,'Invalid checkout order');
+    const verified=await fetch('https://api.sandbox.midtrans.com/v2/'+encodeURIComponent(order_id)+'/status',{
+      headers:{Authorization:'Basic '+btoa(serverKey+':'),Accept:'application/json'},signal:AbortSignal.timeout(15000)});
+    if(!verified.ok)throw new Fail(503,'Payment verification unavailable');
+    const actual=await verified.json();
+    const stored=actual.metadata?.journalingtrade;
+    const owned=decoded || {userId:stored?.user_id || actual.custom_field1,plan:stored?.plan || actual.custom_field2,interval:stored?.interval || actual.custom_field3};
+    if(!/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(String(owned.userId)) || !['plus','pro'].includes(owned.plan) || !['monthly','annual'].includes(owned.interval))throw new Fail(422,'Verified payment ownership unavailable');
+    const base=owned.plan==='plus'?(owned.interval==='annual'?100:10):(owned.interval==='annual'?200:20);
+    if(actual.order_id!==order_id || actual.transaction_id!==transaction_id || Number(actual.gross_amount)!==Math.round(base*1.11*16000) || actual.currency!=='IDR')throw new Fail(403,'Payment details do not match checkout');
+    // Pending/failed orders cannot overwrite an existing paid subscription.
+    if(!['refund','chargeback'].includes(actual.transaction_status) && actual.transaction_status!=='settlement' && !(actual.transaction_status==='capture' && actual.fraud_status==='accept'))return respond({ok:true,status:actual.transaction_status});
+    userId=owned.userId;plan=owned.plan;interval=owned.interval;transaction_status=actual.transaction_status;fraud_status=actual.fraud_status;
+    transaction_time=actual.settlement_time || actual.transaction_time;gross_amount=actual.gross_amount;
 
     if (!userId || !plan || !interval || !transaction_id || !order_id) {
       throw new Fail(422, 'Missing required fields in notification');
@@ -76,23 +93,22 @@ export async function handler(req: Request): Promise<Response> {
     const subStatus = mapStatus(transaction_status, fraud_status || 'accept');
 
     const now = new Date();
-    const periodStart = new Date(transaction_time || now.toISOString());
+    const dated=transaction_time && /^\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}$/.test(transaction_time)?transaction_time.replace(' ','T')+'+07:00':transaction_time;
+    const periodStart = new Date(dated || now.toISOString());
+    if(!Number.isFinite(periodStart.getTime()))throw new Fail(422,'Invalid transaction timestamp');
     const periodEnd   = new Date(periodStart);
-    if (interval === 'annual') {
-      periodEnd.setFullYear(periodEnd.getFullYear() + 1);
-    } else {
-      periodEnd.setMonth(periodEnd.getMonth() + 1);
-    }
+    const billingDay=periodEnd.getUTCDate();periodEnd.setUTCDate(1);
+    periodEnd.setUTCMonth(periodEnd.getUTCMonth()+(interval==='annual'?12:1));
+    periodEnd.setUTCDate(Math.min(billingDay,new Date(Date.UTC(periodEnd.getUTCFullYear(),periodEnd.getUTCMonth()+1,0)).getUTCDate()));
 
-    const payloadHash = await sha256hex(rawBody);
+    const payloadHash = await sha256hex(JSON.stringify({order_id,transaction_id,transaction_status,gross_amount:String(Number(gross_amount)),userId,plan,interval}));
 
-    // SEC-01 & SEC-02 Fix: Use distinct event_id for each lifecycle status
-    // and timestamp of the webhook event arrival to ensure database ordering advances
+    // Provider settlement time orders successful events; duplicate status deliveries share one stable hash.
     const eventId = `${transaction_id}-${transaction_status}`;
-    const eventTime = now.toISOString();
+    const eventTime = !['refund','chargeback'].includes(transaction_status)?periodStart.toISOString():now.toISOString();
 
     const serviceKey = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY') || '';
-    const rpcRes = await fetch(PROJECT + '/rest/v1/rpc/journal_record_subscription', {
+    const rpcRes = await fetch(PROJECT + '/rest/v1/rpc/journal_record_midtrans_checkout', {
       method: 'POST',
       headers: {
         'apikey':        serviceKey,
@@ -100,20 +116,8 @@ export async function handler(req: Request): Promise<Response> {
         'Content-Type':  'application/json',
         'Prefer':        'return=representation',
       },
-      body: JSON.stringify({
-        p_provider:         'midtrans',
-        p_event_id:         eventId,
-        p_payload_hash:     payloadHash,
-        p_user_id:          userId,
-        p_subscription_id:  order_id,
-        p_plan:             subStatus === 'active' ? plan : 'free',
-        p_status:           subStatus,
-        p_interval:         interval,
-        p_period_start:     periodStart.toISOString(),
-        p_period_end:       periodEnd.toISOString(),
-        p_event_at:         eventTime,
-        p_countries:        [],
-      }),
+      body: JSON.stringify({p_event:{event_id:eventId,payload_hash:payloadHash,user_id:userId,order_id,
+        plan:subStatus==='active'?plan:'free',status:subStatus,interval,period_start:periodStart.toISOString(),period_end:periodEnd.toISOString(),event_at:eventTime}}),
       signal: AbortSignal.timeout(15_000),
     });
 

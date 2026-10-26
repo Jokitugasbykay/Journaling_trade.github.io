@@ -37,8 +37,12 @@ jobs:
           JT_TEST_PSQL: /usr/bin/psql
           JT_TEST_PGPORT: '5432'
       - run: node js/pro.test.cjs && node js/pro-import.test.cjs && node js/security.test.cjs && node js/copy.test.cjs && node js/discipline.test.cjs && node js/news-auth.test.cjs
+      - run: node --experimental-transform-types tests/payment-core.cjs && node tests/payment.test.cjs
       - run: npm install --prefix /tmp/jt-browser playwright@1.62.1
       - run: /tmp/jt-browser/node_modules/.bin/playwright install --with-deps chrome
+      - run: node tests/payment-ui.cjs
+        env:
+          PLAYWRIGHT_MODULE: /tmp/jt-browser/node_modules/playwright
       - run: node tests/frontend-pro.cjs
         env:
           PLAYWRIGHT_MODULE: /tmp/jt-browser/node_modules/playwright
