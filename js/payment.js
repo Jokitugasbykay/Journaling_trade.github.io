@@ -20,12 +20,12 @@
   // Price Catalog
   const PRICES = {
     plus: {
-      monthly: { base: 10,  tax: 1.10, total: 11.10, label: 'Plus bulanan', desc: 'Ditagih bulanan' },
-      annual:  { base: 100, tax: 11.0, total: 111.0, label: 'Plus tahunan', desc: 'Ditagih tahunan' }
+      monthly: { base: 10,  tax: 0, total: 10, label: 'Plus bulanan', desc: 'Ditagih bulanan' },
+      annual:  { base: 100, tax: 0, total: 100, label: 'Plus tahunan', desc: 'Ditagih tahunan' }
     },
     pro: {
-      monthly: { base: 20,  tax: 2.20, total: 22.20, label: 'Pro bulanan', desc: 'Ditagih bulanan' },
-      annual:  { base: 200, tax: 22.0, total: 222.0, label: 'Pro tahunan', desc: 'Ditagih tahunan' }
+      monthly: { base: 20,  tax: 0, total: 20, label: 'Pro bulanan', desc: 'Ditagih bulanan' },
+      annual:  { base: 200, tax: 0, total: 200, label: 'Pro tahunan', desc: 'Ditagih tahunan' }
     }
   };
 
@@ -142,6 +142,11 @@
     // Left option cards
     const cardM = document.getElementById('jt-card-monthly');
     const cardA = document.getElementById('jt-card-annual');
+    const radioM = document.getElementById('jt-radio-monthly');
+    const radioA = document.getElementById('jt-radio-annual');
+    if (radioM) radioM.checked = (currentInterval === 'monthly');
+    if (radioA) radioA.checked = (currentInterval === 'annual');
+
     if (cardM && cardA) {
       cardM.classList.toggle('active', currentInterval === 'monthly');
       cardA.classList.toggle('active', currentInterval === 'annual');
@@ -153,9 +158,9 @@
     const optPriceA = document.getElementById('jt-opt-price-annual');
 
     if (optNameM) optNameM.textContent = isPro ? 'Pro bulanan' : 'Plus bulanan';
-    if (optPriceM) optPriceM.textContent = `USD ${planCfg.monthly.base}.00`;
+    if (optPriceM) optPriceM.textContent = fmtUsd(planCfg.monthly.base);
     if (optNameA) optNameA.textContent = isPro ? 'Pro tahunan' : 'Plus tahunan';
-    if (optPriceA) optPriceA.textContent = `USD ${planCfg.annual.base}.00`;
+    if (optPriceA) optPriceA.textContent = fmtUsd(planCfg.annual.base);
 
     // Right summary card
     const sumTitle = document.getElementById('jt-summary-title');
@@ -171,13 +176,18 @@
     if (sumItemLabel) sumItemLabel.textContent = item.label;
     if (sumItemPrice) sumItemPrice.textContent = fmtUsd(item.base);
     if (sumSubtotal) sumSubtotal.textContent = fmtUsd(item.base);
-    if (sumTax) sumTax.textContent = fmtUsd(item.tax);
+    if (sumTax) sumTax.textContent = fmtUsd(0);
     if (sumTotal) sumTotal.textContent = fmtUsd(item.total);
 
-    if (renDate) renDate.textContent = getRenewalDate(currentInterval);
+    const renewalStr = getRenewalDate(currentInterval);
+    if (renDate) renDate.textContent = renewalStr;
+    const periodWord = currentInterval === 'annual' ? 'tahun' : 'bulan';
     if (recText) {
-      const periodWord = currentInterval === 'annual' ? 'tahun' : 'bulan';
-      recText.textContent = `${fmtUsd(item.base)}/${periodWord} + pajak`;
+      recText.textContent = `${fmtUsd(item.base)}/${periodWord}.`;
+    }
+    const noticeEl = document.getElementById('jt-summary-notice-text');
+    if (noticeEl) {
+      noticeEl.innerHTML = `Akses paket berlaku hingga <span id="jt-renewal-date">${renewalStr}</span>. Perpanjangan dilakukan secara manual. Harga paket: <span id="jt-recurring-text">${fmtUsd(item.base)}/${periodWord}.</span>`;
     }
   }
 
