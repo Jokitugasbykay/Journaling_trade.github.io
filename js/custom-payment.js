@@ -81,10 +81,16 @@
     $('jt-payment-check').addEventListener('click',()=>working($('jt-payment-check'),checkStatus));
     $('jt-payment-copy').addEventListener('click',()=>working($('jt-payment-copy'),async()=>{await navigator.clipboard.writeText(state.payment.va_number);$('jt-payment-status').textContent='Nomor virtual account disalin.';}));
     $('jt-payment-other').addEventListener('click',()=>{
+      const plan = state?.config?.plan || 'pro';
+      const interval = state?.config?.interval || 'monthly';
       const stateOrder = state?.payment?.order_id || state?.quote?.order_id || '';
-      back();
-      window.executeCheckoutPayment(true);
-      window.openMidtransListModal?.(state?.config?.plan, state?.config?.interval, stateOrder);
+      const modal = $('checkout-modal');
+      if (modal) {
+        modal.style.display = 'none';
+        modal.classList.remove('is-open');
+        modal.setAttribute('hidden', '');
+      }
+      window.openMidtransListModal?.(plan, interval, stateOrder);
     });
     $('jt-payment-qr').addEventListener('error',()=>{if(state)error('QR tidak dapat ditampilkan. Periksa koneksi atau kembali untuk memilih virtual account.');});
     $('checkout-modal').addEventListener('keydown',event=>{

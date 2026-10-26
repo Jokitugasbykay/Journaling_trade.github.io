@@ -102,15 +102,9 @@ export async function handler(req: Request): Promise<Response> {
       item_details: [
         {
           id:       `${plan}-${interval}`,
-          price:    Math.round(baseUsd * RATE_IDR_PER_USD),
+          price:    idrAmount,
           quantity: 1,
           name:     `JournalingTrade ${plan.toUpperCase()} - $${baseUsd} USD ${periodLabel}`,
-        },
-        {
-          id:       `tax-ppn`,
-          price:    Math.round(taxUsd * RATE_IDR_PER_USD),
-          quantity: 1,
-          name:     `PPN 11% ($${taxUsd} USD)`,
         }
       ],
       customer_details: {

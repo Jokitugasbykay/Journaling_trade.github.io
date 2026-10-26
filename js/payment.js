@@ -232,7 +232,7 @@
     window.syncModalScrollLock?.();
   };
 
-  window.closeMidtransListModal = function () {
+  window.closeMidtransListModal = function (returnToCheckout = false) {
     const modal = document.getElementById('midtrans-list-modal');
     if (modal) {
       modal.style.display = 'none';
@@ -241,6 +241,22 @@
     if (snapCountdownInterval) {
       clearInterval(snapCountdownInterval);
       snapCountdownInterval = null;
+    }
+    if (returnToCheckout) {
+      const checkoutModal = document.getElementById('checkout-modal');
+      if (checkoutModal) {
+        checkoutModal.style.display = 'flex';
+        checkoutModal.classList.add('is-open');
+        checkoutModal.removeAttribute('hidden');
+        document.body.style.overflow = 'hidden';
+        document.documentElement.classList.add('modal-open');
+        document.body.classList.add('modal-open');
+      }
+    } else {
+      document.body.style.overflow = '';
+      document.documentElement.style.overflow = '';
+      document.documentElement.classList.remove('modal-open');
+      document.body.classList.remove('modal-open');
     }
     window.syncModalScrollLock?.();
   };
@@ -291,29 +307,29 @@
     }
   };
 
-  window.selectMidtransListItem = function (method) {
-    closeMidtransListModal();
+  window.selectMidtransListItem = async function (method) {
     if (method === 'va') {
-      // Switch back to custom checkout VA step
+      window.closeMidtransListModal(true);
       const checkoutModal = document.getElementById('checkout-modal');
       if (checkoutModal) {
-        checkoutModal.style.display = 'flex';
-        checkoutModal.removeAttribute('hidden');
+        checkoutModal.querySelector('.jt-checkout-layout').hidden = true;
         const payStep = document.getElementById('jt-payment-step');
         if (payStep) {
+          payStep.hidden = false;
           payStep.removeAttribute('hidden');
           const vaRadio = document.querySelector('input[name="jt-payment-method"][value="bca"]');
           if (vaRadio) vaRadio.checked = true;
           document.getElementById('jt-payment-create')?.removeAttribute('disabled');
         }
       }
-    } else if (method === 'qris') {
+    } else if (['gopay', 'shopeepay', 'ovo', 'dana', 'qris'].includes(method)) {
+      window.closeMidtransListModal(true);
       const checkoutModal = document.getElementById('checkout-modal');
       if (checkoutModal) {
-        checkoutModal.style.display = 'flex';
-        checkoutModal.removeAttribute('hidden');
+        checkoutModal.querySelector('.jt-checkout-layout').hidden = true;
         const payStep = document.getElementById('jt-payment-step');
         if (payStep) {
+          payStep.hidden = false;
           payStep.removeAttribute('hidden');
           const qrisRadio = document.querySelector('input[name="jt-payment-method"][value="qris"]');
           if (qrisRadio) qrisRadio.checked = true;
@@ -321,10 +337,10 @@
         }
       }
     } else {
-      // Direct Midtrans channel
-      if (activeSnapToken && window.snap?.pay) {
-        window.snap.pay(activeSnapToken);
-      }
+      // Methods requiring Midtrans Hosted (card, alfamart, indomaret, etc.)
+      window.closeMidtransListModal(false);
+      window.closeCheckoutModal();
+      await window.executeCheckoutPayment(true);
     }
   };
 
@@ -416,6 +432,8 @@
       }
 
       // 2. Open Midtrans Snap Popup
+      closeCheckoutModal();
+      window.closeMidtransListModal?.(false);
       window.snap.pay(data.token, {
         onSuccess: function (result) {
           console.log('Payment success:', result);
@@ -432,7 +450,7 @@
           showAlert('Pembayaran tidak dapat diselesaikan. Silakan coba lagi.');
         },
         onClose: function () {
-          console.log('User closed Snap popup');
+          console.log('User closed Snap popup'); window.openMidtransListModal?.(currentPlan, currentInterval, data.order_id);
         },
       });
 
