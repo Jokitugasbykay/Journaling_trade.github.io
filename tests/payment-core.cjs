@@ -9,6 +9,8 @@ const uid='11111111-1111-4111-8111-111111111111',other='22222222-2222-4222-8222-
   let owner=uid,auth=true,paid=false,order=null,chargeCount=0,events=[];
   globalThis.fetch=async(url,options={})=>{
     const path=new URL(url).pathname;
+    if(path.endsWith('/bi.json'))return Response.json({version:1,fx:{mid:16000,buy:15900,sell:16100,status:'ok'}});
+    if(path==='/')return Response.json({version:1,fx:{mid:16000,buy:15900,sell:16100,status:'ok'}});
     if(path==='/auth/v1/user')return Response.json(auth?{id:owner,email:'fixture@example.test',user_metadata:{}}:{},{status:auth?200:401});
     if(path.endsWith('/journal_rate_limit')){assert.deepEqual(JSON.parse(options.body),{p_bucket:'pro_api',p_limit:120,p_window_seconds:60});return Response.json(true);}
     if(path.endsWith('/journal_record_midtrans_checkout')){events.push(JSON.parse(options.body).p_event);return Response.json({plan:'pro'});}

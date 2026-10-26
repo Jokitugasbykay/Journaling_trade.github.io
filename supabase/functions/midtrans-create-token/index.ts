@@ -6,9 +6,43 @@ import {customCheckout,CoreFailure,sandboxKey} from './core.ts';
 const PROJECT  = 'https://nmddjuqkdyhcobddinkc.supabase.co';
 const SNAP_URL = 'https://app.sandbox.midtrans.com/snap/v1/transactions';
 
-class Fail extends Error { constructor(public status: number, msg: string) { super(msg); } }
+class Fail extends Error { status: number; constructor(status: number, msg: string) { super(msg); this.status = status; } }
 
-const RATE_IDR_PER_USD = 16_000;
+let cachedRate: { rate: number; expiresAt: number } | null = null;
+
+export async function getLiveRateIdrPerUsd(): Promise<number> {
+  const now = Date.now();
+  if (cachedRate && cachedRate.expiresAt > now) {
+    return cachedRate.rate;
+  }
+
+  const urls = [
+    'https://raw.githubusercontent.com/Jokitugasbykay/Journaling_trade.github.io/main/bi.json',
+    'https://jokitugasbykay.github.io/Journaling_trade.github.io/bi.json',
+  ];
+
+  for (const url of urls) {
+    try {
+      const res = await fetch(url, {
+        headers: { 'Accept': 'application/json' },
+        signal: AbortSignal.timeout(4000),
+      });
+      if (res.ok) {
+        const data = await res.json();
+        const mid = Number(data?.fx?.mid) || ((Number(data?.fx?.buy) + Number(data?.fx?.sell)) / 2);
+        if (Number.isFinite(mid) && mid >= 10000 && mid <= 50000) {
+          const rate = Math.round(mid);
+          cachedRate = { rate, expiresAt: now + 5 * 60 * 1000 };
+          return rate;
+        }
+      }
+    } catch {
+      // Continue to next URL
+    }
+  }
+
+  return cachedRate?.rate || 18069;
+}
 const PLANS: Record<string, { usdMonth: number; usdYear: number }> = {
   plus: { usdMonth: 10, usdYear: 100 },
   pro:  { usdMonth: 20, usdYear: 200 },
@@ -80,8 +114,9 @@ export async function handler(req: Request): Promise<Response> {
 
     const baseUsd = interval === 'annual' ? PLANS[plan].usdYear : PLANS[plan].usdMonth;
     const taxUsd  = 0; // PPN dihapus sesuai permintaan
+    const rateIdr = await getLiveRateIdrPerUsd();
     const totalUsd = baseUsd + taxUsd;
-    const idrAmount = Math.round(totalUsd * RATE_IDR_PER_USD);
+    const idrAmount = Math.round(totalUsd * rateIdr);
     const periodLabel = interval === 'annual' ? 'per year' : 'per month';
 
     const orderSuffix = Math.floor(Date.now() / 1000);
@@ -116,14 +151,14 @@ export async function handler(req: Request): Promise<Response> {
           country_code: billing.country === 'ID' ? 'IDN' : (billing.country || 'IDN'),
         }
       },
-      metadata: {journalingtrade:{user_id:user.id,plan,interval}},
+      metadata: {journalingtrade:{user_id:user.id,plan,interval,rate:rateIdr,amount:idrAmount}},
       custom_field1: user.id,
       custom_field2: plan,
       custom_field3: interval,
     };
 
     if(body.action!==undefined)return respond(await customCheckout(body,user.id,serverKey,snapPayload,
-      {amount:idrAmount,currency:'IDR',base_usd:baseUsd,tax_usd:taxUsd,total_usd:totalUsd,conversion_rate:RATE_IDR_PER_USD},req.headers.get('Idempotency-Key')),200,origin);
+      {amount:idrAmount,currency:'IDR',base_usd:baseUsd,tax_usd:taxUsd,total_usd:totalUsd,conversion_rate:rateIdr},req.headers.get('Idempotency-Key')),200,origin);
 
     const snapRes = await fetch(SNAP_URL, {
       method: 'POST',

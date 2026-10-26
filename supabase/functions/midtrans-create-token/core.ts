@@ -22,7 +22,7 @@ export function decodeOrder(id:string) {
   if(orderOwner(userId)!==match[1])return null;
   return {userId,plan:match[2]==='p'?'plus':'pro',interval:match[3]==='m'?'monthly':'annual'};
 }
-export class CoreFailure extends Error {constructor(public status:number,message:string){super(message);}}
+export class CoreFailure extends Error {status:number;constructor(status:number,message:string){super(message);this.status=status;}}
 function summary(data:any) {
   if(!Number.isSafeInteger(Number(data.gross_amount)) || Number(data.gross_amount)<=0 || data.currency!=='IDR' || typeof data.order_id!=='string' || !['pending','settlement','capture','deny','cancel','expire','refund','partial_refund','chargeback'].includes(data.transaction_status))throw new CoreFailure(502,'Midtrans returned incomplete payment details');
   const action=data.actions?.find((row:any)=>row.name==='generate-qr-code');

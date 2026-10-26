@@ -197,13 +197,22 @@
   let snapCountdownInterval = null;
   let activeSnapToken = null;
 
+  function getCurrentRate() {
+    const fromSettings = Number(window.settings?.kurs);
+    if (Number.isFinite(fromSettings) && fromSettings > 1000) return fromSettings;
+    const fromBi = Number(window.biData?.fx?.mid);
+    if (Number.isFinite(fromBi) && fromBi > 1000) return fromBi;
+    return 18069;
+  }
+
   window.openMidtransListModal = function (plan, interval, orderId, token) {
     activeSnapToken = token || null;
     const p = plan || currentPlan || 'pro';
     const inv = interval || currentInterval || 'monthly';
     const planCfg = PRICES[p] || PRICES.pro;
     const item = planCfg[inv];
-    const totalIdr = Math.round(item.base * 16000);
+    const rate = getCurrentRate();
+    const totalIdr = Math.round(item.base * rate);
     const formattedIdr = 'Rp' + totalIdr.toLocaleString('id-ID');
 
     const modal = document.getElementById('midtrans-list-modal');
@@ -214,12 +223,14 @@
     const planEl = document.getElementById('jt-snap-detail-plan');
     const usdEl = document.getElementById('jt-snap-detail-usd');
     const idrEl = document.getElementById('jt-snap-detail-idr');
+    const rateEl = document.getElementById('jt-snap-rate-label');
 
     if (amtEl) amtEl.textContent = formattedIdr;
     if (orderEl) orderEl.textContent = orderId ? (orderId.startsWith('#') ? orderId : '#' + orderId) : '#jt-' + p + '-' + inv;
     if (planEl) planEl.textContent = (p === 'pro' ? 'Pro ' : 'Plus ') + (inv === 'annual' ? 'tahunan' : 'bulanan');
     if (usdEl) usdEl.textContent = fmtUsd(item.base);
     if (idrEl) idrEl.textContent = formattedIdr;
+    if (rateEl) rateEl.textContent = 'Total (kurs Rp' + Math.round(rate).toLocaleString('id-ID') + '/USD)';
 
     // Start 24h countdown
     startSnapCountdown();
