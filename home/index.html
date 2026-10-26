@@ -29,6 +29,7 @@
   <link rel="stylesheet" href="css/home.css?v=20261026-layout-news">
   <link rel="stylesheet" href="css/journal.css?v=20261024-no-blue">
   <link rel="stylesheet" href="css/shell.css?v=20261025-navavatar">
+  <link rel="stylesheet" href="css/payment.css?v=20261026-custom-checkout">
   <link rel="stylesheet" href="css/pro.css?v=20261025-dropdowns">
 </head>
 
@@ -1578,6 +1579,30 @@
     <div class="jt-checkout-container" role="dialog" aria-modal="true" aria-labelledby="jt-checkout-title">
       <button type="button" class="jt-checkout-close" onclick="closeCheckoutModal()" aria-label="Tutup checkout">&times;</button>
       
+      <section id="jt-payment-step" tabindex="-1" aria-labelledby="jt-payment-title" hidden>
+        <div class="jt-payment-brand"><img src="css/brand/journalingtrade.svg" alt="" width="30" height="30"><strong>journalingtrade</strong><span class="jt-payment-badge">MIDTRANS · SANDBOX</span></div>
+        <h2 class="jt-payment-title" id="jt-payment-title">Pilih metode pembayaran</h2>
+        <p id="jt-payment-plan" class="jt-payment-muted"></p>
+        <strong id="jt-payment-amount">—</strong>
+        <p id="jt-payment-conversion" class="jt-payment-muted"></p>
+        <div id="jt-payment-options" role="group" aria-label="Metode pembayaran">
+          <label class="jt-payment-method"><input type="radio" name="jt-payment-method" value="qris"><span>QRIS<small>Scan melalui aplikasi pembayaran</small></span></label>
+          <label class="jt-payment-method"><input type="radio" name="jt-payment-method" value="bca"><span>BCA<small>Virtual account</small></span></label>
+          <label class="jt-payment-method"><input type="radio" name="jt-payment-method" value="bni"><span>BNI<small>Virtual account</small></span></label>
+          <label class="jt-payment-method"><input type="radio" name="jt-payment-method" value="bri"><span>BRI<small>Virtual account</small></span></label>
+          <label class="jt-payment-method"><input type="radio" name="jt-payment-method" value="permata"><span>Permata<small>Virtual account</small></span></label>
+        </div>
+        <div id="jt-payment-details" hidden>
+          <img id="jt-payment-qr" alt="QRIS pembayaran dari Midtrans" hidden>
+          <div id="jt-payment-va-box" hidden><span>Nomor virtual account</span><strong id="jt-payment-va"></strong><button id="jt-payment-copy" type="button" class="btn btn-ghost">Salin nomor</button></div>
+          <p id="jt-payment-expiry" class="jt-payment-muted"></p>
+          <p id="jt-payment-merchant" class="jt-payment-muted"></p>
+          <p class="jt-payment-muted">ID pembayaran: <span id="jt-payment-order"></span></p>
+        </div>
+        <p id="jt-payment-status" role="status" aria-live="polite"></p>
+        <div class="jt-payment-actions"><button type="button" class="btn btn-ghost" id="jt-payment-back">Kembali</button><button type="button" class="btn btn-primary" id="jt-payment-create" disabled>Buat pembayaran uji</button><button type="button" class="btn btn-primary" id="jt-payment-check" hidden>Periksa status</button></div>
+        <button type="button" id="jt-payment-other" class="btn btn-ghost">Kartu dan metode lainnya melalui Midtrans</button>
+      </section>
       <div class="jt-checkout-layout">
         <!-- Kolom Kiri: Form Atur Paket & Informasi Penagihan -->
         <div class="jt-checkout-left">
@@ -1687,14 +1712,14 @@
             <div class="jt-summary-notice">
               <span class="jt-notice-icon" aria-hidden="true">i</span>
               <p id="jt-summary-notice-text">
-                Langganan Anda akan diperpanjang otomatis pada <span id="jt-renewal-date">20/11/2026</span>. Anda akan dikenakan biaya sebesar <span id="jt-recurring-text">US$20,00/bulan + pajak</span>.
+                Akses paket berlaku hingga <span id="jt-renewal-date">20/11/2026</span>. Perpanjangan dilakukan secara manual. Harga paket: <span id="jt-recurring-text">US$20,00/bulan + pajak</span>.
               </p>
             </div>
 
             <!-- Terms Checkbox -->
             <label class="jt-terms-label">
-              <input type="checkbox" id="jt-terms-agree" checked>
-              <span>Saya menyetujui bahwa JournalingTrade akan memproses pembayaran langganan melalui gateway resmi Midtrans sesuai paket yang dipilih. Anda dapat membatalkan kapan saja melalui pengaturan akun.</span>
+              <input type="checkbox" id="jt-terms-agree">
+              <span>Saya menyetujui bahwa JournalingTrade akan memproses pembayaran langganan melalui gateway resmi Midtrans sesuai paket yang dipilih. QRIS dan virtual account menggunakan pembayaran satu kali untuk periode yang dipilih.</span>
             </label>
 
             <!-- Tombol Berlangganan -->
@@ -1745,7 +1770,8 @@
   <script src="js/app.js?v=20261025-poll10m"></script>
   <script src="js/home.js?v=20261025-amin"></script>
   <script src="js/fed.js?v=20261010-locales"></script>
-  <script src="js/payment.js?v=20261025-amin"></script>
+  <script src="js/custom-payment.js?v=20261026-custom-checkout"></script>
+  <script src="js/payment.js?v=20261026-custom-checkout"></script>
 
  </body>
 
