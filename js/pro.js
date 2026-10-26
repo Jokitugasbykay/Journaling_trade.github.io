@@ -6067,6 +6067,7 @@ Instruksi Format Output & Larangan Bocor Chain-of-Thought dan Perencanaan Rules 
       const low = Math.min(open, close) - lowerWick;
 
       candles.push({
+        synthetic: true,
         time,
         open: +open.toFixed(decimals),
         high: +high.toFixed(decimals),
@@ -6161,7 +6162,8 @@ Instruksi Format Output & Larangan Bocor Chain-of-Thought dan Perencanaan Rules 
       high: parseFloat(k[2]),
       low: parseFloat(k[3]),
       close: parseFloat(k[4]),
-      closeTime: k[6]
+      closeTime: k[6],
+      sourceInstrument: binanceSym
     }));
   }
 
@@ -6793,7 +6795,51 @@ Instruksi Format Output & Larangan Bocor Chain-of-Thought dan Perencanaan Rules 
     sourceReferences(sources, context);
   }
 
-    function runKaystradeBacktestEngine(candlesInput, config = {}) {
+  const backtestClocks = new Map();
+  function isBacktestSessionOpen(instrument, timestamp) {
+    const symbol = String(instrument).toUpperCase().replace(/[^A-Z0-9]/g, '');
+    if (!Number.isFinite(Number(timestamp))) return false;
+    if (/(?:USDT|USDC)$/.test(symbol) || /^(?:BTC|ETH|SOL|PAXG)USD$/.test(symbol)) return true;
+    const metals = /^(?:XAU|XAG)(?:USD|EUR|GBP|AUD|CAD|CHF|JPY|NZD|SGD|HKD)$/.test(symbol) || symbol === 'GOLD';
+    const fx = /^(?:EUR|USD|GBP|JPY|CHF|AUD|NZD|CAD){2}$/.test(symbol);
+    const oil = /^(?:WTIUSD|WTI)$/.test(symbol);
+    const index = /^(?:US30|NAS100|SPX500|SP500)$/.test(symbol);
+    if (!metals && !fx && !oil && !index) throw new Error('Kalender perdagangan belum tersedia untuk ' + symbol + '.');
+    const zone = index ? 'America/Chicago' : 'America/New_York';
+    if (!backtestClocks.has(zone)) backtestClocks.set(zone, new Intl.DateTimeFormat('en-US', {timeZone:zone, weekday:'short',hour:'2-digit',minute:'2-digit',hourCycle:'h23'}));
+    const parts = Object.fromEntries(backtestClocks.get(zone).formatToParts(new Date(Number(timestamp)*1000)).map(p => [p.type,p.value]));
+    const minute = Number(parts.hour)*60 + Number(parts.minute);
+    // OANDA regular sessions; holidays require the provider's historical calendar.
+    const reopen = index ? 17*60+1 : metals ? 18*60+5 : oil ? 18*60+1 : 17*60+5;
+    const close = index ? 15*60+59 : 16*60+59;
+    if (parts.weekday === 'Sat') return false;
+    if (parts.weekday === 'Sun') return minute >= reopen;
+    if (parts.weekday === 'Fri') return minute < close;
+    return minute < close || minute >= reopen;
+  }
+
+  function prepareBacktestCandles(input, {instrument, timeframe, period}) {
+    if (!Array.isArray(input) || !input.length) throw new Error('Data historis belum tersedia. Backtest tidak membuat candle atau transaksi pengganti.');
+    if (input.some(c => c?.synthetic === true)) throw new Error('Data demo/sintetis tidak dapat digunakan untuk backtest historis.');
+    if (input.some(c => c?.sourceInstrument && String(c.sourceInstrument).toUpperCase() !== instrument)) throw new Error('Sumber candle menggunakan instrumen proxy yang berbeda. Histori '+instrument+' diperlukan untuk backtest.');
+    const now = Date.now()/1000, duration = tfToSeconds(timeframe);
+    const start = period === '6_MONTHS' ? now-180*86400 : period === '1-2_YEARS' ? Date.UTC(2024,0,1)/1000 : -Infinity;
+    let excludedClosedSession = 0, excludedInvalid = 0;
+    const seen = new Set(), candles = [];
+    for (const row of [...input].sort((a,b) => Number(a?.time)-Number(b?.time))) {
+      if (!row || !['time','open','high','low','close'].every(k => row[k] !== null && row[k] !== '' && Number.isFinite(Number(row[k])))) {excludedInvalid++; continue;}
+      const c = Object.fromEntries(['time','open','high','low','close'].map(k => [k,Number(row[k])]));
+      if (c.time < start || c.time+duration > now || c.time<=0 || seen.has(c.time) || c.low<=0 || c.high<Math.max(c.open,c.close) || c.low>Math.min(c.open,c.close)) {excludedInvalid++; continue;}
+      seen.add(c.time);
+      if (!isBacktestSessionOpen(instrument,c.time)) {excludedClosedSession++; continue;}
+      candles.push(c);
+    }
+    const selected = period === '500_BARS' ? candles.slice(-500) : candles;
+    if (selected.length < 80) throw new Error('Data historis valid tidak cukup: '+selected.length+' candle tertutup pada sesi perdagangan (minimal 80).');
+    return {candles:selected,excludedClosedSession,excludedInvalid};
+  }
+
+  function runKaystradeBacktestEngine(candlesInput, config = {}) {
     const initialBalance = Math.max(10, Number(config.initialBalance) || 1000);
     const riskPercent = Math.max(0.1, Math.min(10, Number(config.riskPercent) || 2.0));
     const tradingStyle = String(config.tradingStyle || 'SCALPING').toUpperCase();
@@ -6810,202 +6856,6 @@ Instruksi Format Output & Larangan Bocor Chain-of-Thought dan Perencanaan Rules 
       if (v >= 10) return 3;
       return 5;
     };
-  
-    // =========================================================================
-    // GENERATOR CANDLE HISTORIS INTERNAL (ANTI-STUCK 27XX & PRESISI KALENDER)
-    // Ditanam langsung di dalam runKaystradeBacktestEngine agar tidak tertimpa
-    // oleh fungsi generateMultiYearCandles lama di bagian lain file JS.
-    // =========================================================================
-    const buildAccurateMultiYearCandles = (inst, barCount, tf, liveInput = [], per = '1-2_YEARS') => {
-      const sym = String(inst || 'XAUUSD').toUpperCase();
-      const isGoldSym = sym.includes('XAU') || sym.includes('GOLD') || sym === 'PAXGUSDT';
-      const totalBars = Math.max(120, Number(barCount) || 5000);
-  
-      const lastLive = Array.isArray(liveInput) && liveInput.length > 0
-        ? liveInput[liveInput.length - 1]
-        : null;
-      const rawLiveClose = lastLive && Number(lastLive.close) > 0 ? Number(lastLive.close) : null;
-      // Abaikan harga liveInput jika berisi angka dummy lama (< 3500 untuk Gold di 2026)
-      const validLiveClose = isGoldSym
-        ? (rawLiveClose && rawLiveClose >= 3500 ? rawLiveClose : 4121.75)
-        : rawLiveClose;
-  
-      const u = (y, m, d, h = 0) => Math.floor(Date.UTC(y, m - 1, d, h, 0, 0) / 1000);
-      const nowSec = Math.floor(Date.now() / 1000);
-      const endEpoch = Math.max(u(2026, 10, 21, 10), nowSec);
-      const startEpoch = per === '6_MONTHS'
-        ? endEpoch - (180 * 86400)
-        : u(2024, 1, 1, 0); // 1 Jan 2024 00:00 UTC
-  
-      // Peta Tanggal & Harga Asli XAUUSD Sesuai Chart TradingView 1D (2024 - Okt 2026)
-      const goldDatedTrack = [
-        [u(2024, 1, 1),   2062.50],
-        [u(2024, 2, 14),  1992.00], // Low Feb 2024
-        [u(2024, 4, 12),  2431.00], // High Apr 2024
-        [u(2024, 5, 20),  2450.00],
-        [u(2024, 6, 26),  2298.00], // Base Jun 2024
-        [u(2024, 8, 20),  2531.00],
-        [u(2024, 10, 30), 2790.00], // Peak Okt 2024
-        [u(2024, 11, 15), 2545.00], // Pullback Nov 2024
-        [u(2024, 12, 30), 2615.00], // Akhir 2024
-        [u(2025, 2, 24),  2955.00],
-        [u(2025, 4, 22),  3500.00], // Break 3,500 Apr 2025
-        [u(2025, 5, 18),  3210.00],
-        [u(2025, 7, 15),  3420.00], // Base Akumulasi Mei-Agu 2025
-        [u(2025, 8, 20),  3330.00],
-        [u(2025, 10, 20), 4380.00], // Reli Impulsif Okt 2025
-        [u(2025, 11, 12), 3990.00], // Retest 4,000 Nov 2025
-        [u(2025, 12, 22), 4520.00], // Akhir 2025
-        [u(2026, 1, 29),  5598.00], // ALL-TIME HIGH (ATH 5000-an / ~5,600) Akhir Jan 2026
-        [u(2026, 2, 14),  4740.00], // Koreksi Feb 2026
-        [u(2026, 3, 4),   5450.00], // Lower High Awal Mar 2026
-        [u(2026, 3, 27),  4105.00], // Drop Akhir Mar 2026
-        [u(2026, 4, 24),  4855.00], // Rebound Apr 2026
-        [u(2026, 5, 18),  4680.00],
-        [u(2026, 6, 22),  3985.00], // Low Jun 2026
-        [u(2026, 7, 20),  4015.00], // Base Jul 2026
-        [u(2026, 9, 4),   4705.00], // Lower High Awal Sep 2026
-        [u(2026, 10, 5),  4260.00], // Awal Okt 2026
-        [u(2026, 10, 13), 4212.00], // 13 Okt 2026 (Area 4200-an)
-        [u(2026, 10, 15), 4184.00], // 15 Okt 2026 (Area 4180-an)
-        [u(2026, 10, 19), 4148.50], // 19 Okt 2026 (Area 4140-an, BUKAN 2768)
-        [endEpoch,        validLiveClose || 4121.75] // 21 Okt 2026 / Sekarang
-      ];
-  
-      const otherWaypoints = {
-        XAGUSD:  [23.80, 22.50, 28.50, 32.00, 28.80, 34.80, 30.50, 38.20, 46.50, 62.40, 51.00, 55.80, 47.20, 53.40, validLiveClose || 48.60],
-        WTIUSD:  [71.50, 78.20, 86.50, 73.00, 81.50, 67.50, 74.80, 69.20, 77.40, 65.80, 73.50, validLiveClose || 70.40],
-        DXY:     [101.4, 104.9, 106.2, 100.4, 108.0, 103.8, 101.2, 98.6,  103.5, 100.8, 102.6, validLiveClose || 101.70],
-        EURUSD:  [1.1040, 1.0720, 1.0880, 1.0660, 1.1180, 1.0480, 1.0350, 1.0820, 1.1350, 1.1020, 1.1380, validLiveClose || 1.1220],
-        GBPUSD:  [1.2730, 1.2540, 1.2850, 1.2620, 1.3380, 1.2580, 1.2350, 1.2940, 1.3520, 1.3140, 1.3560, validLiveClose || 1.3370],
-        USDJPY:  [141.00, 150.80, 161.80, 140.50, 156.20, 151.40, 158.00, 148.50, 142.80, 149.20, 144.60, validLiveClose || 146.30],
-        BTCUSDT: [42200, 64000, 73700, 58000, 68000, 54000, 98000, 92000, 108000, 126000, 114000, validLiveClose || 109500],
-        ETHUSDT: [2280, 3550, 4080, 2900, 3850, 2400, 3950, 3200, 4450, 5120, 4650, validLiveClose || 4380]
-      };
-  
-      let datedTrack = [];
-      if (isGoldSym) {
-        datedTrack = goldDatedTrack;
-      } else {
-        let arr = otherWaypoints[sym];
-        if (!arr) {
-          const base = validLiveClose || 100;
-          arr = [base * 0.72, base * 0.85, base * 0.96, base * 1.22, base * 1.08, base];
-        }
-        const fullStart = u(2024, 1, 1, 0);
-        const fullSpan = Math.max(86400, endEpoch - fullStart);
-        datedTrack = arr.map((p, idx) => [
-          fullStart + Math.floor((idx / (arr.length - 1)) * fullSpan),
-          p
-        ]);
-      }
-  
-      const getMacroPriceAtTime = (t) => {
-        if (t <= datedTrack[0][0]) return datedTrack[0][1];
-        if (t >= datedTrack[datedTrack.length - 1][0]) return datedTrack[datedTrack.length - 1][1];
-        for (let k = 0; k < datedTrack.length - 1; k++) {
-          const [t0, p0] = datedTrack[k];
-          const [t1, p1] = datedTrack[k + 1];
-          if (t >= t0 && t <= t1) {
-            const r = (t - t0) / Math.max(1, t1 - t0);
-            return p0 + (p1 - p0) * r;
-          }
-        }
-        return datedTrack[datedTrack.length - 1][1];
-      };
-  
-      // PRNG deterministik
-      let seed = 2166136261;
-      const seedStr = `${sym}_${tf}_${totalBars}_${per}`;
-      for (let s = 0; s < seedStr.length; s++) {
-        seed ^= seedStr.charCodeAt(s);
-        seed = Math.imul(seed, 16777619);
-      }
-      const nextRand = () => {
-        seed += 0x6D2B79F5;
-        let t = seed;
-        t = Math.imul(t ^ (t >>> 15), t | 1);
-        t ^= t + Math.imul(t ^ (t >>> 7), t | 61);
-        return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
-      };
-  
-      const stepSec = Math.max(60, Math.floor((endEpoch - startEpoch) / (totalBars - 1)));
-      const firstPrice = getMacroPriceAtTime(startEpoch);
-      const dec = calcDecimals(firstPrice);
-      const waveAmpPct = isGoldSym ? 0.0045 : (sym.endsWith('USDT') ? 0.0075 : 0.0025);
-  
-      const outCandles = [];
-      let prevClose = firstPrice;
-  
-      for (let i = 0; i < totalBars; i++) {
-        const barTime = startEpoch + i * stepSec;
-        const macroPrice = getMacroPriceAtTime(barTime);
-        const nextMacroPrice = getMacroPriceAtTime(barTime + stepSec * 12);
-        const macroBias = nextMacroPrice >= macroPrice ? 1 : -1;
-  
-        // Siklus struktur (Base -> Breakout -> Impuls Continuation) yang terikat langsung ke macroPrice
-        // sehingga TIDAK MUNGKIN menyimpang dari harga kalender asli
-        const cyclePos = i % 16;
-        const swingSlow = Math.sin(i * 0.055) * (macroPrice * waveAmpPct);
-        const swingMed = Math.cos(i * 0.14) * (macroPrice * waveAmpPct * 0.55);
-  
-        let structureOffset = 0;
-        if (cyclePos <= 3) {
-          // Fase Fresh Base (konsolidasi sempit)
-          structureOffset = (nextRand() - 0.5) * (macroPrice * waveAmpPct * 0.12);
-        } else if (cyclePos === 4) {
-          // Fase Breakout Base
-          structureOffset = macroBias * (macroPrice * waveAmpPct * 0.38);
-        } else if (cyclePos <= 11) {
-          // Fase Continuation menuju TP
-          const progressInWave = (cyclePos - 4) / 7;
-          structureOffset = macroBias * (macroPrice * waveAmpPct * (0.42 + progressInWave * 0.85));
-        } else {
-          // Fase Pullback / Retest sehat
-          const pullbackProg = (cyclePos - 11) / 5;
-          structureOffset = macroBias * (macroPrice * waveAmpPct * (1.20 - pullbackProg * 0.90));
-        }
-  
-        const microNoise = (nextRand() - 0.5) * (macroPrice * waveAmpPct * 0.16);
-        let close = macroPrice + swingSlow + swingMed + structureOffset + microNoise;
-  
-        if (i === totalBars - 1 && validLiveClose) {
-          close = validLiveClose;
-        }
-  
-        const open = i === 0 ? firstPrice : prevClose;
-        const body = Math.abs(close - open);
-        const minRange = macroPrice * waveAmpPct * 0.18;
-        const effRange = Math.max(body, minRange);
-  
-        const upperWick = effRange * (0.12 + nextRand() * 0.40);
-        const lowerWick = effRange * (0.12 + nextRand() * 0.40);
-  
-        let high = Math.max(open, close) + upperWick;
-        let low = Math.min(open, close) - lowerWick;
-  
-        if (isGoldSym && high > 5604.00) {
-          high = 5598.00 + nextRand() * 3.5;
-        }
-  
-        outCandles.push({
-          time: barTime,
-          open: +open.toFixed(dec),
-          high: +high.toFixed(dec),
-          low: +low.toFixed(dec),
-          close: +close.toFixed(dec)
-        });
-  
-        prevClose = close;
-      }
-  
-      return outCandles;
-    };
-  
-    // Timpa juga window.generateMultiYearCandles agar bagian UI lain ikut memakai generator baru
-    if (typeof window !== 'undefined') {
-      window.generateMultiYearCandles = buildAccurateMultiYearCandles;
-    }
   
     // 1. Parameter Sesuai Gaya Trading Kaystrade
     let defaultRR = 2.0;
@@ -7063,31 +6913,10 @@ Instruksi Format Output & Larangan Bocor Chain-of-Thought dan Perencanaan Rules 
     const isCrypto = instrument.includes('BTC') || instrument.includes('ETH') || instrument.includes('SOL') || instrument.endsWith('USDT');
     const maxDrawdownLimit = isGold ? 30.0 : 20.0;
   
-    // 2. Data Candle Historis (1 Jan 2024 - Sekarang) Menggunakan Generator Internal Presisi
-    let candles = [];
-    if (period === '1-2_YEARS') {
-      let barCount = 10000;
-      if (tradingStyle === 'SCALPING') barCount = 24000;
-      else if (tradingStyle === 'INTRADAY') barCount = 12000;
-      else if (tradingStyle === 'SWING') barCount = (timeframe === '1d') ? 1025 : 4200;
-      candles = buildAccurateMultiYearCandles(instrument, barCount, timeframe, candlesInput, '1-2_YEARS');
-    } else if (period === '6_MONTHS') {
-      let barCount = 3000;
-      if (tradingStyle === 'SCALPING') barCount = 8000;
-      else if (tradingStyle === 'INTRADAY') barCount = 4000;
-      else if (tradingStyle === 'SWING') barCount = (timeframe === '1d') ? 180 : 1200;
-      candles = buildAccurateMultiYearCandles(instrument, barCount, timeframe, candlesInput, '6_MONTHS');
-    } else {
-      const lastInputPrice = Array.isArray(candlesInput) && candlesInput.length > 0
-        ? Number(candlesInput[candlesInput.length - 1].close)
-        : 0;
-      if (Array.isArray(candlesInput) && candlesInput.length >= 80 && (!isGold || lastInputPrice >= 3500)) {
-        candles = candlesInput.slice(-500);
-      } else {
-        candles = buildAccurateMultiYearCandles(instrument, 500, timeframe, candlesInput, '6_MONTHS').slice(-500);
-      }
-    }
-  
+    // Never synthesize missing history. Calendars operate in exchange time, not browser time.
+    const prepared = prepareBacktestCandles(candlesInput, {instrument, timeframe, period});
+    const candles = prepared.candles;
+
     let periodHigh = 0;
     let periodLow = Infinity;
     for (let idx = 0; idx < candles.length; idx++) {
@@ -7096,7 +6925,7 @@ Instruksi Format Output & Larangan Bocor Chain-of-Thought dan Perencanaan Rules 
       if (h > periodHigh) periodHigh = h;
       if (l < periodLow) periodLow = l;
     }
-    const allTimeHigh = isGold ? Math.max(periodHigh, 5598.00) : periodHigh;
+    const allTimeHigh = periodHigh; // Available sample high; no claim about the full market history.
   
     // 3. Kalkulasi Indikator Teknikal (EMA, ATR, RSI & SMA14)
     const closes = candles.map(c => Number(c.close));
@@ -7278,6 +7107,8 @@ Instruksi Format Output & Larangan Bocor Chain-of-Thought dan Perencanaan Rules 
         continue;
       }
   
+      if (!isBacktestSessionOpen(instrument, Number(c.time) + secPerBar)) continue;
+
       // 5. Anti-Overtrading & Filter Base Kaystrade
       if (i - lastExitBar < minCooldownBars) continue;
   
@@ -7336,11 +7167,11 @@ Instruksi Format Output & Larangan Bocor Chain-of-Thought dan Perencanaan Rules 
       if (c1_bull && c2_bull && c3_bull && c4_bull && c5_bull && c6_bull && c7_safe) {
         signalDir = 'BUY';
         chosenSL = Math.min(Number(c.low), bLow) - (curAtr * slBufferAtr);
-        signalReason = '[' + tradingStyle + ' 7/7 Konfirmasi Kaystrade] 1.H4 Bull 2.Speedometer 3.Key Pivot 4.Fresh Base 5.RSI>SMA 6.FastBull Long 7.Macro Safe';
+        signalReason = '[' + tradingStyle + ' · Backtest parsial] EMA bullish, breakout base, pivot, body candle dan RSI>SMA. H4/D1, speedometer, FastBull dan fundamental historis belum diverifikasi';
       } else if (c1_bear && c2_bear && c3_bear && c4_bear && c5_bear && c6_bear && c7_safe) {
         signalDir = 'SELL';
         chosenSL = Math.max(Number(c.high), bHigh) + (curAtr * slBufferAtr);
-        signalReason = '[' + tradingStyle + ' 7/7 Konfirmasi Kaystrade] 1.H4 Bear 2.Speedometer 3.Key Pivot 4.Fresh Base 5.RSI<SMA 6.FastBull Short 7.Macro Safe';
+        signalReason = '[' + tradingStyle + ' · Backtest parsial] EMA bearish, breakout base, pivot, body candle dan RSI<SMA. H4/D1, speedometer, FastBull dan fundamental historis belum diverifikasi';
       }
   
       // 7. Eksekusi Posisi dengan Ukuran Risiko Terkendali & Normalisasi ATR
@@ -7376,7 +7207,7 @@ Instruksi Format Output & Larangan Bocor Chain-of-Thought dan Perencanaan Rules 
           initialSL: chosenSL,
           sl: chosenSL,
           tp: tpPrice,
-          entryTime: c.time,
+          entryTime: Number(c.time) + secPerBar,
           equityAtEntry: currentEquity,
           riskAmount,
           barsHeld: 0,
@@ -7409,6 +7240,13 @@ Instruksi Format Output & Larangan Bocor Chain-of-Thought dan Perencanaan Rules 
       finalEquity: currentEquity,
       peakEquity: +peakEquity.toFixed(2),
       candlesCount: candles.length,
+      dataStatus: 'partial',
+      coverageStart: candles[0].time,
+      coverageEnd: candles[candles.length - 1].time + secPerBar,
+      excludedClosedSession: prepared.excludedClosedSession,
+      excludedInvalid: prepared.excludedInvalid,
+      calendarReference: 'https://www.oanda.com/uk-en/trading/hours-of-operation/',
+      warnings: ['Backtest parsial pada candle tersedia. Kalender reguler referensi OANDA; libur dan perubahan jadwal broker belum dimodelkan.', 'Speedometer, FastBull dan fundamental historis belum diverifikasi; biaya dan fill adalah asumsi model.'],
       periodHigh: +periodHigh.toFixed(2),
       periodLow: +periodLow.toFixed(2),
       allTimeHigh: +allTimeHigh.toFixed(2),
@@ -7597,13 +7435,14 @@ Instruksi Format Output & Larangan Bocor Chain-of-Thought dan Perencanaan Rules 
     const isProfitable = result.netProfit >= 0;
     const pnlSign = isProfitable ? '+' : '';
     const lines = [
-      '# Laporan Hasil Backtest Kaystrade (' + (result.period === '1-2_YEARS' ? '1 Jan 2024 - Sekarang' : (result.period === '6_MONTHS' ? '6 Bulan Terakhir' : '500 Bars')) + ')',
+      '# Laporan Backtest Parsial Kaystrade',
       '',
       '- **Instrumen**: ' + result.instrument,
       '- **Timeframe**: ' + result.timeframe.toUpperCase(),
       '- **Trading Style**: ' + result.tradingStyle,
-      '- **Periode**: ' + (result.period === '1-2_YEARS' ? '1 Jan 2024 - Sekarang' : (result.period === '6_MONTHS' ? '6 Bulan Terakhir' : '500 Bars')),
-      '- **Metode**: Aturan Kaystrade Bagian IV.2 (Closed Candles Only, Tanpa Lookahead)',
+      '- **Periode data tersedia**: ' + new Date(result.coverageStart*1000).toISOString() + ' - ' + new Date(result.coverageEnd*1000).toISOString(),
+      '- **Cakupan metode**: Parsial; candle tertutup dengan kalender sesi reguler. Speedometer, FastBull dan fundamental historis belum diverifikasi',
+      '- **Keterbatasan**: ' + result.warnings.join(' '),
       '- **Modal Awal**: $' + result.initialBalance.toFixed(2),
       '- **Ekuitas Akhir**: $' + result.finalEquity.toFixed(2),
       '- **Net Return**: ' + pnlSign + '$' + result.netProfit.toFixed(2) + ' (' + pnlSign + result.netReturnPercent.toFixed(2) + '%)',
@@ -7701,7 +7540,7 @@ Instruksi Format Output & Larangan Bocor Chain-of-Thought dan Perencanaan Rules 
     );
     const subTitle = node('div', null, 'backtest-modal-sub sub');
     subTitle.id = 'btModalSubtitle';
-    const subB = node('b', '7/7 Konfirmasi');
+    const subB = node('b', 'Menunggu data historis');
     subTitle.append(
       document.createTextNode(selectedPair + ' · ' + selectedTF.toUpperCase() + ' · RR 1:2.0 · 1 Jan 2024 - Sekarang · '),
       subB,
@@ -8046,9 +7885,10 @@ Instruksi Format Output & Larangan Bocor Chain-of-Thought dan Perencanaan Rules 
       const riskPct = parseLocaleNumber(inRisk.value, 2.0);
       const targetRR = parseLocaleNumber(inRR.value, 2.0);
 
-      const candlesToUse = (opts.candles && opts.candles.length) ? opts.candles : (currentCandles.length ? currentCandles : null);
+      const candlesToUse = inst === selectedPair && tf === selectedTF ? opts.candles : null;
 
-      const res = runKaystradeBacktestEngine(candlesToUse, {
+      let res;
+      try { res = runKaystradeBacktestEngine(candlesToUse, {
         instrument: inst,
         timeframe: tf,
         tradingStyle: st,
@@ -8056,17 +7896,29 @@ Instruksi Format Output & Larangan Bocor Chain-of-Thought dan Perencanaan Rules 
         initialBalance: initialCapital,
         riskPercent: riskPct,
         targetRR: targetRR
-      });
+      }); } catch (error) {
+        lastResult = null;
+        copyReportBtn.disabled = true;
+        subTitle.textContent = inst + ' · ' + tf.toUpperCase() + ' · Backtest belum tersedia';
+        heroDesc.textContent = error.message;
+        heroDesc.setAttribute('role', 'status');
+        for (const element of [valProfit,subReturn,valWinRate,subWinRate,valTrades,subTrades,valPF,valDD,subDD,valEquity,subPeak,countBadge]) element.textContent = '—';
+        svgWrap.replaceChildren(node('p', error.message, 'pro-muted'));
+        tbody.replaceChildren();
+        btnAll.textContent = 'Semua (0)'; btnWin.textContent = 'Profit (0)'; btnLoss.textContent = 'Loss (0)'; btnBE.textContent = 'BE (0)';
+        return;
+      }
 
       lastResult = res;
+      copyReportBtn.disabled = false;
 
       // Update subtitle
       subTitle.replaceChildren();
       const stratPfx = opts.strategy ? (opts.strategy.name + ' · ') : '';
       subTitle.append(
-        document.createTextNode(stratPfx + res.instrument + ' · ' + res.timeframe.toUpperCase() + ' · RR 1:' + targetRR.toFixed(1) + ' · 1 Jan 2024 - Sekarang · '),
-        node('b', '7/7 Konfirmasi'),
-        document.createTextNode(' · Aturan IV.2')
+        document.createTextNode(stratPfx + res.instrument + ' · ' + res.timeframe.toUpperCase() + ' · RR 1:' + targetRR.toFixed(1) + ' · ' + new Date(res.coverageStart*1000).toLocaleDateString('id-ID') + ' - ' + new Date(res.coverageEnd*1000).toLocaleDateString('id-ID') + ' · '),
+        node('b', 'Backtest parsial'),
+        document.createTextNode(' · Candle tersedia, sesi reguler')
       );
 
       // Hero Section Update
@@ -8078,7 +7930,7 @@ Instruksi Format Output & Larangan Bocor Chain-of-Thought dan Perencanaan Rules 
       subReturn.textContent = returnSign + res.netReturnPercent.toFixed(2).replace('.', ',') + '% return';
       subReturn.style.color = res.netProfit >= 0 ? '#5EE2AE' : '#F58A8A';
 
-      heroDesc.textContent = 'Dari modal $' + Math.round(res.initialBalance).toLocaleString('id-ID') + ' menjadi $' + Math.round(res.finalEquity).toLocaleString('id-ID') + ' dalam ' + res.totalTrades + ' transaksi (' + (res.candlesCount ? res.candlesCount.toLocaleString('id-ID') : '12.000') + ' bar).';
+      heroDesc.textContent = res.warnings.join(' ') + ' ' + res.excludedClosedSession + ' candle di luar sesi dikeluarkan. Dari modal $' + Math.round(res.initialBalance).toLocaleString('id-ID') + ' menjadi $' + Math.round(res.finalEquity).toLocaleString('id-ID') + ' dalam ' + res.totalTrades + ' transaksi (' + (res.candlesCount ? res.candlesCount.toLocaleString('id-ID') : '12.000') + ' bar).';
 
       // Stats Section Update
       valWinRate.textContent = res.winRate.toFixed(1).replace('.', ',') + '%';
@@ -8721,7 +8573,7 @@ Instruksi Format Output & Larangan Bocor Chain-of-Thought dan Perencanaan Rules 
     const kpiCard = node('section', null, 'card pro-kpi-card');
     kpiCard.id = 'btKpiCard';
     const kpiH2 = node('h2', 'Hasil backtest');
-    const kpiDesc = node('p', 'Tampilan hasil dengan angka performa real-time Kaystrade. Warna hijau untuk profit dan merah/kuning untuk risiko.', 'm');
+    const kpiDesc = node('p', 'Backtest parsial pada candle historis yang tersedia; hasil ini bukan performa live.', 'm');
 
     const kpiGrid = node('div', null, 'mt');
 
@@ -8792,7 +8644,10 @@ Instruksi Format Output & Larangan Bocor Chain-of-Thought dan Perencanaan Rules 
         if (kpiFinalEquity) {
           kpiFinalEquity.textContent = '$' + Math.round(res.finalEquity).toLocaleString('id-ID');
         }
-      } catch (e) {}
+      } catch (e) {
+        for (const element of [kpiWinRate,kpiTotalTrades,kpiNetProfit,kpiProfitFactor,kpiMaxDrawdown,kpiFinalEquity]) if (element) element.textContent = '—';
+        kpiDesc.textContent = e.message;
+      }
     }
     updateBacktestKpiCard();
 
@@ -12434,5 +12289,5 @@ function filterPairDropdown() {
   }
   function reset() {if(activeTabLoader){activeTabLoader.stop();activeTabLoader=null;}revision++;controller.abort();controller=new AbortController();clearAccess();current='';filters={};preset={};accounts=[];strategies=[];root?.replaceChildren();status=null;content=null;}
   const callAiApi = (args) => callGeminiApi(args);
-  global.JTPRO={features,configure(value){reset();options={...value};},open,reset,verifyAccess,request,aggregateSeries,safeLink,getPersonalGroqApiKey,setPersonalGroqApiKey,hasPersonalGroqApiKey,getGroqFallbackEnabled,setGroqFallbackEnabled,testGroqKey,callGroqDirectApi,callFounderGroqProxy,groqDefaultModel:GROQ_DEFAULT_MODEL,groqModelsPool:GROQ_MODELS_POOL,getGeminiApiKey,setGeminiApiKey,hasGeminiApiKey,getOpenAiApiKey,setOpenAiApiKey,hasOpenAiApiKey,hasAiApiKey,getActiveAiProvider,getAiProviderPreference,setAiProviderPreference,callGeminiApi,callOpenAiApi,callAiApi,getRandomizedModelsPool,modelsPool:GEMINI_MODELS_POOL,openAiModelsPool:OPENAI_MODELS_POOL,openAiDefaultModel:OPENAI_DEFAULT_MODEL,bannedModelsRegex:BANNED_MODELS_REGEX,isBannedAiModel,extractGeminiResponseText,extractOpenAiResponseText,isThoughtArtifactText,sanitizeChatOutput,getChatSystemPrompt,getChatHistoryList,saveStoredChatHistory,clearChatHistory,renderMarkdown,renderMarkdownInto,openGeminiConfigModal,createLiquidLoader,createProModernLoader,runKaystradeBacktestEngine,openBacktestModal,get access(){return access;},get current(){return current;}};
+  global.JTPRO={features,configure(value){reset();options={...value};},open,reset,verifyAccess,request,aggregateSeries,safeLink,getPersonalGroqApiKey,setPersonalGroqApiKey,hasPersonalGroqApiKey,getGroqFallbackEnabled,setGroqFallbackEnabled,testGroqKey,callGroqDirectApi,callFounderGroqProxy,groqDefaultModel:GROQ_DEFAULT_MODEL,groqModelsPool:GROQ_MODELS_POOL,getGeminiApiKey,setGeminiApiKey,hasGeminiApiKey,getOpenAiApiKey,setOpenAiApiKey,hasOpenAiApiKey,hasAiApiKey,getActiveAiProvider,getAiProviderPreference,setAiProviderPreference,callGeminiApi,callOpenAiApi,callAiApi,getRandomizedModelsPool,modelsPool:GEMINI_MODELS_POOL,openAiModelsPool:OPENAI_MODELS_POOL,openAiDefaultModel:OPENAI_DEFAULT_MODEL,bannedModelsRegex:BANNED_MODELS_REGEX,isBannedAiModel,extractGeminiResponseText,extractOpenAiResponseText,isThoughtArtifactText,sanitizeChatOutput,getChatSystemPrompt,getChatHistoryList,saveStoredChatHistory,clearChatHistory,isBacktestSessionOpen,renderMarkdown,renderMarkdownInto,openGeminiConfigModal,createLiquidLoader,createProModernLoader,runKaystradeBacktestEngine,openBacktestModal,get access(){return access;},get current(){return current;}};
 })(window);

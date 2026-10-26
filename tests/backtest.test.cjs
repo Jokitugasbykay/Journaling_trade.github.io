@@ -52,11 +52,17 @@ const server = http.createServer((req, res) => {
   try {
     await page.goto('http://127.0.0.1:' + port + '/');
 
-    // 1. Direct Engine verification via JTPRO
+    await page.evaluate(() => {
+      window.backtestFixture = Array.from({length:160}, (_,i) => {
+        const close=2000+i*0.05;
+        return {time:Date.parse('2024-01-08T08:00:00Z')/1000+i*60,open:close-0.02,high:close+0.1,low:close-0.1,close};
+      });
+    });
+    // 1. Explicit transport fixtures only; missing history must never be invented.
     const engineResult = await page.evaluate(() => {
-      return JTPRO.runKaystradeBacktestEngine(null, {
+      return JTPRO.runKaystradeBacktestEngine(window.backtestFixture, {
         instrument: 'XAUUSD',
-        timeframe: '15m',
+        timeframe: '1m',
         tradingStyle: 'INTRADAY',
         initialBalance: 1000,
         riskPercent: 2,
@@ -75,14 +81,21 @@ const server = http.createServer((req, res) => {
 
     // 2. Forex / Crypto Max Drawdown Limit verification (20%)
     const fxResult = await page.evaluate(() => {
-      return JTPRO.runKaystradeBacktestEngine(null, {
+      return JTPRO.runKaystradeBacktestEngine(window.backtestFixture, {
         instrument: 'EURUSD',
-        timeframe: '15m',
+        timeframe: '1m',
         tradingStyle: 'INTRADAY'
       });
     });
     assert.equal(fxResult.maxDrawdownLimit, 20.0, 'Forex max drawdown limit should be 20% according to SKILL.md Bagian IV.2');
     console.log('Forex drawdown limit check passed (20.0%)');
+
+    // Valid explicit fixture history renders actual sample coverage without full-method claims.
+    await page.evaluate(() => JTPRO.openBacktestModal({pair:'XAUUSD',timeframe:'1m',candles:window.backtestFixture}));
+    assert.ok((await page.locator('.backtest-modal-sub').textContent()).includes('Backtest parsial'));
+    assert.ok(!(await page.locator('.backtest-modal-sub').textContent()).includes('7/7'));
+    assert.equal(await page.locator('#btCopyReportBtn').isEnabled(), true);
+    await page.locator('#btCloseBottomBtn').click();
 
     // 3. UI test: open ai-market and verify Backtest button exists in actionGrid
     await page.evaluate(() => JTPRO.open('ai-market'));
@@ -93,7 +106,8 @@ const server = http.createServer((req, res) => {
     await page.locator('#pro-btn-backtest').click();
     await page.waitForSelector('#backtestModalBackdrop');
     assert.ok(await page.locator('.backtest-modal-dialog').isVisible(), 'Backtest modal dialog should appear');
-    assert.ok(await page.locator('#btSvgContainer svg').isVisible(), 'SVG Equity Curve should render inside modal');
+    assert.ok((await page.locator('#backtestModalBackdrop').textContent()).includes('Backtest belum tersedia'), 'Missing real feed must display an unavailable state');
+    assert.equal(await page.locator('#btCopyReportBtn').isDisabled(), true);
     assert.ok(await page.locator('#btStatWinRate').isVisible(), 'Win Rate stat card should be visible');
     assert.ok(await page.locator('#btStatTrades').isVisible(), 'Total Trades stat card should be visible');
     assert.ok(await page.locator('#btStatProfit').isVisible(), 'Net profit stat card should be visible');
@@ -107,8 +121,8 @@ const server = http.createServer((req, res) => {
     await page.locator('#btRunBtn').click();
     await page.waitForTimeout(300);
 
-    const updatedSub = await page.locator('#btStatDDLimit').textContent();
-    assert.ok(updatedSub.includes('20%'), 'BTCUSDT should have 20% drawdown limit');
+    assert.ok((await page.locator('#backtestModalBackdrop').textContent()).includes('Data historis belum tersedia'), 'Switching instruments must not reuse unrelated candle history');
+    assert.equal(await page.locator('#btCopyReportBtn').isDisabled(), true);
 
     // 6. Test modal close
     await page.locator('#btCloseBottomBtn').click();
