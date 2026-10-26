@@ -6875,57 +6875,65 @@ Instruksi Format Output & Larangan Bocor Chain-of-Thought dan Perencanaan Rules 
       return 5;
     };
   
-    // 1. Parameter Sesuai Gaya Trading Kaystrade
+        // 1. Parameter Sesuai Gaya Trading Kaystrade (Aturan IV.2 & Metodologi Inti)
     let defaultRR = 2.0;
-    let beTriggerR = 1.20;
-    let beBufferAtr = 0.10;
-    let maxHoldBars = 14;
-    let slBufferAtr = 0.20;
-    let minSlAtr = 0.80;
-    let maxSlAtr = 1.60;
-    let lookbackSwingBars = 12;
+    let beTriggerR = 1.35;
+    let beBufferAtr = 0.12;
+    let trailTriggerR = 1.65;
+    let trailLockRatio = 0.60;
+    let maxHoldBars = Math.max(24, Math.round(86400 / secPerBar));
+    let slBufferAtr = 0.30;
+    let minSlAtr = 1.25;
+    let maxSlAtr = 2.30;
+    let lookbackSwingBars = 10;
     let baseLookback = 4;
-    let minCooldownBars = 2;
-    let minExhaustionAtr = 0.25;
-  
+    let minCooldownBars = 3;
+    let minExhaustionAtr = 0.30;
+
     if (tradingStyle === 'SCALPING') {
       defaultRR = 1.7;
-      beTriggerR = 1.10;
-      beBufferAtr = 0.06;
-      maxHoldBars = 9;
-      slBufferAtr = 0.15;
-      minSlAtr = 0.70;
-      maxSlAtr = 1.25;
+      beTriggerR = 1.30;
+      beBufferAtr = 0.10;
+      trailTriggerR = 1.60;
+      trailLockRatio = 0.55;
+      maxHoldBars = Math.max(16, Math.round(14400 / secPerBar));
+      slBufferAtr = 0.25;
+      minSlAtr = 1.15;
+      maxSlAtr = 1.85;
       lookbackSwingBars = 6;
       baseLookback = 3;
-      minCooldownBars = 1;
-      minExhaustionAtr = 0.12;
+      minCooldownBars = 3;
+      minExhaustionAtr = 0.20;
     } else if (tradingStyle === 'INTRADAY') {
       defaultRR = 2.0;
-      beTriggerR = 1.15;
-      beBufferAtr = 0.10;
-      maxHoldBars = 16;
-      slBufferAtr = 0.20;
-      minSlAtr = 0.85;
-      maxSlAtr = 1.45;
-      lookbackSwingBars = 8;
-      baseLookback = 4;
-      minCooldownBars = 2;
-      minExhaustionAtr = 0.25;
-    } else if (tradingStyle === 'SWING') {
-      defaultRR = 2.6;
-      beTriggerR = 1.30;
-      beBufferAtr = 0.20;
-      maxHoldBars = 45;
+      beTriggerR = 1.35;
+      beBufferAtr = 0.12;
+      trailTriggerR = 1.65;
+      trailLockRatio = 0.60;
+      maxHoldBars = Math.max(32, Math.round(86400 / secPerBar));
       slBufferAtr = 0.30;
-      minSlAtr = 1.10;
-      maxSlAtr = 2.10;
+      minSlAtr = 1.25;
+      maxSlAtr = 2.30;
+      lookbackSwingBars = 10;
+      baseLookback = 4;
+      minCooldownBars = 4;
+      minExhaustionAtr = 0.30;
+    } else if (tradingStyle === 'SWING') {
+      defaultRR = 2.5;
+      beTriggerR = 1.45;
+      beBufferAtr = 0.15;
+      trailTriggerR = 1.80;
+      trailLockRatio = 0.65;
+      maxHoldBars = Math.max(64, Math.round(259200 / secPerBar));
+      slBufferAtr = 0.40;
+      minSlAtr = 1.45;
+      maxSlAtr = 2.70;
       lookbackSwingBars = (timeframe === '1d') ? 14 : 20;
       baseLookback = (timeframe === '1d') ? 4 : 5;
-      minCooldownBars = 3;
+      minCooldownBars = 5;
       minExhaustionAtr = 0.45;
     }
-  
+
     const targetRR = Math.max(1.0, Number(config.targetRR) || defaultRR);
     const isGold = instrument.includes('XAU') || instrument.includes('GOLD') || instrument === 'PAXGUSDT';
     const isCrypto = instrument.includes('BTC') || instrument.includes('ETH') || instrument.includes('SOL') || instrument.endsWith('USDT');
@@ -7000,6 +7008,7 @@ Instruksi Format Output & Larangan Bocor Chain-of-Thought dan Perencanaan Rules 
     const trades = [];
     const equityCurve = [{ tradeIndex: 0, time: candles[0]?.time || 0, equity: initialBalance }];
   
+    let circuitBreakerHalted = false;
     let activeTrade = null;
     let lastExitBar = -999;
     let lastEntryPrice = 0;
@@ -7025,13 +7034,13 @@ Instruksi Format Output & Larangan Bocor Chain-of-Thought dan Perencanaan Rules 
           activeTrade.sl = activeTrade.entry + (isLong ? 1 : -1) * (curAtr * beBufferAtr);
         }
   
-        if (favorableDist >= curRiskDist * 1.45) {
-          const lockDist = favorableDist * 0.60;
+        if (favorableDist >= curRiskDist * trailTriggerR) {
+          const lockDist = favorableDist * trailLockRatio;
           const lockedSl = isLong ? (activeTrade.entry + lockDist) : (activeTrade.entry - lockDist);
           if (isLong && lockedSl > activeTrade.sl) activeTrade.sl = lockedSl;
           if (!isLong && lockedSl < activeTrade.sl) activeTrade.sl = lockedSl;
         }
-  
+
         const isBullCandle = Number(c.close) >= Number(c.open);
   
         if (isLong) {
@@ -7121,10 +7130,17 @@ Instruksi Format Output & Larangan Bocor Chain-of-Thought dan Perencanaan Rules 
           lastEntryPrice = activeTrade.entry;
           activeTrade = null;
           lastExitBar = i;
+
+          // Batas toleransi drawdown (SKILL.md Bagian IV.2): Hentikan trading bila melebihi batas
+          if (dd >= maxDrawdownLimit) {
+            circuitBreakerHalted = true;
+            break;
+          }
         }
         continue;
       }
   
+      if (circuitBreakerHalted) break;
       if (!isBacktestSessionOpen(instrument, Number(c.time) + secPerBar)) continue;
 
       // 5. Anti-Overtrading & Filter Base Kaystrade
@@ -7157,41 +7173,47 @@ Instruksi Format Output & Larangan Bocor Chain-of-Thought dan Perencanaan Rules 
       const range = Number(c.high) - Number(c.low) || 0.0001;
       const strongBody = bodySize / range >= 0.22;
   
-      // 6. 7 Konfirmasi Mutlak Kaystrade (Teknikal + Fundamental)
+      // 6. 7 Konfirmasi Mutlak Kaystrade (Teknikal + Retest Base + Momentum)
       const c1_bull = isBullStructure && ema20[i] >= ema50[i];
       const c1_bear = isBearStructure && ema20[i] <= ema50[i];
-  
+
       const c2_bull = ema10[i] >= ema20[i];
       const c2_bear = ema10[i] <= ema20[i];
-  
+
       const c3_bull = Number(c.close) > keyPivot;
       const c3_bear = Number(c.close) < keyPivot;
-  
+
       const c4_bull = strongBody && Number(c.close) > Number(c.open);
       const c4_bear = strongBody && Number(c.close) < Number(c.open);
-  
-      const c5_bull = curRsi > curRsiSma && curRsi >= 40 && curRsi <= 74;
-      const c5_bear = curRsi < curRsiSma && curRsi <= 60 && curRsi >= 26;
-  
+
+      const c5_bull = curRsi > curRsiSma && curRsi >= 44 && curRsi <= 72;
+      const c5_bear = curRsi < curRsiSma && curRsi <= 56 && curRsi >= 28;
+
       const c6_bull = c1_bull && c2_bull;
       const c6_bear = c1_bear && c2_bear;
-  
+
       const c7_safe = (i % 35 !== 0);
-  
+
+      // Konfirmasi retest dynamic support/resistance (EMA20/Base boundary)
+      const bullRetest = c1_bull && c2_bull && c3_bull && c4_bull && c5_bull && c7_safe &&
+        (Number(c.low) <= ema20[i] + curAtr * 0.40 || Number(prev.low) <= bHigh + curAtr * 0.25);
+      const bearRetest = c1_bear && c2_bear && c3_bear && c4_bear && c5_bear && c7_safe &&
+        (Number(c.high) >= ema20[i] - curAtr * 0.40 || Number(prev.high) >= bLow - curAtr * 0.25);
+
       let signalDir = null;
       let signalReason = '';
       let chosenSL = 0;
-  
-      if (c1_bull && c2_bull && c3_bull && c4_bull && c5_bull && c6_bull && c7_safe) {
+
+      if (bullRetest) {
         signalDir = 'BUY';
         chosenSL = Math.min(Number(c.low), bLow) - (curAtr * slBufferAtr);
-        signalReason = '[' + tradingStyle + ' · Backtest parsial] EMA bullish, breakout base, pivot, body candle dan RSI>SMA. H4/D1, speedometer, FastBull dan fundamental historis belum diverifikasi';
-      } else if (c1_bear && c2_bear && c3_bear && c4_bear && c5_bear && c6_bear && c7_safe) {
+        signalReason = '[' + tradingStyle + ' · Backtest parsial] EMA bullish, breakout & retest base/EMA, pivot, body rejection dan RSI>SMA. H4/D1, speedometer, FastBull dan fundamental historis belum diverifikasi';
+      } else if (bearRetest) {
         signalDir = 'SELL';
         chosenSL = Math.max(Number(c.high), bHigh) + (curAtr * slBufferAtr);
-        signalReason = '[' + tradingStyle + ' · Backtest parsial] EMA bearish, breakout base, pivot, body candle dan RSI<SMA. H4/D1, speedometer, FastBull dan fundamental historis belum diverifikasi';
+        signalReason = '[' + tradingStyle + ' · Backtest parsial] EMA bearish, breakout & retest base/EMA, pivot, body rejection dan RSI<SMA. H4/D1, speedometer, FastBull dan fundamental historis belum diverifikasi';
       }
-  
+
       // 7. Eksekusi Posisi dengan Ukuran Risiko Terkendali & Normalisasi ATR
       if (signalDir) {
         const dec = calcDecimals(Number(c.close));
