@@ -224,6 +224,7 @@
     // Start 24h countdown
     startSnapCountdown();
 
+    modal.classList.add('is-open');
     modal.style.display = 'flex';
     modal.removeAttribute('hidden');
     document.body.style.overflow = 'hidden';
@@ -235,6 +236,7 @@
   window.closeMidtransListModal = function (returnToCheckout = false) {
     const modal = document.getElementById('midtrans-list-modal');
     if (modal) {
+      modal.classList.remove('is-open');
       modal.style.display = 'none';
       modal.setAttribute('hidden', '');
     }

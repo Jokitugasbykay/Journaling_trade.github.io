@@ -48,8 +48,15 @@ const server=http.createServer((req,res)=>{
   await page.locator('#jt-payment-back').evaluate(el=>el.click());assert.equal(await page.locator('.jt-checkout-layout').isVisible(),true);
   await page.locator('#jt-checkout-pay-btn').evaluate(el=>el.click());await page.waitForFunction(()=>document.querySelector('#jt-payment-status').textContent.includes('Pilih metode pembayaran'));
   await page.evaluate(()=>{window.snap={pay:token=>{window.fixtureSnapToken=token;}};});
-  await page.locator('#jt-payment-other').evaluate(el=>el.click());await page.waitForFunction(()=>window.fixtureSnapToken==='fixture-snap-token-not-real');
+  await page.locator('#jt-payment-other').evaluate(el=>el.click());
+  await page.waitForFunction(()=>!document.querySelector('#midtrans-list-modal').hidden);
+  assert.ok(await page.locator('#midtrans-list-modal').isVisible());
+  assert.equal(await page.evaluate(()=>window.fixtureSnapToken),undefined,'Opening the method list must not start a hosted payment');
+  await page.locator("#midtrans-list-modal button[onclick*=credit_card]").click();
+  await page.waitForFunction(()=>window.fixtureSnapToken==='fixture-snap-token-not-real');
   await page.waitForFunction(()=>!document.querySelector('#jt-checkout-pay-btn').disabled);
+  await page.evaluate(()=>openCheckoutModal('plus','annual'));
+  await page.locator('#jt-terms-agree').check();
   await page.locator('#jt-checkout-pay-btn').evaluate(el=>el.click());await page.waitForFunction(()=>document.querySelector('#jt-payment-status').textContent.includes('Pilih metode pembayaran'));
   await page.keyboard.press('Escape');assert.equal(await page.locator('#checkout-modal').isVisible(),false);
   console.log('Custom checkout browser: method selection, no automatic charge, pending/paid feedback, account isolation, mobile overflow and Escape passed (provider fixtures).');
