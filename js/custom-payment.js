@@ -3,7 +3,7 @@
   const $=id=>document.getElementById(id),endpoint=(window.JTPRO_CONFIG?.apiBase || '').replace(/\/pro-gateway\/?$/,'')+'/midtrans-custom-checkout';
   let state=null,revision=0,controller=null,timer=null,subscription=null,returnFocus=null;
   const money=value=>new Intl.NumberFormat('id-ID',{style:'currency',currency:'IDR',maximumFractionDigits:0}).format(value);
-  function error(message){$('jt-payment-status').textContent=message;$('jt-payment-status').setAttribute('role','alert');}
+  function error(message){$('jt-payment-status').setAttribute('role','alert');$('jt-payment-status').innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="M12 8h.01M11 12h1v5h1"></path></svg><span>' + message + '</span>';}
   function stop(){revision++;controller?.abort();controller=null;clearTimeout(timer);timer=null;subscription?.unsubscribe();subscription=null;state=null;
     for(const id of ['jt-payment-order','jt-payment-merchant','jt-payment-va','jt-payment-expiry','jt-payment-conversion'])if($(id))$(id).textContent='';
     $('jt-payment-qr')?.removeAttribute('src');
@@ -34,7 +34,8 @@
     $('jt-payment-merchant').textContent=payment.merchant_id?'Merchant Midtrans: '+payment.merchant_id:'';
     const pending=payment.status==='pending',paid=['settlement','capture'].includes(payment.status);
     $('jt-payment-status').setAttribute('role','status');
-    $('jt-payment-status').textContent=paid?'Pembayaran diterima Midtrans. Akses paket diperbarui setelah verifikasi server.':pending?'Menunggu pembayaran. Status diperiksa otomatis selama halaman ini terbuka.':'Status pembayaran: '+payment.status+'. Anda dapat kembali untuk membuat pembayaran baru.';
+    const msg = paid?'Pembayaran diterima Midtrans. Akses paket diperbarui setelah verifikasi server.':pending?'Menunggu pembayaran. Status diperiksa otomatis selama halaman ini terbuka.':'Status pembayaran: '+payment.status+'. Anda dapat kembali untuk membuat pembayaran baru.';
+    $('jt-payment-status').innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="M12 8h.01M11 12h1v5h1"></path></svg><span>' + msg + '</span>';
     const image=$('jt-payment-qr');image.hidden=!pending || !payment.qr_url;if(!image.hidden)image.src=payment.qr_url;else image.removeAttribute('src');
     $('jt-payment-va-box').hidden=!pending || !payment.va_number;$('jt-payment-va').textContent=payment.va_number || '';
     $('jt-payment-expiry').textContent=payment.expires_at && Number.isFinite(Date.parse(payment.expires_at))?'Batas pembayaran: '+new Date(payment.expires_at).toLocaleString('id-ID'):'';
@@ -55,6 +56,9 @@
     $('jt-payment-step').focus();$('jt-payment-back').textContent='Kembali';$('jt-payment-options').hidden=false;$('jt-payment-create').hidden=false;$('jt-payment-other').hidden=false;$('jt-payment-details').hidden=true;
     $('jt-payment-create').disabled=true;$('jt-payment-status').textContent='Menyiapkan rincian pembayaran…';$('jt-payment-amount').textContent='—';
     $('jt-payment-plan').textContent=(config.plan==='pro'?'Pro':'Plus')+' · '+(config.interval==='annual'?'Tahunan':'Bulanan');
+    if ($('jt-payment-plan-title')) $('jt-payment-plan-title').textContent = config.plan === 'pro' ? 'Paket Pro' : 'Paket Plus';
+    if ($('jt-payment-plan-desc')) $('jt-payment-plan-desc').textContent = config.interval === 'annual' ? 'Langganan tahunan' : 'Langganan bulanan';
+    if ($('jt-payment-plan-chip')) $('jt-payment-plan-chip').textContent = config.interval === 'annual' ? 'Tahunan' : 'Bulanan';
     try{
       const data=await request('quote');
       if(!data.quote || data.environment!=='sandbox' || !Number.isSafeInteger(data.quote.amount))throw new Error('Checkout kustom belum tersedia di server. Gunakan metode Midtrans lainnya atau coba lagi nanti.');

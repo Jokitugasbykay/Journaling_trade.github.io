@@ -78,7 +78,7 @@ export async function handler(req: Request): Promise<Response> {
     const owned=decoded || {userId:stored?.user_id || actual.custom_field1,plan:stored?.plan || actual.custom_field2,interval:stored?.interval || actual.custom_field3};
     if(!/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(String(owned.userId)) || !['plus','pro'].includes(owned.plan) || !['monthly','annual'].includes(owned.interval))throw new Fail(422,'Verified payment ownership unavailable');
     const base=owned.plan==='plus'?(owned.interval==='annual'?100:10):(owned.interval==='annual'?200:20);
-    if(actual.order_id!==order_id || actual.transaction_id!==transaction_id || Number(actual.gross_amount)!==Math.round(base*1.11*16000) || actual.currency!=='IDR')throw new Fail(403,'Payment details do not match checkout');
+    if(actual.order_id!==order_id || actual.transaction_id!==transaction_id || (![Math.round(base*16000), Math.round(base*1.11*16000)].includes(Number(actual.gross_amount))) || actual.currency!=='IDR')throw new Fail(403,'Payment details do not match checkout');
     // Pending/failed orders cannot overwrite an existing paid subscription.
     if(!['refund','chargeback'].includes(actual.transaction_status) && actual.transaction_status!=='settlement' && !(actual.transaction_status==='capture' && actual.fraud_status==='accept'))return respond({ok:true,status:actual.transaction_status});
     userId=owned.userId;plan=owned.plan;interval=owned.interval;transaction_status=actual.transaction_status;fraud_status=actual.fraud_status;

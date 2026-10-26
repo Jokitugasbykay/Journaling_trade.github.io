@@ -79,7 +79,7 @@ export async function handler(req: Request): Promise<Response> {
     if(await limitRes.json()!==true)throw new Fail(429,'Too many payment requests. Try again shortly.');
 
     const baseUsd = interval === 'annual' ? PLANS[plan].usdYear : PLANS[plan].usdMonth;
-    const taxUsd  = Math.round(baseUsd * 0.11 * 100) / 100; // 11% PPN tax
+    const taxUsd  = 0; // PPN dihapus sesuai permintaan
     const totalUsd = baseUsd + taxUsd;
     const idrAmount = Math.round(totalUsd * RATE_IDR_PER_USD);
     const periodLabel = interval === 'annual' ? 'per year' : 'per month';

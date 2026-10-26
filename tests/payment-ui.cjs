@@ -19,9 +19,9 @@ const server=http.createServer((req,res)=>{
   await page.route('**/*',route=>route.request().url().startsWith(origin)?route.continue():route.abort());
   await page.route('**/functions/v1/midtrans-custom-checkout',async route=>{
     const body=route.request().postDataJSON();calls.push(body);
-    const total=body.plan==='plus' && body.interval==='annual'?111:22.2;
+    const total=body.plan==='plus' && body.interval==='annual'?100:20;
     const data=body.action==='quote'?{environment:'sandbox',quote:{amount:Math.round(total*16000),total_usd:total,conversion_rate:16000},methods:['qris','bca','bni','bri','permata']}:
-      {order_id:'fixture-order-not-real',merchant_id:'fixture-merchant',amount:355200,currency:'IDR',status:paid?'settlement':'pending',payment_type:'bank_transfer',va_number:'000000000000',bank:'bca',expires_at:null};
+      {order_id:'fixture-order-not-real',merchant_id:'fixture-merchant',amount:320000,currency:'IDR',status:paid?'settlement':'pending',payment_type:'bank_transfer',va_number:'000000000000',bank:'bca',expires_at:null};
     await route.fulfill({contentType:'application/json',body:JSON.stringify(data)});
   });
   await page.route('**/functions/v1/midtrans-create-token',route=>route.fulfill({contentType:'application/json',body:JSON.stringify({token:'fixture-snap-token-not-real'})}));
