@@ -30,7 +30,7 @@ jobs:
           node-version: '24'
       - run: pip install -r tests/pro/requirements.txt
       - run: sudo apt-get update && sudo apt-get install -y postgresql-client
-      - run: psql -h 127.0.0.1 -U jt_test -d postgres -v ON_ERROR_STOP=1 -f supabase/test_platform_base.sql -f supabase/access.sql -f supabase/migrations/20261010003143_pro_platform.sql -f supabase/migrations/20261010115426_kaystrade_intelligence.sql -f supabase/migrations/20261010141712_founder_pro_entitlement.sql -f supabase/migrations/20261010155806_pro_hosted_gateway.sql -f supabase/test_founder_access.sql -f supabase/test_platform.sql -f supabase/test_intelligence.sql -f supabase/test_security.sql -f supabase/test_gateway.sql
+      - run: psql -h 127.0.0.1 -U jt_test -d postgres -v ON_ERROR_STOP=1 -f supabase/test_platform_base.sql -f supabase/access.sql -f supabase/migrations/20261010003143_pro_platform.sql -f supabase/migrations/20261010115426_kaystrade_intelligence.sql -f supabase/migrations/20261010141712_founder_pro_entitlement.sql -f supabase/migrations/20261010155806_pro_hosted_gateway.sql -f supabase/migrations/20261022000000_founder_groq_management.sql -f supabase/migrations/20261022010000_founder_groq_daily_quota.sql -f supabase/migrations/20261026020000_groq_usage_ownership.sql -f supabase/test_founder_access.sql -f supabase/test_platform.sql -f supabase/test_intelligence.sql -f supabase/test_security.sql -f supabase/test_gateway.sql
       - run: npx --yes deno test --allow-env --allow-read supabase/functions/pro-gateway/index.test.ts
       - run: python -m unittest discover -s tests/build -v
       - run: python -m unittest discover -s tests/pro -v
@@ -39,6 +39,10 @@ jobs:
           JT_TEST_PGPORT: '5432'
       - run: node tests/site-routing.cjs && node tests/backtest-calendar.cjs && node js/pro.test.cjs && node js/pro-import.test.cjs && node js/security.test.cjs && node js/copy.test.cjs && node js/discipline.test.cjs && node js/news-auth.test.cjs
       - run: node --experimental-transform-types tests/payment-core.cjs && node tests/payment.test.cjs
+      - run: npm install --prefix /tmp/jt-db @electric-sql/pglite@0.3.10
+      - run: node tests/groq-quota-sql.cjs && node tests/payment-sql.cjs
+        env:
+          JT_PGLITE_MODULE: file:///tmp/jt-db/node_modules/@electric-sql/pglite/dist/index.js
       - run: npm install --prefix /tmp/jt-browser playwright@1.62.1
       - run: /tmp/jt-browser/node_modules/.bin/playwright install --with-deps chrome
       - run: node tests/payment-ui.cjs
