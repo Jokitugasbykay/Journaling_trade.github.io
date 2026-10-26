@@ -1808,6 +1808,128 @@
     </div>
   </div>
 
+    <!-- Modal Daftar Metode Midtrans (MidtransList.dc Design) -->
+  <div class="jt-checkout-overlay" id="midtrans-list-modal" style="display:none" hidden>
+    <div class="jt-midtrans-container md" role="dialog" aria-modal="true" aria-labelledby="jt-snap-title">
+      <div class="jt-ml-hd hd">
+        <div class="jt-ml-lm lm">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M7 3h8l4 4v14H7z"></path>
+            <path d="M10 17v-4M13 17v-6M16 17v-2"></path>
+          </svg>
+        </div>
+        <span class="jt-ml-br br" id="jt-snap-title">journalingtrade</span>
+        <button class="jt-ml-x x" type="button" aria-label="Tutup" onclick="closeMidtransListModal()">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"></path></svg>
+        </button>
+      </div>
+
+      <div class="jt-ml-sum sum">
+        <div class="jt-ml-am am">
+          <b id="jt-snap-amount">Rp1.600.000</b>
+          <button class="jt-ml-ic ic" type="button" aria-label="Salin nominal" onclick="copySnapAmount()">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2"></rect><path d="M5 15V6a2 2 0 012-2h9"></path></svg>
+          </button>
+        </div>
+        <div class="jt-ml-id id">
+          Order ID <span id="jt-snap-order-id">#jt-plus-annual</span>
+          <button class="jt-ml-ic ic" type="button" aria-label="Salin Order ID" onclick="copySnapOrderId()">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2"></rect><path d="M5 15V6a2 2 0 012-2h9"></path></svg>
+          </button>
+        </div>
+        <div class="jt-ml-rw rw">
+          <span class="jt-ml-tm tm">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="M12 7v5l3 2"></path></svg>
+            Selesaikan dalam <b id="jt-snap-timer">23:59:59</b>
+          </span>
+        </div>
+        <details class="jt-ml-dt dt" open>
+          <summary>Rincian <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"></path></svg></summary>
+          <div class="jt-ml-dl dl">
+            <div><span id="jt-snap-detail-plan">Plus tahunan</span><b id="jt-snap-detail-usd">US$100,00</b></div>
+            <div><span>Total (kurs Rp16.000/USD)</span><b id="jt-snap-detail-idr">Rp1.600.000</b></div>
+          </div>
+        </details>
+      </div>
+
+      <div class="jt-ml-sec sec">
+        <div class="jt-ml-sh sh">QRIS &amp; dompet digital</div>
+        <button class="jt-ml-row row last" type="button" onclick="selectMidtransListItem('gopay')">
+          <span class="jt-ml-mk mk" aria-hidden="true">GP</span>
+          <span class="jt-ml-tx tx"><b>GoPay<span class="jt-ml-chip chip">Terakhir dipakai</span></b><small>QRIS · GoPay Later</small></span>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"></path></svg>
+        </button>
+        <button class="jt-ml-row row" type="button" onclick="selectMidtransListItem('shopeepay')">
+          <span class="jt-ml-mk mk" aria-hidden="true">SP</span>
+          <span class="jt-ml-tx tx"><b>ShopeePay</b><small>QRIS · SPayLater</small></span>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"></path></svg>
+        </button>
+        <button class="jt-ml-row row" type="button" onclick="selectMidtransListItem('ovo')">
+          <span class="jt-ml-mk mk" aria-hidden="true">OV</span>
+          <span class="jt-ml-tx tx"><b>OVO</b><small>Dompet digital</small></span>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"></path></svg>
+        </button>
+        <button class="jt-ml-row row" type="button" onclick="selectMidtransListItem('dana')">
+          <span class="jt-ml-mk mk" aria-hidden="true">DA</span>
+          <span class="jt-ml-tx tx"><b>Dana</b><small>Dompet digital</small></span>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"></path></svg>
+        </button>
+        <button class="jt-ml-row row" type="button" onclick="selectMidtransListItem('qris')">
+          <span class="jt-ml-mk mk" aria-hidden="true">QR</span>
+          <span class="jt-ml-tx tx"><b>QRIS</b><small>Semua aplikasi pembayaran</small></span>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"></path></svg>
+        </button>
+
+        <div class="jt-ml-sh sh">Transfer bank</div>
+        <button class="jt-ml-row row" type="button" onclick="selectMidtransListItem('va')">
+          <span class="jt-ml-mk mk" aria-hidden="true">VA</span>
+          <span class="jt-ml-tx tx"><b>Virtual account</b><small>BCA, Mandiri, BNI, BRI, Permata, +6 bank lain</small></span>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"></path></svg>
+        </button>
+
+        <div class="jt-ml-sh sh">Kartu</div>
+        <button class="jt-ml-row row" type="button" onclick="selectMidtransListItem('credit_card')">
+          <span class="jt-ml-mk mk" aria-hidden="true">CC</span>
+          <span class="jt-ml-tx tx"><b>Kartu kredit / debit</b><small>Visa, Mastercard, JCB, American Express</small></span>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"></path></svg>
+        </button>
+
+        <div class="jt-ml-sh sh">Bayar di gerai</div>
+        <button class="jt-ml-row row" type="button" onclick="selectMidtransListItem('alfamart')">
+          <span class="jt-ml-mk mk" aria-hidden="true">AF</span>
+          <span class="jt-ml-tx tx"><b>Alfa Group</b><small>Alfamart, Alfamidi, Dan+Dan</small></span>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"></path></svg>
+        </button>
+        <button class="jt-ml-row row" type="button" onclick="selectMidtransListItem('indomaret')">
+          <span class="jt-ml-mk mk" aria-hidden="true">IM</span>
+          <span class="jt-ml-tx tx"><b>Indomaret</b><small>Indomaret, i.saku</small></span>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"></path></svg>
+        </button>
+
+        <div class="jt-ml-sh sh">Bayar nanti</div>
+        <button class="jt-ml-row row" type="button" onclick="selectMidtransListItem('akulaku')">
+          <span class="jt-ml-mk mk" aria-hidden="true">AK</span>
+          <span class="jt-ml-tx tx"><b>Akulaku PayLater</b><small>Cicilan tanpa kartu kredit</small></span>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"></path></svg>
+        </button>
+        <button class="jt-ml-row row" type="button" onclick="selectMidtransListItem('kredivo')">
+          <span class="jt-ml-mk mk" aria-hidden="true">KR</span>
+          <span class="jt-ml-tx tx"><b>Kredivo</b><small>Cicilan tanpa kartu kredit</small></span>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"></path></svg>
+        </button>
+      </div>
+
+      <div class="jt-ml-ft ft">
+        <button class="jt-ml-lg lg" type="button">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="M3 12h18M12 3c3 3 3 15 0 18M12 3c-3 3-3 15 0 18"></path></svg>
+          ID
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"></path></svg>
+        </button>
+        <span>Diproses oleh Midtrans</span>
+      </div>
+    </div>
+  </div>
+
   <!-- Footer -->
   <footer class="site-footer shell-footer">
     <div class="site-footer-inner">
