@@ -30,7 +30,7 @@
   <link rel="stylesheet" href="css/journal.css?v=20261024-no-blue">
   <link rel="stylesheet" href="css/shell.css?v=20261025-navavatar">
   <link rel="stylesheet" href="css/payment.css?v=20261026-custom-checkout">
-  <link rel="stylesheet" href="css/pro.css?v=20261025-dropdowns">
+  <link rel="stylesheet" href="css/pro.css?v=20261026-checkout-v2">
 </head>
 
 <body>
@@ -1574,10 +1574,12 @@
     </div>
   </div>
 
-  <!-- Modal Atur Paket & Checkout -->
+    <!-- Modal Atur Paket & Checkout -->
   <div class="jt-checkout-overlay" id="checkout-modal" style="display:none" hidden>
-    <div class="jt-checkout-container" role="dialog" aria-modal="true" aria-labelledby="jt-checkout-title">
-      <button type="button" class="jt-checkout-close" onclick="closeCheckoutModal()" aria-label="Tutup checkout">&times;</button>
+    <div class="jt-checkout-container md" role="dialog" aria-modal="true" aria-labelledby="jt-checkout-title">
+      <button type="button" class="jt-checkout-close x" onclick="closeCheckoutModal()" aria-label="Tutup checkout">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"></path></svg>
+      </button>
       
       <section id="jt-payment-step" tabindex="-1" aria-labelledby="jt-payment-title" hidden>
         <div class="jt-payment-brand"><img src="css/brand/journalingtrade.svg" alt="" width="30" height="30"><strong>journalingtrade</strong><span class="jt-payment-badge">MIDTRANS · SANDBOX</span></div>
@@ -1603,45 +1605,52 @@
         <div class="jt-payment-actions"><button type="button" class="btn btn-ghost" id="jt-payment-back">Kembali</button><button type="button" class="btn btn-primary" id="jt-payment-create" disabled>Buat pembayaran uji</button><button type="button" class="btn btn-primary" id="jt-payment-check" hidden>Periksa status</button></div>
         <button type="button" id="jt-payment-other" class="btn btn-ghost">Kartu dan metode lainnya melalui Midtrans</button>
       </section>
+
       <div class="jt-checkout-layout">
         <!-- Kolom Kiri: Form Atur Paket & Informasi Penagihan -->
-        <div class="jt-checkout-left">
-          <h2 class="jt-checkout-title" id="jt-checkout-title">Atur paket Anda</h2>
-
-          <!-- Pilihan Paket (Radio Cards) -->
-          <div class="jt-plan-selector-grid">
-            <div class="jt-plan-option-card active" id="jt-card-monthly" onclick="selectCheckoutInterval('monthly')">
-              <div class="jt-radio-circle"><span class="jt-radio-dot"></span></div>
-              <div class="jt-plan-option-info">
-                <span class="jt-plan-option-name" id="jt-opt-name-monthly">Pro bulanan</span>
-                <span class="jt-plan-option-price" id="jt-opt-price-monthly">USD 20.00</span>
-                <span class="jt-plan-option-desc">Ditagih bulanan</span>
-              </div>
-            </div>
-
-            <div class="jt-plan-option-card" id="jt-card-annual" onclick="selectCheckoutInterval('annual')">
-              <span class="jt-discount-badge">Hemat 17%</span>
-              <div class="jt-radio-circle"><span class="jt-radio-dot"></span></div>
-              <div class="jt-plan-option-info">
-                <span class="jt-plan-option-name" id="jt-opt-name-annual">Pro tahunan</span>
-                <span class="jt-plan-option-price" id="jt-opt-price-annual">USD 200.00</span>
-                <span class="jt-plan-option-desc">Ditagih tahunan</span>
-              </div>
-            </div>
+        <div class="jt-checkout-left col">
+          <div>
+            <h2 class="jt-checkout-title" id="jt-checkout-title">Atur paket Anda</h2>
+            <p class="jt-checkout-subtitle m">Pilih periode langganan, lalu lengkapi informasi penagihan.</p>
           </div>
 
+          <!-- Periode Langganan -->
+          <fieldset class="jt-fieldset">
+            <legend class="jt-legend">Periode langganan</legend>
+            <div class="jt-plan-selector-grid pl">
+              <label class="jt-plan-option-card op active" id="jt-card-monthly" onclick="selectCheckoutInterval('monthly')">
+                <input type="radio" name="jt_plan_interval" id="jt-radio-monthly" value="monthly" checked>
+                <div class="jt-plan-option-info">
+                  <b class="jt-plan-option-name" id="jt-opt-name-monthly">Pro bulanan</b>
+                  <span class="jt-plan-option-price p" id="jt-opt-price-monthly">US$20,00</span>
+                  <small class="jt-plan-option-desc">Ditagih bulanan</small>
+                </div>
+              </label>
+
+              <label class="jt-plan-option-card op" id="jt-card-annual" onclick="selectCheckoutInterval('annual')">
+                <span class="jt-discount-badge sv">Hemat 17%</span>
+                <input type="radio" name="jt_plan_interval" id="jt-radio-annual" value="annual">
+                <div class="jt-plan-option-info">
+                  <b class="jt-plan-option-name" id="jt-opt-name-annual">Pro tahunan</b>
+                  <span class="jt-plan-option-price p" id="jt-opt-price-annual">US$200,00</span>
+                  <small class="jt-plan-option-desc">Ditagih tahunan</small>
+                </div>
+              </label>
+            </div>
+          </fieldset>
+
           <!-- Informasi Penagihan -->
-          <div class="jt-billing-section">
+          <div class="jt-billing-section fs">
             <h3 class="jt-billing-title">Informasi penagihan</h3>
             
-            <div class="jt-form-group">
+            <div class="jt-form-group fg">
               <label for="jt-bill-name">Nama lengkap</label>
-              <input type="text" id="jt-bill-name" class="jt-input" placeholder="Nama Anda" required>
+              <input type="text" id="jt-bill-name" class="jt-input f" placeholder="Nama Anda" required>
             </div>
 
-            <div class="jt-form-group">
-              <label for="jt-bill-country">Negara atau wilayah</label>
-              <select id="jt-bill-country" class="jt-input jt-select">
+            <div class="jt-form-group fg">
+              <label for="jt-bill-country" class="lbl">Negara atau wilayah</label>
+              <select id="jt-bill-country" class="jt-input jt-select f">
                 <option value="ID" selected>Indonesia</option>
                 <option value="MY">Malaysia</option>
                 <option value="SG">Singapore</option>
@@ -1651,83 +1660,84 @@
               </select>
             </div>
 
-            <div class="jt-form-group">
+            <div class="jt-form-group fg">
               <label for="jt-bill-address">Baris alamat 1</label>
-              <input type="text" id="jt-bill-address" class="jt-input" placeholder="Alamat jalan atau domisili">
+              <input type="text" id="jt-bill-address" class="jt-input f" placeholder="Alamat jalan atau domisili">
             </div>
 
-            <div class="jt-form-group">
-              <label for="jt-bill-company">Nama bisnis</label>
-              <input type="text" id="jt-bill-company" class="jt-input" placeholder="Perusahaan (opsional)">
-            </div>
+            <details class="jt-details-business bz">
+              <summary>Detail bisnis (opsional)<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"></path></svg></summary>
+              <div class="jt-details-inner in">
+                <div class="jt-form-group fg">
+                  <label for="jt-bill-company">Nama bisnis<span class="opt">(opsional)</span></label>
+                  <input type="text" id="jt-bill-company" class="jt-input f" placeholder="Nama perusahaan">
+                </div>
 
-            <div class="jt-form-row">
-              <div class="jt-form-group">
-                <label for="jt-bill-tax-type">Jenis ID Pajak</label>
-                <select id="jt-bill-tax-type" class="jt-input jt-select">
-                  <option value="NPWP">Indonesia (ID NPWP)</option>
-                  <option value="NIK">Indonesia (NIK / KTP)</option>
-                  <option value="OTHER">Lainnya / None</option>
-                </select>
+                <div class="jt-form-row g2">
+                  <div class="jt-form-group fg">
+                    <label for="jt-bill-tax-type" class="lbl">Jenis ID pajak</label>
+                    <select id="jt-bill-tax-type" class="jt-input jt-select f">
+                      <option value="NPWP" selected>Indonesia (ID NPWP)</option>
+                      <option value="NIK">Indonesia (NIK / KTP)</option>
+                      <option value="OTHER">Lainnya / None</option>
+                    </select>
+                  </div>
+                  <div class="jt-form-group fg">
+                    <label for="jt-bill-tax-id">ID pajak<span class="opt">(opsional)</span></label>
+                    <input type="text" id="jt-bill-tax-id" class="jt-input f" placeholder="012.345.678.9-012.345">
+                  </div>
+                </div>
+
+                <div class="jt-form-group fg">
+                  <label for="jt-bill-alt-name">Nama berbeda pada invoice<span class="opt">(opsional)</span></label>
+                  <input type="text" id="jt-bill-alt-name" class="jt-input f" placeholder="Nama entitas penagihan">
+                </div>
               </div>
-              <div class="jt-form-group">
-                <label for="jt-bill-tax-id">ID Pajak</label>
-                <input type="text" id="jt-bill-tax-id" class="jt-input" placeholder="012.345.678.9-012.345 (opsional)">
-              </div>
-            </div>
-
-            <div class="jt-form-group">
-              <label for="jt-bill-alt-name">Gunakan nama berbeda pada invoice (opsional)</label>
-              <input type="text" id="jt-bill-alt-name" class="jt-input" placeholder="Nama entitas penagihan (opsional)">
-            </div>
+            </details>
           </div>
         </div>
 
         <!-- Kolom Kanan: Ringkasan Tagihan & Checkout -->
         <div class="jt-checkout-right">
-          <div class="jt-summary-card">
+          <aside class="jt-summary-card sm" aria-label="Ringkasan pesanan">
             <h3 class="jt-summary-heading" id="jt-summary-title">Paket Pro</h3>
             
             <div class="jt-summary-rows">
-              <div class="jt-summary-row">
+              <div class="jt-summary-row ln">
                 <span id="jt-summary-item-label">Pro bulanan</span>
-                <span id="jt-summary-item-price">US$20,00</span>
+                <b id="jt-summary-item-price">US$20,00</b>
               </div>
-              <div class="jt-summary-row">
+              <div class="jt-summary-row ln" style="margin-top:10px;">
                 <span>Subtotal</span>
-                <span id="jt-summary-subtotal">US$20,00</span>
-              </div>
-              <div class="jt-summary-row">
-                <span>Pajak (11% PPN)</span>
-                <span id="jt-summary-tax">US$2,20</span>
-              </div>
-              <div class="jt-summary-divider"></div>
-              <div class="jt-summary-row jt-summary-total">
-                <span>Total tagihan hari ini</span>
-                <span id="jt-summary-total">US$22,20</span>
+                <b id="jt-summary-subtotal">US$20,00</b>
               </div>
             </div>
 
+            <div class="jt-summary-row jt-summary-total tot">
+              <span>Total tagihan hari ini</span>
+              <b id="jt-summary-total">US$20,00</b>
+            </div>
+
             <!-- Notice Box -->
-            <div class="jt-summary-notice">
-              <span class="jt-notice-icon" aria-hidden="true">i</span>
+            <div class="jt-summary-notice nt">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="M12 8h.01M11 12h1v5h1"></path></svg>
               <p id="jt-summary-notice-text">
-                Akses paket berlaku hingga <span id="jt-renewal-date">20/11/2026</span>. Perpanjangan dilakukan secara manual. Harga paket: <span id="jt-recurring-text">US$20,00/bulan + pajak</span>.
+                Akses paket berlaku hingga <span id="jt-renewal-date">20/11/2026</span>. Perpanjangan dilakukan secara manual. Harga paket: <span id="jt-recurring-text">US$20,00/bulan.</span>
               </p>
             </div>
 
             <!-- Terms Checkbox -->
-            <label class="jt-terms-label">
+            <label class="jt-terms-label cb">
               <input type="checkbox" id="jt-terms-agree">
               <span>Saya menyetujui bahwa JournalingTrade akan memproses pembayaran langganan melalui gateway resmi Midtrans sesuai paket yang dipilih. QRIS dan virtual account menggunakan pembayaran satu kali untuk periode yang dipilih.</span>
             </label>
 
             <!-- Tombol Berlangganan -->
-            <button type="button" class="btn btn-primary jt-btn-checkout" id="jt-checkout-pay-btn" onclick="executeCheckoutPayment()">
+            <button type="button" class="btn btn-primary jt-btn-checkout bt" id="jt-checkout-pay-btn" onclick="executeCheckoutPayment()">
               Berlangganan
             </button>
             <p id="jt-checkout-alert" class="jt-checkout-error" role="alert" style="display:none;"></p>
-          </div>
+          </aside>
         </div>
       </div>
     </div>
@@ -1770,8 +1780,8 @@
   <script src="js/app.js?v=20261025-poll10m"></script>
   <script src="js/home.js?v=20261025-amin"></script>
   <script src="js/fed.js?v=20261010-locales"></script>
-  <script src="js/custom-payment.js?v=20261026-custom-checkout"></script>
-  <script src="js/payment.js?v=20261026-custom-checkout"></script>
+  <script src="js/custom-payment.js?v=20261026-checkout-v2"></script>
+  <script src="js/payment.js?v=20261026-checkout-v2"></script>
 
  </body>
 
