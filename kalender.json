@@ -68,7 +68,7 @@
    "prk": "",
    "sbl": "15.5%",
    "cat": "",
-   "source": "https://www.forexfactory.com/calendar?day=nov2.2026#detail=148391"
+   "source": "https://www.forexfactory.com/calendar?day=nov1.2026#detail=148391"
   },
   {
    "id": "ff-151202",
@@ -386,7 +386,7 @@
    "countryCode": "AU",
    "nama": "Cash Rate",
    "dmp": 3,
-   "akt": "",
+   "akt": "4.85%",
    "prk": "4.85%",
    "sbl": "4.60%",
    "cat": "",
@@ -400,47 +400,33 @@
    "countryCode": "AU",
    "nama": "RBA Interest Rate Decision (Nov)",
    "dmp": 3,
-   "akt": "",
+   "akt": "4.85%",
    "prk": "4.85%",
    "sbl": "4.60%",
    "cat": "",
    "source": "https://www.investing.com/economic-calendar/"
   },
   {
-   "id": "ff-148540",
+   "id": "560337",
    "tgl": "2026-11-03",
    "jam": "10:30",
    "neg": "AUD",
    "countryCode": "AU",
    "nama": "RBA Monetary Policy Statement",
-   "dmp": 3,
+   "dmp": 2,
    "akt": "",
    "prk": "",
    "sbl": "",
    "cat": "",
-   "source": "https://www.forexfactory.com/calendar?day=nov2.2026#detail=148540"
+   "source": "https://www.investing.com/economic-calendar/"
   },
   {
-   "id": "ff-147792",
+   "id": "560338",
    "tgl": "2026-11-03",
    "jam": "10:30",
    "neg": "AUD",
    "countryCode": "AU",
    "nama": "RBA Rate Statement",
-   "dmp": 3,
-   "akt": "",
-   "prk": "",
-   "sbl": "",
-   "cat": "",
-   "source": "https://www.forexfactory.com/calendar?day=nov2.2026#detail=147792"
-  },
-  {
-   "id": "560337",
-   "tgl": "2026-11-03",
-   "jam": "11:30",
-   "neg": "AUD",
-   "countryCode": "AU",
-   "nama": "RBA Monetary Policy Statement",
    "dmp": 2,
    "akt": "",
    "prk": "",
@@ -463,48 +449,6 @@
    "source": "https://www.forexfactory.com/calendar?day=nov2.2026#detail=147801"
   },
   {
-   "id": "560338",
-   "tgl": "2026-11-03",
-   "jam": "11:30",
-   "neg": "AUD",
-   "countryCode": "AU",
-   "nama": "RBA Rate Statement",
-   "dmp": 2,
-   "akt": "",
-   "prk": "",
-   "sbl": "",
-   "cat": "",
-   "source": "https://www.investing.com/economic-calendar/"
-  },
-  {
-   "id": "560119",
-   "tgl": "2026-11-03",
-   "jam": "12:00",
-   "neg": "AUD",
-   "countryCode": "AU",
-   "nama": "ANZ Job Advertisements",
-   "dmp": 1,
-   "akt": "",
-   "prk": "",
-   "sbl": "2.2%",
-   "cat": "",
-   "source": "https://www.investing.com/economic-calendar/"
-  },
-  {
-   "id": "558933",
-   "tgl": "2026-11-03",
-   "jam": "12:00",
-   "neg": "USD",
-   "countryCode": "US",
-   "nama": "Dallas Fed PCE (Sep)",
-   "dmp": 1,
-   "akt": "",
-   "prk": "",
-   "sbl": "1.90%",
-   "cat": "",
-   "source": "https://www.investing.com/economic-calendar/"
-  },
-  {
    "id": "559249",
    "tgl": "2026-11-03",
    "jam": "14:30",
@@ -512,7 +456,7 @@
    "countryCode": "CH",
    "nama": "CPI (Oct)",
    "dmp": 1,
-   "akt": "",
+   "akt": "1.5%",
    "prk": "1.3%",
    "sbl": "1.0%",
    "cat": "",
@@ -526,7 +470,7 @@
    "countryCode": "CH",
    "nama": "CPI m/m",
    "dmp": 2,
-   "akt": "",
+   "akt": "0.2%",
    "prk": "0.0%",
    "sbl": "0.0%",
    "cat": "",
@@ -540,7 +484,7 @@
    "countryCode": "FR",
    "nama": "French Gov Budget Balance",
    "dmp": 1,
-   "akt": "",
+   "akt": "-159.2B",
    "prk": "",
    "sbl": "-159.6B",
    "cat": "",
@@ -554,7 +498,7 @@
    "countryCode": "FR",
    "nama": "French Government Budget Balance (Sep)",
    "dmp": 1,
-   "akt": "",
+   "akt": "-159.2B",
    "prk": "",
    "sbl": "-159.6B",
    "cat": "",
@@ -568,7 +512,7 @@
    "countryCode": "HK",
    "nama": "GDP (Q3)",
    "dmp": 1,
-   "akt": "",
+   "akt": "5.2%",
    "prk": "",
    "sbl": "4.3%",
    "cat": "",
@@ -582,7 +526,7 @@
    "countryCode": "HK",
    "nama": "Retail Sales (Sep)",
    "dmp": 1,
-   "akt": "",
+   "akt": "6.4%",
    "prk": "",
    "sbl": "5.6%",
    "cat": "",
@@ -701,20 +645,6 @@
    "source": "https://www.investing.com/economic-calendar/"
   },
   {
-   "id": "560142",
-   "tgl": "2026-11-03",
-   "jam": "21:45",
-   "neg": "USD",
-   "countryCode": "US",
-   "nama": "S&P Global Manufacturing PMI (Oct)",
-   "dmp": 3,
-   "akt": "",
-   "prk": "56.0",
-   "sbl": "55.9",
-   "cat": "",
-   "source": "https://www.investing.com/economic-calendar/"
-  },
-  {
    "id": "559263",
    "tgl": "2026-11-03",
    "jam": "22:00",
@@ -779,7 +709,7 @@
    "nama": "Factory orders ex transportation (Sep)",
    "dmp": 1,
    "akt": "",
-   "prk": "",
+   "prk": "0.5%",
    "sbl": "0.3%",
    "cat": "",
    "source": "https://www.investing.com/economic-calendar/"
@@ -807,7 +737,7 @@
    "nama": "JOLTS Job Openings (Sep)",
    "dmp": 3,
    "akt": "",
-   "prk": "7.110M",
+   "prk": "7.150M",
    "sbl": "7.079M",
    "cat": "",
    "source": "https://www.investing.com/economic-calendar/"
@@ -849,7 +779,7 @@
    "nama": "Total Vehicle Sales (Oct)",
    "dmp": 1,
    "akt": "",
-   "prk": "15.90M",
+   "prk": "15.80M",
    "sbl": "16.00M",
    "cat": "",
    "source": "https://www.investing.com/economic-calendar/"
@@ -2112,7 +2042,7 @@
    "prk": "",
    "sbl": "118.0%",
    "cat": "",
-   "source": "https://www.forexfactory.com/calendar?day=nov9.2026#detail=149664"
+   "source": "https://www.forexfactory.com/calendar?day=nov8.2026#detail=149664"
   },
   {
    "id": "ff-151207",
@@ -2294,7 +2224,7 @@
    "prk": "",
    "sbl": "47.0",
    "cat": "",
-   "source": "https://www.forexfactory.com/calendar?day=nov10.2026#detail=148817"
+   "source": "https://www.forexfactory.com/calendar?day=nov9.2026#detail=148817"
   },
   {
    "id": "ff-151209",
@@ -4632,7 +4562,7 @@
    "prk": "",
    "sbl": "",
    "cat": "",
-   "source": "https://www.forexfactory.com/calendar?day=nov24.2026#detail=149908"
+   "source": "https://www.forexfactory.com/calendar?day=nov23.2026#detail=149908"
   },
   {
    "id": "ff-150436",
@@ -5472,7 +5402,7 @@
    "prk": "",
    "sbl": "",
    "cat": "",
-   "source": "https://www.forexfactory.com/calendar?day=nov30.2026#detail=149748"
+   "source": "https://www.forexfactory.com/calendar?day=nov29.2026#detail=149748"
   },
   {
    "id": "ff-151214",
@@ -5615,10 +5545,10 @@
    "source": "https://www.forexfactory.com/calendar?day=nov30.2026#detail=146832"
   }
  ],
- "updated": "2026-11-03T01:53:19.814258+00:00",
+ "updated": "2026-11-03T08:51:32.483292+00:00",
  "source": "https://www.forexfactory.com/calendar?month=nov.2026",
  "status": "ok",
- "checkedAt": "2026-11-03T01:53:19.814258+00:00",
+ "checkedAt": "2026-11-03T08:51:32.483292+00:00",
  "coverageStart": "2026-11-01",
  "coverageEnd": "2026-11-30",
  "agenda": [
