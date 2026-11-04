@@ -12,7 +12,7 @@
    "prk": "",
    "sbl": "0.3%",
    "cat": "",
-   "source": "https://www.forexfactory.com/calendar?day=nov1.2026#detail=148453"
+   "source": "https://www.forexfactory.com/calendar?day=nov2.2026#detail=148453"
   },
   {
    "id": "ff-150063",
@@ -26,7 +26,7 @@
    "prk": "1.8%",
    "sbl": "-6.1%",
    "cat": "",
-   "source": "https://www.forexfactory.com/calendar?day=nov1.2026#detail=150063"
+   "source": "https://www.forexfactory.com/calendar?day=nov2.2026#detail=150063"
   },
   {
    "id": "ff-150943",
@@ -40,7 +40,7 @@
    "prk": "53.3",
    "sbl": "53.3",
    "cat": "",
-   "source": "https://www.forexfactory.com/calendar?day=nov1.2026#detail=150943"
+   "source": "https://www.forexfactory.com/calendar?day=nov2.2026#detail=150943"
   },
   {
    "id": "ff-150109",
@@ -54,7 +54,7 @@
    "prk": "52.0",
    "sbl": "52.1",
    "cat": "",
-   "source": "https://www.forexfactory.com/calendar?day=nov1.2026#detail=150109"
+   "source": "https://www.forexfactory.com/calendar?day=nov2.2026#detail=150109"
   },
   {
    "id": "ff-148391",
@@ -348,7 +348,7 @@
    "prk": "4.85%",
    "sbl": "4.60%",
    "cat": "",
-   "source": "https://www.forexfactory.com/calendar?day=nov2.2026#detail=147791"
+   "source": "https://www.forexfactory.com/calendar?day=nov3.2026#detail=147791"
   },
   {
    "id": "ff-148540",
@@ -362,7 +362,7 @@
    "prk": "",
    "sbl": "",
    "cat": "",
-   "source": "https://www.forexfactory.com/calendar?day=nov2.2026#detail=148540"
+   "source": "https://www.forexfactory.com/calendar?day=nov3.2026#detail=148540"
   },
   {
    "id": "ff-147792",
@@ -376,7 +376,7 @@
    "prk": "",
    "sbl": "",
    "cat": "",
-   "source": "https://www.forexfactory.com/calendar?day=nov2.2026#detail=147792"
+   "source": "https://www.forexfactory.com/calendar?day=nov3.2026#detail=147792"
   },
   {
    "id": "ff-147801",
@@ -390,7 +390,7 @@
    "prk": "",
    "sbl": "",
    "cat": "",
-   "source": "https://www.forexfactory.com/calendar?day=nov2.2026#detail=147801"
+   "source": "https://www.forexfactory.com/calendar?day=nov3.2026#detail=147801"
   },
   {
    "id": "ff-147313",
@@ -614,7 +614,7 @@
    "prk": "",
    "sbl": "0.6%",
    "cat": "",
-   "source": "https://www.forexfactory.com/calendar?day=nov3.2026#detail=149595"
+   "source": "https://www.forexfactory.com/calendar?day=nov4.2026#detail=149595"
   },
   {
    "id": "ff-148519",
@@ -628,7 +628,7 @@
    "prk": "0.2%",
    "sbl": "0.0%",
    "cat": "",
-   "source": "https://www.forexfactory.com/calendar?day=nov3.2026#detail=148519"
+   "source": "https://www.forexfactory.com/calendar?day=nov4.2026#detail=148519"
   },
   {
    "id": "559279",
@@ -673,20 +673,6 @@
    "source": "https://www.investing.com/economic-calendar/"
   },
   {
-   "id": "560146",
-   "tgl": "2026-11-04",
-   "jam": "10:30",
-   "neg": "USD",
-   "countryCode": "US",
-   "nama": "Total Vehicle Sales (Oct)",
-   "dmp": 1,
-   "akt": "",
-   "prk": "15.80M",
-   "sbl": "16.00M",
-   "cat": "",
-   "source": "https://www.investing.com/economic-calendar/"
-  },
-  {
    "id": "559285",
    "tgl": "2026-11-04",
    "jam": "12:00",
@@ -694,7 +680,7 @@
    "countryCode": "IN",
    "nama": "HSBC India Services PMI (Oct)",
    "dmp": 1,
-   "akt": "",
+   "akt": "55.8",
    "prk": "56.2",
    "sbl": "55.2",
    "cat": "",
@@ -708,9 +694,23 @@
    "countryCode": "IN",
    "nama": "HSBC Manufacturing & Services PMI (Oct)",
    "dmp": 1,
-   "akt": "",
+   "akt": "56.20",
    "prk": "56.70",
    "sbl": "55.90",
+   "cat": "",
+   "source": "https://www.investing.com/economic-calendar/"
+  },
+  {
+   "id": "559319",
+   "tgl": "2026-11-04",
+   "jam": "15:00",
+   "neg": "BRL",
+   "countryCode": "BR",
+   "nama": "IPC-Fipe Inflation Index (Oct)",
+   "dmp": 1,
+   "akt": "0.44%",
+   "prk": "",
+   "sbl": "0.51%",
    "cat": "",
    "source": "https://www.investing.com/economic-calendar/"
   },
@@ -722,7 +722,7 @@
    "countryCode": "ES",
    "nama": "Spanish Unemployment Change (Oct)",
    "dmp": 1,
-   "akt": "",
+   "akt": "43.1K",
    "prk": "18.7K",
    "sbl": "23.6K",
    "cat": "",
@@ -736,7 +736,7 @@
    "countryCode": "ES",
    "nama": "HCOB Spain Services PMI (Oct)",
    "dmp": 2,
-   "akt": "",
+   "akt": "57.2",
    "prk": "57.6",
    "sbl": "58.3",
    "cat": "",
@@ -750,7 +750,7 @@
    "countryCode": "SP",
    "nama": "Spanish Services PMI",
    "dmp": 1,
-   "akt": "",
+   "akt": "57.2",
    "prk": "57.6",
    "sbl": "58.3",
    "cat": "",
@@ -764,7 +764,7 @@
    "countryCode": "IT",
    "nama": "HCOB Italy Composite PMI (Oct)",
    "dmp": 1,
-   "akt": "",
+   "akt": "50.8",
    "prk": "",
    "sbl": "51.0",
    "cat": "",
@@ -778,7 +778,7 @@
    "countryCode": "IT",
    "nama": "HCOB Italy Services PMI (Oct)",
    "dmp": 2,
-   "akt": "",
+   "akt": "52.0",
    "prk": "51.4",
    "sbl": "51.7",
    "cat": "",
@@ -792,7 +792,7 @@
    "countryCode": "IT",
    "nama": "Italian Services PMI",
    "dmp": 1,
-   "akt": "",
+   "akt": "52.0",
    "prk": "51.4",
    "sbl": "51.7",
    "cat": "",
@@ -806,7 +806,7 @@
    "countryCode": "FR",
    "nama": "French Final Services PMI",
    "dmp": 1,
-   "akt": "",
+   "akt": "46.2",
    "prk": "48.4",
    "sbl": "48.4",
    "cat": "",
@@ -820,7 +820,7 @@
    "countryCode": "FR",
    "nama": "HCOB France Composite PMI (Oct)",
    "dmp": 1,
-   "akt": "",
+   "akt": "46.6",
    "prk": "48.4",
    "sbl": "51.1",
    "cat": "",
@@ -834,7 +834,7 @@
    "countryCode": "FR",
    "nama": "HCOB France Services PMI (Oct)",
    "dmp": 2,
-   "akt": "",
+   "akt": "46.2",
    "prk": "48.4",
    "sbl": "51.2",
    "cat": "",
@@ -848,7 +848,7 @@
    "countryCode": "GE",
    "nama": "German Final Services PMI",
    "dmp": 1,
-   "akt": "",
+   "akt": "52.5",
    "prk": "51.7",
    "sbl": "51.7",
    "cat": "",
@@ -862,9 +862,9 @@
    "countryCode": "DE",
    "nama": "HCOB Germany Composite PMI (Oct)",
    "dmp": 1,
-   "akt": "",
+   "akt": "53.4",
    "prk": "52.8",
-   "sbl": "52.8",
+   "sbl": "53.8",
    "cat": "",
    "source": "https://www.investing.com/economic-calendar/"
   },
@@ -876,9 +876,9 @@
    "countryCode": "DE",
    "nama": "HCOB Germany Services PMI (Oct)",
    "dmp": 2,
-   "akt": "",
+   "akt": "52.5",
    "prk": "51.7",
-   "sbl": "51.7",
+   "sbl": "52.9",
    "cat": "",
    "source": "https://www.investing.com/economic-calendar/"
   },
@@ -890,7 +890,7 @@
    "countryCode": "EU",
    "nama": "Final Services PMI",
    "dmp": 1,
-   "akt": "",
+   "akt": "51.4",
    "prk": "51.7",
    "sbl": "51.7",
    "cat": "",
@@ -904,7 +904,7 @@
    "countryCode": "EU",
    "nama": "HCOB Eurozone Composite PMI (Oct)",
    "dmp": 2,
-   "akt": "",
+   "akt": "51.7",
    "prk": "51.9",
    "sbl": "53.1",
    "cat": "",
@@ -918,7 +918,7 @@
    "countryCode": "EU",
    "nama": "HCOB Eurozone Services PMI (Oct)",
    "dmp": 2,
-   "akt": "",
+   "akt": "51.4",
    "prk": "51.7",
    "sbl": "53.0",
    "cat": "",
@@ -962,7 +962,7 @@
    "dmp": 2,
    "akt": "",
    "prk": "53.1",
-   "sbl": "53.1",
+   "sbl": "52.1",
    "cat": "",
    "source": "https://www.investing.com/economic-calendar/"
   },
@@ -1065,16 +1065,16 @@
    "source": "https://www.investing.com/economic-calendar/"
   },
   {
-   "id": "559319",
+   "id": "560671",
    "tgl": "2026-11-04",
-   "jam": "17:00",
-   "neg": "BRL",
-   "countryCode": "BR",
-   "nama": "IPC-Fipe Inflation Index (Oct)",
+   "jam": "17:30",
+   "neg": "EUR",
+   "countryCode": "DE",
+   "nama": "German 30-Year Bund Auction",
    "dmp": 1,
    "akt": "",
    "prk": "",
-   "sbl": "0.51%",
+   "sbl": "3.800%",
    "cat": "",
    "source": "https://www.investing.com/economic-calendar/"
   },
@@ -1451,7 +1451,7 @@
    "nama": "Crude Oil Inventories",
    "dmp": 3,
    "akt": "",
-   "prk": "",
+   "prk": "-1.700M",
    "sbl": "-1.892M",
    "cat": "",
    "source": "https://www.investing.com/economic-calendar/"
@@ -1678,7 +1678,7 @@
    "prk": "0.94B",
    "sbl": "0.50B",
    "cat": "",
-   "source": "https://www.forexfactory.com/calendar?day=nov4.2026#detail=148281"
+   "source": "https://www.forexfactory.com/calendar?day=nov5.2026#detail=148281"
   },
   {
    "id": "ff-150288",
@@ -1692,7 +1692,7 @@
    "prk": "",
    "sbl": "3.10|3.8",
    "cat": "",
-   "source": "https://www.forexfactory.com/calendar?day=nov4.2026#detail=150288"
+   "source": "https://www.forexfactory.com/calendar?day=nov5.2026#detail=150288"
   },
   {
    "id": "ff-155366",
@@ -2392,7 +2392,7 @@
    "prk": "",
    "sbl": "0.9%",
    "cat": "",
-   "source": "https://www.forexfactory.com/calendar?day=nov8.2026#detail=150202"
+   "source": "https://www.forexfactory.com/calendar?day=nov9.2026#detail=150202"
   },
   {
    "id": "ff-150203",
@@ -2406,7 +2406,7 @@
    "prk": "",
    "sbl": "5.0%",
    "cat": "",
-   "source": "https://www.forexfactory.com/calendar?day=nov8.2026#detail=150203"
+   "source": "https://www.forexfactory.com/calendar?day=nov9.2026#detail=150203"
   },
   {
    "id": "ff-149664",
@@ -2560,7 +2560,7 @@
    "prk": "",
    "sbl": "1.0%",
    "cat": "",
-   "source": "https://www.forexfactory.com/calendar?day=nov9.2026#detail=150831"
+   "source": "https://www.forexfactory.com/calendar?day=nov10.2026#detail=150831"
   },
   {
    "id": "ff-147480",
@@ -2574,7 +2574,7 @@
    "prk": "",
    "sbl": "-13",
    "cat": "",
-   "source": "https://www.forexfactory.com/calendar?day=nov9.2026#detail=147480"
+   "source": "https://www.forexfactory.com/calendar?day=nov10.2026#detail=147480"
   },
   {
    "id": "ff-150310",
@@ -2588,7 +2588,7 @@
    "prk": "",
    "sbl": "4.11|3.9",
    "cat": "",
-   "source": "https://www.forexfactory.com/calendar?day=nov9.2026#detail=150310"
+   "source": "https://www.forexfactory.com/calendar?day=nov10.2026#detail=150310"
   },
   {
    "id": "ff-148817",
@@ -2742,7 +2742,7 @@
    "prk": "",
    "sbl": "",
    "cat": "",
-   "source": "https://www.forexfactory.com/calendar?day=nov10.2026#detail=150238"
+   "source": "https://www.forexfactory.com/calendar?day=nov11.2026#detail=150238"
   },
   {
    "id": "ff-150239",
@@ -2756,7 +2756,7 @@
    "prk": "",
    "sbl": "",
    "cat": "",
-   "source": "https://www.forexfactory.com/calendar?day=nov10.2026#detail=150239"
+   "source": "https://www.forexfactory.com/calendar?day=nov11.2026#detail=150239"
   },
   {
    "id": "ff-148903",
@@ -2938,7 +2938,7 @@
    "prk": "",
    "sbl": "5.3%",
    "cat": "",
-   "source": "https://www.forexfactory.com/calendar?day=nov11.2026#detail=148104"
+   "source": "https://www.forexfactory.com/calendar?day=nov12.2026#detail=148104"
   },
   {
    "id": "ff-150794",
@@ -2952,7 +2952,7 @@
    "prk": "",
    "sbl": "-32%",
    "cat": "",
-   "source": "https://www.forexfactory.com/calendar?day=nov11.2026#detail=150794"
+   "source": "https://www.forexfactory.com/calendar?day=nov12.2026#detail=150794"
   },
   {
    "id": "ff-151575",
@@ -3484,7 +3484,7 @@
    "prk": "",
    "sbl": "",
    "cat": "",
-   "source": "https://www.forexfactory.com/calendar?day=nov15.2026#detail=150782"
+   "source": "https://www.forexfactory.com/calendar?day=nov16.2026#detail=150782"
   },
   {
    "id": "ff-150172",
@@ -3498,7 +3498,7 @@
    "prk": "",
    "sbl": "",
    "cat": "",
-   "source": "https://www.forexfactory.com/calendar?day=nov15.2026#detail=150172"
+   "source": "https://www.forexfactory.com/calendar?day=nov16.2026#detail=150172"
   },
   {
    "id": "ff-150415",
@@ -3512,7 +3512,7 @@
    "prk": "",
    "sbl": "",
    "cat": "",
-   "source": "https://www.forexfactory.com/calendar?day=nov15.2026#detail=150415"
+   "source": "https://www.forexfactory.com/calendar?day=nov16.2026#detail=150415"
   },
   {
    "id": "ff-150416",
@@ -3526,7 +3526,7 @@
    "prk": "",
    "sbl": "",
    "cat": "",
-   "source": "https://www.forexfactory.com/calendar?day=nov15.2026#detail=150416"
+   "source": "https://www.forexfactory.com/calendar?day=nov16.2026#detail=150416"
   },
   {
    "id": "ff-150417",
@@ -3540,7 +3540,7 @@
    "prk": "",
    "sbl": "",
    "cat": "",
-   "source": "https://www.forexfactory.com/calendar?day=nov15.2026#detail=150417"
+   "source": "https://www.forexfactory.com/calendar?day=nov16.2026#detail=150417"
   },
   {
    "id": "ff-150418",
@@ -3554,7 +3554,7 @@
    "prk": "",
    "sbl": "",
    "cat": "",
-   "source": "https://www.forexfactory.com/calendar?day=nov15.2026#detail=150418"
+   "source": "https://www.forexfactory.com/calendar?day=nov16.2026#detail=150418"
   },
   {
    "id": "ff-150419",
@@ -3568,7 +3568,7 @@
    "prk": "",
    "sbl": "",
    "cat": "",
-   "source": "https://www.forexfactory.com/calendar?day=nov15.2026#detail=150419"
+   "source": "https://www.forexfactory.com/calendar?day=nov16.2026#detail=150419"
   },
   {
    "id": "ff-149688",
@@ -3582,7 +3582,7 @@
    "prk": "",
    "sbl": "",
    "cat": "",
-   "source": "https://www.forexfactory.com/calendar?day=nov15.2026#detail=149688"
+   "source": "https://www.forexfactory.com/calendar?day=nov16.2026#detail=149688"
   },
   {
    "id": "ff-151329",
@@ -3736,7 +3736,7 @@
    "prk": "",
    "sbl": "",
    "cat": "",
-   "source": "https://www.forexfactory.com/calendar?day=nov16.2026#detail=148528"
+   "source": "https://www.forexfactory.com/calendar?day=nov17.2026#detail=148528"
   },
   {
    "id": "ff-149382",
@@ -3750,7 +3750,7 @@
    "prk": "",
    "sbl": "",
    "cat": "",
-   "source": "https://www.forexfactory.com/calendar?day=nov16.2026#detail=149382"
+   "source": "https://www.forexfactory.com/calendar?day=nov17.2026#detail=149382"
   },
   {
    "id": "ff-149724",
@@ -3764,7 +3764,7 @@
    "prk": "",
    "sbl": "",
    "cat": "",
-   "source": "https://www.forexfactory.com/calendar?day=nov16.2026#detail=149724"
+   "source": "https://www.forexfactory.com/calendar?day=nov17.2026#detail=149724"
   },
   {
    "id": "ff-151094",
@@ -4086,7 +4086,7 @@
    "prk": "",
    "sbl": "",
    "cat": "",
-   "source": "https://www.forexfactory.com/calendar?day=nov17.2026#detail=148501"
+   "source": "https://www.forexfactory.com/calendar?day=nov18.2026#detail=148501"
   },
   {
    "id": "ff-155375",
@@ -4338,7 +4338,7 @@
    "prk": "",
    "sbl": "",
    "cat": "",
-   "source": "https://www.forexfactory.com/calendar?day=nov18.2026#detail=148150"
+   "source": "https://www.forexfactory.com/calendar?day=nov19.2026#detail=148150"
   },
   {
    "id": "ff-148151",
@@ -4352,7 +4352,7 @@
    "prk": "",
    "sbl": "",
    "cat": "",
-   "source": "https://www.forexfactory.com/calendar?day=nov18.2026#detail=148151"
+   "source": "https://www.forexfactory.com/calendar?day=nov19.2026#detail=148151"
   },
   {
    "id": "ff-154808",
@@ -4492,7 +4492,7 @@
    "prk": "",
    "sbl": "",
    "cat": "",
-   "source": "https://www.forexfactory.com/calendar?day=nov19.2026#detail=150688"
+   "source": "https://www.forexfactory.com/calendar?day=nov20.2026#detail=150688"
   },
   {
    "id": "ff-150133",
@@ -4506,7 +4506,7 @@
    "prk": "",
    "sbl": "",
    "cat": "",
-   "source": "https://www.forexfactory.com/calendar?day=nov19.2026#detail=150133"
+   "source": "https://www.forexfactory.com/calendar?day=nov20.2026#detail=150133"
   },
   {
    "id": "ff-150134",
@@ -4520,7 +4520,7 @@
    "prk": "",
    "sbl": "",
    "cat": "",
-   "source": "https://www.forexfactory.com/calendar?day=nov19.2026#detail=150134"
+   "source": "https://www.forexfactory.com/calendar?day=nov20.2026#detail=150134"
   },
   {
    "id": "ff-148891",
@@ -4534,7 +4534,7 @@
    "prk": "",
    "sbl": "",
    "cat": "",
-   "source": "https://www.forexfactory.com/calendar?day=nov19.2026#detail=148891"
+   "source": "https://www.forexfactory.com/calendar?day=nov20.2026#detail=148891"
   },
   {
    "id": "ff-151210",
@@ -4926,7 +4926,7 @@
    "prk": "",
    "sbl": "",
    "cat": "",
-   "source": "https://www.forexfactory.com/calendar?day=nov23.2026#detail=150931"
+   "source": "https://www.forexfactory.com/calendar?day=nov24.2026#detail=150931"
   },
   {
    "id": "ff-149908",
@@ -5094,7 +5094,7 @@
    "prk": "",
    "sbl": "",
    "cat": "",
-   "source": "https://www.forexfactory.com/calendar?day=nov24.2026#detail=152602"
+   "source": "https://www.forexfactory.com/calendar?day=nov25.2026#detail=152602"
   },
   {
    "id": "ff-149102",
@@ -5108,7 +5108,7 @@
    "prk": "",
    "sbl": "",
    "cat": "",
-   "source": "https://www.forexfactory.com/calendar?day=nov24.2026#detail=149102"
+   "source": "https://www.forexfactory.com/calendar?day=nov25.2026#detail=149102"
   },
   {
    "id": "ff-148366",
@@ -5122,7 +5122,7 @@
    "prk": "",
    "sbl": "",
    "cat": "",
-   "source": "https://www.forexfactory.com/calendar?day=nov24.2026#detail=148366"
+   "source": "https://www.forexfactory.com/calendar?day=nov25.2026#detail=148366"
   },
   {
    "id": "ff-152603",
@@ -5136,7 +5136,7 @@
    "prk": "",
    "sbl": "",
    "cat": "",
-   "source": "https://www.forexfactory.com/calendar?day=nov24.2026#detail=152603"
+   "source": "https://www.forexfactory.com/calendar?day=nov25.2026#detail=152603"
   },
   {
    "id": "ff-147381",
@@ -5346,7 +5346,7 @@
    "prk": "",
    "sbl": "",
    "cat": "",
-   "source": "https://www.forexfactory.com/calendar?day=nov25.2026#detail=148318"
+   "source": "https://www.forexfactory.com/calendar?day=nov26.2026#detail=148318"
   },
   {
    "id": "ff-148534",
@@ -5360,7 +5360,7 @@
    "prk": "",
    "sbl": "",
    "cat": "",
-   "source": "https://www.forexfactory.com/calendar?day=nov25.2026#detail=148534"
+   "source": "https://www.forexfactory.com/calendar?day=nov26.2026#detail=148534"
   },
   {
    "id": "ff-150483",
@@ -5682,7 +5682,7 @@
    "prk": "",
    "sbl": "",
    "cat": "",
-   "source": "https://www.forexfactory.com/calendar?day=nov29.2026#detail=149373"
+   "source": "https://www.forexfactory.com/calendar?day=nov30.2026#detail=149373"
   },
   {
    "id": "ff-148454",
@@ -5696,7 +5696,7 @@
    "prk": "",
    "sbl": "",
    "cat": "",
-   "source": "https://www.forexfactory.com/calendar?day=nov29.2026#detail=148454"
+   "source": "https://www.forexfactory.com/calendar?day=nov30.2026#detail=148454"
   },
   {
    "id": "ff-148157",
@@ -5710,7 +5710,7 @@
    "prk": "",
    "sbl": "",
    "cat": "",
-   "source": "https://www.forexfactory.com/calendar?day=nov29.2026#detail=148157"
+   "source": "https://www.forexfactory.com/calendar?day=nov30.2026#detail=148157"
   },
   {
    "id": "ff-148520",
@@ -5724,7 +5724,7 @@
    "prk": "",
    "sbl": "",
    "cat": "",
-   "source": "https://www.forexfactory.com/calendar?day=nov29.2026#detail=148520"
+   "source": "https://www.forexfactory.com/calendar?day=nov30.2026#detail=148520"
   },
   {
    "id": "ff-148340",
@@ -5738,7 +5738,7 @@
    "prk": "",
    "sbl": "",
    "cat": "",
-   "source": "https://www.forexfactory.com/calendar?day=nov29.2026#detail=148340"
+   "source": "https://www.forexfactory.com/calendar?day=nov30.2026#detail=148340"
   },
   {
    "id": "ff-150085",
@@ -5752,7 +5752,7 @@
    "prk": "",
    "sbl": "",
    "cat": "",
-   "source": "https://www.forexfactory.com/calendar?day=nov29.2026#detail=150085"
+   "source": "https://www.forexfactory.com/calendar?day=nov30.2026#detail=150085"
   },
   {
    "id": "ff-150086",
@@ -5766,7 +5766,7 @@
    "prk": "",
    "sbl": "",
    "cat": "",
-   "source": "https://www.forexfactory.com/calendar?day=nov29.2026#detail=150086"
+   "source": "https://www.forexfactory.com/calendar?day=nov30.2026#detail=150086"
   },
   {
    "id": "ff-149748",
@@ -5923,10 +5923,10 @@
    "source": "https://www.forexfactory.com/calendar?day=nov30.2026#detail=146832"
   }
  ],
- "updated": "2026-11-04T02:10:00.701341+00:00",
+ "updated": "2026-11-04T09:09:48.583417+00:00",
  "source": "https://www.forexfactory.com/calendar?month=nov.2026",
  "status": "ok",
- "checkedAt": "2026-11-04T02:10:00.701341+00:00",
+ "checkedAt": "2026-11-04T09:09:48.583417+00:00",
  "coverageStart": "2026-11-01",
  "coverageEnd": "2026-11-30",
  "agenda": [
