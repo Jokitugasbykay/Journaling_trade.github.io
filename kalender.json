@@ -68,7 +68,7 @@
    "prk": "",
    "sbl": "15.5%",
    "cat": "",
-   "source": "https://www.forexfactory.com/calendar?day=nov2.2026#detail=148391"
+   "source": "https://www.forexfactory.com/calendar?day=nov1.2026#detail=148391"
   },
   {
    "id": "ff-151202",
@@ -894,7 +894,7 @@
    "prk": "",
    "sbl": "",
    "cat": "",
-   "source": "https://www.forexfactory.com/calendar?day=nov5.2026#detail=155366"
+   "source": "https://www.forexfactory.com/calendar?day=nov4.2026#detail=155366"
   },
   {
    "id": "ff-151206",
@@ -1282,9 +1282,9 @@
    "countryCode": "DE",
    "nama": "German Industrial Production (Sep)",
    "dmp": 1,
-   "akt": "",
+   "akt": "0.55%",
    "prk": "",
-   "sbl": "2.33%",
+   "sbl": "0.77%",
    "cat": "",
    "source": "https://www.investing.com/economic-calendar/"
   },
@@ -1296,7 +1296,7 @@
    "countryCode": "GE",
    "nama": "German Industrial Production m/m",
    "dmp": 1,
-   "akt": "",
+   "akt": "0.7%",
    "prk": "0.0%",
    "sbl": "2.0%",
    "cat": "",
@@ -1310,7 +1310,7 @@
    "countryCode": "GB",
    "nama": "Lloyds HPI m/m",
    "dmp": 1,
-   "akt": "",
+   "akt": "-0.6%",
    "prk": "0.0%",
    "sbl": "0.0%",
    "cat": "",
@@ -1324,9 +1324,9 @@
    "countryCode": "UK",
    "nama": "Lloyds House Price Index (Oct)",
    "dmp": 2,
-   "akt": "",
+   "akt": "-1.2%",
    "prk": "-0.3%",
-   "sbl": "0.0%",
+   "sbl": "-0.1%",
    "cat": "",
    "source": "https://www.investing.com/economic-calendar/"
   },
@@ -1338,9 +1338,9 @@
    "countryCode": "FR",
    "nama": "French Current Account (Sep)",
    "dmp": 1,
-   "akt": "",
+   "akt": "-2.70B",
    "prk": "",
-   "sbl": "-1.50B",
+   "sbl": "-1.40B",
    "cat": "",
    "source": "https://www.investing.com/economic-calendar/"
   },
@@ -1352,9 +1352,9 @@
    "countryCode": "FR",
    "nama": "French Exports (Sep)",
    "dmp": 1,
-   "akt": "",
+   "akt": "55.3B",
    "prk": "",
-   "sbl": "54.2B",
+   "sbl": "54.3B",
    "cat": "",
    "source": "https://www.investing.com/economic-calendar/"
   },
@@ -1366,7 +1366,7 @@
    "countryCode": "FR",
    "nama": "French Imports (Sep)",
    "dmp": 1,
-   "akt": "",
+   "akt": "62.7B",
    "prk": "",
    "sbl": "60.3B",
    "cat": "",
@@ -1380,7 +1380,7 @@
    "countryCode": "FR",
    "nama": "French Reserve Assets Total (Oct)",
    "dmp": 1,
-   "akt": "",
+   "akt": "360,171.0M",
    "prk": "",
    "sbl": "370,203.0M",
    "cat": "",
@@ -1394,9 +1394,9 @@
    "countryCode": "FR",
    "nama": "French Trade Balance (Sep)",
    "dmp": 1,
-   "akt": "",
+   "akt": "-7.3B",
    "prk": "-5.8B",
-   "sbl": "-6.1B",
+   "sbl": "-6.0B",
    "cat": "",
    "source": "https://www.investing.com/economic-calendar/"
   },
@@ -1408,7 +1408,7 @@
    "countryCode": "CH",
    "nama": "Foreign Currency Reserves",
    "dmp": 1,
-   "akt": "",
+   "akt": "759B",
    "prk": "",
    "sbl": "770B",
    "cat": "",
@@ -1422,9 +1422,9 @@
    "countryCode": "CH",
    "nama": "Foreign Reserves (USD) (Oct)",
    "dmp": 1,
-   "akt": "",
+   "akt": "758.5B",
    "prk": "",
-   "sbl": "770,476.0B",
+   "sbl": "770.3B",
    "cat": "",
    "source": "https://www.investing.com/economic-calendar/"
   },
@@ -1436,7 +1436,7 @@
    "countryCode": "CH",
    "nama": "SECO Consumer Climate (Q4)",
    "dmp": 2,
-   "akt": "",
+   "akt": "-43",
    "prk": "-35",
    "sbl": "-33",
    "cat": "",
@@ -1450,9 +1450,9 @@
    "countryCode": "ES",
    "nama": "Spanish Industrial Production (Sep)",
    "dmp": 1,
-   "akt": "",
+   "akt": "2.0%",
    "prk": "",
-   "sbl": "1.5%",
+   "sbl": "1.3%",
    "cat": "",
    "source": "https://www.investing.com/economic-calendar/"
   },
@@ -1464,9 +1464,9 @@
    "countryCode": "HK",
    "nama": "Foreign Reserves (USD) (Oct)",
    "dmp": 1,
-   "akt": "",
+   "akt": "440.50B",
    "prk": "",
-   "sbl": "443.00B",
+   "sbl": "432.90B",
    "cat": "",
    "source": "https://www.investing.com/economic-calendar/"
   },
@@ -1478,7 +1478,7 @@
    "countryCode": "SG",
    "nama": "Foreign Reserves USD (Oct)",
    "dmp": 1,
-   "akt": "",
+   "akt": "431.5B",
    "prk": "",
    "sbl": "433.4B",
    "cat": "",
@@ -1515,12 +1515,12 @@
   {
    "id": "560242",
    "tgl": "2026-11-06",
-   "jam": "17:00",
+   "jam": "16:30",
    "neg": "GBP",
    "countryCode": "UK",
    "nama": "Mortgage Rate (GBP) (Oct)",
    "dmp": 2,
-   "akt": "",
+   "akt": "6.58%",
    "prk": "",
    "sbl": "6.58%",
    "cat": "",
@@ -1534,9 +1534,9 @@
    "countryCode": "EU",
    "nama": "Retail Sales (Sep)",
    "dmp": 1,
-   "akt": "",
+   "akt": "-0.7%",
    "prk": "-0.1%",
-   "sbl": "0.1%",
+   "sbl": "0.4%",
    "cat": "",
    "source": "https://www.investing.com/economic-calendar/"
   },
@@ -1548,7 +1548,7 @@
    "countryCode": "EU",
    "nama": "Retail Sales m/m",
    "dmp": 1,
-   "akt": "",
+   "akt": "-0.7%",
    "prk": "-0.1%",
    "sbl": "0.1%",
    "cat": "",
@@ -1567,34 +1567,6 @@
    "sbl": "",
    "cat": "",
    "source": "https://www.forexfactory.com/calendar?day=nov6.2026#detail=155381"
-  },
-  {
-   "id": "560502",
-   "tgl": "2026-11-06",
-   "jam": "18:30",
-   "neg": "INR",
-   "countryCode": "IN",
-   "nama": "Bank Loan Growth",
-   "dmp": 1,
-   "akt": "",
-   "prk": "",
-   "sbl": "18.2%",
-   "cat": "",
-   "source": "https://www.investing.com/economic-calendar/"
-  },
-  {
-   "id": "560503",
-   "tgl": "2026-11-06",
-   "jam": "18:30",
-   "neg": "INR",
-   "countryCode": "IN",
-   "nama": "Deposit Growth",
-   "dmp": 1,
-   "akt": "",
-   "prk": "",
-   "sbl": "16.7%",
-   "cat": "",
-   "source": "https://www.investing.com/economic-calendar/"
   },
   {
    "id": "560553",
@@ -1773,7 +1745,7 @@
    "nama": "Manufacturing Payrolls (Oct)",
    "dmp": 1,
    "akt": "",
-   "prk": "",
+   "prk": "5K",
    "sbl": "9K",
    "cat": "",
    "source": "https://www.investing.com/economic-calendar/"
@@ -1997,7 +1969,7 @@
    "nama": "Michigan Consumer Sentiment (Nov)",
    "dmp": 2,
    "akt": "",
-   "prk": "47.8",
+   "prk": "48.1",
    "sbl": "48.0",
    "cat": "",
    "source": "https://www.investing.com/economic-calendar/"
@@ -2403,7 +2375,7 @@
    "nama": "Consumer Credit (Sep)",
    "dmp": 2,
    "akt": "",
-   "prk": "12.00B",
+   "prk": "13.40B",
    "sbl": "8.28B",
    "cat": "",
    "source": "https://www.investing.com/economic-calendar/"
@@ -2532,7 +2504,7 @@
    "prk": "116.4%",
    "sbl": "118.0%",
    "cat": "",
-   "source": "https://www.forexfactory.com/calendar?day=nov9.2026#detail=149664"
+   "source": "https://www.forexfactory.com/calendar?day=nov8.2026#detail=149664"
   },
   {
    "id": "ff-151207",
@@ -2585,7 +2557,7 @@
    "nama": "Final Wholesale Inventories m/m",
    "dmp": 1,
    "akt": "",
-   "prk": "",
+   "prk": "0.6%",
    "sbl": "0.6%",
    "cat": "",
    "source": "https://www.forexfactory.com/calendar?day=nov9.2026#detail=148200"
@@ -2617,20 +2589,6 @@
    "sbl": "16.8K",
    "cat": "",
    "source": "https://www.forexfactory.com/calendar?day=nov10.2026#detail=151052"
-  },
-  {
-   "id": "ff-151209",
-   "tgl": "2026-11-10",
-   "jam": "",
-   "neg": "EUR",
-   "countryCode": "GE",
-   "nama": "German WPI m/m",
-   "dmp": 1,
-   "akt": "",
-   "prk": "",
-   "sbl": "1.9%",
-   "cat": "",
-   "source": "https://www.forexfactory.com/calendar?day=nov10.2026#detail=151209"
   },
   {
    "id": "ff-150238",
@@ -2739,7 +2697,7 @@
    "nama": "Bank Lending y/y",
    "dmp": 1,
    "akt": "",
-   "prk": "",
+   "prk": "5.4%",
    "sbl": "5.3%",
    "cat": "",
    "source": "https://www.forexfactory.com/calendar?day=nov9.2026#detail=148846"
@@ -2809,10 +2767,10 @@
    "nama": "Economy Watchers Sentiment",
    "dmp": 1,
    "akt": "",
-   "prk": "",
+   "prk": "46.8",
    "sbl": "47.0",
    "cat": "",
-   "source": "https://www.forexfactory.com/calendar?day=nov10.2026#detail=148817"
+   "source": "https://www.forexfactory.com/calendar?day=nov9.2026#detail=148817"
   },
   {
    "id": "ff-155594",
@@ -3036,7 +2994,7 @@
    "prk": "",
    "sbl": "60.4%",
    "cat": "",
-   "source": "https://www.forexfactory.com/calendar?day=nov11.2026#detail=149700"
+   "source": "https://www.forexfactory.com/calendar?day=nov10.2026#detail=149700"
   },
   {
    "id": "ff-151208",
@@ -3457,6 +3415,20 @@
    "sbl": "",
    "cat": "",
    "source": "https://www.forexfactory.com/calendar?day=nov12.2026#detail=155603"
+  },
+  {
+   "id": "ff-151209",
+   "tgl": "2026-11-13",
+   "jam": "14:00",
+   "neg": "EUR",
+   "countryCode": "GE",
+   "nama": "German WPI m/m",
+   "dmp": 1,
+   "akt": "",
+   "prk": "",
+   "sbl": "1.9%",
+   "cat": "",
+   "source": "https://www.forexfactory.com/calendar?day=nov13.2026#detail=151209"
   },
   {
    "id": "ff-147334",
@@ -5206,7 +5178,7 @@
    "prk": "",
    "sbl": "",
    "cat": "",
-   "source": "https://www.forexfactory.com/calendar?day=nov24.2026#detail=149908"
+   "source": "https://www.forexfactory.com/calendar?day=nov23.2026#detail=149908"
   },
   {
    "id": "ff-150436",
@@ -6060,7 +6032,7 @@
    "prk": "",
    "sbl": "",
    "cat": "",
-   "source": "https://www.forexfactory.com/calendar?day=nov30.2026#detail=149748"
+   "source": "https://www.forexfactory.com/calendar?day=nov29.2026#detail=149748"
   },
   {
    "id": "ff-151214",
@@ -6203,10 +6175,10 @@
    "source": "https://www.forexfactory.com/calendar?day=nov30.2026#detail=146832"
   }
  ],
- "updated": "2026-11-06T03:38:13.660212+00:00",
+ "updated": "2026-11-06T11:30:55.151581+00:00",
  "source": "https://www.forexfactory.com/calendar?month=nov.2026",
  "status": "ok",
- "checkedAt": "2026-11-06T03:38:13.660212+00:00",
+ "checkedAt": "2026-11-06T11:30:55.151581+00:00",
  "coverageStart": "2026-11-01",
  "coverageEnd": "2026-11-30",
  "agenda": [
