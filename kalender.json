@@ -82,7 +82,7 @@
    "prk": "0.4%",
    "sbl": "1.3%",
    "cat": "",
-   "source": "https://www.forexfactory.com/calendar?day=nov1.2026#detail=151202"
+   "source": "https://www.forexfactory.com/calendar?day=nov2.2026#detail=151202"
   },
   {
    "id": "ff-147350",
@@ -96,7 +96,7 @@
    "prk": "3.0%",
    "sbl": "3.2%",
    "cat": "",
-   "source": "https://www.forexfactory.com/calendar?day=nov1.2026#detail=147350"
+   "source": "https://www.forexfactory.com/calendar?day=nov2.2026#detail=147350"
   },
   {
    "id": "ff-147205",
@@ -404,7 +404,7 @@
    "prk": "0.0%",
    "sbl": "0.0%",
    "cat": "",
-   "source": "https://www.forexfactory.com/calendar?day=nov2.2026#detail=147313"
+   "source": "https://www.forexfactory.com/calendar?day=nov3.2026#detail=147313"
   },
   {
    "id": "ff-147533",
@@ -418,7 +418,7 @@
    "prk": "",
    "sbl": "-159.6B",
    "cat": "",
-   "source": "https://www.forexfactory.com/calendar?day=nov2.2026#detail=147533"
+   "source": "https://www.forexfactory.com/calendar?day=nov3.2026#detail=147533"
   },
   {
    "id": "ff-149083",
@@ -894,7 +894,7 @@
    "prk": "",
    "sbl": "",
    "cat": "",
-   "source": "https://www.forexfactory.com/calendar?day=nov4.2026#detail=155366"
+   "source": "https://www.forexfactory.com/calendar?day=nov5.2026#detail=155366"
   },
   {
    "id": "ff-151206",
@@ -908,7 +908,7 @@
    "prk": "4.6%",
    "sbl": "-10.6%",
    "cat": "",
-   "source": "https://www.forexfactory.com/calendar?day=nov4.2026#detail=151206"
+   "source": "https://www.forexfactory.com/calendar?day=nov5.2026#detail=151206"
   },
   {
    "id": "ff-147590",
@@ -922,7 +922,7 @@
    "prk": "0.3%",
    "sbl": "-0.3%",
    "cat": "",
-   "source": "https://www.forexfactory.com/calendar?day=nov4.2026#detail=147590"
+   "source": "https://www.forexfactory.com/calendar?day=nov5.2026#detail=147590"
   },
   {
    "id": "ff-147310",
@@ -1300,7 +1300,7 @@
    "prk": "0.0%",
    "sbl": "2.0%",
    "cat": "",
-   "source": "https://www.forexfactory.com/calendar?day=nov5.2026#detail=151205"
+   "source": "https://www.forexfactory.com/calendar?day=nov6.2026#detail=151205"
   },
   {
    "id": "ff-150817",
@@ -1314,7 +1314,7 @@
    "prk": "0.0%",
    "sbl": "0.0%",
    "cat": "",
-   "source": "https://www.forexfactory.com/calendar?day=nov5.2026#detail=150817"
+   "source": "https://www.forexfactory.com/calendar?day=nov6.2026#detail=150817"
   },
   {
    "id": "559447",
@@ -2080,9 +2080,9 @@
    "countryCode": "BR",
    "nama": "Trade Balance (Oct)",
    "dmp": 1,
-   "akt": "",
+   "akt": "9.32B",
    "prk": "9.00B",
-   "sbl": "7.74B",
+   "sbl": "7.27B",
    "cat": "",
    "source": "https://www.investing.com/economic-calendar/"
   },
@@ -2094,7 +2094,7 @@
    "countryCode": "US",
    "nama": "U.S. Baker Hughes Oil Rig Count",
    "dmp": 2,
-   "akt": "",
+   "akt": "463",
    "prk": "",
    "sbl": "462",
    "cat": "",
@@ -2108,275 +2108,9 @@
    "countryCode": "US",
    "nama": "U.S. Baker Hughes Total Rig Count",
    "dmp": 2,
-   "akt": "",
+   "akt": "604",
    "prk": "",
    "sbl": "603",
-   "cat": "",
-   "source": "https://www.investing.com/economic-calendar/"
-  },
-  {
-   "id": "560471",
-   "tgl": "2026-11-07",
-   "jam": "02:30",
-   "neg": "AUD",
-   "countryCode": "AU",
-   "nama": "CFTC AUD speculative net positions",
-   "dmp": 2,
-   "akt": "",
-   "prk": "",
-   "sbl": "-128.3K",
-   "cat": "",
-   "source": "https://www.investing.com/economic-calendar/"
-  },
-  {
-   "id": "560482",
-   "tgl": "2026-11-07",
-   "jam": "02:30",
-   "neg": "USD",
-   "countryCode": "US",
-   "nama": "CFTC Aluminium speculative net positions",
-   "dmp": 1,
-   "akt": "",
-   "prk": "",
-   "sbl": "-1.0K",
-   "cat": "",
-   "source": "https://www.investing.com/economic-calendar/"
-  },
-  {
-   "id": "560477",
-   "tgl": "2026-11-07",
-   "jam": "02:30",
-   "neg": "BRL",
-   "countryCode": "BR",
-   "nama": "CFTC BRL speculative net positions",
-   "dmp": 2,
-   "akt": "",
-   "prk": "",
-   "sbl": "32.9K",
-   "cat": "",
-   "source": "https://www.investing.com/economic-calendar/"
-  },
-  {
-   "id": "560480",
-   "tgl": "2026-11-07",
-   "jam": "02:30",
-   "neg": "CAD",
-   "countryCode": "CA",
-   "nama": "CFTC CAD speculative net positions",
-   "dmp": 1,
-   "akt": "",
-   "prk": "",
-   "sbl": "-66.4K",
-   "cat": "",
-   "source": "https://www.investing.com/economic-calendar/"
-  },
-  {
-   "id": "560472",
-   "tgl": "2026-11-07",
-   "jam": "02:30",
-   "neg": "CHF",
-   "countryCode": "CH",
-   "nama": "CFTC CHF speculative net positions",
-   "dmp": 1,
-   "akt": "",
-   "prk": "",
-   "sbl": "-20.0K",
-   "cat": "",
-   "source": "https://www.investing.com/economic-calendar/"
-  },
-  {
-   "id": "560483",
-   "tgl": "2026-11-07",
-   "jam": "02:30",
-   "neg": "USD",
-   "countryCode": "US",
-   "nama": "CFTC Copper speculative net positions",
-   "dmp": 1,
-   "akt": "",
-   "prk": "",
-   "sbl": "48.3K",
-   "cat": "",
-   "source": "https://www.investing.com/economic-calendar/"
-  },
-  {
-   "id": "560489",
-   "tgl": "2026-11-07",
-   "jam": "02:30",
-   "neg": "USD",
-   "countryCode": "US",
-   "nama": "CFTC Corn speculative net positions",
-   "dmp": 1,
-   "akt": "",
-   "prk": "",
-   "sbl": "201.3K",
-   "cat": "",
-   "source": "https://www.investing.com/economic-calendar/"
-  },
-  {
-   "id": "560486",
-   "tgl": "2026-11-07",
-   "jam": "02:30",
-   "neg": "USD",
-   "countryCode": "US",
-   "nama": "CFTC Crude Oil speculative net positions",
-   "dmp": 2,
-   "akt": "",
-   "prk": "",
-   "sbl": "74.3K",
-   "cat": "",
-   "source": "https://www.investing.com/economic-calendar/"
-  },
-  {
-   "id": "560481",
-   "tgl": "2026-11-07",
-   "jam": "02:30",
-   "neg": "EUR",
-   "countryCode": "EU",
-   "nama": "CFTC EUR speculative net positions",
-   "dmp": 2,
-   "akt": "",
-   "prk": "",
-   "sbl": "-143.9K",
-   "cat": "",
-   "source": "https://www.investing.com/economic-calendar/"
-  },
-  {
-   "id": "560478",
-   "tgl": "2026-11-07",
-   "jam": "02:30",
-   "neg": "GBP",
-   "countryCode": "UK",
-   "nama": "CFTC GBP speculative net positions",
-   "dmp": 2,
-   "akt": "",
-   "prk": "",
-   "sbl": "-79.4K",
-   "cat": "",
-   "source": "https://www.investing.com/economic-calendar/"
-  },
-  {
-   "id": "560484",
-   "tgl": "2026-11-07",
-   "jam": "02:30",
-   "neg": "USD",
-   "countryCode": "US",
-   "nama": "CFTC Gold speculative net positions",
-   "dmp": 2,
-   "akt": "",
-   "prk": "",
-   "sbl": "186.5K",
-   "cat": "",
-   "source": "https://www.investing.com/economic-calendar/"
-  },
-  {
-   "id": "560470",
-   "tgl": "2026-11-07",
-   "jam": "02:30",
-   "neg": "JPY",
-   "countryCode": "JP",
-   "nama": "CFTC JPY speculative net positions",
-   "dmp": 2,
-   "akt": "",
-   "prk": "",
-   "sbl": "101.6K",
-   "cat": "",
-   "source": "https://www.investing.com/economic-calendar/"
-  },
-  {
-   "id": "560479",
-   "tgl": "2026-11-07",
-   "jam": "02:30",
-   "neg": "NZD",
-   "countryCode": "NZ",
-   "nama": "CFTC NZD speculative net positions",
-   "dmp": 1,
-   "akt": "",
-   "prk": "",
-   "sbl": "-57.7K",
-   "cat": "",
-   "source": "https://www.investing.com/economic-calendar/"
-  },
-  {
-   "id": "560476",
-   "tgl": "2026-11-07",
-   "jam": "02:30",
-   "neg": "USD",
-   "countryCode": "US",
-   "nama": "CFTC Nasdaq 100 speculative net positions",
-   "dmp": 2,
-   "akt": "",
-   "prk": "",
-   "sbl": "48.8K",
-   "cat": "",
-   "source": "https://www.investing.com/economic-calendar/"
-  },
-  {
-   "id": "560487",
-   "tgl": "2026-11-07",
-   "jam": "02:30",
-   "neg": "USD",
-   "countryCode": "US",
-   "nama": "CFTC Natural Gas speculative net positions",
-   "dmp": 1,
-   "akt": "",
-   "prk": "",
-   "sbl": "-255.2K",
-   "cat": "",
-   "source": "https://www.investing.com/economic-calendar/"
-  },
-  {
-   "id": "560474",
-   "tgl": "2026-11-07",
-   "jam": "02:30",
-   "neg": "USD",
-   "countryCode": "US",
-   "nama": "CFTC S&P 500 speculative net positions",
-   "dmp": 2,
-   "akt": "",
-   "prk": "",
-   "sbl": "-134.4K",
-   "cat": "",
-   "source": "https://www.investing.com/economic-calendar/"
-  },
-  {
-   "id": "560485",
-   "tgl": "2026-11-07",
-   "jam": "02:30",
-   "neg": "USD",
-   "countryCode": "US",
-   "nama": "CFTC Silver speculative net positions",
-   "dmp": 1,
-   "akt": "",
-   "prk": "",
-   "sbl": "19.7K",
-   "cat": "",
-   "source": "https://www.investing.com/economic-calendar/"
-  },
-  {
-   "id": "560490",
-   "tgl": "2026-11-07",
-   "jam": "02:30",
-   "neg": "USD",
-   "countryCode": "US",
-   "nama": "CFTC Soybeans speculative net positions",
-   "dmp": 1,
-   "akt": "",
-   "prk": "",
-   "sbl": "204.1K",
-   "cat": "",
-   "source": "https://www.investing.com/economic-calendar/"
-  },
-  {
-   "id": "560488",
-   "tgl": "2026-11-07",
-   "jam": "02:30",
-   "neg": "USD",
-   "countryCode": "US",
-   "nama": "CFTC Wheat speculative net positions",
-   "dmp": 1,
-   "akt": "",
-   "prk": "",
-   "sbl": "-50.8K",
    "cat": "",
    "source": "https://www.investing.com/economic-calendar/"
   },
@@ -2388,9 +2122,9 @@
    "countryCode": "US",
    "nama": "Consumer Credit (Sep)",
    "dmp": 2,
-   "akt": "",
+   "akt": "27.84B",
    "prk": "13.40B",
-   "sbl": "8.28B",
+   "sbl": "8.19B",
    "cat": "",
    "source": "https://www.investing.com/economic-calendar/"
   },
@@ -2402,11 +2136,277 @@
    "countryCode": "US",
    "nama": "Consumer Credit m/m",
    "dmp": 1,
-   "akt": "",
+   "akt": "27.8B",
    "prk": "13.4B",
    "sbl": "8.3B",
    "cat": "",
    "source": "https://www.forexfactory.com/calendar?day=nov6.2026#detail=148732"
+  },
+  {
+   "id": "560471",
+   "tgl": "2026-11-07",
+   "jam": "03:30",
+   "neg": "AUD",
+   "countryCode": "AU",
+   "nama": "CFTC AUD speculative net positions",
+   "dmp": 2,
+   "akt": "-129.5K",
+   "prk": "",
+   "sbl": "-128.3K",
+   "cat": "",
+   "source": "https://www.investing.com/economic-calendar/"
+  },
+  {
+   "id": "560482",
+   "tgl": "2026-11-07",
+   "jam": "03:30",
+   "neg": "USD",
+   "countryCode": "US",
+   "nama": "CFTC Aluminium speculative net positions",
+   "dmp": 1,
+   "akt": "-1.4K",
+   "prk": "",
+   "sbl": "-1.0K",
+   "cat": "",
+   "source": "https://www.investing.com/economic-calendar/"
+  },
+  {
+   "id": "560477",
+   "tgl": "2026-11-07",
+   "jam": "03:30",
+   "neg": "BRL",
+   "countryCode": "BR",
+   "nama": "CFTC BRL speculative net positions",
+   "dmp": 2,
+   "akt": "46.0K",
+   "prk": "",
+   "sbl": "32.9K",
+   "cat": "",
+   "source": "https://www.investing.com/economic-calendar/"
+  },
+  {
+   "id": "560480",
+   "tgl": "2026-11-07",
+   "jam": "03:30",
+   "neg": "CAD",
+   "countryCode": "CA",
+   "nama": "CFTC CAD speculative net positions",
+   "dmp": 1,
+   "akt": "-41.8K",
+   "prk": "",
+   "sbl": "-66.4K",
+   "cat": "",
+   "source": "https://www.investing.com/economic-calendar/"
+  },
+  {
+   "id": "560472",
+   "tgl": "2026-11-07",
+   "jam": "03:30",
+   "neg": "CHF",
+   "countryCode": "CH",
+   "nama": "CFTC CHF speculative net positions",
+   "dmp": 1,
+   "akt": "-16.6K",
+   "prk": "",
+   "sbl": "-20.0K",
+   "cat": "",
+   "source": "https://www.investing.com/economic-calendar/"
+  },
+  {
+   "id": "560483",
+   "tgl": "2026-11-07",
+   "jam": "03:30",
+   "neg": "USD",
+   "countryCode": "US",
+   "nama": "CFTC Copper speculative net positions",
+   "dmp": 1,
+   "akt": "37.7K",
+   "prk": "",
+   "sbl": "48.3K",
+   "cat": "",
+   "source": "https://www.investing.com/economic-calendar/"
+  },
+  {
+   "id": "560489",
+   "tgl": "2026-11-07",
+   "jam": "03:30",
+   "neg": "USD",
+   "countryCode": "US",
+   "nama": "CFTC Corn speculative net positions",
+   "dmp": 1,
+   "akt": "137.6K",
+   "prk": "",
+   "sbl": "201.3K",
+   "cat": "",
+   "source": "https://www.investing.com/economic-calendar/"
+  },
+  {
+   "id": "560486",
+   "tgl": "2026-11-07",
+   "jam": "03:30",
+   "neg": "USD",
+   "countryCode": "US",
+   "nama": "CFTC Crude Oil speculative net positions",
+   "dmp": 2,
+   "akt": "80.3K",
+   "prk": "",
+   "sbl": "74.3K",
+   "cat": "",
+   "source": "https://www.investing.com/economic-calendar/"
+  },
+  {
+   "id": "560481",
+   "tgl": "2026-11-07",
+   "jam": "03:30",
+   "neg": "EUR",
+   "countryCode": "EU",
+   "nama": "CFTC EUR speculative net positions",
+   "dmp": 2,
+   "akt": "-157.8K",
+   "prk": "",
+   "sbl": "-143.9K",
+   "cat": "",
+   "source": "https://www.investing.com/economic-calendar/"
+  },
+  {
+   "id": "560478",
+   "tgl": "2026-11-07",
+   "jam": "03:30",
+   "neg": "GBP",
+   "countryCode": "UK",
+   "nama": "CFTC GBP speculative net positions",
+   "dmp": 2,
+   "akt": "-59.8K",
+   "prk": "",
+   "sbl": "-79.4K",
+   "cat": "",
+   "source": "https://www.investing.com/economic-calendar/"
+  },
+  {
+   "id": "560484",
+   "tgl": "2026-11-07",
+   "jam": "03:30",
+   "neg": "USD",
+   "countryCode": "US",
+   "nama": "CFTC Gold speculative net positions",
+   "dmp": 2,
+   "akt": "179.5K",
+   "prk": "",
+   "sbl": "186.5K",
+   "cat": "",
+   "source": "https://www.investing.com/economic-calendar/"
+  },
+  {
+   "id": "560470",
+   "tgl": "2026-11-07",
+   "jam": "03:30",
+   "neg": "JPY",
+   "countryCode": "JP",
+   "nama": "CFTC JPY speculative net positions",
+   "dmp": 2,
+   "akt": "102.3K",
+   "prk": "",
+   "sbl": "101.6K",
+   "cat": "",
+   "source": "https://www.investing.com/economic-calendar/"
+  },
+  {
+   "id": "560479",
+   "tgl": "2026-11-07",
+   "jam": "03:30",
+   "neg": "NZD",
+   "countryCode": "NZ",
+   "nama": "CFTC NZD speculative net positions",
+   "dmp": 1,
+   "akt": "-60.0K",
+   "prk": "",
+   "sbl": "-57.7K",
+   "cat": "",
+   "source": "https://www.investing.com/economic-calendar/"
+  },
+  {
+   "id": "560476",
+   "tgl": "2026-11-07",
+   "jam": "03:30",
+   "neg": "USD",
+   "countryCode": "US",
+   "nama": "CFTC Nasdaq 100 speculative net positions",
+   "dmp": 2,
+   "akt": "42.9K",
+   "prk": "",
+   "sbl": "48.8K",
+   "cat": "",
+   "source": "https://www.investing.com/economic-calendar/"
+  },
+  {
+   "id": "560487",
+   "tgl": "2026-11-07",
+   "jam": "03:30",
+   "neg": "USD",
+   "countryCode": "US",
+   "nama": "CFTC Natural Gas speculative net positions",
+   "dmp": 1,
+   "akt": "-258.9K",
+   "prk": "",
+   "sbl": "-255.2K",
+   "cat": "",
+   "source": "https://www.investing.com/economic-calendar/"
+  },
+  {
+   "id": "560474",
+   "tgl": "2026-11-07",
+   "jam": "03:30",
+   "neg": "USD",
+   "countryCode": "US",
+   "nama": "CFTC S&P 500 speculative net positions",
+   "dmp": 2,
+   "akt": "-129.4K",
+   "prk": "",
+   "sbl": "-134.4K",
+   "cat": "",
+   "source": "https://www.investing.com/economic-calendar/"
+  },
+  {
+   "id": "560485",
+   "tgl": "2026-11-07",
+   "jam": "03:30",
+   "neg": "USD",
+   "countryCode": "US",
+   "nama": "CFTC Silver speculative net positions",
+   "dmp": 1,
+   "akt": "21.3K",
+   "prk": "",
+   "sbl": "19.7K",
+   "cat": "",
+   "source": "https://www.investing.com/economic-calendar/"
+  },
+  {
+   "id": "560490",
+   "tgl": "2026-11-07",
+   "jam": "03:30",
+   "neg": "USD",
+   "countryCode": "US",
+   "nama": "CFTC Soybeans speculative net positions",
+   "dmp": 1,
+   "akt": "163.6K",
+   "prk": "",
+   "sbl": "204.1K",
+   "cat": "",
+   "source": "https://www.investing.com/economic-calendar/"
+  },
+  {
+   "id": "560488",
+   "tgl": "2026-11-07",
+   "jam": "03:30",
+   "neg": "USD",
+   "countryCode": "US",
+   "nama": "CFTC Wheat speculative net positions",
+   "dmp": 1,
+   "akt": "-62.5K",
+   "prk": "",
+   "sbl": "-50.8K",
+   "cat": "",
+   "source": "https://www.investing.com/economic-calendar/"
   },
   {
    "id": "ff-151381",
@@ -2501,7 +2501,7 @@
    "nama": "PPI y/y",
    "dmp": 1,
    "akt": "",
-   "prk": "5.4%",
+   "prk": "5.3%",
    "sbl": "5.0%",
    "cat": "",
    "source": "https://www.forexfactory.com/calendar?day=nov8.2026#detail=150203"
@@ -2515,7 +2515,7 @@
    "nama": "Leading Indicators",
    "dmp": 1,
    "akt": "",
-   "prk": "116.4%",
+   "prk": "116.7%",
    "sbl": "118.0%",
    "cat": "",
    "source": "https://www.forexfactory.com/calendar?day=nov8.2026#detail=149664"
@@ -2529,10 +2529,10 @@
    "nama": "German Trade Balance",
    "dmp": 1,
    "akt": "",
-   "prk": "18.1B",
+   "prk": "19.2B",
    "sbl": "19.5B",
    "cat": "",
-   "source": "https://www.forexfactory.com/calendar?day=nov8.2026#detail=151207"
+   "source": "https://www.forexfactory.com/calendar?day=nov9.2026#detail=151207"
   },
   {
    "id": "ff-150598",
@@ -2543,7 +2543,7 @@
    "nama": "Sentix Investor Confidence",
    "dmp": 1,
    "akt": "",
-   "prk": "1.8",
+   "prk": "2.1",
    "sbl": "2.7",
    "cat": "",
    "source": "https://www.forexfactory.com/calendar?day=nov9.2026#detail=150598"
@@ -2683,7 +2683,7 @@
    "nama": "Household Spending y/y",
    "dmp": 1,
    "akt": "",
-   "prk": "-3.0%",
+   "prk": "-3.1%",
    "sbl": "-3.1%",
    "cat": "",
    "source": "https://www.forexfactory.com/calendar?day=nov9.2026#detail=149626"
@@ -2739,7 +2739,7 @@
    "nama": "Current Account",
    "dmp": 1,
    "akt": "",
-   "prk": "2.79T",
+   "prk": "2.81T",
    "sbl": "2.98T",
    "cat": "",
    "source": "https://www.forexfactory.com/calendar?day=nov9.2026#detail=149598"
@@ -2753,7 +2753,7 @@
    "nama": "BRC Retail Sales Monitor y/y",
    "dmp": 1,
    "akt": "",
-   "prk": "",
+   "prk": "1.2%",
    "sbl": "1.0%",
    "cat": "",
    "source": "https://www.forexfactory.com/calendar?day=nov9.2026#detail=150831"
@@ -2795,10 +2795,24 @@
    "nama": "Economy Watchers Sentiment",
    "dmp": 1,
    "akt": "",
-   "prk": "46.8",
+   "prk": "46.9",
    "sbl": "47.0",
    "cat": "",
    "source": "https://www.forexfactory.com/calendar?day=nov9.2026#detail=148817"
+  },
+  {
+   "id": "ff-155615",
+   "tgl": "2026-11-10",
+   "jam": "15:30",
+   "neg": "GBP",
+   "countryCode": "GB",
+   "nama": "MPC Member Breeden Speaks",
+   "dmp": 1,
+   "akt": "",
+   "prk": "",
+   "sbl": "",
+   "cat": "",
+   "source": "https://www.forexfactory.com/calendar?day=nov10.2026#detail=155615"
   },
   {
    "id": "ff-155594",
@@ -3050,7 +3064,7 @@
    "prk": "",
    "sbl": "60.4%",
    "cat": "",
-   "source": "https://www.forexfactory.com/calendar?day=nov10.2026#detail=149700"
+   "source": "https://www.forexfactory.com/calendar?day=nov11.2026#detail=149700"
   },
   {
    "id": "ff-151208",
@@ -3064,7 +3078,7 @@
    "prk": "-0.2%",
    "sbl": "-0.2%",
    "cat": "",
-   "source": "https://www.forexfactory.com/calendar?day=nov10.2026#detail=151208"
+   "source": "https://www.forexfactory.com/calendar?day=nov11.2026#detail=151208"
   },
   {
    "id": "ff-155605",
@@ -3089,7 +3103,7 @@
    "nama": "Italian Industrial Production m/m",
    "dmp": 1,
    "akt": "",
-   "prk": "1.0%",
+   "prk": "0.7%",
    "sbl": "-1.3%",
    "cat": "",
    "source": "https://www.forexfactory.com/calendar?day=nov11.2026#detail=147744"
@@ -3173,10 +3187,10 @@
    "nama": "Construction Output m/m",
    "dmp": 1,
    "akt": "",
-   "prk": "-0.1%",
+   "prk": "0.0%",
    "sbl": "-0.2%",
    "cat": "",
-   "source": "https://www.forexfactory.com/calendar?day=nov11.2026#detail=151575"
+   "source": "https://www.forexfactory.com/calendar?day=nov12.2026#detail=151575"
   },
   {
    "id": "ff-151570",
@@ -3190,7 +3204,7 @@
    "prk": "0.0%",
    "sbl": "0.1%",
    "cat": "",
-   "source": "https://www.forexfactory.com/calendar?day=nov11.2026#detail=151570"
+   "source": "https://www.forexfactory.com/calendar?day=nov12.2026#detail=151570"
   },
   {
    "id": "ff-151573",
@@ -3204,7 +3218,7 @@
    "prk": "-19.2B",
    "sbl": "-18.0B",
    "cat": "",
-   "source": "https://www.forexfactory.com/calendar?day=nov11.2026#detail=151573"
+   "source": "https://www.forexfactory.com/calendar?day=nov12.2026#detail=151573"
   },
   {
    "id": "ff-151572",
@@ -3218,7 +3232,7 @@
    "prk": "0.9%",
    "sbl": "0.9%",
    "cat": "",
-   "source": "https://www.forexfactory.com/calendar?day=nov11.2026#detail=151572"
+   "source": "https://www.forexfactory.com/calendar?day=nov12.2026#detail=151572"
   },
   {
    "id": "ff-151571",
@@ -3232,7 +3246,7 @@
    "prk": "-0.4%",
    "sbl": "0.8%",
    "cat": "",
-   "source": "https://www.forexfactory.com/calendar?day=nov11.2026#detail=151571"
+   "source": "https://www.forexfactory.com/calendar?day=nov12.2026#detail=151571"
   },
   {
    "id": "ff-151574",
@@ -3246,7 +3260,7 @@
    "prk": "-0.5%",
    "sbl": "1.2%",
    "cat": "",
-   "source": "https://www.forexfactory.com/calendar?day=nov11.2026#detail=151574"
+   "source": "https://www.forexfactory.com/calendar?day=nov12.2026#detail=151574"
   },
   {
    "id": "ff-151600",
@@ -3257,10 +3271,10 @@
    "nama": "Prelim Business Investment q/q",
    "dmp": 1,
    "akt": "",
-   "prk": "-0.2%",
+   "prk": "-0.3%",
    "sbl": "1.7%",
    "cat": "",
-   "source": "https://www.forexfactory.com/calendar?day=nov11.2026#detail=151600"
+   "source": "https://www.forexfactory.com/calendar?day=nov12.2026#detail=151600"
   },
   {
    "id": "ff-151601",
@@ -3274,7 +3288,7 @@
    "prk": "0.7%",
    "sbl": "0.5%",
    "cat": "",
-   "source": "https://www.forexfactory.com/calendar?day=nov11.2026#detail=151601"
+   "source": "https://www.forexfactory.com/calendar?day=nov12.2026#detail=151601"
   },
   {
    "id": "ff-150559",
@@ -3313,7 +3327,7 @@
    "nama": "Building Permits m/m",
    "dmp": 1,
    "akt": "",
-   "prk": "",
+   "prk": "-3.9%",
    "sbl": "8.8%",
    "cat": "",
    "source": "https://www.forexfactory.com/calendar?day=nov12.2026#detail=149306"
@@ -3327,7 +3341,7 @@
    "nama": "Unemployment Claims",
    "dmp": 2,
    "akt": "",
-   "prk": "195K",
+   "prk": "194K",
    "sbl": "189K",
    "cat": "",
    "source": "https://www.forexfactory.com/calendar?day=nov12.2026#detail=147023"
@@ -3355,7 +3369,7 @@
    "nama": "Existing Home Sales",
    "dmp": 1,
    "akt": "",
-   "prk": "3.87M",
+   "prk": "3.86M",
    "sbl": "3.99M",
    "cat": "",
    "source": "https://www.forexfactory.com/calendar?day=nov12.2026#detail=149834"
@@ -3473,6 +3487,20 @@
    "source": "https://www.forexfactory.com/calendar?day=nov12.2026#detail=146808"
   },
   {
+   "id": "ff-155617",
+   "tgl": "2026-11-13",
+   "jam": "02:30",
+   "neg": "EUR",
+   "countryCode": "EU",
+   "nama": "ECB President Lagarde Speaks",
+   "dmp": 2,
+   "akt": "",
+   "prk": "",
+   "sbl": "",
+   "cat": "",
+   "source": "https://www.forexfactory.com/calendar?day=nov12.2026#detail=155617"
+  },
+  {
    "id": "ff-149349",
    "tgl": "2026-11-13",
    "jam": "04:30",
@@ -3512,7 +3540,7 @@
    "prk": "0.4%",
    "sbl": "1.9%",
    "cat": "",
-   "source": "https://www.forexfactory.com/calendar?day=nov12.2026#detail=151209"
+   "source": "https://www.forexfactory.com/calendar?day=nov13.2026#detail=151209"
   },
   {
    "id": "ff-147334",
@@ -3526,7 +3554,7 @@
    "prk": "0.2%",
    "sbl": "0.3%",
    "cat": "",
-   "source": "https://www.forexfactory.com/calendar?day=nov12.2026#detail=147334"
+   "source": "https://www.forexfactory.com/calendar?day=nov13.2026#detail=147334"
   },
   {
    "id": "ff-147555",
@@ -3540,7 +3568,7 @@
    "prk": "0.4%",
    "sbl": "0.4%",
    "cat": "",
-   "source": "https://www.forexfactory.com/calendar?day=nov12.2026#detail=147555"
+   "source": "https://www.forexfactory.com/calendar?day=nov13.2026#detail=147555"
   },
   {
    "id": "ff-147741",
@@ -3621,7 +3649,7 @@
    "nama": "Manufacturing Sales m/m",
    "dmp": 1,
    "akt": "",
-   "prk": "0.2%",
+   "prk": "0.1%",
    "sbl": "1.5%",
    "cat": "",
    "source": "https://www.forexfactory.com/calendar?day=nov13.2026#detail=149248"
@@ -3649,7 +3677,7 @@
    "nama": "Wholesale Sales m/m",
    "dmp": 1,
    "akt": "",
-   "prk": "0.4%",
+   "prk": "0.5%",
    "sbl": "-1.6%",
    "cat": "",
    "source": "https://www.forexfactory.com/calendar?day=nov13.2026#detail=149257"
@@ -3737,6 +3765,20 @@
    "sbl": "",
    "cat": "",
    "source": "https://www.forexfactory.com/calendar?day=nov13.2026#detail=155606"
+  },
+  {
+   "id": "ff-155616",
+   "tgl": "2026-11-14",
+   "jam": "18:00",
+   "neg": "GBP",
+   "countryCode": "GB",
+   "nama": "MPC Member Greene Speaks",
+   "dmp": 1,
+   "akt": "",
+   "prk": "",
+   "sbl": "",
+   "cat": "",
+   "source": "https://www.forexfactory.com/calendar?day=nov14.2026#detail=155616"
   },
   {
    "id": "ff-146942",
@@ -4128,7 +4170,7 @@
    "prk": "",
    "sbl": "",
    "cat": "",
-   "source": "https://www.forexfactory.com/calendar?day=nov16.2026#detail=151094"
+   "source": "https://www.forexfactory.com/calendar?day=nov17.2026#detail=151094"
   },
   {
    "id": "ff-151096",
@@ -4142,7 +4184,7 @@
    "prk": "",
    "sbl": "",
    "cat": "",
-   "source": "https://www.forexfactory.com/calendar?day=nov16.2026#detail=151096"
+   "source": "https://www.forexfactory.com/calendar?day=nov17.2026#detail=151096"
   },
   {
    "id": "ff-151095",
@@ -4156,7 +4198,7 @@
    "prk": "",
    "sbl": "",
    "cat": "",
-   "source": "https://www.forexfactory.com/calendar?day=nov16.2026#detail=151095"
+   "source": "https://www.forexfactory.com/calendar?day=nov17.2026#detail=151095"
   },
   {
    "id": "ff-150507",
@@ -4352,7 +4394,7 @@
    "prk": "",
    "sbl": "",
    "cat": "",
-   "source": "https://www.forexfactory.com/calendar?day=nov17.2026#detail=150216"
+   "source": "https://www.forexfactory.com/calendar?day=nov18.2026#detail=150216"
   },
   {
    "id": "ff-147100",
@@ -4450,7 +4492,7 @@
    "prk": "",
    "sbl": "",
    "cat": "",
-   "source": "https://www.forexfactory.com/calendar?day=nov17.2026#detail=155375"
+   "source": "https://www.forexfactory.com/calendar?day=nov18.2026#detail=155375"
   },
   {
    "id": "ff-151464",
@@ -4464,7 +4506,7 @@
    "prk": "",
    "sbl": "",
    "cat": "",
-   "source": "https://www.forexfactory.com/calendar?day=nov17.2026#detail=151464"
+   "source": "https://www.forexfactory.com/calendar?day=nov18.2026#detail=151464"
   },
   {
    "id": "ff-151461",
@@ -4478,7 +4520,7 @@
    "prk": "",
    "sbl": "",
    "cat": "",
-   "source": "https://www.forexfactory.com/calendar?day=nov17.2026#detail=151461"
+   "source": "https://www.forexfactory.com/calendar?day=nov18.2026#detail=151461"
   },
   {
    "id": "ff-151460",
@@ -4492,7 +4534,7 @@
    "prk": "",
    "sbl": "",
    "cat": "",
-   "source": "https://www.forexfactory.com/calendar?day=nov17.2026#detail=151460"
+   "source": "https://www.forexfactory.com/calendar?day=nov18.2026#detail=151460"
   },
   {
    "id": "ff-151459",
@@ -4506,7 +4548,7 @@
    "prk": "",
    "sbl": "",
    "cat": "",
-   "source": "https://www.forexfactory.com/calendar?day=nov17.2026#detail=151459"
+   "source": "https://www.forexfactory.com/calendar?day=nov18.2026#detail=151459"
   },
   {
    "id": "ff-150562",
@@ -4898,7 +4940,7 @@
    "prk": "",
    "sbl": "",
    "cat": "",
-   "source": "https://www.forexfactory.com/calendar?day=nov19.2026#detail=151210"
+   "source": "https://www.forexfactory.com/calendar?day=nov20.2026#detail=151210"
   },
   {
    "id": "ff-151624",
@@ -4912,7 +4954,7 @@
    "prk": "",
    "sbl": "",
    "cat": "",
-   "source": "https://www.forexfactory.com/calendar?day=nov19.2026#detail=151624"
+   "source": "https://www.forexfactory.com/calendar?day=nov20.2026#detail=151624"
   },
   {
    "id": "ff-151612",
@@ -4926,7 +4968,7 @@
    "prk": "",
    "sbl": "",
    "cat": "",
-   "source": "https://www.forexfactory.com/calendar?day=nov19.2026#detail=151612"
+   "source": "https://www.forexfactory.com/calendar?day=nov20.2026#detail=151612"
   },
   {
    "id": "ff-149220",
@@ -5052,7 +5094,7 @@
    "prk": "",
    "sbl": "",
    "cat": "",
-   "source": "https://www.forexfactory.com/calendar?day=nov22.2026#detail=151211"
+   "source": "https://www.forexfactory.com/calendar?day=nov23.2026#detail=151211"
   },
   {
    "id": "ff-150011",
@@ -5724,7 +5766,7 @@
    "prk": "",
    "sbl": "",
    "cat": "",
-   "source": "https://www.forexfactory.com/calendar?day=nov25.2026#detail=150483"
+   "source": "https://www.forexfactory.com/calendar?day=nov26.2026#detail=150483"
   },
   {
    "id": "ff-150587",
@@ -5836,7 +5878,7 @@
    "prk": "",
    "sbl": "",
    "cat": "",
-   "source": "https://www.forexfactory.com/calendar?day=nov26.2026#detail=147589"
+   "source": "https://www.forexfactory.com/calendar?day=nov27.2026#detail=147589"
   },
   {
    "id": "ff-151731",
@@ -5850,7 +5892,7 @@
    "prk": "",
    "sbl": "",
    "cat": "",
-   "source": "https://www.forexfactory.com/calendar?day=nov26.2026#detail=151731"
+   "source": "https://www.forexfactory.com/calendar?day=nov27.2026#detail=151731"
   },
   {
    "id": "ff-147556",
@@ -5864,7 +5906,7 @@
    "prk": "",
    "sbl": "",
    "cat": "",
-   "source": "https://www.forexfactory.com/calendar?day=nov26.2026#detail=147556"
+   "source": "https://www.forexfactory.com/calendar?day=nov27.2026#detail=147556"
   },
   {
    "id": "ff-151743",
@@ -5878,7 +5920,7 @@
    "prk": "",
    "sbl": "",
    "cat": "",
-   "source": "https://www.forexfactory.com/calendar?day=nov26.2026#detail=151743"
+   "source": "https://www.forexfactory.com/calendar?day=nov27.2026#detail=151743"
   },
   {
    "id": "ff-147508",
@@ -5976,7 +6018,7 @@
    "prk": "",
    "sbl": "",
    "cat": "",
-   "source": "https://www.forexfactory.com/calendar?day=nov29.2026#detail=151212"
+   "source": "https://www.forexfactory.com/calendar?day=nov30.2026#detail=151212"
   },
   {
    "id": "ff-150806",
@@ -5990,7 +6032,7 @@
    "prk": "",
    "sbl": "",
    "cat": "",
-   "source": "https://www.forexfactory.com/calendar?day=nov29.2026#detail=150806"
+   "source": "https://www.forexfactory.com/calendar?day=nov30.2026#detail=150806"
   },
   {
    "id": "ff-147349",
@@ -6004,7 +6046,7 @@
    "prk": "",
    "sbl": "",
    "cat": "",
-   "source": "https://www.forexfactory.com/calendar?day=nov29.2026#detail=147349"
+   "source": "https://www.forexfactory.com/calendar?day=nov30.2026#detail=147349"
   },
   {
    "id": "ff-149676",
@@ -6158,7 +6200,7 @@
    "prk": "",
    "sbl": "",
    "cat": "",
-   "source": "https://www.forexfactory.com/calendar?day=nov29.2026#detail=151214"
+   "source": "https://www.forexfactory.com/calendar?day=nov30.2026#detail=151214"
   },
   {
    "id": "ff-151213",
@@ -6172,7 +6214,7 @@
    "prk": "",
    "sbl": "",
    "cat": "",
-   "source": "https://www.forexfactory.com/calendar?day=nov29.2026#detail=151213"
+   "source": "https://www.forexfactory.com/calendar?day=nov30.2026#detail=151213"
   },
   {
    "id": "ff-147398",
@@ -6287,10 +6329,10 @@
    "source": "https://www.forexfactory.com/calendar?day=nov30.2026#detail=146832"
   }
  ],
- "updated": "2026-11-06T18:21:59.326618+00:00",
+ "updated": "2026-11-06T23:20:33.304881+00:00",
  "source": "https://www.forexfactory.com/calendar?month=nov.2026",
  "status": "ok",
- "checkedAt": "2026-11-06T18:21:59.326618+00:00",
+ "checkedAt": "2026-11-06T23:20:33.304881+00:00",
  "coverageStart": "2026-11-01",
  "coverageEnd": "2026-11-30",
  "agenda": [
