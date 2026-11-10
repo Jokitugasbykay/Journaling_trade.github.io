@@ -68,7 +68,7 @@
    "prk": "",
    "sbl": "15.5%",
    "cat": "",
-   "source": "https://www.forexfactory.com/calendar?day=nov1.2026#detail=148391"
+   "source": "https://www.forexfactory.com/calendar?day=nov2.2026#detail=148391"
   },
   {
    "id": "ff-151202",
@@ -1664,7 +1664,7 @@
    "prk": "116.7%",
    "sbl": "118.0%",
    "cat": "",
-   "source": "https://www.forexfactory.com/calendar?day=nov8.2026#detail=149664"
+   "source": "https://www.forexfactory.com/calendar?day=nov9.2026#detail=149664"
   },
   {
    "id": "ff-151207",
@@ -2042,7 +2042,7 @@
    "prk": "47.1",
    "sbl": "47.0",
    "cat": "",
-   "source": "https://www.forexfactory.com/calendar?day=nov9.2026#detail=148817"
+   "source": "https://www.forexfactory.com/calendar?day=nov10.2026#detail=148817"
   },
   {
    "id": "559660",
@@ -2507,20 +2507,6 @@
    "source": "https://www.forexfactory.com/calendar?day=nov10.2026#detail=155601"
   },
   {
-   "id": "559719",
-   "tgl": "2026-11-10",
-   "jam": "23:00",
-   "neg": "USD",
-   "countryCode": "US",
-   "nama": "Cleveland CPI (Oct)",
-   "dmp": 1,
-   "akt": "",
-   "prk": "",
-   "sbl": "0.2%",
-   "cat": "",
-   "source": "https://www.investing.com/economic-calendar/"
-  },
-  {
    "id": "560622",
    "tgl": "2026-11-10",
    "jam": "23:00",
@@ -2612,9 +2598,23 @@
    "countryCode": "US",
    "nama": "10-Year Note Auction",
    "dmp": 3,
-   "akt": "",
+   "akt": "5.020%",
    "prk": "",
    "sbl": "5.300%",
+   "cat": "",
+   "source": "https://www.investing.com/economic-calendar/"
+  },
+  {
+   "id": "559719",
+   "tgl": "2026-11-11",
+   "jam": "01:00",
+   "neg": "USD",
+   "countryCode": "US",
+   "nama": "Cleveland CPI (Oct)",
+   "dmp": 1,
+   "akt": "0.3%",
+   "prk": "",
+   "sbl": "0.2%",
    "cat": "",
    "source": "https://www.investing.com/economic-calendar/"
   },
@@ -2626,7 +2626,7 @@
    "countryCode": "US",
    "nama": "10-y Bond Auction",
    "dmp": 1,
-   "akt": "",
+   "akt": "5.02|2.5",
    "prk": "",
    "sbl": "5.30|2.8",
    "cat": "",
@@ -5192,7 +5192,7 @@
    "prk": "",
    "sbl": "",
    "cat": "",
-   "source": "https://www.forexfactory.com/calendar?day=nov23.2026#detail=149908"
+   "source": "https://www.forexfactory.com/calendar?day=nov24.2026#detail=149908"
   },
   {
    "id": "ff-150436",
@@ -6046,7 +6046,7 @@
    "prk": "",
    "sbl": "",
    "cat": "",
-   "source": "https://www.forexfactory.com/calendar?day=nov29.2026#detail=149748"
+   "source": "https://www.forexfactory.com/calendar?day=nov30.2026#detail=149748"
   },
   {
    "id": "ff-151214",
@@ -6189,10 +6189,10 @@
    "source": "https://www.forexfactory.com/calendar?day=nov30.2026#detail=146832"
   }
  ],
- "updated": "2026-11-10T15:45:49.055061+00:00",
+ "updated": "2026-11-10T21:29:26.883302+00:00",
  "source": "https://www.forexfactory.com/calendar?month=nov.2026",
  "status": "ok",
- "checkedAt": "2026-11-10T15:45:49.055061+00:00",
+ "checkedAt": "2026-11-10T21:29:26.883302+00:00",
  "coverageStart": "2026-11-01",
  "coverageEnd": "2026-11-30",
  "agenda": [
