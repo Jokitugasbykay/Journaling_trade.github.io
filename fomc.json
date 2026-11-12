@@ -238,7 +238,7 @@
     {
       "date": "2027-03-17",
       "decisionAt": "2027-03-17T18:00:00+00:00",
-      "hasProjections": true
+      "hasProjections": false
     },
     {
       "date": "2027-04-28",
@@ -248,7 +248,7 @@
     {
       "date": "2027-06-09",
       "decisionAt": "2027-06-09T18:00:00+00:00",
-      "hasProjections": true
+      "hasProjections": false
     },
     {
       "date": "2027-07-28",
@@ -258,7 +258,7 @@
     {
       "date": "2027-09-15",
       "decisionAt": "2027-09-15T18:00:00+00:00",
-      "hasProjections": true
+      "hasProjections": false
     },
     {
       "date": "2027-10-27",
@@ -266,9 +266,9 @@
       "hasProjections": false
     },
     {
-      "date": "2027-12-08",
-      "decisionAt": "2027-12-08T19:00:00+00:00",
-      "hasProjections": true
+      "date": "2027-11-17",
+      "decisionAt": "2027-11-17T19:00:00+00:00",
+      "hasProjections": false
     }
   ],
   "probabilities": [
@@ -290,7 +290,7 @@
       "status": "ok",
       "name": "CME FedWatch via Beansprout",
       "url": "https://growbeansprout.com/tools/fedwatch",
-      "checkedAt": "2026-11-12T11:44:30.153116+00:00"
+      "checkedAt": "2026-11-12T19:13:52.074726+00:00"
     },
     {
       "meetingDate": "2026-12-09",
@@ -310,13 +310,13 @@
       "status": "stale",
       "name": "Investing.com Fed Rate Monitor",
       "url": "https://www.investing.com/central-banks/fed-rate-monitor",
-      "checkedAt": "2026-11-12T11:44:30.153116+00:00"
+      "checkedAt": "2026-11-12T19:13:52.074726+00:00"
     }
   ],
   "scheduleStatus": "ok",
-  "scheduleCheckedAt": "2026-11-12T11:44:30.153116+00:00",
+  "scheduleCheckedAt": "2026-11-12T19:13:52.074726+00:00",
   "version": 1,
-  "checkedAt": "2026-11-12T11:44:30.153116+00:00",
+  "checkedAt": "2026-11-12T19:13:52.074726+00:00",
   "scheduleSource": "https://www.federalreserve.gov/monetarypolicy/fomccalendars.htm",
   "currentTarget": {
     "lower": 3.75,
