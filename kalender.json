@@ -68,7 +68,7 @@
    "prk": "",
    "sbl": "15.5%",
    "cat": "",
-   "source": "https://www.forexfactory.com/calendar?day=nov2.2026#detail=148391"
+   "source": "https://www.forexfactory.com/calendar?day=nov1.2026#detail=148391"
   },
   {
    "id": "ff-151202",
@@ -1664,7 +1664,7 @@
    "prk": "116.7%",
    "sbl": "118.0%",
    "cat": "",
-   "source": "https://www.forexfactory.com/calendar?day=nov9.2026#detail=149664"
+   "source": "https://www.forexfactory.com/calendar?day=nov8.2026#detail=149664"
   },
   {
    "id": "ff-151207",
@@ -1930,7 +1930,7 @@
    "prk": "47.1",
    "sbl": "47.0",
    "cat": "",
-   "source": "https://www.forexfactory.com/calendar?day=nov10.2026#detail=148817"
+   "source": "https://www.forexfactory.com/calendar?day=nov9.2026#detail=148817"
   },
   {
    "id": "ff-155615",
@@ -2675,6 +2675,132 @@
    "source": "https://www.forexfactory.com/calendar?day=nov12.2026#detail=155603"
   },
   {
+   "id": "559938",
+   "tgl": "2026-11-13",
+   "jam": "09:00",
+   "neg": "CNY",
+   "countryCode": "CN",
+   "nama": "China Thomson Reuters IPSOS PCSI (Nov)",
+   "dmp": 1,
+   "akt": "70.44",
+   "prk": "",
+   "sbl": "69.29",
+   "cat": "",
+   "source": "https://www.investing.com/economic-calendar/"
+  },
+  {
+   "id": "559936",
+   "tgl": "2026-11-13",
+   "jam": "09:00",
+   "neg": "KRW",
+   "countryCode": "KR",
+   "nama": "Thomson Reuters IPSOS PCSI (Nov)",
+   "dmp": 1,
+   "akt": "43.00",
+   "prk": "",
+   "sbl": "44.06",
+   "cat": "",
+   "source": "https://www.investing.com/economic-calendar/"
+  },
+  {
+   "id": "559939",
+   "tgl": "2026-11-13",
+   "jam": "09:00",
+   "neg": "INR",
+   "countryCode": "IN",
+   "nama": "Thomson Reuters IPSOS PCSI (Nov)",
+   "dmp": 1,
+   "akt": "64.54",
+   "prk": "",
+   "sbl": "64.32",
+   "cat": "",
+   "source": "https://www.investing.com/economic-calendar/"
+  },
+  {
+   "id": "559940",
+   "tgl": "2026-11-13",
+   "jam": "09:00",
+   "neg": "AUD",
+   "countryCode": "AU",
+   "nama": "Thomson Reuters IPSOS PCSI (Nov)",
+   "dmp": 1,
+   "akt": "44.06",
+   "prk": "",
+   "sbl": "45.62",
+   "cat": "",
+   "source": "https://www.investing.com/economic-calendar/"
+  },
+  {
+   "id": "559937",
+   "tgl": "2026-11-13",
+   "jam": "09:00",
+   "neg": "JPY",
+   "countryCode": "JP",
+   "nama": "Thomson Reuters IPSOS PCSI (Nov)",
+   "dmp": 1,
+   "akt": "37.67",
+   "prk": "",
+   "sbl": "38.96",
+   "cat": "",
+   "source": "https://www.investing.com/economic-calendar/"
+  },
+  {
+   "id": "559941",
+   "tgl": "2026-11-13",
+   "jam": "10:00",
+   "neg": "KRW",
+   "countryCode": "KR",
+   "nama": "M2 Money supply (Sep)",
+   "dmp": 1,
+   "akt": "7.00%",
+   "prk": "",
+   "sbl": "7.20%",
+   "cat": "",
+   "source": "https://www.investing.com/economic-calendar/"
+  },
+  {
+   "id": "559942",
+   "tgl": "2026-11-13",
+   "jam": "10:00",
+   "neg": "KRW",
+   "countryCode": "KR",
+   "nama": "M3 Money Supply (Sep)",
+   "dmp": 1,
+   "akt": "6,393.8B",
+   "prk": "",
+   "sbl": "6,368.9B",
+   "cat": "",
+   "source": "https://www.investing.com/economic-calendar/"
+  },
+  {
+   "id": "560930",
+   "tgl": "2026-11-13",
+   "jam": "13:50",
+   "neg": "EUR",
+   "countryCode": "EU",
+   "nama": "ECB's Elderson Speaks",
+   "dmp": 2,
+   "akt": "",
+   "prk": "",
+   "sbl": "",
+   "cat": "",
+   "source": "https://www.investing.com/economic-calendar/"
+  },
+  {
+   "id": "559957",
+   "tgl": "2026-11-13",
+   "jam": "14:00",
+   "neg": "EUR",
+   "countryCode": "DE",
+   "nama": "German WPI (Oct)",
+   "dmp": 1,
+   "akt": "0.4%",
+   "prk": "0.4%",
+   "sbl": "1.9%",
+   "cat": "",
+   "source": "https://www.investing.com/economic-calendar/"
+  },
+  {
    "id": "ff-151209",
    "tgl": "2026-11-13",
    "jam": "14:00",
@@ -2687,6 +2813,34 @@
    "sbl": "1.9%",
    "cat": "",
    "source": "https://www.forexfactory.com/calendar?day=nov13.2026#detail=151209"
+  },
+  {
+   "id": "560931",
+   "tgl": "2026-11-13",
+   "jam": "14:10",
+   "neg": "EUR",
+   "countryCode": "EU",
+   "nama": "ECB's Schnabel Speaks",
+   "dmp": 2,
+   "akt": "",
+   "prk": "",
+   "sbl": "",
+   "cat": "",
+   "source": "https://www.investing.com/economic-calendar/"
+  },
+  {
+   "id": "559960",
+   "tgl": "2026-11-13",
+   "jam": "14:30",
+   "neg": "CHF",
+   "countryCode": "CH",
+   "nama": "PPI (Oct)",
+   "dmp": 1,
+   "akt": "0.9%",
+   "prk": "",
+   "sbl": "-0.2%",
+   "cat": "",
+   "source": "https://www.investing.com/economic-calendar/"
   },
   {
    "id": "ff-147334",
@@ -2703,6 +2857,48 @@
    "source": "https://www.forexfactory.com/calendar?day=nov13.2026#detail=147334"
   },
   {
+   "id": "559967",
+   "tgl": "2026-11-13",
+   "jam": "14:45",
+   "neg": "EUR",
+   "countryCode": "FR",
+   "nama": "France Inflation Ex-Tobacco (Oct)",
+   "dmp": 1,
+   "akt": "3.40%",
+   "prk": "",
+   "sbl": "3.10%",
+   "cat": "",
+   "source": "https://www.investing.com/economic-calendar/"
+  },
+  {
+   "id": "560693",
+   "tgl": "2026-11-13",
+   "jam": "14:45",
+   "neg": "EUR",
+   "countryCode": "FR",
+   "nama": "French CPI (Oct)",
+   "dmp": 1,
+   "akt": "3.4%",
+   "prk": "3.4%",
+   "sbl": "3.1%",
+   "cat": "",
+   "source": "https://www.investing.com/economic-calendar/"
+  },
+  {
+   "id": "560921",
+   "tgl": "2026-11-13",
+   "jam": "14:45",
+   "neg": "EUR",
+   "countryCode": "FR",
+   "nama": "French CPI NSA (Oct)",
+   "dmp": 1,
+   "akt": "3.40%",
+   "prk": "",
+   "sbl": "3.40%",
+   "cat": "",
+   "source": "https://www.investing.com/economic-calendar/"
+  },
+  {
    "id": "ff-147555",
    "tgl": "2026-11-13",
    "jam": "14:45",
@@ -2717,18 +2913,200 @@
    "source": "https://www.forexfactory.com/calendar?day=nov13.2026#detail=147555"
   },
   {
-   "id": "ff-147741",
+   "id": "559367",
+   "tgl": "2026-11-13",
+   "jam": "14:45",
+   "neg": "EUR",
+   "countryCode": "FR",
+   "nama": "French HICP (Oct)",
+   "dmp": 1,
+   "akt": "3.7%",
+   "prk": "3.8%",
+   "sbl": "3.8%",
+   "cat": "",
+   "source": "https://www.investing.com/economic-calendar/"
+  },
+  {
+   "id": "560707",
+   "tgl": "2026-11-13",
+   "jam": "15:00",
+   "neg": "CNY",
+   "countryCode": "CN",
+   "nama": "Chinese Total Social Financing (Oct)",
+   "dmp": 1,
+   "akt": "1,150.0B",
+   "prk": "1,420.0B",
+   "sbl": "3,550.0B",
+   "cat": "",
+   "source": "https://www.investing.com/economic-calendar/"
+  },
+  {
+   "id": "559968",
+   "tgl": "2026-11-13",
+   "jam": "15:00",
+   "neg": "EUR",
+   "countryCode": "ES",
+   "nama": "Core CPI (Oct)",
+   "dmp": 1,
+   "akt": "3.1%",
+   "prk": "3.1%",
+   "sbl": "3.1%",
+   "cat": "",
+   "source": "https://www.investing.com/economic-calendar/"
+  },
+  {
+   "id": "560705",
+   "tgl": "2026-11-13",
+   "jam": "15:00",
+   "neg": "CNY",
+   "countryCode": "CN",
+   "nama": "M2 Money Stock (Oct)",
+   "dmp": 1,
+   "akt": "7.1%",
+   "prk": "7.2%",
+   "sbl": "7.2%",
+   "cat": "",
+   "source": "https://www.investing.com/economic-calendar/"
+  },
+  {
+   "id": "560704",
+   "tgl": "2026-11-13",
+   "jam": "15:00",
+   "neg": "CNY",
+   "countryCode": "CN",
+   "nama": "New Loans (Oct)",
+   "dmp": 2,
+   "akt": "-100.0B",
+   "prk": "80.0B",
+   "sbl": "1,080.0B",
+   "cat": "",
+   "source": "https://www.investing.com/economic-calendar/"
+  },
+  {
+   "id": "560706",
+   "tgl": "2026-11-13",
+   "jam": "15:00",
+   "neg": "CNY",
+   "countryCode": "CN",
+   "nama": "Outstanding Loan Growth (Oct)",
+   "dmp": 1,
+   "akt": "4.7%",
+   "prk": "4.8%",
+   "sbl": "4.8%",
+   "cat": "",
+   "source": "https://www.investing.com/economic-calendar/"
+  },
+  {
+   "id": "559972",
+   "tgl": "2026-11-13",
+   "jam": "15:00",
+   "neg": "EUR",
+   "countryCode": "ES",
+   "nama": "Spanish CPI (Oct)",
+   "dmp": 1,
+   "akt": "0.6%",
+   "prk": "0.6%",
+   "sbl": "0.3%",
+   "cat": "",
+   "source": "https://www.investing.com/economic-calendar/"
+  },
+  {
+   "id": "559970",
+   "tgl": "2026-11-13",
+   "jam": "15:00",
+   "neg": "EUR",
+   "countryCode": "ES",
+   "nama": "Spanish HICP (Oct)",
+   "dmp": 1,
+   "akt": "0.5%",
+   "prk": "0.5%",
+   "sbl": "0.6%",
+   "cat": "",
+   "source": "https://www.investing.com/economic-calendar/"
+  },
+  {
+   "id": "559982",
+   "tgl": "2026-11-13",
+   "jam": "15:30",
+   "neg": "HKD",
+   "countryCode": "HK",
+   "nama": "GDP (Q3)",
+   "dmp": 1,
+   "akt": "5.2%",
+   "prk": "5.2%",
+   "sbl": "4.2%",
+   "cat": "",
+   "source": "https://www.investing.com/economic-calendar/"
+  },
+  {
+   "id": "561454",
+   "tgl": "2026-11-13",
+   "jam": "16:00",
+   "neg": "INR",
+   "countryCode": "IN",
+   "nama": "Exports (USD) (Oct)",
+   "dmp": 1,
+   "akt": "49.47B",
+   "prk": "",
+   "sbl": "44.40B",
+   "cat": "",
+   "source": "https://www.investing.com/economic-calendar/"
+  },
+  {
+   "id": "560695",
+   "tgl": "2026-11-13",
+   "jam": "16:00",
+   "neg": "USD",
+   "countryCode": "US",
+   "nama": "IEA Monthly Report",
+   "dmp": 2,
+   "akt": "",
+   "prk": "",
+   "sbl": "",
+   "cat": "",
+   "source": "https://www.investing.com/economic-calendar/"
+  },
+  {
+   "id": "561455",
+   "tgl": "2026-11-13",
+   "jam": "16:00",
+   "neg": "INR",
+   "countryCode": "IN",
+   "nama": "Imports (USD) (Oct)",
+   "dmp": 1,
+   "akt": "89.35B",
+   "prk": "",
+   "sbl": "74.61B",
+   "cat": "",
+   "source": "https://www.investing.com/economic-calendar/"
+  },
+  {
+   "id": "559984",
    "tgl": "2026-11-13",
    "jam": "16:00",
    "neg": "EUR",
    "countryCode": "IT",
-   "nama": "Italian Trade Balance",
+   "nama": "Italian Trade Balance (Sep)",
    "dmp": 1,
-   "akt": "2.08B",
-   "prk": "2.84B",
-   "sbl": "1.77B",
+   "akt": "2.083B",
+   "prk": "2.840B",
+   "sbl": "1.824B",
    "cat": "",
-   "source": "https://www.forexfactory.com/calendar?day=nov13.2026#detail=147741"
+   "source": "https://www.investing.com/economic-calendar/"
+  },
+  {
+   "id": "559985",
+   "tgl": "2026-11-13",
+   "jam": "16:00",
+   "neg": "EUR",
+   "countryCode": "IT",
+   "nama": "Italian Trade Balance EU (Sep)",
+   "dmp": 1,
+   "akt": "-0.78B",
+   "prk": "",
+   "sbl": "-0.28B",
+   "cat": "",
+   "source": "https://www.investing.com/economic-calendar/"
   },
   {
    "id": "ff-150157",
@@ -2759,6 +3137,62 @@
    "source": "https://www.forexfactory.com/calendar?day=nov13.2026#detail=150158"
   },
   {
+   "id": "561456",
+   "tgl": "2026-11-13",
+   "jam": "16:00",
+   "neg": "INR",
+   "countryCode": "IN",
+   "nama": "Trade Balance (Oct)",
+   "dmp": 1,
+   "akt": "-39.88B",
+   "prk": "",
+   "sbl": "-30.21B",
+   "cat": "",
+   "source": "https://www.investing.com/economic-calendar/"
+  },
+  {
+   "id": "560764",
+   "tgl": "2026-11-13",
+   "jam": "17:00",
+   "neg": "EUR",
+   "countryCode": "EU",
+   "nama": "EU Leaders Summit",
+   "dmp": 2,
+   "akt": "",
+   "prk": "",
+   "sbl": "",
+   "cat": "",
+   "source": "https://www.investing.com/economic-calendar/"
+  },
+  {
+   "id": "560697",
+   "tgl": "2026-11-13",
+   "jam": "17:00",
+   "neg": "EUR",
+   "countryCode": "EU",
+   "nama": "Employment Change (Q3)",
+   "dmp": 1,
+   "akt": "0.5%",
+   "prk": "0.4%",
+   "sbl": "0.5%",
+   "cat": "",
+   "source": "https://www.investing.com/economic-calendar/"
+  },
+  {
+   "id": "559986",
+   "tgl": "2026-11-13",
+   "jam": "17:00",
+   "neg": "EUR",
+   "countryCode": "EU",
+   "nama": "Employment Overall (Q3)",
+   "dmp": 1,
+   "akt": "176,547.1K",
+   "prk": "",
+   "sbl": "176,535.7K",
+   "cat": "",
+   "source": "https://www.investing.com/economic-calendar/"
+  },
+  {
    "id": "ff-151361",
    "tgl": "2026-11-13",
    "jam": "17:00",
@@ -2787,18 +3221,116 @@
    "source": "https://www.forexfactory.com/calendar?day=nov13.2026#detail=151360"
   },
   {
-   "id": "ff-151328",
+   "id": "559989",
    "tgl": "2026-11-13",
    "jam": "17:00",
    "neg": "EUR",
    "countryCode": "EU",
-   "nama": "Trade Balance",
-   "dmp": 1,
-   "akt": "-8.7B",
-   "prk": "-4.5B",
-   "sbl": "-6.8B",
+   "nama": "GDP (Q3)",
+   "dmp": 2,
+   "akt": "0.4%",
+   "prk": "0.4%",
+   "sbl": "0.6%",
    "cat": "",
-   "source": "https://www.forexfactory.com/calendar?day=nov13.2026#detail=151328"
+   "source": "https://www.investing.com/economic-calendar/"
+  },
+  {
+   "id": "559987",
+   "tgl": "2026-11-13",
+   "jam": "17:00",
+   "neg": "EUR",
+   "countryCode": "EU",
+   "nama": "Trade Balance (Sep)",
+   "dmp": 2,
+   "akt": "-10.3B",
+   "prk": "-4.5B",
+   "sbl": "-16.6B",
+   "cat": "",
+   "source": "https://www.investing.com/economic-calendar/"
+  },
+  {
+   "id": "560698",
+   "tgl": "2026-11-13",
+   "jam": "18:30",
+   "neg": "INR",
+   "countryCode": "IN",
+   "nama": "Bank Loan Growth",
+   "dmp": 1,
+   "akt": "19.5%",
+   "prk": "",
+   "sbl": "18.2%",
+   "cat": "",
+   "source": "https://www.investing.com/economic-calendar/"
+  },
+  {
+   "id": "560699",
+   "tgl": "2026-11-13",
+   "jam": "18:30",
+   "neg": "INR",
+   "countryCode": "IN",
+   "nama": "Deposit Growth",
+   "dmp": 1,
+   "akt": "16.9%",
+   "prk": "",
+   "sbl": "16.7%",
+   "cat": "",
+   "source": "https://www.investing.com/economic-calendar/"
+  },
+  {
+   "id": "561033",
+   "tgl": "2026-11-13",
+   "jam": "18:30",
+   "neg": "INR",
+   "countryCode": "IN",
+   "nama": "FX Reserves, USD",
+   "dmp": 1,
+   "akt": "719.55B",
+   "prk": "",
+   "sbl": "717.06B",
+   "cat": "",
+   "source": "https://www.investing.com/economic-calendar/"
+  },
+  {
+   "id": "559994",
+   "tgl": "2026-11-13",
+   "jam": "19:00",
+   "neg": "BRL",
+   "countryCode": "BR",
+   "nama": "Retail Sales (Sep)",
+   "dmp": 2,
+   "akt": "1.7%",
+   "prk": "1.0%",
+   "sbl": "0.5%",
+   "cat": "",
+   "source": "https://www.investing.com/economic-calendar/"
+  },
+  {
+   "id": "560700",
+   "tgl": "2026-11-13",
+   "jam": "20:30",
+   "neg": "CAD",
+   "countryCode": "CA",
+   "nama": "Capacity Utilization Rate (Sep)",
+   "dmp": 1,
+   "akt": "81.5%",
+   "prk": "",
+   "sbl": "81.9%",
+   "cat": "",
+   "source": "https://www.investing.com/economic-calendar/"
+  },
+  {
+   "id": "560000",
+   "tgl": "2026-11-13",
+   "jam": "20:30",
+   "neg": "USD",
+   "countryCode": "US",
+   "nama": "Core PPI (Oct)",
+   "dmp": 1,
+   "akt": "5.0%",
+   "prk": "5.0%",
+   "sbl": "5.0%",
+   "cat": "",
+   "source": "https://www.investing.com/economic-calendar/"
   },
   {
    "id": "ff-148405",
@@ -2815,6 +3347,20 @@
    "source": "https://www.forexfactory.com/calendar?day=nov13.2026#detail=148405"
   },
   {
+   "id": "560006",
+   "tgl": "2026-11-13",
+   "jam": "20:30",
+   "neg": "CAD",
+   "countryCode": "CA",
+   "nama": "Manufacturing Sales (Sep)",
+   "dmp": 1,
+   "akt": "0.0%",
+   "prk": "0.1%",
+   "sbl": "1.8%",
+   "cat": "",
+   "source": "https://www.investing.com/economic-calendar/"
+  },
+  {
    "id": "ff-149248",
    "tgl": "2026-11-13",
    "jam": "20:30",
@@ -2829,6 +3375,34 @@
    "source": "https://www.forexfactory.com/calendar?day=nov13.2026#detail=149248"
   },
   {
+   "id": "559999",
+   "tgl": "2026-11-13",
+   "jam": "20:30",
+   "neg": "USD",
+   "countryCode": "US",
+   "nama": "PPI (Oct)",
+   "dmp": 1,
+   "akt": "6.5%",
+   "prk": "6.6%",
+   "sbl": "6.3%",
+   "cat": "",
+   "source": "https://www.investing.com/economic-calendar/"
+  },
+  {
+   "id": "560005",
+   "tgl": "2026-11-13",
+   "jam": "20:30",
+   "neg": "USD",
+   "countryCode": "US",
+   "nama": "PPI ex. Food/Energy/Transport (Oct)",
+   "dmp": 1,
+   "akt": "4.9%",
+   "prk": "",
+   "sbl": "5.0%",
+   "cat": "",
+   "source": "https://www.investing.com/economic-calendar/"
+  },
+  {
    "id": "ff-148392",
    "tgl": "2026-11-13",
    "jam": "20:30",
@@ -2841,6 +3415,20 @@
    "sbl": "1.3%",
    "cat": "",
    "source": "https://www.forexfactory.com/calendar?day=nov13.2026#detail=148392"
+  },
+  {
+   "id": "560001",
+   "tgl": "2026-11-13",
+   "jam": "20:30",
+   "neg": "CAD",
+   "countryCode": "CA",
+   "nama": "Wholesale Sales (Sep)",
+   "dmp": 2,
+   "akt": "0.7%",
+   "prk": "0.5%",
+   "sbl": "-1.4%",
+   "cat": "",
+   "source": "https://www.investing.com/economic-calendar/"
   },
   {
    "id": "ff-149257",
@@ -2871,6 +3459,20 @@
    "source": "https://www.forexfactory.com/calendar?day=nov13.2026#detail=155614"
   },
   {
+   "id": "560927",
+   "tgl": "2026-11-13",
+   "jam": "21:10",
+   "neg": "USD",
+   "countryCode": "US",
+   "nama": "Fed Collins Speaks",
+   "dmp": 1,
+   "akt": "",
+   "prk": "",
+   "sbl": "",
+   "cat": "",
+   "source": "https://www.investing.com/economic-calendar/"
+  },
+  {
    "id": "ff-151508",
    "tgl": "2026-11-13",
    "jam": "21:30",
@@ -2899,60 +3501,130 @@
    "source": "https://www.forexfactory.com/calendar?day=nov13.2026#detail=155783"
   },
   {
-   "id": "ff-148778",
+   "id": "561348",
+   "tgl": "2026-11-13",
+   "jam": "21:40",
+   "neg": "USD",
+   "countryCode": "US",
+   "nama": "Fed Logan Speaks",
+   "dmp": 1,
+   "akt": "",
+   "prk": "",
+   "sbl": "",
+   "cat": "",
+   "source": "https://www.investing.com/economic-calendar/"
+  },
+  {
+   "id": "560687",
    "tgl": "2026-11-13",
    "jam": "22:30",
    "neg": "USD",
    "countryCode": "US",
    "nama": "Natural Gas Storage",
    "dmp": 1,
-   "akt": "",
+   "akt": "61B",
    "prk": "65B",
    "sbl": "77B",
    "cat": "",
-   "source": "https://www.forexfactory.com/calendar?day=nov13.2026#detail=148778"
+   "source": "https://www.investing.com/economic-calendar/"
   },
   {
-   "id": "ff-155612",
+   "id": "560850",
    "tgl": "2026-11-13",
    "jam": "22:50",
    "neg": "USD",
    "countryCode": "US",
    "nama": "FOMC Member Bowman Speaks",
-   "dmp": 1,
+   "dmp": 2,
    "akt": "",
    "prk": "",
    "sbl": "",
    "cat": "",
-   "source": "https://www.forexfactory.com/calendar?day=nov13.2026#detail=155612"
+   "source": "https://www.investing.com/economic-calendar/"
   },
   {
-   "id": "ff-155776",
+   "id": "561349",
    "tgl": "2026-11-13",
    "jam": "23:00",
    "neg": "EUR",
-   "countryCode": "GE",
+   "countryCode": "DE",
    "nama": "German Buba President Nagel Speaks",
-   "dmp": 1,
+   "dmp": 2,
    "akt": "",
    "prk": "",
    "sbl": "",
    "cat": "",
-   "source": "https://www.forexfactory.com/calendar?day=nov13.2026#detail=155776"
+   "source": "https://www.investing.com/economic-calendar/"
   },
   {
-   "id": "ff-155604",
+   "id": "560011",
+   "tgl": "2026-11-13",
+   "jam": "23:01",
+   "neg": "RUB",
+   "countryCode": "RU",
+   "nama": "GDP Quarterly (Q3)",
+   "dmp": 2,
+   "akt": "1.0%",
+   "prk": "",
+   "sbl": "1.3%",
+   "cat": "",
+   "source": "https://www.investing.com/economic-calendar/"
+  },
+  {
+   "id": "560845",
    "tgl": "2026-11-14",
    "jam": "00:00",
    "neg": "USD",
    "countryCode": "US",
    "nama": "FOMC Member Daly Speaks",
+   "dmp": 2,
+   "akt": "",
+   "prk": "",
+   "sbl": "",
+   "cat": "",
+   "source": "https://www.investing.com/economic-calendar/"
+  },
+  {
+   "id": "560701",
+   "tgl": "2026-11-14",
+   "jam": "01:00",
+   "neg": "USD",
+   "countryCode": "US",
+   "nama": "U.S. Baker Hughes Oil Rig Count",
+   "dmp": 2,
+   "akt": "463",
+   "prk": "",
+   "sbl": "463",
+   "cat": "",
+   "source": "https://www.investing.com/economic-calendar/"
+  },
+  {
+   "id": "560702",
+   "tgl": "2026-11-14",
+   "jam": "01:00",
+   "neg": "USD",
+   "countryCode": "US",
+   "nama": "U.S. Baker Hughes Total Rig Count",
+   "dmp": 2,
+   "akt": "601",
+   "prk": "",
+   "sbl": "604",
+   "cat": "",
+   "source": "https://www.investing.com/economic-calendar/"
+  },
+  {
+   "id": "ff-148795",
+   "tgl": "2026-11-14",
+   "jam": "04:00",
+   "neg": "USD",
+   "countryCode": "US",
+   "nama": "FOMC Financial Stability Report",
    "dmp": 1,
    "akt": "",
    "prk": "",
    "sbl": "",
    "cat": "",
-   "source": "https://www.forexfactory.com/calendar?day=nov13.2026#detail=155604"
+   "source": "https://www.forexfactory.com/calendar?day=nov13.2026#detail=148795"
   },
   {
    "id": "ff-155606",
@@ -3075,7 +3747,7 @@
    "nama": "Fixed Asset Investment ytd/y",
    "dmp": 1,
    "akt": "",
-   "prk": "-6.9%",
+   "prk": "-7.0%",
    "sbl": "-7.2%",
    "cat": "",
    "source": "https://www.forexfactory.com/calendar?day=nov15.2026#detail=150415"
@@ -3151,6 +3823,20 @@
    "source": "https://www.forexfactory.com/calendar?day=nov15.2026#detail=149688"
   },
   {
+   "id": "ff-155915",
+   "tgl": "2026-11-16",
+   "jam": "17:00",
+   "neg": "USD",
+   "countryCode": "US",
+   "nama": "FOMC Member Barr Speaks",
+   "dmp": 1,
+   "akt": "",
+   "prk": "",
+   "sbl": "",
+   "cat": "",
+   "source": "https://www.forexfactory.com/calendar?day=nov16.2026#detail=155915"
+  },
+  {
    "id": "ff-151329",
    "tgl": "2026-11-16",
    "jam": "17:00",
@@ -3159,7 +3845,7 @@
    "nama": "Industrial Production m/m",
    "dmp": 1,
    "akt": "",
-   "prk": "",
+   "prk": "0.3%",
    "sbl": "-0.5%",
    "cat": "",
    "source": "https://www.forexfactory.com/calendar?day=nov16.2026#detail=151329"
@@ -3173,7 +3859,7 @@
    "nama": "CPI m/m",
    "dmp": 3,
    "akt": "",
-   "prk": "",
+   "prk": "0.3%",
    "sbl": "0.1%",
    "cat": "",
    "source": "https://www.forexfactory.com/calendar?day=nov16.2026#detail=149174"
@@ -3187,7 +3873,7 @@
    "nama": "Common CPI y/y",
    "dmp": 2,
    "akt": "",
-   "prk": "",
+   "prk": "2.5%",
    "sbl": "2.4%",
    "cat": "",
    "source": "https://www.forexfactory.com/calendar?day=nov16.2026#detail=149175"
@@ -3201,7 +3887,7 @@
    "nama": "Core CPI m/m",
    "dmp": 1,
    "akt": "",
-   "prk": "",
+   "prk": "0.2%",
    "sbl": "0.0%",
    "cat": "",
    "source": "https://www.forexfactory.com/calendar?day=nov16.2026#detail=149176"
@@ -3215,7 +3901,7 @@
    "nama": "Empire State Manufacturing Index",
    "dmp": 1,
    "akt": "",
-   "prk": "",
+   "prk": "17.6",
    "sbl": "25.5",
    "cat": "",
    "source": "https://www.forexfactory.com/calendar?day=nov16.2026#detail=148628"
@@ -3229,7 +3915,7 @@
    "nama": "Median CPI y/y",
    "dmp": 3,
    "akt": "",
-   "prk": "",
+   "prk": "2.0%",
    "sbl": "1.9%",
    "cat": "",
    "source": "https://www.forexfactory.com/calendar?day=nov16.2026#detail=149177"
@@ -3243,7 +3929,7 @@
    "nama": "Trimmed CPI y/y",
    "dmp": 3,
    "akt": "",
-   "prk": "",
+   "prk": "1.9%",
    "sbl": "1.8%",
    "cat": "",
    "source": "https://www.forexfactory.com/calendar?day=nov16.2026#detail=149178"
@@ -3369,7 +4055,7 @@
    "nama": "Tertiary Industry Activity m/m",
    "dmp": 1,
    "akt": "",
-   "prk": "",
+   "prk": "0.0%",
    "sbl": "-0.1%",
    "cat": "",
    "source": "https://www.forexfactory.com/calendar?day=nov16.2026#detail=149724"
@@ -3383,7 +4069,7 @@
    "nama": "Average Earnings Index 3m/y",
    "dmp": 2,
    "akt": "",
-   "prk": "",
+   "prk": "3.5%",
    "sbl": "3.7%",
    "cat": "",
    "source": "https://www.forexfactory.com/calendar?day=nov17.2026#detail=151094"
@@ -3397,7 +4083,7 @@
    "nama": "Claimant Count Change",
    "dmp": 1,
    "akt": "",
-   "prk": "",
+   "prk": "28.1K",
    "sbl": "30.3K",
    "cat": "",
    "source": "https://www.forexfactory.com/calendar?day=nov17.2026#detail=151096"
@@ -3411,7 +4097,7 @@
    "nama": "Unemployment Rate",
    "dmp": 1,
    "akt": "",
-   "prk": "",
+   "prk": "4.7%",
    "sbl": "4.7%",
    "cat": "",
    "source": "https://www.forexfactory.com/calendar?day=nov17.2026#detail=151095"
@@ -3439,7 +4125,7 @@
    "nama": "German ZEW Economic Sentiment",
    "dmp": 1,
    "akt": "",
-   "prk": "",
+   "prk": "28.3",
    "sbl": "28.1",
    "cat": "",
    "source": "https://www.forexfactory.com/calendar?day=nov17.2026#detail=150507"
@@ -3453,7 +4139,7 @@
    "nama": "ZEW Economic Sentiment",
    "dmp": 1,
    "akt": "",
-   "prk": "",
+   "prk": "18.3",
    "sbl": "18.5",
    "cat": "",
    "source": "https://www.forexfactory.com/calendar?day=nov17.2026#detail=150506"
@@ -3495,7 +4181,7 @@
    "nama": "Housing Starts",
    "dmp": 1,
    "akt": "",
-   "prk": "",
+   "prk": "243K",
    "sbl": "249K",
    "cat": "",
    "source": "https://www.forexfactory.com/calendar?day=nov17.2026#detail=149563"
@@ -3509,7 +4195,7 @@
    "nama": "Core Retail Sales m/m",
    "dmp": 3,
    "akt": "",
-   "prk": "",
+   "prk": "0.4%",
    "sbl": "0.9%",
    "cat": "",
    "source": "https://www.forexfactory.com/calendar?day=nov17.2026#detail=148047"
@@ -3523,7 +4209,7 @@
    "nama": "Foreign Securities Purchases",
    "dmp": 1,
    "akt": "",
-   "prk": "",
+   "prk": "14.85B",
    "sbl": "-17.31B",
    "cat": "",
    "source": "https://www.forexfactory.com/calendar?day=nov17.2026#detail=149269"
@@ -3537,7 +4223,7 @@
    "nama": "Import Prices m/m",
    "dmp": 1,
    "akt": "",
-   "prk": "",
+   "prk": "0.7%",
    "sbl": "1.1%",
    "cat": "",
    "source": "https://www.forexfactory.com/calendar?day=nov17.2026#detail=148421"
@@ -3551,10 +4237,24 @@
    "nama": "Retail Sales m/m",
    "dmp": 3,
    "akt": "",
-   "prk": "",
+   "prk": "0.2%",
    "sbl": "0.8%",
    "cat": "",
    "source": "https://www.forexfactory.com/calendar?day=nov17.2026#detail=148035"
+  },
+  {
+   "id": "ff-155916",
+   "tgl": "2026-11-17",
+   "jam": "21:10",
+   "neg": "USD",
+   "countryCode": "US",
+   "nama": "FOMC Member Waller Speaks",
+   "dmp": 1,
+   "akt": "",
+   "prk": "",
+   "sbl": "",
+   "cat": "",
+   "source": "https://www.forexfactory.com/calendar?day=nov17.2026#detail=155916"
   },
   {
    "id": "ff-147053",
@@ -3565,7 +4265,7 @@
    "nama": "Capacity Utilization Rate",
    "dmp": 1,
    "akt": "",
-   "prk": "",
+   "prk": "76.8%",
    "sbl": "76.9%",
    "cat": "",
    "source": "https://www.forexfactory.com/calendar?day=nov17.2026#detail=147053"
@@ -3579,7 +4279,7 @@
    "nama": "Industrial Production m/m",
    "dmp": 1,
    "akt": "",
-   "prk": "",
+   "prk": "0.1%",
    "sbl": "0.7%",
    "cat": "",
    "source": "https://www.forexfactory.com/calendar?day=nov17.2026#detail=147041"
@@ -3607,7 +4307,7 @@
    "nama": "Business Inventories m/m",
    "dmp": 1,
    "akt": "",
-   "prk": "",
+   "prk": "0.5%",
    "sbl": "0.4%",
    "cat": "",
    "source": "https://www.forexfactory.com/calendar?day=nov17.2026#detail=148090"
@@ -3621,7 +4321,7 @@
    "nama": "NAHB Housing Market Index",
    "dmp": 1,
    "akt": "",
-   "prk": "",
+   "prk": "29",
    "sbl": "29",
    "cat": "",
    "source": "https://www.forexfactory.com/calendar?day=nov17.2026#detail=149760"
@@ -3677,7 +4377,7 @@
    "nama": "PPI Input q/q",
    "dmp": 1,
    "akt": "",
-   "prk": "",
+   "prk": "1.5%",
    "sbl": "2.9%",
    "cat": "",
    "source": "https://www.forexfactory.com/calendar?day=nov17.2026#detail=150050"
@@ -3691,7 +4391,7 @@
    "nama": "PPI Output q/q",
    "dmp": 1,
    "akt": "",
-   "prk": "",
+   "prk": "1.1%",
    "sbl": "1.6%",
    "cat": "",
    "source": "https://www.forexfactory.com/calendar?day=nov17.2026#detail=150051"
@@ -3719,7 +4419,7 @@
    "nama": "Trade Balance",
    "dmp": 1,
    "akt": "",
-   "prk": "",
+   "prk": "-0.88T",
    "sbl": "-0.70T",
    "cat": "",
    "source": "https://www.forexfactory.com/calendar?day=nov17.2026#detail=149736"
@@ -3733,7 +4433,7 @@
    "nama": "Wage Price Index q/q",
    "dmp": 2,
    "akt": "",
-   "prk": "",
+   "prk": "0.9%",
    "sbl": "0.8%",
    "cat": "",
    "source": "https://www.forexfactory.com/calendar?day=nov17.2026#detail=148501"
@@ -3761,7 +4461,7 @@
    "nama": "CPI y/y",
    "dmp": 3,
    "akt": "",
-   "prk": "",
+   "prk": "3.6%",
    "sbl": "3.5%",
    "cat": "",
    "source": "https://www.forexfactory.com/calendar?day=nov18.2026#detail=155375"
@@ -3775,7 +4475,7 @@
    "nama": "Core CPI y/y",
    "dmp": 1,
    "akt": "",
-   "prk": "",
+   "prk": "2.8%",
    "sbl": "2.8%",
    "cat": "",
    "source": "https://www.forexfactory.com/calendar?day=nov18.2026#detail=151464"
@@ -3789,7 +4489,7 @@
    "nama": "PPI Input m/m",
    "dmp": 1,
    "akt": "",
-   "prk": "",
+   "prk": "0.8%",
    "sbl": "1.5%",
    "cat": "",
    "source": "https://www.forexfactory.com/calendar?day=nov18.2026#detail=151461"
@@ -3803,7 +4503,7 @@
    "nama": "PPI Output m/m",
    "dmp": 1,
    "akt": "",
-   "prk": "",
+   "prk": "0.6%",
    "sbl": "0.8%",
    "cat": "",
    "source": "https://www.forexfactory.com/calendar?day=nov18.2026#detail=151460"
@@ -3817,7 +4517,7 @@
    "nama": "RPI y/y",
    "dmp": 1,
    "akt": "",
-   "prk": "",
+   "prk": "4.1%",
    "sbl": "3.9%",
    "cat": "",
    "source": "https://www.forexfactory.com/calendar?day=nov18.2026#detail=151459"
@@ -3859,7 +4559,7 @@
    "nama": "HPI y/y",
    "dmp": 1,
    "akt": "",
-   "prk": "",
+   "prk": "0.7%",
    "sbl": "0.9%",
    "cat": "",
    "source": "https://www.forexfactory.com/calendar?day=nov18.2026#detail=151462"
@@ -3873,7 +4573,7 @@
    "nama": "Final CPI y/y",
    "dmp": 1,
    "akt": "",
-   "prk": "",
+   "prk": "4.0%",
    "sbl": "4.0%",
    "cat": "",
    "source": "https://www.forexfactory.com/calendar?day=nov18.2026#detail=151331"
@@ -3887,7 +4587,7 @@
    "nama": "Final Core CPI y/y",
    "dmp": 1,
    "akt": "",
-   "prk": "",
+   "prk": "2.5%",
    "sbl": "2.5%",
    "cat": "",
    "source": "https://www.forexfactory.com/calendar?day=nov18.2026#detail=151330"
@@ -3901,7 +4601,7 @@
    "nama": "Building Permits",
    "dmp": 1,
    "akt": "",
-   "prk": "",
+   "prk": "1.38M",
    "sbl": "1.40M",
    "cat": "",
    "source": "https://www.forexfactory.com/calendar?day=nov18.2026#detail=146820"
@@ -3915,7 +4615,7 @@
    "nama": "Housing Starts",
    "dmp": 1,
    "akt": "",
-   "prk": "",
+   "prk": "1.25M",
    "sbl": "1.22M",
    "cat": "",
    "source": "https://www.forexfactory.com/calendar?day=nov18.2026#detail=146844"
@@ -3929,10 +4629,24 @@
    "nama": "NHPI m/m",
    "dmp": 1,
    "akt": "",
+   "prk": "0.1%",
+   "sbl": "-0.2%",
+   "cat": "",
+   "source": "https://www.forexfactory.com/calendar?day=nov18.2026#detail=149575"
+  },
+  {
+   "id": "ff-155919",
+   "tgl": "2026-11-18",
+   "jam": "21:25",
+   "neg": "EUR",
+   "countryCode": "EU",
+   "nama": "ECB President Lagarde Speaks",
+   "dmp": 2,
+   "akt": "",
    "prk": "",
    "sbl": "",
    "cat": "",
-   "source": "https://www.forexfactory.com/calendar?day=nov18.2026#detail=149575"
+   "source": "https://www.forexfactory.com/calendar?day=nov18.2026#detail=155919"
   },
   {
    "id": "ff-155898",
@@ -3957,7 +4671,7 @@
    "nama": "Pending Home Sales m/m",
    "dmp": 1,
    "akt": "",
-   "prk": "",
+   "prk": "-2.3%",
    "sbl": "-7.3%",
    "cat": "",
    "source": "https://www.forexfactory.com/calendar?day=nov18.2026#detail=149846"
@@ -3991,6 +4705,20 @@
    "source": "https://www.forexfactory.com/calendar?day=nov19.2026#detail=146863"
   },
   {
+   "id": "ff-155908",
+   "tgl": "2026-11-19",
+   "jam": "00:30",
+   "neg": "CAD",
+   "countryCode": "CA",
+   "nama": "Gov Council Member Gravelle Speaks",
+   "dmp": 1,
+   "akt": "",
+   "prk": "",
+   "sbl": "",
+   "cat": "",
+   "source": "https://www.forexfactory.com/calendar?day=nov18.2026#detail=155908"
+  },
+  {
    "id": "ff-155899",
    "tgl": "2026-11-19",
    "jam": "01:00",
@@ -4003,20 +4731,6 @@
    "sbl": "",
    "cat": "",
    "source": "https://www.forexfactory.com/calendar?day=nov18.2026#detail=155899"
-  },
-  {
-   "id": "ff-155908",
-   "tgl": "2026-11-19",
-   "jam": "01:30",
-   "neg": "CAD",
-   "countryCode": "CA",
-   "nama": "Gov Council Member Gravelle Speaks",
-   "dmp": 1,
-   "akt": "",
-   "prk": "",
-   "sbl": "",
-   "cat": "",
-   "source": "https://www.forexfactory.com/calendar?day=nov18.2026#detail=155908"
   },
   {
    "id": "ff-155911",
@@ -4069,7 +4783,7 @@
    "nama": "TIC Long-Term Purchases",
    "dmp": 1,
    "akt": "",
-   "prk": "",
+   "prk": "160.7B",
    "sbl": "279.2B",
    "cat": "",
    "source": "https://www.forexfactory.com/calendar?day=nov18.2026#detail=149822"
@@ -4097,7 +4811,7 @@
    "nama": "Trade Balance",
    "dmp": 1,
    "akt": "",
-   "prk": "",
+   "prk": "-1650M",
    "sbl": "-1971M",
    "cat": "",
    "source": "https://www.forexfactory.com/calendar?day=nov18.2026#detail=149321"
@@ -4111,7 +4825,7 @@
    "nama": "Core Machinery Orders m/m",
    "dmp": 1,
    "akt": "",
-   "prk": "",
+   "prk": "1.4%",
    "sbl": "5.2%",
    "cat": "",
    "source": "https://www.forexfactory.com/calendar?day=nov18.2026#detail=149540"
@@ -4125,7 +4839,7 @@
    "nama": "Employment Change",
    "dmp": 3,
    "akt": "",
-   "prk": "",
+   "prk": "25.2K",
    "sbl": "-39.3K",
    "cat": "",
    "source": "https://www.forexfactory.com/calendar?day=nov18.2026#detail=148150"
@@ -4139,7 +4853,7 @@
    "nama": "Unemployment Rate",
    "dmp": 3,
    "akt": "",
-   "prk": "",
+   "prk": "4.7%",
    "sbl": "4.7%",
    "cat": "",
    "source": "https://www.forexfactory.com/calendar?day=nov18.2026#detail=148151"
@@ -4153,7 +4867,7 @@
    "nama": "Current Account",
    "dmp": 1,
    "akt": "",
-   "prk": "",
+   "prk": "16.6B",
    "sbl": "8.7B",
    "cat": "",
    "source": "https://www.forexfactory.com/calendar?day=nov19.2026#detail=154808"
@@ -4167,7 +4881,7 @@
    "nama": "CBI Industrial Order Expectations",
    "dmp": 1,
    "akt": "",
-   "prk": "",
+   "prk": "-29",
    "sbl": "-32",
    "cat": "",
    "source": "https://www.forexfactory.com/calendar?day=nov19.2026#detail=150652"
@@ -4223,7 +4937,7 @@
    "nama": "IPPI m/m",
    "dmp": 1,
    "akt": "",
-   "prk": "",
+   "prk": "1.2%",
    "sbl": "2.0%",
    "cat": "",
    "source": "https://www.forexfactory.com/calendar?day=nov19.2026#detail=149290"
@@ -4237,7 +4951,7 @@
    "nama": "Philly Fed Manufacturing Index",
    "dmp": 2,
    "akt": "",
-   "prk": "",
+   "prk": "19.2",
    "sbl": "20.9",
    "cat": "",
    "source": "https://www.forexfactory.com/calendar?day=nov19.2026#detail=146965"
@@ -4251,7 +4965,7 @@
    "nama": "RMPI m/m",
    "dmp": 1,
    "akt": "",
-   "prk": "",
+   "prk": "2.0%",
    "sbl": "4.8%",
    "cat": "",
    "source": "https://www.forexfactory.com/calendar?day=nov19.2026#detail=149281"
@@ -4265,7 +4979,7 @@
    "nama": "Unemployment Claims",
    "dmp": 2,
    "akt": "",
-   "prk": "",
+   "prk": "199K",
    "sbl": "200K",
    "cat": "",
    "source": "https://www.forexfactory.com/calendar?day=nov19.2026#detail=147024"
@@ -4293,7 +5007,7 @@
    "nama": "CB Leading Index m/m",
    "dmp": 1,
    "akt": "",
-   "prk": "",
+   "prk": "0.0%",
    "sbl": "0.0%",
    "cat": "",
    "source": "https://www.forexfactory.com/calendar?day=nov19.2026#detail=149810"
@@ -4377,7 +5091,7 @@
    "nama": "National Core CPI y/y",
    "dmp": 1,
    "akt": "",
-   "prk": "",
+   "prk": "2.3%",
    "sbl": "2.1%",
    "cat": "",
    "source": "https://www.forexfactory.com/calendar?day=nov19.2026#detail=149920"
@@ -4391,7 +5105,7 @@
    "nama": "GfK Consumer Confidence",
    "dmp": 1,
    "akt": "",
-   "prk": "",
+   "prk": "-22",
    "sbl": "-24",
    "cat": "",
    "source": "https://www.forexfactory.com/calendar?day=nov19.2026#detail=150688"
@@ -4405,7 +5119,7 @@
    "nama": "1-y Loan Prime Rate",
    "dmp": 1,
    "akt": "",
-   "prk": "",
+   "prk": "3.00%",
    "sbl": "3.00%",
    "cat": "",
    "source": "https://www.forexfactory.com/calendar?day=nov19.2026#detail=150133"
@@ -4419,7 +5133,7 @@
    "nama": "5-y Loan Prime Rate",
    "dmp": 1,
    "akt": "",
-   "prk": "",
+   "prk": "3.50%",
    "sbl": "3.50%",
    "cat": "",
    "source": "https://www.forexfactory.com/calendar?day=nov19.2026#detail=150134"
@@ -4447,7 +5161,7 @@
    "nama": "German PPI m/m",
    "dmp": 1,
    "akt": "",
-   "prk": "",
+   "prk": "0.9%",
    "sbl": "1.9%",
    "cat": "",
    "source": "https://www.forexfactory.com/calendar?day=nov20.2026#detail=151210"
@@ -4461,7 +5175,7 @@
    "nama": "Public Sector Net Borrowing",
    "dmp": 1,
    "akt": "",
-   "prk": "",
+   "prk": "18.0B",
    "sbl": "24.5B",
    "cat": "",
    "source": "https://www.forexfactory.com/calendar?day=nov20.2026#detail=151624"
@@ -4475,7 +5189,7 @@
    "nama": "Retail Sales m/m",
    "dmp": 2,
    "akt": "",
-   "prk": "",
+   "prk": "0.0%",
    "sbl": "-0.4%",
    "cat": "",
    "source": "https://www.forexfactory.com/calendar?day=nov20.2026#detail=151612"
@@ -4509,6 +5223,20 @@
    "source": "https://www.forexfactory.com/calendar?day=nov20.2026#detail=155907"
   },
   {
+   "id": "ff-155917",
+   "tgl": "2026-11-20",
+   "jam": "20:25",
+   "neg": "USD",
+   "countryCode": "US",
+   "nama": "FOMC Member Waller Speaks",
+   "dmp": 2,
+   "akt": "",
+   "prk": "",
+   "sbl": "",
+   "cat": "",
+   "source": "https://www.forexfactory.com/calendar?day=nov20.2026#detail=155917"
+  },
+  {
    "id": "ff-149220",
    "tgl": "2026-11-20",
    "jam": "20:30",
@@ -4517,7 +5245,7 @@
    "nama": "Core Retail Sales m/m",
    "dmp": 1,
    "akt": "",
-   "prk": "",
+   "prk": "0.7%",
    "sbl": "1.2%",
    "cat": "",
    "source": "https://www.forexfactory.com/calendar?day=nov20.2026#detail=149220"
@@ -4531,7 +5259,7 @@
    "nama": "Retail Sales m/m",
    "dmp": 1,
    "akt": "",
-   "prk": "",
+   "prk": "0.7%",
    "sbl": "1.2%",
    "cat": "",
    "source": "https://www.forexfactory.com/calendar?day=nov20.2026#detail=149211"
@@ -4545,7 +5273,7 @@
    "nama": "Consumer Confidence",
    "dmp": 1,
    "akt": "",
-   "prk": "",
+   "prk": "-18",
    "sbl": "-18",
    "cat": "",
    "source": "https://www.forexfactory.com/calendar?day=nov20.2026#detail=150610"
@@ -4559,7 +5287,7 @@
    "nama": "Revised UoM Consumer Sentiment",
    "dmp": 2,
    "akt": "",
-   "prk": "",
+   "prk": "52.1",
    "sbl": "51.0",
    "cat": "",
    "source": "https://www.forexfactory.com/calendar?day=nov20.2026#detail=148604"
@@ -4577,6 +5305,20 @@
    "sbl": "4.3%",
    "cat": "",
    "source": "https://www.forexfactory.com/calendar?day=nov20.2026#detail=148616"
+  },
+  {
+   "id": "ff-155918",
+   "tgl": "2026-11-21",
+   "jam": "00:15",
+   "neg": "USD",
+   "countryCode": "US",
+   "nama": "FOMC Member Cook Speaks",
+   "dmp": 1,
+   "akt": "",
+   "prk": "",
+   "sbl": "",
+   "cat": "",
+   "source": "https://www.forexfactory.com/calendar?day=nov20.2026#detail=155918"
   },
   {
    "id": "ff-150664",
@@ -4856,7 +5598,7 @@
    "prk": "",
    "sbl": "",
    "cat": "",
-   "source": "https://www.forexfactory.com/calendar?day=nov24.2026#detail=149908"
+   "source": "https://www.forexfactory.com/calendar?day=nov23.2026#detail=149908"
   },
   {
    "id": "ff-150436",
@@ -5517,20 +6259,6 @@
    "source": "https://www.forexfactory.com/calendar?day=nov27.2026#detail=148225"
   },
   {
-   "id": "ff-148795",
-   "tgl": "2026-11-28",
-   "jam": "",
-   "neg": "USD",
-   "countryCode": "US",
-   "nama": "FOMC Financial Stability Report",
-   "dmp": 1,
-   "akt": "",
-   "prk": "",
-   "sbl": "",
-   "cat": "",
-   "source": "https://www.forexfactory.com/calendar?day=nov27.2026#detail=148795"
-  },
-  {
    "id": "ff-151212",
    "tgl": "2026-11-30",
    "jam": "",
@@ -5710,7 +6438,7 @@
    "prk": "",
    "sbl": "",
    "cat": "",
-   "source": "https://www.forexfactory.com/calendar?day=nov30.2026#detail=149748"
+   "source": "https://www.forexfactory.com/calendar?day=nov29.2026#detail=149748"
   },
   {
    "id": "ff-151214",
@@ -5853,10 +6581,10 @@
    "source": "https://www.forexfactory.com/calendar?day=nov30.2026#detail=146832"
   }
  ],
- "updated": "2026-11-13T15:22:53.955254+00:00",
+ "updated": "2026-11-13T21:29:32.110995+00:00",
  "source": "https://www.forexfactory.com/calendar?month=nov.2026",
  "status": "ok",
- "checkedAt": "2026-11-13T15:22:53.955254+00:00",
+ "checkedAt": "2026-11-13T21:29:32.110995+00:00",
  "coverageStart": "2026-11-01",
  "coverageEnd": "2026-11-30",
  "agenda": [
