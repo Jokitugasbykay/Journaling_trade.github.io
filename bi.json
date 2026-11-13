@@ -1,22 +1,22 @@
 {
   "version": 1,
-  "checkedAt": "2026-11-13T00:30:34.261116+00:00",
+  "checkedAt": "2026-11-13T07:09:31.429007+00:00",
   "fx": {
-    "date": "2026-11-12",
+    "date": "2026-11-13",
     "currency": "USD",
     "unit": 1,
-    "sell": 18244.77,
-    "buy": 18063.23,
-    "mid": 18154.0,
+    "sell": 18332.21,
+    "buy": 18149.79,
+    "mid": 18241.0,
     "source": "https://www.bi.go.id/id/statistik/informasi-kurs/transaksi-bi/default.aspx",
     "status": "ok",
-    "checkedAt": "2026-11-13T00:30:34.261116+00:00"
+    "checkedAt": "2026-11-13T07:09:31.429007+00:00"
   },
   "rate": {
     "date": "2026-10-21",
     "percent": 5.75,
     "source": "https://www.bi.go.id/id/statistik/indikator/bi-rate.aspx",
     "status": "ok",
-    "checkedAt": "2026-11-13T00:30:34.261116+00:00"
+    "checkedAt": "2026-11-13T07:09:31.429007+00:00"
   }
 }
