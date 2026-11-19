@@ -68,7 +68,7 @@
    "prk": "",
    "sbl": "15.5%",
    "cat": "",
-   "source": "https://www.forexfactory.com/calendar?day=nov2.2026#detail=148391"
+   "source": "https://www.forexfactory.com/calendar?day=nov1.2026#detail=148391"
   },
   {
    "id": "ff-151202",
@@ -1664,7 +1664,7 @@
    "prk": "116.7%",
    "sbl": "118.0%",
    "cat": "",
-   "source": "https://www.forexfactory.com/calendar?day=nov9.2026#detail=149664"
+   "source": "https://www.forexfactory.com/calendar?day=nov8.2026#detail=149664"
   },
   {
    "id": "ff-151207",
@@ -1930,7 +1930,7 @@
    "prk": "47.1",
    "sbl": "47.0",
    "cat": "",
-   "source": "https://www.forexfactory.com/calendar?day=nov10.2026#detail=148817"
+   "source": "https://www.forexfactory.com/calendar?day=nov9.2026#detail=148817"
   },
   {
    "id": "ff-155615",
@@ -4516,7 +4516,7 @@
    "countryCode": "JP",
    "nama": "National Core CPI y/y",
    "dmp": 1,
-   "akt": "",
+   "akt": "2.2%",
    "prk": "2.3%",
    "sbl": "2.1%",
    "cat": "",
@@ -4747,18 +4747,32 @@
    "source": "https://www.forexfactory.com/calendar?day=nov20.2026#detail=155918"
   },
   {
-   "id": "ff-151211",
+   "id": "ff-151214",
    "tgl": "2026-11-23",
    "jam": "",
    "neg": "EUR",
    "countryCode": "GE",
-   "nama": "German Final GDP q/q",
+   "nama": "German Import Prices m/m",
    "dmp": 1,
    "akt": "",
    "prk": "",
    "sbl": "",
    "cat": "",
-   "source": "https://www.forexfactory.com/calendar?day=nov23.2026#detail=151211"
+   "source": "https://www.forexfactory.com/calendar?day=nov23.2026#detail=151214"
+  },
+  {
+   "id": "ff-151213",
+   "tgl": "2026-11-23",
+   "jam": "",
+   "neg": "EUR",
+   "countryCode": "GE",
+   "nama": "German Retail Sales m/m",
+   "dmp": 1,
+   "akt": "",
+   "prk": "",
+   "sbl": "",
+   "cat": "",
+   "source": "https://www.forexfactory.com/calendar?day=nov23.2026#detail=151213"
   },
   {
    "id": "ff-150011",
@@ -5064,7 +5078,7 @@
    "dmp": 1,
    "akt": "",
    "prk": "",
-   "sbl": "",
+   "sbl": "23.8K",
    "cat": "",
    "source": "https://www.forexfactory.com/calendar?day=nov24.2026#detail=151054"
   },
@@ -5218,7 +5232,7 @@
    "dmp": 3,
    "akt": "",
    "prk": "",
-   "sbl": "",
+   "sbl": "0.8%",
    "cat": "",
    "source": "https://www.forexfactory.com/calendar?day=nov24.2026#detail=152602"
   },
@@ -5232,7 +5246,7 @@
    "dmp": 3,
    "akt": "",
    "prk": "",
-   "sbl": "",
+   "sbl": "4.3%",
    "cat": "",
    "source": "https://www.forexfactory.com/calendar?day=nov24.2026#detail=149102"
   },
@@ -5260,7 +5274,7 @@
    "dmp": 3,
    "akt": "",
    "prk": "",
-   "sbl": "",
+   "sbl": "0.3%",
    "cat": "",
    "source": "https://www.forexfactory.com/calendar?day=nov24.2026#detail=152603"
   },
@@ -5276,7 +5290,21 @@
    "prk": "",
    "sbl": "2.4%",
    "cat": "",
-   "source": "https://www.forexfactory.com/calendar?day=nov25.2026#detail=149908"
+   "source": "https://www.forexfactory.com/calendar?day=nov24.2026#detail=149908"
+  },
+  {
+   "id": "ff-151211",
+   "tgl": "2026-11-25",
+   "jam": "14:00",
+   "neg": "EUR",
+   "countryCode": "GE",
+   "nama": "German Final GDP q/q",
+   "dmp": 1,
+   "akt": "",
+   "prk": "",
+   "sbl": "0.2%",
+   "cat": "",
+   "source": "https://www.forexfactory.com/calendar?day=nov25.2026#detail=151211"
   },
   {
    "id": "ff-147381",
@@ -5400,7 +5428,7 @@
    "dmp": 2,
    "akt": "",
    "prk": "",
-   "sbl": "",
+   "sbl": "203K",
    "cat": "",
    "source": "https://www.forexfactory.com/calendar?day=nov25.2026#detail=147025"
   },
@@ -5431,20 +5459,6 @@
    "sbl": "",
    "cat": "",
    "source": "https://www.forexfactory.com/calendar?day=nov25.2026#detail=148963"
-  },
-  {
-   "id": "ff-147705",
-   "tgl": "2026-11-26",
-   "jam": "",
-   "neg": "EUR",
-   "countryCode": "IT",
-   "nama": "Italian 10-y Bond Auction",
-   "dmp": 1,
-   "akt": "",
-   "prk": "",
-   "sbl": "",
-   "cat": "",
-   "source": "https://www.forexfactory.com/calendar?day=nov26.2026#detail=147705"
   },
   {
    "id": "ff-148780",
@@ -5601,6 +5615,20 @@
    "source": "https://www.forexfactory.com/calendar?day=nov26.2026#detail=150560"
   },
   {
+   "id": "ff-147705",
+   "tgl": "2026-11-27",
+   "jam": "",
+   "neg": "EUR",
+   "countryCode": "IT",
+   "nama": "Italian 10-y Bond Auction",
+   "dmp": 1,
+   "akt": "",
+   "prk": "",
+   "sbl": "",
+   "cat": "",
+   "source": "https://www.forexfactory.com/calendar?day=nov27.2026#detail=147705"
+  },
+  {
    "id": "ff-149932",
    "tgl": "2026-11-27",
    "jam": "06:30",
@@ -5701,7 +5729,7 @@
   {
    "id": "ff-156631",
    "tgl": "2026-11-27",
-   "jam": "20:00",
+   "jam": "19:40",
    "neg": "EUR",
    "countryCode": "GE",
    "nama": "German Buba President Nagel Speaks",
@@ -5934,35 +5962,7 @@
    "prk": "",
    "sbl": "",
    "cat": "",
-   "source": "https://www.forexfactory.com/calendar?day=nov30.2026#detail=149748"
-  },
-  {
-   "id": "ff-151214",
-   "tgl": "2026-11-30",
-   "jam": "14:00",
-   "neg": "EUR",
-   "countryCode": "GE",
-   "nama": "German Import Prices m/m",
-   "dmp": 1,
-   "akt": "",
-   "prk": "",
-   "sbl": "",
-   "cat": "",
-   "source": "https://www.forexfactory.com/calendar?day=nov30.2026#detail=151214"
-  },
-  {
-   "id": "ff-151213",
-   "tgl": "2026-11-30",
-   "jam": "14:00",
-   "neg": "EUR",
-   "countryCode": "GE",
-   "nama": "German Retail Sales m/m",
-   "dmp": 1,
-   "akt": "",
-   "prk": "",
-   "sbl": "",
-   "cat": "",
-   "source": "https://www.forexfactory.com/calendar?day=nov30.2026#detail=151213"
+   "source": "https://www.forexfactory.com/calendar?day=nov29.2026#detail=149748"
   },
   {
    "id": "ff-147398",
@@ -6077,10 +6077,10 @@
    "source": "https://www.forexfactory.com/calendar?day=nov30.2026#detail=146832"
   }
  ],
- "updated": "2026-11-19T17:17:47.464445+00:00",
+ "updated": "2026-11-19T23:39:35.110686+00:00",
  "source": "https://www.forexfactory.com/calendar?month=nov.2026",
  "status": "ok",
- "checkedAt": "2026-11-19T17:17:47.464445+00:00",
+ "checkedAt": "2026-11-19T23:39:35.110686+00:00",
  "coverageStart": "2026-11-01",
  "coverageEnd": "2026-11-30",
  "agenda": [
