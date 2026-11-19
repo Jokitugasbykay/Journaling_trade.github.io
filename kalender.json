@@ -68,7 +68,7 @@
    "prk": "",
    "sbl": "15.5%",
    "cat": "",
-   "source": "https://www.forexfactory.com/calendar?day=nov1.2026#detail=148391"
+   "source": "https://www.forexfactory.com/calendar?day=nov2.2026#detail=148391"
   },
   {
    "id": "ff-151202",
@@ -1664,7 +1664,7 @@
    "prk": "116.7%",
    "sbl": "118.0%",
    "cat": "",
-   "source": "https://www.forexfactory.com/calendar?day=nov8.2026#detail=149664"
+   "source": "https://www.forexfactory.com/calendar?day=nov9.2026#detail=149664"
   },
   {
    "id": "ff-151207",
@@ -1930,7 +1930,7 @@
    "prk": "47.1",
    "sbl": "47.0",
    "cat": "",
-   "source": "https://www.forexfactory.com/calendar?day=nov9.2026#detail=148817"
+   "source": "https://www.forexfactory.com/calendar?day=nov10.2026#detail=148817"
   },
   {
    "id": "ff-155615",
@@ -4075,20 +4075,6 @@
    "source": "https://www.forexfactory.com/calendar?day=nov18.2026#detail=148962"
   },
   {
-   "id": "ff-146863",
-   "tgl": "2026-11-19",
-   "jam": "",
-   "neg": "USD",
-   "countryCode": "US",
-   "nama": "Mortgage Delinquencies",
-   "dmp": 1,
-   "akt": "",
-   "prk": "",
-   "sbl": "4.37%",
-   "cat": "",
-   "source": "https://www.forexfactory.com/calendar?day=nov19.2026#detail=146863"
-  },
-  {
    "id": "ff-155976",
    "tgl": "2026-11-19",
    "jam": "00:15",
@@ -4264,7 +4250,7 @@
    "countryCode": "EU",
    "nama": "Current Account",
    "dmp": 1,
-   "akt": "",
+   "akt": "12.5B",
    "prk": "16.6B",
    "sbl": "8.7B",
    "cat": "",
@@ -4278,7 +4264,7 @@
    "countryCode": "GB",
    "nama": "CBI Industrial Order Expectations",
    "dmp": 1,
-   "akt": "",
+   "akt": "-12",
    "prk": "-29",
    "sbl": "-32",
    "cat": "",
@@ -4334,7 +4320,7 @@
    "countryCode": "CA",
    "nama": "IPPI m/m",
    "dmp": 1,
-   "akt": "",
+   "akt": "0.3%",
    "prk": "0.4%",
    "sbl": "2.0%",
    "cat": "",
@@ -4348,7 +4334,7 @@
    "countryCode": "US",
    "nama": "Philly Fed Manufacturing Index",
    "dmp": 2,
-   "akt": "",
+   "akt": "6.3",
    "prk": "20.6",
    "sbl": "20.9",
    "cat": "",
@@ -4362,7 +4348,7 @@
    "countryCode": "CA",
    "nama": "RMPI m/m",
    "dmp": 1,
-   "akt": "",
+   "akt": "-1.0%",
    "prk": "0.9%",
    "sbl": "4.8%",
    "cat": "",
@@ -4376,7 +4362,7 @@
    "countryCode": "US",
    "nama": "Unemployment Claims",
    "dmp": 2,
-   "akt": "",
+   "akt": "203K",
    "prk": "198K",
    "sbl": "200K",
    "cat": "",
@@ -4418,7 +4404,7 @@
    "countryCode": "US",
    "nama": "CB Leading Index m/m",
    "dmp": 1,
-   "akt": "",
+   "akt": "-0.3%",
    "prk": "0.0%",
    "sbl": "0.0%",
    "cat": "",
@@ -4432,11 +4418,25 @@
    "countryCode": "US",
    "nama": "Natural Gas Storage",
    "dmp": 1,
-   "akt": "",
+   "akt": "20B",
    "prk": "25B",
    "sbl": "61B",
    "cat": "",
    "source": "https://www.forexfactory.com/calendar?day=nov19.2026#detail=148779"
+  },
+  {
+   "id": "ff-146863",
+   "tgl": "2026-11-19",
+   "jam": "22:46",
+   "neg": "USD",
+   "countryCode": "US",
+   "nama": "Mortgage Delinquencies",
+   "dmp": 1,
+   "akt": "4.42%",
+   "prk": "",
+   "sbl": "4.37%",
+   "cat": "",
+   "source": "https://www.forexfactory.com/calendar?day=nov19.2026#detail=146863"
   },
   {
    "id": "ff-150216",
@@ -4929,6 +4929,20 @@
    "source": "https://www.forexfactory.com/calendar?day=nov23.2026#detail=147686"
   },
   {
+   "id": "ff-156627",
+   "tgl": "2026-11-23",
+   "jam": "20:00",
+   "neg": "GBP",
+   "countryCode": "GB",
+   "nama": "MPC Member Pill Speaks",
+   "dmp": 1,
+   "akt": "",
+   "prk": "",
+   "sbl": "",
+   "cat": "",
+   "source": "https://www.forexfactory.com/calendar?day=nov23.2026#detail=156627"
+  },
+  {
    "id": "ff-149273",
    "tgl": "2026-11-23",
    "jam": "20:30",
@@ -4971,6 +4985,20 @@
    "source": "https://www.forexfactory.com/calendar?day=nov23.2026#detail=149784"
   },
   {
+   "id": "ff-156628",
+   "tgl": "2026-11-24",
+   "jam": "04:00",
+   "neg": "USD",
+   "countryCode": "US",
+   "nama": "FOMC Member Williams Speaks",
+   "dmp": 1,
+   "akt": "",
+   "prk": "",
+   "sbl": "",
+   "cat": "",
+   "source": "https://www.forexfactory.com/calendar?day=nov23.2026#detail=156628"
+  },
+  {
    "id": "ff-150931",
    "tgl": "2026-11-24",
    "jam": "07:30",
@@ -5011,6 +5039,20 @@
    "sbl": "-10",
    "cat": "",
    "source": "https://www.forexfactory.com/calendar?day=nov24.2026#detail=150664"
+  },
+  {
+   "id": "ff-156629",
+   "tgl": "2026-11-24",
+   "jam": "19:30",
+   "neg": "GBP",
+   "countryCode": "GB",
+   "nama": "MPC Member Greene Speaks",
+   "dmp": 1,
+   "akt": "",
+   "prk": "",
+   "sbl": "",
+   "cat": "",
+   "source": "https://www.forexfactory.com/calendar?day=nov24.2026#detail=156629"
   },
   {
    "id": "ff-151054",
@@ -5109,6 +5151,20 @@
    "sbl": "-2",
    "cat": "",
    "source": "https://www.forexfactory.com/calendar?day=nov24.2026#detail=146977"
+  },
+  {
+   "id": "ff-156630",
+   "tgl": "2026-11-24",
+   "jam": "23:30",
+   "neg": "CAD",
+   "countryCode": "CA",
+   "nama": "BOC Gov Macklem Speaks",
+   "dmp": 2,
+   "akt": "",
+   "prk": "",
+   "sbl": "",
+   "cat": "",
+   "source": "https://www.forexfactory.com/calendar?day=nov24.2026#detail=156630"
   },
   {
    "id": "ff-150455",
@@ -5220,7 +5276,7 @@
    "prk": "",
    "sbl": "2.4%",
    "cat": "",
-   "source": "https://www.forexfactory.com/calendar?day=nov24.2026#detail=149908"
+   "source": "https://www.forexfactory.com/calendar?day=nov25.2026#detail=149908"
   },
   {
    "id": "ff-147381",
@@ -5643,6 +5699,20 @@
    "source": "https://www.forexfactory.com/calendar?day=nov27.2026#detail=150520"
   },
   {
+   "id": "ff-156631",
+   "tgl": "2026-11-27",
+   "jam": "20:00",
+   "neg": "EUR",
+   "countryCode": "GE",
+   "nama": "German Buba President Nagel Speaks",
+   "dmp": 1,
+   "akt": "",
+   "prk": "",
+   "sbl": "",
+   "cat": "",
+   "source": "https://www.forexfactory.com/calendar?day=nov27.2026#detail=156631"
+  },
+  {
    "id": "ff-149261",
    "tgl": "2026-11-27",
    "jam": "20:30",
@@ -5864,7 +5934,7 @@
    "prk": "",
    "sbl": "",
    "cat": "",
-   "source": "https://www.forexfactory.com/calendar?day=nov29.2026#detail=149748"
+   "source": "https://www.forexfactory.com/calendar?day=nov30.2026#detail=149748"
   },
   {
    "id": "ff-151214",
@@ -6007,10 +6077,10 @@
    "source": "https://www.forexfactory.com/calendar?day=nov30.2026#detail=146832"
   }
  ],
- "updated": "2026-11-19T08:01:20.276920+00:00",
+ "updated": "2026-11-19T17:17:47.464445+00:00",
  "source": "https://www.forexfactory.com/calendar?month=nov.2026",
  "status": "ok",
- "checkedAt": "2026-11-19T08:01:20.276920+00:00",
+ "checkedAt": "2026-11-19T17:17:47.464445+00:00",
  "coverageStart": "2026-11-01",
  "coverageEnd": "2026-11-30",
  "agenda": [
