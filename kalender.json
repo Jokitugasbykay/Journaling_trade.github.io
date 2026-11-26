@@ -5489,6 +5489,20 @@
    "source": "https://www.forexfactory.com/calendar?day=nov25.2026#detail=148963"
   },
   {
+   "id": "ff-157097",
+   "tgl": "2026-11-26",
+   "jam": "",
+   "neg": "EUR",
+   "countryCode": "EU",
+   "nama": "Euro Summit",
+   "dmp": 1,
+   "akt": "",
+   "prk": "",
+   "sbl": "",
+   "cat": "",
+   "source": "https://www.forexfactory.com/calendar?day=nov26.2026#detail=157097"
+  },
+  {
    "id": "ff-148780",
    "tgl": "2026-11-26",
    "jam": "00:00",
@@ -5524,7 +5538,7 @@
    "countryCode": "AU",
    "nama": "Private Capital Expenditure q/q",
    "dmp": 1,
-   "akt": "",
+   "akt": "12.2%",
    "prk": "4.5%",
    "sbl": "-3.6%",
    "cat": "",
@@ -5834,7 +5848,7 @@
    "dmp": 2,
    "akt": "",
    "prk": "",
-   "sbl": "",
+   "sbl": "-0.2%",
    "cat": "",
    "source": "https://www.forexfactory.com/calendar?day=nov30.2026#detail=151212"
   },
@@ -5865,20 +5879,6 @@
    "sbl": "",
    "cat": "",
    "source": "https://www.forexfactory.com/calendar?day=nov30.2026#detail=150806"
-  },
-  {
-   "id": "ff-147349",
-   "tgl": "2026-11-30",
-   "jam": "",
-   "neg": "CHF",
-   "countryCode": "CH",
-   "nama": "Retail Sales y/y",
-   "dmp": 1,
-   "akt": "",
-   "prk": "",
-   "sbl": "",
-   "cat": "",
-   "source": "https://www.forexfactory.com/calendar?day=nov30.2026#detail=147349"
   },
   {
    "id": "ff-149676",
@@ -5977,6 +5977,20 @@
    "sbl": "0.6%",
    "cat": "",
    "source": "https://www.forexfactory.com/calendar?day=nov29.2026#detail=148340"
+  },
+  {
+   "id": "ff-157098",
+   "tgl": "2026-11-30",
+   "jam": "08:05",
+   "neg": "JPY",
+   "countryCode": "JP",
+   "nama": "BOJ Gov Ueda Speaks",
+   "dmp": 3,
+   "akt": "",
+   "prk": "",
+   "sbl": "",
+   "cat": "",
+   "source": "https://www.forexfactory.com/calendar?day=nov29.2026#detail=157098"
   },
   {
    "id": "ff-150085",
@@ -6133,10 +6147,10 @@
    "source": "https://www.forexfactory.com/calendar?day=nov30.2026#detail=146832"
   }
  ],
- "updated": "2026-11-25T23:11:06.908740+00:00",
+ "updated": "2026-11-26T05:03:25.068043+00:00",
  "source": "https://www.forexfactory.com/calendar?month=nov.2026",
  "status": "ok",
- "checkedAt": "2026-11-25T23:11:06.908740+00:00",
+ "checkedAt": "2026-11-26T05:03:25.068043+00:00",
  "coverageStart": "2026-11-01",
  "coverageEnd": "2026-11-30",
  "agenda": [
