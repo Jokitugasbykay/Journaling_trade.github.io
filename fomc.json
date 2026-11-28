@@ -274,23 +274,23 @@
   "probabilities": [
     {
       "meetingDate": "2026-12-09",
-      "asOf": "2026-11-27T06:00:11.719Z",
+      "asOf": "2026-11-28T06:00:12.339Z",
       "distribution": [
         {
           "lower": 3.75,
           "upper": 4.0,
-          "probability": 2.5
+          "probability": 4.2
         },
         {
           "lower": 4.0,
           "upper": 4.25,
-          "probability": 97.5
+          "probability": 95.8
         }
       ],
       "status": "ok",
       "name": "CME FedWatch via Beansprout",
       "url": "https://growbeansprout.com/tools/fedwatch",
-      "checkedAt": "2026-11-28T04:58:59.276156+00:00"
+      "checkedAt": "2026-11-28T14:01:02.431988+00:00"
     },
     {
       "meetingDate": "2026-12-09",
@@ -310,13 +310,13 @@
       "status": "stale",
       "name": "Investing.com Fed Rate Monitor",
       "url": "https://www.investing.com/central-banks/fed-rate-monitor",
-      "checkedAt": "2026-11-28T04:58:59.276156+00:00"
+      "checkedAt": "2026-11-28T14:01:02.431988+00:00"
     }
   ],
   "scheduleStatus": "ok",
-  "scheduleCheckedAt": "2026-11-28T04:58:59.276156+00:00",
+  "scheduleCheckedAt": "2026-11-28T14:01:02.431988+00:00",
   "version": 1,
-  "checkedAt": "2026-11-28T04:58:59.276156+00:00",
+  "checkedAt": "2026-11-28T14:01:02.431988+00:00",
   "scheduleSource": "https://www.federalreserve.gov/monetarypolicy/fomccalendars.htm",
   "currentTarget": {
     "lower": 3.75,
